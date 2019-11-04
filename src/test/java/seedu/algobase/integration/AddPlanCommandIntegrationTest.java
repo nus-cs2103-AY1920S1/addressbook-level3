@@ -42,7 +42,7 @@ public class AddPlanCommandIntegrationTest {
     // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
 
     @Test
-    public void AddPlan_allConstraints() throws CommandException, ParseException {
+    public void addplan_allConstraints() throws CommandException, ParseException {
         logicManager.execute("addplan n/test d/test start/2019-01-01 end/2019-01-01\n");
         logicManager.execute("addplan n/test1 d/test start/2018-01-01 end/2018-02-28\n");
     }

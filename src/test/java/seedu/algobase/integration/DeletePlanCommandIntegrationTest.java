@@ -42,7 +42,7 @@ public class DeletePlanCommandIntegrationTest {
     // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
 
     @Test
-    public void DeletePlan_allConstraints() throws CommandException, ParseException {
+    public void deleteplan_allConstraints() throws CommandException, ParseException {
         logicManager.execute("deleteplan 2\n");
         logicManager.execute("deleteplan 1\n");
     }
