@@ -124,5 +124,4 @@ public class FindCommandIntegrationTest {
         logicManager.execute("find d/O&*^(&*^");
         assertProcessedProblemListOfLength(logicManager, 0);
     }
-
 }
