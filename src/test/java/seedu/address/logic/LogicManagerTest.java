@@ -52,7 +52,7 @@ class LogicManagerTest {
     @BeforeEach
     void setUp() throws DataConversionException, IllegalValueException {
         JsonWordBankListStorage wordBankListStorage =
-                new JsonWordBankListStorage(temporaryFolder, false);
+                new JsonWordBankListStorage(temporaryFolder, true);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         WordBankStatisticsListStorage wordBankStatisticsListStorage =
                 new JsonWordBankStatisticsListStorage(Path.of("dummyWbStats"));
@@ -197,7 +197,7 @@ class LogicManagerTest {
     private static class JsonWordBankListIoExceptionThrowingStub extends JsonWordBankListStorage {
         private JsonWordBankListIoExceptionThrowingStub(Path filePath, boolean isSampleCreated)
                 throws DataConversionException, IllegalValueException {
-            super(filePath, false);
+            super(filePath, true);
         }
 
         private void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
