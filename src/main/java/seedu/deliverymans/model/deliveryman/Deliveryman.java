@@ -10,7 +10,6 @@ import java.util.Set;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.RecordIndex;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 
 /**
@@ -26,7 +25,6 @@ public class Deliveryman {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private StatusTag status;
-    private RecordIndex recordIndex;
 
     /**
      * Every field must be present and not null.
@@ -65,14 +63,6 @@ public class Deliveryman {
 
     public StatusTag getStatus() {
         return status;
-    }
-
-    public RecordIndex getRecordId() {
-        return recordIndex;
-    }
-
-    public void setRecordId(RecordIndex recordIndex) {
-        this.recordIndex = recordIndex;
     }
 
     public void setStatusTo(StatusTag status) {

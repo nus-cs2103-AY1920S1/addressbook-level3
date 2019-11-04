@@ -15,7 +15,6 @@ import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -60,9 +59,6 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of deliverymen */
     ObservableList<Deliveryman> getFilteredDeliverymenList();
 
-    /** Returns a list of deliverymen filtered by a given status*/
-    ObservableList<Deliveryman> getFilteredStatusList();
-
     /**
      * Returns the user prefs' deliverymen database file path.
      */
@@ -73,8 +69,6 @@ public interface Logic {
     ObservableList<Deliveryman> getUnavailableDeliverymenList();
 
     ObservableList<Deliveryman> getDeliveringDeliverymenList();
-
-    DeliveryRecord getDeliverymanRecordPlaceholder();
 
     //=========== Restaurant =============================================================
     /**

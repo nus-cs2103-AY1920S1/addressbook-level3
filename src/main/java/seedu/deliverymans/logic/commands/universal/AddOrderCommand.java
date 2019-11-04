@@ -15,6 +15,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -61,22 +62,11 @@ public class AddOrderCommand extends Command {
         isValidOrder(toAdd, model);
 
         // Assigning deliveryman
-        if (toAdd.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
-            deliverymanToAdd = model.getOneAvailableDeliveryman();
-        }
-        if (deliverymanToAdd == null) {
-            deliverymanToAdd = toAdd.getDeliveryman();
-        }
-
-        // Alternative: Add command wont work if no available deliveryman
-        /*
         try {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
-            toAdd.setDeliveryman(deliverymanToAdd);
-        } catch (NoMoreAvailableDeliverymanException nmade) {
-            throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
+        } catch (NoMoreAvailableDeliverymanException npe) {
+            deliverymanToAdd = toAdd.getDeliveryman();
         }
-         */
 
         // Instantiating the order
         Order order = new Order.OrderBuilder().setCustomer(toAdd.getCustomer())
@@ -92,7 +82,7 @@ public class AddOrderCommand extends Command {
     }
 
     /**
-     * Tofill.
+     * Checks if an order is valid.
      */
     static void isValidOrder(Order toAdd, Model model) throws CommandException {
         Customer customerToAdd = null;
@@ -134,6 +124,8 @@ public class AddOrderCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_FOOD);
             }
         }
+
+        customerToAdd.addOrder(toAdd, restaurantToAdd.getTags());
     }
 
     @Override

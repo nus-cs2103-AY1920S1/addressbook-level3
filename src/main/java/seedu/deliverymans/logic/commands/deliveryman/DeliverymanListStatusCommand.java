@@ -19,14 +19,13 @@ public class DeliverymanListStatusCommand extends Command {
             + ": Displays the 3 lists of deliverymen sorted according to respective statuses.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen.\n"
+    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all status sorted deliverymen.\n"
             + "Click on the buttons to view the desired list.";
 
     @Override
     public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
 
-        model.showAvailableDeliverymen();
         return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS, DeliverymanListStatusCommand.class);
     }
 

@@ -19,9 +19,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
-import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -48,7 +46,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private StatisticsDisplay statisticsDisplay;
     private HelpWindow helpWindow;
-    private DeliverymanRecordCard deliverymanRecordCard;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -258,13 +255,6 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case "DeliverymanListStatusCommand":
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
-            break;
-        case "DeliverymanEnterRecordCommand":
-            DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
-            deliverymanRecordCard = new DeliverymanRecordCard(record);
-            statisticsDisplay = new StatisticsDisplay();
-            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-            statisticsDisplay.setFeedbackToUser(record.toString());
             break;
         default:
 

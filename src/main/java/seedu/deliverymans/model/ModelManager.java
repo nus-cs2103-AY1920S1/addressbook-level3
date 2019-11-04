@@ -24,8 +24,8 @@ import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -45,13 +45,11 @@ public class ModelManager implements Model {
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
-    private final FilteredList<Deliveryman> statusSortedDeliverymen;
     private final FilteredList<Deliveryman> availableDeliverymen;
     private final FilteredList<Deliveryman> unavailableDeliverymen;
     private final FilteredList<Deliveryman> deliveringDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Restaurant> editingRestaurant;
-    private DeliveryRecord deliveryRecordPlaceholder;
     private final UndoHistory<Data> undoHistory;
 
     private Context context;
@@ -85,11 +83,9 @@ public class ModelManager implements Model {
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
 
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
-        statusSortedDeliverymen = new FilteredList<>(this.deliverymenDatabase.getStatusSortedDeliverymenList());
         availableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getAvailableDeliverymenList());
         unavailableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getUnavailableDeliverymenList());
         deliveringDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliveringDeliverymenList());
-        deliveryRecordPlaceholder = new DeliveryRecord(new Name("hey"));
 
         filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
 
@@ -263,13 +259,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteDeliveryman(Deliveryman target) {
         deliverymenDatabase.removeDeliveryman(target);
-        deliverymenDatabase.updateStatusList();
     }
 
     @Override
     public void addDeliveryman(Deliveryman deliveryman) {
         deliverymenDatabase.addDeliveryman(deliveryman);
-        updateAvailableDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
     }
 
     @Override
@@ -282,34 +276,16 @@ public class ModelManager implements Model {
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireAllNonNull(target, editedDeliveryman);
         deliverymenDatabase.setDeliveryman(target, editedDeliveryman);
-        deliverymenDatabase.updateStatusList();
-        updateAvailableDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
     }
 
     @Override
     public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         requireNonNull(deliveryman);
         deliverymenDatabase.switchDeliverymanStatus(deliveryman);
-        deliverymenDatabase.updateStatusList();
     }
 
     @Override
-    public DeliveryRecord getDeliverymanRecord(Deliveryman deliveryman) {
-        return deliverymenDatabase.getDeliverymanRecord(deliveryman);
-    }
-
-    @Override
-    public void setToShowDeliverymanRecord(DeliveryRecord record) {
-        deliveryRecordPlaceholder = record;
-    }
-
-    @Override
-    public void showAvailableDeliverymen() {
-        deliverymenDatabase.resetAvailableList();
-    }
-
-    @Override
-    public Name getOneAvailableDeliveryman() {
+    public Name getOneAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
         return deliverymenDatabase.getAvailableDeliveryman();
     }
 
@@ -419,11 +395,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Deliveryman> getStatusSortedList() {
-        return statusSortedDeliverymen;
-    }
-
-    @Override
     public ObservableList<Deliveryman> getAvailableMenList() {
         return availableDeliverymen;
     }
@@ -431,11 +402,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Deliveryman> getUnavailableMenList() {
         return unavailableDeliverymen;
-    }
-
-    @Override
-    public DeliveryRecord getDeliverymanRecordPlaceholder() {
-        return deliveryRecordPlaceholder;
     }
 
     @Override

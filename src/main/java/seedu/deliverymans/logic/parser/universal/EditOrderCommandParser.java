@@ -43,7 +43,11 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            if (argMultimap.getValue(PREFIX_INDEX).isPresent()) {
+                index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            } else {
+                throw new ParseException("");
+            }
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditOrderCommand.MESSAGE_USAGE), pe);
         }
