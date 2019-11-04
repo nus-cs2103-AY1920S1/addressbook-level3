@@ -69,6 +69,48 @@ _If you are not able to run the application using the method above, use the foll
 . Type cd [PATH TO DIRECTORY CONTAINING .JAR FILE]
 . Type `java -jar njoy.jar` to run the application.
 
+== Sample Data
+
+[TIP]
+The NJoy Assistant starts with some data as examples. Upon the first startup, the *students*, *questions*,
+*events* and *notes* storage are loaded with sample data. The user should clear these if they are not of importance,
+as they merely serve as examples.
+
+The following steps provide an example of how to clear the sample user data for questions. The same steps can
+be applied to clear the storage for students, events and notes albeit slight <<Differences, `differences`>>.
+
+*Step 1.* To see the list of questions, type in the following command: `question list`. The sample question is
+circled in purple. +
+
+image::QuestionListSample.jpg[]
+
+{nbsp} +
+*Step 2.* To delete the sample question, type in the following command: `question delete 1`. This deletes the
+first question in the question list, which in this case is the sample question! +
+{nbsp} +
+After which, you should see the message circled in red indicating the success of the deletion. +
+
+image::QuestionDeleteSample.jpg[]
+
+{nbsp} +
+*Step 3.* You're already done! To confirm that the question has been deleted, once again type in the following
+command: `question list`. You should see that there are no more sample questions! +
+
+image::QuestionListBlank.jpg[]
+
+{nbsp} +
+
+[[Differences]]
+=== Differences in Sample Data Deletion
+
+. *Students*: The steps for deletion are the same as for the sample question. +
+
+. *Notes*: The steps for deletion are the same as for the sample question, except that the notes are displayed
+on the right hand side of the User Interface. +
+
+. *Events*: The steps for deletion are the same as for the sample question, except that to view the event, a
+different command: `event view` has to be keyed into the command line.
+
 == Commands
 
 *Command Format*
@@ -442,11 +484,14 @@ it be? And also, is it an mcq or open-ended question? The image below gives an o
 image::CreateQuestion.jpg[]
 _`question question/How many sheeps? answer/5 type/mcq a/1 b/2 c/4 d/5` - creates a sample mcq question._
 
+{nbsp} +
 *Step 2.* The user can create as many questions as he wishes. If the user wishes to view the question indexes at any point of time - the image below gives a reminder of
 how one can view the question list: +
 
 image::QuestionList.jpg[]
 _`question list` - displays the question list._
+
+{nbsp} +
 
 ==== Creating a Quiz manually: `manual`
 
@@ -572,14 +617,18 @@ navigate to their current directory. An exports folder as shown in the image bel
 
 image::QuizExportsFolder.jpg[]
 
+{nbsp} +
 *Step 2.* Open the folder and double click the html file labelled with the file name CS2103T.
 
 image::QuizHtml.PNG[]
 
+{nbsp} +
 *Step 3.* Now you can send the custom quiz file to your students!
 The quiz should be in a similar format as displayed below.
 
 image::QuizExported.PNG[]
+
+{nbsp} +
 
 ==== Listing a Quiz: `list`
 
@@ -777,13 +826,16 @@ The options supported by this feature includes:
 . `priority(optional)` - The level of priority placed on this note. It can be of type `unmarked`, `low`, `medium` or `high`. It is by default set to unmarked if field is omitted.
 
 [NOTE]
+All non-optional fields are required and also cannot consist exclusively of whitespace characters. All leading and trailing whitespaces of the fields will be ignored.
+
+[NOTE]
 All priority fields can be in either lowercase or UPPERCASE. (e.g. `note note/sample title desc/sample desc priority/low` is the same as e.g. `note note/sample title desc/sample desc priority/LOW`).
 
 [NOTE]
 `priority` levels are distinguishable by their colour in the User Interface. `unmarked` or default notes have grey panels, while `low`, `medium` and `high` priority notes have green, yellow and red panels respectively.
 
 [NOTE]
-The notes panel on the User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see <<Feature-Note-List, notes list>> command.
+The notes panel is not responsive. The User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see <<Feature-Note-List, notes list>> command.
 
 Examples:
 
@@ -794,7 +846,7 @@ Creates a high priority note with title _'Tuesday 1pm'_ with description _'Scien
 
 ==== Editing a note
 
-Edit a note currently stored. All fields are *optional*. +
+Edit a note currently stored. All fields are *optional* but at least one field has to be provided for editing. +
 Format: `note [INDEX] note/... desc/... priority/...`
 
 [NOTE]
@@ -846,6 +898,20 @@ Example:
 * `note list` +
 Lists the notes.
 
+[[Feature-Note-Sort]]
+==== Sorting notes
+
+Sorts the list of notes by priority in descending order of the Priorities `HIGH`, `MEDIUM`, `LOW` and `UNMARKED`. +
+Format: `note sort`
+
+The options supported by this feature includes: +
+*_-This command does not support any additional options-_*
+
+Example:
+
+* `note sort` +
+Sorts the notes by priority.
+
 === Statistics - `statistics`
 
 ==== Generating a Statistics report
@@ -886,20 +952,24 @@ Shows the statistics report for excel file named _’6B Prelim Scores’_. It al
 
 The data file needs to be specified in the following format to ensure that the statistics report is successfully generated. +
 
-[WARNING]
+[NOTE]
 Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
+If the report is generated, it might be correct but the behavior is not guaranteed should the specifications mentioned below be violated or overlooked.
 
 * *Entries starts at cell A1 with the cell `Students`, regardless of whether there is score data.*
 * *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
 * *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
-* *All student names have unique identifiers. (e.g. two students named Jason should be identified as `Jason 1` and `Jason 2`)*
+* *There is at least one student.*
+* *There is at least one subject.*
+* *All student names have unique identifiers. (e.g. two students named Jason could be identified as `Jason 1` and `Jason 2`)*
+* *All subject names have unique identifiers. (e.g. two subjects named Math could be identified as `Advanced Math` and `Elementary Math`)*
 * *All students have a corresponding score for all subjects*
 * *All scores are numeric characters (integer or decimals)*
 * *There are no gaps between rows and columns.*
 * *All cells within the row and column range have at least one non-whitespace characters.*
 * *All cells outside the row and column range are empty.*
 
-[WARNING]
+[NOTE]
 Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
 
 * *All scores should be in percentage terms. (0 ~ 100)*
@@ -969,5 +1039,6 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Editing a Note* : `note [INDEX] note/... desc/... priority/...`
 * *Deleting a Note* : `note delete [INDEX]`
 * *Listing Notes* : `note list`
+* *Sorting Notes* : `note sort`
 * *Generating Statistics* : `statistics file/...`
 * *Generating Statistics and Saving* : `statistics file/... print/...`

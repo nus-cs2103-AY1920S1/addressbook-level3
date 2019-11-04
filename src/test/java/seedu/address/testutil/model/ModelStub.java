@@ -193,11 +193,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setNotesRecordFilePath(Path notesRecordFilePath) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void setNotesRecord(ReadOnlyNotesRecord notesRecord) {
         throw new AssertionError("This method should not be called.");
     }
@@ -304,6 +299,11 @@ public class ModelStub implements Model {
 
     @Override
     public void deleteVEvent(VEvent vEvent) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteVEvent(Index index) {
         throw new AssertionError("This method should not be called.");
     }
 

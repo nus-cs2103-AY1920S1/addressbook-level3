@@ -89,16 +89,16 @@ public class StatisticsCard extends UiPart<Region> {
 
     /**
      * Updates the UI elements with the processed statistics.
-     * @param stat
+     * @param statList
      */
-    public void postStat(ObservableList<Statistics> stat) {
-        this.stat = stat.get(0);
-        totalStudents.setText(String.valueOf(this.stat.getTotalStudents()));
-        mean.setText((String.format("%.2f", this.stat.getMean())));
-        median.setText((String.format("%.2f", this.stat.getMedian())));
-        min.setText((String.format("%.2f", this.stat.getMin())));
-        max.setText((String.format("%.2f", this.stat.getMax())));
-        standardDev.setText((String.format("%.2f", this.stat.getStandardDev())));
+    public void postStat(ObservableList<Statistics> statList) {
+        stat = statList.get(0);
+        totalStudents.setText(String.valueOf(stat.getTotalStudents()));
+        mean.setText((String.format("%.2f", stat.getMean())));
+        median.setText((String.format("%.2f", stat.getMedian())));
+        min.setText((String.format("%.2f", stat.getMin())));
+        max.setText((String.format("%.2f", stat.getMax())));
+        standardDev.setText((String.format("%.2f", stat.getStandardDev())));
     }
 
     /**
@@ -136,12 +136,12 @@ public class StatisticsCard extends UiPart<Region> {
     public void populatePieChart() {
         HashMap<String, Integer> gradeGroupings = stat.getGradeGroupings();
         ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data(">= 80", gradeGroupings.get(EIGHTY_AND_ABOVE)),
-                        new PieChart.Data("70 ~ 79", gradeGroupings.get(SEVENTY_TO_SEVENTY_NINE)),
-                        new PieChart.Data("60 ~ 69", gradeGroupings.get(SIXTY_TO_SIXTY_NINE)),
-                        new PieChart.Data("50 ~ 59", gradeGroupings.get(FIFTY_TO_FIFTY_NINE)),
-                        new PieChart.Data("< 50", gradeGroupings.get(BELOW_FIFTY)));
+            FXCollections.observableArrayList(
+                new PieChart.Data(">= 80", gradeGroupings.get(EIGHTY_AND_ABOVE)),
+                new PieChart.Data("70 ~ 79", gradeGroupings.get(SEVENTY_TO_SEVENTY_NINE)),
+                new PieChart.Data("60 ~ 69", gradeGroupings.get(SIXTY_TO_SIXTY_NINE)),
+                new PieChart.Data("50 ~ 59", gradeGroupings.get(FIFTY_TO_FIFTY_NINE)),
+                new PieChart.Data("< 50", gradeGroupings.get(BELOW_FIFTY)));
         distributionChart.setData(pieChartData);
         distributionChart.setTitle(PIE_CHART_TITLE);
         distributionChart.setLegendSide(Side.RIGHT);

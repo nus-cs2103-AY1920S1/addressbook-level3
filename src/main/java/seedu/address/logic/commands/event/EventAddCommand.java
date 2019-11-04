@@ -17,7 +17,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.event.RecurrenceType;
 
 /**
  * Creates a new event to be added to the event list.
@@ -124,9 +123,7 @@ public class EventAddCommand extends EventCommand {
             throw new CommandException(INVALID_RECURRENCE_TYPE);
         }
         try {
-            if (!recurTypeString.equalsIgnoreCase(RecurrenceType.NONE.name())) {
-                vEvent.setRecurrenceRule(EventUtil.stringToRecurrenceRule(recurTypeString));
-            }
+            vEvent.setRecurrenceRule(EventUtil.stringToRecurrenceRule(recurTypeString));
         } catch (IllegalValueException ex) {
             throw new CommandException(ex.getMessage(), ex);
         }

@@ -171,7 +171,7 @@ public class MainApp extends Application {
             initialEvents = new EventRecord();
             initialQuizzes = new SavedQuizzes();
             initialNotesRecord = new NotesRecord();
-            initialStatisticsRecord = new StatisticsRecord(); //later
+            initialStatisticsRecord = new StatisticsRecord();
 
         } catch (IOException e) {
             logger.warning(
@@ -182,7 +182,7 @@ public class MainApp extends Application {
             initialEvents = new EventRecord();
             initialQuizzes = new SavedQuizzes();
             initialNotesRecord = new NotesRecord();
-            initialStatisticsRecord = new StatisticsRecord(); //later
+            initialStatisticsRecord = new StatisticsRecord();
         }
 
         return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialQuizzes,

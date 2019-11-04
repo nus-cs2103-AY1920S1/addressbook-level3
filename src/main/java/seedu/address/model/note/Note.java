@@ -93,13 +93,12 @@ public class Note {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Note: ")
-            .append(getNote())
-            .append(" Description: ")
-            .append(getDescription())
-            .append(" Priority: ")
-            .append(getPriority())
-            .append("\n");
+        builder.append("NOTE: ")
+            .append(getNote() + "\n")
+            .append("DESCRIPTION: ")
+            .append(getDescription() + "\n")
+            .append("PRIORITY: ")
+            .append(getPriority().toString().toLowerCase() + "\n");
         return builder.toString();
     }
 

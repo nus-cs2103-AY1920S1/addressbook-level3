@@ -639,12 +639,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setNotesRecordFilePath(Path notesRecordFilePath) {
-        requireNonNull(notesRecordFilePath);
-        userPrefs.setNotesRecordFilePath(notesRecordFilePath);
-    }
-
-    @Override
     public void setNotesRecord(ReadOnlyNotesRecord notesRecord) {
         this.notesRecord.resetData(notesRecord);
     }
@@ -780,6 +774,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteVEvent(VEvent vEvent) {
         eventRecord.deleteVEvent(vEvent);
+    }
+
+    @Override
+    public void deleteVEvent(Index index) {
+        eventRecord.deleteVEvent(index);
     }
 
     @Override
