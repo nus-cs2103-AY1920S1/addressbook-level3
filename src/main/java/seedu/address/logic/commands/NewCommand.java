@@ -9,6 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.DistrictKeywordsPredicate;
+
+import java.util.List;
 
 /**
  * Generates a new incident report.
@@ -82,6 +85,7 @@ public class NewCommand extends Command {
 
         dispatchVehicle(draft, isAuto, model);
         model.addIncident(draft);
+        model.updateFilteredVehicleList(new DistrictKeywordsPredicate(List.of(draft.getDistrict())));
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

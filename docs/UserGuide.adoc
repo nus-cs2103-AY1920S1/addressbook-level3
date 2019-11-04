@@ -223,8 +223,8 @@ Format: `new l/DISTRICT_NUM auto/y`
 
 ****
 * An available vehicle in the given district will be automatically dispatched to the incident site.
-* The vehicle pane will show all available vehicles in the district.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+* After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
 ****
 
 [IMPORTANT]
@@ -245,6 +245,7 @@ Format: `new l/DISTRICT_NUM auto/n`
 * A list of available vehicles in the given district will be shown.
 * A message will also appear to prompt user to also include the index of the chosen vehicle.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+* After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
 ****
 
 * Example usage:
