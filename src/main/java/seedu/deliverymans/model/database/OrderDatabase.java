@@ -12,7 +12,7 @@ import seedu.deliverymans.model.order.UniqueOrderList;
  * Wraps all data at the order database level
  * Duplicates are not allowed (by .isSameOrder comparison)
  */
-public class OrderDatabase implements ReadOnlyOrderBook {
+public class OrderDatabase implements ReadOnlyOrderDatabase {
     private final UniqueOrderList orders;
 
     {
@@ -25,7 +25,7 @@ public class OrderDatabase implements ReadOnlyOrderBook {
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public OrderDatabase(ReadOnlyOrderBook toBeCopied) {
+    public OrderDatabase(ReadOnlyOrderDatabase toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -44,7 +44,7 @@ public class OrderDatabase implements ReadOnlyOrderBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyOrderBook newData) {
+    public void resetData(ReadOnlyOrderDatabase newData) {
         requireNonNull(newData);
 
         setOrders(newData.getOrderList());

@@ -6,7 +6,7 @@ import seedu.deliverymans.model.order.Order;
 /**
  * Unmodifiable view of an order book
  */
-public interface ReadOnlyOrderBook {
+public interface ReadOnlyOrderDatabase {
 
     /**
      * Returns an unmodifiable view of the orders list.

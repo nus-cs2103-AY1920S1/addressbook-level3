@@ -17,14 +17,13 @@ import seedu.deliverymans.model.Tag;
  * Represents a Food in a restaurant.
  */
 public class Food {
-
     public static final String PRICE_CONSTRAINTS = "Price should not be negative";
     public static final String QUANTITY_CONSTRAINTS = "Quantity should not be negative";
 
     private final Name name;
     private final BigDecimal price;
-    private final int quantity;
     private final ObservableList<Tag> tags = FXCollections.observableArrayList();
+    private int quantityOrdered;
 
     /**
      * Constructs a {@code Food}.
@@ -38,17 +37,17 @@ public class Food {
         checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
         this.name = name;
         this.price = price;
-        this.quantity = 0;
+        this.quantityOrdered = 0;
         this.tags.addAll(tags);
     }
 
-    public Food(Name name, BigDecimal price, int quantity, ObservableList<Tag> tags) {
-        requireAllNonNull(name, price, quantity, tags);
+    public Food(Name name, BigDecimal price, ObservableList<Tag> tags, int quantityOrdered) {
+        requireAllNonNull(name, price, quantityOrdered, tags);
         checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
-        checkArgument(isValidQuantity(quantity), QUANTITY_CONSTRAINTS);
+        checkArgument(isValidQuantity(quantityOrdered), QUANTITY_CONSTRAINTS);
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
+        this.quantityOrdered = quantityOrdered;
         this.tags.addAll(tags);
     }
 
@@ -62,8 +61,25 @@ public class Food {
     /**
      * Returns true if a given duration is a valid preparation time.
      */
-    public static boolean isValidQuantity(int quantity) {
-        return quantity >= 0;
+    public static boolean isValidQuantity(int quantityOrdered) {
+        return quantityOrdered >= 0;
+    }
+
+    /**
+     * Add quantity to quantityOrdered.
+     */
+    public void addQuantity(int quantity) {
+        this.quantityOrdered += quantity;
+    }
+
+    /**
+     * Updates tags with "Popular" tag.
+     */
+    public void updateTag(int totalQuantity, int menuSize) {
+        this.tags.remove(new Tag("Popular"));
+        if (this.quantityOrdered >= 1.5 * totalQuantity / menuSize) {
+            this.tags.add(new Tag("Popular"));
+        }
     }
 
     public Name getName() {
@@ -74,8 +90,8 @@ public class Food {
         return price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getQuantityOrdered() {
+        return quantityOrdered;
     }
 
     public ObservableList<Tag> getTags() {
@@ -115,13 +131,13 @@ public class Food {
         Food other = (Food) obj;
         return name.equals(other.name)
                 && price.compareTo(other.price) == 0
-                && quantity == other.quantity
+                && quantityOrdered == other.quantityOrdered
                 && tags.equals(other.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, quantity, tags);
+        return Objects.hash(name, price, quantityOrdered, tags);
     }
 
     /**
@@ -132,8 +148,6 @@ public class Food {
         builder.append(getName())
                 .append(" Price: ")
                 .append(getDisplayPrice())
-                .append(" Quantity: ")
-                .append(getQuantity())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

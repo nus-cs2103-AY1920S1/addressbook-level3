@@ -12,7 +12,7 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.order.Order;
@@ -95,7 +95,7 @@ public interface Logic {
      *
      * @see Model#getOrderDatabase() Book()
      */
-    ReadOnlyOrderBook getOrderBook();
+    ReadOnlyOrderDatabase getOrderBook();
 
     /** Returns an unmodifiable view of the filtered list of orders */
     ObservableList<Order> getFilteredOrderList();

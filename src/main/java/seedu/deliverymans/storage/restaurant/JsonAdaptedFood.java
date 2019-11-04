@@ -35,8 +35,8 @@ class JsonAdaptedFood {
     @JsonCreator
     public JsonAdaptedFood(@JsonProperty("name") String name,
                            @JsonProperty("price") String price,
-                           @JsonProperty("quantity") int quantity,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                           @JsonProperty("quantity") int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -51,7 +51,7 @@ class JsonAdaptedFood {
     public JsonAdaptedFood(Food source) {
         name = source.getName().fullName;
         price = source.getPrice().toPlainString();
-        quantity = source.getQuantity();
+        quantity = source.getQuantityOrdered();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -90,6 +90,6 @@ class JsonAdaptedFood {
 
         final ObservableList<Tag> modelTags = FXCollections.observableArrayList();
         modelTags.addAll(foodTags);
-        return new Food(modelName, modelPrice, quantity, modelTags);
+        return new Food(modelName, modelPrice, modelTags, quantity);
     }
 }

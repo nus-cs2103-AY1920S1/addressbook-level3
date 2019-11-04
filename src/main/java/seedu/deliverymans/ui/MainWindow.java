@@ -186,7 +186,6 @@ public class MainWindow extends UiPart<Stage> {
      * Changes context of the system depending on {@code context}.
      */
     private void changeContext(Context context) {
-
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
 
@@ -220,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
             foodListPanel = new FoodListPanel(editing.getMenu());
             listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-            orderListPanel = new OrderListPanel(editing.getOrders());
+            orderListPanel = new OrderListPanel(editing.getOrders(logic));
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
 
             break;

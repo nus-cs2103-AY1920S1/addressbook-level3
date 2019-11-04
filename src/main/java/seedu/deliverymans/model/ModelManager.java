@@ -20,7 +20,7 @@ import seedu.deliverymans.model.database.DeliverymenDatabase;
 import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
@@ -60,7 +60,7 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyCustomerDatabase customerDatabase,
                         ReadOnlyDeliverymenDatabase deliverymenDatabase,
                         ReadOnlyRestaurantDatabase restaurantDatabase,
-                        ReadOnlyOrderBook orderBook,
+                        ReadOnlyOrderDatabase orderBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(customerDatabase, deliverymenDatabase, restaurantDatabase, orderBook, userPrefs);
@@ -78,13 +78,16 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
+
+        filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
+        editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
+
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         availableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getAvailableDeliverymenList());
         unavailableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getUnavailableDeliverymenList());
         deliveringDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliveringDeliverymenList());
-        filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
+
         filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
-        editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
 
         undoHistory = new UndoHistory<>(new Data(this));
     }
@@ -304,12 +307,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setOrderDatabase(ReadOnlyOrderBook orderDatabase) {
+    public void setOrderDatabase(ReadOnlyOrderDatabase orderDatabase) {
         this.orderDatabase.resetData(orderDatabase);
     }
 
     @Override
-    public ReadOnlyOrderBook getOrderDatabase() {
+    public ReadOnlyOrderDatabase getOrderDatabase() {
         return orderDatabase;
     }
 
