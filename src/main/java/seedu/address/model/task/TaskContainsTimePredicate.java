@@ -1,6 +1,5 @@
 package seedu.address.model.task;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**

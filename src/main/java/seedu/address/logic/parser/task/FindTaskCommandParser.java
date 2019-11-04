@@ -10,14 +10,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 
-import seedu.address.logic.commands.note.FindNoteCommand;
 import seedu.address.logic.commands.task.FindTaskCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.note.TitleContainsKeywordsPredicate;
 import seedu.address.model.task.TaskContainsDatePredicate;
 import seedu.address.model.task.TaskContainsTimePredicate;
 import seedu.address.model.task.TaskHeadingContainsKeyWordPredicate;
