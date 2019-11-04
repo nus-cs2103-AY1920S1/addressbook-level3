@@ -29,7 +29,7 @@ I was responsible for writing the expense adding feature. This makes my role par
 *** Did the initial revamp of our User Guide: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/39[#39]
 *** Updated some UML diagrams for the Developer Guide: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/115[#115]
 ** Community:
-*** Major PRs reviewed: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/112[#112]
+*** Major PRs reviewed: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/112[#112], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/190[#190]
 
 _{you can add/remove categories in the list above}_
 
@@ -41,6 +41,8 @@ _{you can add/remove categories in the list above}_
 |===
 
 include::../UserGuide.adoc[tag=expense]
+
+include::../UserGuide.adoc[tag=edit]
 
 == Contributions to the Developer Guide
 
