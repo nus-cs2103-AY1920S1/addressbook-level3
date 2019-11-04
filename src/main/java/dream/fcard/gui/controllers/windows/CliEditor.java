@@ -56,6 +56,18 @@ public class CliEditor extends Application {
      */
     private ArrayList<String> lines = new ArrayList<>(Arrays.asList(""));
     /**
+     * History of single line inputs.
+     */
+    private ArrayList<String> history = new ArrayList<>();
+    /**
+     * Current history index.
+     */
+    private int historyIndex = -1;
+    /**
+     * Flag that detects just scrolled up in history
+     */
+    private boolean justHistory = false;
+    /**
      * Caret position at the current line.
      */
     private int linecaret = lines.get(0).length();
@@ -167,6 +179,8 @@ public class CliEditor extends Application {
         int code = e.getCode().getCode();
         if (code == 68 && e.isControlDown() && multiline) { //multiline escape
             multilineEscape();
+        } else if (code == 67 && e.isControlDown() && !multiline) { // clear line
+            clearSingleLine();
         } else if (code == 37) { // left
             moveLeft();
         } else if (code == 38) { // up
@@ -182,6 +196,9 @@ public class CliEditor extends Application {
         } else if (validKey(code)) {
             characterInput(e.getText());
         }
+        if (code != 38 && code != 40) {
+            justHistory = false;
+        }
         render();
     }
 
@@ -190,8 +207,12 @@ public class CliEditor extends Application {
      */
     private void sendInput() {
         String str = getInput();
+        if (!multiline) {
+            history.add(str);
+        }
         System.out.println("YOUR TEXT:\n" + str + "\n---");
         //TODO call responder with str
+        historyIndex = -1;
     }
 
     /**
@@ -224,6 +245,17 @@ public class CliEditor extends Application {
      * Nagivation up.
      */
     private void moveUp() {
+        if (!multiline && history.size() > 0) {
+            if (historyIndex == 0) {
+                return;
+            }
+            if (historyIndex == -1) {
+                historyIndex = history.size() - 1;
+            } else {
+                historyIndex--;
+            }
+            printHistory();
+        }
         if (line == editableLine) {
             return;
         } else if (line > 0) {
@@ -251,6 +283,14 @@ public class CliEditor extends Application {
      * Navigation down.
      */
     private void moveDown() {
+        if (justHistory) {
+            if (historyIndex < history.size() - 1) {
+                historyIndex++;
+                printHistory();
+            } else {
+                clearSingleLine();
+            }
+        }
         if (line < lines.size() - 1) {
             line++;
             linecaret = Math.min(linecaret, lines.get(line).length());
@@ -279,6 +319,7 @@ public class CliEditor extends Application {
      */
     private void backSpace() {
         if (line == editableLine && linecaret == editableCaret) {
+            historyIndex = -1;
             return;
         }
         if (linecaret == 0) {
@@ -313,6 +354,18 @@ public class CliEditor extends Application {
     }
 
     /**
+     * Clears the user input for single line.
+     */
+    private void clearSingleLine() {
+        if (!multiline) {
+            historyIndex = -1;
+            justHistory = false;
+            lines.set(line, lines.get(line).substring(0, editableCaret));
+            linecaret = editableCaret;
+        }
+    }
+
+    /**
      * Print user prompt.
      */
     private void printPrompt() {
@@ -322,6 +375,17 @@ public class CliEditor extends Application {
         editableLine = line;
         editableCaret = linecaret;
         multiline = false;
+    }
+
+    /**
+     * Print history.
+     */
+    private void printHistory() {
+        String lineString = lines.get(line);
+        String newLine = lineString.substring(0, editableCaret) + history.get(historyIndex);
+        lines.set(line, newLine);
+        linecaret = newLine.length();
+        justHistory = true;
     }
 
     /**
