@@ -44,8 +44,8 @@ public class TabBar extends UiPart<Region> {
             default:
                 return;
             }
-            keyEvent.consume();
             omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
+            keyEvent.consume();
         });
 
         ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {

@@ -9,7 +9,6 @@ import java.util.Map;
  */
 public enum OmniPanelTab {
 
-    UNINITIALISED("Uninitialised", -1),
     PATIENTS_TAB("patientsTab", 0),
     APPOINTMENTS_TAB("appointmentsTab", 1),
     DOCTORS_TAB("doctorsTab", 2),

@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 [[Features]]
 
 == Features
-
+// tag::ui[]
 ====
 *AutoComplete & History*
 
@@ -57,6 +57,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 * When the command box is not blank, AutoComplete will come into action and tries to suggest commands that are available for whatever that has been typed. During which, you may traverse your selection of the suggestions via kbd:[UP] & kbd:[DOWN] then press kbd:[ENTER] to confirm selection.
 
 ====
+// end::ui[]
 ====
 *Command Format*
 

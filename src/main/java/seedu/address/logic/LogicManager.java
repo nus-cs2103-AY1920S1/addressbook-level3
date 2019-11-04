@@ -58,7 +58,7 @@ public class LogicManager implements Logic {
 
     @Override
     public synchronized CommandResult execute(String commandText)
-        throws CommandException, ParseException {
+            throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         lastEagerCommandWord = "";

@@ -2,7 +2,6 @@
 package seedu.address.ui;
 
 import static java.awt.Desktop.getDesktop;
-import static seedu.address.commons.core.OmniPanelTab.UNINITIALISED;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -54,6 +53,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private final AutoCompleter autoCompleter;
     private final CommandBoxHistory commandBoxHistory;
     private OmniPanelTab currentOmniPanelTab;
+    private boolean requiresReset;
 
     private final HashSet<Runnable> deferredDropSelectors;
 
@@ -109,7 +109,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         this.logic = logic;
         this.autoCompleter = new AutoCompleter();
         this.commandBoxHistory = new CommandBoxHistory();
-        this.currentOmniPanelTab = UNINITIALISED;
+        this.requiresReset = false;
 
         this.deferredDropSelectors = new HashSet<>();
         // Configure the UI
@@ -267,6 +267,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private void executeCommand(String commandText) {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            requiresReset = true;
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -289,6 +290,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     public void updateCommandAutoComplete(String commandText) {
         if (!commandText.isBlank()) {
             logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
+            requiresReset = true;
         }
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
@@ -337,30 +339,43 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     @Override
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
-        if (currentOmniPanelTab.equals(omniPanelTab)) {
+        if (omniPanelTab.equals(currentOmniPanelTab)) {
             return;
         }
-
-        currentOmniPanelTab = omniPanelTab;
+        if (requiresReset) {
+            switch (currentOmniPanelTab) {
+            case PATIENTS_TAB:
+                executeCommand(ListPatientCommand.COMMAND_WORD);
+                break;
+            case APPOINTMENTS_TAB:
+                executeCommand(AppointmentsCommand.COMMAND_WORD);
+                break;
+            case DOCTORS_TAB:
+                executeCommand(ListStaffCommand.COMMAND_WORD);
+                break;
+            case DUTY_SHIFT_TAB:
+                executeCommand(DutyShiftCommand.COMMAND_WORD);
+                break;
+            default:
+            }
+            requiresReset = false;
+        }
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
+        currentOmniPanelTab = omniPanelTab;
         resultDisplay.setFeedbackToUser("");
         Region region;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
             region = patientListPanel.getRoot();
-            executeCommand(ListPatientCommand.COMMAND_WORD);
             break;
         case APPOINTMENTS_TAB:
             region = appointmentListPanel.getRoot();
-            executeCommand(AppointmentsCommand.COMMAND_WORD);
             break;
         case DOCTORS_TAB:
             region = staffListPanel.getRoot();
-            executeCommand(ListStaffCommand.COMMAND_WORD);
             break;
         case DUTY_SHIFT_TAB:
             region = dutyShiftListPanel.getRoot();
-            executeCommand(DutyShiftCommand.COMMAND_WORD);
             break;
         default:
             return;
