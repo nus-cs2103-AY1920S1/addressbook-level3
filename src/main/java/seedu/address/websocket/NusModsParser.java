@@ -15,7 +15,6 @@ import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.AcadYear;
@@ -40,7 +39,7 @@ import seedu.address.model.module.exceptions.LessonTypeNotFoundException;
 import seedu.address.model.module.exceptions.SemesterNoNotFoundException;
 
 /**
- * Parse data from NusModsApi
+ * Parser to parse NusMods-related data.
  */
 public class NusModsParser {
     public static final int GMT_OFFSET_SINGAPORE = 8;
@@ -48,9 +47,9 @@ public class NusModsParser {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
 
     /**
-     * Ensures the JSONObject has the given keys.
-     * @param obj JSONObject.
-     * @param keys Strings of keys.
+     * Checks if the JSONObject has the required keys.
+     * @param obj JSONObject to check.
+     * @param keys Strings of compulsory keys to check.
      * @throws ParseException if JSONObject is missing any of the given keys.
      */
     private static void requireCompulsoryKeys(JSONObject obj, String... keys) throws ParseException {
@@ -61,8 +60,6 @@ public class NusModsParser {
         }
     }
 
-    //TODO: checks to throw parseException if missing compulsory keys
-    //      checks to throw invalidValueException if value is invalid
     /**
      * Parses a Module from JSONObject.
      * @param obj JSONObject to parse from.
@@ -92,7 +89,7 @@ public class NusModsParser {
     /**
      * Parses a List of ModuleSummaries from JSONArray.
      * @param arr JSONArray to parse from.
-     * @param defaultAcadYear Default Academic Year if missing from a ModuleSummary
+     * @param defaultAcadYear Default academic year if academic year is missing from a ModuleSummary.
      * @return parsed ModuleSummaryList.
      * @throws ParseException if missing compulsory keys.
      */
@@ -163,6 +160,7 @@ public class NusModsParser {
      * Parses a Lesson from JSONObject.
      * @param obj JSONObject to parse from.
      * @return parsed Lesson.
+     * @throws ParseException if missing compulsory keys.
      */
     public static Lesson parseLesson(JSONObject obj) throws ParseException {
         requireNonNull(obj);
@@ -185,7 +183,7 @@ public class NusModsParser {
         Venue venue = new Venue(obj.get("venue").toString());
         try {
             return new Lesson(lessonNo, startTime, endTime, weeks, lessonType, day, venue);
-        } catch (IllegalValueException e) {
+        } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
         }
     }
@@ -199,6 +197,7 @@ public class NusModsParser {
      * Parses Weeks from Object, assumed to be either a JSONObject or JSONArray.
      * @param obj Object to parse from.
      * @return parsed Weeks.
+     * @throws ParseException if missing compulsory keys.
      */
     public static Weeks parseWeeks(Object obj) throws ParseException {
         requireNonNull(obj);
@@ -238,7 +237,7 @@ public class NusModsParser {
 
         try {
             return new Weeks(weekNumbers, startDate, endDate, weekInterval, type);
-        } catch (IllegalValueException e) {
+        } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
         }
     }

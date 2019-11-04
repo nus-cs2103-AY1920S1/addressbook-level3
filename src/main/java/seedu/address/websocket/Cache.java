@@ -44,6 +44,7 @@ public class Cache {
     private static final String writablePath;
     private static final Logger logger = LogsCenter.getLogger(Cache.class);
 
+    // Static block, not the best but works. Need to do heavy refactoring if want to improve code quality of Cache.
     static {
         final URL url = Cache.class.getResource(CacheFileNames.CACHE_FOLDER_PATH);
         if (url != null && url.getProtocol().equals("jar")) {
@@ -62,10 +63,10 @@ public class Cache {
     private static Optional<Object> gmapsPlaceDetails = load(CacheFileNames.GMAPS_PLACE_DETAILS_PATH);
 
     /**
-     * Save json to file in cache folder.
+     * Saves JSON object to file in writable directory path.
      *
-     * @param obj      obj to save
-     * @param filePath file name to save the obj as
+     * @param obj      obj to save.
+     * @param filePath file path to saved JSON file.
      */
     private static void save(Object obj, String filePath) {
         requireNonNull(obj);
@@ -81,12 +82,11 @@ public class Cache {
     }
 
     /**
-     * This method is used to save all the API response to a particular JSON file. Only for JSON
-     * Object
+     * Adds and saves a JSON element to a particular JSON file. Overwrites if key already exists.
      *
-     * @param key
-     * @param value
-     * @param filePath
+     * @param key      key of element to add.
+     * @param value    value of element to add.
+     * @param filePath file path to JSON file.
      */
     public static void saveToJson(String key, Object value, String filePath) {
         requireNonNull(key);
@@ -104,7 +104,7 @@ public class Cache {
 
     /**
      * Loads JSON file from JAR resources.
-     * @param path Relative path starting with backslash.
+     * @param path Relative path (starting with backslash).
      */
     private static Optional<Object> loadFromResources(String path) {
         final InputStream resourceStream = Cache.class.getResourceAsStream(path);
@@ -122,10 +122,10 @@ public class Cache {
     }
 
     /**
-     * Load json from file in cache folder
+     * Loads JSON Object from file in writable directory path.
      *
-     * @param filePath file name to load from
-     * @return an Optional containing a JSONObject or empty.
+     * @param filePath file name to load from.
+     * @return an Optional containing a Object or empty.
      */
     private static Optional<Object> load(String filePath) {
         requireNonNull(filePath);
@@ -140,8 +140,10 @@ public class Cache {
         return objOptional;
     }
 
+    // ================================== NusMods Methods ==============================================
+
     /**
-     * Load holidays from cache, if failed, call api, then save results to cache folder.
+     * Loads holidays from cache, if it fails, call api, then save results to cache folder.
      * If api fails too, return empty.
      *
      * @return an Optional containing a Holidays object or empty.
@@ -164,7 +166,7 @@ public class Cache {
     }
 
     /**
-     * Load holidays from cache, if failed, call api, then save results to cache folder.
+     * Loads holidays from cache, if it fails, call api, then save results to cache folder.
      * If api fails too, return empty.
      *
      * @return an Optional containing a Holidays object or empty.
@@ -187,7 +189,7 @@ public class Cache {
     }
 
     /**
-     * Load ModuleSummaryList from cache, if failed, return empty.
+     * Loads ModuleSummaryList from cache, if it fails, return empty.
      *
      * @return an Optional containing a ModuleSummaryList object or empty.
      */
@@ -225,7 +227,7 @@ public class Cache {
     }
 
     /**
-     * Load modulelist from cache, if failed, return empty.
+     * Loads modulelist from cache, if it fails, return empty.
      *
      * @return an Optional containing a ModuleList object or empty.
      */
@@ -252,7 +254,7 @@ public class Cache {
     }
 
     /**
-     * Load a module from cache, if failed, call api, then save results to cache folder.
+     * Loads a module from cache, if it fails, call api, then save results to cache folder.
      * If api fails too, return empty.
      *
      * @return an Optional containing a Module object or empty.
@@ -291,10 +293,10 @@ public class Cache {
     }
 
     /**
-     * Load a module from cache, if failed, call api, then save results to cache folder.
+     * Loads venues from cache. If it fails, call api, then save results to cache folder.
      * If api fails too, return empty.
      *
-     * @return an Optional containing a Module object or empty.
+     * @return a JSONArray object containing venues data.
      */
     public static JSONArray loadVenues() {
         Optional<Object> optionalObject = load(CacheFileNames.VENUES_FULL_PATH);
@@ -307,13 +309,15 @@ public class Cache {
         if (!venues.isEmpty()) {
             return venues;
         } else {
-            logger.info("Module not found in cache, getting from API...");
+            logger.info("Venues not found in cache, getting from API...");
             venues = api.getVenues("/1").orElse(new JSONArray());
             save(venues, CacheFileNames.VENUES_FULL_PATH);
         }
 
         return venues;
     }
+
+    // ================================== Google Maps Methods ==============================================
 
     /**
      * This method is used to load the info of the place by Google Maps from the cache or Google Maps API

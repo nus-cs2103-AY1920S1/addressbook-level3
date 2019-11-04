@@ -122,7 +122,7 @@ public class NusModsApi {
      */
     public Optional<JSONArray> getVenues(String semester) {
         ApiQuery query = new ApiQuery(BASE_URL + SLASH + acadYear.toStringDashed() + SEMESTERS
-                + semester + VENUES + JSON_EXTENSION);
+                + SLASH + semester + VENUES + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONArray obj = ParserUtil.parseStringToJsonArray(queryResult.getResponseResult());
@@ -143,7 +143,7 @@ public class NusModsApi {
      */
     public Optional<JSONObject> getVenueInformation(String semester) {
         ApiQuery query = new ApiQuery(BASE_URL + SLASH + acadYear.toStringDashed() + SEMESTERS
-                + semester + VENUE_INFO + JSON_EXTENSION);
+                + SLASH + semester + VENUE_INFO + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());

@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +15,9 @@ public class ModuleSummary {
     private final List<Integer> semesters = new ArrayList<>();
 
     public ModuleSummary(ModuleId moduleId, Title title, List<Integer> semesters) {
+        requireNonNull(moduleId);
+        requireNonNull(title);
+        requireNonNull(semesters);
         this.moduleId = moduleId;
         this.title = title;
         this.semesters.addAll(semesters);

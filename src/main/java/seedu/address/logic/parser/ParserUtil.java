@@ -223,10 +223,7 @@ public class ParserUtil {
     public static NusModsShareLink parseNusModsLink(String nusModsLink) throws ParseException {
         requireNonNull(nusModsLink);
         String trimmedNusModsLink = nusModsLink.trim();
-        if (!NusModsShareLink.isValidUrl(trimmedNusModsLink)) {
-            throw new ParseException(NusModsShareLink.MESSAGE_CONSTRAINTS);
-        }
-        return new NusModsShareLink(nusModsLink);
+        return NusModsShareLink.parseLink(trimmedNusModsLink);
     }
 
     /**
