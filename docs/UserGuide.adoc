@@ -69,7 +69,7 @@ In the highlighed section above, you can see the current mode you are in and the
 
 
 
-To transition between them you have to enter the `SwitchCommand` that represents each mode.
+To transition between them you have to enter the `SwitchCommand` that represents each mode into the Command Box that says _Enter command here.._.
 
 * `open` kbd:[Enter] +
 to enter `open` mode
@@ -476,6 +476,8 @@ be reported.*)
 
 // end::yida-game[]
 
+// tag::paulsettings[]
+
 === Settings Commands image:settings_mode_icon.png[width="27"]
 (Available in Settings mode)
 
@@ -491,8 +493,15 @@ Examples:
 
 * `theme dark` +
 Changes the UI theme to dark.
+
+.Dark Theme
+image::darktheme.png[]
+
 * `theme light` +
 Changes the UI theme to light.
+
+.Light Theme
+image::lighttheme.png[]
 
 ==== Turning hints on/off: `hints`
 
@@ -503,8 +512,15 @@ Examples:
 
 * `hints on` +
 Turns hints on.
+
+.Hints on
+image::hintson.png[]
+
 * `hints off` +
 Turns hints off.
+
+.Hints off
+image::hintsoff.png[]
 
 ==== Changing difficulty: `difficulty`
 
@@ -513,12 +529,50 @@ Format: `difficulty easy/medium/hard`
 
 Examples:
 
-* `difficulty low` +
-Changes the difficulty to low. (Timer = 15 seconds)
+* `difficulty easy` +
+Changes the difficulty to easy. (Timer = 15 seconds)
+
+.Easy difficulty (15 seconds)
+image::difficultyeasy.png[]
+
 * `difficulty medium` +
 Changes the difficulty to medium. (Timer = 10 seconds)
-* `difficulty high` +
-Changes the difficulty to high. (Timer = 5 seconds)
+
+.Medium difficulty (10 seconds)
+image::difficultymedium.png[]
+
+* `difficulty hard` +
+Changes the difficulty to hard. (Timer = 5 seconds)
+
+.Hard difficulty (5 seconds)
+image::difficultyhard.png[]
+
+==== Changing Avatar : `avatar`
+
+Changes the avatar in the home screen. The avatar is one of the 151 original pokemon, so pick and choose! (There is a secret avatar as well. See if you can find it!) +
+Format: `avatar [0 - 151]` +
+`avatar 0` sets the avatars to random.
+
+Examples:
+
+* `avatar 0` +
+Changes the avatar to a random one everytime a new command is called.
+
+.Random avatar, in this case, Porygon.
+image::avatarrandom.png[]
+
+* `avatar 1` +
+Changes the avatar to 001 in the original Pokedex, which is Bulbasaur.
+
+.Avatar number 1, in this case, Bulbasaur.
+image::avatar1.png[]
+
+* `avatar 151` +
+Changes the avatar to 151 in the original Pokedex, which is Mew.
+
+.Avatar number 151, in this case, Mew.
+image::avatar151.png[]
+// end::paulsettings[]
 
 // tag::chenhui-commandusage2[]
 
@@ -539,7 +593,7 @@ Format: `exit`
 // end::chenhui-commandusage2[]
 
 // tag::statsjason[]
-== Statistics
+== Statistics image:statistics-icon.png[width="32"]
 This section covers the statistics shown to the user.
 
 === Game Result
@@ -551,7 +605,7 @@ We use a simple formula to calculate the score: _floor of_ _(Number of correct a
 .Game Result UI.
 image::annotated_game_results_ui.png[]
 
-=== Word Bank Statistics
+=== WordBank Statistics
 The word bank statistics is shown on open mode and contains all information of the word bank.
 
 .Wordbank Statistics UI.
@@ -583,98 +637,92 @@ Statistics are also stored automatically.
 
 
 
-== Overview of Modes for Advanced Users
-
-.All possible application modes
-image::ParserManagerActivityDiagram.PNG[]
-
-
 // tag::chenhui-commandsummary[]
 
 == Command Summary
 
 |===
-| Type of command | Command name | Parameters
+| Command Type | Command Keyword | Parameter(s) (if any)
 
-1.4+h| Switch Command +
+1.4+h| Switch Commands +
 (Available in Home mode)
-s| home m|
+s| `home` m|
 
-s| open m|
+s| `open` m|
 
-s| start m| [DIFFICULTY]
+s| `start` m| [DIFFICULTY]
 
-s| settings m|
+s| `settings` m|
 
 3.1+|
 3.1+|
 
-1.5+h| Word Bank Command +
+1.5+h| Word Bank Commands +
 (Available in Home mode)
 
-s| select m| WORD_BANK
+s| `select` m| WORD_BANK
 
-s| create m| WORD_BANK
+s| `create` m| WORD_BANK
 
-s| remove m| WORD_BANK
+s| `remove` m| WORD_BANK
 
-s| import m| w/WORD_BANK f/FOLDER
+s| `import` m| w/WORD_BANK f/FOLDER
 
-s| export m| w/WORD_BANK f/FOLDER
+s| `export` m| w/WORD_BANK f/FOLDER
 
 3.1+|
 3.1+|
 
-1.6+h| Card Command +
+1.6+h| Card Commands +
 (Available in Open mode)
 
-s| add m| w/WORD m/MEANING [t/TAG]
+s| `add` m| w/WORD m/MEANING [t/TAG]
 
-s| delete m| INDEX
+s| `delete` m| INDEX
 
-s| edit m| INDEX w/WORD m/MEANING [t/TAG]
+s| `edit` m| INDEX w/WORD m/MEANING [t/TAG]
 
-s| find m| KEYWORD [MORE_KEYWORDS]
+s| `find` m| KEYWORD [MORE_KEYWORDS]
 
-s| list m|
+s| `list` m|
 
-s| clear m|
+s| `clear` m|
 
 3.1+|
 3.1+|
 
-1.3+h| Game Command +
+1.3+h| Game Commands +
 (Available in Game mode)
 
-s| guess m| WORD
+s| `guess` m| WORD
 
-s| skip m|
+s| `skip` m|
 
-s| stop m|
+s| `stop` m|
 
 3.1+|
 3.1+|
 
-1.4+h| Settings Command +
+1.4+h| Settings Commands +
 (Available in Settings mode)
 
-s| difficulty m| EASY/NORMAL/HARD
+s| `difficulty` m| EASY/NORMAL/HARD
 
-s| theme m| DARK/LIGHT
+s| `theme` m| DARK/LIGHT
 
-s| hints m| ON/OFF
+s| `hints` m| ON/OFF
 
-s| avatar m| INDEX
+s| `avatar` m| INDEX
 
 3.1+|
 3.1+|
 
-1.2+h| Misc. Command
+1.2+h| Misc. Commands
 
-s| help +
+s| `help` +
 (Available in Home mode)|
 
-s| exit +
+s| `exit` +
 (Available anywhere except Game mode) m|
 
 |===
@@ -684,6 +732,8 @@ s| exit +
 == Upcoming Features
 
 // tag::dataencryption[]
+
+// tag::version-2.0[]
 === Leaderboard `[coming in v2.0]`
 
 View and compare your statistics with peers on the internet.
@@ -695,4 +745,10 @@ Smart algorithms to pop reminders for you to know which bank you have not visite
 === User profiles `[coming in v2.0]`
 
 Have more than one account to monitor statistics on the same computer
+
+=== Customizable Difficulty `[coming in v2.0]`
+
+Create your own difficulties with customized time durations.
+// end::version-2.0[]
+
 // end::dataencryption[]

@@ -17,7 +17,7 @@ public class AvatarImageUtil {
      * Returns an image with an id correlated with {@code id}.
      */
     public static Image get(int id) {
-        if ((id <= 0 || id > TOTAL_NUM) && id != 29126) {
+        if ((id <= 0 || id > TOTAL_NUM) && id != 2103) {
             throw new IllegalArgumentException("Id must be within 1 to " + TOTAL_NUM);
         }
         return AppUtil.getImage(String.format(AVATAR_PATH, id));
