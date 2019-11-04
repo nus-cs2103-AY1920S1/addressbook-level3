@@ -13,21 +13,33 @@ class TimeTest {
     void isValidTime() {
         // invalid time
         assertFalse(Time.isValidTime("")); // empty string
+
         assertFalse(Time.isValidTime("-1000")); // Negative integer
+
         assertFalse(Time.isValidTime("a")); //single character given
+
         assertFalse(Time.isValidTime("235")); // supposedly 2350 but missing the 0
+
         assertFalse(Time.isValidTime("235")); // supposedly 0235 but missing the 0
+
         assertFalse(Time.isValidTime("2370")); // Invalid 24hrs
+
         assertFalse(Time.isValidTime("2400")); // Invalid 24hrs
+
         assertFalse(Time.isValidTime("2450")); // Invalid 24hrs
+
         assertFalse(Time.isValidTime("8:00 a.m.")); // Incorrect input format
+
         assertFalse(Time.isValidTime("8.00 am")); // Incorrect input format
+
         assertFalse(Time.isValidTime("8.00 a.m.")); // Incorrect input format
 
-        // valid time 
         assertTrue(Time.isValidTime("2000")); // Over 12hrs
+
         assertTrue(Time.isValidTime("0000")); // Midnight
+
         assertTrue(Time.isValidTime("0900")); // Within 12hrs
+
     }
 
     @Test
@@ -40,9 +52,16 @@ class TimeTest {
         // Unformatted time
         assertNotEquals("2000", time.toString());
 
+        assertNotEquals("0000", time.toString());
+
+        assertNotEquals("0900", time.toString());
+
         // Only valid time stamps that pass thee validation test will be created
         assertEquals("8:00 p.m.", time.toString());
+
         assertEquals("12:00 a.m.", time1.toString());
+
         assertEquals("9:00 a.m.", time2.toString());
+
     }
 }

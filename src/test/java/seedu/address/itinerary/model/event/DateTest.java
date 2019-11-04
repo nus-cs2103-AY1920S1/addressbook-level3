@@ -22,21 +22,34 @@ class DateTest {
 
         // invalid date
         assertFalse(Date.isValidDate("")); // empty string
+
         assertFalse(Date.isValidDate(" ")); // spaces only
+
         assertFalse(Date.isValidDate("28-10-2019")); // wrong formatting with -
+
         assertFalse(Date.isValidDate("28/10/2019")); // wrong formatting with /
+
         assertFalse(Date.isValidDate("281019")); // wrong formatting for year
+
         assertFalse(Date.isValidDate("392019")); // wrong formatting for day and month
+
         assertFalse(Date.isValidDate("12312019")); // wrong order of MMDDYYYY
+
         assertFalse(Date.isValidDate("29021800")); // 29th February tested
+
         assertFalse(Date.isValidDate("10070999")); // date is too old. Only year 1000 to 3999
+
         assertFalse(Date.isValidDate("10074000")); // date is too far into the future. Only year 1000 to 3999
 
         // valid date
         assertTrue(Date.isValidDate("28102019")); // Valid date of DDMMYYYY
+
         assertTrue(Date.isValidDate("01011000")); // oldest date accepted
+
         assertTrue(Date.isValidDate("29022000")); // 29th February tested
+
         assertTrue(Date.isValidDate("10101010")); // Very old date
+
         assertTrue(Date.isValidDate("31123999")); // most futuristic date accepted
     }
 
@@ -52,7 +65,9 @@ class DateTest {
 
         // Date object will only be created if the input string pass the validation test
         assertEquals("10/10/1010", date.toString());
+
         assertEquals("28/10/2019", date1.toString());
+
         assertEquals("31/12/3999", date2.toString());
     }
 }

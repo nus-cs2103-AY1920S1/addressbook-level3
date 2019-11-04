@@ -51,8 +51,8 @@ class ListCommandTest {
         Description descTest = new Description("My awesome description");
         Time timeTest = new Time("2000");
         Tag tagTest = new Tag("Priority: High");
-        Event eventTest = new Event(titleTest, dateTest, locationTest
-                , descTest, timeTest, tagTest);
+        Event eventTest = new Event(titleTest, dateTest, locationTest,
+                descTest, timeTest, tagTest);
 
         Title titleTest2 = new Title("Another Cool Title");
         Date dateTest2 = new Date("13071997");
@@ -60,8 +60,8 @@ class ListCommandTest {
         Description descTest2 = new Description("My cool description");
         Time timeTest2 = new Time("0000");
         Tag tagTest2 = new Tag("Priority: Medium");
-        Event eventTest2 = new Event(titleTest2, dateTest2, locationTest2
-                , descTest2, timeTest2, tagTest2);
+        Event eventTest2 = new Event(titleTest2, dateTest2, locationTest2,
+                descTest2, timeTest2, tagTest2);
 
         Model model = new Model();
         model.addEvent(eventTest);

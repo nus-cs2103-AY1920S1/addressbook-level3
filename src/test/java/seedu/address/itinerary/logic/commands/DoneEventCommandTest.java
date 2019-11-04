@@ -1,6 +1,9 @@
 package seedu.address.itinerary.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.itinerary.logic.commands.DoneEventCommand.MESSAGE_SUCCESS;
 
 import org.junit.jupiter.api.Test;
@@ -10,8 +13,8 @@ import seedu.address.logic.commands.CommandResult;
 
 class DoneEventCommandTest {
 
-    Index index_first_event = Index.fromOneBased(1);
-    Index index_second_event = Index.fromOneBased(2);
+    private static final Index INDEX_FIRST_EVENT = Index.fromOneBased(1);
+    private static final Index INDEX_SECOND_EVENT = Index.fromOneBased(2);
 
     @Test
     public void execute_done_command() {
@@ -20,20 +23,20 @@ class DoneEventCommandTest {
     }
 
     @Test
-    public void null_index_done_command() {
+    public void null_index_doneCommand() {
         assertThrows(NullPointerException.class, () -> new DoneEventCommand(null));
     }
 
     @Test
     public void equals() {
-        DoneEventCommand doneFirstCommand = new DoneEventCommand(index_first_event);
-        DoneEventCommand doneSecondCommand = new DoneEventCommand(index_second_event);
+        DoneEventCommand doneFirstCommand = new DoneEventCommand(INDEX_FIRST_EVENT);
+        DoneEventCommand doneSecondCommand = new DoneEventCommand(INDEX_SECOND_EVENT);
 
         // same object -> returns true
         assertTrue(doneFirstCommand.equals(doneFirstCommand));
 
         // same values -> returns true
-        DoneEventCommand doneFirstCommandCopy = new DoneEventCommand(index_first_event);
+        DoneEventCommand doneFirstCommandCopy = new DoneEventCommand(INDEX_FIRST_EVENT);
         assertTrue(doneFirstCommand.equals(doneFirstCommandCopy));
 
         // different types -> returns false

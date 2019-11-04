@@ -13,9 +13,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 class DeleteEventCommandParserTest {
 
-    private DeleteEventCommandParser parser = new DeleteEventCommandParser();
     private static final Index INDEX_FIRST_PERSON = Index.fromOneBased(1);
     private static final Index INDEX_LARGE = Index.fromOneBased(10000);
+
+    private DeleteEventCommandParser parser = new DeleteEventCommandParser();
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {

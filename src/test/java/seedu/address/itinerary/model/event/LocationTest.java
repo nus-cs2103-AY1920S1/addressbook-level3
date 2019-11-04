@@ -17,9 +17,13 @@ class LocationTest {
 
         // valid location
         assertTrue(Location.isValidLocation("Valid location")); // Valid location
+
         assertTrue(Location.isValidLocation("")); // Empty description
+
         assertTrue(Location.isValidLocation("Singapore")); // Less than 20 characters
+
         assertTrue(Location.isValidLocation("Θ θ, Ι ι, Κ κ, Λ λ ο")); // Greek
+
         assertTrue(Location.isValidLocation(
                 "00000000000000000000")); // Exactly 20 characters
     }
@@ -36,7 +40,9 @@ class LocationTest {
 
         // Only valid location with be created for string that pass the location validation test.
         assertEquals("Singapore", location.toString());
+
         assertEquals("", location2.toString());
+
         assertEquals("00000000000000000000", location3.toString());
     }
 }

@@ -22,9 +22,13 @@ class TagTest {
 
         // valid tag
         assertTrue(Tag.isValidTag("Priority: Critical"));
+
         assertTrue(Tag.isValidTag("Priority: High"));
+
         assertTrue(Tag.isValidTag("Priority: Medium"));
+
         assertTrue(Tag.isValidTag("Priority: Low"));
+
         assertTrue(Tag.isValidTag("Priority: None"));
     }
 
@@ -41,9 +45,13 @@ class TagTest {
 
         // Since tag is determined by the dropdown combo box, all the values are fixed.
         assertEquals("Priority: Critical", tag.toString());
+
         assertEquals("Priority: High", tag1.toString());
+
         assertEquals("Priority: Medium", tag2.toString());
+
         assertEquals("Priority: Low", tag3.toString());
+
         assertEquals("Priority: None", tag4.toString());
     }
 }

@@ -22,16 +22,20 @@ class TitleTest {
 
         // invalid Title
         assertFalse(Title.isValidTitle("")); // empty string
+
         assertFalse(Title.isValidTitle(
                 "0000000000000000000000000000000000"
                 + "0000000000000000000000000000000000000")); // exceed 70 character limit, 71 characters
 
         // valid Title
         assertTrue(Title.isValidTitle(" ")); // spaces only
+
         assertTrue(Title.isValidTitle("This is a valid title")); // A valid title
+
         assertTrue(Title.isValidTitle(
                 "0000000000000000000000000000000000"
                         + "0000000000000000000000000000000000")); // Just nice 70 character limit
+
         assertTrue(Title.isValidTitle("Θ θ, Ι ι, Κ κ, Λ λ, Μ μ, Ν ν, Ξ ξ, Ο ο, Π π")); // Special characters
     }
 
@@ -49,8 +53,11 @@ class TitleTest {
 
         // Only valid title which pass the validation test will be created
         assertEquals("Awesome Title", title.toString());
+
         assertEquals(" ", title2.toString());
+
         assertEquals("Θ θ, Ι ι, Κ κ, Λ λ, Μ μ, Ν ν, Ξ ξ, Ο ο, Π π", title3.toString());
+
         assertEquals("0000000000000000000000000000000000"
                 + "0000000000000000000000000000000000", title4.toString());
     }

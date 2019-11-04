@@ -16,8 +16,8 @@ class EventTest {
     private Description descTest = new Description("My awesome description");
     private Time timeTest = new Time("0000");
     private Tag tagTest = new Tag("Priority: High");
-    private Event eventTest = new Event(titleTest, dateTest, locationTest
-            , descTest, timeTest, tagTest);
+    private Event eventTest = new Event(titleTest, dateTest, locationTest,
+            descTest, timeTest, tagTest);
 
     private Title titleTest2 = new Title("Awesome Title");
     private Date dateTest2 = new Date("28102019");
@@ -25,8 +25,8 @@ class EventTest {
     private Description descTest2 = new Description("My awesome description");
     private Time timeTest2 = new Time("0000");
     private Tag tagTest2 = new Tag("Priority: High");
-    private Event eventTest2 = new Event(titleTest2, dateTest2, locationTest2
-            , descTest2, timeTest2, tagTest2);
+    private Event eventTest2 = new Event(titleTest2, dateTest2, locationTest2,
+            descTest2, timeTest2, tagTest2);
 
     private Title titleTest3 = new Title("This is another Awesome Title");
     private Date dateTest3 = new Date("29022000");
@@ -34,8 +34,8 @@ class EventTest {
     private Description descTest3 = new Description("");
     private Time timeTest3 = new Time("1559");
     private Tag tagTest3 = new Tag("Priority: Low");
-    private Event eventTest3 = new Event(titleTest3, dateTest3, locationTest3
-            , descTest3, timeTest3, tagTest3);
+    private Event eventTest3 = new Event(titleTest3, dateTest3, locationTest3,
+            descTest3, timeTest3, tagTest3);
 
     @Test
     void getTitle() {

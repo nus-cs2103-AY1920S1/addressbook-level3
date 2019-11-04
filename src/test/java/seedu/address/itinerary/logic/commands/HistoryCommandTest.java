@@ -33,7 +33,7 @@ class HistoryCommandTest {
     }
 
     @Test
-    public void with_action_history_list() {
+    public void with_action_historyList() {
         // Checking for similarity with action inserted into the action list
         HistoryCommand historyCommand = new HistoryCommand();
         Model model = new Model();

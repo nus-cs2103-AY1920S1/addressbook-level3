@@ -5,6 +5,7 @@ import static seedu.address.itinerary.logic.commands.HelpCommand.MESSAGE_SUCCESS
 import static seedu.address.itinerary.logic.commands.HelpCommand.MESSAGE_USAGE;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 
 class HelpCommandTest {

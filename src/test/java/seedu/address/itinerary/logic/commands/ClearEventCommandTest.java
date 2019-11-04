@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.itinerary.model.Model;
+
 class ClearEventCommandTest {
 
     /*
@@ -26,4 +28,19 @@ class ClearEventCommandTest {
         assertEquals(commandTest1, commandTest1);
     }
 
+    /*
+        Although there is a creation of stub, it still requires a parent window to be open.
+     */
+    private static class ModelStub extends Model {
+        private boolean flag = false;
+
+        @Override
+        public void clearEvent() {
+            flag = true;
+        }
+
+        boolean getFlag() {
+            return flag;
+        }
+    }
 }

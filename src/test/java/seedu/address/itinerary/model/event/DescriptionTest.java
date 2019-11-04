@@ -17,10 +17,15 @@ class DescriptionTest {
 
         // valid description
         assertTrue(Description.isValidDescription("")); // Empty description
+
         assertTrue(Description.isValidDescription(" ")); // One space character
+
         assertTrue(Description.isValidDescription("1")); // One character description
+
         assertTrue(Description.isValidDescription("This is a valid description")); // Valid description
+
         assertTrue(Description.isValidDescription("Θ θ, Ι ι, Κ κ, Λ λ, Μ μ, Ν ν, Ξ ξ, Ο ο, Π π")); // Greek
+
         assertTrue(Description.isValidDescription(
                 "00000000000000000000000000000000000000000000000000")); // Exactly 50 characters
     }
@@ -36,7 +41,9 @@ class DescriptionTest {
 
         // Description object will only be formed if the description pass the validation test
         assertEquals("Nice description", description.toString());
+
         assertEquals("Θ θ, Ι ι, Κ κ, Λ λ, Μ μ, Ν ν, Ξ ξ, Ο ο, Π π", description2.toString());
+
         assertEquals("00000000000000000000000000000000000000000000000000", description3.toString());
     }
 }

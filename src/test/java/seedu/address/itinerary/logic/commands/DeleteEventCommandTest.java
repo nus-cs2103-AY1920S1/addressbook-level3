@@ -1,7 +1,8 @@
 package seedu.address.itinerary.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +25,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class DeleteEventCommandTest {
 
-    Index index_first_event = Index.fromOneBased(1);
-    Index index_second_event = Index.fromOneBased(2);
+    private static final Index INDEX_FIRST_EVENT = Index.fromOneBased(1);
+    private static final Index INDEX_SECOND_EVENT = Index.fromOneBased(2);
 
     private Title titleTest = new Title("Awesome Title");
     private Date dateTest = new Date("28102019");
@@ -33,8 +34,8 @@ public class DeleteEventCommandTest {
     private Description descTest = new Description("My awesome description");
     private Time timeTest = new Time("2000");
     private Tag tagTest = new Tag("Priority: High");
-    private Event eventTest = new Event(titleTest, dateTest, locationTest
-            , descTest, timeTest, tagTest);
+    private Event eventTest = new Event(titleTest, dateTest, locationTest,
+            descTest, timeTest, tagTest);
 
     private Model model = new Model();
 
@@ -43,8 +44,8 @@ public class DeleteEventCommandTest {
 
         // Adding the event to actual model before deleting it
         model.addEvent(eventTest);
-        Event eventToDelete = model.getSortedEventList().get(index_first_event.getZeroBased());
-        DeleteEventCommand deleteCommand = new DeleteEventCommand(index_first_event);
+        Event eventToDelete = model.getSortedEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+        DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST_EVENT);
 
         // Generating the expected result of the deletion
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_SUCCESS, eventToDelete);
@@ -58,8 +59,8 @@ public class DeleteEventCommandTest {
     @Test
     public void execute_validIndexFilteredList_success() {
         model.addEvent(eventTest);
-        Event eventToDelete = model.getSortedEventList().get(index_first_event.getZeroBased());
-        DeleteEventCommand deleteCommand = new DeleteEventCommand(index_first_event);
+        Event eventToDelete = model.getSortedEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+        DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST_EVENT);
 
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_SUCCESS, eventToDelete);
 
@@ -71,15 +72,15 @@ public class DeleteEventCommandTest {
 
     @Test
     public void equals() {
-        DeleteEventCommand deleteFirstCommand = new DeleteEventCommand(index_first_event);
-        DeleteEventCommand deleteSecondCommand = new DeleteEventCommand(index_second_event);
+        DeleteEventCommand deleteFirstCommand = new DeleteEventCommand(INDEX_FIRST_EVENT);
+        DeleteEventCommand deleteSecondCommand = new DeleteEventCommand(INDEX_SECOND_EVENT);
         GreetCommand greetCommand = new GreetCommand();
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteEventCommand deleteFirstCommandCopy = new DeleteEventCommand(index_first_event);
+        DeleteEventCommand deleteFirstCommandCopy = new DeleteEventCommand(INDEX_FIRST_EVENT);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -112,6 +113,11 @@ public class DeleteEventCommandTest {
         }
     }
 
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualItineraryModel} matches {@code expectedItineraryModel}
+     */
     public static void assertCommandSuccess(Command command, Model model,
                                             String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);

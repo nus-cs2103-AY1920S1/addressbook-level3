@@ -8,9 +8,9 @@ import seedu.address.logic.commands.CommandResult;
 
 class GreetCommandTest {
 
-    GreetCommand greetCommand = new GreetCommand();
+    private GreetCommand greetCommand = new GreetCommand();
 
-    String expectedMessage = greetCommand.getMessage();
+    private String expectedMessage = greetCommand.getMessage();
 
     // To check whether message success given is the same as the expected greet command
     // Greet command is a basic command which gives the user the current date and time.
