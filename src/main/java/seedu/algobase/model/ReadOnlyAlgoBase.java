@@ -69,9 +69,14 @@ public interface ReadOnlyAlgoBase {
     IntegerProperty getCurrentSolvedCount();
 
     /**
-     * Returns the number of solved tasks in current plan.
+     * Returns the number of unsolved tasks in current plan.
      */
     IntegerProperty getCurrentUnsolvedCount();
+
+    /**
+     * Returns the total number of tasks in current plan.
+     */
+    IntegerProperty getCurrentTaskCount();
 
     /**
      * Returns an unmodifiable view of the find rule list.

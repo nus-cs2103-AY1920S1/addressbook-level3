@@ -312,6 +312,11 @@ public class ModelManager implements Model {
         return this.algoBase.getCurrentUnsolvedCount();
     }
 
+    @Override
+    public IntegerProperty getCurrentTaskCount() {
+        return this.algoBase.getCurrentTaskCount();
+    }
+
     //========== Find Rules =============================================================
 
     @Override

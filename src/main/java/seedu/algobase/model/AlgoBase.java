@@ -317,6 +317,11 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         return plans.getCurrentUnsolvedCount();
     }
 
+    @Override
+    public IntegerProperty getCurrentTaskCount() {
+        return plans.getCurrentTaskCount();
+    }
+
     //========== Find Rules =============================================================
 
     /**

@@ -127,7 +127,8 @@ public class MainWindow extends UiPart<Stage> {
             logic.getProcessedTaskList(),
             logic.getCurrentPlan(),
             logic.getCurrentSolvedCount(),
-            logic.getCurrentUnsolvedCount()
+            logic.getCurrentUnsolvedCount(),
+            logic.getCurrentTaskCount()
         );
 
         layoutPanePlaceholder.getItems().add(displayTabPane.getRoot());

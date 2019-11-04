@@ -233,6 +233,11 @@ public class DefaultModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public IntegerProperty getCurrentTaskCount() {
+        throw new AssertionError("This method should not be called.");
+    }
+
     //=========== Find Rule =============================================================
 
     @Override

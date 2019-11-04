@@ -19,7 +19,7 @@ import seedu.algobase.model.task.Task;
 /**
  * Panel containing the list of tasks.
  */
-public class TaskManagementPane extends UiPart<Region> {
+class TaskManagementPane extends UiPart<Region> {
     private static final String FXML = "TaskManagementPane.fxml";
     private final Logger logger = LogsCenter.getLogger(TaskManagementPane.class);
     private ObservableList<Data> taskProgress = FXCollections.observableArrayList();
@@ -31,8 +31,12 @@ public class TaskManagementPane extends UiPart<Region> {
     @FXML
     private PieChart taskProgressChart;
 
-    public TaskManagementPane(ObservableList<Task> taskList, ObservableStringValue plan,
-                              ObservableIntegerValue solvedCount, ObservableIntegerValue unsolvedCount) {
+    TaskManagementPane(ObservableList<Task> taskList,
+                       ObservableStringValue plan,
+                       ObservableIntegerValue solvedCount,
+                       ObservableIntegerValue unsolvedCount,
+                       ObservableIntegerValue taskCount
+    ) {
         super(FXML);
         if (!plan.getValue().equals("")) {
             currentPlan.setText("Current Plan: " + plan.getValue());
@@ -41,19 +45,19 @@ public class TaskManagementPane extends UiPart<Region> {
         }
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        taskProgressChart.setData(getChartData((int) solvedCount.getValue(), (int) unsolvedCount.getValue()));
+        taskProgressChart.setData(getChartData(solvedCount.getValue().intValue(), unsolvedCount.getValue().intValue()));
         taskProgressChart.setClockwise(true);
         taskProgressChart.setLabelsVisible(false);
-        taskProgressChart.setLegendVisible(true);
+        taskProgressChart.setLegendVisible(taskCount.getValue().intValue() != 0);
         taskProgressChart.setStartAngle(90);
         addListenerForPlanName(plan);
-        addListenerForPieChart(solvedCount, unsolvedCount);
+        addListenerForPieChart(solvedCount, unsolvedCount, taskCount);
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
      */
-    class TaskListViewCell extends ListCell<Task> {
+    static class TaskListViewCell extends ListCell<Task> {
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
@@ -97,20 +101,27 @@ public class TaskManagementPane extends UiPart<Region> {
      * @param solvedCount The observable solved count.
      * @param unsolvedCount The observable unsolved count.
      */
-    private void addListenerForPieChart(ObservableIntegerValue solvedCount, ObservableIntegerValue unsolvedCount) {
+    private void addListenerForPieChart(
+        ObservableIntegerValue solvedCount,
+        ObservableIntegerValue unsolvedCount,
+        ObservableIntegerValue taskCount
+    ) {
         solvedCount.addListener((observable, oldValue, newValue) -> {
             for (Data d : taskProgress) {
                 if (d.getName().equals("Solved")) {
-                    d.setPieValue((int) newValue);
+                    d.setPieValue(newValue.intValue());
                 }
             }
         });
         unsolvedCount.addListener((observable, oldValue, newValue) -> {
             for (Data d : taskProgress) {
                 if (d.getName().equals("Unsolved")) {
-                    d.setPieValue((int) newValue);
+                    d.setPieValue(newValue.intValue());
                 }
             }
+        });
+        taskCount.addListener((observable, oldValue, newValue) -> {
+            taskProgressChart.setLegendVisible(newValue.intValue() != 0);
         });
     }
 

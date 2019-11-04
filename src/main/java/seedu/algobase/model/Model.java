@@ -278,6 +278,11 @@ public interface Model {
      */
     IntegerProperty getCurrentUnsolvedCount();
 
+    /**
+     * Returns the total number of tasks in current plan.
+     */
+    IntegerProperty getCurrentTaskCount();
+
     //========== Find Rules =============================================================
 
     /**
