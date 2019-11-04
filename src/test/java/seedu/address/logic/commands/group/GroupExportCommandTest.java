@@ -59,7 +59,7 @@ public class GroupExportCommandTest {
      * Test for exporting a group of students successfully.
      */
     @Test
-    public void execute_exportGroup_Success() throws Exception {
+    public void execute_exportGroup_success() throws Exception {
         GroupExportCommand exportCommand = new GroupExportCommand("Export");
         Student student = new StudentBuilder().withName(new Name("ExportTest")).build();
         ModelStub modelStub = new GroupExportCommandTest.ModelStubWithGroupWithStudent("Export", student);
