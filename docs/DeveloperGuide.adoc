@@ -93,9 +93,19 @@ image::ModelClassDiagram_FlashCardPro.png[]
 .`FlashCard`,
 
 * There are 3 types of cards used by our App, the `JavascriptCard`, `FrontBackCard` and `MultipleChoiceCard`.
+
+image::cards_class_diagram.png[]
+
 * `JavascriptCard` and `FrontBackCard` implements from `FlashCard`, an interface class.
 * `MultipleChoiceCard` inherits from `FrontBackCard`.
 * The interface class `FlashCard` also implements `JsonInterface` class to allow loading and saving to Json format.
+
+For the `MultipleChoiceCard`, the choices provided by the user must be unique, i.e. there cannot be any duplicate in the choices provided.
+If a duplicate choice is detected, then the creation of the `MultipleChoiceCard` will not be successful.
+
+Refer to the activity diagram below to see the process of creating a `MultipleChoiceCard`:
+
+
 
 .FlashCard Priority
 Each FlashCard has an associated priority level, which the user can indicate his/her value of the importance of the card.
@@ -344,6 +354,7 @@ image::ConfigurePriorityFlashCardTestSetSequenceDiagram.png[]
 The ExamRunner will be expanded to allow the user to take in the ratio of `HIGH_PRIORITY`.
 
 Then, the computation of the number of `HIGH_PRIORITY` and `LOW_PRIORITY` cards will be done according to the ratio provided by the user.
+
 // end::configure_difficulty[]
 
 
