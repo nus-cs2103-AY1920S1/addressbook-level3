@@ -12,22 +12,16 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
     /** The application should exit. */
     private final boolean exit;
-
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      * @param feedbackToUser the feedback to user
-     * @param showHelp       the show help
      * @param exit           the exit
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
         this.exit = exit;
     }
 
@@ -38,8 +32,7 @@ public class CommandResult {
      * @param feedbackToUser the feedback to user
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false
-        );
+        this(feedbackToUser, false);
     }
 
     /**
@@ -52,15 +45,6 @@ public class CommandResult {
     }
 
     /**
-     * Is show help boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isShowHelp() {
-        return showHelp;
-    }
-
-    /**
      * Is exit boolean.
      *
      * @return the boolean
@@ -68,7 +52,6 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
-
 
     @Override
     public boolean equals(Object other) {
@@ -83,13 +66,12 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, exit);
     }
 
 }
