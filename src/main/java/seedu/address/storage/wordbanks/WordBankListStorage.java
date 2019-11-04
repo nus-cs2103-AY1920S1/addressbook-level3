@@ -71,4 +71,12 @@ public interface WordBankListStorage {
      * @return word bank file path.
      */
     Path getWordBanksFilePath();
+
+    /**
+     * Returns word bank using it's name.
+     *
+     * @param name word bank name.
+     * @return word bank.
+     */
+    WordBank getWordBankFromName(String name);
 }

@@ -307,4 +307,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         return wordBanksFilePath;
     }
 
+    @Override
+    public WordBank getWordBankFromName(String name) {
+        return readOnlyWordBankList.getWordBankFromName(name);
+    }
 }

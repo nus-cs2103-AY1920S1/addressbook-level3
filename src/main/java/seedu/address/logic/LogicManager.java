@@ -32,6 +32,7 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbank.exceptions.DuplicateWordBankException;
 import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
+import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
@@ -144,6 +145,29 @@ public class LogicManager implements Logic, UiLogicHelper {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
         incrementPlay();
+    }
+
+    @Override
+    public void updateRevisionBank(GameStatistics gameStatistics) {
+        try {
+            storage.createWordBank("revision");
+        } catch (DuplicateWordBankException e) {
+            logger.info("Revision bank already exist");
+        }
+        List<Card> wrongCards = gameStatistics.getWrongCards();
+        List<Card> correctCards = gameStatistics.getCorrectCards();
+        WordBank revisionBank = storage.getWordBankFromName("revision");
+        for (Card c : wrongCards) {
+            if (!revisionBank.hasCard(c)) {
+                revisionBank.addCard(c);
+            }
+        }
+        for (Card c : correctCards) {
+            if (revisionBank.hasCard(c)) {
+                revisionBank.removeCard(c);
+            }
+        }
+        storage.updateWordBank(revisionBank);
     }
 
     /**
