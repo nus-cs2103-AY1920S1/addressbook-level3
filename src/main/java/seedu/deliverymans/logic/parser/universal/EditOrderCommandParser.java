@@ -3,10 +3,9 @@ package seedu.deliverymans.logic.parser.universal;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.deliverymans.logic.commands.universal.EditOrderCommand.MESSAGE_INVALID_FOOD_FORMAT;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_BOOLEAN_COMPLETED;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_DELIVERYMAN;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
@@ -38,13 +37,13 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
      */
     public EditOrderCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER,
-                PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY, PREFIX_BOOLEAN_COMPLETED);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_CUSTOMER,
+                PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY);
 
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditOrderCommand.MESSAGE_USAGE), pe);
         }
@@ -55,13 +54,6 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         }
         if (argMultimap.getValue(PREFIX_RESTAURANT).isPresent()) {
             editOrderDescriptor.setRestaurant(ParserUtil.parseName(argMultimap.getValue(PREFIX_RESTAURANT).get()));
-        }
-        if (argMultimap.getValue(PREFIX_DELIVERYMAN).isPresent()) {
-            editOrderDescriptor.setDeliveryman(ParserUtil.parseName(argMultimap.getValue(PREFIX_DELIVERYMAN).get()));
-        }
-        if (argMultimap.getValue(PREFIX_BOOLEAN_COMPLETED).isPresent()) {
-            editOrderDescriptor.setCompleted(ParserUtil.parseBoolean(
-                    argMultimap.getValue(PREFIX_BOOLEAN_COMPLETED).get()));
         }
         parseFoodForEdit(argMultimap.getAllValues(PREFIX_FOOD), argMultimap.getAllValues(PREFIX_QUANTITY))
                 .ifPresent(editOrderDescriptor::setFoods);

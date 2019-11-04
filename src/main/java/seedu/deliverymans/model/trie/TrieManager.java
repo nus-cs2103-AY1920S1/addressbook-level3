@@ -25,13 +25,17 @@ import seedu.deliverymans.logic.commands.restaurant.EditDetailsCommand;
 import seedu.deliverymans.logic.commands.restaurant.EditModeCommand;
 import seedu.deliverymans.logic.commands.restaurant.ExitEditCommand;
 import seedu.deliverymans.logic.commands.universal.AddOrderCommand;
+import seedu.deliverymans.logic.commands.universal.CompleteOrderCommand;
 import seedu.deliverymans.logic.commands.universal.DeleteOrderCommand;
 import seedu.deliverymans.logic.commands.universal.EditOrderCommand;
 import seedu.deliverymans.logic.commands.universal.ExitCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
+import seedu.deliverymans.logic.commands.universal.ListOrderCommand;
 import seedu.deliverymans.logic.commands.universal.RedoCommand;
-import seedu.deliverymans.logic.commands.universal.SummaryCommand;
 import seedu.deliverymans.logic.commands.universal.UndoCommand;
+import seedu.deliverymans.logic.parser.customer.CustomerParser;
+import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
+import seedu.deliverymans.logic.parser.restaurant.RestaurantParser;
 import seedu.deliverymans.logic.parser.universal.Context;
 
 /**
@@ -99,13 +103,18 @@ public class TrieManager {
      */
     private void addUniversalCommands() {
         insertCommandToAllTries(AddOrderCommand.COMMAND_WORD);
+        insertCommandToAllTries(CompleteOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(DeleteOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(EditOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(ExitCommand.COMMAND_WORD);
         insertCommandToAllTries(HelpCommand.COMMAND_WORD);
+        insertCommandToAllTries(ListOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(RedoCommand.COMMAND_WORD);
-        insertCommandToAllTries(SummaryCommand.COMMAND_WORD);
+        // insertCommandToAllTries(SummaryCommand.COMMAND_WORD);
         insertCommandToAllTries(UndoCommand.COMMAND_WORD);
+        insertCommandToAllTries(CustomerParser.COMMAND_WORD);
+        insertCommandToAllTries(DeliverymanParser.COMMAND_WORD);
+        insertCommandToAllTries(RestaurantParser.COMMAND_WORD);
     }
 
     /**

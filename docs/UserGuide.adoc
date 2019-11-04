@@ -120,7 +120,7 @@ exists currently in the database.
 {nbsp} +
 
 ==== Completing an order: `-complete_order`
-This command allows you to complete an order in the database by its index. 
+This command allows you to complete an order in the database by its index.
 
 Format: `-complete_order INDEX`
 
