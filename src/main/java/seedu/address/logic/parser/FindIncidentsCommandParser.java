@@ -55,13 +55,13 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_ID)) {
             IncidentId idKeywords = ParserUtil.parseId(argMultimap.getValue(SEARCH_PREFIX_ID).get());
-            predicateArr.add(new IdKeywordsPredicate(idKeywords));
+            predicateArr.add(new IdKeywordsPredicate(idKeywords.getId()));
         }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_OPERATOR)) {
             Name nameKeywords = ParserUtil.parseName(argMultimap.getValue(SEARCH_PREFIX_OPERATOR).get());
             String[] nameKeywordsArr = nameKeywords.fullName.split("\\s+");
-            predicateArr.add(new NameKeywordsPredicate(Arrays.asList(nameKeywordsArr)));
+            predicateArr.add(new NameKeywordsPredicate(Arrays.asList(nameKeywordsArr), false));
         }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_SELF)) {

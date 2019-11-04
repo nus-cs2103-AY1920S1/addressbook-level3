@@ -12,16 +12,24 @@ import seedu.address.model.person.Name;
  */
 public class NameKeywordsPredicate implements Predicate<Incident> {
     private final List<String> keywords;
+    private final boolean isFullMatch;
 
-    public NameKeywordsPredicate(List<String> nameKeywords) {
+    public NameKeywordsPredicate(List<String> nameKeywords, boolean isFullMatch) {
         this.keywords = nameKeywords;
+        this.isFullMatch = isFullMatch;
     }
 
     @Override
     public boolean test(Incident incident) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getOperator().getName().fullName,
-                        keyword));
+        if (isFullMatch) {
+            return keywords.stream()
+                    .allMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getOperator().getName().fullName,
+                            keyword));
+        } else {
+            return keywords.stream()
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getOperator().getName().fullName,
+                            keyword));
+        }
     }
 
     @Override
