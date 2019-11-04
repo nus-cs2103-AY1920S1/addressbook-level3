@@ -286,7 +286,7 @@ public class AddEarningsCommandTest {
         }
 
         @Override
-        public void afterAddTask(Task task) {
+        public void afterAddTask() {
             throw new AssertionError("This method should not be called.");
         }
 
