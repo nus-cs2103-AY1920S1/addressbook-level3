@@ -1,9 +1,19 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_EXPENSE_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalExpenses.CHRISTMAS;
+import static seedu.address.testutil.TypicalExpenses.SHOPPING;
+import static seedu.address.testutil.TypicalExpenses.VALENTINES;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 
 import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

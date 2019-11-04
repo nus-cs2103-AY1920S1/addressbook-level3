@@ -36,13 +36,9 @@ public class AutoComplete {
     private static Word[] importDictionary(InputStream is) {
         Word[] queries = null;
         try {
-            is.mark(0);
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            int lines = 0;
-            while (reader.readLine() != null) {
-                lines++;
-            }
-            is.reset();
+            int lines = Integer.parseInt(reader.readLine());
+
             queries = new Word[lines];
             for (int i = 0; i < lines; i++) {
                 String line = reader.readLine();

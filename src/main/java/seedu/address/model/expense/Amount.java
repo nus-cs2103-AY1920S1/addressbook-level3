@@ -24,6 +24,7 @@ public class Amount {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         value = amount;
+        //TODO: Remove $ from requirement or standaraize all displays with $.
     }
 
     /**

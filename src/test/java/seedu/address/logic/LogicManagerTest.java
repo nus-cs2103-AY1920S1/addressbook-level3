@@ -1,7 +1,13 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_VODKA;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalExpenses.VODKA;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,11 +27,13 @@ import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.BudgetList;
 import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.expense.Expense;
 import seedu.address.storage.JsonBudgetListStorage;
 import seedu.address.storage.JsonExchangeDataStorage;
 import seedu.address.storage.JsonExpenseListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.ExpenseBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -74,9 +83,12 @@ public class LogicManagerTest {
             new JsonExpenseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExpenseList.json"));
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        JsonBudgetListStorage budgetListStorage =
+            new JsonBudgetListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionBudgetList.json"));
         JsonExchangeDataStorage exchangeDataStorage =
             new JsonExchangeDataStorage(temporaryFolder.resolve("ioExceptionExchangeData.json"));
-        StorageManager storage = new StorageManager(expenseListStorage, exchangeDataStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(expenseListStorage, budgetListStorage, exchangeDataStorage,
+            userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

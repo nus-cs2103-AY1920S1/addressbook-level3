@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_RUM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
@@ -17,12 +20,15 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.BudgetList;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
+import seedu.address.testutil.ExpenseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -41,6 +47,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
         Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new BudgetList(model.getBudgetList()),
             new ExchangeData(model.getExchangeData()), new UserPrefs());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
 
@@ -63,7 +70,9 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
         Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
-            new ExchangeData(model.getExchangeData()), new UserPrefs());
+            new BudgetList(model.getBudgetList()),
+            new ExchangeData(model.getExchangeData()),
+            new UserPrefs());
         expectedModel.setExpense(lastExpense, editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -77,7 +86,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
         Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
-            new ExchangeData(model.getExchangeData()), new UserPrefs());
+            new BudgetList(model.getBudgetList()), new ExchangeData(model.getExchangeData()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -94,7 +103,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
         Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
-            new ExchangeData(model.getExchangeData()), new UserPrefs());
+            new BudgetList(model.getBudgetList()), new ExchangeData(model.getExchangeData()), new UserPrefs());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

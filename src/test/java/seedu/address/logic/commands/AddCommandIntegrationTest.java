@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBudgets.getTypicalBudgetList;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
@@ -13,6 +14,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
+import seedu.address.testutil.ExpenseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -31,7 +33,7 @@ public class AddCommandIntegrationTest {
     public void execute_newExpense_success() {
         Expense validExpense = new ExpenseBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getExpenseList(), model.getExchangeData(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseList(), model.getBudgetList(), model.getExchangeData(), new UserPrefs());
         expectedModel.addExpense(validExpense);
 
         assertCommandSuccess(new AddCommand(validExpense), model,

@@ -2,6 +2,7 @@ package seedu.address.model.rates;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -39,9 +40,11 @@ public class Rates {
      */
     @Override
     public boolean equals(Object other) {
-        return other == this
-            || (other instanceof Rates // instanceof handles nulls
-            && other.equals(this)); // state check
+        Rates toCompare = (Rates) other;
+
+        return (toCompare.getRates().keySet().equals(this.getRates().keySet()) &&
+            new ArrayList<>(toCompare.getRates().values()).equals(
+                new ArrayList<>(this.getRates().values()))); //Arraylist Compare values
     }
 
     @Override

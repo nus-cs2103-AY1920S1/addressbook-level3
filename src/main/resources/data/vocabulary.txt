@@ -1,3 +1,4 @@
+97
 1000	add
 1000	clear
 1000	delete
@@ -10,6 +11,8 @@
 1000	view
 1000	undo
 1000	redo
+1000	listbudgets
+1000	editBudget
 100	n/
 100	a/
 100	d/
@@ -83,3 +86,13 @@
 100	ILS
 100	KRW
 100	PLN
+100	coffee
+100	textbook
+100	food
+100	education
+100	school
+100	breakfast
+100	lunch
+100	dinner
+100	travel
+100	hangout
