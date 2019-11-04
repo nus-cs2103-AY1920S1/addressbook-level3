@@ -53,10 +53,10 @@ class JsonWordBankStorageTest {
         assertThrows(NullPointerException.class, () -> saveWordBank(null, "SomeFile.json", "sixthTest"));
     }
 
-//    @Test
-//    void saveWordBank_nullFilePath_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> saveWordBank(new WordBank("test"), null, "seventhTest"));
-//    }
+    @Test
+    void saveWordBank_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveWordBank(new WordBank("test"), null, "seventhTest"));
+    }
 
     @Test
     void readAndSaveWordBank_allInOrder_success() throws Exception {
