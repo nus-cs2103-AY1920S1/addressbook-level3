@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.note.NoteCommandParserTest.INVALID_SYNTAX_COMMAND;
+import static seedu.address.logic.parser.note.NoteCommandParserTest.INVALID_NOTE_SYNTAX_COMMAND;
 import static seedu.address.logic.parser.note.NoteCommandParserTest.VALID_COMMAND_DEFAULT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
@@ -51,7 +51,7 @@ public class NjoyParserTest {
     @Test
     public void parseCommand_invalidNote_throwsException() {
         assertThrows(ParseException.class, () ->
-            parser.parseCommand(NoteCommand.COMMAND_WORD + INVALID_SYNTAX_COMMAND));
+            parser.parseCommand(NoteCommand.COMMAND_WORD + INVALID_NOTE_SYNTAX_COMMAND));
     }
 
 

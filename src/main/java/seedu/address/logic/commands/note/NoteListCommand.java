@@ -13,7 +13,9 @@ import seedu.address.model.note.ReadOnlyNotesRecord;
  */
 public class NoteListCommand extends NoteCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " list";
+    public static final String MESSAGE_USAGE = "Example: "
+            + COMMAND_WORD + " list\n"
+            + "The list command cannot have additional fields.";
     public static final String MESSAGE_SUCCESS = "This is the list of notes: " + "\n";
 
     @Override

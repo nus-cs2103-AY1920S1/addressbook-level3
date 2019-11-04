@@ -826,13 +826,16 @@ The options supported by this feature includes:
 . `priority(optional)` - The level of priority placed on this note. It can be of type `unmarked`, `low`, `medium` or `high`. It is by default set to unmarked if field is omitted.
 
 [NOTE]
+All non-optional fields are required and also cannot consist exclusively of whitespace characters. All leading and trailing whitespaces of the fields will be ignored.
+
+[NOTE]
 All priority fields can be in either lowercase or UPPERCASE. (e.g. `note note/sample title desc/sample desc priority/low` is the same as e.g. `note note/sample title desc/sample desc priority/LOW`).
 
 [NOTE]
 `priority` levels are distinguishable by their colour in the User Interface. `unmarked` or default notes have grey panels, while `low`, `medium` and `high` priority notes have green, yellow and red panels respectively.
 
 [NOTE]
-The notes panel on the User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see <<Feature-Note-List, notes list>> command.
+The notes panel is not responsive. The User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see <<Feature-Note-List, notes list>> command.
 
 Examples:
 
@@ -843,7 +846,7 @@ Creates a high priority note with title _'Tuesday 1pm'_ with description _'Scien
 
 ==== Editing a note
 
-Edit a note currently stored. All fields are *optional*. +
+Edit a note currently stored. All fields are *optional* but at least one field has to be provided for editing. +
 Format: `note [INDEX] note/... desc/... priority/...`
 
 [NOTE]
@@ -895,6 +898,20 @@ Example:
 * `note list` +
 Lists the notes.
 
+[[Feature-Note-Sort]]
+==== Sorting notes
+
+Sorts the list of notes by priority in descending order of the Priorities `HIGH`, `MEDIUM`, `LOW` and `UNMARKED`. +
+Format: `note sort`
+
+The options supported by this feature includes: +
+*_-This command does not support any additional options-_*
+
+Example:
+
+* `note sort` +
+Sorts the notes by priority.
+
 === Statistics - `statistics`
 
 ==== Generating a Statistics report
@@ -935,20 +952,24 @@ Shows the statistics report for excel file named _’6B Prelim Scores’_. It al
 
 The data file needs to be specified in the following format to ensure that the statistics report is successfully generated. +
 
-[WARNING]
+[NOTE]
 Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
+If the report is generated, it might be correct but the behavior is not guaranteed should the specifications mentioned below be violated or overlooked.
 
 * *Entries starts at cell A1 with the cell `Students`, regardless of whether there is score data.*
 * *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
 * *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
-* *All student names have unique identifiers. (e.g. two students named Jason should be identified as `Jason 1` and `Jason 2`)*
+* *There is at least one student.*
+* *There is at least one subject.*
+* *All student names have unique identifiers. (e.g. two students named Jason could be identified as `Jason 1` and `Jason 2`)*
+* *All subject names have unique identifiers. (e.g. two subjects named Math could be identified as `Advanced Math` and `Elementary Math`)*
 * *All students have a corresponding score for all subjects*
 * *All scores are numeric characters (integer or decimals)*
 * *There are no gaps between rows and columns.*
 * *All cells within the row and column range have at least one non-whitespace characters.*
 * *All cells outside the row and column range are empty.*
 
-[WARNING]
+[NOTE]
 Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
 
 * *All scores should be in percentage terms. (0 ~ 100)*
@@ -1018,5 +1039,6 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Editing a Note* : `note [INDEX] note/... desc/... priority/...`
 * *Deleting a Note* : `note delete [INDEX]`
 * *Listing Notes* : `note list`
+* *Sorting Notes* : `note sort`
 * *Generating Statistics* : `statistics file/...`
 * *Generating Statistics and Saving* : `statistics file/... print/...`
