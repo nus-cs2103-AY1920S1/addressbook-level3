@@ -27,7 +27,7 @@ public class UnaliasCommand extends Command {
      */
     public UnaliasCommand(String alias) {
         requireNonNull(alias);
-        this.alias = alias.trim();
+        this.alias = alias.trim().toLowerCase();
     }
 
     @Override

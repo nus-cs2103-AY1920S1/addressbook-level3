@@ -36,8 +36,8 @@ public class AliasCommand extends Command {
     public AliasCommand(String alias, String aliasTo) {
         requireNonNull(alias);
         requireNonNull(aliasTo);
-        this.alias = alias.trim();
-        this.aliasTo = aliasTo.trim();
+        this.alias = alias.trim().toLowerCase();
+        this.aliasTo = aliasTo.trim().toLowerCase();
     }
 
     @Override
