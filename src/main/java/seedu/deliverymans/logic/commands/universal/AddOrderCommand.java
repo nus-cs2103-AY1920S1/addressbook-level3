@@ -46,6 +46,8 @@ public class AddOrderCommand extends Command {
     private static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
     private static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
     private static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
+    private static String[] prefixesList = {PREFIX_CUSTOMER.getPrefix(), PREFIX_RESTAURANT.getPrefix(),
+            PREFIX_FOOD.getPrefix(), PREFIX_QUANTITY.getPrefix()};
 
     private final Order toAdd;
 
@@ -126,6 +128,10 @@ public class AddOrderCommand extends Command {
         }
 
         customerToAdd.addOrder(toAdd, restaurantToAdd.getTags());
+    }
+
+    public static String[] getPrefixesList() {
+        return prefixesList;
     }
 
     @Override

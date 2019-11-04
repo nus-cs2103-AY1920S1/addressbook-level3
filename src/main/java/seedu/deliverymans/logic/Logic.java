@@ -1,6 +1,7 @@
 package seedu.deliverymans.logic;
 
 import java.nio.file.Path;
+import java.util.LinkedList;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
@@ -24,14 +25,19 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    //=========== Autocomplete =========================================================
+    LinkedList<String> getAutoCompleteResults(String input);
+
     //=========== Customer =============================================================
+
     /**
      * Returns the CustomerDatabase.
      *
@@ -39,16 +45,20 @@ public interface Logic {
      */
     ReadOnlyCustomerDatabase getCustomerDatabase();
 
-    /** Returns an unmodifiable view of the filtered list of customers */
+    /**
+     * Returns an unmodifiable view of the filtered list of customers
+     */
     ObservableList<Customer> getFilteredCustomerList();
 
     Customer getCustomerOrders();
+
     /**
      * Returns the user prefs' customer database file path.
      */
     Path getCustomerDatabaseFilePath();
 
     //=========== Deliveryman =============================================================
+
     /**
      * Returns the DeliverymenDatabase.
      *
@@ -56,7 +66,9 @@ public interface Logic {
      */
     ReadOnlyDeliverymenDatabase getDeliverymenDatabase();
 
-    /** Returns an unmodifiable view of the filtered list of deliverymen */
+    /**
+     * Returns an unmodifiable view of the filtered list of deliverymen
+     */
     ObservableList<Deliveryman> getFilteredDeliverymenList();
 
     /**
@@ -71,6 +83,7 @@ public interface Logic {
     ObservableList<Deliveryman> getDeliveringDeliverymenList();
 
     //=========== Restaurant =============================================================
+
     /**
      * Returns the RestaurantDatabase.
      *
@@ -78,10 +91,14 @@ public interface Logic {
      */
     ReadOnlyRestaurantDatabase getRestaurantDatabase();
 
-    /** Returns an unmodifiable view of the filtered list of restaurants */
+    /**
+     * Returns an unmodifiable view of the filtered list of restaurants
+     */
     ObservableList<Restaurant> getFilteredRestaurantList();
 
-    /** Returns an unmodifiable view of the editing restaurant */
+    /**
+     * Returns an unmodifiable view of the editing restaurant
+     */
     ObservableList<Restaurant> getEditingRestaurantList();
 
     /**
@@ -90,6 +107,7 @@ public interface Logic {
     Path getRestaurantDatabaseFilePath();
 
     //=========== Order =============================================================
+
     /**
      * Returns the AddressBook.
      *
@@ -97,7 +115,9 @@ public interface Logic {
      */
     ReadOnlyOrderDatabase getOrderBook();
 
-    /** Returns an unmodifiable view of the filtered list of orders */
+    /**
+     * Returns an unmodifiable view of the filtered list of orders
+     */
     ObservableList<Order> getFilteredOrderList();
 
     /**
