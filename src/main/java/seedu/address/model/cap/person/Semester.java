@@ -31,6 +31,10 @@ public class Semester {
         return academicYear;
     }
 
+    public SemesterPeriod getSemesterPeriod() {
+        return semesterPeriod;
+    }
+
     /**
      * Compares if two modules are the same.
      * @param otherSemester module of comparison
@@ -44,10 +48,6 @@ public class Semester {
         return otherSemester != null
                 && otherSemester.getSemesterPeriod().equals(getSemesterPeriod())
                 && (otherSemester.getAcademicYear().equals(getAcademicYear()));
-    }
-
-    public SemesterPeriod getSemesterPeriod() {
-        return semesterPeriod;
     }
 
     /**
