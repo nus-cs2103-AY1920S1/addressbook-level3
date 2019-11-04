@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -43,6 +44,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+              <MenuItem fx:id="messageMenuItem" mnemonicParsing="false" onAction="#handleMotd" text="Message of the Day" />
           </Menu>
         </MenuBar>
             <GridPane>
@@ -72,15 +74,43 @@
                         <Insets left="5.0" right="5.0" />
                      </padding>
                   </VBox>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Patients 👪" GridPane.columnIndex="1">
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding></Label>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Appointments 📆">
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Label>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Patients" StackPane.alignment="CENTER_LEFT">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+                           <image>
+                              <Image url="@../images/patients.png" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                           <StackPane.margin>
+                              <Insets left="85.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Appointments">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7" StackPane.alignment="CENTER_LEFT">
+                           <image>
+                              <Image url="@../images/appointments.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets left="135.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                     </children>
+                  </StackPane>
                </children>
             </GridPane>
 
