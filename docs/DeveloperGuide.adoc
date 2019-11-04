@@ -871,7 +871,61 @@ student with student’s existing modules.
 *Use case ends.*
 
 [discrete]
-=== (Coming in 2.0) UC06: Encrypt and Archive this semester’s appeal cases
+=== UC06: Add a module to a student
+Numerous extensions are shown, there are many criteria that prevent a module from being
+added to a student.
+*MSS*
+
+Pre-condition: System has only just been opened, and is showing a list
+of appeals, modules and students by default.
+
+1. Admin request to add a module to a student
+2. MAMS approves requests and adds the module to the student
+3. Admin closes MAMS program
+4. MAMS exits.
++
+*Use case ends.*
+
+*Extensions*
+
+[none]
+* 2a. MAMS detects an invalid module code given.
++
+[none]
+** 2a1. Admin repeat requests with correct module code given.
+** Use case resumes from step 2
+
+[none]
+* 2b. MAMS detects an invalid student id given.
++
+[none]
+** 2b1. Admin repeat requests with correct matric id given.
+** Use case resumes from step 2
+
+[none]
+* 2c. MAMS detects that the student is already taking the module.
++
+[none]
+** 2c1. Admin searches for the student in the list.
+
+
+[none]
+* 2d. MAMS detects that the student has already completed the module before.
++
+[none]
+* 2e. MAMS detects that the quota limit for the Module has been reached.
++
+[none]
+* 2f. MAMS detects that the student has reached max credit limit, and cannot take his module.
++
+[none]
+* 2g. MAMS detects that the module is clashing with the modules the student is currently taking.
++
+[none]
+** Use case for 2d-2g resumes from step 3
+
+[discrete]
+=== (Coming in 2.0) UC07: Encrypt and Archive this semester’s appeal cases
 
 *MSS*
 

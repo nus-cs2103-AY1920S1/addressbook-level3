@@ -118,7 +118,6 @@ public class AddModCommand extends ModCommand {
         checkIfStudentCompletedModule(studentToEdit, moduleToEdit.getModuleCode());
         checkQuotaLimit(moduleToEdit);
         checkStudentWorkloadLimit(studentToEdit);
-        checkIfStudentCompletedModule(studentToEdit, moduleToEdit.getModuleCode());
         checkIfModuleClash(studentToEdit, model.getFullModuleList(), moduleToEdit.getModuleCode());
 
         //add module to student
