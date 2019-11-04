@@ -128,7 +128,8 @@ public class DeleteAssignmentCommand extends AssignmentCommand {
             }
         }
         return new CommandResult(
-                    String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, targetAssignment.getAssignName()));
+                    String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, targetAssignment.getAssignName()),
+                targetTutorial.getAssignments());
     }
 
     @Override

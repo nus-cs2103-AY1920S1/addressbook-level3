@@ -55,7 +55,7 @@ public class ListCommandTest {
         // null -> returns false
         assertFalse(listFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different index -> returns false
         assertFalse(listFirstCommand.equals(listSecondCommand));
     }
 

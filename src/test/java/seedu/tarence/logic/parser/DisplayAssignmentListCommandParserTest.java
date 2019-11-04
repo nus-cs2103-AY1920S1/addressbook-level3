@@ -10,33 +10,24 @@ import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tarence.logic.commands.ListCommand;
-import seedu.tarence.model.student.StudentsInTutorialPredicate;
+import seedu.tarence.logic.commands.DisplayAssignmentListCommand;
 
-public class ListCommandParserTest {
+public class DisplayAssignmentListCommandParserTest {
 
-    private ListCommandParser parser = new ListCommandParser();
-    @Test
-    public void parse_emptyArg_throwsParseException() {
-        ListCommand expectedListCommand =
-                new ListCommand(true);
-        assertParseSuccess(parser, "     ", expectedListCommand);
-    }
+    private DisplayAssignmentListCommandParser parser = new DisplayAssignmentListCommandParser();
 
     @Test
     public void parse_validArgs_returnsListCommand() {
-        // no leading and trailing whitespaces
-        ListCommand expectedListCommand =
-                new ListCommand(new StudentsInTutorialPredicate(INDEX_FIRST_IN_LIST));
-        assertParseSuccess(parser, "1", expectedListCommand);
-
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n 1 \n \t", expectedListCommand);
+        String validListInput = "1";
+        DisplayAssignmentListCommand expectedListCommand =
+                new DisplayAssignmentListCommand(INDEX_FIRST_IN_LIST);
+        assertParseSuccess(parser, validListInput, expectedListCommand);
     }
 
     @Test
     public void parse_invalidArgs_returnsListCommand() {
-        String invalidIndexMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
+        String invalidIndexMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DisplayAssignmentListCommand.MESSAGE_USAGE);
         // Invalid index - non-integer
         assertParseFailure(parser, INVALID_TUTORIAL_INDEX_DESC_1, invalidIndexMessage);
 

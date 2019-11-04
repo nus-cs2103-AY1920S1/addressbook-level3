@@ -2,6 +2,7 @@ package seedu.tarence.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -56,6 +57,7 @@ public class LogicManager implements Logic {
         Optional<Assignment> assignmentToDisplay = Optional.empty();
         Optional<Map<Student, Integer>> studentsScoreToDisplay = Optional.empty();
         Optional<DisplayFormat> displayFormat = Optional.empty();
+        Optional<List<Assignment>> assignmentsToDisplay = Optional.empty();
 
         // processes multiple commands in user input if they exit
         String[] commandStrings = commandText.split("\\+");
@@ -117,6 +119,11 @@ public class LogicManager implements Logic {
                 studentsScoreToDisplay = Optional.of(currCommandResult.getStudentScores());
                 displayFormat = Optional.of(currCommandResult.getAssignmentDisplayFormat());
             }
+
+            if (currCommandResult.isAssignmentsDisplay()) {
+                logger.info("----------------[COMMAND RESULT][Displaying Assignments]");
+                assignmentsToDisplay = Optional.of(currCommandResult.getAssignmentsToDisplay());
+            }
         }
 
         // creates a new command concatenating all command result messages into a single result
@@ -127,6 +134,8 @@ public class LogicManager implements Logic {
         } else if (displayFormat.isPresent() && assignmentToDisplay.isPresent() && studentsScoreToDisplay.isPresent()) {
             commandResult = new CommandResult(combinedFeedback.toString(), assignmentToDisplay.get(),
                     studentsScoreToDisplay.get(), displayFormat.get());
+        } else if (assignmentsToDisplay.isPresent()) {
+            commandResult = new CommandResult(combinedFeedback.toString(), assignmentsToDisplay.get());
         } else {
             commandResult = new CommandResult(combinedFeedback.toString());
         }

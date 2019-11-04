@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -84,12 +86,19 @@ public class CommandResultTest {
                 .build();
         dummyMap.put(alice1, 5);
         dummyMap.put(alice2, 5);
+
         commandResult = new CommandResult("feedback", dummyAssignment, dummyMap, DisplayFormat.GRAPH);
         assertTrue(DisplayFormat.GRAPH.equals(commandResult.getAssignmentDisplayFormat()));
         assertFalse(DisplayFormat.TABLE.equals(commandResult.getAssignmentDisplayFormat()));
         assertTrue(dummyMap.equals(commandResult.getStudentScores()));
         assertTrue(dummyAssignment.equals(commandResult.getAssignmentToDisplay()));
         assertTrue(commandResult.isAssignmentDisplay());
+
+        // Set assignment list to display
+        List<Assignment> dummyAssignmentList = new ArrayList<>();
+        commandResult = new CommandResult("feedback", dummyAssignmentList);
+        assertTrue(commandResult.isAssignmentsDisplay());
+        assertTrue(dummyAssignmentList.equals(commandResult.getAssignmentsToDisplay()));
     }
 
     @Test

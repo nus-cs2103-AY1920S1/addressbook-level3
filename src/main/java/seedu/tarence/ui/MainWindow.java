@@ -1,14 +1,11 @@
 package seedu.tarence.ui;
 
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
-
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
@@ -46,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private TutorialListPanel tutorialListPanel;
     private PersonListPanel personListPanel;
     private DefaultAssignmentPanel defaultAssignmentPanel;
+    private AssignmentListPanel assignmentListPanel;
     private AssignmentTablePanel assignmentTablePanel;
     private AssignmentStatisticsPanel assignmentStatisticsPanel;
     private AttendancePanel attendancePanel;
@@ -175,6 +173,7 @@ public class MainWindow extends UiPart<Stage> {
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         // Set default stackpane
+        assignmentListPanel = new AssignmentListPanel();
         attendancePanel = new AttendancePanel();
         assignmentTablePanel = new AssignmentTablePanel();
         assignmentStatisticsPanel = new AssignmentStatisticsPanel();
@@ -229,18 +228,6 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
-    }
-
-    private Label getPlaceHolderLabel() {
-        String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
-                + "To see all user commands, type \"help\"\n"
-                + "To view a class attendance, type:\n"
-                + "displayAttendance "
-                + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
-                + PREFIX_MODULE + "MODULE_CODE \n";
-
-        Label placeholder = new Label(defaultMessage);
-        return placeholder;
     }
 
     /**
@@ -319,6 +306,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowAttendance()) {
                 displayAttendance(commandResult.getTutorialAttendance());
                 handleAttendanceTabSelected();
+            }
+
+            if (commandResult.isAssignmentsDisplay()) {
+                displayAssignmentList(commandResult.getAssignmentsToDisplay());
             }
 
             if (commandResult.isChangeTabs()) {
@@ -445,4 +436,18 @@ public class MainWindow extends UiPart<Stage> {
     private void updateCommandBoxWindowWidth(double newWidth) {
         commandBox.updateWindowWidth(newWidth);
     }
+
+    /**
+     * Displays the list of assignments and swiches to the assignment tab.
+     */
+    private void displayAssignmentList(List<Assignment> assignments) {
+        assignmentPanelPlaceholder.getChildren().clear();
+        logger.info("Listing assignments");
+        assignmentListPanel.generateList(assignments);
+        assignmentPanelPlaceholder.getChildren().add(assignmentListPanel.getPane());
+        if (!assignmentTab.isSelected()) {
+            displayTabPane.getSelectionModel().select(assignmentTab);
+        }
+    }
+
 }

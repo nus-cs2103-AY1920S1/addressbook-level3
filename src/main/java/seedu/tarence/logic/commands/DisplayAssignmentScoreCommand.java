@@ -31,7 +31,8 @@ public class DisplayAssignmentScoreCommand extends Command {
         "displayscore", "displayassignscore", "displayassign", "displayassignment"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays the tutorial assignment identified by the tutorial name, module code and assignment name.\n"
+            + ": Displays the tutorial assignment identified by the tutorial index, assignment name "
+            + "and display format.\n"
             + "Parameters:\n"
             + PREFIX_INDEX + "TUTORIAL_INDEX "
             + PREFIX_NAME + "ASSIGNMENT_NAME "

@@ -1,7 +1,9 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -31,6 +33,9 @@ public class CommandResult {
     /** The application should display assignment */
     private boolean hasAssignmentDisplay;
 
+    /** The application should display an assignment list */
+    private boolean hasAssignmentsToDisplay;
+
     /** The attendance to be displayed by the application */
     private Tutorial tutorialAttendanceToDisplay;
 
@@ -46,6 +51,9 @@ public class CommandResult {
     /** The type of student's scores to display **/
     private Map<Student, Integer> studentScores;
 
+    /** The assignment list to display **/
+    private List<Assignment> assignments;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -56,6 +64,7 @@ public class CommandResult {
         this.hasAttendanceDisplay = false;
         this.changeTabs = false;
         this.hasAssignmentDisplay = false;
+        this.hasAssignmentsToDisplay = false;
     }
 
 
@@ -72,11 +81,8 @@ public class CommandResult {
      * a specified {@code Tutorial} and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, Tutorial tutorialAttendanceToDisplay) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = false;
-        this.exit = false;
-        this.changeTabs = false;
-        this.hasAssignmentDisplay = false;
+        this(feedbackToUser);
+        requireAllNonNull(feedbackToUser, tutorialAttendanceToDisplay);
         this.tutorialAttendanceToDisplay = tutorialAttendanceToDisplay;
         this.hasAttendanceDisplay = true;
     }
@@ -86,11 +92,8 @@ public class CommandResult {
      * a specified {@code tabToDisplay} and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, TabNames tabToDisplay) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = false;
-        this.exit = false;
-        this.hasAttendanceDisplay = false;
-        this.hasAssignmentDisplay = false;
+        this(feedbackToUser);
+        requireAllNonNull(feedbackToUser, tabToDisplay);
         this.tabToDisplay = tabToDisplay;
         this.changeTabs = true;
     }
@@ -102,15 +105,22 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, Assignment assignment, Map<Student, Integer> studentScores,
                          DisplayFormat displayFormat) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = false;
-        this.exit = false;
-        this.changeTabs = false;
-        this.hasAttendanceDisplay = false;
+        this(feedbackToUser);
+        requireAllNonNull(feedbackToUser, assignment, studentScores, displayFormat);
         this.hasAssignmentDisplay = true;
         this.assignmentToDisplay = assignment;
         this.assignmentDisplayFormat = displayFormat;
         this.studentScores = studentScores;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code Assignmnet} list and
+     * other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, List<Assignment> assignments) {
+        this(feedbackToUser);
+        this.hasAssignmentsToDisplay = true;
+        this.assignments = assignments;
     }
 
     public String getFeedbackToUser() {
@@ -137,6 +147,10 @@ public class CommandResult {
         return hasAssignmentDisplay;
     }
 
+    public boolean isAssignmentsDisplay() {
+        return this.hasAssignmentsToDisplay;
+    }
+
     public TabNames getTabToDisplay() {
         return this.tabToDisplay;
     }
@@ -157,6 +171,10 @@ public class CommandResult {
         return this.studentScores;
     }
 
+    public List<Assignment> getAssignmentsToDisplay() {
+        return this.assignments;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -174,13 +192,14 @@ public class CommandResult {
                 && exit == otherCommandResult.exit
                 && hasAttendanceDisplay == otherCommandResult.hasAttendanceDisplay
                 && changeTabs == otherCommandResult.changeTabs
-                && hasAssignmentDisplay == otherCommandResult.hasAssignmentDisplay;
+                && hasAssignmentDisplay == otherCommandResult.hasAssignmentDisplay
+                && hasAssignmentsToDisplay == otherCommandResult.hasAssignmentsToDisplay;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit, hasAttendanceDisplay, changeTabs,
-                hasAssignmentDisplay);
+                hasAssignmentDisplay, hasAssignmentsToDisplay);
     }
 
     @Override

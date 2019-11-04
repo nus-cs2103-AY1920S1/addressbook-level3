@@ -121,7 +121,7 @@ public class AddAssignmentCommand extends AssignmentCommand {
         }
 
         return new CommandResult(
-                String.format(MESSAGE_ADD_ASSIGNMENT_SUCCESS, assignName.get()));
+                String.format(MESSAGE_ADD_ASSIGNMENT_SUCCESS, assignName.get()), targetTutorial.getAssignments());
     }
 
     @Override
