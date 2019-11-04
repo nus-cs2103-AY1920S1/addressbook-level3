@@ -28,7 +28,8 @@ public class AlgoBaseUiActionParser {
             return new CloseDetailsTabUiActionParser().parse(uiActionDetails);
         case SWITCH_DETAILS_TAB:
             return new SwitchDetailsTabUiActionParser().parse(uiActionDetails);
-
+        case SET_PLAN:
+            return new SetPlanUiActionParser().parse(uiActionDetails);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_UI_ACTION);
         }

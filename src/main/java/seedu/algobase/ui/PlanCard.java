@@ -100,6 +100,10 @@ public class PlanCard extends UiPart<Region> {
                             ModelType.PLAN,
                             plan.getId()
                         ));
+                        uiActionExecutor.execute(new UiActionDetails(
+                            UiActionType.SET_PLAN,
+                            plan.getId()
+                        ));
                     }
                 }
             }
