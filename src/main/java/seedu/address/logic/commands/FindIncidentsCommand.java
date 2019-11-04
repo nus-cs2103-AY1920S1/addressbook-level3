@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -75,11 +76,12 @@ public class FindIncidentsCommand extends Command {
         requireNonNull(model);
         if (isSelfSearch) {
             // TODO: quick fix to allow searching using first name. when full name is allowed in search, change this
-            Name operatorName = new Name(model.getLoggedInPerson().getName().fullName.split(" ", 2)[0]);
+            Name operatorName = model.getLoggedInPerson().getName();
+            String[] opNameKeywords = operatorName.fullName.split("\\s+");
             if (predicate != null) {
-                predicate = predicate.and(new NameKeywordsPredicate(operatorName));
+                predicate = predicate.and(new NameKeywordsPredicate(Arrays.asList(opNameKeywords), true));
             } else {
-                predicate = new NameKeywordsPredicate(operatorName);
+                predicate = new NameKeywordsPredicate(Arrays.asList(opNameKeywords), true);
             }
         }
 

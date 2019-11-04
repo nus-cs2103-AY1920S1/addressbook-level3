@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -48,17 +49,19 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_DESCRIPTION)) {
             Description descriptionKeywords = ParserUtil.parseDescription(argMultimap
                     .getValue(SEARCH_PREFIX_DESCRIPTION).get());
-            predicateArr.add(new DescriptionKeywordsPredicate(descriptionKeywords));
+            String[] descKeywordsArr = descriptionKeywords.toString().split("\\s+");
+            predicateArr.add(new DescriptionKeywordsPredicate(Arrays.asList(descKeywordsArr)));
         }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_ID)) {
             IncidentId idKeywords = ParserUtil.parseId(argMultimap.getValue(SEARCH_PREFIX_ID).get());
-            predicateArr.add(new IdKeywordsPredicate(idKeywords));
+            predicateArr.add(new IdKeywordsPredicate(idKeywords.getId()));
         }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_OPERATOR)) {
             Name nameKeywords = ParserUtil.parseName(argMultimap.getValue(SEARCH_PREFIX_OPERATOR).get());
-            predicateArr.add(new NameKeywordsPredicate(nameKeywords));
+            String[] nameKeywordsArr = nameKeywords.fullName.split("\\s+");
+            predicateArr.add(new NameKeywordsPredicate(Arrays.asList(nameKeywordsArr), false));
         }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_SELF)) {

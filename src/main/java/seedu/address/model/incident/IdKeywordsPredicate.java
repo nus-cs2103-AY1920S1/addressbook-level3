@@ -12,8 +12,8 @@ import seedu.address.commons.util.StringUtil;
 public class IdKeywordsPredicate implements Predicate<Incident> {
     private final List<String> keywords = new ArrayList<>();
 
-    public IdKeywordsPredicate(IncidentId idKeywords) {
-        this.keywords.add(idKeywords.getId());
+    public IdKeywordsPredicate(String idKeywords) {
+        this.keywords.add(idKeywords);
     }
 
     @Override
