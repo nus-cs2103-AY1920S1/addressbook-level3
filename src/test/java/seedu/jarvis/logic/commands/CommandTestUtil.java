@@ -19,7 +19,7 @@ import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.testutil.finance.EditInstallmentDescriptorBuilder;
 

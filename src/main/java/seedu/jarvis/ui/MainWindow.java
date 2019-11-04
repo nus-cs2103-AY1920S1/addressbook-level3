@@ -23,12 +23,12 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.cca.CcaListView;
 import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.ui.finance.FinanceListView;
-import seedu.jarvis.ui.planner.TaskListView;
+import seedu.jarvis.ui.planner.PlannerUiType;
+import seedu.jarvis.ui.planner.PlannerWindow;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -158,13 +158,13 @@ public class MainWindow extends UiPart<Stage> {
 
         // filling individual tabs
         CoursePlannerWindow cpw = new CoursePlannerWindow(this, logic, model);
-        TaskListView tlv = new TaskListView(this, logic, model);
+        PlannerWindow pw = new PlannerWindow(this, logic, model, PlannerUiType.SCHEDULE);
         CcaListView clv = new CcaListView(this, logic, model);
         FinanceListView flv = new FinanceListView(this, logic, model);
 
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
-        tlv.fillPage();
-        plannerContentPlaceholder.getChildren().add(tlv.getRoot());
+        model.updateSchedule();
+        pw.fillPage();
+        plannerContentPlaceholder.getChildren().add(pw.getRoot());
 
         cpw.fillPage();
         moduleContentPlaceholder.getChildren().add(cpw.getRoot());
@@ -263,8 +263,13 @@ public class MainWindow extends UiPart<Stage> {
             toUpdatePlaceHolder = ccaContentPlaceholder;
             break;
 
-        case LIST_PLANNER:
-            newView = new TaskListView(this, logic, model);
+        case LIST_PLANNER_SCHEDULE:
+            newView = new PlannerWindow(this, logic, model, PlannerUiType.SCHEDULE);
+            toUpdatePlaceHolder = plannerContentPlaceholder;
+            break;
+
+        case LIST_PLANNER_FIND:
+            newView = new PlannerWindow(this, logic, model, PlannerUiType.FIND);
             toUpdatePlaceHolder = plannerContentPlaceholder;
             break;
 

@@ -48,7 +48,8 @@ public class ParserUtil {
                                                             + "and 'deadline' only.";
     public static final String MESSAGE_MULTIPLE_SAME_PREFIX = "Invalid command format. Only one instance of each "
                                                                 + "prefix is allowed.";
-    public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description.";
+    public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description. "
+                                                                + "Enter t/TASK-TYPE des/TASK-DESCRIPTION to continue.";
     public static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be blank";
     public static final String MESSAGE_WRONG_ORDER_DATE = "Start date for Event cannot be after end date";
 
@@ -194,8 +195,10 @@ public class ParserUtil {
                 count++;
             }
 
-            if (count == 2) {
-                if (splitDate[0].compareTo(splitDate[1]) > 0) {
+            if (splitDate.length == 2) {
+                LocalDate start = LocalDate.parse(splitDate[0], Task.getDateFormat());
+                LocalDate end = LocalDate.parse(splitDate[1], Task.getDateFormat());
+                if (start.compareTo(end) > 0) {
                     throw new ParseException(MESSAGE_WRONG_ORDER_DATE);
                 }
             }

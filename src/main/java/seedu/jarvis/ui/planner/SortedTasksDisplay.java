@@ -10,32 +10,34 @@ import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.ui.UiPart;
 
 /**
- * Represents the wrapper panel for the task list.
+ * Represents the output of any sorting of tasks - by date
+ * or tags.
  */
-public class TaskListView extends UiPart<Region> {
-    private static final String FXML = "TaskListView.fxml";
+public class SortedTasksDisplay extends UiPart<Region> {
+    public static final String FXML = "SortedTaskDisplay.fxml";
 
     @FXML
-    private ListView<Task> taskListView;
+    private ListView<Task> sortedTaskDisplay;
     @FXML
     private Label header;
 
-    public TaskListView(ObservableList<Task> taskList) {
+    public SortedTasksDisplay(ObservableList<Task> tasks) {
         super(FXML);
-        header.setText("    All Tasks:");
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
+        header.setText("  The items matching your keywords are:");
+        sortedTaskDisplay.setItems(tasks);
+        sortedTaskDisplay.setCellFactory(listView -> new SortedTaskListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Task} using a
      * {@code TaskCard}
      */
-    class TaskListViewCell extends ListCell<Task> {
+    class SortedTaskListViewCell extends ListCell<Task> {
 
         @Override
         public void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
+
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
@@ -43,5 +45,6 @@ public class TaskListView extends UiPart<Region> {
                 setGraphic(new TaskCard(task, getIndex() + 1).getRoot());
             }
         }
+
     }
 }
