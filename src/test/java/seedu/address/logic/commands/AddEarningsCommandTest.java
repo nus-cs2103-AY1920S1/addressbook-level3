@@ -136,6 +136,11 @@ public class AddEarningsCommandTest {
         }
 
         @Override
+        public ObservableList<CommandObject> getFilteredCalendarList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
@@ -278,6 +283,11 @@ public class AddEarningsCommandTest {
         @Override
         public void addTask(Task task) {
 
+        }
+
+        @Override
+        public void afterAddTask(Task task) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
