@@ -46,6 +46,7 @@ public class CustomerDeleteCommand extends Command {
         }
         int size = ordersToDelete.size();
         for (int i = 0; i < size; i++) {
+            model.updateDeliverymanStatusAfterCompletingOrder(ordersToDelete.get(i).getDeliveryman());
             model.deleteOrder(ordersToDelete.get(i));
         }
     }
