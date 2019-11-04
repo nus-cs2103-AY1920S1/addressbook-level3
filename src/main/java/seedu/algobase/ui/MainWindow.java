@@ -35,10 +35,6 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private DisplayTabPane displayTabPane;
-    private DetailsTabPane detailsTabPane;
-    private TaskManagementPane taskManagementPane;
     private ProblemListPanel problemListPanel;
     private TagListPanel tagListPanel;
     private PlanListPanel planListPanel;
@@ -64,7 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private SplitPane layoutPanePlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -79,7 +75,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
-    public Stage getPrimaryStage() {
+    Stage getPrimaryStage() {
         return primaryStage;
     }
 
@@ -121,9 +117,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        displayTabPane = getDisplayTabPane();
-        detailsTabPane = new DetailsTabPane(logic);
-        taskManagementPane = new TaskManagementPane(
+        DisplayTabPane displayTabPane = getDisplayTabPane();
+        DetailsTabPane detailsTabPane = new DetailsTabPane(logic);
+        TaskManagementPane taskManagementPane = new TaskManagementPane(
             logic.getProcessedTaskList(),
             logic.getCurrentPlan(),
             logic.getCurrentSolvedCount(),
@@ -156,7 +152,8 @@ public class MainWindow extends UiPart<Stage> {
         planListPanel = new PlanListPanel(
             logic.getProcessedPlanList(),
             logic.getGuiState().getTabManager(),
-            logic.getSaveAlgoBaseStorageRunnable()
+            logic.getSaveAlgoBaseStorageRunnable(),
+            logic.getAlgoBase()
         );
         tagListPanel = new TagListPanel(logic.getProcessedTagList());
         findRuleListPanel = new FindRuleListPanel(logic.getProcessedFindRuleList());
@@ -190,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
@@ -212,22 +209,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public ProblemListPanel getProblemListPanel() {
-        return problemListPanel;
-    }
-
-    public TagListPanel getTagListPanel() {
-        return tagListPanel;
-    }
-
-    public PlanListPanel getPlanListPanel() {
-        return planListPanel;
-    }
-
-    public FindRuleListPanel getFindRuleListPanel() {
-        return findRuleListPanel;
     }
 
     /**

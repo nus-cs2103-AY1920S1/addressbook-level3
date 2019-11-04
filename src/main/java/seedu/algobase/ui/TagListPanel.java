@@ -14,14 +14,14 @@ import seedu.algobase.model.tag.Tag;
 /**
  * Panel containing the list of tags.
  */
-public class TagListPanel extends UiPart<Region> {
+class TagListPanel extends UiPart<Region> {
     private static final String FXML = "TagListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(TagListPanel.class);
 
     @FXML
     private ListView<Tag> tagListView;
 
-    public TagListPanel(ObservableList<Tag> tagList) {
+    TagListPanel(ObservableList<Tag> tagList) {
         super(FXML);
         tagListView.setItems(tagList);
         tagListView.setCellFactory(listView -> new TagListViewCell());
@@ -30,7 +30,7 @@ public class TagListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Tag} using a {@code TagCard}.
      */
-    class TagListViewCell extends ListCell<Tag> {
+    static class TagListViewCell extends ListCell<Tag> {
         @Override
         protected void updateItem(Tag tag, boolean empty) {
             super.updateItem(tag, empty);

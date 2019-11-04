@@ -293,8 +293,13 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * Sets the given plan as the current plan in main display
      * @param plan the plan to be set as current plan
      */
-    void setCurrentPlan(Plan plan) {
+    public void setCurrentPlan(Plan plan) {
         plans.setCurrentPlan(plan);
+    }
+
+    @Override
+    public void setCurrentPlan(int index) {
+        plans.setCurrentPlan(index);
     }
 
     @Override

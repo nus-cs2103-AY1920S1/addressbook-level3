@@ -22,7 +22,7 @@ public class ListElementPointer {
      * Constructs {@code ListElementPointer} which is backed by a defensive copy of {@code list}.
      * The cursor points to the last element in {@code list}.
      */
-    public ListElementPointer(List<String> list) {
+    ListElementPointer(List<String> list) {
         this.list = new ArrayList<>(list);
         index = this.list.size() - 1;
     }
@@ -37,7 +37,7 @@ public class ListElementPointer {
     /**
      * Returns true if calling {@code #next()} does not throw a {@code NoSuchElementException}.
      */
-    public boolean hasNext() {
+    boolean hasNext() {
         int nextIndex = index + 1;
         return isWithinBounds(nextIndex);
     }
@@ -45,7 +45,7 @@ public class ListElementPointer {
     /**
      * Returns true if calling {@code #previous()} does not throw a {@code NoSuchElementException}.
      */
-    public boolean hasPrevious() {
+    boolean hasPrevious() {
         int previousIndex = index - 1;
         return isWithinBounds(previousIndex);
     }
@@ -53,7 +53,7 @@ public class ListElementPointer {
     /**
      * Returns true if calling {@code #current()} does not throw a {@code NoSuchElementException}.
      */
-    public boolean hasCurrent() {
+    private boolean hasCurrent() {
         return isWithinBounds(index);
     }
 
@@ -65,7 +65,7 @@ public class ListElementPointer {
      * Returns the next element in the list and advances the cursor position.
      * @throws NoSuchElementException if there is no more next element in the list.
      */
-    public String next() {
+    String next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
@@ -76,7 +76,7 @@ public class ListElementPointer {
      * Returns the previous element in the list and moves the cursor position backwards.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
-    public String previous() {
+    String previous() {
         if (!hasPrevious()) {
             throw new NoSuchElementException();
         }

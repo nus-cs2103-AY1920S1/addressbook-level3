@@ -131,6 +131,13 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
+     * Sets the current plan as identified by the given index.
+     */
+    public void setCurrentPlan(int index) {
+        setCurrentPlan(internalList.get(index));
+    }
+
+    /**
      * Sets the current {@code Plan}.
      */
     public void setCurrentPlan(Plan plan) {
@@ -148,7 +155,7 @@ public class PlanList implements Iterable<Plan> {
     /**
      * Sets the current {@code Plan} as empty.
      */
-    public void clearCurrentPlan() {
+    private void clearCurrentPlan() {
         currentPlan.set("");
         solvedCount.set(0);
         unsolvedCount.set(0);

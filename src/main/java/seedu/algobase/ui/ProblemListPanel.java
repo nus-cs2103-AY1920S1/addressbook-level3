@@ -15,7 +15,7 @@ import seedu.algobase.storage.SaveStorageRunnable;
 /**
  * Panel containing the list of problems.
  */
-public class ProblemListPanel extends UiPart<Region> {
+class ProblemListPanel extends UiPart<Region> {
     private static final String FXML = "ProblemListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ProblemListPanel.class);
 
@@ -25,7 +25,7 @@ public class ProblemListPanel extends UiPart<Region> {
     @FXML
     private ListView<Problem> problemListView;
 
-    public ProblemListPanel(
+    ProblemListPanel(
         ObservableList<Problem> problemList,
         WriteOnlyTabManager writeOnlyTabManager,
         SaveStorageRunnable saveStorageRunnable

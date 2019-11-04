@@ -19,7 +19,7 @@ public class FindRuleCard extends UiPart<Region> {
     private static final String FXML = "FindRuleListCard.fxml";
     private static final String DEFAULT_PREDICATE = "No restriction.";
 
-    public final ProblemSearchRule findRule;
+    final ProblemSearchRule findRule;
 
     @FXML
     private ResourceBundle resources;
@@ -44,7 +44,7 @@ public class FindRuleCard extends UiPart<Region> {
     @FXML
     private Label tag;
 
-    public FindRuleCard(ProblemSearchRule findRule, int displayedIndex) {
+    FindRuleCard(ProblemSearchRule findRule, int displayedIndex) {
         super(FXML);
         this.findRule = findRule;
         id.setText(displayedIndex + ". ");

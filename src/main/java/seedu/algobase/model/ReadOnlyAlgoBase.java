@@ -64,6 +64,11 @@ public interface ReadOnlyAlgoBase {
     StringProperty getCurrentPlan();
 
     /**
+     * Sets current plan name.
+     */
+    void setCurrentPlan(int index);
+
+    /**
      * Returns the number of solved tasks in current plan.
      */
     IntegerProperty getCurrentSolvedCount();
