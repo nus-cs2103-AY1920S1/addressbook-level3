@@ -50,7 +50,7 @@ public class ExitCommand implements Command {
             logger.info("No question attempt found. Skipping program save.");
         }
 
-        return new CommandResult("Exiting application...", false);
+        return new CommandResult("Exiting application...", true);
     }
 
     private void saveQuestion(Question oldQuestion, Question newQuestion) {
