@@ -5,6 +5,7 @@ package seedu.address.model.export;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,4 +35,27 @@ public abstract class ExportPath {
             throw e;
         }
     }
+
+    /**
+     * Helper method to get the directory path from a given String.
+     *
+     * @param exportPathString String representing the full path of a document
+     * @return DirectoryPath representing the path of the most nested directory within the given String
+     */
+    static DirectoryPath extractDirectoryPath(String exportPathString) {
+        Path fullPath = Paths.get(exportPathString);
+        int nameCount = fullPath.getNameCount();
+
+        if (nameCount == 1) {
+            return new DirectoryPath("./");
+        }
+
+        return new DirectoryPath(
+                fullPath.getRoot()
+                        + fullPath
+                        .subpath(0, nameCount - 1)
+                        .toString()
+        );
+    }
+
 }

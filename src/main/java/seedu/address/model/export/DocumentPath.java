@@ -56,28 +56,6 @@ public class DocumentPath extends ExportPath {
     }
 
     /**
-     * Helper method to get the directory path from a given String.
-     *
-     * @param documentPathString String representing the full path of a document
-     * @return DirectoryPath representing the path of the most nested directory within the given String
-     */
-    private static DirectoryPath extractDirectoryPath(String documentPathString) {
-        Path fullPath = Paths.get(documentPathString);
-        int nameCount = fullPath.getNameCount();
-
-        if (nameCount == 1) {
-            return new DirectoryPath("./");
-        }
-
-        return new DirectoryPath(
-                fullPath.getRoot()
-                + fullPath
-                .subpath(0, nameCount - 1)
-                .toString()
-        );
-    }
-
-    /**
      * Helper method to get the document file path from a given String.
      *
      * @param documentFilePathString String representing the full path of a document

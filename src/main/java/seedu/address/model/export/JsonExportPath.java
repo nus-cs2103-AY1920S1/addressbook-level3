@@ -57,27 +57,6 @@ public class JsonExportPath extends ExportPath {
     }
 
     /**
-     * Helper method to get the directory path from a given String.
-     *
-     * @param jsonExportPathString String representing the full path of a JSON export file
-     * @return DirectoryPath representing the path of the most nested directory within the given String
-     */
-    private static DirectoryPath extractDirectoryPath(String jsonExportPathString) {
-        Path fullPath = Paths.get(jsonExportPathString);
-        int nameCount = fullPath.getNameCount();
-
-        if (nameCount == 1) {
-            return new DirectoryPath("./");
-        }
-
-        return new DirectoryPath(
-                fullPath
-                .subpath(0, nameCount - 1)
-                .toString()
-        );
-    }
-
-    /**
      * Helper method to get the JSON export file path from a given String.
      *
      * @param jsonExportPathString String representing the full path of a JSON export file
