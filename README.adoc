@@ -4,6 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.com/AY1920S1-CS2103-T11-2/main[image:https://travis-ci.com/AY1920S1-CS2103-T11-2/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103-T11-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-T11-2/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/manual/SendorasLeft/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2103-T11-2/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/903da763b1f94f63af032fb931f04a38[Codacy Badge]]
+https://app.netlify.com/sites/mams/deploys[image:https://api.netlify.com/api/v1/badges/b8669733-0c27-4bc8-80de-0c0c7aacbf5b/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
