@@ -22,10 +22,13 @@ public class Messages {
             + "(either due to schedule overlap or lack of manpower)";
     public static final String MESSAGE_EVENT_FULL_MANPOWER = "Event has full manpower!";
     public static final String MESSAGE_EVENT_INVALID_EMPLOYEE_ID = "Invalid Employee ID!";
-    public static final String MESSAGE_INVALID_DATE = "Invalid date: %s \n"
+    public static final String MESSAGE_DATE_INVALID = "Invalid date: %s \n"
             + "Date should be in the following format dd/MM/yyyy, "
             + "be a valid Calendar Date, and be in the last 10 years.";
-    public static final String MESSAGE_TOO_OLD_DATE = "Only dates of the last 10 years is accepted";
+    public static final String MESSAGE_DATE_TOO_OLD = "Only dates of the last 10 years is accepted";
+    public static final String MESSAGE_DATE_BIG_RANGE =
+            "The maximum acceptable range between the Start and End Dates is 90 days. \n"
+            + "The number of days between your stated Start Date [%s] and your End Date [%s] is %s days";
     public static final String MESSAGE_EMPLOYEE_ALREADY_ALLOCATED = "Employee to allocate is already "
             + "allocated to the event!";
     public static final String MESSAGE_EMPLOYEE_DOES_NOT_EXIST = "Employee to free is currently"

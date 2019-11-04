@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_BIG_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
@@ -101,6 +102,13 @@ public class EditEventCommand extends Command {
 
         if (!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+        }
+
+        long dateDifference = editedEvent.getStartDate().dateDifference(editedEvent.getEndDate());
+
+        if (dateDifference > 90) {
+            throw new CommandException(String.format(
+                    MESSAGE_DATE_BIG_RANGE, editedEvent.getStartDate(), editedEvent.getEndDate(), dateDifference));
         }
 
         model.setEvent(eventToEdit, editedEvent);

@@ -1,5 +1,7 @@
 package seedu.address.model.event;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -63,6 +65,15 @@ public class EventDate implements Comparable<EventDate> {
      */
     public boolean isPastDate() {
         return Config.getCurrentDate().isAfter(date);
+    }
+
+    /**
+     * Calculates the difference, in number of days between two EventDates.
+     */
+    public long dateDifference(EventDate other) {
+        long daysBetween = DAYS.between(date, other.getDate());
+        System.out.println(daysBetween);
+        return daysBetween;
     }
 
     /**

@@ -263,9 +263,9 @@ public class ParserUtil {
                 throw new OldDateException("Too long ago");
             }
         } catch (DateTimeParseException e) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE, trimmed));
+            throw new ParseException(String.format(Messages.MESSAGE_DATE_INVALID, trimmed));
         } catch (OldDateException e) {
-            throw new ParseException(Messages.MESSAGE_TOO_OLD_DATE);
+            throw new ParseException(Messages.MESSAGE_DATE_TOO_OLD);
         }
 
         return newDate;
