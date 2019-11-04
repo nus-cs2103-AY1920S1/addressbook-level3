@@ -83,7 +83,7 @@ public class EditDayPage extends Page<AnchorPane> {
         });
         dayTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_BUDGET + totalBudget);
+                    + " " + PREFIX_BUDGET + String.format("%.2f", totalBudget));
         });
         dayDestinationFormItem = new TextFormItem("Destination : ", destinationValue -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
