@@ -65,7 +65,7 @@ public class UiQuizManager implements Ui {
                                                String contentText) {
         final Alert alert = new Alert(type);
         alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-        alert.getDialogPane().getStylesheets().add("view/Quiz.css");
+        alert.getDialogPane().getStylesheets().add("view/quiz/Quiz.css");
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

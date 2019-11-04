@@ -89,7 +89,7 @@ public class SwitchOperation {
 
         if (args.equals("quiz")) {
             Config config = MainApp.getConfig();
-            UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(Paths.get("preferencesQuiz.json"));
+            UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(config.getQuizUserPrefsFilePath());
             userPrefs = initPrefs(userPrefsStorage);
             QuizBookStorage quizBookStorage = new JsonQuizAddressBookStorage(userPrefs.getAddressBookFilePath());
             seedu.address.storage.quiz.Storage quizStorage = new StorageQuizManager(quizBookStorage,
