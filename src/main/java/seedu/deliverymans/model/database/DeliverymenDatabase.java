@@ -12,6 +12,7 @@ import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsManager;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusManager;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 
 /**
  * Wraps all Deliverymen data at the deliverymen-database level
@@ -137,7 +138,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Retrieves the name of an available deliveryman for OrderManager for the purpose of delivering an order.
      */
-    public Name getAvailableDeliveryman() {
+    public Name getAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
         return statusManager.getAvailableDeliveryman().getName();
     }
 

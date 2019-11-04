@@ -12,6 +12,7 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -279,7 +280,7 @@ public interface Model {
      * Returns the Name of an available deliveryman.
      * Method for order assignment by OrderManager.
      */
-    Name getOneAvailableDeliveryman();
+    Name getOneAvailableDeliveryman() throws NoMoreAvailableDeliverymanException;
 
     void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman);
 

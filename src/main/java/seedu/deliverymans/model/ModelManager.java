@@ -25,6 +25,7 @@ import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -281,7 +282,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Name getOneAvailableDeliveryman() {
+    public Name getOneAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
         return deliverymenDatabase.getAvailableDeliveryman();
     }
 

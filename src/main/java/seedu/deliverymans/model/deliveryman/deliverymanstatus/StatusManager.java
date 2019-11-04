@@ -136,9 +136,9 @@ public class StatusManager {
      * @return an available Deliveryman
      * @throws NoMoreAvailableDeliverymanException if availableMen is empty
      */
-    public Deliveryman getAvailableDeliveryman() {
+    public Deliveryman getAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
         if (availableMen.size() == 0) {
-            return null;
+            throw new NoMoreAvailableDeliverymanException();
         }
         Deliveryman removed = availableMen.remove(0);
         updateStatusOf(removed, "DELIVERING");
