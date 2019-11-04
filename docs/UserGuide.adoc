@@ -137,11 +137,19 @@ Add timetable to the person with index 2 on the list of persons.
 
 
 Adds an unchecked task to the list of tasks of your current working project. +
-Format: `addTask s/DESCRIPTION c/TIME`
+Format: `addTask s/DESCRIPTION c/dd/MM/yyyy HHmm`
 
 Example:
 
 * `addTask s/Finish GUI c/06/10/2019 1600`
+
+[TIP]
+Whenever you add a time with the prefix c/, the format should be dd/MM/yyyy HHmm,
+whereby the year must be between 1900 to 2100 and the time must be between 0000 to 2359.
+
+[CAUTION]
+MyProject does not check for invalid days such as 30th February so do ensure you input
+your dates correctly!
 
 ==== 6. Add a project meeting: `addProjectMeeting`
 
@@ -181,7 +189,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 ==== 2. Edit a task : `editTask`
 
 Edits an existing task in the task list of the current project. +
-Format: `editTask INDEX [s/DESCRIPTION] [c/TIME] [d/]` +
+Format: `editTask INDEX [s/DESCRIPTION] [c/dd/MM/yyyy HHmm] [d/]` +
 
 ****
 * Edits the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1, 2, 3, ...
@@ -277,6 +285,7 @@ associated with this functionality.
 
 ==== 1. Generate meeting timing: `generate` [Checkout]
 
+=======
 Generates possible meeting timeslots for which everyone is available.
 
 * Prerequisite: Timetables have been assigned to the members with the command `addTimetable`
@@ -288,6 +297,7 @@ Example:
 * `generate d/2 r/MONDAY 0900 MONDAY 1800` +
 Generates all possible meeting timeslots that lasts at least 2 hours, within the time frame of Monday 9am to Monday 6pm.
 
+=======
 
 ==== 2. Send reminder: `sendReminder`
 
@@ -308,9 +318,9 @@ Format: `signIn [ac/ACCOUNT_EMAIL_ADDRESS] [pa/PASSWORD]`
 Logs out from your email account. +
 Format: `logOut`
 
-==== 3. Send an email: `sendEmail`
+==== 3. Send an email: `sendMail`
 Sends an email to the specified person in your contacts. +
-Format: `sendEmail [r/RECIPIENT_OF_EMAIL] [su/SUBJECT] [me/MESSAGE_BODY]`
+Format: `sendMail [r/RECIPIENT_OF_EMAIL] [su/SUBJECT] [me/MESSAGE_BODY]`
 
 ==== 4. Broadcast an email: `broadcastMail`
 Sends an email to all members in the current working project. +
@@ -351,18 +361,18 @@ Format: `sortSpending INDEX`
 
 Example:
 
-* `sortSpending 5` (Sorts the tasks by increasing spending)
+* `sortSpending 5` (Sorts the spending by increasing prices)
 
 === Finance
 Isn't it always a pain to keep track of all the finances and checking with the treasurer everytime? You can do it easily with MyProject!
 
 ==== Add a budget
 Add multiple budgets available to the current project. +
-Format: `addBudget [b/NAME_OF_BUDGET AMOUNT NAME_OFBUDGET AMOUNT...]`
+Format: `addBudget [b/NAME_OF_BUDGET AMOUNT NAME_OF_BUDGET AMOUNT...]`
 
 ==== Add an expense
 Whenever an expenditure is made under a budget, add it to record. +
-Format: `addExpense [INDEX_OF_BUDGET] [s/DESCRIPTION] [ex/AMOUNT SPEND] [c/DATE_SPENT]`
+Format: `addExpense [INDEX_OF_BUDGET] [s/DESCRIPTION] [ex/AMOUNT SPEND] [c/dd/MM/yyyy HHmm]`
 
 ==== View budgets
 See the summary of all budget which shows how much money is left with that budget and where is this budget used. +

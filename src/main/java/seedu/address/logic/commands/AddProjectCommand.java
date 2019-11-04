@@ -16,8 +16,8 @@ public class AddProjectCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a project to the project list. \n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_DESCRIPTION + "PHONE \n"
+            + PREFIX_NAME + "PROJECT_TITLE "
+            + PREFIX_DESCRIPTION + "PROJECT_DESCRIPTION \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "CS2103 TP "
             + PREFIX_DESCRIPTION + "To create an app to manage projects";

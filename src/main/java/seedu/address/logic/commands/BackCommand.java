@@ -6,7 +6,7 @@ import seedu.address.model.Model;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Checkout to a project to work on it.
+ * Changes the UI to the previous display.
  */
 public class BackCommand extends Command {
 

@@ -29,7 +29,6 @@ public class ListBudgetCommand extends Command {
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
         Project workingProject = model.getWorkingProject().get();
         StringBuilder sb = new StringBuilder();
         List<Budget> budgetArrayList = workingProject.getFinance().getBudgets();
