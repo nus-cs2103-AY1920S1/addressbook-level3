@@ -20,7 +20,7 @@ public class SplitCommand extends Command {
         + ": Splits an expenditure between people and add that transaction to the bank account.\n"
         + "Parameters: "
         + PREFIX_AMOUNT + "AMOUNT "
-        + "[" + PREFIX_NAME + "NAME]...\n"
+        + "[" + PREFIX_NAME + "NAME]..."
         + "[" + PREFIX_SHARE + "SHARE]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_AMOUNT + "600 "
@@ -30,7 +30,7 @@ public class SplitCommand extends Command {
         + PREFIX_SHARE + "1 "
         + PREFIX_SHARE + "2 "
         + PREFIX_SHARE + "3\n"
-        + "If number of shares is one more than number of names listed, "
+        + "If number of shares is one more than number of names listed, \n"
         + "first share is taken to be user's share of the expenditure\n";
     public static final String SHARES_FORMAT = "If number of shares is equal to number of names given,"
         + "user is assumed to be excluded from the expenditure.\n"

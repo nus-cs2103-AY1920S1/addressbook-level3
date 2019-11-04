@@ -222,6 +222,11 @@ public class SetCommandTest {
         }
 
         @Override
+        public void updateFilteredLedgerList(Predicate<LedgerOperation> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Budget> getFilteredBudgetList() {
             throw new AssertionError("This method should not be called.");
         }
