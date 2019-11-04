@@ -41,7 +41,7 @@ at a particular date. However, this difficulty was remedied as described in *Maj
 
 * *Minor enhancement 1*: Added the display panel in the center of our UI to display more information on the selected resource on the left panel of our UI.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t-cheepeng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
 * *Other contributions*:
 
@@ -68,4 +68,4 @@ We had to update the Developer Guide that was provided by the basic application(
 |_Given below are sections I contributed to the *ExerHealth Developer Guide*. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=resolve]
+include::../DeveloperGuide.adoc[tag=resolvefeature]

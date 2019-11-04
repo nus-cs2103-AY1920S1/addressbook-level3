@@ -304,6 +304,9 @@ The Undo/Redo feature implementation is based on the Singleton, Command, and Fac
 // tag::resolvefeature[]
 
 === Resolve feature
+==== Rationale
+There are multiple times where if the user wishes to schedule a regime, they find themselves in trouble over which kind of exercise regime they can fit into their schedule. The motivation behind this feature is so that users can customise their own schedules to their own liking. The alternative of an auto scheduler will restrict users from having the regime of their liking be scheduled. Instead of forcing users to adhere to some pre-generated resolution, we allow the users to make their own choice and choose their own exercise regime to be scheduled.
+
 ==== Implementation
 The resolve feature is used when there is a scheduling conflict that happens within ExerHealth. This feature will alter the state of the program. The state is known by `MainApp` and it is either `State.IN_CONFLICT` or `State.NORMAL`. Only when the state is `State.IN_CONFLICT` will `resolve` commands be allowed.
 
