@@ -68,13 +68,12 @@ public class EmployeeCard1 extends UiPart<Region> {
         }
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName);
-        phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid());
+        phone.setText("Already Paid : $" + employee.getEmployeeSalaryPaid());
 
         double totalHours = EmployeeEventProcessor.findEmployeeTotalWorkedHours(employee, eventList);
         double totalSalary = totalHours * Double.parseDouble(employee.getEmployeePay().value);
         address.setText("Total Salary : $" + totalSalary);
-        double pendingpay  = Double.parseDouble(employee.getEmployeePay().value)
-                - employee.getEmployeeSalaryPaid().value;
+        double pendingpay  = totalSalary - employee.getEmployeeSalaryPaid().value;
         email.setText("Pending to Pay : $" + pendingpay);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

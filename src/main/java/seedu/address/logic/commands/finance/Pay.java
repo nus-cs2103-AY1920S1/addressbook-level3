@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.processor.EmployeeEventProcessor;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 
@@ -49,25 +50,26 @@ public class Pay extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Employee> lastShownList = model.getFilteredEmployeeList();
-        Employee employeetotalsalary = lastShownList.get(index.getZeroBased());
-        double totalsalary = Double.parseDouble(employeetotalsalary.getEmployeePay().value);
-        double paid = employeetotalsalary.getEmployeeSalaryPaid().value;
-
+        Employee e = lastShownList.get(index.getZeroBased());
+        double totalSalary = EmployeeEventProcessor.findEmployeeTotalWorkedHours(e, model.getFilteredEventList())
+                * Double.parseDouble(e.getEmployeePay().value);
+        double paid = e.getEmployeeSalaryPaid().value;
+        double pendingPay = totalSalary - paid;
 
         if (index.getZeroBased() >= lastShownList.size() ) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
-        } else if (totalsalary - paid - salaryToPay >= 0) {
+        } else if (salaryToPay > pendingPay) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_PAID);
+        } else {
+            Employee employeeToPay = lastShownList.get(index.getZeroBased());
+            employeeToPay.addSalaryPaid(salaryToPay);
+
+            model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
+
+            return new CommandResult(
+                    String.format(MESSAGE_SUCCESS, employeeToPay.getEmployeeName(), salaryToPay),
+                    "Finance");
         }
-
-        Employee employeeToPay = lastShownList.get(index.getZeroBased());
-        employeeToPay.addSalaryPaid(salaryToPay);
-
-        model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, employeeToPay.getEmployeeName(), salaryToPay),
-                "Finance");
     }
 
     @Override
