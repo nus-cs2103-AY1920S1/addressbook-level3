@@ -2,6 +2,7 @@ package seedu.system.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Date;
 import java.util.stream.Stream;
 
 import seedu.system.commons.core.index.Index;
@@ -100,4 +101,15 @@ public class ParserUtil {
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
+    /**
+     * Returns true if {@code startDate} is exactly or before {@code endDate}
+     */
+    public static boolean isBefore(CustomDate startDate, CustomDate endDate) {
+        Date start = startDate.getDate();
+        Date end = endDate.getDate();
+        return start.equals(end) || start.before(end);
+
+    }
+
 }

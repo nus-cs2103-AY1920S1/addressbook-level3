@@ -33,7 +33,7 @@ public class RankCommand extends Command {
     public static final String MESSAGE_PARTICIPATION_NOT_FOUND =
         "The competition in session does not have a participation of an athlete with the given name: ";
     public static final String MESSAGE_SUCCESS = " Athlete: %1$s \n Competition: %2$s \n Rank: %3$d \n Total Score: "
-            + "%4$d " + "\n Max Squat: %6$s \n Max Bench Press: %5$s \n Max Deadlift: %7$s ";
+            + "%4$d " + "\n Max Squat: %5$s \n Max Bench Press: %6$s \n Max Deadlift: %7$s ";
 
     private final Name athleteName;
     //private final MethodOfRanking methodOfRanking;

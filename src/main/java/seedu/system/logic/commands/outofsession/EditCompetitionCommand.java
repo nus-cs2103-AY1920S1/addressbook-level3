@@ -19,6 +19,7 @@ import seedu.system.logic.commands.CommandResult;
 import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
+import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;
 import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
@@ -102,7 +103,7 @@ public class EditCompetitionCommand extends Command {
         CustomDate updatedEndDate = editCompetitionDescriptor.getEndDate().orElse(compToEdit.getEndDate());
         System.out.println(updatedStartDate.toString());
         System.out.println(updatedEndDate.toString());
-        if (!updatedStartDate.before(updatedEndDate)) {
+        if (!ParserUtil.isBefore(updatedStartDate, updatedEndDate)) {
             throw new ParseException(MESSAGE_INVALID_START_END_DATES);
         }
         return new Competition(updatedName, updatedStartDate, updatedEndDate);

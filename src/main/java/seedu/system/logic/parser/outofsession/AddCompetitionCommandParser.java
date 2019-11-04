@@ -41,7 +41,7 @@ public class AddCompetitionCommandParser implements Parser<AddCompetitionCommand
         CustomDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         CustomDate endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
-        if (!startDate.before(endDate)) {
+        if (!ParserUtil.isBefore(startDate, endDate)) {
             throw new ParseException(MESSAGE_INVALID_START_END_DATES);
         }
 

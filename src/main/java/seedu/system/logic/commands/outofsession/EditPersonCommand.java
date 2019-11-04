@@ -1,6 +1,7 @@
 package seedu.system.logic.commands.outofsession;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.system.commons.core.Messages.MESSAGE_INVALID_PERSONS_DOB;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_DOB;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_NAME;
@@ -17,6 +18,8 @@ import seedu.system.logic.commands.CommandResult;
 import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
+import seedu.system.logic.parser.ParserUtil;
+import seedu.system.logic.parser.exceptions.ParseException;
 import seedu.system.model.Model;
 import seedu.system.model.person.CustomDate;
 import seedu.system.model.person.Gender;
@@ -62,7 +65,7 @@ public class EditPersonCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException, ParseException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -90,11 +93,17 @@ public class EditPersonCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor)
+            throws ParseException {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         CustomDate updatedDateOfBirth = editPersonDescriptor.getDateOfBirth().orElse(personToEdit.getDateOfBirth());
+        CustomDate currDate = CustomDate.obtainCurrentDate();
+        if (!ParserUtil.isBefore(updatedDateOfBirth, currDate)) {
+            throw new ParseException(MESSAGE_INVALID_PERSONS_DOB);
+        }
+
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         return new Person(updatedName, updatedDateOfBirth, updatedGender);
     }

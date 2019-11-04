@@ -14,12 +14,28 @@ public class CustomDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Date should follow the following format DD/MM/YYYY.";
     public static final String DATE_FORMAT = "dd/MM/yyyy";
-    public final String date;
+    private final String date;
+    private Date dateObj;
 
     public CustomDate(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date.trim()), MESSAGE_CONSTRAINTS);
         this.date = date.trim();
+        try {
+            dateObj = new SimpleDateFormat(DATE_FORMAT).parse(date);
+        } catch (ParseException e) {
+            dateObj = null;
+        }
+    }
+
+    /**
+     * Returns a {@code currDate} which is a CustomDate object which has information about today's date.
+     */
+    public static CustomDate obtainCurrentDate () {
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+        Date currentDate = new Date();
+        CustomDate currDate = new CustomDate(formatter.format(currentDate));
+        return currDate;
     }
 
     /**
@@ -38,37 +54,8 @@ public class CustomDate {
         return false;
     }
 
-    /**
-     * Returns true if dateTwo is after the current CustomDate object.
-     *
-     */
-
-    public boolean before(CustomDate dateTwo) {
-        String[] dateOneArr = this.toString().split("/");
-        String[] dateTwoArr = dateTwo.toString().split("/");
-
-        int dayOne = Integer.valueOf(dateOneArr[0]);
-        int dayTwo = Integer.valueOf(dateTwoArr[0]);
-
-        int monthOne = Integer.valueOf(dateOneArr[1]);
-        int monthTwo = Integer.valueOf(dateTwoArr[1]);
-
-        int yearOne = Integer.valueOf(dateOneArr[2]);
-        int yearTwo = Integer.valueOf(dateTwoArr[2]);
-
-        if (yearOne < yearTwo) {
-            return true;
-        } else if (yearOne == yearTwo) {
-            if (monthOne > monthTwo) {
-                return false;
-            }
-            if (dayOne > dayTwo) {
-                return false;
-            }
-            return true;
-        }
-
-        return false;
+    public Date getDate() {
+        return dateObj;
     }
 
     /**
