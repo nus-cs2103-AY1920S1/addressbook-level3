@@ -1,7 +1,5 @@
 package seedu.moolah.ui.panel;
 
-import java.net.URL;
-
 import javafx.scene.layout.Region;
 import seedu.moolah.ui.UiPart;
 
@@ -12,18 +10,6 @@ public abstract class Panel extends UiPart<Region> {
 
     public Panel(String fxmlFileName) {
         super(fxmlFileName);
-    }
-
-    public Panel(URL fxmlFileUrl) {
-        super(fxmlFileUrl);
-    }
-
-    public Panel(URL fxmlFileUrl, Region root) {
-        super(fxmlFileUrl, root);
-    }
-
-    public Panel(String fxmlFileName, Region root) {
-        super(fxmlFileName, root);
     }
 
     /**
