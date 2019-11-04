@@ -732,7 +732,7 @@ under the category "Sales" and person will be the cashier-in-charge. The Home ta
 Items with zero price are not available for sale. Such items cannot be added into the table.
 
 [WARNING]
-Due to size limitation, you will not be allowed to add any items into the table if the total amount exceeds $9999. You
+Due to size limitation, you will not be allowed to add any items into the table if the total amount exceeds $999999.99. You
 are advised to reduce the quantity of items or checkout separately in another cart.
 
 ====

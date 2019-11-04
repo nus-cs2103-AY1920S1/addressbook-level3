@@ -676,9 +676,7 @@ appended to the list of transactions on the `Home tab`. In addition, the stock r
 accordingly in the `Inventory tab`.
 
 [NOTE]
-If the user key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483, 647, the range
-of an integer, an exception will be thrown. This is the intended behaviour as the view cannot accommodate such large integers.
-If it exceeds 2,147,483, 647, users are advised to key in a smaller quantity or checkout items separately.
+If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
 
 
 ==== Add Sales Item Feature
