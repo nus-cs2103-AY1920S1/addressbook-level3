@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 
+import java.util.List;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.DistrictKeywordsPredicate;
-
-import java.util.List;
 
 /**
  * Generates a new incident report.
