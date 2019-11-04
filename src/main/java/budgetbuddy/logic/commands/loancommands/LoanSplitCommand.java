@@ -122,12 +122,12 @@ public class LoanSplitCommand extends Command {
 
         long defaultPerPerson = (totalAmount - maxShares.stream()
                 .filter(share -> share >= 0 && share <= totalAmount)
-                .reduce(0L, Long::sum)) / persons.size();
+                .reduce(0L, Long::sum)) / (persons.size() - maxShares.size());
 
         List<Participant> participants = new ArrayList<Participant>();
         for (int i = 0; i < persons.size(); i++) {
-            long balance = amounts.get(i).toLong()
-                    - (maxShares.get(i) >= 0 ? Math.max(totalAmount, maxShares.get(i)) : defaultPerPerson);
+            long targetAmount = i < maxShares.size() ? maxShares.get(i) : defaultPerPerson;
+            long balance = amounts.get(i).toLong() - targetAmount;
             participants.add(new Participant(persons.get(i), balance));
         }
 

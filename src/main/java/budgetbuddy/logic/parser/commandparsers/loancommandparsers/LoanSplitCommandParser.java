@@ -34,8 +34,8 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
             + "Takes note that the list is case insensitive.";
     public static final String MESSAGE_SHARES_MORE_THAN_PERSONS =
             "The number of shares cannot exceed the number of persons.";
-    public static final String MESSAGE_MAX_SHARE_CONSTRAINTS = "A person's maximum share must either be "
-            + "a non-negative number or -1 exactly.";
+    public static final String MESSAGE_MAX_SHARE_CONSTRAINTS =
+            "A person's maximum share must be a non-negative number.";
 
     private List<Person> persons;
     private List<Amount> amounts;
@@ -53,7 +53,7 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
     @Override
     public LoanSplitCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
-                args, PREFIX_USER, PREFIX_DESCRIPTION, PREFIX_DATE, PREFIX_PERSON, PREFIX_AMOUNT);
+                args, PREFIX_USER, PREFIX_DESCRIPTION, PREFIX_DATE, PREFIX_PERSON, PREFIX_AMOUNT, PREFIX_MAX_SHARE);
 
         if (argMultimap.getValueCount(PREFIX_USER) > 1
                 || argMultimap.getValueCount(PREFIX_DESCRIPTION) > 1
@@ -102,7 +102,7 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
 
     /**
      * Parses the max shares entered into a list of {@code long} values.
-     * @throws ParseException If a max share entered is non-negative and not -1.
+     * @throws ParseException If a max share entered is non-negative.
      */
     private void parseMaxShares(ArgumentMultimap argMultimap) throws ParseException {
         maxShares = new ArrayList<Long>();
@@ -112,15 +112,12 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
         }
 
         for (String maxShareStr : argMultimap.getAllValues(PREFIX_MAX_SHARE)) {
+            maxShareStr += "00"; // calculation to be done in cents
             long maxShare = Long.parseLong(maxShareStr);
             if (maxShare < -1) {
                 throw new ParseException(MESSAGE_MAX_SHARE_CONSTRAINTS);
             }
             maxShares.add(maxShare);
-        }
-
-        while (maxShares.size() < persons.size()) {
-            maxShares.add(-1L);
         }
     }
 
