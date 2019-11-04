@@ -71,11 +71,11 @@ To view statistics:
 
 1. Type `stats` into the command box, and press *enter* to execute it.
 
-image::StatsCommand1.png[width="790"]
+image::StatsCommand1.png[width="600"]
 
 2. The result box will display the message "Statistics displayed"
 
-image::StatsCommandBox1.png[width="790"]
+image::StatsCommandBox1.png[width="600"]
 
 3. A pop-up window will appear, displaying three different charts. However, the middle and rightmost charts will be empty initially because they are synchronised with the test feature, and will only display values after a test has been ran.
 
@@ -91,11 +91,11 @@ To get help:
 
 1. Type `help` into the command box, and press *enter* to execute it.
 
-image::HelpCommand1.png[width="790"]
+image::HelpCommand1.png[width="600"]
 
 2. The result box will display the message "Opened help window."
 
-image::HelpCommandBox1.png[width="790"]
+image::HelpCommandBox1.png[width="600"]
 
 3. A pop-up window will appear, displaying a summary of all the commands available to the user.
 
