@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 
@@ -41,7 +42,8 @@ public class ExportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
+    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws
+            CommandException {
         requireNonNull(model);
         UserPrefs userPrefs = new UserPrefs();
         customerFile = userPrefs.getCustomerBookFilePath();
@@ -51,6 +53,9 @@ public class ExportCommand extends Command {
         String pathName = "data/" + fileName + ".csv";
 
         try {
+            if (!fileName.matches("[a-zA-Z0-9]+")) {
+                throw new CommandException("File name can only be Alphanumeric.");
+            }
             String dataCsv = this.getCsvString();
             FileUtil.writeToFile(Paths.get(pathName), dataCsv);
 
