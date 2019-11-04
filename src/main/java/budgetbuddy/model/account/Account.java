@@ -8,6 +8,7 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 
@@ -77,12 +78,12 @@ public class Account {
     public void addTransaction(Transaction toAdd) throws NumberFormatException {
         this.transactionList.add(toAdd);
         if (toAdd.getDirection().equals(Direction.IN)) {
+            checkBalanceValidity(balance = balance + toAdd.getAmount().toLong());
             balance = balance + toAdd.getAmount().toLong();
         } else {
+            checkBalanceValidity(balance = balance - toAdd.getAmount().toLong());
             balance = balance - toAdd.getAmount().toLong();
         }
-
-        checkBalanceValidity(balance);
     }
 
     /**
@@ -91,6 +92,25 @@ public class Account {
      * @param editedTxn
      */
     public void updateTransaction(Index txnIndex, Transaction editedTxn) {
+        Transaction targetedTransaction = transactionList.getTransaction(txnIndex);
+        Amount targetedAmount = targetedTransaction.getAmount();
+        Direction targetedDirection = targetedTransaction.getDirection();
+
+        if (!targetedAmount.equals(editedTxn.getAmount()) && targetedDirection.equals(editedTxn.getDirection())) {
+
+            if (targetedDirection.equals(Direction.IN)) {
+                balance = balance - targetedAmount.toLong();
+            } else {
+                balance = balance + targetedAmount.toLong();
+            }
+
+            if (editedTxn.getDirection().equals(Direction.IN)) {
+                balance = balance + editedTxn.getAmount().toLong();
+            } else {
+                balance = balance - editedTxn.getAmount().toLong();
+            }
+        }
+
         this.transactionList.setTransaction(txnIndex, editedTxn);
     }
 
@@ -101,12 +121,12 @@ public class Account {
     public void deleteTransaction(Transaction toDelete) throws NumberFormatException {
         this.transactionList.remove(toDelete);
         if (toDelete.getDirection().equals(Direction.IN)) {
+            checkBalanceValidity(balance = balance + toDelete.getAmount().toLong());
             balance = balance - toDelete.getAmount().toLong();
         } else {
+            checkBalanceValidity(balance = balance - toDelete.getAmount().toLong());
             balance = balance - toDelete.getAmount().toLong();
         }
-
-        checkBalanceValidity(balance);
     }
 
     public boolean isActive() {
