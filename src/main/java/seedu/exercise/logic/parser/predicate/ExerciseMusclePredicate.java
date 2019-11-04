@@ -30,7 +30,7 @@ public class ExerciseMusclePredicate implements BasePropertyPredicate {
     /**
      * Returns true if a {@code exercise} has all the {@code Muscle} targeted
      */
-    boolean testStrict(Exercise exercise) {
+    private boolean testStrict(Exercise exercise) {
         Set<Muscle> exerciseMuscles = exercise.getMuscles();
         for (Muscle muscle : muscles) {
             if (!(exerciseMuscles.contains(muscle))) {
@@ -43,7 +43,7 @@ public class ExerciseMusclePredicate implements BasePropertyPredicate {
     /**
      * Returns true if a {@code exercise} has at least one {@code Muscle} targeted
      */
-    boolean testLoose(Exercise exercise) {
+    private boolean testLoose(Exercise exercise) {
         Set<Muscle> exerciseMuscles = exercise.getMuscles();
         for (Muscle muscle : exerciseMuscles) {
             if (muscles.contains(muscle)) {

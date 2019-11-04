@@ -123,10 +123,10 @@ The `Model`
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores a `PropertyBook` object that represents the custom properties defined by the user.
-* stores the Exercise Book data.
-* stores the Exercise Database Book Data
-* stores the Regime Book data.
-* stores the Schedule Book data.
+* stores a `ExerciseBook` object that represents the user's exercises being tracked.
+* stores a `ExerciseDatabaseBook` object that represents the database of exercises in ExerHealth.
+* stores a `RegimeBook` object that represents the user's regimes.
+* stores a `ScheduleBook` object that represents the user's schedules.
 * exposes an unmodifiable `ObservableList<Exercise>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -514,15 +514,36 @@ As such, after much consideration, Choice 1 was implemented. To ensure that test
 the data inside `PropertyBook` is cleared before each test.
 //end::customfeature[]
 
+// tag::suggest[]
 === Suggest
-==== Implementation
-The suggest feature is used to recommend exercises to both beginners and experienced users.
-The user is allowed to specify what type of suggestions to see.
 
-The following activity diagram (Figure 21) summarizes what happens when a user enters a suggest command:
+==== Rationale
+Beginners now have a plethora of choices and may be overwhelmed when deciding on what exercises to do.
+Thus, we decided to provide users with sample exercise routines to reduce the inertia of starting this lifestyle change.
+On other hand, regular gym goers may face a repetitive and mundane exercise routine or may want to experiment with different exercises.
+As such, put it briefly, we decided to give users the ability to discover exercises based on the characteristics they are interested in.
 
-.Activity diagram showing the workflow of a suggest command
+This feature presents a cohesive function that all users can benefit from.
+This also makes our application well-rounded so that users can better achieve their fitness goals.
+
+==== Overview
+The sample exercise routines are currently implemented in ExerHealth's database as a hard-coded set of exercises.
+More importantly, the `SuggestPossible` command which caters to more experienced gym goers utilises the exercises that the user
+has already done, in addition to ExerHealth's database. Hence, we allow users to search for suggestions
+based on `Muscle` and `CustomProperty`.
+
+==== Current Implementation
+The `SuggestBasic` command displays a list of exercises from our database to the user.
+The `SuggestPossible` command is created by parsing the user's inputs to form a `Predicate` before filtering ExerHealth's database and the user's tracked exercises.
+
+The following activity diagram (Figure 21) summarizes what happens when a user enters a suggest possible command:
+
+.Activity diagram showing the workflow of a suggest possible command
 image::SuggestActivityDiagram.png[]
+
+In detail, when a `SuggestPossibleCommand` is entered, the `Logic` component is responsible for parsing the inputs into a `Predicate`.
+The `Predicate` is then used to instantiate a `SuggestPossibleCommand`, and later used to filter a list of `Exercise` when the command is executed.
+The interactions between the multiple objects can be captured using a sequence diagram.
 
 The following sequence diagram (Figure 22) shows the sequence flow from the when a user enters a valid `SuggestPossibleCommand`:
 
@@ -551,7 +572,8 @@ to parse the user input to create an `ExercisePredicate` object (named `p` in th
 In step 3, the process in which the `ExercisePredicate` object is created can be explored deeper (Figure 23).
 
 .Sequence diagram of how an `ExercisePredicate` is created
-image::SuggestSequencePredicateDiagram.png[]
+
+image::SuggestPredicateSequenceDiagram.png[]
 
 From the sequence diagram above:
 
@@ -561,6 +583,16 @@ From the sequence diagram above:
 
 3. The resulting `ExercisePredicate` is then returned to `ParserUtil` and then `SuggestCommandParser`.
 
+The diagram below shows the structure of a `ExercisePredicate` object.
+A `ExercisePredicate` contains a `list` of `BasePropertyPredicate`,
+where each contains a `Collection` of `Muscle` or `CustomProperty`.
+
+.Class diagram of the classes behind the suggest possible feature
+
+image::SuggestCommandClassDiagram.png[]
+
+Creating classes such as `ExerciseCustomPropertyPredicate` and `ExerciseMusclePredicate`
+allow us to conduct better testing because we can compare the `Collection` of `Muscle`/`CustomProperty` being considered.
 
 ==== Design Considerations
 ===== Aspect: Implementation of predicate creation
@@ -574,8 +606,8 @@ all in one place as it stores the tags, and creates the predicate and filters th
 ** Pros:
 *** Adheres to Single Responsibility Principle (SRP) and Separation of Concern (SoC).
 ** Cons:
-*** May increase coupling because classes that use predicates have to depend on this class.
-
+*** Increases the complexity of the code as more classes are needed, also increasing the lines of code written.
+// end::suggest[]
 
 === Statistics
 
@@ -811,14 +843,6 @@ Use case ends
 1. User asks for suggestions
 2. System searches database for previous exercises done
 3. System creates a suggestion based on search and request type
-+
-Use case ends
-
-*Extension*
-[None]
-* 1a. User does not have history
-[None]
-** 1a1. System provides user with preset suggestions
 +
 Use case ends
 

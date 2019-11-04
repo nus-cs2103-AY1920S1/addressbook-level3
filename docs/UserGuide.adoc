@@ -443,6 +443,7 @@ Takes exercise 1, 2, 3 from scheduled regime and exercise 2, 4 from conflicting 
 
 // end::scheduleresolve[]
 
+// tag::suggest[]
 === Suggesting ideas: `suggest`
 ==== Suggest basic exercises
 Recommends exercises from ExerHealth's inbuilt database for beginners.
@@ -492,6 +493,7 @@ Then, the following input will display a list of exercises which are tagged with
 `suggest s/possible o/and m/Chest r/8`
 
 Thus the command will display only the exercise named "Bench Press".
+// end::suggest[]
 
 === Exiting the program : `exit`
 

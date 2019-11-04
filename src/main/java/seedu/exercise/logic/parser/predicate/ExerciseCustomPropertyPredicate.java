@@ -29,7 +29,7 @@ public class ExerciseCustomPropertyPredicate implements BasePropertyPredicate {
     /**
      * Returns true if a {@code exercise} has all the {@code CustomProperty} targeted
      */
-    boolean testStrict(Exercise exercise) {
+    private boolean testStrict(Exercise exercise) {
         Map<String, String> exerciseCustomProperties = exercise.getCustomPropertiesMap();
         for (String key : customProperties.keySet()) {
             if (!(customProperties.get(key).equals(exerciseCustomProperties.get(key)))) {
@@ -42,7 +42,7 @@ public class ExerciseCustomPropertyPredicate implements BasePropertyPredicate {
     /**
      * Returns true if a {@code exercise} has at least one {@code CustomProperty} targeted
      */
-    boolean testLoose(Exercise exercise) {
+    private boolean testLoose(Exercise exercise) {
         Map<String, String> exerciseCustomProperties = exercise.getCustomPropertiesMap();
         for (String key : customProperties.keySet()) {
             if (customProperties.get(key).equals(exerciseCustomProperties.get(key))) {

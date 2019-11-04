@@ -1,0 +1,58 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package Suggest <<Rectangle>> {
+    class SuggestPossibleCommand
+    interface Predicate<Exercise>
+    class ExercisePredicate
+    interface BasePropertyPredicate
+    class ExerciseMusclePredicate
+    class ExerciseCustomPropertyPredicate
+
+    ExercisePredicate ..|> Predicate
+    SuggestPossibleCommand o-right-> "1" Predicate : "predicate"
+
+    BasePropertyPredicate --|> Predicate
+
+    ExercisePredicate o-> "1..2" BasePropertyPredicate : "predicates"
+    ExerciseMusclePredicate .up.|> BasePropertyPredicate
+    ExerciseCustomPropertyPredicate .up.|> BasePropertyPredicate
+}
+
+interface Predicate<Exercise> {
+    +test()
+}
+
+class SuggestPossibleCommand {
+    -Predicate<Exercise> predicate
+    +execute(model)
+}
+
+class ExercisePredicate {
+    -BasePropertyPredicate predicates
+    -boolean isStrict
+    +test()
+    -testStrict()
+    -testLoose()
+}
+
+class ExerciseMusclePredicate {
+    -Set<Muscle> muscles
+    -boolean isStrict
+    +test()
+    -testStrict()
+    -testLoose()
+}
+
+class ExerciseCustomPropertyPredicate {
+    -Map<String, String> customProperties
+    -boolean isStrict
+    +test()
+    -testStrict()
+    -testLoose()
+}
+
+interface BasePropertyPredicate {
+    +test()
+}
+@enduml

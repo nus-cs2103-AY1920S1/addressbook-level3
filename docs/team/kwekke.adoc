@@ -9,41 +9,45 @@
 
 == Overview
 
-ExerHealth is a desktop application used for tracking and scheduling the user's exercises.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 10 kLoC.
+My team of 4 computer science students were tasked with changing a basic command line application. Our team
+decided to morph the application into ExerHealth. **ExerHealth** is a desktop application used for tracking
+and scheduling the user's exercises. The application has statistical analysis of exercises users have completed
+in the past. Additionally, it also acts as a personal trainer by suggesting different exercises which both
+beginners and advanced users can choose from to incorporate into their exercise regimes.
+The user interacts with it using a command line interface, and it has a GUI created with JavaFX.
+
+Below is a screenshot of what our desktop application looks like:
+
+**//TODO: Add image of UI**
+
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to search for suggestions*
+** What it does: The command `suggest` allows the user to search for suggestions.
+** Justification: This feature enables new users to have a starting point in their exercise regime.
+This feature also offers experienced users suggestions based on the type of exercises the user wants to do.
+** Highlights: This enhancement works well with existing features, such as Custom Properties, and can be expanded on.
+It required an in-depth analysis of design alternatives to ensure that future extensions or further enhancements can be smooth.
+The implementation too was challenging as it required multiple new predicate and utility classes.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement 1*: Added the display panel on the left hand side of the UI to show the respective information after a command is executed.
+
+* *Minor enhancement 2*: Allowed the command box to be automatically focused on upon opening the application so that user does not need to click on the box to start typing.
+
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/137[#137], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/96[#96])
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Refactored the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/121[#121]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments):  https://github.com/AY1920S1-CS2103T-T09-2/main/pull/114[#114]
 
 == Contributions to the User Guide
 
@@ -52,9 +56,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=suggest]
 
 == Contributions to the Developer Guide
 
@@ -62,10 +64,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+include::../DeveloperGuide.adoc[tag=suggest]
 
 == PROJECT: PowerPointLabs
 
