@@ -250,7 +250,7 @@ public class InteractiveParserUtil {
         if (attendees.isBlank()) {
             throw new ParseException(MESSAGE_INVALID_ATTENDEES);
         }
-        List<Person> attendeesList = Arrays.stream(attendees.split(","))
+        List<Person> attendeesList = Arrays.stream(attendees.split("\\|"))
                 .map(name -> name.trim())
                 .map(name -> new Person(InteractiveParserUtil.parseNameDeterministic(name)))
                 .filter(name -> name != null)

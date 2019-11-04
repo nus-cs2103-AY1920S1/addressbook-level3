@@ -13,8 +13,8 @@ import com.typee.model.engagement.AttendeeList;
 
 public class AttendeesState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "Please enter the list of attendees separated by commas and"
-            + " prefixed by \"a/\". Names are supported only in English.";
+    private static final String MESSAGE_CONSTRAINTS = "Please enter the list of attendees separated by vertical lines"
+            + " and prefixed by \"a/\". Only English names are supported.";
     private static final String MESSAGE_MISSING_KEYWORD = "Please enter the list of attendees prefixed by \"a/\".";
 
     protected AttendeesState(ArgumentMultimap soFar) {

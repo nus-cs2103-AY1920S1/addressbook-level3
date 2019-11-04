@@ -46,7 +46,7 @@ public class AttendeeList {
      * @return true if all the names are valid.
      */
     public static boolean validateNames(String stringWithoutBrackets) {
-        return Arrays.stream(stringWithoutBrackets.split(","))
+        return Arrays.stream(stringWithoutBrackets.split("\\|"))
                 .map(person -> person.trim())
                 .allMatch(name -> Name.isValidName(name));
     }
@@ -71,7 +71,7 @@ public class AttendeeList {
      * @return List of people.
      */
     private static List<Person> getListOfPeople(String stringWithoutBrackets) {
-        return Arrays.stream(stringWithoutBrackets.split(","))
+        return Arrays.stream(stringWithoutBrackets.split("\\|"))
                     .map(str -> str.trim())
                     .map(name -> new Person(new Name(name)))
                     .collect(Collectors.toList());
@@ -93,7 +93,7 @@ public class AttendeeList {
 
     @Override
     public String toString() {
-        return attendees.toString();
+        return attendees.toString().replace(",", " |");
     }
 
     @Override
