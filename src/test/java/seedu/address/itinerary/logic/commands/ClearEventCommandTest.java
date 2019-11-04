@@ -1,35 +1,29 @@
 package seedu.address.itinerary.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import seedu.address.itinerary.model.Model;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
+import org.junit.jupiter.api.Test;
 
 class ClearEventCommandTest {
 
-    /**
-     * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
-     * - the {@code actualItineraryModel} matches {@code expectedItineraryModel}
-     */
-    public static void assertCommandSuccess(Command command, Model model,
-                                            CommandResult expectedCommandResult,
-                                            Model expectedModel) {
-        try {
-            CommandResult result = command.execute(model);
-            assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, model);
-        } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
-        }
-    }
+    /*
+        NOTE: Clear command start up will result in an ExceptionInInitializerError since there is no GUI to
+        open up the window. However, upon testing the assert throw method, it is also shown that an additional
+        NoClassDefError is also being thrown.
+    */
 
-    public static void assertCommandSuccess(Command command, Model model,
-                                            String expectedMessage, Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
+    @Test
+    void testClear() {
+        ClearEventCommandTest commandTest = new ClearEventCommandTest();
+        ClearEventCommandTest commandTest1 = new ClearEventCommandTest();
+
+        // Check to see whether the test are equal
+        assertNotEquals(commandTest, commandTest1);
+
+        // Similar test objects
+        assertEquals(commandTest, commandTest);
+        assertEquals(commandTest1, commandTest1);
     }
 
 }

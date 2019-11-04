@@ -4,18 +4,26 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.itinerary.model.Model;
-import seedu.address.itinerary.model.event.*;
+import seedu.address.itinerary.model.event.Date;
+import seedu.address.itinerary.model.event.Description;
+import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.model.event.Location;
+import seedu.address.itinerary.model.event.Tag;
+import seedu.address.itinerary.model.event.Time;
+import seedu.address.itinerary.model.event.Title;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
- * Contains integration tests (interaction with the ItineraryModel, UndoCommand and HistoryCommand) and unit tests for
+ * Contains integration tests (interaction with the ItineraryModel) and unit tests for
  * {@code DeleteEventCommand}.
  */
 public class DeleteEventCommandTest {
+
     Index index_first_event = Index.fromOneBased(1);
     Index index_second_event = Index.fromOneBased(2);
 
@@ -32,10 +40,13 @@ public class DeleteEventCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
+
+        // Adding the event to actual model before deleting it
         model.addEvent(eventTest);
         Event eventToDelete = model.getSortedEventList().get(index_first_event.getZeroBased());
         DeleteEventCommand deleteCommand = new DeleteEventCommand(index_first_event);
 
+        // Generating the expected result of the deletion
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_SUCCESS, eventToDelete);
 
         Model expectedModel = new Model();
@@ -62,6 +73,7 @@ public class DeleteEventCommandTest {
     public void equals() {
         DeleteEventCommand deleteFirstCommand = new DeleteEventCommand(index_first_event);
         DeleteEventCommand deleteSecondCommand = new DeleteEventCommand(index_second_event);
+        GreetCommand greetCommand = new GreetCommand();
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
@@ -73,10 +85,13 @@ public class DeleteEventCommandTest {
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
 
+        // different object -> returns false
+        assertFalse(deleteFirstCommand.equals(greetCommand));
+
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different delete command object -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 

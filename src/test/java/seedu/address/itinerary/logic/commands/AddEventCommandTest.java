@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.collections.transformation.SortedList;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.event.Date;
 import seedu.address.itinerary.model.event.Description;
@@ -125,6 +127,7 @@ class AddEventCommandTest {
     public void equals() {
         AddEventCommand addEventCommand = new AddEventCommand(eventTest);
         AddEventCommand addEventCommand1 = new AddEventCommand(eventTest2);
+        GreetCommand greetCommand = new GreetCommand();
 
         // same object -> returns true
         assertTrue(addEventCommand.equals(addEventCommand));
@@ -136,10 +139,13 @@ class AddEventCommandTest {
         // different types -> returns false
         assertFalse(addEventCommand.equals(1));
 
+        // different types of command -> returns false
+        assertFalse(addEventCommand.equals(greetCommand));
+
         // null -> returns false
         assertFalse(addEventCommand.equals(null));
 
-        // different person -> returns false
+        // different add event command -> returns false
         assertFalse(addEventCommand.equals(addEventCommand1));
     }
 }

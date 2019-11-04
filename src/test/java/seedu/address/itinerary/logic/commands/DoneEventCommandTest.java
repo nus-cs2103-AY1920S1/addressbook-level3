@@ -1,34 +1,28 @@
 package seedu.address.itinerary.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static seedu.address.itinerary.logic.commands.DoneEventCommand.MESSAGE_SUCCESS;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
-import seedu.address.itinerary.model.Model;
-import seedu.address.itinerary.model.event.Date;
-import seedu.address.itinerary.model.event.Description;
-import seedu.address.itinerary.model.event.Event;
-import seedu.address.itinerary.model.event.Location;
-import seedu.address.itinerary.model.event.Tag;
-import seedu.address.itinerary.model.event.Time;
-import seedu.address.itinerary.model.event.Title;
+import seedu.address.logic.commands.CommandResult;
 
 class DoneEventCommandTest {
 
     Index index_first_event = Index.fromOneBased(1);
     Index index_second_event = Index.fromOneBased(2);
 
-    private Title titleTest = new Title("Awesome Title");
-    private Date dateTest = new Date("28102019");
-    private Location locationTest = new Location("Singapore");
-    private Description descTest = new Description("My awesome description");
-    private Time timeTest = new Time("2000");
-    private Tag tagTest = new Tag("Priority: High");
-    private Event eventTest = new Event(titleTest, dateTest, locationTest
-            , descTest, timeTest, tagTest);
+    @Test
+    public void execute_done_command() {
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, true, false);
+        assertEquals(expectedCommandResult.getFeedbackToUser(), MESSAGE_SUCCESS);
+    }
 
-    private Model model = new Model();
+    @Test
+    public void null_index_done_command() {
+        assertThrows(NullPointerException.class, () -> new DoneEventCommand(null));
+    }
 
     @Test
     public void equals() {
@@ -51,4 +45,6 @@ class DoneEventCommandTest {
         // different person -> returns false
         assertFalse(doneFirstCommand.equals(doneSecondCommand));
     }
+
+
 }

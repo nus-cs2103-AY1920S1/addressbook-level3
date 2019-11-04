@@ -14,15 +14,31 @@ class DoneEventCommandParserTest {
 
     private DoneEventCommandParser parser = new DoneEventCommandParser();
     private static final Index INDEX_FIRST_PERSON = Index.fromOneBased(1);
+    private static final Index INDEX_LARGE = Index.fromOneBased(10000);
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DoneEventCommand(INDEX_FIRST_PERSON));
+
+        assertParseSuccess(parser, "10000", new DoneEventCommand(INDEX_LARGE));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        // Checking for character in index
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DoneEventCommand.MESSAGE_USAGE));
+
+        // No index given
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DoneEventCommand.MESSAGE_USAGE));
+
+        // Only single white space character
+        assertParseFailure(parser, " ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DoneEventCommand.MESSAGE_USAGE));
+
+        // Special symbol used
+        assertParseFailure(parser, "$%", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DoneEventCommand.MESSAGE_USAGE));
     }
 

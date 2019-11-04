@@ -492,7 +492,9 @@ intend to do. For example:
     title/Do CS2103T developer guide
 
 . Date: The _PREFIX_ is ``date/``. TravEzy itinerary allows dates that starts from the year 1000 up till the year 3999.
+
 Note that the format TravEzy's Itinerary using is "ddMMyyyy". For example:
+
 
     date/30102019
 

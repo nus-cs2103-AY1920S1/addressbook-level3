@@ -1,6 +1,6 @@
 package seedu.address.itinerary.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.itinerary.logic.commands.SortCommand;

@@ -1,5 +1,7 @@
 package seedu.address.itinerary.model;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,6 +17,7 @@ import seedu.address.itinerary.model.event.Title;
 
 
 class ModelTest {
+
     private Title titleTest = new Title("Awesome Title");
     private Date dateTest = new Date("28102019");
     private Location locationTest = new Location("Singapore");
@@ -23,12 +26,56 @@ class ModelTest {
     private Tag tagTest = new Tag("Priority: High");
     private Event eventTest = new Event(titleTest, dateTest, locationTest
             , descTest, timeTest, tagTest);
-    Itinerary itinerary = new Itinerary();
+
+    private Title titleTest2 = new Title("Same Time Awesome Title");
+    private Date dateTest2 = new Date("28102019");
+    private Location locationTest2 = new Location("USA");
+    private Description descTest2 = new Description("My cool description");
+    private Time timeTest2 = new Time("2000");
+    private Tag tagTest2 = new Tag("Priority: Medium");
+    private Event eventTest2 = new Event(titleTest2, dateTest2, locationTest2
+            , descTest2, timeTest2, tagTest2);
+
+    private Title titleTest3 = new Title("Another Cool Title");
+    private Date dateTest3 = new Date("28102019");
+    private Location locationTest3 = new Location("USA");
+    private Description descTest3 = new Description("My cool description");
+    private Time timeTest3 = new Time("0000");
+    private Tag tagTest3 = new Tag("Priority: Medium");
+    private Event eventTest3 = new Event(titleTest3, dateTest3, locationTest3
+            , descTest3, timeTest3, tagTest3);
+
+    Model model = new Model();
 
     @Test
     void hasEvent() {
-        assertFalse(itinerary.hasEvent(eventTest));
-        itinerary.addEvent(eventTest);
-        assertTrue(itinerary.hasEvent(eventTest));
+        // Checking the empty list no event available.
+        assertFalse(model.hasEvent(eventTest));
+
+        // Adding the event and checking whether it contains it.
+        model.addEvent(eventTest);
+        assertTrue(model.hasEvent(eventTest));
+
+        // Checking with another event. However, the event has the same date and time -> considered as equal.
+        assertTrue(model.hasEvent(eventTest2));
+
+        // Checking with another totally different event.
+        assertFalse(model.hasEvent(eventTest3));
+    }
+
+    @Test
+    void clearTest() {
+        // Adding some events to the event list.
+        model.addEvent(eventTest);
+        model.addEvent(eventTest2);
+        model.addEvent(eventTest3);
+
+        // Before clearing the event list, the size should initially be 3.
+        assertEquals(3, model.getSortedEventList().size());
+
+        // Calling clear event command. Comparing with empty array created.
+        model.clearEvent();
+        Event[] expectedEvent = new Event[0];
+        assertArrayEquals(expectedEvent, model.getSortedEventList().toArray());
     }
 }

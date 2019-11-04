@@ -15,6 +15,7 @@ import seedu.address.itinerary.model.event.Time;
 import seedu.address.itinerary.model.event.Title;
 
 class EditCommandTest {
+
     Index index_first_event = Index.fromOneBased(1);
     Index index_second_event = Index.fromOneBased(2);
 
