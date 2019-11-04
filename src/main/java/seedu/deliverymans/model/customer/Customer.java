@@ -2,13 +2,17 @@ package seedu.deliverymans.model.customer;
 
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
@@ -25,25 +29,26 @@ public class Customer {
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
+    private final ObservableMap<Tag, Integer> totalTags = FXCollections.observableHashMap();
     private final ObservableList<Order> orders = FXCollections.observableArrayList();
 
     /**
      * Every field must be present and not null.
+     */
+    public Customer(Name name, Phone phone) {
+        requireAllNonNull(name, phone, tags);
+        this.name = name;
+        this.phone = phone;
+    }
+
+    /**
+     * Constructor for SampleDataUtil.
      */
     public Customer(Name name, Phone phone, Set<Tag> tags) {
         requireAllNonNull(name, phone, tags);
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
-    }
-
-    /**
-     * Constructor for adding order
-     */
-    public Customer(Name name) {
-        requireAllNonNull(name);
-        this.name = name;
-        this.phone = new Phone("123");
     }
 
     /**
@@ -55,6 +60,7 @@ public class Customer {
         this.phone = phone;
         this.tags.addAll(tags);
         this.orders.addAll(orders);
+        reviewTags(tags);
     }
 
     public Name getName() {
@@ -78,18 +84,46 @@ public class Customer {
      */
     public void addOrder(Order order) {
         orders.add(order);
-        // reviewTags();
     }
 
     /**
-     * Reviews Customer's {@code ObservableList<Order>} orders to determine customer's favourite cuisine and set it as
-     * a tag.
+     * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders and review Customer's favourite tags.
      */
-    public void reviewTags() {
-        /*
-        to be implemented
-        depending on the list of orders, tags change to the tag that showed up the most in the list of orders
-         */
+    public void addOrder(Order order, Set<Tag> tags) {
+        orders.add(order);
+        reviewTags(tags);
+    }
+
+    /**
+     * Adds {@code Set<Tag>} tags into totalTags.
+     */
+    private void reviewTags(Set<Tag> tags) {
+        for (Tag tag : tags) {
+            Integer i = totalTags.get(tag);
+            if (i != null) {
+                totalTags.replace(tag, i, i + 1);
+            } else {
+                totalTags.put(tag, 1);
+            }
+            if (!this.tags.contains(tag)) {
+                changeMainTags();
+            }
+        }
+    }
+
+    /**
+     * Changes Customer's tags to new tags depending on the number of occurrence of {@code Tag}.
+     */
+    private void changeMainTags() {
+        List<Map.Entry<Tag, Integer>> list = new ArrayList<>(totalTags.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+        Set<Tag> newTags = new HashSet<>();
+        newTags.add(list.get(list.size() - 1).getKey());
+        if (list.size() > 1) {
+            newTags.add(list.get(list.size() - 2).getKey());
+        }
+        tags.clear();
+        tags.addAll(newTags);
     }
 
     /**
@@ -148,11 +182,8 @@ public class Customer {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ")
-                .append(getPhone().toString())
-                .append(" Tags: ")
-                .append(getTags().toString());
+                .append(getPhone().toString());
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
