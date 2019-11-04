@@ -25,6 +25,13 @@ public class Sets<Integer> extends ExerciseDetail {
         return builder.toString();
     }
 
+    /**
+     * Returns magnitude as an integer.
+     */
+    public int getMagnitudeAsInteger() {
+        return (int) this.magnitude;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

@@ -34,6 +34,7 @@ import dukecooks.model.workout.WorkoutCatalogue;
 import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.model.workout.exercise.components.ExerciseName;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -508,6 +509,11 @@ public class ModelManager implements Model {
     public void addExercise(Exercise exercise) {
         exerciseCatalogue.addExercise(exercise);
         updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
+    }
+
+    @Override
+    public Exercise findExercise(ExerciseName name) {
+        return exerciseCatalogue.findExercise(name);
     }
 
     @Override

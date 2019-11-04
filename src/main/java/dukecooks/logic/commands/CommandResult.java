@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import dukecooks.model.workout.Workout;
+
 /**
  * Represents the result of a command execution.
  */
@@ -22,14 +24,33 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final boolean isRunWorkout;
+
+    private Workout workoutToRun;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showReward, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showReward, boolean showHelp, boolean exit,
+                         boolean isRunWorkout) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showReward = showReward;
         this.showHelp = showHelp;
         this.exit = exit;
+        this.isRunWorkout = isRunWorkout;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showReward, boolean showHelp, boolean exit,
+                         boolean isRunWorkout, Workout workoutToRun) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showReward = showReward;
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.isRunWorkout = isRunWorkout;
+        this.workoutToRun = workoutToRun;
     }
 
     /**
@@ -37,7 +58,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -54,6 +75,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isRunWorkout() {
+        return isRunWorkout;
+    }
+
+    public Workout getWorkoutToRun() {
+        return workoutToRun;
     }
 
     @Override

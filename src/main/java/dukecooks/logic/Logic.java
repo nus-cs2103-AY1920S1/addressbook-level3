@@ -38,6 +38,16 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
+     * Returns model.
+     */
+    Model getModel();
+
+    /**
+     * Updates WorkoutStorage.
+     */
+    public void updateWorkoutStorage();
+
+    /**
      * Returns RecipeBook.
      *
      * @see Model#getRecipeBook()
