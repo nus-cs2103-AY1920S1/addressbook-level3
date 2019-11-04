@@ -146,17 +146,17 @@ Getting comfortable? Ready to master the application commands?
 
 _Some typical commands  to get familiar with are:_
 
-* *`create <NAME>`* : Create an empty _WordBank_ with specified name.
-* *`select <NAME>`* : Select and switch to _WordBank_ with the specified name.
-* *`add w/<WORD> m/<MEANING>`* : Adds a new _Card_ with specified _Word_ and _Meaning_ into the current _WordBank_.
-* *`list`* : List all _Cards_ in the current _WordBank_.
-* **`start <EASY/MEDIUM/HARD>`** : Starts a _Game_ session with the specified _Difficulty_. Default difficulty in
+* *`create <NAME>`*: Create an empty _WordBank_ with specified name.
+* *`select <NAME>`*: Select and switch to _WordBank_ with the specified name.
+* *`add w/<WORD> m/<MEANING>`*: Adds a new _Card_ with specified _Word_ and _Meaning_ into the current _WordBank_.
+* *`list`*: List all _Cards_ in the current _WordBank_.
+* **`start <EASY/MEDIUM/HARD>`**: Starts a _Game_ session with the specified _Difficulty_. Default difficulty in
 _Settings_
 will be used if not
 specified.
-* **`guess <YOUR_ANSWER>`** : Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI.
-* **`stop`** : Stops the current _Game_ session.
-* *`exit`* : Exit _Dukemon_.
+* **`guess <YOUR_ANSWER>`**: Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI.
+* **`stop`**: Stops the current _Game_ session.
+* *`exit`*: Exit _Dukemon_.
 
 // end::chenhui-quickstart[]
 
@@ -197,21 +197,67 @@ image::SettingsMode.png[width="450"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add w/WORD`, `WORD` is a parameter which can be used as +
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+Eg. in `add w/WORD m/MEANING`, `WORD` is a parameter which can be used as +
 `add w/Charmander m/Fire starter pokemon`.
-* Items in square brackets are optional e.g `w/WORD [t/TAG]` can be used as +
+* Items in square brackets are optional. +
+Eg. `w/WORD [t/TAG]` can be used as +
 `add w/Squirtle m/Water starter pokemon t/Water type` or as
  +
 `add w/Squirtle m/Water starter pokemon`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/CS2040`, `t/CS2040 t/GRAPH` etc.
-* Parameters can be in any order e.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
+* Items with `…`​ after them can be used multiple times including zero times. +
+E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/CS2040`, `t/CS2040 t/GRAPH` etc.
+* Parameters can be in any order. +
+E.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
 ====
 
-=== Home Mode & Commands image:load_mode_icon.png[load, 22]
-==== To open word bank content : `open`
-Changes the app mode to open, so that the user can perform card commands.
+=== Switch Commands
+(Available in Home mode)
 
-==== Create new word bank : `create`
+==== To switch to home page: `home`
+Welcome home.
+
+Format: `home`
+
+==== To open word bank content: `open`
+Opens the page to edit the word bank selected.
+
+Format: `open`
+
+****
+* Use the select command to select a word bank. Otherwise it won't work.
+****
+
+==== Start the game: `start`
+Start the game with the word bank selected.
+
+Format: `start [DIFFICULTY]` +
+
+****
+* Use the select command to select a word bank. Otherwise it won't work.
+****
+
+Examples:
+
+* `start`
+* `start easy`
+
+==== Customise game play: `settings`
+Enters settings page, so that the user can customise the game play.
+
+=== Word Bank Commands image:load_mode_icon.png[load, 22]
+(Available in Home mode)
+
+==== Select a word bank: `select`
+Let Dukemon know what word bank you have selected.
+
+Format: `select WORD_BANK` +
+Examples:
+
+* `select arithmetic`
+* `select sample`
+
+==== Create new word bank: `create`
 Creates a new word bank with specified name. +
 
 Format: `create WORD_BANK` +
@@ -220,7 +266,7 @@ Examples:
 * `create CS2040`
 * `create Biology`
 
-==== Remove a word bank : `remove`
+==== Remove a word bank: `remove`
 Removes a new word bank with specified name. +
 
 Format: `remove WORD_BANK` +
@@ -229,14 +275,17 @@ Examples:
 * `Remove Gen 3 pokemon`
 * `Remove Vocabulary`
 
-==== Import a word bank : `import`
+==== Import a word bank: `import`
 Import the word bank from a specified folder path on your system. +
 
-FOLDER is the folder where the word bank file reside. +
-WORDBANK is the name of the file without the extension. +
-Dukemon can only read json word bank files.
-
 Format: `import w/WORD_BANK f/FOLDER` +
+
+****
+* FOLDER is the folder where the word bank file reside.
+* WORDBANK is the name of the file without the extension.
+* Dukemon can only read json word bank files.
+****
+
 Examples:
 
 (Use \ for Windows)
@@ -244,43 +293,35 @@ Examples:
 * `import w/cs2040_graph f/~/downloads`
 * `import w/fire pokemons f//Users/chrischenhui/data`
 
-NOTE: You can also drag and drop a word bank into your app.
+NOTE: We have a drag and drop feature. +
+You can drag and drop a file from your computer into the section which holds the word banks.
 
-==== Export a word bank : `export`
+==== Export a word bank: `export`
 Export the word bank to a specified file path on your system. +
 
-Format: `export w/WORD_BANK f/FILE_PATH` +
+Format: `export w/WORD_BANK f/FOLDER` +
+
+****
+* FOLDER is the folder where the word bank file reside.
+* WORDBANK is the name of the file without the extension.
+* Dukemon exports word banks into json files.
+****
+
 Examples:
 
 * `export w/ma1101r theorems f/~`
 * `export w/biology definitions f/~/downloads`
 
-NOTE: You can also drag and drop a word bank out your app. +
-However, dragging and dropping may crash the app on Mac system.
+NOTE: We have a drag and drop feature. +
+You can also drag and drop a word bank out your app into your computer.
 
-==== Select a word bank : `select`
-Choose the word bank you want to work with.
+=== Card Commands image:card_commands_icon.png[width="29.5"]
+(Available in Open mode)
 
-Format: `select WORD_BANK`
-Examples:
-
-* `select CS2040`
-* `select Biology`
-
-==== Help : `help`
-Shows help
-
-Format: `help`
-
-=== Open Mode & Commands image:card_commands_icon.png[width="29.5"]
-
-
-==== Adding a flash card : `add`
-Adds a new word-description pair to the word bank.
+==== Adding a flash card: `add`
+Adds a new word-meaning pair to the word bank.
 
 Format: `add w/WORD m/MEANING`
-
-NOTE: There can be duplicate words, but duplicate meanings will be rejected.
 
 Examples:
 
@@ -288,8 +329,10 @@ Examples:
 * `add w/Newton's third law of motion m/Every action will produce and equal and opposite reaction`
 * `add w/Kopi Luwak m/Coffee produced from the coffee beans found in the faeces of a civet cat`
 
-==== Deleting a flash card : `delete`
-Deletes the specified word from the data set. +
+NOTE: There can be duplicate words, but duplicate meanings will be rejected.
+
+==== Deleting a flash card: `delete`
+Deletes the specified index from the word bank. +
 
 Format: `delete INDEX`
 
@@ -303,19 +346,11 @@ and must be a valid index within the list.
 Examples:
 
 * `delete 2` +
-Deletes the 2nd word in the data set.
+Deletes the 2nd word.
 * `delete 1` +
 Deletes the 1st word in the results of the `find` command.
 
-==== Viewing a word bank's content : `list`
-Views the content of a data set. +
-Format: `list`
-
-==== Clear a word bank's content : `clear`
-Views the content of a data set. +
-Format: `clear`
-
-==== Editing a card's content : `edit`
+==== Editing a card's content: `edit`
 Edits a card.
 
 Format: `edit INDEX [w/WORD] [m/MEANING] [t/TAG]`
@@ -325,33 +360,42 @@ Examples:
 * `edit 1 w/new word m/new meaning`
 * `edit 2 m/new meaning with tag t/tagged`
 
-==== Locating a word/description: `find`
+==== Searching for a card: `find`
 
-Finds entry whose word or description contain any of the given keywords. +
+Finds entry whose word or meaning or tag  contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Both word and description will be searched
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Word, meaning and tag will be searched
+* Words contained within will be matched e.g. `formal` will match `Informal`
+* Cards matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
 * `find long` +
-Returns entries containing elephant and giraffe.
+Returns any entries containing `long` in its word or meaning or tag.
 * `find mammal fish bird` +
-Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or words.
+Returns any entries containing `mammal`, `fish` or `bird` in its word or meaning or tag.
 
-==== Exit Dukemon: `exit`
+==== Viewing a word bank's content: `list`
+Views the content of a word bank.
+
+Format: `list`
+
+==== Clear a word bank's content: `clear`
+Clears the word bank by removing all cards.
+
+Format: `clear`
 
 // end::chenhui-commandusage[]
 
 // tag::yida-game[]
 
-=== Game Mode & Commands image:game_mode_icon.png[width="30"]
+=== Game Commands image:game_mode_icon.png[width="30"]
+(Available in Game mode)
 
 .UI regions that are relevant when a Game session is in progress.
 image::UserGuideGameSessionDiagram1.png[width="790"]
@@ -432,12 +476,13 @@ be reported.*)
 
 // end::yida-game[]
 
-=== Settings Mode & Commands image:settings_mode_icon.png[width="27"]
+=== Settings Commands image:settings_mode_icon.png[width="27"]
+(Available in Settings mode)
 
 Goes into the settings menu. +
 Format: `settings`
 
-==== Changing the theme : `theme`
+==== Changing the theme: `theme`
 
 Changes the theme of the UI. +
 Format: `theme dark/light`
@@ -449,7 +494,7 @@ Changes the UI theme to dark.
 * `theme light` +
 Changes the UI theme to light.
 
-==== Turning hints on/off : `hints`
+==== Turning hints on/off: `hints`
 
 Turns hints on or off. +
 Format: `hints on/off`
@@ -461,7 +506,7 @@ Turns hints on.
 * `hints off` +
 Turns hints off.
 
-==== Changing difficulty : `difficulty`
+==== Changing difficulty: `difficulty`
 
 Changes the difficulty of the game. +
 Format: `difficulty easy/medium/hard`
@@ -474,6 +519,24 @@ Changes the difficulty to low. (Timer = 15 seconds)
 Changes the difficulty to medium. (Timer = 10 seconds)
 * `difficulty high` +
 Changes the difficulty to high. (Timer = 5 seconds)
+
+// tag::chenhui-commandusage2[]
+
+=== Misc. Commands
+(Help is available in Home mode) +
+(Exit is available in any mode except Game mode)
+
+==== Ask for help: `help`
+Dukemon sends help.
+
+Format: `help`
+
+==== Take a break: `exit`
+Dukemon says bye!
+
+Format: `exit`
+
+// end::chenhui-commandusage2[]
 
 // tag::statsjason[]
 == Statistics
@@ -533,8 +596,21 @@ image::ParserManagerActivityDiagram.PNG[]
 |===
 | Type of command | Command name | Parameters
 
-1.6+h| Word Bank Command
-s| help |
+1.4+h| Switch Command +
+(Available in Home mode)
+s| home m|
+
+s| open m|
+
+s| start m| [DIFFICULTY]
+
+s| settings m|
+
+3.1+|
+3.1+|
+
+1.5+h| Word Bank Command +
+(Available in Home mode)
 
 s| select m| WORD_BANK
 
@@ -542,33 +618,35 @@ s| create m| WORD_BANK
 
 s| remove m| WORD_BANK
 
-s| import m| w/WORD_BANK f/FILE_PATH
+s| import m| w/WORD_BANK f/FOLDER
 
-s| export m| w/WORD_BANK f/FILE_PATH
+s| export m| w/WORD_BANK f/FOLDER
 
 3.1+|
 3.1+|
 
-1.7+h| Card Command
-s| list m|
+1.6+h| Card Command +
+(Available in Open mode)
 
-s| add m| w/WORD_BANK m/meaning [t/TAG]
-
-s| edit m| INDEX w/WORD_BANK m/meaning [t/TAG]
+s| add m| w/WORD m/MEANING [t/TAG]
 
 s| delete m| INDEX
 
-s| find m|
+s| edit m| INDEX w/WORD m/MEANING [t/TAG]
+
+s| find m| KEYWORD [MORE_KEYWORDS]
+
+s| list m|
 
 s| clear m|
 
-s| exit m|
-
 3.1+|
 3.1+|
 
-1.3+h| Game Command
-s| guess m| ANSWER
+1.3+h| Game Command +
+(Available in Game mode)
+
+s| guess m| WORD
 
 s| skip m|
 
@@ -577,26 +655,27 @@ s| stop m|
 3.1+|
 3.1+|
 
-1.4+h| Settings Command
+1.4+h| Settings Command +
+(Available in Settings mode)
+
 s| difficulty m| EASY/NORMAL/HARD
 
 s| theme m| DARK/LIGHT
 
 s| hints m| ON/OFF
 
-s| avatar m| INT
+s| avatar m| INDEX
 
 3.1+|
 3.1+|
 
-1.4+h| Switch Command
-s| home m|
+1.2+h| Misc. Command
 
-s| open m|
+s| help +
+(Available in Home mode)|
 
-s| start m| [DIFFICULTY]
-
-s| setting m|
+s| exit +
+(Available anywhere except Game mode) m|
 
 |===
 
@@ -608,6 +687,10 @@ s| setting m|
 === Leaderboard `[coming in v2.0]`
 
 View and compare your statistics with peers on the internet.
+
+=== Reminders `[coming in v2.0]`
+
+Smart algorithms to pop reminders for you to know which bank you have not visited and is most likely to forget soon.
 
 === User profiles `[coming in v2.0]`
 

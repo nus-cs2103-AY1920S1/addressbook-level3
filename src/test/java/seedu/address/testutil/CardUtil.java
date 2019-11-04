@@ -26,12 +26,12 @@ public class CardUtil {
     /**
      * Returns the part of command string for the given {@code card}'s details.
      */
-    public static String getCardDetails(Card card) {
+    private static String getCardDetails(Card card) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_WORD + card.getWord().getValue() + " ");
         sb.append(PREFIX_MEANING + card.getMeaning().getValue() + " ");
         card.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s.getTagName() + " ")
         );
         return sb.toString();
     }
@@ -48,7 +48,7 @@ public class CardUtil {
             if (tags.isEmpty()) {
                 sb.append(PREFIX_TAG);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.getTagName()).append(" "));
             }
         }
         return sb.toString();

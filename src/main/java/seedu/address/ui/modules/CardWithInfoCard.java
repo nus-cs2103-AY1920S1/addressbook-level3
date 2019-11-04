@@ -41,7 +41,7 @@ public class CardWithInfoCard extends UiPart<Region> {
     @FXML
     private Label correctRate;
 
-    public CardWithInfoCard(Card card, CardStatistics cardStatistics) {
+    CardWithInfoCard(Card card, CardStatistics cardStatistics) {
         super(FXML);
         if (!card.getId().equals(cardStatistics.getCardId())) {
             throw new AssertionError("Card and card statistics should have the same id.\n"
@@ -53,8 +53,8 @@ public class CardWithInfoCard extends UiPart<Region> {
         cardMeaning.setWrapText(true);
         cardMeaning.prefWidthProperty().bind(cardContainer.widthProperty());
         card.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
 
         double correctRateToShow = cardStatistics.getNumShown() == 0
                 ? 0

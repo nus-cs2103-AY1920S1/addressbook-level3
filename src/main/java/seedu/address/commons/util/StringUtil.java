@@ -14,37 +14,44 @@ public class StringUtil {
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
-     *   Ignores case, but a full word match is required.
+     *   Ignores case, and only a sub word match is required.
      *   <br>examples:<pre>
-     *       containsWordIgnoreCase("ABc def", "abc") == true
-     *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       containsSubWordIgnoreCase("ABc def", "abc") == true
+     *       containsSubWordIgnoreCase("ABc def", "DEF") == true
+     *       containsSubWordIgnoreCase("ABc def", "AB") == false //sub word match
      *       </pre>
      * @param sentence cannot be null
      * @param word cannot be null, cannot be empty, must be a single word
      */
-    public static boolean containsWordIgnoreCase(String sentence, String word) {
+    public static boolean containsSubWordIgnoreCase(String sentence, String word) {
         requireNonNull(sentence);
         requireNonNull(word);
 
-        String preppedWord = word.trim();
+        String preppedWord = word.trim().toLowerCase();
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+        checkArgument(preppedWord.split("\\s+").length == 1,
+                "Word parameter should be a single word");
 
-        String preppedSentence = sentence;
+        String preppedSentence = sentence.toLowerCase();
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
-        return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
+        for (String s : wordsInPreppedSentence) {
+            if (s.contains(preppedWord)) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
     /**
      * Returns true if the {@code sentence} starts with the {@code word}.
      *   Ignores case.
      *   <br>examples:<pre>
-     *       containsWordIgnoreCase("ABc def", "abc") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == true
-     *       containsWordIgnoreCase("ABc def", "dE") == true
+     *       containsSubWordIgnoreCase("ABc def", "abc") == true
+     *       containsSubWordIgnoreCase("ABc def", "AB") == true
+     *       containsSubWordIgnoreCase("ABc def", "dE") == true
      *       </pre>
      * @param sentence cannot be null
      * @param word cannot be null, cannot be empty

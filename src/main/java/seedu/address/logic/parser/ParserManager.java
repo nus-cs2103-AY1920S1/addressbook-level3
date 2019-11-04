@@ -33,7 +33,7 @@ import seedu.address.logic.commands.wordbankcommands.ExportCommand;
 import seedu.address.logic.commands.wordbankcommands.HelpCommand;
 import seedu.address.logic.commands.wordbankcommands.ImportCommand;
 import seedu.address.logic.commands.wordbankcommands.RemoveCommand;
-import seedu.address.logic.commands.wordbankcommands.SelectCommand;
+import seedu.address.logic.commands.switches.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
 import seedu.address.logic.parser.home.BankCommandParser;
