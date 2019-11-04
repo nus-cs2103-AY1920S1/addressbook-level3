@@ -59,6 +59,10 @@ public class ModelManager implements Model {
         this(addressBook, new EventBook(), userPrefs);
     }
 
+    public ModelManager(ReadOnlyEventBook eventBook, ReadOnlyUserPrefs userPrefs) {
+        this(new AddressBook(), eventBook, userPrefs);
+    }
+
     public ModelManager() {
         this(new AddressBook(), new EventBook(), new UserPrefs());
     }

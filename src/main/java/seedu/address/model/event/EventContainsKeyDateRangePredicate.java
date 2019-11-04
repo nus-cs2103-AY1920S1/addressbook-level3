@@ -1,6 +1,10 @@
 package seedu.address.model.event;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -31,8 +35,26 @@ public class EventContainsKeyDateRangePredicate implements Predicate<Event> {
      */
     @Override
     public boolean test(Event event) {
-        LocalDate date = event.getStartDate().getDate();
-        return !(date.isBefore(startDate) || date.isAfter(endDate));
+        LocalDate start = event.getStartDate().getDate();
+        LocalDate end = event.getEndDate().getDate();
+        List<LocalDate> eventDates = new ArrayList<>();
+        while (!start.isAfter(end)) {
+            eventDates.add(start);
+            start = start.plusDays(1);
+        }
+        LocalDate startRange = startDate;
+        LocalDate endRange = endDate;
+        List<LocalDate> dateRange = new ArrayList<>();
+        while (!startRange.isAfter(endRange)) {
+            dateRange.add(startRange);
+            startRange = startRange.plusDays(1);
+        }
+        Collection<LocalDate> set = new HashSet<>(dateRange);
+        boolean result = false;
+        for (LocalDate date: eventDates) {
+            result |= set.contains(date);
+        }
+        return result;
     }
 
     @Override
