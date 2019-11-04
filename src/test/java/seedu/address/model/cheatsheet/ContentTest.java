@@ -52,10 +52,10 @@ public class ContentTest {
         // invalid Content
         assertFalse(Content.isValidContent("")); // empty string
         assertFalse(Content.isValidContent(" ")); // spaces only
-        assertFalse(Content.isValidContent("^")); // only non-alphanumeric characters
-        assertFalse(Content.isValidContent("content*")); // contains non-alphanumeric characters
 
         // valid Content
+        assertTrue(Content.isValidContent("^")); // only non-alphanumeric characters
+        assertTrue(Content.isValidContent("content*")); // contains non-alphanumeric characters
         assertTrue(Content.isValidContent("this is a content")); // alphabets only
         assertTrue(Content.isValidContent("12345")); // numbers only
         assertTrue(Content.isValidContent("this is the 2nd content")); // alphanumeric characters

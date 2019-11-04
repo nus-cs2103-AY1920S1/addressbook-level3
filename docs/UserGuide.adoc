@@ -12,6 +12,8 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W13-3
 
@@ -34,6 +36,31 @@ the benefits of a fast typing speed, give StudyBuddyPro a try! {To be implemente
 If you're interested, head over to the
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#2-quick-start[Quick Start]
 section to get started!
+
+=== Callouts Signs
+
+Do refer to the signs below that will be used across the documents for references. These will prove to be useful when you are reading this document.
+
+[WARNING]
+====
+Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+====
+
+
+[IMPORTANT]
+====
+Indicates information that are crucial to understand so that you will be able to follow the flow of the document. Confusion may arise if you do not grasp the information here.
+====
+
+[NOTE]
+====
+Indicates information that are note-worthy. Do read them for more information and better understandings.
+====
+
+[TIP]
+====
+Indicates additional information that are helpful. Fret not, tips can be good to know but are not vital.
+====
 
 == Quick Start
 
@@ -544,47 +571,82 @@ Edits a note's title, content, or tags. The note will be referred to by their or
         Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100finals]
 
+
 == CheatSheet Feature:
 
-=== Creating a cheatSheet: `add`
+[IMPORTANT]
+====
+All the operations in this section assume that the user is in the _cheatsheet_ mode.
+====
 
-* Adds a cheatSheet from user input title <TITLE> and content <CONTENT>.
-* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the
-cheatsheet.
+tag::cheatsheetAdd[]
+
+=== Creating a Cheatsheet: `add`
+
+Adds a cheatsheet from user input title <TITLE> and content <CONTENT>. Flashcards and notes in StudyBuddyPro that have the specified tag will be used as contents in the cheatsheet.
 
     Format: add t/TITLE [tag/TAG]...
 
-    Example usage: add t/CS2100 Midterm CheatSheet tag/cs2100midterm
+Example usage:
 
-    Expected output: New cheatsheet added:
+    add t/CS2100 Midterm CheatSheet tag/cs2100midterm
+
+[IMPORTANT]
+====
+Assuming that there is a flashcard object with the tag "cs2100midterm"
+====
+
+Expected output:
+
+    New cheatsheet added:
     Title: CS2100 Midterm CheatSheet
     Tags: [cs2100midterm]
-    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-        [ 2. 110 in Binary is 6 in Decimal ]
+    1 content(s) have been successfully generated from the other modes.
 
-=== Editing a cheatSheet: `edit`
+end::cheatsheetAdd[]
+tag::cheatsheetEdit[]
 
-* In EDITING (`edit`):
-** All optional fields provided, except `tag/TAG`, will overwrite their relevant fields.
-** `tag/TAG` optional field, will be added to the flashcard, if they do not already exist.
+=== Editing a Cheatsheet: `edit`
 
-Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
-
-* The user can specify one of the optional fields to edit.
+Edits cheatsheet's title, tag, content by a specified <CHEATSHEET_INDEX>. At least one of the optional fields must be specified to edit.
 
     Format: edit (index) [t/TITLE] [tag/TAG]...
 
-    Example usage: edit 8 t/cs2100 final cheatsheet tag/cs2100finals
+[IMPORTANT]
+====
+** Only `t/TITLE` optional field will overwrite its field.
+** All other optional fields will remove itsn existing content(s).
+** Any invalid `c/CONTENT_INDEX` or `tag/TAG` will be *ignored*.
+====
 
-    Expected output: Edited Cheatsheet:
-        Title: cs2100 final cheatsheet
-        Tags: [cs2100finals]
-        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-            [ 2. 110 in Binary is 6 is Decimal ]
+Example CheatSheet of index 8:
 
-=== Deleting a cheatSheet: `delete`
+    Title: cs2100 cheatsheet
+    Tags: [cs2100finals][formula]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. 10 + 10 = 20]
 
-Deletes a cheatSheet by the specified index.
+Example usage:
+
+    edit 8 t/cs2100 final cheatsheet tag/formula
+
+Expected output:
+
+[NOTE]
+====
+The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Edited Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+
+end::cheatsheetEdit[]
+
+=== Deleting a Cheatsheet: `delete`
+
+Deletes a cheatsheet by the specified index.
 
 The user will be prompted once to confirm their deletion.
 
@@ -606,17 +668,79 @@ Upon hitting enter, the specified cheatsheet will be deleted.
         Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
             [ 2. 110 in Binary is 6 is Decimal ]
 
-=== Listing cheatSheets: `list`
+tag::cheatsheetView[]
 
-* Lists all cheatSheets found in StudyBuddyPro.
+=== Viewing Cheatsheets: `view`
+
+Views a cheatsheet by the specified index.
+
+   Format: view (index)
+
+Example CheatSheet of index 1:
+
+    Title: cs2100 cheatsheet
+    Tags: [cs2100finals][important]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. 10 + 10 = 20]
+
+Example usage:
+
+    view 1
+
+Expected output:
+
+.Screenshot for `view 1` expected output
+image::jasmineDiagrams/ssForViewUG.png[]
+
+The above screenshot shows the cheatsheet with index 1 in the GUI of StudyBuddyPro.
+
+end::cheatsheetView[]
+
+tag::cheatsheetViewSpecific[]
+
+=== Viewing Cheatsheets of Specific Tag: `show`
+
+Views a cheatsheet's content for a specified tag. User must be in a `view` command before using `show` command.
+
+   Format: show (index)
+
+[NOTE]
+====
+Assuming user is in the `view 1` command from above example in `view` command.
+====
+
+Example usage:
+
+    show 1
+
+Expected output:
+
+[NOTE]
+====
+Currently, cheatsheets only allow contents that match all the specified tags. Hence, `show` command will only show color toggling at the tags segment at the moment.
+====
+
+.Screenshot for `show 1` expected output
+image::jasmineDiagrams/ssForViewSpecificUG.png[]
+
+The above screenshot shows the cheatsheet's content with tag index 1 in the GUI of StudyBuddyPro.
+
+
+end::cheatsheetViewSpecific[]
+
+tag::cheatsheetList[]
+
+=== Listing Cheatsheets: `list`
+
+Lists all cheatsheets found in StudyBuddyPro.
 
    Format: list
 
-   Expected output: a complete list of all cheatSheets currently in StudyBuddyPro
+end::cheatsheetList[]
 
 === Listing by tags: `filter`
 
-* Filters the cheatSheet library by the user specified tag(s).
+* Filters the cheatsheet library by the user specified tag(s).
 * The user must specify at least one tag.
 * The user is able to specify multiple tags.
 * CheatSheets that match all of the specified tags will be displayed.
@@ -625,7 +749,7 @@ Upon hitting enter, the specified cheatsheet will be deleted.
 
     Example usage: filter tag/difficult
 
-    Expeted output: Filter cheatSheets by tag(s) :
+    Expeted output: Filter cheatsheet by tag(s) :
         [difficult]
         2. Title: Tough Math
             Tags: [difficult][math]
@@ -636,7 +760,60 @@ Upon hitting enter, the specified cheatsheet will be deleted.
             Content: [ 1. dy/dx is a process where mathematicians..]
                 [ 2. Question: what is dy/dx?; Answer: find gradient]
 
+tag::cheatsheetUpdate[]
 
+=== Updating a Cheatsheet: `update` (Coming in v2.0)
+
+Updates cheatsheet's contents by a specified <CHEATSHEET_INDEX>. Tags specified are added into the list of tags for the cheatsheet if it not already exist.
+
+[WARNING]
+====
+This command may overwrite any customization of contents done prior to it as the cheatsheet's contents will be regenerated.
+====
+
+    Format: update (index) [tag/TAG]...
+
+Example CheatSheet of index 8:
+
+    Title: cs2100 cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+
+Example usage 1:
+
+    update 8
+
+Expected output:
+
+[NOTE]
+====
+The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Updated Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. Binary is in bits of 1 and 0.]
+
+Example usage 2:
+
+    update 8 tag/formula
+
+Expected output:
+
+[NOTE]
+====
+The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Updated Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals][formula]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. 10 + 10 = 20]
+
+end::cheatsheetUpdate[]
 
 == FAQ
 
