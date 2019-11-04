@@ -27,7 +27,7 @@ public class TrainingCommandAbsent extends TrainingCommand {
             + "displayed person " + "list at" + " the specified date.\n"
             + "If no date is specified, the current date is used.\nParameters: " + "#/INDEX [INDEX] [INDEX] [d/DATE]\n"
             + "Date must be in the format: " + DATE_FORMAT_TYPE_ONE + "\nIndex must be a positive integer\nExample: "
-            + COMMAND_WORD + " " + ABSENT_FLAG + " " + PREFIX_DATE + "20/10/2019 " + PREFIX_INDEXES + " 1 5 7";
+            + COMMAND_WORD + " " + ABSENT_FLAG + " " + PREFIX_DATE + "20102019 " + PREFIX_INDEXES + " 1 5 7";
 
     /**
      * Creates a TrainingCommandAbsent to add a training session on {@code date} using the {@code indexList}.

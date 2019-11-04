@@ -20,5 +20,6 @@ public class CliSyntax {
     public static final Flag FLAG_PERSON = new Flag("-p");
     public static final Flag FLAG_EVENT = new Flag("-e");
     public static final Flag FLAG_TRAINING = new Flag("-t");
+    public static final Flag FLAG_ABSENT = new Flag("-a");
 
 }

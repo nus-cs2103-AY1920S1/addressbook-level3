@@ -110,6 +110,7 @@ public class ModelManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
+
     @Override
     public ReadOnlyAddressBook getAddressBookDeepCopy() {
         UniquePersonList persons = addressBook.getPersons();
@@ -117,6 +118,7 @@ public class ModelManager implements Model {
         deepCopy.getPersons().setPersons(persons);
         return deepCopy;
     }
+
     @Override
     public void undo() {
         Command undoneCommand = HistoryManager.getCommands().pop();
@@ -133,6 +135,7 @@ public class ModelManager implements Model {
             addressBook.resetData(afterUndoneState);
         }
     }
+
     @Override
     public void redo() {
         Command redoneCommand = HistoryManager.getUndoneCommands().pop();
@@ -231,8 +234,9 @@ public class ModelManager implements Model {
     public List<AttendanceRateEntry> getAttendanceRateOfAll() {
         List<Person> allPeople = getAddressBook().getPersonList();
         List<AttendanceRateEntry> attendanceRateEntries = new ArrayList<>();
-        for (Person person: allPeople) {
-            attendanceRateEntries.add(new AttendanceRateEntry(person, attendance.getPersonAttendanceString(person)));
+        for (Person person : allPeople) {
+            attendanceRateEntries.add(new AttendanceRateEntry(person,
+                    attendance.getPersonAttendanceRateString(person)));
         }
         return attendanceRateEntries;
     }

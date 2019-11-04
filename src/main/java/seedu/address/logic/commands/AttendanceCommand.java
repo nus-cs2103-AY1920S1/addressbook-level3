@@ -62,7 +62,7 @@ public class AttendanceCommand extends Command {
         result.append("\n");
         result.append(person.getName().toString());
         result.append(": ");
-        result.append(attendance.getPersonAttendanceString(person));
+        result.append(attendance.getPersonAttendanceRateString(person));
 
         return new CommandResult(result.toString());
     }

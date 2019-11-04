@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -26,6 +28,8 @@ public abstract class TrainingCommand extends Command {
      * @param indexList List on indexes used to indicate people who were present/absent.
      */
     public TrainingCommand(AthletickDate date, List<Index> indexList) {
+        requireNonNull(date);
+        requireNonNull(indexList);
         this.date = date;
         this.indexList = indexList;
     }

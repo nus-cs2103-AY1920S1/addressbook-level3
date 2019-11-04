@@ -108,7 +108,7 @@ public class Attendance {
     /**
      * Returns the attendance rate of a given person name
      */
-    public String getPersonAttendanceString(Person person) {
+    public String getPersonAttendanceRateString(Person person) {
         int attended = getPersonAttendedTrainings(person);
         int total = getPersonTotalTrainings(person);
         if (total == 0) { // Has not had the opportunity to go for any trainings yet
