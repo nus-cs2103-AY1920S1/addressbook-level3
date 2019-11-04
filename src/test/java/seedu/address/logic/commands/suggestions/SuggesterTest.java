@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.model.ModelManager;
@@ -30,7 +31,7 @@ class SuggesterTest {
     void getPersonNameSuggestions_partialPresentPersonName_oneFullPersonName() {
         final int inconsequentialValue = 0;
         final String presentPersonName = TypicalPersonDescriptor.ALICE.getName().toString();
-        final String searchKeyword = presentPersonName.replaceAll(" .*$", "");
+        final String searchKeyword = StringUtil.substringBefore(presentPersonName, " ");
         assert !searchKeyword.equals(presentPersonName);
 
         final CommandArgument commandArgument = new CommandArgument(
@@ -76,5 +77,31 @@ class SuggesterTest {
                 CliSyntax.PREFIX_GROUPNAME, inconsequentialValue, searchKeyword);
         final List<String> actualGroupNameSuggestions = Suggester.getGroupNameSuggestions(model, commandArgument);
         assertFalse(actualGroupNameSuggestions.contains(absentGroupName));
+    }
+
+    @Test
+    void getValidLocationSuggestions_partialValidLocationName() {
+        final int inconsequentialValue = 0;
+        final String validLocation = "LT17";
+        final String searchKeyword = "27092019-1500-1600-L";
+        assert !searchKeyword.equals(validLocation);
+
+        final CommandArgument commandArgument = new CommandArgument(
+                CliSyntax.PREFIX_TIMING, inconsequentialValue, searchKeyword);
+        final List<String> actualValidLocationSuggestions = Suggester
+                .getValidLocationSuggestions(model, commandArgument);
+        assertFalse(actualValidLocationSuggestions.contains(validLocation));
+    }
+
+    @Test
+    void getValidLocationSuggestions_invalidValidLocationName() {
+        final int inconsequentialValue = 0;
+        final String searchKeyword = "27092019-1500-1600-FOOBARFOO";
+
+        final CommandArgument commandArgument = new CommandArgument(
+                CliSyntax.PREFIX_TIMING, inconsequentialValue, searchKeyword);
+        final List<String> actualValidLocationSuggestions = Suggester
+                .getValidLocationSuggestions(model, commandArgument);
+        assertTrue(actualValidLocationSuggestions.isEmpty());
     }
 }

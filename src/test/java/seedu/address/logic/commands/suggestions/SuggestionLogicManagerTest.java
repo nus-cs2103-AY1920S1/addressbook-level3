@@ -20,6 +20,8 @@ import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic.SelectionResult;
 
 class SuggestionLogicManagerTest {
+    static final String EMPTY_STRING = "";
+
     private static final List<String> COMMAND_WORDS = List.of(
             "myfirstcommand",
             "myothercommand",
@@ -164,7 +166,7 @@ class SuggestionLogicManagerTest {
 
     @Test
     void getSuggestions_emptyCommand_noSuggestions() {
-        final String command = "";
+        final String command = EMPTY_STRING;
         final List<String> expectedSuggestions = List.of();
 
         final List<String> actualSuggestions = suggestionLogic.getSuggestions(command, 0);
@@ -179,7 +181,7 @@ class SuggestionLogicManagerTest {
 
     @Test
     void selectSuggestion_emptyCommand_noChange() {
-        final String command = "";
+        final String command = EMPTY_STRING;
         final String expectedCommand = command;
         final int expectedPosition = 0;
 

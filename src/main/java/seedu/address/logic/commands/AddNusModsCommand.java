@@ -8,6 +8,7 @@ import static seedu.address.model.util.ModuleEventMappingUtil.mapModuleToEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,16 +41,15 @@ public class AddNusModsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + "PERSON_NAME "
             + PREFIX_LINK + "NUSMODS_SHARE_LINK\n"
-            + "Example Link: " + NusModsShareLink.EXAMPLE;
+            + "Example Link: " + NusModsShareLink.VALID_EXAMPLE_STRING;
 
-    public static final String MESSAGE_SUCCESS = "Added NUS modules to person's schedule: \n\n";
-    public static final String MESSAGE_FAILURE = "Unable to add modules";
-    public static final String MESSAGE_PERSON_NOT_FOUND = MESSAGE_FAILURE + ": unable to find person";
-    public static final String MESSAGE_MODULE_NOT_FOUND = MESSAGE_FAILURE + ": unable to get all module details";
-    public static final String MESSAGE_MODULES_CLASH = MESSAGE_FAILURE + ": there's a timing clash "
-            + "between the modules you're adding!";
-    public static final String MESSAGE_EVENTS_CLASH = MESSAGE_FAILURE + ": there's a timing clash "
-            + "between the modules you're adding and some event in the person's schedule!";
+    public static final String MESSAGE_SUCCESS = "Added NUS modules to person's schedule.";
+    public static final String MESSAGE_FAILURE = "Unable to add modules: %s";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "couldn't find person!";
+    public static final String MESSAGE_MODULE_NOT_FOUND = "couldn't get all module details";
+    public static final String MESSAGE_EVENTS_CLASH = "there's a timing clash somewhere "
+            + "between the modules you're adding and the person's schedule!";
+    public static final String MESSAGE_DUPLICATE_EVENT = "module already exists in the schedule";
 
     private final Name name;
     private final NusModsShareLink link;
@@ -65,101 +65,106 @@ public class AddNusModsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         AcadYear acadYear = model.getAcadYear();
-
         LocalDate startAcadSemDate = model.getAcadSemStartDate(acadYear, link.semesterNo);
         Holidays holidays = model.getHolidays();
 
-        // translate module to event
+        Person person;
+        try {
+            person = getPerson(name, model);
+        } catch (PersonNotFoundException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+        }
+
+        List<Event> eventsToAdd;
+        try {
+            eventsToAdd = mapModulesToEvents(model, acadYear, startAcadSemDate, holidays);
+        } catch (ModuleNotFoundException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_MODULE_NOT_FOUND));
+        } catch (ModuleToEventMappingException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, e.getMessage()));
+        }
+
+        try {
+            addEventsToPerson(person, eventsToAdd);
+        } catch (DuplicateEventException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_EVENT));
+        } catch (EventClashException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_EVENTS_CLASH));
+        }
+
+        // updates UI.
+        if (name == null) {
+            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
+        } else {
+            model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS);
+        //return new CommandResult(MESSAGE_SUCCESS + user.getSchedule());
+    }
+
+    /**
+     * Maps modules to events
+     * @param model model object.
+     * @param acadYear academic year.
+     * @param startAcadSemDate start date of academic semester.
+     * @param holidays Holidays object, containing holiday dates.
+     * @return list mapped events.
+     */
+    private List<Event> mapModulesToEvents(Model model, AcadYear acadYear, LocalDate startAcadSemDate,
+                                           Holidays holidays) {
         ArrayList<Event> eventsToAdd = new ArrayList<>();
         for (Map.Entry<ModuleCode, Map<LessonType, LessonNo>> entry : link.moduleLessonsMap.entrySet()) {
             ModuleCode moduleCode = entry.getKey();
             ModuleId moduleId = new ModuleId(acadYear, moduleCode);
-            try {
-                Module module = model.findModule(moduleId);
-                Event e = mapModuleToEvent(module, startAcadSemDate, link.semesterNo,
-                        entry.getValue(), holidays);
-                eventsToAdd.add(e);
-            } catch (ModuleNotFoundException e) {
-                return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
-            } catch (ModuleToEventMappingException e) {
-                return new CommandResult("Unable to add modules: " + e.getMessage());
-            }
+            Module module = model.findModule(moduleId);
+            Event e = mapModuleToEvent(module, startAcadSemDate, link.semesterNo,
+                    entry.getValue(), holidays);
+            eventsToAdd.add(e);
         }
-
-        if (checkClashingModuleEvents(eventsToAdd)) {
-            return new CommandResult(MESSAGE_MODULES_CLASH);
-        }
-
-
-        if (name == null) {
-
-            Person user = model.getUser();
-
-            for (Event event : eventsToAdd) {
-                if (user.getSchedule().isClash(event)) {
-                    return new CommandResult(MESSAGE_EVENTS_CLASH);
-                }
-            }
-            for (Event event : eventsToAdd) {
-                try {
-                    user.addEvent(event);
-                } catch (EventClashException | DuplicateEventException e) {
-                    return new CommandResult(MESSAGE_EVENTS_CLASH);
-                }
-            }
-
-            // updates UI
-            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-            model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
-
-            return new CommandResult(MESSAGE_SUCCESS);
-            //return new CommandResult(MESSAGE_SUCCESS + user.getSchedule());
-
-        } else {
-            try {
-                Person person = model.findPerson(name);
-
-                for (Event event : eventsToAdd) {
-                    try {
-                        if (model.isEventClash(name, event)) {
-                            return new CommandResult(MESSAGE_EVENTS_CLASH);
-                        }
-                    } catch (PersonNotFoundException e) {
-                        return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
-                    }
-
-                }
-                for (Event event : eventsToAdd) {
-                    try {
-                        model.addEvent(name, event);
-
-                    } catch (PersonNotFoundException e) {
-                        return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
-                    } catch (EventClashException | DuplicateEventException e) {
-                        return new CommandResult(MESSAGE_EVENTS_CLASH);
-                    }
-                }
-
-                // updates UI
-                model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-                model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
-
-                return new CommandResult(MESSAGE_SUCCESS);
-                //return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());
-
-            } catch (PersonNotFoundException e) {
-                return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
-            }
-        }
-
-
+        return eventsToAdd;
     }
 
     /**
-     * Checks if modules have clashing timeslots between one another.
+     * Add events to a person's schedule.
+     * @param person person to add events to.
+     * @param eventsToAdd events to add to schedule.
+     * @throws EventClashException if there is a clash in event to add and person's schedule.
+     * @throws DuplicateEventException if there is a duplicate event already in person's schedule.
      */
+    private void addEventsToPerson(Person person, List<Event> eventsToAdd)
+            throws EventClashException, DuplicateEventException {
+        if (checkClashingModuleEvents(eventsToAdd)) {
+            throw new EventClashException();
+        }
 
-    private boolean checkClashingModuleEvents(ArrayList<Event> eventsToAdd) {
+        for (Event event: eventsToAdd) {
+            if (person.getSchedule().isClash(event)) {
+                throw new EventClashException(event);
+            }
+        }
+
+        for (Event event : eventsToAdd) {
+            person.addEvent(event);
+        }
+    }
+
+    private Person getPerson(Name name, Model model) throws PersonNotFoundException {
+        Person person;
+        if (name == null) {
+            person = model.getUser();
+        } else {
+            person = model.findPerson(name);
+        }
+        return person;
+    }
+
+    /**
+     * Checks if the modules to add have clashing timeslots between one another.
+     */
+    private boolean checkClashingModuleEvents(List<Event> eventsToAdd) {
         for (int i = 0; i < eventsToAdd.size() - 1; i++) {
             Event event = eventsToAdd.get(i);
             for (int j = i + 1; j < eventsToAdd.size(); j++) {
@@ -175,6 +180,9 @@ public class AddNusModsCommand extends Command {
 
     @Override
     public boolean equals(Command command) {
-        return false;
+        return command == this // short circuit if same object
+                || (command instanceof AddNusModsCommand // instanceof handles nulls
+                && name.equals(((AddNusModsCommand) command).name)
+                && link.equals(((AddNusModsCommand) command).link));
     }
 }

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.suggestions;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.CliSyntax;
@@ -13,7 +12,7 @@ import seedu.address.model.person.Person;
 /**
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.EditUserCommand}.
  */
-public class EditUserCommandSuggester extends Suggester {
+public class EditUserCommandSuggester extends EditPersonCommandSuggester {
     public static final List<Prefix> SUPPORTED_PREFIXES = List.of(
             CliSyntax.PREFIX_NAME,
             CliSyntax.PREFIX_PHONE,
@@ -33,26 +32,7 @@ public class EditUserCommandSuggester extends Suggester {
         }
 
         final Person user = model.getUser();
-        if (prefix.equals(CliSyntax.PREFIX_NAME)) {
-            return List.of(user.getName().toString());
-        } else if (prefix.equals(CliSyntax.PREFIX_PHONE)) {
-            return List.of(user.getPhone().toString());
-        } else if (prefix.equals(CliSyntax.PREFIX_EMAIL)) {
-            return List.of(user.getEmail().toString());
-        } else if (prefix.equals(CliSyntax.PREFIX_ADDRESS)) {
-            return List.of(user.getAddress().toString());
-        } else if (prefix.equals(CliSyntax.PREFIX_REMARK)) {
-            return List.of(user.getRemark().toString());
-        } else if (prefix.equals(CliSyntax.PREFIX_TAG)) {
-            return user
-                    .getTags()
-                    .stream()
-                    .map(tag -> {
-                        return tag.tagName;
-                    })
-                    .collect(Collectors.toUnmodifiableList());
-        }
+        return getCurrentValuesOfPerson(user, prefix);
 
-        return null;
     }
 }

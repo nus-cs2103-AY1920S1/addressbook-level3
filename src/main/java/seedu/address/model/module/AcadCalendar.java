@@ -1,6 +1,7 @@
 package seedu.address.model.module;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,6 +9,10 @@ import java.util.Map;
  */
 public class AcadCalendar {
     private Map<Map.Entry<AcadYear, SemesterNo>, LocalDate> startDates;
+
+    public AcadCalendar() {
+        this.startDates = new HashMap<>();
+    }
 
     public AcadCalendar(Map<Map.Entry<AcadYear, SemesterNo>, LocalDate> startDates) {
         this.startDates = startDates;

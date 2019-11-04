@@ -9,8 +9,6 @@ import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.GroupName;
-import seedu.address.model.group.exceptions.GroupNotFoundException;
 
 /**
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.EditGroupCommand}.
@@ -24,20 +22,9 @@ public class EditGroupCommandSuggester extends Suggester {
     );
 
     protected static Optional<Group> getSelectedGroup(final Model model, final ArgumentList arguments) {
-        final Optional<String> groupNameInput = arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_EDIT);
-        if (groupNameInput.isEmpty()) {
-            return Optional.empty();
-        }
-
-        final GroupName groupName = new GroupName(groupNameInput.get());
-        Group group = null;
-        try {
-            group = model.findGroup(groupName);
-        } catch (GroupNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return Optional.ofNullable(group);
+        return arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_EDIT).flatMap(groupName -> {
+            return getGroupByName(model, groupName);
+        });
     }
 
     @Override

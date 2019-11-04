@@ -32,6 +32,22 @@ public class GmapsModelManager {
         }
     }
 
+    /**
+     * This method is used to get the suggestions for valid locations.
+     * @param prefix
+     * @return
+     */
+    public ArrayList<String> validLocationSuggester(String prefix) {
+        ArrayList<String> suggestions = new ArrayList<>();
+        for (int i = 0; i < locations.size(); i++) {
+            String name = locations.get(i).getLocationName();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
+
     public void generateImage() throws TimeBookInvalidState {
         new GenerateImage(validLocationList).execute();
     }

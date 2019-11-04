@@ -325,7 +325,8 @@ public class ScheduleView extends UiPart<Region> {
         private Region makeColouredTimeslot(String color) {
             Region result = new Region();
             result.setPrefSize(blockWidth, heightOfTimeslot);
-            result.setStyle("-fx-background-color: " + getLinearGradient(color));
+            result.setStyle("-fx-background-color: " + getLinearGradient(color)
+                    + "-fx-background-radius: " + (blockWidth / 28.0));
             result.setId("colouredTimeslot");
             return result;
         }
