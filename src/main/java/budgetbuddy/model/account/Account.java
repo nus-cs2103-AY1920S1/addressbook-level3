@@ -96,7 +96,7 @@ public class Account {
         Amount targetedAmount = targetedTransaction.getAmount();
         Direction targetedDirection = targetedTransaction.getDirection();
 
-        if (!targetedAmount.equals(editedTxn.getAmount()) && targetedDirection.equals(editedTxn.getDirection())) {
+        if (targetedAmount != editedTxn.getAmount() || targetedDirection != editedTxn.getDirection()) {
 
             if (targetedDirection.equals(Direction.IN)) {
                 balance = balance - targetedAmount.toLong();
