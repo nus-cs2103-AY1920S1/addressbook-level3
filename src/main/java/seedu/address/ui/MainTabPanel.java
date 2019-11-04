@@ -45,6 +45,7 @@ public class MainTabPanel extends UiPart<Region> {
         projectionGraphPlaceholder = projectionGraph;
     }
 
+    //  TODO: remove
     protected void switchToTransactionTab() {
         this.mainTabPanel.getSelectionModel().select(0);
     }

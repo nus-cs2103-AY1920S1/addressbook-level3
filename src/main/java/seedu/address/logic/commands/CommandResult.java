@@ -45,7 +45,7 @@ public class CommandResult {
         for (String warning : warnings) {
             sb.append(warning + '\n');
         }
-        this.warnings = sb.toString();
+        this.warnings = sb.deleteCharAt(sb.length()-1).toString(); // remove trailing newline
 
     }
 

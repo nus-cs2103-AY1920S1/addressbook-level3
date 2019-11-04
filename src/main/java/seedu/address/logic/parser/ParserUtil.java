@@ -17,6 +17,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.util.Date;
 
@@ -235,7 +236,13 @@ public class ParserUtil {
         } catch (IllegalArgumentException ex) {
             throw new ParseException(ex.getMessage());
         }
-
     }
 
+    public static Index parseBudgetIndex(String oneBasedIndex) throws ParseException {
+        String trimmedIndex = oneBasedIndex.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
 }
