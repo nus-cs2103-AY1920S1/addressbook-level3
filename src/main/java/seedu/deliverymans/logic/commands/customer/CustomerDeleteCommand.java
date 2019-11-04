@@ -36,6 +36,10 @@ public class CustomerDeleteCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Checks for the {@code Order} to be deleted when {@code Customer} is deleted and setting {@code Deliveryman}
+     * to available for deleted {@code Orders}.
+     */
     private void deleteCustomerOrders(Customer customer, Model model) {
         ObservableList<Order> orders = model.getFilteredOrderList();
         List<Order> ordersToDelete = new ArrayList<>();
