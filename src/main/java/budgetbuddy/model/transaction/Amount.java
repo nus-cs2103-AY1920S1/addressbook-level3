@@ -6,7 +6,7 @@ import budgetbuddy.commons.util.AppUtil;
  * Represents the Amount in a Transaction.
  * Guarantees: immutable, is valid as declared in {@link #isValidAmount(long)}
  */
-public class Amount {
+public class Amount implements Comparable<Amount> {
 
     public static final String CURRENCY_SIGN = "$";
     public static final String MAX_AMOUNT = "9999999999999999";
@@ -40,6 +40,11 @@ public class Amount {
      */
     public static boolean isValidAmount(long test) {
         return test >= 0;
+    }
+
+    @Override
+    public int compareTo(Amount other) {
+        return Long.compare(amount, other.amount);
     }
 
     @Override

@@ -3,18 +3,18 @@ package budgetbuddy.logic.rules;
 import static budgetbuddy.logic.rules.RuleEngine.TYPE_AMOUNT;
 import static budgetbuddy.logic.rules.RuleEngine.TYPE_BLANK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.rules.performable.Performable;
 import budgetbuddy.logic.rules.testable.ContainsExpression;
 import budgetbuddy.logic.rules.testable.Testable;
@@ -164,13 +164,13 @@ class RuleEngineTest {
     }
 
     @Test
-    void isValueParsable_parsableValue_returnsTrue() {
-        assertTrue(RuleEngine.isValueParsable(TYPE_AMOUNT, new Value("200")));
+    void convertValue_parsableValue() throws ParseException {
+        assertEquals(new Amount(20000), RuleEngine.convertValue(TYPE_AMOUNT, new Value("200")));
     }
 
     @Test
-    void isValueParsable_notParsableValue_returnsFalse() {
-        assertFalse(RuleEngine.isValueParsable(TYPE_BLANK, new Value("200")));
+    void convertValue_blankValue() throws ParseException {
+        assertEquals(null, RuleEngine.convertValue(TYPE_BLANK, new Value("200")));
     }
 
     @Test
@@ -189,7 +189,7 @@ class RuleEngineTest {
         account.addTransaction(txn);
         Index txnIndex = TypicalIndexes.INDEX_FIRST_ITEM;
 
-        assertEquals(-100.00, RuleEngine.extractAttribute(Attribute.IN_AMOUNT, txnIndex, account));
+        assertEquals(null, RuleEngine.extractAttribute(Attribute.IN_AMOUNT, txnIndex, account));
     }
 
     @Test
@@ -198,7 +198,7 @@ class RuleEngineTest {
         account.addTransaction(txn);
         Index txnIndex = TypicalIndexes.INDEX_FIRST_ITEM;
 
-        assertEquals(100.00, RuleEngine.extractAttribute(Attribute.OUT_AMOUNT, txnIndex, account));
+        assertEquals(new Amount(10000), RuleEngine.extractAttribute(Attribute.OUT_AMOUNT, txnIndex, account));
     }
 
     /**
@@ -217,7 +217,7 @@ class RuleEngineTest {
     public class TransactionStub extends Transaction {
 
         public TransactionStub(String desc) {
-            super(new Date(), new Amount(10000), Direction.OUT, new Description(desc), new HashSet<>());
+            super(LocalDate.now(), new Amount(10000), Direction.OUT, new Description(desc), new HashSet<>());
         }
     }
 }

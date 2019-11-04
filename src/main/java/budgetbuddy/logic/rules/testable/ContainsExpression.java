@@ -25,7 +25,12 @@ public class ContainsExpression extends TestableExpression {
     @Override
     public boolean test(Index txnIndex, Account account) {
         requireAllNonNull(txnIndex, account);
-        String left = RuleEngine.extractAttribute(attribute, txnIndex, account).toString();
+        Object attr = RuleEngine.extractAttribute(attribute, txnIndex, account);
+        if (attr == null) {
+            return false;
+        }
+
+        String left = attr.toString();
         String right = value.toString();
         return left.contains(right);
     }

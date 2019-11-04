@@ -1,11 +1,15 @@
 package budgetbuddy.model.rule.expression;
 
+import static budgetbuddy.logic.rules.RuleEngine.TYPE_AMOUNT;
+import static budgetbuddy.logic.rules.RuleEngine.TYPE_BLANK;
+import static budgetbuddy.logic.rules.RuleEngine.TYPE_CATEGORY;
+import static budgetbuddy.logic.rules.RuleEngine.TYPE_DATE;
+import static budgetbuddy.logic.rules.RuleEngine.TYPE_DESC;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import budgetbuddy.logic.rules.RuleEngine;
 
 /**
  * Represents an Operator in an expression.
@@ -13,22 +17,22 @@ import budgetbuddy.logic.rules.RuleEngine;
  */
 public enum Operator {
     // Predicate operators
-    LESS_THAN("<", "<", RuleEngine.TYPE_AMOUNT),
-    MORE_THAN(">", ">", RuleEngine.TYPE_AMOUNT),
-    LESS_EQUAL("<=", "<=", RuleEngine.TYPE_AMOUNT),
-    MORE_EQUAL(">=", ">=", RuleEngine.TYPE_AMOUNT),
-    EQUAL_TO("=", "=", RuleEngine.TYPE_AMOUNT),
-    CONTAINS("contains", "contains", RuleEngine.TYPE_CATEGORY),
+    LESS_THAN("<", "<", TYPE_DESC, TYPE_DATE, TYPE_AMOUNT),
+    MORE_THAN(">", ">", TYPE_DESC, TYPE_DATE, TYPE_AMOUNT),
+    LESS_EQUAL("<=", "<=", TYPE_DESC, TYPE_DATE, TYPE_AMOUNT),
+    MORE_EQUAL(">=", ">=", TYPE_DESC, TYPE_DATE, TYPE_AMOUNT),
+    EQUAL_TO("=", "=", TYPE_DESC, TYPE_DATE, TYPE_AMOUNT),
+    CONTAINS("contains", "contains", TYPE_DESC, TYPE_AMOUNT),
 
     // Action operators
-    SET_CATEGORY("set_cat", "set category", RuleEngine.TYPE_CATEGORY),
-    REMOVE_CATEGORY("remove_cat", "remove category", RuleEngine.TYPE_CATEGORY),
-    SET_DESC("set_desc", "set description", RuleEngine.TYPE_CATEGORY),
-    APPEND_DESC("app_desc", "append desc", RuleEngine.TYPE_DESC),
-    PREPEND_DESC("prep_desc", "prepend desc", RuleEngine.TYPE_DESC),
-    SET_IN("set_in", "set txn inwards", RuleEngine.TYPE_BLANK),
-    SET_OUT("set_out", "set txn outwards", RuleEngine.TYPE_BLANK),
-    SWITCH_DIRECTION("switch_direct", "switch txn direction", RuleEngine.TYPE_BLANK);
+    SET_CATEGORY("set_cat", "set category", TYPE_CATEGORY),
+    REMOVE_CATEGORY("remove_cat", "remove category", TYPE_CATEGORY),
+    SET_DESC("set_desc", "set description", TYPE_DESC),
+    APPEND_DESC("app_desc", "append desc", TYPE_DESC),
+    PREPEND_DESC("prep_desc", "prepend desc", TYPE_DESC),
+    SET_IN("set_in", "set txn inwards", TYPE_BLANK),
+    SET_OUT("set_out", "set txn outwards", TYPE_BLANK),
+    SWITCH_DIRECTION("switch_direct", "switch txn direction", TYPE_BLANK);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Operators should be valid for their expression and not be blank\n"

@@ -365,11 +365,12 @@ Refer to <<Scripting>> for script usage.
 *** `inamt` : Transaction amount inwards
 *** `outamt` : Transaction amount outwards
 *** `desc` : Transaction description
+*** `date` : Transaction date
 ** A predicate operator can be one of the following:
-*** `=` : equality operator
-*** `<` , `\<=`  , `>=` , `>` : inequality operators
-*** `contains` : string comparison operator
-** A value can be a number or a string of length not more than 180 characters.
+*** `=` : Equality comparison operator
+*** `<` , `\<=`  , `>=` , `>` : Inequality comparison operators
+*** `contains` : Substring check operator (Cannot be used on dates)
+** A value can be a number or a string of length not more than 180 characters
 It can contain the following special characters: _!#$%&'*+=?`[{|}]~^.-_
 
 * **Action**: In the order of `<action operator> <value>`

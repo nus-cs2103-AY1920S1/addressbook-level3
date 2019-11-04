@@ -154,45 +154,27 @@ public class RuleEngine {
     }
 
     /**
-     * Returns if a value can be parsed into the specified type.
+     * Converts a Value into the specified type.
+     *
+     * @throws ParseException if the value cannot be parsed.
      */
-    public static boolean isValueParsable(String typeName, Value value) {
+    public static Object convertValue(String typeName, Value value) throws ParseException {
         requireAllNonNull(typeName, value);
         switch (typeName) {
         case TYPE_CATEGORY:
-            try {
-                CommandParserUtil.parseCategory(value.toString());
-                break;
-            } catch (ParseException e) {
-                return false;
-            }
+            return CommandParserUtil.parseCategory(value.toString());
         case TYPE_DESC:
-            try {
-                CommandParserUtil.parseDescription(value.toString());
-                break;
-            } catch (ParseException e) {
-                return false;
-            }
+            return CommandParserUtil.parseDescription(value.toString());
         case TYPE_AMOUNT:
-            try {
-                CommandParserUtil.parseAmount(value.toString());
-                break;
-            } catch (ParseException e) {
-                return false;
-            }
+            return CommandParserUtil.parseAmount(value.toString());
         case TYPE_DATE:
-            // todo: need to try parsing date
-            return false;
+            return CommandParserUtil.parseDate(value.toString());
         case TYPE_BLANK:
-            if (value.toString().isEmpty()) {
-                break;
-            }
-            return false;
+            return null;
         default:
-            return false;
+            assert false : "Invalid type";
+            throw new ParseException("Invalid type");
         }
-
-        return true;
     }
 
     /**
@@ -205,17 +187,22 @@ public class RuleEngine {
         case DESCRIPTION:
             return txn.getDescription();
         case IN_AMOUNT:
-            return (txn.getDirection().equals(Direction.IN) ? 1 : -1)
-                    * (txn.getAmount().toLong() / 100.0);
+            if (txn.getDirection().equals(Direction.IN)) {
+                return txn.getAmount();
+            }
+            break;
         case OUT_AMOUNT:
-            return (txn.getDirection().equals(Direction.OUT) ? 1 : -1)
-                    * (txn.getAmount().toLong() / 100.0);
+            if (txn.getDirection().equals(Direction.OUT)) {
+                return txn.getAmount();
+            }
+            break;
         case DATE:
             return txn.getDate();
         default:
             // impossible
             assert false : "Unhandled attribute";
-            return null;
+            break;
         }
+        return null;
     }
 }

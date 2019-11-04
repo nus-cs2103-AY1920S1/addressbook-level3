@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * A stub class to represent a description of an entity.
  */
-public class Description {
+public class Description implements Comparable<Description> {
 
     public static final int MAX_LENGTH = 180;
 
@@ -31,6 +31,11 @@ public class Description {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public int compareTo(Description other) {
+        return description.compareTo(other.description);
     }
 
     @Override

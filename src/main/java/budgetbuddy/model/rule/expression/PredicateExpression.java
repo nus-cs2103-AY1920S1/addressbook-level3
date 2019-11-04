@@ -1,11 +1,12 @@
 package budgetbuddy.model.rule.expression;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
-import static budgetbuddy.logic.rules.RuleEngine.isValueParsable;
+import static budgetbuddy.logic.rules.RuleEngine.convertValue;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RulePredicate;
 
@@ -22,8 +23,8 @@ public class PredicateExpression extends RulePredicate {
 
     public static final String MESSAGE_TYPE_REQUIREMENTS =
             "The attribute, operator, and value of the expression have to evaluate to the correct type:\n"
-            + "e.g. inamt < 5, where 'inamt' evaluates to a decimal value,\n"
-            + "'<' expects a decimal value, and '5' is a decimal value";
+            + "e.g. inamt < 5, where 'inamt' and '5' both evaluate to the same type, a numerical value,\n"
+            + "and '<' expects comparable arguments.";
 
     public static final Pattern FORMAT_REGEX =
             Pattern.compile("^(?<exprAttribute>\\S+)\\s+(?<exprOperator>\\S+)\\s(?<exprValue>.*)$");
@@ -65,8 +66,14 @@ public class PredicateExpression extends RulePredicate {
     public static boolean isValidPredicateExpr(Attribute attribute, Operator operator, Value value) {
         return operator.getExpectedTypes()
                 .stream()
-                .anyMatch(type -> type.equals(attribute.getEvaluatedType())
-                        && isValueParsable(type, value));
+                .anyMatch(type -> {
+                    try {
+                        convertValue(type, value);
+                        return type.equals(attribute.getEvaluatedType());
+                    } catch (ParseException e) {
+                        return false;
+                    }
+                });
     }
 
     @Override

@@ -19,6 +19,7 @@ public abstract class TestableExpression implements Testable {
 
     /**
      * Constructs a TestableExpression given an attribute and a value.
+     * The attribute and value must be able to evaluate to the same type.
      *
      * @param attribute the attribute to be tested with.
      * @param value the value to be tested against.

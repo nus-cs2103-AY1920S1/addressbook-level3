@@ -1,18 +1,20 @@
 package budgetbuddy.model.rule.expression;
 
-import java.util.Arrays;
+import static budgetbuddy.logic.rules.RuleEngine.TYPE_AMOUNT;
+import static budgetbuddy.logic.rules.RuleEngine.TYPE_DATE;
+import static budgetbuddy.logic.rules.RuleEngine.TYPE_DESC;
 
-import budgetbuddy.logic.rules.RuleEngine;
+import java.util.Arrays;
 
 /**
  * Represents a Attribute in an PredicateExpression
  * Guarantees: immutable; is valid as declared in {@link #isValidAttribute(String)}
  */
 public enum Attribute {
-    DESCRIPTION("desc", RuleEngine.TYPE_CATEGORY),
-    OUT_AMOUNT("outamt", RuleEngine.TYPE_AMOUNT),
-    IN_AMOUNT("inamt", RuleEngine.TYPE_AMOUNT),
-    DATE("date", RuleEngine.TYPE_DATE);
+    DESCRIPTION("desc", TYPE_DESC),
+    OUT_AMOUNT("outamt", TYPE_AMOUNT),
+    IN_AMOUNT("inamt", TYPE_AMOUNT),
+    DATE("date", TYPE_DATE);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Attributes should be valid and not be blank\n"

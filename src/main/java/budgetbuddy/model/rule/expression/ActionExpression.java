@@ -1,11 +1,12 @@
 package budgetbuddy.model.rule.expression;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
-import static budgetbuddy.logic.rules.RuleEngine.isValueParsable;
+import static budgetbuddy.logic.rules.RuleEngine.convertValue;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;
 
@@ -22,8 +23,8 @@ public class ActionExpression extends RuleAction {
 
     public static final String MESSAGE_TYPE_REQUIREMENTS =
             "The operator and value of the expression have to evaluate to the correct type:\n"
-            + "e.g. setcategory food, where 'setcategory' expects a string\n"
-            + "and 'food' is a string";
+            + "e.g. set_cat Food, where 'set_cat' expects a string\n"
+            + "and 'Food' is a string";
 
     public static final Pattern FORMAT_REGEX =
             Pattern.compile("^(?<exprOperator>\\S+)\\s*(?<exprValue>.*)$");
@@ -57,7 +58,14 @@ public class ActionExpression extends RuleAction {
      */
     public static boolean isValidActionExpr(Operator operator, Value value) {
         return operator.getExpectedTypes().stream()
-                .anyMatch(type -> isValueParsable(type, value));
+                .anyMatch(type -> {
+                    try {
+                        convertValue(type, value);
+                        return true;
+                    } catch (ParseException e) {
+                        return false;
+                    }
+                });
     }
 
     @Override
