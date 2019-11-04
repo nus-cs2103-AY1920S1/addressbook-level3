@@ -20,6 +20,11 @@ public abstract class Question {
     }
 
     /**
+     * Creates an empty question
+     */
+    public Question(){}
+
+    /**
      * Returns the question.
      *
      * @return Question string
@@ -88,6 +93,6 @@ public abstract class Question {
         }
 
         return otherQuestion != null
-            && otherQuestion.getQuestion().equals(question);
+            && otherQuestion.equals(question);
     }
 }

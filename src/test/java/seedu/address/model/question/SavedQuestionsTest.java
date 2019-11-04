@@ -6,15 +6,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.question.TypicalQuestions.getTypicalSavedQuestions;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.question.exceptions.DuplicateQuestionException;
 import seedu.address.testutil.question.QuestionBuilder;
 
 public class SavedQuestionsTest {
+
     private final SavedQuestions savedQuestions = new SavedQuestions();
-    private final Question question = new QuestionBuilder().withQuestion("What is 1+1?").withAnswer("2").build();
+    private final Question question = new QuestionBuilder().withQuestion("What is 1+1?")
+        .withAnswer("2").build();
 
     @Test
     public void constructor() {
@@ -34,6 +42,16 @@ public class SavedQuestionsTest {
     }
 
     @Test
+    public void resetData_withDuplicateQuestions_throwsDuplicateQuestionException() {
+        Question editedQuestion = new QuestionBuilder().withQuestion(question.getQuestion())
+            .withAnswer(question.getAnswer()).build();
+        List<Question> newQuestions = Arrays.asList(question, editedQuestion);
+        SavedQuestionsTest.SavedQuestionsStub newData = new SavedQuestionsTest.SavedQuestionsStub(
+            newQuestions);
+        assertThrows(DuplicateQuestionException.class, () -> savedQuestions.resetData(newData));
+    }
+
+    @Test
     public void hasQuestion_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> savedQuestions.hasQuestion(null));
     }
@@ -44,7 +62,7 @@ public class SavedQuestionsTest {
     }
 
     @Test
-    public void hasQuestions_noteInSavedQuestions_returnsTrue() {
+    public void hasQuestions_questionInSavedQuestions_returnsTrue() {
         savedQuestions.addQuestion(question);
         assertTrue(savedQuestions.hasQuestion(question));
     }
@@ -52,12 +70,31 @@ public class SavedQuestionsTest {
     @Test
     public void hasQuestion_questionWithSameIdentityFieldsInSavedQuestions_returnsTrue() {
         savedQuestions.addQuestion(question);
-        Question newQuestion = new QuestionBuilder().withQuestion("What is 1+1?").withAnswer("2").build();
+        Question newQuestion = new QuestionBuilder().withQuestion("What is 1+1?").withAnswer("2")
+            .build();
         assertTrue(savedQuestions.hasQuestion(newQuestion));
     }
 
     @Test
     public void getQuestionsList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> savedQuestions.getSavedQuestions().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+            savedQuestions.getSavedQuestions().remove(0));
+    }
+
+    /**
+     * A stub ReadOnlyQuestions whose questions list can violate interface constraints.
+     */
+    private static class SavedQuestionsStub implements ReadOnlyQuestions {
+
+        private final ObservableList<Question> questions = FXCollections.observableArrayList();
+
+        SavedQuestionsStub(Collection<Question> questions) {
+            this.questions.setAll(questions);
+        }
+
+        @Override
+        public ObservableList<Question> getSavedQuestions() {
+            return questions;
+        }
     }
 }

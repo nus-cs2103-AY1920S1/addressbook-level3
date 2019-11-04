@@ -15,18 +15,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.event.EventRecord;
-import seedu.address.model.note.NotesRecord;
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.Question;
-import seedu.address.model.quiz.SavedQuizzes;
-import seedu.address.model.statistics.StatisticsRecord;
-import seedu.address.model.student.StudentRecord;
 
 public class QuestionEditCommandTest {
 
@@ -111,12 +104,12 @@ public class QuestionEditCommandTest {
         fields.put("answer", "Test Answer");
         fields.put("type", "mcq");
 
-        assertThrows(NullPointerException.class,
-            () -> new QuestionEditCommand(index, fields).execute(model));
+        assertThrows(NullPointerException.class, () ->
+            new QuestionEditCommand(index, fields).execute(model));
 
         HashMap<String, String> options = new HashMap<>();
-        assertThrows(NullPointerException.class,
-            () -> new QuestionEditCommand(index, fields, options).execute(model));
+        assertThrows(NullPointerException.class, () ->
+            new QuestionEditCommand(index, fields, options).execute(model));
     }
 
     @Test

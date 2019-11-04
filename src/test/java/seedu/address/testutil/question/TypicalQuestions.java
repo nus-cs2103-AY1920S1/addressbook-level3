@@ -18,6 +18,9 @@ public class TypicalQuestions {
         .withAnswer("B").withType("mcq").withOptionA("1").withOptionB("2").withOptionC("3")
         .withOptionD("4").build();
 
+    public static final Question NOT_IN_TYPICAL = new QuestionBuilder().withQuestion("What is 9+9?")
+        .withAnswer("18").build();
+
     /**
      * Returns an {@code SavedQuestions} with all the typical questions.
      */

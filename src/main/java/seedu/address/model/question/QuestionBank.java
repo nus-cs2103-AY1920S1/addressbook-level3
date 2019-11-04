@@ -14,6 +14,8 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.question.exceptions.DuplicateQuestionException;
+import seedu.address.model.question.exceptions.QuestionNotFoundException;
 
 /**
  * Stores questions and provides functionality to manage them.
@@ -32,9 +34,8 @@ public class QuestionBank implements Iterable<Question> {
     public void setQuestions(List<Question> questions) {
         requireAllNonNull(questions);
         if (!isRepeated(questions)) {
-            //throw new DuplicateStudentException();
+            throw new DuplicateQuestionException();
         }
-
         this.questions.setAll(questions);
     }
 
@@ -44,11 +45,10 @@ public class QuestionBank implements Iterable<Question> {
      * @param question to add to the list.
      */
     public void addQuestion(Question question) {
-        /*
-        if (!isRepeated(question)) {
-            this.questions.add(question);
+        requireNonNull(question);
+        if (contains(question)) {
+            throw new DuplicateQuestionException();
         }
-        */
         this.questions.add(question);
     }
 
@@ -70,7 +70,7 @@ public class QuestionBank implements Iterable<Question> {
     public void deleteQuestion(Question question) {
         requireNonNull(question);
         if (!questions.remove(question)) {
-            //throw new StudentNotFoundException();
+            throw new QuestionNotFoundException();
         }
     }
 
@@ -91,6 +91,9 @@ public class QuestionBank implements Iterable<Question> {
      * @param question object.
      */
     public void setQuestion(Index index, Question question) {
+        if (contains(question)) {
+            throw new DuplicateQuestionException();
+        }
         questions.set(index.getZeroBased(), question);
     }
 
@@ -236,7 +239,7 @@ public class QuestionBank implements Iterable<Question> {
     private boolean isRepeated(List<Question> questions) {
         for (int i = 0; i < questions.size() - 1; i++) {
             for (int j = i + 1; j < questions.size(); j++) {
-                if (questions.get(i).isSameQuestion(questions.get(j))) {
+                if (questions.get(i).equals(questions.get(j))) {
                     return false;
                 }
             }
@@ -245,11 +248,11 @@ public class QuestionBank implements Iterable<Question> {
     }
 
     /**
-     * Returns true if the list contains an equivalent Student as the given argument.
+     * Returns true if the list contains an equivalent Question as the given argument.
      */
     public boolean contains(Question toCheck) {
         requireNonNull(toCheck);
-        return questions.stream().anyMatch(toCheck::isSameQuestion);
+        return questions.stream().anyMatch((question) -> question.equals(toCheck));
     }
 
     /**

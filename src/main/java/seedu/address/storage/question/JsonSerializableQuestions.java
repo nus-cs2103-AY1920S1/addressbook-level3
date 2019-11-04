@@ -1,5 +1,7 @@
 package seedu.address.storage.question;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_QUESTION;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,8 +20,6 @@ import seedu.address.model.question.SavedQuestions;
  */
 @JsonRootName(value = "savedQuestions")
 class JsonSerializableQuestions {
-
-    public static final String MESSAGE_DUPLICATE_QUESTION = "Questions list contains duplicate question(s).";
 
     private final List<JsonAdaptedQuestion> questions = new ArrayList<>();
 

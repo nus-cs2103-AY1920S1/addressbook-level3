@@ -93,8 +93,12 @@ public class QuestionAddCommand extends QuestionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_TYPE);
         }
 
+        if (model.hasQuestion(question)) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_QUESTION);
+        }
         model.addQuestion(question);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, question), CommandResultType.SHOW_QUESTION);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, question),
+            CommandResultType.SHOW_QUESTION);
     }
 
     @Override

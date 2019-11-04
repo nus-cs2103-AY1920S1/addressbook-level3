@@ -23,10 +23,10 @@ public class QuestionSlideshowCommandTest {
 
     @Test
     public void execute_indexLessThanOrEqualToZero_throwsIndexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> new QuestionSlideshowCommand("0").execute(model));
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> new QuestionSlideshowCommand("-1").execute(model));
+        assertThrows(IndexOutOfBoundsException.class, () ->
+            new QuestionSlideshowCommand("0").execute(model));
+        assertThrows(IndexOutOfBoundsException.class, () ->
+            new QuestionSlideshowCommand("-1").execute(model));
     }
 
     @Test

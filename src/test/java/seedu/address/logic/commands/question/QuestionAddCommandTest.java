@@ -80,6 +80,12 @@ public class QuestionAddCommandTest {
         }
 
         @Override
+        public boolean hasQuestion(Question toCheck) {
+            requireNonNull(toCheck);
+            return questionsAdded.stream().anyMatch((question) -> question.equals(toCheck));
+        }
+
+        @Override
         public ReadOnlyQuestions getSavedQuestions() {
             return new SavedQuestions();
         }

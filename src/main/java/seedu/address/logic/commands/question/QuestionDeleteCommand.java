@@ -6,7 +6,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.question.Question;
 
 /**
  * Deletes a question in the question list.

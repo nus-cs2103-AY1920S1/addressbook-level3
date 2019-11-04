@@ -13,16 +13,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.event.EventRecord;
-import seedu.address.model.note.NotesRecord;
 import seedu.address.model.question.Question;
-import seedu.address.model.quiz.SavedQuizzes;
-import seedu.address.model.statistics.StatisticsRecord;
-import seedu.address.model.student.StudentRecord;
 
 public class QuestionDeleteCommandTest {
 

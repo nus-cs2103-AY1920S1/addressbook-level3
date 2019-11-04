@@ -19,11 +19,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.question.QuestionAddCommand;
 import seedu.address.logic.commands.question.QuestionDeleteCommand;
+import seedu.address.logic.commands.question.QuestionEditCommand;
+import seedu.address.logic.commands.question.QuestionFindCommand;
 import seedu.address.logic.commands.question.QuestionListCommand;
 import seedu.address.logic.commands.question.QuestionSlideshowCommand;
 import seedu.address.logic.parser.CliSyntax;
-import seedu.address.logic.commands.question.QuestionEditCommand;
-import seedu.address.logic.commands.question.QuestionFindCommand;
 
 public class QuestionCommandParserTest {
 
@@ -161,7 +161,8 @@ public class QuestionCommandParserTest {
 
     @Test
     public void parseCommand_deleteQuestion_success() {
-        QuestionDeleteCommand expectedDeleteCommand = new QuestionDeleteCommand(Index.fromOneBased(1));
+        QuestionDeleteCommand expectedDeleteCommand = new QuestionDeleteCommand(
+            Index.fromOneBased(1));
 
         String input = PREFIX_DELETE + "1";
         assertParseSuccess(parser, input, expectedDeleteCommand);
