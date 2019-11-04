@@ -69,7 +69,7 @@ public class PurchaseListTest {
     }
 
     @Test
-    public void hasPurchase_nonexistentPurchase_correcResult() {
+    public void hasPurchase_nonexistentPurchase_correctResult() {
         assertFalse(purchaseList.hasPurchase(new PurchaseBuilder().build()));
     }
 

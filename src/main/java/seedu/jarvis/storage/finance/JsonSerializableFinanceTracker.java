@@ -71,7 +71,7 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
             if (financeTracker.hasPurchase(purchase)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_FINANCES);
             }
-            financeTracker.addSinglePurchase(purchase);
+            financeTracker.addPurchaseToBack(purchase);
         }
         return financeTracker;
     }

@@ -521,47 +521,86 @@ Feature by
 ////
 === App History
 
+_"Oops! I have entered a command that has entered inaccurate information to the
+application, and I am not sure where to find the mistake or how to fix it!"_
+
+It's great that JARVIS remembers your changes and allows you to easily undo your
+commands!
+
+_"Wait! What if I am not sure if I want to undo the changes made by the
+command?"_
+
+JARVIS also allows you to redo any changes that you have undone! Therefore, you
+can confidently undo and redo changes that you have made without worrying about
+the inconvenience of remembering and re-entering commands all over again.
+
+[NOTE]
+Only commands that make changes to the JARVIS can be undone and redone. Commands that
+list items or finds items in JARVIS are not remembered and thus cannot be undone or
+redone.
+
+JARVIS remembers the last thousand commands that you have entered into the
+application, even after you exit the application!
+
+JARVIS also lets you undo and redo multiple commands in a single undo or redo
+command! This means that you can undo and redo up to a thousand commands with
+a single undo or redo command.
+
+[NOTE]
+JARVIS undo and redo commands in a specific sequence:
+ +
+ +
+Undo commands will undo command(s) starting from the latest command the user entered.
+ +
+ +
+Redo commands will redo command(s) starting from the latest command that was undone.
+
+Let's show you how to undo and redo commands in JARVIS in the following
+sections below, which will cover two new commands:
+
+* `undo [NUMBER]`
+* `redo [NUMBER]`
+
+[NOTE]
+`[NUMBER]` is an optional argument indicating the number of commands that you
+want to undo/redo.
+ +
+ +
+`[NUMBER]` should be a positive integer that is not larger than
+the available number of commands that can be undone/redone (Don't worry, JARVIS
+will let you know if `[NUMBER]` is out of range).
+ +
+ +
+If `[NUMBER]` parameter is not
+supplied, then `[NUMBER]` is taken to be the value *1*.
+
 ==== undo
-Undo action(s) on the application. This will allow you to roll back certain
-actions that you may have accidentally or erroneously done on the application.
-Keep in mind that only commands that change the data on the application
-are undoable. Commands that render and display information cannot be undone.
 
-The limit of the number of undoable actions you can make in the application is
-currently **20** actions.
-
-Format: `undo [r/NUMBER]`
+===== Format
+`undo [NUMBER]`
 
 ===== Example
-----
-undo        (undoes the latest action)
-undo r/3    (undoes the last three actions)
-----
 
+* `undo` -- This command will undo the latest command entered by the user.
+It is equivalent to the command `undo 1`
+* `undo 5` -- This command will undo the 5 latest commands entered by the user,
+starting from the latest command.
 
 ==== redo
-Redo action(s) on the application. This will allow you to redo certain
-actions, or any accidental or erroneous undo actions. Keep in mind that
-only commands that can be undone can be redone. Therefore, only commands
-that change the data on the application can be redone as they can be undone.
-Commands that render and display information are not actions that can be
-undone and hence will not be able to be redone.
-
-The limit of the number of available redo actions you can make in the
-application is currently **20** actions.
-
-Take note that if you have undone a certain amount of actions and from that
-point, you type in a new command that is not `redo`, the actions available to
-be redone will be cleared as of that point, similar to a browser navigation on
-a single tab.
-
-Format: `redo [r/NUMBER]`
+===== Format
+`redo [NUMBER]`
 
 ===== Example
-----
-redo        (redoes the latest undo)
-redo r/3    (redoes the last three undos)
-----
+
+* `redo` -- This command will redo the latest command undone by the user.
+It is equivalent to the command `redo 1`
+* `redo 5` -- This command will redo the 5 latest commands undone by the user,
+starting from the latest command that was undone.
+
+[NOTE]
+Suppose you have undone a few commands, if you were to enter in new commands,
+you will not be able to redo the commands.
+
 
 == FAQ
 
@@ -576,18 +615,6 @@ redo r/3    (redoes the last three undos)
 **Q:** What if I am still learning this application and I make a mistake on the application and I do not know how to revert the changes made in my latest command?
 
 **A:** Simple undo the command, the application will revert your changes automatically.
-
-'''
-
-**Q:** How do I know what I am undo-ing?
-
-**A:** enter history into the command line, which will display where you are relative to what you can undo and redo.
-
-'''
-
-**Q:** If I accidentally undo something, can i revert this mistake?
-
-**A:** enter redo to undo your undo mistake, if you made multiple undo mistakes, you can redo <number> to redo those mistakes quickly.
 
 '''
 
@@ -636,5 +663,5 @@ redo r/3    (redoes the last three undos)
 
 === App History
 
-* `undo [r/NUMBER]`
-* `redo [r/NUMBER]`
+* `undo [NUMBER]`
+* `redo [NUMBER]`

@@ -50,10 +50,13 @@ public class FinanceListView extends View<AnchorPane> {
         spentAmount.setText("Monthly expenses: $" + model.getTotalSpending() + "");
         purchaseListHeader.setText("What I bought this month...");
         installmentListHeader.setText("What I pay for monthly...");
-        statisticHeader.setText("Statistics");
+        statisticHeader.setText("Finance Statistics");
 
         if (model.calculateRemainingAmount() > 0) {
-            remainingAmount.setText("Remaining spending: " + model.calculateRemainingAmount() + "");
+            remainingAmount.setText("Remaining spending: $" + model.getRemainingAmount() + "");
+        } else {
+            remainingAmount.setText("To see your remaining spending, please set a monthly limit with the command"
+                + " set-limit!");
         }
     }
 

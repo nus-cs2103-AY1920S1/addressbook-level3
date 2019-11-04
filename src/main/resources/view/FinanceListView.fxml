@@ -25,9 +25,10 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <ProgressIndicator maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" progress="0.0" VBox.vgrow="ALWAYS" />
-            <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="500.0" fx:id="statisticHeader" textAlignment="CENTER" />
-            <Label fx:id="spentAmount" prefHeight="40.0" prefWidth="460.0" />
-            <Label fx:id="remainingAmount" prefHeight="40.0" prefWidth="482.0" />
+            <Label />
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="500.0" fx:id="statisticHeader" textAlignment="CENTER" />
+            <Label fx:id="spentAmount" prefHeight="40.0" prefWidth="460.0" textAlignment="CENTER" wrapText="true" alignment="CENTER" />
+            <Label fx:id="remainingAmount" prefHeight="40.0" prefWidth="482.0" wrapText="true" textAlignment="CENTER" alignment="CENTER"/>
          </children></VBox>
    </center>
    <right>
