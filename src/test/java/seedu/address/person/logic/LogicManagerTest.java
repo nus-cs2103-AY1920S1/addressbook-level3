@@ -2,7 +2,7 @@ package seedu.address.person.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.person.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.person.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.person.commons.core.Messages.MESSAGE_NO_COMMAND;
 import static seedu.address.person.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.person.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.person.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -113,7 +113,7 @@ public class LogicManagerTest {
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
-        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertParseException(invalidCommand, MESSAGE_NO_COMMAND);
     }
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
