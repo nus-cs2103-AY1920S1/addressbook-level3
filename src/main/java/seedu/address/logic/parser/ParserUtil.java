@@ -320,7 +320,7 @@ public class ParserUtil {
      */
     public static Timeslot parseTimeslot(String timeslot) {
         try {
-            String[] tokens = timeslot.split("-");
+            String[] tokens = timeslot.split("-", 4);
 
             if (tokens.length != 3 && tokens.length != 4) {
                 return null;

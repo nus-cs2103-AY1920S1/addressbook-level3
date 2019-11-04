@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.suggestions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.parser.ArgumentList;
@@ -29,10 +30,15 @@ public class AddEventCommandSuggester extends Suggester {
 
         if (prefix.equals(CliSyntax.PREFIX_TIMING)) {
             String argument = commandArgument.getValue();
-            String[] tokens = argument.split("-");
+            String[] tokens = argument.split("-", 4);
             if (tokens.length == 4) {
-                return getValidLocationSuggestions(model, new CommandArgument(CliSyntax.PREFIX_TIMING, 0,
+                List<String> validLocationSuggestion = getValidLocationSuggestions(model, new CommandArgument(CliSyntax.PREFIX_TIMING, 0,
                         tokens[3].trim()));
+                List<String> finalSuggestions = new ArrayList<>();
+                for (int i = 0; i < validLocationSuggestion.size(); i++) {
+                    finalSuggestions.add(tokens[0] + "-" + tokens[1] + "-" + tokens[2] + "-" + validLocationSuggestion.get(i));
+                }
+                return finalSuggestions;
             }
         }
 
