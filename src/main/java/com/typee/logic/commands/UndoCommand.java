@@ -25,6 +25,7 @@ public class UndoCommand extends Command {
 
         model.undoEngagementList();
         model.updateFilteredEngagementList(Model.PREDICATE_SHOW_ALL_ENGAGEMENTS);
+        model.updateSortedEngagementList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
