@@ -1,15 +1,20 @@
 package seedu.jarvis.model.planner.predicates;
 
-import seedu.jarvis.model.planner.tasks.Deadline;
-import seedu.jarvis.model.planner.tasks.Event;
-import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.model.planner.tasks.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import seedu.jarvis.model.planner.tasks.Deadline;
+import seedu.jarvis.model.planner.tasks.Event;
+import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.planner.tasks.Todo;
+
 
 class TaskDateMatchesDatePredicateTest {
 
