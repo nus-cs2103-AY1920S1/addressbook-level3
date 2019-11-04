@@ -30,45 +30,41 @@ public class BudgetCommandTest {
 
     @Test
     public void execute_noData_budgetSuccess() {
-        CommandResult commandResult = new BudgetCommand().execute(new ModelManager());
         String noBudgetData = "Projected income: $0.00\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $0.00";
-        assertEquals(noBudgetData, commandResult.getFeedbackToUser());
+        assertEquals(noBudgetData, new BudgetCommand().execute(new ModelManager()).getFeedbackToUser());
     }
 
     @Test
     public void execute_noClaims_budgetSuccess() {
         Budget budget = new Budget(claimList, incomeList);
         budget.calculateBudget();
-        CommandResult commandResult = new BudgetCommand().execute(model);
         String noClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $10,100.10";
-        assertEquals(noClaimData, commandResult.getFeedbackToUser());
+        assertEquals(noClaimData, new BudgetCommand().execute(model).getFeedbackToUser());
     }
 
     @Test
     public void execute_nonApprovedClaims_budgetSuccess() {
         Budget budget = new Budget(claimList2, incomeList2);
         budget.calculateBudget();
-        CommandResult commandResult = new BudgetCommand().execute(model2);
         String noApprovedClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $10,100.10";
-        assertEquals(noApprovedClaimData, commandResult.getFeedbackToUser());
+        assertEquals(noApprovedClaimData,  new BudgetCommand().execute(model2).getFeedbackToUser());
     }
 
     @Test
     public void execute_approvedClaims_budgetSuccess() {
         Budget budget = new Budget(claimList3, incomeList3);
         budget.calculateBudget();
-        CommandResult commandResult = new BudgetCommand().execute(model3);
         String approvedClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $10,911.29\n"
                 + "Projected Budget: -$811.19\n"
                 + "Warning, you will be over budget!";
-        assertEquals(approvedClaimData, commandResult.getFeedbackToUser());
+        assertEquals(approvedClaimData, new BudgetCommand().execute(model3).getFeedbackToUser());
     }
 
 }
