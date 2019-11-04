@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.stream.Stream;
 
@@ -23,9 +23,9 @@ public class FillCommandParser implements Parser<FillCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FillCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CALLER_NUMBER, PREFIX_DESCRIPTION);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CALLER_NUMBER, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_PHONE, PREFIX_DESCRIPTION)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FillCommand.MESSAGE_USAGE));
         }
@@ -37,7 +37,7 @@ public class FillCommandParser implements Parser<FillCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FillCommand.MESSAGE_USAGE), pe);
         }
 
-        CallerNumber callerNumber = ParserUtil.parseCallerNumber(argMultimap.getValue(PREFIX_CALLER_NUMBER).get());
+        CallerNumber callerNumber = ParserUtil.parseCallerNumber(argMultimap.getValue(PREFIX_PHONE).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
 
         return new FillCommand(index, callerNumber, description);

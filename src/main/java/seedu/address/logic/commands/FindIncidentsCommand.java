@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
@@ -34,11 +34,11 @@ public class FindIncidentsCommand extends Command {
             + "Parameters: "
             + SEARCH_PREFIX_ID + "<ID> OR "
             + SEARCH_PREFIX_OPERATOR + "<OPERATOR> OR "
-            + SEARCH_PREFIX_DESCRIPTION + "<KEYWORD [MORE_KEYWORDS]...> OR "
+            + PREFIX_DESCRIPTION + "<KEYWORD [MORE_KEYWORDS]...> OR "
             + SEARCH_PREFIX_SELF + "\n"
             + "Example: " + COMMAND_WORD + " "
             + SEARCH_PREFIX_OPERATOR + "alex "
-            + SEARCH_PREFIX_DESCRIPTION + "district "
+            + PREFIX_DESCRIPTION + "district "
             + SEARCH_PREFIX_SELF;
 
     private Predicate<Incident> predicate;
