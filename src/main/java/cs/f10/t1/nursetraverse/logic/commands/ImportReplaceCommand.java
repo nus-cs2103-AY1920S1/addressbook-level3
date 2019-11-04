@@ -37,6 +37,7 @@ public class ImportReplaceCommand extends MutatorCommand {
             + "Duplicates are not allowed.";
     public static final String MESSAGE_VISIT_ONGOING = "Cannot import and replace when visit is ongoing";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist: %s.csv cannot be found";
+    public static final String MESSAGE_FILE_EMPTY = "Provided file is empty, nothing to import.";
 
     private final String importFileName;
 
@@ -67,6 +68,11 @@ public class ImportReplaceCommand extends MutatorCommand {
         // Ensure imported list is unique.
         if (!CsvUtil.importsAreUnique(importedPatients)) {
             throw new CommandException(MESSAGE_DUPLICATE_CSV_PATIENTS);
+        }
+
+        // Ensure imported list is non-empty.
+        if (importedPatients.size() == 0 ) {
+            throw new CommandException(MESSAGE_FILE_EMPTY);
         }
 
         model.replaceStagedPatientBook(importedPatients);
