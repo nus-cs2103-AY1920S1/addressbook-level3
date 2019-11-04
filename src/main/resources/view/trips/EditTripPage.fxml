@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane stylesheets="@Trips.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@Trips.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <content>
                <VBox fx:id="formItemsPlaceholder" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #F2E8E3;" styleClass="EditTripForm">
