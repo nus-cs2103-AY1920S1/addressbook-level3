@@ -8,10 +8,10 @@ import java.util.List;
  */
 public class VersionedQuizBook extends AddressQuizBook {
 
-    private final List<ReadOnlyAddressBook> quizBookStateList;
+    private final List<ReadOnlyQuizBook> quizBookStateList;
     private int currentStatePointer;
 
-    public VersionedQuizBook(ReadOnlyAddressBook initialState) {
+    public VersionedQuizBook(ReadOnlyQuizBook initialState) {
         super(initialState);
 
         quizBookStateList = new ArrayList<>();

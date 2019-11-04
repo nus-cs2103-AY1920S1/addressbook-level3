@@ -39,7 +39,7 @@ import seedu.address.storage.cap.JsonCapUserPrefsStorage;
 import seedu.address.storage.finance.FinanceStorageManager;
 import seedu.address.storage.finance.JsonFinanceStorage;
 import seedu.address.storage.finance.JsonFinanceUserPrefsStorage;
-import seedu.address.storage.quiz.AddressBookStorage;
+import seedu.address.storage.quiz.QuizBookStorage;
 import seedu.address.storage.quiz.JsonQuizAddressBookStorage;
 import seedu.address.storage.quiz.JsonQuizUserPrefsStorage;
 import seedu.address.storage.quiz.StorageQuizManager;
@@ -91,8 +91,8 @@ public class SwitchOperation {
             Config config = MainApp.getConfig();
             UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(Paths.get("preferencesQuiz.json"));
             userPrefs = initPrefs(userPrefsStorage);
-            AddressBookStorage addressBookStorage = new JsonQuizAddressBookStorage(userPrefs.getAddressBookFilePath());
-            seedu.address.storage.quiz.Storage quizStorage = new StorageQuizManager(addressBookStorage,
+            QuizBookStorage quizBookStorage = new JsonQuizAddressBookStorage(userPrefs.getAddressBookFilePath());
+            seedu.address.storage.quiz.Storage quizStorage = new StorageQuizManager(quizBookStorage,
                     userPrefsStorage);
 
             quizModel = initModelManager(quizStorage, userPrefs);
@@ -146,8 +146,6 @@ public class SwitchOperation {
             capUi = new UiCapManager(capLogic);
             Stage stages = MainApp.getPrimary();
             capUi.start(stages);
-        } else {
-
         }
     }
 
@@ -286,8 +284,8 @@ public class SwitchOperation {
      */
     private seedu.address.model.quiz.Model initModelManager(seedu.address.storage.quiz.Storage storage,
                                                             seedu.address.model.quiz.ReadOnlyUserPrefs userPrefs) {
-        Optional<seedu.address.model.quiz.ReadOnlyAddressBook> addressBookOptional;
-        seedu.address.model.quiz.ReadOnlyAddressBook initialData;
+        Optional<seedu.address.model.quiz.ReadOnlyQuizBook> addressBookOptional;
+        seedu.address.model.quiz.ReadOnlyQuizBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {

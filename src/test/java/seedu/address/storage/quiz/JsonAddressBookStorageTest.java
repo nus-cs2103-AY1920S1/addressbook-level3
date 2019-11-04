@@ -27,7 +27,7 @@
 //        assertThrows(NullPointerException.class, () -> readAddressBook(null));
 //    }
 //
-//    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
+//    private java.util.Optional<ReadOnlyQuizBook> readAddressBook(String filePath) throws Exception {
 //        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
 //    }
 //
@@ -65,7 +65,7 @@
 //
 //        // Save in new file and read back
 //        jsonAddressBookStorage.saveAddressBook(original, filePath);
-//        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+//        ReadOnlyQuizBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
 //        assertEquals(original, new AddressBook(readBack));
 //
 //        // Modify data, overwrite exiting file, and read back
@@ -91,7 +91,7 @@
 //    /**
 //     * Saves {@code addressBook} at the specified {@code filePath}.
 //     */
-//    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+//    private void saveAddressBook(ReadOnlyQuizBook addressBook, String filePath) {
 //        try {
 //            new JsonAddressBookStorage(Paths.get(filePath))
 //                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));

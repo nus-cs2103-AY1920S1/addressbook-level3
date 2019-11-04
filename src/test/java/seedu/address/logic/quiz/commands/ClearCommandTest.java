@@ -7,7 +7,6 @@
 //
 //import seedu.address.logic.commands.ClearCommand;
 //
-//
 //public class ClearCommandTest {
 //
 //    @Test

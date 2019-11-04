@@ -22,7 +22,7 @@
 //import seedu.address.logic.commands.FindCommand;
 //import seedu.address.logic.commands.HelpCommand;
 //import seedu.address.logic.commands.ListCommand;
-//import seedu.address.logic.parser.AddressBookParser;
+//import seedu.address.logic.parser.QuizBookParser;
 //import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
 //import seedu.address.model.person.Person;
@@ -34,9 +34,9 @@
 //
 //
 //
-//public class AddressBookParserTest {
+//public class QuizBookParserTest {
 //
-//    private final AddressBookParser parser = new AddressBookParser();
+//    private final QuizBookParser parser = new QuizBookParser();
 //
 //    @Test
 //    public void parseCommand_add() throws Exception {

@@ -223,7 +223,11 @@ Prevent unauthorised access to your grades.
 
 === Quiz
 
-To enter the Quiz section please enter the command: `switch quiz`
+To enter the Quiz section please enter the command: `switch quiz` +
+
+*Note on UI:* You can adjust the size of the split pane by sliding the window separator
+between the two windows to fully see the whole question. Go to `3.4.6` section to fully see the
+question properly
 
 ==== Add the details of the quiz question:
 Users can add new quiz questions with the details in it. The details of the question should
@@ -336,7 +340,8 @@ Explanation: search from the answer portion of each question that matches keywor
 {empty} +
 
 ==== Details of a selected question:
-Show the details of a selected question.
+Show the details of a selected question. This details will show the whole questions that is truncated from the preview window
+and reveal the comment/explanation from the selected question.
 
 Format: `detail [INDEX]` +
 Usage: *[INDEX]* is the index/row from the question that you want to see. +

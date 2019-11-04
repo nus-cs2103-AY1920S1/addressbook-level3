@@ -300,7 +300,7 @@ image::CommitActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Use a list to store the history of quiz book states.
 ** Pros: Easy for new developers to understand.
-** Cons: May suffer from performance issues on the memory (When a new command is executed, we must remember to update the list from `VersionedQuizBook`.)
+** Cons: May suffer from performance issues on the memory (When a new command is executed, we must remember to update the list from `VersionedQuizBook`).
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.

@@ -54,7 +54,7 @@
 //         */
 //        AddressBook original = getTypicalAddressBook();
 //        storageManager.saveAddressBook(original);
-//        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+//        ReadOnlyQuizBook retrieved = storageManager.readAddressBook().get();
 //        assertEquals(original, new AddressBook(retrieved));
 //    }
 //

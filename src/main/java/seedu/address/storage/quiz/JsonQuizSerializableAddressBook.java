@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.quiz.AddressQuizBook;
-import seedu.address.model.quiz.ReadOnlyAddressBook;
+import seedu.address.model.quiz.ReadOnlyQuizBook;
 import seedu.address.model.quiz.person.Question;
 
 
@@ -34,11 +34,11 @@ class JsonQuizSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyQuizBook} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonQuizSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonQuizSerializableAddressBook(ReadOnlyQuizBook source) {
         questions.addAll(source.getQuestionList()
                 .stream()
                 .map(JsonQuizAdaptedQuestion::new)

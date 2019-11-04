@@ -17,7 +17,7 @@
 //import seedu.address.commons.core.GuiSettings;
 //import seedu.address.logic.quiz.commands.exceptions.CommandException;
 //import seedu.address.model.quiz.Model;
-//import seedu.address.model.quiz.ReadOnlyAddressBook;
+//import seedu.address.model.quiz.ReadOnlyQuizBook;
 //import seedu.address.model.quiz.ReadOnlyUserPrefs;
 //import seedu.address.model.quiz.person.Question;
 //
@@ -114,12 +114,12 @@
 //        }
 //
 //        @Override
-//        public void setAddressBook(ReadOnlyAddressBook newData) {
+//        public void setAddressBook(ReadOnlyQuizBook newData) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public ReadOnlyAddressBook getAddressBook() {
+//        public ReadOnlyQuizBook getAddressBook() {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
@@ -186,7 +186,7 @@
 //        }
 //
 //        @Override
-//        public ReadOnlyAddressBook getAddressBook() {
+//        public ReadOnlyQuizBook getAddressBook() {
 //            return new AddressBook();
 //        }
 //    }
