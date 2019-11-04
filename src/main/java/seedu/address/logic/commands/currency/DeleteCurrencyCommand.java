@@ -12,18 +12,20 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.currency.exceptions.CurrencyNotRemovableException;
 
 /**
- * Placeholder.
+ * Deletes a customised currency from currency list.
  */
 public class DeleteCurrencyCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a currency from currency list.\n"
             + "Parameters: INDEX (must be a positive integer)";
-
+    private static final String MESSAGE_DELETE_DEFAULT_CURRENCY_FAILURE = "Failed to delete your currency, "
+            + "Singapore dollar is the default currency of the application and it is not removable.";
     private static final String MESSAGE_DELETE_CURRENCY_FAILURE = "Failed to delete your currency, "
-            + "the index you specified is likely out of bounds!";
+            + "the index you specified is likely out of bounds.";
     private static final String MESSAGE_DELETE_CURRENCY_SUCCESS = "Deleted your currency : %1$s!";
 
     private final Index indexToDelete;
@@ -44,7 +46,9 @@ public class DeleteCurrencyCommand extends Command {
         CustomisedCurrency currencyToDelete = lastShownList.get(indexToDelete.getZeroBased());
         try {
             model.deleteCurrency(currencyToDelete);
-        } catch (Exception ex) {
+        } catch (CurrencyNotRemovableException ex) {
+            return new CommandResult(MESSAGE_DELETE_DEFAULT_CURRENCY_FAILURE);
+        } catch (Exception e) {
             return new CommandResult(MESSAGE_DELETE_CURRENCY_FAILURE);
         }
         model.setPageStatus(model.getPageStatus()

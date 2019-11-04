@@ -17,6 +17,7 @@ import seedu.address.model.appstatus.PageStatus;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.currency.exceptions.CurrencyNotFoundException;
+import seedu.address.model.currency.exceptions.CurrencyNotRemovableException;
 import seedu.address.model.currency.exceptions.DuplicateCurrencyException;
 import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
@@ -51,7 +52,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.pageStatus = new PageStatus(PageType.TRIP_MANAGER, null, null, null, null,
                 null, null, null, null,
-                null, null, null, null, null, null);
+                null, null, null, null, null);
         filteredPersons = new FilteredList<>(this.travelPal.getPersonList());
         filteredTripList = new FilteredList<>(this.travelPal.getTripList());
         filteredCurrencyList = new FilteredList<>(this.travelPal.getCurrencies());
@@ -194,7 +195,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteCurrency(CustomisedCurrency target) throws CurrencyNotFoundException {
+    public void deleteCurrency(CustomisedCurrency target) throws CurrencyNotFoundException,
+            CurrencyNotRemovableException {
         requireNonNull(target);
         travelPal.deleteCurrency(target);
     }

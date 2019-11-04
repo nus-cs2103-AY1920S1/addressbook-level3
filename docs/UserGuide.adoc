@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-4/main/releases
 
 By: `Team 11-4`      Since: `In Development`      Licence: `None`
 
@@ -35,7 +35,7 @@ Jump to the <<Quick Start>> to get started!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `TravelPal.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -43,14 +43,8 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+.  Try the `create` command! This brings you to the trip creation / editing screen.
+.  Refer to <<Trip setup>> next to learn how to create a new trip..
 
 [[Features]]
 == Features
@@ -66,51 +60,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 
-=== User preferences
-
-===== Entering the preferences screen
-If you want to edit various user interface settings, you can start by typing
-the command `prefs` to enter the preferences screen.
-
-===== Changing preferences
-
-====== Using the `edit <field><value>` command
-* Usage: `<field>` is the field you want to edit as shown in the interface,
-and `<value>` is the respective value for the field, as detailed below.
-* Arguments (`<field>`):
-** `ww/` - The width of the _TravelPal_ application window, which's `<value>` should be a positive number
-** `wh/` - The height of the _TravelPal_ application window, which's `<value>` should be a positive number
-** `wx/` - The x position of the _TravelPal_ application window, which's `<value>` should be a positive number
-** `wy/` - The y position of the _TravelPal_ application window, which's `<value>` should be a positive number
-** `lg/` - Whether the gui settings should be locked, which's `<value>` should be either `t` for true, or `f` for false.
-** `fp/` - The file path to a existing writable file.
-
-====== Using the user interface text fields
-* Usage: Clicking on the text fields and editing them will also change the values of those fields,
-with the same constraints as noted above.
-
-===== Returning to the trip manager and saving preferences
-
-====== Using the `done` command
-Usage: Saves your changes to the preferences and returns you to the trip manager
-
-===== Returning to the trip manager and discarding changes
-
-====== Using the `cancel` command
-Usage: Discards your changes to the preferences and returns you to the trip manager
-
 === Trip manager
 
-The trip manager is the main starting ground of the application. Here, the user is able to create and delete trips.
+The __Trip Manager__ page is the main starting ground of the application. Here, you can view and enter the trips you have created.
 
-* create : creates a new trip, this command brings up the trip creation user interface.
-* delete <name of trip>: deletes the trip with the specified name and all data associated with it.
-* goto <index of trip> : enters the main page of a trip with the specified index.
+If you are using TravelPal for the first time, you will see a blank page, to create a new trip, please follow the instruction in <<Trip setup>>.
+
+After a trip is successfully added, information about the trip is shown in a trip card as shown below.
+
+image::TripManager.png[]
+
+On the __Trip Manager__ page, the following command are available:
+
+* `create` : creates a new trip, this command brings up the trip setup user interface.
+* `delete <index of trip>` : deletes the trip with the specified index and all data associated with it.
+* `goto <index of trip>`  : enters the main page of a trip with the specified index.
 
 === Trip setup
 Trip setup is the first step in configuring a new/existing trip! This requires you to be at the __Trip Manager__ page (the landing page).
 
-image::TripManager.png[]
+
 Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
 
 Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 5 necessary fields:
@@ -180,40 +149,121 @@ Every page that comprises a navbar can execute the following commands to navigat
 3. Days Page: `days`
 4. Diary : `diary`
 5. Inventory : `inventory`
-6. Expense Manager :`expense`
+6. Expense Manager : `expense`
 
 === Expense Manager
 
-Expense manager records the expenditure by the user. Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event. There are two types of expenditure: 1. Planned expenditure (auto-generated from event) 2. Miscellaneous expenditure (can be created and deleted)
+==== Introduction
 
-* create: creates a miscellaneous expenditure
-* edit <index of expenditure>: edit an expenditure, this command bring up the expense setup page.
-* delete <index of expenditure>: delete an expenditure, note that only miscellaneous expenditures can be deleted.
-* showdays: enter the days view of expense manager, the expenditures will be grouped according to the days they belong to.
-* currency: enter the currency page of TravelPal
+TravelPal's __Expense Manager__ is an integrated expense planning and management system. It keeps track all the expenditures generated in your trip, and
+provides an intuitive overview of daily and total expenses and budgets. Gui alternatives are available for executing the same operations as command line input.
 
+This section of the user guide explains how to view and manage your expenses using __Expense Manager__.
 
-=== Expense Setup
+==== User Interface Overview
 
-Expense setup creates/edits properties of a specified expenditure.It is necessary for expenditure to contains a name and amount. It can also contain an optional day number, indicating which day the expenditure belong to.
+Shown below is the landing page of the __Expense Manager__.
 
-* edit n/<name of expenditure>: edit the name of the expenditure.
-* edit b/<amount of expenditure>: edit the amount of expenditure, in Singapore dollars.
-* edit dn/<day number of expenditure>: set the day number the expenditure belongs to.
-* done: confirm and commit the changes, go back to the expense manager page.
-* cancel: go back to the expense manager page without committing the changes.
+image::expense/userguide/ExpenseManager.png[title="Overview of Expense Manager user interface"]
+
+To toggle the display of expenses between list view and day view, use the command `showdays` or `showlist`. Alternatively,
+you may click the toggle button on the page.
+
+image::expense/userguide/ExpenseManagerDays.png[title="Expense Manager user interface showing the daily expenses and budget summary"]
+
+Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event.
+There are two types of expenditure:
+
+1. Planned expenditure (auto-generated from event)
+2. Miscellaneous expenditure (can be created and deleted)
+
+==== Commands
+
+On the __Expense Manager__ page, the following command are available:
+
+* `create`: creates a expenditure, can also be accessed by clicking the `Add Expenditure` button.
+* `edit <index of expenditure>`: edit an expenditure, this command bring up the expense setup page.
+* `delete <index of expenditure>`: delete an expenditure, note that only miscellaneous expenditures can be deleted.
+* `showdays`: enter the days view of expense manager, the expenditures will be grouped according to the days they belong to.
+* `currency`: enter the currency page of TravelPal, can also be accessed by clicking the `Edit Currency` button
+
+==== Expense Setup
+
+Expense setup creates/edits properties of a specified expenditure.
+To access the __Expense Setup__ page, use `create` or `edit <index of expenditure>` command on`Expense Manager` page.
+
+It is necessary for expenditure to contains a name and amount. It can also contain an optional day number, indicating which day the expenditure belong to.
+
+The following commands are available on __Expense Setup__ page.
+
+* `edit <prefix>/<value> ...` : edit the field of the expenditure to be created/edited.
+* `done` : confirm and commit the changes, go back to the expense manager page.
+* `cancel` : go back to the expense manager page without committing the changes.
+
+The prefixes refer to editing each fields as follows:
+
+* `n/` Name of the expenditure
+* `b/` The amount of expenditure, in Singapore dollars.
+* `dn/` The day number the expenditure belongs to.
+
+NOTE: For Planned expenditure linked to an event, the `name` and `day number` fields are not editable. However, you may
+edit the name of the corresponding event, this will also update the name of the planned expenditures.
+
+====== Example Usage for `edit` command:
+======
+To add an expenditure with the name _Miscellaneous Expenses_ of $_10.5_ SGD to day _2_, use the following command:
+
+`edit n/Miscellaneous Expenses b/10.5 dn/2`
+======
+
 
 === Currency Manager
 
-Currency manager allows users to create customised currencies with currency name, symbol and exchange rate (use Singapore dollar as base).
+==== Introduction
 
-* select <index of currency>: select the currency with the specified index as the currency in use.
-* delete <index of currency>: select the currency with the specified index, note that the default Singapore dollar cannot be deleted.
-* edit n/<name of currency>: edit the name of the currency.
-* edit r/<exchange rate of currency>: edit the name of the currency, using Singapore dollar as base for comparison.
-* edit s/<symbol of expenditure>: edit the symbol for the currency which will be displayed.
-* done: confirm and commit the changes, the newly added currency will be chosen as the currency in use, displayed in the currency list
-* cancel: return to the expense manager.
+With _Currency manager_, you can add and select currencies with customised currency name, symbol and exchange rate.
+When a currency is selected, all the monetary valued will be displayed in that currency
+
+==== User Interface Overview
+
+Shown below is a screenshot of the __Currency Manager__ page.
+
+image::currency/userguide/CurrencyPage.png[title="Overview of Currency Manager user interface"]
+
+The left half of the __Currency Manager__ page consists of editable text fields for creating a new currency, under the
+`Symbol of Currency` section, the most commonly used currency symbols are indexed. You can also input other currency symbols.
+
+On the right hand side of the page, the customised currencies are listed. _Singapore Dollar(SGD)_ is pre-defined as the base currency.
+You may select or delete a customised currency.
+
+==== Commands
+
+The following commands are available on __Currency Manager__ page:
+
+* `select <index of currency>`: select the currency with the specified index as the currency in use.
+* `delete <index of currency>`: select the currency with the specified index, note that the default Singapore dollar cannot be deleted.
+* `edit <prefix>/<value> ...`: edit the fields of a new currency to be created.
+* `add`: confirm and commit the changes, the newly added currency will be chosen as the currency in use, displayed in the currency list
+* `return`: return to the expense manager.
+
+NOTE: the `<value>` for editing the currency symbol can either be an integer representing the index of the preset currencies, or
+or a non-numerical string with no more than 3 characters.
+
+The prefixes refer to editing each fields as follows:
+
+* `n/` name of the currency
+* `s/` symbol of currency,
+* `r/` exchange rate of the currency, using Singapore dollar as base for comparison.
+
+NOTE: Singapore Dollar (SGD) is used as the default currency, it cannot be deleted.
+
+====== Example Usage for `edit` command:
+======
+To add an currency with name _USD_, symbol _$ (pre-set symbol with index 1)_, and an exchange rate of 1 SGD : 0.74 USD, use the following command:
+
+`edit n/USD s/1 r/0.74`
+======
+
 
 // tag::diary_ppp[]
 === Diary
@@ -355,7 +405,8 @@ the former being the `create` command which offers slightly more flexibility.
 ====== Using the `create <dayN>` command
 * Usage: Creates a new diary entry for *any* specified day number.
 * Arguments:
-** `<dayN>` - Positive integer nth day of the trip, which has not yet been created.
+** `<dayN>` - Positive integer nth day of the trip, which has not yet been created, and is less than or equal to
+the last day of your trip.
 
 [[diary_create_entry_command_button]]
 ====== Using the add entry button `+`
@@ -422,8 +473,9 @@ you are more comfortable with using the user interface than the command line inp
 
 In all options, the image file chosen should be of the file types `.jpg`, `.jpeg`, or `.png`
 
-NOTE: The image files are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
-(see <<glossary>>) to the image file on your computer is stored!
+WARNING: The image files are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
+(see <<glossary>>) to the image file on your computer is stored! If you move or delete the original image on your system,
+then you will have to add the photo again, and a placeholder image will be shown in place of your image.
 
 ====== Using the `addphoto` command with the `fp/` prefix
 * Usage: Typing in the command `addphoto fp/<file path> [d/<description>] [dts/<date taken>]`, with the
@@ -710,6 +762,11 @@ Allows the user to make a list of things (inventory of things) he/she needs for 
 * Save data:
 ** The data of the trips is saved in the data directory located in the data directory where the _TravelPal_ application file, TravelPal.jar is.
 ** The data is stored in a human readable json format, allowing manual editing of the data files using a separate text editor.
+* Window size:
+** You might have noticed that you cannot resize the _TravelPal_ application any smaller than a certain size (specifically, 800 x 600).
+** _TravelPal_ was designed as a desktop application, hence many of its contents will not display correctly given too small
+a window size.
+
 ====
 
 [[glossary]]

@@ -98,14 +98,9 @@ public class Expenditure {
                 && otherExpenditure.getBudget().equals(getBudget());
     }
 
-    /**
-     * Checks whether this expenditure clashes with another.
-     *
-     * @param other The other expenditure instance to check.
-     * @return Boolean of whether the expenditures clash.
-     */
-    public boolean isClashingWith(Expenditure other) {
-        return (this.getName().equals(other.getName()));
+    @Override
+    public String toString() {
+        return name.toString();
     }
 
 }

@@ -81,11 +81,12 @@ public class Trip {
      * Creates a list of days upon first initialization.
      */
     public void initializeDayList() {
-        int totalDays = endDate.getDayOfMonth() - startDate.getDayOfMonth();
+        int totalDays = endDate.getDayOfMonth() - startDate.getDayOfMonth() + 1;
         assert(totalDays > 0);
+        this.dayList.internalList.clear();
         for (int i = 0; i < totalDays; i++) {
             LocalDateTime currentDay = startDate.plusDays(i);
-            this.dayList.add(new Day(currentDay,
+            this.dayList.add(new Day(currentDay.withHour(0).withMinute(0),
                     currentDay.withHour(23).withMinute(59),
                     Optional.empty(),
                     destination,

@@ -10,6 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appstatus.PageType;
 import seedu.address.model.expenditure.Expenditure;
 
 /**
@@ -24,7 +25,7 @@ public class DeleteExpenditureCommand extends Command {
     public static final String MESSAGE_DELETE_EXPENDITURE_FAILURE = "Failed to delete your expenditure, "
             + "the expenditure you are trying to remove is likely to be associated with an event, please go to"
             + " the corresponding event to delete the expenditure";
-    public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "Deleted your expenditure : %1$s!";
+    public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "Deleted your expenditure : ";
 
     private final Index indexToDelete;
 
@@ -51,7 +52,12 @@ public class DeleteExpenditureCommand extends Command {
             return new CommandResult(MESSAGE_DELETE_EXPENDITURE_FAILURE);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_EXPENDITURE_SUCCESS, expenditureToDelete));
+        model.setPageStatus(model.getPageStatus()
+                .withResetEditEventDescriptor()
+                .withNewPageType(PageType.EXPENSE_MANAGER));
+
+        return new CommandResult(MESSAGE_DELETE_EXPENDITURE_SUCCESS
+                + expenditureToDelete.getName().toString(), true, COMMAND_WORD);
     }
 
     @Override
