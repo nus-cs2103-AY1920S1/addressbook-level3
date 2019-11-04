@@ -1,11 +1,11 @@
 .color_family {
-    light:
-    light2: 808999;
+    light:808999;
     Dark: 010504;
     Dark2: 1B212D;
-    Accent: 979EAB
+    Accent: 979EAB;
     Accent2: B3B8C1;
     Void: D9DBE0;
+    Void2: 383838;
     alt1: EEEFF0;
     alt2: E3E5E6;
 }
@@ -23,13 +23,18 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: green;
+    -fx-background-color: #383838;
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+}
+
+.list-cell:empty {
+    /* Empty cells will not have alternating colours */
+    -fx-background: transparent;
 }
 
 .list-cell:filled:even {
@@ -105,10 +110,6 @@
     -fx-text-fill: #1B212D;
 }
 
-.stack-pane {
-     -fx-background-color: #D9DBE0;
-}
-
 .pane-with-border {
      -fx-background-color: #D9DBE0;
      -fx-border-color: #1D1D1D;
@@ -119,7 +120,7 @@
 }
 
 .placeholder {
-    -fx-background-color: #1B1B29;
+    -fx-background-color: #383838;
 }
 
 .status-bar {
@@ -164,12 +165,6 @@
     -fx-pref-height: 30px;
 }
 
-.status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
-}
-
 .status-bar-with-border .label {
     -fx-text-fill: white;
 }
@@ -185,21 +180,16 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: #D9DBE0;
     -fx-background-insets: 0;
     -fx-border-insets: 0;
     -fx-border-width: 1 0 1 0;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 12pt;
-    -fx-text-fill: #1B1B29;
 }
 
 #resultDisplayPlaceholder {
     -fx-background-color: #1B1B29;
-}
-
-.listing-panel {
-    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .text-field {
@@ -228,9 +218,9 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 0 8 0 8;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+    -fx-padding: 0 8 0 8;
 }

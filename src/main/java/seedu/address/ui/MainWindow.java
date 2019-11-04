@@ -64,6 +64,7 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
+
         helpWindow = new HelpWindow();
         if (logic.isServeMode()) {
             mode.setText(SERVE_MODE);

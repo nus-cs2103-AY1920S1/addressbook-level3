@@ -19,8 +19,8 @@
         <Scene>
             <stylesheets>
 <!--                <URL value="@DarkTheme.css" />-->
-                <URL value="@LiBerryTheme.css" />
-                <URL value="@Extensions.css" />
+<!--                <URL value="@LiBerryTheme.css" />-->
+<!--                <URL value="@Extensions.css" />-->
             </stylesheets>
 
             <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -29,7 +29,8 @@
                         <padding>
                             <Insets bottom="10" left="5" right="10" top="10" />
                         </padding>
-                        <StackPane fx:id="borrowerPanelPlaceholder" VBox.vgrow="ALWAYS">
+                        <StackPane fx:id="borrowerPanelPlaceholder"
+                                   styleClass="placeholder" VBox.vgrow="ALWAYS">
                         </StackPane>
                     </VBox>
                 </right>
@@ -39,6 +40,7 @@
                             <Insets bottom="10" left="10" right="5" top="10" />
                         </padding>
                         <StackPane fx:id="bookListPanelPlaceholder" styleClass="placeholder" VBox.vgrow="ALWAYS" />
+                        <Pane prefHeight="10.0" />
                         <Pane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="120.0" styleClass="placeholder" VBox.vgrow="ALWAYS">
                             <padding>
                                 <Insets left="20.0" />
@@ -69,7 +71,9 @@
                     </HBox>
                 </top>
             <bottom>
-                    <AnchorPane fx:id="commandBoxPlaceholder" maxHeight="35.0" minHeight="35.0" minWidth="0.0" prefHeight="35.0" prefWidth="600.0" styleClass="pane-with-border" BorderPane.alignment="CENTER">
+                    <AnchorPane fx:id="commandBoxPlaceholder"
+                                styleClass="placeholder"
+                                maxHeight="35.0" minHeight="35.0" minWidth="0.0" prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     </AnchorPane>
             </bottom>
             </BorderPane>
