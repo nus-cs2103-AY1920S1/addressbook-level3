@@ -2,7 +2,9 @@ package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -27,10 +29,12 @@ public class GenerateStatisticsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         List<Event> eventList = model.getFullListEvents();
-        /*eventList.sort(Comparator.comparing(Event::getStartDate));*/
+        List<Event> sortedByStartDateEventList = eventList.stream()
+                .sorted(Comparator.comparing(Event::getStartDate))
+                .collect(Collectors.toList());
         List<Employee> employeeList = model.getFullListEmployees();
         String output = "Quick Summary" + "\n----------------"
-                /*+ "Upcoming event: " + eventList.get(0)*/
+                + "\nUpcoming event: " + sortedByStartDateEventList.get(0).getName()
                 + "\nTotal number of events: " + eventList.size()
                 + "   Total number of employees: " + employeeList.size();
         return new CommandResult(output, "Statistics");
