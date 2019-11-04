@@ -18,7 +18,6 @@ import seedu.system.logic.commands.outofsession.AddPersonCommand;
 import seedu.system.logic.commands.outofsession.ClearCommand;
 import seedu.system.logic.commands.outofsession.DeleteCompetitionCommand;
 import seedu.system.logic.commands.outofsession.DeleteParticipationCommand;
-import seedu.system.logic.commands.outofsession.DeleteParticipationCommandParser;
 import seedu.system.logic.commands.outofsession.DeletePersonCommand;
 import seedu.system.logic.commands.outofsession.EditCompetitionCommand;
 import seedu.system.logic.commands.outofsession.EditPersonCommand;
@@ -31,19 +30,20 @@ import seedu.system.logic.commands.outofsession.OutOfSessionHelpCommand;
 import seedu.system.logic.commands.outofsession.OverallRankCommand;
 import seedu.system.logic.commands.outofsession.StartSessionCommand;
 import seedu.system.logic.parser.exceptions.ParseException;
-import seedu.system.logic.parser.insession.AddParticipationCommandParser;
 import seedu.system.logic.parser.insession.AttemptLiftedCommandParser;
-import seedu.system.logic.parser.insession.ListParticipationCommandParser;
-import seedu.system.logic.parser.insession.NewSessionCommandParser;
 import seedu.system.logic.parser.insession.RankCommandParser;
 import seedu.system.logic.parser.insession.RanklistCommandParser;
 import seedu.system.logic.parser.outofsession.AddCompetitionCommandParser;
+import seedu.system.logic.parser.outofsession.AddParticipationCommandParser;
 import seedu.system.logic.parser.outofsession.AddPersonCommandParser;
 import seedu.system.logic.parser.outofsession.DeleteCompetitionCommandParser;
+import seedu.system.logic.parser.outofsession.DeleteParticipationCommandParser;
 import seedu.system.logic.parser.outofsession.DeletePersonCommandParser;
 import seedu.system.logic.parser.outofsession.EditCompetitionCommandParser;
 import seedu.system.logic.parser.outofsession.EditPersonCommandParser;
 import seedu.system.logic.parser.outofsession.FindPersonCommandParser;
+import seedu.system.logic.parser.outofsession.ListParticipationCommandParser;
+import seedu.system.logic.parser.outofsession.StartSessionCommandParser;
 
 /**
  * Parses user input.
@@ -131,7 +131,7 @@ public class SystemParser {
             return new NextLifterCommand();
 
         case StartSessionCommand.COMMAND_WORD:
-            return new NewSessionCommandParser().parse(arguments);
+            return new StartSessionCommandParser().parse(arguments);
 
         case OverallRankCommand.COMMAND_WORD:
             return new OverallRankCommand();

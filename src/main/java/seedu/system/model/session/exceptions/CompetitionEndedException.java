@@ -8,6 +8,8 @@ import seedu.system.model.competition.Competition;
 public class CompetitionEndedException extends RuntimeException {
 
     public CompetitionEndedException(Competition competition) {
-        super(competition + " has now come to an end. Thank you.");
+        super(competition + " has now come to an end.\n"
+                + "Enter 'rank' or 'ranklist' to get the ranks of the participation/competition.\n"
+                + "Enter 'endSession' to end the competition session.");
     }
 }

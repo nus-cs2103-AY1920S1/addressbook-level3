@@ -11,6 +11,6 @@ public class PreviousAttemptNotDoneException extends RuntimeException {
     public PreviousAttemptNotDoneException() {
         super("The next lifter is not ready to be called until"
                 + " the current lifter has completed and recorded the attempt.\n"
-                + "To record attempt, enter " + AttemptLiftedCommand.MESSAGE_USAGE);
+                + "To record attempt, enter " + AttemptLiftedCommand.MESSAGE_USAGE + "\n");
     }
 }

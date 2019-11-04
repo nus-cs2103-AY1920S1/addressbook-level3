@@ -267,6 +267,12 @@ facilitate the competition session will be presented in order below:
 This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit a person’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, etc).
 The flow of events, and the commands to facilitate the competition session will be presented in order below:
 
+==== Get the next lifter in line: `next`
+Retrieves the next lifter according to weight lifted for that attempt, the weights he/she is going for that particular lift and attempt.
+If there are no more attempts to be made by any lifter, this command will trigger the end of the competition.
+
+Format/Example: `next`
+
 ==== Updating success or failure of a lift: `lift`
 Updates whether the person (athlete) succeeds in his/her attempt, or fails it.
 The lift updated will be the one that was just called up.

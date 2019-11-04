@@ -56,9 +56,10 @@ public class AttemptLiftedCommand extends Command {
             Participation updatedPart = participation;
             updatedPart.updateAttempt(next.getAttemptIndex(), isSuccess);
             model.setParticipation(participation, updatedPart);
-        } catch (NoOngoingSessionException | AttemptHasBeenAttemptedException
-                | IncompleteAttemptSubmissionException e) {
+        } catch (NoOngoingSessionException | IncompleteAttemptSubmissionException e) {
             return new CommandResult(e.getMessage());
+        } catch (AttemptHasBeenAttemptedException e) {
+            return new CommandResult((e.getMessage() + MESSAGE_NEXT_LIFTER + following.toString()));
         }
 
         return new CommandResult(String.format("%S%s%n%s", next.toString(), getSuccessOrFailure(),

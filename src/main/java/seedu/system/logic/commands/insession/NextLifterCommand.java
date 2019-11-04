@@ -39,9 +39,10 @@ public class NextLifterCommand extends Command {
         try {
             next = model.getNextLifter();
             following = model.getFollowingLifter();
-        } catch (NoOngoingSessionException | IncompleteAttemptSubmissionException
-                | PreviousAttemptNotDoneException e) {
+        } catch (NoOngoingSessionException | IncompleteAttemptSubmissionException e) {
             return new CommandResult(e.getMessage());
+        } catch (PreviousAttemptNotDoneException e) {
+            return new CommandResult(e.getMessage() + MESSAGE_NEXT_LIFTER + following.toString());
         } catch (CompetitionEndedException e) {
             return new CommandResult(e.getMessage());
         }

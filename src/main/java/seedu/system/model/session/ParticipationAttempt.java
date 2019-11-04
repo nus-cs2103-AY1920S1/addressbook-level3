@@ -65,7 +65,7 @@ public class ParticipationAttempt {
      * Returns the string representation of a participation attempt.
      */
     public String toString() {
-        return String.format("%s - %s attempt %d: %dkg",
+        return String.format("%s - %s attempt %d: %d kg",
                 athlete.getName(), attempt.getLift(), attemptIndexToNumber(), attempt.getWeightAttempted());
     }
 }

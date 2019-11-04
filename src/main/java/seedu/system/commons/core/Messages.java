@@ -16,5 +16,6 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_NO_ONGOING_COMPETITION_SESSION = "There is no ongoing competition session."
             + " Please start one before making commands.";
+    public static final String MESSAGE_INVALID_NEGATIVE_ATTEMPT_WEIGHT = "Negative attempt weights are not allowed.";
 
 }

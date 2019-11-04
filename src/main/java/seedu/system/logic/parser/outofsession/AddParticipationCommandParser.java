@@ -1,6 +1,7 @@
-package seedu.system.logic.parser.insession;
+package seedu.system.logic.parser.outofsession;
 
 import static seedu.system.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.system.commons.core.Messages.MESSAGE_INVALID_NEGATIVE_ATTEMPT_WEIGHT;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_BENCH;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_COMP;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_DEADLIFT;
@@ -56,11 +57,15 @@ public class AddParticipationCommandParser implements Parser<AddParticipationCom
      * @param prefix prefix to get the value from
      * @param argumentMultimap mapper of the arguments
      */
-    private void stringToAttemptInt(Prefix prefix, ArgumentMultimap argumentMultimap) {
+    private void stringToAttemptInt(Prefix prefix, ArgumentMultimap argumentMultimap) throws ParseException {
         String stringThreeAttempts = argumentMultimap.getValue(prefix).get();
         String[] threeAttemptsArray = stringThreeAttempts.split("/");
         for (String s : threeAttemptsArray) {
             Integer weight = Integer.parseInt(s);
+            if (weight.intValue() < 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_NEGATIVE_ATTEMPT_WEIGHT,
+                        AddParticipationCommand.MESSAGE_USAGE));
+            }
             attemptWeights.add(weight);
         }
     }

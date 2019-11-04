@@ -57,16 +57,15 @@ public class Session {
      * @param participations the list of participations in the competition session
      * @throws OngoingSessionException if there is already an ongoing session
      */
-    public void start(
-        Competition competition,
-        ObservableList<Participation> participations
-    ) throws OngoingSessionException {
+    public void start(Competition competition, ObservableList<Participation> participations)
+            throws OngoingSessionException {
         if (isOngoing()) {
             throw new OngoingSessionException();
         }
 
         this.competition = competition;
         this.participationList = participations;
+        this.attemptList = FXCollections.observableArrayList();
         for (Participation p : participations) {
             if (p.getAreAttemptsSubmitted()) {
                 loadAttempts(p, p.getAttempts());
@@ -158,7 +157,6 @@ public class Session {
         }
 
         if (attemptList.isEmpty()) {
-            end();
             throw new CompetitionEndedException(participationList.get(0).getCompetition());
         }
 

@@ -6,7 +6,7 @@ import static seedu.system.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.system.logic.commands.outofsession.ListParticipationCommand;
-import seedu.system.logic.parser.insession.ListParticipationCommandParser;
+import seedu.system.logic.parser.outofsession.ListParticipationCommandParser;
 import seedu.system.model.person.Name;
 
 public class ListParticipationCommandParserTest {

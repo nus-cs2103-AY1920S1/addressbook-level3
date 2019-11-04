@@ -1,6 +1,7 @@
 package seedu.system.logic.commands.outofsession;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.system.logic.parser.CliSyntax.PREFIX_COMP;
 import static seedu.system.model.Model.PREDICATE_SHOW_ALL_PARTICIPATIONS;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ListParticipationCommand extends Command {
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
     public static final String MESSAGE_SUCCESS_FOR_COMPETITION = "Listed participants for competition %1$s";
     public static final String MESSAGE_SUCCESS_FOR_ALL = "Listed all participants";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " Competition Name";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_COMP + "Competition_Name(optional)";
     public static final String MESSAGE_COMPETITION_NOT_FOUND =
         "The competition with the given name \"%1$s\" does not exist.";
 

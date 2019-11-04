@@ -1,8 +1,9 @@
-package seedu.system.logic.commands.outofsession;
+package seedu.system.logic.parser.outofsession;
 
 import static seedu.system.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.system.commons.core.index.Index;
+import seedu.system.logic.commands.outofsession.DeleteParticipationCommand;
 import seedu.system.logic.parser.Parser;
 import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;
