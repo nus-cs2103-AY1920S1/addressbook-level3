@@ -14,7 +14,7 @@ endif::[]
 == Introduction
 
 This project portfolio briefly introduces the project, treasurerPro and outlines my contributions to the project
-and showcases the key feature I implemented.
+and showcases the key features I implemented.
 
 === About the team
 
@@ -42,7 +42,7 @@ This symbol indicates important information to take note of.
 Text with grey highlight indicates a component, class or object in the architecture of
 the application.
 
-[blue]`*command*` :
+[blue]`command` :
 Text with blue font and grey highlight indicates a command that can be inputted by the user.
 
 === Introduction of treasurerPro
@@ -92,7 +92,7 @@ A [blue]`*sort*` command was implemented for the transactions in the table to so
 ////
 * Deleting Transactions of a Specific Member
 ** What it does:
-The [blue]*delete* command allows all transactions linked to the specified member in the command to be deleted at once.
+The Delete Command allows all transactions linked to the specified member in the command to be deleted at once.
 
 ** Justification:
 This feature allows the user to clear all transaction records linked to a specific member if the member
@@ -106,7 +106,7 @@ records. This works well with the deletion of member feature in Members Tab.
 * Sorting Transactions in a Specific Order
 ** What it does:
 Each transaction records consists of a date, description, category, amount of money and
-person accountable for the transaction. Thus, the [blue]*sort* command helps to sort the transactions by the alphabetical order of
+person accountable for the transaction. Thus, the Sort Command helps to sort the transactions by the alphabetical order of
 the person's name, by the date (from oldest to most recent) or amount (from smallest to largest).
 
 ** Justification:
@@ -182,7 +182,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/197[(PR #197)]
 The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features.
 
 === Current enhancement
-{start of extract from User Guide}
+{Start of First Extract from User Guide}
 ////
 [very big]##5.1 Home Tab##
 
@@ -258,46 +258,57 @@ image::homeUG/HomeAddShowInR.png[width = "500"]
 ////
 [big]##5.1.2 Delete Transaction(s)##
 
-This command deletes either all transactions of a person or a single transaction of a specific ID from the table.
+This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the table.
 
 * Command:
 `delete ID` or `delete p/PERSON`
 
 * Examples:
-** `delete 1`
-** `delete p/Alex Yeo`
+** [blue]`delete 1`
+** [blue]`delete p/Alex Yeoh`
 
 * Steps for Deleting by ID:
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
 
-image::homeUG/HomeDeleteStep1cr.png[width = "500"]
+//.Screenshot of the user input into Command Box for Delete by ID command in Home tab
+image::homeUG/HomeDeleteStep1cr.png[]
+
 
 [start = 2]
 2. Hit `Enter`.
 
 Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
-image::homeUG/HomeDeleteStep2cr.png[width = "500"]
+.Screenshot of a successful user input for Delete by ID Command in Home Tab
+image::homeUG/HomeDeleteStep2cr.png[]
+
 
 * Steps for Deleting by Person:
 1. Type the command with the person's name to delete all transactions related to that person, as shown in the screenshot below:
 
-image::homeUG/HomeDeletePStep1cr.png[width = "500"]
+
+//.Screenshot of a user input into Command Box for Delete by ID command in Home Tab
+image::homeUG/HomeDeletePStep1cr.png[]
 
 [start = 2]
 2. Hit `Enter`.
 
-The transaction(s) will be removed from the table. Leo will also respond with the success message and  as shown below:
+Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
 
-image::homeUG/HomeDeletePStep2cr.png[width = "500"]
-If the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
-reimbursement record. On the other hand, if the person entered is not part of our data base shown in the Members Tab,
-Leo will respond with a message to inform you as shown in the screenshot below:
+//.Screenshot of a successful user input for Delete by Person Command in Home Tab
+image::homeUG/HomeDeletePStep2cr.png[]
+
+For both delete commands, if the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
+reimbursement record. On the other hand, if the person entered is not part of our database as shown in the Members Tab,
+Leo will respond with a message to inform you. If the person does not have any transactions, Leo will also respond with a message to inform you.
+
+////
+as shown in the screenshot below:
 
 image::homeUG/HomeAddUnsuccessfulStep2cr.png[width = "500"]
+////
 
-In addition, if the person does not have any transactions, Leo will also respond with a message to inform you.
-{end of extract}
+{End of First Extract}
 ////
 [big]##5.1.3 Edit a Transaction in the Table##
 
@@ -327,16 +338,17 @@ image::homeUG/HomeEditStep2cr.png[width = "500"]
 
 If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Figure 3>>.
 ////
-{start of extract from User Guide}
+{Start of Second Extract from User Guide}
+
 [big]##5.1.4 Sort Transactions in the Table##
 
 This command sorts the table of transactions into a specified order for viewing and carrying out of subsequent commands.
 
 * To sort:
-** By date (from oldest to most recent): `sort date`
-** By name (from alphabetical order of name): `sort name`
-** By amount (from smallest to largest in amount): `sort amount`
-** Undo sort: `sort reset`
+** By date (from oldest to most recent): [blue]`sort date`
+** By name (from alphabetical order of name): [blue]`sort name`
+** By amount (from smallest to largest in amount): [blue]`sort amount`
+** Undo sort: [blue]`sort reset`
 
 [NOTE]
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
@@ -395,13 +407,13 @@ The screenshot below shows the table after entering `back` which shows all the t
 .Screenshot of user input for back command after entering find command in Home tab
 image::homeUG/HomeFindStep3Back.png[width="600"]
 ////
-{end of extract}
+{End of Second Extract}
 
 ==  Contributions to the Developer Guide
 The following section shows my additions to the treasurerPro Developer Guide for the `Home Tab` features.
 
 === Current enhancement
-{start of extract from Developer Guide}
+{Start of First Extract from Developer Guide}
 ////
 [very big]##3.1 Home Tab##
 
@@ -466,33 +478,32 @@ image::HomeTabActivityDiagramAddCommand.png[width="350"]
 ////
 [big]##3.1.2 Delete Feature##
 
-This feature allows for 2 types of deletion, by
+This section explains the implementation of the Delete Command in Home Tab. This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
 
-The following sequence diagram shows how the delete by name command works:
+The following sequence diagram shows how the delete by name command works which is referenced in <<GeneralLogicSD>>:
 
-[caption = "Figure 14. "]
+[caption = "Figure 16. "]
 .Sequence Diagram of Delete Command in Home Tab (transaction package)
-image::HomeDeleteNameCommand.png[width = "300"]
+image::HomeDeleteNameCommand.png[]
 
-In addition, the `resetPredicate()` method in `ModelManager` is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
+In addition, the `ModelManager#resetPredicate()` method is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
 filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
-a filtered list, the table will continue to show the filtered list at the end of the Delete Command.
+a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
 To view the full transaction list, the user would be required to input the
 Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3 BackCommand>>
 
-After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL>> and <<update-reimbursement>>
 respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
-
 The following activity diagram shows the steps needed to delete a new transaction:
 
-[caption = "Figure 15. "]
+[caption = "Figure 17. "]
 .Activity Diagram of Delete Command in Home Tab (transaction package)
-image::HomeTabActivityDiagramDeleteCommand.png[width="500"]
+image::HomeTabActivityDiagramDeleteCommand.png[]
 
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
 be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
@@ -501,21 +512,24 @@ when a successful deletion is done.
 [big]##3.1.3 Back Command Feature##
 
 [[BackCommandSD]]
-The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
+This section explains the implementation of the Back Command feature in Home Tab.
+The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD>>
 but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
 
-[caption = "Figure 16. "]
+[caption = "Figure 18. "]
 .Sequence Diagram of Back Command in Home Tab (transaction package)
 image::HomeTabBackCommandSequenceDiagram.png[width = "450"]
 
 [big]##3.1.4 Sort Command Feature##
+
+This section explains the implementation of the Sort Command feature in Home Tab.
 The `SortCommand` allows for 3 types of sort, by name in
 alphabetical order, by amount (from least to most) and by date (from oldest to most recent).
 
 The following sequence diagram shows how the sort command works:
 
-[caption = "Figure 17. "]
+[caption = "Figure 19. "]
 .Sequence Diagram of Sort Command in Home Tab (transaction package)
 
 image::HomeTabSortSD.png[width = "300"]
@@ -550,4 +564,34 @@ to `AddressBook`.
 |A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
 |Alternative 1 was implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would beuse frequently in `ModelManager`.
 |===
-{end of extract}
+{End of First Extract}
+
+{Start of Second Extract from Developer Guide}
+[[GeneralLogicSD]]
+[caption = "Figure 5. "]
+.Sequence Diagram for execution within `Logic`.
+image::GeneralSequenceDiagram.png[width = "400"]
+{End of Second Extract}
+
+{Start of Third Extract}
+[[updateTL]]
+[caption = "Figure 11. "]
+.Sequence Diagram of updating the transaction list in Home Tab (transaction package)
+image::HomeAddCommandMMSM.png[width = "300"]
+[NOTE]
+This update of the list of transactions is done for every command that is executed successfully in the Home Tab.
+
+Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest list of transactions
+to generate an updated list of reimbursements for the user to view in the Reimbursement Tab. The following sequence diagram shows how
+the Reimbursement Tab is updated from the `MainWindow`:
+
+[[update-reimbursement]]
+
+[caption = "Figure 12. "]
+.Sequence Diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
+image::TUpdateRinMainWindow.png[width = "400"]
+
+[NOTE]
+This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<updateTL>>) when there is a command executed successfully in the Home Tab.
+
+{End of Third Extract}
