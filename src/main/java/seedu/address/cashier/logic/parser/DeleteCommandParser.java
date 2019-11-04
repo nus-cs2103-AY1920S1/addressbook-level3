@@ -23,7 +23,8 @@ public class DeleteCommandParser implements Parser {
      * and returns an DeleteCommand object for execution.
      * @throws NotANumberException if the user input is not a number
      */
-    public DeleteCommand parse(String userInput, Model model, seedu.address.person.model.Model personModel)
+    public DeleteCommand parse(String userInput, Model model,
+                               seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
             throws NotANumberException, NoSuchIndexException {
         int index;
         try {

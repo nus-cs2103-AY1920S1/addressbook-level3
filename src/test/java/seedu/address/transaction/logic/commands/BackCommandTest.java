@@ -6,7 +6,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_BACKED;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.person.model.person.Person;
-import seedu.address.stubs.PersonModelStubWithPerson;
+import seedu.address.stubs.PersonModelStubWithPersonCheckAnd;
 import seedu.address.stubs.TransactionModelStubWithTransaction;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
@@ -17,7 +17,7 @@ class BackCommandTest {
     @Test
     public void execute_successful() {
         Person validPerson = new PersonBuilder().build();
-        PersonModelStubWithPerson modelStubWithPerson = new PersonModelStubWithPerson(validPerson);
+        PersonModelStubWithPersonCheckAnd modelStubWithPerson = new PersonModelStubWithPersonCheckAnd(validPerson);
         Transaction validTrans = new TransactionBuilder(validPerson).build();
         TransactionModelStubWithTransaction modelStubWithTransaction =
                 new TransactionModelStubWithTransaction(validTrans);

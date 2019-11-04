@@ -11,7 +11,7 @@ import seedu.address.inventory.util.InventoryList;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
     private InventoryList inventoryList;
     private Storage storage;
 

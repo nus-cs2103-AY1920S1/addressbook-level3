@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.SetCashierCommand;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
@@ -28,19 +29,21 @@ public class SetCashierCommandParserTest {
     public void parse_validCashier_success() {
         Person p = personModel.getPersonByName("Alice Pauline");
         SetCashierCommand setCashierCommand = new SetCashierCommand(p);
-        assertCommandParserSuccess(parser, " Alice Pauline", setCashierCommand, model, personModel);
+        assertCommandParserSuccess(parser, " Alice Pauline", setCashierCommand, model,
+                (CheckAndGetPersonByNameModel)personModel);
         model.resetCashier();
     }
 
     @Test
     public void parse_nonExistingCashier_failure() {
-        assertCommandParserFailure(parser, " Bob", NO_SUCH_PERSON, model, personModel);
+        assertCommandParserFailure(parser, " Bob", NO_SUCH_PERSON, model,
+                (CheckAndGetPersonByNameModel) personModel);
     }
 
     @Test
     public void parse_validCashierWithOtherPrefix_success() {
         assertCommandParserFailure(parser, " Alice Pauline" + DESC_DESCRIPTION_STORYBOOK,
-                NO_SUCH_PERSON, model, personModel);
+                NO_SUCH_PERSON, model, (CheckAndGetPersonByNameModel) personModel);
         model.resetCashier();
     }
 

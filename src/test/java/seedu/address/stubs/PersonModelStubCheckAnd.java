@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.person.commons.core.GuiSettings;
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ReadOnlyAddressBook;
 import seedu.address.person.model.ReadOnlyUserPrefs;
@@ -15,7 +15,7 @@ import seedu.address.person.model.person.Person;
 /**
  * Represents an address book Model stub.
  */
-public class PersonModelStub implements Model, GetPersonByNameOnlyModel {
+public class PersonModelStubCheckAnd implements Model, CheckAndGetPersonByNameModel {
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");

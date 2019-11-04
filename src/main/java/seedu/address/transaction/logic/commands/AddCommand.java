@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_NEGATIVE_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_POSITIVE_TRANSACTION;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.transaction.Transaction;
 
@@ -23,7 +24,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+    public CommandResult execute(Model model, CheckAndGetPersonByNameModel personModel) {
         model.resetPredicate();
         model.addTransaction(transaction);
         if (transaction.isNegative()) {

@@ -11,15 +11,15 @@ import seedu.address.person.model.person.Person;
 /**
  * Represents an address book Model stub.
  */
-public class PersonModelStubAcceptingPersonAdded extends PersonModelStub {
+public class PersonModelStubAcceptingPersonAddedCheckAnd extends PersonModelStubCheckAnd {
     final ArrayList<Person> personsAdded;
 
-    public PersonModelStubAcceptingPersonAdded() {
+    public PersonModelStubAcceptingPersonAddedCheckAnd() {
         personsAdded = new ArrayList<>();
     }
 
 
-    public PersonModelStubAcceptingPersonAdded(ArrayList<Person> arr) {
+    public PersonModelStubAcceptingPersonAddedCheckAnd(ArrayList<Person> arr) {
         this.personsAdded = arr;
     }
 

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_NEGATIVE_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_POSITIVE_TRANSACTION;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.transaction.Transaction;
@@ -24,7 +25,7 @@ public class DeleteIndexCommand extends DeleteCommand {
 
     @Override
     public CommandResult execute(Model model,
-                                 seedu.address.person.model.GetPersonByNameOnlyModel personModel)
+                                 CheckAndGetPersonByNameModel personModel)
             throws ParseException {
         requireNonNull(model);
         requireNonNull(personModel);

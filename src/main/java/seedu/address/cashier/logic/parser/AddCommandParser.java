@@ -44,7 +44,7 @@ public class AddCommandParser implements Parser {
      * @throws Exception if the user input does not conform the expected format
      */
     public AddCommand parse(String args, Model modelManager,
-                                   seedu.address.person.model.Model personModel) throws Exception {
+                                   seedu.address.person.model.CheckAndGetPersonByNameModel personModel) throws Exception {
         if (!args.contains(" c/")) {
             argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);

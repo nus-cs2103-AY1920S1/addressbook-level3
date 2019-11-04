@@ -14,6 +14,7 @@ public abstract class Command {
      * @throws Exception If an error occurs during command execution.
      */
     public abstract CommandResult execute(seedu.address.cashier.model.Model model,
-                                          seedu.address.person.model.Model personModel) throws Exception;
+                                          seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
+            throws Exception;
 }
 

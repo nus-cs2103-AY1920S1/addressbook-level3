@@ -32,7 +32,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_DAT
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
@@ -42,7 +42,7 @@ import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 
 class EditCommandParserTest {
-    private GetPersonByNameOnlyModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private CheckAndGetPersonByNameModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private EditCommandParser parser = new EditCommandParser();
 
     @Test

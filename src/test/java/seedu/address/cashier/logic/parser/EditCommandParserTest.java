@@ -25,6 +25,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
@@ -45,13 +46,15 @@ public class EditCommandParserTest {
 
         // no index specified
         assertCommandParserFailure(parser, DESC_DESCRIPTION_STORYBOOK, MESSAGE_INVALID_EDITCOMMAND_FORMAT, model,
-                personModel);
+                (CheckAndGetPersonByNameModel)personModel);
 
         //only quantity specified
-        assertCommandParserFailure(parser, DESC_QUANTITY_1, MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, personModel);
+        assertCommandParserFailure(parser, DESC_QUANTITY_1, MESSAGE_INVALID_EDITCOMMAND_FORMAT, model,
+                (CheckAndGetPersonByNameModel) personModel);
 
         // no index and no field specified
-        assertCommandParserFailure(parser, "", MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, personModel);
+        assertCommandParserFailure(parser, "", MESSAGE_INVALID_EDITCOMMAND_FORMAT, model,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
@@ -62,15 +65,15 @@ public class EditCommandParserTest {
 
         // invalid arguments being parsed as preamble
         assertCommandParserFailure(parser, DESC_INDEX_1 + " some random string",
-                MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, personModel);
+                MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, (CheckAndGetPersonByNameModel) personModel);
         assertCommandParserFailure(parser, DESC_QUANTITY_1 + " some random string",
-                MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, personModel);
+                MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, (CheckAndGetPersonByNameModel) personModel);
 
         // invalid prefix being parsed as preamble
         assertCommandParserFailure(parser, DESC_INDEX_1 + " c/ string",
-                MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, personModel);
+                MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, (CheckAndGetPersonByNameModel) personModel);
         assertCommandParserFailure(parser, DESC_QUANTITY_1 + " c/ string",
-                MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, personModel);
+                MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
@@ -80,49 +83,49 @@ public class EditCommandParserTest {
 
         // negative index
         assertCommandParserFailure(parser, INVALID_INDEX_1 + DESC_QUANTITY_2,
-                NO_SUCH_INDEX_CASHIER, model, personModel);
+                NO_SUCH_INDEX_CASHIER, model, (CheckAndGetPersonByNameModel) personModel);
 
         // zero index
         assertCommandParserFailure(parser, INVALID_INDEX_4 + DESC_QUANTITY_2,
-                NO_SUCH_INDEX_CASHIER, model, personModel);
+                NO_SUCH_INDEX_CASHIER, model, (CheckAndGetPersonByNameModel) personModel);
 
         // invalid string index
         assertCommandParserFailure(parser, INVALID_INDEX_3 + DESC_QUANTITY_1,
-                INDEX_NOT_A_NUMBER, model, personModel);
+                INDEX_NOT_A_NUMBER, model, (CheckAndGetPersonByNameModel) personModel);
 
         // index out of bounds
         assertCommandParserFailure(parser, INVALID_INDEX_2 + DESC_QUANTITY_1,
-                NO_SUCH_INDEX_CASHIER, model, personModel);
+                NO_SUCH_INDEX_CASHIER, model, (CheckAndGetPersonByNameModel) personModel);
 
         // invalid string quantity
         assertCommandParserFailure(parser, DESC_INDEX_1 + INVALID_QUANTITY_1, QUANTITY_NOT_A_NUMBER, model,
-                personModel);
+                (CheckAndGetPersonByNameModel) personModel);
 
         // invalid negative quantity
         assertCommandParserFailure(parser, DESC_INDEX_1 + INVALID_QUANTITY_2, QUANTITY_NOT_POSITIVE, model,
-                personModel);
+                (CheckAndGetPersonByNameModel) personModel);
 
         // invalid description of non-existing item
         assertCommandParserFailure(parser, INVALID_DESCRIPTION_1 + DESC_QUANTITY_1,
-                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, personModel);
+                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, (CheckAndGetPersonByNameModel) personModel);
 
         // invalid description of item not available for sale
         assertCommandParserFailure(parser, INVALID_DESCRIPTION_2 + DESC_QUANTITY_1,
-                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, personModel);
+                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, (CheckAndGetPersonByNameModel) personModel);
 
         //invalid quantity and description
         assertCommandParserFailure(parser, INVALID_DESCRIPTION_1 + INVALID_QUANTITY_1,
-                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, personModel);
+                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, (CheckAndGetPersonByNameModel) personModel);
 
         //invalid quantity and index
         assertCommandParserFailure(parser, INVALID_INDEX_1 + INVALID_QUANTITY_1,
-                NO_SUCH_INDEX_CASHIER, model, personModel);
+                NO_SUCH_INDEX_CASHIER, model, (CheckAndGetPersonByNameModel) personModel);
 
         // invalid negative quantity
         String message1 = String.format(MESSAGE_INSUFFICIENT_STOCK, TypicalItem.FISH_BURGER.getQuantity(),
                 TypicalItem.FISH_BURGER.getDescription());
         assertCommandParserFailure(parser, DESC_INDEX_1 + INVALID_QUANTITY_3, message1,
-                model, personModel);
+                model, (CheckAndGetPersonByNameModel) personModel);
 
         model.clearSalesList();
     }
@@ -167,15 +170,15 @@ public class EditCommandParserTest {
 
         // only quantity
         assertCommandParserFailure(parser, DESC_QUANTITY_1, MESSAGE_INVALID_EDITCOMMAND_FORMAT,
-                model, personModel);
+                model, (CheckAndGetPersonByNameModel) personModel);
 
         // only index
         assertCommandParserFailure(parser, DESC_INDEX_1, MESSAGE_INVALID_EDITCOMMAND_FORMAT,
-                model, personModel);
+                model, (CheckAndGetPersonByNameModel) personModel);
 
         // only description
         assertCommandParserFailure(parser, DESC_DESCRIPTION_STORYBOOK, MESSAGE_INVALID_EDITCOMMAND_FORMAT,
-                model, personModel);
+                model, (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 

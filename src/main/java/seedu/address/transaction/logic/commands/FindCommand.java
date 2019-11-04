@@ -3,6 +3,7 @@ package seedu.address.transaction.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_FIND_COMMAND;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 
@@ -21,7 +22,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+    public CommandResult execute(Model model, CheckAndGetPersonByNameModel personModel) {
         requireNonNull(model);
         requireNonNull(personModel);
         model.updatePredicate(this.predicate);

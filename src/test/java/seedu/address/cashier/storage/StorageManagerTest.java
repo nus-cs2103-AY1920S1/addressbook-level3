@@ -9,8 +9,9 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.model.Model;
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.util.InventoryList;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
@@ -38,16 +39,16 @@ public class StorageManagerTest {
             File tFile;
             File rFile;
             //Storage storage;
-            seedu.address.person.model.GetPersonByNameOnlyModel personModel;
+            CheckAndGetPersonByNameModel personModel;
             seedu.address.transaction.model.Model transactionModel = null;
             seedu.address.inventory.model.Model inventoryModel;
             seedu.address.transaction.logic.Logic transactionLogic;
             seedu.address.inventory.logic.Logic inventoryLogic;
             //seedu.address.transaction.storage.Storage transactionStorage;
             seedu.address.inventory.storage.Storage inventoryStorage;
-            model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+            model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
-            personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+            personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
             iFile = File.createTempFile("testing", "tempInventory.txt");
             tFile = File.createTempFile("testing", "tempTransaction.txt");
             rFile = File.createTempFile("testing", "tempReimbursement.txt");

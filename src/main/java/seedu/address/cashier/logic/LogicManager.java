@@ -16,6 +16,7 @@ import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.transaction.Transaction;
 
 /**
@@ -26,16 +27,16 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private CashierTabParser parser;
-    private final seedu.address.person.model.Model personModel;
-    private final seedu.address.transaction.model.Model transactionModel;
-    private final seedu.address.inventory.model.Model inventoryModel;
+    private final CheckAndGetPersonByNameModel personModel;
+    private final seedu.address.transaction.model.AddTransactionOnlyModel transactionModel;
+    private final seedu.address.inventory.model.ReadInUpdatedListOnlyModel inventoryModel;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     public LogicManager(Model cashierManager,
                         Storage cashierStorage,
-                        seedu.address.person.model.Model personModel,
-                        seedu.address.transaction.model.Model transactionModel,
-                        seedu.address.inventory.model.Model inventoryModel) {
+                        CheckAndGetPersonByNameModel personModel,
+                        seedu.address.transaction.model.AddTransactionOnlyModel transactionModel,
+                        seedu.address.inventory.model.ReadInUpdatedListOnlyModel inventoryModel) {
 
         this.model = cashierManager;
         this.personModel = personModel;

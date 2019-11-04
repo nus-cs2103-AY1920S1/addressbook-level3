@@ -13,7 +13,7 @@ import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.EditCommand;
 import seedu.address.transaction.logic.parser.exception.ParseException;
@@ -36,7 +36,7 @@ public class EditCommandParser implements CommandParserWithPersonModel {
      * and returns a EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args, GetPersonByNameOnlyModel personModel)
+    public EditCommand parse(String args, CheckAndGetPersonByNameModel personModel)
             throws ParseException, NoSuchPersonException {
         requireNonNull(personModel);
         ArgumentMultimap argMultimap =
@@ -70,13 +70,13 @@ public class EditCommandParser implements CommandParserWithPersonModel {
     /**
      * Constructs a {@code EditCommand.EditTransactionDescriptor} based on the {@ArgumentMultimap}
      * @param argMultimap ArgumentMultimap
-     * @param personModel GetPersonByNameOnlyModel
+     * @param personModel CheckAndGetPersonByNameModel
      * @return EditTransactionDescriptor
      * @throws ParseException If wrong user input format
      * @throws NoSuchPersonException If the inputted person is not in the personModel
      */
     private EditCommand.EditTransactionDescriptor constructDescriptor(ArgumentMultimap argMultimap,
-                                                                      GetPersonByNameOnlyModel personModel)
+                                                                      CheckAndGetPersonByNameModel personModel)
             throws ParseException, NoSuchPersonException {
         EditCommand.EditTransactionDescriptor editTransactionDescriptor = new EditCommand.EditTransactionDescriptor();
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {

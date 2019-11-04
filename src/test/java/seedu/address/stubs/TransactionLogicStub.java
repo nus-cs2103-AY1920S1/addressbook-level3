@@ -2,6 +2,7 @@ package seedu.address.stubs;
 
 import java.io.IOException;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.commands.Command;
 import seedu.address.transaction.logic.commands.CommandResult;
@@ -15,9 +16,9 @@ import seedu.address.transaction.model.transaction.Transaction;
  */
 public class TransactionLogicStub implements Logic {
     private Model model;
-    private seedu.address.person.model.GetPersonByNameOnlyModel personModel;
+    private CheckAndGetPersonByNameModel personModel;
 
-    public TransactionLogicStub(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+    public TransactionLogicStub(Model model, CheckAndGetPersonByNameModel personModel) {
         this.model = model;
         this.personModel = personModel;
     }

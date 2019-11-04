@@ -9,8 +9,8 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
-import seedu.address.reimbursement.model.ModelManager;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.reimbursement.storage.StorageManager;
 import seedu.address.testutil.TypicalReimbursements;
@@ -33,8 +33,8 @@ public class LogicManagerTest {
         typicalReimbursements.resetReimbursements();
 
         try {
-            reimbursementModel = new ModelManager(typicalReimbursements.getTypicalReimbursements());
-            personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+            reimbursementModel = new seedu.address.reimbursement.model.ModelManager(typicalReimbursements.getTypicalReimbursements());
+            personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testingLogic", "tempReimbursement.txt");
             reimbursementStorage = new StorageManager(file);
             transactionModel =

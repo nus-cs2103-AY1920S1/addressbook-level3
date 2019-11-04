@@ -18,17 +18,18 @@ import seedu.address.cashier.logic.commands.ClearCommand;
 import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.Model;
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.inventory.model.Item;
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.inventory.model.ReadInUpdatedListOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
+import seedu.address.transaction.model.AddTransactionOnlyModel;
 
 public class LogicManagerTest {
 
@@ -47,7 +48,7 @@ public class LogicManagerTest {
         File rFile;
         seedu.address.person.model.Model personModel;
         //Storage storage;
-        //seedu.address.person.model.GetPersonByNameOnlyModel personModel;
+        //seedu.address.person.model.CheckAndGetPersonByNameModel personModel;
         //seedu.address.person.model.Model personModel;
         seedu.address.transaction.model.Model transactionModel = null;
         seedu.address.inventory.model.Model inventoryModel;
@@ -60,7 +61,7 @@ public class LogicManagerTest {
         //Logic logic;
 
         try {
-            model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+            model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             iFile = File.createTempFile("testing", "tempInventory.txt");
@@ -74,14 +75,14 @@ public class LogicManagerTest {
                             reimbursementManager.getReimbursementFromFile(model.getTransactionList()));
 
             transactionStorage =
-                    new seedu.address.transaction.storage.StorageManager(tFile, (GetPersonByNameOnlyModel) personModel);
+                    new seedu.address.transaction.storage.StorageManager(tFile, (CheckAndGetPersonByNameModel) personModel);
 
 
             transactionModel = new seedu.address.transaction.model.ModelManager(
                     TypicalTransactions.getTypicalTransactionList());
 
             transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,
-                    transactionStorage, (GetPersonByNameOnlyModel) personModel);
+                    transactionStorage, (CheckAndGetPersonByNameModel) personModel);
 
 
             inventoryModel =
@@ -96,7 +97,9 @@ public class LogicManagerTest {
             storage = new StorageManager(inventoryLogic, transactionLogic);
 
             logic =
-                    new LogicManager(model, storage, personModel, transactionModel, inventoryModel);
+                    new LogicManager(model, storage, (CheckAndGetPersonByNameModel) personModel,
+                            (AddTransactionOnlyModel) transactionModel,
+                            (ReadInUpdatedListOnlyModel) inventoryModel);
         } catch (IOException e) {
             throw new AssertionError("This method should not throw an exception.");
         }
@@ -202,7 +205,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getInventoryList(), model.getTransactionList());
+        Model expectedModel = new seedu.address.cashier.model.ModelManager(model.getInventoryList(), model.getTransactionList());
         System.out.println("expected msg: " + expectedMessage);
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
