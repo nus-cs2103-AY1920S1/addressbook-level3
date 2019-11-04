@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
@@ -13,13 +11,13 @@ public class VTypeKeywordsPredicate implements Predicate<Vehicle> {
     private final List<String> keywords = new ArrayList<>();
 
     public VTypeKeywordsPredicate(VehicleType vTypeKeywords) {
-        this.keywords.add(vTypeKeywords.toString());
+        this.keywords.add(vTypeKeywords.toString()); // only 1 keyword
     }
 
     @Override
     public boolean test(Vehicle vehicle) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(vehicle.getVehicleType().toString(), keyword));
+        String vType = keywords.get(0);
+        return vehicle.getVehicleType().toString().equals(vType);
     }
 
     @Override

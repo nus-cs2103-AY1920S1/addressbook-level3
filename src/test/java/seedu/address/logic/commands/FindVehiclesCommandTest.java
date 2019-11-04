@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalVehicles.V1;
 import static seedu.address.testutil.TypicalVehicles.V2;
 import static seedu.address.testutil.TypicalVehicles.V3;
 import static seedu.address.testutil.TypicalVehicles.V4;
+import static seedu.address.testutil.TypicalVehicles.V5;
 import static seedu.address.testutil.TypicalVehicles.getTypicalIncidentManager;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class FindVehiclesCommandTest {
     }
 
     @Test
-    public void execute_singleKeyword_multipleVehiclesFound() {
+    public void execute_singleVTypeKeyword_multipleVehiclesFound() {
         String expectedMessage = String.format(MESSAGE_VEHICLES_LISTED_OVERVIEW, 2);
         VTypeKeywordsPredicate vTypePredicate = prepareVTypePredicate("Ambulance");
         Command command = new FindVehiclesCommand(vTypePredicate);
@@ -82,8 +83,19 @@ public class FindVehiclesCommandTest {
         assertEquals(Arrays.asList(V1, V2), model.getFilteredVehicleList());
 
         expectedMessage = String.format(MESSAGE_VEHICLES_LISTED_OVERVIEW, 3);
+        vTypePredicate = prepareVTypePredicate("Patrol Car");
+        command = new FindVehiclesCommand(vTypePredicate);
+        expectedModel.updateFilteredVehicleList(vTypePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(V3, V4, V5), model.getFilteredVehicleList());
+    }
+
+    @Test
+    public void execute_singleVNumKeyword_multipleVehiclesFound() {
+
+        String expectedMessage = String.format(MESSAGE_VEHICLES_LISTED_OVERVIEW, 3);
         VNumKeywordsPredicate vNumPredicate = prepareVNumPredicate("2");
-        command = new FindVehiclesCommand(vNumPredicate);
+        Command command = new FindVehiclesCommand(vNumPredicate);
         expectedModel.updateFilteredVehicleList(vNumPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(V1, V2, V3), model.getFilteredVehicleList());
