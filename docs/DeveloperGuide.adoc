@@ -270,60 +270,91 @@ image::CommitActivityDiagram.png[]
 // tag::suggestions[]
 [#command-suggestions]
 === Command Suggestions feature
+// tag::suggestions-implementation[]
 ==== Implementation
 
 The command suggestions mechanism is facilitated by `SuggestionLogic`.
 Through user-interface events provided by `SuggestingCommandBox`, it parses the command that was entered to provide context-sensitive suggestions.
 
-It does this by identifying the `commandWord` (e.g. `findperson`, `addperson`, etc.) and `arguments` provided (e.g. `n/Alice`, `g/CS2103T`) and by using the caret position, provides command suggestions if the caret is located within the `commandWord` section or provides argument-specific suggestions by delegating to the ``Suggester`` registered for the specific `commandWord`.
+It does this by identifying the `commandWord` (e.g. `deleteperson`, `addperson`, etc.) and `arguments` provided (e.g. `n/Alice`, `g/CS2103T`) and by using the caret position, provides command suggestions if the caret is located within the `commandWord` section or provides argument-specific suggestions by delegating to the ``Suggester`` registered for the specific `commandWord`.
 
-Given below is an example usage scenario and how the command suggestions mechanism behaves at each step.
+Given below is an example usage scenario and how the command suggestions mechanism behaves at each step. Ultimately, this is what the user will see:
 
-Step 1. The user types in the command `findperson n/|` and the `CommandSuggestionBox` UI class passes the command text (i.e. `findperson n/`) and the caret position index (i.e. 13) to `SuggestionLogic`.
+.Example of the command suggestions mechanism
+image::command-suggestions/developer-guide-caret-within-arguments.png[width=50%]
+{nbsp} +
+Step 1. The user types in the command `deleteperson n/|` and the `SuggestingCommandBox` UI class passes the command text (i.e. `deleteperson n/`) and the caret position index (i.e. 15) to `SuggestionLogic`.
 
 NOTE: The vertical line/pipe character (i.e. `|`) denotes the position of the caret and is not part of the entered command itself. +
-So for the above example, the command entered is `findperson n/` with the caret at the end of the command.
+So for the above example, the command entered is `deleteperson n/` with the caret at the end of the command.
 
+.The `SuggestingCommandBox` UI class passing UI data to the `SuggestionLogic` class to obtain suggestions.
 image::command-suggestions/Step1.svg[]
+{nbsp} +
 
-Step 2. The `SuggestionLogic` asks the `AddressBookParser` to tokenize the command text into its two parts: the `commandWord` and the `arguments`. This is needed so the `SuggestionLogic` knows which `Suggester` to use later.
+Step 2. The `SuggestionLogic` asks the `TimeBookParser` to tokenize the command text into its two parts: the `commandWord` and the `arguments`. This is needed so the `SuggestionLogic` knows which `Suggester` to use later.
 
+.Tokenization of the command entered by the user
 image::command-suggestions/Step2.svg[]
+{nbsp} +
 
 [#command-suggestions-caret-within-arguments]
 Step 3. The `SuggestionLogic` then checks where the caret is currently positioned, either within the `commandWord` or within the `arguments` section. In this case, the caret is placed after the `n/` so it is within the `arguments` section. link:#command-suggestions-caret-within-commandWord[To read how the behaviour changes if the caret was placed within the `commandWord` section, click here.]
 
+.The tokenized command and its caret indices
 image::command-suggestions/Step3.svg[width=50%]
+{nbsp} +
 
-Step 4. The `SuggestionLogic` asks the static `Suggester` class which ``Prefix``es are supported by the current `commandWord` (i.e. `findperson`) for tokenizing the `arguments`. This list of supported ``Prefix``es, together with the command `arguments`, are passed to the static `ArgumentTokenizer` to parse it into an `ArgumentList` containing ``CommandArgument``s. Each `CommandArgument` contains the type of `Prefix` and the user-entered value.
+Step 4. The `SuggestionLogic` asks the static `Suggester` class which ``Prefix``es are supported by the current `commandWord` (i.e. `deleteperson`) for tokenizing the `arguments`. This list of supported ``Prefix``es, together with the command `arguments`, are passed to the static `ArgumentTokenizer` to parse it into an `ArgumentList` containing ``CommandArgument``s. Each `CommandArgument` contains the type of `Prefix` and the user-entered value.
 
+.Tokenizing the given arguments
 image::command-suggestions/Step4.svg[]
+{nbsp} +
 
-Step 5. The `SuggestionLogic` then asks the static `Suggester` class to create the relevant `Suggester` object based on the `commandWord`. In this case, the static `Suggester` class returns a new `FindPersonSuggester` because the `commandWord` is `findperson`.
+Step 5. The `SuggestionLogic` then asks the static `Suggester` class to create the relevant `Suggester` object based on the `commandWord`. In this case, the static `Suggester` class returns a new `DeletePersonSuggester` because the `commandWord` is `deleteperson`.
 
+.Creating the relevant `Suggester`
 image::command-suggestions/Step5.svg[]
+{nbsp} +
 
 Step 6. The `SuggestionLogic` asks the `ArgumentList` object which `CommandArgument` is currently selected based on the user's caret position. In this case, it is the `CommandArgument` with the `Prefix` of `PERSON_NAME` and `value` of an empty string because the caret is positioned within the `n/` text and no value has been entered.
 
+.Calculating which `CommandArgument` is currently selected
 image::command-suggestions/Step6.svg[]
+{nbsp} +
 
-Step 7. The `SuggestionLogic` asks for the suggestions from the `FindPersonSuggester` by providing three things to it. First, the current `Model` object, second the previously parsed `ArgumentList` object and finally, the `CommandArgument` to provide suggestions for. After obtaining the list of suggestions, the `SuggestionLogic` class returns it to the `CommandSuggestionBox` UI class for display.
+Step 7. The `SuggestionLogic` asks for the suggestions from the `DeletePersonSuggester` by providing three things to it. First, the current `Model` object, second the previously parsed `ArgumentList` object and finally, the `CommandArgument` to provide suggestions for. After obtaining the list of suggestions, the `SuggestionLogic` class returns it to the `SuggestingCommandBox` UI class for display.
 
+.Obtaining and displaying suggestions
 image::command-suggestions/Step7.svg[]
+{nbsp} +
 
-The following sequence diagram condenses all the above diagrams into one, given the input `findperson n/|`:
+The following sequence diagram condenses all the above diagrams into one, given the input `deleteperson n/|`:
 
-image:command-suggestions/FindPersonSequenceDiagram.svg[]
+.Full sequence diagram for input `deleteperson n/|`
+image:command-suggestions/DeletePersonSequenceDiagram.svg[]
+{nbsp} +
 
 [#command-suggestions-caret-within-commandWord]
 The `SuggestionLogic` behaves differently when the caret position is within the `commandWord` section. The sequence diagram below shows the behaviour for the case of `find|person n/`. link:#command-suggestions-caret-within-arguments[To read how the behaviour changes if the caret was placed within the `arguments` section, click here.]
 
+.Sequence diagram for when the caret position is within the `commandWord` section
 image:command-suggestions/SuggestingCommands.svg[]
+{nbsp} +
+
+The result is the following:
+
+.What users see when the caret is placed within the `commandWord` section
+image::command-suggestions/developer-guide-caret-within-commandWord.png[width=50%]
+{nbsp} +
 
 The following activity diagram summarizes what happens when a user interacts with the command input box:
 
+.Activity diagram showing how Command Suggestions decides what to show
 image::command-suggestions/ActivityDiagram.svg[]
+// end::suggestions-implementation[]
 
+// tag::suggestions-design-considerations[]
 ==== Design Considerations
 
 ===== Aspect: How command suggestions gets its suggestions
@@ -343,6 +374,7 @@ image::command-suggestions/ActivityDiagram.svg[]
 * **Alternative 2:** Reuse `ArgumentMultimap`
 ** Pros: We do not need to maintain a separate data structure due to reuse, and developers familiar with how `ArgumentTokenizer.tokenize()` works for writing a `Command` can transfer their knowledge when writing ``Suggester``s for their own commands.
 ** Cons: ``Suggester``s are restricted in terms of the flexibility of their suggestions, as they lack info about the relative ordering of all the arguments.
+// end::suggestions-design-considerations[]
 // end::suggestions[]
 
 // tag::dataencryption[]
