@@ -68,7 +68,8 @@ public class LoanSplitCommand extends Command {
     public static final String MESSAGE_USER_NOT_FOUND =
             "Your name must match (case-sensitive) exactly one of those in the group.";
 
-    private HashMap<Person, Amount> personAmountMap;
+    private List<Person> persons;
+    private List<Amount> amounts;
     private List<DebtorCreditorAmount> debtorCreditorAmountList;
 
     private Optional<Person> optionalUser;
@@ -98,14 +99,14 @@ public class LoanSplitCommand extends Command {
 
         Person user = new Person(new Name("You"));
 
-        this.personAmountMap = new HashMap<Person, Amount>();
-        for (int i = 0; i < persons.size(); i++) {
-            if (optionalUser.isPresent() && optionalUser.get().equals(persons.get(i))) {
-                personAmountMap.put(user, amounts.get(i));
-            } else {
-                personAmountMap.put(persons.get(i), amounts.get(i));
-            }
+        this.persons = new ArrayList<Person>();
+        for (Person person : persons) {
+            this.persons.add(optionalUser.isPresent() && optionalUser.get().equals(person)
+                    ? user
+                    : person);
         }
+
+        this.amounts = new ArrayList<Amount>(amounts);
         this.debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
 
         this.optionalUser = optionalUser.isPresent() ? Optional.of(user) : optionalUser;
@@ -117,18 +118,18 @@ public class LoanSplitCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getLoansManager());
 
-        long totalAmount = personAmountMap.values().stream()
+        long totalAmount = amounts.stream()
                 .map(Amount::toLong)
                 .reduce(Long::sum)
                 .orElseThrow(() -> new CommandException(MESSAGE_INVALID_TOTAL));
 
-        long perPerson = totalAmount / personAmountMap.size();
+        long perPerson = totalAmount / persons.size();
 
         List<Participant> participants = new ArrayList<Participant>();
-        for (Entry<Person, Amount> personAmountEntry : personAmountMap.entrySet()) {
-            long amountPaid = personAmountEntry.getValue().toLong();
+        for (int i = 0; i < persons.size(); i++) {
+            long amountPaid = amounts.get(i).toLong();
             long balance = amountPaid - perPerson;
-            participants.add(new Participant(personAmountEntry.getKey(), balance));
+            participants.add(new Participant(persons.get(i), balance));
         }
 
         if (participants.stream().allMatch(p -> p.getBalance() >= 0)) {
@@ -230,9 +231,9 @@ public class LoanSplitCommand extends Command {
      * @throws CommandException If the user is not found in {@code personAmountMap}.
      */
     private List<Loan> constructUserLoansList(Person user) throws CommandException {
-        requireAllNonNull(personAmountMap, debtorCreditorAmountList, user, optionalDescription);
+        requireAllNonNull(persons, debtorCreditorAmountList, user, optionalDescription);
 
-        if (personAmountMap.keySet().stream().noneMatch(person -> person.equals(user))) {
+        if (!persons.contains(user)) {
             throw new CommandException(MESSAGE_USER_NOT_FOUND);
         }
 
@@ -290,7 +291,8 @@ public class LoanSplitCommand extends Command {
         }
 
         LoanSplitCommand otherCommand = (LoanSplitCommand) other;
-        return personAmountMap.equals(otherCommand.personAmountMap);
+        return persons.equals(otherCommand.persons)
+                && amounts.equals(otherCommand.amounts);
     }
 
     /**
