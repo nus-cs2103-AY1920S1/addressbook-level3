@@ -139,7 +139,10 @@ public class OfflineDocument {
      * @throws IllegalValueException if {@code pid} is invalid.
      */
     public void addAnnotation(ParagraphIdentifier pid, Annotation an) throws IllegalValueException {
+        requireNonNull(pid);
+        requireNonNull(an);
         assert (!pid.isStray() || an.hasNote()) : MESSAGE_ASSERT_NOT_PHANTOM;
+
         if (!hasParagraph(pid)) {
             throw new IllegalValueException(MESSAGE_INVALID_PID);
         }
@@ -160,6 +163,7 @@ public class OfflineDocument {
      * @throws IllegalValueException if {@code pid} is invalid.
      */
     public Paragraph getParagraph(ParagraphIdentifier pid) throws IllegalValueException {
+        requireNonNull(pid);
         if (!hasParagraph(pid)) {
             throw new IllegalValueException(MESSAGE_INVALID_PID);
         }

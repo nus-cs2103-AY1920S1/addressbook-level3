@@ -32,6 +32,12 @@ class OfflineDocumentTest {
     }
 
     @Test
+    public void copy_equals() {
+        assertNotEquals(cleandoc, cleandoc.copy());
+        assertEquals(cleandoc.getCollection(), cleandoc.copy().getCollection());
+    }
+
+    @Test
     public void getParagraph_validPid_noExceptionThrown() {
         assertDoesNotThrow(() -> cleandoc.getParagraph(pid));
     }
@@ -93,7 +99,8 @@ class OfflineDocumentTest {
     @Test
     public void addAnnotation_pidStray_throwsAssertionError() {
         assertThrows(AssertionError.class, OfflineDocument.MESSAGE_ASSERT_NOT_PHANTOM, () ->
-                cleandoc.addAnnotation(ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)), null));
+                cleandoc.addAnnotation(ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)),
+                        new Annotation(Highlight.YELLOW)));
     }
 
     @Test
@@ -105,6 +112,10 @@ class OfflineDocumentTest {
 
         assertEquals(new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE),
                 cleandoc.getParagraph(pid).getAnnotation());
+
+        cleandoc.addPhantom(new Annotation(Highlight.PINK, AnnotationNote.SAMPLE_NOTE));
+        assertDoesNotThrow(() -> cleandoc.addAnnotation(ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)),
+                new Annotation(Highlight.ORANGE, AnnotationNote.SAMPLE_NOTE)));
     }
 
     @Test

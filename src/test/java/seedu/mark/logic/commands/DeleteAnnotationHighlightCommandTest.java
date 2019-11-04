@@ -1,17 +1,15 @@
 package seedu.mark.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
 import java.util.HashMap;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import org.junit.jupiter.api.Test;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.commands.exceptions.CommandException;
@@ -30,9 +28,8 @@ import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
 
-class DeleteAnnotationAllCommandTest {
+class DeleteAnnotationHighlightCommandTest {
 
-    //as AnnotationCommand#getRequiredDoc has been tested in AddAnnotationCommandTest, it shall not be further tested
     @Test
     public void execute_invalidPid_throwsCommandException() {
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
@@ -42,9 +39,9 @@ class DeleteAnnotationAllCommandTest {
 
         assertThrows(CommandException.class,
                 DeleteAnnotationCommand.COMMAND_WORD + ": condition hit for test case", () ->
-                new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
-                        ParagraphIdentifier.makeExistId(Index.fromOneBased(10)))
-                        .execute(modelStub, new StorageStub()));
+                        new DeleteAnnotationHighlightCommand(INDEX_FIRST_BOOKMARK,
+                                ParagraphIdentifier.makeExistId(Index.fromOneBased(10)))
+                                .execute(modelStub, new StorageStub()));
     }
 
     @Test
@@ -56,21 +53,36 @@ class DeleteAnnotationAllCommandTest {
 
         assertThrows(CommandException.class,
                 DeleteAnnotationCommand.MESSAGE_NOTHING_TO_DELETE, () ->
-                        new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
+                        new DeleteAnnotationHighlightCommand(INDEX_FIRST_BOOKMARK,
                                 ParagraphIdentifier.makeExistId(Index.fromOneBased(1)))
                                 .execute(modelStub, new StorageStub()));
     }
 
     @Test
-    public void execute_removePhantomParagraph_success() {
+    public void execute_removePhantomHighlight_throwsCommandException() {
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
                 .withCachedCopy(new CachedCopyStub(new PhantomParagraph(Index.fromOneBased(1),
-                        new Annotation(Highlight.YELLOW, AnnotationNote.SAMPLE_NOTE)))).build();
+                        new Annotation(Highlight.ORANGE, AnnotationNote.SAMPLE_NOTE)))).build();
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
 
-        assertDoesNotThrow(() ->
-                new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
-                        ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)))
+        assertThrows(CommandException.class,
+                DeleteAnnotationHighlightCommand.MESSAGE_PHANTOM, () ->
+                        new DeleteAnnotationHighlightCommand(INDEX_FIRST_BOOKMARK,
+                                ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)))
+                                .execute(modelStub, new StorageStub()));
+    }
+
+    @Test
+    public void execute_removeTrueHasAnnotation_success() {
+        Paragraph p = new TrueParagraph(Index.fromOneBased(1), new ParagraphContent("content"));
+        p.addAnnotation(new Annotation(Highlight.ORANGE, AnnotationNote.SAMPLE_NOTE));
+
+        Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
+                .withCachedCopy(new CachedCopyStub(p)).build();
+        ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
+
+        assertDoesNotThrow(() -> new DeleteAnnotationHighlightCommand(INDEX_FIRST_BOOKMARK,
+                ParagraphIdentifier.makeExistId(Index.fromOneBased(1)))
                 .execute(modelStub, new StorageStub()));
     }
 
@@ -188,7 +200,8 @@ class DeleteAnnotationAllCommandTest {
 
         @Override
         public void addPhantom(Annotation an) {
-            assert false : "this method should not be called.";
+            //
         }
     }
+
 }

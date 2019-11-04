@@ -522,7 +522,7 @@ a new note with content "change or add note content" will be added to the paragr
 This adds a note with content "adding a general note" to the _General notes section_ in the
 offline copy of bookmark 1.
 
-
+[[annotatedelete]]
 === Deleting annotations on an offline copy: *`annotate-delete`*
 
 This deletes selected highlights or notes from the offline copy of the given bookmarked website.
@@ -579,8 +579,8 @@ choose to move notes from a paragraph to another paragraph. This command also su
 NOTE: While both `*annotate-edit*` and `*annotate*` can be used to change current annotation highlight and notes, `*annotate-edit*`
 allows you to shift your annotations from one paragraph to another in a single step.
 
-//TODO lift this restriction in future version
-At v1.3, moving of notes to the  <<stray-notes, _General notes section_>> is not supported.
+Moving of notes to the <<stray-notes, _General notes section_>> is not supported. If you really want to shift them,
+use <<annotatedelete, `*annotate-delete*`>> with  `n/true` as the only optional flag you include.
 
 Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 

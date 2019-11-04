@@ -1,78 +1,24 @@
 package seedu.mark.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static seedu.mark.testutil.Assert.assertThrows;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
-import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.annotation.Annotation;
-import seedu.mark.model.annotation.AnnotationNote;
-import seedu.mark.model.annotation.Highlight;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
-import seedu.mark.model.annotation.ParagraphContent;
 import seedu.mark.model.annotation.ParagraphIdentifier;
-import seedu.mark.model.annotation.PhantomParagraph;
-import seedu.mark.model.annotation.TrueParagraph;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
-import seedu.mark.model.bookmark.util.BookmarkBuilder;
-import seedu.mark.storage.StorageStub;
 
-class DeleteAnnotationAllCommandTest {
+class DeleteAnnotationNoteCommandTest {
 
-    //as AnnotationCommand#getRequiredDoc has been tested in AddAnnotationCommandTest, it shall not be further tested
-    @Test
-    public void execute_invalidPid_throwsCommandException() {
-        Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
-                .withCachedCopy(new CachedCopyStub(new TrueParagraph(Index.fromOneBased(1),
-                        new ParagraphContent("lupus")))).build();
-        ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
-
-        assertThrows(CommandException.class,
-                DeleteAnnotationCommand.COMMAND_WORD + ": condition hit for test case", () ->
-                new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
-                        ParagraphIdentifier.makeExistId(Index.fromOneBased(10)))
-                        .execute(modelStub, new StorageStub()));
-    }
-
-    @Test
-    public void execute_noAnnotationToRemove_throwsCommandException() {
-        Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
-                .withCachedCopy(new CachedCopyStub(new TrueParagraph(Index.fromOneBased(1),
-                        new ParagraphContent("lupus")))).build();
-        ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
-
-        assertThrows(CommandException.class,
-                DeleteAnnotationCommand.MESSAGE_NOTHING_TO_DELETE, () ->
-                        new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
-                                ParagraphIdentifier.makeExistId(Index.fromOneBased(1)))
-                                .execute(modelStub, new StorageStub()));
-    }
-
-    @Test
-    public void execute_removePhantomParagraph_success() {
-        Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
-                .withCachedCopy(new CachedCopyStub(new PhantomParagraph(Index.fromOneBased(1),
-                        new Annotation(Highlight.YELLOW, AnnotationNote.SAMPLE_NOTE)))).build();
-        ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
-
-        assertDoesNotThrow(() ->
-                new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
-                        ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)))
-                .execute(modelStub, new StorageStub()));
-    }
 
 
     private class ModelStubAcceptingBookmarkAdded extends ModelStub {
