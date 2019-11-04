@@ -464,6 +464,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ModelState getModelState() {
+        if (getOngoingVisit().isPresent()) {
+            return ModelState.VISIT_ONGOING;
+        }
+        return ModelState.NORMAL;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

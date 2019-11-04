@@ -254,4 +254,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+    /**
+     * Returns MODEL_STATE.NORMAL or MODEL_STATE.VISIT_ONGOING depending on whether there is an ongoing visit.
+     */
+    ModelState getModelState();
 }
