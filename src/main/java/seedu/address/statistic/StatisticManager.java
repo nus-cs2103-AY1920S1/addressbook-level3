@@ -7,6 +7,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,6 +15,7 @@ import org.apache.commons.math3.stat.StatUtils;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.MoneyUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyDataBook;
@@ -27,18 +29,23 @@ import seedu.address.model.order.Status;
  */
 public class StatisticManager implements Statistic {
 
-    public StatisticManager() {}
+    private final Logger logger = LogsCenter.getLogger(StatisticManager.class);
+
+    public StatisticManager() {
+        logger.fine("Initializing statistic module");
+    }
 
     /*--------------------Methods to calculate--------------------------*/
     @Override
     public XYChart.Series<String, Number> calculateTotalProfitOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
                                                                                 StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
+        logger.info("filtering orders from order Book");
         //filter the list of orders to be only the orders within the starting and ending date.
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
-
+        logger.info("calculating list of month");
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -51,6 +58,7 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList());
 
         listOfMonthlyProfit.stream().forEach(x -> series.getData().add(x));
+        logger.info("calculating monthly data of Profit");
         return series;
     }
 
@@ -58,11 +66,12 @@ public class StatisticManager implements Statistic {
     public XYChart.Series<String, Number> calculateTotalRevenueOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
                                                                      StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
+        logger.info("filtering orders from order Book");
         //filter the list of orders to be only the orders within the starting and ending date.
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
-
+        logger.info("calculating list of month");
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
 
@@ -76,6 +85,7 @@ public class StatisticManager implements Statistic {
                 .collect(Collectors.toList());
 
         listOfMonthlyRevenue.stream().forEach(x -> series.getData().add(x));
+        logger.info("calculating monthly data of Revenue");
         return series;
     }
 
@@ -84,10 +94,11 @@ public class StatisticManager implements Statistic {
                                                                                StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
         //filter the list of orders to be only the orders within the starting and ending date.
+        logger.info("filtering orders from order Book");
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
-
+        logger.info("calculating list of month");
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
 
@@ -101,6 +112,7 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList());
 
         listOfMonthlyCost.stream().forEach(x -> series.getData().add(x));
+        logger.info("calculating monthly data of Cost");
         return series;
     }
 
@@ -112,6 +124,7 @@ public class StatisticManager implements Statistic {
         double cost = this.getTotalCost(orderBook, statsPayload);
         double totalProfit = revenue - cost;
         totalProfit = new BigDecimal(totalProfit).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        logger.info("calculating total profit");
         return String.valueOf(totalProfit);
     }
 
@@ -120,6 +133,7 @@ public class StatisticManager implements Statistic {
         requireAllNonNull(orderBook, statsPayload);
         double totalRevenue = getTotalRevenue(orderBook, statsPayload);
         totalRevenue = new BigDecimal(totalRevenue).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        logger.info("calculating total Revenue");
         return String.valueOf(totalRevenue);
     }
 
@@ -129,6 +143,7 @@ public class StatisticManager implements Statistic {
         DecimalFormat format = new DecimalFormat("##.00");
         double totalCost = getTotalCost(orderBook, statsPayload);
         totalCost = new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        logger.info("calculating total Cost");
         return String.valueOf(totalCost);
     }
 
