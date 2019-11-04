@@ -1,6 +1,7 @@
 package seedu.address.model.event;
 
 import java.time.DateTimeException;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -36,6 +37,15 @@ public class EventDayTime {
 
     public LocalTime getEndTime() {
         return endTime;
+    }
+
+    /**
+     * Shows the number of minutes within this Time period
+     *
+     * @return long number
+     */
+    public long numMinutes() {
+        return Duration.between(startTime, endTime).toMinutes(); //end-exclusive
     }
 
     /**

@@ -39,7 +39,7 @@ public class DeleteDateMappingCommandParser implements Parser<DeleteDateMappingC
         }
 
         Index eventIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-        EventDate targetDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_START_DATE).get());
+        EventDate targetDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_START_DATE).get());
         return new DeleteDateMappingCommand(eventIndex, targetDate);
     }
 

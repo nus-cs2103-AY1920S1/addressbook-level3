@@ -13,6 +13,7 @@ import seedu.address.model.event.UniqueEventList;
  * Duplicates are not allowed (by .isSameEvent comparison)
  */
 public class EventBook implements ReadOnlyEventBook {
+
     private final UniqueEventList events;
 
     /*

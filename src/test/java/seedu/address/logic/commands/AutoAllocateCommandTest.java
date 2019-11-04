@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.allocate.AutoAllocateCommand;
-import seedu.address.logic.commands.employee.ClearCommand;
+import seedu.address.logic.commands.employee.ClearEmployeesCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.Model;
@@ -160,7 +160,7 @@ public class AutoAllocateCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearEmployeesCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new AutoAllocateCommand(INDEX_SECOND_EVENT,
