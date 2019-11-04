@@ -111,6 +111,11 @@ public class AddEarningsCommandTest {
         }
 
         @Override
+        public void updateFilteredCalendarList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCommands(CommandObject target, CommandObject editedCommands) {
             throw new AssertionError("This method should not be called.");
         }
