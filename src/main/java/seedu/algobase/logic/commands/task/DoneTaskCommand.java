@@ -70,9 +70,9 @@ public class DoneTaskCommand extends Command {
         }
         taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
-        taskSet.add(Task.updateStatus(taskToUpdate, true));
+        taskSet.add(taskToUpdate.updateStatus(true));
 
-        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
+        Plan updatedPlan = planToUpdate.updateTasks(taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 

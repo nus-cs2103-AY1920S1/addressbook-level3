@@ -94,7 +94,7 @@ public class AddTaskCommand extends Command {
         }
         taskSet.add(task);
 
-        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
+        Plan updatedPlan = planToUpdate.updateTasks(taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
         return new CommandResult(

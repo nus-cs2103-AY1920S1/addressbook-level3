@@ -75,9 +75,9 @@ public class EditTaskCommand extends Command {
         }
         taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
-        taskSet.add(Task.updateDueDate(taskToUpdate, newDate));
+        taskSet.add(taskToUpdate.updateDueDate(newDate));
 
-        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
+        Plan updatedPlan = planToUpdate.updateTasks(taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 

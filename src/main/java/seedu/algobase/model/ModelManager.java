@@ -164,16 +164,6 @@ public class ModelManager implements Model {
         sortedProblems.setComparator(problemComparator);
     }
 
-    @Override
-    public boolean checkIsProblemUsed(Problem problem) {
-        return algoBase.checkIsProblemUsed(problem);
-    }
-
-    @Override
-    public void removeProblemFromAllPlans(Problem problem) {
-        algoBase.removeProblemFromAllPlans(problem);
-    }
-
     //=========== Tag ===================================================================
 
     @Override
@@ -278,6 +268,21 @@ public class ModelManager implements Model {
     public void updateFilteredPlanList(Predicate<Plan> predicate) {
         requireNonNull(predicate);
         filteredPlans.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean checkIsProblemUsed(Problem problem) {
+        return algoBase.checkIsProblemUsed(problem);
+    }
+
+    @Override
+    public void removeProblemFromAllPlans(Problem problem) {
+        algoBase.removeProblemFromAllPlans(problem);
+    }
+
+    @Override
+    public void updateProblemInAllPlans(Problem oldProblem, Problem newProblem) {
+        algoBase.updateProblemInAllPlans(oldProblem, newProblem);
     }
 
     //========== Task ===================================================================

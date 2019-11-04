@@ -154,6 +154,11 @@ public class DefaultModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void updateProblemInAllPlans(Problem oldProblem, Problem newProblem) {
+        throw new AssertionError("This method should not be called.");
+    }
+
     //=========== Tag ===================================================================
 
     @Override

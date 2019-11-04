@@ -82,7 +82,7 @@ public class CopyTaskCommand extends Command {
         }
         taskSetTo.add(taskToCopy);
 
-        Plan updatedPlanTo = Plan.updateTasks(planTo, taskSetTo);
+        Plan updatedPlanTo = planTo.updateTasks(taskSetTo);
         model.setPlan(planTo, updatedPlanTo);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 

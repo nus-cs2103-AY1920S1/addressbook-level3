@@ -68,7 +68,7 @@ public class DeleteTaskCommand extends Command {
         taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
 
-        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
+        Plan updatedPlan = planToUpdate.updateTasks(taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 

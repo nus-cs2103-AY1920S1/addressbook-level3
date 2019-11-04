@@ -121,22 +121,10 @@ public interface Model {
 
     /**
      * Updates the Problem list according to the given {@code problemComparator}.
-     * @param problemComparator
+     * @param problemComparator the comparator to be used to sort the problem list
      * @throws NullPointerException if {@code problemComparator} is null;
      */
     void updateSortedProblemList(Comparator<Problem> problemComparator);
-
-    /**
-     * Check if a problem is used in any plan.
-     * @param problem the problem to be checked
-     */
-    boolean checkIsProblemUsed(Problem problem);
-
-    /**
-     * Remove the given problem from all plans.
-     * @param problem the problem to be removed
-     */
-    void removeProblemFromAllPlans(Problem problem);
 
     //=========== Tag ===================================================================
 
@@ -242,6 +230,25 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPlanList(Predicate<Plan> predicate);
+
+    /**
+     * Checks if a problem is used in any plan.
+     * @param problem the problem to be checked
+     */
+    boolean checkIsProblemUsed(Problem problem);
+
+    /**
+     * Removes the given problem from all plans.
+     * @param problem the problem to be removed
+     */
+    void removeProblemFromAllPlans(Problem problem);
+
+    /**
+     * Updates the given problem in all plans.
+     * @param oldProblem the existing problem to be updated
+     * @param newProblem the new problem to be added
+     */
+    void updateProblemInAllPlans(Problem oldProblem, Problem newProblem);
 
     //=========== Task ==================================================================
 

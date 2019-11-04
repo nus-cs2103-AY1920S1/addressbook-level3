@@ -48,29 +48,31 @@ public class Task {
     }
 
     /**
-     * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
-     * with an updated {@code isSolved}.
+     * Creates and returns a {@code Task} with the details of the original task
+     * with an updated {@code problem}.
      */
-    public static Task updateStatus(Task taskToUpdate, boolean isSolved) {
-        requireAllNonNull(taskToUpdate, isSolved);
-
-        Id id = taskToUpdate.id;
-        Problem problem = taskToUpdate.problem;
-        LocalDate targetDate = taskToUpdate.targetDate;
+    public Task updateProblem(Problem problem) {
+        requireAllNonNull(problem);
 
         return new Task(id, problem, targetDate, isSolved);
     }
 
     /**
-     * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
+     * Creates and returns a {@code Task} with the details of the original task
+     * with an updated {@code isSolved}.
+     */
+    public Task updateStatus(boolean isSolved) {
+        requireAllNonNull(isSolved);
+
+        return new Task(id, problem, targetDate, isSolved);
+    }
+
+    /**
+     * Creates and returns a {@code Task} with the details of the original task
      * with an updated {@code targetDate}.
      */
-    public static Task updateDueDate(Task taskToUpdate, LocalDate targetDate) {
-        requireAllNonNull(taskToUpdate, targetDate);
-
-        Id id = taskToUpdate.id;
-        Problem problem = taskToUpdate.problem;
-        boolean isSolved = taskToUpdate.isSolved;
+    public Task updateDueDate(LocalDate targetDate) {
+        requireAllNonNull(targetDate);
 
         return new Task(id, problem, targetDate, isSolved);
     }

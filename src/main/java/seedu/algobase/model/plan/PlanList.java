@@ -49,7 +49,16 @@ public class PlanList implements Iterable<Plan> {
      */
     public void removeProblem(Problem problem) {
         List<Plan> updatedList = new ArrayList<>();
-        internalList.stream().forEach(plan -> updatedList.add(plan.removeProblem(problem)));
+        internalList.forEach(plan -> updatedList.add(plan.removeProblem(problem)));
+        setPlans(updatedList);
+    }
+
+    /**
+     * Updates the given problem in all tasks.
+     */
+    public void updateProblem(Problem oldProblem, Problem newProblem) {
+        List<Plan> updatedList = new ArrayList<>();
+        internalList.forEach(plan -> updatedList.add(plan.updateProblem(oldProblem, newProblem)));
         setPlans(updatedList);
     }
 

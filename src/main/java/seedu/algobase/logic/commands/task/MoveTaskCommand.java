@@ -84,8 +84,8 @@ public class MoveTaskCommand extends Command {
         }
         taskSetTo.add(taskToMove);
 
-        Plan updatedPlanFrom = Plan.updateTasks(planFrom, taskSetFrom);
-        Plan updatedPlanTo = Plan.updateTasks(planTo, taskSetTo);
+        Plan updatedPlanFrom = planFrom.updateTasks(taskSetFrom);
+        Plan updatedPlanTo = planTo.updateTasks(taskSetTo);
         model.setPlan(planFrom, updatedPlanFrom);
         model.setPlan(planTo, updatedPlanTo);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
