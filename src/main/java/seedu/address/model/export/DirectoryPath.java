@@ -30,12 +30,12 @@ public class DirectoryPath {
     /**
      * Constructs a {@code DirectoryPath}.
      *
-     * @param directoryPath A valid DirectoryPath.
+     * @param directoryPathStr A valid DirectoryPath represented as a String.
      */
-    public DirectoryPath(String directoryPath) {
-        requireNonNull(directoryPath);
-        checkArgument(isValid(directoryPath), MESSAGE_CONSTRAINTS);
-        path = Paths.get(directoryPath);
+    public DirectoryPath(String directoryPathStr) {
+        requireNonNull(directoryPathStr);
+        checkArgument(isValid(directoryPathStr), MESSAGE_CONSTRAINTS);
+        path = Paths.get(directoryPathStr);
     }
 
     /**
