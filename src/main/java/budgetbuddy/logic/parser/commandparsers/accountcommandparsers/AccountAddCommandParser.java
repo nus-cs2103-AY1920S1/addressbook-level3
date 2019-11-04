@@ -51,7 +51,7 @@ public class AccountAddCommandParser implements CommandParser<AccountAddCommand>
 
         TransactionList transactionList = new TransactionList();
 
-        Account account = new Account(name, description, transactionList, 0);
+        Account account = new Account(name, description, transactionList);
 
         return new AccountAddCommand(account);
     }

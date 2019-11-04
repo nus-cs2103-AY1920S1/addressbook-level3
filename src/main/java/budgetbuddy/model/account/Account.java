@@ -27,6 +27,13 @@ public class Account {
     /**
      * Every field must be present and not null.
      */
+    public Account(Name name, Description description, TransactionList transactionList) {
+        this(name, description, transactionList, 0);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
     public Account(Name name, Description description, TransactionList transactionList, long balance) {
         requireAllNonNull(name, transactionList);
         this.name = name;
