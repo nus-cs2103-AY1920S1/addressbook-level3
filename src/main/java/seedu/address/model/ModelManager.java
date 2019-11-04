@@ -492,6 +492,11 @@ public class ModelManager implements Model {
         return suggestions;
     }
 
+    @Override
+    public ArrayList<String> validLocationSuggester(String prefix) {
+        return gmapsModelManager.validLocationSuggester(prefix);
+    }
+
     //=========== NusModsData ================================================================================
 
     @Override
