@@ -233,33 +233,33 @@ public class ParserUtilTest {
     @Test
     public void parseDate_validValueWithoutWhitespace_returnsEventDate() throws Exception {
         EventDate dateTestOne = new EventDate(LocalDate.of(2019, 10, 20));
-        assertEquals(ParserUtil.parseDate("20/10/2019"), dateTestOne);
+        assertEquals(ParserUtil.parseEventDate("20/10/2019"), dateTestOne);
 
         EventDate dateTestTwo = new EventDate(LocalDate.of(2019, 10, 21));
-        assertEquals(ParserUtil.parseDate("21/10/2019"), dateTestTwo);
+        assertEquals(ParserUtil.parseEventDate("21/10/2019"), dateTestTwo);
     }
 
     @Test
     public void parseDate_validValueWithWhitespace_returnsEventDate() throws Exception {
         EventDate dateTestOne = new EventDate(LocalDate.of(2019, 10, 20));
-        assertEquals(ParserUtil.parseDate("20/10/2019 "), dateTestOne);
+        assertEquals(ParserUtil.parseEventDate("20/10/2019 "), dateTestOne);
 
         EventDate dateTestTwo = new EventDate(LocalDate.of(2019, 10, 21));
-        assertEquals(ParserUtil.parseDate(" 21/10/2019"), dateTestTwo);
+        assertEquals(ParserUtil.parseEventDate(" 21/10/2019"), dateTestTwo);
     }
 
     @Test
     public void parseDate_invalidFormat() {
         //Format is not in dd/MM/yyyy format
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate("20102019"));
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate("20191020"));
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate("21 August 2019"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventDate("20102019"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventDate("20191020"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventDate("21 August 2019"));
     }
 
     @Test
     public void parseDate_invalidValue() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate("01/9/2019"));
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate("1/10/2019"));
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate("date"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventDate("01/9/2019"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventDate("1/10/2019"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventDate("date"));
     }
 }

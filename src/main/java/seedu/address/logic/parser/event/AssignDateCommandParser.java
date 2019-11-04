@@ -44,7 +44,7 @@ public class AssignDateCommandParser implements Parser<AssignDateCommand> {
         EventDayTime timePeriod = ParserUtil.parseTimePeriod(argMultimap.getValue(PREFIX_EVENT_TIME).get());
 
         if (argMultimap.getValue(PREFIX_EVENT_START_DATE).isPresent()) {
-            EventDate targetDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_START_DATE).get());
+            EventDate targetDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_START_DATE).get());
             return new AssignDateCommand(eventIndex, targetDate, timePeriod);
         } else {
             return new AssignDateCommand(eventIndex, timePeriod);

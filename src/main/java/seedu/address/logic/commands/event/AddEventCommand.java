@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_BIG_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
@@ -11,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
@@ -27,8 +27,8 @@ public class AddEventCommand extends Command {
             + PREFIX_EVENT_NAME + "NAME "
             + PREFIX_EVENT_VENUE + "VENUE "
             + PREFIX_EVENT_MANPOWER_NEEDED + "MANPOWER NEEDED "
-            + PREFIX_EVENT_START_DATE + "START DATE"
-            + PREFIX_EVENT_END_DATE + "END DATE"
+            + PREFIX_EVENT_START_DATE + "START_DATE "
+            + PREFIX_EVENT_END_DATE + "END_DATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EVENT_NAME + "Free Coffee "
@@ -64,6 +64,12 @@ public class AddEventCommand extends Command {
 
         if (toAdd.getStartDate().compareTo(toAdd.getEndDate()) > 0) {
             throw new CommandException(MESSAGE_INVALID_DATES);
+        }
+
+        long dateDifference = toAdd.getStartDate().dateDifference(toAdd.getEndDate());
+        if (dateDifference > 90) {
+            throw new CommandException(String.format(
+                    MESSAGE_DATE_BIG_RANGE, toAdd.getStartDate(), toAdd.getEndDate(), dateDifference));
         }
 
         model.addEvent(toAdd);

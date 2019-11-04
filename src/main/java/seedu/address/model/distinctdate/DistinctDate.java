@@ -69,8 +69,8 @@ public class DistinctDate {
         }
 
         DistinctDate otherDistinctDate = (DistinctDate) other;
-        return otherDistinctDate.getDate().equals(getDate())
-                && otherDistinctDate.getListOfEvents().equals(getListOfEvents());
+        return otherDistinctDate.getDate().equals(date)
+                && otherDistinctDate.getListOfEvents().equals(listOfEvents);
 
     }
 
@@ -79,4 +79,11 @@ public class DistinctDate {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(date, listOfEvents);
     }
+
+    @Override
+    public String toString() {
+        // use this method for custom fields hashing instead of implementing your own
+        return date + " " + getListOfEvents().toString();
+    }
+
 }
