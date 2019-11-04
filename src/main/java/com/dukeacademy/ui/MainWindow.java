@@ -8,11 +8,14 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
+import com.dukeacademy.logic.commands.tab.TabCommand;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -87,6 +90,7 @@ class MainWindow extends UiPart<Stage> {
         this.programSubmissionLogic = programSubmissionLogic;
 
         applicationState.getCurrentActivityObservable().addListener(this::selectTabFromActivity);
+        tabPane.getSelectionModel().selectedIndexProperty().addListener(new TabChangeListener());
 
         // Configure the UI
         setWindowDefaultSize();
@@ -241,6 +245,23 @@ class MainWindow extends UiPart<Stage> {
 
         if (activity == Activity.WORKSPACE) {
             this.tabPane.getSelectionModel().select(2);
+        }
+    }
+
+    private class TabChangeListener implements ChangeListener<Number> {
+        @Override
+        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            if (newValue.intValue() == 0) {
+                resultDisplay.setFeedbackToUser(TabCommand.feedback + Activity.HOME.toString());
+            }
+
+            if (newValue.intValue() == 1) {
+                resultDisplay.setFeedbackToUser(TabCommand.feedback + Activity.QUESTION.toString());
+            }
+
+            if (newValue.intValue() == 2) {
+                resultDisplay.setFeedbackToUser(TabCommand.feedback + Activity.WORKSPACE.toString());
+            }
         }
     }
 }

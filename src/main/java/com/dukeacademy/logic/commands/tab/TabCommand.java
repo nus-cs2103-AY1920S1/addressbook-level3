@@ -13,7 +13,7 @@ import com.dukeacademy.model.state.ApplicationState;
  * Command used to switch tabs within the application
  */
 public class TabCommand implements Command {
-    private static final String feedback = "Toggling tab to : ";
+    public static final String feedback = "Toggling tab to : ";
     private final ApplicationState applicationState;
 
     public TabCommand(ApplicationState applicationState) {
