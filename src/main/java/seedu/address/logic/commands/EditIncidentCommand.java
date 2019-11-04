@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
 
 import java.util.List;
@@ -37,10 +37,10 @@ public class EditIncidentCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DISTRICT + "DISTRICT] "
-            + "[" + PREFIX_CALLER_NUMBER + "CALLER NUMBER] "
+            + "[" + PREFIX_PHONE + "CALLER NUMBER] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CALLER_NUMBER + "91302402 "
+            + PREFIX_PHONE + "91302402 "
             + PREFIX_DESCRIPTION + "This is a incident description.";
 
     public static final String MESSAGE_DUPLICATE_INCIDENT = "This incident already exists in the address book.";

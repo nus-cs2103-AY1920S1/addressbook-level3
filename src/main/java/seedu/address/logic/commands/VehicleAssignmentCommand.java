@@ -20,7 +20,6 @@ import seedu.address.model.vehicle.Vehicle;
 /**
  * Assigns vehicles to newly created incidents.
  * Cannot be changed once assigned.
- * TODO: consider vtype for auto assign.
  */
 public class VehicleAssignmentCommand extends Command {
 
@@ -44,7 +43,7 @@ public class VehicleAssignmentCommand extends Command {
      * Assumes predicate of available in district works.
      * @param nearbyVehicles
      */
-    private void autoAssign(ObservableList<Vehicle> nearbyVehicles) throws CommandException {
+    public void autoAssign(ObservableList<Vehicle> nearbyVehicles) throws CommandException {
         if (!nearbyVehicles.isEmpty()) {
             draft.addVehicle(nearbyVehicles.get(0));
         } else {
@@ -57,7 +56,7 @@ public class VehicleAssignmentCommand extends Command {
      * @param  nearbyVehicles
      * @param indexOfV
      */
-    private void manualAssign(ObservableList<Vehicle> nearbyVehicles, int indexOfV) throws CommandException {
+    public void manualAssign(ObservableList<Vehicle> nearbyVehicles, int indexOfV) throws CommandException {
         if (indexOfV > 0) {
             if (indexOfV <= nearbyVehicles.size()) {
                 Vehicle vehicle = nearbyVehicles.get(indexOfV - 1);
