@@ -22,12 +22,12 @@ public class BudgetCommand extends Command {
             + "of all the approved claims."
             + "It also generates a graph showing statistics for the current month";
 
+    private String message;
+
     @Override
     public CommandResult execute(Model model) {
         List<Claim> claimList = model.getFilteredClaimList();
         List<Income> incomeList = model.getFilteredIncomeList();
-
-        String message;
 
         Budget budget = new Budget(claimList, incomeList);
         BudgetGraph budgetGraph = new BudgetGraph(claimList, incomeList);
@@ -44,8 +44,10 @@ public class BudgetCommand extends Command {
         if (budget.isOverBudget()) {
             message += "\nWarning, you will be over budget!";
         }
-
-
         return new CommandResult(message, false, false, false, false, false);
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

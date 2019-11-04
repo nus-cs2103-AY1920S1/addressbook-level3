@@ -30,45 +30,49 @@ public class BudgetCommandTest {
 
     @Test
     public void execute_noData_budgetSuccess() {
-        System.setProperty("java.awt.headless", "false");
+        BudgetCommand budgetCommand = new BudgetCommand();
+        budgetCommand.execute(new ModelManager());
         String noBudgetData = "Projected income: $0.00\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $0.00";
-        assertEquals(noBudgetData, new BudgetCommand().execute(new ModelManager()).getFeedbackToUser());
+        assertEquals(noBudgetData, budgetCommand.getMessage());
     }
 
     @Test
     public void execute_noClaims_budgetSuccess() {
-        System.setProperty("java.awt.headless", "false");
         Budget budget = new Budget(claimList, incomeList);
         budget.calculateBudget();
+        BudgetCommand budgetCommand = new BudgetCommand();
+        budgetCommand.execute(model);
         String noClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $10,100.10";
-        assertEquals(noClaimData, new BudgetCommand().execute(model).getFeedbackToUser());
+        assertEquals(noClaimData, budgetCommand.getMessage());
     }
 
     @Test
     public void execute_nonApprovedClaims_budgetSuccess() {
-        System.setProperty("java.awt.headless", "false");
         Budget budget = new Budget(claimList2, incomeList2);
         budget.calculateBudget();
+        BudgetCommand budgetCommand = new BudgetCommand();
+        budgetCommand.execute(model2);
         String noApprovedClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $10,100.10";
-        assertEquals(noApprovedClaimData, new BudgetCommand().execute(model2).getFeedbackToUser());
+        assertEquals(noApprovedClaimData, budgetCommand.getMessage());
     }
 
     @Test
     public void execute_approvedClaims_budgetSuccess() {
-        System.setProperty("java.awt.headless", "false");
         Budget budget = new Budget(claimList3, incomeList3);
         budget.calculateBudget();
+        BudgetCommand budgetCommand = new BudgetCommand();
+        budgetCommand.execute(model3);
         String approvedClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $10,911.29\n"
                 + "Projected Budget: -$811.19\n"
                 + "Warning, you will be over budget!";
-        assertEquals(approvedClaimData, new BudgetCommand().execute(model3).getFeedbackToUser());
+        assertEquals(approvedClaimData, budgetCommand.getMessage());
     }
 
 }
