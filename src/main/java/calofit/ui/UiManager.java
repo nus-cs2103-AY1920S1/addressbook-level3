@@ -30,6 +30,7 @@ public class UiManager implements Ui {
     private Logic logic;
     private MainWindow mainWindow;
     private Timer timer;
+    private NotificationWindow notificationWindow;
 
     public UiManager(Logic logic, Timer timer) {
         super();
@@ -56,7 +57,13 @@ public class UiManager implements Ui {
 
         timer.registerPeriodic(Duration.ofMinutes(10), () -> {
             Optional<String> notifMessage = NotificationHelper.execute(logic.getModel());
-            notifMessage.ifPresent(s -> new NotificationWindow(s).show());
+            notifMessage.ifPresent(s -> {
+                if (notificationWindow != null) {
+                    notificationWindow.getRoot().hide();
+                }
+                notificationWindow = new NotificationWindow(s);
+                notificationWindow.show();
+            });
         });
     }
 
