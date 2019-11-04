@@ -3,7 +3,7 @@ package seedu.address.logic.commands.schedule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_EVENT_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.MUSICAL_COMPETITION;
@@ -36,7 +36,7 @@ public class DisplayScheduleForDateCommandTest {
         EventContainsKeyDatePredicate firstPredicate =
                 new EventContainsKeyDatePredicate(LocalDate.parse("10/12/2019", FORMATTER));
         EventContainsKeyDatePredicate secondPredicate =
-                new EventContainsKeyDatePredicate(LocalDate.parse("10/12/2019", FORMATTER));
+                new EventContainsKeyDatePredicate(LocalDate.parse("12/12/2019", FORMATTER));
 
         DisplayScheduleForDateCommand displayFirstCommand = new DisplayScheduleForDateCommand(firstPredicate);
         DisplayScheduleForDateCommand displaySecondCommand = new DisplayScheduleForDateCommand(secondPredicate);
@@ -61,22 +61,22 @@ public class DisplayScheduleForDateCommandTest {
 
     @Test
     public void execute_zeroDateKeywords_noEventFound() {
-        String expectedMessage = String.format(MESSAGE_EVENT_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyDatePredicate predicate = preparePredicate("01/01/2019");
         DisplayScheduleForDateCommand command = new DisplayScheduleForDateCommand(predicate);
-        expectedModel.updateFilteredEventList(predicate);
+        expectedModel.updateFilteredScheduledEventList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredEventList());
+        assertEquals(Collections.emptyList(), model.getFilteredScheduledEventList());
     }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_EVENT_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyDatePredicate predicate = preparePredicate("12/10/2019");
         DisplayScheduleForDateCommand command = new DisplayScheduleForDateCommand(predicate);
-        expectedModel.updateFilteredEventList(predicate);
+        expectedModel.updateFilteredScheduledEventList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BIRTHDAY_PARTY, MUSICAL_COMPETITION), model.getFilteredEventList());
+        assertEquals(Arrays.asList(MUSICAL_COMPETITION, BIRTHDAY_PARTY), model.getFilteredScheduledEventList());
     }
 
     /**

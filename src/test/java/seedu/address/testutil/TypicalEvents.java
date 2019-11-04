@@ -48,7 +48,7 @@ public class TypicalEvents {
             .withEndDate(LocalDate.parse("01/01/2020", FORMATTER))
             .withTags("fun").build();
 
-    public static final Event BIRTHDAY_PARTY = new EventBuilder().withName("John's 21st Birthday Party")
+    public static final Event BIRTHDAY_PARTY = new EventBuilder().withName("John 21st Birthday Party")
             .withVenue("Orchard Hotel").withManpowerNeeded("5")
             .withStartDate(LocalDate.parse("10/10/2019", FORMATTER))
             .withEndDate(LocalDate.parse("15/10/2020", FORMATTER))
@@ -73,11 +73,11 @@ public class TypicalEvents {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static EventBook getTypicalEventBook() {
-        EventBook ab = new EventBook();
+        EventBook eb = new EventBook();
         for (Event event : getTypicalEvents()) {
-            ab.addEvent(event);
+            eb.addEvent(event);
         }
-        return ab;
+        return eb;
     }
 
     public static List<Event> getTypicalEvents() {

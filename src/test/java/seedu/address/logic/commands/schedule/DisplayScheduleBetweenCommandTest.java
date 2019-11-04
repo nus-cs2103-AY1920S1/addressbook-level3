@@ -3,7 +3,7 @@ package seedu.address.logic.commands.schedule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_EVENT_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.MUSICAL_COMPETITION;
@@ -16,6 +16,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -64,31 +65,30 @@ public class DisplayScheduleBetweenCommandTest {
     }
 
     @Test
-    public void execute_zeroDateKeywords_noEventFound() {
-        String expectedMessage = String.format(MESSAGE_EVENT_LISTED_OVERVIEW, 0);
+    public void execute_zeroDateKeywords_noEventFound() throws CommandException {
+        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyDateRangePredicate predicate = preparePredicate("01/01/2019", "02/01/2019");
         DisplayScheduleBetweenCommand command = new DisplayScheduleBetweenCommand(predicate);
-        expectedModel.updateFilteredEventList(predicate);
+        expectedModel.updateFilteredScheduledEventList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredEventList());
+        assertEquals(Collections.emptyList(), model.getFilteredScheduledEventList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_EVENT_LISTED_OVERVIEW, 2);
+    public void execute_multipleKeywords_multiplePersonsFound() throws CommandException {
+        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyDateRangePredicate predicate = preparePredicate("12/10/2019", "13/10/2019");
         DisplayScheduleBetweenCommand command = new DisplayScheduleBetweenCommand(predicate);
-        expectedModel.updateFilteredEventList(predicate);
+        expectedModel.updateFilteredScheduledEventList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BIRTHDAY_PARTY, MUSICAL_COMPETITION), model.getFilteredEventList());
+        assertEquals(Arrays.asList(MUSICAL_COMPETITION, BIRTHDAY_PARTY), model.getFilteredScheduledEventList());
     }
 
     /**
-     * Parses {@code userInput} into a {@code EventContainsKeyDatePredicate}.
+     * Parses {@code userInput1} and {@code userInput2} into a {@code EventContainsKeyRangePredicate}.
      */
     private EventContainsKeyDateRangePredicate preparePredicate(String userInput1, String userInput2) {
         return new EventContainsKeyDateRangePredicate(
-                LocalDate.parse(userInput1, FORMATTER),
-                LocalDate.parse(userInput2, FORMATTER));
+                LocalDate.parse(userInput1, FORMATTER), LocalDate.parse(userInput2, FORMATTER));
     }
 }
