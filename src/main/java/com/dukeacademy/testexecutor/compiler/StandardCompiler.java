@@ -121,7 +121,7 @@ public class StandardCompiler implements Compiler {
         // Ensure that the DiagnosticCollector did not collect any errors
         List<Diagnostic<? extends JavaFileObject>> errors = compilerDiagnostics.getDiagnostics();
         Optional<String> errorMessages = errors.stream()
-                    .map(diagnostic -> diagnostic.getMessage(null))
+                    .map(Object::toString)
                     .reduce((m1, m2) -> m1 + "\n" + m2);
 
         if (errorMessages.isPresent()) {
