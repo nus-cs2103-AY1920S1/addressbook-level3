@@ -45,7 +45,6 @@
 }
 
 .label.time-stamp {
-    -fx-font-family: "Roboto Mono for Powerline";
     -fx-font-size: 11;
     -fx-text-fill: #FA77C3;
 }

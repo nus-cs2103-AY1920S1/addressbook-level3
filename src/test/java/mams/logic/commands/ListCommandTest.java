@@ -217,14 +217,14 @@ public class ListCommandTest {
 
     @Test
     public void requireAtLeastOneTrue() {
-        // all true -> no error
-        ListCommand.requireAtLeastOneTrue(true, true, true, true, true);
+        // all true -> true
+        assertTrue(ListCommand.containsAtLeastOneTrue(true, true, true, true, true));
 
-        // one true -> no error
-        ListCommand.requireAtLeastOneTrue(true, false, false, false);
+        // one true -> true
+        assertTrue(ListCommand.containsAtLeastOneTrue(true, false, false, false));
 
-        // none true -> raise AssertionError
-        assertThrows(AssertionError.class, () -> ListCommand.requireAtLeastOneTrue(false, false, false));
+        // none true -> false
+        assertFalse(ListCommand.containsAtLeastOneTrue(false, false, false));
     }
 
     @Test

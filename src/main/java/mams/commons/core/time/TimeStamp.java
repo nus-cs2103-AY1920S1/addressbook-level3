@@ -1,5 +1,7 @@
 package mams.commons.core.time;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,15 +17,27 @@ public class TimeStamp {
 
     private final Date date;
 
+    /**
+     * Initialize a {@code TimeStamp} object from a {@code Date} object.
+     * @param date
+     */
     public TimeStamp(Date date) {
         // defensive copy
+        requireNonNull(date);
         this.date = new Date(date.getTime());
     }
 
+    /**
+     * Initialize a {@code TimeStamp} using unix time in milliseconds
+     * @param unixTimeInMilliSeconds long denoting unix time elapsed in milliseconds
+     */
     public TimeStamp(long unixTimeInMilliSeconds) {
         this(new Date(unixTimeInMilliSeconds));
     }
 
+    /**
+     * Initialize a {@code TimeStamp} using the current time.
+     */
     public TimeStamp() {
         this.date = new Date();
     }

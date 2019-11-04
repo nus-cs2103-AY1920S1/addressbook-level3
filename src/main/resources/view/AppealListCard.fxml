@@ -18,6 +18,7 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
+
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
@@ -25,8 +26,11 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
+
                 <Label fx:id="appealId" text="\$appealId" styleClass="cell_big_label" />
+
                 <Pane HBox.hgrow="ALWAYS"/>
+
                 <Label fx:id="approvalIcon" alignment="CENTER_RIGHT" />
                 <Label fx:id="approvalStatus" alignment="CENTER_RIGHT" />
                 <Label fx:id="resolvedStatus" styleClass="prefix-label" text="\%resolvedStatus" alignment="CENTER_RIGHT"/>

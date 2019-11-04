@@ -9,6 +9,7 @@ import static mams.logic.commands.CommandTestUtil.showAll;
 import static mams.logic.commands.CommandTestUtil.showAppealAtIndex;
 import static mams.logic.commands.CommandTestUtil.showModuleAtIndex;
 import static mams.logic.commands.CommandTestUtil.showStudentAtIndex;
+import static mams.testutil.Assert.assertThrows;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_MAX_INT;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND;
@@ -17,7 +18,6 @@ import static mams.testutil.TypicalMams.getTypicalMams;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -119,6 +119,123 @@ public class ViewCommandTest {
         params.setModuleIndex(Index.fromOneBased(model.getFilteredModuleList().size() + 1));
         params.setStudentIndex(Index.fromOneBased(model.getFilteredStudentList().size() + 1));
         assertThrows(AssertionError.class, () -> assertWithinBoundsSuccess(params, model));
+    }
+
+    @Test
+    public void verifyAllTargetedListsExpandable_allExpandable_success() {
+        // if no parameters are present, then it should not throw an error
+        // this is just a sanity check - ViewCommand#execute should have measures
+        // to prevent acting on a empty ViewCommandParameter, which will be tested
+        // in another test here.
+        assertTargetedListsExpandableSuccess(params, model);
+
+        // module index is at one (list size > 1), appeal and student index not present -> success
+        params.setModuleIndex(INDEX_FIRST);
+        assertTargetedListsExpandableSuccess(params, model);
+
+        // student index is at one (list size > 1), module and appeal index not present -> success
+        params = new ViewCommand.ViewCommandParameters();
+        params.setStudentIndex(INDEX_FIRST);
+        assertTargetedListsExpandableSuccess(params, model);
+
+        // appeal index is at one (list size > 1), module and student index not present -> success
+        params = new ViewCommand.ViewCommandParameters();
+        params.setAppealIndex(INDEX_FIRST);
+        assertTargetedListsExpandableSuccess(params, model);
+
+        // appeal and module indexes are at one (list sizes > 1), student index not present -> success
+        params.setModuleIndex(INDEX_FIRST);
+        assertTargetedListsExpandableSuccess(params, model);
+
+        // all three indexes are one (list sizes > 1) -> success
+        params.setStudentIndex(INDEX_FIRST);
+        assertTargetedListsExpandableSuccess(params, model);
+
+        // appeal index at the end of the list (list sizes > 1) -> success
+        params.setAppealIndex(Index.fromOneBased(model.getFilteredAppealList().size()));
+        assertTargetedListsExpandableSuccess(params, model);
+
+        // all indexes at the end of their respective list indices (list sizes > 1) -> success
+        params.setModuleIndex(Index.fromOneBased(model.getFilteredModuleList().size()));
+        params.setStudentIndex(Index.fromOneBased(model.getFilteredStudentList().size()));
+        assertTargetedListsExpandableSuccess(params, model);
+    }
+
+    @Test
+    public void verifyAllTargetedListsExpandable_outOfBounds_exceptionThrown() {
+        // appeal list already in expanded form, appeal list targeted
+        params.setAppealIndex(INDEX_FIRST);
+        showAppealAtIndex(model, INDEX_FIRST);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // appeal list size is zero, appeal list targeted
+        model.updateFilteredAppealList(unused -> false);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // module list already in expanded form, module list targeted
+        showAll(model);
+        params = new ViewCommand.ViewCommandParameters();
+        params.setModuleIndex(INDEX_FIRST);
+        showModuleAtIndex(model, INDEX_FIRST);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // module list size is zero, module list targeted
+        model.updateFilteredModuleList(unused -> false);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // student list already in expanded form, student list targeted
+        showAll(model);
+        params = new ViewCommand.ViewCommandParameters();
+        params.setStudentIndex(INDEX_FIRST);
+        showStudentAtIndex(model, INDEX_FIRST);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // student list size is zero, student list targeted
+        model.updateFilteredStudentList(unused -> false);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // all lists have zero size, all lists targeted
+        showAll(model);
+        params = new ViewCommand.ViewCommandParameters();
+        params.setAppealIndex(INDEX_FIRST);
+        params.setModuleIndex(INDEX_FIRST);
+        params.setStudentIndex(INDEX_FIRST);
+        model.updateFilteredAppealList(unused -> false);
+        model.updateFilteredModuleList(unused -> false);
+        model.updateFilteredStudentList(unused -> false);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // all lists already in expanded form, all lists targeted
+        showAll(model);
+        params = new ViewCommand.ViewCommandParameters();
+        params.setAppealIndex(INDEX_FIRST);
+        params.setModuleIndex(INDEX_FIRST);
+        params.setStudentIndex(INDEX_FIRST);
+        showAppealAtIndex(model, INDEX_FIRST);
+        showModuleAtIndex(model, INDEX_FIRST);
+        showStudentAtIndex(model, INDEX_FIRST);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // some lists have size zero, others already in expanded form, all targeted
+        showAll(model);
+        params = new ViewCommand.ViewCommandParameters();
+        params.setAppealIndex(INDEX_FIRST);
+        params.setModuleIndex(INDEX_FIRST);
+        params.setStudentIndex(INDEX_FIRST);
+        model.updateFilteredAppealList(unused -> false);
+        showModuleAtIndex(model, INDEX_FIRST);
+        model.updateFilteredStudentList(unused -> false);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
+
+        // one list has size zero, one list already in expanded form, one list is expandable
+        showAll(model);
+        params = new ViewCommand.ViewCommandParameters();
+        params.setAppealIndex(INDEX_FIRST);
+        params.setModuleIndex(INDEX_FIRST);
+        params.setStudentIndex(INDEX_FIRST);
+        model.updateFilteredAppealList(unused -> false);
+        showModuleAtIndex(model, INDEX_FIRST);
+        assertThrows(AssertionError.class, () -> assertTargetedListsExpandableSuccess(params, model));
     }
 
     /**
@@ -288,6 +405,68 @@ public class ViewCommandTest {
         assertEquals(model, expectedModel);
     }
 
+    // for explanation of why no lists will be updated in event of failure,
+    // refer to ViewCommand
+    @Test
+    public void execute_atLeastOneListNotExpandableButTargeted_exceptionThrownAndNoListsUpdated() {
+        params.setAppealIndex(INDEX_FIRST);
+        params.setModuleIndex(INDEX_FIRST);
+        params.setStudentIndex(INDEX_FIRST);
+
+        // student list has size 0
+        model.updateFilteredStudentList(unused -> false);
+        expectedModel.updateFilteredStudentList(unused -> false);
+        assertCommandFailure(new ViewCommand(params),
+                model, ViewCommand.MESSAGE_NO_STUDENTS_TO_EXPAND);
+        assertEquals(model, expectedModel);
+
+        // both student and module list has size 0
+        showAll(model);
+        showAll(expectedModel);
+        model.updateFilteredModuleList(unused -> false);
+        model.updateFilteredStudentList(unused -> false);
+        expectedModel.updateFilteredModuleList(unused -> false);
+        expectedModel.updateFilteredStudentList(unused -> false);
+        assertCommandFailure(new ViewCommand(params),
+                model, ViewCommand.MESSAGE_NO_MODULES_TO_EXPAND + "\n"
+                        + ViewCommand.MESSAGE_NO_STUDENTS_TO_EXPAND);
+        assertEquals(model, expectedModel);
+
+        // appeal list is already expanded
+        showAll(model);
+        showAll(expectedModel);
+        showAppealAtIndex(model, INDEX_FIRST);
+        showAppealAtIndex(expectedModel, INDEX_FIRST);
+        assertCommandFailure(new ViewCommand(params),
+                model, ViewCommand.MESSAGE_APPEAL_ALREADY_EXPANDED);
+        assertEquals(model, expectedModel);
+
+        // appeal list has size 0, module list already expanded
+        showAll(model);
+        showAll(expectedModel);
+        model.updateFilteredAppealList(unused -> false);
+        expectedModel.updateFilteredAppealList(unused -> false);
+        showModuleAtIndex(model, INDEX_FIRST);
+        showModuleAtIndex(expectedModel, INDEX_FIRST);
+        assertCommandFailure(new ViewCommand(params),
+                model, ViewCommand.MESSAGE_NO_APPEALS_TO_EXPAND + "\n"
+                        + ViewCommand.MESSAGE_MODULE_ALREADY_EXPANDED);
+        assertEquals(model, expectedModel);
+
+        // all lists have size zero
+        model.updateFilteredAppealList(unused -> false);
+        model.updateFilteredModuleList(unused -> false);
+        model.updateFilteredStudentList(unused -> false);
+        expectedModel.updateFilteredAppealList(unused -> false);
+        expectedModel.updateFilteredModuleList(unused -> false);
+        expectedModel.updateFilteredStudentList(unused -> false);
+        assertCommandFailure(new ViewCommand(params),
+                model, ViewCommand.MESSAGE_NO_APPEALS_TO_EXPAND + "\n"
+                        + ViewCommand.MESSAGE_NO_MODULES_TO_EXPAND + "\n"
+                        + ViewCommand.MESSAGE_NO_STUDENTS_TO_EXPAND);
+        assertEquals(model, expectedModel);
+    }
+
     @Test
     public void equals() {
         params.setAppealIndex(INDEX_FIRST);
@@ -340,7 +519,27 @@ public class ViewCommandTest {
                                           Model model) {
         try {
             ViewCommand v = new ViewCommand(params);
-            v.verifyAllIndexesWithinBounds(model.getFilteredAppealList(),
+            v.verifyAllSpecifiedIndexesWithinBounds(model.getFilteredAppealList(),
+                    model.getFilteredModuleList(),
+                    model.getFilteredStudentList());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of this method should not fail", ce);
+        }
+    }
+
+    /**
+     * Runs {@code ViewCommand#verifyAllTargetedListsExpandable} on the given
+     * {@code params} and {@code model}, and verify that it does not throw
+     * an exception
+     * @param params used to initialize the ViewCommand object
+     * @param model acted on by the initialized ViewCommand object
+     * @throws CommandException
+     */
+    public void assertTargetedListsExpandableSuccess(ViewCommand.ViewCommandParameters params,
+                                          Model model) {
+        try {
+            ViewCommand v = new ViewCommand(params);
+            v.verifyAllTargetedListsExpandable(model.getFilteredAppealList(),
                     model.getFilteredModuleList(),
                     model.getFilteredStudentList());
         } catch (CommandException ce) {

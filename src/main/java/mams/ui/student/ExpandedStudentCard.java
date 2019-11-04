@@ -1,5 +1,7 @@
 package mams.ui.student;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
@@ -54,6 +56,7 @@ public class ExpandedStudentCard extends UiPart<Region> {
 
     public ExpandedStudentCard(Student student) {
         super(FXML);
+        requireNonNull(student);
         this.student = student;
         name.setText(student.getName().fullName);
         credits.setText(student.getCredits().value);
@@ -72,7 +75,7 @@ public class ExpandedStudentCard extends UiPart<Region> {
      * with one module code on each line, sorted by alpha-numeric order.
      * @return formatted text of module codes.
      */
-    private String formatCurrentModuleListToText () {
+    private String formatCurrentModuleListToText() {
         return student.getCurrentModules().stream()
                 .sorted(Comparator.comparing(module -> module.tagName))
                 .map(module -> module.tagName)
@@ -84,7 +87,7 @@ public class ExpandedStudentCard extends UiPart<Region> {
      * with one appeal ID on each line, sorted by alpha-numeric order.
      * @return formatted text of appeal IDs.
      */
-    private String formatCurrentAppealListToText () {
+    private String formatCurrentAppealListToText() {
         return student.getCurrentAppeals().stream()
                 .sorted(Comparator.comparing(appeal -> appeal.tagName))
                 .map(appeal -> appeal.tagName)
