@@ -95,4 +95,34 @@ public class FindCommandIntegrationTest {
         assertProcessedProblemListOfLength(logicManager, 0);
     }
 
+    @Test
+    public void find_nonAlphanumericTag_noException() throws CommandException, ParseException {
+        logicManager.execute("find t/O&*^(&*^");
+        assertProcessedProblemListOfLength(logicManager, 0);
+    }
+
+    @Test
+    public void find_nonAlphanumericSource_noException() throws CommandException, ParseException {
+        logicManager.execute("find src/O&*^(&*^");
+        assertProcessedProblemListOfLength(logicManager, 0);
+    }
+
+    @Test
+    public void find_nonAlphanumericAuthor_noException() throws CommandException, ParseException {
+        logicManager.execute("find a/O&*^(&*^");
+        assertProcessedProblemListOfLength(logicManager, 0);
+    }
+
+    @Test
+    public void find_nonAlphanumericName_noException() throws CommandException, ParseException {
+        logicManager.execute("find n/O&*^(&*^");
+        assertProcessedProblemListOfLength(logicManager, 0);
+    }
+
+    @Test
+    public void find_nonAlphanumericDescription_noException() throws CommandException, ParseException {
+        logicManager.execute("find d/O&*^(&*^");
+        assertProcessedProblemListOfLength(logicManager, 0);
+    }
+
 }
