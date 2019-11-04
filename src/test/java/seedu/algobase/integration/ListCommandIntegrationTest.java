@@ -20,8 +20,6 @@ import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
 public class ListCommandIntegrationTest {
-    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @TempDir
     public Path testFolder;
 
@@ -39,12 +37,10 @@ public class ListCommandIntegrationTest {
         logicManager = new LogicManager(modelManager, storageManager);
     }
 
-    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @Test
     public void listtag_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("list\n");
-        logicManager.execute("list unrelatedcommand\n");
+        logicManager.execute("listprob\n");
+        logicManager.execute("listprob unrelatedcommand\n");
         logicManager.execute("listtag\n");
         logicManager.execute("listtag unrelatedcommand\n");
         logicManager.execute("listplan\n");

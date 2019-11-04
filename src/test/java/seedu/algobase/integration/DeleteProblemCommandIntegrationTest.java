@@ -20,8 +20,6 @@ import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
 public class DeleteProblemCommandIntegrationTest {
-    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @TempDir
     public Path testFolder;
 
@@ -39,11 +37,9 @@ public class DeleteProblemCommandIntegrationTest {
         logicManager = new LogicManager(modelManager, storageManager);
     }
 
-    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @Test
     public void deleteproblem_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("delete 1 f/\n");
-        logicManager.execute("delete 3 f/\n");
+        logicManager.execute("deleteprob 1 f/\n");
+        logicManager.execute("deleteprob 3 f/\n");
     }
 }

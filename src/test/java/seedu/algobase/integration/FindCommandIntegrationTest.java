@@ -23,9 +23,6 @@ import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
 public class FindCommandIntegrationTest {
-
-    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @TempDir
     public Path testFolder;
 
@@ -42,8 +39,6 @@ public class FindCommandIntegrationTest {
         modelManager = new ModelManager(sampleAlgoBase, new UserPrefs());
         logicManager = new LogicManager(modelManager, storageManager);
     }
-
-    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
 
     @Test
     public void find_allConstraints() throws CommandException, ParseException {
@@ -97,31 +92,31 @@ public class FindCommandIntegrationTest {
 
     @Test
     public void find_nonAlphanumericTag_noException() throws CommandException, ParseException {
-        logicManager.execute("find t/O&*^(&*^");
+        logicManager.execute("findprob t/O&*^(&*^");
         assertProcessedProblemListOfLength(logicManager, 0);
     }
 
     @Test
     public void find_nonAlphanumericSource_noException() throws CommandException, ParseException {
-        logicManager.execute("find src/O&*^(&*^");
+        logicManager.execute("findprob src/O&*^(&*^");
         assertProcessedProblemListOfLength(logicManager, 0);
     }
 
     @Test
     public void find_nonAlphanumericAuthor_noException() throws CommandException, ParseException {
-        logicManager.execute("find a/O&*^(&*^");
+        logicManager.execute("findprob a/O&*^(&*^");
         assertProcessedProblemListOfLength(logicManager, 0);
     }
 
     @Test
     public void find_nonAlphanumericName_noException() throws CommandException, ParseException {
-        logicManager.execute("find n/O&*^(&*^");
+        logicManager.execute("findprob n/O&*^(&*^");
         assertProcessedProblemListOfLength(logicManager, 0);
     }
 
     @Test
     public void find_nonAlphanumericDescription_noException() throws CommandException, ParseException {
-        logicManager.execute("find d/O&*^(&*^");
+        logicManager.execute("findprob d/O&*^(&*^");
         assertProcessedProblemListOfLength(logicManager, 0);
     }
 }
