@@ -5,8 +5,6 @@
 
 == PROJECT: FlashCard Pro
 
----
-
 == Overview
 
 FlashCard Pro is an application designed for students of all fields who prefer to use a desktop app for managing flashcards, as well as teachers who would like to provide resources (in the form of custom flashcard decks) to support their students’ learning.
@@ -31,9 +29,8 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 
 ** This enhancement allowed the user to have more flexibility in exploring various types of flash cards to support the usage of the `test` function.
 ** In addition, this feature is challenging because it requires in-depth analysis and design of the Regex parser to determine which card type (Front and Back card or Multiple Choice card) is created.
-**
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=huiminlim&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=huiminlim&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/model[Test code]]
 
 * *Other contributions*:
 
@@ -42,8 +39,7 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 *** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/146[#146], https://github.com/AY1920S1-CS2103-F09-2/main/issues/99[#99], https://github.com/AY1920S1-CS2103-F09-2/main/issues/109[#109]
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests (Pull requests https://github.com[#36], https://github.com[#38])
 
 ** Documentation:
 *** Did documentation for the CLI commands in the User Guide. (See <<Contributions to the User Guide>> below)
@@ -91,6 +87,8 @@ include::../UserGuide.adoc[tag=summary]
 |===
 
 include::../DeveloperGuide.adoc[tag=cards]
+
+include::../DeveloperGuide.adoc[tag=configure_difficulty]
 
 include::../DeveloperGuide.adoc[tag=productscope]
 
