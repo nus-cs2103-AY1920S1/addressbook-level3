@@ -6,7 +6,9 @@ import javafx.scene.layout.Region;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.ui.UiPart;
+import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionType;
 
 /**
  * An UI component that displays tab content.
@@ -52,8 +54,12 @@ public class DetailsTab extends UiPart<Region> {
      */
     private void addOnCloseRequestListener(UiActionExecutor uiActionExecutor) {
         tabContentPlaceholder.setOnCloseRequest(e -> {
-            // writeOnlyTabManager.closeDetailsTab(new TabData(modelType, modelId));
-            // e.consume();
+            uiActionExecutor.execute(new UiActionDetails(
+                 UiActionType.CLOSE_DETAILS_TAB,
+                 modelType,
+                 modelId
+            ));
+            e.consume();
         });
     }
 }

@@ -7,18 +7,18 @@ import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiParser;
-import seedu.algobase.ui.action.actions.OpenTabUiAction;
+import seedu.algobase.ui.action.actions.OpenDetailsTabUiAction;
 
 /**
  * UI Parser for the Open Details Tab Action.
  */
-public class OpenTabUiActionParser implements UiParser<OpenTabUiAction> {
+public class OpenDetailsTabUiActionParser implements UiParser<OpenDetailsTabUiAction> {
 
     @Override
-    public OpenTabUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+    public OpenDetailsTabUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
         ModelType modelType = parseModelType(uiActionDetails.get(0));
         Id id = parseId(uiActionDetails.get(1));
-        return new OpenTabUiAction(modelType, id);
+        return new OpenDetailsTabUiAction(modelType, id);
     }
 
     /**

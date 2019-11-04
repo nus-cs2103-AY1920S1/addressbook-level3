@@ -8,9 +8,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
+import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.gui.ReadOnlyTabManager;
 import seedu.algobase.ui.UiPart;
+import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionType;
 
 
 /**
@@ -65,7 +68,10 @@ public class DisplayTabPane extends UiPart<Region> {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                // tabManager.switchDisplayTab(Index.fromZeroBased(newValue.intValue()));
+                uiActionExecutor.execute(new UiActionDetails(
+                    UiActionType.SWITCH_DISPLAY_TAB,
+                    Index.fromZeroBased(newValue.intValue())
+                ));
             }
         });
     }

@@ -2,6 +2,7 @@ package seedu.algobase.ui.action.actions;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import seedu.algobase.model.Id;
@@ -15,17 +16,17 @@ import seedu.algobase.ui.action.UiAction;
 import seedu.algobase.ui.action.UiActionResult;
 
 /**
- * Close tabs in the GUI.
+ * Opens a tab in the GUI.
  */
-public class OpenTabUiAction extends UiAction {
+public class OpenDetailsTabUiAction extends UiAction {
 
-    public static final String MESSAGE_INVALID_MODEL = "Model [%1$s] does not exist.";
-    public static final String MESSAGE_INVALID_INDEX = "Tab at index [%1$s] does not exist.";
+    public static final String MESSAGE_INVALID_MODEL = "Model does not exist.";
+    public static final String MESSAGE_INVALID_ELEMENT = "No such tab exists!";
 
     private Id modelId;
     private ModelType modelType;
 
-    public OpenTabUiAction(ModelType modelType, Id modelId) {
+    public OpenDetailsTabUiAction(ModelType modelType, Id modelId) {
         requireAllNonNull(modelType, modelId);
         this.modelType = modelType;
         this.modelId = modelId;
@@ -38,8 +39,8 @@ public class OpenTabUiAction extends UiAction {
             TabData tabData = new TabData(modelType, modelId);
             TabCommandType result = tabManager.openDetailsTab(tabData);
             return new UiActionResult(Optional.empty());
-        } catch (IndexOutOfBoundsException exception) {
-            throw new UiActionException(String.format(MESSAGE_INVALID_INDEX));
+        } catch (NoSuchElementException exception) {
+            throw new UiActionException(String.format(MESSAGE_INVALID_ELEMENT));
         } catch (IllegalArgumentException exception) {
             throw new IllegalArgumentException(String.format(MESSAGE_INVALID_MODEL, modelType.getTabName()));
         }

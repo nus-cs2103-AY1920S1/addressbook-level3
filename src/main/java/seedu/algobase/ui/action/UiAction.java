@@ -2,14 +2,14 @@ package seedu.algobase.ui.action;
 
 import seedu.algobase.model.Model;
 import seedu.algobase.ui.UiActionException;
-import seedu.algobase.ui.action.actions.OpenTabUiAction;
+import seedu.algobase.ui.action.actions.OpenDetailsTabUiAction;
 
 /**
  * A class representing details of actions that take place in the UI.
  */
 public abstract class UiAction {
     public static final Class[] UI_ACTION_LIST = {
-        OpenTabUiAction.class,
+        OpenDetailsTabUiAction.class,
     };
 
     /**

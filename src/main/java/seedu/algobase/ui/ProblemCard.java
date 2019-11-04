@@ -13,8 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
 import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.model.ModelType;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionType;
 
 /**
  * An UI component that displays information of a {@code Problem}.
@@ -120,7 +123,11 @@ public class ProblemCard extends UiPart<Region> {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
                         logger.info("Double Clicked on Problem card with name " + problem.getName());
-                        // writeOnlyTabManager.openDetailsTab(new TabData(ModelType.PROBLEM, problem.getId()));
+                        uiActionExecutor.execute(new UiActionDetails(
+                            UiActionType.OPEN_DETAILS_TAB,
+                            ModelType.PROBLEM,
+                            problem.getId()
+                        ));
                     }
                 }
             }

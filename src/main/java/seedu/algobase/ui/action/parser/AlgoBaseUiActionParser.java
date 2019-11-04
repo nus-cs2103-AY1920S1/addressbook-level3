@@ -20,8 +20,15 @@ public class AlgoBaseUiActionParser {
      */
     public UiAction parseCommand(UiActionDetails uiActionDetails) throws ParseException {
         switch (uiActionDetails.getActionWord()) {
+        case SWITCH_DISPLAY_TAB:
+            return new SwitchDisplayTabUiActionParser().parse(uiActionDetails);
         case OPEN_DETAILS_TAB:
-            return new OpenTabUiActionParser().parse(uiActionDetails);
+            return new OpenDetailsTabUiActionParser().parse(uiActionDetails);
+        case CLOSE_DETAILS_TAB:
+            return new CloseDetailsTabUiActionParser().parse(uiActionDetails);
+        case SWITCH_DETAILS_TAB:
+            return new SwitchDetailsTabUiActionParser().parse(uiActionDetails);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_UI_ACTION);
         }

@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.gui.TabManager;
 import seedu.algobase.storage.Storage;
 import seedu.algobase.ui.UiActionException;
 import seedu.algobase.ui.action.parser.AlgoBaseUiActionParser;
@@ -33,8 +32,6 @@ public class UiLogicManager implements UiLogic {
 
     @Override
     public UiActionResult execute(UiActionDetails uiActionDetails) throws UiActionException, ParseException {
-        logger.info("----------------[USER COMMAND][" + uiActionDetails + "]");
-
         UiAction uiAction = algoBaseUiActionParser.parseCommand(uiActionDetails);
         UiActionResult uiActionResult = uiAction.execute(model);
 
@@ -43,9 +40,6 @@ public class UiLogicManager implements UiLogic {
         } catch (IOException ioe) {
             throw new UiActionException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
-        TabManager tabManager = model.getGuiState().getTabManager();
-        tabManager.refreshTabManager();
 
         return uiActionResult;
     }

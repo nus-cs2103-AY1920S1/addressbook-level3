@@ -11,6 +11,7 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
+import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.logic.Logic;
 import seedu.algobase.model.Id;
@@ -22,7 +23,9 @@ import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.ui.UiPart;
+import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionType;
 
 /**
  * Contains details about a specific model.
@@ -97,8 +100,10 @@ public class DetailsTabPane extends UiPart<Region> {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (newValue.intValue() >= 0) {
-                    // tabManager.switchDetailsTab(Index.fromZeroBased(newValue.intValue()));
-                    // saveStorageRunnable.save();
+                    uiActionExecutor.execute(new UiActionDetails(
+                        UiActionType.SWITCH_DETAILS_TAB,
+                        Index.fromZeroBased(newValue.intValue())
+                    ));
                 }
             }
         });
