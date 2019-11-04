@@ -147,8 +147,8 @@ public class CreateCommand extends Command {
     /**
      * Used to create a Front Back card. Only used internally.
      *
-     * @param command
-     * @return
+     * @param command An ArrayList of the parsed user input
+     * @return The FrontBack Card represented as a FlashCard
      */
     private static FlashCard createFrontBack(ArrayList<ArrayList<String>> command) {
         // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
