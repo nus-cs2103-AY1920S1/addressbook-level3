@@ -23,18 +23,21 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";
 
-    public static final String MESSAGE_INVALID_NOTE_DISPLAYED_INDEX = "The note index provided is invalid";
+    public static final String MESSAGE_INVALID_NOTE_PREAMBLE = "Note index must be a positive integer immediately"
+            + " preceded by valid fields to edit. \n%1$s";
+    public static final String MESSAGE_INVALID_NOTE_DISPLAYED_INDEX = "The note index provided is invalid.";
     public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in the notes record";
 
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
 
     public static final String MESSAGE_SAVE_STATS_FILE_ERROR = "Statistics Command Error. "
-            + "Filename cannot be empty or have any special characters \\ / : * ? \" < > |";
+            + "Printable file name field cannot be empty or have any special characters \\ / : * ? \" < > |";
     public static final String EXCEL_FILE_NOT_FOUND = "Excel file was not found. Please ensure file path is valid.";
     public static final String EXCEL_FILE_NOT_PARSED = "Error occurred retrieving file. Please try with another file";
-    public static final String EXCEL_FILE_TYPE_ISSUE = "File path must be of type /'.xlsx/'. Please try again.";
+    public static final String EXCEL_FILE_TYPE_ISSUE = "File type must be excel workbook with extension '.xlsx'."
+            + " Please try again.";
     public static final String EXCEL_FILE_ILLEGAL_INPUT = "File has illegal input. Please refer to user guide.";
-    public static final String EXCEL_FILE_ILLEGAL_FORMAT = "File has illegal format. PLease refer to user guide.";
+    public static final String EXCEL_FILE_ILLEGAL_FORMAT = "File has illegal format. Please refer to user guide.";
     public static final String EXCEL_ILLEGAL_HEADER = "Cell A1 should be 'Students'";
 
 }

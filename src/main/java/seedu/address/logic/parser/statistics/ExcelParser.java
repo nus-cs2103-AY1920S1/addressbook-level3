@@ -64,9 +64,7 @@ public class ExcelParser implements DataParser {
      * @param students the arraylist containing strings representing students inside the file in concern.
      * @throws ParseException when error occurs parsing the file.
      */
-    private void populateData(Iterator<Row> rowIterator, ArrayList<String> students)
-            throws ParseException {
-
+    private void populateData(Iterator<Row> rowIterator, ArrayList<String> students) throws ParseException {
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
             Iterator<Cell> cellIterator = row.cellIterator();
@@ -136,15 +134,7 @@ public class ExcelParser implements DataParser {
         if (rowIterator.hasNext()) {
             Row studentsRow = rowIterator.next();
             Iterator<Cell> studentsIterator = studentsRow.cellIterator();
-            if (studentsIterator.hasNext()) {
-                Cell dataStart = studentsIterator.next();
-                if (dataStart.getCellType() != CellType.STRING
-                        || !dataStart.getStringCellValue().trim().equals("Students")) {
-                    throw new ParseException(EXCEL_ILLEGAL_HEADER);
-                }
-            } else {
-                throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
-            }
+            validateDataStart(studentsIterator);
             while (studentsIterator.hasNext()) {
                 Cell studentCell = studentsIterator.next();
                 if (studentCell.getCellType() == CellType.STRING
@@ -163,6 +153,23 @@ public class ExcelParser implements DataParser {
     }
 
     /**
+     * Ensures that the first Data Cell starts with "Students" in the input file.
+     * @param studentsIterator the cell iterator for the data file.
+     * @throws ParseException if the iterator does not find any cell or content of cell is not as specified.
+     */
+    private void validateDataStart(Iterator<Cell> studentsIterator) throws ParseException {
+        if (studentsIterator.hasNext()) {
+            Cell dataStart = studentsIterator.next();
+            if (dataStart.getCellType() != CellType.STRING
+                    || !dataStart.getStringCellValue().trim().equals("Students")) {
+                throw new ParseException(EXCEL_ILLEGAL_HEADER);
+            }
+        } else {
+            throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
+        }
+    }
+
+    /**
      * Gets the excel sheet from filePath specified.
      * @param filePath the relative or full filePath of file in concern.
      * @return the excel sheet read from the filePath.
@@ -170,6 +177,9 @@ public class ExcelParser implements DataParser {
      */
     private XSSFSheet getSheet(String filePath) throws ParseException {
         try {
+            if (!filePath.trim().endsWith(".xlsx")) {
+                throw new NotOfficeXmlFileException(filePath);
+            }
             file = new FileInputStream(new File(filePath));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);

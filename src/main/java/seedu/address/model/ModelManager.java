@@ -630,12 +630,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setNotesRecordFilePath(Path notesRecordFilePath) {
-        requireNonNull(notesRecordFilePath);
-        userPrefs.setNotesRecordFilePath(notesRecordFilePath);
-    }
-
-    @Override
     public void setNotesRecord(ReadOnlyNotesRecord notesRecord) {
         this.notesRecord.resetData(notesRecord);
     }

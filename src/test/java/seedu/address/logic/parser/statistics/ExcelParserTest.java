@@ -75,7 +75,7 @@ public class ExcelParserTest {
 
     @Test
     public void parseCommand_missingFile_throwsParseException() {
-        assertThrows(ParseException.class, Messages.EXCEL_FILE_NOT_FOUND, () -> parser.parseFile(INVALID_FILE_PATH));
+        assertThrows(ParseException.class, Messages.EXCEL_FILE_TYPE_ISSUE, () -> parser.parseFile(INVALID_FILE_PATH));
     }
 
     @Test

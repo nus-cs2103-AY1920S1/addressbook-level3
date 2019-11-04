@@ -36,6 +36,16 @@ package seedu.address.logic;
 //import seedu.address.storage.StorageManager;
 //import seedu.address.testutil.PersonBuilder;**/
 
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.io.TempDir;
+//import seedu.address.model.Model;
+//import seedu.address.model.ModelManager;
+//import seedu.address.storage.JsonAddressBookStorage;
+//import seedu.address.storage.JsonUserPrefsStorage;
+//
+//import java.io.IOException;
+
 public class LogicManagerTest {
 //    private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 //
@@ -45,7 +55,7 @@ public class LogicManagerTest {
 //    private Model model = new ModelManager();
 //    private Logic logic;
 //
-//    /**@BeforeEach
+//    @BeforeEach
 //    public void setUp() {
 //        JsonAddressBookStorage addressBookStorage =
 //                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
@@ -53,21 +63,20 @@ public class LogicManagerTest {
 //        //StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
 //        //logic = new LogicManager(model, storage);
 //    }
-//     **/
-//
-//    /**@Test
+
+//    @Test
 //    public void execute_invalidCommandFormat_throwsParseException() {
 //        String invalidCommand = "uicfhmowqewca";
 //        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
 //    }
-//     **/
 //
-//    /**@Test
+//
+//    @Test
 //    public void execute_commandExecutionError_throwsCommandException() {
 //        String deleteCommand = "delete 9";
 //        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //    }
-//    **/
+//
 //
 //    /**@Test
 //    public void execute_validCommand_success() throws Exception {
