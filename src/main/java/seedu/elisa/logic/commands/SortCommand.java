@@ -20,7 +20,7 @@ public class SortCommand extends UndoableCommand {
     private VisualizeList beforeSort;
     private Optional<Comparator<Item>> comparator;
 
-    public SortCommand (Optional<Comparator<Item>> comparator) {
+    public SortCommand(Optional<Comparator<Item>> comparator) {
         this.comparator = comparator;
     }
 
@@ -32,6 +32,10 @@ public class SortCommand extends UndoableCommand {
             model.sort(comparator.get());
         } else {
             model.sort();
+        }
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, beforeSort.getClass().getSimpleName()));
     }

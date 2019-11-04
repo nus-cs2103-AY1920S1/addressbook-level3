@@ -34,6 +34,10 @@ public class FindCommand extends UndoableCommand {
         requireNonNull(model);
         beforeFilter = model.getVisualList().deepCopy();
         model.findItem(searchString);
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_ITEM_LISTED_OVERVIEW, model.getVisualList().size()));
     }

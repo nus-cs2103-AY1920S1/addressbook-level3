@@ -39,7 +39,7 @@ public class DeleteCommand extends UndoableCommand {
         VisualizeList lastShownList = model.getVisualList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
         deleted = model.getIndices(targetIndex.getZeroBased());
@@ -49,6 +49,10 @@ public class DeleteCommand extends UndoableCommand {
             RescheduleTask.removeFromAllTasks(itemDeleted.getEvent().get());
         }
 
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemDeleted));
     }
 

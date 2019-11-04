@@ -8,6 +8,15 @@ import seedu.elisa.model.ItemModel;
  * */
 
 public abstract class UndoableCommand extends Command {
+    private boolean isExecuted = false;
     public abstract void reverse(ItemModel model) throws CommandException;
     public abstract String getCommandWord();
+
+    public boolean isExecuted() {
+        return isExecuted;
+    }
+
+    public void setExecuted(boolean executed) {
+        isExecuted = executed;
+    }
 }
