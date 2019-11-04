@@ -32,7 +32,13 @@ public class SetCashierCommand extends Command {
 
     @Override
     public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel)
-            throws NoSuchIndexException, CommandException, NoSuchPersonException {
+            throws NoSuchIndexException, CommandException, NoSuchPersonException,
+            seedu.address.cashier.logic.commands.exception.NoSuchPersonException {
+        /*try {
+            personModel.getPersonByName(cashier.getName().toString());
+        } catch (NoSuchPersonException e) {
+            throw new NoSuchPersonException(NO_SUCH_PERSON);
+        }*/
         if (!personModel.hasPerson(cashier)) {
             throw new NoSuchPersonException(NO_SUCH_PERSON);
         }

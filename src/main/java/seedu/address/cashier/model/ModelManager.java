@@ -281,7 +281,7 @@ public class ModelManager implements Model {
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());
         }
-        if (total > 9999) {
+        if (total > 999999.99) {
             throw new AmountExceededException(MESSAGE_TOTAL_AMOUNT_EXCEEDED);
         }
         return total;

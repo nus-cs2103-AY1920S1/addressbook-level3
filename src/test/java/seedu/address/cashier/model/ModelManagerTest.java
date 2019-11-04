@@ -305,12 +305,12 @@ public class ModelManagerTest {
         setInventoryList();
         Item chips = new ItemBuilder()
                 .withDescription(CHIPS.getDescription())
-                .withQuantity(9513)
+                .withQuantity(99999399)
                 .withPrice(CHIPS.getPrice())
                 .build();
         Item storybook = new ItemBuilder()
                 .withDescription(STORYBOOK.getDescription())
-                .withQuantity(9141)
+                .withQuantity(999999999)
                 .withPrice(STORYBOOK.getPrice())
                 .build();
         modelManager.addItem(chips);
@@ -507,6 +507,7 @@ public class ModelManagerTest {
 
     @Test
     public void equalsSalesList_successful() {
+        modelManager.clearSalesList();
         modelManager.addItem(CHIPS);
         modelManager.addItem(BURGER_AND_CHIPS);
 

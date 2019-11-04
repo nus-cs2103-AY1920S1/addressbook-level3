@@ -718,7 +718,7 @@ This command allows you to sort the table of items into a specified order for vi
 Using the reset command, it can be reset to the initial order of the table when the app was first opened.
 
 === Cashier Tab
-This section will contain the details on all commands available on the Cashier tab.
+This section will contain the details on all commands available on the Cashier Tab.
 
 ====
 *Summary of Features of the Cashier Tab*
@@ -741,7 +741,7 @@ under the category "Sales" and person will be the cashier-in-charge. The Home ta
 Items with zero price are not available for sale. Such items cannot be added into the table.
 
 [WARNING]
-Due to size limitation, you will not be allowed to add any items into the table if the total amount exceeds $9999. You
+Due to size limitation, you will not be allowed to add any items into the table if the total amount exceeds $999999.99. You
 are advised to reduce the quantity of items or checkout separately in another cart.
 
 ====
@@ -752,24 +752,26 @@ This command enables you to add a sales item into the table.
 * Command:
 `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
-The quantity of the item must not be greater than the stock available in the Inventory Tab.
+The quantity that you input must be less than or equal to the stock available in the Inventory Tab.
 Else, Leo will display a message prompting input of a smaller quantity or another item. +
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
 the Inventory Tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
 
 Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
-items similar to the description that you might be looking for.
+items with similar description that you might be looking for.
 
 Examples:
 
 ** `add c/food` - Displays all items that are under the 'food' category in the response box
-** `add c/stationary d/pancake q/3` - Adds 3 items which has the description "pancake"
-** `add d/pancake q/3` - Adds 3 items which has the description "pancake"
+** `add c/stationary d/pancake q/3` - Adds 3 similar items which have the description "pancake"
+** `add d/pancake q/3` - Adds 3 similar items which have the description "pancake"
 
 [NOTE]
-The items according to the category will only be displayed in the response box if both description and quantity fields are not specified.
-If both are specified but description is invalid, *only suggestions* will be shown in the response box according to the mistyped description.
+The items will only be displayed according to the category in the response box if both description and quantity fields are not specified
+and the category field is valid.
+If both description and quantity are specified but description is invalid, *only suggestions* will be shown in the response box
+according to the mistyped description.
 
 [NOTE]
 If both category and description are specified and valid, the system will allow the item to be added according the
@@ -780,7 +782,7 @@ Steps:
 1. Type the command with a category specified as shown in the screenshot below:
 
 //.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
-image::cashierUG/AddCommand1.png[width="600"]
+image::cashierUG/AddCommand1.png[width="620"]
 
 
 [start = 2]
@@ -795,7 +797,7 @@ image::cashierUG/AddCommand2.png[width="600"]
 //.Screenshot of the response message for Add Command in Cashier Tab
 image::cashierUG/AddCommand3.png[width="600"]
 
-Leo will respond to the successful addition with a response message.
+Leo will respond to the successful addition with a response message. The newly added item will be shown on the table.
 
 ==== Delete a Sales Item from the Table
 This command allows you to delete a sales item from the table.
@@ -833,12 +835,12 @@ This command allows you to edit the quantity of a sales item that already exists
 ** `edit d/DESCRIPTION q/QUANTITY`
 ** `edit i/INDEX q/QUANTITY`
 
-There are 2 ways to edit an existing item - by its description or its index in the table.
+There are 2 ways to edit an existing item - by its *description* or its *index* in the table.
 
-1. If you edit by index, the index must be positive and be within the size of the table.
-The specified index should correspond to the row index of the item in the table.
+1. If you edit by *index*, the index must be positive and be within the size of the table.
+The specified index should also correspond to the row index of the item in the table.
 
-2. If you edit by description, the specified description must already exist in the table.
+2. If you edit by *description*, the specified description must already exist in the table.
 
 In addition, the quantity input should not exceed the available stock in the inventory. +
 If the quantity is invalid, Leo will display the quantity of stock left.
@@ -846,17 +848,17 @@ If the quantity is invalid, Leo will display the quantity of stock left.
 * Examples:
 
 ** `edit i/2 q/6` - Updates the quantity of item at row 2 to 6
-** `edit d/book q/3` - Updates the quantity of an existing item of description "book" to 3
+** `edit d/book q/3` - Updates the quantity of an existing item which has the description "book" to 3
 
 * Steps:
 
-1.1 To edit by index, enter the command with an index and quantity specified as shown in the screenshot below:
+1.1 To edit by *index*, enter the command with an index and quantity specified as shown in the screenshot below:
 
 //.Screenshot of user input (index, description) into Command Box for Edit Command in Cashier Tab
 image::cashierUG/EditCommand1.png[width="600"]
 
 [start = 2]
-1.2. To edit by description, enter the required description and quantity as shown below:
+1.2. To edit by *description*, enter the required description and quantity as shown below:
 
 //.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier Tab
 image::cashierUG/EditCommand3.png[width="600"]
@@ -876,9 +878,8 @@ This command enables you to set the cashier whom is in-charge of the sales.
 * Command:
 `cashier NAME`
 
-The person to be set as the cashier must be an existing member of the club. +
-This means that their details must be found on the Members tab. +
-If you have yet to record the cashier as a member, please proceed to Members tab
+The person to be set as the cashier must be an existing member of the club. This means that their details must be found on the Members Tab. +
+If you have yet to record the cashier as a member, please proceed to Members Tab
 to register him/her as a member before executing this command.
 
 [NOTE]
@@ -890,7 +891,7 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1. Type the command with a cashier's name specified as shown in the screenshot below:
+1. Type the command with the cashier's name specified as shown in the screenshot below:
 
 //.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand1.png[width="600"]
@@ -901,7 +902,7 @@ image::cashierUG/SetCashierCommand1.png[width="600"]
 //.Screenshot of response message for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand2.png[width="600"]
 
-If set successfully, Leo will respond with a response message. The cashier in the bottom row will be updated.
+If set successfully, Leo will respond with a response message. The cashier will be updated in the bottom row.
 
 
 ==== Checkout All Sales Items
@@ -925,7 +926,7 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1. Type the command with the amount that the customer is paying as shown in the screenshot below:
+1. Type the command and specify the amount that the customer is paying as shown in the screenshot below:
 
 //.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
 image::cashierUG/CheckoutCommand1.png[width="600"]
@@ -950,8 +951,8 @@ This command clears all the sales item in the table.
 After clearing, the cashier will be reset as well.
 
 [NOTE]
-This command enables you to disable the `Cashier Mode`footnote:[`Cashier Mode` automatically turns on when the table in the `Cashier Tab`
-is not empty. This disables any modification to the inventory except addition of items.].
+This command enables you to disable the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the `Cashier Tab`
+is not empty. While the `Cashier Mode` is turned on, any modification to the inventory is prohibited except addition of items.].
 
 [CAUTION]
 This command is irreversible. Please use at your own discretion.
