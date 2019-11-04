@@ -42,10 +42,10 @@ public class NoteListCard extends UiPart<Region> {
         this.note = note;
         id.setText("#" + note.getNoteId().value);
 
-        if (note.getTitle().titleDescription.isEmpty()) {
+        if (note.getTitle().value.isEmpty()) {
             title.setText(UNTITLED_NOTE_STRING);
         } else {
-            title.setText(note.getTitle().titleDescription);
+            title.setText(note.getTitle().value);
         }
 
         time.setText(note.getTimeCreated().getTime().toString());

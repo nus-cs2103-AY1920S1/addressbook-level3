@@ -70,7 +70,7 @@ public class NoteListCardTest {
     void checkFieldsDisplayedCorrectly_titlePresent(FxRobot robot) throws TimeoutException {
         setNoteDisplayed(TypicalNotes.EARTH);
 
-        FxAssert.verifyThat(getChildNode(robot, "#title"), hasText(TypicalNotes.EARTH.getTitle().titleDescription));
+        FxAssert.verifyThat(getChildNode(robot, "#title"), hasText(TypicalNotes.EARTH.getTitle().value));
         FxAssert.verifyThat(getChildNode(robot, "#time"), hasText(TypicalNotes.EARTH.getTimeCreated().toString()));
         FxAssert.verifyThat(getChildNode(robot, "#content"), hasText(TypicalNotes.EARTH.getContent().value));
         FxAssert.verifyThat(getChildNode(robot, "#id"), hasText("#" + TypicalNotes.EARTH.getNoteId().value));

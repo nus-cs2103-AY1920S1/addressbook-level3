@@ -2,20 +2,25 @@
 package tagline.logic.parser.note;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_PROTECTOR;
-import static tagline.logic.commands.NoteCommandTestUtil.INVALID_CONTENT_DESC;
+import static tagline.logic.commands.NoteCommandTestUtil.INVALID_TITLE_DESC;
+import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_PROTECTOR;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
+import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
+import static tagline.logic.parser.note.NoteParserUtil.ERROR_INVALID_INDEX;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
-import tagline.model.note.Content;
 import tagline.model.note.NoteId;
+import tagline.model.note.Title;
 import tagline.testutil.note.EditNoteDescriptorBuilder;
 
 class EditNoteParserTest {
@@ -28,7 +33,7 @@ class EditNoteParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_CONTENT_PROTECTOR, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, CONTENT_DESC_INCIDENT, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditNoteCommand.MESSAGE_NOT_EDITED);
@@ -40,22 +45,38 @@ class EditNoteParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative id
-        assertParseFailure(parser, "-1" + CONTENT_DESC_PROTECTOR, MESSAGE_INVALID_FORMAT);
+        String invalidPreamble = "-1";
+        assertParseFailure(parser, invalidPreamble + CONTENT_DESC_PROTECTOR,
+                String.format(ERROR_INVALID_INDEX, invalidPreamble));
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 invalid arguments", MESSAGE_INVALID_FORMAT);
+        invalidPreamble = "1 invalid arguments";
+        assertParseFailure(parser, invalidPreamble,
+                String.format(ERROR_INVALID_INDEX, invalidPreamble));
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 c/note content", MESSAGE_INVALID_FORMAT);
+        invalidPreamble = "1 c/note content";
+        assertParseFailure(parser, invalidPreamble,
+                String.format(ERROR_INVALID_INDEX, invalidPreamble));
     }
 
     @Test
-    public void parser_invalidValue_failure() {
-        assertParseFailure(parser, "1 " + INVALID_CONTENT_DESC, Content.MESSAGE_CONSTRAINTS);
+    public void parse_invalidFieldsPresent_failure() {
+        // invalid title
+        assertParseFailure(parser, "1" + INVALID_TITLE_DESC, Title.MESSAGE_CONSTRAINTS);
+    }
 
-        // invalid content followed by valid title
-        assertParseFailure(parser, "1 " + INVALID_CONTENT_DESC + TITLE_DESC_PROTECTOR,
-                Content.MESSAGE_CONSTRAINTS);
+    @Test
+    public void parse_multipleSingleFieldsPresent_failure() {
+        // title provided twice
+        assertParseFailure(parser,
+                "1 " + TITLE_DESC_PROTECTOR + TITLE_DESC_INCIDENT,
+                String.format(NoteParserUtil.ERROR_SINGLE_PREFIX_USAGE, PREFIX_TITLE));
+
+        // content provided twice
+        assertParseFailure(parser,
+                "1 " + CONTENT_DESC_PROTECTOR + CONTENT_DESC_INCIDENT,
+                String.format(NoteParserUtil.ERROR_SINGLE_PREFIX_USAGE, PREFIX_CONTENT));
     }
 
     @Test

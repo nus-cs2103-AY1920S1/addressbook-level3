@@ -1,5 +1,6 @@
 package tagline.model.note;
 
+import static tagline.commons.util.AppUtil.checkArgument;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -14,6 +15,8 @@ import tagline.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Note {
+
+    public static final String MESSAGE_CONSTRAINTS = "Note requires either a title or content";
 
     // Identity fields
     private final NoteId noteid;
@@ -32,6 +35,8 @@ public class Note {
                 TimeLastEdited timeLastEdited, Set<Tag> tags) {
 
         requireAllNonNull(noteid, title, content, timeCreated, timeLastEdited, tags);
+
+        checkArgument(isValidNote(title.value, content.value), MESSAGE_CONSTRAINTS);
 
         this.noteid = noteid;
         this.title = title;
@@ -85,6 +90,13 @@ public class Note {
      */
     public Boolean removeTag(Tag tag) {
         return tags.remove(tag);
+    }
+
+    /**
+     * Returns true if a given either title or content is non-empty.
+     */
+    public static boolean isValidNote(String titleValue, String contentvalue) {
+        return !(titleValue.isEmpty() && contentvalue.isEmpty());
     }
 
     /**

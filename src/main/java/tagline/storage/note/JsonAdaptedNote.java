@@ -1,7 +1,5 @@
 package tagline.storage.note;
 
-//import java.sql.Time;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -72,7 +70,7 @@ public class JsonAdaptedNote {
     public JsonAdaptedNote(Note source) {
 
         noteId = source.getNoteId().getStorageString();
-        title = source.getTitle().titleDescription;
+        title = source.getTitle().value;
         content = source.getContent().value;
         timeCreated = source.getTimeCreated().getTime().getStorageString();
         timeLastEdited = source.getTimeLastEdited().getTime().getStorageString();
@@ -119,26 +117,18 @@ public class JsonAdaptedNote {
         if (content == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Content.class.getSimpleName()));
         }
-        if (!Content.isValidContent(content)) {
-            throw new IllegalValueException(Content.MESSAGE_CONSTRAINTS);
-        }
         final Content modelContent = new Content(content);
 
         if (timeCreated == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, TimeCreated.class.getSimpleName()));
         }
-        //regex for Date validation is ommitted due to its complexity
-        //if (!TimeCreated.isValidTimeCreated(timeCreated)) {
-        //    throw new IllegalValueException(TimeCreated.MESSAGE_CONSTRAINTS);
-        //}
         final TimeCreated modelTimeCreated = new TimeCreated(new Date(timeCreated));
 
         if (timeLastEdited == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, TimeLastEdited.class.getSimpleName()));
         }
-        //regex for Date validation is ommitted due to its complexity
         final TimeLastEdited modelTimeLastEdited = new TimeLastEdited(new Date(timeLastEdited));
 
         if (noteIdCount == null) {
@@ -151,6 +141,10 @@ public class JsonAdaptedNote {
         NoteIdCounter.setCountFromStorage(noteIdCount);
 
         final Set<Tag> modelTags = new HashSet<>(noteTags);
+
+        if (!Note.isValidNote(title, content)) {
+            throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
+        }
         return new Note(modelNoteId, modelTitle, modelContent, modelTimeCreated, modelTimeLastEdited, modelTags);
     }
 

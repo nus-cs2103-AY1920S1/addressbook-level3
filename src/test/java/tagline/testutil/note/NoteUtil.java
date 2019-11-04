@@ -23,7 +23,7 @@ public class NoteUtil {
      */
     public static String getNoteDetails(Note note) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_TITLE + note.getTitle().titleDescription + " ");
+        sb.append(PREFIX_TITLE + note.getTitle().value + " ");
         sb.append(PREFIX_CONTENT + note.getContent().value + " ");
         /* TO ADD GET TAGS WHEN TAG IMPLEMENTED */
         return sb.toString();

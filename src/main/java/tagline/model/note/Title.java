@@ -1,6 +1,7 @@
 package tagline.model.note;
 
 import static java.util.Objects.requireNonNull;
+import static tagline.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's name in the address book.
@@ -8,7 +9,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class Title {
 
-    public final String titleDescription;
+    public static final String MESSAGE_CONSTRAINTS =
+            "Titles can take any values but is limited to 50 characters.";
+
+    public final String value;
 
     /**
      * Constructs a {@code Name}.
@@ -17,24 +21,32 @@ public class Title {
      */
     public Title(String title) {
         requireNonNull(title);
-        titleDescription = title;
+        checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
+        value = title;
+    }
+
+    /**
+     * Returns true if a given string is a valid title of maximum 50 characters.
+     */
+    public static boolean isValidTitle(String test) {
+        return test.length() <= 50;
     }
 
     @Override
     public String toString() {
-        return titleDescription;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Title// instanceof handles nulls
-                && titleDescription.equals(((Title) other).titleDescription)); // state check
+                && value.equals(((Title) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return titleDescription.hashCode();
+        return value.hashCode();
     }
 
 }

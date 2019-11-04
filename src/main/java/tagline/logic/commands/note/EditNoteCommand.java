@@ -106,7 +106,8 @@ public class EditNoteCommand extends NoteCommand {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Note createEditedNote(Note noteToEdit, EditNoteDescriptor editNoteDescriptor) {
+    private static Note createEditedNote(Note noteToEdit, EditNoteDescriptor editNoteDescriptor)
+            throws CommandException {
         assert noteToEdit != null;
 
         NoteId noteId = noteToEdit.getNoteId();
@@ -116,6 +117,9 @@ public class EditNoteCommand extends NoteCommand {
         TimeLastEdited editTime = new TimeLastEdited();
         Set<Tag> updateTags = editNoteDescriptor.getTags().orElse(noteToEdit.getTags());
 
+        if (!Note.isValidNote(updateTitle.value, updatedContent.value)) {
+            throw new CommandException(Note.MESSAGE_CONSTRAINTS);
+        }
         return new Note(noteId, updateTitle, updatedContent, timeCreated, editTime, updateTags);
     }
 

@@ -15,18 +15,14 @@ import org.junit.jupiter.api.Test;
 
 import tagline.testutil.note.NoteBuilder;
 
-//import static tagline.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static tagline.logic.commands.NoteCommandTestUtil.*;
-//import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_PROTECTOR;
-//import static tagline.logic.commands.NoteCommandTestUtil.VALID_NOTEID_PROTECTOR;
-//import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMECREATED_PROTECTOR;
-//import static tagline.testutil.TypicalPersons.ALICE;
-//import static tagline.testutil.TypicalPersons.BOB;
-
 public class NoteTest {
+
+    @Test
+    public void constructor_invalidNote_throwIllegalArgumentException() {
+        // Title and content are both empty
+        assertThrows(IllegalArgumentException.class,
+                Note.MESSAGE_CONSTRAINTS, () -> new NoteBuilder().withTitle("").withContent("").build());
+    }
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
@@ -45,27 +41,6 @@ public class NoteTest {
         // different id -> returns false
         Note editedProtector = new NoteBuilder(PROTECTOR).withNoteId(VALID_NOTEID_INCIDENT).build();
         assertFalse(PROTECTOR.isSameNote(editedProtector));
-
-        //// different content -> returns false
-        //editedProtector = new NoteBuilder(PROTECTOR).withContent(VALID_CONTENT_INCIDENT)
-        //    .withTimeCreated(VALID_TIMECREATED_PROTECTOR).build();
-        //assertFalse(PROTECTOR.isSameNote(editedProtector));
-
-        //// different timecreated -> returns false
-        //editedProtector = new NoteBuilder(PROTECTOR).withContent(VALID_CONTENT_PROTECTOR)
-        //        .withTimeCreated(VALID_TIMECREATED_INCIDENT).build();
-        //assertFalse(PROTECTOR.isSameNote(editedProtector));
-
-        //// different content and timecreated -> returns false
-        //editedProtector = new NoteBuilder(PROTECTOR).withContent(VALID_CONTENT_INCIDENT)
-        //        .withTimeCreated(VALID_TIMECREATED_INCIDENT).build();
-        //assertFalse(PROTECTOR.isSameNote(editedProtector));
-
-        //// same name, same phone, different attributes -> returns true
-        //editedProtector = new NoteBuilder(PROTECTOR).withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT)
-        //        //.withAddress(VALID_ADDRESS_BOB)
-        //        .withTags(VALID_TAG_HUSBAND).build();
-        //assertTrue(PROTECTOR.isSameNote(editedProtector));
 
         // different timecreated -> returns true
         editedProtector = new NoteBuilder(PROTECTOR).withTimeCreated(VALID_TIMECREATED_INCIDENT).build();

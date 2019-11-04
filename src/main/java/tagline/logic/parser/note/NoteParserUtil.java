@@ -3,15 +3,21 @@ package tagline.logic.parser.note;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.stream.Stream;
+
+import tagline.logic.parser.ArgumentMultimap;
+import tagline.logic.parser.Prefix;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.model.note.Content;
 import tagline.model.note.NoteId;
+import tagline.model.note.Title;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class NoteParserUtil {
-    public static final String MESSAGE_INVALID_INDEX = "Note index is not a non-zero unsigned long.";
+    public static final String ERROR_INVALID_INDEX = "Note index is not a non-zero unsigned number: %1$s";
+    public static final String ERROR_SINGLE_PREFIX_USAGE =
+            "Please only provide a single instance of the prefix: %1$s";
 
     /**
      * Parses {@code noteId} into an {@code NoteId} and returns it. Leading and trailing whitespaces will be
@@ -21,9 +27,23 @@ public class NoteParserUtil {
     public static NoteId parseIndex(String noteId) throws ParseException {
         String trimmedId = noteId.trim();
         if (!isNonZeroUnsignedLong(trimmedId)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(String.format(ERROR_INVALID_INDEX, noteId));
         }
         return new NoteId(Long.parseLong(trimmedId));
+    }
+
+    /**
+     * Parses {@code title} into a {@code Title} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified title is invalid (more than 50 characters).
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Title(trimmedTitle);
     }
 
     /**
@@ -45,17 +65,31 @@ public class NoteParserUtil {
     }
 
     /**
-     * Parses a {@code String content} into an {@code Content}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code content} is invalid.
+     * Returns true if any of the prefixes contains non-empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
      */
-    public static Content parseContent(String content) throws ParseException {
-        requireNonNull(content);
-        String trimmedContent = content.trim();
-        if (!Content.isValidContent(trimmedContent)) {
-            throw new ParseException(Content.MESSAGE_CONSTRAINTS);
+    public static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean allPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Checks there is at most one value in the {@code argMultimap} for the {@code prefixes} provided.
+     * If more than one value is found, a {@code ParseException} is thrown.
+     */
+    public static void checkSinglePrefixUsage(ArgumentMultimap argMultimap, Prefix... prefixes)
+            throws ParseException {
+        for (Prefix prefix : prefixes) {
+            if (argMultimap.getAllValues(prefix).size() > 1) {
+                throw new ParseException(String.format(ERROR_SINGLE_PREFIX_USAGE, prefix));
+            }
         }
-        return new Content(trimmedContent);
     }
 }
