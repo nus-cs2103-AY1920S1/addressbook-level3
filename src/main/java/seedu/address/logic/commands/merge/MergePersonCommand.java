@@ -10,6 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
@@ -88,6 +89,11 @@ public class MergePersonCommand extends MergeCommand {
         if (hasDifferentDateOfBirth) {
             differentFields.add(new String[]{
                 DateOfBirth.DATA_TYPE, originalPerson.getDateOfBirth().value, inputPerson.getDateOfBirth().value});
+        }
+        boolean hasDifferentGender = !originalPerson.getGender().equals(inputPerson.getGender());
+        if (hasDifferentGender) {
+            differentFields.add(new String[]{
+                    Gender.DATA_TYPE, originalPerson.getGender().gender, inputPerson.getGender().gender});
         }
         return null;
     }
