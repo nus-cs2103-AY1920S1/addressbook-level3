@@ -15,6 +15,7 @@ import seedu.ezwatchlist.model.show.Description;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Episode;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -123,6 +124,11 @@ public class ParserUtil {
     public static RunningTime parseRunningTime(String runningTime) throws ParseException {
         requireNonNull(runningTime);
         String trimmedRunningTime = runningTime.trim();
+        try {
+            Integer.parseInt(trimmedRunningTime);
+        } catch (NumberFormatException e) {
+            throw new ParseException(RunningTime.MESSAGE_CONSTRAINTS);
+        }
         if (!RunningTime.isValidRunningTime(Integer.parseInt(trimmedRunningTime))) {
             throw new ParseException(RunningTime.MESSAGE_CONSTRAINTS);
         }
@@ -173,7 +179,7 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_NUM_OF_EPISODES);
         }
 
-        if (intNumberOfEpisodesWatched < 0) {
+        if (!Episode.isValidEpisodeNum(Integer.parseInt(numOfEpisodesWatched))) {
             throw new ParseException(MESSAGE_INVALID_NUM_OF_EPISODES);
         }
 

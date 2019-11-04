@@ -35,7 +35,7 @@ public class RunningTime {
      * Returns true if a given integer is a valid running time.
      */
     public static boolean isValidRunningTime(int test) {
-        return test >= 0;
+        return test >= 0 && test < Integer.MAX_VALUE;
     }
 
     @Override
