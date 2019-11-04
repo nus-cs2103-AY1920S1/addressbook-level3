@@ -24,8 +24,9 @@ import seedu.address.model.employee.EmployeeGender;
 import seedu.address.model.employee.EmployeeId;
 import seedu.address.model.employee.EmployeeJoinDate;
 import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.employee.EmployeePhone;
-import seedu.address.model.employee.EmployeePosition;
+import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventDayTime;
@@ -73,18 +74,53 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String position} into a {@code EmployeePosition}.
+     * Parses a {@code String phone} into a {@code EmployeePhone}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code position} is invalid.
+     * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static EmployeePosition parsePosition(String position) throws ParseException {
-        requireNonNull(position);
-        String trimmedPosition = position.trim();
-        if (!EmployeePosition.isValidPosition(trimmedPosition)) {
-            throw new ParseException(EmployeePosition.MESSAGE_CONSTRAINTS);
+    public static EmployeeSalaryPaid parseSalaryPaid(String salaryPaid) throws ParseException {
+        requireNonNull(salaryPaid);
+        String trimmed = salaryPaid.trim();
+
+        if (!EmployeeSalaryPaid.isValidSalaryPaid(trimmed)) {
+            throw new ParseException(EmployeeSalaryPaid.MESSAGE_CONSTRAINTS);
         }
-        return new EmployeePosition(trimmedPosition);
+
+        return new EmployeeSalaryPaid(trimmed);
+    }
+
+    /**
+     * Parses a {@code String money} into a double value
+     * Assumed trimmed and non-null.
+     */
+    public static double parseMoney(String moneyString) throws ParseException {
+        double money;
+        try {
+            money = Double.parseDouble(moneyString);
+            if (money < 0) {
+                throw new IllegalArgumentException();
+            }
+            return money;
+        } catch (IllegalArgumentException e) {
+            throw new ParseException("Money must be a valid integer/double, and cannot be negative");
+        }
+    }
+
+
+    /**
+     * Parses a {@code String phone} into a {@code EmployeePhone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     */
+    public static EmployeePay parsePay(String pay) throws ParseException {
+        requireNonNull(pay);
+        String trimmedPay = pay.trim();
+        if (!EmployeePay.isValidPay(trimmedPay)) {
+            throw new ParseException(EmployeePay.MESSAGE_CONSTRAINTS);
+        }
+        return new EmployeePay(trimmedPay);
     }
 
     /**
