@@ -133,6 +133,10 @@ public interface Model {
     Attendance getAttendance();
 
     /**
+     * Resets all data in Attendance.
+     */
+    void resetAttendance();
+    /**
      * Checks with Attendance if there was a Training on {@code date}.
      * @param date Date of training.
      * @return Boolean indicating if there was a training on {@code date}.

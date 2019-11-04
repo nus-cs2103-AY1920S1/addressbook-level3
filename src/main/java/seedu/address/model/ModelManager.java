@@ -260,6 +260,11 @@ public class ModelManager implements Model {
         return this.attendance;
     }
 
+    @Override
+    public void resetAttendance() {
+        this.attendance.resetAttendance();
+    }
+
     //=========== Performance =================================================================================
 
     @Override

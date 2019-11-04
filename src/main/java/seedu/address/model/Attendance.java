@@ -25,6 +25,13 @@ public class Attendance {
     }
 
     /**
+     * Resets all data in the Attendance.
+     */
+    public void resetAttendance() {
+        this.trainings = new ArrayList<>();
+    }
+
+    /**
      * Add a training to the AttendanceManager.
      *
      * @param training Training to add.

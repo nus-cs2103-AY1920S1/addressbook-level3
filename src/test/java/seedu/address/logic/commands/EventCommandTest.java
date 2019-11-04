@@ -253,6 +253,12 @@ public class EventCommandTest {
         public Attendance getAttendance() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void resetAttendance() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public boolean hasTrainingOnDate(AthletickDate training) {
             throw new AssertionError("This method should not be called.");
