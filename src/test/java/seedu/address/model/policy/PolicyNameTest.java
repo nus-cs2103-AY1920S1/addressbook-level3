@@ -28,13 +28,13 @@ public class PolicyNameTest {
         assertFalse(PolicyName.isValidName("")); // empty string
         assertFalse(PolicyName.isValidName(" ")); // spaces only
         assertFalse(PolicyName.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(PolicyName.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(PolicyName.isValidName("health*")); // contains non-alphanumeric characters
 
         // valid name
-        assertTrue(PolicyName.isValidName("peter jack")); // alphabets only
+        assertTrue(PolicyName.isValidName("health insured")); // alphabets only
         assertTrue(PolicyName.isValidName("12345")); // numbers only
-        assertTrue(PolicyName.isValidName("peter the 2nd")); // alphanumeric characters
-        assertTrue(PolicyName.isValidName("Capital Tan")); // with capital letters
-        assertTrue(PolicyName.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(PolicyName.isValidName("health the 2nd")); // alphanumeric characters
+        assertTrue(PolicyName.isValidName("Health Insurance")); // with capital letters
+        assertTrue(PolicyName.isValidName("Fire Insurance of personal mobility devices")); // long names
     }
 }
