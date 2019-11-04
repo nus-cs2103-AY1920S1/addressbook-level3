@@ -482,17 +482,17 @@ There were a few considerations for implementing an interface that essentially a
 Where to effect change when a setting is changed by the user
 | **Effecting the change inside the `execute()` command of the settings commands**: +
  +
-_Pros:_ +
+[underline]_Pros:_ +
 Since the Command is taking care of all the execution, there is no need to worry about extra implementation of the settings' effects in their classes. +
  +
-_Cons:_ +
+[underline]_Cons:_ +
 However, there are certain situations that will break software design principles, such as the *Single Responsibility Principle* by doing the job of already existing classes.
 |**Effecting the change in the part of the architecture that the setting is affecting. E.g, Changing the theme inside Ui or changing the difficulty inside model** +
  +
-_Pros:_ +
+[underline]_Pros:_ +
 This method practises good software engineering principles and it abides by the architecture diagram shown above as to where the changes of the settings are being effected. +
  +
-_Cons:_ +
+[underline]_Cons:_ +
 This method however requires that the reader gets familiar with the whole architecture diagram as they need to know where to implement the actual change in settings as opposed to creating a new class that performs the same functionality of an existing class.
 
 3+|**Why did we choose Alternative 2:** +
@@ -502,17 +502,17 @@ We believe that software design principles exist for a reason. Furthermore, whil
 How to store information regarding the different settings
 | **Storing it inside the enumerations that make up the choices for the settings** +
  +
-_Pros:_ +
+[underline]_Pros:_ +
 Having the information stored inside the enum allows for immutablilty, such that no other class can change the properties of the enums. Only the developer can change the values of the enums and it will subsequently affect all the methods and functionality that relies on said enum. +
  +
-_Cons:_ +
+[underline]_Cons:_ +
 In the case that the user wants to customise certain continuous settings such as time limit, they are unable to as those settings are already defined by the developer to be discrete options.
 | **Storing it inside the classes that implement the settings** +
  +
-_Pros_ +
+[underline]_Pros_ +
 The information is easily accessible from within the class itself and there is no need for extra import classes to handle the enums in alternative 1. +
  +
-_Cons_ +
+[underline]_Cons_ +
 Unlike Alternative 1, the developer can create an extension to the class implementing the setting to allow the user to customise their settings even further, allowing for continuous values to be used rather than discrete values.
 3+| **Why did we choose Alternative 1:** +
 The considerations for this aspect was mainly down to how much customisability we wanted to grant our users. While having more customisability is better in some cases,
