@@ -10,7 +10,6 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
  * Represents an Order in the application.

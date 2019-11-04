@@ -94,6 +94,9 @@ public class AddOrderCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, order));
     }
 
+    /**
+     * Checks if an order is valid.
+     */
     static void isValidOrder(Order toAdd, Model model) throws CommandException {
         Customer customerToAdd = null;
         Restaurant restaurantToAdd = null;

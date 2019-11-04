@@ -9,12 +9,9 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.RecordIndex;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsManager;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusManager;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
-import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 
 /**
  * Wraps all Deliverymen data at the deliverymen-database level
@@ -78,8 +75,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void addDeliveryman(Deliveryman man) {
         deliverymen.add(man);
-        RecordIndex recordIndex = statisticsManager.createNewRecord(man.getName());
-        man.setRecordId(recordIndex);
         statusManager.addUnavailableMan(man);
     }
 
@@ -109,13 +104,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     // ========= Methods related to list command =================================================================
 
     /**
-     * Returns the list that contains all deliverymen with the same status.
-     */
-    public ObservableList<Deliveryman> getStatusSortedDeliverymenList() {
-        return statusSortedList;
-    }
-
-    /**
      * Lists all the available deliverymen;
      */
     public ObservableList<Deliveryman> getAvailableDeliverymenList() {
@@ -134,27 +122,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public ObservableList<Deliveryman> getUnavailableDeliverymenList() {
         return statusManager.listUnavailableMen();
-    }
-
-    /**
-     * Sets the status list in ModelManager to display available deliverymen.
-     * Called by the lista command.
-     */
-    public void resetAvailableList() {
-        statusSortedList.clear();
-        for (Deliveryman man : statusManager.listAvailableMen()) {
-            if (contains(man)) {
-                continue;
-            }
-            statusSortedList.add(man);
-        }
-    }
-
-    /**
-     * Called when there are changes made to the status list. (by Delete, StatusSwitch commands)
-     */
-    public void updateStatusList() {
-        resetAvailableList();
     }
 
     /**
@@ -189,13 +156,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     }
 
     // ========== Methods related to Statistics ================================================================
-
-    /**
-     * Retrieves a record of a given deliveryman.
-     */
-    public DeliveryRecord getDeliverymanRecord(Deliveryman deliveryman) {
-        return statisticsManager.retrieveRecord(deliveryman.getRecordId());
-    }
 
 
     // ========== util methods =================================================================================
