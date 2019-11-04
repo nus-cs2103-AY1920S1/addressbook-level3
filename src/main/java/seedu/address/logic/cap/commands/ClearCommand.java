@@ -6,7 +6,7 @@ import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.Model;
 
 /**
- * Clears the address book.
+ * Clears the Cap Log.
  */
 public class ClearCommand extends Command {
 

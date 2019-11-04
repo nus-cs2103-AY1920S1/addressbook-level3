@@ -3,6 +3,10 @@ package seedu.address.model.cap.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Represents an Academic year of a NUS student.
  * Guarantees: immutable.
@@ -15,9 +19,9 @@ public class AcademicYear {
     private final String academicYear;
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs an {@code AcademicYear}.
      *
-     * @param academicYear A valid phone number.
+     * @param academicYear A valid academic year.
      */
     public AcademicYear(String academicYear) {
         requireNonNull(academicYear);
@@ -45,21 +49,18 @@ public class AcademicYear {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidAcademicYear(String academicYear) {
-        switch (academicYear.toLowerCase()) {
-        case "1415":
-        case "1516":
-        case "1617":
-        case "1718":
-        case "1819":
-        case "1920":
-        case "2021":
-        case "2122":
-        case "2223":
-        case "2324":
-        case "2425":
-            return true;
-        default:
+        DateFormat df = new SimpleDateFormat("yy");
+        int formattedDate = Integer.parseInt(df.format(Calendar.getInstance().getTime()));
+
+        int firstYear = Integer.valueOf(academicYear.substring(0, 2));
+        int secondYear = Integer.valueOf(academicYear.substring(2, 4));
+
+        if (secondYear > (formattedDate + 6) || firstYear > (formattedDate + 5)) {
             return false;
+        } else if (secondYear < (formattedDate - 4) || firstYear < (formattedDate - 5)) {
+            return false;
+        } else {
+            return true;
         }
     }
 }
