@@ -151,7 +151,7 @@ public class AddEarningsCommandTest {
         }
 
         @Override
-        void setReminder(Reminder reminder, Reminder editedReminder) {
+        public void setReminder(Reminder reminder, Reminder editedReminder) {
             throw new AssertionError("This method should not be called.");
         };
 
