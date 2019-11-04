@@ -1,6 +1,7 @@
 package seedu.address.testutil.modelutil;
 
 import seedu.address.model.ModelManager;
+import seedu.address.model.NusModsData;
 import seedu.address.model.TimeBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupList;
@@ -37,6 +38,20 @@ public class TypicalModel {
 
         ModelManager modelManager = new ModelManager(timeBook);
 
+        return modelManager;
+    }
+
+    /**
+     * Generate a model with NusModsData loaded.
+     *
+     * @return Model.
+     */
+    public static ModelManager generateModelWithNusModsData()
+            throws DuplicatePersonException, DuplicateGroupException, DuplicateMappingException {
+        ModelManager modelManager = generateTypicalModel();
+        NusModsData nusModsData = new NusModsData();
+        nusModsData.loadAllFromCache();
+        modelManager.setNusModsData(nusModsData);
         return modelManager;
     }
 }

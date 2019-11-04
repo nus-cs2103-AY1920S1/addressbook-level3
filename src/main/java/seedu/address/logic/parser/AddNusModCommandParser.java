@@ -55,8 +55,8 @@ public class AddNusModCommandParser implements Parser<AddNusModCommand> {
         }
 
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
-        Map<LessonType, LessonNo> lessonTypeNumMap;
-        lessonTypeNumMap = ParserUtil.parseLessonTypeNumMap(argMultimap.getValue(PREFIX_LESSON_TYPE_AND_NUM).get());
+        Map<LessonType, LessonNo> lessonTypeNumMap = ParserUtil.parseLessonTypeNumMap(
+                argMultimap.getValue(PREFIX_LESSON_TYPE_AND_NUM).get());
 
         return new AddNusModCommand(name, moduleCode, lessonTypeNumMap);
     }

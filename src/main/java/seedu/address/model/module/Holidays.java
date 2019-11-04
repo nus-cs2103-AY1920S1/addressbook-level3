@@ -1,6 +1,7 @@
 package seedu.address.model.module;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,6 +9,10 @@ import java.util.List;
  */
 public class Holidays {
     private List<LocalDate> holidayDates;
+
+    public Holidays() {
+        holidayDates = new ArrayList<>();
+    }
 
     public Holidays(List<LocalDate> holidays) {
         holidayDates = holidays;

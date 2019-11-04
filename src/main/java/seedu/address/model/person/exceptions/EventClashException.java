@@ -11,4 +11,7 @@ public class EventClashException extends Exception {
         super("Clash in event: " + event.getEventName());
     }
 
+    public EventClashException() {
+        super("Clash in event.");
+    }
 }

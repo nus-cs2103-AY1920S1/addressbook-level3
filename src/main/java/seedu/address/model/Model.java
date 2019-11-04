@@ -353,12 +353,15 @@ public interface Model {
 
     NusModsData getNusModsData();
 
+    void setNusModsData(NusModsData nusModsData);
+
     /**
      * Returns a module for the given ModuleId (academic year and module code).
-     * Tries to find the module from the 3 sources in order:
+     * Tries to find the module from the 4 sources in order:
      * 1. Model.NusModsData.ModuleList (in-memory)
-     * 2. Cache Folder
-     * 3. NusModsApi
+     * 2. tempdir folder
+     * 3. resources folder
+     * 4. NusModsApi
      */
     Module findModule(ModuleId id);
 

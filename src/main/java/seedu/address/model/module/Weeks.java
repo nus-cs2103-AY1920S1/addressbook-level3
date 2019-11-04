@@ -1,9 +1,10 @@
 package seedu.address.model.module;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.List;
-
-import seedu.address.commons.exceptions.IllegalValueException;
+import java.util.Objects;
 
 /**
  * Weeks of the {@code Lesson}, used to represent the schedule of a lesson.
@@ -16,9 +17,14 @@ public class Weeks {
     private int weekInterval;
 
     public Weeks(List<Integer> weekNumbers, LocalDate startDate,
-                 LocalDate endDate, int weekInterval, WeeksType type) throws IllegalValueException {
+                 LocalDate endDate, int weekInterval, WeeksType type) {
+        requireNonNull(weekNumbers);
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        requireNonNull(weekInterval);
+        requireNonNull(type);
         if (startDate.isAfter(endDate)) { //DEFENSIVE CODE
-            throw new IllegalValueException("Start date cannot be after end date.");
+            throw new IllegalArgumentException("Start date cannot be after end date.");
         }
         this.weekNumbers = weekNumbers;
         this.startDate = startDate;
@@ -31,40 +37,20 @@ public class Weeks {
         return weekNumbers;
     }
 
-    public void setWeekNumbers(List<Integer> weekNumbers) {
-        this.weekNumbers = weekNumbers;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
     public int getWeekInterval() {
         return weekInterval;
     }
 
-    public void setWeekInterval(int weekInterval) {
-        this.weekInterval = weekInterval;
-    }
-
     public WeeksType getType() {
         return type;
-    }
-
-    public void setType(WeeksType type) {
-        this.type = type;
     }
 
     @Override
@@ -85,5 +71,29 @@ public class Weeks {
         default: assert false;
         }
         return output;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Weeks)) {
+            return false;
+        }
+        Weeks w = (Weeks) other;
+        if (w == this) {
+            return true;
+        } else if (w.type.equals(this.type)
+                && w.weekNumbers.equals(this.weekNumbers)
+                && w.startDate.equals(this.startDate)
+                && w.endDate.equals(this.endDate)
+                && w.weekInterval == this.weekInterval) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, weekNumbers, startDate, endDate, weekInterval);
     }
 }
