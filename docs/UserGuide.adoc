@@ -589,6 +589,16 @@ image::NotificationOffFeedbackScreenShot.png[]
 === Undo-Redo
 The following commands allow you to undo and redo previously input commands.
 
+The below commands will only affect state-changing, and not UI-related commands. The commands that will be affected are as follows:
+
+* *add_event*
+* *delete_event*
+* *edit_event*
+* *add_task*
+* *delete_task*
+* *edit_task*
+
+
 ==== Undo
 
 .Undo Command
