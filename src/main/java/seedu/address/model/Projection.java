@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -11,8 +13,6 @@ import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.GradientDescent;
-
-import java.util.Optional;
 
 /**
  * Represents a projection of user's balance at a set date in the future\
@@ -83,10 +83,10 @@ public class Projection {
         if (this.getBudget().isEmpty()) {
             return "";
         }
-        return this.budgetProjection.getIntegerValue() > 0 ?
-                String.format(ProjectCommand.MESSAGE_BUDGET_SUCCESS,
-                        this.budget.toString(), this.budgetProjection.toString()) :
-                String.format(ProjectCommand.MESSAGE_BUDGET_CAUTION,
+        return this.budgetProjection.getIntegerValue() > 0
+                ? String.format(ProjectCommand.MESSAGE_BUDGET_SUCCESS,
+                        this.budget.toString(), this.budgetProjection.toString())
+                : String.format(ProjectCommand.MESSAGE_BUDGET_CAUTION,
                         this.budget.toString(), this.budgetProjection.toString());
     }
 

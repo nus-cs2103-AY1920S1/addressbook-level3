@@ -114,7 +114,8 @@ public class ProjectionGraph extends StackPane {
         projectionLine.getYAxis().setVisible(false);
         projectionLine.setCreateSymbols(false);
         projectionLine.setTitle(String.format("Balance Projection over %.0f days", this.xRange));
-        projectionLine.getStylesheets().addAll(getClass().getResource("/view/ProjectionLineChart.css").toExternalForm());
+        projectionLine.getStylesheets().addAll(getClass()
+                .getResource("/view/ProjectionLineChart.css").toExternalForm());
         return projectionLine;
     }
 
@@ -125,7 +126,8 @@ public class ProjectionGraph extends StackPane {
         XYChart.Series<Number, Number> projectionSeries = new XYChart.Series<>();
         projectionSeries.setName("Projection Line");
         projectionSeries.getData().add(new XYChart.Data<>(gradientDescent.getVariable(), gradientDescent.getResult()));
-        projectionSeries.getData().add(new XYChart.Data<>(gradientDescent.getMinData(), gradientDescent.getMinOutput()));
+        projectionSeries.getData().add(
+                new XYChart.Data<>(gradientDescent.getMinData(), gradientDescent.getMinOutput()));
         return projectionSeries;
     }
 

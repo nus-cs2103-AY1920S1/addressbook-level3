@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -14,7 +16,7 @@ import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.util.Date;
 
-import java.util.Optional;
+
 
 /**
  * Projects user's future balance based on income/outflow history
@@ -66,22 +68,22 @@ public class ProjectCommand extends Command {
             throw new CommandException(MESSAGE_VOID_TRANSACTION_HISTORY);
         }
 
-        if(this.getBudgetIdx().isPresent()) {
+        if (this.getBudgetIdx().isPresent()) {
             try {
                 Budget budget = model.getFilteredBudgetList().get(this.budgetIdx.getZeroBased());
                 this.projection = new Projection(transactionHistory, date, budget);
-            } catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
             }
         } else {
             this.projection = new Projection(transactionHistory, date);
         }
 
-        return transactionHistory.size() < RECOMMENDED_MINIMUM_TRANSACTIONS ?
-                new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString(),
+        return transactionHistory.size() < RECOMMENDED_MINIMUM_TRANSACTIONS
+                ? new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString(),
                         projection.getBudgetForecastText()),
-                        String.format(MESSAGE_WARNING, SMALL_SAMPLE_SIZE)) :
-                new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString(),
+                        String.format(MESSAGE_WARNING, SMALL_SAMPLE_SIZE))
+                : new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString(),
                         projection.getBudgetForecastText()));
     }
 

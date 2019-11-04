@@ -17,7 +17,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.util.Date;
 
@@ -238,6 +237,17 @@ public class ParserUtil {
         }
     }
 
+    /**
+     *
+     *
+     * @throws ParseException
+     */
+    /**
+     * Parse Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     * @return {@code Index} representing the budget's index
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
     public static Index parseBudgetIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
