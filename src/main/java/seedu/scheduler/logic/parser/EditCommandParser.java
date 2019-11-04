@@ -157,31 +157,32 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Converts a collection of strings into a Optional List of Departments.
+     * Converts a collection of strings into a Optional List of Departments. {@code departments} must contain at
+     * least one string.
      */
     private Optional<List<Department>> parseDepartmentsForEdit(Collection<String> departments) throws ParseException {
         assert departments != null;
 
-        if (departments.isEmpty()) {
-            return Optional.empty();
+        if (departments.size() < 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-        Collection<String> tagSet = departments.size() == 1 && departments.contains("")
+        Collection<String> departmentSet = departments.size() == 1 && departments.contains("")
                 ? Collections.emptyList() : departments;
-        return Optional.of(ParserUtil.parseDepartments(departments));
+        return Optional.of(ParserUtil.parseDepartments(departmentSet));
     }
 
     /**
-     * Converts a collection of strings into a Optional List of Slots.
+     * Converts a collection of strings into a Optional List of Slots. {@code slots} must contain at least one string.
      */
     private Optional<List<Slot>> parseSlotsForEdit(Collection<String> slots) throws ParseException {
         assert slots != null;
 
-        if (slots.isEmpty()) {
-            return Optional.empty();
+        if (slots.size() < 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-        Collection<String> tagSet = slots.size() == 1 && slots.contains("")
+        Collection<String> slotSet = slots.size() == 1 && slots.contains("")
                 ? Collections.emptyList() : slots;
-        return Optional.of(ParserUtil.parseSlots(slots));
+        return Optional.of(ParserUtil.parseSlots(slotSet));
     }
 
     /**

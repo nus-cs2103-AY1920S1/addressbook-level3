@@ -21,6 +21,8 @@ public abstract class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
+    // TODO: correct this. Interviewee: slots and departments must have at least one non-empty department
+    // TODO: Interviewer: slots must have at least one non-empty string
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the entity identified "
             + "by the entity's name used in the displayed entity list. "
             + "Existing values will be overwritten by the input values.\n"
