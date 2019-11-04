@@ -89,7 +89,7 @@ Examples:
 ==== Editing task: `edit_task`
 
 Update task information. +
-Format: `edit_task INDEX [mark/STATUS] [tt/TASK_TIME]`
+Format: `edit_task INDEX [c/CLASSID] [mark/STATUS] [tt/TASK_TIME]`
 
 [TIP]
 INDEX must be a positive integer. +

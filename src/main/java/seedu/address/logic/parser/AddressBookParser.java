@@ -176,7 +176,11 @@ public class AddressBookParser {
                 return new FindCommandParser().parse(arguments);
 
             case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+                if(arguments.isEmpty()) {
+                    return new ListCommand();}
+                else {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -200,8 +204,11 @@ public class AddressBookParser {
                 return new DeleteTaskCommandParser().parse(arguments);
 
             case ListTasksCommand.COMMAND_WORD:
-                return new ListTasksCommand();
-
+                if(arguments.isEmpty()) {
+                    return new ListTasksCommand();}
+                else {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
             case UpdateEarningsCommand.COMMAND_WORD:
                 return new UpdateEarningsCommandParser().parse(arguments);
 
@@ -248,10 +255,18 @@ public class AddressBookParser {
                 return new FindNotesCommandParser().parse(arguments);
 
             case ListNotesCommand.COMMAND_WORD:
-                return new ListNotesCommand();
+                if(arguments.isEmpty()) {
+                    return new ListNotesCommand();}
+                else {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
 
             case TotalEarningsCommand.COMMAND_WORD:
-                return new TotalEarningsCommand();
+                if(arguments.isEmpty()) {
+                    return new TotalEarningsCommand();}
+                else {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
 
             case ListClassCommand.COMMAND_WORD:
                 return new ListClassCommandParser().parse(arguments);
