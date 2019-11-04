@@ -29,6 +29,7 @@
             </HBox>
             <Label fx:id="amount" text="\$first" styleClass="cell_big_label" />
             <FlowPane fx:id="urgentTag" />
+            <FlowPane fx:id="boughtTag" />
         </VBox>
     </GridPane>
 </HBox>

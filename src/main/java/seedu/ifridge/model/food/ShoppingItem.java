@@ -1,7 +1,13 @@
 package seedu.ifridge.model.food;
 
+import static seedu.ifridge.model.food.Amount.getUnit;
+import static seedu.ifridge.model.food.Amount.getValue;
+import static seedu.ifridge.model.food.Amount.hasSameAmountUnit;
+
 import java.util.HashSet;
 import java.util.Objects;
+
+import javafx.collections.ObservableList;
 
 /**
  * Represents a shopping item.
@@ -10,7 +16,6 @@ public class ShoppingItem extends Food {
 
     private final boolean bought;
     private final boolean urgent;
-    //private final ExpiryDate expiryDate;
 
     public ShoppingItem(Name name, Amount amount) {
         super(name, amount);
@@ -48,6 +53,38 @@ public class ShoppingItem extends Food {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(this.getName(), this.getAmount(), this.isBought(), this.isUrgent());
+    }
+
+    /**
+     * Checks if a ShoppingItem is bought in its entirety.
+     * @param shoppingItem to check if completely bought
+     * @param internalBoughtList boughtItems to compare shoppingItem with
+     * @return true if shoppingItem is completely bought, false otherwise
+     */
+    public static boolean isCompletelyBought(ShoppingItem shoppingItem,
+                                             ObservableList<GroceryItem> internalBoughtList) {
+        Amount shoppingAmount = shoppingItem.getAmount();
+        boolean result = false;
+        Amount totalBoughtAmount = new Amount("0" + getUnit(shoppingAmount));
+        for (GroceryItem boughtItem: internalBoughtList) {
+            Amount boughtAmount = boughtItem.getAmount();
+            if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
+                boughtAmount = shoppingAmount.convertAmount(boughtAmount);
+            }
+            if (!shoppingItem.getName().equals(boughtItem.getName())) {
+                continue;
+            } else if (getValue(shoppingAmount) > getValue(totalBoughtAmount)) {
+                totalBoughtAmount = totalBoughtAmount.increaseBy(boughtAmount);
+                if (getValue(shoppingAmount) <= getValue(totalBoughtAmount)) { //for when last element makes difference
+                    result = true;
+                    break;
+                }
+            } else {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override

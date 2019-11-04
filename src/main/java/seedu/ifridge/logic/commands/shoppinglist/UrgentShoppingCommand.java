@@ -1,15 +1,18 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.ifridge.commons.core.Messages;
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
@@ -25,6 +28,9 @@ public class UrgentShoppingCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS = "ShoppingItem marked as urgent is: %1$s";
+
+    public static final String MESSAGE_URGENT_SHOPPING_ITEM_FAILURE =
+            "Shopping item cannot me marked as urgent since it is already completely bought.";
 
     private final Index targetIndex;
 
@@ -42,6 +48,14 @@ public class UrgentShoppingCommand extends Command {
         }
 
         ShoppingItem shoppingItemToMarkAsUrgent = lastShownList.get(targetIndex.getZeroBased());
+        ObservableList<GroceryItem> internalBoughtList = model.getBoughtList().getGroceryList();
+        if (shoppingItemToMarkAsUrgent.isBought()) {
+            if (isCompletelyBought(shoppingItemToMarkAsUrgent, internalBoughtList)) {
+                CommandResult commandResult =
+                        new CommandResult(String.format(MESSAGE_URGENT_SHOPPING_ITEM_FAILURE));
+                return commandResult;
+            }
+        }
         model.urgentShoppingItem(shoppingItemToMarkAsUrgent);
         ShoppingItem shoppingItemToPrint = shoppingItemToMarkAsUrgent.setUrgent(true);
         model.sortShoppingItems();
@@ -59,6 +73,5 @@ public class UrgentShoppingCommand extends Command {
                 || (other instanceof UrgentShoppingCommand // instanceof handles nulls
                 && targetIndex.equals(((UrgentShoppingCommand) other).targetIndex)); // state check
     }
-
 
 }

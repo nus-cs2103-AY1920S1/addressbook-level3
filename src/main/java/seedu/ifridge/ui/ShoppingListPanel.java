@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.ifridge.commons.core.LogsCenter;
+import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
 
 
@@ -21,16 +22,21 @@ public class ShoppingListPanel extends UiPart<Region> {
     @FXML
     private ListView<ShoppingItem> shoppingListView;
 
-    public ShoppingListPanel(ObservableList<ShoppingItem> shoppingItems) {
+    public ShoppingListPanel(ObservableList<ShoppingItem> shoppingItems, ObservableList<GroceryItem> boughtItems) {
         super(FXML);
         shoppingListView.setItems(shoppingItems);
-        shoppingListView.setCellFactory(listView -> new ShoppingListViewCell());
+        shoppingListView.setCellFactory(listView -> new ShoppingListViewCell(boughtItems));
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code ShoppingItem} using a {@code ShoppingItemCard}.
      */
     class ShoppingListViewCell extends ListCell<ShoppingItem> {
+        private final ObservableList<GroceryItem> boughtList;
+
+        ShoppingListViewCell(ObservableList<GroceryItem> boughtList) {
+            this.boughtList = boughtList;
+        }
         @Override
         protected void updateItem(ShoppingItem shoppingItem, boolean empty) {
             super.updateItem(shoppingItem, empty);
@@ -39,7 +45,7 @@ public class ShoppingListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ShoppingItemCard(shoppingItem, getIndex() + 1).getRoot());
+                setGraphic(new ShoppingItemCard(shoppingItem, getIndex() + 1, boughtList).getRoot());
             }
         }
     }

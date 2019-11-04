@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
+import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
 import java.util.List;
 
@@ -68,11 +69,13 @@ public class BoughtShoppingCommand extends Command {
 
         ShoppingItem shoppingItemToMarkAsBought = lastShownList.get(index.getZeroBased());
         ShoppingItem boughtShoppingItem = shoppingItemToMarkAsBought.setBought(true);
-
         GroceryItem boughtItem = shoppingItemToMarkAsBought.getBoughtItem(amount, expiryDate);
 
-        model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
         model.addBoughtItem(boughtItem);
+        if (isCompletelyBought(shoppingItemToMarkAsBought, model.getBoughtList().getGroceryList())) {
+            boughtShoppingItem = boughtShoppingItem.setUrgent(false);
+        }
+        model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
         model.sortShoppingItems();
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         model.commitShoppingList();

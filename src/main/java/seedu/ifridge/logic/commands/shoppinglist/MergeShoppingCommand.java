@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
 import static seedu.ifridge.model.food.Amount.getValue;
+import static seedu.ifridge.model.food.Amount.hasSameAmountUnit;
 
 import java.util.List;
 import java.util.Set;
@@ -37,7 +38,7 @@ public class MergeShoppingCommand extends Command {
     private GroceryItem createUpdatedGroceryItem(GroceryItem boughtItem, GroceryItem groceryItem) {
         Name name = boughtItem.getName();
         ExpiryDate expiryDate = boughtItem.getExpiryDate();
-        Amount updatedAmount = boughtItem.getAmount().increaseBy(groceryItem.getAmount());
+        Amount updatedAmount = groceryItem.getAmount().increaseBy(boughtItem.getAmount());
         Set<Tag> tags = groceryItem.getTags();
         return new GroceryItem(name, updatedAmount, expiryDate, tags);
     }
@@ -55,6 +56,9 @@ public class MergeShoppingCommand extends Command {
             Amount shoppingAmount = shoppingItem.getAmount();
             if (!shoppingItem.getName().equals(boughtItem.getName())) {
                 continue;
+            }
+            if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
+                boughtAmount = shoppingAmount.convertAmount(boughtAmount);
             }
             if (getValue(shoppingAmount) > getValue(boughtAmount)) {
                 Amount updatedShoppingAmount = shoppingItem.getAmount().reduceBy(boughtAmount);
