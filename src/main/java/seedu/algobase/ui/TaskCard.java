@@ -1,7 +1,5 @@
 package seedu.algobase.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -9,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
 import seedu.algobase.logic.parser.ParserUtil;
+import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -81,9 +80,12 @@ public class TaskCard extends UiPart<Region> {
         source.setText(task.getSource().value);
         source.setWrapText(true);
         source.setTextAlignment(TextAlignment.JUSTIFY);
-        task.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        for (Tag tag : task.getTags()) {
+            Label l = new Label(tag.getName());
+            String colorStyle = "-fx-background-color: " + tag.getColor();
+            l.setStyle(colorStyle);
+            tags.getChildren().add(l);
+        }
     }
 
     @Override

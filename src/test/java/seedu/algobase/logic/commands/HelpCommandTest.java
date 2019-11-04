@@ -13,7 +13,7 @@ import seedu.algobase.model.UserPrefs;
 class HelpCommandTest {
 
     private static final String EXPECTED_COMMAND_LIST = "Available commands are: [add, addplan, addtag, "
-        + "clear, delete, deleteplan, deletetag, deletetask, donetask, edit, editplan, edittag, exit, "
+        + "clear, delete, deleteplan, deletetag, deletetask, donetask, edit, editplan, edittag, edittagcolor, exit, "
         + "find, findplan, help, list, listplan, listtag, sort, switchtab, undonetask]\n"
         + "More information can be found in the popup window.";
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());

@@ -1,6 +1,5 @@
 package seedu.algobase.ui;
 
-import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -17,7 +16,6 @@ import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
-import javafx.scene.paint.Color;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
@@ -87,7 +85,7 @@ public class ProblemCard extends UiPart<Region> {
         remark.setTextAlignment(TextAlignment.JUSTIFY);
         source.setText(problem.getSource().value);
 
-        for(Tag tag : problem.getTags()) {
+        for (Tag tag : problem.getTags()) {
             Label l = new Label(tag.getName());
             String colorStyle = "-fx-background-color: " + tag.getColor();
             l.setStyle(colorStyle);

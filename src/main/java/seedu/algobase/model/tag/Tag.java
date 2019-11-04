@@ -3,6 +3,8 @@ package seedu.algobase.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
+
 import seedu.algobase.model.Id;
 
 /**
@@ -15,7 +17,7 @@ public class Tag {
         "Tags names should contain only alphabets, numbers, hyphen or underscore";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]*$";
 
-    public static final String DEFAULT_COLOR = "BLACK";
+    public static final String DEFAULT_COLOR = "#3e7b91";
     public final Id id;
     public final String tagName;
     public final String tagColor;
@@ -86,7 +88,7 @@ public class Tag {
 
     @Override
     public int hashCode() {
-        return tagName.hashCode();
+        return Objects.hash(tagName.hashCode(), tagColor.hashCode());
     }
 
     /**

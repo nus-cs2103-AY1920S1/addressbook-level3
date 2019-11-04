@@ -25,7 +25,6 @@ import seedu.algobase.model.problem.Remark;
 import seedu.algobase.model.problem.Source;
 import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
-import seedu.algobase.model.tag.UniqueTagList;
 import seedu.algobase.model.task.Task;
 
 /**

@@ -23,6 +23,7 @@ import seedu.algobase.logic.commands.DeleteTaskCommand;
 import seedu.algobase.logic.commands.DoneTaskCommand;
 import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
+import seedu.algobase.logic.commands.EditTagColorCommand;
 import seedu.algobase.logic.commands.EditTagCommand;
 import seedu.algobase.logic.commands.EditTaskCommand;
 import seedu.algobase.logic.commands.ExitCommand;
@@ -135,6 +136,9 @@ public class AlgoBaseParser {
 
         case EditTagCommand.COMMAND_WORD:
             return new EditTagCommandParser().parse(arguments);
+
+        case EditTagColorCommand.COMMAND_WORD:
+            return new EditTagColorCommandParser().parse(arguments);
 
         // Find Rule
         case AddFindRuleCommand.COMMAND_WORD:
