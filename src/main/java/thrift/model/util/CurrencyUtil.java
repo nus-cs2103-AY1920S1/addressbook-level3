@@ -4,13 +4,17 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import thrift.commons.core.LogsCenter;
 import thrift.model.transaction.Value;
 
 /**
  * Contains utility methods for dealing with currencies.
  */
 public class CurrencyUtil {
+
+    private static final Logger logger = LogsCenter.getLogger(CurrencyUtil.class);
 
     private static Map<String, Double> currencyMappings;
 
@@ -55,7 +59,16 @@ public class CurrencyUtil {
     }
 
     public static void setCurrencyMap(Map<String, Double> currencyMappings) {
-        CurrencyUtil.currencyMappings = currencyMappings;
+        assert currencyMappings != null; //assumption: currencyMappings is not null
+
+
+        if (currencyMappings != null && currencyMappings.size() > 0) {
+            CurrencyUtil.currencyMappings = currencyMappings;
+            logger.info("Currency mapping has been successfully modified.");
+        } else {
+            logger.info("Currency mapping has not been modified.");
+            assert currencyMappings == null; //assumption: if this else block is trigger, it is null
+        }
     }
 
     /**
@@ -70,6 +83,9 @@ public class CurrencyUtil {
      */
     public static double convertFromDefaultCurrency(Map<String, Double> currencyMappings, double value,
                                                     String currency) {
+        assert currencyMappings != null; //assumption: currencyMappings passed in is not null
+        assert currency != null; //assumption: currency passed in is not null
+
         requireNonNull(currencyMappings);
         requireNonNull(value);
         requireNonNull(currency);
@@ -91,6 +107,9 @@ public class CurrencyUtil {
      * @return Amount in {@link Value#DEFAULT_CURRENCY} denomination as a double.
      */
     public static double convertToDefaultCurrency(Map<String, Double> currencyMappings, double value, String currency) {
+        assert currencyMappings != null; //assumption: currencyMappings passed in is not null
+        assert currency != null; //assumption: currency passed in is not null
+
         requireNonNull(currencyMappings);
         requireNonNull(value);
         requireNonNull(currency);
@@ -113,6 +132,11 @@ public class CurrencyUtil {
      */
     public static double convert(Map<String, Double> currencyMappings, double value,
                                  String currencyFrom, String currencyTo) {
+
+        assert currencyMappings != null; //assumption: currencyMappings passed in is not null
+        assert currencyTo != null; //assumption: currencyTo passed in is not null
+        assert currencyFrom != null; //assumption: currencyFrom passed in is not null
+
         requireNonNull(currencyMappings);
         requireNonNull(value);
         requireNonNull(currencyTo);

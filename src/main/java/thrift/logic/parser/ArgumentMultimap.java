@@ -49,6 +49,9 @@ public class ArgumentMultimap {
      * @throws ParseException if more than one argument with the same prefix is provided
      */
     public Optional<String> getSingleValue(Prefix prefix) throws ParseException {
+        assert prefix != null; //assumption: prefix is not null
+        assert prefix.getPrefix() != null; //assumption: prefix is created correctly
+
         List<String> values = getAllValues(prefix);
 
         if (values.size() > 1) {

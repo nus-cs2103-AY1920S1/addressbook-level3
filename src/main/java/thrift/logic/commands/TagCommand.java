@@ -86,7 +86,10 @@ public class TagCommand extends ScrollingCommand implements Undoable {
 
     @Override
     public CommandResult execute(Model model, TransactionListPanel transactionListPanel) throws CommandException {
+        assert model != null;
+
         requireNonNull(model);
+
         List<Transaction> lastShownList = model.getFilteredTransactionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -131,7 +134,11 @@ public class TagCommand extends ScrollingCommand implements Undoable {
      */
     private Transaction createTaggedTransaction(Transaction transactionToTag,
             Set<Tag> tagSet) throws CommandException {
-        assert transactionToTag != null;
+        assert transactionToTag != null; //assumption: the specified transaction is not null
+        assert tagSet != null; //assumption: the specified set of tags is not null
+
+        requireNonNull(transactionToTag);
+        requireNonNull(tagSet);
 
         Description oldDescription = transactionToTag.getDescription();
         Value oldValue = transactionToTag.getValue();

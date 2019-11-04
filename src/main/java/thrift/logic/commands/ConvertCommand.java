@@ -1,5 +1,6 @@
 package thrift.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static thrift.model.transaction.Value.DECIMAL_FORMATTER;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ConvertCommand extends NonScrollingCommand {
             + "from the first specified currency to the rest of the specified currencies.\n"
             + "If no value is specified, it converts with a value of " + DEFAULT_VALUE + ".\n"
             + "If only one currency is specified, it converts from " + DEFAULT_CURRENCY + " to that currency.\n"
+            + "Note: This command works offline, so conversions might not be up to date. \n"
             + "Parameters: [" + CliSyntax.PREFIX_VALUE + "AMOUNT] (up to 2 decimal places) "
             + CliSyntax.PREFIX_CURRENCY + "CURRENCIES...\n"
             + "Example: " + COMMAND_WORD + " "
@@ -43,6 +45,7 @@ public class ConvertCommand extends NonScrollingCommand {
             + ": Converts amount from the first specified currency to the rest of the specified currencies.\n"
             + "If no value is specified, it converts with a value of " + DEFAULT_VALUE + ".\n"
             + "If only one currency is specified, it converts from " + DEFAULT_CURRENCY + " to that currency.\n"
+            + "Note: This command works offline, so conversions might not be up to date. \n"
             + "Format: "
             + COMMAND_WORD + " " + "[" + CliSyntax.PREFIX_VALUE + "AMOUNT] (up to 2 decimal places) "
             + CliSyntax.PREFIX_CURRENCY + "CURRENCIES...\n"
@@ -60,9 +63,15 @@ public class ConvertCommand extends NonScrollingCommand {
     private List<String> currencies;
 
     public ConvertCommand(double amount, List<String> currencies) {
+        assert currencies != null; //assumption: the specfied list of currencies are not null
+
+        requireNonNull(amount);
+        requireNonNull(currencies);
+
         this.amount = amount;
         this.currencies = currencies;
     }
+
 
     @Override
     public CommandResult execute(Model model) {
@@ -93,6 +102,9 @@ public class ConvertCommand extends NonScrollingCommand {
      * @return Result message for conversions
      */
     public static String generateConvertResult(double amount, List<String> currencies) {
+        assert currencies != null; //assumption: list of currencies is not null
+        assert currencies.size() > 0; //assumption: at least one currency was specified
+
         StringBuilder convertResultMsgSb = new StringBuilder();
         String baseCurrency = currencies.get(0);
 
