@@ -495,7 +495,7 @@ Deletes a `high_risk` tag from the 1st policy in the results of the `find` comma
 // end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the address book, including the bin.+
 Format: `clear`
 
 // tag::inputvalidation[]
