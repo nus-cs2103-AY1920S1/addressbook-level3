@@ -1,4 +1,4 @@
-package seedu.sugarmummy.logic.commands;
+package seedu.sugarmummy.logic.commands.achvm;
 
 import static seedu.sugarmummy.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.sugarmummy.logic.commands.achvm.AchvmCommand.SHOWING_ACHVM_MESSAGE;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.sugarmummy.logic.commands.achvm.AchvmCommand;
+import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.ModelManager;
 import seedu.sugarmummy.model.achievements.Achievement;

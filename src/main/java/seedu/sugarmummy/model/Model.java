@@ -189,7 +189,7 @@ public interface Model {
     void setUserListFilePath(Path userListFilePath);
 
     /**
-     * Returns true if a user with the same identity as {@code user} exists in the address book.
+     * Returns true if a user with the same identity as {@code user} exists in the user list.
      */
     boolean hasUser(User user);
 
@@ -199,8 +199,8 @@ public interface Model {
     void addUser(User user);
 
     /**
-     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the address book.
-     * The user identity of {@code editedUser} must not be the same as another existing user in the address book.
+     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the user list.
+     * The user identity of {@code editedUser} must not be the same as another existing user in the user list.
      */
     void setUser(User target, User editedUser);
 
