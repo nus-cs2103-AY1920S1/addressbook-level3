@@ -1,7 +1,7 @@
 package com.typee.game;
 
 /**
- * Words being used in typing game. Contains placeholder words for now.
+ * Words being used in typing game.
  */
 public class Words {
     public static final int SIZE = 83;
@@ -17,6 +17,10 @@ public class Words {
                                            "chicken", "there", "and", "back", "ring", "blink", "grass", "fly", "sprint",
                                            "attack"};
 
+    /**
+     * Returns the word in the array given the {@code index}
+     * @param index The index of the word in the array
+     */
     public static String get(int index) {
         return words[index];
     }
