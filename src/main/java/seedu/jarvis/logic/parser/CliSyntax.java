@@ -43,13 +43,6 @@ public class CliSyntax {
     }
 
     /**
-     * CLI syntax for Undo/Redo commands.
-     */
-    public static class UndoRedoSyntax {
-        public static final Prefix PREFIX_UNDO_REDO = new Prefix("r/");
-    }
-
-    /**
      * CLI syntax for CcaTracker commands.
      */
     public static class CcaTrackerCliSyntax {

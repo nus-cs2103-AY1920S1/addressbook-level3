@@ -9,7 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.planner.FindTaskCommand;
-import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
 
 class FindTaskCommandParserTest {
 

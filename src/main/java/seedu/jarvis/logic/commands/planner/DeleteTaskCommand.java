@@ -11,7 +11,6 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.viewstatus.ViewType;
@@ -116,8 +115,8 @@ public class DeleteTaskCommand extends Command {
 
         deletedTask = tasks.getTask(targetIndex);
         model.deleteTask(targetIndex);
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
-        model.setViewStatus(ViewType.LIST_PLANNER);
+        model.updateSchedule();
+        model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask), true);
 
     }

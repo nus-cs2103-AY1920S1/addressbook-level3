@@ -12,7 +12,6 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
@@ -142,8 +141,8 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
-        model.setViewStatus(ViewType.LIST_PLANNER);
+        model.updateSchedule();
+        model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 

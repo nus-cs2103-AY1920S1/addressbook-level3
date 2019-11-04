@@ -8,13 +8,14 @@ import java.util.List;
 public enum ViewType {
     HOME_PAGE,
     LIST_CCA,
-    LIST_PLANNER,
+    LIST_PLANNER_SCHEDULE,
+    LIST_PLANNER_FIND,
     LIST_ADDRESS,
     LIST_FINANCE,
     LIST_COURSE;
 
     public static ViewType getNextViewType(ViewType curr) {
-        List<ViewType> list = List.of(LIST_PLANNER, LIST_COURSE, LIST_CCA, LIST_FINANCE);
+        List<ViewType> list = List.of(LIST_PLANNER_SCHEDULE, LIST_PLANNER_FIND, LIST_COURSE, LIST_CCA, LIST_FINANCE);
         int index = list.indexOf(curr);
         index = (index == list.size() - 1)
             ? 0

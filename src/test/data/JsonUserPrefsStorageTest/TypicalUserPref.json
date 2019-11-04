@@ -7,7 +7,6 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json",
   "ccaTrackerFilePath" : "ccatracker.json",
   "coursePlannerFilePath" : "courseplanner.json",
   "financeTrackerFilePath" : "financetracker.json",

@@ -27,9 +27,22 @@ public class ClearCourseCommand extends Command {
 
     private List<Course> deleted;
 
+    public ClearCourseCommand(List<Course> courses) {
+        deleted = new ArrayList<>();
+        deleted.addAll(courses);
+    }
+
+    public ClearCourseCommand() {
+        this(new ArrayList<>());
+    }
+
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    public List<Course> getClearedCourses() {
+        return deleted;
     }
 
     @Override
@@ -72,6 +85,8 @@ public class ClearCourseCommand extends Command {
 
     @Override
     public boolean equals(Object o) {
-        return o == this || (o instanceof ClearCourseCommand);
+        return o == this
+                || (o instanceof ClearCourseCommand
+                && deleted.equals(((ClearCourseCommand) o).deleted));
     }
 }

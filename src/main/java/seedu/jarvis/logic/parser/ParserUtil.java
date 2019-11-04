@@ -36,6 +36,9 @@ public class ParserUtil {
     //common
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    //history
+    public static final String MESSAGE_INVALID_NUMBER = "Number is not a non-zero unsigned integer.";
+
     //finance
     public static final String MONEY_MESSAGE_CONSTRAINTS = "Money spent cannot be equal to or less than 0.";
 
@@ -45,9 +48,26 @@ public class ParserUtil {
                                                             + "and 'deadline' only.";
     public static final String MESSAGE_MULTIPLE_SAME_PREFIX = "Invalid command format. Only one instance of each "
                                                                 + "prefix is allowed.";
-    public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description.";
+    public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description. "
+                                                                + "Enter t/TASK-TYPE des/TASK-DESCRIPTION to continue.";
     public static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be blank";
     public static final String MESSAGE_WRONG_ORDER_DATE = "Start date for Event cannot be after end date";
+
+    /**
+     * Parses {@code number} into an integer and returns it. Leading and trailing whitespaces will be trimmed.
+     * The integer must be positive and non-zero. If {@code number} is an empty string, 1 is returned.
+     *
+     * @param number {@code String} to be parsed into a number.
+     * @return Positive integer.
+     * @throws ParseException If the specified number is not a positive integer or zero.
+     */
+    public static int parseNonZeroUnsignedInteger(String number) throws ParseException {
+        String trimmedNumber = number.trim();
+        if (!trimmedNumber.isEmpty() && !StringUtil.isNonZeroUnsignedInteger(trimmedNumber)) {
+            throw new ParseException(MESSAGE_INVALID_NUMBER);
+        }
+        return trimmedNumber.isEmpty() ? 1 : Integer.parseInt(trimmedNumber);
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -175,8 +195,10 @@ public class ParserUtil {
                 count++;
             }
 
-            if (count == 2) {
-                if (splitDate[0].compareTo(splitDate[1]) > 0) {
+            if (splitDate.length == 2) {
+                LocalDate start = LocalDate.parse(splitDate[0], Task.getDateFormat());
+                LocalDate end = LocalDate.parse(splitDate[1], Task.getDateFormat());
+                if (start.compareTo(end) > 0) {
                     throw new ParseException(MESSAGE_WRONG_ORDER_DATE);
                 }
             }

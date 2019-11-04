@@ -79,13 +79,6 @@
     -fx-text-fill: #707070;
 }
 
-.cell_equipment_label {
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13px;
-    -fx-text-fill: #707070;
-    -fx-border-width: 20;
-}
-
 .stack-pane {
      -fx-background-color: derive(#f7eceb, 20%);
 }
@@ -291,6 +284,11 @@
 .text-field:focused.error {
     -fx-faint-focus-color: transparent;
     -fx-focus-color: rgba(237, 37, 78, 1);
+}
+
+.text-area {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
 }
 
 #filterField, #personListPanel, #personWebpage {

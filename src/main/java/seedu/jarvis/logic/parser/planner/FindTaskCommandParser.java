@@ -7,7 +7,7 @@ import java.util.Arrays;
 import seedu.jarvis.logic.commands.planner.FindTaskCommand;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindTaskCommand object

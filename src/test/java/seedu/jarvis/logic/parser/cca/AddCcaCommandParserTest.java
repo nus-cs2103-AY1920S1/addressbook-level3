@@ -48,7 +48,7 @@ public class AddCcaCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_GUITAR_ENSEMBLE + NAME_DESC_CANOEING + TYPE_DESC_GUITAR_ENSEMBLE
                 + TYPE_DESC_CANOEING + EQUIPMENT_DESC_PADDLE , new AddCcaCommand(expectedCca));
 
-        // multiple tags - all accepted
+        // multiple equipment - all accepted
         Cca expectedCcaMultipleEquipment = new CcaBuilder(CANOEING)
                 .withEquipmentList(CANOEING_EQUIPMENT_LIST_WITH_TWO_EQUIPMENT)
                 .build();

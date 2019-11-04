@@ -1,4 +1,4 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.predicates;
 
 import java.util.List;
 import java.util.function.Predicate;

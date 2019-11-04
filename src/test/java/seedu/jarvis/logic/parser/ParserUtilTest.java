@@ -39,6 +39,37 @@ public class ParserUtilTest {
     private static final String WHITESPACE = " \t\r\n";
 
     @Test
+    public void parseNonZeroUnsignedInteger_invalidInputNotNumber_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNonZeroUnsignedInteger("InvalidInput"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseNonZeroUnsignedInteger("Invalid Input"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseNonZeroUnsignedInteger(" Invalid Input "));
+    }
+
+    @Test
+    public void parseNonZeroUnsignedInteger_invalidInputNegativeNumber_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNonZeroUnsignedInteger("-1"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseNonZeroUnsignedInteger(" -1 "));
+    }
+
+    @Test
+    public void parseNonZeroUnsignedInteger_validInputWhiteSpace_throwsParseException() throws Exception {
+        assertEquals(1, ParserUtil.parseNonZeroUnsignedInteger(""));
+        assertEquals(5, ParserUtil.parseNonZeroUnsignedInteger("5"));
+        assertEquals(10, ParserUtil.parseNonZeroUnsignedInteger(" 10 "));
+    }
+
+    @Test
+    public void parseNonZeroUnsignedInteger_outOfRange_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNonZeroUnsignedInteger(
+                Long.toString(Integer.MAX_VALUE + 1)));
+    }
+
+    @Test
+    public void parseNonZeroUnsignedInteger_invalidInputZero_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNonZeroUnsignedInteger("0"));
+    }
+
+    @Test
     public void parseIndex_invalidInput_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
     }

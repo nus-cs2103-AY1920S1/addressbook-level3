@@ -1,31 +1,29 @@
 package seedu.jarvis.ui.planner;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
-import seedu.jarvis.logic.Logic;
-import seedu.jarvis.model.Model;
+import javafx.scene.layout.Region;
 import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.ui.MainWindow;
-import seedu.jarvis.ui.template.View;
+import seedu.jarvis.ui.UiPart;
 
 /**
- * A View representing the list of {@code Task}.
+ * Represents the wrapper panel for the task list.
  */
-public class TaskListView extends View<AnchorPane> {
+public class TaskListView extends UiPart<Region> {
     private static final String FXML = "TaskListView.fxml";
 
     @FXML
     private ListView<Task> taskListView;
+    @FXML
+    private Label header;
 
-    public TaskListView(MainWindow mainWindow, Logic logic, Model model) {
-        super(FXML, mainWindow, logic, model);
-    }
-
-    @Override
-    public void fillPage() {
-        taskListView.setItems(model.getFilteredTaskList());
+    public TaskListView(ObservableList<Task> taskList) {
+        super(FXML);
+        header.setText("    All Tasks:");
+        taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
     }
 

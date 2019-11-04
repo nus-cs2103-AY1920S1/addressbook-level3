@@ -5,7 +5,9 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.cca.exceptions.CcaProgressAtMaxException;
 import seedu.jarvis.model.cca.exceptions.CcaProgressNotIncrementedException;
 import seedu.jarvis.model.cca.exceptions.CcaProgressNotSetException;
 import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
@@ -75,12 +77,30 @@ public class CcaProgress {
      */
     public CcaMilestone getCurrentCcaMilestone() throws CcaProgressNotIncrementedException {
         Index ccaMilestoneIndex = Index.fromOneBased(ccaCurrentProgress.getCurrentProgress());
-        System.out.println(ccaMilestoneIndex.getZeroBased());
         if (ccaMilestoneIndex.getZeroBased() < 0) {
             throw new CcaProgressNotIncrementedException();
         }
         CcaMilestone ccaMilestone = ccaMilestoneList.getCcaMilestone(ccaMilestoneIndex);
         return ccaMilestone;
+    }
+
+    /**
+     * Gets the next {@code CcaMilestone}.
+     */
+    public CcaMilestone getNextCcaMilestone() throws CcaProgressAtMaxException {
+        Index ccaMilestoneIndex = Index.fromOneBased(ccaCurrentProgress.getCurrentProgress() + 1);
+        if (ccaMilestoneIndex.getZeroBased() > ccaMilestoneList.size() - 1) {
+            throw new CcaProgressAtMaxException();
+        }
+        CcaMilestone ccaMilestone = ccaMilestoneList.getCcaMilestone(ccaMilestoneIndex);
+        return ccaMilestone;
+    }
+
+    /**
+     * Gets the backing milestone list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<CcaMilestone> getMilestoneList() {
+        return ccaMilestoneList.asUnmodifiableObservableList();
     }
 
     /**
