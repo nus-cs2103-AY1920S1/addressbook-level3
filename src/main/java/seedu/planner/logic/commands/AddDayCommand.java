@@ -26,7 +26,9 @@ public class AddDayCommand extends AddCommand {
     );
 
     public static final String MESSAGE_SUCCESS = "%d day(s) added";
-    public static final String MESSAGE_NUMBER_OF_DAYS_LIMIT_EXCEEDED = "Total number of days exceeds the limit of 31";
+    public static final int MAX_NUMBER_OF_DAYS_ALLOWED_IN_PLANNER = 15;
+    public static final String MESSAGE_NUMBER_OF_DAYS_LIMIT_EXCEEDED = "Total number of days exceeds the limit of "
+            + MAX_NUMBER_OF_DAYS_ALLOWED_IN_PLANNER;
 
     private final int toAdd;
     private final Index index;
@@ -62,7 +64,7 @@ public class AddDayCommand extends AddCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         int currNumDays = model.getNumberOfDays();
-        if ((currNumDays + toAdd) > 31) {
+        if ((currNumDays + toAdd) > MAX_NUMBER_OF_DAYS_ALLOWED_IN_PLANNER) {
             throw new CommandException(MESSAGE_NUMBER_OF_DAYS_LIMIT_EXCEEDED);
         }
         if (index == null && dayToAdd == null) {
