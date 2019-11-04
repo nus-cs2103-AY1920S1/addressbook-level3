@@ -1,8 +1,11 @@
 package seedu.address.ui;
 
+import static seedu.address.transaction.model.transaction.Transaction.DECIMAL_FORMAT;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,7 +32,7 @@ public class Reimbursements extends UiPart<Region> {
     @FXML
     private TableColumn<Reimbursement, String> descriptionCol;
     @FXML
-    private TableColumn<Reimbursement, Double> amountCol;
+    private TableColumn<Reimbursement, String> amountCol;
     @FXML
     private TableColumn<Reimbursement, String> deadlineCol;
 
@@ -42,7 +45,11 @@ public class Reimbursements extends UiPart<Region> {
         tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, String>("idCol"));
         personCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, String>("personCol"));
-        amountCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, Double>("amount"));
+        amountCol.setCellValueFactory(reimbursement -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(reimbursement.getValue().getAmount()));
+            return property;
+        });
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, String>("descriptionCol"));
         deadlineCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, String>("deadlineCol"));
     }

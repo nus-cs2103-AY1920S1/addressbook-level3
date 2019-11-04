@@ -3,6 +3,7 @@ package seedu.address.transaction.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.transaction.model.transaction.Transaction.DECIMAL_FORMAT;
 
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +58,8 @@ class TransactionTest {
         Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).build();
         String msg = "Transaction that is an EARNING:\nDate: " + transaction.getDate() + "\nDescription: " + transaction.getDescription()
                 + "\nCategory: "
-                + transaction.getCategory() + "\nAmount: $" + transaction.getAmount() + "\nPaid by: "
+                + transaction.getCategory() + "\nAmount: $" + DECIMAL_FORMAT.format(transaction.getAmount())
+                + "\nPaid by: "
                 + transaction.getPerson().getName().toString();
         assertEquals(msg, transaction.toString());
     }

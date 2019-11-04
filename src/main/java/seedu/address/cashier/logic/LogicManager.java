@@ -1,5 +1,7 @@
 package seedu.address.cashier.logic;
 
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -82,7 +84,7 @@ public class LogicManager implements Logic {
 
     @Override
     public String getAmount() {
-        return String.valueOf(model.getTotalAmount());
+        return DECIMAL_FORMAT.format(model.getTotalAmount());
     }
 
     @Override
