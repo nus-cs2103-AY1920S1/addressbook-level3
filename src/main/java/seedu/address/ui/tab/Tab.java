@@ -6,5 +6,6 @@ package seedu.address.ui.tab;
 public enum Tab {
     TRANSACTION,
     BUDGET,
-    LEDGER
+    LEDGER,
+    PROJECTION,
 }

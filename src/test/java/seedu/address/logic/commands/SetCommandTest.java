@@ -119,17 +119,17 @@ public class SetCommandTest {
         }
 
         @Override
-        public void addOperation(BankAccountOperation transaction) {
+        public void add(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addOperation(LedgerOperation operation) {
+        public void add(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addOperation(Budget budget) {
+        public void add(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -174,12 +174,17 @@ public class SetCommandTest {
         }
 
         @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
+        public boolean has(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasBudget(Budget budget) {
+        public boolean has(Budget budget) {
+            throw new AssertionError("This method should not be calld.");
+        }
+
+        @Override
+        public boolean has(LedgerOperation ledgerOperation) {
             throw new AssertionError("This method should not be calld.");
         }
 
@@ -217,6 +222,11 @@ public class SetCommandTest {
         }
 
         @Override
+        public void updateFilteredLedgerList(Predicate<LedgerOperation> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Budget> getFilteredBudgetList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -243,7 +253,7 @@ public class SetCommandTest {
             this.budget = budget;
         }
 
-        public boolean hasBudget(Budget budget) {
+        public boolean has(Budget budget) {
             requireNonNull(budget);
             return this.budget.isSameBudget(budget);
         }
@@ -255,18 +265,18 @@ public class SetCommandTest {
     private class ModelStubAcceptingBudgetAdded extends ModelStub {
         final ArrayList<Budget> budgetsAdded = new ArrayList<>();
 
-        public boolean hasBudget(Budget budget) {
+        public boolean has(Budget budget) {
             requireNonNull(budget);
             return budgetsAdded.stream().anyMatch(budget::isSameBudget);
         }
 
         @Override
-        public void addOperation(LedgerOperation operation) {
+        public void add(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addOperation(Budget budget) {
+        public void add(Budget budget) {
             requireNonNull(budget);
             budgetsAdded.add(budget);
         }

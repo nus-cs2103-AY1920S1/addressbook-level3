@@ -1,7 +1,10 @@
 package seedu.address.model.transaction;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.text.DecimalFormat;
 
 /**
  * Amount in terms of cents
@@ -21,6 +24,8 @@ public class Amount implements Comparable<Amount> {
 
     public static final String SHARE_CONSTRAINTS =
         "Shares cannot be negative";
+
+    public static final DecimalFormat AMOUNT_DOUBLE_FORMAT = new DecimalFormat("#.00");
 
     private int amount;
 
@@ -53,6 +58,10 @@ public class Amount implements Comparable<Amount> {
         // return indexOfPeriod == -1
         //     || amountStr.substring(indexOfPeriod + 1).length() <= 2;
         return Math.abs(amount * 100 - Math.round(amount * 100)) < 2 * 1.13E-13;
+    }
+
+    public static double format(double value) {
+        return Double.valueOf(AMOUNT_DOUBLE_FORMAT.format(value));
     }
 
     /**

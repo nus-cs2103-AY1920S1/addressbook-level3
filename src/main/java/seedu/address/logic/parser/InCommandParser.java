@@ -54,6 +54,10 @@ public class InCommandParser implements Parser<InCommand> {
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
+        if (categoryList.isEmpty()) {
+            categoryList.add(new Category("Uncategorised"));
+        }
+
         BankAccountOperation transaction = new InTransaction(amount, date, description, categoryList);
 
         return new InCommand(transaction);

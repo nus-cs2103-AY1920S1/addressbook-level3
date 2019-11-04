@@ -1,6 +1,8 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.person.Name;
+import java.util.List;
+import java.util.Optional;
+
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
@@ -17,11 +19,6 @@ public class ReceiveMoney extends Payment {
         super(person, amount, description);
     }
 
-    //TODO
-    public ReceiveMoney(Date date, Amount amount) {
-        super(new Person(new Name("Joel")), amount, date, new Description("STUB"));
-    }
-
     @Override
     public Amount handleBalance(Amount balance, UniquePersonList peopleInLedger) {
         Person target = super.handleTarget(peopleInLedger);
@@ -31,8 +28,12 @@ public class ReceiveMoney extends Payment {
 
     @Override
     public boolean isSameLedgerOperation(LedgerOperation ledgerOperation) {
-        // TODO FIX
-        return false;
+        return this.equals(ledgerOperation);
+    }
+
+    @Override
+    public Optional<List<Integer>> getShares() {
+        return Optional.empty();
     }
 
     @Override

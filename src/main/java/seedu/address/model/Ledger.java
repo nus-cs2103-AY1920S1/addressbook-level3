@@ -74,8 +74,14 @@ public class Ledger implements ReadOnlyLedger {
         return pot;
     }
 
+    /**
+     * Resets the existing data of this {@code Ledger} with {@code otherLedger}.
+     */
     public void resetData(ReadOnlyLedger otherLedger) {
-        this.pot = otherLedger.getBalance();
+        requireNonNull(otherLedger);
+        pot = otherLedger.getBalance();
+        setLedgerHistory(otherLedger);
+        setPersonList(otherLedger);
     }
 
     public boolean has(LedgerOperation ledgerOperation) {
@@ -94,7 +100,7 @@ public class Ledger implements ReadOnlyLedger {
 
         Ledger otherLedger = (Ledger) other;
         return this.pot.equals(otherLedger.pot)
-                && this.people.equals(otherLedger.people)
-                && this.ledgerHistory.equals(otherLedger.ledgerHistory);
+            && this.people.equals(otherLedger.people)
+            && this.ledgerHistory.equals(otherLedger.ledgerHistory);
     }
 }

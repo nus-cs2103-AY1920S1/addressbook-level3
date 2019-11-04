@@ -131,17 +131,17 @@ public class InCommandTest {
         }
 
         @Override
-        public void addOperation(BankAccountOperation transaction) {
+        public void add(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addOperation(LedgerOperation operation) {
+        public void add(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addOperation(Budget budget) {
+        public void add(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,12 +186,17 @@ public class InCommandTest {
         }
 
         @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
+        public boolean has(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasBudget(Budget budget) {
+        public boolean has(Budget budget) {
+            throw new AssertionError("This method should not be calld.");
+        }
+
+        @Override
+        public boolean has(LedgerOperation ledgerOperation) {
             throw new AssertionError("This method should not be calld.");
         }
 
@@ -217,6 +222,11 @@ public class InCommandTest {
 
         @Override
         public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLedgerList(Predicate<LedgerOperation> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -248,7 +258,7 @@ public class InCommandTest {
         }
 
         @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
+        public boolean has(BankAccountOperation transaction) {
             requireNonNull(transaction);
             return this.transaction.isSameTransaction(transaction);
         }
@@ -261,18 +271,18 @@ public class InCommandTest {
         final ArrayList<BankAccountOperation> transactionsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
+        public boolean has(BankAccountOperation transaction) {
             requireNonNull(transaction);
             return transactionsAdded.stream().anyMatch(transaction::isSameTransaction);
         }
 
         @Override
-        public void addOperation(LedgerOperation operation) {
+        public void add(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addOperation(BankAccountOperation transaction) {
+        public void add(BankAccountOperation transaction) {
             requireNonNull(transaction);
             transactionsAdded.add(transaction);
         }

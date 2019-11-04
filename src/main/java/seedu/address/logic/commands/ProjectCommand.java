@@ -50,7 +50,7 @@ public class ProjectCommand extends Command {
             throw new CommandException(MESSAGE_VOID_TRANSACTION_HISTORY);
         }
 
-        Projection projection = new Projection(transactionHistory, date);
+        Projection projection = new Projection(transactionHistory, date, model.getFilteredBudgetList());
 
         if (transactionHistory.size() < RECOMMENDED_MINIMUM_TRANSACTIONS) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString()),
