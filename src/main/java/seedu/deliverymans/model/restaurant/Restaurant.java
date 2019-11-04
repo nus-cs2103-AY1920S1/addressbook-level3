@@ -88,10 +88,6 @@ public class Restaurant {
         return orders;
     }
 
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
     public ObservableList<Food> getMenu() {
         return menu;
     }

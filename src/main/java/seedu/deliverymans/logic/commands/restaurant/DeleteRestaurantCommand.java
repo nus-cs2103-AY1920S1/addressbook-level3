@@ -46,15 +46,11 @@ public class DeleteRestaurantCommand extends Command {
         Restaurant restaurantToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteRestaurant(restaurantToDelete);
 
-        List<Order> allOrders = model.getFilteredOrderList();
-        List<Order> deletedOrders = new ArrayList<Order>();
+        List<Order> allOrders = new ArrayList<>(model.getFilteredOrderList());
         for (Order order : allOrders) {
             if (order.getRestaurant().equals(restaurantToDelete.getName())) {
-                deletedOrders.add(order);
+                model.deleteOrder(order);
             }
-        }
-        for (Order order : deletedOrders) {
-            model.deleteOrder(order);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, restaurantToDelete));
