@@ -2,7 +2,6 @@ package seedu.deliverymans.logic;
 
 import java.util.LinkedList;
 
-import seedu.deliverymans.logic.Trie;
 import seedu.deliverymans.logic.commands.customer.CustomerAddCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerDeleteCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerEditCommand;
@@ -137,15 +136,40 @@ class TrieManager {
      * TO fill
      */
     LinkedList<String> getAutoCompleteResults(String input, Context context) {
+        int firstSpace = input.indexOf(" ");
+        if (firstSpace == -1) { // no space present - user is still typing in the command word
+            return autocompleteCommandWord(input, context);
+        }
+        // user is typing in prefixes
+        String commandWord = input.substring(0, firstSpace);
+        int lastSpace = input.lastIndexOf(" ");
+        String prefixes = input.substring(lastSpace);
+        return autoCompletePrefix(commandWord, prefixes, context);
+    }
+
+    private LinkedList<String> autocompleteCommandWord(String input, Context context) {
         switch (context) {
-            case CUSTOMER:
-                return customerTrie.autoComplete(input);
-            case DELIVERYMEN:
-                return deliverymanTrie.autoComplete(input);
-            case RESTAURANT:
-                return restaurantTrie.autoComplete(input);
-            default:
-                return universalTrie.autoComplete(input);
+        case CUSTOMER:
+            return customerTrie.autoCompleteCommandWord(input);
+        case DELIVERYMEN:
+            return deliverymanTrie.autoCompleteCommandWord(input);
+        case RESTAURANT:
+            return restaurantTrie.autoCompleteCommandWord(input);
+        default:
+            return universalTrie.autoCompleteCommandWord(input);
+        }
+    }
+
+    private LinkedList<String> autoCompletePrefix(String commandWord, String prefixes, Context context) {
+        switch (context) {
+        case CUSTOMER:
+            return customerTrie.autoCompletePrefix(commandWord, prefixes);
+        case DELIVERYMEN:
+            return deliverymanTrie.autoCompletePrefix(commandWord, prefixes);
+        case RESTAURANT:
+            return restaurantTrie.autoCompletePrefix(commandWord, prefixes);
+        default:
+            return universalTrie.autoCompletePrefix(commandWord, prefixes);
         }
     }
 }

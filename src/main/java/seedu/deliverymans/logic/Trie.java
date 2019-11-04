@@ -96,26 +96,59 @@ class Trie {
     /**
      * Tofill.
      */
-    LinkedList<String> autoComplete(String prefixSuffix) {
-        Trie result = search(prefixSuffix);
-        if (result == null) {
+    LinkedList<String> autoCompletePrefix(String commandWord, String prefixes) {
+        Trie commandResult = search(commandWord);
+        if (commandResult == null) { // commandWord does not exist
             return new LinkedList<>();
         }
-        return result.allPrefixes();
+
+        Trie prefixResult = commandResult.search(prefixes);
+        if (prefixResult == null) {
+            return new LinkedList<>();
+        }
+        return prefixResult.getAllPrefixes();
+    }
+
+    /**
+     * Tofill.
+     */
+    private LinkedList<String> getAllPrefixes() {
+        LinkedList<String> contentList = new LinkedList<>();
+        if (children.isEmpty()) {
+            contentList.addAll(this.contentList);
+        }
+        for (Map.Entry<Character, Trie> entry : children.entrySet()) {
+            Trie child = entry.getValue();
+            LinkedList<String> childPrefixes = child.getAllPrefixes();
+            contentList.addAll(childPrefixes);
+        }
+        contentList.sort(String::compareToIgnoreCase);
+        return contentList;
+    }
+
+    /**
+     * Tofill.
+     */
+    LinkedList<String> autoCompleteCommandWord(String toFind) {
+        Trie result = search(toFind);
+        if (result == null) { // commandWord does not exist
+            return new LinkedList<>();
+        }
+        return result.getAllCommandWords();
     }
 
     /**
      * Tofill
      */
-    private LinkedList<String> allPrefixes() {
+    private LinkedList<String> getAllCommandWords() {
         HashSet<String> uniqueList = new HashSet<>();
         if (containsCommandWord) {
             uniqueList.addAll(this.contentList);
         }
         for (Map.Entry<Character, Trie> entry : children.entrySet()) {
             Trie child = entry.getValue();
-            LinkedList<String> childPrefixes = child.allPrefixes();
-            uniqueList.addAll(childPrefixes);
+            LinkedList<String> childCommandWords = child.getAllCommandWords();
+            uniqueList.addAll(childCommandWords);
         }
         LinkedList<String> contentList = new LinkedList<>(uniqueList);
         contentList.sort(String::compareToIgnoreCase);
