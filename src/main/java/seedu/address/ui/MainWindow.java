@@ -56,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Customisable GUI elements
     private String font;
-    private String theme;
+    private Theme theme;
 
     @FXML
     private Scene scene;
@@ -188,6 +188,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setUpGui(GuiSettings guiSettings) {
         setWindowDefaultSize(guiSettings);
         setFont(guiSettings);
+        setTheme(guiSettings);
     }
 
     /**
@@ -210,6 +211,15 @@ public class MainWindow extends UiPart<Stage> {
         this.font = savedFont;
         String style = "-fx-font-family: " + savedFont;
         window.setStyle(style);
+    }
+
+    /**
+     * Sets the theme based on {@code guiSettings}.
+     */
+    private void setTheme(GuiSettings guiSettings) {
+        Theme savedTheme = guiSettings.getTheme();
+        this.theme = savedTheme;
+        switchThemeTo(savedTheme);
     }
 
     /**
@@ -274,7 +284,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Replaces the Reminder Panel with the Conditions Panel;
+     * Replaces the Reminder Panel with the Conditions Panel.
      */
     private void showConditionPanel() {
         remindersPlaceHolder.getChildren().clear();
@@ -282,8 +292,9 @@ public class MainWindow extends UiPart<Stage> {
         ConditionPanel conditionPanel = new ConditionPanel(logic.getFilteredConditions());
         remindersPlaceHolder.getChildren().add(conditionPanel.getRoot());
     }
+
     /**
-     * Replaces the Conditions Panel with the Reminder Panel;
+     * Replaces the Conditions Panel with the Reminder Panel.
      */
     private void showReminderPanel() {
         remindersPlaceHolder.getChildren().clear();
@@ -405,19 +416,21 @@ public class MainWindow extends UiPart<Stage> {
 
         switch (newTheme) {
         case LIGHT:
+            this.theme = Theme.LIGHT;
             oldThemeUrl = darkThemeUrl;
             oldExtensionsUrl = darkExtensionsUrl;
             newThemeUrl = lightThemeUrl;
             newExtensionsUrl = lightExtensionsUrl;
             break;
         case DARK:
+            this.theme = Theme.DARK;
             oldThemeUrl = lightThemeUrl;
             oldExtensionsUrl = lightExtensionsUrl;
             newThemeUrl = darkThemeUrl;
             newExtensionsUrl = darkExtensionsUrl;
             break;
         default:
-            // Do nothing. Input string has already been checked if it contains either "light" or "dark".
+            // Do nothing.
             break;
         }
 

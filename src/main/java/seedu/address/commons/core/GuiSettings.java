@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
 
+import seedu.address.ui.util.Theme;
+
 /**
  * A Serializable class that contains the GUI settings.
  * Guarantees: immutable.
@@ -13,13 +15,13 @@ public class GuiSettings implements Serializable {
     private static final double DEFAULT_HEIGHT = 800;
     private static final double DEFAULT_WIDTH = 1100;
     private static final String DEFAULT_FONT = "segoe UI";
-    private static final String DEFAULT_THEME = "dark";
+    private static final Theme DEFAULT_THEME = Theme.DARK;
 
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
     private final String font;
-    private final String theme;
+    private final Theme theme;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
@@ -29,7 +31,8 @@ public class GuiSettings implements Serializable {
         theme = DEFAULT_THEME;
     }
 
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String font, String theme) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String font,
+                       Theme theme) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
@@ -51,6 +54,10 @@ public class GuiSettings implements Serializable {
 
     public String getFont() {
         return font;
+    }
+
+    public Theme getTheme() {
+        return theme;
     }
 
     @Override
