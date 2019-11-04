@@ -45,9 +45,16 @@ public class FoodCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(food.getName().fullName);
         price.setText(food.getDisplayPrice());
+        quantity.setText("Quantity Ordered: " + food.getQuantityOrdered());
         food.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label label = new Label(tag.tagName);
+                    if (tag.tagName.equals("Popular")) {
+                        label.setStyle("-fx-background-color: #FF0000;");
+                    }
+                    tags.getChildren().add(label);
+                });
     }
 
     @Override

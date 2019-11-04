@@ -33,6 +33,7 @@ public class JsonAdaptedRestaurant {
     private final JsonAdaptedRating rating;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedFood> menu = new ArrayList<>();
+    private final int quantity;
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -41,7 +42,8 @@ public class JsonAdaptedRestaurant {
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("location") String location,
                              @JsonProperty("rating") JsonAdaptedRating rating,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("menu") List<JsonAdaptedFood> menu) {
+                             @JsonProperty("menu") List<JsonAdaptedFood> menu,
+                             @JsonProperty("quantity") int quantity) {
         this.name = name;
         this.location = location;
         this.rating = rating;
@@ -51,6 +53,7 @@ public class JsonAdaptedRestaurant {
         if (menu != null) {
             this.menu.addAll(menu);
         }
+        this.quantity = quantity;
     }
 
     /**
@@ -66,6 +69,7 @@ public class JsonAdaptedRestaurant {
         menu.addAll(source.getMenu().stream()
                 .map(JsonAdaptedFood::new)
                 .collect(Collectors.toList()));
+        quantity = source.getQuantityOrdered();
     }
 
     /**
@@ -111,6 +115,6 @@ public class JsonAdaptedRestaurant {
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
         final ObservableList<Food> modelMenu = FXCollections.observableArrayList();
         modelMenu.addAll(restaurantMenu);
-        return new Restaurant(modelName, modelLocation, modelRating, modelTags, modelMenu);
+        return new Restaurant(modelName, modelLocation, modelRating, modelTags, modelMenu, quantity);
     }
 }
