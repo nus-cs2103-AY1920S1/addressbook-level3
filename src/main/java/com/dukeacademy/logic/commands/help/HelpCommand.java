@@ -54,8 +54,7 @@ public class HelpCommand implements Command {
 
         applicationState.setCurrentActivity(Activity.HELP);
 
-        return new CommandResult("We are here to help!", false,
-                false);
+        return new CommandResult("We are here to help!", false);
     }
 
     private void saveQuestion(Question oldQuestion, Question newQuestion) {

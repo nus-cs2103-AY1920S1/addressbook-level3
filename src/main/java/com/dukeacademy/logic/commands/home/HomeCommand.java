@@ -58,8 +58,7 @@ public class HomeCommand implements Command {
 
         applicationState.setCurrentActivity(Activity.HOME);
 
-        return new CommandResult("Returning to home page...", false,
-                false);
+        return new CommandResult("Returning to home page...", false);
     }
 
     private void saveQuestion(Question oldQuestion, Question newQuestion) {

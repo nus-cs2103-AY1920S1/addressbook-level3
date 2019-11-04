@@ -52,14 +52,12 @@ public class DeleteBookmarkCommand implements Command {
                 // Notify user of successful bookmark action
                 String feedback = "Deleted bookmark for question " + (index + 1) + " : "
                         + bookmarkedQuestion.getTitle();
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false);
             } else {
                 // Simply notify user that question is not bookmarked
                 String feedback = "Question " + (index + 1) + " : " + userSelection.getTitle()
                         + " - is not bookmarked.";
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false);
             }
 
         } catch (IndexOutOfBoundsException e) {
