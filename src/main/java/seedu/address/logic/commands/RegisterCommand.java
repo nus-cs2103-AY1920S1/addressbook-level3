@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
 /**
  * Adds a person to the incident management system.
  */
-public class AddCommand extends Command {
+public class RegisterCommand extends Command {
 
     public static final String COMMAND_WORD = "register";
 
@@ -44,9 +44,9 @@ public class AddCommand extends Command {
     private final Person toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an RegisterCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public RegisterCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -71,7 +71,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof RegisterCommand // instanceof handles nulls
+                && toAdd.equals(((RegisterCommand) other).toAdd));
     }
 }

@@ -200,7 +200,7 @@ The access control feature is centered around three core concepts:
 
 ===== Command Restrictions
 
-Prior to login, the user is only granted access to the `Login`, `Register`, `Help`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
+Prior to login, the user is only granted access to the `Login`, `Register`, `Help`, and `Exit` commands. This is achieved via a guard statement in the `IncidentManagerParser` checking whether the user is logged in or the command created is an approved command that doesn't require login.
 
 [NOTE]
 The guard statement throws a command exception and informs the user of the available commands prior to login.
@@ -227,8 +227,8 @@ Uniqueness of a username is ensured by preventing duplicates during the account 
 To prevent abuse (e.g. adding a dummy account and editing/deleting other accounts), all new accounts are differentiated from `Admin` accounts. This restriction based on access level is implemented via account `Tags`:
 
 * Only a `Person` with an admin `Tag` can access account management features. Such a person will henceforth be referred to as an Admin.
-* Users who are not admins are not allowed to add tags (via both AddCommand and UpdateCommand).
-* Only Admins are allowed to edit or add tags (via both AddCommand and UpdateCommand).
+* Users who are not admins are not allowed to add tags (via both `RegisterCommand` and `UpdateCommand`).
+* Only Admins are allowed to edit or add tags (via both `RegisterCommand` and `UpdateCommand`).
 
 [NOTE]
 Non-admins can still edit their own account details via the `UpdateCommand`. Refer to user guide for more info.
@@ -240,9 +240,9 @@ Additional access restrictions:
 * Admins cannot delete their own account.
 * Admins cannot 'downgrade' themselves by removing their own admin tag.
 
-The checks described above all function in the command execution stage. The `RegisterCommand`, `UpdateCommand`, and `DeleteCommand` retrieves the logged in `Person` from the `Model` via utilisation of the `Session` object.
+The checks described above all function in the command execution stage. The `RegisterCommand`, `UpdateCommand`, and `DeleteCommand` retrieves the logged in `Person` from the `Model` via utilisation of the `Session`.
 
-Sequence Diagram for illustration:
+Simplified Sequence Diagram for illustration:
 
 image::AccessSequenceDiagram.png[]
 
@@ -252,12 +252,12 @@ NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but du
 
 ===== Aspect: How Command Restrictions are Managed
 
-* **Current Choice:** Guard statement in LogicManager prior to Command Execution.
-** Pros: Single control point, easy to maintain and debug.
-** Cons: Command still gets instantiated, memory allocated to command creation.
-* **Alternative:** Guard statement in IncidentManagerParser
-** Pros: Early catching of restriction, command doesn't get instantiated unnecessarily.
-** Cons: Need to expose model to parser, increasing coupling.
+* **Current Choice:** Guard statement in IncidentManagerParser prior to Command Creation.
+** Pros: Early catching of restriction, command doesn't get instantiated unnecessarily. Better user experience as error message is displayed early.
+** Cons: Need to expose model to parser as session is managed by model, increasing coupling.
+* **Alternative:** Guard statement in LogicManager prior to Command Execution.
+** Pros: Model does not need to be exposed to parser as it is already managed by command execution, decreasing coupling.
+** Cons: Command still gets instantiated, memory allocated to command creation. Decreases user experience as user still has to type a proper command before the access error is thrown.
 
 ===== Aspect: How Identity Verification is Managed
 
@@ -266,20 +266,21 @@ NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but du
 ** Cons: Sufficiently advanced users can access the data file directly to retrieve user passwords.
 * **Alternative:** Physical security USB dongle.
 ** Pros: Secure individually identifiable token.
-** Cons: Prone to loss and potential duplication.
+** Cons: Prone to loss and potential duplication. Hard to implement.
 
 ===== Aspect: How Account Management Restrictions are Managed
 
 * **Current Choice:** Utilisation of Account Tags
 ** Pros: Easy to implement.
-** Cons: Users cannot add tags to themselves.
+** Cons: Easy to exploit, requires additional restrictions (e.g. users cannot add tags unless they are an admin).
 * **Alternative:** Addition of an Admin account attribute.
 ** Pros: Distinct object class, improves cohesiveness.
 ** Cons: Hard to implement.
 
 ==== Known Issues
 
-A sufficiently advanced user can access the data file directly to manipulate account details. Data file encryption will resolve this issue, but has yet to be implemented.
+A sufficiently advanced user can access the data file directly to manipulate account details. Data file encryption (to be implemented in v2.0) will resolve this issue.
+
 // end::accessControl[]
 
 // tag::accountManagement[]
@@ -303,6 +304,15 @@ Only `Admin` accounts can access the full suite of account management features. 
 In the code base, Persons represent user accounts. See person model for more information.
 
 ==== Design Considerations
+===== Aspect: Interface Implementation
+
+* **Current Choice:** Utilising a swap command that transitions between two distinct interfaces.
+** Pros: Distinct difference in command suite utilisation (account vs incidents), giving users a much cleaner distinction of what's being managed, improves user experience.
+** Cons: Hard to implement.
+* **Alternative:** Having account information display alongside incidents and vehicles in a separate pane.
+** Pros: Easy to implement.
+** Cons: User might be overloaded with information in one screen, and text might get truncate in lower resolutions, decreases user experience.
+
 ===== Aspect: How Update executes
 
 * **Current Choice:** No index indicates own account update
@@ -320,6 +330,7 @@ In the code base, Persons represent user accounts. See person model for more inf
 * **Alternative:** Utilising find command to search for tags
 ** Pros: Centralise all account search operations in one command, improves system cohesiveness.
 ** Cons: Requires the addition of argument prefixes, decreases user experience.
+
 // end::accountManagement[]
 
 // tag::incidentdraftcreation[]

@@ -28,6 +28,12 @@ public interface Model {
     /** {@code Predicate} for filtering complete incident reports */
     Predicate<Incident> PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS = Incident::isCompleteDraft;
 
+    /** {@code Predicate} for filtering submitted incident reports */
+    Predicate<Incident> PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS = Incident::isSubmitted;
+
+    /** {@code Predicate} for returning a false incident list */
+    Predicate<Incident> PREDICATE_SHOW_INCIDENT_LISTING_ERROR = unused -> false;
+
     /**
      * Sets the {@code Person} that is logged into the {@code Session}.
      */

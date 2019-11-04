@@ -10,18 +10,18 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Ahmed Bahajjaj
+=== Muhammad Ahmed bin Anwar Bahajjaj
 image::madanalogy.png[width="300", align="left"]
-{empty}[https://madanalogy.github.io[website]][https://github.com/madanalogy[github]] [<<Ahmed#, portfolio>>]
+{empty}[https://madanalogy.github.io[website]] [https://github.com/madanalogy[github]] [<<madanalogy#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Scheduling and Deadlines + In charge of `Logic` and `Person` model
+Responsibilities: Scheduling and Deadlines + In charge of the `Logic` component and `Person` model
 
 '''
 
 === Mandy Wang
 image::tirameshu.png[width="300", align="left"]
-{empty}[http://github.com/tirameshu[github]] [<<Mandy#, portfolio>>]
+{empty}[http://github.com/tirameshu[github]] [<<tirameshu#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation + In charge of `Vehicle` Model
@@ -30,7 +30,7 @@ Responsibilities: Documentation + In charge of `Vehicle` Model
 
 === Atharv Joshi
 image::atharvjoshi.png[width="300", align="left"]
-{empty}[http://github.com/atharvjoshi[github]] [<<Atharv#, portfolio>>]
+{empty}[http://github.com/atharvjoshi[github]] [<<atharvjoshi#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing + In charge of `UI`
@@ -39,7 +39,7 @@ Responsibilities: Testing + In charge of `UI`
 
 === Cheryl Ng
 image::yoshi275.png[width="300", align="left"]
-{empty}[http://github.com/yoshi275[github]] [<<Cheryl#, portfolio>>]
+{empty}[http://github.com/yoshi275[github]] [<<yoshi275#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration + In charge of `Incident` Model
@@ -48,7 +48,7 @@ Responsibilities: Integration + In charge of `Incident` Model
 
 === Mei An
 image::hellopanda128.png[width="300", align="left"]
-{empty}[http://github.com/hellopanda128[github]] [<<MeiAn#, portfolio>>]
+{empty}[http://github.com/hellopanda128[github]] [<<hellopanda128#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality + In charge of `Storage`

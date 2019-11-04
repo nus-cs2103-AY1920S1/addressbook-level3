@@ -28,16 +28,16 @@ public class TypicalPersons {
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com").withPhone("94351253")
             .withUsername("Opr1").withPassword("password")
-            .withTags("friends").build();
+            .withTags("employee").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withUsername("Opr2").withPassword("password")
-            .withTags("owesMoney", "friends").build();
+            .withTags("boss", "employee").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withUsername("Opr3").withPassword("password").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withUsername("Opr4").withPassword("password")
-            .withTags("friends").build();
+            .withTags("employee").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("94822224")
             .withEmail("werner@example.com").withUsername("Opr5").withPassword("password").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("94824271")

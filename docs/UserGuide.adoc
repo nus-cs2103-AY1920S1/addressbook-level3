@@ -63,10 +63,14 @@ Format: `help`
 === Logging in: `login`
 
 Logs the user into the IMS and registers the active session. +
-Format: `login u/USERNAME p/PASSWORD`
+Format: `login u/USERNAME w/PASSWORD`
 
 [NOTE]
 The only commands available prior to login are `Register`, `Login`, `Help`, and `Exit`.
+
+Example:
+
+* `login u/Agent01 w/password`
 
 === Logging out: `logout`
 
@@ -83,7 +87,7 @@ A user cannot access commands affecting entities not displayed in their current 
 
 Account Management Interface:
 
-image::account.png[]
+image::account.png[width="600"]
 
 // end::access[]
 
@@ -134,6 +138,10 @@ Examples:
 updates the phone number and email address of the logged in account to be `91234567` and `johndoe@example.com` respectively.
 * `update 2 n/Betsy Crower t/` +
 updates the name of the 2nd account to be `Betsy Crower` and clears all existing tags.
+
+==== Incident Auto Update `[coming in v2.0]`
+
+Any updates to user account details will search for all incidents created by the account and update those references as well.
 
 === Listing accounts : `list-a`
 
@@ -197,6 +205,10 @@ Deletes the 2nd account in the incident Manager.
 * `find-a Agent01` +
 `delete-a 1` +
 Deletes the 1st account in the results of the `find` command.
+
+==== Incident Auto Update `[coming in v2.0]`
+
+Deleting a user will search for all incidents created by the user and place a `deleted` flag next to the account details.
 
 // end::account[]
 
@@ -337,12 +349,6 @@ image::submitCommandWithParamsAfterScreenshot.png[]
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::incident[]
 
-// tag::common[]
-//=== Clearing all entries : `clear`
-//
-//Clears all entries from the incident Manager. +
-//Format: `clear`
-
 === Listing all incidents: `list-i`
 Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
@@ -424,15 +430,23 @@ Returns any incidents whereby the description contains 'fire'
 Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
+<<<<<<< HEAD
 ****
 ** If an index is not provided, system will prompt for index. Does not make any edits.
+=======
+[NOTE]
+Use `edit-i` to list all submitted reports
+>>>>>>> c875d89e0304a16b76f12a7ad651efb394cb2df1
 
+** Only admins can edit all reports, other users are only allowed to edit the reports they created.
 ** Number of fields provided for update is optional and can vary.
 [NOTE]
 If no fields are provided, incident will remain unchanged.
 
 ** Existing values will be updated to input values provided.
 ** Edits that result in duplicate incidents are not allowed
+** Can only edit submitted reports. Edit command should not be used on
+reports in draft state, instead, the fill command should be used.
 
 [NOTE]
 Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Caller Number`) are considered duplicates.
@@ -567,6 +581,7 @@ Deletes a vehicle in the list as identified by the index.
 Format: `delete-v [INDEX]`
 
 ****
+** Only an admin account can delete vehicles.
 ** A valid index has to be provided
 [NOTE]
 A valid index is a positive integer and points to a vehicle displayed in the vehicles list.
@@ -576,6 +591,13 @@ A valid index is a positive integer and points to a vehicle displayed in the veh
 
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
+image::deleteVehicleNonAdmin.png[]
+
+// tag::common[]
+//=== Clearing all entries : `clear`
+//
+//Clears all entries from the incident Manager. +
+//Format: `clear`
 
 === Exiting the program : `exit`
 
