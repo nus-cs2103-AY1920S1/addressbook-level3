@@ -9,8 +9,15 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
+import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.food.Food;
+import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Deletes a food item identified using its displayed index from the menu list.
@@ -35,14 +42,26 @@ public class DeleteFoodCommand extends Command {
     @Override
     public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
-        Restaurant restaurant = model.getEditingRestaurantList().get(0);
 
+        Restaurant restaurant = model.getEditingRestaurantList().get(0);
         if (targetIndex.getZeroBased() >= restaurant.getMenu().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
-
         Food foodToDelete = restaurant.getMenu().get(targetIndex.getZeroBased());
         restaurant.removeFood(foodToDelete);
+
+        List<Order> orders = model.getFilteredOrderList().stream()
+                .filter(order -> order.getRestaurant().equals(restaurant.getName()))
+                .collect(Collectors.toList());
+        for (Order order : orders) {
+            Map<Name, Integer> newFoodList = new HashMap<Name, Integer>(order.getFoodList());
+            newFoodList.remove(foodToDelete.getName());
+            Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
+                    .setRestaurant(order.getRestaurant())
+                    .setFood(newFoodList).completeOrder();
+            model.setOrder(order, newOrder);
+        }
+
         return new CommandResult(String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, foodToDelete));
     }
 
