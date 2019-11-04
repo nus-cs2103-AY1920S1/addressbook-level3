@@ -38,7 +38,7 @@ public class SettleCommandParser implements Parser<SettleCommand> {
             throw new ParseException(SettleCommand.MESSAGE_NOT_TWO_PEOPLE);
         }
 
-        if (persons.get(0) == persons.get(1)) {
+        if (persons.get(0).equals(persons.get(1))) {
             throw new ParseException(SettleCommand.MESSAGE_REPEATED_PERSON);
         }
 
