@@ -81,7 +81,5 @@ public class QuizAddQuestionCommandTest {
             Quiz quiz = new QuizBuilder().withQuizId(quizId).build();
             return quizzesAdded.add(quiz);
         }
-
     }
-
 }

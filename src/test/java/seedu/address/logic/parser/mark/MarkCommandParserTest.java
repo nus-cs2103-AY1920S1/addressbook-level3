@@ -26,17 +26,24 @@ public class MarkCommandParserTest {
     }
 
     @Test
-    public void parseCommand_markInvalidCommand_success() throws Exception {
+    public void parseCommand_markInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMarkCommand.MESSAGE_USAGE), () ->
                         parser.parse(" index/0"));
     }
 
     @Test
-    public void parseCommand_unmarkInvalidCommand_success() throws Exception {
+    public void parseCommand_unmarkInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveMarkCommand.MESSAGE_USAGE), () ->
                         parser.parse(" unmark index/0"));
+    }
+
+    @Test
+    public void parseCommand_markIncompleteCommand_failure() throws Exception {
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMarkCommand.MESSAGE_USAGE), () ->
+                        parser.parse(" "));
     }
 
 }

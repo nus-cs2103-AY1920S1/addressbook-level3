@@ -42,6 +42,7 @@ public class TypicalStudents {
             .withTags(TAG_SET_THREE).withMark(false).build();
     public static final Student STUDENT_FOUR = new StudentBuilder().withName(new Name("Deviel Dal"))
             .withTags(TAG_SET_FOUR).withMark(false).build();
+    public static final Student STUDENT_FIVE = new StudentBuilder().withName(new Name("Fifth")).build();
 
     public static StudentRecord getTypicalStudentRecord() {
         StudentRecord studentRecord = new StudentRecord();
@@ -52,7 +53,7 @@ public class TypicalStudents {
     }
 
     public static List<Student> getTypicalStudents() {
-        return new ArrayList<>(Arrays.asList(STUDENT_ONE, STUDENT_TWO, STUDENT_THREE, STUDENT_FOUR));
+        return new ArrayList<>(Arrays.asList(STUDENT_ONE, STUDENT_TWO, STUDENT_THREE, STUDENT_FOUR,STUDENT_FIVE));
     }
 
 }

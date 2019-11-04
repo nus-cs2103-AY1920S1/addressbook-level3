@@ -26,7 +26,7 @@ public class StudentCommandParserTest {
     }
 
     @Test
-    public void parseCommand_editInvalidCommand_success() throws Exception {
+    public void parseCommand_editInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StudentEditCommand.MESSAGE_USAGE), () ->
                         parser.parse("0  name/Ala"));
@@ -45,7 +45,7 @@ public class StudentCommandParserTest {
     }
 
     @Test
-    public void parseCommand_deleteInvalidCommand_success() throws Exception {
+    public void parseCommand_deleteInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StudentDeleteCommand.MESSAGE_USAGE), () ->
                         parser.parse(" delete"));
@@ -71,19 +71,19 @@ public class StudentCommandParserTest {
     }
 
     @Test
-    public void parseCommand_addInvalidCommandNoTag_success() throws Exception {
+    public void parseCommand_addInvalidCommandNoTag_failure() throws Exception {
         assertThrows(ParseException.class, Tag.MESSAGE_CONSTRAINTS, () ->
                 parser.parse(" name/teststudent tag/"));
     }
 
     @Test
-    public void parseCommand_addInvalidCommandNoName_success() throws Exception {
+    public void parseCommand_addInvalidCommandNoName_failure() throws Exception {
         assertThrows(ParseException.class, Name.MESSAGE_CONSTRAINTS, () ->
                 parser.parse(" name/"));
     }
 
     @Test
-    public void parseCommand_addInvalid_success() throws Exception {
+    public void parseCommand_addInvalid_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StudentAddCommand.MESSAGE_USAGE), () ->
                         parser.parse(" "));

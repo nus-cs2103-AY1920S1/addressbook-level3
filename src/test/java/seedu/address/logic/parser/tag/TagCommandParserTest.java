@@ -19,23 +19,30 @@ public class TagCommandParserTest {
     }
 
     @Test
-    public void parseCommand_tagNoTagSpecifiedCommand_success() throws Exception {
+    public void parseCommand_tagNoTagSpecifiedCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), () ->
                         parser.parse(" index/1 tag/"));
     }
 
     @Test
-    public void parseCommand_tagIncorrectIndexSpecifiedCommand_success() throws Exception {
+    public void parseCommand_tagIncorrectIndexSpecifiedCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), () ->
                         parser.parse(" index/0 tag/newTag"));
     }
 
     @Test
-    public void parseCommand_tagNoTagSpecifiedIncorrectIndexSpecifiedCommand_success() throws Exception {
+    public void parseCommand_tagNoTagSpecifiedIncorrectIndexSpecifiedCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), () ->
                         parser.parse(" index/0 tag/"));
+    }
+
+    @Test
+    public void parseCommand_tagIncompleteCommand_failure() throws Exception {
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), () ->
+                        parser.parse(" "));
     }
 }

@@ -171,6 +171,11 @@ public interface Model {
     ReadOnlyStudentRecord getStudentRecord();
 
     /**
+     * Sets the student record with the given student record.
+     */
+    void setStudentRecord(ReadOnlyStudentRecord studentRecord);
+
+    /**
      * Checks if the list already contains specified student.
      */
     boolean hasStudent(Student student);

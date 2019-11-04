@@ -22,14 +22,14 @@ public class GroupCommandParserTest {
 
 
     @Test
-    public void parseCommand_createGroupInvalidCommand_success() throws Exception {
+    public void parseCommand_createGroupInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, GroupCreateManuallyCommand.MESSAGE_USAGE), () ->
                         parser.parse(" manual"));
     }
 
     @Test
-    public void parseCommand_createGroupNoStudentNumberInvalidCommand_success() throws Exception {
+    public void parseCommand_createGroupNoStudentNumberInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class, MESSAGE_MISSING_INPUT_FIELDS, () ->
                         parser.parse(" manual/ groupID/G01 studentNumber/"));
     }
@@ -41,19 +41,19 @@ public class GroupCommandParserTest {
     }
 
     @Test
-    public void parseCommand_addStudentToGroupMissingStudentNumberInvalidCommand_success() throws Exception {
+    public void parseCommand_addStudentToGroupMissingStudentNumberInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class, MESSAGE_MISSING_INPUT_FIELDS, () ->
                 parser.parse(" add groupID/G03 studentNumber/ groupIndexNumber/2"));
     }
 
     @Test
-    public void parseCommand_addStudentToGroupMissingGroupIndexNumberInvalidCommand_success() throws Exception {
+    public void parseCommand_addStudentToGroupMissingGroupIndexNumberInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class, MESSAGE_MISSING_INPUT_FIELDS, () ->
                 parser.parse(" add groupID/G03 studentNumber/1 groupIndexNumber/"));
     }
 
     @Test
-    public void parseCommand_addStudentToGroupMissingTwoFieldsInvalidCommand_success() throws Exception {
+    public void parseCommand_addStudentToGroupMissingTwoFieldsInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class, MESSAGE_MISSING_INPUT_FIELDS, () ->
                 parser.parse(" add groupID/G03 studentNumber/ groupIndexNumber/"));
     }
@@ -65,13 +65,13 @@ public class GroupCommandParserTest {
     }
 
     @Test
-    public void parseCommand_removeStudentFromGroupMissingFieldsInvalidCommand_success() throws Exception {
+    public void parseCommand_removeStudentFromGroupMissingFieldsInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class, MESSAGE_MISSING_INPUT_FIELDS, () ->
                 parser.parse(" delete groupID/G03 groupIndexNumber/"));
     }
 
     @Test
-    public void parseCommand_removeStudentInvalidCommand_success() throws Exception {
+    public void parseCommand_removeStudentInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, GroupRemoveStudentCommand.MESSAGE_USAGE), () ->
                         parser.parse(" delete"));

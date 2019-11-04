@@ -24,6 +24,9 @@ public class GroupCreateManuallyCommand extends GroupCommand {
             + "Example: studentNumber/ 1 3 5 (Adds students 1, 3 and 5 in the student list to the group)\n"
             + "Full Example: group manual/ groupID/G01 studentNumber/1 2 3 --> adds student 1,2 and 3 to group G01\n\n";
 
+    public static final String CREATED_SUCCESSFULLY_WITH_ONE = "Created group: %1$s with %2$d student.";
+    public static final String CREATED_SUCCESSFULLY_WITH_MANY = "Created group: %1$s with %2$d students.";
+    public static final String OUT_OF_BOUNDS = "One or more of the student index numbers input are out of bounds";
     private final String groupId;
     private final ArrayList<Integer> studentNumbers;
 
@@ -47,6 +50,14 @@ public class GroupCreateManuallyCommand extends GroupCommand {
     }
 
     /**
+     * Creates a GroupCreateManuallyCommand instance with given attributes(For Testing)
+     */
+    public GroupCreateManuallyCommand(String groupId, ArrayList<Integer> studentNumbers) {
+        this.groupId = groupId;
+        this.studentNumbers = studentNumbers;
+    }
+
+    /**
      * Executes the user command.
      *
      * @param model {@code Model} which the command should operate on.
@@ -56,10 +67,10 @@ public class GroupCreateManuallyCommand extends GroupCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (groupId.isEmpty() || groupId.equals("")) {
-            return new CommandResult(GROUP_ID_LEFT_EMPTY);
+           throw new CommandException(GROUP_ID_LEFT_EMPTY);
         }
         if (model.checkGroupExists(groupId)) {
-            return new CommandResult(String.format(GROUP_ALREADY_EXISTS, groupId));
+            throw new CommandException(String.format(GROUP_ALREADY_EXISTS, groupId));
         }
         List<Student> lastShownList = model.getFilteredStudentList();
         boolean outOfBounds = false;
@@ -70,7 +81,7 @@ public class GroupCreateManuallyCommand extends GroupCommand {
             }
         }
         if (outOfBounds) {
-            return new CommandResult("One or more of the student index numbers input are out of bounds");
+            throw new CommandException(OUT_OF_BOUNDS);
         }
         model.createGroupManually(groupId, studentNumbers);
         return new CommandResult(generateSuccessMessage());
@@ -84,9 +95,9 @@ public class GroupCreateManuallyCommand extends GroupCommand {
     private String generateSuccessMessage() {
         int numStudents = studentNumbers.size();
         if (numStudents == 1) {
-            return "Created group: " + groupId + " with " + numStudents + " student.";
+            return String.format(CREATED_SUCCESSFULLY_WITH_ONE,groupId,1);
         } else {
-            return "Created group: " + groupId + " with " + studentNumbers.size() + " students.";
+            return String.format(CREATED_SUCCESSFULLY_WITH_MANY,groupId,numStudents);
         }
     }
 

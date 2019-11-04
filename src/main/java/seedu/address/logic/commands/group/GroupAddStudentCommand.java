@@ -24,6 +24,8 @@ public class GroupAddStudentCommand extends GroupCommand {
             + "1 to G03 assigning group"
             + " index number 2 \n\n";
 
+    public static final String MESSAGE_SUCCESS = "Added student : %1$d to group: %2$s";
+
     private final String groupId;
     private final int studentNumber;
     private final int groupIndexNumber;
@@ -49,22 +51,22 @@ public class GroupAddStudentCommand extends GroupCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (groupId.isEmpty()) {
-            return new CommandResult(GROUP_ID_LEFT_EMPTY);
+        if (groupId.isEmpty() || groupId == null) {
+            throw new CommandException(GROUP_ID_LEFT_EMPTY);
         }
         if (!model.checkGroupExists(groupId)) {
-            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
+           throw new CommandException(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
         List<Student> lastShownList = model.getFilteredStudentList();
         if (studentNumber < 1 || studentNumber > lastShownList.size()) {
-            return new CommandResult(STUDENT_NUMBER_OUT_OF_BOUNDS);
+            throw new CommandException(STUDENT_NUMBER_OUT_OF_BOUNDS);
         }
         if (groupIndexNumber > model.getGroupSize(groupId) + 1 || groupIndexNumber < 1) {
-            return new CommandResult(GROUP_INDEX_OUT_OF_BOUNDS);
+            throw new CommandException(GROUP_INDEX_OUT_OF_BOUNDS);
         }
         Student student = model.getStudent(studentNumber - 1);
         if (model.checkStudentExistInGroup(groupId, student)) {
-            return new CommandResult(String.format(STUDENT_EXISTS_IN_GROUP, student));
+            throw new CommandException(String.format(STUDENT_EXISTS_IN_GROUP, student));
         }
         model.addStudentToGroup(groupId, studentNumber, groupIndexNumber);
         return new CommandResult(generateSuccessMessage());
@@ -76,7 +78,7 @@ public class GroupAddStudentCommand extends GroupCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Added student: " + studentNumber + " to group: " + groupId;
+        return String.format(MESSAGE_SUCCESS,studentNumber,groupId);
     }
 
     @Override

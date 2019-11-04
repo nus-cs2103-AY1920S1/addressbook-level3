@@ -1,8 +1,11 @@
 package seedu.address.logic.commands.group;
 
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+
+import java.util.Locale;
 
 /**
  * Represents an remove student command, specific to a group.
@@ -18,6 +21,8 @@ public class GroupRemoveStudentCommand extends GroupCommand {
             + "Example: groupIndexNumber/ 2 (Specifies the student number in the group to remove)\n"
             + "Full Example: group delete groupID/G03 groupIndexNumber/1"
             + " --> removes student with index number 1 from G03";
+
+    public static final String MESSAGE_SUCCESS = "Removed student: %1$d from group: %2$s";
 
     private final String groupId;
     private final int groupIndexNumber;
@@ -43,13 +48,13 @@ public class GroupRemoveStudentCommand extends GroupCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (groupId.isEmpty() || groupId.equals("")) {
-            return new CommandResult(GROUP_ID_LEFT_EMPTY);
+            throw new CommandException(GROUP_ID_LEFT_EMPTY);
         }
         if (!model.checkGroupExists(groupId)) {
-            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
+            throw new CommandException(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
         if (groupIndexNumber > model.getGroupSize(groupId) || groupIndexNumber < 1) {
-            return new CommandResult(INDEX_OUT_OF_BOUNDS);
+           throw new CommandException(INDEX_OUT_OF_BOUNDS);
         }
         model.removeStudentFromGroup(groupId, groupIndexNumber - 1);
         return new CommandResult(generateSuccessMessage());
@@ -61,7 +66,7 @@ public class GroupRemoveStudentCommand extends GroupCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Removed student: " + groupIndexNumber + " from group: " + groupId;
+        return String.format(MESSAGE_SUCCESS,groupIndexNumber,groupId);
     }
 
     @Override

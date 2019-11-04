@@ -1,7 +1,7 @@
 {
   "guiSettings" : {
-    "windowWidth" : 1294.6666259765625,
-    "windowHeight" : 694.6666870117188,
+    "windowWidth" : 1440.0,
+    "windowHeight" : 821.0,
     "windowCoordinates" : {
       "x" : 0,
       "y" : 23
@@ -14,5 +14,3 @@
   "savedQuizzesFilePath" : "data/quizzes.json",
   "notesRecordFilePath" : "data/notes.json"
 }
-
-
