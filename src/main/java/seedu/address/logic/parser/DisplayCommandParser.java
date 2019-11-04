@@ -24,7 +24,6 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-
     /**
      * Parses the given {@code String} of arguments in the context of the DisplayCommand
      * and returns a DisplayCommand object for execution.

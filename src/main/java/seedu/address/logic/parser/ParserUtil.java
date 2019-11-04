@@ -45,6 +45,7 @@ import seedu.address.model.visual.DisplayIndicator;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_POSITIVE_INT = "Value is not a positive integer.";
 
     private static HashSet<String> commands = new HashSet<>();
 
@@ -334,6 +335,20 @@ public class ParserUtil {
             throw new ParseException(DisplayFormat.getMessageConstraints());
         }
         return new DisplayFormat(trimmedDisplayFormat);
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static int parsePositiveInt(String positiveInt) throws ParseException {
+        String trimmedPositiveInt = positiveInt.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(positiveInt)) {
+            throw new ParseException(MESSAGE_INVALID_POSITIVE_INT);
+        }
+        return Integer.parseInt(trimmedPositiveInt);
     }
 
     /**

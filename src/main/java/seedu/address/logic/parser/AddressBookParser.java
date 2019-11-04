@@ -16,6 +16,7 @@ import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.AddPolicyTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignPolicyCommand;
+import seedu.address.logic.commands.BinItemExpiryCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -278,6 +279,9 @@ public class AddressBookParser {
                 this.suggestionOn = false;
             }
             return command;
+
+        case BinItemExpiryCommand.COMMAND_WORD:
+            return new BinItemExpiryCommandParser().parse(arguments);
 
         default:
             if (commandWord.length() == 0) {
