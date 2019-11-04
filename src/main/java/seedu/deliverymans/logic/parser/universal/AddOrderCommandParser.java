@@ -56,7 +56,7 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
 
         Order orderToAdd = new Order.OrderBuilder().setCustomer(customerName).setRestaurant(restaurantName)
                 .setFood(lst).completeOrder();
-        return new AddOrderCommand(orderToAdd, true);
+        return new AddOrderCommand(orderToAdd);
     }
 
     /**

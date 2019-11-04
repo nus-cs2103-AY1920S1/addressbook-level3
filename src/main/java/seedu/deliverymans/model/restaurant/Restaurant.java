@@ -88,12 +88,17 @@ public class Restaurant {
         return orders;
     }
 
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
     public ObservableList<Food> getMenu() {
         return menu;
     }
 
     /**
      * Adds the food item to the restaurant's menu
+     *
      * @param toAdd
      */
     public void addFood(Food toAdd) {
@@ -107,6 +112,7 @@ public class Restaurant {
 
     /**
      * Removes the food time from the restaurant's menu
+     *
      * @param toRemove
      */
     public void removeFood(Food toRemove) {

@@ -25,7 +25,7 @@ public class Order {
 
     // Data fields
     private final ObservableMap<Name, Integer> foodList = FXCollections.observableHashMap();
-    private boolean isCompleted;
+    private final boolean isCompleted;
 
     /**
      * Constructs a {@code Order}
@@ -43,6 +43,7 @@ public class Order {
         this.restaurant = restaurant;
         this.deliveryman = deliveryman;
         this.foodList.putAll(foodList);
+        this.isCompleted = isCompleted;
     }
 
     public Name getCustomer() {
