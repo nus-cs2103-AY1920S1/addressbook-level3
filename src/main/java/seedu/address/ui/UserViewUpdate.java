@@ -30,10 +30,11 @@ public class UserViewUpdate {
         String preamble = commandText.split(" ")[0];
 
         assert !(preamble.isEmpty());
+        String command = preamble.trim();
 
         paneToRender.getChildren().clear();
 
-        switch(preamble) {
+        switch(command) {
 
         case "add-task":
 
