@@ -9,13 +9,13 @@ import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.MUSICAL_COMPETITION;
 import static seedu.address.testutil.TypicalEvents.getTypicalEventBook;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -26,21 +26,19 @@ import seedu.address.model.event.EventContainsKeyDateRangePredicate;
  */
 public class DisplayScheduleBetweenCommandTest {
 
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
     private Model model = new ModelManager(getTypicalEventBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalEventBook(), new UserPrefs());
 
     @Test
-    public void equals() {
+    public void equals() throws ParseException {
         EventContainsKeyDateRangePredicate firstPredicate =
                 new EventContainsKeyDateRangePredicate(
-                        LocalDate.parse("10/12/2019", FORMATTER),
-                        LocalDate.parse("12/12/2019", FORMATTER));
+                        ParserUtil.parseAnyDate("10/12/2019"),
+                        ParserUtil.parseAnyDate("12/12/2019"));
         EventContainsKeyDateRangePredicate secondPredicate =
                 new EventContainsKeyDateRangePredicate(
-                        LocalDate.parse("13/12/2019", FORMATTER),
-                        LocalDate.parse("14/12/2019", FORMATTER));
+                        ParserUtil.parseAnyDate("13/12/2019"),
+                        ParserUtil.parseAnyDate("14/12/2019"));
 
         DisplayScheduleBetweenCommand displayFirstCommand = new DisplayScheduleBetweenCommand(firstPredicate);
         DisplayScheduleBetweenCommand displaySecondCommand = new DisplayScheduleBetweenCommand(secondPredicate);
@@ -64,7 +62,7 @@ public class DisplayScheduleBetweenCommandTest {
     }
 
     @Test
-    public void execute_zeroDateKeywords_noEventFound() {
+    public void execute_zeroDateKeywords_noEventFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyDateRangePredicate predicate = preparePredicate("01/01/2019", "02/01/2019");
         DisplayScheduleBetweenCommand command = new DisplayScheduleBetweenCommand(predicate);
@@ -74,7 +72,7 @@ public class DisplayScheduleBetweenCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multiplePersonsFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyDateRangePredicate predicate = preparePredicate("12/10/2019", "13/10/2019");
         DisplayScheduleBetweenCommand command = new DisplayScheduleBetweenCommand(predicate);
@@ -86,8 +84,9 @@ public class DisplayScheduleBetweenCommandTest {
     /**
      * Parses {@code userInput1} and {@code userInput2} into a {@code EventContainsKeyRangePredicate}.
      */
-    private EventContainsKeyDateRangePredicate preparePredicate(String userInput1, String userInput2) {
+    private EventContainsKeyDateRangePredicate preparePredicate(String userInput1, String userInput2)
+            throws ParseException {
         return new EventContainsKeyDateRangePredicate(
-                LocalDate.parse(userInput1, FORMATTER), LocalDate.parse(userInput2, FORMATTER));
+                ParserUtil.parseAnyDate(userInput1), ParserUtil.parseAnyDate(userInput2));
     }
 }

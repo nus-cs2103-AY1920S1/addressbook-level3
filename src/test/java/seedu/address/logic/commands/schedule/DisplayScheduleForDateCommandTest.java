@@ -9,13 +9,13 @@ import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.MUSICAL_COMPETITION;
 import static seedu.address.testutil.TypicalEvents.getTypicalEventBook;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -26,17 +26,15 @@ import seedu.address.model.event.EventContainsKeyDatePredicate;
  */
 public class DisplayScheduleForDateCommandTest {
 
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
     private Model model = new ModelManager(getTypicalEventBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalEventBook(), new UserPrefs());
 
     @Test
-    public void equals() {
+    public void equals() throws ParseException {
         EventContainsKeyDatePredicate firstPredicate =
-                new EventContainsKeyDatePredicate(LocalDate.parse("10/12/2019", FORMATTER));
+                new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("10/12/2019"));
         EventContainsKeyDatePredicate secondPredicate =
-                new EventContainsKeyDatePredicate(LocalDate.parse("12/12/2019", FORMATTER));
+                new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("12/12/2019"));
 
         DisplayScheduleForDateCommand displayFirstCommand = new DisplayScheduleForDateCommand(firstPredicate);
         DisplayScheduleForDateCommand displaySecondCommand = new DisplayScheduleForDateCommand(secondPredicate);
@@ -60,7 +58,7 @@ public class DisplayScheduleForDateCommandTest {
     }
 
     @Test
-    public void execute_zeroDateKeywords_noEventFound() {
+    public void execute_zeroDateKeywords_noEventFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyDatePredicate predicate = preparePredicate("01/01/2019");
         DisplayScheduleForDateCommand command = new DisplayScheduleForDateCommand(predicate);
@@ -70,7 +68,7 @@ public class DisplayScheduleForDateCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multiplePersonsFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyDatePredicate predicate = preparePredicate("12/10/2019");
         DisplayScheduleForDateCommand command = new DisplayScheduleForDateCommand(predicate);
@@ -82,7 +80,7 @@ public class DisplayScheduleForDateCommandTest {
     /**
      * Parses {@code userInput} into a {@code EventContainsKeyDatePredicate}.
      */
-    private EventContainsKeyDatePredicate preparePredicate(String userInput) {
-        return new EventContainsKeyDatePredicate(LocalDate.parse(userInput, FORMATTER));
+    private EventContainsKeyDatePredicate preparePredicate(String userInput) throws ParseException {
+        return new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate(userInput));
     }
 }
