@@ -30,6 +30,7 @@ public class BudgetCommandTest {
 
     @Test
     public void execute_noData_budgetSuccess() {
+        System.setProperty("java.awt.headless", "false");
         String noBudgetData = "Projected income: $0.00\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $0.00";
@@ -38,6 +39,7 @@ public class BudgetCommandTest {
 
     @Test
     public void execute_noClaims_budgetSuccess() {
+        System.setProperty("java.awt.headless", "false");
         Budget budget = new Budget(claimList, incomeList);
         budget.calculateBudget();
         String noClaimData = "Projected income: $10,100.10\n"
@@ -48,16 +50,18 @@ public class BudgetCommandTest {
 
     @Test
     public void execute_nonApprovedClaims_budgetSuccess() {
+        System.setProperty("java.awt.headless", "false");
         Budget budget = new Budget(claimList2, incomeList2);
         budget.calculateBudget();
         String noApprovedClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $10,100.10";
-        assertEquals(noApprovedClaimData,  new BudgetCommand().execute(model2).getFeedbackToUser());
+        assertEquals(noApprovedClaimData, new BudgetCommand().execute(model2).getFeedbackToUser());
     }
 
     @Test
     public void execute_approvedClaims_budgetSuccess() {
+        System.setProperty("java.awt.headless", "false");
         Budget budget = new Budget(claimList3, incomeList3);
         budget.calculateBudget();
         String approvedClaimData = "Projected income: $10,100.10\n"
