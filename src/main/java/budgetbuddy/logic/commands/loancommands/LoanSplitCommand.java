@@ -65,7 +65,6 @@ public class LoanSplitCommand extends Command {
             "The number of persons does not match the number of payments.";
 
     public static final String MESSAGE_INVALID_TOTAL = "Total amount must be more than zero.";
-    public static final String MESSAGE_PER_PERSON_CALCULATION_ERROR = "Error while calculating default per person.";
     public static final String MESSAGE_ALREADY_SPLIT_EQUALLY = "The amounts have already been split equally.";
 
     public static final String MESSAGE_USER_NOT_FOUND =
@@ -123,8 +122,7 @@ public class LoanSplitCommand extends Command {
 
         long defaultPerPerson = (totalAmount - maxShares.stream()
                 .filter(share -> share >= 0 && share <= totalAmount)
-                .reduce(Long::sum)
-                .orElseThrow(() -> new CommandException(MESSAGE_PER_PERSON_CALCULATION_ERROR))) / persons.size();
+                .reduce(0L, Long::sum)) / persons.size();
 
         List<Participant> participants = new ArrayList<Participant>();
         for (int i = 0; i < persons.size(); i++) {
