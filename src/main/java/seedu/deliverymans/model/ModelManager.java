@@ -340,6 +340,25 @@ public class ModelManager implements Model {
         orderDatabase.setOrder(target, editedOrder);
     }
 
+    @Override
+    public void deleteOrderInCustomer(Order order) {
+        Customer customer = null;
+        for (Customer cust : getFilteredCustomerList()) {
+            if (cust.getName().equals(order.getCustomer())) {
+                customer = cust;
+                break;
+            }
+        }
+        Restaurant restaurant = null;
+        for (Restaurant rest : getFilteredRestaurantList()) {
+            if (rest.getName().equals(order.getRestaurant())) {
+                restaurant = rest;
+                break;
+            }
+        }
+        customer.deleteOrder(order, restaurant.getTags());
+    }
+
     //=========== Undo ================================================================================
 
     @Override

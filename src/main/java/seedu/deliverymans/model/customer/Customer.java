@@ -49,18 +49,22 @@ public class Customer {
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
+        for (Tag tag : tags) {
+            totalTags.put(tag, 1);
+        }
     }
 
     /**
      * Constructor for saving to storage
      */
-    public Customer(Name name, Phone phone, Set<Tag> tags, ObservableList<Order> orders) {
+    public Customer(Name name, Phone phone, Set<Tag> tags, ObservableMap<Tag, Integer> totalTags,
+                    ObservableList<Order> orders) {
         requireAllNonNull(name, phone, tags, orders);
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
+        this.totalTags.putAll(totalTags);
         this.orders.addAll(orders);
-        addTags(tags);
     }
 
     public Name getName() {
@@ -79,6 +83,9 @@ public class Customer {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Map<Tag, Integer> getTotalTags() {
+        return Collections.unmodifiableMap(totalTags);
+    }
     /**
      * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders.
      */
@@ -127,7 +134,7 @@ public class Customer {
     private void deleteTags(Set<Tag> tags) {
         for (Tag tag : tags) {
             Integer i = totalTags.get(tag);
-            if (i - 0 == 0) {
+            if ((i - 1) == 0) {
                 totalTags.remove(tag);
             } else {
                 totalTags.replace(tag, i, i - 1);
@@ -140,15 +147,17 @@ public class Customer {
      * Changes Customer's tags to new tags depending on the number of occurrence of {@code Tag}.
      */
     private void changeMainTags() {
-        List<Map.Entry<Tag, Integer>> list = new ArrayList<>(totalTags.entrySet());
-        list.sort(Map.Entry.comparingByValue());
-        Set<Tag> newTags = new HashSet<>();
-        newTags.add(list.get(list.size() - 1).getKey());
-        if (list.size() > 1) {
-            newTags.add(list.get(list.size() - 2).getKey());
-        }
         tags.clear();
-        tags.addAll(newTags);
+        if (!totalTags.isEmpty()) {
+            List<Map.Entry<Tag, Integer>> list = new ArrayList<>(totalTags.entrySet());
+            list.sort(Map.Entry.comparingByValue());
+            Set<Tag> newTags = new HashSet<>();
+            newTags.add(list.get(list.size() - 1).getKey());
+            if (list.size() > 1) {
+                newTags.add(list.get(list.size() - 2).getKey());
+            }
+            tags.addAll(newTags);
+        }
     }
 
     /**
