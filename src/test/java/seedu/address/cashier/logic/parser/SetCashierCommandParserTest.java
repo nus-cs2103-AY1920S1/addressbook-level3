@@ -30,7 +30,7 @@ public class SetCashierCommandParserTest {
         Person p = personModel.getPersonByName("Alice Pauline");
         SetCashierCommand setCashierCommand = new SetCashierCommand(p);
         assertCommandParserSuccess(parser, " Alice Pauline", setCashierCommand, model,
-                (CheckAndGetPersonByNameModel)personModel);
+                (CheckAndGetPersonByNameModel) personModel);
         model.resetCashier();
     }
 

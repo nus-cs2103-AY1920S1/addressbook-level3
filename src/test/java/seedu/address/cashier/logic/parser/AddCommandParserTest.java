@@ -45,7 +45,8 @@ import seedu.address.testutil.TypicalTransactions;
 public class AddCommandParserTest {
 
     private AddCommandParser parser = new AddCommandParser();
-    private seedu.address.cashier.model.ModelManager model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
     private seedu.address.person.model.Model personModel =
             new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -150,8 +151,9 @@ public class AddCommandParserTest {
                 QUANTITY_NOT_A_NUMBER, model, (CheckAndGetPersonByNameModel) personModel);
 
         // non-empty preamble
-        assertCommandParserFailure(parser, PREAMBLE_NON_EMPTY + DESC_DESCRIPTION_STORYBOOK + DESC_QUANTITY_1,
-                CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT, model, (CheckAndGetPersonByNameModel) personModel);
+        assertCommandParserFailure(parser, PREAMBLE_NON_EMPTY + DESC_DESCRIPTION_STORYBOOK
+                        + DESC_QUANTITY_1, CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT, model,
+                (CheckAndGetPersonByNameModel) personModel);
 
         setInventoryList();
         // insufficient qty to add

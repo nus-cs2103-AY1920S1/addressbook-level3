@@ -13,8 +13,8 @@ import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
-import seedu.address.stubs.PersonModelStubAcceptingPersonAddedCheckAnd;
-import seedu.address.stubs.PersonModelStubWithPersonCheckAnd;
+import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
+import seedu.address.stubs.PersonModelStubWithPerson;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalPersons;
@@ -37,7 +37,7 @@ public class SetCashierCommandTest {
             seedu.address.cashier.logic.commands.exception.NoSuchPersonException {
 
         Person validPerson = new PersonBuilder().build();
-        PersonModelStubWithPersonCheckAnd modelStubWithPerson = new PersonModelStubWithPersonCheckAnd(validPerson);
+        PersonModelStubWithPerson modelStubWithPerson = new PersonModelStubWithPerson(validPerson);
 
         SetCashierCommand setCashierCommand = new SetCashierCommand(validPerson);
         CommandResult commandResult = setCashierCommand.execute(model,
@@ -58,7 +58,8 @@ public class SetCashierCommandTest {
     public void execute_invalidCashier_failure() {
         Person nonExistingPerson = TypicalPersons.AMY;
 
-        PersonModelStubAcceptingPersonAddedCheckAnd personModelStub2 = new PersonModelStubAcceptingPersonAddedCheckAnd();
+        PersonModelStubAcceptingPersonAdded personModelStub2 =
+                new PersonModelStubAcceptingPersonAdded();
         SetCashierCommand setCashierCommand = new SetCashierCommand(nonExistingPerson);
 
         String expectedMessage = String.format(NO_SUCH_PERSON);

@@ -75,7 +75,8 @@ public class LogicManagerTest {
                             reimbursementManager.getReimbursementFromFile(model.getTransactionList()));
 
             transactionStorage =
-                    new seedu.address.transaction.storage.StorageManager(tFile, (CheckAndGetPersonByNameModel) personModel);
+                    new seedu.address.transaction.storage.StorageManager(tFile,
+                            (CheckAndGetPersonByNameModel) personModel);
 
 
             transactionModel = new seedu.address.transaction.model.ModelManager(
@@ -205,7 +206,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new seedu.address.cashier.model.ModelManager(model.getInventoryList(), model.getTransactionList());
+        Model expectedModel = new seedu.address.cashier.model.ModelManager(model.getInventoryList(),
+                model.getTransactionList());
         System.out.println("expected msg: " + expectedMessage);
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }

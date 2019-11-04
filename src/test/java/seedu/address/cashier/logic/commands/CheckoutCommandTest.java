@@ -27,7 +27,8 @@ public class CheckoutCommandTest {
     private static final Double INVALID_TOTAL_AMOUNT = -50.32;
     private static final Double INVALID_CHANGE = -3.21;
 
-    private seedu.address.cashier.model.ModelManager model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
 
     private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -56,10 +57,12 @@ public class CheckoutCommandTest {
         model.setCashier(cashier);
 
         model.addItem(STORYBOOK);
-        String expectedMessage = String.format(MESSAGE_CHECKOUT_SUCCESS, Item.DECIMAL_FORMAT.format(VALID_TOTAL_AMOUNT),
+        String expectedMessage = String.format(MESSAGE_CHECKOUT_SUCCESS,
+                Item.DECIMAL_FORMAT.format(VALID_TOTAL_AMOUNT),
                 Item.DECIMAL_FORMAT.format(VALID_CHANGE));
 
-        seedu.address.cashier.model.ModelManager expectedModel = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+        seedu.address.cashier.model.ModelManager expectedModel =
+                new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                 TypicalTransactions.getTypicalTransactionList());
         expectedModel.setCashier(new PersonBuilder().build());
 

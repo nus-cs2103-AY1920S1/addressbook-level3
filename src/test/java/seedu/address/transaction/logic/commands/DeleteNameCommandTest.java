@@ -24,7 +24,8 @@ import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.transaction.Transaction;
 
 class DeleteNameCommandTest {
-    private seedu.address.transaction.model.ModelManager model = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+    private seedu.address.transaction.model.ModelManager model =
+            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
     private CheckAndGetPersonByNameModel personModel =
             new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -43,7 +44,8 @@ class DeleteNameCommandTest {
     void execute_unFilteredList_successful() {
         DeleteNameCommand deleteNameCommand = new DeleteNameCommand(TypicalPersons.ALICE);
         String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.ALICE.getName()));
-        seedu.address.transaction.model.ModelManager expectedModel = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.deleteAllTransactionOfPerson(TypicalPersons.ALICE);
         assertCommandSuccess(deleteNameCommand, model, message,
                 expectedModel, personModel);
@@ -54,7 +56,8 @@ class DeleteNameCommandTest {
         showTransactionsOfPerson(model, TypicalPersons.ALICE.getName().toString());
         DeleteNameCommand deleteNameCommand = new DeleteNameCommand(TypicalPersons.ALICE);
         String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.ALICE.getName()));
-        seedu.address.transaction.model.ModelManager expectedModel = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.deleteAllTransactionOfPerson(TypicalPersons.ALICE);
         showNoTransaction(expectedModel);
         assertCommandSuccess(deleteNameCommand, model, message, expectedModel, personModel);
@@ -73,7 +76,8 @@ class DeleteNameCommandTest {
         showTransactionsOfPerson(model, TypicalPersons.ALICE.getName().toString());
         DeleteNameCommand deleteNameCommand = new DeleteNameCommand(TypicalPersons.BENSON);
         String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.BENSON.getName()));
-        seedu.address.transaction.model.ModelManager expectedModel = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.ALICE.getName().toString());
         expectedModel.deleteAllTransactionOfPerson(TypicalPersons.BENSON);
         assertCommandSuccess(deleteNameCommand, model, message, expectedModel, personModel);

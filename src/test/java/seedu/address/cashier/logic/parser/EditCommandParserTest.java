@@ -46,7 +46,7 @@ public class EditCommandParserTest {
 
         // no index specified
         assertCommandParserFailure(parser, DESC_DESCRIPTION_STORYBOOK, MESSAGE_INVALID_EDITCOMMAND_FORMAT, model,
-                (CheckAndGetPersonByNameModel)personModel);
+                (CheckAndGetPersonByNameModel) personModel);
 
         //only quantity specified
         assertCommandParserFailure(parser, DESC_QUANTITY_1, MESSAGE_INVALID_EDITCOMMAND_FORMAT, model,
@@ -98,7 +98,8 @@ public class EditCommandParserTest {
                 NO_SUCH_INDEX_CASHIER, model, (CheckAndGetPersonByNameModel) personModel);
 
         // invalid string quantity
-        assertCommandParserFailure(parser, DESC_INDEX_1 + INVALID_QUANTITY_1, QUANTITY_NOT_A_NUMBER, model,
+        assertCommandParserFailure(parser, DESC_INDEX_1 + INVALID_QUANTITY_1,
+                QUANTITY_NOT_A_NUMBER, model,
                 (CheckAndGetPersonByNameModel) personModel);
 
         // invalid negative quantity

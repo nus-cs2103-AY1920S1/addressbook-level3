@@ -33,7 +33,9 @@ public class LogicManagerTest {
         typicalReimbursements.resetReimbursements();
 
         try {
-            reimbursementModel = new seedu.address.reimbursement.model.ModelManager(typicalReimbursements.getTypicalReimbursements());
+            reimbursementModel =
+                    new seedu.address.reimbursement.model.ModelManager(
+                            typicalReimbursements.getTypicalReimbursements());
             personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testingLogic", "tempReimbursement.txt");
             reimbursementStorage = new StorageManager(file);

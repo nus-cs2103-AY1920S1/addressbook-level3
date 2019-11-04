@@ -25,7 +25,8 @@ import seedu.address.transaction.ui.TransactionMessages;
 
 class DeleteIndexCommandTest {
 
-    private seedu.address.transaction.model.ModelManager model = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+    private seedu.address.transaction.model.ModelManager model =
+            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
     private CheckAndGetPersonByNameModel personModel =
             new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -50,12 +51,15 @@ class DeleteIndexCommandTest {
 
     @Test
     void execute_validIndexUnfilteredListNegativeTransaction_successful() {
-        seedu.address.transaction.model.ModelManager model = new seedu.address.transaction.model.ModelManager(new TypicalTransactions().getTransactionListWithReimbursementNeeded());
+        seedu.address.transaction.model.ModelManager model =
+                new seedu.address.transaction.model.ModelManager(
+                        new TypicalTransactions().getTransactionListWithReimbursementNeeded());
         DeleteIndexCommand deleteIndexCommand = new DeleteIndexCommand(1);
         String message = String.format(MESSAGE_DELETE_NEGATIVE_TRANSACTION,
                 new TypicalTransactions().getTransactionsWithReimbursements().get(0));
         seedu.address.transaction.model.ModelManager expectedModel = new
-                seedu.address.transaction.model.ModelManager(new TypicalTransactions().getTransactionListWithReimbursementNeeded());
+                seedu.address.transaction.model.ModelManager(
+                        new TypicalTransactions().getTransactionListWithReimbursementNeeded());
         System.out.println(expectedModel.getTransactionList().get(0));
         expectedModel.deleteTransaction(1);
         assertCommandSuccess(deleteIndexCommand, model, message,
@@ -80,7 +84,8 @@ class DeleteIndexCommandTest {
         String expectedMessage = String.format(MESSAGE_DELETE_POSITIVE_TRANSACTION,
                 TypicalTransactions.BENSON_TRANSACTION_2);
 
-        Model expectedModel = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        Model expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.deleteTransaction(2);
         showNoTransaction(expectedModel);
 

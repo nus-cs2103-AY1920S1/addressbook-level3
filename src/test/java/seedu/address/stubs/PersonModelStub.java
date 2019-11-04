@@ -15,7 +15,7 @@ import seedu.address.person.model.person.Person;
 /**
  * Represents an address book Model stub.
  */
-public class PersonModelStubCheckAnd implements Model, CheckAndGetPersonByNameModel {
+public class PersonModelStub implements Model, CheckAndGetPersonByNameModel {
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");

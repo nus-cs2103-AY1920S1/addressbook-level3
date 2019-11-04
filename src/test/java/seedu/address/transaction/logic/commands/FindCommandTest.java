@@ -23,8 +23,10 @@ import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 
 class FindCommandTest {
-    private Model model = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private Model expectedModel = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+    private Model model =
+            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+    private Model expectedModel =
+            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
     private CheckAndGetPersonByNameModel personModel = new
             ModelManager(getTypicalAddressBook(), new UserPrefs());
 

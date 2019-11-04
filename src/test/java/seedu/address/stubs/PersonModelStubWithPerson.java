@@ -7,10 +7,10 @@ import seedu.address.person.model.person.Person;
 /**
  * Represents an address book Model stub.
  */
-public class PersonModelStubWithPersonCheckAnd extends PersonModelStubCheckAnd {
+public class PersonModelStubWithPerson extends PersonModelStub {
     protected final Person person;
 
-    public PersonModelStubWithPersonCheckAnd(Person person) {
+    public PersonModelStubWithPerson(Person person) {
         requireNonNull(person);
         this.person = person;
     }

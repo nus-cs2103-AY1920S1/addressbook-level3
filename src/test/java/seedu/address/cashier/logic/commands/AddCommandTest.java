@@ -27,7 +27,8 @@ import seedu.address.testutil.TypicalTransactions;
 public class AddCommandTest {
 
 
-    private seedu.address.cashier.model.ModelManager model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
 
     private seedu.address.person.model.Model personModel =
@@ -76,7 +77,8 @@ public class AddCommandTest {
                 anotherItem.getQuantity());
 
         String expectedMessage = CashierMessages.NO_SUCH_ITEM_CASHIER;
-        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, (CheckAndGetPersonByNameModel) personModel);
+        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
@@ -109,7 +111,8 @@ public class AddCommandTest {
                 anotherItem.getQuantity());
         String expectedMessage = NO_SUCH_ITEM_FOR_SALE_CASHIER;
 
-        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, (CheckAndGetPersonByNameModel) personModel);
+        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 

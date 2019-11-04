@@ -17,7 +17,8 @@ import seedu.address.testutil.TypicalTransactions;
 
 public class DeleteCommandTest {
 
-    private seedu.address.cashier.model.ModelManager model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
 
     private seedu.address.person.model.Model personModel =
@@ -28,7 +29,8 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(1);
         String message = String.format(CashierMessages.MESSAGE_DELETED_ITEM, TypicalItem.FISH_BURGER.getDescription());
 
-        seedu.address.cashier.model.ModelManager expectedModel = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+        seedu.address.cashier.model.ModelManager expectedModel =
+                new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                 TypicalTransactions.getTypicalTransactionList());
         expectedModel.addItem(TypicalItem.FISH_BURGER);
         expectedModel.deleteItem(1);

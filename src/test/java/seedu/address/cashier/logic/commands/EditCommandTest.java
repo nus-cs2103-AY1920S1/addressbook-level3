@@ -25,7 +25,8 @@ public class EditCommandTest {
     private static final int INVALID_QUANTITY = -5;
     private static final int INVALID_QUANTITY_STORYBOOK = 5000000;
 
-    private seedu.address.cashier.model.ModelManager model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
 
     private Model personModel =
@@ -47,7 +48,8 @@ public class EditCommandTest {
         String message = String.format(CashierMessages.MESSAGE_EDIT_SUCCESS,
                 TypicalItem.STORYBOOK.getDescription(), VALID_QUANTITY);
 
-        seedu.address.cashier.model.ModelManager expectedModel = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+        seedu.address.cashier.model.ModelManager expectedModel =
+                new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                 TypicalTransactions.getTypicalTransactionList());
         expectedModel.addItem(TypicalItem.FISH_BURGER);
         expectedModel.addItem(TypicalItem.STORYBOOK);

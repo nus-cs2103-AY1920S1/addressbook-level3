@@ -22,9 +22,9 @@ import seedu.address.person.storage.JsonAddressBookStorage;
 import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.stubs.PersonModelStubCheckAnd;
-import seedu.address.stubs.PersonModelStubAcceptingPersonAddedCheckAnd;
-import seedu.address.stubs.PersonModelStubWithPersonCheckAnd;
+import seedu.address.stubs.PersonModelStub;
+import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
+import seedu.address.stubs.PersonModelStubWithPerson;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
@@ -45,7 +45,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        PersonModelStubAcceptingPersonAddedCheckAnd modelStub = new PersonModelStubAcceptingPersonAddedCheckAnd();
+        PersonModelStubAcceptingPersonAdded modelStub = new PersonModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
         TransactionList transactionList = new TransactionList();
@@ -98,7 +98,8 @@ public class AddCommandTest {
 
 
         //All related logics
-        Logic logic = new LogicManager(transactionModel, transactionManager, (CheckAndGetPersonByNameModel) personModel);
+        Logic logic = new LogicManager(transactionModel, transactionManager,
+                (CheckAndGetPersonByNameModel) personModel);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                         personModel);
@@ -113,7 +114,7 @@ public class AddCommandTest {
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
-        PersonModelStubCheckAnd personModelStub = new PersonModelStubWithPersonCheckAnd(validPerson);
+        PersonModelStub personModelStub = new PersonModelStubWithPerson(validPerson);
 
         TransactionList transactionList = new TransactionList();
         ReimbursementList reimbursementList = new ReimbursementList();
@@ -165,7 +166,8 @@ public class AddCommandTest {
 
 
         //All related logics
-        Logic logic = new LogicManager(transactionModel, transactionManager, (CheckAndGetPersonByNameModel) personModel);
+        Logic logic = new LogicManager(transactionModel, transactionManager,
+                (CheckAndGetPersonByNameModel) personModel);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                         personModel);

@@ -9,7 +9,7 @@ import seedu.address.inventory.model.Item;
 import seedu.address.person.model.person.Person;
 import seedu.address.stubs.CashierModelStubWithItem;
 import seedu.address.stubs.InventoryModelStubWithItem;
-import seedu.address.stubs.PersonModelStubWithPersonCheckAnd;
+import seedu.address.stubs.PersonModelStubWithPerson;
 import seedu.address.stubs.TransactionModelStubWithTransaction;
 import seedu.address.testutil.ItemBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -23,7 +23,7 @@ public class ClearCommandTest {
     public void execute_successful() throws Exception {
 
         Person validPerson = new PersonBuilder().build();
-        PersonModelStubWithPersonCheckAnd modelStubWithPerson = new PersonModelStubWithPersonCheckAnd(validPerson);
+        PersonModelStubWithPerson modelStubWithPerson = new PersonModelStubWithPerson(validPerson);
 
         Transaction validTrans = new TransactionBuilder(validPerson).build();
         TransactionModelStubWithTransaction modelStubWithTransaction =

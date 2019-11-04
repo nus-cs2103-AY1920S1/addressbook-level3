@@ -29,7 +29,8 @@ import seedu.address.testutil.TypicalTransactions;
 public class CheckoutCommandParserTest {
 
     private CheckoutCommandParser parser = new CheckoutCommandParser();
-    private seedu.address.cashier.model.ModelManager model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
     private seedu.address.person.model.Model personModel =
             new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -48,7 +49,8 @@ public class CheckoutCommandParserTest {
 
         // with no sales item
         assertCommandParserSuccess(parser, DESC_PRICE_PAID,
-                new CheckoutCommand(0, VALID_PRICE_PAID), model, (CheckAndGetPersonByNameModel)personModel);
+                new CheckoutCommand(0, VALID_PRICE_PAID), model,
+                (CheckAndGetPersonByNameModel) personModel);
 
         // with sales item added
         model.addItem(FISH_BURGER);

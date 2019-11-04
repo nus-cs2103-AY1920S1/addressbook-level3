@@ -40,7 +40,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model modelManager, seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
+    public CommandResult execute(Model modelManager,
+                                 seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
             throws NoSuchItemException, InsufficientAmountException {
 
         Item i;
