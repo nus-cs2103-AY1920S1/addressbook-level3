@@ -61,17 +61,22 @@ public class Coverage {
      * Returns true if a given string is a valid coverage declaration.
      */
     public static boolean isValidCoverage(String coverage) {
+        requireNonNull(coverage);
         ArrayList<String> coverageBreakDown = getCoverageBreakDown(coverage);
         String days = coverageBreakDown.get(dayIndex);
         String months = coverageBreakDown.get(monthIndex);
         String years = coverageBreakDown.get(yearIndex);
         boolean emptyOrMissingAllPrefixes = days.equals("0") && months.equals("0") && years.equals("0");
-        boolean isValidDay = Integer.parseInt(days) >= 0 && Integer.parseInt(days) <= 31;
-        boolean isValidMonth = Integer.parseInt(months) >= 0 && Integer.parseInt(months) <= 12;
-        boolean isValidYear = Integer.parseInt(years) >= 0;
-        return !emptyOrMissingAllPrefixes
-                && days.matches(VALIDATION_REGEX) && months.matches(VALIDATION_REGEX)
-                && years.matches(VALIDATION_REGEX) && isValidDay && isValidMonth && isValidYear;
+        boolean matchesRegex = days.matches(VALIDATION_REGEX) && months.matches(VALIDATION_REGEX)
+                && years.matches(VALIDATION_REGEX);
+        if (!emptyOrMissingAllPrefixes && matchesRegex) {
+            boolean isValidDay = Integer.parseInt(days) >= 0 && Integer.parseInt(days) <= 31;
+            boolean isValidMonth = Integer.parseInt(months) >= 0 && Integer.parseInt(months) <= 12;
+            boolean isValidYear = Integer.parseInt(years) >= 0;
+            return isValidDay && isValidMonth && isValidYear;
+        } else {
+            return false;
+        }
     }
 
     private static ArrayList<String> getCoverageBreakDown(String coverage) {
