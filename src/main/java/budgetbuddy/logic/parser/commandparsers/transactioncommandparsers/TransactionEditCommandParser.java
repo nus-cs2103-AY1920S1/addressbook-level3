@@ -77,7 +77,9 @@ public class TransactionEditCommandParser implements CommandParser {
 
         if (argMultiMap.getValue(PREFIX_CATEGORY).isPresent()) {
             Set<Category> newCategories = new HashSet<>();
-            newCategories.add(CommandParserUtil.parseCategory(argMultiMap.getValue(PREFIX_DATE).get()));
+            for (String s : (argMultiMap.getAllValues(PREFIX_CATEGORY))) {
+                newCategories.add(CommandParserUtil.parseCategory(s));
+            }
             transactionEditDescriptor.setCategories(newCategories);
         }
 
