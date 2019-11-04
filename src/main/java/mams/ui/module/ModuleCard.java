@@ -1,5 +1,7 @@
 package mams.ui.module;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -41,6 +43,7 @@ public class ModuleCard extends UiPart<Region> {
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
+        requireNonNull(module);
         this.module = module;
         id.setText(displayedIndex + ". ");
         moduleCode.setText(module.getModuleCode());

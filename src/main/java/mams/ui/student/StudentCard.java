@@ -1,5 +1,7 @@
 package mams.ui.student;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -44,6 +46,7 @@ public class StudentCard extends UiPart<Region> {
 
     public StudentCard(Student student, int displayedIndex) {
         super(FXML);
+        requireNonNull(student);
         this.student = student;
         id.setText(displayedIndex + ". ");
         name.setText(student.getName().fullName);

@@ -14,24 +14,41 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
+
         <HBox>
-            <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+            <VBox GridPane.columnIndex="0">
                 <padding>
                     <Insets top="5" right="5" bottom="5" left="15" />
                 </padding>
+
                 <HBox spacing="5" alignment="CENTER_LEFT">
                     <Pane HBox.hgrow="ALWAYS"/>
                 </HBox>
+
                 <HBox spacing="3" alignment="CENTER_LEFT">
                     <padding>
                         <Insets top="1" bottom="1" />
                     </padding>
-                    <Label fx:id="commandPromptSymbol" styleClass="cell_small_label, sky-blue-text-label" text=">> "/>
-                    <Label fx:id="input" styleClass="cell_small_label, sky-blue-text-label" text="\$input" />
+
+                    <VBox>
+                        <Label fx:id="commandPromptSymbol" styleClass="cell_small_label, sky-blue-text-label" text=">> " alignment="TOP_LEFT">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
+
+                        <VBox VBox.vgrow="ALWAYS"/> <!-- Ensures that prompt symbol always aligns top left even if other Label elements in enclosing Hbox wraps -->
+                    </VBox>
+
+                    <Label fx:id="input" styleClass="cell_small_label, sky-blue-text-label" text="\$input" alignment="TOP_LEFT"/>
                 </HBox>
-                <Label fx:id="output" styleClass="cell_small_label" text="\$output" />
+
+                <Label fx:id="output" styleClass="cell_small_label" text="\$output" alignment="TOP_LEFT"/>
             </VBox>
+
             <Pane HBox.hgrow="ALWAYS" />
+
             <VBox alignment="TOP_RIGHT">
                 <Label fx:id="executionStatus" styleClass="cell_small_label, green-text-label" text="\%executionStatus" alignment="TOP_RIGHT">
                     <minWidth>
@@ -39,6 +56,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
+
                 <Label fx:id="timeStamp" styleClass="time-stamp" text="\%timeStamp" alignment="TOP_RIGHT">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
@@ -46,6 +64,7 @@
                     </minWidth>
                 </Label>
             </VBox>
+
         </HBox>
     </GridPane>
 </HBox>

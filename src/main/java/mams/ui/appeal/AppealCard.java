@@ -1,5 +1,9 @@
 package mams.ui.appeal;
 
+import static java.util.Objects.requireNonNull;
+
+import static mams.commons.util.CollectionUtil.requireAllNonNull;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -52,6 +56,7 @@ public class AppealCard extends UiPart<Region> {
 
     public AppealCard(Appeal appeal, int displayedIndex) {
         super(FXML);
+        requireNonNull(appeal);
         this.appeal = appeal;
         id.setText(displayedIndex + ". ");
         appealId.setText(appeal.getAppealId());
@@ -65,6 +70,7 @@ public class AppealCard extends UiPart<Region> {
     }
 
     public static void setResolvedStatusDisplay(Label resolvedStatus, boolean isResolved) {
+        requireNonNull(resolvedStatus);
         if (isResolved) {
             resolvedStatus.setText(STATUS_RESOLVED);
             resolvedStatus.getStyleClass().add(RESOLVED_STYLE_CLASS);
@@ -76,6 +82,7 @@ public class AppealCard extends UiPart<Region> {
 
     public static void setApprovalStatusDisplay(Label approvalIcon, Label approvalStatus,
                                                 boolean isResolved, boolean isApproved) {
+        requireAllNonNull(approvalIcon, approvalStatus);
         if (isResolved) {
             if (isApproved) {
                 approvalIcon.setText(APPROVED_ICON);

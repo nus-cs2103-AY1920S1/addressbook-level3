@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.Pane?>
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="expandedCardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -51,21 +51,21 @@
                     <Insets top="1" bottom="1" />
                 </padding>
                 <Label fx:id="requestedWorkloadPrefix" styleClass="prefix-label, prefix_orange" text="Requested Workload" />
-                <Label fx:id="requestedWorkload" styleClass="cell_small_label" text="N/A" />
+                <Label fx:id="requestedWorkload" styleClass="cell_small_label" />
             </HBox>
             <HBox spacing="3">
                 <padding>
                     <Insets top="1" bottom="1" />
                 </padding>
                 <Label fx:id="moduleToDropPrefix" styleClass="prefix-label, prefix_orange" text="Module to Drop" />
-                <Label fx:id="moduleToDrop" styleClass="cell_small_label" text="N/A" />
+                <Label fx:id="moduleToDrop" styleClass="cell_small_label" />
             </HBox>
             <HBox spacing="3">
                 <padding>
                     <Insets top="1" bottom="1" />
                 </padding>
                 <Label fx:id="requestedModulePrefix" styleClass="prefix-label, prefix_orange" text="Requested Module" />
-                <Label fx:id="requestedModule" styleClass="cell_small_label" text="N/A" />
+                <Label fx:id="requestedModule" styleClass="cell_small_label" />
             </HBox>
 
             <Label minHeight="20" />

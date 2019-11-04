@@ -1,5 +1,9 @@
 package mams.ui.history;
 
+import static java.util.Objects.requireNonNull;
+
+import static mams.commons.util.CollectionUtil.requireAllNonNull;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -37,6 +41,7 @@ public class InputOutputCard extends UiPart<Region> {
 
     public InputOutputCard(InputOutput inputOutput, int displayedListIndex, boolean isHideOutput) {
         super(FXML);
+        requireNonNull(inputOutput);
         this.inputOutput = inputOutput;
         positionOnDisplay = Index.fromOneBased(displayedListIndex);
         input.setText(inputOutput.getInput());
@@ -46,6 +51,7 @@ public class InputOutputCard extends UiPart<Region> {
     }
 
     private static void setExecutionStatusDisplay(Label executionStatus, Label output, boolean isSuccessfulCommand) {
+        requireAllNonNull(executionStatus, output);
         if (isSuccessfulCommand) {
             executionStatus.setText(STATUS_SUCCESSFUL_COMMAND);
             executionStatus.getStyleClass().add(SUCCESSFUL_STYLE_CLASS);

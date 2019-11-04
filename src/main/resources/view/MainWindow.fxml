@@ -48,7 +48,7 @@
           </padding>
         </StackPane>
 
-        <HBox fx:id="DisplayListsContainer" styleClass="pane-with-border" minWidth="340" prefHeight="1000" HBox.hgrow="ALWAYS">
+        <HBox fx:id="DisplayListsContainer" styleClass="pane-with-border" minWidth="600" prefHeight="1000" HBox.hgrow="ALWAYS">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>

@@ -1,5 +1,7 @@
 package mams.ui.appeal;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -25,6 +27,7 @@ public class AppealListPanel extends UiPart<Region> {
 
     public AppealListPanel(ObservableList<Appeal> appealList) {
         super(FXML);
+        requireNonNull(appealList);
         this.appealList = appealList;
         itemListView.setItems(appealList);
         itemListView.setCellFactory(listView -> new AppealListViewCell());
