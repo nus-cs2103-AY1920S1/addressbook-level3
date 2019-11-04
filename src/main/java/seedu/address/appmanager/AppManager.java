@@ -108,11 +108,13 @@ public class AppManager {
             // should make logic save the updated game statistics
             if (gameCommandResult.isFinishedGame()) {
                 abortAnyExistingGameTimer();
+                GameStatistics gameStatistics = gameStatisticsBuilder.build();
                 logic.updateStatistics(gameStatisticsBuilder.build());
+                logic.updateRevisionBank(gameStatisticsBuilder.build());
             }
         }
 
-        /** AppManager will always abort Timer when a new valid command is entered while Game is running. */
+        /* AppManager will always abort Timer when a new valid command is entered while Game is running. */
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
@@ -120,10 +122,10 @@ public class AppManager {
 
             Platform.runLater(() -> {
 
-                /** Call-back to UI to update QuestionDisplay with current Question. */
+                /* Call-back to UI to update QuestionDisplay with current Question. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
 
-                /** Starts the initialized GameTimer for this current Card. */
+                /* Starts the initialized GameTimer for this current Card. */
                 gameTimer.run();
             });
         }
