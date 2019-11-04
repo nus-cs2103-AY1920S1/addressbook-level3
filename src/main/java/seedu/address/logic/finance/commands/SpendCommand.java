@@ -26,7 +26,7 @@ public class SpendCommand extends Command {
             + PREFIX_DAY + "TRANSACTION_DATE "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_TRANSACTION_METHOD + "TRANSACTION_METHOD "
-            + PREFIX_PLACE + "PLACE "
+            + "[" + PREFIX_PLACE + "PLACE] "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_AMOUNT + "2.80 "

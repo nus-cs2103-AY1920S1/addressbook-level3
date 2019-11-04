@@ -38,7 +38,7 @@ public class SpendCommandParser implements Parser<SpendCommand> {
 
         // If compulsory fields are empty
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
-                PREFIX_TRANSACTION_METHOD, PREFIX_PLACE)
+                PREFIX_TRANSACTION_METHOD)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE));
         }
@@ -49,7 +49,13 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         TransactionMethod tMethod = ParserUtil.parseTransactionMethod(
                 argMultimap.getValue(PREFIX_TRANSACTION_METHOD).get());
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
-        Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
+        Place place;
+        // If place is not specified, set as NIL "-"
+        if (!argMultimap.getValue(PREFIX_PLACE).isPresent()) {
+            place = new Place("-");
+        } else {
+            place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
+        }
 
         SpendLogEntry logEntry = new SpendLogEntry(amount, tDate, description, tMethod, categoryList, place);
 
