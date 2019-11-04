@@ -120,12 +120,12 @@ image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Incident Manager data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Incident Manager data.
+* Exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* Does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `IncidentManager`, which `Person` can reference. This would allow `IncidentManager` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -137,9 +137,9 @@ image:BetterModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Person.java[`Person.java`]
 
-The `Person`,
+The `Person`:
 
-* represents a user account on the incident manager.
+* Represents a user account on the incident manager.
 * Contains the account `Username`, `Password`, `Name`, `Phone`, `Email`
 
 [[Design-Incident]]
@@ -147,24 +147,27 @@ The `Person`,
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Incident.java[`Incident.java`]
 
-The `Incident`,
+The `Incident`:
 
 image::IncidentClassDiagram.png[]
 
-* represents an incident report in the incident manager.
-* contains the attributes `CallerNumber`, `Description`, `IncidentDateTime` and IncidentId`.
+* Represents an incident report in the incident manager.
+* Contains the attributes `CallerNumber`, `Description`, `IncidentDateTime` and IncidentId`.
 * Also contains a `Person` object representing the 'Operator' who filed the incident, a `District` which represents the location of the incident, and a `Vehicle` representing the vehicle dispatched to investigate this incident.
 * Has three states encapsulated by a `Status` enum - `INCOMPLETE_DRAFT` (report not completely filled and not submitted), `COMPLETE_DRAFT` (report completely filled but not submitted), and `SUBMITTED_REPORT` (report completely filled and submitted).
 
 [[Design-Vehicle]]
-==== Incident component
+==== Vehicle component
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Vehicle.java[`Vehicle.java`]
 
-The `Vehicle`,
+The `Vehicle`:
 
-* represents a vehicle that can be dispatched to incident sites.
+image::VehicleClassDiagram.png[]
+
+* Represents a vehicle that can be dispatched to incident sites.
 * Contains the attributes `VehicleNumber`, `VehicleType`, `district` and `availability`.
+* Is assigned to an incident in the same district.
 
 [[Design-Storage]]
 === Storage component
@@ -174,10 +177,10 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Incident Manager data in json format and read it back.
+* Can save `UserPref` objects in json format and read it back.
+* Can save the Incident Manager data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -351,12 +354,12 @@ image::NewDraftSequenceDiagramManual.png[]
 
 ===== Aspect: How incident draft creation executes
 
-* **Alternative 1:** Auto assignment of vehicles
+* **Current Choice:** Auto assignment of vehicles
 ** Pros:
 *** Reduces number of steps of execution.
 *** User need not waste time on decision making; an available vehicle will be dispatched directly, and if no vehicles are available, user will be notified as well.
 ** Cons: User does not get to choose vehicle to dispatch, especially if vehicle of a specific type is wanted.
-* **Alternative 2:** Manual assignment of vehicles
+* **Alternative:** Manual assignment of vehicles
 ** Pros: User is able to choose vehicle to dispatch, especially if a specific vehicle type is wanted.
 ** Cons: More number of steps, potentially a waste of time.
 // end::incidentdraftcreation[]
@@ -495,28 +498,28 @@ The key difference is the utility of the `SearchIncidentsCommandParser` to parse
 
 ===== Aspect: How incident search keyword is inputted
 
-* **Alternative 1 (current choice):** Parse user input after flag (eg. `op\` or `desc\`)
+* **Current choice:** Parse user input after flag (eg. `op\` or `desc\`)
 ** Pros: Easy to implement.
 ** Cons: Have to parse keyword from command and flag, user has to follow style of flag for successful search.
-* **Alternative 2:** Prompt user for search input
+* **Alternative:** Prompt user for search input
 ** Pros: Separates command from keyword for ease of reading and parsing.
 ** Cons: Difficult to implement multi-command execution.
 
 ===== Aspect: How listing all incidents is called
 
-* **Alternative 1 (current choice):** Utilise separate command `incidents`
+* **Current choice:** Utilise separate command `incidents`
 ** Pros: Intuitive to use.
 ** Cons: Similar code under different command.
-* **Alternative 2:** Utilise `search` command (eg. `search unfiltered`)
+* **Alternative:** Utilise `search` command (eg. `search unfiltered`)
 ** Pros: Less overlap in code.
 ** Cons: Unintuitive to the user as no search is being made, even more keywords to remember.
 
 ===== Aspect: How predicate is added to `SearchIncidentsCommand`
 
-* **Alternative 1 (current choice):** `SearchIncidentsCommandParser` class calls `Model` to create a new Predicate based on search string.
+* **Current choice:** `SearchIncidentsCommandParser` class calls `Model` to create a new Predicate based on search string.
 ** Pros: Abstracts the creation and management of predicates to the `Model`.
 ** Cons: Requires greater level of coupling between classes.
-* **Alternative 2:** `SearchIncidentsCommand` or `SearchIncidentsCommandParser` directly create Predicate based on search string.
+* **Alternative:** `SearchIncidentsCommand` or `SearchIncidentsCommandParser` directly create Predicate based on search string.
 ** Pros: Less dependencies within the parser class.
 ** Cons: Breaks abstraction flow.
 // end::incidentsearch[]
@@ -547,10 +550,10 @@ image::EditCommandSequence.png[]
 
 ===== Aspect: How incident edit executes
 
-* **Alternative 1 (current choice):** Create a new incident object and replace the old copy in the list
+* **Current choice:** Create a new incident object and replace the old copy in the list
 ** Pros: able to control access to attributes in incident objects
 ** Cons: more tedious implementation and more objects created
-* **Alternative 2:** Directly access the attributes of the incident and change it
+* **Alternative:** Directly access the attributes of the incident and change it
 ** Pros: less objects created, do not need to worry much about `IncidentId` of instance.
 ** Cons: More prone to errors since attributes can be directly access and changed outside the class.
 // end::incidentedit[]
@@ -582,7 +585,7 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 *** Have to parse keyword from command and flag, user has to follow style of flag for successful search.
 *** User might confuse relevant flags, eg ds/ and l/, as they both pertain to districts.
 *** User might have to remember too many flags.
-* **Alternative 2:** Prompt user for search input
+* **Alternative:** Prompt user for search input
 ** Pros:
 *** Separates command from keyword for ease of reading and parsing.
 *** User need not remember flags and will not confuse flags, just key in information as prompted.
@@ -598,7 +601,7 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 *** Consistent with other list commands.
 ** Cons:
 *** Some users might find it more intuitive to simply call `vehicles`.
-* **Alternative 2:** Utilise separate command `vehicles`
+* **Alternative:** Utilise separate command `vehicles`
 ** Pros: Intuitive for some.
 ** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
 
