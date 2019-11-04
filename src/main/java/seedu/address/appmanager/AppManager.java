@@ -30,19 +30,24 @@ import seedu.address.statistics.GameStatisticsBuilder;
 import seedu.address.storage.Storage;
 
 /**
- * Class that serves as a hub for communication between the GUI and The internal components.
+ * Class that serves as a hub for communication between the GUI and the internal components.
  * This is done to separate all logic of the game away from the GameTimer entirely.
  */
 public class AppManager {
 
     private Logic logic;
+
+    /** GameTimer object to keep track of time elapsed during Game mode. */
     private GameTimer gameTimer;
+
+    /** Call-back methods that AppManager is dependent on. */
     private TimerDisplayCallBack timerDisplayCallBack;
-    // Call-back method to update ResultDisplay in MainWindow
     private HintDisplayCallBack hintDisplayCallBack;
     private MainWindowExecuteCallBack mainWindowExecuteCallBack;
-    private GameStatisticsBuilder gameStatisticsBuilder;
     private QuestionDisplayCallBack questionDisplayCallBack;
+
+    private GameStatisticsBuilder gameStatisticsBuilder;
+
 
     public AppManager(Logic logic) {
         requireAllNonNull(logic);

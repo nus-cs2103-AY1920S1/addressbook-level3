@@ -63,10 +63,11 @@ Holds the data of live game sessions in-memory.
 * <<Design-Storage,*`Storage`*>>: +
 Reads data from, and writes data to, the local hard disk.
 
-For the components UI, Logic, Model, Timer and Game:
+For the components UI, Logic, Model, Timer, Storage and Game:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
+** ie. `StorageManager` implements `Storage`, `GameTimerManager` implements `GameTimer`.
 
 // end::yida-design[]
 
@@ -95,13 +96,25 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the `AppManager` component.
+* Listens for changes to `Model` data and `Timer` through the `AppManager` so that the UI can be updated correspondingly.
 
 [[Design-AppManager]]
 === AppManager component
 
-"Explain AppManager component"
+.Structure of the AppManager Component
+image::AppManagerClassDiagram.png[]
+
+The `AppManager` component serves as a _Facade_ layer and communication hub between the internal components of _Dukemon_ and the _UI_ components.
+Using this extra layer provides better abstraction between the `UI` and the internal components, especially between the `Timer`
+and the `UI`.
+
+`AppManager` communicates with both the `Logic` and `Timer` components to send feedback to the `UI` to display back to the user.
+
+* Gets feedback for commands by through `Logic`
+* Starts and Stops the `Timer` when required.
+* Makes call-backs to the `UI` to update various `UI` components.
+* Initiates collection of `Statistics` by pulling data (eg. Time Elapsed) from `Timer` and `Logic`.
 
 [[Design-Timer]]
 === Timer component
