@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
-import static seedu.ifridge.model.food.Amount.getValue;
-import static seedu.ifridge.model.food.Amount.hasSameAmountUnit;
+import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
 import java.util.List;
 
@@ -70,14 +69,9 @@ public class BoughtShoppingCommand extends Command {
 
         ShoppingItem shoppingItemToMarkAsBought = lastShownList.get(index.getZeroBased());
         ShoppingItem boughtShoppingItem = shoppingItemToMarkAsBought.setBought(true);
-
-        Amount shoppingAmount = shoppingItemToMarkAsBought.getAmount();
-        if (!hasSameAmountUnit(shoppingAmount, amount)) {
-            shoppingAmount = amount.convertAmount(shoppingAmount);
-        }
         GroceryItem boughtItem = shoppingItemToMarkAsBought.getBoughtItem(amount, expiryDate);
 
-        if (getValue(amount) >= getValue(shoppingAmount)) {
+        if (isCompletelyBought(shoppingItemToMarkAsBought, model.getBoughtList().getGroceryList())) {
             boughtShoppingItem = boughtShoppingItem.setUrgent(false);
         }
         model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
