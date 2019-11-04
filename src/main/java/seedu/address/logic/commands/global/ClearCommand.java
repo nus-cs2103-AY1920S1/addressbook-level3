@@ -11,8 +11,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.Model;
+import seedu.address.model.StudyBuddyPro;
 
 /**
  * Clears the address book.
