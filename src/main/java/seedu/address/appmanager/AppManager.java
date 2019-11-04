@@ -14,6 +14,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.gamecommands.GameCommandResult;
+import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -46,10 +47,6 @@ public class AppManager {
     public AppManager(Logic logic) {
         requireAllNonNull(logic);
         this.logic = logic;
-    }
-
-    public void setGuiSettings(GuiSettings guiSettings) {
-        logic.setGuiSettings(guiSettings);
     }
 
     /**
@@ -143,6 +140,10 @@ public class AppManager {
         return logic.getActiveWordBankStatistics().getWordBankName();
     }
 
+    public void setGuiSettings(GuiSettings guiSettings) {
+        logic.setGuiSettings(guiSettings);
+    }
+
     /**
      * Gets the logic object from itself.
      * @return Logic instance
@@ -214,7 +215,7 @@ public class AppManager {
      */
     private void skipOverToNextQuestion() {
         try {
-            this.mainWindowExecuteCallBack.execute("skip");
+            this.mainWindowExecuteCallBack.execute(SkipCommand.COMMAND_WORD);
         } catch (ParseException e) {
             e.printStackTrace();
         } catch (CommandException e) {
