@@ -2,10 +2,12 @@ package dream.fcard.logic.respond;
 
 import java.util.ArrayList;
 
+import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.RegexUtil;
 
 /**
@@ -41,6 +43,32 @@ public enum Responses {
                     return true;
                 }
     ),
+    // ADD_CARD regex format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK [choice/CHOICE]
+    // Only used for MCQ and FrontBack cards
+    // Note that back for MCQ cards will be used for identifying the correct CHOICE
+    ADD_CARD(
+            RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "back/"}),
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            (i) -> {
+                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                        new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
+                        i);
+                try {
+                    return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                } catch (DuplicateInChoicesException dicExc) {
+                    Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE,"There are duplicated choices!");
+                    return true;
+                }
+            }
+    ),
+    ADD_CARD_ERROR(
+            "^((?i)(add)",
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            (i) -> {
+                Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE,"Add command is invalid!");
+                return true;
+            }
+    ),
     SEE_SPECIFIC_DECK(
             "^((?i)view)\\s+[0-9]+$",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -58,8 +86,6 @@ public enum Responses {
                     return true;
                 }
     ),
-
-
     EXIT_CREATE(
             "^((?i)exit)\\s*$",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
