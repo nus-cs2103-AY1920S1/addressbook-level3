@@ -109,7 +109,6 @@ public class StartQuizWindow extends Window {
     private int getSizeOfCurrentLevel(Answerable answerable) {
         ObservableList<Answerable> sectionList = quizList.filtered(a ->
                 a.getDifficulty().value.equals(answerable.getDifficulty().value));
-        logger.info("section size: " + sectionList.size());
         return sectionList.size();
     }
 
@@ -133,7 +132,6 @@ public class StartQuizWindow extends Window {
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
-            logger.info("Question result: " + commandResult.getFeedbackToUser());
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
                 // TODO: KhiangLeon use the updateStatistics() method here or in McqInputCommand#execute.
                 //  Both has access to the answerable.
@@ -177,7 +175,6 @@ public class StartQuizWindow extends Window {
 
             return commandResult;
         } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
             throw e;
         }
@@ -207,19 +204,9 @@ public class StartQuizWindow extends Window {
         ButtonType endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(tryAgainButton, endButton);
+        timer.stopTimer();
 
-        Task<Void> task = new Task<>() {
-            @Override
-            public Void call() throws Exception {
-                timer.stopTimer();
-                logger.info("---------Timer Stopped!!!!----------");
-                return null;
-            }
-        };
-        task.setOnSucceeded(e -> {
-            nextLevelHelper(alert, endButton, nextAnswerable, nextLevel);
-        });
-        new Thread(task).start();
+        nextLevelHelper(alert, endButton, nextAnswerable, nextLevel);
     }
 
     /**
@@ -286,7 +273,6 @@ public class StartQuizWindow extends Window {
             @Override
             public Void call() throws Exception {
                 timer.stopTimer();
-                logger.info("---------Timer Stopped!!!!----------");
                 return null;
             }
         };

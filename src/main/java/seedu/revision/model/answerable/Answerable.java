@@ -77,10 +77,8 @@ public abstract class Answerable {
     public boolean isCorrect(Answer selectedAnswer) {
         requireNonNull(selectedAnswer);
         if (correctAnswerList.contains(selectedAnswer)) {
-            logger.info("correct answer selected");
             return true;
         }
-        logger.info("WRONG answer selected");
         return false;
     }
 
