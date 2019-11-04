@@ -18,7 +18,7 @@ fellow developers to build their UI components on.
 
 == Summary of contributions
 
-* *Major enhancement*: added *a settings page to the application*.
+** *Major enhancement*: added *a settings page to the application*.
 
 .Settings Page
 image:paulthoppp.png[]
@@ -41,13 +41,14 @@ image:paulthoppp.png[]
 *** https://openjfx.io/[JavaFX 11] for GUI.
 *** https://github.com/TestFX/TestFX[TestFX] and https://github.com/junit-team/junit5[JUnit5] for testing.
 
-* *Minor enhancement*:
-** Added a modular display to change screens depending on what mode the application is in.
-** This was a necessary enhancement due to how UI-heavy our application is. We needed multiple screens to handle multiple tasks and this was the solution I proposed and implemented.
+** *Minor enhancement*:
 
-* *Code contributed*: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/appsettings[Functional code]] [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/test/java/seedu/address/model/AppSettingsTest.java[Test code]]
+*** Added a modular display to change screens depending on what mode the application is in.
+*** This was a necessary enhancement due to how UI-heavy our application is. We needed multiple screens to handle multiple tasks and this was the solution I proposed and implemented.
 
-* *Other contributions*:
+** *Code contributed*: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/appsettings[Functional code]] [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/test/java/seedu/address/model/AppSettingsTest.java[Test code]]
+
+** *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
