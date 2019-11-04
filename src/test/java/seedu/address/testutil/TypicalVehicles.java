@@ -29,7 +29,7 @@ public class TypicalVehicles {
                 new District(2), new Availability("BUSY"));
 
     public static final Vehicle V5 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GER4389F"),
-            new District(1), new Availability("AVAILABLE"));
+            new District(4), new Availability("AVAILABLE"));
 
     private TypicalVehicles() {} // prevents instantiation
 
@@ -45,6 +45,6 @@ public class TypicalVehicles {
     }
 
     public static List<Vehicle> getTypicalVehicles() {
-        return new ArrayList<>(Arrays.asList(V1, V2, V3, V4));
+        return new ArrayList<>(Arrays.asList(V1, V2, V3, V4, V5));
     }
 }
