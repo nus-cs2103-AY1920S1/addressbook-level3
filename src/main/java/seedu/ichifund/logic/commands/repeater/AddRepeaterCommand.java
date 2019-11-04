@@ -40,8 +40,10 @@ public class AddRepeaterCommand extends Command {
             + PREFIX_START_YEAR + "START_YEAR "
             + PREFIX_END_MONTH + "END_MONTH "
             + PREFIX_END_YEAR + "END_YEAR "
-            + "\nConstraints: Repeater end must not occur before repeater start. Repeater start and end can span at "
-            + "most 60 months (5 years).\n"
+            + "\nConstraints:\n"
+            + "- Repeater end must not occur before repeater start.\n"
+            + "- Repeater start and end can span at most 60 months (5 years).\n"
+            + "- At least one of month start offset or month end offset must not be ignored.\n"
             + "Example: "
             + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Phone bills "
@@ -77,6 +79,11 @@ public class AddRepeaterCommand extends Command {
         }
         if (countMonths(toAdd.getStartDate(), toAdd.getEndDate()) > 60) {
             throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_SPAN);
+        }
+
+        // Check offsets.
+        if (toAdd.getMonthStartOffset().isIgnored() && toAdd.getMonthEndOffset().isIgnored()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_MONTH_OFFSETS);
         }
 
         // Get current repeater unique id.

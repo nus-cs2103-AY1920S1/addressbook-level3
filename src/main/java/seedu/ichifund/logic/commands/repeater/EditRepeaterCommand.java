@@ -119,6 +119,10 @@ public class EditRepeaterCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_SPAN);
         }
 
+        // Check offsets.
+        if (updatedMonthStartOffset.isIgnored() && updatedMonthEndOffset.isIgnored()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_MONTH_OFFSETS);
+        }
 
         Repeater editedRepeater = new Repeater(updatedUniqueId, updatedDescription, updatedAmount,
                 updatedCategory, updatedTransactionType,

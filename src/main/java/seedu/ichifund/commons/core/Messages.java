@@ -15,6 +15,7 @@ public class Messages {
             "The transaction index provided is invalid";
     public static final String MESSAGE_INVALID_REPEATER_DISPLAYED_INDEX = "The repeater index provided is invalid";
     public static final String MESSAGE_INVALID_REPEATER_SPAN = "The repeater span (start to end) is invalid";
+    public static final String MESSAGE_INVALID_REPEATER_MONTH_OFFSETS = "The repeater month offsets are invalid";
     public static final String MESSAGE_BUDGETS_LISTED_OVERVIEW = "%1$d budgets listed!";
     public static final String MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX = "The budget index provided is invalid";
 
