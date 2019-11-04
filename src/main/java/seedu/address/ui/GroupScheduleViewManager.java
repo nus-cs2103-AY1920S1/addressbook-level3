@@ -1,12 +1,14 @@
 package seedu.address.ui;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import seedu.address.model.display.detailwindow.PersonSchedule;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.group.GroupName;
 
@@ -15,7 +17,7 @@ import seedu.address.model.group.GroupName;
  */
 public class GroupScheduleViewManager implements ScheduleViewManager {
 
-    private HashMap<Integer, ArrayList<PersonSchedule>> monthSchedules;
+    private List<MonthSchedule> monthSchedules;
     private ArrayList<String> colors;
     private GroupName groupName;
     private ArrayList<FreeSchedule> freeSchedules;
@@ -23,7 +25,7 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
     private ScheduleView scheduleView;
     private LocalDate currentDate;
 
-    public GroupScheduleViewManager(HashMap<Integer, ArrayList<PersonSchedule>> monthSchedules,
+    public GroupScheduleViewManager(List<MonthSchedule> monthSchedules,
                                     ArrayList<String> colors,
                                     GroupName groupName, ArrayList<FreeSchedule> freeSchedules) {
         this.monthSchedules = monthSchedules;
@@ -41,7 +43,7 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
      */
     private void initScheduleView() {
         LocalDate dateToShow = currentDate.plusDays(7 * weekNumber);
-        this.scheduleView = new ScheduleView(monthSchedules.get(weekNumber), colors,
+        this.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(monthSchedules, weekNumber), colors,
                 groupName.toString(), dateToShow);
         this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
     }
@@ -64,7 +66,7 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleViewCopy() {
-        ScheduleView copy = new ScheduleView(monthSchedules.get(weekNumber),
+        ScheduleView copy = new ScheduleView(MonthSchedule.getWeekSchedulesOf(monthSchedules, weekNumber),
                 colors, groupName.toString(), currentDate);
         copy.setFreeTime(freeSchedules.get(weekNumber));
         return copy;

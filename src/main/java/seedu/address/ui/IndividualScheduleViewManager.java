@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import seedu.address.model.display.detailwindow.PersonSchedule;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 
@@ -13,14 +11,14 @@ import seedu.address.model.display.sidepanel.PersonDisplay;
  * Class to handle schedule views of individuals. Schedule of individuals do not show free time.
  */
 public class IndividualScheduleViewManager implements ScheduleViewManager {
-    private HashMap<Integer, ArrayList<PersonSchedule>> monthSchedule;
+    private MonthSchedule monthSchedule;
     private String color;
     private ScheduleView scheduleView;
     private PersonDisplay personDisplay;
     private int weekNumber;
     private LocalDate currentDate;
 
-    public IndividualScheduleViewManager(HashMap<Integer, ArrayList<PersonSchedule>> monthSchedule,
+    public IndividualScheduleViewManager(MonthSchedule monthSchedule,
                                          PersonDisplay personDisplay, String color) {
         this.personDisplay = personDisplay;
         this.monthSchedule = monthSchedule;
@@ -36,7 +34,7 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
      */
     private void initScheduleView() {
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
-        this.scheduleView = new ScheduleView(monthSchedule.get(weekNumber),
+        this.scheduleView = new ScheduleView(List.of(monthSchedule.getScheduleForWeek(weekNumber)),
                 List.of(color), personDisplay.getName().fullName, dateToShow);
     }
 
@@ -52,7 +50,7 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleViewCopy() {
-        return new ScheduleView(monthSchedule.get(weekNumber), List.of(color), personDisplay.getName().fullName,
+        return new ScheduleView(List.of(monthSchedule.getScheduleForWeek(weekNumber)), List.of(color), personDisplay.getName().fullName,
                 currentDate);
     }
 

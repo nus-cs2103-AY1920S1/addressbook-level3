@@ -156,8 +156,10 @@ public class MainWindow extends UiPart<Stage> {
 
         //setting up default detailsview
         detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getMainWindowDisplay()
-                .getPersonSchedules().get(0).get(0)
-                .getScheduleDisplay().get(LocalDate.now().getDayOfWeek()))
+                .getPersonSchedules().get(0)
+                .getScheduleDisplay()
+                .getScheduleForWeek(0)
+                .get(LocalDate.now().getDayOfWeek()))
                 .getRoot());
     }
 
@@ -333,7 +335,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleSidePanelChange(
                         new PersonDetailCard(scheduleWindowDisplay
                                 .getPersonSchedules()
-                                .get(0).get(0)
+                                .get(0)
                                 .getPersonDisplay())
                                 .getRoot(), SidePanelDisplayType.PERSON);
                 break;
@@ -348,8 +350,8 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case HOME:
                 handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
-                        .getPersonSchedules().get(0).get(0)
-                        .getScheduleDisplay().get(LocalDate.now().getDayOfWeek()))
+                        .getPersonSchedules().get(0)
+                        .getScheduleDisplay().getScheduleForWeek(0).get(LocalDate.now().getDayOfWeek()))
                         .getRoot());
                 handleChangeToTabsPanel();
                 break;
