@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.logic.parser;
 
 import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static cs.f10.t1.nursetraverse.logic.parser.ParserUtil.manageIndexParseException;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
@@ -21,8 +22,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+            //This will always throw a ParseException
+            manageIndexParseException(pe, DeleteCommand.MESSAGE_USAGE);
+            //This is included to ensure compiler complies
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteCommand.MESSAGE_USAGE), pe);
         }
     }
 

@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.logic.parser.visit;
 
 import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static cs.f10.t1.nursetraverse.logic.parser.ParserUtil.manageIndexParseException;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.visit.BeginVisitCommand;
@@ -24,8 +25,11 @@ public class BeginVisitCommandParser implements Parser<BeginVisitCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new BeginVisitCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, BeginVisitCommand.MESSAGE_USAGE), pe);
+            //This will always throw a ParseException
+            manageIndexParseException(pe, BeginVisitCommand.MESSAGE_USAGE);
+            //This is included to ensure compiler complies
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    BeginVisitCommand.MESSAGE_USAGE), pe);
         }
     }
 }
