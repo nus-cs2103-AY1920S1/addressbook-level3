@@ -9,6 +9,7 @@ import dukecooks.logic.Logic;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.workout.Workout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,6 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private RewardWindow rewardWindow;
     private HelpWindow helpWindow;
+    private RunWorkoutWindow runWorkoutWindow;
     private Event event;
 
     private StatusBarFooter dashboardPathStatus;
@@ -225,6 +227,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the run workout window.
+     */
+    public void handleRunWorkout(Workout workoutToRun) {
+        runWorkoutWindow = new RunWorkoutWindow(workoutToRun);
+        runWorkoutWindow.show();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -239,6 +249,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        runWorkoutWindow.getRoot().hide();
     }
 
     /**
@@ -372,6 +383,9 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+            if (commandResult.isRunWorkout()) {
+                handleRunWorkout(commandResult.getWorkoutToRun());
             }
 
             return commandResult;

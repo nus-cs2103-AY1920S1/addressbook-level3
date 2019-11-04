@@ -19,10 +19,10 @@ public class DeleteExerciseCommand extends DeleteCommand {
 
     public static final String VARIANT_WORD = "exercise";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the exercise identified by the index number used in the displayed person list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + VARIANT_WORD
+            + ": Deletes the exercise identified by the index number used in the displayed exercise list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 1";
 
     public static final String MESSAGE_DELETE_EXERCISE_SUCCESS = "Deleted Exercise: %1$s";
 
