@@ -61,22 +61,17 @@ public class AddOrderCommand extends Command {
         isValidOrder(toAdd, model);
 
         // Assigning deliveryman
-        if (toAdd.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
-            deliverymanToAdd = model.getOneAvailableDeliveryman();
-        }
-        if (deliverymanToAdd == null) {
-            deliverymanToAdd = toAdd.getDeliveryman();
-        }
-
-        // Alternative: Add command wont work if no available deliveryman
-        /*
         try {
-            deliverymanToAdd = model.getOneAvailableDeliveryman();
-            toAdd.setDeliveryman(deliverymanToAdd);
-        } catch (NoMoreAvailableDeliverymanException nmade) {
-            throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
+            if (toAdd.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
+                deliverymanToAdd = model.getOneAvailableDeliveryman();
+            }
+            if (deliverymanToAdd == null) {
+                System.out.println(toAdd.getDeliveryman());
+                deliverymanToAdd = toAdd.getDeliveryman();
+            }
+        } catch (NullPointerException e) {
+            deliverymanToAdd = new Name("Unassigned");
         }
-         */
 
         // Instantiating the order
         Order order = new Order.OrderBuilder().setCustomer(toAdd.getCustomer())
@@ -134,6 +129,8 @@ public class AddOrderCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_FOOD);
             }
         }
+
+        customerToAdd.addOrder(toAdd, restaurantToAdd.getTags());
     }
 
     @Override
