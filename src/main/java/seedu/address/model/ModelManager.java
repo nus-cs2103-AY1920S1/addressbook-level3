@@ -27,7 +27,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static String viewState = "default expenselist";
     private static Budget lastViewedBudget;
-    private final ExpenseList expenseList;
+    private final ExpenseList defaultExpenseList;
     private final BudgetList budgetList;
     private final UserPrefs userPrefs;
     private final FilteredList<Budget> filteredBudgets;
@@ -44,10 +44,10 @@ public class ModelManager implements Model {
         logger.fine("Initializing with expense list: " + expenseList + ", user prefs " + userPrefs
             + " budget list: " + budgetList);
 
-        this.expenseList = new ExpenseList(expenseList);
+        this.defaultExpenseList = new ExpenseList(expenseList);
         this.budgetList = new BudgetList(budgetList);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredExpenses = new FilteredList<>(this.expenseList.getExpenseList());
+        filteredExpenses = new FilteredList<>(this.defaultExpenseList.getExpenseList());
         filteredBudgets = new FilteredList<>(this.budgetList.getBudgetList());
         expenses = new FilteredList<>(initExpenses());
     }
@@ -122,24 +122,24 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyExpenseList getExpenseList() {
-        return expenseList;
+        return defaultExpenseList;
     }
 
     @Override
     public void setExpenseList(ReadOnlyExpenseList expenseList) {
-        this.expenseList.resetData(expenseList);
+        this.defaultExpenseList.resetData(expenseList);
     }
 
     @Override
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
         Optional<Budget> budget = getBudgetExpenseFallsInto(expense);
-        return budget.map(value -> value.budgetHasExpense(expense)).orElseGet(() -> expenseList.hasExpense(expense));
+        return budget.map(value -> value.budgetHasExpense(expense)).orElseGet(() -> defaultExpenseList.hasExpense(expense));
     }
 
     @Override
     public void deleteExpense(Expense target) {
-        expenseList.removeExpense(target);
+        defaultExpenseList.removeExpense(target);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class ModelManager implements Model {
         if (budget.isPresent()) {
             budget.get().addExpenseIntoBudget(expense);
         } else {
-            expenseList.addExpense(expense);
+            defaultExpenseList.addExpense(expense);
             updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
             //            updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         }
@@ -158,7 +158,7 @@ public class ModelManager implements Model {
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
 
-        expenseList.setExpense(target, editedExpense);
+        defaultExpenseList.setExpense(target, editedExpense);
     }
 
     @Override
@@ -203,7 +203,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return expenseList.equals(other.expenseList)
+        return defaultExpenseList.equals(other.defaultExpenseList)
             && userPrefs.equals(other.userPrefs)
             && filteredExpenses.equals(other.filteredExpenses)
             && budgetList.equals(other.budgetList)
@@ -291,7 +291,7 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Expense> initExpenses() {
         ObservableList<Expense> allExpenses = FXCollections.observableArrayList(new ArrayList<>());
-        allExpenses.addAll(this.expenseList.getExpenseList());
+        allExpenses.addAll(this.defaultExpenseList.getExpenseList());
         for (Budget budget : this.budgetList.getBudgetList()) {
             allExpenses.addAll(budget.getExpenseList().getExpenseList());
         }
