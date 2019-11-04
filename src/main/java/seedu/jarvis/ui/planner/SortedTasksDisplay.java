@@ -2,13 +2,13 @@ package seedu.jarvis.ui.planner;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotResult;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.ui.UiPart;
 
@@ -21,9 +21,12 @@ public class SortedTasksDisplay extends UiPart<Region> {
 
     @FXML
     private ListView<Task> sortedTaskDisplay;
+    @FXML
+    private Label header;
 
     public SortedTasksDisplay(ObservableList<Task> tasks) {
         super(FXML);
+        header.setText(" Your tasks for today:");
         sortedTaskDisplay.setItems(tasks);
         sortedTaskDisplay.setCellFactory(listView -> new SortedTaskListViewCell());
     }
@@ -37,12 +40,11 @@ public class SortedTasksDisplay extends UiPart<Region> {
         @Override
         public void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
-//            setGraphic(new Header("These are the tasks due today:").getRoot());
+
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new Header("These are the tasks due today:").getRoot());
                 setGraphic(new TaskCard(task, getIndex() + 1).getRoot());
             }
         }
