@@ -98,14 +98,12 @@ public class ExpenseTimelineChart extends ExpenseChart {
     /**
      * Helper method called when the displayed list of expenses change.
      */
-    private void onDataChange(Task<ExpenseTimeline> newDataTask) {
-        newDataTask.setOnSucceeded(event -> {
-            ExpenseTimeline newData = newDataTask.getValue();
-            Platform.runLater(() -> {
-                List<Pair<DateRange, Amount>> timeline = newData.getTimelineValues();
-                List<XYChart.Data<String, BigDecimal>> data = mapToData(timeline, newData.getDateInterval());
-                series.getData().setAll(data);
-            });
+    private void onDataChange(Task<ExpenseTimeline> newTimelineTask) {
+        newTimelineTask.setOnSucceeded(event -> {
+            ExpenseTimeline timeline = newTimelineTask.getValue();
+            List<Pair<DateRange, Amount>> timelineValues = timeline.getTimelineValues();
+            List<XYChart.Data<String, BigDecimal>> data = mapToData(timelineValues, timeline.getDateInterval());
+            Platform.runLater(() -> series.getData().setAll(data));
         });
     }
 
