@@ -36,16 +36,16 @@ class LocationArrayListUtilsTest {
 
     @Test
     void containLocationNameHappyFlow() {
-        ArrayList<Location> list = new ArrayList<>(Arrays.asList(new Location("Foo")
-                , new Location("Bar")));
+        ArrayList<Location> list = new ArrayList<>(Arrays.asList(new Location("Foo"),
+                new Location("Bar")));
         assertTrue(LocationArrayListUtils.containLocationName(list, "Foo"));
         assertTrue(LocationArrayListUtils.containLocationName(list, "Bar"));
     }
 
     @Test
     void containLocationNameSadFlow() {
-        ArrayList<Location> list = new ArrayList<>(Arrays.asList(new Location("Foo")
-                , new Location("Bar")));
+        ArrayList<Location> list = new ArrayList<>(Arrays.asList(new Location("Foo"),
+                new Location("Bar")));
         assertFalse(LocationArrayListUtils.containLocationName(list, "FooBar"));
     }
 }
