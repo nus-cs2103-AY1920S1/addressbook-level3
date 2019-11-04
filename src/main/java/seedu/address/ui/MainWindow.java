@@ -41,7 +41,6 @@ public class MainWindow extends UiPart<Stage> {
     private FetchEventWindow fetchEventWindow;
     private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
-    private SummaryWindow summaryWindow;
     private ScheduleBox scheduleBox;
 
     @FXML
@@ -223,23 +222,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the date window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void generateSummary() {
-        if (summaryWindow != null) {
-            summaryWindow.hide();
-        }
-        summaryWindow = new SummaryWindow(logic);
-        summaryWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
-        if (!summaryWindow.isShowing()) {
-            summaryWindow.show();
-        } else {
-            summaryWindow.focus();
-        }
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -294,10 +276,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().equals("Generate")) {
                 generateDate();
-            }
-
-            if (commandResult.getType().equals("Summary")) {
-                generateSummary();
             }
 
             if (commandResult.getType().equals("Statistics")) {
