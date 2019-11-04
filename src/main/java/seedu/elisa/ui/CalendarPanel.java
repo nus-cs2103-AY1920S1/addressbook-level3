@@ -19,7 +19,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 
@@ -33,7 +32,7 @@ public class CalendarPanel extends UiPart<Region> {
     private int month;
 
     @FXML
-    private Text monthAndYear;
+    private Label monthAndYear;
 
     @FXML
     private GridPane calendarGrid;

@@ -11,9 +11,13 @@ public class PriorityCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "priority";
     public static final String MESSAGE_USAGE = "Activates the priority mode of this application.\n"
             + "It can be activated indefinitely by using \"priority\" or priority 10.min.later";
-    public static final String PRIORITY_MODE_OFF = "Priority mode deactivated! Not so stressed anymore, are you?";
+    public static final String FINISHED_ALL_TASKS = "Congrats! You have finished all your tasks."
+            + " Taking you out of priority mode now.";
+    public static final String TIME_OUT = "Oops, guess you are out of time. Hope you have done enough!";
 
+    private static final String PRIORITY_MODE_OFF = "Priority mode deactivated! Not so stressed anymore, are you?";
     private static final String PRIORITY_MODE_ON = "Priority mode activated, just manage this one task, that'll do.";
+    private static final String NO_TASK_TO_DO = "You have no incomplete task. Go out and enjoy the sun.";
     private static final String PRIORITY_MODE_ERROR = "Priority mode can only be activated on task pane";
 
     @Override
@@ -24,7 +28,8 @@ public class PriorityCommand extends UndoableCommand {
         }
         try {
             boolean status = model.togglePriorityMode();
-            return new CommandResult((status ? PRIORITY_MODE_ON : PRIORITY_MODE_OFF));
+            return new CommandResult(status ? PRIORITY_MODE_ON
+                    : (model.getExitStatus() == null ? PRIORITY_MODE_OFF : NO_TASK_TO_DO));
         } catch (IllegalListException e) {
             return new CommandResult(PRIORITY_MODE_ERROR);
         }
