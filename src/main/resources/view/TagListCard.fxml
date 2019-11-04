@@ -19,12 +19,7 @@
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="tagName" text="\$tagName" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE"/>
-                    </minWidth>
-                </Label>
+                <Label fx:id="tagName" text="\$tagName" styleClass="cell_big_label" wrapText="true"/>
                 <Region HBox.hgrow="ALWAYS"/>
             </HBox>
         </VBox>

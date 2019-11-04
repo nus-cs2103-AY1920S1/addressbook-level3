@@ -16,7 +16,7 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="20" prefWidth="60"/>
         </columnConstraints>
-        <VBox fx:id="card" alignment="TOP_LEFT" spacing="5" minHeight="120" GridPane.columnIndex="0"
+        <VBox fx:id="card" spacing="5" minHeight="120" GridPane.columnIndex="0"
               HBox.hgrow="ALWAYS">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
@@ -28,14 +28,14 @@
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <Label fx:id="title" text="\$title" styleClass="cell_big_label">
+                <Label fx:id="title" text="\$title" styleClass="cell_big_label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="time" text="\$time" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Label fx:id="time" text="\$time" styleClass="cell_big_label"/>
             </HBox>
             <Separator minHeight="2.0"/>
             <Label fx:id="content" text="\$content" styleClass="cell_small_label" wrapText="true"/>
@@ -46,7 +46,7 @@
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <FlowPane fx:id="tags" vgap="5" hgap="5"/>
+                <FlowPane fx:id="tags" vgap="5" hgap="5" HBox.hgrow="ALWAYS"/>
             </HBox>
         </VBox>
     </GridPane>

@@ -13,6 +13,8 @@ import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 import static tagline.testutil.TypicalIndexes.INDEX_SECOND;
 import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
+import java.util.Collections;
+
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.CommandResult.ViewType;
@@ -24,8 +26,11 @@ import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 import tagline.model.contact.ContactId;
+import tagline.model.contact.ContactIdEqualsSearchIdPredicate;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
+import tagline.model.note.NoteContainsTagsPredicate;
+import tagline.model.tag.ContactTag;
 import tagline.model.tag.TagBook;
 import tagline.testutil.contact.EditContactDescriptorBuilder;
 
@@ -52,6 +57,9 @@ public class EditContactCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
             new NoteBook(), new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
+        expectedModel.updateFilteredContactList(new ContactIdEqualsSearchIdPredicate(editedContact.getContactId()));
+        expectedModel.updateFilteredNoteList(new NoteContainsTagsPredicate(
+                Collections.singletonList(new ContactTag(editedContact.getContactId()))));
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
@@ -75,6 +83,9 @@ public class EditContactCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
             new NoteBook(), new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.setContact(lastContact, editedContact);
+        expectedModel.updateFilteredContactList(new ContactIdEqualsSearchIdPredicate(editedContact.getContactId()));
+        expectedModel.updateFilteredNoteList(new NoteContainsTagsPredicate(
+                Collections.singletonList(new ContactTag(editedContact.getContactId()))));
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
@@ -89,6 +100,9 @@ public class EditContactCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new NoteBook(),
             new GroupBook(), new TagBook(), new UserPrefs());
+        expectedModel.updateFilteredContactList(new ContactIdEqualsSearchIdPredicate(editedContact.getContactId()));
+        expectedModel.updateFilteredNoteList(new NoteContainsTagsPredicate(
+                Collections.singletonList(new ContactTag(editedContact.getContactId()))));
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }

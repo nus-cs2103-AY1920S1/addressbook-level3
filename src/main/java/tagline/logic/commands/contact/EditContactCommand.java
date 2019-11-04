@@ -6,8 +6,8 @@ import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_DESCRIPTION;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
-import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import tagline.commons.util.CollectionUtil;
@@ -18,10 +18,13 @@ import tagline.model.Model;
 import tagline.model.contact.Address;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
+import tagline.model.contact.ContactIdEqualsSearchIdPredicate;
 import tagline.model.contact.Description;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
+import tagline.model.note.NoteContainsTagsPredicate;
+import tagline.model.tag.ContactTag;
 
 /**
  * Edits the details of an existing contact in the address book.
@@ -99,7 +102,10 @@ public class EditContactCommand extends ContactCommand {
         }
 
         model.setContact(contactToEdit, editedContact);
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        model.updateFilteredContactList(new ContactIdEqualsSearchIdPredicate(editedContact.getContactId()));
+        model.updateFilteredNoteList(new NoteContainsTagsPredicate(
+                Collections.singletonList(new ContactTag(editedContact.getContactId()))));
+
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact), ViewType.CONTACT_PROFILE);
     }
 

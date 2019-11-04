@@ -389,6 +389,14 @@ public class CreateContactCommandTest {
         }
 
         @Override
+        public void updateFilteredContactList(Predicate<Contact> predicate) {
+        }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }

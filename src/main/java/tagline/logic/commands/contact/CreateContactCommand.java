@@ -7,11 +7,16 @@ import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
 
+import java.util.Collections;
+
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactIdEqualsSearchIdPredicate;
+import tagline.model.note.NoteContainsTagsPredicate;
+import tagline.model.tag.ContactTag;
 
 /**
  * Adds a contact to the address book.
@@ -57,6 +62,10 @@ public class CreateContactCommand extends ContactCommand {
         }
 
         model.addContact(toAdd);
+        model.updateFilteredContactList(new ContactIdEqualsSearchIdPredicate(toAdd.getContactId()));
+        model.updateFilteredNoteList(new NoteContainsTagsPredicate(
+                Collections.singletonList(new ContactTag(toAdd.getContactId()))));
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ViewType.CONTACT_PROFILE);
     }
 

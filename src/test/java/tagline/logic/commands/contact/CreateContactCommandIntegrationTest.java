@@ -4,6 +4,8 @@ import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
+import java.util.Collections;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +15,11 @@ import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
+import tagline.model.contact.ContactIdEqualsSearchIdPredicate;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
+import tagline.model.note.NoteContainsTagsPredicate;
+import tagline.model.tag.ContactTag;
 import tagline.model.tag.TagBook;
 
 /**
@@ -38,6 +43,9 @@ public class CreateContactCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
             new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.addContact(validContact);
+        expectedModel.updateFilteredContactList(new ContactIdEqualsSearchIdPredicate(validContact.getContactId()));
+        expectedModel.updateFilteredNoteList(new NoteContainsTagsPredicate(
+                Collections.singletonList(new ContactTag(validContact.getContactId()))));
 
         assertCommandSuccess(new CreateContactCommand(validContact), model,
             String.format(CreateContactCommand.MESSAGE_SUCCESS, validContact),

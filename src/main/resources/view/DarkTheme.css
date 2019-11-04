@@ -387,11 +387,6 @@
     -fx-background-radius: 0;
 }
 
-#memberIds {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
-}
-
 #tags .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
@@ -413,6 +408,11 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 13;
+}
+
+#memberIds {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
 }
 
 .scroll-pane {

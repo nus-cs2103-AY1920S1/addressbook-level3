@@ -14,7 +14,7 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
         </columnConstraints>
-        <VBox fx:id="contactListInternalPane" alignment="TOP_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox fx:id="contactListInternalPane" minHeight="105" GridPane.columnIndex="0">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
