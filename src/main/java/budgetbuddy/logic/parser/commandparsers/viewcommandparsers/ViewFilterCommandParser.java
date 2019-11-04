@@ -5,7 +5,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_FROM;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_UNTIL;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import budgetbuddy.logic.commands.view.ViewFilterCommand;
@@ -47,13 +47,13 @@ public class ViewFilterCommandParser implements CommandParser<ViewFilterCommand>
                         : Optional.empty();
 
         Optional<String> optionalFromString = argMultimap.getValue(PREFIX_FROM);
-        Optional<Date> optionalFrom =
+        Optional<LocalDate> optionalFrom =
                 argMultimap.getValue(PREFIX_FROM).isPresent()
                         ? Optional.of(CommandParserUtil.parseDate(optionalFromString.get()))
                         : Optional.empty();
 
         Optional<String> optionalUntilString = argMultimap.getValue(PREFIX_UNTIL);
-        Optional<Date> optionalUntil =
+        Optional<LocalDate> optionalUntil =
                 argMultimap.getValue(PREFIX_UNTIL).isPresent()
                         ? Optional.of(CommandParserUtil.parseDate(optionalUntilString.get()))
                         : Optional.empty();

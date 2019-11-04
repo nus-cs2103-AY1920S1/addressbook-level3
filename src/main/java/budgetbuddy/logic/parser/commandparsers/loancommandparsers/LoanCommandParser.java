@@ -7,7 +7,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -73,7 +73,7 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
                 : new Description("");
 
         Optional<String> optionalDate = argMultimap.getValue(PREFIX_DATE);
-        Date date = new Date();
+        LocalDate date = LocalDate.now();
         if (optionalDate.isPresent()) {
             date = CommandParserUtil.parseDate(optionalDate.get());
         }

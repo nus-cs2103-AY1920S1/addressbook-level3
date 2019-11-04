@@ -1,6 +1,6 @@
 package budgetbuddy.model.transaction;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -11,12 +11,12 @@ import budgetbuddy.model.attributes.Category;
  */
 public class TransactionMatchesConditionsPredicate implements Predicate<Transaction> {
     private final Optional<Category> categoryOptional;
-    private final Optional<Date> fromOptional;
-    private final Optional<Date> untilOptional;
+    private final Optional<LocalDate> fromOptional;
+    private final Optional<LocalDate> untilOptional;
 
     public TransactionMatchesConditionsPredicate(Optional<Category> categoryOptional,
-                                                 Optional<Date> fromOptional,
-                                                 Optional<Date> untilOptional) {
+                                                 Optional<LocalDate> fromOptional,
+                                                 Optional<LocalDate> untilOptional) {
         this.categoryOptional = categoryOptional;
         this.fromOptional = fromOptional;
         this.untilOptional = untilOptional;
@@ -30,12 +30,12 @@ public class TransactionMatchesConditionsPredicate implements Predicate<Transact
             }
         }
         if (fromOptional.isPresent()) {
-            if (!transaction.getDate().after(fromOptional.get())) {
+            if (!transaction.getDate().isAfter(fromOptional.get())) {
                 return false;
             }
         }
         if (untilOptional.isPresent()) {
-            if (!transaction.getDate().before(fromOptional.get())) {
+            if (!transaction.getDate().isBefore(fromOptional.get())) {
                 return false;
             }
         }

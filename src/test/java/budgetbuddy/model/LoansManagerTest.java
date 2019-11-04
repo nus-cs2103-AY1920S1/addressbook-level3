@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -92,9 +92,9 @@ public class LoansManagerTest {
         // sort by date, newest first
         loansManager.sortLoans(LoanSorters.DATE_NEWEST);
         assertTrue(IntStream.range(0, loansManager.getFilteredLoans().size() - 1).allMatch(i -> {
-            Date first = loansManager.getFilteredLoans().get(i).getDate();
-            Date second = loansManager.getFilteredLoans().get(i + 1).getDate();
-            return first.after(second) || first.equals(second);
+            LocalDate first = loansManager.getFilteredLoans().get(i).getDate();
+            LocalDate second = loansManager.getFilteredLoans().get(i + 1).getDate();
+            return first.isAfter(second) || first.isEqual(second);
         }));
 
         // sort by persons' names in alphabetical order
@@ -117,9 +117,9 @@ public class LoansManagerTest {
         loansManager.sortLoans(LoanSorters.DATE_NEWEST);
         loansManager.sortLoans(LoanSorters.DATE_NEWEST);
         assertTrue(IntStream.range(0, loansManager.getFilteredLoans().size() - 1).allMatch(i -> {
-            Date first = loansManager.getFilteredLoans().get(i).getDate();
-            Date second = loansManager.getFilteredLoans().get(i + 1).getDate();
-            return first.before(second) || first.equals(second);
+            LocalDate first = loansManager.getFilteredLoans().get(i).getDate();
+            LocalDate second = loansManager.getFilteredLoans().get(i + 1).getDate();
+            return first.isBefore(second) || first.isEqual(second);
         }));
 
         // sort by persons' names in reverse alphabetical order

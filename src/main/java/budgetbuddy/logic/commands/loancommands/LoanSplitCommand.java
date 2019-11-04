@@ -10,9 +10,9 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_USER;
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -79,12 +79,12 @@ public class LoanSplitCommand extends Command {
 
     private Optional<Person> optionalUser;
     private Optional<Description> optionalDescription;
-    private Optional<Date> optionalDate;
+    private Optional<LocalDate> optionalDate;
 
     public LoanSplitCommand(List<Person> persons, List<Amount> amounts, List<Long> maxShares,
                             Optional<Person> optionalUser,
                             Optional<Description> optionalDescription,
-                            Optional<Date> optionalDate) throws CommandException {
+                            Optional<LocalDate> optionalDate) throws CommandException {
         requireAllNonNull(persons, amounts, optionalUser, optionalDescription, optionalDate);
 
         if (persons.size() != amounts.size()) {
@@ -247,12 +247,12 @@ public class LoanSplitCommand extends Command {
             if (debtorCreditorAmount.debtor.equals(user)) {
                 userLoans.add(new Loan(
                         debtorCreditorAmount.creditor, Direction.IN, debtorCreditorAmount.amount,
-                        optionalDate.orElse(new Date()), optionalDescription.orElse(new Description("")),
+                        optionalDate.orElse(LocalDate.now()), optionalDescription.orElse(new Description("")),
                         Status.UNPAID));
             } else if (debtorCreditorAmount.creditor.equals(user)) {
                 userLoans.add(new Loan(
                         debtorCreditorAmount.debtor, Direction.OUT, debtorCreditorAmount.amount,
-                        optionalDate.orElse(new Date()), optionalDescription.orElse(new Description("")),
+                        optionalDate.orElse(LocalDate.now()), optionalDescription.orElse(new Description("")),
                         Status.UNPAID));
             }
         });

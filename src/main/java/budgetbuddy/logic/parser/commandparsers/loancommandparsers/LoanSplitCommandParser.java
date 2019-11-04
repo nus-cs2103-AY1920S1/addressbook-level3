@@ -9,8 +9,8 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_MAX_SHARE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_USER;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +43,7 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
 
     private Optional<Person> optionalUser;
     private Optional<Description> optionalDescription;
-    private Optional<Date> optionalDate;
+    private Optional<LocalDate> optionalDate;
 
     @Override
     public String name() {

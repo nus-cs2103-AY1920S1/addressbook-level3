@@ -1,9 +1,10 @@
 package budgetbuddy.logic.parser;
 
-import static budgetbuddy.commons.util.AppUtil.getDateFormat;
+import static budgetbuddy.commons.util.AppUtil.getDateFormatter;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 
 import budgetbuddy.commons.core.index.Index;
@@ -133,15 +134,15 @@ public class CommandParserUtil {
 
 
     /**
-     * Parses a {@code String date} into a {@code Date}.
+     * Parses a {@code String date} into a {@code LocalDate}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Date parseDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            return getDateFormat().parse(trimmedDate);
-        } catch (java.text.ParseException e) {
+            return LocalDate.parse(trimmedDate, getDateFormatter());
+        } catch (DateTimeParseException e) {
             throw new ParseException(e.getMessage());
         }
     }

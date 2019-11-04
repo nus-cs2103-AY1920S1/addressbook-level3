@@ -26,7 +26,7 @@ public class LoanSortersTest {
     public void dateNewestSorter_sortList_loansSortedByNewestDateFirst() {
         loans.sort(LoanSorters.DATE_NEWEST);
         assertTrue(IntStream.range(0, loans.size() - 1)
-                .allMatch(i -> loans.get(i).getDate().after(loans.get(i + 1).getDate())
+                .allMatch(i -> loans.get(i).getDate().isAfter(loans.get(i + 1).getDate())
                         || loans.get(i).getDate().equals(loans.get(i + 1).getDate())));
     }
 

@@ -2,7 +2,7 @@ package budgetbuddy.model.loan.predicates;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import budgetbuddy.model.loan.Loan;
@@ -11,9 +11,9 @@ import budgetbuddy.model.loan.Loan;
  * A predicate to check equality between a given date and the date of a given loan.
  */
 public class DateMatchPredicate implements Predicate<Loan> {
-    private final Date date;
+    private final LocalDate date;
 
-    public DateMatchPredicate(Date date) {
+    public DateMatchPredicate(LocalDate date) {
         requireNonNull(date);
         this.date = date;
     }

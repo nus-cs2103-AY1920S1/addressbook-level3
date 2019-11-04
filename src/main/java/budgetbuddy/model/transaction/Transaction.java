@@ -2,8 +2,8 @@ package budgetbuddy.model.transaction;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -22,12 +22,12 @@ public class Transaction {
     private Amount amount;
     private Description description;
     private Set<Category> categories = new HashSet<>();
-    private Date date;
+    private LocalDate date;
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Date date, Amount amount, Direction direction, Description description,
+    public Transaction(LocalDate date, Amount amount, Direction direction, Description description,
                        Category... categories) {
         requireAllNonNull(date, amount, direction);
         this.direction = direction;
@@ -43,7 +43,7 @@ public class Transaction {
     /**
      * Constructor that allows categories to be entered as a @code{@literal Set<Category>}
      */
-    public Transaction(Date date, Amount amount, Direction direction, Description description,
+    public Transaction(LocalDate date, Amount amount, Direction direction, Description description,
                        Set<Category> categories) {
         requireAllNonNull(date, amount, direction);
         this.direction = direction;
@@ -69,7 +69,7 @@ public class Transaction {
         return categories;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

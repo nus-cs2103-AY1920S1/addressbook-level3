@@ -11,7 +11,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -142,7 +142,7 @@ public class TransactionEditCommand extends ScriptCommand {
                                           Account targetAccount,
                                           Account updatedAccount) throws CommandException {
 
-        Date updatedDate = transactionEditDescriptor.getDate().isPresent()
+        LocalDate updatedDate = transactionEditDescriptor.getDate().isPresent()
                 ? transactionEditDescriptor.getDate().get()
                 : targetTransaction.getDate();
 
@@ -182,7 +182,7 @@ public class TransactionEditCommand extends ScriptCommand {
         private Amount amount;
         private Description description;
         private Set<Category> categories = new HashSet<>();
-        private Date date;
+        private LocalDate date;
 
         public TransactionEditDescriptor() {}
 
@@ -194,11 +194,11 @@ public class TransactionEditCommand extends ScriptCommand {
             this.categories = toCopy.categories;
         }
 
-        public Optional<Date> getDate() {
+        public Optional<LocalDate> getDate() {
             return Optional.ofNullable(date);
         }
 
-        public void setDate(Date date) {
+        public void setDate(LocalDate date) {
             this.date = date;
         }
 

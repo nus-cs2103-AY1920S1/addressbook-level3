@@ -1,7 +1,7 @@
 package budgetbuddy.model.util;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import budgetbuddy.model.LoansManager;
@@ -21,10 +21,10 @@ public class SampleDataUtil {
     public static List<Loan> getSampleLoans() {
         return Arrays.asList(
                 new Loan(new Person(new Name("Example Person 1")),
-                        Direction.OUT, new Amount(420), new Date(),
+                        Direction.OUT, new Amount(420), LocalDate.now(),
                         new Description("Paid for their stuff."), Status.UNPAID),
                 new Loan(new Person(new Name("Example Person 2")),
-                        Direction.IN, new Amount(10000), new Date(),
+                        Direction.IN, new Amount(10000), LocalDate.now(),
                         new Description("Owe them for that party."), Status.UNPAID));
     }
 

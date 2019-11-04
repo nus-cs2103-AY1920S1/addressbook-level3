@@ -6,7 +6,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import budgetbuddy.commons.core.index.Index;
@@ -84,7 +84,7 @@ public class LoanEditCommand extends Command {
         Person updatedPerson = loanEditDescriptor.getPerson().orElse(loanToEdit.getPerson());
         Direction updatedDirection = loanEditDescriptor.getDirection().orElse(loanToEdit.getDirection());
         Amount updatedAmount = loanEditDescriptor.getAmount().orElse(loanToEdit.getAmount());
-        Date updatedDate = loanEditDescriptor.getDate().orElse(loanToEdit.getDate());
+        LocalDate updatedDate = loanEditDescriptor.getDate().orElse(loanToEdit.getDate());
         Description updatedDescription = loanEditDescriptor.getDescription().orElse(loanToEdit.getDescription());
         Status updatedStatus = loanEditDescriptor.getStatus().orElse(loanToEdit.getStatus());
 
@@ -115,7 +115,7 @@ public class LoanEditCommand extends Command {
         private Person person;
         private Direction direction;
         private Amount amount;
-        private Date date;
+        private LocalDate date;
         private Description description;
         private Status status;
 
@@ -161,11 +161,11 @@ public class LoanEditCommand extends Command {
             return Optional.ofNullable(amount);
         }
 
-        public void setDate(Date date) {
+        public void setDate(LocalDate date) {
             this.date = date;
         }
 
-        public Optional<Date> getDate() {
+        public Optional<LocalDate> getDate() {
             return Optional.ofNullable(date);
         }
 

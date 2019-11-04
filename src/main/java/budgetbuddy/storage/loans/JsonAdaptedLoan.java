@@ -1,10 +1,10 @@
 package budgetbuddy.storage.loans;
 
-import static budgetbuddy.commons.util.AppUtil.getDateFormat;
+import static budgetbuddy.commons.util.AppUtil.getDateFormatter;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,7 +28,7 @@ public class JsonAdaptedLoan {
     private final String personName;
     private final String direction;
     private final long amount;
-    private final Date date;
+    private final String date;
     private final String description;
     private final String status;
 
@@ -39,7 +39,7 @@ public class JsonAdaptedLoan {
     public JsonAdaptedLoan(@JsonProperty("personName") String personName,
                            @JsonProperty("direction") String direction,
                            @JsonProperty("amount") long amount,
-                           @JsonProperty("date") Date date,
+                           @JsonProperty("date") String date,
                            @JsonProperty("description") String description,
                            @JsonProperty("status") String status) {
         requireAllNonNull(personName, direction, amount, date, description, status);
@@ -59,7 +59,7 @@ public class JsonAdaptedLoan {
         personName = source.getPerson().getName().toString();
         direction = source.getDirection().toString();
         amount = source.getAmount().toLong();
-        date = source.getDate();
+        date = getDateFormatter().format(source.getDate());
         description = source.getDescription().toString();
         status = source.getStatus().toString();
     }
@@ -119,18 +119,16 @@ public class JsonAdaptedLoan {
     }
 
     /**
-     * Validates the adapted date as a {@code java.util.Date} object.
+     * Validates the adapted date as a {@code LocalDate} object.
      * @return The validated date.
      * @throws IllegalValueException If validation fails.
      */
-    private Date getValidatedDate() throws IllegalValueException {
+    private LocalDate getValidatedDate() throws IllegalValueException {
         try {
-            String dateStr = getDateFormat().format(date);
-            getDateFormat().parse(dateStr);
-        } catch (ParseException e) {
+            return LocalDate.parse(date, getDateFormatter());
+        } catch (DateTimeParseException e) {
             throw new IllegalValueException("Error reading stored date.");
         }
-        return date;
     }
 
     /**

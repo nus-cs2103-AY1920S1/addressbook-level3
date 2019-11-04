@@ -4,7 +4,7 @@ import static budgetbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
@@ -81,7 +81,8 @@ public class LoanTest {
         assertNotEquals(TypicalLoans.JOHN_OUT_UNPAID, editedJohnOutUnpaid);
 
         // different date -> returns false
-        editedJohnOutUnpaid = new LoanBuilder(TypicalLoans.JOHN_OUT_UNPAID).withDate(new Date(100000L)).build();
+        editedJohnOutUnpaid = new LoanBuilder(TypicalLoans.JOHN_OUT_UNPAID)
+                .withDate(LocalDate.ofEpochDay(10)).build();
         assertNotEquals(TypicalLoans.JOHN_OUT_UNPAID, editedJohnOutUnpaid);
     }
 }

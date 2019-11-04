@@ -1,9 +1,9 @@
 package budgetbuddy.model.loan;
 
-import static budgetbuddy.commons.util.AppUtil.getDateFormat;
+import static budgetbuddy.commons.util.AppUtil.getDateFormatter;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import budgetbuddy.model.attributes.Description;
@@ -22,7 +22,7 @@ public class Loan {
     private final Person person;
     private final Direction direction;
     private final Amount amount;
-    private final Date date;
+    private final LocalDate date;
     private final Description description;
     private final Status status;
 
@@ -30,7 +30,7 @@ public class Loan {
      * Every field must be present and not null.
      */
     public Loan(Person person, Direction direction, Amount amount,
-                Date date, Description description, Status status) {
+                LocalDate date, Description description, Status status) {
         requireAllNonNull(person, direction, amount, date, description, status);
         this.person = person;
         this.direction = direction;
@@ -52,12 +52,12 @@ public class Loan {
         return amount;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
     public String getDateString() {
-        return getDateFormat().format(date);
+        return getDateFormatter().format(date);
     }
 
     public Description getDescription() {

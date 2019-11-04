@@ -8,9 +8,9 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -74,13 +74,13 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
             categoriesSet.add(CommandParserUtil.parseCategory(c));
         }
 
-        /**
+        /*
          * Return current date when optionalDate is not present
          */
         Optional<String> optionalDate = argMultiMap.getValue(PREFIX_DATE);
-        Date date = optionalDate.isPresent()
+        LocalDate date = optionalDate.isPresent()
                 ? CommandParserUtil.parseDate(optionalDate.get())
-                : new Date();
+                : LocalDate.now();
 
         Transaction transaction = new Transaction(date, amount, direction, description, categoriesSet);
 

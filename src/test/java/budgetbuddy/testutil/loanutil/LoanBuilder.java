@@ -1,6 +1,6 @@
 package budgetbuddy.testutil.loanutil;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
@@ -19,14 +19,14 @@ public class LoanBuilder {
     public static final Direction DEFAULT_DIRECTION = Direction.OUT;
     public static final Amount DEFAULT_AMOUNT = new Amount(100L);
     public static final Description DEFAULT_DESCRIPTION = new Description("The description.");
-    public static final Date DEFAULT_DATE = new Date();
+    public static final LocalDate DEFAULT_DATE = LocalDate.now();
     public static final Status DEFAULT_STATUS = Status.UNPAID;
 
     private Person person;
     private Direction direction;
     private Amount amount;
     private Description description;
-    private Date date;
+    private LocalDate date;
     private Status status;
 
     public LoanBuilder() {
@@ -80,9 +80,9 @@ public class LoanBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code Loan} that we are building.
+     * Sets the {@code LocalDate} of the {@code Loan} that we are building.
      */
-    public LoanBuilder withDate(Date date) {
+    public LoanBuilder withDate(LocalDate date) {
         this.date = date;
         return this;
     }
