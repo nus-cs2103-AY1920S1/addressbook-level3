@@ -1,15 +1,15 @@
 package seedu.jarvis.model.planner.predicates;
 
-import seedu.jarvis.model.planner.tasks.Deadline;
-import seedu.jarvis.model.planner.tasks.Event;
-import seedu.jarvis.model.planner.tasks.Task;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import seedu.jarvis.model.planner.tasks.Deadline;
+import seedu.jarvis.model.planner.tasks.Event;
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * Tests that the task date of a {@code Task} matches any of the
@@ -52,7 +52,7 @@ public class TaskDateMatchesDatePredicate implements Predicate<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this //short circuit if same object
-                || (other instanceof TaskDateMatchesDatePredicate //instanceof handles nulls
-        )           && dates.equals(((TaskDateMatchesDatePredicate) other).dates); //state check
+                || (other instanceof TaskDateMatchesDatePredicate) //instanceof handles nulls
+                && dates.equals(((TaskDateMatchesDatePredicate) other).dates); //state check
     }
 }

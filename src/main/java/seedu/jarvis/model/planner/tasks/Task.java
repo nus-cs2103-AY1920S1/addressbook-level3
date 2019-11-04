@@ -1,6 +1,5 @@
 package seedu.jarvis.model.planner.tasks;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +16,6 @@ import seedu.jarvis.storage.planner.JsonAdaptedTask;
  */
 public abstract class Task {
     //add t/TASK TYPE/TASK DES [d/DATE] [#TAG]... [p/PRIORITY LEVEL] [r/FREQ]
-
-    private int index;
 
     public static final String EVENT = "event";
     public static final String DEADLINE = "deadline";

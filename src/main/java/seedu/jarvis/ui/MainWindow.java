@@ -23,7 +23,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.cca.CcaListView;
 import seedu.jarvis.ui.course.CoursePlannerWindow;

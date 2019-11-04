@@ -2,7 +2,6 @@ package seedu.jarvis.ui.planner;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.SnapshotResult;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;

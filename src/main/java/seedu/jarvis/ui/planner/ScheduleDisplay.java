@@ -9,9 +9,6 @@ import javafx.scene.layout.Region;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.ui.UiPart;
 
-import java.util.List;
-
-
 /**
  * Represents the schedule component of the Planner - shows the tasks in the planner
  * that coincides with the given day and week

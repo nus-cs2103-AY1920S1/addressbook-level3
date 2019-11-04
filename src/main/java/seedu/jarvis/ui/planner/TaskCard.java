@@ -1,7 +1,6 @@
 package seedu.jarvis.ui.planner;
 
 import java.util.Comparator;
-import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
