@@ -11,6 +11,9 @@ public class GenericCommandWord {
     public static final String EDIT = "edit";
     public static final String CLEAR = "clear";
 
+    private GenericCommandWord() {
+    }
+
     /**
      * Checks whether the command word is generic.
      *

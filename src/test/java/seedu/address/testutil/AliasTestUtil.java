@@ -1,11 +1,12 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.EXPENSE_DESCRIPTION_DESC_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.EXPENSE_PRICE_DESC_CHICKEN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
-import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
@@ -24,7 +25,10 @@ public class AliasTestUtil {
     public static final Alias ALIAS_LIST_SHORTCUT = new Alias("ls", ListExpensesCommand.COMMAND_WORD);
     public static final Alias ALIAS_ADD_WITH_ARGUMENTS = new Alias(
             "addchicken",
-            FindExpenseCommand.COMMAND_WORD + EXPENSE_DESCRIPTION_DESC_CHICKEN + EXPENSE_PRICE_DESC_CHICKEN);
+            AddExpenseCommand.COMMAND_WORD + " "
+                    + PREFIX_DESCRIPTION + "chicken "
+                    + PREFIX_PRICE + "2.50 "
+                    + PREFIX_CATEGORY + "food");
     public static final Alias ALIAS_FIND_SHORTCUT_INCOMPLETE = new Alias ("f", FindExpenseCommand.COMMAND_WORD);
     // for recursive
     public static final Alias ALIAS_A_TO_B = new Alias("a", "b");
@@ -47,17 +51,13 @@ public class AliasTestUtil {
 
     static {
         AliasMappings tempValidAliasMappings;
-        try {
-            tempValidAliasMappings = new AliasMappings()
-                        .addAlias(ALIAS_LIST_SHORTCUT)
-                        .addAlias(ALIAS_ADD_WITH_ARGUMENTS)
-                        .addAlias(ALIAS_FIND_SHORTCUT_INCOMPLETE)
-                        .addAlias(ALIAS_A_TO_B)
-                        .addAlias(ALIAS_B_TO_C);
-        } catch (RecursiveAliasException e) {
-            tempValidAliasMappings = null;
-            e.printStackTrace();
-        }
+        tempValidAliasMappings = new AliasMappings()
+                    .addAlias(ALIAS_LIST_SHORTCUT)
+                    .addAlias(ALIAS_ADD_WITH_ARGUMENTS)
+                    .addAlias(ALIAS_FIND_SHORTCUT_INCOMPLETE)
+                    .addAlias(ALIAS_A_TO_B)
+                    .addAlias(ALIAS_B_TO_C);
+
         VALID_ALIAS_MAPPINGS = tempValidAliasMappings;
     }
 }

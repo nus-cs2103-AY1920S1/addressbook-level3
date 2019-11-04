@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
@@ -199,12 +198,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addUserAlias(Alias alias) {
-        try {
-            userPrefs.addUserAlias(alias);
-        } catch (RecursiveAliasException e) {
-            // should should be prevented by validation
-            e.printStackTrace();
-        }
+        userPrefs.addUserAlias(alias);
     }
 
     public boolean aliasWithNameExists(String aliasName) {

@@ -32,7 +32,7 @@ public class DeleteAliasCommand extends UndoableCommand {
      */
     public DeleteAliasCommand(String aliasName) {
         requireNonNull(aliasName);
-        this.aliasName = aliasName;
+        this.aliasName = aliasName.trim();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class DeleteAliasCommand extends UndoableCommand {
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
                 || (obj instanceof DeleteAliasCommand // instanceof handles nulls
-                && this.aliasName.equals(((DeleteAliasCommand) obj).aliasName));
+                && this.aliasName.trim().equals(((DeleteAliasCommand) obj).aliasName.trim()));
     }
 
     @Override

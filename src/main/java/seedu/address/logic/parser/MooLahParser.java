@@ -57,96 +57,93 @@ public class MooLahParser {
             throws ParseException {
         Input input = ParserUtil.parseInput(userInput);
 
-        String commandWord;
-        if (input.isGeneric()) {
-            commandWord = input.getCommandWord() + commandGroup;
-        } else {
-            commandWord = input.getCommandWord();
-        }
+        String commandWord = getCommandWord(input, commandGroup);
         String arguments = input.getArguments();
-
-        switch (commandWord) {
         //expense
-        case AddExpenseCommand.COMMAND_WORD:
+        if (AddExpenseCommand.COMMAND_WORD.equals(commandWord)) {
             return new AddExpenseCommandParser().parse(arguments);
-        case EditExpenseCommand.COMMAND_WORD:
+        } else if (EditExpenseCommand.COMMAND_WORD.equals(commandWord)) {
             return new EditCommandParser().parse(arguments);
-        case EditExpenseFromBudgetCommand.COMMAND_WORD:
+        } else if (EditExpenseFromBudgetCommand.COMMAND_WORD.equals(commandWord)) {
             return new EditExpenseFromBudgetCommandParser().parse(arguments);
-        case DeleteExpenseCommand.COMMAND_WORD:
+        } else if (DeleteExpenseCommand.COMMAND_WORD.equals(commandWord)) {
             return new DeleteCommandParser().parse(arguments);
-        case DeleteExpenseFromBudgetCommand.COMMAND_WORD:
+        } else if (DeleteExpenseFromBudgetCommand.COMMAND_WORD.equals(commandWord)) {
             return new DeleteExpenseFromBudgetCommandParser().parse(arguments);
-        case ClearCommand.COMMAND_WORD:
+        } else if (ClearCommand.COMMAND_WORD.equals(commandWord)) {
             return new ClearCommand();
-        case FindExpenseCommand.COMMAND_WORD:
+        } else if (FindExpenseCommand.COMMAND_WORD.equals(commandWord)) {
             return new FindCommandParser().parse(arguments);
-        case ListExpensesCommand.COMMAND_WORD:
+        } else if (ListExpensesCommand.COMMAND_WORD.equals(commandWord)) {
             return new ListExpensesCommand();
-
-        //event
-        case AddEventCommand.COMMAND_WORD:
+            //event
+        } else if (AddEventCommand.COMMAND_WORD.equals(commandWord)) {
             return new AddEventCommandParser().parse(arguments);
-        case ListEventsCommand.COMMAND_WORD:
+        } else if (ListEventsCommand.COMMAND_WORD.equals(commandWord)) {
             return new ListEventsCommand();
-        case EditEventCommand.COMMAND_WORD:
+        } else if (EditEventCommand.COMMAND_WORD.equals(commandWord)) {
             return new EditEventCommandParser().parse(arguments);
-        case DeleteEventCommand.COMMAND_WORD:
+        } else if (DeleteEventCommand.COMMAND_WORD.equals(commandWord)) {
             return new DeleteEventCommandParser().parse(arguments);
-
-        //budget
-        case AddBudgetCommand.COMMAND_WORD:
+            //budget
+        } else if (AddBudgetCommand.COMMAND_WORD.equals(commandWord)) {
             return new AddBudgetCommandParser().parse(arguments);
-        case EditBudgetCommand.COMMAND_WORD:
+        } else if (EditBudgetCommand.COMMAND_WORD.equals(commandWord)) {
             return new EditBudgetCommandParser().parse(arguments);
-        case SwitchBudgetCommand.COMMAND_WORD:
+        } else if (SwitchBudgetCommand.COMMAND_WORD.equals(commandWord)) {
             return new SwitchBudgetCommandParser().parse(arguments);
-        case ListBudgetsCommand.COMMAND_WORD:
+        } else if (ListBudgetsCommand.COMMAND_WORD.equals(commandWord)) {
             return new ListBudgetsCommand();
-        case DeleteBudgetByIndexCommand.COMMAND_WORD:
+        } else if (DeleteBudgetByIndexCommand.COMMAND_WORD.equals(commandWord)) {
             return new DeleteBudgetByIndexCommandParser().parse(arguments);
-        case DeleteBudgetByNameCommand.COMMAND_WORD:
+        } else if (DeleteBudgetByNameCommand.COMMAND_WORD.equals(commandWord)) {
             return new DeleteBudgetByNameCommandParser().parse(arguments);
-        case SwitchPeriodCommand.COMMAND_WORD:
+        } else if (SwitchPeriodCommand.COMMAND_WORD.equals(commandWord)) {
             return new SwitchPeriodCommandParser().parse(arguments);
-        case ClearBudgetsCommand.COMMAND_WORD:
+        } else if (ClearBudgetsCommand.COMMAND_WORD.equals(commandWord)) {
             return new ClearBudgetsCommand();
 
-        //stats
-        case StatsCommand.COMMAND_WORD:
+            //stats
+        } else if (StatsCommand.COMMAND_WORD.equals(commandWord)) {
             return new StatsCommandParser().parse(arguments);
-        case StatsCompareCommand.COMMAND_WORD:
+        } else if (StatsCompareCommand.COMMAND_WORD.equals(commandWord)) {
             return new StatsCompareCommandParser().parse(arguments);
-        case StatsTrendCommand.COMMAND_WORD:
+        } else if (StatsTrendCommand.COMMAND_WORD.equals(commandWord)) {
             return new StatsTrendCommandParser().parse(arguments);
 
-        //alias
-        case AddAliasCommand.COMMAND_WORD:
+            //alias
+        } else if (AddAliasCommand.COMMAND_WORD.equals(commandWord)) {
             return new AddAliasCommandParser().parse(arguments);
-        case DeleteAliasCommand.COMMAND_WORD:
+        } else if (DeleteAliasCommand.COMMAND_WORD.equals(commandWord)) {
             return new DeleteAliasCommandParser().parse(arguments);
-        case ListAliasesCommand.COMMAND_WORD:
+        } else if (ListAliasesCommand.COMMAND_WORD.equals(commandWord)) {
             return new ListAliasesCommand();
 
-        //general
-        case ExitCommand.COMMAND_WORD:
+            //general
+        } else if (ExitCommand.COMMAND_WORD.equals(commandWord)) {
             return new ExitCommand();
-        case HelpCommand.COMMAND_WORD:
+        } else if (HelpCommand.COMMAND_WORD.equals(commandWord)) {
             return new HelpCommand();
-        case UndoCommand.COMMAND_WORD:
+        } else if (UndoCommand.COMMAND_WORD.equals(commandWord)) {
             return new UndoCommand();
-        case RedoCommand.COMMAND_WORD:
+        } else if (RedoCommand.COMMAND_WORD.equals(commandWord)) {
             return new RedoCommand();
-        case ViewPanelCommand.COMMAND_WORD:
+        } else if (ViewPanelCommand.COMMAND_WORD.equals(commandWord)) {
             return new ViewPanelCommandParser().parse(arguments);
+        }
+        // check if alias exists
+        if (readOnlyUserPrefs.hasAlias(commandWord)) {
+            Alias alias = readOnlyUserPrefs.getAlias(commandWord);
+            return parseCommand(alias.getInput() + arguments, commandGroup, readOnlyUserPrefs);
+        }
+        throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+    }
 
-        default:
-            // check if alias exists
-            if (readOnlyUserPrefs.hasAlias(commandWord)) {
-                Alias alias = readOnlyUserPrefs.getAlias(commandWord);
-                return parseCommand(alias.getInput() + arguments, commandGroup, readOnlyUserPrefs);
-            }
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+    private String getCommandWord(Input input, String commandGroup) {
+        if (input.isGeneric()) {
+            return input.getCommandWord() + commandGroup;
+        } else {
+            return input.getCommandWord();
         }
     }
 

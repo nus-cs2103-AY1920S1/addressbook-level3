@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.address.model.alias;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_A_TO_B;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.address.model.alias.Alias;
 
 
 class AliasTest {

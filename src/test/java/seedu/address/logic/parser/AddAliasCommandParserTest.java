@@ -23,6 +23,16 @@ public class AddAliasCommandParserTest {
                 String.format(" %s %s", PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT),
                 expectedMessage);
 
+        // missing alias prefix
+        assertParseFailure(parser,
+                String.format(" %s", PREFIX_ALIAS_ALIAS_INPUT),
+                expectedMessage);
+
+        // missing input prefix
+        assertParseFailure(parser,
+                String.format(" %s", PREFIX_ALIAS_ALIAS_NAME),
+                expectedMessage);
+
         // missing input
         assertParseFailure(parser,
                 String.format(" %s aliasName %s", PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT),

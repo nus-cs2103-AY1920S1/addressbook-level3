@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.AliasMappings;
 
@@ -78,7 +77,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      * Add a user defined {@code Alias} to the user prefs' {@code AliasMappings}
      * @param alias
      */
-    public void addUserAlias(Alias alias) throws RecursiveAliasException {
+    public void addUserAlias(Alias alias) {
         requireNonNull(alias);
         this.aliasMappings = aliasMappings.addAlias(alias);
     }
