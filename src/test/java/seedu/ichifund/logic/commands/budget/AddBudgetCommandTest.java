@@ -204,6 +204,11 @@ public class AddBudgetCommandTest {
         }
 
         @Override
+        public void createRepeaterTransactions(Repeater repeater) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasRepeater(Repeater repeater) {
             throw new AssertionError("This method should not be called.");
         }
@@ -212,6 +217,12 @@ public class AddBudgetCommandTest {
         public void deleteRepeater(Repeater target) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void deleteRepeaterTransactions(RepeaterUniqueId repeaterUniqueId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void setRepeater(Repeater target, Repeater editedRepeater) {
             throw new AssertionError("This method should not be called.");
