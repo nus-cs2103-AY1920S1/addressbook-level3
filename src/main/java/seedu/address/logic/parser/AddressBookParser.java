@@ -38,7 +38,7 @@ import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
 import seedu.address.logic.commands.schedule.GenerateScheduleCommand;
-import seedu.address.logic.commands.statistics.StatisticsCommand;
+import seedu.address.logic.commands.statistics.GenerateStatisticsCommand;
 import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
 import seedu.address.logic.parser.allocate.DeallocateCommandParser;
 import seedu.address.logic.parser.allocate.ManualAllocateCommandParser;
