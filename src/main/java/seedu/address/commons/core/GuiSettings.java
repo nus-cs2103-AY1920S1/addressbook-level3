@@ -13,24 +13,28 @@ public class GuiSettings implements Serializable {
     private static final double DEFAULT_HEIGHT = 800;
     private static final double DEFAULT_WIDTH = 1100;
     private static final String DEFAULT_FONT = "segoe UI";
+    private static final String DEFAULT_THEME = "dark";
 
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
     private final String font;
+    private final String theme;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
         font = DEFAULT_FONT;
+        theme = DEFAULT_THEME;
     }
 
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String font) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String font, String theme) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
         this.font = font;
+        this.theme = theme;
     }
 
     public double getWindowWidth() {

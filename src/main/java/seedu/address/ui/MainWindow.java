@@ -24,6 +24,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.PanelName;
 import seedu.address.ui.stats.StatisticsGraphics;
 import seedu.address.ui.stats.StatisticsWindow;
+import seedu.address.ui.util.Theme;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -53,7 +54,9 @@ public class MainWindow extends UiPart<Stage> {
     private boolean isStatsWindow;
     private boolean isStatsGraphicsWindow;
 
+    // Customisable GUI elements
     private String font;
+    private String theme;
 
     @FXML
     private Scene scene;
@@ -231,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), font);
+                (int) primaryStage.getX(), (int) primaryStage.getY(), font, theme);
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -346,10 +349,6 @@ public class MainWindow extends UiPart<Stage> {
      * Changes font in the application to the specified font.
      */
     private void handleChangeFont(String font) {
-        /*if (this.scene.getStylesheets().contains(lightThemeUrl)) {
-            this.scene.getStylesheets().remove(lightThemeUrl);
-            this.scene.getStylesheets().add(darkThemeUrl);
-        }*/
         this.font = font;
         String style = "-fx-font-family: " + font;
         window.setStyle(style);
@@ -398,20 +397,20 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the current to the {@code newTheme}.
      */
-    private void switchThemeTo(String newTheme) {
+    private void switchThemeTo(Theme newTheme) {
         String oldThemeUrl = null;
         String oldExtensionsUrl = null;
         String newThemeUrl = null;
         String newExtensionsUrl = null;
 
         switch (newTheme) {
-        case "light":
+        case LIGHT:
             oldThemeUrl = darkThemeUrl;
             oldExtensionsUrl = darkExtensionsUrl;
             newThemeUrl = lightThemeUrl;
             newExtensionsUrl = lightExtensionsUrl;
             break;
-        case "dark":
+        case DARK:
             oldThemeUrl = lightThemeUrl;
             oldExtensionsUrl = lightExtensionsUrl;
             newThemeUrl = darkThemeUrl;
@@ -500,8 +499,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isChangeTheme()) {
-                String themeToChangeTo = commandResult.getNewTheme();
-                assert(themeToChangeTo.equals("light") || themeToChangeTo.equals("dark"));
+                Theme themeToChangeTo = commandResult.getNewTheme();
                 switchThemeTo(themeToChangeTo);
             }
 

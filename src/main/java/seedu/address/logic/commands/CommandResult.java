@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import seedu.address.model.person.PanelName;
 import seedu.address.ui.FontName;
+import seedu.address.ui.util.Theme;
 
 /**
  * Represents the result of a command execution.
@@ -34,7 +35,7 @@ public class CommandResult {
 
     /** For changing the theme */
     private final boolean changeTheme;
-    private final String newTheme;
+    private final Theme newTheme;
 
     private boolean toShowConditionPanel = false;
 
@@ -120,7 +121,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
      */
-    public CommandResult(String feedbackToUser, boolean changeTheme, String theme) {
+    public CommandResult(String feedbackToUser, boolean changeTheme, Theme theme) {
         this.feedbackToUser = feedbackToUser;
         this.changeTheme = changeTheme;
         this.newTheme = theme;
@@ -155,7 +156,7 @@ public class CommandResult {
         return fontName;
     }
 
-    public String getNewTheme() {
+    public Theme getNewTheme() {
         return newTheme;
     }
 
