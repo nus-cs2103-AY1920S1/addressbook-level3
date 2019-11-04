@@ -276,6 +276,7 @@ public class ModelManager implements Model {
 
     @Override
     public Book getBook(SerialNumber bookSn) {
+        assert hasBook(bookSn) : "Book does not exist in catalog";
         return catalog.getBook(bookSn);
     }
 
@@ -301,12 +302,16 @@ public class ModelManager implements Model {
         ArrayList<Loan> loanStream = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         sb.append("Loan History:\n");
-        target.getLoanHistory().forEach(loan -> loanStream.add(loan));
-        Collections.reverse(loanStream); // To make latest loan go on top
-        loanStream.stream()
-                .map(loan -> singleLoanHistoryString(
-                        loan, target.isCurrentlyLoanedOut() && target.getLoan().get().equals(loan)))
-                .forEach(history -> sb.append(history + "\n"));
+        if (target.getLoanHistory().isEmpty()) {
+            sb.append("No loan history!");
+        } else {
+            target.getLoanHistory().forEach(loan -> loanStream.add(loan));
+            Collections.reverse(loanStream); // To make latest loan go on top
+            loanStream.stream()
+                    .map(loan -> singleLoanHistoryString(
+                            loan, target.isCurrentlyLoanedOut() && target.getLoan().get().equals(loan)))
+                    .forEach(history -> sb.append(history + "\n"));
+        }
         return sb.toString();
     }
 
@@ -318,13 +323,14 @@ public class ModelManager implements Model {
      * @return String representation of loan history.
      */
     private String singleLoanHistoryString(Loan loan, boolean isCurrent) {
-        String dateString = DateUtil.formatDate(loan.getStartDate());
+        String startString = DateUtil.formatDate(loan.getStartDate());
+        String endString = DateUtil.formatDate(loan.getDueDate());
         String nameString = getBorrowerFromId(loan.getBorrowerId()).getName().toString();
         String borrowerIdString = "[" + loan.getBorrowerId().toString() + "]";
         if (isCurrent) {
-            return dateString + ": " + borrowerIdString + " " + nameString + " (Current loan)";
+            return startString + " - " + endString + " by " + borrowerIdString + " " + nameString + " (Current loan)";
         } else {
-            return dateString + ": " + borrowerIdString + " " + nameString;
+            return startString + " - " + endString + " by " + borrowerIdString + " " + nameString;
         }
     }
 

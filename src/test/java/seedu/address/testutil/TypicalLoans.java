@@ -36,6 +36,10 @@ public class TypicalLoans {
             .withBorrowerId("K0009").withStartDate("2019-09-01").withDueDate("2019-09-30")
             .withReturnDate("2019-09-15").withRemainingFineAmount(300).build();
 
+    public static final Loan LOAN_1_UNEXPIRED = new LoanBuilder().withLoanId("L000010").withSerialNumber("B00001")
+            .withBorrowerId("K0001").withStartDate("2090-10-13").withDueDate("2090-10-27").build();
+
+
     // prevents instantiation
     private TypicalLoans() {
     }
