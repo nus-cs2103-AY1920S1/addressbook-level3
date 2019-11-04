@@ -39,7 +39,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
-    private NotificationWindow notificationWindow;
 
     @FXML
     private BudgetBar budgetBar;

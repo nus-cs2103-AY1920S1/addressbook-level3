@@ -107,7 +107,13 @@ Format: `report`
 
 === Notification that a meal is missed
 
-A notification will display when the user starts up the CaloFit if he or she has missed a meal after a default time.
+A notification will automatically be displayed every 10 minutes if a meal is missed.
+
+[NOTE]
+Notification will be prompted: +
+-After 10am for breakfast +
+-After 2pm for lunch +
+-After 8pm for dinner
 
 === Shows an overview of commands usable in CaloFit: `help`
 
