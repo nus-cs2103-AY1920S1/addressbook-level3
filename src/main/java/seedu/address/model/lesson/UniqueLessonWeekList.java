@@ -9,8 +9,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.assignment.Assignment;
-import seedu.address.model.lesson.exceptions.DuplicateLessonException;
 
 /**
  * List of all the lessons sorted by the days of the week.
@@ -44,8 +42,8 @@ public class UniqueLessonWeekList implements Iterable<UniqueLessonList> {
         if (!lessonsAreUnique(uniqueLessonLists)) {
             throw new DuplicateLessonException();
         }
-
          */
+
         List<UniqueLessonList> listToAdd = new ArrayList<>();
         for (UniqueLessonList uniqueLesson : uniqueLessonLists) {
             UniqueLessonList uniqueLessonToAdd = new UniqueLessonList();

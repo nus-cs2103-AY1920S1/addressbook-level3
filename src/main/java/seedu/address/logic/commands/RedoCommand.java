@@ -1,11 +1,14 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LESSONLISTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyNotebook;
 
-import static seedu.address.model.Model.*;
-
+//@@author weikiat97
 /**
  * Redoes a previously undone command.
  */

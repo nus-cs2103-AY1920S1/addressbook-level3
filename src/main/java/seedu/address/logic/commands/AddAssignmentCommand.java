@@ -46,17 +46,8 @@ public class AddAssignmentCommand extends Command {
         if (model.hasAssignment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
         }
-        System.out.println("AM I BACK HERE");
-        System.out.println(model.getCurrentClassroom().getClassroomName());
-        for (Assignment assignment : model.getCurrentClassroom().getAssignmentList()) {
-            System.out.println(assignment.getAssignmentName());
-        }
+
         model.addAssignment(toAdd);
-        System.out.println("AFTER EVERYTHING IS DONE HERE HERE");
-        System.out.println(model.getCurrentClassroom().getClassroomName());
-        for (Assignment assignment : model.getCurrentClassroom().getAssignmentList()) {
-            System.out.println(assignment.getAssignmentName());
-        }
         List<Student> studentList = model.getFilteredStudentList();
         for (Student student: studentList) {
             toAdd.addOneStudentGrade(student.getName().fullName);

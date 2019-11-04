@@ -2,6 +2,7 @@ package seedu.address.model.assignment;
 
 import java.util.Comparator;
 
+//@@author weikiat97
 /**
  * Sorts the assignment list by chronological deadline.
  */

@@ -8,7 +8,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.classroom.Classroom;
-import seedu.address.model.classroom.ReadOnlyClassroom;
 
 
 /**
@@ -46,7 +45,6 @@ public class SetClassroomCommand extends Command {
         model.displayAssignments();
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.displayStudents();
-        System.out.println("DURING SETTING CHECK: " + model.getClassroomList());
         model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toSet));
     }

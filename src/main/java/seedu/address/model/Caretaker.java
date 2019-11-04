@@ -1,9 +1,8 @@
 package seedu.address.model;
 
-import seedu.address.model.assignment.Assignment;
-
 import java.util.ArrayList;
 
+//@@author weikiat97
 /**
  * Manages a list of all the previous Notebooks.
  */
@@ -21,42 +20,17 @@ public class Caretaker extends Notebook {
         statePointer = 0;
         mementos.add(start);
         this.notebook = notebook;
-        //Notebook toAdd = new Notebook(this.notebook);
-        //toAdd.setClassrooms(notebook.getClassroomList());
-        //mementos.add(new Memento(toAdd));
-        //mementos.add(new Memento(new Notebook(this.notebook)));
-        //System.out.println("START: ");
-        //mementos.get(statePointer).getState().getClassroomList().get(0).getAssignmentList()
-        // .forEach(assignment -> System.out.println(assignment));
     }
 
     /**
      * Saves the current state of notebook into the list of mementos.
      */
     public void saveState() {
-        System.out.println("from classroom list 0");
-        for (Assignment assignment : this.notebook.getClassroomList().get(0).getAssignmentList()) {
-            System.out.println(assignment.getAssignmentName());
-        }
-        System.out.println("from current classroom");
-        for (Assignment assignment : this.notebook.getCurrentClassroom().getAssignmentList()) {
-            System.out.println(assignment.getAssignmentName());
-        }
         mementos = new ArrayList<>(mementos.subList(0, statePointer + 1));
         Notebook notebookToAdd = new Notebook(this.notebook);
-        System.out.println("Current classroom assignments: ");
-        for (Assignment assignment : notebookToAdd.getCurrentClassroom().getAssignmentList()) {
-            System.out.println(assignment.getAssignmentName());
-        }
         notebookToAdd.setCurrentClassroom(this.notebook.getCurrentClassroom());
-        System.out.println("New Current classroom assignments: ");
-        for (Assignment assignment : notebookToAdd.getCurrentClassroom().getAssignmentList()) {
-            System.out.println(assignment.getAssignmentName());
-        }
         Memento mementoToAdd = new Memento(notebookToAdd);
         mementos.add(mementoToAdd);
-        //System.out.println("SIZE::  " + mementos.size());
-        //System.out.println(mementos.get(0).getState().equals(mementos.get(1).getState()));
         statePointer++;
     }
 
@@ -67,7 +41,6 @@ public class Caretaker extends Notebook {
     public ReadOnlyNotebook undo() {
         statePointer--;
         ReadOnlyNotebook previousCopy = mementos.get(statePointer).getState();
-        //resetData(previousCopy);
         return previousCopy;
     }
 
@@ -78,7 +51,6 @@ public class Caretaker extends Notebook {
     public ReadOnlyNotebook redo() {
         statePointer++;
         ReadOnlyNotebook previousCopy = mementos.get(statePointer).getState();
-        //resetData(previousCopy);
         return previousCopy;
     }
 

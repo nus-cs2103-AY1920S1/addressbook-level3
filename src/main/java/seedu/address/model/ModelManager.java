@@ -30,7 +30,7 @@ public class ModelManager implements Model {
     private FilteredList<Student> filteredStudents;
     private FilteredList<Assignment> filteredAssignments;
     private FilteredList<Lesson> filteredLessons;
-    private final FilteredList<UniqueLessonList> filteredLessonLists;
+    private FilteredList<UniqueLessonList> filteredLessonLists;
 
     /**
      * Initializes a ModelManager with the given notebook and userPrefs.
@@ -114,6 +114,8 @@ public class ModelManager implements Model {
         this.notebook.resetData(notebook);
         filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
         filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+        filteredLessons = new FilteredList<>(this.notebook.getLessonList());
+        filteredLessonLists = new FilteredList<>(this.notebook.getLessonWeekList());
     }
 
     @Override
@@ -174,15 +176,7 @@ public class ModelManager implements Model {
     @Override
     public void addAssignment(Assignment assignment) {
         notebook.addAssignment(assignment);
-        System.out.println("MM Addassignment: ");
-        for (Assignment assignmentToCheck : notebook.getCurrentClassroom().getAssignmentList()) {
-            System.out.println(assignmentToCheck.getAssignmentName());
-        }
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-        System.out.println("MM Addassignment after: ");
-        for (Assignment assignmentToCheck : notebook.getCurrentClassroom().getAssignmentList()) {
-            System.out.println(assignmentToCheck.getAssignmentName());
-        }
     }
 
     @Override

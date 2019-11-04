@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.classroom.exceptions.ClassroomNotFoundException;
 import seedu.address.model.classroom.exceptions.DuplicateClassroomException;
 
+//@@author weikiat97
 /**
  * A list of classrooms that enforces uniqueness between its elements and does not allow nulls.
  * A classroom is considered unique by comparing using {@code classroom#isSameclassroom(classroom)}. As such, adding
@@ -126,15 +127,11 @@ public class UniqueClassroomList implements Iterable<Classroom> {
             throw new DuplicateClassroomException();
         }
 
-
         List<Classroom> listToAdd = new ArrayList<>();
         for (Classroom classroom : classrooms) {
             Classroom classroomToAdd = new Classroom();
             classroomToAdd.resetData(classroom);
             listToAdd.add(classroomToAdd);
-        }
-        for (Classroom classroom : listToAdd) {
-            System.out.println(classroom.getClassroomName());
         }
         internalList.setAll(listToAdd);
     }

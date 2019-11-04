@@ -47,10 +47,6 @@ public class Notebook implements ReadOnlyNotebook {
 
     public Notebook(ReadOnlyNotebook toBeCopied) {
         this();
-        System.out.println("LETS SEE HERE AT NOTEBOOK: ");
-        for (Assignment assignment : toBeCopied.getClassroomList().get(0).getAssignmentList()) {
-            System.out.println(assignment.getAssignmentName());
-        }
         resetData(toBeCopied);
     }
 
@@ -64,33 +60,20 @@ public class Notebook implements ReadOnlyNotebook {
 
         if (currentClassroom != null) {
             setCurrentClassroom(newData.getCurrentClassroom());
-            //currentClassroom.resetData(newData.getCurrentClassroom());
         } else if (classrooms.isEmpty()) {
             Classroom newClassroom = new Classroom();
             setCurrentClassroom(newClassroom);
         } else {
             setCurrentClassroom(getFirstClassroom());
         }
-        System.out.println("AT THE END: ");
-        for (Assignment assignment : currentClassroom.getAssignmentList()) {
-            System.out.println(assignment.getAssignmentName());
-        }
+
         for (int i = 0; i < 7; i++) {
             lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
         }
-        //setAllLessons(newData.getLessonWeekList());
-        //setLessons(newData.getLessonList());
-        //setCurrentReadOnlyClassroom(newData.getCurrentReadOnlyClassroom());
-        //setAssignments(newData.getClassroomList());
-        //setStudents(newData.getClassroomList());
     }
 
     //=========== Notebook ================================================================================
     public void setClassrooms(List<Classroom> classrooms) {
-        System.out.println("Classrooms in the list: ");
-        for (Classroom classroom : classrooms) {
-            System.out.println(classroom.getClassroomName());
-        }
         this.classrooms.setClassrooms(classrooms);
     }
 
@@ -101,31 +84,13 @@ public class Notebook implements ReadOnlyNotebook {
         }
     }
 
-    /*
-    public void setCurrentReadOnlyClassroom(ReadOnlyClassroom classroom) {
-        requireNonNull(classroom);
-        if (currentClassroom() != null) {
-            currentClassroom().resetData(classroom);
-        }
-    }
-     */
-
     public Classroom getCurrentClassroom() {
         if (currentClassroom != null) {
             return currentClassroom;
         } else {
-            System.out.println("DO I EVER COME HERE");
             return getFirstClassroom();
         }
     }
-
-    /*
-    public ReadOnlyClassroom getFirstReadOnlyClassroom() {
-        List<Classroom> classroomList = classrooms.asUnmodifiableObservableList();
-        return classroomList.get(0);
-    }
-
-     */
 
     public Classroom getFirstClassroom() {
         List<Classroom> classroomList = classrooms.asUnmodifiableObservableList();
@@ -148,25 +113,6 @@ public class Notebook implements ReadOnlyNotebook {
         return classrooms.contains(classroom);
     }
 
-
-    /**
-     * Returns true if the notebook has the given classroom name.
-     * @param classroomName check whether this classroomName is in the notebook.
-     * @return true if the notebook has the given classroomName.
-     */
-    /*
-    public boolean hasClassroom(String classroomName) {
-        requireNonNull(classroomName);
-        for (Classroom classroom : classrooms) {
-            if (classroom.getClassroomName().equals(classroom)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-     */
-
     /**
      * Adds the classroom to the notebook.
      * @param classroom classroom to add to notebook.
@@ -179,18 +125,6 @@ public class Notebook implements ReadOnlyNotebook {
             classrooms.add(classroom);
         }
     }
-
-    /*
-    public Classroom getCurrentClassroom() {
-        List<Classroom> classroomList = getClassroomList();
-        for (Classroom classroom : classroomList) {
-            if (classroom.getClassroomName().equals(this.currentClassroom.getClassroomName())) {
-                return classroom;
-            }
-        }
-        return null;
-    }
-     */
 
     public Classroom getClassroom(Classroom classroom) {
         List<Classroom> classroomList = getClassroomList();
@@ -223,35 +157,6 @@ public class Notebook implements ReadOnlyNotebook {
     }
 
 
-    /**
-     * Replaces the contents of the student list with {@code students}.
-     * {@code students} must not contain duplicate students.
-     */
-    /*
-    public void setStudents(List<Classroom> classrooms) {
-        for (Classroom classroom : classrooms) {
-            for (Student student : classroom.getStudentList()) {
-                if (!this.students.contains(student)) {
-                    this.students.add(student);
-                }
-            }
-        }
-    }
-     */
-
-    /*
-    public void setAssignments(List<Classroom> classrooms) {
-        for (Classroom classroom : classrooms) {
-            for (Assignment assignment : classroom.getAssignmentList()) {
-                if (!this.assignments.contains(assignment)) {
-                    this.assignments.add(assignment);
-                }
-            }
-        }
-    }
-     */
-
-
     public void deleteStudent(Student target) {
         currentClassroom.removeStudent(target);
     }
@@ -266,10 +171,12 @@ public class Notebook implements ReadOnlyNotebook {
         currentClassroom.addStudent(student);
     }
 
-
+    /**
+     * Adds an assignment to the current classroom.
+     * @param assignment to add to current classroom.
+     */
     public void addAssignment(Assignment assignment) {
         currentClassroom.addAssignment(assignment);
-
     }
 
 
@@ -326,7 +233,8 @@ public class Notebook implements ReadOnlyNotebook {
     public void removeLesson(Lesson key) {
         int day = key.getDayIndex();
         UniqueLessonList dayList = lessonLists.getDayList(day);
-        dayList.remove(key);    }
+        dayList.remove(key);
+    }
 
 
     /**
