@@ -46,8 +46,8 @@ public class EditPolicyCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_COVERAGE + "COVERAGE] "
             + "[" + PREFIX_PRICE + "PRICE] "
-            + "[" + PREFIX_START_AGE + "START_AGE]"
-            + "[" + PREFIX_END_AGE + "END_AGE]...\n"
+            + "[" + PREFIX_START_AGE + "START_AGE] "
+            + "[" + PREFIX_END_AGE + "END_AGE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             // Todo: check if price takes in a "$" sign
             + PREFIX_DESCRIPTION + "Fire Insurance Policy. Covers all ages up to 10 years. "
