@@ -16,13 +16,8 @@ public class WordBankList implements ReadOnlyWordBankList {
     private final UniqueWordBankList wordBankList = new UniqueWordBankList();
 
     public WordBankList(List<WordBank> wbl) {
-        if (!wbl.isEmpty()) {
-            for (WordBank wb : wbl) {
-                wordBankList.add(wb);
-            }
-        } else {
-            WordBank sampleWb = SampleDataUtil.getSampleWordBank();
-            wordBankList.add(sampleWb);
+        for (WordBank wb : wbl) {
+            wordBankList.add(wb);
         }
     }
 
@@ -69,7 +64,7 @@ public class WordBankList implements ReadOnlyWordBankList {
                 return wb;
             }
         }
-        return SampleDataUtil.getSampleWordBank();
+        return SampleDataUtil.getPokemonWordBank();
     }
 
     @Override

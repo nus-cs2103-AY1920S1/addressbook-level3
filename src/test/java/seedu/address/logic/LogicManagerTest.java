@@ -21,7 +21,14 @@ import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.ReadOnlyAppSettings;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.appsettings.AppSettingsStorage;
 import seedu.address.storage.appsettings.JsonAppSettingsStorage;
@@ -32,7 +39,7 @@ import seedu.address.storage.statistics.WordBankStatisticsListStorage;
 import seedu.address.storage.userprefs.JsonUserPrefsStorage;
 import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 
-public class LogicManagerTest {
+class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     private Path temporaryFolder =
@@ -43,24 +50,33 @@ public class LogicManagerTest {
     private Logic logic;
 
     @BeforeEach
-    public void setUp() throws DataConversionException, IllegalValueException {
-        JsonWordBankListStorage addressBookStorage =
-                new JsonWordBankListStorage(temporaryFolder);
+    void setUp() throws DataConversionException, IllegalValueException {
+        JsonWordBankListStorage wordBankListStorage =
+                new JsonWordBankListStorage(temporaryFolder, false);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         WordBankStatisticsListStorage wordBankStatisticsListStorage =
-               new JsonWordBankStatisticsListStorage(Path.of("dummyWbStats"));
+                new JsonWordBankStatisticsListStorage(Path.of("dummyWbStats"));
         GlobalStatisticsStorage globalStatisticsStorage =
-               new JsonGlobalStatisticsStorage(Path.of("dummyWbStats"));
+                new JsonGlobalStatisticsStorage(Path.of("dummyWbStats"));
         AppSettingsStorage appSettingsStorage =
-               new JsonAppSettingsStorage(Path.of("dummyWbStats"));
-        StorageManager storage = new StorageManager(addressBookStorage,
-                    userPrefsStorage, wordBankStatisticsListStorage,
-                    globalStatisticsStorage, appSettingsStorage);
+                new JsonAppSettingsStorage(Path.of("dummyWbStats"));
+        StorageManager storage = new StorageManager(wordBankListStorage,
+                userPrefsStorage, wordBankStatisticsListStorage,
+                globalStatisticsStorage, appSettingsStorage);
+
+        WordBankList wordBankList = (WordBankList) wordBankListStorage.getWordBankList().get();
+        WordBankStatisticsList wordBankStatisticsList = wordBankStatisticsListStorage.getWordBankStatisticsList();
+        GlobalStatistics globalStatistics = globalStatisticsStorage.getGlobalStatistics();
+        ReadOnlyUserPrefs readOnlyUserPrefs = new UserPrefs();
+        ReadOnlyAppSettings readOnlyAppSettings = new AppSettings();
+
+        model = new ModelManager(wordBankList, wordBankStatisticsList,
+                globalStatistics, readOnlyUserPrefs, readOnlyAppSettings);
         logic = new LogicManager(model, storage);
     }
 
     @Test
-    public void execute_invalidCommandFormat_throwsParseException() {
+    void execute_invalidCommandFormat_throwsParseException() {
         /** SHA-256 hash of "invalid command". */
         String invalidCommand = "8A1954FCC1065A01AE1A6F3527120EA90E3F4BDF262A4A0A0D41374572BEE66E";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
@@ -68,7 +84,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
+    void execute_commandExecutionError_throwsCommandException() {
         /** SHA-256 hash of "invalid bank. */
         String invalidBank = "B0C7AE034AB804B9EB28E787D4CB76761FAE47377CE81062647F2084F7EB2D79";
 
@@ -80,7 +96,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
+    void execute_validCommand_success() throws Exception {
         String bankSample = "select sample";
         logic.execute(bankSample);
         String homeCommand = SwitchToHomeCommand.COMMAND_WORD;
@@ -168,7 +184,6 @@ public class LogicManagerTest {
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
-     *
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, Model expectedModel) {
@@ -180,9 +195,9 @@ public class LogicManagerTest {
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     private static class JsonWordBankListIoExceptionThrowingStub extends JsonWordBankListStorage {
-        private JsonWordBankListIoExceptionThrowingStub(Path filePath)
+        private JsonWordBankListIoExceptionThrowingStub(Path filePath, boolean isSampleCreated)
                 throws DataConversionException, IllegalValueException {
-            super(filePath);
+            super(filePath, false);
         }
 
         private void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException {

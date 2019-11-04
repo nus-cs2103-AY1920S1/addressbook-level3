@@ -1,0 +1,34 @@
+{
+  "wordBank" : [ {
+    "id" : "abrajfbeoudnjcp",
+    "name" : "Pikachu",
+    "description" : "Ash's first pokemon.",
+    "tagged" : [ "electric" ]
+  }, {
+    "id" : "sdfa33234",
+    "name" : "Squirtle",
+    "description" : "Gary's starter pokemon.",
+    "tagged" : [ "water" ]
+  }, {
+    "id" : "charizardaiudan",
+    "name" : "Charizard",
+    "description" : "Charmander's final evolution.",
+    "tagged" : [ "flying", "fire" ]
+  }, {
+    "id" : "dittonfjsdodc",
+    "name" : "Gary",
+    "description" : "Ash's rival",
+    "tagged" : [ "asshole" ]
+  }, {
+    "id" : "eeveeouhvdsn",
+    "name" : "Flareon",
+    "description" : "Eevee + fire stone = ?",
+    "tagged" : [ "fire" ]
+  }, {
+    "id" : "eeveeouhvdsn",
+    "name" : "Mewtwo",
+    "description" : "Mew's clone",
+    "tagged" : [ "psychic" ]
+  } ],
+  "name" : "pokemon"
+}
