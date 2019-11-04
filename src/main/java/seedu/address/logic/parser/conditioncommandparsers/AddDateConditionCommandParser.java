@@ -12,7 +12,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Date;
+import seedu.address.model.entry.Date;
 
 /**
  * Parses input arguments and creates a new AddDateConditionCommand object

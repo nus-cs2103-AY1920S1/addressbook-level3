@@ -3,7 +3,7 @@ package seedu.address.model.reminders.conditions;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Entry;
 import seedu.address.model.tag.Tag;
 
 /**

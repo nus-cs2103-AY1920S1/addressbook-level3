@@ -2,8 +2,8 @@ package seedu.address.model.reminders.conditions;
 
 import java.util.function.Predicate;
 
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Entry;
 
 /**
  * Condition is met when entry date falls within specified time period.

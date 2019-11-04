@@ -20,12 +20,12 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Period;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Budget;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.Period;
 import seedu.address.model.tag.Tag;
 
 
@@ -56,8 +56,8 @@ public class EditBudgetCommand extends Command {
     private final EditBudgetDescriptor editEntryDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editEntryDescriptor details to edit the person with
+     * @param index of the entry in the filtered entry list to edit
+     * @param editEntryDescriptor details to edit the entry with
      */
     public EditBudgetCommand(Index index, EditBudgetDescriptor editEntryDescriptor) {
         requireNonNull(index);
@@ -79,7 +79,7 @@ public class EditBudgetCommand extends Command {
         Budget entryToEdit = lastShownList.get(index.getZeroBased());
         Budget editedEntry = createEditedBudget(entryToEdit, editEntryDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasBudget(editedEntry)) {
+        if (entryToEdit.isSameEntry(editedEntry) && model.hasBudget(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
@@ -125,8 +125,8 @@ public class EditBudgetCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the entry with. Each non-empty field value will replace the
+     * corresponding field value of the entry.
      */
     public static class EditBudgetDescriptor {
         private Category category;

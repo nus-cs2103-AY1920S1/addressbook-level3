@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCategoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Category;
+import seedu.address.model.entry.Category;
 
 /**
  * Parses input arguments and creates a new AddCategoryCommand object

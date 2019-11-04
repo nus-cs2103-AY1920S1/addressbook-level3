@@ -9,9 +9,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.exceptions.DuplicateEntryException;
-import seedu.address.model.person.exceptions.EntryNotFoundException;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.exceptions.DuplicateEntryException;
+import seedu.address.model.entry.exceptions.EntryNotFoundException;
 import seedu.address.model.reminders.Reminder;
 
 /**
@@ -67,8 +67,8 @@ public class ConditionsManager implements Iterable<Condition> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a entry to the list.
+     * The entry must not already exist in the list.
      */
     public void add(Condition toAdd) {
         requireNonNull(toAdd);
@@ -79,9 +79,9 @@ public class ConditionsManager implements Iterable<Condition> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the entry {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The entry identity of {@code editedPerson} must not be the same as another existing entry in the list.
      */
     public void setCondition(Condition target, Condition editedCondition) {
         requireAllNonNull(target, editedCondition);
@@ -100,8 +100,8 @@ public class ConditionsManager implements Iterable<Condition> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent entry from the list.
+     * The entry must exist in the list.
      */
     public void remove(Condition toRemove) {
         requireNonNull(toRemove);

@@ -16,11 +16,11 @@
 //import javafx.collections.ObservableList;
 //import seedu.address.commons.core.GuiSettings;
 //import seedu.address.logic.commands.exceptions.CommandException;
-//import seedu.address.model.AddressBook;
+//import seedu.address.model.GuiltTrip;
 //import seedu.address.model.Model;
-//import seedu.address.model.ReadOnlyAddressBook;
+//import seedu.address.model.ReadOnlyGuiltTrip;
 //import seedu.address.model.ReadOnlyUserPrefs;
-//import seedu.address.model.person.Person;
+//import seedu.address.model.entry.Person;
 //import seedu.address.testutil.EntryBuilder;
 //
 //public class AddCommandTest {
@@ -70,7 +70,7 @@
 //        // null -> returns false
 //        assertFalse(addAliceCommand.equals(null));
 //
-//        // different person -> returns false
+//        // different entry -> returns false
 //        assertFalse(addAliceCommand.equals(addBobCommand));
 //    }
 //
@@ -109,22 +109,22 @@
 //        }
 //
 //        @Override
-//        public void addPerson(Person person) {
+//        public void addPerson(Person entry) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public void setAddressBook(ReadOnlyAddressBook newData) {
+//        public void setAddressBook(ReadOnlyGuiltTrip newData) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public ReadOnlyAddressBook getAddressBook() {
+//        public ReadOnlyGuiltTrip getAddressBook() {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public boolean hasPerson(Person person) {
+//        public boolean hasPerson(Person entry) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
@@ -150,44 +150,44 @@
 //    }
 //
 //    /**
-//     * A Model stub that contains a single person.
+//     * A Model stub that contains a single entry.
 //     */
 //    private class ModelStubWithPerson extends ModelStub {
-//        private final Person person;
+//        private final Person entry;
 //
-//        ModelStubWithPerson(Person person) {
-//            requireNonNull(person);
-//            this.person = person;
+//        ModelStubWithPerson(Person entry) {
+//            requireNonNull(entry);
+//            this.entry = entry;
 //        }
 //
 //        @Override
-//        public boolean hasPerson(Person person) {
-//            requireNonNull(person);
-//            return this.person.isSamePerson(person);
+//        public boolean hasPerson(Person entry) {
+//            requireNonNull(entry);
+//            return this.entry.isSamePerson(entry);
 //        }
 //    }
 //
 //    /**
-//     * A Model stub that always accept the person being added.
+//     * A Model stub that always accept the entry being added.
 //     */
 //    private class ModelStubAcceptingPersonAdded extends ModelStub {
 //        final ArrayList<Person> personsAdded = new ArrayList<>();
 //
 //        @Override
-//        public boolean hasPerson(Person person) {
-//            requireNonNull(person);
-//            return personsAdded.stream().anyMatch(person::isSamePerson);
+//        public boolean hasPerson(Person entry) {
+//            requireNonNull(entry);
+//            return personsAdded.stream().anyMatch(entry::isSamePerson);
 //        }
 //
 //        @Override
-//        public void addPerson(Person person) {
-//            requireNonNull(person);
-//            personsAdded.add(person);
+//        public void addPerson(Person entry) {
+//            requireNonNull(entry);
+//            personsAdded.add(entry);
 //        }
 //
 //        @Override
-//        public ReadOnlyAddressBook getAddressBook() {
-//            return new AddressBook();
+//        public ReadOnlyGuiltTrip getAddressBook() {
+//            return new GuiltTrip();
 //        }
 //    }
 //

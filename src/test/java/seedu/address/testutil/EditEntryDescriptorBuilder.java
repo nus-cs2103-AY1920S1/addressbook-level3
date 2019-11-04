@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditEntryDescriptor;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.Entry;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,15 +26,15 @@ public class EditEntryDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code entry}'s details
      */
     public EditEntryDescriptorBuilder(Entry entry) {
         descriptor = new EditEntryDescriptor();
         descriptor.setDesc(entry.getDesc());
         descriptor.setAmount(entry.getAmount());
-        //        descriptor.setPhone(person.getPhone());
-        //        descriptor.setEmail(person.getEmail());
-        //        descriptor.setAddress(person.getAddress());
+        //        descriptor.setPhone(entry.getPhone());
+        //        descriptor.setEmail(entry.getEmail());
+        //        descriptor.setAddress(entry.getAddress());
         descriptor.setTags(entry.getTags());
     }
 

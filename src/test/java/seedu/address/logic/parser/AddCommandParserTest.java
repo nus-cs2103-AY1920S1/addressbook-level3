@@ -32,7 +32,7 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.logic.commands.AddCommand;
-//import seedu.address.model.person.Description;
+//import seedu.address.model.entry.Description;
 //import seedu.address.model.tag.Tag;
 //import seedu.address.testutil.EntryBuilder;
 //

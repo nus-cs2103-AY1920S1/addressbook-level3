@@ -20,24 +20,24 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.Entry;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing entry in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the entry identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed entry list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX (must be a positive integer and non-zero) "
             + "[" + PREFIX_CATEGORY + "DESCRIPTION] "
             + "[" + PREFIX_DESC + "DESCRIPTION] "
             + "[" + PREFIX_DATE + "TIME] "
@@ -48,14 +48,15 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the finance app.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "There are no changes in the edit. You are still "
+            + "entering the same entry.";
 
     private final Index index;
     private final EditEntryDescriptor editEntryDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editEntryDescriptor details to edit the person with
+     * @param index of the entry in the filtered entry list to edit
+     * @param editEntryDescriptor details to edit the entry with
      */
     public EditCommand(Index index, EditEntryDescriptor editEntryDescriptor) {
         requireNonNull(index);
@@ -69,17 +70,16 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Entry> lastShownList = model.getFilteredEntryList();
-
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Entry entryToEdit = lastShownList.get(index.getZeroBased());
         Entry editedEntry = createEditedEntry(entryToEdit, editEntryDescriptor);
-
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
+
         //TODO is there a more elegant way
         model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
@@ -126,8 +126,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the entry with. Each non-empty field value will replace the
+     * corresponding field value of the entry.
      */
     public static class EditEntryDescriptor {
         private Category category;

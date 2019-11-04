@@ -16,12 +16,12 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.predicates.EntryContainsAmountPredicate;
-import seedu.address.model.person.predicates.EntryContainsCategoryPredicate;
-import seedu.address.model.person.predicates.EntryContainsDatePredicate;
-import seedu.address.model.person.predicates.EntryContainsDescriptionPredicate;
-import seedu.address.model.person.predicates.EntryContainsTagsPredicate;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.predicates.EntryContainsAmountPredicate;
+import seedu.address.model.entry.predicates.EntryContainsCategoryPredicate;
+import seedu.address.model.entry.predicates.EntryContainsDatePredicate;
+import seedu.address.model.entry.predicates.EntryContainsDescriptionPredicate;
+import seedu.address.model.entry.predicates.EntryContainsTagsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,7 +43,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             String trimmedArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).fullDesc.trim();
             if (trimmedArgs.isEmpty()) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.EMPTY_PROPETIES));
             }
 
             String[] nameKeywords = trimmedArgs.split("\\s+");
@@ -61,7 +61,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            LocalDate dateToCompare = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim()).getDate();
+            LocalDate dateToCompare = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_DATE).get().trim()).getDate();
             predicateList.add(new EntryContainsDatePredicate(dateToCompare));
         }
 
@@ -71,7 +71,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (predicateList.size() == 0) {
-            throw new ParseException(FindCommand.INSUFFICENT_ARGUMENTS);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         return new FindCommand(predicateList);

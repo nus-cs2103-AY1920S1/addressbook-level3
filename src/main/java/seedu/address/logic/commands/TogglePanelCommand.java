@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.PanelName;
+import seedu.address.model.entry.PanelName;
 
 /**
  * Toggles the visibility of a specified panel.

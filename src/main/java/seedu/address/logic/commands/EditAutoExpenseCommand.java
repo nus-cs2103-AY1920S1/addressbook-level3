@@ -20,16 +20,16 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.AutoExpense;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Frequency;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing entry in the address book.
  */
 public class EditAutoExpenseCommand extends Command {
 
@@ -56,7 +56,7 @@ public class EditAutoExpenseCommand extends Command {
 
     /**
      * @param index of the autoExpense in the filtered expense AutoExpense list to edit
-     * @param editAutoExpenseDescriptor details to edit the person with
+     * @param editAutoExpenseDescriptor details to edit the entry with
      */
     public EditAutoExpenseCommand(Index index, EditAutoExpenseDescriptor editAutoExpenseDescriptor) {
         requireNonNull(index);
@@ -125,8 +125,8 @@ public class EditAutoExpenseCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the entry with. Each non-empty field value will replace the
+     * corresponding field value of the entry.
      */
     public static class EditAutoExpenseDescriptor {
         private Description desc;
