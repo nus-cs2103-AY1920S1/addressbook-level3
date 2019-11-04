@@ -36,8 +36,6 @@ public interface Logic {
     //=========== Autocomplete =========================================================
     LinkedList<String> getAutoCompleteResults(String input);
 
-    LinkedList<String> getRelevantList(String input);
-
     //=========== Customer =============================================================
 
     /**

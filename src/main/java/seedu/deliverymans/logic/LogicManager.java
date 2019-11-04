@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
@@ -82,13 +83,14 @@ public class LogicManager implements Logic {
         return trieManager.getAutoCompleteResults(input, currentContext);
     }
 
-    @Override
-    public LinkedList<String> getRelevantList(String input) {
+    private LinkedList<String> getRelevantList(String input) {
         switch(input) {
         case "c/":
-            return new LinkedList<>();
+            return getFilteredCustomerList().stream().map(x -> x.getName().fullName)
+                    .collect(Collectors.toCollection(LinkedList::new));
         case "r/":
-            return new LinkedList<>();
+            return getFilteredRestaurantList().stream().map(x -> x.getName().fullName)
+                    .collect(Collectors.toCollection(LinkedList::new));
         case "f/":
             return new LinkedList<>();
         default:
@@ -97,6 +99,7 @@ public class LogicManager implements Logic {
     }
 
     //=========== Customer =============================================================
+
     @Override
     public ReadOnlyCustomerDatabase getCustomerDatabase() {
         return model.getCustomerDatabase();
