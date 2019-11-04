@@ -7,7 +7,10 @@ import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
+import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
+import dream.fcard.model.StateHolder;
+import dream.fcard.model.cards.FlashCard;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -22,9 +25,7 @@ public class EditDeckDisplay extends VBox {
     @FXML
     private TextField deckNameInput;
     @FXML
-    private Button onSaveDeck;
-    @FXML
-    private Button cancelButton;
+    private Button doneEditingButton;
     @FXML
     private Label deckName;
     @FXML
@@ -33,51 +34,46 @@ public class EditDeckDisplay extends VBox {
     private VBox cardCreatingPane;
 
     private int numCards;
-    private CardCreatingWindow editingWindow;
-    private Deck deck;
-
-    private Consumer<Integer> incrementNumCards = x -> {
-        ++numCards;
-        deckSize.setText(numCards + " cards");
-    };
 
     public EditDeckDisplay(Deck deck) {
         try {
             Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
-                    + "CreateDeckDisplay.fxml")); // same ui component as creating a deck, but different handlers
+                    + "EditDeckDisplay.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            this.deck = deck;
-            editingWindow = new CardCreatingWindow(incrementNumCards);
+
+            Consumer<FlashCard> saveToDeck = c -> {
+                deck.addNewCard(c);
+                StorageManager.writeDeck(deck);
+                Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+            };
+
+            Consumer<Integer> incrementNumCards = x -> {
+                ++numCards;
+                deckSize.setText(numCards + " cards");
+            };
+
+            CardCreatingWindow editingWindow = new CardCreatingWindow(incrementNumCards, saveToDeck);
             cardCreatingPane.getChildren().add(editingWindow);
             deckNameInput.setText(deck.getName());
             numCards = deck.getCards().size();
             deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));
-            onSaveDeck.setOnAction(e -> onSaveDeck());
-            cancelButton.setOnAction(e -> Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true));
+            doneEditingButton.setOnAction(e -> {
+                int currentIndex = StateHolder.getState().hasDeckName(deck.getName()); //can put in responses
+                String name = deckNameInput.getText();
+                if (!name.isBlank()) {
+                    int index = StateHolder.getState().hasDeckName(name);
+                    if (index == -1 || index == currentIndex) {
+                        deck.setDeckName(name);
+                    }
+                }
+                Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Note that the temporary deck is inside CardCreatingWindow. This method pulls that Deck object out and saves it
-     * to the State.
-     */
-    void onSaveDeck() {
-        if (editingWindow != null) {
-            Deck tempDeck = editingWindow.getTempDeck();
-            tempDeck.getCards().forEach(card -> deck.addNewCard(card));
-            String deckName = deckNameInput.getText();
-            if (deckName.isBlank()) { // in case the user accidentally deletes the deck name
-                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to give your deck a name!");
-                return;
-            }
-            deck.setDeckName(deckName);
-            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your changes have been saved.");
-        }
-        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
-    }
 }

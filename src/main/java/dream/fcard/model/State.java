@@ -11,7 +11,6 @@ import dream.fcard.model.exceptions.DeckNotFoundException;
  * It should not execute logic or parsing, simply a data store object.
  */
 public class State {
-    private static State state;
     private ArrayList<Deck> decks;
     private StateEnum currState;
     private Deck currentDeck;
@@ -68,14 +67,6 @@ public class State {
         this.currentDeck = deck;
     }
 
-    /**
-     * Getter for the ArrayList of all decks.
-     *
-     * @return The ArrayList of all the decks.
-     */
-    public ArrayList<Deck> getAllDecks() {
-        return this.decks;
-    }
 
     /**
      * Removes the deck from the decks list, if there is a deck with a matching name.
@@ -140,5 +131,19 @@ public class State {
      */
     public StateEnum getCurrState() {
         return currState;
+    }
+
+    /**
+     * Checks whether a deck with the given name exists. To prevent duplicates.
+     * @param name
+     * @return the index.
+     */
+    public int hasDeckName(String name) {
+        for (int i = 0; i < decks.size(); i++) {
+            if (decks.get(i).getName() == name) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
