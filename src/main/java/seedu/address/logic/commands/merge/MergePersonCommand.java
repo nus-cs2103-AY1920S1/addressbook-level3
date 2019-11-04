@@ -45,6 +45,7 @@ public class MergePersonCommand extends MergeCommand {
         requireNonNull(model);
         this.originalPerson = model.getPerson(inputPerson);
         getDifferences();
+        assert(differentFields.size() != 0);
         return new CommandResult(getNextMergePrompt());
     }
 
@@ -93,7 +94,7 @@ public class MergePersonCommand extends MergeCommand {
         boolean hasDifferentGender = !originalPerson.getGender().equals(inputPerson.getGender());
         if (hasDifferentGender) {
             differentFields.add(new String[]{
-                    Gender.DATA_TYPE, originalPerson.getGender().gender, inputPerson.getGender().gender});
+                Gender.DATA_TYPE, originalPerson.getGender().gender, inputPerson.getGender().gender});
         }
         return null;
     }

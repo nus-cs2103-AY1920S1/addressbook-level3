@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COVERAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_AGE;
@@ -43,11 +42,10 @@ public class MergePolicyCommandParser implements Parser<MergePolicyCommand> {
                 ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE, PREFIX_PRICE,
                         PREFIX_START_AGE, PREFIX_END_AGE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE, PREFIX_PRICE)
-                || arePrefixesPresent(argMultimap, PREFIX_POLICY, PREFIX_TAG)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
-        }
+        assert(arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE, PREFIX_PRICE)
+                && !arePrefixesPresent(argMultimap, PREFIX_POLICY, PREFIX_TAG)
+                && argMultimap.getPreamble().isEmpty());
+
         PolicyName name = ParserUtil.parsePolicyName(argMultimap.getValue(PREFIX_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Coverage coverage = ParserUtil.parseCoverage(argMultimap.getValue(PREFIX_COVERAGE).get());
