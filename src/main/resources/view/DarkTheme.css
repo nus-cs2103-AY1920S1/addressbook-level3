@@ -131,6 +131,11 @@
     -fx-padding: 8 1 8 1;
 }
 
+.scroll-pane {
+    -fx-background: -surfaceColor;
+    -fx-background-color: -surfaceColor;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -255,6 +260,15 @@
     -fx-background-radius: 8;
 }
 
+#upcomingPanel, #upcomingList {
+    -fx-background-color: -surfaceColor;
+}
+
+#upcomingScrollPane {
+    -fx-background-color: -surfaceColor;
+    -fx-background: -surfaceColor;
+}
+
 /** For List Panel **/
 #listPanelBase, #listPanelGrid {
     -fx-backgroundColor: -transparent;
@@ -265,7 +279,12 @@
     -fx-background-radius: 8;
 }
 
-#eventList, #taskList, #eventScrollPane, #taskScrollPane {
+#eventList, #taskList {
+    -fx-background-color: -surfaceColor;
+}
+
+#eventScrollPane, #taskScrollPane {
+    -fx-background: -surfaceColor;
     -fx-background-color: -surfaceColor;
 }
 
@@ -279,7 +298,7 @@
 #eventCardBase {
     -fx-background-color: -eventCardColor;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 4, 0.5, 0, 0);
 }
 
 #eventName {
@@ -304,7 +323,7 @@
 #taskCardBase {
     -fx-background-color: -taskCardColor;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 4, 0.5, 0, 0);
 }
 
 #taskName {
@@ -338,7 +357,7 @@
 #upcomingEventBase {
     -fx-background-color: -eventCardColor;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 4, 0.5, 0, 0);
 }
 
 #upcomingWeekDay {
@@ -363,7 +382,7 @@
 #upcomingTaskBase {
     -fx-background-color: -taskCardColor;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 4, 0.5, 0, 0);
 }
 
 #upcomingWeekDay {

@@ -11,7 +11,7 @@
     <children>
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="50.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" />
           <ColumnConstraints hgrow="SOMETIMES" />
         </columnConstraints>
         <rowConstraints>
@@ -26,17 +26,14 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
-               <padding>
-                  <Insets right="15.0" />
-               </padding>
                 </StackPane>
             <StackPane alignment="TOP_CENTER" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="upcomingDay" alignment="CENTER" text="day" textAlignment="CENTER" />
                </children>
-               <padding>
-                  <Insets right="15.0" />
-               </padding>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </StackPane>
                 <StackPane fx:id="upcomingEventBase" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowSpan="2">
                     <children>
@@ -46,11 +43,8 @@
                             </StackPane.margin></Label>
                     </children>
                <GridPane.margin>
-                  <Insets />
+                  <Insets right="5.0" />
                </GridPane.margin>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
                 </StackPane>
          </children>
       </GridPane>

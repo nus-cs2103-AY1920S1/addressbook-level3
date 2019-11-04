@@ -82,7 +82,6 @@ public class CalendarPanel extends UiPart<Region> {
      */
     public void resizeCalendarPanel() {
         timelineView.resizeTimelineView();
-        upcomingView.resizeUpcomingView(eventTaskList);
     }
 
     /**
