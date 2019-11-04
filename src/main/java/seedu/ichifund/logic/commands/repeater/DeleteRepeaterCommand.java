@@ -17,7 +17,7 @@ import seedu.ichifund.model.repeater.Repeater;
  */
 public class DeleteRepeaterCommand extends Command {
 
-    public static final String COMMAND_WORD = "del";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the repeater identified by the index number used in the displayed repeater list.\n"

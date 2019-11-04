@@ -135,4 +135,25 @@ public class Repeater {
         return Objects.hash(uniqueId, description, amount, category, transactionType,
                 monthStartOffset, monthEndOffset, startDate, endDate);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getDescription())
+                .append(" Amount: ")
+                .append(getAmount())
+                .append(" Category: ")
+                .append(getCategory())
+                .append(" Transaction Type: ")
+                .append(getTransactionType())
+                .append(" Month Start Offset: ")
+                .append(getMonthStartOffset())
+                .append(" Month End Offset: ")
+                .append(getMonthEndOffset())
+                .append(" Start Date: ")
+                .append(getStartDate())
+                .append(" End Date: ")
+                .append(getEndDate());
+        return builder.toString();
+    }
 }
