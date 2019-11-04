@@ -50,6 +50,8 @@ public class EditOrderCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided.";
     private static final String MESSAGE_SUCCESS_EDIT = "Successful edition of order: %1$s";
+    private static String[] prefixesList = {PREFIX_INDEX.getPrefix(), PREFIX_CUSTOMER.getPrefix(),
+            PREFIX_RESTAURANT.getPrefix(), PREFIX_FOOD.getPrefix(), PREFIX_QUANTITY.getPrefix()};
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -99,6 +101,10 @@ public class EditOrderCommand extends Command {
         return new Order.OrderBuilder().setCustomer(updatedCustomer).setRestaurant(updatedRestaurant)
                 .setDeliveryman(deliveryman).setFood(updatedFood).setCompleted(isCompleted)
                 .completeOrder();
+    }
+
+    public static String[] getPrefixesList() {
+        return prefixesList;
     }
 
     @Override
