@@ -32,9 +32,10 @@ public class InitCommand extends Command {
             COMMAND_WORD + " " + PREFIX_NAME + "An amazing trip to Germany "
                     + PREFIX_START_DATE + "23-7-2020"
     );
-
     public static final String MESSAGE_SUCCESS = "Planner initialised with name:%1$s and"
             + " start date:%2$s";
+    public static final String MESSAGE_NAME_IS_TOO_LONG = "Please keep the name of the planner equal to or "
+            + "under 30 characters";
 
     private final Name name;
     private final LocalDate startDate;
@@ -51,6 +52,10 @@ public class InitCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (this.name.name.length() > 30) {
+            throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
+        }
+
         model.setItineraryName(this.name);
         LocalDate oldStartDate = model.getStartDate();
         long differenceInDaysBetweenOldAndNew = ChronoUnit.DAYS.between(oldStartDate, startDate);

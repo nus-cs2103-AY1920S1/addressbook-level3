@@ -22,7 +22,7 @@ public class ViewHelpCommand extends ViewCommand {
             COMMAND_WORD + " " + SECOND_COMMAND_WORD
     );
 
-    public static final String MESSAGE_SUCCESS = "Opened the contact tab!";
+    public static final String MESSAGE_SUCCESS = "Opened the help tab!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

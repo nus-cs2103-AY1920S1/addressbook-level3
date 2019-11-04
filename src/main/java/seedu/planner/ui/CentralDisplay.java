@@ -163,7 +163,11 @@ public class CentralDisplay extends UiPart<Region> {
         agenda.setAllowResize(false);
         // disables right click editing
         agenda.setEditAppointmentCallback((appointment) -> null);
-        agendaTab.setContent(agenda);
+        if (dayList.size() == 0) {
+            agendaTab.setContent(null);
+        } else {
+            agendaTab.setContent(agenda);
+        }
     }
 
     private void setupAgendaAppointmentGroups() {
@@ -198,6 +202,18 @@ public class CentralDisplay extends UiPart<Region> {
         nameProperty.addListener((observable, oldValue, newValue) -> {
             agendaTab.setText(newValue.toString() + " Itinerary");
         });
+        agendaTab.setOnSelectionChanged((event)-> {
+            if (agendaTab.isSelected()) {
+                updateAgenda(agenda, dayList);
+                updateSkin(agenda);
+            }
+        });
+        helpTab.setOnSelectionChanged((event)-> {
+            if (helpTab.isSelected()) {
+                generateCommandHelpSummary();
+            }
+        });
+
     }
 
     /**
@@ -222,6 +238,11 @@ public class CentralDisplay extends UiPart<Region> {
                 return lLocalDates;
             }
         });
+        if (dayList.size() == 0) {
+            agendaTab.setContent(null);
+        } else {
+            agendaTab.setContent(agenda);
+        }
     }
 
     /**
@@ -293,33 +314,34 @@ public class CentralDisplay extends UiPart<Region> {
      * Generates a complete summary of all commands available in plan2travel.
      */
     public void generateCommandHelpSummary() {
-        helpList.getItems().clear();
-        helpList.getItems().addAll(
-                new HelpCard(AddAccommodationCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(AddActivityCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(AddContactCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(AddDayCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(DeleteAccommodationCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(DeleteActivityCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(DeleteContactCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(DeleteDayCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(EditAccommodationCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(EditActivityCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(EditContactCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(ViewAccommodationCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(ViewActivityCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(ViewContactCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(ViewCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(ListCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(ScheduleCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(AutoScheduleCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(OptimiseCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(UndoCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(RedoCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(ClearCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(ExitCommand.MESSAGE_USAGE).getRoot()
-        );
+        if (helpList.getItems().size() == 0) {
+            helpList.getItems().addAll(
+                    new HelpCard(AddAccommodationCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(AddActivityCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(AddContactCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(AddDayCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(DeleteAccommodationCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(DeleteActivityCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(DeleteContactCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(DeleteDayCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(EditAccommodationCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(EditActivityCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(EditContactCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(ViewAccommodationCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(ViewActivityCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(ViewContactCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(ViewCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(ListCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(ScheduleCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(AutoScheduleCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(OptimiseCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(UndoCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(RedoCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(ClearCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(ExitCommand.MESSAGE_USAGE).getRoot()
+            );
+        }
     }
 
     /**
