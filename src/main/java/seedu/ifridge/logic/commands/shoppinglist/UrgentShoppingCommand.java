@@ -1,10 +1,8 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ifridge.model.food.Amount.getValue;
-import static seedu.ifridge.model.food.Amount.hasSameAmountUnit;
+import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
-import java.util.HashSet;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -14,10 +12,7 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
-import seedu.ifridge.model.food.Amount;
-import seedu.ifridge.model.food.ExpiryDate;
 import seedu.ifridge.model.food.GroceryItem;
-import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
@@ -43,31 +38,6 @@ public class UrgentShoppingCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
-    /**
-     * Indicates if a shopping item is bought in its entirety.
-     * @param shoppingItem to check if completely bought
-     * @param internalBoughtList boughtList
-     * @return true if shopping item completely bought, else false
-     */
-    private static boolean isShoppingItemCompletelyBought(ShoppingItem shoppingItem,
-                                                          ObservableList<GroceryItem> internalBoughtList) {
-        GroceryItem correspondingBoughtItem = new GroceryItem(new Name("dummy"), new Amount("3L"),
-                new ExpiryDate("08/03/2000"), new HashSet<>());
-        for (GroceryItem boughtItem : internalBoughtList) {
-            if (boughtItem.isSameName(shoppingItem)) {
-                correspondingBoughtItem = boughtItem;
-                break;
-            }
-        }
-        Amount shoppingAmount = shoppingItem.getAmount();
-        Amount boughtAmount = correspondingBoughtItem.getAmount();
-        if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
-            shoppingAmount = boughtAmount.convertAmount(shoppingAmount);
-        }
-        return getValue(boughtAmount) >= getValue(shoppingAmount);
-    }
-
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -80,7 +50,7 @@ public class UrgentShoppingCommand extends Command {
         ShoppingItem shoppingItemToMarkAsUrgent = lastShownList.get(targetIndex.getZeroBased());
         ObservableList<GroceryItem> internalBoughtList = model.getBoughtList().getGroceryList();
         if (shoppingItemToMarkAsUrgent.isBought()) {
-            if (isShoppingItemCompletelyBought(shoppingItemToMarkAsUrgent, internalBoughtList)) {
+            if (isCompletelyBought(shoppingItemToMarkAsUrgent, internalBoughtList)) {
                 CommandResult commandResult =
                         new CommandResult(String.format(MESSAGE_URGENT_SHOPPING_ITEM_FAILURE));
                 return commandResult;
