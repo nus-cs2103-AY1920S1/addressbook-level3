@@ -6,6 +6,8 @@ import java.util.ArrayList;
  * Formats the Ui return responses for different commands to be shown to user.
  */
 public class CashierMessages {
+    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please Please input the correct "
+            + "command format:\n";
 
     public static final String AMOUNT_NOT_A_NUMBER = "Please input a number for the amount being paid.\n";
 
@@ -15,16 +17,17 @@ public class CashierMessages {
             + " cashier NAME\n\n";
 
     public static final String NO_ITEM_TO_CHECKOUT = "Sorry! There is no item to checkout! "
-            + "To add an item to the table, please type \"add [c/CATEGORY] d/DESCRIPTION\n q/QUANTITY\"\n";
+            + "To add an item to the table, please type add with parameters:\n"
+            + "add \n[c/CATEGORY]\nd/DESCRIPTION\nq/QUANTITY\n";
 
-    public static final String MESSAGE_NO_COMMAND = "Sorry! There is no such command. The commands you can input are "
+    public static final String MESSAGE_NO_COMMAND = "Please input a valid command. The commands include "
             + "add, delete, edit, clear, cashier, checkout.";
 
     public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with "
             + "the specified description in the sales list.\n";
 
-    public static final String NO_SUCH_INDEX_CASHIER = "There is no item at the inputted index. Please "
-            + "input a positive integer that is within the table size.\n";
+    public static final String NO_SUCH_INDEX_CASHIER = "Sorry! There is no such item of the inputted index. Please "
+            + "make sure the index is within the table.\n";
 
     public static final String NO_SUCH_ITEM_FOR_SALE_CASHIER = "Sorry! This item is not available for sale!\n";
 
@@ -35,14 +38,16 @@ public class CashierMessages {
 
     public static final String NO_SUCH_PERSON = "Sorry! There is no such person. Please enter a valid name.\n";
 
-    public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! To add, please type \"add "
-            + "[c/CATEGORY] d/DESCRIPTION\nq/QUANTITY\"\n";
+    public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = MESSAGE_BEGINNING_FOR_INVALID_COMMAND
+            + "add: Adds an item into the cart for checkout.\n"
+            + "Paramters:\n[c/CATEGORY]\nd/DESCRIPTION\nq/QUANTITY\n";
 
     /*public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "To set cashier, please type "
             + "\"cashier NAME\" \n";*/
 
-    public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = "Sorry! To edit, please type \"edit"
-            + " i/INDEX q/QUANTITY\"  OR  \n\"edit d/DESCRIPTION q/QUANTITY\" \n ";
+    public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = MESSAGE_BEGINNING_FOR_INVALID_COMMAND
+            + "edit: Changes quantity of an item in the cart by index or description.\n"
+            + "Parameters:i/INDEX\nq/QUANTITY\nOR\nedit d/DESCRIPTION q/QUANTITY\n";
 
     public static final String INDEX_NOT_A_NUMBER = "Please input the row index of the item "
             + "according to the table.\n";
