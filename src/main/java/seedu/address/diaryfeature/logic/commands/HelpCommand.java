@@ -8,9 +8,7 @@ import seedu.address.logic.commands.CommandResult;
  * Format full help instructions for every command for display.
  */
 public class HelpCommand extends Command<DiaryModel> {
-
     public static final String COMMAND_WORD = "help";
-
     private static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     /**

@@ -70,8 +70,7 @@ public class DiaryPage extends UiPart<Region> implements Page {
         diaryScene = new Scene(diaryPane);
         this.helpWindow = new DiaryHelpWindow();
         this.logicHandler = logic;
-
-
+        this.codeWindow = new CodeWindow();
         fillInnerParts();
     }
 

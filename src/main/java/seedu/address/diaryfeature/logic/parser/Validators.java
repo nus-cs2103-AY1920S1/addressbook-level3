@@ -8,8 +8,9 @@ import seedu.address.diaryfeature.model.diaryEntry.Title;
 /**
  * Checks user input
  */
-public class Validators {
-    public static final String ALPHANUMERIC_STRING_REGEX = "[a-zA-Z0-9]+";
+class Validators {
+    private static final String ALPHANUMERIC_STRING_REGEX = "[a-zA-Z0-9]+";
+    private static final String NUMBER_REGEX = "[0-9]+";
     static final int HOUR_LOWER_RANGE = 00;
     static final int HOUR_UPPER_RANGE = 23;
     static final int MIN_LOWER_RANGE = 00;
@@ -104,10 +105,19 @@ public class Validators {
             return false;
         }
         String[] dateAndTime = input.split(" ");
+        if(dateAndTime.length != 2) {
+            return false;
+        }
         String time = dateAndTime[1];
+        if(time.length() != 4) {
+            return false;
+        }
         String hourAsString = time.substring(0,1);
         String minAsString = time.substring(2);
         String[] dates = dateAndTime[0].split("/");
+        if(dates.length != 3) {
+            return false;
+        }
         String dayAsString = dates[0];
         String monthAsString = dates[1];
         String yearAsString = dates[2];
@@ -134,6 +144,11 @@ public class Validators {
      * Check if user input fits in the range
      */
     private static boolean isValidNumber(String input, int lower, int upper) {
+        if(!input.matches(NUMBER_REGEX)) {
+            System.out.println(input.matches(NUMBER_REGEX));
+            System.out.println(input);
+            return false;
+        }
         int test = getInt(input);
         if (test <= upper && test >= lower) {
             return true;
