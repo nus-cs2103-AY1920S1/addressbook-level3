@@ -17,6 +17,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
 import seedu.ifridge.commons.core.LogsCenter;
+import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
@@ -654,6 +655,18 @@ public class ModelManager implements Model {
 
     @Override
     public void addBoughtItem(GroceryItem food) {
+        for (GroceryItem boughtItem : boughtList.getGroceryList()) {
+            if (food.isSameFood(boughtItem)) {
+                Amount updatedAmount = boughtItem.getAmount().increaseBy(food.getAmount());
+                GroceryItem updatedBoughtItem = new GroceryItem(boughtItem.getName(),
+                        updatedAmount,
+                        boughtItem.getExpiryDate(),
+                        boughtItem.getTags());
+                boughtList.setGroceryItem(boughtItem, updatedBoughtItem);
+                updateFilteredBoughtItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
+                return; //end loop if bought Item is updated
+            }
+        }
         boughtList.addGroceryItem(food);
         updateFilteredBoughtItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
     }
