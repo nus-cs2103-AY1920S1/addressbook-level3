@@ -20,6 +20,7 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -446,5 +447,14 @@ public class ModelManager implements Model {
             noteFragmentIndex = 0;
         }
         return taggedItems;
+    }
+
+    @Override
+    public ArrayList<String> getListOfTags() {
+        ArrayList<String> listOfTags = new ArrayList<>();
+        for (Tag t : studyBuddyPro.getTagList()) {
+            listOfTags.add(t.toString());
+        }
+        return listOfTags;
     }
 }

@@ -305,6 +305,10 @@ public class AddNoteCommandTest {
         public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        public ArrayList<String> getListOfTags() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
