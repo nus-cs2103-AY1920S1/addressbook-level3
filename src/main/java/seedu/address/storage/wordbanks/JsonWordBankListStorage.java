@@ -95,8 +95,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         File wordBanksDirectory = wordBanksFilePath.toFile();
         String[] wordBanks = wordBanksDirectory.list();
         boolean haveSampleWordBank = false;
-        for (int i = 0; i < wordBanks.length; i++) {
-            if (wordBanks[i].equals(SampleDataUtil.getName() + ".json")) {
+        for (String wordBank : wordBanks) {
+            if (wordBank.equals(SampleDataUtil.getSampleName() + ".json")) {
                 haveSampleWordBank = true;
                 break;
             }

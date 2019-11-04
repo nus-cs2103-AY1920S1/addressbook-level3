@@ -51,15 +51,15 @@ import seedu.address.Game.*;
  * Runs the application.
  */
 public class MainApp extends Application {
-    public static final Version VERSION = new Version(1, 3, 0, true);
+    private static final Version VERSION = new Version(1, 3, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
-    protected AppManager appManager;
+    private Config config;
+    private AppManager appManager;
 
     @Override
     public void init() throws Exception {

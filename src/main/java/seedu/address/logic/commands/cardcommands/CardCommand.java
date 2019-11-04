@@ -6,6 +6,6 @@ import seedu.address.logic.commands.Command;
 /**
  * Represents a command executed on cards.
  */
-public abstract class CardCommand extends Command {
+abstract class CardCommand extends Command {
 
 }
