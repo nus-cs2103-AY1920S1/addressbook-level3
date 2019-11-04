@@ -93,7 +93,6 @@ class EditBioCommandTest {
 
         CommandResult expectedCommandResult = new CommandResult(String.format(String.format(MESSAGE_EDIT_USER_SUCCESS,
             String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())), false, false));
-        System.out.println(expectedCommandResult);
         assertCommandSuccess(new EditBioCommand(getModifiedEditUserDescriptor()), new ModelStubWithUserListForEditing(),
             expectedCommandResult, model);
     }
