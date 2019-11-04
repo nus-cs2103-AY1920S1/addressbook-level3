@@ -40,7 +40,8 @@ public class GroupCreateManuallyCommandTest {
         ArrayList<Integer> mockNumbers =
                 new ArrayList<Integer>(Arrays.asList(1));
         GroupCreateManuallyCommand createManuallyCommand = new GroupCreateManuallyCommand(groupId, mockNumbers);
-        GroupCreateManuallyCommand otherCreateManuallyCommand = new GroupCreateManuallyCommand(otherGroupId, mockNumbers);
+        GroupCreateManuallyCommand otherCreateManuallyCommand =
+                new GroupCreateManuallyCommand(otherGroupId, mockNumbers);
         // same object -> returns true
         assertTrue(createManuallyCommand.equals(createManuallyCommand));
 
@@ -65,11 +66,14 @@ public class GroupCreateManuallyCommandTest {
     public void execute_createGroup_Success() throws Exception {
         ArrayList<Integer> mockNumbers =
                 new ArrayList<Integer>(Arrays.asList(1));
-        GroupCreateManuallyCommand groupCreateManuallyCommand = new GroupCreateManuallyCommand("Create", mockNumbers);
+        GroupCreateManuallyCommand groupCreateManuallyCommand =
+                new GroupCreateManuallyCommand("Create", mockNumbers);
         Student student = new StudentBuilder().withName(new Name("CreateTest")).build();
-        ModelStub modelStub = new GroupCreateManuallyCommandTest.ModelStubWithGroupWithStudent("CreateCopy", student);
+        ModelStub modelStub =
+                new GroupCreateManuallyCommandTest.ModelStubWithGroupWithStudent("CreateCopy", student);
         CommandResult commandResult = groupCreateManuallyCommand.execute(modelStub);
-        assertEquals(String.format(groupCreateManuallyCommand.CREATED_SUCCESSFULLY_WITH_ONE, "Create", 1), commandResult.getFeedbackToUser());
+        assertEquals(String.format(groupCreateManuallyCommand.CREATED_SUCCESSFULLY_WITH_ONE, "Create", 1),
+                commandResult.getFeedbackToUser());
     }
 
     /**
@@ -79,10 +83,12 @@ public class GroupCreateManuallyCommandTest {
     public void execute_createDuplicateGroup_throwsCommandException() {
         ArrayList<Integer> mockNumbers =
                 new ArrayList<Integer>(Arrays.asList(1));
-        GroupCreateManuallyCommand groupCreateManuallyCommand = new GroupCreateManuallyCommand("CantCreate", mockNumbers);
+        GroupCreateManuallyCommand groupCreateManuallyCommand =
+                new GroupCreateManuallyCommand("CantCreate", mockNumbers);
         Student student = new StudentBuilder().withName(new Name("CreateFail")).build();
         ModelStub modelStub = new ModelStubWithGroupWithStudent("CantCreate", student);
-        assertThrows(CommandException.class, () -> groupCreateManuallyCommand.execute(modelStub), String.format(GROUP_ALREADY_EXISTS, "CantCreate"));
+        assertThrows(CommandException.class, () -> groupCreateManuallyCommand.execute(modelStub),
+                String.format(GROUP_ALREADY_EXISTS, "CantCreate"));
     }
 
     /**
@@ -92,7 +98,8 @@ public class GroupCreateManuallyCommandTest {
     public void execute_createGroupWithInvalidStudentNumber_throwsCommandException() {
         ArrayList<Integer> mockNumbers =
                 new ArrayList<Integer>(Arrays.asList(5));
-        GroupCreateManuallyCommand groupCreateManuallyCommand = new GroupCreateManuallyCommand("OutOfBounds", mockNumbers);
+        GroupCreateManuallyCommand groupCreateManuallyCommand =
+                new GroupCreateManuallyCommand("OutOfBounds", mockNumbers);
         Student student = new StudentBuilder().withName(new Name("OutOfBounds")).build();
         ModelStub modelStub = new ModelStubWithGroupWithStudent("Normal", student);
         assertThrows(CommandException.class, () -> groupCreateManuallyCommand.execute(modelStub), OUT_OF_BOUNDS);
@@ -105,7 +112,8 @@ public class GroupCreateManuallyCommandTest {
     public void execute_createGroupWithMissingGroupId_throwsCommandException() {
         ArrayList<Integer> mockNumbers =
                 new ArrayList<Integer>(Arrays.asList(1));
-        GroupCreateManuallyCommand groupCreateManuallyCommand = new GroupCreateManuallyCommand("", mockNumbers);
+        GroupCreateManuallyCommand groupCreateManuallyCommand =
+                new GroupCreateManuallyCommand("", mockNumbers);
         Student student = new StudentBuilder().withName(new Name("MissingGroupID")).build();
         ModelStub modelStub = new ModelStubWithGroupWithStudent("NormalTwo", student);
         assertThrows(CommandException.class, () -> groupCreateManuallyCommand.execute(modelStub), GROUP_ID_LEFT_EMPTY);
@@ -123,6 +131,7 @@ public class GroupCreateManuallyCommandTest {
 
         /**
          * Creates an instance of ModelStubWithGroupWithStudent.
+         *
          * @param groupId GroupId of the group.
          * @param student Student within the group.
          */
@@ -139,6 +148,7 @@ public class GroupCreateManuallyCommandTest {
 
         /**
          * Checks if a group exists.
+         *
          * @param groupId GroupId of the group.
          * @return true if the group exists, false otherwise.
          */
@@ -151,7 +161,8 @@ public class GroupCreateManuallyCommandTest {
 
         /**
          * Creates a group.
-         * @param groupId GroupId of the group to be created.
+         *
+         * @param groupId        GroupId of the group to be created.
          * @param studentNumbers Student Numbers of the students to be added to the newly created group.
          */
         @Override
@@ -172,6 +183,7 @@ public class GroupCreateManuallyCommandTest {
 
         /**
          * Gets a filtered list of the students stored.
+         *
          * @return Filtered list of the students stored.
          */
         @Override

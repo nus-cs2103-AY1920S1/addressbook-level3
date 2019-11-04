@@ -75,7 +75,8 @@ public class AddMarkCommandTest {
         AddMarkCommand addMarkCommand = new AddMarkCommand(Index.fromOneBased(1));
         Student student = new StudentBuilder().withName(new Name("AlreadyMarked")).withMark(true).build();
         ModelStub modelStub = new ModelStubWithStudent(student);
-        assertThrows(CommandException.class, () -> addMarkCommand.execute(modelStub), String.format(MESSAGE_STUDENT_ALREADY_MARKED, 1));
+        assertThrows(CommandException.class, () -> addMarkCommand.execute(modelStub),
+                String.format(MESSAGE_STUDENT_ALREADY_MARKED, 1));
     }
 
     /**
@@ -86,7 +87,8 @@ public class AddMarkCommandTest {
         AddMarkCommand addMarkCommand = new AddMarkCommand(Index.fromOneBased(2));
         Student student = new StudentBuilder().withName(new Name("OutOfBounds")).build();
         ModelStub modelStub = new ModelStubWithStudent(student);
-        assertThrows(CommandException.class, () -> addMarkCommand.execute(modelStub), MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        assertThrows(CommandException.class, () -> addMarkCommand.execute(modelStub),
+                MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
     /**

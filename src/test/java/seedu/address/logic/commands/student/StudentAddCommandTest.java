@@ -134,6 +134,7 @@ public class StudentAddCommandTest {
 
         /**
          * Adds student to the ArrayList of students.
+         *
          * @param student Student to be added.
          */
         @Override
@@ -144,6 +145,7 @@ public class StudentAddCommandTest {
 
         /**
          * Gets the record of students.
+         *
          * @return Student record.
          */
         @Override

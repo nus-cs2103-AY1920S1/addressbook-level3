@@ -74,7 +74,8 @@ public class GroupGetStudentsCommandTest {
         GroupGetStudentsCommand groupGetStudentsCommand = new GroupGetStudentsCommand("GetNotFound");
         Student student = new StudentBuilder().withName(new Name("GetTestTwo")).build();
         ModelStub modelStub = new GroupGetStudentsCommandTest.ModelStubWithGroupWithStudent("GetTwo", student);
-        assertThrows(CommandException.class, () -> groupGetStudentsCommand.execute(modelStub), String.format(GROUP_DOES_NOT_EXIST, "GetNotFound"));
+        assertThrows(CommandException.class, () -> groupGetStudentsCommand.execute(modelStub),
+                String.format(GROUP_DOES_NOT_EXIST, "GetNotFound"));
     }
 
     /**
@@ -84,7 +85,8 @@ public class GroupGetStudentsCommandTest {
     public void execute_getGroupEmptyGroupId_throwsCommandException() throws Exception {
         GroupGetStudentsCommand groupGetStudentsCommand = new GroupGetStudentsCommand("");
         Student student = new StudentBuilder().withName(new Name("GetTestThree")).build();
-        ModelStub modelStub = new GroupGetStudentsCommandTest.ModelStubWithGroupWithStudent("GetThree", student);
+        ModelStub modelStub =
+                new GroupGetStudentsCommandTest.ModelStubWithGroupWithStudent("GetThree", student);
         assertThrows(CommandException.class, () -> groupGetStudentsCommand.execute(modelStub), GROUP_ID_LEFT_EMPTY);
     }
 

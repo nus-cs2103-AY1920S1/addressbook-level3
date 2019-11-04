@@ -51,9 +51,9 @@ public class StudentEditCommandTest {
         expectedModel.setStudentRecord(getTypicalStudentRecord());
         Student toBeEdited = model.getFilteredStudentList().get(0);
         expectedModel.setStudent(toBeEdited, editedStudent);
-        String expectedMessage = String.format(StudentEditCommand.MESSAGE_SUCCESS, toBeEdited,editedStudent);
+        String expectedMessage = String.format(StudentEditCommand.MESSAGE_SUCCESS, toBeEdited, editedStudent);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel ,CommandResultType.SHOW_STUDENT);
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, CommandResultType.SHOW_STUDENT);
     }
 
     /**

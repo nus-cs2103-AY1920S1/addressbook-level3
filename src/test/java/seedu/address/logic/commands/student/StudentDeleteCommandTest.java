@@ -43,7 +43,7 @@ public class StudentDeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.setStudentRecord(getTypicalStudentRecord());
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel,CommandResultType.SHOW_STUDENT);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel, CommandResultType.SHOW_STUDENT);
     }
 
     /**
@@ -54,7 +54,8 @@ public class StudentDeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
         StudentDeleteCommand deleteCommand = new StudentDeleteCommand(outOfBoundIndex);
 
-        assertThrows(CommandException.class, () -> deleteCommand.execute(model), MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        assertThrows(CommandException.class, () -> deleteCommand.execute(model),
+                MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
     /**

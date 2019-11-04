@@ -75,7 +75,8 @@ public class RemoveMarkCommandTest {
         RemoveMarkCommand removeMarkCommand = new RemoveMarkCommand(Index.fromOneBased(1));
         Student student = new StudentBuilder().withName(new Name("AlreadyUnmarked")).withMark(false).build();
         ModelStub modelStub = new RemoveMarkCommandTest.ModelStubWithStudent(student);
-        assertThrows(CommandException.class, () -> removeMarkCommand.execute(modelStub), String.format(MESSAGE_STUDENT_ALREADY_UNMARKED,1));
+        assertThrows(CommandException.class, () -> removeMarkCommand.execute(modelStub),
+                String.format(MESSAGE_STUDENT_ALREADY_UNMARKED, 1));
     }
 
     /**
@@ -86,7 +87,8 @@ public class RemoveMarkCommandTest {
         RemoveMarkCommand removeMarkCommand = new RemoveMarkCommand(Index.fromOneBased(2));
         Student student = new StudentBuilder().withName(new Name("RemoveOutOfBounds")).build();
         ModelStub modelStub = new RemoveMarkCommandTest.ModelStubWithStudent(student);
-        assertThrows(CommandException.class, () -> removeMarkCommand.execute(modelStub), MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        assertThrows(CommandException.class, () -> removeMarkCommand.execute(modelStub),
+                MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
     /**

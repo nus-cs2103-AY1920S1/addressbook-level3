@@ -38,7 +38,8 @@ public class TagCommandTest {
         TagCommand tagCommand = new TagCommand(Index.fromOneBased(2));
         Student student = new StudentBuilder().withName(new Name("OutOfBoundsTag")).build();
         ModelStub modelStub = new ModelStubWithStudent(student);
-        assertThrows(CommandException.class, () -> tagCommand.execute(modelStub), MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        assertThrows(CommandException.class, () -> tagCommand.execute(modelStub),
+                MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
     /**

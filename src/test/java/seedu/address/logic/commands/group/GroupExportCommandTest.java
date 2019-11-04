@@ -52,7 +52,6 @@ public class GroupExportCommandTest {
         // null -> returns false
         assertFalse(exportCommand.equals(null));
 
-        // different group -> returns false
         assertFalse(exportCommand.equals(otherExportCommand));
     }
 
@@ -76,7 +75,8 @@ public class GroupExportCommandTest {
         GroupExportCommand exportCommand = new GroupExportCommand("ExportNotFound");
         Student student = new StudentBuilder().withName(new Name("ExportTestTwo")).build();
         ModelStub modelStub = new GroupExportCommandTest.ModelStubWithGroupWithStudent("GetTwo", student);
-        assertThrows(CommandException.class, () -> exportCommand.execute(modelStub), String.format(GROUP_DOES_NOT_EXIST, "ExportNotFound"));
+        assertThrows(CommandException.class, () -> exportCommand.execute(modelStub),
+                String.format(GROUP_DOES_NOT_EXIST, "ExportNotFound"));
     }
 
     /**
