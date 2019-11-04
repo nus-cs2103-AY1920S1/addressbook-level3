@@ -3,8 +3,9 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<ScrollPane fx:id="lineChartScrollPane" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<!-- @@author chen-xi-cx -->
+<ScrollPane fx:id="lineChartScrollPane" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox fx:id="lineChartVBox" />
    </content>

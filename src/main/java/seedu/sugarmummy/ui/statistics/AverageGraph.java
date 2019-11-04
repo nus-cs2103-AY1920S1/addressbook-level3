@@ -25,8 +25,9 @@ import javafx.scene.layout.VBox;
 import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.statistics.AverageType;
 
+//author chen-xi-cx
 /**
- * Represents ui of an average graph with no legend.
+ * Represents ui of an average line graph with no legend.
  */
 public class AverageGraph {
     private static final String TITLE = "%1$s average of %2$s";
@@ -59,32 +60,26 @@ public class AverageGraph {
     private final CustomLineChart<String, Number> customLineChart = new CustomLineChart<>(xAxis, yAxis);
 
     public AverageGraph(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                        SimpleStringProperty recordType) {
+            SimpleStringProperty recordType) {
 
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
-                customLineChart.getData().clear();
-                customLineChart.removeAllHorizontalRangeMarker();
-                createChart(averageMap, averageType, recordType);
+                refreshChart(averageMap, averageType, recordType);
             }
         });
 
         averageType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                customLineChart.getData().clear();
-                customLineChart.removeAllHorizontalRangeMarker();
-                createChart(averageMap, averageType, recordType);
+                refreshChart(averageMap, averageType, recordType);
             }
         });
 
         recordType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                customLineChart.getData().clear();
-                customLineChart.removeAllHorizontalRangeMarker();
-                createChart(averageMap, averageType, recordType);
+                refreshChart(averageMap, averageType, recordType);
             }
         });
 
@@ -98,10 +93,25 @@ public class AverageGraph {
     }
 
     /**
+     * A convenience function to update customLineChart with new data points whenever averageMap, averageType or
+     * recordType changes.
+     *
+     * @param averageMap the newly updated averageMap containing the average values.
+     * @param averageType the newly updated type of average.
+     * @param recordType the newly updated type of record.
+     */
+    private void refreshChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
+            SimpleStringProperty recordType) {
+        customLineChart.getData().clear();
+        customLineChart.removeAllHorizontalRangeMarker();
+        createChart(averageMap, averageType, recordType);
+    }
+
+    /**
      * A convenience function to create a new chart.
      */
     private void createChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                             SimpleStringProperty recordType) {
+            SimpleStringProperty recordType) {
         setTitle(averageType, recordType);
         setAxesLabel(averageType, recordType);
         addHorizontalRangeMarker(recordType);
@@ -128,7 +138,7 @@ public class AverageGraph {
     }
 
     /**
-     * Loads data from averageMap and display in chart.
+     * Loads data from averageMap into line chart.
      */
     private void loadAndShowChart(ObservableMap<LocalDate, Double> averageMap) {
         XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
@@ -152,6 +162,7 @@ public class AverageGraph {
         case BLOODSUGAR:
             return BLOODSUGAR;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
@@ -166,12 +177,15 @@ public class AverageGraph {
         case BLOODSUGAR:
             return BLOODSUGAR + BLOODSUGAR_UNIT;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 
     /**
-     * Adds horizontal range marker to denote ranges of values for given record type.
+     * Adds horizontal range markers to label range of y axis values for given record type.
+     * For example, BMI adds horizontal range markers at y1 = 18.5 and y2 = 20 to label
+     * that particular range as healthy BMI level.
      *
      * @param recordType the record type of specified by user.
      */
@@ -188,6 +202,7 @@ public class AverageGraph {
             customLineChart.addHorizontalRangeMarker(AFTER_MEALS, COLOR_BLUE);
             break;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
@@ -204,6 +219,7 @@ public class AverageGraph {
         case MONTHLY:
             return MONTH;
         default:
+            assert false : "Average type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_AVERAGE_TYPE);
         }
     }

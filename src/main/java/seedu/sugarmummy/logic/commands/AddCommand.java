@@ -21,7 +21,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new record to the record list. "
             + "Parameters: "
-            + PREFIX_RECORDTYPE + "RECORDTYPE "
+            + PREFIX_RECORDTYPE + "RECORD_TYPE "
             + PREFIX_DATETIME + "DATETIME. "
             + "For BLOODSUGAR, additional param is: "
             + PREFIX_BLOODSUGAR_CONCENTRATION + "CONCENTRATION. "

@@ -22,8 +22,7 @@ public class Bmi extends Record {
         requireNonNull(weight);
         this.height = height;
         this.weight = weight;
-        double heightInMeter = height.getHeight() / 100;
-        this.bmi = weight.getWeight() / (heightInMeter * heightInMeter);
+        this.bmi = weight.getWeight() / (height.getHeight() * height.getHeight());
     }
 
     public Height getHeight() {

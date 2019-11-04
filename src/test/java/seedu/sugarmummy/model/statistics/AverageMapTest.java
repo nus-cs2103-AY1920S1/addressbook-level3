@@ -35,14 +35,14 @@ public class AverageMapTest {
     private AverageMap averageMap = new AverageMap();
 
     @Test
-    public void calculate_noRecords_returnsEmptyMap() {
+    public void calculateAverage_noRecords_returnsEmptyMap() {
         ObservableList<Record> emptyRecordList = FXCollections.observableArrayList();
         averageMap.calculateAverage(emptyRecordList, AverageType.DAILY, RecordType.BLOODSUGAR, 5);
         assertTrue(averageMap.asUnmodifiableObservableMap().isEmpty());
     }
 
     @Test
-    public void calculate_dailyAverageBloodSugar_success() {
+    public void calculateAverage_dailyAverageBloodSugar_success() {
         averageMap.calculateAverage(bloodSugarRecordList, AverageType.DAILY, RecordType.BLOODSUGAR, 5);
         ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
                 LocalDate.of(2019, 1, 1), 4.0,
@@ -52,19 +52,19 @@ public class AverageMapTest {
         assertEquals(expectedResult, averageMap.asUnmodifiableObservableMap());
     }
 
-    //    @Test
-    //    public void calculate_weeklyAverageBmi_success() {
-    //        averageMap.calculateAverage(bmiRecordList, AverageType.WEEKLY, RecordType.BMI, 5);
-    //        ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
-    //                LocalDate.of(2018, 12, 31), 20.0,
-    //                LocalDate.of(2019, 1, 7), 16.0
-    //        ));
-    //        ObservableMap<LocalDate, Double> expectedResult = FXCollections.unmodifiableObservableMap(calculationMap);
-    //        assertEquals(expectedResult, averageMap.asUnmodifiableObservableMap());
-    //    }
+    @Test
+    public void calculateAverage_weeklyAverageBmi_success() {
+        averageMap.calculateAverage(bmiRecordList, AverageType.WEEKLY, RecordType.BMI, 5);
+        ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
+                LocalDate.of(2018, 12, 31), 20.0,
+                LocalDate.of(2019, 1, 7), 16.0
+        ));
+        ObservableMap<LocalDate, Double> expectedResult = FXCollections.unmodifiableObservableMap(calculationMap);
+        assertEquals(expectedResult, averageMap.asUnmodifiableObservableMap());
+    }
 
     @Test
-    public void calculate_monthlyAverageBloodSugar_success() {
+    public void calculateAverage_monthlyAverageBloodSugar_success() {
         averageMap.calculateAverage(bloodSugarRecordList, AverageType.MONTHLY, RecordType.BLOODSUGAR, 5);
         ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
                 LocalDate.of(2019, 1, 1), 4.5
