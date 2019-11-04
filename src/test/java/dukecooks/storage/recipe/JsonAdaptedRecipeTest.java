@@ -78,11 +78,31 @@ public class JsonAdaptedRecipeTest {
     }
 
     @Test
+    public void toModelType_nullCalories_throwsIllegalValueException() {
+        JsonAdaptedRecipe recipe =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
+                        null, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
+        String expectedMessage = String.format(JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT, Calories.class
+                .getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
+    }
+
+    @Test
     public void toModelType_invalidCarbs_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
                         VALID_CALORIES, INVALID_CARBS, VALID_FATS, VALID_PROTEIN);
         String expectedMessage = Carbs.MESSAGE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullCarbs_throwsIllegalValueException() {
+        JsonAdaptedRecipe recipe =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
+                        VALID_CALORIES, null, VALID_FATS, VALID_PROTEIN);
+        String expectedMessage = String.format(JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT, Carbs.class
+                .getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
@@ -96,11 +116,31 @@ public class JsonAdaptedRecipeTest {
     }
 
     @Test
+    public void toModelType_nullFats_throwsIllegalValueException() {
+        JsonAdaptedRecipe recipe =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
+                        VALID_CALORIES, VALID_CARBS, null, VALID_PROTEIN);
+        String expectedMessage = String.format(JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT, Fats.class
+                .getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
+    }
+
+    @Test
     public void toModelType_invalidProtein_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
                         VALID_CALORIES, VALID_CARBS, VALID_FATS, INVALID_PROTEIN);
         String expectedMessage = Protein.MESSAGE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullProtein_throwsIllegalValueException() {
+        JsonAdaptedRecipe recipe =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
+                        VALID_CALORIES, VALID_CARBS, VALID_FATS, null);
+        String expectedMessage = String.format(JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT, Protein.class
+                .getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 

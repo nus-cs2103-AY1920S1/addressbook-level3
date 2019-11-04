@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dukecooks.logic.commands.profile.EditProfileCommand;
-import dukecooks.model.common.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.person.Person;
 
 /**
@@ -30,7 +30,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditProfileCommand.EditPersonDescriptor();
         descriptor.setName(person.getName());
-        descriptor.setMedicalHistories(person.getMedicalHistories());
+        descriptor.setAddMedicalHistories(person.getMedicalHistories());
     }
 
     /**
@@ -49,7 +49,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withMedicalHistories(String... medicalHistories) {
         Set<MedicalHistory> medicalHistorySet = Stream.of(medicalHistories)
                 .map(MedicalHistory::new).collect(Collectors.toSet());
-        descriptor.setMedicalHistories(medicalHistorySet);
+        descriptor.setAddMedicalHistories(medicalHistorySet);
         return this;
     }
 

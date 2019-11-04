@@ -16,9 +16,13 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.common.Name;
+import dukecooks.model.Image;
 import dukecooks.model.diary.components.DiaryName;
+import dukecooks.model.diary.components.PageDescription;
+import dukecooks.model.diary.components.PageType;
+import dukecooks.model.diary.components.Title;
 import dukecooks.model.profile.medical.MedicalHistory;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.RecipeName;
 
@@ -35,6 +39,19 @@ public class ParserUtilTest {
 
     private static final String INVALID_DIARY_NAME = "R@ndom name";
     private static final String VALID_DIARY_NAME = "Test Diary";
+
+    private static final String INVALID_PAGE_TITLE = "Hello@@";
+    private static final String VALID_PAGE_TITLE = "Hello";
+
+    private static final String INVALID_PAGE_TYPE = "whatever";
+    private static final String VALID_PAGE_TYPE = "health";
+
+    private static final String INVALID_PAGE_IMAGE = "asdadada.txt";
+    private static final String VALID_PAGE_IMAGE = "/images/pho.jpg";
+
+    private static final String INVALID_PAGE_DESCRIPTION = "";
+    private static final String VALID_PAGE_DESCRIPTION = "This is a simple description!!";
+
 
     private static final String VALID_NAME_2 = "Tamago Maki";
     private static final String VALID_INGREDIENT_1 = "Eggs";
@@ -141,6 +158,98 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_DIARY_NAME + WHITESPACE;
         DiaryName expectedName = new DiaryName(VALID_DIARY_NAME);
         assertEquals(expectedName, ParserUtil.parseDiaryName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parsePageType_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePageType((String) null));
+    }
+
+    @Test
+    public void parsePageType_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePageType(INVALID_PAGE_TYPE));
+    }
+
+    @Test
+    public void parsePageType_validValueWithoutWhitespace_returnsPageType() throws Exception {
+        PageType expectedPageType = new PageType(VALID_PAGE_TYPE);
+        assertEquals(expectedPageType, ParserUtil.parsePageType(VALID_PAGE_TYPE));
+    }
+
+    @Test
+    public void parsePageType_validValueWithWhitespace_returnsTrimmedPageType() throws Exception {
+        String pageTypeWithWhitespace = WHITESPACE + VALID_PAGE_TYPE + WHITESPACE;
+        PageType expectedPageType = new PageType(VALID_PAGE_TYPE);
+        assertEquals(expectedPageType, ParserUtil.parsePageType(pageTypeWithWhitespace));
+    }
+
+    @Test
+    public void parsePageDescription_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePageDescription((String) null));
+    }
+
+    @Test
+    public void parsePageDescription_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePageDescription(INVALID_PAGE_DESCRIPTION));
+    }
+
+    @Test
+    public void parsePageDescription_validValueWithoutWhitespace_returnsPageDescription() throws Exception {
+        PageDescription expectedPageDescription = new PageDescription(VALID_PAGE_DESCRIPTION);
+        assertEquals(expectedPageDescription, ParserUtil.parsePageDescription(VALID_PAGE_DESCRIPTION));
+    }
+
+    @Test
+    public void parsePageDescription_validValueWithWhitespace_returnsTrimmedPageDescription() throws Exception {
+        String pageDescriptionWithWhitespace = WHITESPACE + VALID_PAGE_DESCRIPTION + WHITESPACE;
+        PageDescription expectedPageDescription = new PageDescription(VALID_PAGE_DESCRIPTION);
+        assertEquals(expectedPageDescription, ParserUtil.parsePageDescription(pageDescriptionWithWhitespace));
+    }
+
+    @Test
+    public void parsePageTitleName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTitle((String) null));
+    }
+
+    @Test
+    public void parsePageTitle_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTitle(INVALID_PAGE_TITLE));
+    }
+
+    @Test
+    public void parsePageTitle_validValueWithoutWhitespace_returnsTitle() throws Exception {
+        Title expectedTitle = new Title(VALID_PAGE_TITLE);
+        assertEquals(expectedTitle, ParserUtil.parseTitle(VALID_PAGE_TITLE));
+    }
+
+    @Test
+    public void parsePageTitle_validValueWithWhitespace_returnsTrimmedPageTitle() throws Exception {
+        String titleWithWhitespace = WHITESPACE + VALID_PAGE_TITLE + WHITESPACE;
+        Title expectedTitle = new Title(VALID_PAGE_TITLE);
+        assertEquals(expectedTitle, ParserUtil.parseTitle(titleWithWhitespace));
+    }
+
+    @Test
+    public void parseImage_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseImage((String) null));
+    }
+
+    @Test
+    public void parseImage_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseImage(INVALID_PAGE_IMAGE));
+    }
+
+    @Test
+    public void parseImage_validValueWithoutWhitespace_returnsImage() throws Exception {
+        Image expectedImage = new Image(VALID_PAGE_IMAGE);
+        assertEquals(expectedImage, ParserUtil.parseImage(VALID_PAGE_IMAGE));
+    }
+
+    @Test
+    public void parseImage_validValueWithWhitespace_returnsTrimmedImage() throws Exception {
+        String imageWithWhitespace = WHITESPACE + VALID_PAGE_IMAGE + WHITESPACE;
+        Image expectedImage = new Image(VALID_PAGE_IMAGE);
+        assertEquals(expectedImage, ParserUtil.parseImage(imageWithWhitespace));
     }
 
     @Test

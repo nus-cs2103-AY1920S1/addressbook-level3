@@ -62,15 +62,14 @@ public class Record {
         }
 
         Record otherRecord = (Record) other;
-        return otherRecord.getType() == getType()
-                && otherRecord.getTimestamp() == getTimestamp()
-                && otherRecord.getValue() == getValue();
+        return otherRecord.getType().equals(getType())
+                && otherRecord.getTimestamp().equals(getTimestamp());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(type, timestamp, value);
+        return Objects.hash(type, timestamp);
     }
 
     @Override

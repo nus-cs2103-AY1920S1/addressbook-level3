@@ -13,7 +13,7 @@ import dukecooks.model.Model;
 import dukecooks.model.dashboard.components.Dashboard;
 
 /**
- * Deletes a Dashboard identified using it's displayed index from Duke Cooks.
+ * Deletes a Dashboard identified using it's displayed index from DukeCooks.
  */
 public class DeleteTaskCommand extends DeleteCommand {
 
@@ -23,7 +23,7 @@ public class DeleteTaskCommand extends DeleteCommand {
             + ": Deletes the task identified by the index number used in the displayed task list. \n"
             + "Parameters: INDEX (must be a positive integer)\n";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    private static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
     private final Index targetIndex;
 

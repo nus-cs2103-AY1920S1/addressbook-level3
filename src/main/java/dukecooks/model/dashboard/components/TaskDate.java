@@ -41,9 +41,9 @@ public class TaskDate {
     }
     /**
      * Returns true if given string is a valid date
+     * Solution below adapted from https://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/
      */
     public static boolean isValidTaskDate(String test) {
-        //TODO: give reference to https://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/
         if (test == null) {
             return false;
         }

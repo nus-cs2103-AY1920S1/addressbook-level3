@@ -12,11 +12,11 @@ import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.Image;
-import dukecooks.model.common.Name;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.diary.components.PageDescription;
+import dukecooks.model.diary.components.PageType;
 import dukecooks.model.diary.components.Title;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
@@ -27,6 +27,7 @@ import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;
 import dukecooks.model.profile.person.Gender;
 import dukecooks.model.profile.person.Height;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.person.Weight;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
@@ -193,6 +194,21 @@ public class ParserUtil {
             throw new ParseException(PageDescription.MESSAGE_CONSTRAINTS);
         }
         return new PageDescription(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String pageType} into a {@code PageType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code pageType} is invalid.
+     */
+    public static PageType parsePageType(String pageType) throws ParseException {
+        requireNonNull(pageType);
+        String trimmedTitle = pageType.trim();
+        if (!PageType.isValidPageType(trimmedTitle)) {
+            throw new ParseException(PageType.MESSAGE_CONSTRAINTS);
+        }
+        return new PageType(trimmedTitle);
     }
 
 

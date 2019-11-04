@@ -7,6 +7,7 @@ import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.Image;
 import dukecooks.model.diary.components.Page;
 import dukecooks.model.diary.components.PageDescription;
+import dukecooks.model.diary.components.PageType;
 import dukecooks.model.diary.components.Title;
 
 /**
@@ -17,6 +18,7 @@ class JsonAdaptedPage {
     private final String pageTitle;
     private final String pageDescription;
     private final String imagePath;
+    private final String pageType;
 
     /**
      * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle} and {@code pageDescription}.
@@ -24,9 +26,11 @@ class JsonAdaptedPage {
     @JsonCreator
     public JsonAdaptedPage(@JsonProperty("pageTitle") String pageTitle,
                            @JsonProperty("pageDescription") String pageDescription,
+                           @JsonProperty("pageType") String pageType,
                            @JsonProperty("imagePath") String imagePath) {
         this.pageTitle = pageTitle;
         this.pageDescription = pageDescription;
+        this.pageType = pageType;
         this.imagePath = imagePath;
     }
 
@@ -36,6 +40,7 @@ class JsonAdaptedPage {
     public JsonAdaptedPage(Page source) {
         pageTitle = source.getTitle().toString();
         pageDescription = source.getDescription().toString();
+        pageType = source.getPageType().toString();
         imagePath = source.getImage().getDataPath();
     }
 
@@ -49,6 +54,10 @@ class JsonAdaptedPage {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
 
+        if (!PageType.isValidPageType(pageType)) {
+            throw new IllegalValueException(PageType.MESSAGE_CONSTRAINTS);
+        }
+
         if (!PageDescription.isValidPageDescription(pageDescription)) {
             throw new IllegalValueException(PageDescription.MESSAGE_CONSTRAINTS);
         }
@@ -57,7 +66,9 @@ class JsonAdaptedPage {
             throw new IllegalValueException(Image.MESSAGE_CONSTRAINTS);
         }
 
-        return new Page(new Title(pageTitle), new PageDescription(pageDescription), new Image(imagePath));
+
+        return new Page(new Title(pageTitle), new PageType(pageType), new PageDescription(pageDescription),
+                new Image(imagePath));
     }
 
 }

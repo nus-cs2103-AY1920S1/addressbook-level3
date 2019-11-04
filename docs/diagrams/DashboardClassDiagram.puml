@@ -1,16 +1,18 @@
 @startuml
-!include style1.puml
+!include style.puml
+skinparam backgroundColor #EEEBDC
 skinparam arrowThickness 1.5
 skinparam arrowColor MediumSpringGreen
 skinparam classBackgroundColor MediumAquaMarine
 skinparam classAttributeIconSize 0
 skinparam classAttributeFontColor DarkSlateBlue
+
 skinparam Class {
     FontColor MidnightBlue
     BorderThickness 1
-    BorderColor #FFFFFF
+    BorderColor MidnightBlue
     StereotypeFontColor #FFFFFF
-    FontName Arial
+    FontName Impact
 }
 
 Class Dashboard {

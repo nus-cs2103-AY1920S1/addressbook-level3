@@ -34,13 +34,8 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     /**
      * Sorts the list by date.
      */
-    public void sortDashboard(List<Dashboard> l) {
-        Comparator<Dashboard> comparator = new Comparator<Dashboard>() {
-            @Override
-            public int compare(final Dashboard o1, Dashboard o2) {
-                return o1.getLocalDate().compareTo(o2.getLocalDate());
-            }
-        };
+    private void sortDashboard(List<Dashboard> l) {
+        Comparator<Dashboard> comparator = Comparator.comparing(Dashboard::getLocalDate);
         l.sort(comparator);
     }
 
@@ -49,15 +44,8 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
      */
     public boolean doneFive(List<Dashboard> l) {
         long size = l.stream().filter(i -> i.getTaskStatus().getRecentlyDoneStatus()).count();
-        System.out.println(size);
-        for (Dashboard d : l) {
-            System.out.println(d.getDashboardName());
-        }
-        if (size % 5 == 0) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return size == 5;
     }
 
     /**
@@ -66,10 +54,8 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     public void changeDone(List<Dashboard> l) {
         List<Dashboard> list1 = new ArrayList<>();
         List<Dashboard> list2 = new ArrayList<>();
-        int size = l.size();
 
-        for (int i = 0; i < size; i++) {
-            Dashboard d = l.get(i);
+        for (Dashboard d : l) {
             if (d.getTaskStatus().getRecentlyDoneStatus()) {
                 Dashboard updated = new Dashboard(d.getDashboardName(), d.getTaskDate(), new TaskStatus("COMPLETED"));
                 list1.add(d);

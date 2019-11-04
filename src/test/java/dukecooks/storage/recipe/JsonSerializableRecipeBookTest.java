@@ -15,6 +15,8 @@ public class JsonSerializableRecipeBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableRecipeBookTest");
     private static final Path TYPICAL_RECIPES_FILE = TEST_DATA_FOLDER.resolve("typicalRecipesRecipeBook.json");
+    private static final Path INVALID_RECIPE_FILE = TEST_DATA_FOLDER.resolve("invalidRecipeRecipeBook.json");
+    private static final Path DUPLICATE_RECIPE_FILE = TEST_DATA_FOLDER.resolve("duplicateRecipeRecipeBook.json");
 
     @Test
     public void toModelType_typicalRecipesFile_success() throws Exception {

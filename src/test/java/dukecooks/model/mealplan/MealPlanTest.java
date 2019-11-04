@@ -126,4 +126,12 @@ public class MealPlanTest {
         editedMiloMp = new MealPlanBuilder(MILO_MP).withDay7(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
         assertFalse(MILO_MP.equals(editedMiloMp));
     }
+
+    @Test
+    public void testMealPlanHashCode() {
+        MealPlanName name = new MealPlanName("A");
+        MealPlan mealPlan1 = new MealPlan(name);
+        MealPlan mealPlan2 = new MealPlan(name);
+        assertEquals(mealPlan1.hashCode(), mealPlan2.hashCode());
+    }
 }

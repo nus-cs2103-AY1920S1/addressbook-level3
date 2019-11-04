@@ -813,4 +813,5 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(predicate);
         filteredDashboard.setPredicate(predicate);
     }
+
 }
