@@ -23,7 +23,7 @@ public class TabBar extends UiPart<Region> {
     @FXML
     private TilePane tabBar;
 
-    public TabBar(OmniPanel omniPanel, Consumer<String> logicModelReset) {
+    public TabBar(OmniPanel omniPanel) {
         super("TabBar.fxml");
 
         Platform.runLater(() -> omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex)));
@@ -46,14 +46,12 @@ public class TabBar extends UiPart<Region> {
             default:
                 return;
             }
-            omniPanel.refreshOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
-            logicModelReset.accept("");
+            omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
             keyEvent.consume();
         });
 
         ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            logicModelReset.accept("");
-            omniPanel.refreshOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(mouseEvent.getTarget())));
+            omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(mouseEvent.getTarget())));
             tabBar.requestFocus();
         }));
     }

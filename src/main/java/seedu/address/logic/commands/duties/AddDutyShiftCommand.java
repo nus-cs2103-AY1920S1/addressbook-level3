@@ -38,9 +38,9 @@ public class AddDutyShiftCommand extends ReversibleCommand {
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
             + "[" + PREFIX_RECURSIVE_TIMES + "PREFIX_RECURSIVE_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + "S001A "
-            + PREFIX_START + "01/11/19 1800 "
-            + PREFIX_END + "01/11/19 1840 "
+            + PREFIX_ID + "STAFF001 "
+            + PREFIX_START + "01/12/19 0900 "
+            + PREFIX_END + "01/12/19 2100 "
             + PREFIX_RECURSIVE + "m "
             + PREFIX_RECURSIVE_TIMES + "2\n";
 

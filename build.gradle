@@ -10,7 +10,7 @@ plugins {
     id 'checkstyle'
     id 'com.github.kt3k.coveralls' version '2.8.4'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
-    id 'org.asciidoctor.convert' version '1.5.6'
+    id 'org.asciidoctor.jvm.convert' version '2.3.0'
     id 'application'
 }
 
@@ -58,8 +58,8 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
-    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.9'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.9'
 
     implementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
     implementation group: 'org.testfx', name: 'testfx-core', version: '4.0.16-alpha'
@@ -119,27 +119,22 @@ test {
 }
 
 asciidoctor {
-    backends 'html5'
-    sourceDir 'docs'
-    outputDir "${buildDir}/docs"
+    sourceDir file('docs')
+    outputDir file("${buildDir}/docs")
 
-    options = [
-        template_dirs: [file("${sourceDir}/templates")],
-    ]
+    options template_dirs: [file("${sourceDir}/templates")]
 
-    attributes = [
-        linkcss: true,
-        stylesheet: 'gh-pages.css',
-        'source-highlighter': 'coderay',
-        icons: 'font',
-        experimental: true,
-        sectlinks: true,
-        idprefix: '',  // for compatibility with GitHub preview
-        idseparator: '-',
-        'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'ClerkPro',
-        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T09-3/main'
-    ]
+    attributes linkcss: true,
+                stylesheet: 'gh-pages.css',
+                'source-highlighter': 'coderay',
+                icons: 'font',
+                experimental: true,
+                sectlinks: true,
+                idprefix: '',  // for compatibility with GitHub preview
+                idseparator: '-',
+                'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
+                'site-name': 'ClerkPro',
+                'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T09-3/main'
 
     options['template_dirs'].each {
         inputs.files fileTree(it)

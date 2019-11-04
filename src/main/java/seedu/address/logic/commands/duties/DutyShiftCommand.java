@@ -27,7 +27,7 @@ public class DutyShiftCommand extends NonActionableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose reference Id contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Optional parameters: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " S001A";
+            + "Example: " + COMMAND_WORD + " STAFF001";
 
     private final Predicate<Event> predicate;
 

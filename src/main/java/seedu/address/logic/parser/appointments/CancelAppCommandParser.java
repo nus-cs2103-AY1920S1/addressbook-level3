@@ -2,10 +2,10 @@
 package seedu.address.logic.parser.appointments;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_PATIENTLIST;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.commands.appointments.CancelAppCommand;
@@ -40,7 +40,7 @@ public class CancelAppCommandParser implements Parser<ReversibleActionPairComman
         Index index;
 
         if (!model.isListingAppointmentsOfSinglePatient()) {
-            throw new ParseException(Messages.MESSAGE_NOT_PATIENTLIST);
+            throw new ParseException(MESSAGE_NOT_PATIENTLIST);
         }
 
         try {
