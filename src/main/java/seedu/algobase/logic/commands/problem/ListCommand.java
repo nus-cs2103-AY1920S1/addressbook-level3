@@ -14,7 +14,7 @@ import seedu.algobase.model.ModelType;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "listprob";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": lists all problems in AlgoBase\n"
             + "Example: "

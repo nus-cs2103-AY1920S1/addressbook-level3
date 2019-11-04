@@ -47,51 +47,51 @@ public class FindCommandIntegrationTest {
 
     @Test
     public void find_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("find n/freedom trail d/video game diff/4.7-4.9 src/LeetCode");
+        logicManager.execute("findprob n/freedom trail d/video game diff/4.7-4.9 src/LeetCode");
         assertProcessedProblemListOfLength(logicManager, 1);
         assertFirstListedProblemOfName(logicManager, "Freedom Trail");
-        logicManager.execute("find n/sequences a/Tung Kam Chuen d/inversions");
+        logicManager.execute("findprob n/sequences a/Tung Kam Chuen d/inversions");
         assertProcessedProblemListOfLength(logicManager, 1);
         assertFirstListedProblemOfName(logicManager, "Sequences");
     }
 
     @Test
     public void find_name_caseInsensitive() throws CommandException, ParseException {
-        logicManager.execute("find n/Sequences");
+        logicManager.execute("findprob n/Sequences");
         assertProcessedProblemListOfLength(logicManager, 1);
         assertFirstListedProblemOfName(logicManager, "Sequences");
-        logicManager.execute("find n/SEquENCEs");
+        logicManager.execute("findprob n/SEquENCEs");
         assertProcessedProblemListOfLength(logicManager, 1);
         assertFirstListedProblemOfName(logicManager, "Sequences");
     }
 
     @Test
     public void find_name_oneWordMatch() throws CommandException, ParseException {
-        logicManager.execute("find n/freedom randomimpossibleword");
+        logicManager.execute("findprob n/freedom randomimpossibleword");
         assertProcessedProblemListOfLength(logicManager, 1);
         assertFirstListedProblemOfName(logicManager, "Freedom Trail");
-        logicManager.execute("find n/freedom sequences");
+        logicManager.execute("findprob n/freedom sequences");
         assertProcessedProblemListOfLength(logicManager, 2); // Should match both "Sequences" and "Freedom Trail"
     }
 
     @Test
     public void find_name_wordByWordMatch() throws CommandException, ParseException {
-        logicManager.execute("find n/Sequencess");
+        logicManager.execute("findprob n/Sequencess");
         assertProcessedProblemListOfLength(logicManager, 0);
-        logicManager.execute("find n/Sudoku Solver");
+        logicManager.execute("findprob n/Sudoku Solver");
         assertProcessedProblemListOfLength(logicManager, 1);
-        logicManager.execute("find n/SudokuSolver");
+        logicManager.execute("findprob n/SudokuSolver");
         assertProcessedProblemListOfLength(logicManager, 0);
     }
 
     @Test
     public void find_author_exactMatch() throws CommandException, ParseException {
-        logicManager.execute("find a/Wee Han");
+        logicManager.execute("findprob a/Wee Han");
         assertProcessedProblemListOfLength(logicManager, 1);
         assertFirstListedProblemOfAuthor(logicManager, "Wee Han");
-        logicManager.execute("find a/WeeHan");
+        logicManager.execute("findprob a/WeeHan");
         assertProcessedProblemListOfLength(logicManager, 0);
-        logicManager.execute("find a/wee han");
+        logicManager.execute("findprob a/wee han");
         assertProcessedProblemListOfLength(logicManager, 0);
     }
 
