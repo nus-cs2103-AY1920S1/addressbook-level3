@@ -20,7 +20,12 @@ I was responsible for writing the expense adding feature. This makes my role par
 ** *Justification:* This is important as it gives users the precise control over the people required to pay in each expense. In a real-world group activity scenario, it might not be the case that everyone is involved in every part of the activity that involves money. For example, one might go out for a meal with friends but opt out of buying dessert later.
 ** *Highlights:* The design of the `expense` command was particularly tricky due to the limitations of a CLI interface. The tough part was in trying to strike a balance between keeping the command simple enough to use yet provide enough flexibility for the user to specify various possible combinations of expense details. We went through various possible designs for the `expense` command and took the user experience into consideration for each case, before finally settling on the way the `expense` command is currently structured.
 
-* *Minor enhancement*: Added a backend `Context` class that allows for various application contexts and contextual behaviour for various commands.
+* *Minor enhancement*: Updated the `edit` command to only work when viewing a contact or activity
+** *What it does:* The `edit` command allows the user to modify certain fields of a contact or activity when viewing them. The original Address Book application already had the `edit` command built in, but its behaviour was modified to suit SplitWiser.
+** *Justification:* In the original Address Book application, the user was allowed to edit various fields by specifying the index of an item in the visible list, then specifying the respective fields to edit and update. However, this structure is not ideal anymore as our list user interface was updated to not show every field, meaning that the user would not be able to see what exactly was being edited. Thus, the decision was made to enable `edit` only when viewing an item as this reduces the risk of the user making unintentional edits.
+
+* *Minor enhancement*: Added a backend `Context` class that allows for various application contexts and contextual behaviour for various commands
+** *What it does:* The `Context` class keeps track of the current application context that the user is in. This `Context` object gets updated upon the execution of each command where necessary.
 
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=liakify&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Link to tP dashboard]
 * *Other contributions*:
