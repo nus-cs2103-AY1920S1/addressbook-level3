@@ -289,4 +289,18 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     public Iterator<VEvent> iterator() {
         return vEvents.iterator();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof EventRecord)) {
+            return false;
+        }
+
+        EventRecord otherEventRecord = (EventRecord) other;
+        return otherEventRecord.getVEventList().equals(this.getVEventList());
+    }
 }

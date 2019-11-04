@@ -1,6 +1,7 @@
 package seedu.address.model.event;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Represents a event in the njoy assistant
@@ -73,5 +74,32 @@ public class Event {
 
     public void setRecurrenceType(RecurrenceType rType) {
         this.recurrenceType = rType;
+    }
+
+    /**
+     * Returns true if both notes have the same note title and description.
+     * This defines a stronger notion of equality between two notes.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Event)) {
+            return false;
+        }
+        Event otherEvent = (Event) other;
+        return otherEvent.getEventName().equals(getEventName())
+                && otherEvent.getRecurrenceType().equals(getRecurrenceType())
+                && otherEvent.getUniqueIdentifier().equals(getUniqueIdentifier())
+                && otherEvent.getStartDateTime().equals(getStartDateTime())
+                && otherEvent.getEndDateTime().equals(getEndDateTime())
+                && otherEvent.getColorCategory().equals(getColorCategory());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(eventName, startDateTime, endDateTime, recurrenceType, colorCategory, uniqueIdentifier);
     }
 }
