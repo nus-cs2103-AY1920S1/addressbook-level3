@@ -62,7 +62,7 @@ public class BudgetCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
         }
         model.addBudget(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     @Override

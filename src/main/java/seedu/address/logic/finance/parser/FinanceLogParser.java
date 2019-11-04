@@ -17,13 +17,13 @@ import seedu.address.logic.finance.commands.FindCommand;
 import seedu.address.logic.finance.commands.HelpCommand;
 import seedu.address.logic.finance.commands.IncomeCommand;
 import seedu.address.logic.finance.commands.LendCommand;
+import seedu.address.logic.finance.commands.ListBudgetCommand;
 import seedu.address.logic.finance.commands.ListCommand;
 import seedu.address.logic.finance.commands.RepaidCommand;
 import seedu.address.logic.finance.commands.SpendCommand;
 import seedu.address.logic.finance.commands.StatsCommand;
 import seedu.address.logic.finance.commands.SwitchCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-
 
 /**
  * Parses user input.
@@ -90,6 +90,9 @@ public class FinanceLogParser {
 
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommandParser().parse(arguments);
+
+        case ListBudgetCommand.COMMAND_WORD:
+            return new ListBudgetCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

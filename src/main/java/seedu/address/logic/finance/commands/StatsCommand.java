@@ -59,7 +59,7 @@ public class StatsCommand extends Command {
         String message = "[STATISTIC]: "
                 + (summariseAttr.equalsIgnoreCase("freq") ? "No. of log entries " : "total amount ")
                 + "by " + groupBy.attr;
-        return new CommandResult(message, false, true, false);
+        return new CommandResult(message, false, true, false, false);
     }
 
     /**

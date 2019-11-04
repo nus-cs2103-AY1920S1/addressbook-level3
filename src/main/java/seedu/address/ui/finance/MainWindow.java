@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -33,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private LogEntryListPanel logEntryListPanel;
+    private BudgetListPanel budgetListPanel;
     private StatsGraphic statsGraphic;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -45,6 +47,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane logEntryListPanelPlaceholder;
+
+    @FXML
+    private StackPane budgetListPanelPlaceholder;
+
+    @FXML
+    private VBox budgetList;
 
     @FXML
     private StackPane statsGraphicPlaceholder;
@@ -115,6 +123,9 @@ public class MainWindow extends UiPart<Stage> {
         logEntryListPanel = new LogEntryListPanel(logic.getFilteredLogEntryList());
         logEntryListPanelPlaceholder.getChildren().add(logEntryListPanel.getRoot());
 
+        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
+        budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
+
         statsGraphic = new StatsGraphic(logic.getGraphicsData());
         statsGraphicPlaceholder.getChildren().add(statsGraphic.getRoot());
 
@@ -164,15 +175,26 @@ public class MainWindow extends UiPart<Stage> {
         statsGraphic = new StatsGraphic(logic.getGraphicsData());
         statsGraphicPlaceholder.getChildren().add(statsGraphic.getRoot());
         logEntryListPanelPlaceholder.setVisible(false);
+        budgetList.setVisible(false);
         statsGraphicPlaceholder.setVisible(true);
     }
 
     /**
      * Switch to view of list of log entries.
      */
-    public void hideStats() {
+    public void showLogEntries() {
+        budgetList.setVisible(false);
         statsGraphicPlaceholder.setVisible(false);
         logEntryListPanelPlaceholder.setVisible(true);
+    }
+
+    /**
+     * Switch to view of list of budgets.
+     */
+    public void showBudget() {
+        logEntryListPanelPlaceholder.setVisible(false);
+        statsGraphicPlaceholder.setVisible(false);
+        budgetList.setVisible(true);
     }
 
     /**
@@ -204,16 +226,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowStats()) {
                 showStats();
-            } else {
-                hideStats();
-            }
-
-            if (commandResult.isShowHelp()) {
+            } else if (commandResult.isShowBudget()) {
+                showBudget();
+            } else if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
+            } else {
+                showLogEntries();
             }
 
             return commandResult;

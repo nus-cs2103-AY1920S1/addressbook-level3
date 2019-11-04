@@ -55,6 +55,15 @@ public class Budget {
     }
 
     /**
+     * Returns whether budget is still within specified
+     * start and end dates.
+     */
+    public boolean isActive() {
+        Date currDate = new Date();
+        return currDate.after(endDate);
+    }
+
+    /**
      * Only budget types 'met', 'cat', 'place' are allowed
      */
     public static boolean isValidBudgetType(String budgetType) {

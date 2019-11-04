@@ -15,6 +15,7 @@ import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.GraphicsData;
 import seedu.address.model.finance.Model;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
+import seedu.address.model.finance.logentry.Budget;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.storage.finance.Storage;
 
@@ -65,6 +66,11 @@ public class LogicFinanceManager implements Logic {
     @Override
     public ObservableList<LogEntry> getFilteredLogEntryList() {
         return model.getFilteredLogEntryList();
+    }
+
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return model.getFilteredBudgetList();
     }
 
     public GraphicsData getGraphicsData() {
