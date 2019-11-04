@@ -23,13 +23,19 @@ It has >10k LOC.
 ** Details: The algorithm scales well to huge amounts of participants and expenses, and can be mathematically proved to always minimize the money everyone has to touch in order to settle all debts in the group. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/101[#101]
 ** Credits: https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[This paper].
 
-* *Major enhancement*: Update bindings for every command to mesh with the algorithm.
-** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/119[#119] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/120[#120] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/110[#110]
+* *Major enhancement*: Added a command to settle debts
+** What it does: The `settle` command helps users record settlements of debts after they pay each other in person.
+** Justification: It is a core feature to be able to record special payments between two people specifically to settle debts.
+** Details: The algorithm shows how much is owed. `settle` can either automatically settle all debts between two people, or settle a particular amount between two people. It also checks for valid settlements; so no settlement can make debts worse in accord with our philosophy of always simplifying debts. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/190[#190]
 
 * *Major enhancement*: Added persistent internal state for primary key tracking.
 ** What it does: It keeps track of important variables across startups of the application.
-** Justification: We require a unique identifier for every person and activity. This enables the tracking of who is in what activity easily. In essence, it is an ID for everthing.
-** Details: However this ID record for every object has to persist so that we don't end up assigning repeated IDs to different people/activities. We also need to perform validation on this data. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/80[#80] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/104[#104]
+** Justification: We require a unique identifier for every person and activity for the purpose of storing activities, contacts, etc. We need a way to store this across startups so it is unique.
+** Details: This ID record for every object has to persist so that we don't end up assigning repeated IDs to different people/activities. We also need to perform validation on this data. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/80[#80] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/104[#104]
+
+* *Major enhancement*: Update bindings for every command to mesh with the algorithm.
+** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/119[#119] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/120[#120] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/110[#110]
+
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 ** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/53[#53]
@@ -60,6 +66,7 @@ It has >10k LOC.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=settle]
 include::../UserGuide.adoc[tag=poweruser]
 
 == Contributions to the Developer Guide
