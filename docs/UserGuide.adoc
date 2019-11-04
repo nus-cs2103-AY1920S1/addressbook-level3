@@ -356,7 +356,7 @@ Format: `list-i`
 
 ****
 * The listing returns all incidents, inclusive of all drafts and submitted incident reports
-* All keywords and parameters used are ignored
+* Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
 ****
 
 Example usage and expected outcome:
@@ -420,12 +420,14 @@ image::findIncidentsCommandWithSelfParameter.png[]
 
 Examples:
 
-* `find-i id/0920160001` +
+* ID Match: `find-i id/0920160001` +
 Returns Incident #0920160001
-* `find-i op/Dave` +
-Returns any incidents whereby the operator's name contains 'Dave'
-* `find-i desc/fire` +
-Returns any incidents whereby the description contains 'fire'
+* Multiple Parameters: `find-i op/Dave desc/fire` +
+Returns any incidents whereby the operator's name contains 'Dave' and the description contains 'fire'
+* Multi-word Parameter Search: `find-i op/Alex Bernice` +
+Returns any incidents whereby the operator's name contains either 'Alex' or 'Bernice'
+* Self-Search: `find-i self` +
+Returns any incidents whereby the operator's name matches the logged-in operator's name
 
 === Editing an Incident: `edit-i`
 
