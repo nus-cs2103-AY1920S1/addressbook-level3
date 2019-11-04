@@ -32,6 +32,27 @@ of each data state change.
 
 Additionally, `LogicManager` and `Model` are modified to accommodate this functionality.
 
+.Shallow Copy vs Deep copy
+****
+* Performing a __shallow copy__ of an object simply copies the values of the
+references of each object the original object is pointing to. This results in the
+copied object pointing to the same objects as the original. In the figure below,
+`patientBook` and `copiedPatientBook` are separate `PatientBook` objects but actually
+share the same `patient` object. Changes to `patient` through `PatientBook` would thus
+affect `copiedPatientBook` as well.
+
+.Shallow copy
+image::shallow_copy.png[]
+
+* Performing a __deep copy__ creates duplicates of each object referenced by the original,
+the objects referenced by those duplicates, and so on. These duplicates are completely
+decoupled from their originals. In the figure below, `patient` is a different
+object from `copiedPatient`, thus changes to `patient` would not affect `copiedPatient`.
+
+.Deep copy
+image::deep_copy.png[]
+****
+
 ==== Model
 
 The following methods are added to the `Model` interface:
@@ -48,61 +69,89 @@ making them permanent and updating the UI data. The committing `MutatorCommand` 
 ===== Aspect: How to record the PatientBook and AppointmentBook states in the history
 
 * Alternative 1: Simply store references to `PatientBook` and `AppointmentBook`.
-** Pros: Easier to implement.
-** Cons: Relies on the assumption that the objects in `PatientBook` and `AddressBook`
+** Pros:
+*** Easier to implement.
+** Cons:
+*** Relies on the assumption that the objects in `PatientBook` and `AddressBook`
 are immutable; if they are not truly immutable, changes to the current model's
 `PatientBook` and `AddressBook` state may leak and affect the states stored in
 the history.
 
 * **Alternative 2 (current choice):** Defensively store deep copies of the `PatientBook` and `AppointmentBook`.
-** Pros: Prevents improperly coded `Patient` or `Appointment` (or their
-associated classes) from breaking undo/redo/history functionality. Can reuse
-JSON serialization code for persistent storage of `PatientBook` and `AppointmentBook`
-to perform deep copies by serializing then immediately deserializing them.
-** Cons: Consumes more memory and CPU time. More difficult to implement as
-MVC pattern between UI view and models is broken in two, due to the
-`ObservableList` observed by the UI being part of `ModelManager` as `ModelManager`
-has to modify the `ObservableList` each time the the current state is swapped with
-a state in the history.
+
+** Pros:
+*** Prevents improperly coded `Patient` or `Appointment` (or their
+associated classes) from breaking undo/redo/history functionality.
+*** Can reuse JSON serialization code for persistent storage of `PatientBook` and `AppointmentBook`
+to create deep copies by serializing then immediately deserializing them.
+
+** Cons:
+*** Consumes more memory and CPU time.
+*** More difficult to implement - MVC pattern between UI view and models is broken in
+two. This is because each time the current state is swapped with a state in the
+history by `ModelManager`, the `ObservableList` viewed by the UI must also be
+updated by the `ModelManager` instead of the `PatientBook` as the current
+`PatientBook` is completely decoupled and placed into the history.
 
 ===== Aspect: Which class to place the HistoryManager in
 
 * **Alternative 1 (current choice):** Make `HistoryManager` a field of `ModelManager`.
-** Pros: Ensures atomicity of the records in the history as pushing a transaction
+
+** Pros:
+*** Ensures atomicity of the records in the history as pushing a transaction
 to the `HistoryManager` can only be (and is always) done by `Model#commit()`
 itself - records in the history are guaranteed to be products of complete command
 execution rather than intermediate states.
-** Cons: More difficult to test `ModelManager` as two `ModelManager` objects may have
-the same current state but differing `HistoryManager` objects. May violate Single
-Responsibility Principle as `ModelManager` now has to manage both its current
-state and its previous states.
+
+** Cons:
+*** More difficult to test `ModelManager` as two `ModelManager` objects may have
+the same current state but differing `HistoryManager` objects.
+*** May violate Single Responsibility Principle as `ModelManager` now has to manage
+both its current state and its previous states.
 
 * Alternative 2: Make `HistoryManager` a field of `LogicManager`.
-** Pros: Higher cohesion as `ModelManager` only represents the model's current state.
-Easier to test `ModelManager` as only its current state matters.
-** Cons: It is possible for intermediate model states to be pushed to the `HistoryManager` -
+
+** Pros:
+*** Higher cohesion as `ModelManager` only represents the model's current state.
+*** Easier to test `ModelManager` as only its current state matters.
+
+** Cons:
+*** It is possible for intermediate model states to be pushed to the `HistoryManager` -
 trusts `LogicManager` to push the transaction to history after (and only
-after) calling `Model#commit()`. Requires `Command#execute()` to accept
-`HistoryManager` as a parameter just so `UndoCommand` and `RedoCommand` can
-work even though the vast majority of commands do not require it.
+after) calling `Model#commit()`.
+*** Requires `Command#execute()` to accept `HistoryManager` as a parameter just so
+`UndoCommand` and `RedoCommand` can work even though the vast majority of commands do not require it.
+
+==== Logic
+
+
 
 ==== UI
 
 The command history is constantly displayed in a panel on the right side of
 the app. This `HistoryPanel` uses `HistoryRecordCard` s to display the
-user-input text that invoked each command.
+user-input text that invoked each command. It is a view of the `ObservableList<HistoryRecord>`
+returned by `HistoryManager#asUnmodifiableObservableList()`.
 
 ==== UI Design Considerations
 
 ===== Aspect: Where to display the history
 
 * **Alternative 1 (current choice):** Permanently display it in a dedicated panel.
-** Pros: User does not have to execute a 'history' command to view the history,
+
+** Pros:
+*** User does not have to execute a 'history' command to view the history,
 making it much easier to use the multiple undo function.
-** Cons: Takes up more space in the UI.
+
+** Cons:
+*** Takes up more space in the UI.
 
 * Alternative 2: Display it as a tab in the `TabPane`.
-** Pros: Saves space in the UI.
-** Cons: User has to switch to the history tab to view it. Less intuitive
-UX as the other tabs in the `TabPane` all display actual data such as
-`Patient`, `Visit`, and `Appointment` info, whereas history is app metadata.
+
+** Pros:
+*** Saves space in the UI.
+
+** Cons:
+*** User has to switch to the history tab to view it.
+*** Less intuitive UX as the other tabs in the `TabPane` all display actual data
+such as `Patient`, `Visit`, and `Appointment` info, whereas history is app metadata.
