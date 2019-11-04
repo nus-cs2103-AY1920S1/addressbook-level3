@@ -37,8 +37,8 @@ public class DisplayScheduleBetweenParser implements Parser<DisplayScheduleBetwe
                     DisplayScheduleBetweenCommand.MESSAGE_USAGE));
         }
 
-        EventDate start = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_SCHEDULE_START).get());
-        EventDate end = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_SCHEDULE_END).get());
+        EventDate start = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_SCHEDULE_START).get());
+        EventDate end = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_SCHEDULE_END).get());
 
         return new DisplayScheduleBetweenCommand(
                 new EventContainsKeyDateRangePredicate(start.getDate(), end.getDate()));

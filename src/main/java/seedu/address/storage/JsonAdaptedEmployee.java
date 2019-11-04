@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.employee.EmployeeAddress;
@@ -139,7 +140,7 @@ class JsonAdaptedEmployee {
                     EmployeeJoinDate.class.getSimpleName()));
         }
         if (!EmployeeJoinDate.isValidJoinDate(joindate)) {
-            throw new IllegalValueException(EmployeeJoinDate.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(String.format(Messages.MESSAGE_DATE_INVALID, joindate));
         }
         LocalDate newJoinDate = LocalDate.parse(joindate, FORMATTER);
         final EmployeeJoinDate modelEmployeeJoinDate = new EmployeeJoinDate(newJoinDate);

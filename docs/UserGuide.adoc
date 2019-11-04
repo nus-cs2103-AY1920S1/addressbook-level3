@@ -129,7 +129,7 @@ Employee Format: `add_em n/NAME g/GENDER p/POSITION no/PHONE e/EMAIL a/ADDRESS o
 [IMPORTANT]
 GENDER is strictly either 'male' or 'female' only (Case-Insensitive). +
 EMAIL has to be a valid email. +
-JOIN_DATE is of the format `DD/MM/YYYY`.
+JOIN_DATE is of the format `DD/MM/YYYY` and must be a valid Calendar Date from the last 10 years.
 
 [CAUTION]
 You cannot add an employee whose identity is identical to someone already inside the EmployeeBook. +
