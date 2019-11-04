@@ -203,7 +203,27 @@ public class SampleDataUtil {
                                 getTagSet("New")),
                         new Price("$1200"),
                         Status.CANCELLED,
-                        Optional.of(sampleSchedule3()), getTagSet("New"))
+                        Optional.of(sampleSchedule3()), getTagSet("New")),
+                new Order(UUID.randomUUID(),
+                        new Customer(new CustomerName("Tao Nan"), new ContactNumber("12345678"),
+                                new Email("TaoNan@example.com"), getTagSet("bigCustomer")),
+                        new Phone(new IdentityNumber("352039475644270"),
+                                new SerialNumber("2ncs89ma"), new PhoneName("Galaxy apollo 20"), new Brand("NotApple"),
+                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$900.02"),
+                                getTagSet("New")),
+                        new Price("$1911.32"),
+                        Status.COMPLETED,
+                        Optional.of(sampleSchedule4(01,23)), getTagSet("New")),
+                new Order(UUID.randomUUID(),
+                        new Customer(new CustomerName("Tao tan"), new ContactNumber("01234323"),
+                                new Email("Taotan@example.com"), getTagSet("smallCustomer")),
+                        new Phone(new IdentityNumber("182043475644270"),
+                                new SerialNumber("2ncs90ma"), new PhoneName("Galaxy apollo 19"), new Brand("NotApple"),
+                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$800.10"),
+                                getTagSet("New")),
+                        new Price("$2900.32"),
+                        Status.COMPLETED,
+                        Optional.of(sampleSchedule4(04,15)), getTagSet("New")),
 
         };
     }
@@ -239,6 +259,19 @@ public class SampleDataUtil {
                 new Venue("test venue"),
                 getTagSet("New"));
     }
+
+    /**
+     *Return sample Schedule object
+     */
+    private static Schedule sampleSchedule4(int month, int day) {
+        return new Schedule(
+                UUID.randomUUID(),
+                new Calendar.Builder().setDate(2019, month, day).build(),
+                new Venue("test venue"),
+                getTagSet("New"));
+    }
+
+
 
 
 
