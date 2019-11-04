@@ -2,7 +2,6 @@ package seedu.algobase.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.tag.Tag;
@@ -31,16 +30,6 @@ class JsonAdaptedTag {
     public JsonAdaptedTag(Tag source) {
         this.tagName = source.getName();
         this.tagColor = source.getColor();
-    }
-
-    @JsonValue
-    public String getTagName() {
-        return tagName;
-    }
-
-    @JsonValue
-    public String getTagColor() {
-        return tagColor;
     }
 
     /**
