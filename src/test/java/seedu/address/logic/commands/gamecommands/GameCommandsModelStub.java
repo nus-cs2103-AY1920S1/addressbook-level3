@@ -30,7 +30,7 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -45,7 +45,7 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -55,7 +55,7 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void setWordBankFilePath(Path addressBookFilePath) {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -65,7 +65,7 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void updateWordBank(String name) {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -75,17 +75,17 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void setWordBankStatistics(WordBankStatistics wordBankStats) {
-
+        // Stub method that is not used.
     }
 
     @Override
     public void clearWordBankStatistics() {
-
+        // Stub method that is not used.
     }
 
     @Override
     public void clearWordBank() {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -100,17 +100,17 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void deleteCard(Card target) {
-
+        // Stub method that is not used.
     }
 
     @Override
     public void addCard(Card card) {
-
+        // Stub method that is not used.
     }
 
     @Override
     public void setCard(Card target, Card editedCard) {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -135,7 +135,7 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -185,7 +185,7 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void setDefaultDifficulty(DifficultyEnum difficultyEnum) {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -195,7 +195,7 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void setDefaultTheme(ThemeEnum themeEnum) {
-
+        // Stub method that is not used.
     }
 
     @Override
@@ -205,7 +205,7 @@ class GameCommandsModelStub implements Model {
 
     @Override
     public void setHintsEnabled(boolean enabled) {
-
+        // Stub method that is not used.
     }
 
     @Override

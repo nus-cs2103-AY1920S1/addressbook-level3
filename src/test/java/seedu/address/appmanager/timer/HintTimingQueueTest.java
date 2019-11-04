@@ -41,7 +41,7 @@ class HintTimingQueueTest {
     }
 
     @Test
-    void pollNextTimeToUpdate() {
+    public void pollNextTimeToUpdate() {
         HintTimingQueue testQueue = new HintTimingQueue(7, 5000);
         long expectedDelta = (long) (DifficultyEnum.EASY.getTimeAllowedPerQuestion() * 0.75) / (7 - 1);
         Queue<Long> expectedTimings = new LinkedList<>();

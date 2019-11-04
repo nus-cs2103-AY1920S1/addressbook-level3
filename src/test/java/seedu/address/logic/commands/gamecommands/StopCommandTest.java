@@ -27,12 +27,12 @@ class StopCommandTest {
     private Model dummyModel;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         dummyModel = new GameCommandsModelStub();
     }
 
     @Test
-    void execute_gameAlreadyOver_throwsCommandException() {
+    public void execute_gameAlreadyOver_throwsCommandException() {
         Game dummyGame = new Game(dittoCharizardWordbank, x -> {}, DifficultyEnum.EASY);
         dummyGame.forceStop();
         dummyModel.setGame(dummyGame);
@@ -47,7 +47,7 @@ class StopCommandTest {
     }
 
     @Test
-    void execute_gameNotOver_success() {
+    public void execute_gameNotOver_success() {
         Game dummyGame = new Game(dittoCharizardWordbank, x -> {}, DifficultyEnum.EASY);
         dummyModel.setGame(dummyGame);
         try {

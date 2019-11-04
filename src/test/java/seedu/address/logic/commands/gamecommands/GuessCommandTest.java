@@ -31,7 +31,7 @@ class GuessCommandTest {
     private Model dummyModel;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         WordBankBuilder wordBankBuilder = new WordBankBuilder("GuessCommandTestBank");
         wordBankBuilder.withCard(DITTO);
         wordBankBuilder.withCard(CHARIZARD);
@@ -40,7 +40,7 @@ class GuessCommandTest {
     }
 
     @Test
-    void execute_gameIsNull_throwsCommandException() {
+    public void execute_gameIsNull_throwsCommandException() {
         dummyModel.setGame(null);
         try {
             new GuessCommand(charizardGuess).execute(dummyModel);
@@ -52,7 +52,7 @@ class GuessCommandTest {
     }
 
     @Test
-    void execute_gameIsAlreadyOver_throwsCommandException() {
+    public void execute_gameIsAlreadyOver_throwsCommandException() {
         Game dummyGame = new Game(dittoCharizardWordBank, cardsToShuffle -> {}, DifficultyEnum.EASY);
         dummyGame.forceStop();
         dummyModel.setGame(dummyGame);
@@ -66,7 +66,7 @@ class GuessCommandTest {
     }
 
     @Test
-    void execute_isLastCard_correctGuessSuccess() {
+    public void execute_isLastCard_correctGuessSuccess() {
         Game dummyGame = new Game(dittoCharizardWordBank, cardsToShuffle -> {}, DifficultyEnum.EASY);
         dummyModel.setGame(dummyGame);
         try {
@@ -81,7 +81,7 @@ class GuessCommandTest {
     }
 
     @Test
-    void execute_isLastCard_wrongGuessSuccess() {
+    public void execute_isLastCard_wrongGuessSuccess() {
         Game dummyGame = new Game(dittoCharizardWordBank, cardsToShuffle -> {}, DifficultyEnum.EASY);
         dummyModel.setGame(dummyGame);
         try {
@@ -96,7 +96,7 @@ class GuessCommandTest {
     }
 
     @Test
-    void execute_notLastCard_wrongGuessSuccess() {
+    public void execute_notLastCard_wrongGuessSuccess() {
         Game dummyGame = new Game(dittoCharizardWordBank, cardsToShuffle -> {}, DifficultyEnum.EASY);
         dummyModel.setGame(dummyGame);
         try {
@@ -110,7 +110,7 @@ class GuessCommandTest {
     }
 
     @Test
-    void execute_notLastCard_correctGuessSuccess() {
+    public void execute_notLastCard_correctGuessSuccess() {
         Game dummyGame = new Game(dittoCharizardWordBank, cardsToShuffle -> {}, DifficultyEnum.EASY);
         dummyModel.setGame(dummyGame);
         try {
@@ -124,7 +124,7 @@ class GuessCommandTest {
     }
 
     @Test
-    void constructor_nullGuess_throwsNullPointerException() {
+    public void constructor_nullGuess_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new GuessCommand(null));
     }
 

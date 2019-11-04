@@ -27,7 +27,7 @@ class SkipCommandTest {
                     .withCard(DITTO).withCard(CHARIZARD).build();
 
     @Test
-    void execute_gameIsNull_throwsCommandException() {
+    public void execute_gameIsNull_throwsCommandException() {
         Model dummyModel = new GameCommandsModelStub();
         assertThrows(CommandException.class, () -> new SkipCommand().execute(dummyModel));
 
@@ -41,7 +41,7 @@ class SkipCommandTest {
     }
 
     @Test
-    void execute_gameIsOver_throwsCommandException() {
+    public void execute_gameIsOver_throwsCommandException() {
         Model dummyModel = new GameCommandsModelStub();
         Game dummyGame = new Game(dittoCharizardWordbank, x -> {}, DifficultyEnum.EASY);
         dummyGame.forceStop();
@@ -58,7 +58,7 @@ class SkipCommandTest {
     }
 
     @Test
-    void execute_notLastCard_success() {
+    public void execute_notLastCard_success() {
         Model dummyModel = new GameCommandsModelStub();
         Game dummyGame = new Game(dittoCharizardWordbank, x -> {}, DifficultyEnum.EASY);
         dummyModel.setGame(dummyGame);
@@ -76,7 +76,7 @@ class SkipCommandTest {
     }
 
     @Test
-    void execute_isLastCard_success() {
+    public void execute_isLastCard_success() {
         Model dummyModel = new GameCommandsModelStub();
         Game dummyGame = new Game(dittoCharizardWordbank, x -> {}, DifficultyEnum.EASY);
         dummyGame.moveToNextCard();
