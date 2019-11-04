@@ -423,10 +423,6 @@ and sort the reimbursements.
 
 * All reimbursements shown in the Reimbursement Tab are outstanding and have not been paid. Completed reimbursements will not be displayed.
 
-
-[WARNING]
-Due to size limitations, a large number may be truncated when shown in the table. +
-To avoid this, you are advised to key in a number smaller than 10,000.
 ====
 
 [NOTE]
@@ -437,6 +433,9 @@ for their expenditure.
 ==== Adding Deadline to a Reimbursement:
 
 This command allows you to add a deadline to a person's reimbursement.
+
+[WARNING]
+You can set the deadline as any day you want. It is your responsibility to set a reasonable deadline.
 
 * Command: `deadline p/NAME dt/dd-mmm-yyyy`
 * Example: `deadline p/Alex Yeoh dt/19-Dec-2019`
