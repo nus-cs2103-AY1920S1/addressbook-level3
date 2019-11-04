@@ -5,12 +5,13 @@
 
 == _Project: Dukemon_ image:address_book_32.png[icon, 39, 36]
 
-
 ---
 
-== *Overview of Dukemon*
+_Github Repo:_ https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]
 
-.HomePage of Dukemon when first starting up.
+== *Overview of Dukemon* image:address_book_32.png[icon, 39, 36]
+
+.The Home Page of Dukemon upon initial start-up.
 image::Ui.png[width="790"]
 *_Dukemon_* is a desktop app intended as a fun study tool. It is a CLI-centric
 (_Command Line Interface_) app that expands upon the idea of Flashcards to aid
@@ -20,8 +21,15 @@ learning in a fun and exciting way. The main program flow of *_Dukemon_* is as
 1. User creates a _WordBank_.
 2. User creates _Cards_ that have a _Word_ and _Meaning_ each.
 3. User populates his _WordBank_ with such _Cards_.
-4. User starts the _Game_ and tries to match _Meanings_ with _Words_.
+4. User starts the _Game_ and tries to match _Meanings_ with _Words_ within a certain Time.
 5. User completes the _Game_ and reviews his performance _Statistics_.
+
+Developed by my team and I, *_Dukemon_* transforms the basic concept of _Flashcards_
+into an exciting and engaging game-like app through features such as _automatic Hints_, _Statistics_
+and so much more. +
+ +
+Below are some *highlights* of the important contributions that I have made to the
+development of *_Dukemon_*.
 
 == Contributions - Summary image:work-icon.png[width=50]
 
@@ -63,7 +71,7 @@ the _Timer_ effectively.
 *** https://github.com/junit-team/junit5[JUnit5] (Testing)
 
 ** [underline]#_Credits_# _(People)_:
-*** Jason (@jascxx) for the bug resolution when aborting timer.
+*** Jason (@jascxx) for the bug resolution and implementation of `Cards`.
 *** Paul (@dragontho) for integration of Hints and Questions with UI.
 
 
@@ -134,6 +142,8 @@ include::../UserGuide.adoc[tag=yida-game]
 |===
 
 include::../DeveloperGuide.adoc[tag=yida-design]
+
+include::../DeveloperGuide.adoc[tag=yida-AppManager]
 
 include::../DeveloperGuide.adoc[tag=yida-game]
 
