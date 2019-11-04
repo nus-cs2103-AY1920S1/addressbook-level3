@@ -431,13 +431,10 @@ Returns any incidents whereby the description contains 'fire'
 Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
-<<<<<<< HEAD
 ****
 ** If an index is not provided, system will prompt for index. Does not make any edits.
-=======
 [NOTE]
 Use `edit-i` to list all submitted reports
->>>>>>> c875d89e0304a16b76f12a7ad651efb394cb2df1
 
 ** Only admins can edit all reports, other users are only allowed to edit the reports they created.
 ** Number of fields provided for update is optional and can vary.
