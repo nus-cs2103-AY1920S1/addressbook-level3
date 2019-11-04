@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.findcommandparser.FindCommandUtilEnum;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Location;
@@ -227,4 +229,63 @@ public class AlfredParserUtilTest {
         assertThrows(ParseException.class, () -> AlfredParserUtil.getArgumentsFromCommand(SAMPLE_INVALID_COMMAND));
     }
 
+    @Test
+    void getFindType_noType_success() throws ParseException {
+        assertEquals(FindCommandUtilEnum.AND, AlfredParserUtil.getFindType("heeehee"));
+    }
+
+    @Test
+    void getFindType_or_success() throws ParseException {
+        assertEquals(FindCommandUtilEnum.OR, AlfredParserUtil.getFindType("OR haha"));
+    }
+
+    @Test
+    void getFindType_both_throwsException() throws ParseException {
+        assertThrows(ParseException.class, () -> AlfredParserUtil.getFindType("AND eat OR shit"));
+    }
+
+    @Test
+    void getExcludeString_normal_success() throws ParseException {
+        assertEquals("yoyo", AlfredParserUtil.getExcludeString("haha EXCLUDE yoyo"));
+    }
+
+    @Test
+    void getExcludeString_noExclude_emptyString() throws ParseException {
+        assertEquals("", AlfredParserUtil.getExcludeString("nani"));
+    }
+
+    @Test
+    void getExcludeString_doubleExclude_error() throws ParseException {
+        assertThrows(ParseException.class, () -> AlfredParserUtil.getExcludeString(
+                "DAMITH EXCLUDE DAMITH EXCLUDE DAMITH"));
+    }
+
+    @Test
+    void getExcludeString_andInExclude_error() throws ParseException {
+        assertThrows(ParseException.class, () -> AlfredParserUtil.getExcludeString(
+                "DAMITH EXCLUDE DAMITH AND damith is love"
+        ));
+    }
+
+    @Test
+    void isFindTypeAtStart_noAndOrOr_success() throws ParseException {
+        assertDoesNotThrow(() -> AlfredParserUtil.isFindTypeAtStart("nice to meet you"));
+    }
+
+    @Test
+    void isFindTypeAtStart_andAtStart_success() throws ParseException {
+        assertDoesNotThrow(() -> AlfredParserUtil.isFindTypeAtStart("AND where you been"));
+    }
+
+    @Test
+    void isFindTypeAtStart_orAtStart_success() throws ParseException {
+        assertDoesNotThrow(() -> AlfredParserUtil.isFindTypeAtStart(" OR i could show "
+                + "you incredible things"));
+    }
+
+    @Test
+    void isFindTypeAtStart_andInMiddle_error() throws ParseException {
+        assertThrows(ParseException.class, () -> AlfredParserUtil.isFindTypeAtStart(" magic madness "
+                + "AND heaven sin"));
+    }
 }

@@ -16,7 +16,11 @@ public class FindTeamCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         assertParseSuccess(findTeamParser, "team n/ifje",
-                new FindTeamCommand(Optional.of("ifje"),
+                new FindTeamCommand(
+                        FindCommandUtilEnum.AND,
+                        Optional.of("ifje"),
+                        Optional.empty(),
+                        Optional.empty(),
                         Optional.empty()));
     }
 

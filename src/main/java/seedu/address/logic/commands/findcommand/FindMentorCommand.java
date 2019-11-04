@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.Predicates;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.parser.findcommandparser.FindCommandUtilEnum;
 import seedu.address.model.Model;
 import seedu.address.model.entity.CommandType;
 import seedu.address.model.entity.Mentor;
@@ -26,41 +27,71 @@ public class FindMentorCommand extends FindCommand {
             + "Example: " + COMMAND_WORD + " n/John Doe";
     public static final String MESSAGE_SUCCESS = "Successfully ran the find command.";
 
-    private String name;
-    private String email;
-    private String phone;
-    private String organization;
+    private String nameNorm;
+    private String emailNorm;
+    private String phoneNorm;
+    private String organizationNorm;
+    private String nameExclude;
+    private String emailExcude;
+    private String phoneExclude;
+    private String organizationExclude;
     private Predicate<Mentor> findPredicate;
 
     public FindMentorCommand(
-            Optional<String> name,
-            Optional<String> email,
-            Optional<String> phone,
-            Optional<String> organization
+            FindCommandUtilEnum type,
+            Optional<String> nameNorm,
+            Optional<String> emailNorm,
+            Optional<String> phoneNorm,
+            Optional<String> organizationNorm,
+            Optional<String> nameExclude,
+            Optional<String> emailExclude,
+            Optional<String> phoneExclude,
+            Optional<String> organizationExclude
     ) {
         List<Predicate<Mentor>> filterPredicates = new ArrayList<>();
-        if (name.isPresent()) {
-            filterPredicates.add(Predicates.getPredicateFindMentorByName(name.get()));
+        if (nameNorm.isPresent()) {
+            filterPredicates.add(Predicates.getPredicateFindMentorByName(nameNorm.get(), false));
         }
 
-        if (phone.isPresent()) {
-            filterPredicates.add(Predicates.getPredicateFindMentorByPhone(phone.get()));
+        if (phoneNorm.isPresent()) {
+            filterPredicates.add(Predicates.getPredicateFindMentorByPhone(phoneNorm.get(), false));
         }
 
-        if (email.isPresent()) {
-            filterPredicates.add(Predicates.getPredicateFindMentorByEmail(email.get()));
+        if (emailNorm.isPresent()) {
+            filterPredicates.add(Predicates.getPredicateFindMentorByEmail(emailNorm.get(), false));
         }
 
-        if (organization.isPresent()) {
+        if (organizationNorm.isPresent()) {
             filterPredicates.add(
-                    Predicates.getPredicateFindMentorByOrganization(organization.get()));
+                    Predicates.getPredicateFindMentorByOrganization(organizationNorm.get(), false));
+        }
+
+        if (nameExclude.isPresent()) {
+            filterPredicates.add(Predicates.getPredicateFindMentorByName(nameExclude.get(), true));
+        }
+
+        if (phoneExclude.isPresent()) {
+            filterPredicates.add(Predicates.getPredicateFindMentorByPhone(phoneExclude.get(), true));
+        }
+
+        if (emailExclude.isPresent()) {
+            filterPredicates.add(Predicates.getPredicateFindMentorByEmail(emailExclude.get(), true));
+        }
+
+        if (organizationExclude.isPresent()) {
+            filterPredicates.add(
+                    Predicates.getPredicateFindMentorByOrganization(organizationExclude.get(), true));
         }
 
         this.findPredicate = Predicates.predicateReducer(filterPredicates);
-        this.name = name.orElse("");
-        this.email = email.orElse("");
-        this.phone = phone.orElse("");
-        this.organization = organization.orElse("");
+        this.nameNorm = nameNorm.orElse("");
+        this.emailNorm = emailNorm.orElse("");
+        this.phoneNorm = phoneNorm.orElse("");
+        this.organizationNorm = organizationNorm.orElse("");
+        this.nameExclude = nameExclude.orElse("");
+        this.emailExcude = emailExclude.orElse("");
+        this.phoneExclude = phoneExclude.orElse("");
+        this.organizationExclude = organizationExclude.orElse("");
     }
 
     @Override
@@ -84,9 +115,13 @@ public class FindMentorCommand extends FindCommand {
             return false;
         }
 
-        return name.equals(((FindMentorCommand) otherFindCommand).name)
-                && email.equals(((FindMentorCommand) otherFindCommand).email)
-                && phone.equals(((FindMentorCommand) otherFindCommand).phone)
-                && organization.equals(((FindMentorCommand) otherFindCommand).organization);
+        return nameNorm.equals(((FindMentorCommand) otherFindCommand).nameNorm)
+                && emailNorm.equals(((FindMentorCommand) otherFindCommand).emailNorm)
+                && phoneNorm.equals(((FindMentorCommand) otherFindCommand).phoneNorm)
+                && organizationNorm.equals(((FindMentorCommand) otherFindCommand).organizationNorm)
+                && nameExclude.equals(((FindMentorCommand) otherFindCommand).nameExclude)
+                && emailExcude.equals(((FindMentorCommand) otherFindCommand).emailExcude)
+                && phoneExclude.equals(((FindMentorCommand) otherFindCommand).phoneExclude)
+                && organizationExclude.equals(((FindMentorCommand) otherFindCommand).organizationExclude);
     }
 }

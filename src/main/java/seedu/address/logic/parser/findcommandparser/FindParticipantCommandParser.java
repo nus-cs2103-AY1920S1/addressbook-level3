@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import java.util.Optional;
 
 import seedu.address.logic.commands.findcommand.FindParticipantCommand;
+import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -25,21 +26,39 @@ public class FindParticipantCommandParser implements Parser<FindParticipantComma
      * @throws ParseException if the user input does not conform to the expected format
      */
     public FindParticipantCommand parse(String args) throws ParseException {
-        ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE);
+        FindCommandUtilEnum type = AlfredParserUtil.getFindType(args);
+        // Add space for ArgumentTokenizer to work correctly
+        String andOrString = " " + AlfredParserUtil.getAndOrString(args);
+        String excludeString = " " + AlfredParserUtil.getExcludeString(args);
 
-        Optional<String> name = argumentMultimap.getValue(PREFIX_NAME);
-        Optional<String> email = argumentMultimap.getValue(PREFIX_EMAIL);
-        Optional<String> phone = argumentMultimap.getValue(PREFIX_PHONE);
+        ArgumentMultimap argumentMultimapNorm =
+                ArgumentTokenizer.tokenize(andOrString, PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE);
+        ArgumentMultimap argumentMultimapExclude =
+                ArgumentTokenizer.tokenize(excludeString, PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE);
+
+        Optional<String> nameNorm = argumentMultimapNorm.getValue(PREFIX_NAME);
+        Optional<String> emailNorm = argumentMultimapNorm.getValue(PREFIX_EMAIL);
+        Optional<String> phoneNorm = argumentMultimapNorm.getValue(PREFIX_PHONE);
+
+        // Get the negative strings here
+        Optional<String> nameExclude = argumentMultimapExclude.getValue(PREFIX_NAME);
+        Optional<String> emailExclude = argumentMultimapExclude.getValue(PREFIX_EMAIL);
+        Optional<String> phoneExclude = argumentMultimapExclude.getValue(PREFIX_PHONE);
 
         // If no prefixes given, we will throw an error later
-        boolean allPrefixesEmpty = name.isEmpty() && email.isEmpty() && phone.isEmpty();
+        boolean allPrefixesEmpty = nameNorm.isEmpty() && emailNorm.isEmpty()
+                && phoneNorm.isEmpty() && nameExclude.isEmpty()
+                && emailExclude.isEmpty() && phoneExclude.isEmpty();
 
         if (allPrefixesEmpty) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindParticipantCommand.MESSAGE_USAGE));
         }
 
-        return new FindParticipantCommand(name, email, phone);
+        // Checks the position of the AND/OR
+        AlfredParserUtil.isFindTypeAtStart(args.trim().substring("participant".length()));
+
+        return new FindParticipantCommand(type, nameNorm, emailNorm, phoneNorm,
+            nameExclude, emailExclude, phoneExclude);
     }
 }

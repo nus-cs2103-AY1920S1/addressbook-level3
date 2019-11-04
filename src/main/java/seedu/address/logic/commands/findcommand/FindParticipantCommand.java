@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.Predicates;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.parser.findcommandparser.FindCommandUtilEnum;
 import seedu.address.model.Model;
 import seedu.address.model.entity.CommandType;
 import seedu.address.model.entity.Participant;
@@ -26,37 +27,65 @@ public class FindParticipantCommand extends FindCommand {
             + "Example: " + COMMAND_WORD + " n/John Doe";
     public static final String MESSAGE_SUCCESS = "Successfully ran the find command.";
 
-    private String name;
-    private String email;
-    private String phone;
+    private String nameNorm;
+    private String emailNorm;
+    private String phoneNorm;
+    private String nameExclude;
+    private String emailExclude;
+    private String phoneExclude;
     private Predicate<Participant> findPredicate;
 
     public FindParticipantCommand(
-            Optional<String> name,
-            Optional<String> email,
-            Optional<String> phone
+            FindCommandUtilEnum type,
+            Optional<String> nameNorm,
+            Optional<String> emailNorm,
+            Optional<String> phoneNorm,
+            Optional<String> nameExclude,
+            Optional<String> emailExclude,
+            Optional<String> phoneExclude
     ) {
         List<Predicate<Participant>> filterPredicates = new ArrayList<>();
-        if (name.isPresent()) {
+        if (nameNorm.isPresent()) {
             filterPredicates.add(
-                    Predicates.getPredicateFindParticipantByName(name.get()));
+                    Predicates.getPredicateFindParticipantByName(nameNorm.get(), false));
         }
 
-        if (email.isPresent()) {
+        if (emailNorm.isPresent()) {
             filterPredicates.add(
-                    Predicates.getPredicateFindParticipantByEmail(email.get()));
+                    Predicates.getPredicateFindParticipantByEmail(emailNorm.get(), false));
         }
 
-        if (phone.isPresent()) {
+        if (phoneNorm.isPresent()) {
             filterPredicates.add(
-                    Predicates.getPredicateFindParticipantByPhone(phone.get()));
+                    Predicates.getPredicateFindParticipantByPhone(phoneNorm.get(), false));
         }
 
-        this.findPredicate = Predicates.predicateReducer(filterPredicates);
-        this.name = name.orElse("");
-        this.email = email.orElse("");
-        this.phone = email.orElse("");
-        this.phone = email.orElse("");
+        if (nameExclude.isPresent()) {
+            filterPredicates.add(
+                    Predicates.getPredicateFindParticipantByName(nameNorm.get(), true));
+        }
+
+        if (emailExclude.isPresent()) {
+            filterPredicates.add(
+                    Predicates.getPredicateFindParticipantByEmail(emailNorm.get(), true));
+        }
+
+        if (phoneExclude.isPresent()) {
+            filterPredicates.add(
+                    Predicates.getPredicateFindParticipantByPhone(phoneNorm.get(), true));
+        }
+
+        this.findPredicate = type == FindCommandUtilEnum.AND
+                ? Predicates.predicateReducer(filterPredicates)
+                : Predicates.predicateReducerOr(filterPredicates);
+
+        this.nameNorm = nameNorm.orElse("");
+        this.emailNorm = emailNorm.orElse("");
+        this.phoneNorm = emailNorm.orElse("");
+        this.phoneNorm = emailNorm.orElse("");
+        this.nameExclude = nameExclude.orElse("");
+        this.emailExclude = emailExclude.orElse("");
+        this.phoneExclude = phoneExclude.orElse("");
     }
 
     @Override
@@ -80,8 +109,11 @@ public class FindParticipantCommand extends FindCommand {
             return false;
         }
 
-        return name.equals(((FindParticipantCommand) otherFindCommand).name)
-                && email.equals(((FindParticipantCommand) otherFindCommand).email)
-                && phone.equals(((FindParticipantCommand) otherFindCommand).phone);
+        return nameNorm.equals(((FindParticipantCommand) otherFindCommand).nameNorm)
+                && emailNorm.equals(((FindParticipantCommand) otherFindCommand).emailNorm)
+                && phoneNorm.equals(((FindParticipantCommand) otherFindCommand).phoneNorm)
+                && nameExclude.equals(((FindParticipantCommand) otherFindCommand).nameExclude)
+                && emailExclude.equals(((FindParticipantCommand) otherFindCommand).emailExclude)
+                && phoneExclude.equals(((FindParticipantCommand) otherFindCommand).phoneExclude);
     }
 }

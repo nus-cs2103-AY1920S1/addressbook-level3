@@ -16,7 +16,12 @@ public class FindMentorCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         assertParseSuccess(findMentorParser, "participant n/ifje",
-                new FindMentorCommand(Optional.of("ifje"),
+                new FindMentorCommand(FindCommandUtilEnum.AND,
+                        Optional.of("ifje"),
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.empty(),
                         Optional.empty(),
                         Optional.empty(),
                         Optional.empty()));

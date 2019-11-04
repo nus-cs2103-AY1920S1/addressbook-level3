@@ -200,9 +200,9 @@ public class ModelManagerTest {
             modelManager.addParticipant(TypicalParticipants.B);
             assertEquals(modelManager.getParticipantList().list().size(), 2);
             assertEquals(modelManager.findParticipant(
-                    Predicates.getPredicateFindParticipantByName("A")).size(), 1);
+                    Predicates.getPredicateFindParticipantByName("A", false)).size(), 1);
             assertEquals(modelManager.findParticipant(
-                    Predicates.getPredicateFindParticipantByName("Part B")).size(), 1);
+                    Predicates.getPredicateFindParticipantByName("Part B", false)).size(), 1);
         } catch (AlfredException | IOException e) {
             // do nothing
         }
@@ -223,7 +223,7 @@ public class ModelManagerTest {
         }
         assertEquals(modelManager.getTeamList().list().size(), 1);
         assertEquals(modelManager.findTeam(
-                Predicates.getPredicateFindTeamByName("A")).size(), 1);
+                Predicates.getPredicateFindTeamByName("A", false)).size(), 1);
     }
     @Disabled
     @Test
@@ -239,7 +239,7 @@ public class ModelManagerTest {
         }
         assertEquals(modelManager.getMentorList().list().size(), 2);
         assertEquals(modelManager.findMentor(
-                Predicates.getPredicateFindMentorByName("B")).size(), 2);
+                Predicates.getPredicateFindMentorByName("B", false)).size(), 2);
     }
 
     @Test

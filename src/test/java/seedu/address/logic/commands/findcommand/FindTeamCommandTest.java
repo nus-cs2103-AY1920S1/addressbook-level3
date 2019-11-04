@@ -13,6 +13,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.logic.parser.findcommandparser.FindCommandUtilEnum;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
@@ -25,7 +26,10 @@ public class FindTeamCommandTest {
                 new ArrayList<>());
         doNothing().when(modelManager).updateHistory(any());
         FindTeamCommand command = new FindTeamCommand(
+                FindCommandUtilEnum.AND,
                 Optional.of("teamname"),
+                Optional.empty(),
+                Optional.empty(),
                 Optional.empty()
         );
         String expectedMessage = FindTeamCommand.MESSAGE_SUCCESS;
@@ -40,8 +44,11 @@ public class FindTeamCommandTest {
                new ArrayList<>());
         doNothing().when(modelManager).updateHistory(any());
         FindTeamCommand command = new FindTeamCommand(
+                FindCommandUtilEnum.AND,
                 Optional.of("P"),
-                Optional.of("projectname")
+                Optional.of("projectname"),
+                Optional.empty(),
+                Optional.empty()
         );
         String expectedMessage = FindTeamCommand.MESSAGE_SUCCESS;
 

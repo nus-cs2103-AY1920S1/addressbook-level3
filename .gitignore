@@ -35,3 +35,6 @@ src/test/data/sandbox/
 
 # Binaries
 bin/
+
+# Export files
+AlfredData/

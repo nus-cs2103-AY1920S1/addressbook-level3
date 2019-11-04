@@ -16,9 +16,15 @@ public class FindParticipantCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         assertParseSuccess(findParticipantParser, "participant n/ifje",
-                new FindParticipantCommand(Optional.of("ifje"),
+                new FindParticipantCommand(
+                        FindCommandUtilEnum.AND,
+                        Optional.of("ifje"),
                         Optional.empty(),
-                        Optional.empty()));
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.empty()
+                ));
     }
 
     @Test

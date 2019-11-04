@@ -12,6 +12,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.logic.parser.findcommandparser.FindCommandUtilEnum;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.testutil.TypicalParticipants;
@@ -25,7 +26,11 @@ public class FindParticipantCommandTest {
                  TypicalParticipants.getTypicalParticipants());
         doNothing().when(modelManager).updateHistory(any());
         FindParticipantCommand command = new FindParticipantCommand(
+                FindCommandUtilEnum.AND,
                 Optional.of("P"),
+                Optional.empty(),
+                Optional.empty(),
+                Optional.empty(),
                 Optional.empty(),
                 Optional.empty()
         );
@@ -41,8 +46,12 @@ public class FindParticipantCommandTest {
                 TypicalParticipants.getTypicalParticipants());
         doNothing().when(modelManager).updateHistory(any());
         FindParticipantCommand command = new FindParticipantCommand(
+                FindCommandUtilEnum.AND,
                 Optional.of("P"),
                 Optional.of("example"),
+                Optional.empty(),
+                Optional.empty(),
+                Optional.empty(),
                 Optional.empty()
         );
         String expectedMessage = FindParticipantCommand.MESSAGE_SUCCESS;
