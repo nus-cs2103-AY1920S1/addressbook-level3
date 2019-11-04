@@ -169,6 +169,12 @@ public interface Model {
     void deleteLesson(Lesson target);
 
     /**
+     * Deletes the given classroom.
+     * The classroom must exist in the notebook.
+     */
+    void deleteClassroom(Classroom target);
+
+    /**
      * Replaces the given lesson {@code target} with {@code editedLesson}.
      * {@code target} must exist in the classroom.
      * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address

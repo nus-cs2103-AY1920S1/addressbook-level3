@@ -220,6 +220,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteClassroom(Classroom target) {
+        notebook.removeClassroom(target);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+    }
+
+    @Override
     public void setLesson(Lesson target, Lesson editedLesson) {
         requireAllNonNull(target, editedLesson);
         notebook.setLesson(target, editedLesson);

@@ -85,7 +85,7 @@ public class Notebook implements ReadOnlyNotebook {
     }
 
     public Classroom getCurrentClassroom() {
-        if (currentClassroom != null) {
+        if (currentClassroom != null && hasClassroom(currentClassroom)) {
             return currentClassroom;
         } else {
             return getFirstClassroom();
@@ -124,6 +124,14 @@ public class Notebook implements ReadOnlyNotebook {
         } else {
             classrooms.add(classroom);
         }
+    }
+
+    /**
+     * Removes {@code key} from this {@code Notebook}.
+     * {@code key} must exist in the notebook.
+     */
+    public void removeClassroom(Classroom key) {
+        classrooms.remove(key);
     }
 
     public Classroom getClassroom(Classroom classroom) {

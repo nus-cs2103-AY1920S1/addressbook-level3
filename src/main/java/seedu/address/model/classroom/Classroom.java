@@ -221,6 +221,7 @@ public class Classroom implements ReadOnlyClassroom {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Classroom // instanceof handles nulls
+                && classroomName.equals(((Classroom) other).classroomName)
                 && students.equals(((Classroom) other).students)
                 && assignments.equals(((Classroom) other).assignments));
     }
