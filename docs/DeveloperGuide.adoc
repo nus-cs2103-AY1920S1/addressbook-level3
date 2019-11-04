@@ -70,10 +70,6 @@ For the components UI, Logic, Model, Timer and Game:
 
 // end::yida-design[]
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -132,37 +128,39 @@ coupled directly), it is separated from the `Logic`, `Model` and `Game` componen
 === Logic component
 _This section breakdown the logic package into its internal components_
 
-Logic is primarily built by two segments: Command and Parser. 
-
-It fulfils its contracts with other packages through two interfaces: Logic and UiLogicHelper
-
-UiLogicHelper is a subset of Logic APIs and only contains transactions for AutoComplete and Command Execution.
-
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
-* Interaction through `Logic Interface`
+Logic is primarily built by two segments: Command and Parser. 
 
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+===== Command
 
-* Interaction through `UiLogicHelper Interface`
-.  The `ParserManager` class to parses the user command.
-.  It updates the AutoComplete suggestions for every keystroke.
-.  `ParserManager` instance has reference to a `SwitchModeParser` and `SpecificModeParser`
-.   When a command is entered or user enters a keystroke, the `SwitchModeParser` and/or `SpecificModeParser` are accessed based on internal state.
-.   Internal State consists of booleans: gameIsOver, bankLoaded and enumeration ModeEnum: HOME, OPEN, GAME, SETTINGS
+    Command is an abstract class.
 
-Given below is the Activity Diagram that shows the workflows that change state of `ParserManager`.
+    Four other abstract classes (HomeCommand, OpenCommand, GameCommand and SettingsCommand) extend Command.
 
-NOTE: Home (No Switch) means HomeModeParser is used and SwitchModeParser is not used
+    Concrete Command classes with an execute method implementation extend one of the above four abstract classes.
+    
+===== Parser
+
+    ParserManager holds reference to a SpecificModeParser and a SwitchModeParser.
+
+    The SpecificModeParser changes based on current application mode.
+
+    Both of them hold references to all concrete Parser and Command Classes with the help of ClassUtil
+
+Logic fulfils its contracts with other packages through two interfaces: Logic and UiLogicHelper
+
+Examples of transactions promised by Logic API include command execution, command result and update statistics.
+
+UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for AutoComplete.
+
+*API* :
+link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/UiLogicHelper.java[`UiLogicHelper.java`]
 
 
-.Activity diagram of Application flow
-image::ParserManagerActivityDiagram.PNG[]
 
 
 // end::subbashdg2[]
@@ -369,6 +367,32 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::autocompleteimplementation[]
 === [underline]#AutoComplete Feature# (for command execution)
+_This section explains the how AutoComplete works with Dynamic Parsers and the rationale behind the design choice._
+
+==== Interaction
+
+* Interaction through `Logic Interface`
+
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+* Interaction through `UiLogicHelper Interface`
+.  The `ParserManager` class to parses the user command.
+.  It updates the AutoComplete suggestions for every keystroke.
+.  `ParserManager` instance has reference to a `SwitchModeParser` and `SpecificModeParser`
+.   When a command is entered or user enters a keystroke, the `SwitchModeParser` and/or `SpecificModeParser` are accessed based on internal state.
+.   Internal State consists of booleans: gameIsOver, bankLoaded and enumeration ModeEnum: HOME, OPEN, GAME, SETTINGS
+
+Given below is the Activity Diagram that shows the workflows that change state of `ParserManager`.
+
+NOTE: Home (No Switch) means HomeModeParser is used and SwitchModeParser is not used
+
+
+.Activity diagram of Application flow
+image::ParserManagerActivityDiagram.PNG[]
+
 ==== Implementation
 
 The AutoComplete is facilitated by `ParserManager`.
@@ -392,33 +416,61 @@ The following sequence diagram shows how the AutoComplete operation works:
 
 image::AutoCompleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoDukemon()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+NOTE: The 
 
 
 ==== Design Considerations
 
-===== Aspect: How parser and command objects are instantiated in SpecificModeParser
 
-* **Alternative 1 (current choice):** Use java reflections to hold a List of Classes and iterate through them to pick the matching Classes
-** Pros: Open Close Principle strictly followed. Adding a command with a parser takes only one line of code.
-** Cons: It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
-* **Alternative 2:** Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.
-** Pros: Compile time error would be thrown if new command or parser does not subclass correctly.
-** Cons: Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+How parser and command objects are instantiated in SpecificModeParser
+| **Use java reflections to hold a List of Classes and iterate through them to pick the matching Classes** +
+ +
+[underline]_Pros:_ +
+Open Close Principle strictly followed. Adding a command with a parser takes only one line of code. +
+ +
+[underline]_Cons:_ +
+It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
+|**Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.** +
+ +
+[underline]_Pros:_ +
+Compile time error would be thrown if new command or parser does not subclass correctly. +
+ +
+[underline]_Cons:_ +
+Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
 
-===== Aspect: Single Parser vs Parser Manager
+3+|**Why did we choose Alternative 2:** +
+d
 
-* **Alternative 1 (current choice):** Using a ParserManager to dynamically switch between Parsers based on current state
-** Pros: Commands not belonging to specific mode would not be parsed
-** Cons: More code to write for initial developer. However it is easily extnensible for new modes and parsers by the Open Close Principle
-* **Alternative 2:** Use a single parser
-** Pros: We do not need to restructure the logic package.
-** Cons: Bad user experience as it autocompletes and parses commands that do not belong to a particular mode.
+|**Aspect 2:** +
+Single Parser vs Parser Manager
+| **Using a ParserManager to dynamically switch between Parsers based on current state** +
+ +
+[underline]_Pros:_ +
+Commands not belonging to specific mode would not be parsed +
+ +
+[underline]_Cons:_ +
+More code to write for initial developer. However it is easily extnensible for new modes and parsers by the Open Close Principle
+| **Use a single parser** +
+ +
+[underline]_Pros_ +
+We do not need to restructure the logic package. +
+ +
+[underline]_Cons_ +
+Bad user experience as it autocompletes and parses commands that do not belong to a particular mode.
+3+| **Why did we choose Alternative 1:** +
+d
+|===
+
+
+
+==== Development
+
+Explain future extensibility of project here.
+
+
 // end::autocompleteimplementation[]
 
 // tag::settings[]

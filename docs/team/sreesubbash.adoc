@@ -105,7 +105,7 @@ Below are extracts I have contributed to the Developer Guide.
 It demonstrates how my AutoComplete feature works with the Dynamic Parser implementation. 
 
 
-Also its a showcase of my ability to write technical documentation and the technical depth of my work that involves integrating advanced paradigm of Java Relections into the project.
+Also its a showcase of my ability to write technical documentation and the technical depth of my work that involves integrating the advanced paradigm of Java Relections into the project.
 
 |===
 
