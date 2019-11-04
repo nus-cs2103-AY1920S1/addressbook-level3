@@ -84,7 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param shouldReloadCategories the boolean whether the categories should be reloaded.
      */
     public AddressBook(boolean shouldReloadCategories) {
-        if (shouldReloadCategories == true) {
+        if (shouldReloadCategories) {
             Category[] listOfCategories = SampleDataUtil.getSampleCategories();
             for (Category sampleCategory : listOfCategories) {
                 this.addCategory(sampleCategory);
@@ -180,7 +180,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setConditions(newData.getConditionList());
     }
 
-    //// person-level operations
+    //// entry-level operations
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * address book.

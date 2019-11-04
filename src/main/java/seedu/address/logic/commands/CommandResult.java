@@ -32,6 +32,10 @@ public class CommandResult {
     private final boolean listFonts;
     private final boolean changeFont;
 
+    /** For changing the theme */
+    private final boolean changeTheme;
+    private final String newTheme;
+
     private boolean toShowConditionPanel = false;
 
 
@@ -49,6 +53,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
     /**
@@ -70,6 +76,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
 
@@ -87,6 +95,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
     /**
@@ -103,6 +113,26 @@ public class CommandResult {
         this.changeFont = changeFont;
         this.toggleStats = false;
         this.toggleGraphics = false;
+        this.changeTheme = false;
+        this.newTheme = null;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean changeTheme, String theme) {
+        this.feedbackToUser = feedbackToUser;
+        this.changeTheme = changeTheme;
+        this.newTheme = theme;
+        this.showHelp = false;
+        this.exit = false;
+        this.panelName = null;
+        this.togglePanel = false;
+        this.toggleStats = false;
+        this.toggleGraphics = false;
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
     }
 
     public void showConditionPanel() {
@@ -115,6 +145,18 @@ public class CommandResult {
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public PanelName getPanelName() {
+        return this.panelName;
+    }
+
+    public FontName getFontName() {
+        return fontName;
+    }
+
+    public String getNewTheme() {
+        return newTheme;
     }
 
     public boolean isShowHelp() {
@@ -137,10 +179,6 @@ public class CommandResult {
         return toggleGraphics;
     }
 
-    public PanelName getPanelName() {
-        return this.panelName;
-    }
-
     public boolean isChangeFont() {
         return changeFont;
     }
@@ -149,9 +187,10 @@ public class CommandResult {
         return listFonts;
     }
 
-    public FontName getFontName() {
-        return fontName;
+    public boolean isChangeTheme() {
+        return changeTheme;
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -172,12 +211,15 @@ public class CommandResult {
                 && togglePanel == otherCommandResult.togglePanel
                 && fontName == otherCommandResult.fontName
                 && listFonts == otherCommandResult.listFonts
-                && changeFont == otherCommandResult.changeFont;
+                && changeFont == otherCommandResult.changeFont
+                && changeTheme == otherCommandResult.changeTheme
+                && newTheme.equals(otherCommandResult.newTheme);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont,
+                newTheme, changeTheme);
     }
 
 }

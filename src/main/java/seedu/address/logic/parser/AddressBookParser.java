@@ -34,6 +34,8 @@ import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFontCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetDarkThemeCommand;
+import seedu.address.logic.commands.SetLightThemeCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.SwitchCommand;
@@ -246,6 +248,12 @@ public class AddressBookParser {
 
         case ChangeFontCommand.COMMAND_WORD:
             return new ChangeFontCommandParser().parse(arguments);
+
+        case SetLightThemeCommand.COMMAND_WORD:
+            return new SetLightThemeCommand();
+
+        case SetDarkThemeCommand.COMMAND_WORD:
+            return new SetDarkThemeCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

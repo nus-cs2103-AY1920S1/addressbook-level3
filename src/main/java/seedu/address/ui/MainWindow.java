@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -31,6 +32,11 @@ import seedu.address.ui.stats.StatisticsWindow;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private final String lightThemeUrl = getClass().getResource("/view/LightTheme.css").toExternalForm();
+    private final String lightExtensionsUrl = getClass().getResource("/view/ExtensionsLight.css")
+            .toExternalForm();
+    private final String darkThemeUrl = getClass().getResource("/view/DarkTheme.css").toExternalForm();
+    private final String darkExtensionsUrl = getClass().getResource("/view/ExtensionsDark.css").toExternalForm();
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -48,6 +54,9 @@ public class MainWindow extends UiPart<Stage> {
     private boolean isStatsGraphicsWindow;
 
     private String font;
+
+    @FXML
+    private Scene scene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -174,8 +183,8 @@ public class MainWindow extends UiPart<Stage> {
      * Sets up the GUI.
      */
     private void setUpGui(GuiSettings guiSettings) {
-        setWindowDefaultSize(logic.getGuiSettings());
-        setFont(logic.getGuiSettings());
+        setWindowDefaultSize(guiSettings);
+        setFont(guiSettings);
     }
 
     /**
@@ -337,6 +346,10 @@ public class MainWindow extends UiPart<Stage> {
      * Changes font in the application to the specified font.
      */
     private void handleChangeFont(String font) {
+        /*if (this.scene.getStylesheets().contains(lightThemeUrl)) {
+            this.scene.getStylesheets().remove(lightThemeUrl);
+            this.scene.getStylesheets().add(darkThemeUrl);
+        }*/
         this.font = font;
         String style = "-fx-font-family: " + font;
         window.setStyle(style);
@@ -379,6 +392,48 @@ public class MainWindow extends UiPart<Stage> {
             entryListPanelPlaceholder.getChildren().add(statsGraphics.getRoot());
         } else {
             entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Switches the current to the {@code newTheme}.
+     */
+    private void switchThemeTo(String newTheme) {
+        String oldThemeUrl = null;
+        String oldExtensionsUrl = null;
+        String newThemeUrl = null;
+        String newExtensionsUrl = null;
+
+        switch (newTheme) {
+        case "light":
+            oldThemeUrl = darkThemeUrl;
+            oldExtensionsUrl = darkExtensionsUrl;
+            newThemeUrl = lightThemeUrl;
+            newExtensionsUrl = lightExtensionsUrl;
+            break;
+        case "dark":
+            oldThemeUrl = lightThemeUrl;
+            oldExtensionsUrl = lightExtensionsUrl;
+            newThemeUrl = darkThemeUrl;
+            newExtensionsUrl = darkExtensionsUrl;
+            break;
+        default:
+            // Do nothing. Input string has already been checked if it contains either "light" or "dark".
+            break;
+        }
+
+        removeAndAddStylesheets(oldThemeUrl, newThemeUrl);
+        removeAndAddStylesheets(oldExtensionsUrl, newExtensionsUrl);
+    }
+
+    /**
+     * Removes the {@code oldThemeUrl} from the scene's stylesheets and adds the {@code newThemeUrl} to the scene's
+     * stylesheets.
+     */
+    private void removeAndAddStylesheets(String oldThemeUrl, String newThemeUrl) {
+        if (this.scene.getStylesheets().contains(oldThemeUrl)) {
+            this.scene.getStylesheets().remove(oldThemeUrl);
+            this.scene.getStylesheets().add(newThemeUrl);
         }
     }
 
@@ -442,6 +497,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (!(commandResult.toShowConditionPanel())) {
                 showReminderPanel();
+            }
+
+            if (commandResult.isChangeTheme()) {
+                String themeToChangeTo = commandResult.getNewTheme();
+                assert(themeToChangeTo.equals("light") || themeToChangeTo.equals("dark"));
+                switchThemeTo(themeToChangeTo);
             }
 
             return commandResult;
