@@ -28,7 +28,7 @@ public class EncryptFileCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Encrypts a file in user's file system using the specified file path.\n"
             + "Parameters: FILEPATH [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " /Desktop/Test.txt t/personal";
+            + "Example: " + COMMAND_WORD + " /Users/YOUR_USERNAME/Desktop/Test.txt t/personal";
 
     public static final String MESSAGE_SUCCESS = "File encrypted: %1$s";
     public static final String MESSAGE_FAILURE = "File encryption failed.";

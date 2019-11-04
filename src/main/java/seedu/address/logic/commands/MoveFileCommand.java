@@ -25,14 +25,15 @@ public class MoveFileCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Move the file identified by the index number from the displayed file list.\n"
             + "Parameters: INDEX NEW_LOCATION\n"
-            + "Example: " + COMMAND_WORD + " 1 /Desktop";
+            + "Example: " + COMMAND_WORD + " 1 /Users/YOUR_USERNAME/Desktop";
 
     public static final String MESSAGE_RENAME_FILE_SUCCESS = "File moved: %1$s";
     public static final String MESSAGE_RENAME_FILE_FAILURE = "Cannot move file.";
     public static final String MESSAGE_TARGET_FILE_EXISTS = "Cannot move file. "
             + "Target file already exists.\nRename %1$s and try again.";
     public static final String MESSAGE_DUPLICATE_FILE = "Target file is already in the list.";
-    public static final String MESSAGE_IS_NOT_DIRECTORY = "Target path is not a directory.";
+    public static final String MESSAGE_IS_NOT_DIRECTORY = "Target path is not a directory.\n"
+            + "Moving into shortcuts, aliases and symbolic links is not supported currently.";
 
     private final Index targetIndex;
     private final FilePath newFilePath;
