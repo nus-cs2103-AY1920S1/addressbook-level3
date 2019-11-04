@@ -1,6 +1,16 @@
 package seedu.address.logic.commands.student;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
+import static seedu.address.testutil.student.TypicalStudents.getTypicalStudentRecord;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -8,21 +18,22 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.student.Student;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
-import static seedu.address.testutil.student.TypicalStudents.getTypicalStudentRecord;
-
+/**
+ * Test for StudentDeleteCommand.
+ */
 public class StudentDeleteCommandTest {
     private Model model = new ModelManager();
 
+    /**
+     * Creates an instance of StudentDeleteCommandTest.
+     */
     public StudentDeleteCommandTest() {
         model.setStudentRecord(getTypicalStudentRecord());
     }
 
+    /**
+     * Test for successfully deleting a student.
+     */
     @Test
     public void execute_validIndex_success() {
         Student studentToDelete = model.getFilteredStudentList().get(INDEX_ONE.getZeroBased());
@@ -35,6 +46,9 @@ public class StudentDeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel,CommandResultType.SHOW_STUDENT);
     }
 
+    /**
+     * Test for unsuccessfully deleting a student due to student index out of bounds.
+     */
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
@@ -43,6 +57,9 @@ public class StudentDeleteCommandTest {
         assertThrows(CommandException.class, () -> deleteCommand.execute(model), MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
+    /**
+     * Test if two StudentDeleteCommands are equal.
+     */
     @Test
     public void equals() {
         StudentDeleteCommand deleteFirstCommand = new StudentDeleteCommand(INDEX_ONE);
@@ -57,7 +74,6 @@ public class StudentDeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 }

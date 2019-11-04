@@ -1,8 +1,19 @@
 package seedu.address.logic.commands.group;
 
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_DOES_NOT_EXIST;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_ID_LEFT_EMPTY;
+import static seedu.address.logic.commands.group.GroupExportCommand.MESSAGE_SUCCESS;
+
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.group.Group;
@@ -14,16 +25,14 @@ import seedu.address.testutil.group.GroupBuilder;
 import seedu.address.testutil.model.ModelStub;
 import seedu.address.testutil.student.StudentBuilder;
 
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.group.GroupCommand.GROUP_DOES_NOT_EXIST;
-import static seedu.address.logic.commands.group.GroupCommand.GROUP_ID_LEFT_EMPTY;
-import static seedu.address.logic.commands.group.GroupExportCommand.MESSAGE_SUCCESS;
-
+/**
+ * Test for GroupExportCommand.
+ */
 public class GroupExportCommandTest {
 
+    /**
+     * Tests if two GroupExportCommand are equal.
+     */
     @Test
     public void equals() {
         String groupId = GroupBuilder.DEFAULT_GROUP_ID;
@@ -56,7 +65,7 @@ public class GroupExportCommandTest {
         Student student = new StudentBuilder().withName(new Name("ExportTest")).build();
         ModelStub modelStub = new GroupExportCommandTest.ModelStubWithGroupWithStudent("Export", student);
         CommandResult commandResult = exportCommand.execute(modelStub);
-        assertEquals(String.format(MESSAGE_SUCCESS,"Export"), commandResult.getFeedbackToUser());
+        assertEquals(String.format(MESSAGE_SUCCESS, "Export"), commandResult.getFeedbackToUser());
     }
 
     /**
@@ -92,6 +101,12 @@ public class GroupExportCommandTest {
         private final FilteredList<Student> filteredStudents;
 
 
+        /**
+         * Creates an instance of ModelStubWithGroupWithStudent.
+         *
+         * @param groupId GroupId of the group to be added.
+         * @param student Student within the group.
+         */
         ModelStubWithGroupWithStudent(String groupId, Student student) {
             requireNonNull(groupId);
             Group group = new GroupBuilder().withGroupId(groupId).build();
@@ -103,6 +118,12 @@ public class GroupExportCommandTest {
             this.filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
         }
 
+        /**
+         * Checks if a group exists.
+         *
+         * @param groupId GroupId of the group.
+         * @return true if the group exists, false otherwise.
+         */
         @Override
         public boolean checkGroupExists(String groupId) {
             requireNonNull(groupId);
@@ -110,12 +131,21 @@ public class GroupExportCommandTest {
             return listOfGroups.contains(group);
         }
 
-
+        /**
+         * Gets a filtered list of the students stored.
+         *
+         * @return Filtered list of the students stored.
+         */
         @Override
         public ObservableList<Student> getFilteredStudentList() {
             return studentRecord.getStudentList();
         }
 
+        /**
+         * Exports a group into a word document.
+         *
+         * @param groupId GroupId of the group to be exported.
+         */
         @Override
         public void exportGroup(String groupId) {
             listOfGroups.exportGroup(groupId);

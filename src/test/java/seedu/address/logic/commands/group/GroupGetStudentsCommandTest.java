@@ -1,8 +1,17 @@
 package seedu.address.logic.commands.group;
 
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.commands.group.GroupCommand.*;
+
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.group.Group;
@@ -14,17 +23,14 @@ import seedu.address.testutil.group.GroupBuilder;
 import seedu.address.testutil.model.ModelStub;
 import seedu.address.testutil.student.StudentBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.group.GroupCommand.*;
-import static seedu.address.logic.commands.group.GroupCreateManuallyCommand.OUT_OF_BOUNDS;
-
+/**
+ * Tests GroupGetStudentCommand.
+ */
 public class GroupGetStudentsCommandTest {
 
+    /**
+     * Tests if two GroupGetStudentCommands are equal.
+     */
     @Test
     public void equals() {
         String groupId = GroupBuilder.DEFAULT_GROUP_ID;
@@ -82,8 +88,6 @@ public class GroupGetStudentsCommandTest {
         assertThrows(CommandException.class, () -> groupGetStudentsCommand.execute(modelStub), GROUP_ID_LEFT_EMPTY);
     }
 
-
-
     /**
      * A Model stub that contains a single group with a single student.
      */
@@ -93,7 +97,12 @@ public class GroupGetStudentsCommandTest {
         private final StudentRecord studentRecord;
         private final FilteredList<Student> filteredStudents;
 
-
+        /**
+         * Creates a ModelStubWithGroupWithStudent instance.
+         *
+         * @param groupId GroupId of the group.
+         * @param student Student within the group.
+         */
         ModelStubWithGroupWithStudent(String groupId, Student student) {
             requireNonNull(groupId);
             Group group = new GroupBuilder().withGroupId(groupId).build();
@@ -105,6 +114,12 @@ public class GroupGetStudentsCommandTest {
             this.filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
         }
 
+        /**
+         * Check if a group exists.
+         *
+         * @param groupId GroupId of the group to check.
+         * @return true if the group exists, false otherwise.
+         */
         @Override
         public boolean checkGroupExists(String groupId) {
             requireNonNull(groupId);
@@ -112,22 +127,11 @@ public class GroupGetStudentsCommandTest {
             return listOfGroups.contains(group);
         }
 
-        @Override
-        public void createGroupManually(String groupId, ArrayList<Integer> studentNumbers) {
-            Group group = new Group(groupId);
-
-            ArrayList<Student> students = new ArrayList<>();
-            for (Integer i : studentNumbers) {
-                students.add(filteredStudents.get(i - 1));
-            }
-
-            for (Student s : students) {
-                group.addStudent(s);
-            }
-
-            listOfGroups.addGroup(group);
-        }
-
+        /**
+         * Gets a filtered list of the students stored.
+         *
+         * @return Filtered list of the students stored.
+         */
         @Override
         public ObservableList<Student> getFilteredStudentList() {
             return studentRecord.getStudentList();

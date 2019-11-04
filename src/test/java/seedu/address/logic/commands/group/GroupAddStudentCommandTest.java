@@ -1,7 +1,19 @@
 package seedu.address.logic.commands.group;
 
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.address.logic.commands.group.GroupCommand.STUDENT_EXISTS_IN_GROUP;
+import static seedu.address.logic.commands.group.GroupCommand.STUDENT_NUMBER_OUT_OF_BOUNDS;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_INDEX_OUT_OF_BOUNDS;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_ID_LEFT_EMPTY;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.group.Group;
@@ -14,15 +26,14 @@ import seedu.address.testutil.model.ModelStub;
 import seedu.address.testutil.student.StudentBuilder;
 import seedu.address.testutil.student.TypicalStudents;
 
-import java.util.ArrayList;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.logic.commands.group.GroupCommand.*;
-
+/**
+ * Test for GroupAddStudentCommand.
+ */
 public class GroupAddStudentCommandTest {
 
+    /**
+     * Tests whether two GroupAddStudentCommands are equal.
+     */
     @Test
     public void equals() {
         String groupId = GroupBuilder.DEFAULT_GROUP_ID;
@@ -109,6 +120,12 @@ public class GroupAddStudentCommandTest {
         private final ListOfGroups listOfGroups;
         private final StudentRecord studentRecord;
 
+        /**
+         * Creates a ModelStubWithGroupWithStudent instance.
+         * @param groupId Group Id of the group.
+         * @param studentNumber Student Number of the student in the group.
+         * @param groupIndexNumber Group Index Number of the student in the group.
+         */
         ModelStubWithGroupWithStudent(String groupId, int studentNumber, int groupIndexNumber) {
             requireNonNull(groupId);
             Group group = new GroupBuilder().withGroupId(groupId).build();
@@ -119,6 +136,11 @@ public class GroupAddStudentCommandTest {
             listOfGroups.addGroup(group);
         }
 
+        /**
+         * Creates a ModelStubWithGroupWithStudent instance.
+         * @param groupId GroupId of the group.
+         * @param student Student in the group.
+         */
         ModelStubWithGroupWithStudent(String groupId, Student student) {
             requireNonNull(groupId);
             Group group = new GroupBuilder().withGroupId(groupId).build();
@@ -129,11 +151,21 @@ public class GroupAddStudentCommandTest {
             listOfGroups.addGroup(group);
         }
 
+        /**
+         * Gets student with a particular index from the student record.
+         * @param index Index of the student in the student record.
+         * @return Student with the index.
+         */
         @Override
         public Student getStudent(int index) {
             return studentRecord.getStudent(index);
         }
 
+        /**
+         * Check if a group exists.
+         * @param groupId GroupId of the group to be checked.
+         * @return true if the group exists, false otherwise.
+         */
         @Override
         public boolean checkGroupExists(String groupId) {
             requireNonNull(groupId);
@@ -141,6 +173,12 @@ public class GroupAddStudentCommandTest {
             return listOfGroups.contains(group);
         }
 
+        /**
+         * Check if a student exists in a group.
+         * @param groupId GroupId of the group.
+         * @param student Student to be checked.
+         * @return
+         */
         @Override
         public boolean checkStudentExistInGroup(String groupId, Student student) {
             ArrayList<Group> groupArrayList = listOfGroups.getGroupList();
@@ -154,6 +192,11 @@ public class GroupAddStudentCommandTest {
             return queriedGroup.checkStudentExist(student);
         }
 
+        /**
+         * Gets the size of a group.
+         * @param groupId GroupId of the group to be checked.
+         * @return Size of the group.
+         */
         @Override
         public int getGroupSize(String groupId) {
             int groupSize = 0;
@@ -165,12 +208,23 @@ public class GroupAddStudentCommandTest {
             return groupSize;
         }
 
+        /**
+         * Gets a filtered list of the students stored.
+         * @return A filtered list of the students stored.
+         */
         @Override
         public ObservableList<Student> getFilteredStudentList() {
             return studentRecord.getStudentList();
         }
 
 
+        /**
+         * Adds a student to a particular group.
+         * @param groupId GroupId of the group to add the student to.
+         * @param studentNumber Student Number of the student to be added.
+         * @param groupIndexNumber Group Index Number of the student within the group.
+         * @return
+         */
         @Override
         public boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber) {
             int studentIndex = studentNumber;

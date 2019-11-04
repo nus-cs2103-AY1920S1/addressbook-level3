@@ -3,17 +3,19 @@ package seedu.address.model.group;
 import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.group.exceptions.DuplicateGroupException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.testutil.group.TypicalGroups;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-
+/**
+ * Test for the ListOfGroups Model.
+ */
 public class ListOfGroupTest {
     private final ListOfGroups listOfGroups = new ListOfGroups();
 

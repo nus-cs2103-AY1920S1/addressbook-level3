@@ -16,6 +16,9 @@ import seedu.address.model.student.exceptions.StudentNotFoundException;
 import seedu.address.testutil.student.StudentBuilder;
 import seedu.address.testutil.student.TypicalStudents;
 
+/**
+ * Test for the UniqueStudentList model.
+ */
 public class UniqueStudentListTest {
 
     private final UniqueStudentList uniqueStudentList = new UniqueStudentList();

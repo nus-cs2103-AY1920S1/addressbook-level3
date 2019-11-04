@@ -1,6 +1,16 @@
 package seedu.address.logic.commands.group;
 
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_DOES_NOT_EXIST;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_ID_LEFT_EMPTY;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_INDEX_OUT_OF_BOUNDS;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.group.Group;
@@ -11,13 +21,14 @@ import seedu.address.testutil.group.GroupBuilder;
 import seedu.address.testutil.model.ModelStub;
 import seedu.address.testutil.student.StudentBuilder;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.group.GroupCommand.*;
-
+/**
+ * Test for GroupRemoveStudentCommand.
+ */
 public class GroupRemoveStudentCommandTest {
 
+    /**
+     * Tests if two GroupRemoveStudentCommands are equal.
+     */
     @Test
     public void equals() {
         String groupId = GroupBuilder.DEFAULT_GROUP_ID;
@@ -93,6 +104,12 @@ public class GroupRemoveStudentCommandTest {
 
         private final ListOfGroups listOfGroups;
 
+        /**
+         * Creates a ModelStubWithGroupWithStudent instance.
+         *
+         * @param groupId GroupId of the group.
+         * @param student Student within the group.
+         */
         ModelStubWithGroupWithStudent(String groupId, Student student) {
             requireNonNull(groupId);
             Group group = new GroupBuilder().withGroupId(groupId).build();
@@ -101,6 +118,12 @@ public class GroupRemoveStudentCommandTest {
             listOfGroups.addGroup(group);
         }
 
+        /**
+         * Check if a group exists.
+         *
+         * @param groupId GroupId of the group to check.
+         * @return true if the group exists, false otherwise.
+         */
         @Override
         public boolean checkGroupExists(String groupId) {
             requireNonNull(groupId);
@@ -108,6 +131,11 @@ public class GroupRemoveStudentCommandTest {
             return listOfGroups.contains(group);
         }
 
+        /**
+         * Gets the size of a group.
+         * @param groupId GroupId of the group to be checked.
+         * @return Size of the group.
+         */
         @Override
         public int getGroupSize(String groupId) {
             int groupSize = 0;
@@ -119,6 +147,11 @@ public class GroupRemoveStudentCommandTest {
             return groupSize;
         }
 
+        /**
+         * Removes student from a group.
+         * @param groupId GroupId of the group.
+         * @param groupIndexNumber Group Index Number of the student to be removed.
+         */
         @Override
         public void removeStudentFromGroup(String groupId, int groupIndexNumber) {
             int groupIndex = listOfGroups.getGroupIndex(groupId);

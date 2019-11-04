@@ -67,6 +67,18 @@ public class TagCommand extends Command {
     }
 
     /**
+     * Creates a dummy TagCommand instance for testing.
+     */
+    public TagCommand(Index index) {
+        this.index = index;
+        this.tagSet = new HashSet<Tag>();
+        existedTags = new StringBuilder();
+        this.actualIndex = null;
+        this.studentToTag = null;
+        this.updatedStudent = null;
+    }
+
+    /**
      * Executes the tag command.
      *
      * @param model {@code Model} which the command should operate on.

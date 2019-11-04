@@ -9,6 +9,9 @@ import seedu.address.testutil.student.NameBuilder;
 import seedu.address.testutil.student.StudentBuilder;
 import seedu.address.testutil.student.TypicalStudents;
 
+/**
+ * Test for the Student Model.
+ */
 public class StudentTest {
     private static final String nameOne = "Delevin Teo";
     private static final String nameTwo = "Ralph Laur";
