@@ -1,5 +1,7 @@
 package seedu.address.model.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
@@ -39,6 +41,8 @@ public final class GradientDescent {
      * @param inputData the values of input variables (which will be used to predict the target variable)
      */
     public GradientDescent(double[] actualValues, double[] inputData) {
+        requireNonNull(actualValues);
+        requireNonNull(inputData);
         this.inputData = inputData;
         this.numInputs = this.inputData.length;
         this.theta0 = 0;
@@ -112,13 +116,10 @@ public final class GradientDescent {
      * @return A prediction on the dependent variable based on the final values of {@code theta0} and {@code theta1}
      */
     public double predict(double input) {
+
         this.variable = input;
-        this.minData = Math.min(minData, input);
-        this.maxData = Math.max(maxData, input);
         double scaledData = (input - dataMean) / dataRange;
         this.result = computeHypothesis(scaledData) * outputRange + outputMean;
-        this.minOutput = Math.min(minOutput, result);
-        this.maxOutput = Math.max(maxOutput, result);
         return result;
     }
 

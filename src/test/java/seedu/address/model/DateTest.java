@@ -24,20 +24,20 @@ public class DateTest {
     @Test
     public void isValidDate() {
         // null Date
-        assertThrows(NullPointerException.class, () -> Date.isValidDate(null));
+        assertThrows(NullPointerException.class, () -> Date.isValid(null));
 
         // invalid Date
-        assertFalse(Date.isValidDate("")); // empty string
-        assertFalse(Date.isValidDate(" ")); // spaces only
-        assertFalse(Date.isValidDate("abc")); // alphabet only
-        assertFalse(Date.isValidDate("^!")); // only non-alphanumeric characters
-        assertFalse(Date.isValidDate("1921*")); // contains non-alphanumeric characters
-        assertFalse(Date.isValidDate("3022019")); // not in correct format
-        assertFalse(Date.isValidDate("00012019")); // not a valid date
+        assertFalse(Date.isValid("")); // empty string
+        assertFalse(Date.isValid(" ")); // spaces only
+        assertFalse(Date.isValid("abc")); // alphabet only
+        assertFalse(Date.isValid("^!")); // only non-alphanumeric characters
+        assertFalse(Date.isValid("1921*")); // contains non-alphanumeric characters
+        assertFalse(Date.isValid("3022019")); // not in correct format
+        assertFalse(Date.isValid("00012019")); // not a valid date
 
         // valid Date
-        assertTrue(Date.isValidDate("19112019")); // numerical digits only
-        assertTrue(Date.isValidDate("01012069"));
+        assertTrue(Date.isValid("19112019")); // numerical digits only
+        assertTrue(Date.isValid("01012069"));
     }
 
     @Test
