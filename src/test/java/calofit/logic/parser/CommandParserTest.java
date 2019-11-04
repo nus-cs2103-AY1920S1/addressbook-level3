@@ -5,6 +5,7 @@ import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +50,9 @@ public class CommandParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_MEAL.getOneBased());
-        assertEquals(new DeleteCommand(TypicalIndexes.INDEX_FIRST_MEAL), command);
+        List<Integer> mealIndexList = new ArrayList<Integer>();
+        mealIndexList.add(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
+        assertEquals(new DeleteCommand(mealIndexList), command);
     }
 
     @Test

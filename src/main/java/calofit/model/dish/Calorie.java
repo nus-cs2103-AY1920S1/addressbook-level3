@@ -11,7 +11,7 @@ import calofit.commons.util.AppUtil;
 public class Calorie {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Calories should only be positive values that are not 0";
+            "Calories should only be positive values between 0 an 2 billion";
 
     public static final Calorie UNKNOWN_CALORIE = new Calorie(-1, true);
 
@@ -44,7 +44,8 @@ public class Calorie {
 
         try {
             int value = Integer.parseInt(test);
-            return value >= 0 && !test.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            return value >= 0 && value <= 2000000000
+                    && !test.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
         }
