@@ -89,6 +89,15 @@ public class EditCommand extends Command {
 
         // Depending on log entry type, create appropriate edited log entry
         String logEntryToEditType = logEntryToEdit.getLogEntryType();
+
+        // If is borrow or lend log entry, cannot be edited
+        if ((logEntryToEditType.equals("borrow")
+                && ((BorrowLogEntry) logEntryToEdit).isRepaid())
+                || (logEntryToEditType.equals("lend")
+                && ((LendLogEntry) logEntryToEdit).isRepaid())) {
+            throw new CommandException("Repaid entries cannot be edited.");
+        }
+
         LogEntry editedLogEntry;
         editedLogEntry = createEditedLogEntry(logEntryToEdit, editLogEntryDescriptor, logEntryToEditType);
 
