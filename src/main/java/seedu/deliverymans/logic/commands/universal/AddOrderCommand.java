@@ -61,10 +61,14 @@ public class AddOrderCommand extends Command {
         isValidOrder(toAdd, model);
 
         // Assigning deliveryman
-        if (toAdd.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
-            deliverymanToAdd = model.getOneAvailableDeliveryman();
-        }
-        if (deliverymanToAdd == null) {
+        try {
+            if (toAdd.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
+                deliverymanToAdd = model.getOneAvailableDeliveryman();
+            }
+            if (deliverymanToAdd == null) {
+                deliverymanToAdd = toAdd.getDeliveryman();
+            }
+        } catch (NullPointerException npe) {
             deliverymanToAdd = toAdd.getDeliveryman();
         }
 
@@ -72,9 +76,8 @@ public class AddOrderCommand extends Command {
         /*
         try {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
-            toAdd.setDeliveryman(deliverymanToAdd);
         } catch (NoMoreAvailableDeliverymanException nmade) {
-            throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
+            deliverymanToAdd = toAdd.getDeliveryman();
         }
          */
 
