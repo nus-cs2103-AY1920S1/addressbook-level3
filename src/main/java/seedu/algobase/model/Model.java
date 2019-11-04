@@ -253,6 +253,13 @@ public interface Model {
     //=========== Task ==================================================================
 
     /**
+     * Updates the task set in the given Plan.
+     * @param taskSet the task set to be updated
+     * @param plan the plan to be updated in
+     */
+    void updateTasks(Set<Task> taskSet, Plan plan);
+
+    /**
      * Sets the given {@code Plan} as the current plan in main display.
      * @param plan the plan to be set as current plan
      */

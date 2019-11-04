@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -77,15 +76,13 @@ public class EditTaskCommand extends Command {
         Set<Task> taskSet = new HashSet<>(taskList);
         taskSet.add(taskToUpdate.updateDueDate(newDate));
 
-        Plan updatedPlan = planToUpdate.updateTasks(taskSet);
-        model.setPlan(planToUpdate, updatedPlan);
-        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        model.updateTasks(taskSet, planToUpdate);
 
         return new CommandResult(
             String.format(MESSAGE_EDIT_TASK_SUCCESS,
                 taskToUpdate.getName(),
                 editTaskDescriptor.targetDate,
-                updatedPlan.getPlanName()));
+                planToUpdate.getPlanName()));
     }
 
     @Override

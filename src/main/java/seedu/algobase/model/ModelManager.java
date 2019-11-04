@@ -288,6 +288,11 @@ public class ModelManager implements Model {
     //========== Task ===================================================================
 
     @Override
+    public void updateTasks(Set<Task> taskSet, Plan plan) {
+        this.algoBase.updateTasks(taskSet, plan);
+    }
+
+    @Override
     public void setCurrentPlan(Plan plan) {
         this.algoBase.setCurrentPlan(plan);
     }

@@ -64,6 +64,12 @@ public interface ReadOnlyAlgoBase {
     StringProperty getCurrentPlan();
 
     /**
+     * Sets the given plan as the current plan in main display
+     * @param plan the plan to be set as current plan
+     */
+    void setCurrentPlan(Plan plan);
+
+    /**
      * Sets current plan name.
      */
     void setCurrentPlan(int index);

@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_FROM;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_TO;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -84,17 +83,14 @@ public class MoveTaskCommand extends Command {
         }
         taskSetTo.add(taskToMove);
 
-        Plan updatedPlanFrom = planFrom.updateTasks(taskSetFrom);
-        Plan updatedPlanTo = planTo.updateTasks(taskSetTo);
-        model.setPlan(planFrom, updatedPlanFrom);
-        model.setPlan(planTo, updatedPlanTo);
-        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        model.updateTasks(taskSetFrom, planFrom);
+        model.updateTasks(taskSetTo, planTo);
 
         return new CommandResult(
             String.format(MESSAGE_MOVE_TASK_SUCCESS,
                 taskToMove.getName(),
-                updatedPlanFrom.getPlanName(),
-                updatedPlanTo.getPlanName()
+                planFrom.getPlanName(),
+                planTo.getPlanName()
             )
         );
     }

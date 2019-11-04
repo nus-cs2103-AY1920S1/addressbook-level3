@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_FROM;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_TO;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -75,22 +74,20 @@ public class CopyTaskCommand extends Command {
         Set<Task> taskSetTo = new HashSet<>(taskListTo);
         if (taskSetTo.contains(taskToCopy)) {
             throw new CommandException(
-                String.format(MESSAGE_DUPLICATE_TASK, taskToCopy.getProblem().getName(), planTo.getPlanName()));
+                String.format(MESSAGE_DUPLICATE_TASK, taskToCopy.getName(), planTo.getPlanName()));
         }
         if (!planTo.checkWithinDateRange(taskToCopy.getTargetDate())) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
         }
         taskSetTo.add(taskToCopy);
 
-        Plan updatedPlanTo = planTo.updateTasks(taskSetTo);
-        model.setPlan(planTo, updatedPlanTo);
-        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        model.updateTasks(taskSetTo, planTo);
 
         return new CommandResult(
             String.format(MESSAGE_MOVE_TASK_SUCCESS,
                 taskToCopy.getName(),
                 planFrom.getPlanName(),
-                updatedPlanTo.getPlanName()
+                planTo.getPlanName()
             )
         );
     }

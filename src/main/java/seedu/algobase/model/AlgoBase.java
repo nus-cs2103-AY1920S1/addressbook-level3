@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
@@ -290,9 +291,15 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     //========== Task ===================================================================
 
     /**
-     * Sets the given plan as the current plan in main display
-     * @param plan the plan to be set as current plan
+     * Updates the task set in the given Plan.
+     * @param taskSet the task set to be updated
+     * @param plan the plan to be updated in
      */
+    public void updateTasks(Set<Task> taskSet, Plan plan) {
+        plans.setPlan(plan, plan.updateTasks(taskSet));
+    }
+
+    @Override
     public void setCurrentPlan(Plan plan) {
         plans.setCurrentPlan(plan);
     }

@@ -1,0 +1,19 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedNameContainsKeywordsPredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedAuthorMatchesKeywordsPredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedDescriptionContainsKeywordsPredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedSourceMatchesKeywordsPredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedDifficultyIsInRangePredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedTagIncludesKeywordsPredicate
+
+JsonAdaptedNameContainsKeywordsPredicate -[hidden]down- JsonAdaptedAuthorMatchesKeywordsPredicate
+JsonAdaptedAuthorMatchesKeywordsPredicate -[hidden]down- JsonAdaptedDescriptionContainsKeywordsPredicate
+JsonAdaptedDescriptionContainsKeywordsPredicate -[hidden]down- JsonAdaptedSourceMatchesKeywordsPredicate
+JsonAdaptedSourceMatchesKeywordsPredicate -[hidden]down- JsonAdaptedDifficultyIsInRangePredicate
+JsonAdaptedDifficultyIsInRangePredicate -[hidden]down- JsonAdaptedTagIncludesKeywordsPredicate
+@enduml
