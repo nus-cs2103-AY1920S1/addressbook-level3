@@ -10,6 +10,7 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.ui.panel.DisplayPanel;
 import budgetbuddy.ui.tab.AccountTab;
 import budgetbuddy.ui.tab.LoanTab;
 import budgetbuddy.ui.tab.PanelTab;
@@ -21,8 +22,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -141,6 +144,18 @@ public class MainWindow extends UiPart<Stage> {
 
         OutputDisplay outputDisplay = new OutputDisplay(accountTab, transactionTab, ruleTab, loanTab, scriptTab);
         outputDisplayPlaceholder.getChildren().add(outputDisplay.getRoot());
+
+        // add hotkey (Ctrl + D) to switch between primary and secondary panels (if secondary panel exists)
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            PanelTab currentTab = (PanelTab) outputDisplay.getRoot().getSelectionModel().getSelectedItem();
+            if (currentTab.hasSecondaryPanel() && event.isControlDown() && event.getCode().equals(KeyCode.D)) {
+                if (currentTab.isPrimaryPanelSelected()) {
+                    currentTab.setSecondaryPanel();
+                } else {
+                    currentTab.setPrimaryPanel();
+                }
+            }
+        });
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

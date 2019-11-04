@@ -15,6 +15,7 @@ public abstract class PanelTab extends Tab {
 
     private DisplayPanel primaryPanel;
     private DisplayPanel secondaryPanel;
+    private boolean isPrimaryPanelSelected;
 
     public PanelTab(DisplayPanel panel, String imageFileName) {
         this(panel, null, imageFileName);
@@ -23,6 +24,7 @@ public abstract class PanelTab extends Tab {
     public PanelTab(DisplayPanel primaryPanel, DisplayPanel secondaryPanel, String imageFileName) {
         this.primaryPanel = primaryPanel;
         this.secondaryPanel = secondaryPanel;
+        this.isPrimaryPanelSelected = true;
 
         setClosable(false);
         setContent(primaryPanel.getRoot());
@@ -46,10 +48,20 @@ public abstract class PanelTab extends Tab {
 
     public void setPrimaryPanel() {
         setContent(primaryPanel.getRoot());
+        isPrimaryPanelSelected = true;
     }
 
     public void setSecondaryPanel() {
         requireNonNull(secondaryPanel);
         setContent(secondaryPanel.getRoot());
+        isPrimaryPanelSelected = false;
+    }
+
+    public boolean hasSecondaryPanel() {
+        return secondaryPanel != null;
+    }
+
+    public boolean isPrimaryPanelSelected() {
+        return isPrimaryPanelSelected;
     }
 }
