@@ -321,9 +321,10 @@ The resulting display should show that `John` owes `Mary` *$6.66* and also owes 
 In this scenario, `Mary` paid `10` and `Peter` paid `90`.
 `max/10` restricts the final amount `John` pays/owes to `10`, despite the total amount being `0 + 10 + 90 = 100`.
 Furthermore, `me/Mary` marks `Mary` as the user (you),
-so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner`. +
+so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner.`. +
 The resulting display should show that `John` owes `Peter` *$10* and `You` owe `Peter` *$35*.
-The latter debt will also have been added to your loan list, which can be checked using the command `loan list`.
+The latter debt will also have been added to your loan list,
+which can be checked using the command `loan list` or by pressing the hotkey mentioned above.
 // end::loans[]
 
 // tag::rules[]
