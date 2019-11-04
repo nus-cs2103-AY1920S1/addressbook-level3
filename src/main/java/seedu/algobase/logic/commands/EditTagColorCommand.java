@@ -9,6 +9,7 @@ import java.util.List;
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.tag.Tag;
 
@@ -74,7 +75,7 @@ public class EditTagColorCommand extends Command {
     private static Tag createEditedTag(Tag tagToEdit, String color) {
         assert tagToEdit != null;
         assert color != null;
-        long id = tagToEdit.getId();
+        Id id = tagToEdit.getId();
         return new Tag(id, tagToEdit.tagName, color);
     }
 
