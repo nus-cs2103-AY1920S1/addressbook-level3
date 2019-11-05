@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UNDO_SUCCESS;
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -217,7 +218,7 @@ public class UpdateCommandTest extends GuiUnitTest {
     }
 
     // is this test supposed to work? seems like it will execute NotifCommand which has ses that will disrupt junit
-    /*
+
     @Test
     public void executeBody_addNotifOnChangeToArrival_success() throws CommandException, InterruptedException {
         Body body = new BodyBuilder().withStatus("pending police report").build();
@@ -229,11 +230,12 @@ public class UpdateCommandTest extends GuiUnitTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
+        Thread.sleep(10500);
         assertEquals(1, model.getFilteredNotifList().size());
         model.deleteEntity(body);
         model.deleteNotif(model.getFilteredNotifList().get(0));
     }
-    */
+
     //@@author
 
     @Test
