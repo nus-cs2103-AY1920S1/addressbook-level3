@@ -87,7 +87,8 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model cashierModel,
                                             CommandResult expectedCommandResult,
-                                            Model expectedModel, seedu.address.person.model.Model personModel) {
+                                            Model expectedModel,
+                                            seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         try {
             System.out.println("beforee");
             CommandResult result = command.execute(cashierModel, personModel);
@@ -104,12 +105,14 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to
-     * {@link #assertCommandSuccess(Command, Model, CommandResult, Model, seedu.address.person.model.Model)}
+     * {@link #assertCommandSuccess(Command, Model, CommandResult, Model,
+     * seedu.address.person.model.CheckAndGetPersonByNameModel)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model cashierModel,
                                             String expectedMessage,
-                                            Model expectedModel, seedu.address.person.model.Model personModel) {
+                                            Model expectedModel,
+                                            seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, cashierModel, expectedCommandResult, expectedModel,
                 personModel);
@@ -123,7 +126,7 @@ public class CommandTestUtil {
      * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
-                                            seedu.address.person.model.Model personModel) {
+                                            seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ArrayList<Item> salesList = actualModel.getSalesList();

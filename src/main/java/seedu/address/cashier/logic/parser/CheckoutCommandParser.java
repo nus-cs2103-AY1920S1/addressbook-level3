@@ -28,7 +28,8 @@ public class CheckoutCommandParser implements Parser {
      * @throws NotANumberException if the input is not a number
      */
     public CheckoutCommand parse(String userInput, Model modelManager,
-                                 seedu.address.person.model.Model personModel) throws InsufficientAmountException,
+                                 seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
+            throws InsufficientAmountException,
             NotANumberException, NoCashierFoundException, AmountExceededException {
 
         double totalAmount = modelManager.getTotalAmount();

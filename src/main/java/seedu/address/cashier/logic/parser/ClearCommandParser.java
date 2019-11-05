@@ -12,7 +12,8 @@ public class ClearCommandParser implements Parser {
      * Parses the given {@code String} of arguments in the context of the ClearCommand
      * and returns an ClearCommand object for execution.
      */
-    public ClearCommand parse(String args, Model model, seedu.address.person.model.Model personModel) {
+    public ClearCommand parse(String args, Model model,
+                              seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         return new ClearCommand();
     }
 }

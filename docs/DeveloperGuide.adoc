@@ -40,12 +40,12 @@ You may use link:draw.io[draw.io] to edit the diagrams.
 
 treasurerPro is divided primarily into 6 packages which contain implementation for each tab in the UI:
 
-. transaction package: Home Tab
-. person package: Members Tab
-. reimbursement package: Reimbursements Tab
-. inventory package: Inventory Tab
-. cashier package: Cashier Tab
-. overview package: Overview Tab
+. Transaction package: Home Tab
+. Person package: Members Tab
+. Reimbursement package: Reimbursements Tab
+. Inventory package: Inventory Tab
+. Cashier package: Cashier Tab
+. Overview package: Overview Tab
 
 Each package uses either TXT or JSON based storage. Within the package, they share a similar structure,
 consisting of the following components:
@@ -57,7 +57,7 @@ consisting of the following components:
 
 Each of the components:
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same name as the component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 The details on the structure of these components are located in the next few sections.
@@ -89,8 +89,8 @@ the command `delete 1` in the Transactions tab.
 .Component interactions for `delete 1` command within Transactions tab.
 image::ArchitectureSequenceDiagram.png[]
 
-A command input by the user is received by `MainWindow`, and based upon which tab the user is currently on, forwarded to
-the respective `Logic`. Further details of the interactions between `Logic`, `Model` and `Storage` are given below.
+A command inputted by the user is received by `MainWindow`, and forwarded to the respective `Logic` according to the
+tab the user is currently on. Further details of the interactions between `Logic`, `Model` and `Storage` are given below.
 
 [[Design-Ui]]
 === UI component
@@ -102,7 +102,7 @@ image::UiClassDiagram.png[]
 
 The UI component consists of a `MainWindow` that holds both a `TabPane` and a `Lion`.
 The `TabPane` holds multiple `Tab` objects, for example, `Transactions` and `Cashier`.
-The `Lion` consists of a `ScrollPane` that holds messages displayed to the user.
+The `Lion` consists of a `ScrollPane` that holds messages that are to be displayed to the user.
 
 All these, including `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -117,7 +117,7 @@ The `UI` component:
 
 [[Design-Logic]]
 === Logic component
-This section will show the structures of the `Logic` Component of the different tabs.
+This section will show the structures of the `Logic` component of the different tabs.
 The diagram below shows a generalised view of the `Logic` component within the packages.
 
 [[fig-LogicClassDiagram]]
@@ -263,12 +263,12 @@ To be filled in :)
 *API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for Cashier Tab
-* stores a `InventoryList` object that represents the list of all inventory data
-* stores a list of sales items present on the table of the Inventory Tab
-* accesses the `TransactionList` object from Transaction package that represents the list of all transactions data
+* stores an `InventoryList` object that represents the list of all items in the inventory
+* stores a list of sales items present on the table of the Cashier Tab
+* accesses the `TransactionList` object from transaction package that represents the list of all transactions data
 
 [NOTE]
-This `Inventory List` is different from the one in the `Model` of Inventory package. This is so that the `Inventory List` in
+This `Inventory List` is different from the one in the `Model` of inventory package. This is so that the `Inventory List` in
 the `Model` of cashier package cannot add or delete any items in the inventory. This means that `Inventory List` in cashier
 package access different set of methods which modifies only the quantity of the item.
 
@@ -288,7 +288,7 @@ To be filled in :)
 
 [[Design-Storage]]
 === Storage component
-This section will show the structures of the `Storage` Component of the different tabs.
+This section will show the structures of the `Storage` component of the different tabs.
 The diagram below shows a generalised view of the `Storage` component within the person package.
 
 .Structure of the Storage Component for Members tab in person package
@@ -323,8 +323,8 @@ To be filled in :)
 *API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for Cashier Tab
-* accesses the `Transaction List` from Transaction package via `Logic` to append a transaction to the list
-* accesses the `Inventory List` from Inventory package via `Logic` to update the current stock
+* accesses the `TransactionList` from transaction package via `Logic` to append new transactions to the list
+* accesses the `InventoryList` from inventory package via `Logic` to update the current stock left
 
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/storage/Storage.java[`Storage.java`]
 
@@ -698,9 +698,7 @@ appended to the list of transactions on the `Home tab`. In addition, the stock r
 accordingly in the `Inventory tab`.
 
 [NOTE]
-If the user key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483, 647, the range
-of an integer, an exception will be thrown. This is the intended behaviour as the view cannot accommodate such large integers.
-If it exceeds 2,147,483, 647, users are advised to key in a smaller quantity or checkout items separately.
+If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
 
 
 ==== Add Sales Item Feature
