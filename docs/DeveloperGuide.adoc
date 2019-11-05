@@ -209,7 +209,7 @@ We have considered between two differing help philosophies.
 | Multi-faceted help				|	*Pros* : Provides multiple types of help .
 							*Cons* : There is a risk of over-complicating the `help` function, which would prompt the user to be confused on how to even use the help command.
 |=======================
-* We have settled on adopting the multi-faceted help philosophy as the current implementation of help simply does not cut it. Measures have been taken such as allowing the user to type in `help` with no additional
+We have settled on adopting the multi-faceted help philosophy as the current implementation of help simply does not cut it. Measures have been taken such as allowing the user to type in `help` with no additional
 parameters to display the command list and explain the deeper features of the help command; thus retaining its simplicity.
 
 === Claim feature
@@ -657,7 +657,7 @@ We have considered between two differing graph designs.
 
 							*Cons* : Opening a multitude of graphs will visually clutter the screen with data unless more parsing is done to sort out which graphs are required
 |=======================
-* We have settled on adopting a single-graph approach as having multiple graphs open can lead to the user being overwhelmed by unnecessary data, and the code needed to achieve this result satisfactorily would be too convoluted.
+We have settled on adopting a single-graph approach as having multiple graphs open can lead to the user being overwhelmed by unnecessary data, and the code needed to achieve this result satisfactorily would be too convoluted.
 
 === Goto feature
 This section describes the different Views that Goto can bring a user to. It includes an overview of the goto details and how users can interact
