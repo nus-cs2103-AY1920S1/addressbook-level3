@@ -84,5 +84,10 @@
     "output" : "Redo Successful ",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572958705915
+  }, {
+    "input" : "find s/ronna",
+    "output" : "1 students listed!\n",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572959307357
   } ]
 }
