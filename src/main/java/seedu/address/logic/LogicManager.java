@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.logic;
 
 import java.io.IOException;
@@ -10,7 +11,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
-import seedu.address.logic.autocomplete.AutoCompleter;
+import seedu.address.commons.exceptions.ForceThreadInterruptException;
+import seedu.address.logic.commands.SetFocusOnTabCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
@@ -21,10 +23,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.common.ReferenceIdResolver;
+import seedu.address.model.ReferenceId;
+import seedu.address.model.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -43,8 +43,9 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final CommandHistory commandHistory;
-    private final AutoCompleter autoCompleter;
     private final QueueManager queueManager;
+    private Thread lastEagerEvaluationThread;
+    private String lastEagerCommandWord = "";
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -52,45 +53,99 @@ public class LogicManager implements Logic {
         this.commandHistory = new CommandHistory();
         this.addressBookParser = new AddressBookParser(commandHistory);
         this.queueManager = new QueueManager();
-        this.autoCompleter = new AutoCompleter();
+        this.lastEagerEvaluationThread = new Thread();
     }
 
     @Override
-    public CommandResult execute(String commandText, Consumer<OmniPanelTab> omniPanelTabConsumer)
-        throws CommandException, ParseException {
+    public synchronized CommandResult execute(String commandText)
+            throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
+        lastEagerCommandWord = "";
         Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
             throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
         }
 
-        commandResult = command.execute(model);
+        CommandResult commandResult = command.execute(model);
         if (command instanceof ReversibleActionPairCommand) {
             commandHistory.addToCommandHistory((ReversibleActionPairCommand) command);
         }
 
         try {
             if (!(command instanceof NonActionableCommand)) {
-                storage.saveAddressBook(model.getAddressBook());
-                storage.saveAppointmentBook(model.getAppointmentBook());
+                storage.savePatientAddressBook(model.getPatientAddressBook());
+                storage.savePatientAppointmentBook(model.getAppointmentBook());
+                storage.saveStaffAddressBook(model.getStaffAddressBook());
+                storage.saveStaffDutyRosterBook(model.getDutyShiftBook());
             }
         } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe.getMessage(), ioe);
         }
 
         return commandResult;
     }
 
     @Override
-    public AutoCompleter updateAutoCompleter(String commandText) {
-        return autoCompleter.update(commandText);
+    public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
+
+        //Avoid evaluating the same command
+        String currCommandWord = commandText.trim();
+        if (lastEagerCommandWord.equals(currCommandWord)) {
+            return;
+        }
+        lastEagerCommandWord = currCommandWord;
+
+        // parse command to be eagerly evaluated
+        final Command command = addressBookParser.eagerEvaluateCommand(commandText);
+        if (!(command instanceof NonActionableCommand)) {
+            throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
+        }
+
+        // execute set focus on tab
+        if (command instanceof SetFocusOnTabCommand) {
+            try {
+                command.execute(model);
+            } catch (CommandException ex) {
+                logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
+            }
+            return;
+        }
+
+        // multi-thread eager evaluation
+        assert lastEagerEvaluationThread != null;
+        lastEagerEvaluationThread.interrupt();
+        Thread previousEagerEvaluationThread = lastEagerEvaluationThread;
+        lastEagerEvaluationThread = new Thread(() -> {
+            try {
+                Thread.sleep(200);
+                previousEagerEvaluationThread.join();
+            } catch (InterruptedException ex) {
+                logger.info("Skipping eager evaluation execution ");
+                return;
+            }
+
+            logger.info("Starting Eager evaluation execution  - " + commandText);
+            displayResult.accept("searching...");
+
+            try {
+                CommandResult result = command.execute(model);
+                if (!result.getFeedbackToUser().isEmpty()) {
+                    logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
+                    displayResult.accept(result.getFeedbackToUser());
+                }
+            } catch (CommandException ex) {
+                logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
+            } catch (ForceThreadInterruptException ex) {
+                logger.info("Interrupting eager evaluation execution");
+            }
+        });
+        lastEagerEvaluationThread.start();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Person> getFilteredPatientList() {
+        return model.getFilteredPatientList();
     }
 
     @Override
@@ -99,8 +154,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Event> getFilteredEventList() {
-        return model.getFilteredEventList();
+    public ObservableList<Event> getFilteredAppointmentList() {
+        return model.getFilteredAppointmentList();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredStaffList() {
+        return model.getFilteredStaffList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredDutyShiftList() {
+        return model.getFilteredDutyShiftList();
     }
 
     @Override
@@ -109,28 +174,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }
-
-    @Override
-    public ReadOnlyAppointmentBook getAppointmentBook() {
-        return model.getAppointmentBook();
+        return model.getUserPrefs().getPatientAddressBookFilePath();
     }
 
     @Override
     public ReferenceIdResolver getReferenceIdResolver() {
         return model;
-    }
-
-    @Override
-    public Path getAppointmentBookFilePath() {
-        return model.getAppointmentBookFilePath();
     }
 
     @Override
@@ -141,5 +191,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void bindOmniPanelTabConsumer(Consumer<OmniPanelTab> omniPanelTabConsumer) {
+        model.bindTabListingCommand(omniPanelTabConsumer);
     }
 }

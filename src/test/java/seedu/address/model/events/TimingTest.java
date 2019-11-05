@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.events.parameters.DateTime;
+import seedu.address.model.events.parameters.Timing;
+
 class TimingTest {
 
     private DateTime sampleDate1;

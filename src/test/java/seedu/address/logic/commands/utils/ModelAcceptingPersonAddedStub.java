@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.AddressBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -15,19 +15,19 @@ public class ModelAcceptingPersonAddedStub extends ModelStub {
     public final ArrayList<Person> personsAdded = new ArrayList<>();
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPatient(Person person) {
         requireNonNull(person);
         return personsAdded.stream().anyMatch(person::isSameAs);
     }
 
     @Override
-    public void addPerson(Person person) {
+    public void addPatient(Person person) {
         requireNonNull(person);
         personsAdded.add(person);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyAddressBook getPatientAddressBook() {
         return new AddressBook();
     }
 }

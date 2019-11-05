@@ -1,27 +1,41 @@
 package seedu.address.testutil;
 
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.events.DateTime;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
+import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.Status;
-import seedu.address.model.events.Timing;
-import seedu.address.model.person.parameters.PatientReferenceId;
+import seedu.address.model.events.parameters.DateTime;
+import seedu.address.model.events.parameters.Status;
+import seedu.address.model.events.parameters.Timing;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.parameters.Name;
 
 /**
  * A utility class to help with building Person objects.
+ * Uses a patient's {@code ReferenceId} by default
  */
 public class EventBuilder {
 
     public static final String DEFAULT_REFERENCE_ID = "1234567A";
-    public static final DateTime DEFAULT_STARTIMING = DateTime.tryParseSimpleDateFormat("01/11/2019 1800");
-    public static final DateTime DEFAULT_ENDTIMING = DateTime.tryParseSimpleDateFormat("01/11/2019 1900");
+    public static final DateTime DEFAULT_DATETIME = DateTime.tryParseSimpleDateFormat("11/11/19 1800");
 
     private ReferenceId id;
+    private Name name;
     private Timing timing;
+    private Status status;
 
-    public EventBuilder() {
-        id = new PatientReferenceId(DEFAULT_REFERENCE_ID);
-        timing = new Timing(DEFAULT_STARTIMING, DEFAULT_ENDTIMING);
+    public EventBuilder(Person person, int afterYears, int afterMonth, int afterDays,
+                        int afterHours, int afterMinutes) {
+        this.id = person.getReferenceId();
+        this.name = person.getName();
+        withStartTime(afterYears, afterMonth, afterDays, afterHours, afterMinutes, 30);
+        status = new Status("APPROVED");
+    }
+
+    public EventBuilder(Person person) {
+        this(person, 0, 0, 0, 0, 0);
     }
 
     /**
@@ -29,19 +43,80 @@ public class EventBuilder {
      */
     public EventBuilder(Event personToCopy) {
         id = personToCopy.getPersonId();
+        name = personToCopy.getPersonName();
         timing = personToCopy.getEventTiming();
+        status = personToCopy.getStatus();
     }
 
     /**
-     * Sets the {@code PatientReferenceId} of the {@code Person} that we are building.
+     * Sets the {@code ReferenceId} of the {@code Event} that we are building.
      */
-    public EventBuilder withId(String id) {
-        this.id = new PatientReferenceId(id);
+    public EventBuilder withId(Person person) {
+        this.id = person.getReferenceId();
+        return this;
+    }
+
+    /**
+     * Sets the {@code ReferenceId} of the {@code Event} that we are building.
+     */
+    public EventBuilder withId(ReferenceId refId) {
+        this.id = refId;
+        return this;
+    }
+
+    /**
+     * Sets the {@code ReferenceId} of the {@code Event} that we are building.
+     */
+    public EventBuilder withStartTime(int afterYears, int afterMonth, int afterDays,
+                                      int afterHours, int afterMinutes, int durationInMinutes) {
+
+        LocalDateTime currentLocalDateTime = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault());
+
+        LocalDateTime newStartLocalDateTime = currentLocalDateTime
+                .plusYears(afterYears)
+                .plusMonths(afterMonth)
+                .plusDays(afterDays)
+                .plusHours(afterHours)
+                .plusMinutes(afterMinutes)
+                .withSecond(0)
+                .withNano(0);
+
+        LocalDateTime newEndLocalDateTime = newStartLocalDateTime.plusMinutes(durationInMinutes);
+
+        this.timing = new Timing(
+                DateTime.fromLocalDateTime(newStartLocalDateTime),
+                DateTime.fromLocalDateTime(newEndLocalDateTime));
+
+        return this;
+    }
+
+    /**
+     * Sets the {@code Timing} of the {@code Event} that we are building.
+     */
+    public EventBuilder withStartTime(String startTime) {
+        DateTime dateTime = DateTime.tryParseSimpleDateFormat(startTime);
+        this.timing = new Timing(dateTime);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Status} of the {@code Event} that we are building.
+     */
+    public EventBuilder withStatus(Status.AppointmentStatuses status) {
+        this.status = new Status(status);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Status} of the {@code Event} that we are building by giving a string status.
+     */
+    public EventBuilder withStatus(String status) {
+        this.status = new Status(status);
         return this;
     }
 
     public Event build() {
-        return new Event(id, timing, new Status("APPROVED"));
+        return new Event(id, name, timing, status);
     }
 
 }

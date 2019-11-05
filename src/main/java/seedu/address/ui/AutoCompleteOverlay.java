@@ -1,6 +1,6 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -18,10 +18,13 @@ import javafx.scene.text.TextFlow;
 public class AutoCompleteOverlay extends UiPart<Region> {
 
     private static final int CELL_HEIGHT = 20;
+    private static final double FONT_WIDTH = 10.82; //via experimenting, currently no solution to get an exact
+    private static final int SCROLL_NEGATE_OFFSET = 20;
     private static final int NUM_IN_VIEW = 10;
     private static final int MAX_HEIGHT = CELL_HEIGHT * NUM_IN_VIEW;
+    private static final int X_OFFSET = 24;
 
-    private SelectionNotifier selectionNotifier;
+    private final SelectionNotifier selectionNotifier;
 
     @FXML
     private ListView<TextFlow> autoCompleteOverlay;
@@ -38,14 +41,17 @@ public class AutoCompleteOverlay extends UiPart<Region> {
      */
     public void showSuggestions(String prefix, List<String> listOfSuggestions) {
         autoCompleteOverlay.setVisible(false);
+        ObservableList<TextFlow> ols = autoCompleteOverlay.getItems();
+        ols.setAll();
 
         if (prefix.isBlank() || listOfSuggestions.isEmpty()) {
-            autoCompleteOverlay.getItems().setAll(new ArrayList<>());
             return;
         }
+        int prefixLastIndex = prefix.lastIndexOf(' ') + 1;
+        prefix = prefix.substring(prefixLastIndex);
+        autoCompleteOverlay.setTranslateX(prefixLastIndex * FONT_WIDTH + X_OFFSET);
 
-        ObservableList<TextFlow> ols = autoCompleteOverlay.getItems();
-        ArrayList<TextFlow> arrls = new ArrayList<>();
+        int suggestionLength = 0;
         listOfSuggestions.sort(String::compareTo);
         for (String suggestion : listOfSuggestions) {
             if (suggestion.isBlank()) {
@@ -55,12 +61,14 @@ public class AutoCompleteOverlay extends UiPart<Region> {
             prefixText.setFill(Paint.valueOf("#0FF"));
             Text suggestionText = new Text(suggestion);
             suggestionText.setFill(Paint.valueOf("#FFF"));
-            arrls.add(new TextFlow(prefixText, suggestionText));
+            TextFlow textFlow = new TextFlow(prefixText, suggestionText);
+            ols.add(textFlow);
+            suggestionLength = Math.max(suggestion.length(), suggestionLength);
         }
-        ols.setAll(arrls);
         autoCompleteOverlay.getSelectionModel().select(0);
         autoCompleteOverlay.setPrefHeight(1 + listOfSuggestions.size() * CELL_HEIGHT);
-        if (!arrls.isEmpty()) {
+        autoCompleteOverlay.setPrefWidth((prefix.length() + suggestionLength) * FONT_WIDTH + SCROLL_NEGATE_OFFSET);
+        if (!ols.isEmpty()) {
             autoCompleteOverlay.setVisible(true);
         }
     }
@@ -74,11 +82,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         int size = autoCompleteOverlay.getItems().size();
         MultipleSelectionModel msm = autoCompleteOverlay.getSelectionModel();
         int targetIndex = (size + msm.getSelectedIndex() + (traverseUp ? -1 : 1)) % size;
-        if (targetIndex > msm.getSelectedIndex()) {
-            autoCompleteOverlay.scrollTo(Math.max(0, targetIndex + 1 - NUM_IN_VIEW));
-        } else {
-            autoCompleteOverlay.scrollTo(Math.min(size - 1, targetIndex));
-        }
+        autoCompleteOverlay.scrollTo(targetIndex);
         msm.select(targetIndex);
     }
 

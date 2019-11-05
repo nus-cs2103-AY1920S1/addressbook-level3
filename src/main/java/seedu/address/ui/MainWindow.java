@@ -1,20 +1,25 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
-import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
+import static java.awt.Desktop.getDesktop;
 
-import java.util.function.Consumer;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.io.IOException;
+import java.net.URI;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -22,9 +27,15 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.duties.DutyShiftCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.patients.ListPatientCommand;
+import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.autocomplete.AutoCompleter;
+import seedu.address.ui.commandboxhistory.CommandBoxHistory;
 import seedu.address.ui.queue.QueueListPanel;
 
 /**
@@ -37,17 +48,24 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
-    private Logic logic;
+    private final Stage primaryStage;
+    private final Logic logic;
+    private final AutoCompleter autoCompleter;
+    private final CommandBoxHistory commandBoxHistory;
+    private OmniPanelTab currentOmniPanelTab;
+    private boolean requiresReset;
+
+    private final HashSet<Runnable> deferredDropSelectors;
 
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
     private CommandBox commandBox;
-    private PersonListPanel personListPanel;
+    private PersonListPanel patientListPanel;
+    private PersonListPanel staffListPanel;
     private QueueListPanel queueListPanel;
-    private EventListPanel eventListPanel;
+    private EventListPanel appointmentListPanel;
+    private EventListPanel dutyShiftListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
     private TabBar tabBar;
 
     @FXML
@@ -58,6 +76,12 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem checkForUpdatesMenuItem;
+
+    @FXML
+    private MenuItem aboutUsMenuItem;
 
     @FXML
     private StackPane omniPanelPlaceholder;
@@ -83,26 +107,29 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.autoCompleter = new AutoCompleter();
+        this.commandBoxHistory = new CommandBoxHistory();
+        this.requiresReset = false;
 
+        this.deferredDropSelectors = new HashSet<>();
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> deferredDropSelectors.forEach(Runnable::run));
 
-        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                case TAB:
-                    event.consume();
-                    commandBox.getRoot().requestFocus();
-                    break;
-                default:
-                }
+        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            switch (keyEvent.getCode()) {
+            case TAB:
+                keyEvent.consume();
+                commandBox.getRoot().requestFocus();
+                break;
+            default:
             }
         });
+
+        logic.bindOmniPanelTabConsumer(this::setOmniPanelTab);
     }
 
     public Stage getPrimaryStage() {
@@ -111,6 +138,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(checkForUpdatesMenuItem, KeyCombination.valueOf("F2"));
+        setAccelerator(aboutUsMenuItem, KeyCombination.valueOf("F3"));
     }
 
     /**
@@ -120,43 +149,23 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        patientListPanel = new PersonListPanel(logic.getFilteredPatientList(), deferredDropSelectors);
+        staffListPanel = new PersonListPanel(logic.getFilteredStaffList(), deferredDropSelectors);
 
-        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList(), true);
+        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList(), false);
 
-        tabBar = new TabBar(this::setOmniPanelTab);
+        tabBar = new TabBar(this);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
         queueListPanel = new QueueListPanel(logic.getConsultationRoomList(),
-            logic.getQueueList(), logic.getReferenceIdResolver());
+                logic.getQueueList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -170,35 +179,73 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
         aco = new AutoCompleteOverlay(this::autoCompleterSelected);
         anchorPane.getChildren().add(aco.getRoot());
-        anchorPane.setBottomAnchor(aco.getRoot(), 0.0);
+        AnchorPane.setBottomAnchor(aco.getRoot(), 0.0);
     }
 
     /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
+        //Screen Size
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int screenWidth = gd.getDisplayMode().getWidth();
+        int screenHeight = gd.getDisplayMode().getHeight();
+
+        if (screenHeight < guiSettings.getWindowHeight() || screenWidth < guiSettings.getWindowWidth()) {
+            return;
+        }
+
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
-    }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+        if (guiSettings.getWindowCoordinates() == null
+                || screenWidth < guiSettings.getWindowWidth() + guiSettings.getWindowCoordinates().getX()
+                || screenHeight < guiSettings.getWindowHeight() + guiSettings.getWindowCoordinates().getY()) {
+            return;
         }
+
+        primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+        primaryStage.setY(guiSettings.getWindowCoordinates().getY());
     }
 
     void show() {
         primaryStage.show();
+    }
+
+    /**
+     * Opens URI to User Guide.
+     */
+    @FXML
+    private void handleHelp() {
+        try {
+            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Opens URI to Releases.
+     */
+    @FXML
+    private void handleCheckForUpdates() {
+        try {
+            getDesktop().browse(URI.create("https://github.com/AY1920S1-CS2103T-T09-3/main/releases"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Opens URI to About Us.
+     */
+    @FXML
+    private void handleAboutUs() {
+        try {
+            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/AboutUs"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -207,28 +254,20 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    public EventListPanel getEventListPanel() {
-        return eventListPanel;
     }
 
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String, Consumer)
+     * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private void executeCommand(String commandText) {
         try {
-            CommandResult commandResult = logic.execute(commandText, this::setOmniPanelTab);
+            CommandResult commandResult = logic.execute(commandText);
+            requiresReset = true;
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -239,20 +278,23 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
         }
     }
 
     /**
-     * Called whenever AutoComplete selected command.
+     * Called to update AutoComplete when new commands.
      */
     public void updateCommandAutoComplete(String commandText) {
-        aco.showSuggestions(commandText, logic.updateAutoCompleter(commandText).getSuggestions());
+        if (!commandText.isBlank()) {
+            logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
+            requiresReset = true;
+        }
+        aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
+        Region acoRoot = aco.getRoot();
+        acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
     }
 
     /**
@@ -265,19 +307,21 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
                 aco.traverseSelection(true);
                 break;
             }
+            commandBox.setCommandTextField(commandBoxHistory.getOlder());
             break;
         case DOWN:
             if (aco.isSuggesting()) {
                 aco.traverseSelection(false);
                 break;
             }
+            commandBox.setCommandTextField(commandBoxHistory.getNewer());
             break;
         case ENTER:
             if (aco.isSuggesting()) {
                 aco.simulateMouseClick();
                 break;
             }
-            commandBox.handleCommandEntered();
+            commandBoxHistory.add(commandBox.handleCommandEntered());
             break;
         default:
         }
@@ -287,7 +331,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Called whenever AutoComplete has a selection.
      */
     private void autoCompleterSelected(String selectedText) {
-        commandBox.setCommandTextField(selectedText);
+        commandBox.appendCommandTextField(selectedText);
     }
 
     /**
@@ -295,14 +339,58 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     @Override
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
+        if (omniPanelTab.equals(currentOmniPanelTab)) {
+            return;
+        }
+        if (requiresReset) {
+            switch (currentOmniPanelTab) {
+            case PATIENTS_TAB:
+                executeCommand(ListPatientCommand.COMMAND_WORD);
+                break;
+            case APPOINTMENTS_TAB:
+                executeCommand(AppointmentsCommand.COMMAND_WORD);
+                break;
+            case DOCTORS_TAB:
+                executeCommand(ListStaffCommand.COMMAND_WORD);
+                break;
+            case DUTY_SHIFT_TAB:
+                executeCommand(DutyShiftCommand.COMMAND_WORD);
+                break;
+            default:
+            }
+            requiresReset = false;
+        }
+        tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
+        currentOmniPanelTab = omniPanelTab;
+        resultDisplay.setFeedbackToUser("");
+        Region region;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
+            region = patientListPanel.getRoot();
             break;
         case APPOINTMENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(eventListPanel.getRoot());
+            region = appointmentListPanel.getRoot();
             break;
         case DOCTORS_TAB:
+            region = staffListPanel.getRoot();
+            break;
+        case DUTY_SHIFT_TAB:
+            region = dutyShiftListPanel.getRoot();
+            break;
+        default:
+            return;
+        }
+        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));
+    }
+
+    @Override
+    public void regainOmniPanelSelector() {
+        switch (currentOmniPanelTab) {
+        case PATIENTS_TAB:
+            patientListPanel.regainSelector();
+            break;
+        case DOCTORS_TAB:
+            staffListPanel.regainSelector();
             break;
         default:
         }

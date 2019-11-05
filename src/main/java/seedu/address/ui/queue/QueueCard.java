@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.ui.queue;
 
 import javafx.fxml.FXML;
@@ -30,10 +31,15 @@ public class QueueCard extends UiPart<Region> {
     public QueueCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
+        if (displayedIndex % 2 == 0) {
+            cardPane.setStyle("-fx-background-color: #34495e;");
+        } else {
+            cardPane.setStyle("-fx-background-color: #1abc9c;");
+        }
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        name.setText(person.getName().toString());
         refId.setText(person.getReferenceId().toString());
-        phone.setText(person.getPhone().value);
+        phone.setText(person.getPhone().toString());
     }
 
     @Override

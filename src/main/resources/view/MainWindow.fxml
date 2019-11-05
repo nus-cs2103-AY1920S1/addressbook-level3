@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author CarbonGrid -->
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -14,50 +15,62 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="500" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="800" onCloseRequest="#handleExit" title="ClerkPro" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <icons>
-        <Image url="@/images/address_book_32.png" />
+        <Image url="@/images/address_book_32.png"/>
     </icons>
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css" />
-                <URL value="@Extensions.css" />
+                <URL value="@DarkTheme.css"/>
+                <URL value="@Extensions.css"/>
             </stylesheets>
 
             <VBox>
                 <MenuBar fx:id="menuBar" focusTraversable="false" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
-                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
                     </Menu>
                     <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                        <MenuItem fx:id="checkForUpdatesMenuItem" mnemonicParsing="false" onAction="#handleCheckForUpdates" text="Check For Updates"/>
+                        <MenuItem fx:id="aboutUsMenuItem" mnemonicParsing="false" onAction="#handleAboutUs" text="About Us"/>
                     </Menu>
                 </MenuBar>
 
                 <AnchorPane fx:id="anchorPane" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                     <children>
-                        <SplitPane fx:id="upperPane" dividerPositions="0.0, 0.0" focusTraversable="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="SOMETIMES">
-                     <StackPane fx:id="tabBarPlaceholder" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="70.0" />
-                             <StackPane fx:id="omniPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" />
-                             <StackPane fx:id="queueListPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="150.0" />
+                        <SplitPane fx:id="upperPane" dividerPositions="0.0, 0.0" focusTraversable="false"
+                                   AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="SOMETIMES">
+                            <StackPane fx:id="tabBarPlaceholder" maxWidth="-Infinity" minWidth="-Infinity"
+                                       prefHeight="250.0" prefWidth="70.0" SplitPane.resizableWithParent="false"/>
+                            <StackPane fx:id="omniPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity"
+                                       prefHeight="250.0" prefWidth="450.0" SplitPane.resizableWithParent="false"/>
+                            <StackPane fx:id="queueListPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity"
+                                       prefHeight="250.0" prefWidth="200.0" SplitPane.resizableWithParent="false"/>
                         </SplitPane>
 
-                        <StackPane fx:id="resultDisplayPlaceholder" layoutY="100.0" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <StackPane fx:id="resultDisplayPlaceholder" layoutY="100.0" maxHeight="100" minHeight="100"
+                                   prefHeight="100" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                             <padding>
-                                <Insets bottom="5" left="10" right="10" top="5" />
+                                <Insets bottom="5" left="10" right="10" top="5"/>
                             </padding>
                         </StackPane>
                     </children>
                 </AnchorPane>
 
-                <StackPane fx:id="commandBoxPlaceholder" prefHeight="10.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <StackPane fx:id="commandBoxPlaceholder" prefHeight="10.0" styleClass="pane-with-border"
+                           VBox.vgrow="NEVER">
                     <padding>
-                        <Insets bottom="5" left="10" right="10" top="5" />
+                        <Insets bottom="5" left="10" right="10" top="5"/>
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="statusbarPlaceholder" maxHeight="Infinity" maxWidth="Infinity" prefHeight="10.0" VBox.vgrow="NEVER" />
+                <StackPane fx:id="statusbarPlaceholder" maxHeight="Infinity" maxWidth="Infinity" prefHeight="10.0"
+                           VBox.vgrow="NEVER"/>
             </VBox>
         </Scene>
     </scene>

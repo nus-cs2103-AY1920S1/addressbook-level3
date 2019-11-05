@@ -1,15 +1,19 @@
+//@@author SakuraBlossom
 package seedu.address.model;
 
-import java.nio.file.Path;
-
+import java.util.List;
+import java.util.ListIterator;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.common.ReferenceIdResolver;
+import seedu.address.commons.core.OmniPanelTab;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
+import seedu.address.model.events.predicates.EventApprovedPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
@@ -23,8 +27,7 @@ public interface Model extends ReferenceIdResolver {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<ReferenceId> PREDICATE_SHOW_ALL_ID = unused -> true;
-    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = new EventApprovedPredicate();
 
 
     //=========== UserPrefs ==================================================================================
@@ -49,117 +52,183 @@ public interface Model extends ReferenceIdResolver {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
+
+    //=========== Patient AddressBook ================================================================================
 
     /**
-     * Sets the user prefs' address book file path.
+     * Replaces address book data with the data in {@code patientAddressBook}.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
-
-    /**
-     * Returns the user prefs' appointment book file path.
-     */
-    Path getAppointmentBookFilePath();
-
-    /**
-     * Sets the user prefs' appointment book file path.
-     */
-    void setAppointmentBookFilePath(Path appointmentBookFilePath);
-
-
-    //=========== AddressBook ================================================================================
-
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setPatientAddressBook(ReadOnlyAddressBook patientAddressBook);
 
     /**
      * Returns the AddressBook
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyAddressBook getPatientAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPatient(Person person);
 
     /**
      * Returns true if an exact {@code person} exists in the address book.
      */
-    boolean hasExactPerson(Person person);
+    boolean hasExactPatient(Person person);
 
     /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePatient(Person target);
 
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addPatient(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPatient(Person target, Person editedPerson);
+
+
+    //=========== Filtered Patient List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the filtered patient list
+     */
+    ObservableList<Person> getFilteredPatientList();
+
+    /**
+     * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPatientList(Predicate<Person> predicate);
+
+
+    //=========== Staff AddressBook ================================================================================
+
+    /**
+     * Replaces address book data with the data in {@code staffAddressBook}.
+     */
+    void setStaffAddressBook(ReadOnlyAddressBook staffAddressBook);
+
+    /**
+     * Returns the AddressBook
+     */
+    ReadOnlyAddressBook getStaffAddressBook();
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the staff address book.
+     */
+    boolean hasStaff(Person person);
+
+    /**
+     * Returns true if an exact {@code person} exists in the staff address book.
+     */
+    boolean hasExactStaff(Person person);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the staff address book.
+     */
+    void deleteStaff(Person target);
+
+    /**
+     * Adds the given person.
+     * {@code person} must not already exist in the staff address book.
+     */
+    void addStaff(Person person);
+
+    /**
+     * Replaces the given person {@code target} with {@code editedPerson}.
+     * {@code target} must exist in the staff address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void setStaff(Person target, Person editedPerson);
 
 
     //=========== Filtered Person List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the filtered person list
-     */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered staff list */
+    ObservableList<Person> getFilteredStaffList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredStaffList(Predicate<Person> predicate);
 
     //=========== Queue Manager ==================================================================================
 
+    /**
+     * Returns the QueueManager
+     */
     QueueManager getQueueManager();
 
+    /**
+     * Removes a patient from the queue with the ReferenceId given
+     */
     void removeFromQueue(ReferenceId target);
 
+    /**
+     * Enqueues a patient to the queue
+     */
     void enqueuePatient(ReferenceId id);
 
+    /**
+     * Enqueues a patient to the queue based on the index given
+     */
     void enqueuePatientToIndex(ReferenceId id, int index);
 
-    public boolean isPatientInQueue(ReferenceId id);
+    /**
+     * Checks if the patient is in queue
+     */
+    boolean isPatientInQueue(ReferenceId id);
 
+    /**
+     * Checks if the patient is being served
+     */
+    boolean isPatientBeingServed(ReferenceId id);
+
+    /**
+     * Checks if the patient is in queue
+     */
+    void changePatientRefIdInQueue(ReferenceId idToEdit, ReferenceId editedId);
+
+    /**
+     * Returns the queueList
+     */
     ObservableList<ReferenceId> getQueueList();
 
-    void serveNextPatient(int index);
+    /**
+     * Adds a new room to the list of rooms
+     */
+    void addRoom(Room room);
 
-    void undoServeNextPatient(int index);
+    /**
+     * Removes a room
+     */
+    void removeRoom(Room target);
 
-    void addRoom(ReferenceId id);
-
-    void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom);
-
-    void removeRoom(ReferenceId target);
-
-    public boolean hasRoom(ReferenceId doctorReferenceId);
+    /**
+     * Checks if the room exists
+     */
+    boolean hasRoom(Room room);
 
     ObservableList<Room> getConsultationRoomList();
 
-    //=========== Scheduler ==================================================================================
+    //=========== Appointment Scheduler ======================================================================
 
     /**
      * Replaces schedule data with the data in {@code schedule}.
      */
-    void setSchedule(ReadOnlyAppointmentBook schedule);
+    void setAppointmentSchedule(ReadOnlyAppointmentBook schedule);
 
     /**
      * Returns the schedule of appointments.
@@ -167,58 +236,177 @@ public interface Model extends ReferenceIdResolver {
     ReadOnlyAppointmentBook getAppointmentBook();
 
     /**
-     * Returns true if an event with the same identity as {@code event} exists in the schedule.
+     * Returns true if an appointment with the same identity as {@code event} exists in the schedule.
      */
-    boolean hasEvent(Event event);
+    boolean hasAppointment(Event event);
 
     /**
      * Returns true if an exact {@code event} exists in the schedule.
      */
-    boolean hasExactEvent(Event event);
+    boolean hasExactAppointment(Event event);
 
     /**
      * Deletes the given event.
      * The event must exist in the schedule.
      */
-    void deleteEvent(Event event);
+    void deleteAppointment(Event appointment);
 
     /**
-     * Adds the given event.
-     * {@code person} must not already exist in the schedule.
+     * Schedules a given {@code appointment}.
+     *
+     * @throws InvalidEventScheduleChangeException if the number of unique events which timings are in conflict
+     * is greater or equal to the {@code maxNumberOfConcurrentEvents} or the events in conflict
+     * involves the same patient given in {@code appointment}.
      */
-    void addEvent(Event event);
+    void scheduleAppointment(Event appointment) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Schedules a given list of {@code appointments}.
+     *
+     * @throws InvalidEventScheduleChangeException if the number of unique events which timings are in conflict
+     * is greater or equal to the {@code maxNumberOfConcurrentEvents} or the events in conflict
+     * involves the same patient given in {@code appointment}.
+     */
+    void scheduleAppointments(List<Event> appointments) throws InvalidEventScheduleChangeException;
 
     /**
      * Replaces the given event {@code target} with {@code editedEvent}.
      * {@code target} must exist in the schedule.
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
      */
-    void setEvent(Event target, Event editedEvent);
-
-
-    //=========== Filtered Event List Accessors ==============================================================
+    void setAppointment(Event target, Event editedEvent) throws InvalidEventScheduleChangeException;
 
     /**
-     * Returns an unmodifiable view of the filtered event list
+     * Returns a ListIterator of appointments whose timing is in conflict with the given {@code event}.
      */
-    ObservableList<Event> getFilteredEventList();
+    ListIterator<Event> getAppointmentsInConflict(Event toCheck);
 
     /**
-     * Updates the filter of the filtered event list to filter by the given {@code predicate}.
+     * Returns the number of appointments whose timing is in conflict with the given {@code event}.
+     */
+    int getNumberOfAppointmentsInConflict(Event toCheck);
+
+
+    //=========== Filtered Appointment List Accessors ==============================================================
+
+    /**
+     * Returns an unmodifiable view of the filtered appointment list
+     */
+    ObservableList<Event> getFilteredAppointmentList();
+
+    /**
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredEventList(Predicate<Event> predicate);
+    void updateFilteredAppointmentList(Predicate<Event> predicate);
 
-    void updateFilteredEventList(ReferenceId referenceId);
+    /**
+     * Checks whether the currently displayed appointments belong to the same patient.
+     */
+    Boolean isListingAppointmentsOfSinglePatient();
 
-    void updateFilteredEventList();
+    /**
+     * Checks whether the currently displayed appointments belong to the same patient.
+     */
+    Boolean isListingAppointmentsOfSingleStaff();
 
-    void updateToMissedEventList();
+    /**
+     * Checks whether the currently displayed appointments only consist of missed appointments.
+     */
+    Boolean isMissedList();
 
-    void displayApprovedAndAckedPatientEvent(ReferenceId referenceId);
+    //=========== Duty Roster Scheduler ======================================================================
 
-    public Boolean isPatientList();
+    /**
+     * Replaces schedule data with the data in {@code schedule}.
+     */
+    void setDutyShiftSchedule(ReadOnlyAppointmentBook schedule);
 
-    public Boolean isMissedList();
+    /**
+     * Returns the schedule of appointments.
+     */
+    ReadOnlyAppointmentBook getDutyShiftBook();
+
+    /**
+     * Returns true if an appointment with the same identity as {@code event} exists in the schedule.
+     */
+    boolean hasDutyShift(Event dutyShift);
+
+    /**
+     * Returns true if an exact {@code event} exists in the schedule.
+     */
+    boolean hasExactDutyShift(Event dutyShift);
+
+    /**
+     * Deletes the given event.
+     * The event must exist in the schedule.
+     */
+    void deleteDutyShifts(Event dutyShift) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Deletes the given event.
+     * The event must exist in the schedule.
+     */
+    void deleteDutyShifts(List<Event> dutyShifts) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Schedules a given {@code dutyShift}.
+     *
+     * @throws CommandException if the dutyShifts in conflict
+     * involves the same staff member given in {@code dutyShift}.
+     */
+    void scheduleDutyShift(Event dutyShift) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Schedules a given list of {@code dutyShifts}.
+     *
+     * @throws CommandException if the dutyShifts in conflict
+     * involves the same staff member given in {@code dutyShift}.
+     */
+    void scheduleDutyShift(List<Event> dutyShifts) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Replaces the given event {@code target} with {@code editedEvent}.
+     * {@code target} must exist in the schedule.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    void setDutyShift(Event target, Event editedEvent) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Returns a ListIterator of duty shifts whose timing is in conflict with the given {@code event}.
+     */
+    ListIterator<Event> getDutyShiftInConflict(Event toCheck);
+
+    /**
+     * Returns the number of duty shifts whose timing is in conflict with the given {@code event}.
+     */
+    int getNumberOfDutyShiftInConflict(Event toCheck);
+
+
+    //=========== Filtered DutyShift List Accessors ==============================================================
+
+    /**
+     * Returns an unmodifiable view of the filtered appointment list
+     */
+    ObservableList<Event> getFilteredDutyShiftList();
+
+    /**
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDutyShiftList(Predicate<Event> predicate);
+
+    //=========== User Interface =============================================================================
+
+    /**
+     * Sets the desired tab listing.
+     */
+    void setTabListing(OmniPanelTab tab);
+
+    /**
+     * Binds the OmniPanel tab selector.
+     */
+    void bindTabListingCommand(Consumer<OmniPanelTab> tabConsumer);
 }

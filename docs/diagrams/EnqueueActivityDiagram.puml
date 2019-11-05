@@ -1,0 +1,25 @@
+@startuml
+
+start
+-Entered enqueue command
+if () then ([valid command])
+
+    if () then ([Patient not in queue])
+        if() then ([Patient is registered])
+        -Add patient to queue
+        -Display in queue
+
+        else ([Patient is not registered])
+        -ReferenceId \n not found message
+        endif
+
+    else ([Patient in queue])
+    -Display error message\n "person already in queue"
+    endif
+
+else ([Invalid command])
+-Invalid command \n message
+endif
+
+stop
+@enduml

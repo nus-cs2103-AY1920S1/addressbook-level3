@@ -1,4 +1,4 @@
-= <NAME> - Project Portfolio
+= CarbonGrid - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,33 +13,32 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: *Major Rework on User Interface (UI) to be capable of full traversal with just keyboard while supporting AutoComplete for the Command Line Interface (CLI), and OmniPanel.*
+** What it does: reduces the mental workload of the user from having to carefully type commands and double checking the typed command or the user guide for supported commands and parameters.
+** Justification: This feature enhances the user experience significantly because it provides optimal focus on primary tasks at hand to reduce visual and cognitive expenditure.
+** Highlights: This enhancement affects interaction against existing UI components as the traversal have to be critically handled from component to component.
+** Credits: None
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added history for the CLI that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com/AY1920S1-CS2103T-T09-3/main/blob/master/src/test/java/seedu/address/MainAppTest.java[MainAppTest.java]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Gradle updating & Config for Headed UI Test
+*** Dependencies management and version bumping after compatibility checks.
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Implemented TestFX for minimalistic GUI testing to increase coverage from 56.193% to 73.193% (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** [TODO] Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** [TODO] PRs reviewed (with non-trivial review comments): https://github.com[#12]
+*** [TODO] Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** [TODO] Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** [TODO] Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (TestFX) to the project (https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71])
 
 _{you can add/remove categories in the list above}_
 
@@ -50,9 +49,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=ui]
 
 == Contributions to the Developer Guide
 
@@ -60,6 +57,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=autocomplete]

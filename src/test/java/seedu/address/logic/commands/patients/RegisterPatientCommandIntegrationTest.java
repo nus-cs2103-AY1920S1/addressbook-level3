@@ -22,7 +22,7 @@ public class RegisterPatientCommandIntegrationTest {
 
         Model model = TestUtil.getTypicalModelManager();
         Model expectedModel = TestUtil.getTypicalModelManager();
-        expectedModel.addPerson(validPerson);
+        expectedModel.addPatient(validPerson);
 
         assertCommandSuccess(command, model,
                 String.format(RegisterPatientCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
@@ -31,7 +31,7 @@ public class RegisterPatientCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Model model = TestUtil.getTypicalModelManager();
-        Person personInList = model.getAddressBook().getPersonList().get(0);
+        Person personInList = model.getPatientAddressBook().getPersonList().get(0);
         assertCommandFailure(new RegisterPatientCommand(personInList), model,
             RegisterPatientCommand.MESSAGE_DUPLICATE_PERSON);
     }

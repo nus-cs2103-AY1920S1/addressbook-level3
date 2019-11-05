@@ -1,9 +1,12 @@
+//@@author SakuraBlossom
 package seedu.address.logic.commands.patients;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -21,24 +24,25 @@ import seedu.address.model.person.Person;
  */
 public class EditPatientDetailsCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "update";
+    public static final String COMMAND_WORD = "editpatient";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the patient identified "
+            + "by the index number used in the displayed patient list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
+            + PREFIX_ENTRY + " INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " " + PREFIX_ENTRY + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Patient: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This patient has already been registered.";
 
     private final Person personToEdit;
     private final Person editedPerson;
@@ -61,16 +65,20 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_NOT_EDITED);
         }
 
-        if (personToEdit == null || editedPerson == null || !model.hasExactPerson(personToEdit)) {
+        if (personToEdit == null || editedPerson == null || !model.hasExactPatient(personToEdit)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (model.hasPerson(editedPerson) && !personToEdit.isSameAs(editedPerson)) {
+        if (model.hasPatient(editedPerson) && !personToEdit.isSameAs(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        if (model.isPatientInQueue(personToEdit.getReferenceId())) {
+            model.changePatientRefIdInQueue(personToEdit.getReferenceId(), editedPerson.getReferenceId());
+        }
+
+        model.setPatient(personToEdit, editedPerson);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 

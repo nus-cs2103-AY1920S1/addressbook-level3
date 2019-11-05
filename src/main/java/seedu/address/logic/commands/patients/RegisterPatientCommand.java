@@ -1,6 +1,8 @@
+//@@author SakuraBlossom
 package seedu.address.logic.commands.patients;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
@@ -19,11 +21,11 @@ import seedu.address.model.person.Person;
  */
 public class RegisterPatientCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "register";
+    public static final String COMMAND_WORD = "newpatient";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": registers a patient. "
             + "Parameters: "
-            + PREFIX_ID + "REFERENCE ID "
+            + PREFIX_ID + "REFERENCE_ID "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -39,7 +41,7 @@ public class RegisterPatientCommand extends ReversibleCommand {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This patient has already been registered.";
 
     private final Person toAdd;
 
@@ -54,12 +56,13 @@ public class RegisterPatientCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.setTabListing(PATIENTS_TAB);
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasPatient(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        model.addPatient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
