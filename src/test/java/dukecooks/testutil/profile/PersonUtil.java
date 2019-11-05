@@ -42,7 +42,8 @@ public class PersonUtil {
      */
     public static String getEditPersonDescriptorDetails(EditProfileCommand.EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME)
+                .append(name.fullName).append(" "));
         if (descriptor.getMedicalHistoriesToAdd().isPresent()) {
             Set<MedicalHistory> medicalHistories = descriptor.getMedicalHistoriesToAdd().get();
             if (medicalHistories.isEmpty()) {
@@ -52,6 +53,17 @@ public class PersonUtil {
                         .append(s.medicalHistoryName).append(" "));
             }
         }
+        descriptor.getDateOfBirth().ifPresent(d-> sb.append(CliSyntax.PREFIX_DOB)
+                .append(d.dateOfBirth.toString()).append(" "));
+        descriptor.getGender().ifPresent(g -> sb.append(CliSyntax.PREFIX_GENDER)
+                .append(g.gender).append(" "));
+        descriptor.getBloodType().ifPresent(b -> sb.append(CliSyntax.PREFIX_BLOODTYPE)
+                .append(b.bloodGroup).append(" "));
+        descriptor.getHeight().ifPresent(h -> sb.append(CliSyntax.PREFIX_HEIGHT)
+                .append(h.toString()).append(" "));
+        descriptor.getWeight().ifPresent(w -> sb.append(CliSyntax.PREFIX_WEIGHT)
+                .append(w.toString()).append(" "));
+
         return sb.toString();
     }
 }

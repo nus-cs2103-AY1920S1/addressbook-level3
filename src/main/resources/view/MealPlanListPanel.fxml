@@ -13,45 +13,50 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox prefHeight="100.0" prefWidth="200.0">
-      <children>
-         <Label fx:id="title" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Meal Plan Overview" textFill="#797373">
-            <font>
-               <Font name="Devanagari Sangam MN" size="36.0" />
-            </font>
-            <padding>
-               <Insets bottom="5.0" left="5.0" top="5.0" />
-            </padding>
-         </Label>
-         <Pane maxHeight="-Infinity" minHeight="74.0" minWidth="0.0" prefHeight="74.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
-            <padding>
-               <Insets bottom="5.0" left="5.0" top="5.0" />
-            </padding></Pane>
-         <VBox prefHeight="200.0" prefWidth="100.0">
+<ScrollPane fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox style="-fx-background-color: snow;">
+         <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-               <Button fx:id="recipe" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#switchRecipe" prefHeight="74.0" prefWidth="100.0" style="-fx-background-color: lightblue; -fx-background-radius: 8 8 8 8;">
-                  <graphic>
-                     <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../images/chef.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-               <Label text="      Recipes" textAlignment="CENTER" />
+               <Label fx:id="title" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Meal Plan Overview" textFill="#797373">
+                  <font>
+                     <Font name="Devanagari Sangam MN" size="36.0" />
+                  </font>
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" top="5.0" />
+                  </padding>
+               </Label>
+               <Pane maxHeight="-Infinity" minHeight="74.0" minWidth="0.0" prefHeight="74.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" top="5.0" />
+                  </padding>
+               </Pane>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <Button fx:id="recipe" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#switchRecipe" prefHeight="74.0" prefWidth="100.0" style="-fx-background-color: lightblue; -fx-background-radius: 8 8 8 8;">
+                        <graphic>
+                           <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/chef.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Label text="      Recipes" textAlignment="CENTER" />
+                  </children>
+               </VBox>
             </children>
-         </VBox>
-      </children>
-   </HBox>
-   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-      <children>
-         <ListView fx:id="mealPlanIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
-         <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-            <content>
-               <FlowPane fx:id="mealPlanListView" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" />
-            </content>
-         </ScrollPane>
-      </children>
-   </HBox>
-</VBox>
+         </HBox>
+         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+            <children>
+               <ListView fx:id="mealPlanIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
+               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <content>
+                     <FlowPane fx:id="mealPlanListView" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: snow;" />
+                  </content>
+               </ScrollPane>
+            </children>
+         </HBox>
+      </VBox>
+   </content>
+</ScrollPane>

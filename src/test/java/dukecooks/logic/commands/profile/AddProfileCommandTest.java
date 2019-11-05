@@ -80,6 +80,11 @@ public class AddProfileCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
+        public boolean hasProfile() {
+            return !personsAdded.isEmpty();
+        }
+
+        @Override
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);

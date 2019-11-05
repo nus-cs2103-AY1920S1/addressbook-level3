@@ -1,7 +1,5 @@
 package dukecooks.storage.profile;
 
-import static dukecooks.testutil.profile.TypicalProfiles.HOON;
-import static dukecooks.testutil.profile.TypicalProfiles.IDA;
 import static dukecooks.testutil.profile.TypicalProfiles.getTypicalProfiles;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -65,17 +63,7 @@ public class JsonUserProfileStorageTest {
         ReadOnlyUserProfile readBack = jsonUserProfileStorage.readUserProfile(filePath).get();
         assertEquals(original, new UserProfile(readBack));
 
-        // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        jsonUserProfileStorage.saveUserProfile(original, filePath);
-        readBack = jsonUserProfileStorage.readUserProfile(filePath).get();
-        assertEquals(original, new UserProfile(readBack));
-
-        // Save and read without specifying file path
-        original.addPerson(IDA);
-        jsonUserProfileStorage.saveUserProfile(original); // file path not specified
-        readBack = jsonUserProfileStorage.readUserProfile().get(); // file path not specified
-        assertEquals(original, new UserProfile(readBack));
+        //TODO CHECK THAT EXCEPTION IS THROWN ON ADDING PROFILE
 
     }
 

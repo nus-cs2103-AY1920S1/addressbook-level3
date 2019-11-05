@@ -127,8 +127,8 @@ public class SampleDataUtil {
                 new DoB("25/03/1997"),
                 new Gender("male"),
                 new BloodType("A+"),
-                new Weight("70", "13/10/2019 1230"),
-                new Height("180", "13/10/2019 1230"),
+                new Weight("70"),
+                new Height("180"),
                 getMedicalHistorySet("diabetes stage 2", "high blood pressure"))
         };
     }
