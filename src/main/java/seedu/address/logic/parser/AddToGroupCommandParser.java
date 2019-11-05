@@ -5,8 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.AddToGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupName;
@@ -17,22 +15,13 @@ import seedu.address.model.person.Name;
  * Parses input arguments and creates a new AddToGroupCommand object.
  */
 public class AddToGroupCommandParser implements Parser<AddToGroupCommand> {
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
-    }
-
     @Override
     public AddToGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GROUPNAME, PREFIX_ROLE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)
-                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME, PREFIX_ROLE)
+        if (!Parser.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)
+                || Parser.areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME, PREFIX_ROLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddToGroupCommand.MESSAGE_USAGE));
         }

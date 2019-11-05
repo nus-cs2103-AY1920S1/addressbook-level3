@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,23 +17,13 @@ import seedu.address.model.person.schedule.Timeslot;
  * Parses input arguments and creates a new AddEventCommand object.
  */
 public class AddEventCommandParser implements Parser<AddEventCommand> {
-
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
-    }
-
     @Override
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EVENTNAME, PREFIX_TIMING);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_EVENTNAME, PREFIX_TIMING)
-                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENTNAME)
+        if (!Parser.arePrefixesPresent(argMultimap, PREFIX_EVENTNAME, PREFIX_TIMING)
+                || Parser.areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENTNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }

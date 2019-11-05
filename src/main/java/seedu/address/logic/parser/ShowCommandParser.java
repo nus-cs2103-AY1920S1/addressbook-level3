@@ -4,8 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupName;
@@ -23,11 +21,11 @@ public class ShowCommandParser implements Parser<ShowCommand> {
 
         if (!hasOnlyOneParam(argMultimap)
                 || !argMultimap.getPreamble().isEmpty()
-                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)) {
+                || Parser.areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
 
-        if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
+        if (Parser.arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             return new ShowCommand<Name>(name);
         } else {
@@ -43,26 +41,14 @@ public class ShowCommandParser implements Parser<ShowCommand> {
      * @return true only when input has only one parameter.
      */
     private boolean hasOnlyOneParam(ArgumentMultimap argumentMultimap) {
-        if (arePrefixesPresent(argumentMultimap, PREFIX_NAME)
-                && arePrefixesPresent(argumentMultimap, PREFIX_GROUPNAME)) {
+        if (Parser.arePrefixesPresent(argumentMultimap, PREFIX_NAME)
+                && Parser.arePrefixesPresent(argumentMultimap, PREFIX_GROUPNAME)) {
             return false;
-        } else if (!arePrefixesPresent(argumentMultimap, PREFIX_NAME)
-            && !arePrefixesPresent(argumentMultimap, PREFIX_GROUPNAME)) {
+        } else if (!Parser.arePrefixesPresent(argumentMultimap, PREFIX_NAME)
+            && !Parser.arePrefixesPresent(argumentMultimap, PREFIX_GROUPNAME)) {
             return false;
         } else {
             return true;
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 }
