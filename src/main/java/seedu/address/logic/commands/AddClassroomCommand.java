@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSROOMNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSROOM;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,7 +16,7 @@ public class AddClassroomCommand extends Command {
     public static final String COMMAND_WORD = "addclass";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a classroom "
                                                        + "Parameters: "
-                                                       + PREFIX_CLASSROOMNAME + "CLASSROOMNAME ";
+                                                       + PREFIX_CLASSROOM + "CLASSROOM_NAME ";
 
     public static final String MESSAGE_SUCCESS = "New classroom added: %1$s";
     public static final String MESSAGE_DUPLICATE_CLASSROOM = "This classroom already exists in the notebook";
