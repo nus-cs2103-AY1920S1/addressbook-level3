@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_AVAILABLE_VEHICLE;
 import static seedu.address.commons.core.Messages.MESSAGE_SINGLE_VEHICLE_LISTED;
 import static seedu.address.commons.core.Messages.MESSAGE_VEHICLES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_ASSIGNMENT_PROMPT;
@@ -10,7 +11,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_OOB;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
@@ -43,12 +43,9 @@ public class VehicleAssignmentCommand extends Command {
      * Assumes predicate of available in district works.
      * @param nearbyVehicles
      */
-    public void autoAssign(ObservableList<Vehicle> nearbyVehicles) throws CommandException {
-        if (!nearbyVehicles.isEmpty()) {
-            draft.addVehicle(nearbyVehicles.get(0));
-        } else {
-            throw new CommandException(MESSAGE_VEHICLE_BUSY);
-        }
+    public void autoAssign(ObservableList<Vehicle> nearbyVehicles) {
+        assert(nearbyVehicles.size() > 0);
+        draft.addVehicle(nearbyVehicles.get(0));
     }
 
     /**
@@ -87,7 +84,7 @@ public class VehicleAssignmentCommand extends Command {
         ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList();
 
         if (nearbyVehicles.size() == 0) {
-            throw new CommandException(Messages.MESSAGE_NO_AVAILABLE_VEHICLE);
+            throw new CommandException(MESSAGE_NO_AVAILABLE_VEHICLE);
         }
 
         // should only reach here if there is at least 1 nearby vehicle.
@@ -108,6 +105,7 @@ public class VehicleAssignmentCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof VehicleAssignmentCommand // instanceof handles nulls
-                && predicate == ((VehicleAssignmentCommand) other).predicate); // state check
+                && draft.equals(((VehicleAssignmentCommand) other).draft)
+                && predicate.equals(((VehicleAssignmentCommand) other).predicate)); // state check
     }
 }
