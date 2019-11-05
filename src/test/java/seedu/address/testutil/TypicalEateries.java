@@ -92,6 +92,15 @@ public class TypicalEateries {
         return ab;
     }
 
+    public static AddressBook getTypicalReviewAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Eatery eatery : getTypicalEateries()) {
+            Eatery eateryWithReviews = new EateryBuilder(eatery).withReviews().buildWithReviews();
+            ab.addEatery(eateryWithReviews);
+        }
+        return ab;
+    }
+
     public static List<Eatery> getTypicalEateries() {
         return new ArrayList<>(Arrays.asList(POPEYES, MAC, MOS, KFC, TEXAS, BURGER, PIZZA));
     }
