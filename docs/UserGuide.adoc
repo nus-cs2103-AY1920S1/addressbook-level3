@@ -12,6 +12,8 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
+:important-caption: :exclamation:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T10-4/main
 
@@ -237,7 +239,7 @@ Format: `exit`
 ==== Adding a person: `addperson`
 
 Adds a person to the TimeBook +
-Format: `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]... `
+Format: `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
 
 Examples:
 
@@ -319,14 +321,14 @@ Format: `show n/NAME`
 * Shows the full name, address, email, phone number and schedule of this person.
 ****
 
-Examples:
+Example:
 
-* Type `show n/Bobby` in the command line as shown below: +
-
+. Type `show n/Bobby` in the command line as shown below: +
++
 image::showpersoncommand.png[]
-Hit the kbd:[Enter] key and you should see details of the person!
+. Hit the kbd:[Enter] key and you should see details of the person!
 You should see a window similar to the one below.
-
++
 image::showpersonresult.png[]
 
 *****
@@ -352,19 +354,13 @@ Format:
 image:./icons/lightbulb.png[] By not specifying `NAME`, the event will be added to your schedule.
 *****
 
-* `addevent e/Project Meeting t/27092019-1500-1600-I3`
-
-****
-* Adds an event `Project Meeting` to your schedule.
-****
+* `addevent e/Project Meeting t/27092019-1500-1600-I3` +
+Adds an event `Project Meeting` to your schedule.
 
 Examples:
 
-* `addevent n/John e/Math Lecture t/26092019-1300-1400-LT25`
-
-****
-* Adds an event `Math Lecture` to `John` 's schedule.
-****
+* `addevent n/John e/Math Lecture t/26092019-1300-1400-LT25` +
+Adds an event `Math Lecture` to `John` 's schedule.
 
 ==== Delete an Event from a Schedule: `deleteevent`
 
@@ -372,25 +368,16 @@ Deletes an event from the schedule of a person in the TimeBook.
 
 Format:
 
-* `deleteevent e/EVENT_NAME`
-
-****
+* `deleteevent e/EVENT_NAME` +
 Deletes an event specified by `EVENT_NAME` from your schedule.
-****
 
-* `deleteevent n/NAME e/EVENT_NAME
-
-****
+* `deleteevent n/NAME e/EVENT_NAME` +
 Deletes an event specified by `EVENT_NAME` from the schedule of the person specified by `NAME`.
-****
 
 Examples:
 
-* `deleteevent n/Bobby e/Swimming Lessons`
-
-****
+* `deleteevent n/Bobby e/Swimming Lessons` +
 Deletes the event `Swimming Lessons` from `Bobby` 's schedule.
-****
 
 // tag::addmod[]
 ==== Add Module to Schedule: `addmod`
@@ -406,18 +393,21 @@ Format: `addmod n/NAME m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,CLASS_2_TYPE
 
 Examples:
 
-* `addmod n/John m/CS2103T cl/LEC:G01`: This adds CS2103T lecture G01 to John's schedule.
-* `addmod n/John m/CS3230 cl/LEC:1,TUT:08`: This adds CS3230 lecture 1 and tutorial 08 to John's schedule.
-* `addmod n/John m/CS2100 cl/LEC:1,TUT:01,LAB:08`: This adds CS2100 lecture 1, tutorial 01 and lab 08 to John's schedule.
+* `addmod n/John m/CS2103T cl/LEC:G01` +
+This adds CS2103T lecture G01 to John's schedule.
+* `addmod n/John m/CS3230 cl/LEC:1,TUT:08` +
+This adds CS3230 lecture 1 and tutorial 08 to John's schedule.
+* `addmod n/John m/CS2100 cl/LEC:1,TUT:01,LAB:08` +
+This adds CS2100 lecture 1, tutorial 01 and lab 08 to John's schedule.
 
 Step-By-Step:
 
 . Add a module's classes easily by typing `addmod` into the command box and specifying the appropriate parameters, then press btn:[Enter] to execute it.
-
++
 image::nusmods/addmod1.PNG[]
 
 . If you manage to successfully add the module and its classes into the person's schedule, you will see the person's schedule appearing with the newly added timeslots:
-
++
 image::nusmods/addmod2.PNG[]
 // end::addmod[]
 
@@ -437,17 +427,19 @@ Format: `addmods n/NAME link/NUSMODS_SHARE_LINK`
 
 Examples:
 
-* `addmods n/John link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`: This will add the modules in the NUSMods link to John's schedule.
-* `addmods n/Bob link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`: This will add the modules in teh NUSMods link to Bob's schedule.
+* `addmods n/John link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17` +
+This will add the modules in the NUSMods link to John's schedule.
+* `addmods n/Bob link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17` +
+This will add the modules in teh NUSMods link to Bob's schedule.
 
 Step-By-Step:
 
 . Add an NUSMods timetable easily by typing `addmods` into the command box and follow the format as shown above, then press btn:[Enter] to execute it.
-
++
 image::nusmods/addmods1.PNG[]
 
 . If you manage to successfully add all the modules and their respective classes into the person's schedule, you will see the person's schedule appearing with the newly added timeslots:
-
++
 image::nusmods/addmods2.PNG[]
 // end::addmods[]
 
@@ -465,17 +457,10 @@ Format: `addgroup g/GROUP_NAME [d/GROUP_DESCRIPTION] [r/GROUP_REMARK] [role/USER
 
 Examples:
 
-* `addgroup g/Friends`
-
-****
+* `addgroup g/Friends` +
 Creates a group called `Friends`
-****
-
-* `addgroup g/CS2103 d/Project Group role/Leader`
-
-****
+* `addgroup g/CS2103 d/Project Group role/Leader` +
 Creates a group called `CS2103` with a description of `Project Group` and your role in the Group as the `Leader`.
-****
 
 ==== Editing a group: `editgroup`
 
@@ -491,11 +476,7 @@ Format: `editgroup ed/GROUP_NAME [g/GROUP_NAME] [d/GROUP_DESCRIPTION] [r/GROUP_R
 Examples:
 
 * `editgroup ed/CS2103 g/CS3203 r/Project Discussion Group` +
-
-
-****
 Edits the group specified by group name `CS2103` with a new group name `CS3203` and group remark `Project Discussion Group` respectively.
-****
 
 ==== Deleting a group: `deletegroup`
 
@@ -510,11 +491,7 @@ Format: `deletegroup g/GROUP_NAME`
 Examples:
 
 * `deletegroup g/CS2103` +
-
-
-****
 Deletes the `CS2103` group from the TimeBook.
-****
 
 ==== Show group: `show`
 
@@ -528,12 +505,12 @@ Format: `show g/GROUP_NAME`
 
 Examples:
 
-* Type `show g/CS2103` in the command line as shown below +
-
+. Type `show g/CS2103` in the command line as shown below +
++
 image::showgroupcommand.png[]
 
-Hit the kbd:[Enter] key and you should see the details of this group in a similar window below.
-
+. Hit the kbd:[Enter] key and you should see the details of this group in a similar window below.
++
 image::showgroupresult.png[]
 
 *****
@@ -553,17 +530,11 @@ Format:
 
 Examples:
 
-* `addtogroup n/John g/CS2103`
+* `addtogroup n/John g/CS2103` +
+Adds `John` into group `CS2103`
 
-****
-adds `John` into group `CS2103`
-****
-
-* `addtogroup n/Bobby g/CS3203 role/Leader`
-
-****
-adds `Bobby` into group `CS3203` with a role `Leader`
-****
+* `addtogroup n/Bobby g/CS3203 role/Leader` +
+Adds `Bobby` into group `CS3203` with a role `Leader`
 
 ==== Delete a Person from Group: `deletefromgroup`
 
@@ -575,11 +546,8 @@ Format:
 
 Examples:
 
-* `deletefromgroup n/Bobby g/CS2103`
-
-****
+* `deletefromgroup n/Bobby g/CS2103` +
 Removes `Bobby` from the group `CS2103`
-****
 
 === Advanced Features
 
@@ -711,7 +679,7 @@ Examples:
 After you are done with viewing the information on the popup press `esc` button on your keyboard to close the popup and
 and return to the main screen.
 
-Format: `esc` button on keyboard.
+Format: kbd:[esc] button on keyboard.
 
 ==== Clearing all entries: `clear`
 
