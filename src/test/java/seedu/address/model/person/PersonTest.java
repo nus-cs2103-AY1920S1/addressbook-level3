@@ -31,17 +31,13 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // different username, same name -> returns true
+        // different username -> returns false
         Person editedAlice = new PersonBuilder(ALICE).withUsername(VALID_USERNAME_BOB).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-
-        // same username , different name-> returns true
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-
-        // different username , different name-> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).withUsername(VALID_USERNAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
+
+        // same username -> returns true
+        editedAlice = new PersonBuilder(ALICE).withUsername(VALID_USERNAME_BOB).build();
+        assertTrue(BOB.isSamePerson(editedAlice));
     }
 
     @Test
