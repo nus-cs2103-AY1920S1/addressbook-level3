@@ -1,5 +1,6 @@
 package seedu.address.testutil.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -168,7 +169,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean exportQuiz(String quizId) {
+    public boolean exportQuiz(String quizId) throws IOException {
         throw new AssertionError("This method should not be called.");
     }
 
