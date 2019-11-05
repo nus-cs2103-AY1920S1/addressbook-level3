@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_PERSON;
@@ -86,7 +87,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     /**
      * Extracts the valid flag from the argument string.
      */
-    private String getFlag(String args) throws ParseException {
+    public String getFlag(String args) throws ParseException {
+        requireNonNull(args);
         String[] stringArray = args.split("\\s+", 2);
         String flag = stringArray[0].trim();
         if (flag.length() < 2) {
