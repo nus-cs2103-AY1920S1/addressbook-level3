@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
@@ -27,7 +26,8 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
     private History history = new History();
 
     @FXML
-    private TextField commandTextField;
+    private AutoCompleteTextField commandTextField;
+
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
@@ -60,6 +60,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
         commandTextField.setOnKeyPressed(event -> keyPressed(event.getCode()));
     }
 
+    //@@author SebastianLie
     /**
      * sets textfield according to key press
      * for up and down arrow, handles previous and next commands
