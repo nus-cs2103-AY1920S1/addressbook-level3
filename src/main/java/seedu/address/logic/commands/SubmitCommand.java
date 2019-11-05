@@ -53,6 +53,12 @@ public class SubmitCommand extends Command {
 
         // retrieve incident and try to submit it
         Incident toSubmit = lastShownList.get(targetIndex.getZeroBased());
+
+        // check if operating executing the command is the same as the operator who created this draft
+        if (!model.canLoggedInPersonModifyIncidentStatus(toSubmit)) {
+            throw new CommandException(Messages.MESSAGE_NO_ACCESS_TO_SUBMIT_REPORT);
+        }
+
         return new CommandResult(processReportSubmission(model, toSubmit));
     }
 

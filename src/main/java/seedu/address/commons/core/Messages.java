@@ -56,6 +56,11 @@ public class Messages {
     public static final String MESSAGE_REPORT_COMPLETE_BUT_UNFILLED = "Error! Report is marked 'Complete' but is not "
             + "actually fully filled!";
     public static final String MESSAGE_NO_INCIDENT_TO_EDIT = "There are no submitted reports that can be edited";
+    public static final String MESSAGE_NO_ACCESS_TO_FILL_DRAFT = "You do not have access to fill this draft as "
+            + "another operator has created it.";
+    public static final String MESSAGE_NO_ACCESS_TO_SUBMIT_REPORT = "You do not have access to submit this report as "
+            + "another operator has created it.";
+
     public static final String MESSAGE_ALL_SUBMITTED_INCIDENTS_LISTED = "Listed all submitted incident reports "
             + "that can be edited.";
 

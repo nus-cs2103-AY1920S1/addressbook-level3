@@ -63,6 +63,12 @@ public class FillCommand extends Command {
         }
 
         Incident toFill = lastShownList.get(targetIndex.getZeroBased());
+
+        // check if operating executing the command is the same as the operator who created this draft
+        if (!model.canLoggedInPersonModifyIncidentStatus(toFill)) {
+            throw new CommandException(Messages.MESSAGE_NO_ACCESS_TO_FILL_DRAFT);
+        }
+
         return new CommandResult(processReportFilling(model, toFill));
     }
 
