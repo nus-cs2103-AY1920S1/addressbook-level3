@@ -31,12 +31,6 @@ public class FindCommand extends Command {
     public FindCommand(String[] keywords, String searchTerm) {
         this.keywords = keywords;
         this.searchTerm = searchTerm;
-        System.out.print("Keywords: ");
-        for (String a : keywords) {
-            System.out.print(a + ",");
-        }
-        System.out.println("");
-        System.out.println("searchTerm: " + searchTerm);
     }
 
     @Override
@@ -48,15 +42,14 @@ public class FindCommand extends Command {
             model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
             return new CommandResult(String.format(Messages.MESSAGE_FOUND_BY_KEYWORD,
                     model.getFilteredPersonList().size(),
-                    pluraize("contact", model.getFilteredPersonList().size()),
+                    pluralize("contact", model.getFilteredPersonList().size()),
                     searchTerm));
 
         case LIST_ACTIVITY:
             model.updateFilteredActivityList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
-
             return new CommandResult(String.format(Messages.MESSAGE_FOUND_BY_KEYWORD,
                     model.getFilteredActivityList().size(),
-                    pluraize("activity", model.getFilteredActivityList().size()),
+                    pluralize("activity", model.getFilteredActivityList().size()),
                     searchTerm));
         default:
             throw new CommandException(WARNING_INVALID_CONTEXT);
@@ -72,9 +65,9 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Helper method that helps to pluraize given string, depending on the number given.
+     * Helper method that helps to pluralize given string, depending on the number given.
      */
-    private String pluraize(String input, int count) {
+    private String pluralize(String input, int count) {
         if (count <= 1) {
             return input;
         }
