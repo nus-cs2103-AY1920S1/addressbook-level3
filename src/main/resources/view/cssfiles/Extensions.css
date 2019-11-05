@@ -13,6 +13,7 @@
     -fx-border-color: white;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
+    -fx-text-fill: BLACK;
 }
 
 .tooltip-text {
