@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.cardcommands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,10 +11,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.card.Card;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbankstats.WordBankStatistics;
-
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
-
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

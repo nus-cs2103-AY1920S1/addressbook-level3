@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.cardcommands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,9 +11,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.card.Card;
 import seedu.address.testutil.CardBuilder;
-
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;

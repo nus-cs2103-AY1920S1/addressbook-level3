@@ -1,18 +1,23 @@
 package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
@@ -34,8 +39,6 @@ import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.testutil.CardBuilder;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -52,7 +55,8 @@ class DeleteCommandTest {
         ModelStubAcceptingCardDeleted modelStub = new ModelStubAcceptingCardDeleted(abra);
 
         assertCommandFailure(deleteCommand, modelStub, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX, () -> deleteCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX, () -> deleteCommand.execute(modelStub));
     }
 
     @Test
@@ -356,8 +360,10 @@ class DeleteCommandTest {
      * A Model stub that always delete the card being deleted.
      */
     private class ModelStubAcceptingCardDeleted extends ModelStub {
+
+        private ObservableList<Card> cardList = FXCollections.observableArrayList();
+
         private Card card;
-        ObservableList<Card> cardList = FXCollections.observableArrayList();
 
         ModelStubAcceptingCardDeleted(Card card) {
             requireNonNull(card);
@@ -400,6 +406,10 @@ class DeleteCommandTest {
             // state check
             ModelStubAcceptingCardDeleted other = (ModelStubAcceptingCardDeleted) obj;
             return cardList.equals(other.cardList);
+        }
+
+        public ObservableList<Card> getCardList() {
+            return cardList;
         }
     }
 }
