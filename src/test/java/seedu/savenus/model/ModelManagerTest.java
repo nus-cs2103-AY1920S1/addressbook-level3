@@ -22,7 +22,7 @@ import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -41,7 +41,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Menu(), new Menu(modelManager.getMenu()));
-        assertEquals(new SavingsAccount(), new SavingsAccount(modelManager.getSavingsAccount()));
+        assertEquals(new SavingsHistory(), new SavingsHistory(modelManager.getSavingsHistory()));
     }
 
     @Test
@@ -148,7 +148,11 @@ public class ModelManagerTest {
     @Test
     public void set_daysToExpire_test() {
         Wallet wallet = new Wallet();
-        wallet.setDaysToExpire(new DaysToExpire("50"));
+        try {
+            wallet.setDaysToExpire(new DaysToExpire("50"));
+        } catch (BudgetDurationOutOfBoundsException e) {
+            throw new AssertionError("This should not happen.");
+        }
         assertEquals(50, wallet.getNumberOfDaysToExpire());
     }
 
@@ -169,7 +173,7 @@ public class ModelManagerTest {
     public void equals() {
         Menu menu = new MenuBuilder().withfood(CARBONARA).withfood(TONKATSU_RAMEN).build();
         Menu differentMenu = new Menu();
-        SavingsAccount savingsAccount = new SavingsAccount();
+        SavingsHistory savingsHistory = new SavingsHistory();
         UserPrefs userPrefs = new UserPrefs();
         UserRecommendations userRecs = new UserRecommendations();
         PurchaseHistory purchaseHistory = new PurchaseHistory();
@@ -179,9 +183,9 @@ public class ModelManagerTest {
 
         // same values -> returns true
         modelManager = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount, aliasList);
+                customSorter, savingsHistory, aliasList);
         ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount, aliasList);
+                customSorter, savingsHistory, aliasList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -195,13 +199,13 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount, aliasList)));
+                customSorter, savingsHistory, aliasList)));
 
         // different filteredList -> returns false
         String[] keywords = CARBONARA.getName().fullName.split("\\s+");
         modelManager.updateFilteredFoodList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount, aliasList)));
+                customSorter, savingsHistory, aliasList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
@@ -210,6 +214,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMenuFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount, aliasList)));
+                customSorter, savingsHistory, aliasList)));
     }
 }

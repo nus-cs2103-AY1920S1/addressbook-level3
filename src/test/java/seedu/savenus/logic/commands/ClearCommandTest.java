@@ -11,7 +11,7 @@ import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
@@ -29,9 +29,9 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyMenu_success() {
         Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new AliasList());
         Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new AliasList());
         expectedModel.setMenu(new Menu());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

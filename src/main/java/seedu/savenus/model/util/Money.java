@@ -12,7 +12,7 @@ public class Money implements Comparable<Money> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain numbers and have either 0 or 2 decimal places"
-                    + "For example: 1.50 or 200";
+                    + " For example: 1.50 or 200";
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
     public final BigDecimal value;
 
@@ -23,6 +23,7 @@ public class Money implements Comparable<Money> {
      */
     public Money(String amountString) {
         requireNonNull(amountString);
+        System.out.println(amountString);
         checkArgument(isValidMoney(amountString), MESSAGE_CONSTRAINTS);
         if (!amountString.contains(".")) {
             amountString += ".00";
@@ -36,7 +37,7 @@ public class Money implements Comparable<Money> {
         this.value = amount;
     }
 
-    public boolean isValidMoney(String test) {
+    public static boolean isValidMoney(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -46,7 +47,7 @@ public class Money implements Comparable<Money> {
 
     @Override
     public String toString() {
-        return String.format("$%.02f", getAmount());
+        return String.format("%.02f", getAmount());
     }
 
     @Override

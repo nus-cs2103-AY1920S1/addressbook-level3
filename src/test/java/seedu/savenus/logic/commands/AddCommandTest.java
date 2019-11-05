@@ -32,7 +32,7 @@ import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
@@ -272,6 +272,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addToHistory(Savings savings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlySavingsHistory getSavingsHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSavingsHistory(ReadOnlySavingsHistory savingsHistory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public List<String> getCommandHistory() {
             throw new AssertionError("This method should not be called.");
         }
@@ -307,27 +322,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addToSavings(Savings savings) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public boolean getAutoSortFlag() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setAutoSortFlag(boolean autoSortFlag) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlySavingsAccount getSavingsAccount() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSavingsAccount(ReadOnlySavingsAccount savingsAccount) {
             throw new AssertionError("This method should not be called.");
         }
 

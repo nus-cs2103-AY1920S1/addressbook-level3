@@ -22,16 +22,18 @@ public class SavingsCard extends UiPart<Region> {
      */
 
     public final Savings savings;
-
     @FXML
     private HBox cardPane;
     @FXML
     private Label savingsPane;
+    @FXML
+    private Label timePane;
 
     public SavingsCard(Savings savings) {
         super(FXML);
         this.savings = savings;
         savingsPane.setText("$" + savings.toString());
+        timePane.setText(savings.getTimeStamp().getTimeAgoString());
     }
 
     @Override

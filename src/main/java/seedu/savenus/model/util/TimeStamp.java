@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 /**
- * Abstract class to create a TimeStamp to register the time of purchase/time of saving.
+ * Class to create a TimeStamp to register the time of purchase/time of saving.
  */
-public abstract class TimeStamp {
+public class TimeStamp {
     private String timeStampString;
 
     public TimeStamp(String timeStampString) {
@@ -48,4 +48,23 @@ public abstract class TimeStamp {
         return Long.toString(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
     }
 
+    /**
+     * Returns "Today" plus local time if same day, else returns Day of the week plus Date.
+     */
+    public String getTimeAgoString() {
+        long daysAgo = TimeFormatter.getDaysAgo((getTimeStampInLocalDateTime()));
+        if (daysAgo == 0) {
+            return "Today " + TimeFormatter.format12HourClock(getTimeStampInLocalDateTime());
+        } else {
+            return TimeFormatter.formatDayPlusDate(getTimeStampInLocalDateTime());
+        }
+    }
+
+    /**
+     * Return TimeStamp string for saving in Jackson Files.
+     */
+    @Override
+    public String toString() {
+        return this.timeStampString;
+    }
 }

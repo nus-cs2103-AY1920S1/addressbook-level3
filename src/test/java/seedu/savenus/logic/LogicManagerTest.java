@@ -37,8 +37,8 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
-import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
+import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
@@ -69,7 +69,7 @@ public class LogicManagerTest {
         JsonMenuStorage menuStorage =
                 new JsonMenuStorage(temporaryFolder.resolve("savenus-menu.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonSavingsStorage savingsAccountStorage = new JsonSavingsStorage(temporaryFolder.resolve("savings.json"));
+        JsonSavingsStorage savingsHistoryStorage = new JsonSavingsStorage(temporaryFolder.resolve("savings.json"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("userPrefs-recs.json"));
         JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(temporaryFolder
                 .resolve("userPrefs-purchases.json"));
@@ -82,7 +82,7 @@ public class LogicManagerTest {
                 temporaryFolder.resolve("userPrefs-alias.json")
         );
         StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage, walletStorage, customSortStorage, savingsAccountStorage,
+                purchaseHistoryStorage, walletStorage, customSortStorage, savingsHistoryStorage,
                 aliasListStorage);
         logic = new LogicManager(model, storage);
     }
@@ -110,7 +110,7 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonMenuIoExceptionThrowingStub
         JsonMenuStorage menuStorage =
                 new JsonMenuIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMenu.json"));
-        JsonSavingsStorage savingsAccountStorage =
+        JsonSavingsStorage savingsHistoryStorage =
                 new JsonSavingsIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionSavings.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
@@ -126,7 +126,7 @@ public class LogicManagerTest {
                 temporaryFolder.resolve("ioExceptionAliasList.json")
         );
         StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage, walletStorage, customSortStorage, savingsAccountStorage,
+                purchaseHistoryStorage, walletStorage, customSortStorage, savingsHistoryStorage,
                 aliasListStorage);
         logic = new LogicManager(model, storage);
 
@@ -230,7 +230,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(),
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(),
                 new AliasList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
@@ -271,7 +271,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount, Path filePath) throws IOException {
+        public void saveSavingsHistory(ReadOnlySavingsHistory savingsHistory, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

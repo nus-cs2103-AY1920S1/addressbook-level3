@@ -42,9 +42,7 @@ public class BudgetCommand extends Command {
         requireNonNull(model);
         try {
             model.setWallet(newWallet);
-        } catch (BudgetAmountOutOfBoundsException e) {
-            throw new CommandException(e.getMessage());
-        } catch (BudgetDurationOutOfBoundsException e) {
+        } catch (BudgetAmountOutOfBoundsException | BudgetDurationOutOfBoundsException e) {
             throw new CommandException(e.getMessage());
         }
 

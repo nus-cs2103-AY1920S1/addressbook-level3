@@ -2,10 +2,9 @@ package seedu.savenus.logic.parser;
 
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.math.BigDecimal;
-
 import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
+import seedu.savenus.model.util.Money;
 
 /**
  * Parses input arguments and creates a new {@code SaveCommand} to be executed later
@@ -19,7 +18,7 @@ public class SaveCommandParser {
      */
     public SaveCommand parse(String args) throws ParseException {
         try {
-            BigDecimal savings = ParserUtil.parseSavings(args);
+            Money savings = ParserUtil.parseSavings(args);
             return new SaveCommand(savings.toString());
         } catch (ParseException e) {
             throw new ParseException(

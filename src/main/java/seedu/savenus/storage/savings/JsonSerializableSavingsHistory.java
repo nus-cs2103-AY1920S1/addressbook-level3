@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.savings.Savings;
-import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsHistory;
 
 /**
  * An Immutable Savings Account that is serializable to JSON format.
  */
 @JsonRootName(value = "savings")
-public class JsonSerializableSavingsAccount {
+public class JsonSerializableSavingsHistory {
 
     // Save all the savings that have been made so far by the user.
     private final List<JsonAdaptedSavings> savingsHistory = new ArrayList<>();
@@ -26,17 +26,17 @@ public class JsonSerializableSavingsAccount {
      * Construct a {@code JsonSerializableSavingsAccount} with the given savingsHistory.
      */
     @JsonCreator
-    public JsonSerializableSavingsAccount(@JsonProperty("savingsHistory") List<JsonAdaptedSavings> savingsHistory) {
+    public JsonSerializableSavingsHistory(@JsonProperty("savingsHistory") List<JsonAdaptedSavings> savingsHistory) {
         this.savingsHistory.addAll(savingsHistory);
     }
 
     /**
      * Converts a given {@code ReadOnlySavingsAccount} into this class for Jackson use.
      *
-     * @param savingsAccount future changes will not affect the created {@code JsonSerializableSavingsAccount}.
+     * @param savingsHistoryList future changes will not affect the created {@code JsonSerializableSavingsAccount}.
      */
-    public JsonSerializableSavingsAccount(ReadOnlySavingsAccount savingsAccount) {
-        savingsHistory.addAll(savingsAccount.getSavingsHistory().stream()
+    public JsonSerializableSavingsHistory(ReadOnlySavingsHistory savingsHistoryList) {
+        savingsHistory.addAll(savingsHistoryList.getSavingsHistory().stream()
                 .map(JsonAdaptedSavings::new).collect(Collectors.toList()));
     }
 
@@ -45,11 +45,11 @@ public class JsonSerializableSavingsAccount {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public SavingsAccount toModelType() throws IllegalValueException {
-        SavingsAccount savingsAccount = new SavingsAccount();
+    public SavingsHistory toModelType() throws IllegalValueException {
+        SavingsHistory savingsAccount = new SavingsHistory();
         for (JsonAdaptedSavings jsonAdaptedSavings : savingsHistory) {
             Savings savings = jsonAdaptedSavings.toModelType();
-            savingsAccount.addSavings(savings);
+            savingsAccount.addToHistory(savings);
         }
         return savingsAccount;
     }

@@ -9,7 +9,7 @@ import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
@@ -128,15 +128,13 @@ public interface Storage extends MenuStorage, UserPrefsStorage,
     @Override
     void saveList(AliasList list, Path filePath) throws IOException;
 
-    // ============================= Savings Account Methods ================================================
+    // ============================= Savings History Methods ================================================
     @Override
-    Path getSavingsAccountFilePath();
+    Path getSavingsHistoryFilePath();
 
     @Override
-    void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount) throws IOException;
+    void saveSavingsHistory(ReadOnlySavingsHistory savingsAccount) throws IOException;
 
     @Override
-    void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount, Path filePath) throws IOException;
-
-    Optional<ReadOnlySavingsAccount> readSavingsAccount() throws DataConversionException, IOException;
+    void saveSavingsHistory(ReadOnlySavingsHistory savingsAccount, Path filePath) throws IOException;
 }
