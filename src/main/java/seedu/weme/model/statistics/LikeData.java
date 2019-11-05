@@ -2,6 +2,7 @@ package seedu.weme.model.statistics;
 
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -81,6 +82,14 @@ public class LikeData {
      */
     public void deleteLikesByMemeRef(String memeRef) {
         likeMap.remove(memeRef);
+    }
+
+    public Map<String, SimpleIntegerProperty> getCopy() {
+        Map<String, SimpleIntegerProperty> copy = new HashMap<>();
+        for (Map.Entry<String, SimpleIntegerProperty> entry : likeMap.entrySet()) {
+            copy.put(entry.getKey(), new SimpleIntegerProperty(entry.getValue().get()));
+        }
+        return copy;
     }
 
 }
