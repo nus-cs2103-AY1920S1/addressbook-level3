@@ -248,4 +248,3 @@ public class Account {
         return stringBuilder.toString();
     }
 }
-
