@@ -607,7 +607,7 @@ Listing all notes:
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
 visualize specific note fragment tags, use the `filter` command (see Section 6.6).
 
-=== Listing by tags: `filter`
+=== Filtering by tags: `filter`
 
 * Filters the note library by the user specified tag(s).
 * The user must specify at least one tag, and can specify multiple tags.
@@ -923,6 +923,18 @@ do this while Mac users can use the Terminal application.
 === Flashcard Commands
 
 === Note Commands
+
+==== `add`: Adds a Note.
+
+==== `delete`: Deletes a Note.
+
+==== `view`: Views a Note without note fragment tags.
+
+==== `viewraw`: View a Note with note fragment tags.
+
+==== `list`: Views all Note titles.
+
+==== `filter`: Filters the list of Notes to view.
 
 === CheatSheet Commands
 
