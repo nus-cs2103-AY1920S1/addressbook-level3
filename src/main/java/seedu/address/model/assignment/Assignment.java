@@ -33,6 +33,10 @@ public class Assignment {
         this.isCompleted = false;
     }
 
+    /**
+     * Initialises the grades for students as "Not submitted" for new assignments
+     * @param studentNames students name to serve as keys during initialisation.
+     */
     public void initialiseGrades(List<String> studentNames) {
         requireNonNull(studentNames);
         for (String studentName : studentNames) {

@@ -73,7 +73,7 @@ class JsonSerializableClassroom {
             if (classroom.hasAssignment(assignment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ASSIGNMENT);
             }
-            if(!assignment.isCompleted()) {
+            if (!assignment.isCompleted()) {
                 assignment.initialiseGrades(studentsName);
             }
             classroom.addAssignment(assignment);

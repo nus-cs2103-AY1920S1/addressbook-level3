@@ -8,11 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditLessonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new EditLessonCommand object
