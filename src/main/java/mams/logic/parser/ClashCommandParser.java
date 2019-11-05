@@ -29,25 +29,34 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                     ClashCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
-            parameters.setAppealIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEAL).get()));
-        }
+        verifyNumberOfParameters(argMultimap);
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) == 2) {
-            List<String> modules = argMultimap.getAllValues(PREFIX_MODULE);
-            if (isModuleCode(modules)) {
-                parameters.setModuleCodes(modules.get(0), modules.get(1));
-            } else {
-                parameters.setModuleIndices(ParserUtil.parseIndex(modules.get(0)),
-                        ParserUtil.parseIndex(modules.get(1)));
+        try {
+            if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
+                parameters.setAppealIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEAL).get()));
             }
+
+            if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) == 2) {
+                List<String> modules = argMultimap.getAllValues(PREFIX_MODULE);
+                if (isModuleCode(modules)) {
+                    parameters.setModuleCodes(modules.get(0), modules.get(1));
+                } else {
+                    parameters.setModuleIndices(ParserUtil.parseIndex(modules.get(0)),
+                            ParserUtil.parseIndex(modules.get(1)));
+                }
+            }
+
+            if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
+                parameters.setStudentIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get()));
+            }
+
+            return new ClashCommand(parameters);
+
+        } catch (ParseException e) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ClashCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
-            parameters.setStudentIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get()));
-        }
-
-        return new ClashCommand(parameters);
     }
 
     /**
@@ -76,5 +85,20 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                         && argMultimap.getValue(PREFIX_STUDENT).isEmpty()
                         && argMultimap.getValue(PREFIX_APPEAL).isPresent());
     }
-}
 
+    /**
+     * Checks the number of parameters given by user inputs.
+     * @param argMultimap an ArgumentMultimap object stores value of each prefix.
+     * @throws ParseException when the number of parameters is not correct.
+     */
+    private void verifyNumberOfParameters(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) != 2) {
+            throw new ParseException(ClashCommand.MESSAGE_NEED_TWO_MODULES);
+        }
+        if ((argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) != 1)
+                || (argMultimap.getValue(PREFIX_STUDENT).isPresent()
+                && argMultimap.getValueSize(PREFIX_STUDENT) != 1)) {
+            throw new ParseException(ClashCommand.MESSAGE_ONLY_ONE_ITEM_ALLOWED);
+        }
+    }
+}

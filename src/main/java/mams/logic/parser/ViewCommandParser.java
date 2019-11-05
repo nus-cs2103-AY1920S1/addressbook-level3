@@ -1,5 +1,7 @@
 package mams.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
@@ -20,6 +22,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
      */
     @Override
     public ViewCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT);
 

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import mams.commons.exceptions.IllegalValueException;
 import mams.commons.util.JsonUtil;
-import mams.logic.CommandHistory;
+import mams.logic.history.CommandHistory;
 import mams.testutil.TypicalCommandHistory;
 
 public class JsonSerializableCommandHistoryTest {

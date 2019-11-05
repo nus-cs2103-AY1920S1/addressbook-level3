@@ -18,6 +18,7 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
+
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
@@ -25,18 +26,24 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="moduleCode" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="moduleCode" styleClass="cell_big_label" text="\$first" />
+                <HBox HBox.hgrow="ALWAYS"/> <!-- for spacing out the icons in the bar-->
+                <Label fx:id="credits" styleClass="prefix-label, prefix_sky_blue" text="\$credits" />
             </HBox>
+
             <Label fx:id="moduleName" styleClass="cell_small_label, green-text-label" text="\$moduleName" />
+
             <Label fx:id="timeSlot" styleClass="cell_small_label, yellow-text-label" text="\$timeSlot" />
-            <HBox spacing="3">
+
+            <HBox spacing="3" alignment="CENTER_LEFT">
                 <padding>
                     <Insets top="1" bottom="1" />
                 </padding>
                 <Label fx:id="lecturerNamePrefix" styleClass="prefix-label, prefix_sky_blue" text="Coordinator" />
                 <Label fx:id="lecturerName" styleClass="cell_small_label" text="\$lecturerName" />
             </HBox>
-            <HBox spacing="3">
+
+            <HBox spacing="3" alignment="CENTER_LEFT">
                 <padding>
                     <Insets top="1" bottom="1" />
                 </padding>

@@ -24,12 +24,6 @@ public class ListCommand extends Command {
     private final boolean showModules;
     private final boolean showStudents;
 
-    public ListCommand() {
-        this.showAppeals = true;
-        this.showModules = true;
-        this.showStudents = true;
-    }
-
     public ListCommand(boolean showAppeals, boolean showModules, boolean showStudents) {
         this.showAppeals = showAppeals;
         this.showModules = showModules;
@@ -39,12 +33,8 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        // it is responsibility of parser to enforce this condition, thus
-        // we raise an AssertionError as this condition should not occur
-        // ie. there is no graceful way for the app/user to handle this error
-        // and recover from it without silently perpetuating a bug into future
-        // iterations of MAMS.
-        requireAtLeastOneTrue(showAppeals, showModules, showStudents);
+        // it is responsibility of parser to enforce this condition
+        assert(containsAtLeastOneTrue(showAppeals, showModules, showStudents)) : ASSERT_ERROR_MESSAGE;
 
         StringBuilder msg = new StringBuilder();
 
@@ -68,17 +58,17 @@ public class ListCommand extends Command {
     }
 
     /**
-     * assert that at least one element in boolean array {@code params} is true
-     * @param params
+     * Returns true if at least one element in boolean array {@code params} is true.
+     * This was made for code readability.
+     * @param params boolean array to be tested.
      */
-    public static void requireAtLeastOneTrue(boolean... params) {
+    public static boolean containsAtLeastOneTrue(boolean... params) {
+        requireNonNull(params);
         boolean hasAtLeastOneTrue = false;
         for (boolean param : params) {
             hasAtLeastOneTrue = hasAtLeastOneTrue || param;
         }
-        if (!hasAtLeastOneTrue) {
-            throw new AssertionError(ASSERT_ERROR_MESSAGE);
-        }
+        return hasAtLeastOneTrue;
     }
 
     @Override

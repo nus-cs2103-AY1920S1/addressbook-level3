@@ -23,7 +23,7 @@ The Module Appeal Management System (MAMS) is a desktop app that aims to combine
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `MAMS.jar` link:{repoURL}/releases[here].
+.  Download the latest `MAMS.jar` link:https://github.com/AY1920S1-CS2103-T11-2/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for The Module Appeal Management System (MAMS).
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -213,7 +213,7 @@ Sample output:
 
 image::ClashCommandInvalidAppealType.png[width="790"]
 
-* `clash a/3`
+* `clash a/6`
 
 Sample output:
 
@@ -233,7 +233,7 @@ Examples:
 
 Sample output:
 
-image::NoClashDetectedResponse.png[width="790"]
+image::StudentClashDetected.png[width="790"]
 
 ==== Show clashes between 2 modules
 This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user.
@@ -438,7 +438,7 @@ Sample Output: `Backup Successful. Saved under "data/mamshistory_Backup_1"
 - eg. `history` to open the history window
 
 * **find**: `find [a/KEYWORD...] [m/KEYWORD...] [s/KEYWORD...]`
-- e.g. `view a/cs1010 m/data algorithm`
+- e.g. `find a/cs1010 m/data algorithm`
 
 * **clash**:
 ** `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [M/INDEX]`
@@ -468,7 +468,7 @@ To set the student’s maximum modular credit for this semester to a new value.
 To add remarks to a student’s particulars page
 
 * **approve**:
-** `approve [INDEX] [rr/REMARK]`
+** `approve [a/INDEX] [r/REMARK]`
 - e.g `approve a/2 r/meets requisites` Marks the 2nd appeal in the appeal list as approved.
 
 ** `approve mass/ [APPEAL_ID]...`
@@ -476,7 +476,7 @@ To add remarks to a student’s particulars page
 
 * **reject**:
 -
-** `reject [INDEX] [rr/REMARK]`
+** `reject [a/INDEX] [r/REMARK]`
 - e.g `reject a/2 r/meets requisites` Marks the 2nd appeal in the appeal list as rejected.
 
 ** `reject mass/ [APPEAL_ID]...`
