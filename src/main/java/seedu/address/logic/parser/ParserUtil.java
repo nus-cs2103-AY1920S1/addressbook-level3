@@ -201,7 +201,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String shortcut} into an {@code CommandItem}.
+     * Parses a {@code String shortcut} into an {@code commanditem}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given shortcut does not exist.

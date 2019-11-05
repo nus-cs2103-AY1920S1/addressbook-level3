@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a command object. All FinSec commands (including default commands) will be initialised with CommandItem.
+ * Represents a command object. All FinSec commands (including default commands) will be initialised with commanditem.
  */
 public class CommandItem {
 
@@ -47,6 +47,7 @@ public class CommandItem {
                 && otherCommand.getCommandTask().equals(getCommandTask())
                 && otherCommand.getCommandWord().equals(getCommandWord());
     }
+
 
     /**
      * Returns true if both commands have the same commandTask and commandWord.
