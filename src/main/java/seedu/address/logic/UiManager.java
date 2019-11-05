@@ -15,7 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.model.CalendarDate;
-import seedu.address.model.ModelLists;
+import seedu.address.model.ModelData;
 import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
@@ -227,7 +227,7 @@ public class UiManager implements Ui, UserOutputListener, EventListListener, Tas
     }
 
     @Override
-    public void onModelListChange(ModelLists lists) {
+    public void onModelListChange(ModelData lists) {
         this.mainWindow.onModelListChange(sortDateEventList(lists.getEvents()), sortDateTaskList(lists.getTasks()));
     }
 

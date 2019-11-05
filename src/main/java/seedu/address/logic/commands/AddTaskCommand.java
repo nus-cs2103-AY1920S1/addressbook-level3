@@ -1,10 +1,16 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_ADD_TASK_DUPLICATE;
 import static seedu.address.commons.core.Messages.MESSAGE_ADD_TASK_SUCCESS;
 
+import java.util.List;
 import java.util.Objects;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UniqueList;
+import seedu.address.model.exceptions.DuplicateElementException;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UserOutput;
 
@@ -31,8 +37,14 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public UserOutput execute() {
-        model.addTasks(this.task);
+    public UserOutput execute() throws CommandException {
+        List<TaskSource> tasks = new UniqueList<>(this.model.getTasks());
+        try {
+            tasks.add(this.task);
+        } catch (DuplicateElementException e) {
+            throw new CommandException(MESSAGE_ADD_TASK_DUPLICATE);
+        }
+        this.model.setModelData(new ModelData(this.model.getEvents(), tasks));
         return new UserOutput(String.format(MESSAGE_ADD_TASK_SUCCESS, this.task.getDescription()));
     }
 }

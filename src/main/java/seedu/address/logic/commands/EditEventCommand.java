@@ -5,11 +5,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_INDEX;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DateTime;
+import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.UserOutput;
@@ -43,61 +46,70 @@ public class EditEventCommand extends Command {
 
     @Override
     public UserOutput execute() throws CommandException {
-        List<EventSource> list = model.getEventList();
+        List<EventSource> events = new ArrayList<>(model.getEvents());
 
-        List<EventSource> toEdit = new ArrayList<>();
+        LinkedHashSet<EventSource> toEdit = new LinkedHashSet<>();
         for (Integer index : indexes) {
             try {
-                toEdit.add(list.get(index));
+                toEdit.add(events.get(index));
             } catch (IndexOutOfBoundsException e) {
-                throw new CommandException(String.format(MESSAGE_INVALID_EVENT_INDEX, index + 1));
+                throw new CommandException(String.format(MESSAGE_INVALID_EVENT_INDEX, index));
             }
         }
 
-        // Replace field if it is not null.
-        for (EventSource event : toEdit) {
-            String description;
-            if (this.description == null) {
-                description = event.getDescription();
-            } else {
-                description = this.description;
-            }
+        ListIterator<EventSource> iterator = events.listIterator();
+        while (iterator.hasNext()) {
+            EventSource event = iterator.next();
 
-            DateTime start;
-            if (this.start == null) {
-                start = event.getStartDateTime();
-            } else {
-                start = this.start;
-            }
+            if (toEdit.contains(event)) {
+                String description;
+                // Replace field if it is not null.
+                if (this.description == null) {
+                    description = event.getDescription();
+                } else {
+                    description = this.description;
+                }
 
-            DateTime end;
-            if (this.end == null) {
-                end = event.getEndDateTime();
-            } else {
-                end = this.end;
-            }
+                DateTime start;
+                if (this.start == null) {
+                    start = event.getStartDateTime();
+                } else {
+                    start = this.start;
+                }
 
-            DateTime remind;
-            if (this.remind == null) {
-                remind = event.getRemindDateTime();
-            } else {
-                remind = this.remind;
-            }
+                DateTime end;
+                if (this.end == null) {
+                    end = event.getEndDateTime();
+                } else {
+                    end = this.end;
+                }
 
-            Collection<String> tags;
-            if (this.tags == null) {
-                tags = event.getTags();
-            } else {
-                tags = this.tags;
-            }
+                DateTime remind;
+                if (this.remind == null) {
+                    remind = event.getRemindDateTime();
+                } else {
+                    remind = this.remind;
+                }
 
-            EventSource replacement = EventSource.newBuilder(description, start)
-                .setEnd(end)
-                .setRemind(remind)
-                .setTags(tags)
-                .build();
-            model.replaceEvent(event, replacement);
+                Collection<String> tags;
+                if (this.tags == null) {
+                    tags = event.getTags();
+                } else {
+                    tags = this.tags;
+                }
+
+                EventSource replacement = EventSource.newBuilder(description, start)
+                    .setEnd(end)
+                    .setRemind(remind)
+                    .setTags(tags)
+                    .build();
+
+                iterator.set(replacement);
+            }
         }
+
+        // Replace model
+        this.model.setModelData(new ModelData(events, this.model.getTasks()));
 
         return new UserOutput(String.format(MESSAGE_EDIT_EVENT_SUCCESS, toEdit.stream()
             .map(EventSource::getDescription)

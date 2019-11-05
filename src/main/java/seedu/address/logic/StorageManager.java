@@ -3,7 +3,6 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,11 +11,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import seedu.address.logic.storage.exceptions.StorageIoException;
-import seedu.address.model.ModelLists;
+import seedu.address.model.ModelData;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.EventSourceBuilder;
 import seedu.address.model.listeners.ModelListListener;
-import seedu.address.model.listeners.ModelResetListener;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.model.tasks.TaskSourceBuilder;
 
@@ -26,19 +25,15 @@ import seedu.address.model.tasks.TaskSourceBuilder;
 public class StorageManager implements ModelListListener {
 
     private final ObjectMapper mapper;
-    private final List<ModelResetListener> modelResetListeners;
+    private final ModelManager model;
 
     private Path eventsFile;
     private Path tasksFile;
 
-    public StorageManager() {
+    public StorageManager(ModelManager model) {
         this.mapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT);
-        this.modelResetListeners = new ArrayList<>();
-    }
-
-    public void addModelResetListener(ModelResetListener listener) {
-        this.modelResetListeners.add(listener);
+        this.model = model;
     }
 
     public void setEventsFile(Path eventsFile) {
@@ -70,25 +65,23 @@ public class StorageManager implements ModelListListener {
                     new TypeReference<List<TaskSourceBuilder>>() {});
             }
 
-            this.modelResetListeners.forEach(listener -> {
-                // Create events and tasks from builders.
-                List<EventSource> events = eventBuilders.stream()
-                    .map(EventSourceBuilder::build)
-                    .collect(Collectors.toList());
+            // Create events and tasks from builders.
+            List<EventSource> events = eventBuilders.stream()
+                .map(EventSourceBuilder::build)
+                .collect(Collectors.toList());
 
-                List<TaskSource> tasks = taskBuilders.stream()
-                    .map(TaskSourceBuilder::build)
-                    .collect(Collectors.toList());
+            List<TaskSource> tasks = taskBuilders.stream()
+                .map(TaskSourceBuilder::build)
+                .collect(Collectors.toList());
 
-                listener.onModelReset(new ModelLists(events, tasks), this);
-            });
+            this.model.setModelData(new ModelData(events, tasks));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onModelListChange(ModelLists lists) {
+    public void onModelListChange(ModelData lists) {
         try {
             Files.createDirectories(this.eventsFile.getParent());
             Files.createDirectories(this.tasksFile.getParent());

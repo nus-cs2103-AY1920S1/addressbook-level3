@@ -35,13 +35,13 @@ class DeleteEventCommandTest {
     void execute_emptyCommand_failure() {
         assertThrows(CommandException.class, () -> {
             ModelManager model = new ModelManager();
-            assertEquals(model.getEventList().size(), 0);
+            assertEquals(model.getEvents().size(), 0);
 
             Command command = DeleteEventCommand.newBuilder(model)
                 .build();
 
             command.execute();
-            assertEquals(model.getEventList().size(), 0);
+            assertEquals(model.getEvents().size(), 0);
         });
     }
 
@@ -54,14 +54,14 @@ class DeleteEventCommandTest {
                 EventSource.newBuilder("a", DateTime.now()).build(),
                 EventSource.newBuilder("b", DateTime.now()).build(),
                 EventSource.newBuilder("c", DateTime.now()).build());
-            assertEquals(model.getEventList().size(), 3);
+            assertEquals(model.getEvents().size(), 3);
 
             Command command = DeleteEventCommand.newBuilder(model)
                 .acceptSentence(index)
                 .build();
 
             command.execute();
-            assertEquals(model.getEventList().size(), 2);
+            assertEquals(model.getEvents().size(), 2);
         });
     }
 
@@ -71,7 +71,7 @@ class DeleteEventCommandTest {
         for (String index : indexes) {
             assertThrows(CommandException.class, () -> {
                 ModelManager model = new ModelManager();
-                assertEquals(model.getEventList().size(), 0);
+                assertEquals(model.getEvents().size(), 0);
 
                 Command command = DeleteEventCommand.newBuilder(model)
                     .acceptSentence(index)
@@ -94,7 +94,7 @@ class DeleteEventCommandTest {
                 EventSource.newBuilder("d", DateTime.now()).build(),
                 EventSource.newBuilder("e", DateTime.now()).build()
             );
-            assertEquals(model.getEventList().size(), 5);
+            assertEquals(model.getEvents().size(), 5);
 
             Command command = DeleteEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])
@@ -103,7 +103,7 @@ class DeleteEventCommandTest {
                 .build();
 
             command.execute();
-            assertEquals(model.getEventList().size(), 2);
+            assertEquals(model.getEvents().size(), 2);
         });
     }
 
@@ -116,7 +116,7 @@ class DeleteEventCommandTest {
                 EventSource.newBuilder("a", DateTime.now()).build(),
                 EventSource.newBuilder("b", DateTime.now()).build()
             );
-            assertEquals(model.getEventList().size(), 2);
+            assertEquals(model.getEvents().size(), 2);
 
             Command command = DeleteEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])

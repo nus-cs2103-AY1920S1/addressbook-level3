@@ -65,11 +65,11 @@ class EditEventCommandTest {
                 .acceptSentence(indexes[2])
                 .build();
 
-            assertEquals(model.getEventList().size(), 3);
+            assertEquals(model.getEvents().size(), 3);
 
             // TODO: Equality test
             command.execute();
-            assertEquals(model.getEventList().size(), 3);
+            assertEquals(model.getEvents().size(), 3);
         });
     }
 
@@ -79,7 +79,7 @@ class EditEventCommandTest {
         for (String index : indexes) {
             assertThrows(CommandException.class, () -> {
                 ModelManager model = new ModelManager();
-                assertEquals(model.getEventList().size(), 0);
+                assertEquals(model.getEvents().size(), 0);
 
                 Command command = EditEventCommand.newBuilder(model)
                     .acceptSentence(index)
@@ -99,7 +99,7 @@ class EditEventCommandTest {
                 EventSource.newBuilder("a", DateTime.now()).build(),
                 EventSource.newBuilder("b", DateTime.now()).build()
             );
-            assertEquals(model.getEventList().size(), 2);
+            assertEquals(model.getEvents().size(), 2);
 
             Command command = EditEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])

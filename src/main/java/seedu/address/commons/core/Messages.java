@@ -39,6 +39,10 @@ public class Messages {
     public static final String MESSAGE_CALENDAR_VIEW_SUCCESS = "Switched to Calendar View.";
     public static final String MESSAGE_LIST_VIEW_SUCCESS = "Switched to List View.";
     public static final String MESSAGE_LOG_VIEW_SUCCESS = "Switched to Log View";
+
+    public static final String MESSAGE_ADD_EVENT_DUPLICATE = "A duplicate event already exists!";
+    public static final String MESSAGE_ADD_TASK_DUPLICATE = "A duplicate task already exists!";
+
     public static final String MESSAGE_DELETE_EVENT_EMPTY = "Please fill in at least INDEXES or TAGS.";
     public static final String MESSAGE_DELETE_EVENT_FAILURE = "No matching events.";
     public static final String MESSAGE_DELETE_TASK_EMPTY = "Please fill in at least INDEXES or TAGS.";

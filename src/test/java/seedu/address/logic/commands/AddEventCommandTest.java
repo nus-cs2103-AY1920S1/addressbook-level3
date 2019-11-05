@@ -43,7 +43,7 @@ class AddEventCommandTest {
         assertDoesNotThrow(() -> {
             // TODO: Create stub
             ModelManager model = new ModelManager();
-            assertEquals(model.getEventList().size(), 0);
+            assertEquals(model.getEvents().size(), 0);
 
             Command command = AddEventCommand.newBuilder(model)
                 .acceptSentence(description)
@@ -52,7 +52,7 @@ class AddEventCommandTest {
 
             // TODO: Equality test
             command.execute();
-            assertEquals(model.getEventList().size(), 1);
+            assertEquals(model.getEvents().size(), 1);
         });
     }
 }

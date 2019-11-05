@@ -53,8 +53,13 @@ public class CommandManager implements CommandInputListener {
             Command command = this.commandParser.parse(input);
             UserOutput output = command.execute();
             userOutputListeners.forEach(l -> l.onUserOutput(output, ColorTheme.SUCCESS));
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException e) {
+            logger.info("Command entered: " + input);
+            logger.info(e.getMessage());
+            userOutputListeners.forEach(l -> l.onUserOutput(new UserOutput(e.getMessage()), ColorTheme.FAILURE));
+        } catch (ParseException e) {
             logger.info("Invalid command: " + input);
+            logger.info(e.getMessage());
             userOutputListeners.forEach(l -> l.onUserOutput(new UserOutput(e.getMessage()), ColorTheme.FAILURE));
         }
     }

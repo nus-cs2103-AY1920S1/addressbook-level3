@@ -6,11 +6,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_DELETE_EVENT_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_INDEX;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.UserOutput;
@@ -36,9 +38,9 @@ public class DeleteEventCommand extends Command {
 
     @Override
     public UserOutput execute() throws CommandException {
-        List<EventSource> list = model.getEventList();
+        List<EventSource> events = new ArrayList<>(model.getEvents());
 
-        List<EventSource> toDelete = new ArrayList<>();
+        LinkedHashSet<EventSource> toDelete = new LinkedHashSet<>();
         if (this.indexes.isEmpty()) {
             if (this.tags.isEmpty()) {
                 throw new CommandException(MESSAGE_DELETE_EVENT_EMPTY);
@@ -46,7 +48,7 @@ public class DeleteEventCommand extends Command {
 
             // Indexes empty but tags is not empty:
             // Delete all events with matching tags.
-            for (EventSource event : list) {
+            for (EventSource event : events) {
                 Set<String> tags = event.getTags();
                 if (tags == null || tags.containsAll(this.tags)) {
                     toDelete.add(event);
@@ -57,14 +59,14 @@ public class DeleteEventCommand extends Command {
             // Delete given events with matching tags
             for (Integer index : indexes) {
                 try {
-                    EventSource event = list.get(index);
+                    EventSource event = events.get(index);
                     // Delete EventSource only if it matches all tags.
                     Set<String> tags = event.getTags();
                     if (tags == null || tags.containsAll(this.tags)) {
-                        toDelete.add(list.get(index));
+                        toDelete.add(events.get(index));
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    throw new CommandException(String.format(MESSAGE_INVALID_EVENT_INDEX, index + 1));
+                    throw new CommandException(String.format(MESSAGE_INVALID_EVENT_INDEX, index));
                 }
             }
         }
@@ -74,9 +76,11 @@ public class DeleteEventCommand extends Command {
             throw new CommandException(MESSAGE_DELETE_EVENT_FAILURE);
         }
 
-        for (EventSource event : toDelete) {
-            model.removeEvent(event);
-        }
+        // Remove event if toDelete contains the same event
+        events.removeIf(toDelete::contains);
+
+        // Replace model
+        this.model.setModelData(new ModelData(events, this.model.getTasks()));
 
         return new UserOutput(String.format(MESSAGE_DELETE_EVENT_SUCCESS, toDelete.stream()
             .map(EventSource::getDescription)

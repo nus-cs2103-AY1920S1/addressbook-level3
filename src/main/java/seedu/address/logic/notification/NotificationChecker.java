@@ -24,7 +24,7 @@ public class NotificationChecker {
     public ArrayList<PopupNotification> getListOfPopupNotifications() {
         ArrayList<PopupNotification> returnValue = new ArrayList<>();
 
-        for (EventSource eventSource : model.getEventList()) {
+        for (EventSource eventSource : model.getEvents()) {
             if (eventSource.notificationTimeMatchesCurrentTime()) {
                 String name = eventSource.getDescription();
                 DateTime eventDateTime = eventSource.getStartDateTime();
@@ -33,7 +33,7 @@ public class NotificationChecker {
             }
         }
 
-        for (TaskSource taskSource : model.getTaskList()) {
+        for (TaskSource taskSource : model.getTasks()) {
             DateTime taskDueDate = taskSource.getDueDate();
             if (taskDueDate != null && taskDueDate.equalsPrecisionMinute(DateTime.now())) {
                 String name = taskSource.getDescription();
