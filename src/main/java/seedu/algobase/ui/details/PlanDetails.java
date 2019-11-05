@@ -6,6 +6,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.algobase.model.ModelType;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.ui.UiPart;
 import seedu.algobase.ui.action.UiActionDetails;
@@ -70,6 +71,22 @@ public class PlanDetails extends UiPart<Region> {
                 endDate.getValue()
             ));
             editButton.setDisable(true);
+            e.consume();
+        });
+
+        deleteButton.setOnMouseClicked((e) -> {
+            // Close the tab
+            uiActionExecutor.execute(new UiActionDetails(
+                UiActionType.CLOSE_DETAILS_TAB,
+                ModelType.PLAN,
+                plan.getId()
+            ));
+
+            // Delete the plan
+            uiActionExecutor.execute(new UiActionDetails(
+                UiActionType.DELETE_PLAN,
+                plan.getId()
+            ));
             e.consume();
         });
     }

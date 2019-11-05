@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.algobase.model.ModelType;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.ui.UiPart;
 import seedu.algobase.ui.action.UiActionDetails;
@@ -93,6 +94,23 @@ public class ProblemDetails extends UiPart<Region> {
                 source.getText()
             ));
             editButton.setDisable(true);
+            e.consume();
+        });
+
+        deleteButton.setOnMouseClicked((e) -> {
+            // Close the tab
+            uiActionExecutor.execute(new UiActionDetails(
+                UiActionType.CLOSE_DETAILS_TAB,
+                ModelType.PROBLEM,
+                problem.getId()
+            ));
+
+            // Delete the problem
+            uiActionExecutor.execute(new UiActionDetails(
+                UiActionType.DELETE_PROBLEM,
+                problem.getId(),
+                Boolean.valueOf(true)
+            ));
             e.consume();
         });
     }
