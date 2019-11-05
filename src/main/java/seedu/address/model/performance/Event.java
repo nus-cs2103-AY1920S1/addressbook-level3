@@ -129,6 +129,11 @@ public class Event {
         return otherEvent.getName().equals(name);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     //// Analysis helper functions
 
     public List<Record> getAthleteRecords(Person athlete) {

@@ -17,7 +17,7 @@ public class DeleteEventCommand extends DeleteCommand {
         + ": Deletes the person identified by the index number used in the displayed person list.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " " + FLAG_EVENT + " 1";
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted event: %1$s";
     public static final String MESSAGE_NO_EVENT_GIVEN = "Please provide the name of the event to be deleted.";
 
     private final Event targetEvent;
@@ -32,7 +32,8 @@ public class DeleteEventCommand extends DeleteCommand {
         if (!model.hasEvent(targetEvent)) {
             throw new CommandException(String.format(Event.MESSAGE_NO_SUCH_EVENT, targetEvent.getName()));
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        model.deleteEvent(targetEvent);
+        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, targetEvent.getName()));
     }
 
     @Override
