@@ -5,10 +5,12 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import seedu.deliverymans.commons.core.GuiSettings;
@@ -67,6 +69,11 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private SplitPane splitPane;
+    @FXML
+    private VBox personList;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -188,6 +195,7 @@ public class MainWindow extends UiPart<Stage> {
     private void changeContext(Context context) {
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
+        personList.setMinWidth(340);
 
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
@@ -236,6 +244,7 @@ public class MainWindow extends UiPart<Stage> {
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
         }
+        personList.setMinWidth(340);
         System.out.println(commandName.getSimpleName());
         switch(commandName.getSimpleName()) {
         case "CustomerHistoryCommand":
@@ -249,11 +258,13 @@ public class MainWindow extends UiPart<Stage> {
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
             break;
         case "DeliverymanGetStatisticsCommand":
+            personList.setMinWidth(1200);
             deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getDeliverymenStatusStats());
             statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
             break;
         case "DeliverymanListStatusCommand":
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
+            personList.setMinWidth(650);
             break;
         default:
 

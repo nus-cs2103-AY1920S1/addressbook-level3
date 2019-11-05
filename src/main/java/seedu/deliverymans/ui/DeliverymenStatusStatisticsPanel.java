@@ -4,11 +4,14 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsRecordCard;
 
@@ -34,6 +37,8 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
     private TextArea resultDisplay;
     @FXML
     private TextArea adviceDisplay;
+    @FXML
+    private Label caption;
 
     private StatisticsRecordCard recordCard;
 
@@ -41,7 +46,7 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
     private ObservableList<PieChart.Data> pieChartData;
 
     // Data fields
-    private Integer availableListSize;
+    private int availableListSize;
     private int unavailableListSize;
     private int deliveringListSize;
     private int totalListSize;
@@ -100,8 +105,33 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
     private void fillPieChart() {
         statusStatisticsPieChart.setTitle("STATUS PIE CHART");
         statusStatisticsPieChart.setData(pieChartData);
+        mouseClicked();
     }
 
+    private void mouseClicked() {
+        caption = new Label("");
+        caption.setTextFill(Color.DARKORANGE);
+        caption.setStyle("-fx-font: 24 arial;");
+
+        for (final PieChart.Data data : statusStatisticsPieChart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
+                    caption.setText(String.valueOf(data.getPieValue()) + "%"));
+        }
+    }
+
+    @FXML
+    private void onMousePressed() {
+        caption = new Label("");
+        caption.setTextFill(Color.DARKORANGE);
+        caption.setStyle("-fx-font: 24 arial;");
+            pieChartData.get(1).getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+                    e -> {
+                        caption.setTranslateX(e.getSceneX());
+                        caption.setTranslateY(e.getSceneY());
+                        String text = String.format("%.1f%%", pieChartData.get(1));
+                        caption.setText(text);
+                    } );
+    }
     /**
      *
      */
