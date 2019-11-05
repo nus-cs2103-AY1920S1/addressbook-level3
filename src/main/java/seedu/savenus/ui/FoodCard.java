@@ -56,7 +56,7 @@ public class FoodCard extends UiPart<Region> {
     public FoodCard(Food food, int displayedIndex) {
         super(FXML);
         this.food = food;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
         name.setText(food.getName().fullName);
         price.setText("$" + food.getPrice().value);
 
@@ -80,7 +80,7 @@ public class FoodCard extends UiPart<Region> {
         // Label for opening hours.
         String hour = "";
         if (food.getOpeningHours().openingHours.equals(OpeningHours.DEFAULT_VALUE)) {
-            hour += "No opening hours specified.";
+            hour += "No opening hours specified";
         } else {
             String[] hours = food.getOpeningHours().openingHours.split(" ");
             String open = hours[0];
@@ -94,7 +94,7 @@ public class FoodCard extends UiPart<Region> {
         String restrictions = "";
 
         if (food.getRestrictions().restrictions.equals(Restrictions.DEFAULT_VALUE)) {
-            restrictions += "No restrictions.";
+            restrictions += "No restrictions";
         } else {
             restrictions += "Restrictions: " + food.getRestrictions().restrictions;
         }
@@ -106,9 +106,9 @@ public class FoodCard extends UiPart<Region> {
         double recommendationValue = RecommendationSystem.getInstance().calculateRecommendation(food);
 
         if (recommendationValue >= 0) {
-            recommendations += "Recommendation: " + "+" + String.format("%.2f", recommendationValue);
+            recommendations += "+" + String.format("%.2f", recommendationValue);
         } else {
-            recommendations += "Recommendation: " + String.format("%.2f", recommendationValue);
+            recommendations += String.format("%.2f", recommendationValue);
         }
 
         recommendation.setText(recommendations);
