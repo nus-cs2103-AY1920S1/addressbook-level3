@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.quiz;
 
 import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
@@ -90,10 +91,16 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         }
 
         String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
-        int numQuestions = Integer.parseInt(argMultimap.getValue(PREFIX_NUM_QUESTIONS).orElse(""));
+        String numQuestions = argMultimap.getValue(PREFIX_NUM_QUESTIONS).orElse("");
+        int intNumQuestions = -1;
+        if (!numQuestions.equals("")) {
+            if (isNumeric(numQuestions)) {
+                intNumQuestions = Integer.parseInt(numQuestions);
+            }
+        }
         String typeName = argMultimap.getValue(PREFIX_TYPE).orElse("");
 
-        return new QuizCreateAutomaticallyCommand(quizId, numQuestions, typeName);
+        return new QuizCreateAutomaticallyCommand(quizId, intNumQuestions, typeName);
     }
 
     /**
@@ -125,7 +132,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
      * @throws ParseException if the input was incorrectly formatted.
      */
     private QuizAddQuestionCommand addQuestionCommand(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUIZ_QUESTION_NUMBER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUESTION_NUMBER, PREFIX_QUIZ_QUESTION_NUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String
@@ -133,10 +140,22 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         }
 
         String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
-        int questionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUESTION_NUMBER).orElse(""));
-        int quizQuestionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse(""));
+        String questionNumber = argMultimap.getValue(PREFIX_QUESTION_NUMBER).orElse("");
+        String quizQuestionNumber = argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse("");
+        int intQuestionNumber = -1;
+        if (!questionNumber.equals("")) {
+            if (isNumeric(questionNumber)) {
+                intQuestionNumber = Integer.parseInt(questionNumber);
+            }
+        }
+        int intQuizQuestionNumber = -1;
+        if (!quizQuestionNumber.equals("")) {
+            if (isNumeric(quizQuestionNumber)) {
+                intQuizQuestionNumber = Integer.parseInt(quizQuestionNumber);
+            }
+        }
 
-        return new QuizAddQuestionCommand(quizId, questionNumber, quizQuestionNumber);
+        return new QuizAddQuestionCommand(quizId, intQuestionNumber, intQuizQuestionNumber);
     }
 
     /**
@@ -146,7 +165,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
      * @throws ParseException if the input was incorrectly formatted.
      */
     private QuizDeleteQuestionCommand removeQuestionCommand(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
+        if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUIZ_QUESTION_NUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String
@@ -154,9 +173,15 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         }
 
         String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
-        int quizQuestionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse(""));
+        String quizQuestionNumber = argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse("");
+        int intQuizQuestionNumber = -1;
+        if (!quizQuestionNumber.equals("")) {
+            if (isNumeric(quizQuestionNumber)) {
+                intQuizQuestionNumber = Integer.parseInt(quizQuestionNumber);
+            }
+        }
 
-        return new QuizDeleteQuestionCommand(quizId, quizQuestionNumber);
+        return new QuizDeleteQuestionCommand(quizId, intQuizQuestionNumber);
     }
 
     /**

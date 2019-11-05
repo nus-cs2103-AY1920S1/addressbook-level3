@@ -40,8 +40,12 @@ public class QuizExportCommand extends QuizCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException, IOException {
         requireNonNull(model);
+        if (quizId.equals("") || quizId == null) {
+            throw new CommandException(BLANK_QUIZ_ID);
+        }
+
         if (!model.checkQuizExists(quizId)) {
-            return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
+            throw new CommandException(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         }
 
         boolean isSuccess = model.exportQuiz(quizId);
@@ -49,7 +53,7 @@ public class QuizExportCommand extends QuizCommand {
             QuizBank.setCurrentlyQueriedQuiz(quizId);
             return new CommandResult(generateSuccessMessage(quizId), CommandResultType.SHOW_QUIZ_ALL);
         } else {
-            return new CommandResult(generateFailureMessage(quizId));
+            throw new CommandException(String.format(HTML_EXISTS, quizId));
         }
     }
 
@@ -71,6 +75,23 @@ public class QuizExportCommand extends QuizCommand {
     private String generateFailureMessage(String message) {
         return "Failed to export because file "
                 + message + ".html already exists.";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof QuizExportCommand)) {
+            return false;
+        }
+
+        // state check
+        QuizExportCommand e = (QuizExportCommand) other;
+        return this.quizId.equals(e.quizId);
     }
 
 }
