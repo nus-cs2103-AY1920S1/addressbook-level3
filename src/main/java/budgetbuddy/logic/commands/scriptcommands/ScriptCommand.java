@@ -37,9 +37,9 @@ public abstract class ScriptCommand extends Command {
         try {
             Object result = scriptEngine.evaluateScript(script, argv);
             if (result == null) {
-                return new CommandResult(MESSAGE_NO_RESULT, CommandCategory.SCRIPT);
+                return new CommandResult(MESSAGE_NO_RESULT, CommandCategory.SCRIPT_NO_SWITCH);
             } else {
-                return new CommandResult(result.toString(), CommandCategory.SCRIPT);
+                return new CommandResult(result.toString(), CommandCategory.SCRIPT_NO_SWITCH);
             }
         } catch (ScriptException se) {
             throw new CommandException(String.format(MESSAGE_SCRIPT_EXCEPTION, se.getMessage()), se);

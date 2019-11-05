@@ -5,7 +5,7 @@ package budgetbuddy.logic.commands;
  */
 
 public enum CommandCategory {
-    RULE, ACCOUNT, TRANSACTION, LOAN, SCRIPT,
+    RULE, ACCOUNT, TRANSACTION, LOAN, SCRIPT, SCRIPT_NO_SWITCH,
     MISC,
     LOAN_SPLIT;
 
