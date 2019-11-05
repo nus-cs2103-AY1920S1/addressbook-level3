@@ -2,35 +2,35 @@ package seedu.address.calendar.model.date;
 
 /**
  * Represents the day of the month, i.e. Sunday, Monday, ... For easy mathematical manipulations,
- * each day of month has an associated {@code int} value.
+ * each day of month has an associated numerical value.
  */
 public enum DayOfWeek {
     /**
-     * Represents Sunday, with associated {@code int} value 0.
+     * Represents Sunday, with associated numerical value 0.
      */
     SUN(0),
     /**
-     * Represents Monday, with associated {@code int} value 1.
+     * Represents Monday, with associated numerical value 1.
      */
     MON(1),
     /**
-     * Represents Tuesday, with associated {@code int} value 2.
+     * Represents Tuesday, with associated numerical value 2.
      */
     TUE(2),
     /**
-     * Represents Wednesday, with associated {@code int} value 3.
+     * Represents Wednesday, with associated numerical value 3.
      */
     WED(3),
     /**
-     * Represents Thursday, with associated {@code int} value 4.
+     * Represents Thursday, with associated numerical value 4.
      */
     THU(4),
     /**
-     * Represents Friday, with associated {@code int} value 5.
+     * Represents Friday, with associated numerical value 5.
      */
     FRI(5),
     /**
-     * Represents Saturday, with associated {@code int} value 6.
+     * Represents Saturday, with associated numerical value 6.
      */
     SAT(6);
 
@@ -39,16 +39,16 @@ public enum DayOfWeek {
     /**
      * Returns an instance of {@code DayOfWeek}.
      *
-     * @param numericalVal The associated {@code int} value of {@code this}.
+     * @param numericalVal The associated numerical value of {@code this}.
      */
     DayOfWeek(int numericalVal) {
         this.numericalVal = numericalVal;
     }
 
     /**
-     * Gets the {@code int} value associated with {@code this}.
+     * Gets the numerical value associated with {@code this}.
      *
-     * @return {@code int} value associated with {@code this}
+     * @return numerical value associated with {@code this}
      */
     public int getNumericalVal() {
         return numericalVal;

@@ -46,10 +46,25 @@ public class Year implements Comparable<Year> {
      * Checks whether the given {@code int} year is between 1980 and 2200.
      *
      * @param year Year to check
-     * @return {@code true} if {@code year} is between 1980 and 2200 (inclusive)
+     * @return {@code true} if and only if {@code year} is between 1980 and 2200 (inclusive)
      */
     public static boolean isValidYear(int year) {
         return year >= BOUND_LOWER && year <= BOUND_UPPER;
+    }
+
+    /**
+     * Checks whether {@code this} is a leap year.
+     *
+     * @return {@code true} if and only if {@code this} is a leap year
+     */
+    public boolean isLeapYear() {
+        if ((year % 4 == 0) && (year % 100 != 0)) {
+            return true;
+        } else if (year % 400 == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

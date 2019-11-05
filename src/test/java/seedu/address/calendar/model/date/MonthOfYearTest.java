@@ -49,17 +49,45 @@ public class MonthOfYearTest {
         MonthOfYear nov = MonthOfYear.NOVEMBER;
         MonthOfYear dec = MonthOfYear.DECEMBER;
 
-        int leapYearInt1 = 1980;
-        int learYearInt2 = 2020;
-        int nonLeapYearInt1 = 1981;
-        int nonLeapYearInt2 = 2019;
-        int nonLeapYearInt3 = 1979;
+        Year leapYear1 = new Year(1984);
+        Year leapYear2 = new Year(2020);
+        Year nonLeapYear1 = new Year(1983);
+        Year nonLeapYear2 = new Year(1985);
+        Year nonLeapYear3 = new Year(2019);
 
-        Year leapYear1 = new Year(leapYearInt1);
-        Year leapYear2 = new Year(learYearInt2);
-        Year nonLeapYear1 = new Year(nonLeapYearInt1);
-        Year nonLeapYear2 = new Year(nonLeapYearInt2);
-        Year nonLeapYear3 = new Year(nonLeapYearInt3);
+        /* The following tests checks whether there are any unexpected differences in output for months that aren't
+           affected by leap years.
+         */
+        assertEquals(31, jan.getNumDaysInMonth(leapYear1));
+        assertEquals(31, jan.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(31, mar.getNumDaysInMonth(leapYear1));
+        assertEquals(31, mar.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(30, apr.getNumDaysInMonth(leapYear1));
+        assertEquals(30, apr.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(31, may.getNumDaysInMonth(leapYear1));
+        assertEquals(31, may.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(30, jun.getNumDaysInMonth(leapYear1));
+        assertEquals(30, jun.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(31, jul.getNumDaysInMonth(leapYear1));
+        assertEquals(31, jul.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(31, aug.getNumDaysInMonth(leapYear1));
+        assertEquals(31, aug.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(30, sep.getNumDaysInMonth(leapYear1));
+        assertEquals(30, sep.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(31, oct.getNumDaysInMonth(leapYear1));
+        assertEquals(31, oct.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(30, nov.getNumDaysInMonth(leapYear1));
+        assertEquals(30, nov.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(31, dec.getNumDaysInMonth(leapYear1));
+        assertEquals(31, dec.getNumDaysInMonth(nonLeapYear1));
+
+        /* The following tests checks that the no. of days in February are calculated correctly */
+        assertEquals(29, feb.getNumDaysInMonth(leapYear2));
+        assertEquals(29, feb.getNumDaysInMonth(leapYear1));
+        assertEquals(28, feb.getNumDaysInMonth(nonLeapYear1));
+        assertEquals(28, feb.getNumDaysInMonth(nonLeapYear2));
+        assertEquals(28, feb.getNumDaysInMonth(nonLeapYear3));
     }
+
 
 }

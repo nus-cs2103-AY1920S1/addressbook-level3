@@ -75,4 +75,23 @@ public class YearTest {
         assertFalse(Year.isValidYear(lowerBoundLessThanYear));
         assertFalse(Year.isValidYear(upperBoundMoreThanYear));
     }
+
+    @Test
+    public void isLeapYear() {
+        Year leapYear1 = new Year(2136);
+        Year leapYearBefore1 = new Year(2135);
+        Year leapYearAfter1 = new Year(2137);
+
+        Year leapYear2 = new Year(2020);
+        Year leapYearBefore2 = new Year(2019);
+        Year leapYearAfter2 = new Year(2021);
+
+        assertTrue(leapYear1.isLeapYear());
+        assertTrue(leapYear2.isLeapYear());
+
+        assertFalse(leapYearAfter1.isLeapYear());
+        assertFalse(leapYearBefore1.isLeapYear());
+        assertFalse(leapYearAfter2.isLeapYear());
+        assertFalse(leapYearBefore2.isLeapYear());
+    }
 }
