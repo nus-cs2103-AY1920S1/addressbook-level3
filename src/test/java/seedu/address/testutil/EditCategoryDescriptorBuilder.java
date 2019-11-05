@@ -3,6 +3,9 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import seedu.address.model.entry.Category;
 
+/**
+ * A utility class to help with building EditCategoryDescriptor objects.
+ */
 public class EditCategoryDescriptorBuilder {
 
     private EditCategoryDescriptor descriptor;

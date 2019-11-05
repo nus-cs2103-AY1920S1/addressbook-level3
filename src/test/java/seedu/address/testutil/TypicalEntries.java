@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.GuiltTrip;
+import seedu.address.model.entry.Category;
 import seedu.address.model.entry.Entry;
 
 /**
@@ -16,7 +17,10 @@ public class TypicalEntries {
             .withAmt(5.50).withTags("food").build();
     public static final Entry CLOTHING_EXPENSE = new EntryBuilder().withDesc("cotton on jeans on sale")
             .withTime("2019-09-09").withAmt(14.90).withTags("want", "clothes").build();
-
+    public static final Category CATEGORY_FOOD = new CategoryBuilder().withCatType("Expense").withCatName("food")
+                                                    .build();
+    public static final Category CATEGORY_BUSINESS = new CategoryBuilder().withCatType("Income").withCatName("business")
+                                                    .build();
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalEntries() {
@@ -26,14 +30,21 @@ public class TypicalEntries {
      * Returns an {@code GuiltTrip} with all the typical persons.
      */
     public static GuiltTrip getTypicalGuiltTrip() {
-        GuiltTrip ab = new GuiltTrip(true);
+        GuiltTrip ab = new GuiltTrip(false);
         for (Entry entry : getTypicalEntries()) {
             ab.addEntry(entry);
+        }
+        for (Category category : getTypicalCategories()) {
+            ab.addCategory(category);
         }
         return ab;
     }
 
     public static List<Entry> getTypicalEntries() {
         return new ArrayList<>(Arrays.asList(FOOD_EXPENSE, CLOTHING_EXPENSE));
+    }
+
+    public static List<Category> getTypicalCategories() {
+        return new ArrayList<>(Arrays.asList(CATEGORY_FOOD, CATEGORY_BUSINESS));
     }
 }

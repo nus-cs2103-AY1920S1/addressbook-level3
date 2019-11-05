@@ -1,21 +1,21 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.GuiltTrip;
 import seedu.address.model.Model;
 import seedu.address.model.entry.Entry;
-import seedu.address.model.entry.predicates.EntryContainsDescriptionPredicate;
 import seedu.address.testutil.EditCategoryDescriptorBuilder;
 import seedu.address.testutil.EditEntryDescriptorBuilder;
 
@@ -127,19 +127,5 @@ public class CommandTestUtil {
         assertEquals(expectedGuiltTrip, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredEntryList());
     }
-
-//    /**
-//     * Updates {@code model}'s filtered list to show only the entry at the given {@code targetIndex} in the
-//     * {@code model}'s address book.
-//     */
-//    public static void showPersonAtIndex(Model model, Index targetIndex) {
-//        assertTrue(targetIndex.getZeroBased() < model.getFilteredEntryList().size());
-//
-//        Entry person = model.getFilteredEntryList().get(targetIndex.getZeroBased());
-//        final String[] splitDesc = person.getDesc().fullDesc.split("\\s+");
-//        model.updateFilteredEntryList(new EntryContainsDescriptionPredicate(Arrays.asList(splitDesc[0])));
-//
-//        assertEquals(1, model.getFilteredEntryList().size());
-//    }
 
 }

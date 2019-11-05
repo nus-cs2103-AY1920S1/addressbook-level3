@@ -28,11 +28,13 @@
 //import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 //import static seedu.address.testutil.TypicalEntries.AMY;
 //import static seedu.address.testutil.TypicalEntries.BOB;
+//import static seedu.address.testutil.TypicalEntries.FOOD_EXPENSE;
 //
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.logic.commands.AddCommand;
 //import seedu.address.model.entry.Description;
+//import seedu.address.model.entry.Entry;
 //import seedu.address.model.tag.Tag;
 //import seedu.address.testutil.EntryBuilder;
 //
@@ -41,7 +43,7 @@
 //
 //    @Test
 //    public void parse_allFieldsPresent_success() {
-//        Person expectedPerson = new EntryBuilder(BOB).withTags(VALID_TAG_CLOTHING).build();
+//        Entry expectedEntry = new EntryBuilder(FOOD_EXPENSE).withTags(VALID_TAG_CLOTHING).build();
 //
 //        // whitespace only preamble
 //        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_CLOTHING_EXPENSE + PHONE_DESC_BOB + EMAIL_DESC_BOB

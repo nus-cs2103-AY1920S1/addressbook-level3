@@ -2,6 +2,9 @@ package seedu.address.testutil;
 
 import seedu.address.model.entry.Category;
 
+/**
+ * A utility class to help with building Category objects.
+ */
 public class CategoryBuilder {
 
     public static final String DEFAULT_CATEGORY_TYPE = "Expense";
