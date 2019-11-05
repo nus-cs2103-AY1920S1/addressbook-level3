@@ -20,14 +20,8 @@
     </columnConstraints>
       <AnchorPane>
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER_LEFT" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                <children>
-              <Label fx:id="id" styleClass="cell_index" HBox.hgrow="NEVER">
-                <minWidth>
-                  <!-- Ensures that the label text is never truncated -->
-                  <Region fx:constant="USE_PREF_SIZE" />
-                </minWidth>
-              </Label>
                   <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -69,6 +63,12 @@
                         </HBox>
                      </children>
                   </VBox>
+               <Label fx:id="id" styleClass="cell_index">
+                <minWidth>
+                  <!-- Ensures that the label text is never truncated -->
+                  <Region fx:constant="USE_PREF_SIZE" />
+                </minWidth>
+               </Label>
                </children>
             </HBox>
          </children>
