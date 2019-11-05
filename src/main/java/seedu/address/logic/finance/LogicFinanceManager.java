@@ -74,10 +74,22 @@ public class LogicFinanceManager implements Logic {
         return model.getFilteredBudgetList();
     }
 
+    @Override
     public ObservableList<BudgetData> getFilteredBudgetDataList() {
         return model.getFilteredBudgetDataList();
     }
 
+    @Override
+    public boolean hasAnyActiveBudgetExceeded() {
+        return model.hasAnyActiveBudgetExceeded();
+    }
+
+    @Override
+    public boolean hasAnyActiveBudgetCloseToExceed() {
+        return model.hasAnyActiveBudgetCloseToExceed();
+    }
+
+    @Override
     public GraphicsData getGraphicsData() {
         return model.getGraphicsData();
     }

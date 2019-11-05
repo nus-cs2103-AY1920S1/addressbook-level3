@@ -171,6 +171,22 @@ public class ModelFinanceManager implements Model {
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
+    @Override
+    public boolean hasAnyActiveBudgetExceeded() {
+        return getFilteredBudgetDataList()
+                .stream()
+                .filter(bd -> bd.isActive())
+                .anyMatch(bd -> bd.hasExceeded());
+    }
+
+    @Override
+    public boolean hasAnyActiveBudgetCloseToExceed() {
+        return getFilteredBudgetDataList()
+                .stream()
+                .filter(bd -> bd.isActive())
+                .anyMatch(bd -> bd.isCloseToExceed());
+    }
+
     /**
      * Returns an a {@code GraphicsData} object
      */

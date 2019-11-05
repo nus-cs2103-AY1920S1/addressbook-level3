@@ -101,6 +101,12 @@ public interface Model {
 
     ObservableList<BudgetData> getFilteredBudgetDataList();
 
+    /** Returns true if any active budget has been exceeded */
+    boolean hasAnyActiveBudgetExceeded();
+
+    /** Returns true if any active budget is close to being exceeded */
+    boolean hasAnyActiveBudgetCloseToExceed();
+
     GraphicsData getGraphicsData();
 
     /**

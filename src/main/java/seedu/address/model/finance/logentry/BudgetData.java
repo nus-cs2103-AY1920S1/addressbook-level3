@@ -91,6 +91,10 @@ public class BudgetData {
         return currAmt > limitAmt;
     }
 
+    public boolean isCloseToExceed() {
+        return getProportion() >= 0.8 && getProportion() <= 1;
+    }
+
     public Double getProportion() {
         return currAmt / limitAmt;
     }

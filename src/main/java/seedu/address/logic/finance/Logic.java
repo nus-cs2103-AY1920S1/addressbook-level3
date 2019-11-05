@@ -38,7 +38,15 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of budgets */
     ObservableList<Budget> getFilteredBudgetList();
+
+    /** Returns an unmodifiable view of the filtered list of budgets with meta data */
     ObservableList<BudgetData> getFilteredBudgetDataList();
+
+    /** Returns true if any active budget has been exceeded */
+    boolean hasAnyActiveBudgetExceeded();
+
+    /** Returns true if any active budget is close to exceeded */
+    boolean hasAnyActiveBudgetCloseToExceed();
 
     /** Returns a {@code GraphicsData} object */
     GraphicsData getGraphicsData();

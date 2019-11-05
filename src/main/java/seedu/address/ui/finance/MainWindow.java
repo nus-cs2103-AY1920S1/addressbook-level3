@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -17,7 +18,6 @@ import seedu.address.logic.finance.Logic;
 import seedu.address.logic.finance.commands.CommandResult;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -44,6 +44,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private Menu closeToExceedBudgetMenu;
+
+    @FXML
+    private Menu exceedBudgetMenu;
 
     @FXML
     private StackPane logEntryListPanelPlaceholder;
@@ -84,6 +90,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        updateBudgetBars();
     }
 
     /**
@@ -137,6 +144,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        updateBudgetBars();
     }
 
     /**
@@ -202,6 +211,30 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows the list of budgets.
+     */
+    @FXML
+    public void handleBudgetBar() {
+        showBudget();
+    }
+
+    /**
+     * Shows budget bars if any active budget is close to exceeding or has exceeded.
+     */
+    private void updateBudgetBars() {
+        if (logic.hasAnyActiveBudgetExceeded()) {
+            exceedBudgetMenu.setVisible(true);
+        } else {
+            exceedBudgetMenu.setVisible(false);
+        }
+        if (logic.hasAnyActiveBudgetCloseToExceed()) {
+            closeToExceedBudgetMenu.setVisible(true);
+        } else {
+            closeToExceedBudgetMenu.setVisible(false);
+        }
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -239,6 +272,8 @@ public class MainWindow extends UiPart<Stage> {
             } else {
                 showLogEntries();
             }
+
+            updateBudgetBars();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
