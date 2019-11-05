@@ -56,7 +56,7 @@ public class ImportMergeCommand extends MutatorCommand {
         try {
             importedPatients.addAll(CsvUtil.readPatientsFromCsv(pathString));
         } catch (ImportingException e) {
-            throw new CommandException(String.format(MESSAGE_FILE_DOES_NOT_EXIST, importFileName), e);
+            throw new CommandException(String.format(MESSAGE_FILE_DOES_NOT_EXIST, importFileName));
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE, e);
         } catch (IllegalValueException e) {
