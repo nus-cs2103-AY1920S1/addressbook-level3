@@ -57,8 +57,7 @@ public class CapLog implements ReadOnlyCapLog {
      */
     public void resetData(ReadOnlyCapLog newData) {
         requireNonNull(newData);
-
-        setSemesters(newData.getSemesterList());
+        setModules(newData.getModuleList());
     }
 
     //// task-level operations

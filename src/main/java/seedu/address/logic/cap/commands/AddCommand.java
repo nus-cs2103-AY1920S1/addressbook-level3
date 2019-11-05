@@ -57,7 +57,7 @@ public class AddCommand extends Command {
         }
 
         model.addModule(toAdd);
-        model.addSemester(toBelong);
+        //        model.addSemester(toBelong);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
