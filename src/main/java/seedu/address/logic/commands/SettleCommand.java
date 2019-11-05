@@ -8,6 +8,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ContextType;
+import seedu.address.model.Context;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Amount;
 import seedu.address.model.activity.Expense;
@@ -23,13 +24,13 @@ public class SettleCommand extends ExpenseCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Settles debt in the current activity. "
             + "Provide two people and optionally an amount specifying how much"
-            + " the first person paid the second. If the amount is not specified"
-            + " or is too big, it will be assumed that their entire debt is to be settled.\n"
+            + " the first person paid the second. If the amount is not specified,"
+            + " it will be assumed that their entire debt is to be settled.\n\n"
             + "Parameters: "
             + PREFIX_PARTICIPANT + "NAME "
             + PREFIX_PARTICIPANT + "NAME "
             + "[" + PREFIX_EXPENSE + "AMOUNT ]"
-            + "Example: " + COMMAND_WORD + " "
+            + "\n\nExample: " + COMMAND_WORD + " "
             + PREFIX_PARTICIPANT + "John Doe "
             + PREFIX_PARTICIPANT + "Bob Lee "
             + PREFIX_EXPENSE + "10.0 ";
@@ -114,7 +115,9 @@ public class SettleCommand extends ExpenseCommand {
 
         String successMessage = String.format(MESSAGE_SUCCESS, payingName, receivingName, amount.value);
 
-        return new CommandResult(successMessage
-                + warningMessage.toString());
+        Context context = new Context(activity);
+        model.setContext(context);
+
+        return new CommandResult(successMessage, context);
     }
 }

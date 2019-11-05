@@ -142,7 +142,7 @@ public class SettleCommandTest {
     }
 
     @Test
-    public void execute_automaticallSettleZeroAmount_success() throws Exception {
+    public void execute_automaticallySettleZeroAmount_success() throws Exception {
         Activity validActivity = new ActivityBuilder()
                 .addPerson(TypicalPersons.ALICE)
                 .addPerson(TypicalPersons.BENSON)
@@ -202,11 +202,7 @@ public class SettleCommandTest {
                 TypicalPersons.ALICE.getName(),
                 TypicalPersons.BENSON.getName(),
                 "5");
-
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        expenses.add(expense);
-        expenses.add(settle);
-        assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel, expectedModel.getContext());
     }
 
     @Test
