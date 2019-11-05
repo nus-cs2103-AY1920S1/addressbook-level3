@@ -74,6 +74,21 @@ public class SampleDataUtil {
                     new EmployeeEmail("ggg@example.com"),
                     new EmployeeAddress("Blk 30 GGG Street 99, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
+            new Employee(new EmployeeId(), new EmployeeName("Michael Jack"), new EmployeeGender("male"),
+                    new EmployeePay("15"), new EmployeePhone("87438807"),
+                    new EmployeeEmail("hhh@example.com"),
+                    new EmployeeAddress("Blk 30 GGG Street 99, #06-40"),
+                    new EmployeeJoinDate(LocalDate.now()), getTagSet("strong")),
+            new Employee(new EmployeeId(), new EmployeeName("Damith C"), new EmployeeGender("male"),
+                    new EmployeePay("1"), new EmployeePhone("87455307"),
+                    new EmployeeEmail("ggg@example.com"),
+                    new EmployeeAddress("Blk 30 GGG Street 99, #06-40"),
+                    new EmployeeJoinDate(LocalDate.now()), getTagSet("weird")),
+            new Employee(new EmployeeId(), new EmployeeName("Jeff Gan"), new EmployeeGender("male"),
+                    new EmployeePay("20"), new EmployeePhone("87128807"),
+                    new EmployeeEmail("ggg@example.com"),
+                    new EmployeeAddress("Blk 30 GGG Street 99, #06-40"),
+                    new EmployeeJoinDate(LocalDate.now()), getTagSet("fun"))
 
         };
     }

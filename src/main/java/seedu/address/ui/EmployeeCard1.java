@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
-import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,9 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.logic.processor.EmployeeEventProcessor;
-import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
-import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.event.Event;
 
 /**
@@ -71,9 +68,9 @@ public class EmployeeCard1 extends UiPart<Region> {
         phone.setText("Already Paid : $" + employee.getEmployeeSalaryPaid());
 
         double totalHours = EmployeeEventProcessor.findEmployeeTotalWorkedHours(employee, eventList);
-        double totalSalary = totalHours * Double.parseDouble(employee.getEmployeePay().value);
+        double totalSalary = totalHours * employee.getEmployeePay().getPay();
         address.setText("Total Salary : $" + totalSalary);
-        double pendingpay  = totalSalary - employee.getEmployeeSalaryPaid().value;
+        double pendingpay = totalSalary - employee.getEmployeeSalaryPaid().getValue();
         email.setText("Pending to Pay : $" + pendingpay);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

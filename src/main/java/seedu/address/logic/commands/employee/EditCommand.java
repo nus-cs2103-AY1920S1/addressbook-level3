@@ -50,11 +50,11 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_GENDER + "GENDER] "
-            + "[" + PREFIX_PAY + "PAY] "
+            + "[" + PREFIX_PAY + "PAY/HR] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_JOIN_DATE + "JOINDATE] "
+            + "[" + PREFIX_JOIN_DATE + "JOIN_DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -107,7 +107,6 @@ public class EditCommand extends Command {
     private static Employee createEditedEmployee(Employee employeeToEdit,
                                                  EditEmployeeDescriptor editEmployeeDescriptor) {
         assert employeeToEdit != null;
-
         EmployeeName updatedEmployeeName = editEmployeeDescriptor.getEmployeeName()
                 .orElse(employeeToEdit.getEmployeeName());
         EmployeePhone updatedEmployeePhone = editEmployeeDescriptor.getEmployeePhone()

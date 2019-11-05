@@ -1,10 +1,10 @@
 package seedu.address.model.employee;
 
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents the Employee Join Date.

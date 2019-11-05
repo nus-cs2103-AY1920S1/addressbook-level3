@@ -24,9 +24,9 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Pauline";
-    public static final String DEFAULT_PAY = "0";
+    public static final String DEFAULT_PAY = "9";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_TOTALSALARY = "0";
+    public static final String DEFAULT_TOTAL_SALARY = "0";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
@@ -40,9 +40,9 @@ public class PersonBuilder {
 
     public PersonBuilder() {
         employeeName = new EmployeeName(DEFAULT_NAME);
-        employeeSalaryPaid = new EmployeeSalaryPaid(DEFAULT_PAY);
+        employeeSalaryPaid = new EmployeeSalaryPaid(DEFAULT_TOTAL_SALARY);
         employeePhone = new EmployeePhone(DEFAULT_PHONE);
-        employeePay = new EmployeePay((DEFAULT_TOTALSALARY));
+        employeePay = new EmployeePay(DEFAULT_PAY);
         employeeEmail = new EmployeeEmail(DEFAULT_EMAIL);
         employeeAddress = new EmployeeAddress(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -123,7 +123,7 @@ public class PersonBuilder {
      */
     public Employee build() {
         return new Employee(new EmployeeId("000"), employeeName, new EmployeeGender("male"),
-                        new EmployeePay("0"), employeePhone,
+                        new EmployeePay("9"), employeePhone,
                         employeeEmail, employeeAddress,
                         new EmployeeJoinDate(LocalDate.parse("11/12/2011",
                                 DateTimeFormatter.ofPattern("dd/MM/yyyy"))), tags);

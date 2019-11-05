@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARYPAID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY_PAID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -27,22 +27,22 @@ public class Undopay extends Command {
             + "by the index number used in the displayed employee list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_SALARYPAID + "PAY] "
+            + "[" + PREFIX_SALARY_PAID + "PAY] "
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_SALARYPAID + "100 ";
-    public static final String MESSAGE_SUCCESS = "Undo the payment for %s. Amount : $ %s";
+            + PREFIX_SALARY_PAID + "100 ";
+    public static final String MESSAGE_SUCCESS = "A Salary Payment of %s for Employee %s has been undone.";
 
     private final Index index;
-    private final double salaryToPay;
+    private final double salaryToUndo;
 
     /**
-     * @param index       of the employee in the filtered employee list to edit
-     * @param salaryToPay Total Paid Salary to the Employee
+     * @param index        of the employee in the filtered employee list to edit
+     * @param salaryToUndo Total Paid Salary to the Employee
      */
-    public Undopay(Index index, double salaryToPay) {
+    public Undopay(Index index, double salaryToUndo) {
         requireNonNull(index);
         this.index = index;
-        this.salaryToPay = salaryToPay;
+        this.salaryToUndo = salaryToUndo;
     }
 
 
@@ -52,22 +52,22 @@ public class Undopay extends Command {
         List<Employee> lastShownList = model.getFilteredEmployeeList();
         Employee e = lastShownList.get(index.getZeroBased());
         double totalSalary = EmployeeEventProcessor.findEmployeeTotalWorkedHours(e, model.getFilteredEventList())
-                * Double.parseDouble(e.getEmployeePay().value);
-        double paid = e.getEmployeeSalaryPaid().value;
+                * e.getEmployeePay().getPay();
+        double paid = e.getEmployeeSalaryPaid().getValue();
         double pendingPay = totalSalary - paid;
 
-        if (index.getZeroBased() >= lastShownList.size() ) {
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
-        } else if (salaryToPay > paid) {
+        } else if (salaryToUndo > paid) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_PAID);
         } else {
             Employee employeeToPay = lastShownList.get(index.getZeroBased());
-            employeeToPay.undoSalaryPaid(salaryToPay);
+            employeeToPay.undoSalaryPaid(salaryToUndo);
 
             model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
 
             return new CommandResult(
-                    String.format(MESSAGE_SUCCESS, employeeToPay.getEmployeeName(), salaryToPay),
+                    String.format(MESSAGE_SUCCESS, salaryToUndo, employeeToPay.getEmployeeName()),
                     "Finance");
         }
     }
@@ -84,13 +84,7 @@ public class Undopay extends Command {
 
         // state check
         Undopay e = (Undopay) other;
-        return index.equals(e.index) && salaryToPay == e.salaryToPay;
+        return index.equals(e.index) && salaryToUndo == e.salaryToUndo;
     }
 
-
 }
-
-
-
-
-

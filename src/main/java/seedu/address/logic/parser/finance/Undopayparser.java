@@ -1,7 +1,9 @@
 package seedu.address.logic.parser.finance;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARYPAID;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY_PAID;
+import static seedu.address.logic.parser.Prefix.arePrefixesPresent;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.finance.Undopay;
@@ -25,22 +27,17 @@ public class Undopayparser implements Parser<Undopay> {
     public Undopay parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SALARYPAID);
+                ArgumentTokenizer.tokenize(args, PREFIX_SALARY_PAID);
 
-        Index index;
-        double salaryToPay;
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            salaryToPay = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALARYPAID).get());
-
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(("Invalid input. Please call the Pay command in this format:\n"
-                    + "undo_pay 1 s/100")));
+        if (!arePrefixesPresent(argMultimap, PREFIX_SALARY_PAID)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Undopay.MESSAGE_USAGE));
         }
 
-        return new Undopay(index, salaryToPay);
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        double salaryPaidToUndo = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALARY_PAID).get());
+
+        return new Undopay(index, salaryPaidToUndo);
     }
 }
-
-

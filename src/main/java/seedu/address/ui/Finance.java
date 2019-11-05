@@ -6,7 +6,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import seedu.address.logic.Logic;
-import seedu.address.logic.processor.EmployeeEventProcessor;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
@@ -20,7 +19,7 @@ public class Finance extends Tabs<AnchorPane> {
     @FXML
     private ListView<Employee> eventScheduleListView;
 
-    public static ObservableList<Event> eventList;
+    private ObservableList<Event> eventList;
 
 
     public Finance(ObservableList<Employee> employeeObservableList, Logic logic, MainWindow mainWindow) {
@@ -49,7 +48,7 @@ public class Finance extends Tabs<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EmployeeCard1(employee,getIndex() + 1, Finance.eventList).getRoot());
+                setGraphic(new EmployeeCard1(employee, getIndex() + 1, eventList).getRoot());
             }
         }
     }

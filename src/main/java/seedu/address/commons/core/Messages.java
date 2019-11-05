@@ -8,7 +8,7 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX = "The employee index provided is invalid";
-    public static final String MESSAGE_INVALID_EMPLOYEE_PAID = "The amount of payment is invalid";
+    public static final String MESSAGE_INVALID_EMPLOYEE_PAID = "The stated amount payment amount is invalid.";
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
     public static final String MESSAGE_DATE_NOT_FOUND_IN_MAP =
             "The Date [%s] is not found in the Date-Time Mapping of Event: [%s]";
