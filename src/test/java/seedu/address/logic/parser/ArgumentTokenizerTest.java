@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -19,16 +22,18 @@ public class ArgumentTokenizerTest {
         String argsString = "  ";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
 
-        assertPreambleEmpty(argMultimap);
+        assertDoesNotThrow(() ->assertPreambleEmpty(argMultimap));
         assertArgumentAbsent(argMultimap, pSlash);
     }
 
     private void assertPreamblePresent(ArgumentMultimap argMultimap, String expectedPreamble) {
-        assertEquals(expectedPreamble, argMultimap.getPreamble());
+        assertEquals(expectedPreamble,
+            assertDoesNotThrow(argMultimap::getPreamble));
     }
 
     private void assertPreambleEmpty(ArgumentMultimap argMultimap) {
-        assertTrue(argMultimap.getPreamble().isEmpty());
+        String result = assertDoesNotThrow(argMultimap::getPreamble);
+        assertTrue(result.isEmpty());
     }
 
     /**
@@ -38,7 +43,8 @@ public class ArgumentTokenizerTest {
     private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) {
 
         // Verify the last value is returned
-        assertEquals(expectedValues[expectedValues.length - 1], argMultimap.getValue(prefix).get());
+        Optional<String> result = assertDoesNotThrow(() -> argMultimap.getValue(prefix));
+        assertEquals(expectedValues[expectedValues.length - 1], result.get());
 
         // Verify the number of values returned is as expected
         assertEquals(expectedValues.length, argMultimap.getAllValues(prefix).size());
@@ -50,7 +56,8 @@ public class ArgumentTokenizerTest {
     }
 
     private void assertArgumentAbsent(ArgumentMultimap argMultimap, Prefix prefix) {
-        assertFalse(argMultimap.getValue(prefix).isPresent());
+        Optional<String> result = assertDoesNotThrow(() -> argMultimap.getValue(prefix));
+        assertFalse(result.isPresent());
     }
 
     @Test
