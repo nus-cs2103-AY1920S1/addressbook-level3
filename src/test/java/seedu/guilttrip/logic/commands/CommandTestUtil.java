@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.guilttrip.logic.CommandHistory;
+import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditCommand;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.Model;

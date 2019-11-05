@@ -8,8 +8,8 @@
 //
 //import java.util.Set;
 //
-//import seedu.guilttrip.logic.commands.AddCommand;
-//import seedu.guilttrip.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.guilttrip.logic.commands.addcommands.AddCommand;
+//import seedu.guilttrip.logic.commands.editcommands.EditCommand.EditPersonDescriptor;
 //import seedu.guilttrip.model.entry.Person;
 //import seedu.guilttrip.model.tag.Tag;
 //

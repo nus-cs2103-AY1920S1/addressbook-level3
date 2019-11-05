@@ -17,7 +17,7 @@
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.io.TempDir;
 //
-//import seedu.guilttrip.logic.commands.AddCommand;
+//import seedu.guilttrip.logic.commands.addcommands.AddCommand;
 //import seedu.guilttrip.logic.commands.CommandResult;
 //import seedu.guilttrip.logic.commands.ListCommand;
 //import seedu.guilttrip.logic.commands.exceptions.CommandException;
