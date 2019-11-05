@@ -11,7 +11,7 @@ public class Messages {
         + " Please open a bug report.";
     public static final String MESSAGE_REQUIRED_COMMAND_ARGUMENT = "Argument '%s' is required!";
 
-    public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date time! Please enter in '%s' format.";
+    public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date or format! Please enter in '%s' format.";
     public static final String MESSAGE_INVALID_CALENDAR_DATE = "Invalid calendar date! Please enter in '%s' format.";
     public static final String MESSAGE_INVALID_INDEX = "Invalid index! Please enter an integer.";
     public static final String MESSAGE_INVALID_EVENT_INDEX = "Invalid index! Event with index '%s' does not exist.";

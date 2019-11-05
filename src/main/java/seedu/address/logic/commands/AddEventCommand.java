@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.core.Messages.MESSAGE_ADD_EVENT_DUPLICATE;
 import static seedu.address.commons.core.Messages.MESSAGE_ADD_EVENT_SUCCESS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +11,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DateTime;
 import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UniqueList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.exceptions.DuplicateElementException;
 import seedu.address.ui.UserOutput;
@@ -41,13 +41,13 @@ public class AddEventCommand extends Command {
 
     @Override
     public UserOutput execute() throws CommandException {
-        List<EventSource> events = new UniqueList<>(this.model.getEvents());
+        List<EventSource> events = new ArrayList<>(this.model.getEvents());
+        events.add(this.event);
         try {
-            events.add(this.event);
+            this.model.setModelData(new ModelData(events, this.model.getTasks()));
         } catch (DuplicateElementException e) {
             throw new CommandException(MESSAGE_ADD_EVENT_DUPLICATE);
         }
-        this.model.setModelData(new ModelData(events, this.model.getTasks()));
         return new UserOutput(String.format(MESSAGE_ADD_EVENT_SUCCESS, this.event.getDescription()));
     }
 }
