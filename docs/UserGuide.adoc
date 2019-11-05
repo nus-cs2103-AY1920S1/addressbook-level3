@@ -276,12 +276,12 @@ Edits the name of the borrower to be `Betsy Crower`.
 
 Loan book(s) by their serial number. +
 Format: `loan sn/BOOK_SN` +
-Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` - Coming in v2.0
+Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` **- Coming in v2.0**
 Examples:
 
 * `loan sn/B00041` +
 Loans the book with serial number B00041 to the currently served borrower.
-* `loan sn/B00201 sn/B02929 sn/B00203` - Coming in v2.0 +
+* `loan sn/B00201 sn/B02929 sn/B00203` **- Coming in v2.0** +
 Loans the books with serial numbers B00201, B02929 and B00203 to the currently served borrower.
 
 After loaning all books, upon the `DONE` command, a printable loan slip in pdf format will be generated. The loan slip will be opened in your computer's pdf viewer and also saved in the `loan_slips` folder.
@@ -294,15 +294,14 @@ image::LoanSlip.png[width=250]
 ==== Returning book(s): `return`
 
 Return book(s) that were loaned by the borrower. +
-Format: `return INDEX` +
-Format: `return INDEX` or `return -all` ** - Coming in v2.0** +
+Format: `return INDEX` or `return -all` +
 Including `-all` will return all currently loaned books.
 
 // add example with ss when UI is done
 
 ****
 * Returns the book at the specified `INDEX` in the borrower panel or all of the currently served borrower's loaned out books.
-* The index refers to the index number shown in the borrower's book list.
+* The index refers to the index number shown in the borrower's book list on the right.
 * The index *must be a positive integer* 1, 2, 3, ...
 * `INDEX` indicates the book at this index in the borrower's book list.
 * `-all` indicates all the books currently loaned out by the borrower.
@@ -310,14 +309,13 @@ Including `-all` will return all currently loaned books.
 ==== Renewing book(s): `renew`
 
 Renew book(s) from the list of currently loaned books, i.e., extend their due dates. +
-Format: `return INDEX` +
-Format: `renew INDEX` or `renew -all` ** - Coming in v2.0** +
+Format: `renew INDEX` or `renew -all` +
 
 // add example with ss when UI is done
 
 ****
 * Renews the book at the specified `INDEX` in the borrower panel or all of the currently served borrower's loaned out books that can still be renewed.
-* The index refers to the index number shown in the borrower's book list.
+* The index refers to the index number shown in the borrower's book list on the right.
 * The index *must be a positive integer* 1, 2, 3, ...
 * `INDEX` indicates the book at this index in the borrower's book list.
 * `-all` indicates all the books currently loaned out by the borrower that still can be renewed.
