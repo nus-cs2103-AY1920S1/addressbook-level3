@@ -178,6 +178,7 @@ public class CommandTestUtil {
     public static final String VALID_CRITERIA_HEALTH_INSURANCE = "diabetic";
     public static final String VALID_CRITERIA_LIFE_INSURANCE = "high blood pressure";
     public static final String VALID_CRITERIA_FIRE_INSURANCE = "public housing";
+    public static final String VALID_CRITERIA_SENIOR_INSURANCE = "diabetic";
     public static final String VALID_CRITERIA_CAR_INSURANCE = "owns car";
 
     public static final String VALID_TAG_HEALTH_INSURANCE = "health insurance";
