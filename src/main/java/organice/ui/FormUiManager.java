@@ -55,7 +55,8 @@ public class FormUiManager {
     private static final String PROMPT_DOCTOR_IC = "Enter doctor in charge's nric:\n";
     private static final String PROMPT_ORGAN_EXPIRY_DATE = "Enter organ expiry date:\n";
     private static final String PROMPT_DONE = "Please ensure you have typed in the correct details."
-            + "\nType '/done' to confirm OR '/abort to cancel the add command";
+            + "\nYou can only type in '/done' to confirm, '/abort' to abort the form, or 'undo' to undo your "
+                    + "previous entry!";
 
     private static final String MESSAGE_ABORT = "Form successfully aborted!";
     private static final String MESSAGE_UNDO_SUCCESS = "Successfully undo the previous entry!";
@@ -381,6 +382,8 @@ public class FormUiManager {
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             FormAnimation.fadingAnimation(mainWindow);
+        } else {
+            throw new CommandException(PROMPT_DONE);
         }
 
         // Reset the UI display to the initial state
