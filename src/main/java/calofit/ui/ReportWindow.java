@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -51,7 +50,7 @@ public class ReportWindow extends UiPart<Stage> {
     private TextFlow mostConsumedMeal;
 
     @FXML
-    private PieChart foodChart;
+    private BarChart foodChart;
 
     @FXML
     private BarChart calorieOverTime;
@@ -127,8 +126,7 @@ public class ReportWindow extends UiPart<Stage> {
             mostConsumedMeal.getChildren().add(mostConsumedFood);
         }
 
-        foodChart.setData(statistics.getPieChartData());
-        foodChart.setLegendVisible(false);
+        foodChart.getData().addAll(statistics.getFoodChartSeries());
 
         calorieOverTime.getData().addAll(statistics.getCalorieChartSeries());
     }

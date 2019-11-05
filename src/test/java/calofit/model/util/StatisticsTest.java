@@ -49,13 +49,13 @@ public class StatisticsTest {
         assertTrue(test.getMostConsumedDishes().contains(TypicalMeals.MUSHROOM_SOUP.getDish()));
         assertTrue(test.getMostConsumedDishes().contains(TypicalMeals.CHICKEN_RICE.getDish()));
 
-        assertEquals(test.getPieChartData().get(0).getName(), "Spaghetti\nNumber of times eaten: 1\n");
-        assertEquals(test.getPieChartData().get(1).getName(), "Chicken Rice\nNumber of times eaten: 1\n");
-        assertEquals(test.getPieChartData().get(2).getName(), "Mushroom Soup\nNumber of times eaten: 1\n");
+        assertEquals(test.getFoodChartSeries().getData().get(0).getXValue(), "Spaghetti");
+        assertEquals(test.getFoodChartSeries().getData().get(1).getXValue(), "Chicken Rice");
+        assertEquals(test.getFoodChartSeries().getData().get(2).getXValue(), "Mushroom Soup");
 
-        assertEquals(test.getPieChartData().get(0).getPieValue(), 1);
-        assertEquals(test.getPieChartData().get(0).getPieValue(), 1);
-        assertEquals(test.getPieChartData().get(0).getPieValue(), 1);
+        assertEquals(test.getFoodChartSeries().getData().get(0).getYValue(), 1);
+        assertEquals(test.getFoodChartSeries().getData().get(0).getYValue(), 1);
+        assertEquals(test.getFoodChartSeries().getData().get(0).getYValue(), 1);
 
         for (int i = 0; i < LocalDate.now().lengthOfMonth(); i++) {
             assertEquals(test.getCalorieChartSeries().getData().get(i).getXValue(),
