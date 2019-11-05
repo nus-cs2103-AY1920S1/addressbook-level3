@@ -7,7 +7,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.guilttrip.logic.commands.DeleteCommand;
+//import seedu.guilttrip.logic.commands.deletecommands.DeleteCommand;
 //
 ///**
 // * As we are only doing white-box testing, our test cases do not cover path variations

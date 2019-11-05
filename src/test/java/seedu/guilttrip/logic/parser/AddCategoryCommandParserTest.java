@@ -15,7 +15,8 @@ import static seedu.guilttrip.testutil.TypicalEntries.CATEGORY_FOOD;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.guilttrip.logic.commands.AddCategoryCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddCategoryCommandParser;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.testutil.CategoryBuilder;
 

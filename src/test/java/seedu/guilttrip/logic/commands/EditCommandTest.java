@@ -18,7 +18,7 @@
 //
 //import seedu.guilttrip.commons.core.Messages;
 //import seedu.guilttrip.commons.core.index.Index;
-//import seedu.guilttrip.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.guilttrip.logic.commands.editcommands.EditCommand.EditPersonDescriptor;
 //import seedu.guilttrip.model.GuiltTrip;
 //import seedu.guilttrip.model.Model;
 //import seedu.guilttrip.model.ModelManager;

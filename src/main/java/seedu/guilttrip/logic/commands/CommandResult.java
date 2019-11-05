@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import seedu.guilttrip.model.entry.PanelName;
-import seedu.guilttrip.ui.FontName;
+import seedu.guilttrip.ui.util.FontName;
+import seedu.guilttrip.ui.util.PanelName;
 import seedu.guilttrip.ui.util.Theme;
 
 /**

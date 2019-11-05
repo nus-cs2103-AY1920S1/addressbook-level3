@@ -45,14 +45,13 @@ public class Wish extends Entry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(ENTRY_TYPE + ": ")
-                .append(" | Category: ")
+        builder.append("Category: ")
                 .append(getCategory())
-                .append(" Description: ")
+                .append(" | Description: ")
                 .append(getDesc())
-                .append(" Amount: ")
+                .append(" | Amount: ")
                 .append(getAmount())
-                .append(" Tags: ");
+                .append(" | Tags: ");
         getTags().forEach(builder::append);
         builder.append(" (" + getDate() + ")");
         return builder.toString();

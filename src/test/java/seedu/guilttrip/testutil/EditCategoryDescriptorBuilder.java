@@ -1,6 +1,6 @@
 package seedu.guilttrip.testutil;
 
-import seedu.guilttrip.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
+import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand.EditCategoryDescriptor;
 import seedu.guilttrip.model.entry.Category;
 
 /**

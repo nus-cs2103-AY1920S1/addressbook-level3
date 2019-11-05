@@ -13,7 +13,7 @@ import java.time.temporal.TemporalUnit;
 import java.util.stream.Stream;
 
 import seedu.guilttrip.commons.core.index.Index;
-import seedu.guilttrip.logic.commands.AddCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddCommand;
 import seedu.guilttrip.logic.commands.remindercommands.SetEntryReminderCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;

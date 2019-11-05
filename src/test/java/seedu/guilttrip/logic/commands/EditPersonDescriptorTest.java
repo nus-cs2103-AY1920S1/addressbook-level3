@@ -12,7 +12,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.guilttrip.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.guilttrip.logic.commands.editcommands.EditCommand.EditPersonDescriptor;
 //import seedu.guilttrip.testutil.EditEntryDescriptorBuilder;
 //
 //public class EditPersonDescriptorTest {
