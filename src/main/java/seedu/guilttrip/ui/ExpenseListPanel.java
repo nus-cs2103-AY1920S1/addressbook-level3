@@ -8,48 +8,38 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.commons.core.LogsCenter;
-import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
-import seedu.guilttrip.model.entry.Income;
 
 /**
- * Panel containing the list of entries.
+ * Panel containing the list of expenses.
  */
 public class ExpenseListPanel extends UiPart<Region> {
     private static final String FXML = "ExpenseListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(EntryListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ExpenseListPanel.class);
 
     @FXML
-    private ListView<Entry> entryListView;
+    private ListView<Expense> expenseListView;
 
-    public ExpenseListPanel(ObservableList<Entry> entryList) {
+    public ExpenseListPanel(ObservableList<Expense> expenseList) {
         super(FXML);
-        entryListView.setItems(entryList);
-        entryListView.setCellFactory(listView -> new EntryListViewCell());
+        expenseListView.setItems(expenseList);
+        expenseListView.setCellFactory(listView -> new ExpenseListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Expense} using a {@code ExpenseCard}.
      */
-    class EntryListViewCell extends ListCell<Entry> {
+    class ExpenseListViewCell extends ListCell<Expense> {
         @Override
-        protected void updateItem(Entry entry, boolean empty) {
-            super.updateItem(entry, empty);
+        protected void updateItem(Expense expense, boolean empty) {
+            super.updateItem(expense, empty);
 
-            if (empty || entry == null) {
+            if (empty || expense == null) {
 
                 setGraphic(null);
                 setText(null);
             } else {
-                if (entry instanceof Expense) {
-                    Expense expense = (Expense) entry;
-                    setGraphic(new ExpenseCard(expense, getIndex() + 1).getRoot());
-                } else if (entry instanceof Income) {
-                    Income income = (Income) entry;
-                    setGraphic(new IncomeCard(income, getIndex() + 1).getRoot());
-                } else {
-                    setGraphic(new EntryCard(entry, getIndex() + 1).getRoot());
-                }
+                setGraphic(new ExpenseCard(expense, getIndex() + 1).getRoot());
             }
         }
     }
