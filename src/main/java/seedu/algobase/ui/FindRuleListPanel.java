@@ -30,7 +30,7 @@ public class FindRuleListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code ProblemSearchRule}
      * using a {@code FindRuleCard}.
      */
-    class FindRuleListViewCell extends ListCell<ProblemSearchRule> {
+    static class FindRuleListViewCell extends ListCell<ProblemSearchRule> {
         @Override
         protected void updateItem(ProblemSearchRule item, boolean empty) {
             super.updateItem(item, empty);

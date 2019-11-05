@@ -154,6 +154,11 @@ public class DefaultModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void updateProblemInAllPlans(Problem oldProblem, Problem newProblem) {
+        throw new AssertionError("This method should not be called.");
+    }
+
     //=========== Tag ===================================================================
 
     @Override
@@ -204,6 +209,11 @@ public class DefaultModelStub implements Model {
     //=========== Task ==================================================================
 
     @Override
+    public void updateTasks(Set<Task> taskSet, Plan plan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setCurrentPlan(Plan plan) {
         throw new AssertionError("This method should not be called.");
     }
@@ -225,6 +235,11 @@ public class DefaultModelStub implements Model {
 
     @Override
     public IntegerProperty getCurrentUnsolvedCount() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public IntegerProperty getCurrentTaskCount() {
         throw new AssertionError("This method should not be called.");
     }
 

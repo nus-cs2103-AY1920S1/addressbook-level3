@@ -117,6 +117,9 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 
 //@@author le0tan
 [[Design-Model]]
+
+// tag::model[]
+
 === Model component
 
 .Structure of the Model Component
@@ -150,6 +153,9 @@ image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
 .Structure of the PlanSearchRule Package
 image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
+
+// end::model[]
+
 //@@author
 
 //@@author jiayushe
@@ -157,7 +163,10 @@ image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::storage/StorageClassDiagram.png[]
+
+.Structure of the JsonAdaptedProblemSearchRule Component
+image::storage/ProblemSearchRuleClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/storage/Storage.java[`Storage.java`]
 
@@ -165,7 +174,8 @@ The `Storage` component,
 
 * can store `UserPref` objects in json format.
 * can retrieve `UserPref` objects from json format.
-* can store the AlgoBase app data including `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task` objects in relational manner in json format.
+* can store the AlgoBase app data including `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task`
+objects in relational manner in json format.
 * can retrieve `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task` objects from json format.
 
 [[Design-Commons]]
@@ -194,20 +204,20 @@ the task management feature.
 
 ==== Current Implementation
 
-The task management feature mainly involves six main behaviours:
+The task management feature supports eight main operations:
 
-* `AlgoBase#addTask()` - create a new task for a problem and add it to a specified plan.
-* `AlgoBase#copyTask()` - copy a task from one plan to another.
-* `AlgoBase#deleteTask()` - delete an existing task from a specified plan.
-* `AlgoBase#doneTask()` - mark a task as done in a specified plan.
-* `AlgoBase#editTask()` - edit the due date of a task in a specified plan.
-* `AlgoBase#moveTask()` - move a task from one plan to another.
-* `AlgoBase#undoneTask()` - mark a task as undone in a specified plan.
-* `AlgoBase#setPlan()` - set a task as the current plan in main display.
+* `AddTask` - creates a new task for a problem and add it to a specified plan.
+* `CopyTask` - copies a task from one plan to another.
+* `DeleteTask` - deletes an existing task from a specified plan.
+* `DoneTask` - marks a task as done in a specified plan.
+* `EditTask` - edits the due date of a task in a specified plan.
+* `MoveTask` - moves a task from one plan to another.
+* `UndoneTask` - marks a task as undone in a specified plan.
+* `SetPlan` - sets a plan as the current plan in main display.
 
 Given below is an example usage scenario and how the mechanism for adding tasks behaves at each step.
 
-The following activity diagram summarizes what happens when a user executes the `AddTask` command:
+The following activity diagram summarizes what happens when a user executes the `AddTaskCommand`:
 
 .Activity Diagram for the Execution of `AddTaskCommand`
 image::task/AddTaskCommandActivityDiagram.png[]
@@ -217,11 +227,10 @@ Step 1. The user launches the application.
 Step 2. AlgoBase displays a list of existing problems and plans in the UI.
 
 Step 3. The user executes `addtask plan/1 prob/1` to add the problem with index 1 in the list to the plan with index 1.
-The `AddTask` command calls `Plan#updateTasks` to create a new plan from the original plan with this additional task.
-After that, `Model#setPlan` is called to replace the original plan with the updated plan in the `PlanList`
-stored in `AlgoBase`.
+The `AddTaskCommand` calls `Model#updateTasks` to create a new plan from the original plan with this additional task,
+and replace the original plan with this updated plan in the `PlanList` stored in `AlgoBase`.
 
-The following sequence diagram shows how the `addtask` operation works:
+The following sequence diagram shows how the `AddTaskCommand` executes:
 
 .Sequence Diagram for the Execution of `AddTaskCommand`
 image::task/AddTaskSequenceDiagram.png[]
@@ -235,7 +244,7 @@ image::task/AddTaskSequenceDiagram.png[]
 ** Cons: Harder to identify tasks by index.
 * Alternative 2: Use an `ArrayList` to store tasks in a plan.
 ** Pros: Tasks can be identified by index easily.
-** Cons: Harder to check for duplicates.
+** Cons: Harder to check for duplicate tasks.
 
 ===== Aspect: How to store problem details within tasks to support the task commands.
 
@@ -244,12 +253,12 @@ image::task/AddTaskSequenceDiagram.png[]
 ** Cons: Relational storage is required to keep track of this relationship.
 * Alternative 2: Copy all problem details and store as separate fields in each task.
 ** Pros: No need to implement relational storage. There will be less coupling between problems and tasks as well.
-** Cons: Changes in problem details will not be reflected in the relevant tasks.
+** Cons: Changes in problem details cannot be reflected in the relevant tasks easily.
 
 ===== Aspect: Relational storage to support the task commands.
 
 * Alternative 1 (current choice): Use an additional `id` field to identify problems and tasks.
-** Pros: Id is immutable over time.
+** Pros: The id field is kept immutable over time, thus ensuring integrity.
 ** Cons: An additional field is needed for the models.
 * Alternative 2: Use object hash to identify problems and tasks.
 ** Pros: No need to store another additional field in the models.
@@ -280,7 +289,7 @@ Step 2. The user executes `addtag t/easy` to add a tag named [easy] which have n
 The following sequence diagram shows how the `deletetag` operation works:
 
 .Sequence Diagram for `AddTagCommand`
-image::AddTagSequenceDiagram.png[]
+image::tag/AddTagSequenceDiagram.png[]
 
 Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
 
@@ -293,7 +302,7 @@ Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in
 The following activity diagram summarizes what happens when a user executes a new tag modifying command
 
 .Activity Diagram for tag commands
-image::TagActivityDiagram.png[]
+image::tag/TagActivityDiagram.png[]
 
 ==== Design considerations
 
@@ -438,7 +447,7 @@ This section will describe in detail the current implementation and design consi
 The following activity diagram summarizes what happens when a user executes `addfindrule` command:
 
 .Activity Diagram for the Execution of `addfindrule` Command
-image::savefindrule/AddFindRuleActivityDiagram.png[width="70%"]
+image::savefindrule/AddFindRuleActivityDiagram.png[width="70%", scaledwidth=10cm]
 
 ==== Current Implementation
 
@@ -467,17 +476,17 @@ Since these commands share similar implementations, we will only take `AddFindRu
 The `addfindrule` feature is facilitated by `AddFindRuleCommand` and `AddFindRuleCommandParser` class.
 
 .Class Diagram for Add Find Rule Feature
-image::savefindrule/AddFindRuleClassDiagram.png[width="70%"]
+image::savefindrule/AddFindRuleClassDiagram.png[width="70%", scaledwidth=12cm]
 
 The sequence diagram below shows the high-level abstraction of how AlgoBase processes the request when user types in `addfindrule rule1 n/Sequences`:
 
 .High-level Sequence Diagram for the Execution of `addfindrule rule1 n/Sequences`
-image::savefindrule/HighLevelAddFindRuleSequenceDiagram.png[width="70%"]
+image::savefindrule/HighLevelAddFindRuleSequenceDiagram.png[width="70%", scaledwidth=12cm]
 
 The sequence diagram below illustrates the interaction between the `Logic` and `Model` component when executing `AddFindRuleCommand`. Notice that the constructor for `AddFindRuleCommand` requires `Name` to be non-null and accepts null values for other predicates. Thus if the predicate is not present in the arguments, `AddFindRuleCommandParser` will pass null to the constructor of `AddFindRuleCommand`.
 
 .Sequence Diagram for the Execution of `addfindrule` Command
-image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%"]
+image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%", scaledwidth=12cm]
 
 ==== Design Considerations
 

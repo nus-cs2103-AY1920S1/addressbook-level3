@@ -20,8 +20,6 @@ import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
 public class AddProblemCommandIntegrationTest {
-    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @TempDir
     public Path testFolder;
 
@@ -39,11 +37,9 @@ public class AddProblemCommandIntegrationTest {
         logicManager = new LogicManager(modelManager, storageManager);
     }
 
-    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @Test
     public void addproblem_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("add n/test1 a/test w/http://127.0.0.1 d/test diff/1.0 src/test t/test \n");
-        logicManager.execute("add n/te_st2 a/TEST w/http://www.google.com d/tE_sT diff/5.0 t/t_est \n");
+        logicManager.execute("addprob n/test1 a/test w/http://127.0.0.1 d/test diff/1.0 src/test t/test \n");
+        logicManager.execute("addprob n/te_st2 a/TEST w/http://www.google.com d/tE_sT diff/5.0 t/t_est \n");
     }
 }

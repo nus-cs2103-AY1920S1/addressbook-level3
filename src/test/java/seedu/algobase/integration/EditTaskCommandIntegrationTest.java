@@ -21,8 +21,6 @@ import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
 public class EditTaskCommandIntegrationTest {
-    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @TempDir
     public Path testFolder;
 
@@ -39,8 +37,6 @@ public class EditTaskCommandIntegrationTest {
         modelManager = new ModelManager(sampleAlgoBase, new UserPrefs());
         logicManager = new LogicManager(modelManager, storageManager);
     }
-
-    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
 
     @Test
     public void edittask_allConstraints() throws CommandException, ParseException {

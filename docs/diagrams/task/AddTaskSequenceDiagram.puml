@@ -8,8 +8,6 @@ participant "addTaskCommand:AddTaskCommand" as AddTaskCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "<<Class>>\n:Plan" as PlanClass MODEL_COLOR
-participant "updatedPlan:Plan" as PlanObject MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 participant ":AlgoBase" as AlgoBase MODEL_COLOR
 participant ":PlanList" as PlanList MODEL_COLOR
@@ -34,26 +32,13 @@ deactivate AlgoBaseParser
 LogicManager -> AddTaskCommand : execute()
 activate AddTaskCommand
 
-AddTaskCommand -> PlanClass : updateTasks(originPlan, tasks)
-activate PlanClass
-
-create PlanObject
-PlanClass -> PlanObject
-activate PlanObject
-
-PlanObject --> PlanClass
-deactivate PlanObject
-
-PlanClass --> AddTaskCommand : updatedPlan
-deactivate PlanClass
-
-AddTaskCommand -> Model : setPlan(originPlan, updatedPlan)
+AddTaskCommand -> Model : updateTasks(tasks, originalPlan)
 activate Model
 
-Model -> AlgoBase : setPlan(originPlan, updatedPlan)
+Model -> AlgoBase : updateTasks(tasks, originalPlan)
 activate AlgoBase
 
-AlgoBase -> PlanList : setPlan(originPlan, updatedPlan)
+AlgoBase -> PlanList : setPlan(originalPlan, updatedPlan)
 activate PlanList
 
 PlanList --> AlgoBase
