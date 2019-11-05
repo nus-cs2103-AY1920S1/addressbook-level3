@@ -14,7 +14,7 @@ import budgetbuddy.testutil.ruleutil.TypicalActions;
 
 public class JsonAdaptedActionTest {
     public static final String INVALID_OPERATOR = "clear";
-    public static final String INVALID_VALUE = "/test";
+    public static final String INVALID_VALUE = "@test";
 
     public static final String VALID_OPERATOR = "app_desc";
     public static final String VALID_VALUE = "food";

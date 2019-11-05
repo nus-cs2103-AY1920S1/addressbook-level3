@@ -371,7 +371,7 @@ Refer to <<Scripting>> for script usage.
 *** `<` , `\<=`  , `>=` , `>` : Inequality comparison operators
 *** `contains` : Substring check operator (Cannot be used on dates)
 ** A value can be a number or a string of length not more than 180 characters
-It can contain the following special characters: _!#$%&'*+=?`[{|}]~^.-_
+It can contain the following special characters: _!#$%&'*+=?`/[{|}]~^.-_
 
 * **Action**: In the order of `<action operator> <value>`
 ** An action operator can be one of the following:

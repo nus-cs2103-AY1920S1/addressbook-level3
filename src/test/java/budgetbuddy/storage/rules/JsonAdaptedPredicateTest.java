@@ -16,7 +16,7 @@ import budgetbuddy.testutil.ruleutil.TypicalPredicates;
 public class JsonAdaptedPredicateTest {
     public static final String INVALID_ATTRIBUTE = "name";
     public static final String INVALID_OPERATOR = "more than";
-    public static final String INVALID_VALUE = "t/est";
+    public static final String INVALID_VALUE = "t@est";
 
     public static final String VALID_ATTRIBUTE = "desc";
     public static final String VALID_OPERATOR = "contains";
