@@ -66,6 +66,8 @@ public interface Logic extends UiLogicHelper {
 
     void updateStatistics(GameStatistics gameStats) throws CommandException;
 
+    void updateRevisionBank(GameStatistics gameStatistics);
+
     WordBankStatistics getActiveWordBankStatistics();
 
     WordBankStatisticsList getWordBankStatisticsList();

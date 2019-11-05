@@ -106,6 +106,10 @@ public class StorageManager implements Storage {
         wordBankListStorage.updateWordBank(wordBank);
     }
 
+    @Override
+    public WordBank getWordBankFromName(String name) {
+        return wordBankListStorage.getWordBankFromName(name);
+    }
 
     public Path getWordBanksFilePath() {
         return wordBankListStorage.getWordBanksFilePath();

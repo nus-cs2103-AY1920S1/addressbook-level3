@@ -147,6 +147,35 @@ public class LogicManager implements Logic, UiLogicHelper {
     }
 
     /**
+     * Updates the revision bank, to add all wrong cards,
+     * and remove all correct cards in any game session when it ends.
+     *
+     * @param gameStatistics provides the wrong and correct cards needed.
+     */
+    @Override
+    public void updateRevisionBank(GameStatistics gameStatistics) {
+        try {
+            storage.createWordBank("revision");
+        } catch (DuplicateWordBankException e) {
+            logger.info("Revision bank already exist");
+        }
+        List<Card> wrongCards = gameStatistics.getWrongCards();
+        List<Card> correctCards = gameStatistics.getCorrectCards();
+        WordBank revisionBank = storage.getWordBankFromName("revision");
+        for (Card c : wrongCards) {
+            if (!revisionBank.hasCard(c)) {
+                revisionBank.addCard(c);
+            }
+        }
+        for (Card c : correctCards) {
+            if (revisionBank.hasCard(c)) {
+                revisionBank.removeCard(c);
+            }
+        }
+        storage.updateWordBank(revisionBank);
+    }
+
+    /**
      * Increments the number of play in global statistics.
      */
     private void incrementPlay() throws CommandException {
