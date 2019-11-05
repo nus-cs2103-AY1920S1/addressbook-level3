@@ -1,10 +1,5 @@
 package seedu.ifridge.storage.shoppinglist;
 
-import org.junit.jupiter.api.Test;
-import seedu.ifridge.commons.exceptions.IllegalValueException;
-import seedu.ifridge.model.food.Amount;
-import seedu.ifridge.model.food.Name;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.model.food.ShoppingItemTest.areExactlySameShoppingItems;
 import static seedu.ifridge.storage.shoppinglist.JsonAdaptedShoppingItem.MISSING_FIELD_MESSAGE_FORMAT;
@@ -12,6 +7,11 @@ import static seedu.ifridge.testutil.Assert.assertThrows;
 import static seedu.ifridge.testutil.TypicalShoppingList.CAKE;
 import static seedu.ifridge.testutil.TypicalShoppingList.EGGS;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.ifridge.commons.exceptions.IllegalValueException;
+import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.Name;
 
 public class JsonAdaptedShoppingItemTest {
     private static final String INVALID_NAME = "Or@nge";

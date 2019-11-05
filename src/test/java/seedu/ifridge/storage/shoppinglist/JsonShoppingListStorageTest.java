@@ -1,22 +1,22 @@
 package seedu.ifridge.storage.shoppinglist;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import seedu.ifridge.commons.exceptions.DataConversionException;
-import seedu.ifridge.model.ShoppingList;
-import seedu.ifridge.model.ReadOnlyShoppingList;
-import seedu.ifridge.storage.shoppinglist.JsonShoppingListStorage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.ifridge.testutil.Assert.assertThrows;
 import static seedu.ifridge.testutil.TypicalShoppingList.CAKE;
 import static seedu.ifridge.testutil.TypicalShoppingList.SPAGHETTI;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import seedu.ifridge.commons.exceptions.DataConversionException;
+import seedu.ifridge.model.ReadOnlyShoppingList;
+import seedu.ifridge.model.ShoppingList;
 
 public class JsonShoppingListStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonShoppingListStorageTest");
@@ -56,7 +56,8 @@ public class JsonShoppingListStorageTest {
 
     @Test
     public void readShoppingList_invalidAndValidShoppingItemShoppingList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readShoppingList("invalidAndValidShoppingItemShoppingList.json"));
+        assertThrows(DataConversionException.class, () -> readShoppingList(
+                "invalidAndValidShoppingItemShoppingList.json"));
     }
 
     @Test

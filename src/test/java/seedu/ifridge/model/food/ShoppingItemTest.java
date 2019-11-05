@@ -17,6 +17,12 @@ import org.junit.jupiter.api.Test;
 
 public class ShoppingItemTest {
 
+    /**
+     * Compare two shopping items to see if all their feels are identical to each other.
+     * @param si1 ShoppingItem1
+     * @param si2 ShoppingItem2
+     * @return true if all corresponding fields of the shopping items are the same, false otherwise.
+     */
     public static boolean areExactlySameShoppingItems(ShoppingItem si1, ShoppingItem si2) {
         return si1.isSameName(si2) && (si1.getAmount().toString().equals(si2.getAmount().toString()))
                 && (si1.isBought() == si2.isBought()) && (si1.isUrgent() == si2.isUrgent());
