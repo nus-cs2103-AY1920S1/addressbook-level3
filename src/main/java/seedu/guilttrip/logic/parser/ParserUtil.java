@@ -18,7 +18,6 @@ import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
-import seedu.guilttrip.ui.util.PanelName;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.entry.SortSequence;
 import seedu.guilttrip.model.entry.SortType;
@@ -27,10 +26,10 @@ import seedu.guilttrip.model.tag.Tag;
 import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.ui.util.FontManager;
 import seedu.guilttrip.ui.util.FontName;
+import seedu.guilttrip.ui.util.PanelName;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser
- * classes.
+ * Contains utility methods used for parsing strings in the various Parser classes.
  */
 public class ParserUtil {
 
