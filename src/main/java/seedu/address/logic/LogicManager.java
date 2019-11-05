@@ -174,7 +174,8 @@ public class LogicManager implements Logic, UiLogicHelper {
             storage.updateWordBank(revisionBank);
         } else {
             for (Card c : wrongCards) {
-                Meaning newMeaning = new Meaning(c.getMeaning().getValue() + " Word Bank: " + gameStatistics.getTitle());
+                Meaning newMeaning = new Meaning(c.getMeaning().getValue()
+                        + " [Word Bank: " + gameStatistics.getTitle() + "]", true);
                 Card toAdd = Card.createNewCard(c.getWord(), newMeaning, c.getTags());
                 if (!revisionBank.hasCard(toAdd)) {
                     revisionBank.addCard(toAdd);
@@ -182,7 +183,8 @@ public class LogicManager implements Logic, UiLogicHelper {
             }
 
             for (Card c : correctCards) {
-                Meaning newMeaning = new Meaning(c.getMeaning().getValue() + " Word Bank: " + gameStatistics.getTitle());
+                Meaning newMeaning = new Meaning(c.getMeaning().getValue()
+                        + " [Word Bank: " + gameStatistics.getTitle() + "]", true);
                 Card toRemove = Card.createNewCard(c.getWord(), newMeaning, c.getTags());
                 if (revisionBank.hasCard(toRemove)) {
                     Card cardInRevisionBank = revisionBank.getCard(toRemove.getMeaning());

@@ -34,6 +34,19 @@ public class Meaning {
     }
 
     /**
+     * Constructs a {@code Meaning}.
+     *
+     * @param meaning A valid meaning.
+     */
+    public Meaning(String meaning, boolean isByPass) {
+        requireNonNull(meaning);
+        if (!isByPass) {
+            checkArgument(isValidMeaning(meaning), MESSAGE_CONSTRAINTS);
+        }
+        this.value = meaning;
+    }
+
+    /**
      * Returns true if a given string is a valid meaning.
      */
     public static boolean isValidMeaning(String test) {
