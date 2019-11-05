@@ -209,6 +209,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void setPerformance(ReadOnlyPerformance performance) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void addEvent(Event event) {
 
         }
