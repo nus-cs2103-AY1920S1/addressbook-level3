@@ -75,8 +75,8 @@ public class Flashcard extends StudyBuddyItem {
             return true;
         }
 
-        return otherFlashcard != null && (otherFlashcard.getTitle().equals(getTitle()) ||
-                otherFlashcard.getQuestion().equals(getQuestion()));
+        return otherFlashcard != null && (otherFlashcard.getTitle().equals(getTitle())
+                || otherFlashcard.getQuestion().equals(getQuestion()));
     }
 
     /**

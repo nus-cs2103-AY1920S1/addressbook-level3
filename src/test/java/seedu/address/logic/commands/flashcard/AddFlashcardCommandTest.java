@@ -30,7 +30,7 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.FlashcardBuilder;
 
 public class AddFlashcardCommandTest {
 
@@ -41,46 +41,48 @@ public class AddFlashcardCommandTest {
 
     @Test
     public void execute_flashcardAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        ModelStubAcceptingFlashcardAdded modelStub = new ModelStubAcceptingFlashcardAdded();
+        Flashcard validFlashcard = new FlashcardBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddFlashcardCommand(validFlashcard).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddFlashcardCommand.MESSAGE_SUCCESS, validFlashcard),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validFlashcard), modelStub.flashcardsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateFlashcard_throwsCommandException() {
+        Flashcard validFlashcard = new FlashcardBuilder().build();
+        AddFlashcardCommand addCommand = new AddFlashcardCommand(validFlashcard);
+        ModelStub modelStub = new ModelStubWithFlashcard(validFlashcard);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddFlashcardCommand.MESSAGE_DUPLICATE_FLASHCARD, () -> addCommand
+                .execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Flashcard maths = new FlashcardBuilder().withTitle("Math Question 1").build();
+        Flashcard cs = new FlashcardBuilder().withTitle("CS Question 1").build();
+        AddFlashcardCommand addMathsCommand = new AddFlashcardCommand(maths);
+        AddFlashcardCommand addCsCommand = new AddFlashcardCommand(cs);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addMathsCommand.equals(addMathsCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddFlashcardCommand addMathsCommandCopy = new AddFlashcardCommand(maths);
+        assertTrue(addMathsCommand.equals(addMathsCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addMathsCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addMathsCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different flashcard -> returns false
+        assertFalse(addMathsCommand.equals(addCsCommand));
     }
 
     /**
@@ -173,7 +175,7 @@ public class AddFlashcardCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //=============Flashcard stuff===============================================
+        //=============Person stuff===============================================
 
         @Override
         public boolean hasPerson(Person person) {
@@ -302,37 +304,37 @@ public class AddFlashcardCommandTest {
     /**
      * A Model stub that contains a single flashcard.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person note;
+    private class ModelStubWithFlashcard extends ModelStub {
+        private final Flashcard flashcard;
 
-        ModelStubWithPerson(Person note) {
-            requireNonNull(note);
-            this.note = note;
+        ModelStubWithFlashcard(Flashcard flashcard) {
+            requireNonNull(flashcard);
+            this.flashcard = flashcard;
         }
 
         @Override
-        public boolean hasPerson(Person note) {
-            requireNonNull(note);
-            return this.note.isSamePerson(note);
+        public boolean hasFlashcard(Flashcard flashcard) {
+            requireNonNull(flashcard);
+            return this.flashcard.isSameFlashcard(flashcard);
         }
     }
 
     /**
-     * A Model stub that always accept the note being added.
+     * A Model stub that always accept the flashcard being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingFlashcardAdded extends ModelStub {
+        final ArrayList<Flashcard> flashcardsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person note) {
-            requireNonNull(note);
-            return personsAdded.stream().anyMatch(note::isSamePerson);
+        public boolean hasFlashcard(Flashcard flashcard) {
+            requireNonNull(flashcard);
+            return flashcardsAdded.stream().anyMatch(flashcard::isSameFlashcard);
         }
 
         @Override
-        public void addPerson(Person note) {
-            requireNonNull(note);
-            personsAdded.add(note);
+        public void addFlashcard(Flashcard flashcard) {
+            requireNonNull(flashcard);
+            flashcardsAdded.add(flashcard);
         }
 
         @Override
