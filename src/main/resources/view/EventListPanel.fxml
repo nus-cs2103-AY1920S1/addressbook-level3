@@ -22,7 +22,7 @@
          <children>
             <ScrollPane fx:id="eventScrollPane" fitToWidth="true" hbarPolicy="NEVER">
                <content>
-                  <VBox fx:id="eventList" spacing="2.0">
+                  <VBox fx:id="eventList" prefHeight="1500.0" spacing="2.0">
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding></VBox>

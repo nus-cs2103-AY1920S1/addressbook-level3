@@ -41,6 +41,9 @@ public class TaskCard extends Card {
     private HBox taskTags;
 
     @FXML
+    private VBox taskTagList;
+
+    @FXML
     private Label taskIndex;
 
     @FXML
@@ -74,16 +77,7 @@ public class TaskCard extends Card {
 
         // Tags
         if (task.getTags() != null) {
-            Set<String> tags = task.getTags();
-            for (String tag : tags) {
-                CardTag cardTag = new CardTag(tag);
-                if (task.isDone()) {
-                    cardTag.changeColor("-taskDoneTagColor");
-                } else {
-                    cardTag.changeColor("-taskTagColor");
-                }
-                taskTags.getChildren().add(cardTag.getRoot());
-            }
+            addTags(task);
         } else {
             taskDetails.getChildren().remove(taskTagsBase);
         }
@@ -95,5 +89,31 @@ public class TaskCard extends Card {
 
         taskName.setMinHeight(Region.USE_PREF_SIZE);
 
+    }
+
+    private void addTags(TaskSource task) {
+        Set<String> tags = task.getTags();
+        CardTagline cardTagline = new CardTagline();
+        for (String tag : tags) {
+            CardTag cardTag = new CardTag(tag);
+            if (task.isDone()) {
+                cardTag.changeColor("-taskDoneTagColor");
+            } else {
+                cardTag.changeColor("-taskTagColor");
+            }
+            if(cardTag.getWidth() >= CardTagline.MAX_WIDTH) {
+                CardTagline cardTagline1 = new CardTagline();
+                cardTagline1.addSingleTag(cardTag);
+                taskTagList.getChildren().add(cardTagline1.getRoot());
+                continue;
+            }
+            boolean isAdded = cardTagline.isTagAdded(cardTag);
+            if(!isAdded) {
+                taskTagList.getChildren().add(cardTagline.getRoot());
+                cardTagline = new CardTagline();
+                cardTagline.isTagAdded(cardTag);
+            }
+        }
+        taskTagList.getChildren().add(cardTagline.getRoot());
     }
 }

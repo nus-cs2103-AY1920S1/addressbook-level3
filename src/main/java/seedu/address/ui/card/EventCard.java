@@ -44,7 +44,7 @@ public class EventCard extends Card {
     private StackPane eventTagsBase;
 
     @FXML
-    private HBox eventTags;
+    private VBox eventTagList;
 
     @FXML
     private Label eventIndex;
@@ -88,16 +88,33 @@ public class EventCard extends Card {
 
         // Tags Option
         if (event.getTags() != null) {
-            Set<String> tags = event.getTags();
-            for (String tag : tags) {
-                CardTag cardTag = new CardTag(tag);
-                eventTags.getChildren().add(cardTag.getRoot());
-            }
+            addTags(event);
         } else {
             eventDetails.getChildren().remove(eventTagsBase);
         }
 
         // Others
         eventName.setMinHeight(Region.USE_PREF_SIZE);
+    }
+
+    private void addTags(EventSource event) {
+        Set<String> tags = event.getTags();
+        CardTagline cardTagline = new CardTagline();
+        for (String tag : tags) {
+            CardTag cardTag = new CardTag(tag);
+            if(cardTag.getWidth() >= CardTagline.MAX_WIDTH) {
+                CardTagline cardTagline1 = new CardTagline();
+                cardTagline1.addSingleTag(cardTag);
+                eventTagList.getChildren().add(cardTagline1.getRoot());
+                continue;
+            }
+            boolean isAdded = cardTagline.isTagAdded(cardTag);
+            if(!isAdded) {
+                eventTagList.getChildren().add(cardTagline.getRoot());
+                cardTagline = new CardTagline();
+                cardTagline.isTagAdded(cardTag);
+            }
+        }
+        eventTagList.getChildren().add(cardTagline.getRoot());
     }
 }
