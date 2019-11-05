@@ -36,6 +36,7 @@ import seedu.guilttrip.model.tag.Tag;
 public class EditExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "editExpense";
+    public static final String COMMAND_WORD_SHORT = "editExp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Expense identified "
             + "by the index number used in the displayed Expenses list. "
