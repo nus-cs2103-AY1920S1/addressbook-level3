@@ -367,7 +367,8 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Deleted persons are moved into the bin, where they stay there for 30 days before being removed permanently.
+* Deleted persons are moved into the bin, where they stay there for a default of 30 days before being removed
+permanently. This default value can be changed with the <<binitemexpiry, binitemexpiry>> command.
 ****
 [NOTE]
 Deleted items will expire in 10 seconds for testing purposes. Expired items are removed on restart of application.
@@ -391,6 +392,8 @@ Format: `deletepolicy INDEX`
 * Deletes the policy at the specified `INDEX`.
 * The index refers to the index number shown in the displayed policy list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Deleted persons are moved into the bin, where they stay there for a default of 30 days before being removed
+permanently. This default value can be changed with the <<binitemexpiry, binitemexpiry>> command.
 ****
 [NOTE]
 Deleted items will expire in 10 seconds for testing purposes. Expired items are removed on restart of application.
@@ -697,7 +700,6 @@ Format:
 * Restores the item at the specified INDEX.
 * The index refers to the index number shown in the displayed bin list.
 * The index must be a positive integer 1, 2, 3, …​
-* Mass restoration by field is also possible by specifying `field:value`.
 ****
 
 Examples:
@@ -712,6 +714,38 @@ Restored item: David Georgia NRIC: S0000010T Phone: 94820001 Email: davegeorge@e
 Date of birth: 5 March 1980 Gender: Male Date deleted: 22 Oct 2019 at 09:57 PM Expiry Date: 21 Nov 2019 at 09:57 PM
 ```
 // end::restore[]
+
+
+// tag::binitemexpiry[]
+[#binitemexpiry]
+=== Set expiry time of bin items: `binitemexpiry`
+User can set the amount of time bin items stay in the bin before they are permanently removed.
+
+Format:
+`binitemexpiry UNIT/AMOUNT`
+
+****
+* `UNIT` can take the following values:
+** s
+** mins
+** hrs
+** days
+** months
+** years
+* `AMOUNT` *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+`binitemexpiry days/30` +
+
+Set BinItems to expire 30 days their deletion. After 30 days, they will be removed permanently.
+
+Expected Output: +
+```
+Changed bin item expiry time! Items in the Bin will be removed permanently after 30 days.
+```
+// end::binitemexpiry[]
 
 === Undo recently entered commands
 User can simply enter the command `undo` to undo the most recent address book change.
@@ -815,5 +849,7 @@ e.g. `expandpolicy 1`
 e.g. `display i/policy-popularity-breakdown f/piechart`
 * *Undo the most recent command*: `undo`
 * *Redo the most recent undone command*: `redo`
+* *Set expiry time of bin items*: `binitemexpiry` +
+e.g. `binitemexpiry days/30`
 * *Clear* : `clear`
 * *Help* : `help`
