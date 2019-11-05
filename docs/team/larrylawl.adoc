@@ -26,7 +26,7 @@ The agent can visualise the age group breakdown, policy popularity breakdown, an
 Visualisation comes in the form of bar chart, pie chart, or line chart.
 ** *Justification:* Analytics of the data in the address book yield insight for the agent. This facilitates data-driven decisions by the agent.
 ** *Highlights:*
-*** The `display` mechanism follows the MVC framework. It also uses an OOP solution, which features the use of abstract classes to reuse code.
+*** The `display` mechanism follows the Model-View-Controller design pattern. It also uses an OOP solution, which features the use of abstract classes to reuse code.
 The OOP solution is illustrated in the link:../DeveloperGuide.adoc[developer’s guide].
 *** `display` also required mastery of JavaFX.
 
@@ -74,6 +74,8 @@ image:https://api.codacy.com/project/badge/Grade/b4c6f87fc11549a49da8e727b71a9cc
 include::../UserGuide.adoc[tag=display]
 
 include::../UserGuide.adoc[tag=addperson]
+
+include::../UserGuide.adoc[tag=addpolicy]
 
 == Contributions to the Developer Guide
 
