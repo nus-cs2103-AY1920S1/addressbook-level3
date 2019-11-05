@@ -1,9 +1,14 @@
 package mams.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class OptionsTokenizerTest {
     public static final String NO_DASH = "edamwl"; // no preceding dash
@@ -55,5 +60,27 @@ public class OptionsTokenizerTest {
         argsString = " " + WHITESPACE_AFTER_DASH;
         optionsSet = OptionsTokenizer.tokenize(argsString);
         assertTrue(optionsSet.isEmpty());
+    }
+
+    @Test
+    public void getUnrecognizedArguments() {
+        // option1 and option2 will be the target arguments
+        // should return option3 and NO_DASH as the unrecognized arguments
+        String argsString = option1.toString() + " "
+                + option2.toString() + " "
+                + NO_DASH + " "
+                + option3.toString();
+
+        List<String> unrecognizedArguments = new ArrayList<String>();
+        unrecognizedArguments.add(option3.toString());
+        unrecognizedArguments.add(NO_DASH);
+
+        List<String> output = OptionsTokenizer.getUnrecognizedArguments(argsString,
+                option1.toString(),
+                option2.toString());
+        Collections.sort(output);
+        Collections.sort(unrecognizedArguments);
+        assertEquals(output, unrecognizedArguments);
+
     }
 }
