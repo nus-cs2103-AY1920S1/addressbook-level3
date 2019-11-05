@@ -25,7 +25,9 @@ public class ActivityBook implements ReadOnlyActivityBook {
      * Creates an ActivityBook using the Activities in the {@code previousActivityBook}
      */
     public ActivityBook(ActivityBook previousActivityBook) {
-        activityList.addAll(previousActivityBook.getActivityList());
+        for (Activity a : previousActivityBook.getActivityList()) {
+            activityList.add(new Activity(a, a.getTitle()));
+        }
     }
 
     // ================ List overwrite operations ================
