@@ -290,15 +290,21 @@ public class AddCommandTest {
 
         @Override
         public void saveEngagementList() {
+            // Used in the execution of AddCommand
         }
 
         @Override
-        public void updateSortedEngagementList(Comparator<Engagement> comparator) {
-            throw new AssertionError("This method should not be called.");
+        public void updateSortedEngagementList() {
+            // Used in the execution of AddCommand
         }
 
         @Override
         public ObservableList<Engagement> getSortedEngagementList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setComparator(Comparator<Engagement> comparator) {
             throw new AssertionError("This method should not be called.");
         }
     }

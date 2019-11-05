@@ -23,56 +23,64 @@ public class SortCommandTest {
 
     @Test
     public void execute_listIsSortedAlphabetical_showsSortedList() {
-        expectedModel.updateSortedEngagementList(EngagementComparator.getComparator("ALPHABETICAL"));
+        expectedModel.setComparator(EngagementComparator.getComparator("ALPHABETICAL"));
+        expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("ALPHABETICAL")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsSortedAlphabeticalDescend_showsSortedList() {
-        expectedModel.updateSortedEngagementList(EngagementComparator.getComparator("ALPHABETICAL_REVERSE"));
+        expectedModel.setComparator(EngagementComparator.getComparator("ALPHABETICAL_REVERSE"));
+        expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("ALPHABETICAL_REVERSE")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsSortedStartTime_showsSortedList() {
-        expectedModel.updateSortedEngagementList(EngagementComparator.getComparator("START_TIME"));
+        expectedModel.setComparator(EngagementComparator.getComparator("START_TIME"));
+        expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("START_TIME")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsSortedStartTimeDescend_showsSortedList() {
-        expectedModel.updateSortedEngagementList(EngagementComparator.getComparator("START_TIME_REVERSE"));
+        expectedModel.setComparator(EngagementComparator.getComparator("START_TIME_REVERSE"));
+        expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("START_TIME_REVERSE")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsSortedEndTime_showsSortedList() {
-        expectedModel.updateSortedEngagementList(EngagementComparator.getComparator("END_TIME"));
+        expectedModel.setComparator(EngagementComparator.getComparator("END_TIME"));
+        expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("END_TIME")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsSortedEndTimeDescend_showsSortedList() {
-        expectedModel.updateSortedEngagementList(EngagementComparator.getComparator("END_TIME_REVERSE"));
+        expectedModel.setComparator(EngagementComparator.getComparator("END_TIME_REVERSE"));
+        expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("END_TIME_REVERSE")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsSortedPriority_showsSortedList() {
-        expectedModel.updateSortedEngagementList(EngagementComparator.getComparator("PRIORITY"));
+        expectedModel.setComparator(EngagementComparator.getComparator("PRIORITY"));
+        expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("PRIORITY")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsSortedPriorityDescend_showsSortedList() {
-        expectedModel.updateSortedEngagementList(EngagementComparator.getComparator("PRIORITY_REVERSE"));
+        expectedModel.setComparator(EngagementComparator.getComparator("PRIORITY_REVERSE"));
+        expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("PRIORITY_REVERSE")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }

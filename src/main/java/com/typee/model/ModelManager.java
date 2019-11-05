@@ -139,8 +139,12 @@ public class ModelManager implements Model {
 
     @Override
     public void updateSortedEngagementList() {
+        try {
             requireNonNull(currentComparator);
             historyManager.sort(currentComparator);
+        } catch (NullPointerException e) {
+            // if no comparator is specified, does not sort
+        }
     }
 
     /**
