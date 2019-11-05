@@ -68,7 +68,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = universalParser.parseCommand(commandText, this.currentContext);
+        Command command = universalParser.parseCommand(commandText, currentContext);
         commandResult = command.execute(model, this);
 
         model.notifyChange(commandText);
@@ -142,7 +142,7 @@ public class LogicManager implements Logic {
                 PREFIX_FOOD, PREFIX_QUANTITY, PREFIX_CUSTOMER , PREFIX_INDEX);
 
         // if prefix value is not present
-        if (!argMultimap.getValue(PREFIX_RESTAURANT).isPresent()) {
+        if (argMultimap.getValue(PREFIX_RESTAURANT).isEmpty()) {
             return null;
         }
 
@@ -269,7 +269,7 @@ public class LogicManager implements Logic {
     //=============Context======================
     @Override
     public void setContext(Context context) {
-        this.currentContext = context;
+        currentContext = context;
     }
 
     public static Context getContext() {
