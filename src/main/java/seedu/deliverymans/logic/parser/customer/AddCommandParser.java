@@ -1,9 +1,11 @@
 package seedu.deliverymans.logic.parser.customer;
 
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.stream.Stream;
 
@@ -16,6 +18,7 @@ import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
+import seedu.deliverymans.model.customer.Address;
 import seedu.deliverymans.model.customer.Customer;
 
 /**
@@ -31,17 +34,19 @@ public class AddCommandParser implements Parser<CustomerAddCommand> {
      */
     public CustomerAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS,
+                        PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_NAME, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CustomerAddCommand.MESSAGE_USAGE));
         }
 
+        Name userName = ParserUtil.parseName(argMultimap.getValue(PREFIX_USERNAME).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-
-        Customer customer = new Customer(name, phone);
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Customer customer = new Customer(userName, name, phone, address);
 
         return new CustomerAddCommand(customer);
     }

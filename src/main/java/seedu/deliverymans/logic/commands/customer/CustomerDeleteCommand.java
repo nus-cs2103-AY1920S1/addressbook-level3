@@ -44,7 +44,7 @@ public class CustomerDeleteCommand extends Command {
         ObservableList<Order> orders = model.getFilteredOrderList();
         List<Order> ordersToDelete = new ArrayList<>();
         for (Order order : orders) {
-            if (customer.getName().equals(order.getCustomer())) {
+            if (customer.getUserName().equals(order.getCustomer())) {
                 ordersToDelete.add(order);
             }
         }
