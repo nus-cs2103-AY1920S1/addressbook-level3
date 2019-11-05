@@ -31,6 +31,9 @@ public class DeleteClassroomCommandParser {
         }
 
         String classroomName = ParserUtil.parseClassroomName(argMultimap.getValue(PREFIX_CLASSROOM).get());
+        if (classroomName.equals("")) {
+            throw new ParseException(String.format(DeleteClassroomCommand.MESSAGE_BLANK_CLASSNAME));
+        }
         Classroom classroom = new Classroom(classroomName);
         return new DeleteClassroomCommand(classroom);
     }

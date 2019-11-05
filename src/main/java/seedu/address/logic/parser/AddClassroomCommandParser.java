@@ -31,6 +31,9 @@ public class AddClassroomCommandParser implements Parser<AddClassroomCommand> {
         }
 
         String classroomName = ParserUtil.parseClassroomName(argMultimap.getValue(PREFIX_CLASSROOM).get());
+        if (classroomName.equals("")) {
+            throw new ParseException(String.format(AddClassroomCommand.MESSAGE_BLANK_CLASSNAME));
+        }
         Classroom classroom = new Classroom(classroomName);
         return new AddClassroomCommand(classroom.getClassroomName());
     }
