@@ -78,6 +78,10 @@ Example: +
 `expense edit 2 -d “buy a math book”` +
 Edit the expense at index 2  with new description of: “buy a math book” +
 
+[NOTE]
+This command overwrites existing tags if you input tags.
+
+
 {nbsp} +
 
 . _Delete an existing expense: expense rm_ +
@@ -119,71 +123,94 @@ To view a list of supported tag commands, you could type `tag` in the command bo
 Similarly, to view parameters for supported tag commands, you could type `tag` followed by the supported tag command and press `enter`. +
 Example: `tag rm`
 
-. _Adding a tag: `tag add_` +
+==== Adding a tag: `tag add` +
 This command adds your input tag(s) to the expense at the index you have specified. +
 {nbsp} +
 Usage:
 
  tag add [INDEX] t/[TAG] t/[TAG…]
 
-+
 Example: +
 Lets say that you want to add the tags `holiday` and `hangout` to the expense at index `2`. +
 {nbsp} +
 To add the tags: +
-1. Type `tag add 2 t/holiday t/hangout` and press `enter` to execute it. +
-image:tagging/AddTagOne.png[]
+1. Type `tag add 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
+image:tagging/AddTagOne.png[] +
 2. The result box will display the message "Added tag(s) to Expense: +
-Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: [[hangout], [holiday]]"
-image:tagging/AddTagTwo.png[]
-3. You could see the tags `holiday` and `hangout` in the expense.
-image:tagging/AddTagThreeCopy.png[]
+Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: [[hangout], [holiday]]" +
+image:tagging/AddTagTwo.png[] +
+3. You could see the tags `holiday` and `hangout` in the expense at index 2. +
+image:tagging/AddTagThreeCropped.png[] +
 
 [NOTE]
 You are not able to add *existing* tags. +
-If you input *duplicate* tags, they will only be added once. i.e Duplicate tags in an expense is *not* allowed.
+If you input *existing* and *non-existing* tags, Billboard adds the *non-existing* tags only. +
+If you input *duplicate* tags, Billboard adds them *once*. i.e Billboard does *not* allow Duplicate tags in an expense. +
+Example: `tag add t/holiday t/holiday`
 
-
-. _Removing a tag: tag rm_ +
-Deletes your input tag/s from the expense at the index you have specified. +
+==== Removing a tag: `tag rm` +
+This command removes your input tag(s) from the expense at the index you have specified. +
 {nbsp} +
 Usage:
 
- tag rm [INDEX] [TAG] [TAG…]
+ tag rm [INDEX] t/[TAG] t/[TAG…]
 
-* t/ : Specifies the name of the tag/s you want to remove from the expense.(REQUIRED) +
-{nbsp} +
-
-+
 Example: +
-`tag rm 2 t/monthly bills t/electricity` +
-Removes the tags “monthly bills” and "electricity" from the expense at index 2. +
-{nbsp} +
+Lets say that you want to remove the tags `holiday` and `hangout` from the expense at index `2`. +
+To remove the tags: +
+1. Type `tag rm 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
+image:tagging/rmTagOne.png[] +
+2. The result box will display the message "Removed tag(s) from Expense: +
+ Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: []" +
+image:tagging/rmTagTwo.png[] +
+3. You could see that the expense at index 2 no longer has the tags `hangout` and `holiday`.
+image:tagging/rmTagThree.png[] +
 
-. _Filtering by tag: tag filter_ +
-Filters expenses by your input tag/s. +
+[NOTE]
+You are not able to remove *non-existing* tags. +
+If you input *duplicate* tags, Billboard removes them *once*. +
+Example: `tag rm t/holiday t/holiday`
+
+==== Filtering by tag: `tag filter` +
+This command filters expenses by your input tag(s). +
 {nbsp} +
 Usage:
 
- tag filter [TAG] [TAG…]
+ tag filter t/[TAG] t/[TAG…]
 
-* t/ : Specifies name of the tag/s you want to filter expenses with.(REQUIRED) +
-{nbsp} +
 
-+
 Example: +
-`tag filter t/home t/monthly bills` +
-Lists out all the expenses that contains the tags “home” or “monthly bills” +
-{nbsp} +
+Lets say that you want to filter your expenses by the tag `tech`.
+To filter your expenses: +
+1. Type `tag filter t/tech` in the command box and press `enter` to execute it. +
+image:tagging/filterTagOne.png[] +
+2. The result box will display the message "3 expense(s) listed!" +
+image:tagging/filterTagTwo.png[] +
+3. Billboard lists all expenses under the tag `tech`. +
+image:tagging/filterTagThree.png[] +
 
-. _Listing out all the tags: tag list_ +
-Lists out all existing tags. +
+[NOTE]
+If you input *more than one* tags, Billboard lists out all expenses tagged with *one or more* input tags. +
+This command allows *duplicate* tags as input. +
+This command allows *non-existing* tags as input. +
+After executing this command, you could edit (eg. `edit`, `tag add` etc) the filtered expenses using the displayed indexes. +
+
+
+==== Listing out all the tags: `tag list` +
+This command lists out all existing tags. +
 {nbsp} +
 Usage:
 
  tag list
 
-{nbsp} +
+Example: +
+Lets say that you want to list out all existing tags. +
+To list them: +
+1. Type `tag list` in the command box and press `enter` to execute it. +
+image:tagging/listtagone.png[] +
+2. The result box displays a list of all existing tags. +
+image:tagging/listtagtwo.png[] +
+
 
 === Finding expenses by attributes: `find`
 
