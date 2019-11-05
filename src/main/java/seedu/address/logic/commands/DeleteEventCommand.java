@@ -64,7 +64,7 @@ public class DeleteEventCommand extends Command {
                         toDelete.add(list.get(index));
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    throw new CommandException(String.format(MESSAGE_INVALID_EVENT_INDEX, index + 1));
+                    throw new CommandException(String.format(MESSAGE_INVALID_EVENT_INDEX, index));
                 }
             }
         }

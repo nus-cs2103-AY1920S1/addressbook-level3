@@ -23,8 +23,7 @@ package Logic <<Rectangle>> {
 package Model <<Rectangle>> {
     Class EventSource
     Class TaskSource
-    Interface EventListListener <<Interface>>
-    Interface TaskListListener <<Interface>>
+    Interface ModelListsListener <<Interface>>
 }
 
 Class HiddenOutside #FFFFFF
@@ -32,8 +31,7 @@ HiddenOutside .left> UiManager
 
 '==== UiManager ====
 UiManager *--> MainWindow
-UiManager .up.|> EventListListener
-UiManager .up.|> TaskListListener
+UiManager .up.|> ModelListsListener
 
 '==== MainWindow ====
 MainWindow -down-> ListPanel

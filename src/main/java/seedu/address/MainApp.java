@@ -70,7 +70,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Horo ]===========================");
         super.init();
 
         commandManager = new CommandManager();
@@ -133,7 +133,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Horo " + MainApp.VERSION);
 
         // Start UiManager
         uiManager.start(primaryStage);
@@ -147,7 +147,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Horo ] =============================");
         System.exit(0);
     }
 }

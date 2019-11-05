@@ -64,7 +64,7 @@ public class DeleteTaskCommand extends Command {
                         toDelete.add(list.get(index));
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    throw new CommandException(String.format(MESSAGE_INVALID_TASK_INDEX, index + 1));
+                    throw new CommandException(String.format(MESSAGE_INVALID_TASK_INDEX, index));
                 }
             }
         }

@@ -116,7 +116,7 @@ public class TimelineWeekView extends TimelineView {
         // Creates and add the event card
         int taskWeekIndex = task.getDueDate().getWeek();
 
-        TaskCard taskCard = new TaskCard(task);
+        TaskCard taskCard = new TaskCard(task, taskIndex);
         CardHolder eventCardHolder = getCardHolder().get(taskWeekIndex - 1);
         eventCardHolder.addCard(taskCard);
 
