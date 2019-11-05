@@ -115,6 +115,11 @@ public interface Model {
     Attendance getAttendance();
     boolean hasTraining(AthletickDate training);
 
+    /**
+     * Replaces performance data with the data in {@code performance}.
+     */
+    void setPerformance(ReadOnlyPerformance performance);
+
     void addEvent(Event event);
 
     boolean hasEvent(Event event);
