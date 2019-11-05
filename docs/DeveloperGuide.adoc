@@ -1232,3 +1232,4 @@ These instructions only provide a starting point for testers to work on; testers
 .. Delete some mandatory fields in the data file located at `data/algobase.json` and launch AlgoBase. +
    Expected: Error details shown in the status message, indicating corrupted data file.
 
+
