@@ -119,8 +119,6 @@
     -fx-background-color: #515658;
 }
 
-
-
 .list-cell:filled:selected {
     -fx-background-color: #424d5f;
 }
@@ -132,6 +130,42 @@
 
 .list-cell .label {
     -fx-text-fill: white;
+}
+
+/* Dashboard list view styling */
+/*#taskBox {*/
+/*    -fx-border-width: 2px;*/
+/*    -fx-border-style: solid inside;*/
+/*    -fx-border-radius: 10px;*/
+/*    -fx-background-insets: 5px;*/
+/*    -fx-border-color: #263238;*/
+/*}*/
+
+#taskBox .list-view {
+    -fx-padding: 3px;
+    -fx-background-color: #263238;
+    -fx-border-width: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-insets: 5px;
+    -fx-border-color: #263238;
+}
+
+#taskBox .list-view .label {
+    -fx-text-fill: black;
+}
+
+#taskBox .list-view .list-cell {
+    -fx-border-radius: 10px;
+    -fx-background-color: #263238;
+    -fx-border-width: 2;
+    -fx-padding: 4px;
+    -fx-background-insets: 0px, 2px;
+}
+
+#taskBox .list-view .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-padding: 4px;
+    -fx-background-insets: 0;
 }
 
 .cell_big_label {
@@ -346,10 +380,10 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
-}
+/*#cardPane {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-border-width: 0;*/
+/*}*/
 
 
 #commandTypeLabel {
@@ -370,9 +404,9 @@
 }
 
 
-/*#commandTextField:empty .text {*/
-/*    -fx-text-fill: #ffffff;*/
-/*}*/
+#commandTextField:empty .text {
+    -fx-text-fill: #ffffff;
+}
 
 #filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
