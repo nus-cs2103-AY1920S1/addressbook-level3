@@ -81,6 +81,7 @@ public class AccountsManager {
      */
     public void resetFilteredAccountList() {
         unsetActiveAccount();
+        filteredAccounts.setPredicate(s -> false);
         filteredAccounts.setPredicate(s -> true);
         //activeAccountIndex is reset to the first account
         activeAccountIndex = Index.fromZeroBased(0);
