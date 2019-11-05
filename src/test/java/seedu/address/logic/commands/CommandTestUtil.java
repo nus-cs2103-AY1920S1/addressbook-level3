@@ -36,7 +36,7 @@ import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescri
 import seedu.address.logic.commands.editcommand.EditPhoneCommand.EditPhoneDescriptor;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand.EditScheduleDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
@@ -48,6 +48,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
+import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -376,13 +377,32 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        DataBook<Customer> expectedCustomerBook = new DataBook<>(actualModel.getCustomerBook());
+        DataBook<Phone> expectedPhoneBook = new DataBook<>(actualModel.getPhoneBook());
+        DataBook<Order> expectedOrderBook = new DataBook<>(actualModel.getOrderBook());
+        DataBook<Schedule> expectedScheduleBook = new DataBook<>(actualModel.getScheduleBook());
+        DataBook<Order> expectedArchivedOrderBook = new DataBook<>(actualModel.getArchivedOrderBook());
+
+
+        List<Customer> expectedFilteredCustomerList = new ArrayList<>(actualModel.getFilteredCustomerList());
+        List<Phone> expectedFilteredPhoneList = new ArrayList<>(actualModel.getFilteredPhoneList());
+        List<Order> expectedFilteredOrderList = new ArrayList<>(actualModel.getFilteredOrderList());
+        List<Schedule> expectedFilteredScheduleList = new ArrayList<>(actualModel.getFilteredScheduleList());
+        List<Order> expectedFilteredArchivedOrderList = new ArrayList<>(actualModel.getFilteredArchivedOrderList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, new CommandHistory(),
                 new UndoRedoStack()));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedCustomerBook, actualModel.getCustomerBook());
+        assertEquals(expectedPhoneBook, actualModel.getPhoneBook());
+        assertEquals(expectedOrderBook, actualModel.getOrderBook());
+        assertEquals(expectedScheduleBook, actualModel.getScheduleBook());
+        assertEquals(expectedArchivedOrderBook, actualModel.getArchivedOrderBook());
+
+        assertEquals(expectedFilteredCustomerList, actualModel.getFilteredCustomerList());
+        assertEquals(expectedFilteredPhoneList, actualModel.getFilteredPhoneList());
+        assertEquals(expectedFilteredOrderList, actualModel.getFilteredOrderList());
+        assertEquals(expectedFilteredScheduleList, actualModel.getFilteredScheduleList());
+        assertEquals(expectedFilteredArchivedOrderList, actualModel.getFilteredArchivedOrderList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
