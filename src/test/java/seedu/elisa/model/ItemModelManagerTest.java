@@ -264,7 +264,7 @@ public class ItemModelManagerTest {
     }
 
     @Test
-    public void done_inPriorityMode_finishAllTask_priorityModeOff() {
+    public void done_inPriorityMode_finishAllTask() {
         testModel.addItem(template.setTask(new Task(false)).build());
         try {
             testModel.togglePriorityMode();
@@ -276,7 +276,7 @@ public class ItemModelManagerTest {
     }
 
     @Test
-    public void delete_inPriorityMode_finishAllTask_priorityModeOff() {
+    public void delete_inPriorityMode_finishAllTask() {
         testModel.addItem(template.setTask(new Task(false)).build());
         try {
             testModel.togglePriorityMode();
