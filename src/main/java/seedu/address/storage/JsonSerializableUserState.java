@@ -23,7 +23,7 @@ class JsonSerializableUserState {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
     public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
-    public static final String MESSAGE_DUPLICATE_LEDGER = "Ledgers list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_LEDGER = "Ledgers list contains duplicate ledger(s).";
 
     private final List<JsonAdaptedBankOperations> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
@@ -43,20 +43,20 @@ class JsonSerializableUserState {
 
     public JsonSerializableUserState(ReadOnlyUserState source) {
         transactions
-                .addAll(source.getBankAccount().getTransactionHistory()
-                        .stream()
-                        .map(JsonAdaptedBankOperations::new)
-                        .collect(Collectors.toList()));
+            .addAll(source.getBankAccount().getTransactionHistory()
+                .stream()
+                .map(JsonAdaptedBankOperations::new)
+                .collect(Collectors.toList()));
         budgets
-                .addAll(source.getBankAccount().getBudgetHistory()
-                        .stream()
-                        .map(JsonAdaptedBudget::new)
-                        .collect(Collectors.toList()));
+            .addAll(source.getBankAccount().getBudgetHistory()
+                .stream()
+                .map(JsonAdaptedBudget::new)
+                .collect(Collectors.toList()));
         ledgers
-                .addAll(source.getLedger().getLedgerHistory()
-                        .stream()
-                        .map(JsonAdaptedLedgerOperations::new)
-                        .collect(Collectors.toList()));
+            .addAll(source.getLedger().getLedgerHistory()
+                .stream()
+                .map(JsonAdaptedLedgerOperations::new)
+                .collect(Collectors.toList()));
     }
 
     /**
