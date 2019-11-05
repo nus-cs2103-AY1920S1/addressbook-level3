@@ -147,7 +147,7 @@ public class TransactionEditCommand extends ScriptCommand {
 
         LocalDate updatedDate = transactionEditDescriptor.getDate().isPresent()
                 ? transactionEditDescriptor.getDate().get()
-                : targetTransaction.getDate();
+                : targetTransaction.getLocalDate();
 
         Amount updatedAmount = transactionEditDescriptor.getAmount().isPresent()
                 ? transactionEditDescriptor.getAmount().get()

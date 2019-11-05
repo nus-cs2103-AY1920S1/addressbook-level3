@@ -1,5 +1,6 @@
 package budgetbuddy.model.transaction;
 
+import static budgetbuddy.commons.util.AppUtil.getDateFormatter;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
@@ -27,21 +28,19 @@ public class Transaction {
     /**
      * Every field must be present and not null.
      */
-    public Transaction(LocalDate date, Amount amount, Direction direction, Description description,
+    public Transaction(Direction direction, Amount amount, Description description, LocalDate date,
                        Category... categories) {
         requireAllNonNull(date, amount, direction, description);
         this.direction = direction;
         this.amount = amount;
         this.description = description;
-        if (categories[0] != null) {
-            this.categories.addAll(Arrays.asList(categories));
-        }
+        this.categories.addAll(Arrays.asList(categories));
         this.date = date;
 
     }
 
     /**
-     * Constructor that allows categories to be entered as a @code{@literal Set<Category>}
+     * Constructor that allows categories to be entered as a @code{@literal List<Category>}
      */
     public Transaction(LocalDate date, Amount amount, Direction direction, Description description,
                        Set<Category> categories) {
@@ -49,7 +48,7 @@ public class Transaction {
         this.direction = direction;
         this.amount = amount;
         this.description = description;
-        this.categories = categories;
+        this.categories.addAll(categories);
         this.date = date;
     }
 
@@ -69,7 +68,7 @@ public class Transaction {
         return categories;
     }
 
-    public LocalDate getDate() {
+    public LocalDate getLocalDate() {
         return date;
     }
 
@@ -87,7 +86,7 @@ public class Transaction {
         }
 
         Transaction otherTransaction = (Transaction) other;
-        return otherTransaction.getDate().equals(getDate())
+        return otherTransaction.getLocalDate().equals(getLocalDate())
                 && otherTransaction.amount.equals(amount)
                 && otherTransaction.direction.equals(direction)
                 && otherTransaction.description.equals(description)
@@ -107,7 +106,7 @@ public class Transaction {
                 .append(" ")
                 .append(direction.toString())
                 .append(" on ")
-                .append(getDate())
+                .append(getLocalDate().format(getDateFormatter()))
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Categories: ");

@@ -46,7 +46,6 @@ public class TransactionCard extends UiPart<Region> {
         description.setText(transaction.getDescription().toString());
         amount.setText(transaction.getAmount().toString());
         direction.setText(transaction.getDirection().toString());
-        System.out.println(transaction.toString());
         List<Category> toSort = new ArrayList<>();
         for (Category category : transaction.getCategories()) {
             toSort.add(category);
@@ -55,7 +54,7 @@ public class TransactionCard extends UiPart<Region> {
         for (Category category : toSort) {
             categories.getChildren().add(new Label(category.getCategory()));
         }
-        date.setText(transaction.getDate().toString());
+        date.setText(transaction.getLocalDate().toString());
     }
 
     @Override

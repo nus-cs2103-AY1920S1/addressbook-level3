@@ -2,6 +2,10 @@ package budgetbuddy.storage.accounts;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
@@ -9,6 +13,7 @@ import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.TransactionList;
+import budgetbuddy.storage.transactions.JsonAdaptedTransaction;
 
 
 /**
@@ -20,20 +25,20 @@ public class JsonAdaptedAccount {
 
     private final String name;
     private final String description;
-    private final String transactionList;
     private final String balance;
+    private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedAccount} with the given account details.
      */
     public JsonAdaptedAccount(@JsonProperty("name") String name,
                            @JsonProperty("description") String description,
-                           @JsonProperty("transactionList") String transactionList,
+                           @JsonProperty("transactions") List<JsonAdaptedTransaction> transactionList,
                               @JsonProperty("balance") String balance) {
         requireAllNonNull(name, description, transactionList);
         this.name = name;
         this.description = description;
-        this.transactionList = transactionList;
+        this.transactions.addAll(transactionList);
         this.balance = balance;
     }
 
@@ -44,8 +49,8 @@ public class JsonAdaptedAccount {
     public JsonAdaptedAccount(Account source) {
         name = source.getName().toString();
         description = source.getDescription().toString();
-        // TODO !!!
-        transactionList = source.getTransactionList().toString();
+        transactions.addAll(source.getTransactionList().asUnmodifiableObservableList().stream()
+                .map(JsonAdaptedTransaction::new).collect(Collectors.toList()));
         balance = String.valueOf(source.getBalance());
     }
 
@@ -54,14 +59,15 @@ public class JsonAdaptedAccount {
      * @throws IllegalValueException If any data constraints were violated in the adapted account.
      */
     public Account toModelType() throws IllegalValueException {
-        return new Account(checkName(), checkDescription(), checkTransactionList(), checkBalance());
+        return new Account(getValidatedName(), getValidatedDescription(),
+                getValidatedTransactionList(), getValidatedBalance());
     }
 
     /**
      * Checks that adapted name can be converted into model's {@code Name} object.
      * @throws IllegalValueException If adapted object cannot be converted.
      */
-    private Name checkName() throws IllegalValueException {
+    private Name getValidatedName() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -76,7 +82,7 @@ public class JsonAdaptedAccount {
      * Checks that adapted description can be converted into model's {@code Description} object.
      * @throws IllegalValueException If adapted object cannot be converted.
      */
-    private Description checkDescription() throws IllegalValueException {
+    private Description getValidatedDescription() throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
@@ -91,23 +97,19 @@ public class JsonAdaptedAccount {
      * Checks that adapted transactionList can be converted into model's {@code transactionList} object.
      * @throws IllegalValueException If adapted object cannot be converted.
      */
-    private TransactionList checkTransactionList() throws IllegalValueException {
-        if (transactionList == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TransactionList.class.getSimpleName()));
+    private TransactionList getValidatedTransactionList() throws IllegalValueException {
+        TransactionList transactionList = new TransactionList();
+        for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
+            transactionList.add(jsonAdaptedTransaction.toModelType());
         }
-        if (!Description.isValidDescription(transactionList)) {
-            throw new IllegalValueException(TransactionList.MESSAGE_CONSTRAINTS);
-        }
-        // TODO Deserialise transactions...
-        return new TransactionList();
+        return transactionList;
     }
 
     /**
      * Checks that adapted balance can be converted into model's {@code balance}
      * @throws IllegalValueException If adapted object cannot be converted.
      */
-    private long checkBalance() throws IllegalValueException {
+    private long getValidatedBalance() throws IllegalValueException {
         try {
             return Long.parseLong(balance);
         } catch (NumberFormatException e) {

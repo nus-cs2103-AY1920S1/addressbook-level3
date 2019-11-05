@@ -197,7 +197,7 @@ public class RuleEngine {
             }
             break;
         case DATE:
-            return txn.getDate();
+            return txn.getLocalDate();
         default:
             // impossible
             assert false : "Unhandled attribute";

@@ -23,10 +23,10 @@ public enum Direction {
     }
 
     /**
-     * Returns true if a given string corresponds to a Direction value.
+     * Returns true if a given string is a valid Direction value.
      * @param toTest The string to test.
      */
-    public static boolean contains(String toTest) {
+    public static boolean isValidDirection(String toTest) {
         return Arrays.stream(Direction.values())
                 .map(Direction::toString)
                 .anyMatch(directionStr -> directionStr.equals(toTest));

@@ -34,7 +34,7 @@ public class AppendDescriptionExpression extends PerformableExpression {
             Description updatedDesc = CommandParserUtil.parseDescription(toEdit.getDescription().toString()
                     + value.toString());
 
-            Transaction updatedTransaction = new Transaction(toEdit.getDate(), toEdit.getAmount(),
+            Transaction updatedTransaction = new Transaction(toEdit.getLocalDate(), toEdit.getAmount(),
                     toEdit.getDirection(), updatedDesc, toEdit.getCategories());
 
             account.updateTransaction(txnIndex, updatedTransaction);

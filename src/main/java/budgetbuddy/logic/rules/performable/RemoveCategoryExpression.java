@@ -42,7 +42,7 @@ public class RemoveCategoryExpression extends PerformableExpression {
             }
 
             categories.remove(categoryToRemove);
-            Transaction updatedTransaction = new Transaction(toEdit.getDate(), toEdit.getAmount(),
+            Transaction updatedTransaction = new Transaction(toEdit.getLocalDate(), toEdit.getAmount(),
                     toEdit.getDirection(), toEdit.getDescription(), categories);
 
             account.updateTransaction(txnIndex, updatedTransaction);

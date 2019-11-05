@@ -30,12 +30,12 @@ public class TransactionMatchesConditionsPredicate implements Predicate<Transact
             }
         }
         if (fromOptional.isPresent()) {
-            if (!transaction.getDate().isAfter(fromOptional.get())) {
+            if (!transaction.getLocalDate().isAfter(fromOptional.get())) {
                 return false;
             }
         }
         if (untilOptional.isPresent()) {
-            if (!transaction.getDate().isBefore(fromOptional.get())) {
+            if (!transaction.getLocalDate().isBefore(fromOptional.get())) {
                 return false;
             }
         }

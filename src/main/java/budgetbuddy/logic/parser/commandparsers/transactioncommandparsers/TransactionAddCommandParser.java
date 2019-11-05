@@ -66,9 +66,9 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
                 : null;
 
         List<String> categoriesList = argMultiMap.getAllValues(PREFIX_CATEGORY);
-        Set<Category> categoriesSet = new HashSet<>();
+        Set<Category> categoryList = new HashSet<>();
         for (String c : categoriesList) {
-            categoriesSet.add(CommandParserUtil.parseCategory(c));
+            categoryList.add(CommandParserUtil.parseCategory(c));
         }
 
         /*
@@ -79,7 +79,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
                 ? CommandParserUtil.parseDate(optionalDate.get())
                 : LocalDate.now();
 
-        Transaction transaction = new Transaction(date, amount, direction, description, categoriesSet);
+        Transaction transaction = new Transaction(date, amount, direction, description, categoryList);
 
         return new TransactionAddCommand(transaction, accountName);
     }
