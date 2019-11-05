@@ -204,7 +204,7 @@ public class SampleDataUtil {
                         new Price("$1200"),
                         Status.CANCELLED,
                         Optional.of(sampleSchedule3()), getTagSet("New")),
-                new Order(UUID.randomUUID(),
+            new Order(UUID.randomUUID(),
                         new Customer(new CustomerName("Tao Nan"), new ContactNumber("12345678"),
                                 new Email("TaoNan@example.com"), getTagSet("bigCustomer")),
                         new Phone(new IdentityNumber("352039475644270"),
@@ -213,8 +213,8 @@ public class SampleDataUtil {
                                 getTagSet("New")),
                         new Price("$1911.32"),
                         Status.COMPLETED,
-                        Optional.of(sampleSchedule4(01,23)), getTagSet("New")),
-                new Order(UUID.randomUUID(),
+                        Optional.of(sampleSchedule4(01, 23)), getTagSet("New")),
+            new Order(UUID.randomUUID(),
                         new Customer(new CustomerName("Tao tan"), new ContactNumber("01234323"),
                                 new Email("Taotan@example.com"), getTagSet("smallCustomer")),
                         new Phone(new IdentityNumber("182043475644270"),
@@ -223,8 +223,8 @@ public class SampleDataUtil {
                                 getTagSet("New")),
                         new Price("$2900.32"),
                         Status.COMPLETED,
-                        Optional.of(sampleSchedule4(04,15)), getTagSet("New")),
-
+                        Optional.of(sampleSchedule4(04,
+                                15)), getTagSet("New"))
         };
     }
 
