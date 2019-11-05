@@ -47,33 +47,13 @@
                         </padding>
                     </StackPane>
 
-                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-withx-border" VBox.vgrow="ALWAYS" spacing="5">
+                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="5">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
                         <StackPane fx:id="expenseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                         <StackPane fx:id="IncomeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
-
-                    <!--<HBox fx:id="expenseAndIncomeListPlaceHolder" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                        <padding>
-                            <Insets bottom="10" left="10" right="10" top="10" />
-                        </padding>
-
-                        <VBox fx:id="expenseList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                            <padding>
-                                <Insets bottom="10" left="10" right="10" top="10" />
-                            </padding>
-                            <StackPane fx:id="expenseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                        </VBox>
-
-                        <VBox fx:id="incomeList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                            <padding>
-                                <Insets bottom="10" left="10" right="10" top="10" />
-                            </padding>
-                            <StackPane fx:id="incomeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                        </VBox>
-                    </HBox>-->
 
                     <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                         <padding>

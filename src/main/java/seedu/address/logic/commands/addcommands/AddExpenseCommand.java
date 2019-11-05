@@ -20,10 +20,12 @@ import seedu.address.model.entry.Expense;
 public class AddExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "addExpense";
+    public static final String COMMAND_WORD_SHORT = "addExp";
 
     public static final String MESSAGE_CATEGORY = "Call the command listCategories for the list of Categories.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense entry to the finance tracker. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " / " + COMMAND_WORD_SHORT
+            + " : Adds an expense entry to the finance tracker. "
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_DESC + "DESCRIPTION "

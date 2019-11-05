@@ -132,6 +132,8 @@ public class GuiltTripParser {
             return new AddBudgetCommandParser().parse(arguments);
 
         case AddExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case AddExpenseCommand.COMMAND_WORD_SHORT:
             return new AddExpenseCommandParser().parse(arguments);
 
         case AddCategoryCommand.COMMAND_WORD:
@@ -147,6 +149,8 @@ public class GuiltTripParser {
             return new EditCategoryCommandParser().parse(arguments);
 
         case EditExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case EditExpenseCommand.COMMAND_WORD_SHORT:
             return new EditExpenseCommandParser().parse(arguments);
 
         case EditIncomeCommand.COMMAND_WORD:
@@ -158,10 +162,9 @@ public class GuiltTripParser {
         case EditBudgetCommand.COMMAND_WORD:
             return new EditBudgetCommandParser().parse(arguments);
 
-        /*case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);*/
-
         case DeleteExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case DeleteExpenseCommand.COMMAND_WORD_SHORT:
             return new DeleteExpenseCommandParser().parse(arguments);
 
         case DeleteIncomeCommand.COMMAND_WORD:

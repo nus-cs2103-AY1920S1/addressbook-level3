@@ -36,8 +36,10 @@ import seedu.address.model.tag.Tag;
 public class EditExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "editExpense";
+    public static final String COMMAND_WORD_SHORT = "editExp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Expense identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " / " + COMMAND_WORD_SHORT
+            + " : Edits the details of the Expense identified "
             + "by the index number used in the displayed Expenses list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
