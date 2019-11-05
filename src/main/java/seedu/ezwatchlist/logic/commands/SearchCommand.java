@@ -20,6 +20,7 @@ import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.TvShow;
+import seedu.ezwatchlist.model.show.Type;
 
 /**
  * Finds and lists all shows in watchlist whose name contains any of the argument keywords.
@@ -34,18 +35,22 @@ public class SearchCommand extends Command {
             + "- by genre: search g/GENRE… [n/SHOW_NAME]… [a/ACTOR_NAME]… [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]\n"
             + "- by actor (from watchlist): search a/ACTOR_NAME…\u200B [n/SHOW_NAME]… [g/GENRE]… [t/TYPE] "
             + "[w/IS_WATCH]\n";
+    private static final String MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW = "%1$d shows listed!"
+            + "Offline: Search from watchlist and watched list only.\n";
     private static final String MESSAGE_INVALID_IS_INTERNAL_COMMAND =
             "Invalid input. i/[OPTION] where OPTION is either true/yes or false/no";
     private static final String MESSAGE_INVALID_TYPE_COMMAND =
-            "Invalid input. t/[TYPE] where TYPE is either movie or tv";
+            "Invalid type. t/[TYPE] where TYPE is either movie or tv";
+    private static final String MESSAGE_INVALID_GENRE_COMMAND = "Invalid input. Ensure that genre is not empty.\n"
+            + "search g/GENRE… [n/SHOW_NAME]… [a/ACTOR_NAME]… [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]";
 
     private static final String EMPTY_STRING = "";
     private static final String INPUT_TRUE = "true";
     private static final String INPUT_YES = "yes";
     private static final String INPUT_FALSE = "false";
     private static final String INPUT_NO = "no";
-    private static final String INPUT_MOVIE = "movie";
-    private static final String INPUT_TV = "tv";
+    // private static final String INPUT_MOVIE = "movie";
+    // private static final String INPUT_TV = "tv";
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
     private static final String KEY_ACTOR = "actor";
@@ -67,7 +72,7 @@ public class SearchCommand extends Command {
         nameList = searchShowsHashMap.get(KEY_NAME);
         typeList = searchShowsHashMap.get(KEY_TYPE);
         actorList = searchShowsHashMap.get(KEY_ACTOR); // unable to search online
-        genreList = searchShowsHashMap.get(KEY_GENRE); // unable to search at all
+        genreList = searchShowsHashMap.get(KEY_GENRE); // unable to search for shows online
         isWatchedList = searchShowsHashMap.get(KEY_IS_WATCHED);
         isInternalList = searchShowsHashMap.get(KEY_IS_INTERNAL);
         try {
@@ -110,7 +115,11 @@ public class SearchCommand extends Command {
             return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW,
                     model.getSearchResultList().size()));
         } catch (OnlineConnectionException e) {
-            return null;
+            for (String showName : nameList) {
+                addShowFromWatchListIfSameNameAs(showName, model);
+            }
+            return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW,
+                    model.getSearchResultList().size()));
         }
     }
 
@@ -121,22 +130,29 @@ public class SearchCommand extends Command {
      * @throws OnlineConnectionException If online exception occurred.
      */
     private void searchByName(Model model) throws CommandException, OnlineConnectionException {
-        if (requestedSearchFromInternal()) {
+        try {
+            if (requestedSearchFromInternal()) {
+                for (String showName : nameList) {
+                    addShowFromWatchListIfSameNameAs(showName, model);
+                }
+            } else if (requestedSearchFromOnline()) {
+                for (String showName : nameList) {
+                    addShowFromOnlineIfSameNameAs(showName);
+                }
+            } else if (requestedIsInternal()) {
+                throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
+            } else { // there's no restriction on where to search from
+                for (String showName : nameList) {
+                    addShowFromWatchListIfSameNameAs(showName, model);
+                    addShowFromOnlineIfSameNameAs(showName);
+                }
+            }
+        } catch (OnlineConnectionException e) {
             for (String showName : nameList) {
                 addShowFromWatchListIfSameNameAs(showName, model);
-            }
-        } else if (requestedSearchFromOnline()) {
-            for (String showName : nameList) {
-                addShowFromOnlineIfSameNameAs(showName);
-            }
-        } else if (requestedIsInternal()) {
-            throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
-        } else { // there's no restriction on where to search from
-            for (String showName : nameList) {
-                addShowFromWatchListIfSameNameAs(showName, model);
-                addShowFromOnlineIfSameNameAs(showName);
             }
         }
+
     }
 
     /**
@@ -174,7 +190,11 @@ public class SearchCommand extends Command {
         Set<Genre> genreSet = new HashSet<Genre>();
         for (String genreName : genreList) {
             Genre genre = new Genre(genreName);
-            genreSet.add(genre);
+            if (!genreName.equals("")) {
+                genreSet.add(genre);
+            } else if (genreName.equals("")) {
+                throw new CommandException(MESSAGE_INVALID_GENRE_COMMAND);
+            }
         }
 
         if (requestedSearchFromInternal()) {
@@ -270,11 +290,15 @@ public class SearchCommand extends Command {
      * @param showName Name of the show to be searched.
      * @throws OnlineConnectionException If online exception occurred.
      */
-    private void addOnlineMovieSearchedByNameToResult(String showName) throws OnlineConnectionException {
-        List<Movie> movies = onlineSearch.getMovieByName(showName);
-        for (Movie movie : movies) {
-            searchResult.add(movie);
+    private void addOnlineMovieSearchedByNameToResult(String showName) {
+        try {
+            List<Movie> movies = onlineSearch.getMovieByName(showName);
+            for (Movie movie : movies) {
+                searchResult.add(movie);
+            }
+        } catch (OnlineConnectionException e) {
         }
+
     }
 
     /**
@@ -339,7 +363,7 @@ public class SearchCommand extends Command {
      * @return True if user requests to search for movies only.
      */
     private boolean requestedSearchForMovie() {
-        return requestedType() && (typeList.get(0).equals(INPUT_MOVIE));
+        return requestedType() && (typeList.get(0).equals(Type.MOVIE.getType()));
     }
 
     /**
@@ -347,7 +371,7 @@ public class SearchCommand extends Command {
      * @return True if user requests to search for tv series only.
      */
     private boolean requestedSearchForTv() {
-        return requestedType() && (typeList.get(0).equals(INPUT_TV));
+        return requestedType() && (typeList.get(0).equals(Type.TV_SHOW.getType()));
     }
 
     /**
