@@ -1,5 +1,8 @@
 package seedu.address.model.member;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -9,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public class MemberId {
     public static final String MESSAGE_CONSTRAINTS =
-            "Invalid member ID, please enter a alphanumeric code";
-    public static final String VALIDATION_REGEX = "[\\p{Alpha}]*";
+            "Invalid member ID, please enter an alphanumeric code";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
 
     private String displayId;
 
@@ -22,6 +25,8 @@ public class MemberId {
      */
     @JsonCreator
     public MemberId(String displayId) {
+        requireNonNull(displayId);
+        checkArgument(isValidId(displayId), MESSAGE_CONSTRAINTS);
         this.displayId = displayId;
     }
 
@@ -36,13 +41,6 @@ public class MemberId {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidId(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
-    /**
-     * Returns true if a given string is a valid name.
-     */
-    public static boolean isValidUrl(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

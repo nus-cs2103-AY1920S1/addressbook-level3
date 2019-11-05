@@ -39,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * **`add-member mn/Adam Smith mi/AS`** : Adds a member with name "Adam Smith" to the project.
 * **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
-* **`assign ti/1 mi/AS`** : Assigns the project member "Adam Smith" (With member id "AS"), to the task "Finish up milestone setting".
+* **`assign ti/1 mi/JD`** : Assigns the project member "John Doe" (with member id "JD"), to the task "Finish up milestone setting".
 * **`doing-task ti/1`** : Changes status of task "Finish up milestone setting"  to `doing`:
 
 [[Features]]

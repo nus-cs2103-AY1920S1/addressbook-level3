@@ -12,7 +12,7 @@ import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.member.MemberName;
 
 /**
- * Jackson-friendly version of {@link Task}.
+ * Jackson-friendly version of {@link Calendar}.
  */
 class JsonAdaptedCalendar {
 

@@ -144,8 +144,8 @@ public class ProjectDashboardParser {
         // STATS
         case GetStatisticsCommand.COMMAND_WORD_MEMBER:
 
-            case GetStatisticsCommand.COMMAND_WORD_TASK:
-                return new GetStatisticsCommand();
+        case GetStatisticsCommand.COMMAND_WORD_TASK:
+            return new GetStatisticsCommand();
 
             // SETTINGS
         case ThemeCommand.COMMAND_WORD:
