@@ -724,13 +724,13 @@ In this implementation of the application, the list of students is rendered on t
 ===== Command Syntax
 * ** Current Implementation: **
 ** Current implementation of the commands follows the command word syntax e.g student followed by the arguments necessary
-to execute the add, edit, delete, list and slideshow command.
+to execute the add, edit, delete and list commands.
 
 * ** Alternatives Considered: **
 ** Usage of a forward slash `/` and then the command word. Although it makes it clearer that the input is a command, we
 realised it is redundant as the only input will be commands and will make it more tedious for the user.
 
-===== Command Length
+===== Aspect: Command Length
 
 * ** Current Implementation: **
 ** Commands are currently shortened as much as possible through the use of initials without much loss in clarity.
@@ -785,7 +785,7 @@ and a new `CommandResult` will be returned with the generated success message.
 
 ===== Design Considerations
 
-===== Command Syntax
+===== Aspect: Command Syntax
 * ** Current Implementation: **
 ** Current implementation of the commands follows the command word syntax e.g tag followed by the arguments necessary
 to execute the tag command.
@@ -794,18 +794,17 @@ to execute the tag command.
 ** Usage of a forward slash `/` and then the command word. Although it makes it clearer that the input is a command, we
 realised it is redundant as the only input will be commands and will make it more tedious for the user.
 
-===== Command Clarity
+===== Aspect: Command Clarity
 * ** Current Implementation: **
 ** "tag index/1 tag/Chemistry tag/Physics"
 ** We currently have a tag/ before each tag that is to be added to the student at the specified index number. Although
 this might be slightly lengthier, it is clearer that we are adding two separate tags as opposed to one tag with a space in
 between.
 
-
 * ** Alternatives Considered: **
 **  "tag index/1 tag/Chemistry Physics"
-** Using just one tag/ before inserting all the tags to be added to the particular student may result in a wrong tag with more
-than one word being added.
+** Using just one tag/ before inserting all the tags to be added to the particular student may result in a misconception
+that a tag with multiple words can be added.
 
 === Mark feature
 The mark feature is included in nJoyAssistant to help teachers identify the students who are in dire need of
@@ -866,7 +865,7 @@ NOTE: Index cannot be out of bounds of the student list, and cannot attempt to u
 and a new `CommandResult` will be returned with the generated success message.
 ==== Design Considerations
 
-===== Command Syntax
+===== Aspect: Command Syntax
 * ** Current Implementation: **
 ** Current implementation of the commands follows the command word syntax e.g tag followed by the arguments necessary
 to execute the tag command.
@@ -875,6 +874,14 @@ to execute the tag command.
 ** Usage of a forward slash `/` and then the command word. Although it makes it clearer that the input is a command, we
 realised it is redundant as the only input will be commands and will make it more tedious for the user.
 
+===== Aspect: Command Complexity
+* ** Current Implementation: **
+** Current implementation of the commands only allows users to mark/unmark one student at a time, so as to reduce the complexity
+of the command.
+
+* ** Alternatives Considered: **
+** Allow users to mark multiple students at the same time, but this would result in a more complex command, making it more prone to
+mistakes.
 
 === Group feature
 
@@ -970,7 +977,7 @@ If the queried group has groupId 'G03', the name of the generated word document 
 
 ==== Design Considerations
 
-===== Command Syntax
+===== Aspect: Command Syntax
 * ** Current Implementation: **
 ** Current implementation of the commands follows the command word syntax e.g group followed by the minimum arguments necessary
 to execute the tag command.
@@ -989,6 +996,16 @@ Although this may be unfamiliar to the user initially, it should be easy to pick
 * ** Alternatives Considered: **
 ** Using more descriptive terms as arguments such that each argument will be specified clearly. However, this decreases
 the user experience as the command will be too long.
+
+===== Aspect: Command Complexity
+
+* ** Current Implementation: **
+** Only allow users add one student to a group at a time after the group has been initialized.
+This is to make the commands as short and simple as possible to lessen the chance
+of a mistake.
+
+* ** Alternatives Considered: **
+** Allow users to add multiple students to already initialized groups at the same time, but results in a longer and more complex command.
 
 
 .Class Diagram depicting relationships between Student/Group/Mark and Tag features.
