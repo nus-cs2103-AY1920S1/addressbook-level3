@@ -15,8 +15,8 @@ Seller Manager Lite is a desktop application used for managing a business operat
 
 * *Major enhancement*: added *ability to generate statistics*
 ** What it does: allows the user to query total `Revenue`, `Cost` and `profit` on all past orders. Contains 2 types of input mode:
- *** No date input: This mode is to give users a quick way of obtaining the numbers
- *** Date input: This mode is to produce a monthly chart view of the statistics
+*** No date input: This mode is to give users a quick way of obtaining the numbers
+*** Date input: This mode is to produce a monthly chart view of the statistics
 
 ** Justification: Being business owners, this feature should be very essential for the owners to be able to track their statistics and numbers while running their day to day operations. This allows them to more easily plan and monitor their business while using these numbers.
 ** Highlights: This feature cut across several layers in the entire project e.g logic, UI, model and hence designing it in such a way that it was able to work with the existing Model View Controller architecture was a very important albeit tedious step. It required an in-depth analysis of design alternatives.
@@ -69,7 +69,7 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/136[#136], https://github.co
 
 ** Community:
 
-*** Participated in PRs review(with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/62[#62], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/63[#63], https://github.com[#42], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/66[#66] , https://github.com/AY1920S1-CS2103T-T09-4/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/141[#141])
+*** Participated in PRs review(with non-trivial review comments): ( https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/62[#62], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/63[#63], https://github.com[#42], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/66[#66] , https://github.com/AY1920S1-CS2103T-T09-4/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/141[#141])
 
 *** Contributed to forum discussions and shared my solution on enabling GUI tests on Travis CI: https://github.com/nus-cs2103-AY1920S1/forum/issues/141[#141]
 
@@ -82,7 +82,7 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/136[#136], https://github.co
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=statisticsCommand]
+include::../UserGuide.adoc[tag=statisticsCommandUG]
 
 //include::../UserGuide.adoc[tag=delete]
 
@@ -101,10 +101,3 @@ include::../UserGuide.adoc[tag=statisticsCommand]
 
 //include::../DeveloperGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=statisticsCommand]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
