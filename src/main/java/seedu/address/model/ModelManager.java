@@ -30,7 +30,7 @@ public class ModelManager implements Model {
     private FilteredList<Student> filteredStudents;
     private FilteredList<Assignment> filteredAssignments;
     private FilteredList<Lesson> filteredLessons;
-    private final FilteredList<UniqueLessonList> filteredLessonLists;
+    private FilteredList<UniqueLessonList> filteredLessonLists;
 
     /**
      * Initializes a ModelManager with the given notebook and userPrefs.
@@ -98,8 +98,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyClassroom getCurrentClassroom() {
+    public Classroom getCurrentClassroom() {
         return notebook.getCurrentClassroom();
+    }
+
+    @Override
+    public Classroom getClassroom(Classroom classroom) {
+        return notebook.getClassroom(classroom);
     }
 
     //=========== Notebook ================================================================================
@@ -107,6 +112,10 @@ public class ModelManager implements Model {
     @Override
     public void setNotebook(ReadOnlyNotebook notebook) {
         this.notebook.resetData(notebook);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+        filteredLessons = new FilteredList<>(this.notebook.getLessonList());
+        filteredLessonLists = new FilteredList<>(this.notebook.getLessonWeekList());
     }
 
     @Override

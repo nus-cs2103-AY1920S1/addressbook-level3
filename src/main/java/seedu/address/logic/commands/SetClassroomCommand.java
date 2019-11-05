@@ -36,7 +36,8 @@ public class SetClassroomCommand extends Command {
         requireNonNull(model);
 
         if (model.hasClassroom(toSet)) {
-            model.setCurrentClassroom(toSet);
+            Classroom newCurrentClassroom = model.getClassroom(toSet);
+            model.setCurrentClassroom(newCurrentClassroom);
         } else {
             throw new CommandException(MESSAGE_CLASSROOM_NOT_FOUND);
         }

@@ -61,7 +61,6 @@ public class SampleDataUtil {
 
     public static ReadOnlyNotebook getSampleNotebook() {
         Notebook sampleNotebook = new Notebook();
-        //sampleNotebook.addClassroom(new Classroom("testing"));
         sampleNotebook.addClassroom(getSampleClassroom());
         return sampleNotebook;
     }

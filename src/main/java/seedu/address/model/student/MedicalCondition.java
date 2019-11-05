@@ -3,6 +3,7 @@ package seedu.address.model.student;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author weikiat97
 /**
  * Represents a MedicalCondition in the classroom.
  * Guarantees: immutable; name is valid as declared in {@link #isValidMedicalCondition(String)}

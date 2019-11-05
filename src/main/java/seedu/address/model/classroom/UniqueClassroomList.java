@@ -3,6 +3,7 @@ package seedu.address.model.classroom;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.classroom.exceptions.ClassroomNotFoundException;
 import seedu.address.model.classroom.exceptions.DuplicateClassroomException;
 
+//@@author weikiat97
 /**
  * A list of classrooms that enforces uniqueness between its elements and does not allow nulls.
  * A classroom is considered unique by comparing using {@code classroom#isSameclassroom(classroom)}. As such, adding
@@ -124,7 +126,14 @@ public class UniqueClassroomList implements Iterable<Classroom> {
         if (!classroomsAreUnique(classrooms)) {
             throw new DuplicateClassroomException();
         }
-        internalList.setAll(classrooms);
+
+        List<Classroom> listToAdd = new ArrayList<>();
+        for (Classroom classroom : classrooms) {
+            Classroom classroomToAdd = new Classroom();
+            classroomToAdd.resetData(classroom);
+            listToAdd.add(classroomToAdd);
+        }
+        internalList.setAll(listToAdd);
     }
 
     public boolean isEmpty() {
