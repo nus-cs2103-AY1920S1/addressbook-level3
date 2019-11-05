@@ -28,10 +28,16 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         DeleteCommand deleteCommand = null;
-
-        if (args.contains(FLAG_PERSON.toString())) {
+        String flag;
+        try {
+            flag = trimmedArgs.substring(0, 2);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        if (flag.equals(FLAG_PERSON.toString())) {
             deleteCommand = parsePerson(trimmedArgs);
-        } else if (args.contains(FLAG_EVENT.toString())) {
+        } else if (flag.equals(FLAG_EVENT.toString())) {
             deleteCommand = parseEvent(trimmedArgs);
         } else {
             throw new ParseException(
