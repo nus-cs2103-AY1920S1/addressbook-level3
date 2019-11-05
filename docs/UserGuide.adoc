@@ -26,8 +26,8 @@ Keep a look out for more cool and exciting features coming soon!
 
 Thank you for checking out TimeBook!
 TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3).
-TimeBook is a scheduling application that aims to help busy NUS undergraduates keep track of the schedules of the user and his or her friends.
-It also can find the common free time and venues among the user and his or her friends.
+TimeBook is a scheduling application that aims to help busy NUS undergraduates keep track of the schedules of you and your friends.
+It also can find the common free time and venues among you and your friends.
 TimeBook will have the following features:
 
 . A graphical user interface (GUI) but most of the interactions with the application would happen using command line interface (CLI).
@@ -207,7 +207,7 @@ The following sections will explain all the commands we have in TimeBook and wha
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addperson n/NAME`, `NAME` is a parameter which can be used as `addperson n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `addperson n/NAME`, `NAME` is a parameter which can be used as `addperson n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
