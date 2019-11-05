@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private SearchWindow searchWindow;
 
     // Independent Ui parts belonging to the mainPanel
     private HomeViewPanel homeViewPanel;
@@ -46,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem searchMenuItem;
 
     @FXML
     private StackPane moduleListPanelPlaceholder;
@@ -72,6 +76,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        searchWindow = new SearchWindow(this);
     }
 
     public Stage getPrimaryStage() {
@@ -80,6 +85,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(searchMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -157,6 +163,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the search window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleSearch() {
+        if (!searchWindow.isShowing()) {
+            searchWindow.show();
+        } else {
+            searchWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -202,7 +220,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.module.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

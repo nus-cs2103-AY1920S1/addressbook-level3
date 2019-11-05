@@ -32,6 +32,9 @@
                     <Menu mnemonicParsing="false" text="Help">
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                     </Menu>
+                    <Menu mnemonicParsing="false" text="Search">
+                        <MenuItem fx:id="searchMenuItem" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
+                    </Menu>
                 </MenuBar>
                 <HBox VBox.vgrow="ALWAYS">
                     <children>
