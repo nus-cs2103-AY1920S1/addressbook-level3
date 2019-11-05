@@ -12,9 +12,9 @@ The Incident Management System is a desktop application used for managing incide
 == Summary of contributions
 
 * *Major Enhancement*: Implemented *Access Control*
-** What it does: Restricts usage of the product to registered users, with additional restrictions depending on user access level.
+** What it does: Restricts usage of the product to registered users, with additional command restrictions depending on user access level.
 ** Justification: This feature improves the product significantly by implementing basic security controls. Since the product is meant to deal with management of physical resources (vehicles) and sensitive information (incident reports), security controls are necessary for accountability and protection against misuse.
-** Highlights: This enhancement affects existing commands and can be easily applied to any commands added in future. It required an in-depth analysis of the product architecture and design alternatives. The implementation too was challenging as it required thorough assessment of loopholes and potential security vulnerabilities.
+** Highlights: This complex enhancement affects existing commands and can be easily applied to any commands added in future. It required an in-depth analysis of the product architecture and design alternatives. The implementation too was challenging as it required thorough assessment of loopholes and potential security vulnerabilities.
 
 * *Minor Enhancement*: Implemented *Account Management*
 ** Summary: Allows users the ability to manage their own account or other accounts if granted privileged access. This feature is necessary for the effective application of access control.
@@ -24,13 +24,15 @@ The Incident Management System is a desktop application used for managing incide
 
 * *Other contributions*:
 
-** Project Management & Team Tasks:
+** Project Management:
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+** Team Tasks:
 *** Implemented the Session API for all developers to access account features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/66[#66]]
 *** Morphed Person Model to deal with new Account Features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/48[#48]]
 *** Refactored Address Book references to Incident Manager [https://github.com/AY1920S1-CS2103-T11-1/main/pull/111[#111]]
-** Tools & Enhancements to existing features:
+** Enhancements to existing features:
 *** Improved the GUI to function in varying screen resolutions [https://github.com/AY1920S1-CS2103-T11-1/main/pull/69[#69]]
+** Tools:
 *** Integrated new Github plugins (Coveralls & Codacy) to the team repo
 
 
@@ -47,8 +49,9 @@ include::../UserGuide.adoc[tag=account]
 
 include::../UserGuide.adoc[tag=AccountDelete]
 
-[NOTE]
-Omitted from this portfolio for page requirement constraints is the `find-a` command from the user guide.
+|===
+|_Omitted from this portfolio for page requirement constraints is the `find-a` command from the user guide._
+|===
 
 == Contributions to the Developer Guide
 
