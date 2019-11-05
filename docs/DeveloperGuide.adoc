@@ -483,7 +483,7 @@ image::TimerDGScreenshot.png[]
 .Screenshot of the automatic `Hints` feature in action.
 image::HintDGScreenshot.png[]
 
-==== Implementation Overview - `Timer`
+==== Implementation Overview
 
 The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch during a `Game`. It also relies on
 using _Functional Interfaces_ as _callbacks_ to periodically notify other components in the system. Using _callbacks_
@@ -518,9 +518,9 @@ and display accordingly on the `UI`.
 The call-backs for each of these events are implemented as nested _Functional Interfaces_
 within the  `GameTimer` interface, which is concretized via the `GameTimerManager`.
 
-==== Flow of Events
+==== Flow of Events - `Hints` Disabled
 
-This section describes the sequential flow of events in the life cycle of a `GameTimer` object.
+This section describes the sequential flow of events in the life cycle of a `GameTimer` object with *no hints*.
 
 .Sequence diagram describing the flow of registering and executing callbacks between the different components
 image::TimerSequenceDiagram1.png[]
@@ -530,8 +530,12 @@ the `Timer` component. Periodically, the `Timer` will notify the `AppManager` to
 the `UI` component. This is to provide better abstraction between the `UI` and `Timer`.
 
 A `GameTimer` instance is created by the `AppManager` for every `Card` of a `Game`.
-The `AppManager` provides information regarding the duration in which the `Timer` should run for, and whether
-to trigger `Hints` at the point when a `GameTimer` instance is created.
+The `AppManager` provides information regarding the duration in which the `Timer` should run for.
+
+==== Flow of Events - `Hints` Enabled
+
+.Activity diagram of the `Timer` component when `Hints` are enabled
+image::TimerActivityDiagramWithHints.png[]
 
 ==== Design Considerations
 
@@ -628,7 +632,7 @@ image::CardDiagram.png[]
 
 A `Card` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. +
 
-`id` : for statistical tracking +
+`id` : for statistical tracking +``
 `word`: answer to the question +
 `meaning`: the question that will appear in the game +
 `tags`: optional tag to classify cards
