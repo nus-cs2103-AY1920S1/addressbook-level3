@@ -1,20 +1,14 @@
 @startuml
-:Main Admin: as Admin
-(Use the application) as (Use)
+start
+:User executes command;
 
-User -> (Start)
-User --> (Use)
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
 
-Admin ---> (Use)
-
-note right of Admin : This is an example.
-
-note right of (Use)
-A note can also
-be on several lines
-end note
-
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use)
+if () then ([command modifies
+EngagementList])
+    :Sort the list with current comparator;
+else ([else])
+endif
+stop
 @enduml

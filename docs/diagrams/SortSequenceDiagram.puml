@@ -17,20 +17,20 @@ end box
 [-> LogicManager : execute("sort priority ascending")
 activate LogicManager
 
-LogicManager -> TypeeParser : parseCommand("sort")
+LogicManager -> TypeeParser : parseCommand(sort)
 activate TypeeParser
 
 create SortCommandParser
-TypeeParser -> SortCommandParser : parse("priority ascending")
+TypeeParser -> SortCommandParser : parse()
 activate SortCommandParser
 
-SortCommandParser -> SortCommandParser : parseOrder() 
+SortCommandParser -> SortCommandParser : parseOrder()
 
+SortCommandParser -> ParserUtil : parseComparator()
 activate ParserUtil
-SortCommandParser -> ParserUtil : parseComparator(order)
 
+ParserUtil -> EngagementComparator : getComparator()
 activate EngagementComparator
-ParserUtil -> EngagementComparator : getComparator(order)
 EngagementComparator -> ParserUtil : PRIORITY_ASCENDING
 deactivate EngagementComparator
 
@@ -46,6 +46,7 @@ deactivate SortCommand
 
 SortCommandParser --> TypeeParser : s
 deactivate SortCommandParser
+SortCommandParser -[hidden]-> TypeeParser : s
 destroy SortCommandParser
 
 TypeeParser --> LogicManager : s
@@ -54,12 +55,16 @@ deactivate TypeeParser
 LogicManager -> SortCommand : execute()
 activate SortCommand
 
-SortCommand -> Model : SortEngagementList()
+SortCommand -> Model : setComparator()
+activate Model
+Model --> SortCommand
+deactivate Model
+
+SortCommand -> Model : updateSortedEngagementList()
 activate Model
 
 Model -> HistoryManager : sort()
 activate HistoryManager
-HistoryManager -> HistoryManager :resetData(ReadOnlyEngagementList)
 HistoryManager --> Model :
 deactivate HistoryManager
 
