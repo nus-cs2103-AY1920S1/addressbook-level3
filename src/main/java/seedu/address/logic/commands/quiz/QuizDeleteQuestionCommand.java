@@ -44,15 +44,22 @@ public class QuizDeleteQuestionCommand extends QuizCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (quizId.equals("") || quizId == null) {
+            throw new CommandException(BLANK_QUIZ_ID);
+        }
+        if (quizQuestionNumber == -1) {
+            throw new CommandException(INVALID_QUESTION_NUMBERS);
+        }
+
         if (!model.checkQuizExists(quizId)) {
-            return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
+            throw new CommandException(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         } else {
             boolean isSuccess = model.deleteQuizQuestion(quizId, quizQuestionNumber);
             if (isSuccess) {
                 QuizBank.setCurrentlyQueriedQuiz(quizId);
                 return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
             } else {
-                return new CommandResult(generateFailureMessage());
+                throw new CommandException(INVALID_QUESTION_INDEX);
             }
         }
     }
@@ -70,7 +77,7 @@ public class QuizDeleteQuestionCommand extends QuizCommand {
      * @return The String representation of a failure message.
      */
     private String generateFailureMessage() {
-        return "You are deleting a question which does not exist! Congratulations!";
+        return "You are deleting a question index which does not exist!";
     }
 
     @Override

@@ -38,8 +38,12 @@ public class QuizListQuestionsAndAnswersCommand extends QuizCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (quizId.equals("") || quizId == null) {
+            throw new CommandException(BLANK_QUIZ_ID);
+        }
+
         if (!model.checkQuizExists(quizId)) {
-            return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
+            throw new CommandException(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         }
         QuizBank.setCurrentlyQueriedQuiz(quizId);
         return new CommandResult("Showing questions and answers for " + quizId + ".",
@@ -54,6 +58,23 @@ public class QuizListQuestionsAndAnswersCommand extends QuizCommand {
     private String generateSuccessMessage(String message) {
         return "These are the questions & answers for "
                     + message;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof QuizListQuestionsAndAnswersCommand)) {
+            return false;
+        }
+
+        // state check
+        QuizListQuestionsAndAnswersCommand e = (QuizListQuestionsAndAnswersCommand) other;
+        return this.quizId.equals(e.quizId);
     }
 
 }
