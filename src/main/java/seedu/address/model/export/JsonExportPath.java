@@ -104,20 +104,6 @@ public class JsonExportPath extends ExportPath {
         );
     }
 
-    /**
-     * Converts this JsonExportPath into a String representing its absolute path
-     *
-     * @return String representing the absolute path of this JsonExportPath
-     */
-    @Override
-    public String toAbsolutePathString() {
-        return this
-                .getPath()
-                .toAbsolutePath()
-                .normalize()
-                .toString();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

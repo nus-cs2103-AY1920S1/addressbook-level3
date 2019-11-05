@@ -95,20 +95,6 @@ public class DocumentPath extends ExportPath {
         }
     }
 
-    /**
-     * Converts this DocumentPath into a String representing its absolute path
-     *
-     * @return String representing the absolute path of this DocumentPath
-     */
-    @Override
-    public String toAbsolutePathString() {
-        return this
-                .getPath()
-                .toAbsolutePath()
-                .normalize()
-                .toString();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

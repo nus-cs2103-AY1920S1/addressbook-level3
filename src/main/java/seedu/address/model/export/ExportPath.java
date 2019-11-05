@@ -21,7 +21,6 @@ import seedu.address.model.flashcard.FlashCard;
  */
 public abstract class ExportPath {
     public abstract Path getPath();
-    public abstract String toAbsolutePathString();
     public abstract void export(List<FlashCard> list) throws IOException;
     public abstract Optional<List<FlashCard>> importFrom() throws DataConversionException, UnsupportedOperationException;
 
@@ -38,5 +37,13 @@ public abstract class ExportPath {
                 )
                 .getParent()
         );
+    }
+
+    public String toAbsolutePathString() {
+        return this
+                .getPath()
+                .toAbsolutePath()
+                .normalize()
+                .toString();
     }
 }
