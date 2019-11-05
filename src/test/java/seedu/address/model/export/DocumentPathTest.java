@@ -20,6 +20,7 @@ public class DocumentPathTest {
             "cheatsheetdotdocx",
             "cheat|sheet.docx",
             "*cheatsheet*.docx",
+            "cheatsheet.json",
             ""
         };
 
