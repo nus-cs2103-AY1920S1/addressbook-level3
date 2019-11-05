@@ -181,11 +181,10 @@ The series of steps below explain the process and current implementation of the 
 * If the incorrect parameters are entered, an error message will be sent as feedback to the user in the `CommandResult`
 
 *Step 4 :* If the correct parameters are entered, the appropriate type of help is given.
+
 * If the user chooses `Type` brief, a brief description will be returned as feedback to the user in the `CommandResult`
-* If the user chooses `Type` guide, the `HelpCommand` class accesses the `WebLinks` class to get the String value of the respective command.
-It then utilises your default web browser to open up the FinSec User Guide and centers on the requested command.
-* If the user chooses `Type` api, the `HelpCommand` class accesses the `ApiLinks` class to get the String value of the respective command.
-It then generates an API.html file of the requested command on the local system and accesses it.
+* If the user chooses `Type` guide, the `HelpCommand` class accesses the `WebLinks` class to get the String value of the respective command. It then utilises your default web browser to open up the FinSec User Guide and centers on the requested command.
+* If the user chooses `Type` api, the `HelpCommand` class accesses the `ApiLinks` class to get the String value of the respective command. It then generates an API.html file of the requested command on the local system and accesses it.
 
 *Step 5 :* The `help` command resolves
 
