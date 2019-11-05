@@ -17,9 +17,6 @@ end box
 
 box Storage STORAGE_COLOR_T1
 participant ":Storage" as Storage STORAGE_COLOR
-participant ":JsonCustomSortStorage" as JsonCustomSortStorage STORAGE_COLOR
-participant ":JsonSerializableCustomSort" as JsonSerializableCustomSort STORAGE_COLOR
-participant ":JsonAdaptedCustomSort" as JsonAdaptedCustomSort STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("save PRICE ASC")
@@ -93,26 +90,6 @@ deactivate LogicManager
 
 LogicManager -> Storage : saveFields(model.getCustomSorter())
 activate Storage
-
-Storage -> JsonCustomSortStorage : saveFields(CustomSorter sorter)
-activate JsonCustomSortStorage
-
-create JsonSerializableCustomSort
-JsonCustomSortStorage -> JsonSerializableCustomSort
-activate JsonSerializableCustomSort
-
-create JsonAdaptedCustomSort
-JsonSerializableCustomSort -> JsonAdaptedCustomSort
-activate JsonAdaptedCustomSort
-
-JsonAdaptedCustomSort --> JsonSerializableCustomSort
-deactivate JsonAdaptedCustomSort
-
-JsonSerializableCustomSort --> JsonCustomSortStorage
-deactivate JsonSerializableCustomSort
-
-JsonCustomSortStorage --> Storage
-deactivate JsonCustomSortStorage
 
 Storage --> LogicManager
 deactivate Storage

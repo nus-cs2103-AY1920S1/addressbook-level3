@@ -16,10 +16,15 @@ public class CustomSortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "You have successfully sorted the food items! \n"
             + "Current CustomSorter: %s";
+    public static final String AUTO_SORT_WARNING = "Autosort is turned on! \n"
+            + "This command will not work unless you turn autosort off.";
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        if (model.getAutoSortFlag() == true) {
+            return new CommandResult(AUTO_SORT_WARNING);
+        }
         ObservableList<Food> foodList = model.getFilteredFoodList();
         CustomSorter sorter = model.getCustomSorter();
         SortedList<Food> sortedList = foodList.sorted(sorter.getComparator());

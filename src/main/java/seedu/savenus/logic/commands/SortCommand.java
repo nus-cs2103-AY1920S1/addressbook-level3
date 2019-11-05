@@ -21,6 +21,8 @@ public class SortCommand extends Command {
     public static final String MESSAGE_SUCCESS = "You have successfully sorted the food items!";
     public static final String NO_FIELDS_ERROR = "You have keyed in zero fields! "
         + "You need to key in at least one field.";
+    public static final String AUTO_SORT_WARNING = "Autosort is turned on! \n"
+            + "This command will not work unless you turn autosort off.";
 
     private List<String> fields;
 
@@ -39,6 +41,9 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.getAutoSortFlag() == true) {
+            return new CommandResult(AUTO_SORT_WARNING);
+        }
         ObservableList<Food> foodList = model.getFilteredFoodList();
         SortedList<Food> sortedList = foodList.sorted(new FoodComparator(fields));
         model.setFoods(sortedList);
