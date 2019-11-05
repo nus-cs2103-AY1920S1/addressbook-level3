@@ -100,6 +100,29 @@ public class ParserManager {
         this.mode = ModeEnum.HOME;
 
         this.currentParser = setCurrentParser(this.mode);
+
+    }
+
+    private boolean checkIfCommandIsValid(String text) {
+        List<ModeEnum> allModes = new ArrayList<>();
+        allModes.add(ModeEnum.OPEN);
+        allModes.add(ModeEnum.HOME);
+        allModes.add(ModeEnum.SETTINGS);
+        allModes.add(ModeEnum.GAME);
+        SpecificModeParser tempParser;
+        for (ModeEnum modeEnum : allModes) {
+            tempParser = setCurrentParser(modeEnum);
+            try {
+                Command command = tempParser.parseCommand(text);
+                if (command != null) {
+                    return true;
+                }
+            } catch (ParseException e) {
+
+            }
+        }
+        return false;
+
     }
 
     /**
@@ -121,7 +144,7 @@ public class ParserManager {
 
         SpecificModeParser temp = new SpecificModeParser();
 
-        switch (this.mode) {
+        switch (mode) {
 
         case OPEN:
             temp.add(AddCommand.class, AddCommandParser.class);
@@ -158,11 +181,14 @@ public class ParserManager {
             return temp;
 
         default:
-            return null;
+            temp.add(SwitchToOpenCommand.class, null);
+            temp.add(SwitchToHomeCommand.class, null);
+            temp.add(SwitchToStartCommand.class, StartCommandParser.class);
+            temp.add(SwitchToSettingsCommand.class, null);
+            return temp;
+
         }
-
     }
-
 
     /**
      * Updates the current state of ParserManager based on input booleans.
@@ -228,6 +254,9 @@ public class ParserManager {
         } else if (currentModeCommand != null) {
             return currentModeCommand;
         } else {
+            if (checkIfCommandIsValid(userInput)) {
+                throw new ParseException("Wrong mode, WordBank not loaded or Game is running");
+            }
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
 
