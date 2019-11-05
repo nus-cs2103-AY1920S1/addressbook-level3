@@ -35,16 +35,16 @@ public class MainWindow extends UiPart<Stage> {
     // private SplitDisplay splitDisplay;
     private CentralDisplay centralDisplay;
     private FeedbackDisplay feedbackDisplay;
+    private TestCommandBox testCommandBox;
 
     @FXML
     private BorderPane centralDisplayPlaceholder;
-
     @FXML
     private StackPane commandBoxPlaceholder;
-
+    @FXML
+    private StackPane testPlaceholder;
     @FXML
     private StackPane feedbackDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
 
@@ -78,8 +78,10 @@ public class MainWindow extends UiPart<Stage> {
         //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPlannerFilePath());
         //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+//        CommandBox commandBox = new CommandBox(this::executeCommand);
+//        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        TestCommandBox testCommandBox = new TestCommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(testCommandBox.getRoot());
     }
 
     /**

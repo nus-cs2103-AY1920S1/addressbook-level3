@@ -4,8 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.planner.logic.commands.util.CommandUtil.findIndexOfActivity;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.planner.commons.core.index.Index;
@@ -13,11 +16,15 @@ import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
+import seedu.planner.logic.commands.util.CommandInformation;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.field.Cost;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Adds an activity to the itinerary.
@@ -39,6 +46,15 @@ public class AddActivityCommand extends AddCommand {
                     + PREFIX_ADDRESS + "Mount Fuji "
                     + PREFIX_DURATION + "120 "
                     + PREFIX_TAG + "sightseeing"
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "<INDEX>",
+            new ArrayList<>(),
+            Arrays.asList(PREFIX_NAME + " <NAME>", PREFIX_ADDRESS + " <ADDRESS>", PREFIX_DURATION + " <DURATION>"),
+            Arrays.asList(PREFIX_PHONE + " <PHONE>", PREFIX_COST + " <COST>", PREFIX_PRIORITY + " <PRIORITY>"),
+            Arrays.asList(PREFIX_TAG + " <TAG>")
     );
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1s";

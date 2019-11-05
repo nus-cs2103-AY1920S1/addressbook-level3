@@ -1,17 +1,18 @@
-package seedu.planner.ui;
+package seedu.planner.ui.cards;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.planner.logic.commands.util.HelpExplanation;
-
+import seedu.planner.model.contact.Contact;
+import seedu.planner.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Contact}.
  */
-public class HelpCard extends UiPart<Region> {
+public class ContactCardSmall extends UiPart<Region> {
 
-    private static final String FXML = "HelpCard.fxml";
+    private static final String FXML = "ContactListCardSmall.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -20,22 +21,21 @@ public class HelpCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Planner level 4</a>
      */
-    private final HelpExplanation help;
 
+    public final Contact contact;
+
+    @FXML
+    private HBox cardPane;
     @FXML
     private Label name;
     @FXML
-    private Label syntax;
-    @FXML
-    private Label example;
+    private Label id;
 
-    public HelpCard(HelpExplanation help) {
+    public ContactCardSmall(Contact contact, int displayedIndex) {
         super(FXML);
-        this.help = help;
-        this.name.setText(help.getName() + ":");
-        this.name.setStyle("-fx-font-weight:bold;");
-        this.syntax.setText("Syntax: " + help.getSyntax());
-        this.example.setText("Example: " + help.getExample());
+        this.contact = contact;
+        id.setText(displayedIndex + ". ");
+        name.setText(contact.getName().toString());
     }
 
     @Override
@@ -46,12 +46,13 @@ public class HelpCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof HelpCard)) {
+        if (!(other instanceof ContactCardSmall)) {
             return false;
         }
 
         // state check
-        HelpCard card = (HelpCard) other;
-        return help.equals(card.help);
+        ContactCardSmall card = (ContactCardSmall) other;
+        return id.getText().equals(card.id.getText())
+                && contact.getName().equals(card.contact.getName());
     }
 }

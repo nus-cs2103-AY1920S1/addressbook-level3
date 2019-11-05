@@ -1,17 +1,18 @@
-package seedu.planner.ui;
+package seedu.planner.ui.cards;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.planner.model.activity.Activity;
+import seedu.planner.model.accommodation.Accommodation;
+import seedu.planner.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Activity}.
+ * An UI component that displays information of a {@code Accommodation}.
  */
-public class ActivityCardSmall extends UiPart<Region> {
+public class AccommodationCardSmall extends UiPart<Region> {
 
-    private static final String FXML = "ActivityListCardSmall.fxml";
+    private static final String FXML = "AccommodationListCardSmall.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,7 +22,7 @@ public class ActivityCardSmall extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Planner level 4</a>
      */
 
-    public final Activity activity;
+    public final Accommodation accommodation;
 
     @FXML
     private HBox cardPane;
@@ -30,11 +31,11 @@ public class ActivityCardSmall extends UiPart<Region> {
     @FXML
     private Label id;
 
-    public ActivityCardSmall(Activity activity, int displayedIndex) {
+    public AccommodationCardSmall(Accommodation accommodation, int displayedIndex) {
         super(FXML);
-        this.activity = activity;
+        this.accommodation = accommodation;
         id.setText(displayedIndex + ". ");
-        name.setText(activity.getName().toString());
+        name.setText(accommodation.getName().toString());
     }
 
     @Override
@@ -45,13 +46,13 @@ public class ActivityCardSmall extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ActivityCardSmall)) {
+        if (!(other instanceof AccommodationCardSmall)) {
             return false;
         }
 
         // state check
-        ActivityCardSmall card = (ActivityCardSmall) other;
+        AccommodationCardSmall card = (AccommodationCardSmall) other;
         return id.getText().equals(card.id.getText())
-                && activity.getName().equals(card.activity.getName());
+                && accommodation.getName().equals(card.accommodation.getName());
     }
 }

@@ -1,4 +1,4 @@
-package seedu.planner.ui;
+package seedu.planner.ui.panels;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.model.accommodation.Accommodation;
+import seedu.planner.ui.UiPart;
+import seedu.planner.ui.cards.AccommodationCardSmall;
 
 /**
  * Panel containing the list of accommodations.
