@@ -1,6 +1,6 @@
 @startuml
 start
-:User attempts to execute command;
+:User inputs a valid command;
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
@@ -8,11 +8,11 @@ start
 if () then ([else])
     if () then ([else])
     :System displays error message;
-    else ([is Login or Add or Exit])
-    :Command is executed;
+    else ([is Approved Command])
+    :Command is Created;
     endif
 else ([isLoggedIn])
-:Command is executed;
+:Command is Created;
 endif
 stop
 @enduml
