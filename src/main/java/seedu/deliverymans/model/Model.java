@@ -14,6 +14,7 @@ import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsRecordCard;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
+import seedu.deliverymans.model.deliveryman.exceptions.UnableToDeleteDeliveringDeliverymanException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -253,7 +254,7 @@ public interface Model {
      * Deletes the given customer.
      * The customer must exist in the address book.
      */
-    void deleteDeliveryman(Deliveryman target);
+    void deleteDeliveryman(Deliveryman target) throws UnableToDeleteDeliveringDeliverymanException;
 
     /**
      * Replaces the given deliveryman {@code target} with {@code editedDeliveryman}.

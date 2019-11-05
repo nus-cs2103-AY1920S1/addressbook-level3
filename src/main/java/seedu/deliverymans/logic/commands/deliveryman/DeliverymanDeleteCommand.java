@@ -12,6 +12,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.exceptions.UnableToDeleteDeliveringDeliverymanException;
 
 /**
  * Deletes a deliveryman identified using it's displayed index from the deliverymen book.
@@ -44,6 +45,7 @@ public class DeliverymanDeleteCommand extends Command {
 
         Deliveryman deliverymanToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteDeliveryman(deliverymanToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_DELIVERYMAN_SUCCESS, deliverymanToDelete));
     }
 
