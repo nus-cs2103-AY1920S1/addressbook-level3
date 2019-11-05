@@ -783,6 +783,7 @@ Additionally, if the description is misspelled or does not match any of the item
 items with similar description that you might be looking for.
 
 Examples:
+
 ** [blue]`add c/food` - Displays all items that are under the 'food' category in the response box
 ** [blue]`add c/stationary d/pancake q/3` - Adds 3 similar items which have the description "pancake"
 ** [blue]`add d/pancake q/3` - Adds 3 similar items which have the description "pancake"
@@ -887,7 +888,7 @@ image::cashierUG/EditCommand3.png[width="600"]
 . Hit `Enter`
 
 //.Screenshot of response message for Edit Command in Cashier Tab
-image::cashierUG/EditCommand3.png[width="600"]
+image::cashierUG/EditCommand2.png[width="600"]
 
 If successfully updated, Leo will respond with a response message. The quantity will then be updated in the table.
 
