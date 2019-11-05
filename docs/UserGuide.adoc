@@ -321,6 +321,7 @@ Format: `*export* [FILENAME]`
 +
 `FILENAME` should not include the file extension. E.g. `myBookmarks` and not
 `myBookmarks.json`
+* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
 * The data file is saved at `[applicationHome]/data/bookmarks/FILENAME.json`.
 If the given file already exists, it is overwritten.
 ****
@@ -346,6 +347,7 @@ Format: `*import* FILENAME`
 ****
 * `FILENAME` is case sensitive and should not include the file extension. E.g.
 `myBookmarks` and not `myBookmarks.json`
+* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
 * `FILENAME.json` should be a file stored in the folder
 `[applicationHome]/data/bookmarks/`.
 * The file corresponding to `FILENAME` should have a valid format, identical
