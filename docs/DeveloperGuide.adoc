@@ -131,9 +131,9 @@ An outline of how a command is processed through `Logic` is as follows:
 . The command execution can affect the `Model` (e.g. adding a person, transaction).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` (not depicted).
 
-[[GeneralLogicSD]]
 A general sequence diagram depicting the above outline is shown below:
 
+[[GeneralLogicSD]]
 .Sequence Diagram for execution within `Logic`.
 image::GeneralSequenceDiagram.png[]
 
@@ -143,7 +143,8 @@ Further details on the implementation of the `Parser` and `Command` can be found
 [[RTLogic]]
 ==== Details on `Logic` Implementation for Home and Reimbursement Tab
 This section will show further details of the `Logic` Component of the Home and Reimbursement Tabs.
-Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
+
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component which is a reference for <<fig-LogicClassDiagram>>:
 
 .Structure of `Parser` for Home (Transaction) and Reimbursement Tab.
 image::LogicForR&T.png[]
@@ -177,17 +178,22 @@ The parsers represented by the `ABCParser` and `DEFParser`:
 ** `ExitCommandParser`
 ** `SortCommandParser`
 
+In addition, the `Logic` object
+for Home and Reimbursement Tab contains the `GetPersonByNameOnlyModel` since `Logic` only uses
+the `ModelManager#getPersonByName` method
+in the person package.
 
 [[ICLogic]]
 ==== Details on `Logic` Implementation for Inventory and Cashier Tab
 This section will show further details of the `Logic` Component of the Inventory and Cashier Tabs.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
-.Structure of `Parser` for Inventory and Cashier Tabs.
+.Structure of `Parser` for Inventory and Cashier Tabs which is a reference for <<fig-LogicClassDiagram>>.
 image::ParserForInventoryCashier.png[]
 
 [NOTE]
-The `XYZTabParser` represents the `InventoryTabParser` for the Inventory Tab and `CashierTabParser` for the Cashier
+The `XYZTabParser` represents the `InventoryTabParser` for the Inventory Tab and `CashierTabParser`
+for the Cashier
 Tab.
 
 The parsers represented by the `ABCParser`:
@@ -344,22 +350,24 @@ cost of buying items to sell. Each transaction will require an input of its date
 and member that is accountable for it.
 
 Revenue from each cashier checkout will also be automatically inputted as
-a transaction with positive amount in this tab with the person being the cashier. The inputted transactions that corresponds to
-a spending with a negative amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
+a transaction with *positive* amount in this tab with the person being the cashier. The inputted transactions that corresponds to
+a spending with a *negative* amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
 
 ==== Add Command feature
-This feature requires access to the `Model` of the
-person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
+This section explains the implementation of the Add Command feature in Home Tab.
+This feature adds transaction to the table and data file. All fields in the transactions are compulsory
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
 has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
+Thus, this feature requires access to the `ModelManager#getPersonByName` method of the
+person package which contains the `AddressBook` implementation to check for the validity of the name entered.
 
-The following sequence diagram shows how the `AddCommand` works and is the reference from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
+The following sequence diagram shows how the `AddCommand` works and is the reference from <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Add Command in Home Tab (transaction package)
 
 image::HomeAddCommandSD.png[]
 
-In addition, the `resetPredicate()` method from `ModelManager` is called in the `AddCommand`. Thus, the UI table will immediately shows the full
+In addition, the `ModelManager#resetPredicate()` method is called in the `AddCommand`. Thus, the UI table will immediately shows the full
 transaction list regardless of the list shown at the start of the activity diagram. If the prior command was a Find Command,
 then the list in the beginning of the activity diagram would be a filtered list but after the add command is executed,
 the full list of transactions would be shown.
@@ -367,9 +375,9 @@ the full list of transactions would be shown.
 After the command is executed, the `LogicManager` updates the in-app list of transactions via the `ModelManager` and updates
 the data file via the `StorageManager`. The following sequence diagram shows how the updating of the list of transactions in the app and
 in the data file:
-[[UpdateTL]]
-.Sequence Diagram of updating the transaction list in Home Tab (transaction package)
 
+[[updateTL]]
+.Sequence Diagram of updating the transaction list in Home Tab (transaction package)
 image::HomeAddCommandMMSM.png[]
 
 [NOTE]
@@ -378,13 +386,14 @@ This update of the list of transactions is done for every command that is execut
 Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest list of transactions
 to generate an updated list of reimbursements for the user to view in the Reimbursement Tab. The following sequence diagram shows how
 the Reimbursement Tab is updated from the `MainWindow`:
+
 [[update-reimbursement]]
 .Sequence Diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
-
 image::TUpdateRinMainWindow.png[]
 
 [NOTE]
-This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<UpdateTL, Sequence Diagram of updating the transaction list in Home Tab>>) when there is a command executed successfully in the Home Tab.
+This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>)
+when there is a command executed successfully in the Home Tab.
 
 To better illustrate the flow of events from the moment a user inputs a command till the completion of the command,
 the activity diagram for the Add Command is shown below:
@@ -401,24 +410,26 @@ Since the reimbursement tab tabulates the amount to be reimbursed to a person, i
 amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
 
 ==== Delete Command Feature
+This section explains the implementation of the Delete Command in Home Tab.
 This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
 
-The following sequence diagram shows how the delete by name command works:
+The following sequence diagram shows how the delete by name command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Delete Command in Home Tab (transaction package)
 
 image::HomeDeleteNameCommand.png[]
 
-In addition, the `resetPredicate()` method in `ModelManager` is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
+In addition, the `ModelManager#resetPredicate()` method is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
 filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
 a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
 To view the full transaction list, the user would be required to input the
 Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3 BackCommand>>
 
-After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
+and <<update-reimbursement, 3.1.1. Add Command feature: Figure 14>>
 respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
@@ -434,8 +445,9 @@ when a successful deletion is done.
 
 ==== Back Command Feature
 [[BackCommandSD]]
+This section explains the implementation of the Back Command feature in Home Tab.
 The `BackCommand` is called to show the full list of transactions when the table is showing
-a filtered list. It is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
+a filtered list. It is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
 but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
 
@@ -444,10 +456,11 @@ The following detailed sequence diagram shows how the back command works:
 image::HomeTabBackCommandSequenceDiagram.png[]
 
 ==== Sort Command Feature
+This section explains the implementation of the Sort Command feature in Home Tab.
 The `SortCommand` allows for 3 types of sort, by name in
 alphabetical order, by amount (from least to most) and by date (from oldest to most recent).
 
-The following sequence diagram shows how the sort command works:
+The following sequence diagram shows how the sort command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Sort Command in Home Tab (transaction package)
 
@@ -464,25 +477,34 @@ This section's table explains the design considerations for some implementations
 |===
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
 
-|The Reimbursement Tab's `Model` and `Storage` interface is passed as parameters into Transaction Tab's `Logic`
-to call the methods in `Model` and `Storage` to update all the reimbursement data after a `Command` is
-executed in Home Tab.
-|The methods in Reimbursement Tab's `Model` and `Storage` is called to update all the reimbursement data in `MainWindow`
-after a `Command` is executed in Home Tab.
-|Alternative 2 was implemented. This limits access to all public methods in Reimbursement Tab's
-`Model` and `Storage` in Transaction Tab's `Logic` to prevent unwanted modifications to any of the reimbursement data.
+|`ModelManager` contains 2 variables that point to a `TransactionList` object in original order and a `TransactionList`
+object for viewing that can be sorted such that when [blue]`sort reset` is called, the shown `TransactionList` can be set to be equals to the original one.
+|`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
+the `TransactionList` object in original order when [blue]`sort reset` is called.
+|Alternative 1 was implemented. Alternative 1 allowed exporting of the data file in the desired order anytime while treasurerPro was running while
+alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown below the table in <<lists, Figure 20>>
 
 |The Members Tab's `Model` interface is passed as parameters into Transaction Tab's `Logic` to give `Logic` access to all public methods
 of `ModelManager`.
 |A new interface is made to allow the only used method of Members Tab's `ModelManager` to be accessed in Transaction Tab's
 `Logic`.
 |Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
-to `AddressBook`.
+to `AddressBook`. The interface implemented is `GetPersonByNameOnlyModel` as shown below the table in <<facade, Figure 21 >>
 
 |An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
 |A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
 |Alternative 1 was implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would beuse frequently in `ModelManager`.
 |===
+
+[[lists]]
+.Code Snippet of `ModelManager` class with 2 `TransactionList` objects
+image::homeDG/2lists.png[width = "400"]
+
+[[facade]]
+.Code Snippet of `GetPersonByNameOnly` facade class for `ModelManager` from Members Tab
+image::homeDG/facadeForDesignConsiderations.png[width = "400"]
+
+
 
 === Members Tab
 This tab will help to keep track of the contact details of members in the club or society for the treasurer.
