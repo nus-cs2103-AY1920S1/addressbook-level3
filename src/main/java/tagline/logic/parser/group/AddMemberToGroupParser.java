@@ -2,24 +2,29 @@
 package tagline.logic.parser.group;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tagline.logic.parser.ParserUtil.allPrefixesPresent;
+import static tagline.logic.parser.group.GroupCliSyntax.GROUP_COMMAND_MISSING_GROUP_PROMPT_STRING;
 import static tagline.logic.parser.group.GroupCliSyntax.PREFIX_CONTACTID;
 
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
 
 import tagline.logic.commands.group.AddMemberToGroupCommand;
 import tagline.logic.commands.group.EditGroupCommand.EditGroupDescriptor;
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
-import tagline.logic.parser.Prefix;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 
 /**
  * Parses input arguments and creates a new AddMemberToGroupCommand object
  */
 public class AddMemberToGroupParser implements Parser<AddMemberToGroupCommand> {
+    public static final String ADD_MEMBER_TO_GROUP_NO_CONTACTS_PROMPT_STRING =
+            "Please enter a contact ID to add to the group";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddMemberToGroupCommand
@@ -31,11 +36,7 @@ public class AddMemberToGroupParser implements Parser<AddMemberToGroupCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CONTACTID);
 
-        // preamble and contactid is compulsory
-        if (argMultimap.getPreamble().isEmpty() || !arePrefixesPresent(argMultimap, PREFIX_CONTACTID)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddMemberToGroupCommand.MESSAGE_USAGE));
-        }
+        checkCompulsoryFields(argMultimap);
 
         GroupNameEqualsKeywordPredicate predicate =
             GroupParserUtil.stringsToGroupNamePredicate(argMultimap.getPreamble());
@@ -58,12 +59,24 @@ public class AddMemberToGroupParser implements Parser<AddMemberToGroupCommand> {
         return new AddMemberToGroupCommand(predicate, editGroupDescriptor);
     }
 
+    //@@author tanlk99
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Checks the compulsory fields of the command (i.e. group name, contact ID).
+     * @throws PromptRequestException if a compulsory field is missing
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
+        List<Prompt> promptList = new ArrayList<>();
+        if (argMultimap.getPreamble().isEmpty()) {
+            promptList.add(new Prompt("", GROUP_COMMAND_MISSING_GROUP_PROMPT_STRING));
+        }
+
+        if (!allPrefixesPresent(argMultimap, PREFIX_CONTACTID)) {
+            promptList.add(new Prompt(PREFIX_CONTACTID.getPrefix(), ADD_MEMBER_TO_GROUP_NO_CONTACTS_PROMPT_STRING));
+        }
+
+        if (!promptList.isEmpty()) {
+            throw new PromptRequestException(promptList);
+        }
     }
 
 }

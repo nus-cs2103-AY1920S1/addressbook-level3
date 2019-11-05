@@ -1,15 +1,16 @@
-package tagline.logic.parser;
+package tagline.logic.parser.contact;
 
-import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tagline.logic.parser.CommandParserTestUtil.assertPromptRequest;
+import static tagline.logic.parser.contact.FindContactParser.FIND_CONTACT_EMPTY_ARGS_PROMPT_STRING;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.contact.FindContactCommand;
-import tagline.logic.parser.contact.FindContactParser;
+import tagline.logic.parser.Prompt;
 import tagline.model.contact.NameContainsKeywordsPredicate;
 
 public class FindContactParserTest {
@@ -17,9 +18,9 @@ public class FindContactParserTest {
     private FindContactParser parser = new FindContactParser();
 
     @Test
-    public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindContactCommand.MESSAGE_USAGE));
+    public void parse_emptyArgs_throwsParseException() {
+        assertPromptRequest(parser, "     ",
+                Collections.singletonList(new Prompt("", FIND_CONTACT_EMPTY_ARGS_PROMPT_STRING)));
     }
 
     @Test

@@ -1,4 +1,4 @@
-package tagline.logic.parser;
+package tagline.logic.parser.contact;
 
 import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -10,13 +10,18 @@ import static tagline.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static tagline.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tagline.logic.parser.CommandParserTestUtil.assertPromptRequest;
+import static tagline.logic.parser.contact.AddContactParser.ADD_CONTACT_EMPTY_NAME_PROMPT_STRING;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.testutil.contact.TypicalContacts.AMY;
 import static tagline.testutil.contact.TypicalContacts.BOB;
+
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.contact.CreateContactCommand;
-import tagline.logic.parser.contact.AddContactParser;
+import tagline.logic.parser.Prompt;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 
@@ -59,5 +64,11 @@ public class AddContactParserTest {
         Contact expectedContact = new ContactBuilder(AMY).build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new CreateContactCommand(expectedContact));
+    }
+
+    @Test
+    public void parse_compulsoryFieldMissing_promptRequestException() {
+        assertPromptRequest(parser, PHONE_DESC_AMY + EMAIL_DESC_AMY, Collections.singletonList(
+                new Prompt(PREFIX_NAME.getPrefix(), ADD_CONTACT_EMPTY_NAME_PROMPT_STRING)));
     }
 }

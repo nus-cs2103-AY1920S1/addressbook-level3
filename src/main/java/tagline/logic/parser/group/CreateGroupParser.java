@@ -1,21 +1,22 @@
 //@@author e0031374
 package tagline.logic.parser.group;
 
-import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tagline.logic.parser.group.GroupCliSyntax.GROUP_COMMAND_MISSING_GROUP_PROMPT_STRING;
 import static tagline.logic.parser.group.GroupCliSyntax.PREFIX_CONTACTID;
 import static tagline.logic.parser.group.GroupCliSyntax.PREFIX_GROUPDESCRIPTION;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import tagline.logic.commands.group.CreateGroupCommand;
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
-import tagline.logic.parser.Prefix;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.group.Group;
 import tagline.model.group.GroupDescription;
 import tagline.model.group.GroupName;
@@ -35,10 +36,7 @@ public class CreateGroupParser implements Parser<CreateGroupCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CONTACTID);
 
-        // PREFIX_CONTACTID is optional
-        if (argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateGroupCommand.MESSAGE_USAGE));
-        }
+        checkCompulsoryFields(argMultimap);
 
         GroupName groupName = GroupParserUtil.parseGroupName(argMultimap.getPreamble());
         GroupDescription groupDescription = GroupParserUtil.parseGroupDescription(
@@ -58,12 +56,17 @@ public class CreateGroupParser implements Parser<CreateGroupCommand> {
         return new CreateGroupCommand(group);
     }
 
+    //@@author tanlk99
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Checks the compulsory fields of the command (i.e. group name).
+     * @throws PromptRequestException if a compulsory field is missing
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
+        // PREFIX_CONTACTID is optional
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new PromptRequestException(Collections.singletonList(
+                    new Prompt("", GROUP_COMMAND_MISSING_GROUP_PROMPT_STRING)));
+        }
     }
 
 }

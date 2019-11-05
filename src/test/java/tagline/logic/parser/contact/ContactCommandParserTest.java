@@ -1,4 +1,4 @@
-package tagline.logic.parser;
+package tagline.logic.parser.contact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,7 +20,7 @@ import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
 import tagline.logic.commands.contact.FindContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
-import tagline.logic.parser.contact.ContactCommandParser;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.contact.Contact;

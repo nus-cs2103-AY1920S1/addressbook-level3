@@ -2,7 +2,7 @@ package tagline.logic.parser.contact;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.logic.parser.Parser;
@@ -15,6 +15,7 @@ import tagline.model.contact.ContactId;
  * Parses input arguments and creates a new DeleteContactCommand object
  */
 public class DeleteContactParser implements Parser<DeleteContactCommand> {
+    public static final String DELETE_CONTACT_EMPTY_ID_PROMPT_STRING = "Please enter the ID of the contact to delete.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteContactCommand
@@ -34,14 +35,15 @@ public class DeleteContactParser implements Parser<DeleteContactCommand> {
         }
     }
 
+    //@@author tanlk99
     /**
-     * Checks the compulsory field of the command (i.e. Id).
-     * @throws PromptRequestException if Id is missing
+     * Checks the compulsory fields of the command (i.e. Id).
+     * @throws PromptRequestException if a compulsory field is missing
      */
     private void checkCompulsoryFields(String args) throws PromptRequestException {
         if (args.trim().isEmpty()) {
-            throw new PromptRequestException(Arrays.asList(new Prompt("",
-                    "Please enter the ID of the contact to delete.")));
+            throw new PromptRequestException(Collections.singletonList(new Prompt("",
+                    DELETE_CONTACT_EMPTY_ID_PROMPT_STRING)));
         }
     }
 }

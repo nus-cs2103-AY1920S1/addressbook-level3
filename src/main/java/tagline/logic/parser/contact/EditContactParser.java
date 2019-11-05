@@ -2,25 +2,30 @@ package tagline.logic.parser.contact;
 
 import static java.util.Objects.requireNonNull;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tagline.logic.parser.ParserUtil.anyPrefixesPresent;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_ADDRESS;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_DESCRIPTION;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
 
+import java.util.Collections;
+
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.contact.ContactId;
 
 /**
  * Parses input arguments and creates a new EditContactCommand object
  */
-public class EditCommandParser implements Parser<EditContactCommand> {
-
+public class EditContactParser implements Parser<EditContactCommand> {
+    public static final String EDIT_CONTACT_MISSING_ID_PROMPT_STRING = "Please enter the ID of the contact to edit.";
     /**
      * Parses the given {@code String} of arguments in the context of the EditContactCommand
      * and returns an EditContactCommand object for execution.
@@ -33,8 +38,14 @@ public class EditCommandParser implements Parser<EditContactCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_DESCRIPTION);
 
-        ContactId contactId;
+        //if missing ID and at least one edit field provided
+        if (argMultimap.getPreamble().isEmpty() && anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE,
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_DESCRIPTION)) {
+            throw new PromptRequestException(Collections.singletonList(
+                    new Prompt("", EDIT_CONTACT_MISSING_ID_PROMPT_STRING)));
+        }
 
+        ContactId contactId;
         try {
             contactId = ContactParserUtil.parseContactId(argMultimap.getPreamble());
         } catch (ParseException pe) {

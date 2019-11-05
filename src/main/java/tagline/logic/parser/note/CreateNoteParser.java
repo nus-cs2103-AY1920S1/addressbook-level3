@@ -2,6 +2,7 @@
 package tagline.logic.parser.note;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tagline.logic.parser.ParserUtil.anyPrefixesPresent;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
@@ -72,7 +73,7 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
         NoteParserUtil.checkSinglePrefixUsage(argMultimap, PREFIX_TITLE, PREFIX_CONTENT);
 
         // check if both title and content empty
-        if (!NoteParserUtil.anyPrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CONTENT)) {
+        if (!anyPrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CONTENT)) {
             throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_CONTENT.getPrefix(),
                     CREATE_NOTE_MISSING_CONTENT_PROMPT)));
         }

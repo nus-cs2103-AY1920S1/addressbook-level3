@@ -1,9 +1,12 @@
+//@@author tanlk99
 package tagline.ui;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testfx.util.NodeQueryUtils.hasText;
 import static tagline.testutil.contact.TypicalContacts.BENSON_WITH_DESCRIPTION;
 import static tagline.testutil.contact.TypicalContacts.BENSON_WITH_MISSING_FIELDS;
+import static tagline.ui.GuiTestUtil.getChildNode;
+import static tagline.ui.GuiTestUtil.hasChildNode;
 
 import java.util.concurrent.TimeoutException;
 
@@ -12,67 +15,42 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
 
-import javafx.scene.Node;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import tagline.model.contact.Contact;
 import tagline.ui.contact.ContactListCard;
 
 @ExtendWith(ApplicationExtension.class)
 public class ContactListCardTest {
+    private GuiTestController controller = GuiTestController.getInstance();
     private ContactListCard contactListCard;
 
-    /**
-     * Sets up the stage style. Can only be done once per testing session.
-     */
-    private void initStage(Stage stage) {
-        if (stage.getStyle() != StageStyle.DECORATED) {
-            stage.initStyle(StageStyle.DECORATED);
-        }
-    }
-
     @Start
-    void setUp(Stage stage) {
-        initStage(stage);
+    private void setUp(Stage stage) {
+        controller.initStageStyle(stage);
         stage.setWidth(500); //for human-viewable results
     }
 
     private void setContactDisplayed(Contact contact) throws TimeoutException {
         contactListCard = new ContactListCard(contact);
-        FxToolkit.setupSceneRoot(() -> contactListCard.getRoot());
-        FxToolkit.showStage();
+        controller.initSceneRoot(contactListCard.getRoot());
     }
 
     @Stop
-    void tearDown() throws TimeoutException {
-        FxToolkit.cleanupStages();
+    private void tearDown() throws TimeoutException {
+        controller.doTearDown();
     }
 
     @AfterEach
-    void pause(FxRobot robot) {
-        String headlessPropertyValue = System.getProperty("testfx.headless");
-        if (headlessPropertyValue != null && headlessPropertyValue.equals("true")) {
-            return;
-        }
-
-        robot.sleep(500);
-    }
-
-    private boolean hasChildNode(FxRobot robot, String id) {
-        return robot.lookup(id).tryQuery().isPresent();
-    }
-
-    private Node getChildNode(FxRobot robot, String id) {
-        return robot.lookup(id).query();
+    private void pause(FxRobot robot) {
+        controller.pause(robot);
     }
 
     @Test
-    void checkFieldsDisplayedCorrectly_allFieldsPresent(FxRobot robot) throws TimeoutException {
+    public void checkFieldsDisplayedCorrectly_allFieldsPresent(FxRobot robot) throws TimeoutException {
         setContactDisplayed(BENSON_WITH_DESCRIPTION);
 
         FxAssert.verifyThat(getChildNode(robot, "#name"),
@@ -90,7 +68,7 @@ public class ContactListCardTest {
     }
 
     @Test
-    void checkFieldsDisplayedCorrectly_someOptionalFieldsMissing(FxRobot robot) throws TimeoutException {
+    public void checkFieldsDisplayedCorrectly_someOptionalFieldsMissing(FxRobot robot) throws TimeoutException {
         setContactDisplayed(BENSON_WITH_MISSING_FIELDS);
 
         FxAssert.verifyThat(getChildNode(robot, "#name"),

@@ -6,14 +6,12 @@ import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.Collections;
 
 import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
-import tagline.logic.parser.Prefix;
 import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.exceptions.PromptRequestException;
@@ -28,6 +26,7 @@ import tagline.model.contact.Phone;
  * Parses input arguments and creates a new CreateContactCommand object
  */
 public class AddContactParser implements Parser<CreateContactCommand> {
+    public static final String ADD_CONTACT_EMPTY_NAME_PROMPT_STRING = "Please enter a name.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the CreateContactCommand
@@ -83,23 +82,16 @@ public class AddContactParser implements Parser<CreateContactCommand> {
         return new CreateContactCommand(contact);
     }
 
+    //@@author tanlk99
     /**
      * Checks the compulsory fields of the command (i.e. name).
-     * @throws PromptRequestException if name is missing
+     * @throws PromptRequestException if a compulsory field is missing
      */
     private void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
         if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_NAME.getPrefix(),
-                    "Please enter a name.")));
+            throw new PromptRequestException(Collections.singletonList(new Prompt(PREFIX_NAME.getPrefix(),
+                    ADD_CONTACT_EMPTY_NAME_PROMPT_STRING)));
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

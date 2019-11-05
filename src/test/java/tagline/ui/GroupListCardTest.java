@@ -1,3 +1,4 @@
+//@@author tanlk99
 package tagline.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -5,81 +6,57 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testfx.util.NodeQueryUtils.hasText;
 import static tagline.testutil.group.TypicalGroups.GUARDIANS;
 import static tagline.testutil.group.TypicalGroups.WAKANDAN_ROYAL;
+import static tagline.ui.GuiTestUtil.getChildNode;
+import static tagline.ui.GuiTestUtil.getChildNodes;
+import static tagline.ui.GuiTestUtil.hasChildNode;
 import static tagline.ui.group.GroupListCard.EMPTY_GROUP_STRING;
 
 import java.util.Collection;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
 
-import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import tagline.model.group.Group;
 import tagline.ui.group.GroupListCard;
 
 @ExtendWith(ApplicationExtension.class)
 public class GroupListCardTest {
+    private GuiTestController controller = GuiTestController.getInstance();
     private GroupListCard groupListCard;
 
-    /**
-     * Sets up the stage style. Can only be done once per testing session.
-     */
-    private void initStage(Stage stage) {
-        if (stage.getStyle() != StageStyle.DECORATED) {
-            stage.initStyle(StageStyle.DECORATED);
-        }
-    }
-
     @Start
-    void setUp(Stage stage) {
-        initStage(stage);
+    private void setUp(Stage stage) {
+        controller.initStageStyle(stage);
         stage.setWidth(500); //for human-viewable results
     }
 
     private void setGroupDisplayed(Group group) throws TimeoutException {
         groupListCard = new GroupListCard(group);
-        FxToolkit.setupSceneRoot(() -> groupListCard.getRoot());
-        FxToolkit.showStage();
+        controller.initSceneRoot(groupListCard.getRoot());
     }
 
     @Stop
-    void tearDown() throws TimeoutException {
-        FxToolkit.cleanupStages();
+    private void tearDown() throws TimeoutException {
+        controller.doTearDown();
     }
 
     @AfterEach
-    void pause(FxRobot robot) {
-        String headlessPropertyValue = System.getProperty("testfx.headless");
-        if (headlessPropertyValue != null && headlessPropertyValue.equals("true")) {
-            return;
-        }
-
-        robot.sleep(500);
-    }
-
-    private boolean hasChildNode(FxRobot robot, String id) {
-        return robot.lookup(id).tryQuery().isPresent();
-    }
-
-    private Node getChildNode(FxRobot robot, String id) {
-        return robot.lookup(id).query();
-    }
-
-    private Collection<Node> getChildNodes(FxRobot robot, String id) {
-        return robot.lookup(id).queryAll();
+    private void pause(FxRobot robot) {
+        controller.pause(robot);
     }
 
     @Test
-    void checkFieldsDisplayedCorrectly_groupNotEmpty_successful(FxRobot robot) throws TimeoutException {
+    public void checkFieldsDisplayedCorrectly_groupNotEmpty_successful(FxRobot robot) throws TimeoutException {
         setGroupDisplayed(WAKANDAN_ROYAL);
 
         FxAssert.verifyThat(getChildNode(robot, "#name"),
@@ -88,11 +65,19 @@ public class GroupListCardTest {
                 hasText(WAKANDAN_ROYAL.getGroupDescription().value));
         FxAssert.verifyThat(getChildNode(robot, "#memberIdsLabel"), hasText("Members:"));
 
-        assertEquals(4, getChildNodes(robot, "#memberIds > .label").size());
+        assertEquals(WAKANDAN_ROYAL.getMemberIds().size(), getChildNodes(robot, "#memberIds > .label").size());
+
+        Collection<String> memberIdStrings = getChildNodes(robot, "#memberIds > .label").stream()
+                .map(label -> ((Label) label).getText()).sorted().collect(Collectors.toList());
+
+        Collection<String> expectedMemberIdStrings = WAKANDAN_ROYAL.getMemberIds().stream()
+                .map(id -> "#" + id.value).sorted().collect(Collectors.toList());
+
+        assertEquals(expectedMemberIdStrings, memberIdStrings);
     }
 
     @Test
-    void checkFieldsDisplayedCorrectly_groupEmpty_successful(FxRobot robot) throws TimeoutException {
+    public void checkFieldsDisplayedCorrectly_groupEmpty_successful(FxRobot robot) throws TimeoutException {
         setGroupDisplayed(GUARDIANS);
 
         FxAssert.verifyThat(getChildNode(robot, "#name"),

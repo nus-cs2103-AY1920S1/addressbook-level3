@@ -1,4 +1,4 @@
-package tagline.logic.parser;
+package tagline.logic.parser.contact;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -21,29 +21,34 @@ import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tagline.logic.parser.CommandParserTestUtil.assertPromptRequest;
+import static tagline.logic.parser.contact.EditContactParser.EDIT_CONTACT_MISSING_ID_PROMPT_STRING;
+
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
-import tagline.logic.parser.contact.EditCommandParser;
+import tagline.logic.parser.Prompt;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
 import tagline.testutil.contact.EditContactDescriptorBuilder;
 
-public class EditContactCommandParserTest {
+public class EditContactParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditContactCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private EditContactParser parser = new EditContactParser();
 
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertPromptRequest(parser, NAME_DESC_AMY, Collections.singletonList(
+                new Prompt("", EDIT_CONTACT_MISSING_ID_PROMPT_STRING)));
 
         // no field specified
         assertParseFailure(parser, "1", EditContactCommand.MESSAGE_NOT_EDITED);

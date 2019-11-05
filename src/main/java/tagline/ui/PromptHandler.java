@@ -1,3 +1,4 @@
+//@@author tanlk99
 package tagline.ui;
 
 import java.util.ArrayList;
@@ -11,8 +12,12 @@ import tagline.logic.parser.Prompt;
 public class PromptHandler {
     private boolean aborted = false;
 
+    /** The command which needs additional details. */
     private String pendingCommand;
+
+    /** Index of next prompt to fill/ask. */
     private int nextIndex = 0;
+
     private List<Prompt> promptList = new ArrayList<>();
     private List<Prompt> filledPromptList = new ArrayList<>();
 

@@ -18,7 +18,7 @@ import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.commands.note.ListNoteCommand;
 import tagline.logic.commands.note.TagNoteCommand;
 import tagline.logic.commands.note.UntagNoteCommand;
-import tagline.logic.parser.ParserPromptHandlerUtil;
+import tagline.logic.parser.ParserUtil;
 import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.exceptions.PromptRequestException;
@@ -81,7 +81,7 @@ public class NoteCommandParser {
         }
     }
 
-    //@author tanlk99
+    //@@author tanlk99
     /**
      * Parses user input into note command for execution, using a list of filled prompts.
      *
@@ -97,7 +97,7 @@ public class NoteCommandParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        final String filledArguments = ParserPromptHandlerUtil.getArgsWithFilledPrompts(arguments, promptList);
+        final String filledArguments = ParserUtil.getArgsWithFilledPrompts(arguments, promptList);
 
         switch (commandWord) {
 
@@ -120,7 +120,7 @@ public class NoteCommandParser {
             return new UntagNoteParser().parse(filledArguments);
 
         case ClearNoteCommand.COMMAND_WORD:
-            if (ParserPromptHandlerUtil.getPromptResponseFromPrefix("", promptList)
+            if (ParserUtil.getPromptResponseFromPrefix("", promptList)
                     .equals(NOTE_CLEAR_CONFIRM_CHARACTER)) {
                 return new ClearNoteCommand();
             } else {

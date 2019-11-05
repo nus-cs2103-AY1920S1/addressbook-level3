@@ -1,4 +1,4 @@
-package tagline.logic.parser;
+package tagline.logic.parser.contact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tagline.logic.parser.contact.ContactParserUtil.MESSAGE_INVALID_INDEX;
@@ -7,7 +7,6 @@ import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.logic.parser.contact.ContactParserUtil;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.contact.Address;
 import tagline.model.contact.Email;

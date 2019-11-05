@@ -70,6 +70,7 @@ public class TaglineParser {
         }
     }
 
+    //@@author tanlk99
     /**
      * Parses user input into command for execution, with a list of filled prompts.
      *
@@ -96,8 +97,7 @@ public class TaglineParser {
             return new NoteCommandParser().parseCommand(commandStr, filledPrompts);
 
         case GroupCommand.COMMAND_KEY:
-            //Currently doesn't support prompts
-            return new GroupCommandParser().parseCommand(commandStr);
+            return new GroupCommandParser().parseCommand(commandStr, filledPrompts);
 
         case ExitCommand.COMMAND_KEY:
             return new ExitCommand();

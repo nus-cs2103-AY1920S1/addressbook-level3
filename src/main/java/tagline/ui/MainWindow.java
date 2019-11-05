@@ -1,3 +1,4 @@
+//@@author tanlk99
 package tagline.ui;
 
 import java.util.logging.Logger;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import tagline.commons.core.GuiSettings;
@@ -30,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     public static final String BEGIN_PROMPTING_STRING = "Please confirm some additional details for the command. "
             + "Press the escape key to abort.";
     public static final String ABORT_PROMPTING_STRING = "Command has been aborted.";
+    public static final double CHAT_PANE_MINIMUM_WIDTH_RATIO = 0.3;
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -46,6 +49,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private HBox centerPane;
 
     @FXML
     private StackPane chatPanePlaceholder;
@@ -67,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
         setAbortPromptListener();
+        setResizeListener();
 
         helpWindow = new HelpWindow();
     }
@@ -75,22 +82,40 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    /**
+     * Sets the listener to dynamically resize the chat pane to take up a ratio of at least
+     * {@code CHAT_PANE_MINIMUM_WIDTH_RATIO} of the total width.
+     */
+    private void setResizeListener() {
+        centerPane.widthProperty().addListener((observable, oldVal, newVal) -> {
+            double chatPaneWidth = (double) newVal * CHAT_PANE_MINIMUM_WIDTH_RATIO;
+            if (chatPaneWidth > chatPanePlaceholder.getMinWidth()) {
+                chatPanePlaceholder.setPrefWidth(chatPaneWidth);
+                chatPanePlaceholder.setMaxWidth(chatPaneWidth);
+            }
+        });
     }
 
+    /**
+     * Sets the listener to abort prompts by pressing the Esc key.
+     */
     private void setAbortPromptListener() {
         getRoot().getScene().setOnKeyPressed(new EventHandler<>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE && promptHandler != null
-                    && !promptHandler.isAborted()) {
+                        && !promptHandler.isAborted()) {
                     logger.info("ESCAPE PRESSED");
                     chatPane.setFeedbackToUser(ABORT_PROMPTING_STRING);
                     promptHandler.setAborted();
                 }
             }
         });
+    }
+
+    //@@author
+    private void setAccelerators() {
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
@@ -122,12 +147,13 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    //@@author tanlk99
     /**
      * Initializes the chat pane.
      */
     private void initChatPane() {
         chatPane = new ChatPane();
-        chatPane.fillInnerParts(this::executeCommand);
+        chatPane.fillInnerParts(this::handleUserInput);
         chatPanePlaceholder.getChildren().add(chatPane.getRoot());
     }
 
@@ -145,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
      * Initializes the status bar.
      */
     private void initStatusBar() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getNoteBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
@@ -158,6 +184,7 @@ public class MainWindow extends UiPart<Stage> {
         initResultPane();
     }
 
+    //@@author
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -198,12 +225,17 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    //@@author tanlk99
     /**
-     * Executes the command and returns the result.
+     * Handles some user input and returns the result.
      *
-     * @see tagline.logic.Logic#execute(String)
+     * @param commandText Raw input entered by the user
+     * @return A CommandResult representing the result of a successful command.
+     * @throws CommandException if a command was executed unsuccessfully
+     * @throws ParseException if the user entered an invalid command
+     * @throws PromptOngoingException if prompting is ongoing and more responses are expected
      */
-    private CommandResult executeCommand(String commandText)
+    private CommandResult handleUserInput(String commandText)
             throws CommandException, ParseException, PromptOngoingException {
         chatPane.setCommandFromUser(commandText);
 
@@ -215,22 +247,10 @@ public class MainWindow extends UiPart<Stage> {
         try {
             //Prompting in progress
             if (promptHandler != null) {
-                promptHandler.fillNextPrompt(commandText);
-
-                if (!promptHandler.isComplete()) {
-                    chatPane.setFeedbackToUser(promptHandler.getNextPrompt());
-                    throw new PromptOngoingException();
-                }
-
-                CommandResult commandResult = logic.execute(promptHandler.getPendingCommand(),
-                        promptHandler.getFilledPromptList());
-                displayCommandResult(commandResult);
-                return commandResult;
+                return handlePromptResponse(commandText);
+            } else {
+                return handleCommandString(commandText);
             }
-
-            CommandResult commandResult = logic.execute(commandText);
-            displayCommandResult(commandResult);
-            return commandResult;
         } catch (PromptRequestException e) {
             logger.info("Invalid command, requesting prompt: " + commandText);
             chatPane.setFeedbackToUser(BEGIN_PROMPTING_STRING);
@@ -251,9 +271,44 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Handles a command string from the user.
+     *
+     * @see Logic#execute(String) for details on command execution.
+     */
+    private CommandResult handleCommandString(String commandText) throws ParseException, CommandException {
+        CommandResult commandResult = logic.execute(commandText);
+        displayCommandResult(commandResult);
+        return commandResult;
+    }
+
+    /**
+     * Handles a response to a prompt.
+     *
+     * <p>If prompting is complete, this method executes the command with the filled prompts and returns the command
+     * result. Otherwise, this method throws a {@code PromptOngoingException}, indicating that more responses from the
+     * user are expected.</p>
+     *
+     * @throws PromptOngoingException if there are more prompts to answer
+     */
+    private CommandResult handlePromptResponse(String commandText)
+            throws PromptOngoingException, ParseException, CommandException {
+        promptHandler.fillNextPrompt(commandText);
+
+        if (!promptHandler.isComplete()) {
+            chatPane.setFeedbackToUser(promptHandler.getNextPrompt());
+            throw new PromptOngoingException();
+        }
+
+        CommandResult commandResult = logic.execute(promptHandler.getPendingCommand(),
+                promptHandler.getFilledPromptList());
+        displayCommandResult(commandResult);
+        return commandResult;
+    }
+
+    /**
      * Handles the GUI feedback for a {@code CommandResult}.
      */
-    private void displayCommandResult(CommandResult commandResult) throws PromptRequestException {
+    private void displayCommandResult(CommandResult commandResult) {
         logger.info("Result: " + commandResult.getFeedbackToUser());
         chatPane.setFeedbackToUser(commandResult.getFeedbackToUser());
         resultPane.setCurrentViewType(commandResult.getViewType());

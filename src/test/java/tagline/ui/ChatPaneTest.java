@@ -1,8 +1,11 @@
+//@@author tanlk99
 package tagline.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testfx.util.NodeQueryUtils.hasText;
+import static tagline.ui.GuiTestUtil.buttonCommand;
+import static tagline.ui.GuiTestUtil.enterCommand;
 
 import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
@@ -13,19 +16,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
 import tagline.testutil.CommandResultBuilder;
 import tagline.testutil.LogicStub;
@@ -45,83 +42,32 @@ public class ChatPaneTest {
     @TempDir
     public Path testFolder;
 
+    private GuiTestController controller = GuiTestController.getInstance();
     private LogicStub logic;
     private MainWindow mainWindow;
 
-    /**
-     * Sets up the stage style. Can only be done once per testing session.
-     */
-    private void initStage(Stage stage) {
-        if (stage.getStyle() != StageStyle.DECORATED) {
-            stage.initStyle(StageStyle.DECORATED);
-        }
-    }
-
-    /**
-     * Set up the main window.
-     */
-    private void initMainWindow(Stage stage, Logic logic) throws TimeoutException {
-        FxToolkit.setupStage(s -> {
-            mainWindow = new MainWindow(s, logic);
-            mainWindow.show();
-            mainWindow.fillInnerParts();
-        });
-        FxToolkit.showStage();
-    }
-
     @Start
-    void setUp(Stage stage) throws TimeoutException {
+    private void setUp(Stage stage) throws TimeoutException {
         logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"),
             testFolder.resolve("groupbook.json"), testFolder.resolve("tagbook.json"));
         logic.setCommandResult(DEFAULT_COMMAND_RESULT);
-        initStage(stage);
-        initMainWindow(stage, logic);
+
+        controller.initStageStyle(stage);
+        controller.initMainWindow(stage, logic);
     }
 
     @Stop
-    void tearDown() throws TimeoutException {
-        FxToolkit.cleanupStages();
+    private void tearDown() throws TimeoutException {
+        controller.doTearDown();
     }
 
     @AfterEach
-    void pause(FxRobot robot) {
-        String headlessPropertyValue = System.getProperty("testfx.headless");
-        if (headlessPropertyValue != null && headlessPropertyValue.equals("true")) {
-            return;
-        }
-
-        robot.sleep(500);
-    }
-
-    /**
-     * Types a command in the command text field.
-     */
-    private void typeCommand(FxRobot robot, String command) {
-        TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
-        robot.clickOn(textField);
-        robot.interact(() -> textField.setText(command));
-    }
-
-    /**
-     * Enters a command into the command text field and sends it with the Enter key.
-     */
-    private void enterCommand(FxRobot robot, String command) {
-        typeCommand(robot, command);
-        TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
-        robot.interact(() -> textField.fireEvent(new ActionEvent()));
-    }
-
-    /**
-     * Enters a command into the command text field and sends it by pressing the button.
-     */
-    private void buttonCommand(FxRobot robot, String command) {
-        typeCommand(robot, command);
-        Button button = robot.lookup(".commandSendButton").queryButton();
-        robot.interact(button::fire);
+    private void pause(FxRobot robot) {
+        controller.pause(robot);
     }
 
     @Test
-    void sendEmptyCommand_successful(FxRobot robot) {
+    public void sendEmptyCommand_successful(FxRobot robot) {
         TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
         robot.clickOn(textField);
         robot.type(KeyCode.ENTER);
@@ -132,7 +78,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendNonEmptyCommand_successful(FxRobot robot) {
+    public void sendNonEmptyCommand_successful(FxRobot robot) {
         enterCommand(robot, COMMAND_TEST_STRING);
 
         FxAssert.verifyThat(".command-dialog", hasText(COMMAND_TEST_STRING));
@@ -141,7 +87,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendCommandWithButton_successful(FxRobot robot) {
+    public void sendCommandWithButton_successful(FxRobot robot) {
         buttonCommand(robot, COMMAND_TEST_STRING);
 
         FxAssert.verifyThat(".command-dialog", hasText(COMMAND_TEST_STRING));
@@ -150,7 +96,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendNonEmptyCommand_exceptionThrown(FxRobot robot) {
+    public void sendNonEmptyCommand_exceptionThrown(FxRobot robot) {
         logic.setThrowException(EXCEPTION_STRING);
 
         enterCommand(robot, COMMAND_TEST_STRING);
@@ -161,7 +107,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendLongCommand_successful(FxRobot robot) {
+    public void sendLongCommand_successful(FxRobot robot) {
         enterCommand(robot, COMMAND_TEST_STRING_LONG);
 
         FxAssert.verifyThat(".command-dialog", hasText(COMMAND_TEST_STRING_LONG));
@@ -169,7 +115,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendMultipleCommands_successful(FxRobot robot) {
+    public void sendMultipleCommands_successful(FxRobot robot) {
         for (int i = 1; i <= 5; i++) {
             enterCommand(robot, COMMAND_TEST_STRING);
         }

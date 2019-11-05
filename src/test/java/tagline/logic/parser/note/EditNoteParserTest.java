@@ -11,14 +11,19 @@ import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_PROTECTOR
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_PROTECTOR;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tagline.logic.parser.CommandParserTestUtil.assertPromptRequest;
+import static tagline.logic.parser.note.EditNoteParser.EDIT_NOTE_MISSING_ID_PROMPT_STRING;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 import static tagline.logic.parser.note.NoteParserUtil.ERROR_INVALID_INDEX;
+
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
+import tagline.logic.parser.Prompt;
 import tagline.model.note.NoteId;
 import tagline.model.note.Title;
 import tagline.testutil.note.EditNoteDescriptorBuilder;
@@ -33,13 +38,15 @@ class EditNoteParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, CONTENT_DESC_INCIDENT, MESSAGE_INVALID_FORMAT);
+        assertPromptRequest(parser, CONTENT_DESC_INCIDENT, Collections.singletonList(
+                new Prompt("", EDIT_NOTE_MISSING_ID_PROMPT_STRING)));
 
         // no field specified
         assertParseFailure(parser, "1", EditNoteCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        assertPromptRequest(parser, CONTENT_DESC_INCIDENT, Collections.singletonList(
+                new Prompt("", EDIT_NOTE_MISSING_ID_PROMPT_STRING)));
     }
 
     @Test

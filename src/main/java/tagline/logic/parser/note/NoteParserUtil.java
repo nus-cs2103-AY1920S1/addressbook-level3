@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.Prefix;
@@ -82,22 +81,6 @@ public class NoteParserUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
-    }
-
-    /**
-     * Returns true if any of the prefixes contains non-empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    public static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    public static boolean allPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     /**

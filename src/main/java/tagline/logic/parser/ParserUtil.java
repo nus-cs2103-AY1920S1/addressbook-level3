@@ -1,12 +1,14 @@
+//@@author tanlk99
 package tagline.logic.parser;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
- * A class containing utility static functions for parser classes when handling prompts.
+ * A class containing utility static functions for parser classes.
  */
-public class ParserPromptHandlerUtil {
+public class ParserUtil {
     /**
      * Parses an argument {@code String} and a {@code List} of {@code Prompt} objects, to produce
      * a {@code String} including the prompt responses.
@@ -40,5 +42,22 @@ public class ParserPromptHandlerUtil {
         }
 
         return promptWithPrefix.get().getPromptResponse();
+    }
+
+    //@@author
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean allPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if any of the prefixes contains non-empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

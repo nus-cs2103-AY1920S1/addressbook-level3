@@ -3,7 +3,7 @@ package tagline.logic.parser.contact;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +17,7 @@ import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.FindContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
 import tagline.logic.commands.contact.ShowContactCommand;
-import tagline.logic.parser.ParserPromptHandlerUtil;
+import tagline.logic.parser.ParserUtil;
 import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.exceptions.PromptRequestException;
@@ -60,13 +60,13 @@ public class ContactCommandParser {
             return new ShowContactParser().parse(arguments);
 
         case EditContactCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditContactParser().parse(arguments);
 
         case DeleteContactCommand.COMMAND_WORD:
             return new DeleteContactParser().parse(arguments);
 
         case ClearContactCommand.COMMAND_WORD:
-            throw new PromptRequestException(Arrays.asList(
+            throw new PromptRequestException(Collections.singletonList(
                     new Prompt("", CONTACT_CLEAR_COMMAND_CONFIRM_STRING)));
 
         case FindContactCommand.COMMAND_WORD:
@@ -80,7 +80,7 @@ public class ContactCommandParser {
         }
     }
 
-    //@author tanlk99
+    //@@author tanlk99
     /**
      * Parses user input into a contact command for execution, using a list of filled prompts.
      *
@@ -96,7 +96,7 @@ public class ContactCommandParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        final String filledArguments = ParserPromptHandlerUtil.getArgsWithFilledPrompts(arguments, promptList);
+        final String filledArguments = ParserUtil.getArgsWithFilledPrompts(arguments, promptList);
 
         switch (commandWord) {
 
@@ -104,7 +104,7 @@ public class ContactCommandParser {
             return new AddContactParser().parse(filledArguments);
 
         case EditContactCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(filledArguments);
+            return new EditContactParser().parse(filledArguments);
 
         case DeleteContactCommand.COMMAND_WORD:
             return new DeleteContactParser().parse(filledArguments);
@@ -112,11 +112,14 @@ public class ContactCommandParser {
         case FindContactCommand.COMMAND_WORD:
             return new FindContactParser().parse(filledArguments);
 
+        case ShowContactCommand.COMMAND_WORD:
+            return new ShowContactParser().parse(filledArguments);
+
         case ListContactCommand.COMMAND_WORD:
             return new ListContactCommand();
 
         case ClearContactCommand.COMMAND_WORD:
-            if (ParserPromptHandlerUtil.getPromptResponseFromPrefix("", promptList)
+            if (ParserUtil.getPromptResponseFromPrefix("", promptList)
                     .equals(CONTACT_CLEAR_CONFIRM_CHARACTER)) {
                 return new ClearContactCommand();
             } else {

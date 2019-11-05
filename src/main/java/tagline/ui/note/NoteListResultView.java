@@ -1,3 +1,4 @@
+//@@author tanlk99
 package tagline.ui.note;
 
 import javafx.collections.ObservableList;
