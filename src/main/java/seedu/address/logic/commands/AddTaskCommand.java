@@ -17,6 +17,7 @@ import seedu.address.model.task.Task;
 public class AddTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "add-task";
+    public static final String PREFIX_USAGE = "tn/ s/ tt/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the dashboard. "
             + "Parameters: "
@@ -29,7 +30,7 @@ public class AddTaskCommand extends Command {
             + PREFIX_TASK_TAG + "urgent";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in your Dashboard";
 
     private final Task toAdd;
 
@@ -50,7 +51,8 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult("Type-3 /" + String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

@@ -65,6 +65,26 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
+    public Pane loadSpecificMember() {
+        userViewNavigator.loadSpecificMemberView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    public Pane loadAssign() {
+        userViewNavigator.loadAssignView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    public Pane loadFoundMembers() {
+        userViewNavigator.loadFoundMembersView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    public Pane loadSetImage() {
+        userViewNavigator.loadSetImageView(logic);
+        return userViewController.getCurrentView();
+    }
+
     public Pane loadMemberStats() {
         userViewNavigator.loadMemberStatsView(logic);
         return userViewController.getCurrentView();
@@ -85,6 +105,11 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
+    public Pane loadMeetingTimes() {
+        userViewNavigator.loadMeetingTimesView(logic);
+        return userViewController.getCurrentView();
+    }
+
     /**
      * Shows the user the current settings.
      *
@@ -92,6 +117,16 @@ public class UserViewMain {
      */
     public Pane loadSettingsView() {
         userViewNavigator.loadSettingsView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    /**
+     * Shows the user the commands.
+     *
+     * @return the help view
+     */
+    public Pane loadHelpView() {
+        userViewNavigator.loadHelpView(logic);
         return userViewController.getCurrentView();
     }
 

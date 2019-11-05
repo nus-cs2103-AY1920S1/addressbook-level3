@@ -44,15 +44,6 @@ class JsonAdaptedTask {
         }
     }
 
-//    public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("status") TaskStatus taskStatus,
-//                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-//        this.name = name;
-//        this.taskStatus = taskStatus;
-//        if (tagged != null) {
-//            this.tagged.addAll(tagged);
-//        }
-//    }
-
     /**
      * Converts a given {@code Task} into this class for Jackson use.
      */

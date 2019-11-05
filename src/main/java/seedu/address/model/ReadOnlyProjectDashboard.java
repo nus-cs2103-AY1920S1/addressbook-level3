@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
@@ -37,8 +39,6 @@ public interface ReadOnlyProjectDashboard {
      */
     ObservableList<Inventory> getInventoryList();
 
-    HashMap<Task, ObservableList<Member>> listMemberByTask();
-
     ObservableList<InvMemMapping> getInvMemMappingList();
 
     ObservableList<InvTasMapping> getInvTasMappingList();
@@ -46,6 +46,10 @@ public interface ReadOnlyProjectDashboard {
     ObservableList<TasMemMapping> getTasMemMappingList();
 
     ObservableList<Mapping> getMappingList();
+
+    ObservableList<CalendarWrapper> getCalendarList();
+
+    ObservableList<Meeting> getMeetingList();
 
     ObservableList<Task> getTasksNotStarted();
 

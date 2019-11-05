@@ -34,6 +34,10 @@ public class UniqueInventoryList implements Iterable<Inventory> {
         return internalList.stream().anyMatch(toCheck::isSameInventory);
     }
 
+    public int size() {
+        return internalList.size();
+    }
+
     /**
      * Adds a Inventory to the list.
      * The Inventory must not already exist in the list.

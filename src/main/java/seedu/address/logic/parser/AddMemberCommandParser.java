@@ -36,6 +36,7 @@ public class AddMemberCommandParser implements Parser<AddMemberCommand> {
 
         MemberName name = ParserUtil.parseMemberName(argMultimap.getValue(PREFIX_MEMBER_NAME).get());
         MemberId id = ParserUtil.parseMemberId(argMultimap.getValue(PREFIX_MEMBER_ID).get());
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_MEMBER_TAG));
 
         Member member = new Member(name, id, tagList);

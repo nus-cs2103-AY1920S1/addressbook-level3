@@ -10,6 +10,9 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
@@ -54,8 +57,43 @@ public class SampleTaskDataUtil {
             new Inventory(new InvName("Bench"), new Price(59.90)),
             new Inventory(new InvName("Chairs")),
             new Inventory(new InvName("Bag"), new Price(50.0)),
-            new Inventory(new InvName("Condoms"), new Price(17.90)),
+            new Inventory(new InvName("Canola Oil"), new Price(17.90)),
             new Inventory(new InvName("Laptop"), new Price(1111.11)),
+        };
+    }
+
+
+    public static InvMemMapping[] getSampleInvMemMapping() {
+        return new InvMemMapping[] {
+                new InvMemMapping(2,0),
+                new InvMemMapping(2,1),
+                new InvMemMapping(0,2),
+                new InvMemMapping(1,3),
+                new InvMemMapping(2,4),
+                new InvMemMapping(0,5),
+        };
+    }
+
+    public static InvTasMapping[] getSampleInvTasMapping() {
+        return new InvTasMapping[]{
+                new InvTasMapping(5, 0),
+                new InvTasMapping(2, 1),
+                new InvTasMapping(5, 2),
+                new InvTasMapping(5, 3),
+                new InvTasMapping(2, 4),
+                new InvTasMapping(4, 5),
+        };
+    }
+
+
+    public static TasMemMapping[] getSampleTasMemMapping() {
+        return new TasMemMapping[] {
+                new TasMemMapping(1, 1),
+                new TasMemMapping(1, 2),
+                new TasMemMapping(2, 1),
+                new TasMemMapping(3, 4),
+                new TasMemMapping(4, 3),
+                new TasMemMapping(5, 5),
         };
     }
 
@@ -70,6 +108,19 @@ public class SampleTaskDataUtil {
         for (Inventory sampleInventory : getSampleInventory()) {
             samplePd.addInventory(sampleInventory);
         }
+
+        for (InvMemMapping sampleInvMem : getSampleInvMemMapping()) {
+            samplePd.addMapping(sampleInvMem);
+        }
+
+        for (InvTasMapping sampleInvTas : getSampleInvTasMapping()) {
+            samplePd.addMapping(sampleInvTas);
+        }
+
+        for (TasMemMapping sampleTasMem : getSampleTasMemMapping()) {
+            samplePd.addMapping(sampleTasMem);
+        }
+
         return samplePd;
     }
 

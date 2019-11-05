@@ -6,6 +6,6 @@ package seedu.address.model.mapping.exceptions;
  */
 public class DuplicateMappingException extends RuntimeException {
     public DuplicateMappingException() {
-        super("Operation would result in duplicate tasks");
+        super("Operation would result in duplicate mapping");
     }
 }

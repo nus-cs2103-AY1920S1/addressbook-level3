@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
@@ -47,7 +48,7 @@ public class CommandBox extends UiPart<Region> {
     /**
      * makes a new CommandBox adapted from Caleb Brinkman's AutoCompleteTextBox
      * https://gist.github.com/floralvikings/10290131
-     * 
+     *
      * @param commandExecutor
      */
     public CommandBox(CommandExecutor commandExecutor) {
@@ -66,7 +67,7 @@ public class CommandBox extends UiPart<Region> {
     /**
      * returns list(on user interface) of the possible commands from the user input
      * only works for the command keyword and not the other parameters
-     * 
+     *
      * @param observableValue
      * @param s
      * @param s2
@@ -85,6 +86,9 @@ public class CommandBox extends UiPart<Region> {
                 if (!entriesPopup.isShowing()) {
                     entriesPopup.show(this.commandTextField, Side.BOTTOM, 0, 0);
                 }
+                if(searchResult.size() == 1 && searchResult.getFirst().equals(text)) {
+                    entriesPopup.hide();
+                }
             } else {
                 entriesPopup.hide();
             }
@@ -93,7 +97,7 @@ public class CommandBox extends UiPart<Region> {
 
     /**
      * Get the existing set of autocomplete entries.
-     * 
+     *
      * @return The existing autocomplete entries.
      */
     public SortedSet<String> getEntries() {
@@ -103,7 +107,7 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Populate the entry set with the given search results. Display is limited to
      * 5 entries, for performance.
-     * 
+     *
      * @param searchResult The set of matching strings.
      */
     private void populatePopup(List<String> searchResult) {
@@ -138,7 +142,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | FileNotFoundException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -173,7 +177,14 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException, FileNotFoundException;
+    }
+    /**
+     * Interface to allow other components to update the text inside {@CommandBox}
+     * @param text
+     */
+    public void setCommandText(String text) {
+        commandTextField.setText(text);
     }
 
 }

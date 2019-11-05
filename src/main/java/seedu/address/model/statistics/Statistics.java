@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
@@ -14,19 +16,18 @@ import seedu.address.model.task.TaskStatus;
 public class Statistics {
     private final List<Member> members;
     private final List<Task> tasks;
-    //private final SortingMethod sortingMethod;
-    private final List<Mapping> mappings;
+    private final List<TasMemMapping> tasMem;
+    private final List<InvMemMapping> invMem;
     private final HashMap<TaskStatus, Integer> portionTasksByStatus = new HashMap<>();
     private final HashMap<Member, Integer> portionMemberByTasks = new HashMap<>();
-    //private final HashMap<Member, Integer> portionMemberByPrice;
-    //NOTE SORTINGMETHOD IS NOT IN USE AS OF NOW
+    private final HashMap<Member, Integer> portionMemberByInv = new HashMap<>();
 
-    public Statistics(List<Member> members, List<Task> tasks, List<Mapping> mappings) {
-        requireAllNonNull(members, tasks, mappings);
+    public Statistics(List<Member> members, List<Task> tasks, List<TasMemMapping> tasMem, List<InvMemMapping> invMem) {
+        requireAllNonNull(members, tasks, tasMem, invMem);
         this.members = members;
         this.tasks = tasks;
-        this.mappings = mappings;
-
+        this.tasMem = tasMem;
+        this.invMem = invMem;
     }
 
 
@@ -43,7 +44,8 @@ public class Statistics {
         // basically the name cannot be the same, that's it
         return members.equals(otherStats.getMemberList())
                 && tasks.equals(otherStats.getTaskList())
-                && mappings.equals(otherStats.getMappingList());
+                && invMem.equals(otherStats.getInvMemList())
+                && tasMem.equals((otherStats.getTasMemList()));
     }
 
     public List<Task> getTaskList() {
@@ -54,21 +56,35 @@ public class Statistics {
         return this.members;
     }
 
-    public List<Mapping> getMappingList() {
-        return this.mappings;
+    public List<TasMemMapping> getTasMemList() {
+        return this.tasMem;
+    }
+
+    public List<InvMemMapping> getInvMemList() {
+        return this.invMem;
     }
 
 
     //only do if the statistics object is unique
     public void doCalculations() {
-        for(Member member: members) {
+        for (int i=0; i < members.size(); i++) {
             int numTasks = 0;
-            for(Mapping mapping : mappings) {
-//                if(mapping.hasMember(member)) {
-//                    numTasks++;
-//                }
+            for(TasMemMapping mapping : tasMem) {
+                if(mapping.hasMember(i)) {
+                    numTasks++;
+                }
             }
-            portionMemberByTasks.put(member, numTasks);
+            portionMemberByTasks.put(members.get(i), numTasks);
+        }
+
+        for (int i=0; i < members.size(); i++) {
+            int numItems = 0;
+            for(InvMemMapping mapping : invMem) {
+                if(mapping.hasMember(i)) {
+                    numItems++;
+                }
+            }
+            portionMemberByInv.put(members.get(i), numItems);
         }
 
         int unbegun = 0;
@@ -100,6 +116,10 @@ public class Statistics {
         return portionMemberByTasks;
     }
 
+    public HashMap<Member, Integer> getPortionMembersByInv() {
+        return portionMemberByInv;
+    }
+
     public HashMap<TaskStatus, Integer> getPortionTasksByStatus() {
         return portionTasksByStatus;
     }
@@ -122,7 +142,8 @@ public class Statistics {
 
         return otherStats != null
                 && tasks.equals(otherStats.getTaskList())
-                && mappings.equals(otherStats.getMappingList())
+                && invMem.equals(otherStats.getInvMemList())
+                && tasMem.equals(otherStats.getTasMemList())
                 && members.equals(otherStats.getMemberList());
 
     }
@@ -130,7 +151,7 @@ public class Statistics {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, members, mappings);
+        return Objects.hash(tasks, members, tasMem, invMem);
     }
 
     @Override

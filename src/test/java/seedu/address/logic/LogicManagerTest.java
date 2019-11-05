@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalTasksMembers.REVIEW_BUDGET;
 //import static seedu.address.testutil.TypicalTasksMembers.REVIEW_BUDGET;
 
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -63,7 +64,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteTaskCommand = "delete-task 9";
+        String deleteTaskCommand = "delete-task ti/9";
         assertCommandException(deleteTaskCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
@@ -109,7 +110,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+            Model expectedModel) throws CommandException, ParseException, FileNotFoundException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);

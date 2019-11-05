@@ -26,15 +26,15 @@ import seedu.address.model.tag.Tag;
  */
 public class EditMemberCommand extends Command {
     public static final String COMMAND_WORD = "edit-member";
+    public static final String PREFIX_USAGE = "mn/ mi/ mt/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the member identified "
             + "by the id used in the displayed member list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: ID (must be an alphanumeric string) "
-            + "[" + PREFIX_MEMBER_NAME + "NAME] "
-            + "[" + PREFIX_MEMBER_ID + "ID] "
-            + "[" + PREFIX_MEMBER_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Parameters:" + PREFIX_MEMBER_ID + "MEMBER ID"
+            + PREFIX_MEMBER_NAME + "NAME"
+            + PREFIX_MEMBER_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " mi ";
 
     public static final String MESSAGE_EDIT_MEMBER_SUCCESS = "Edited Member: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -64,7 +64,7 @@ public class EditMemberCommand extends Command {
         Member memberToEdit = null;
 
         for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i).getId() == id) {
+            if (lastShownList.get(i).getId().equals(id)) {
                 contains = true;
                 memberToEdit = lastShownList.get(i);
                 break;
@@ -94,10 +94,11 @@ public class EditMemberCommand extends Command {
         assert memberToEdit != null;
 
         MemberName updatedName = editMemberDescriptor.getName().orElse(memberToEdit.getName());
-        MemberId updatedMemberId = editMemberDescriptor.getId().orElse(memberToEdit.getId());
+        MemberId updatedMemberId = memberToEdit.getId();
         Set<Tag> updatedTags = editMemberDescriptor.getTags().orElse(memberToEdit.getTags());
+        String imagePath = memberToEdit.getImageUrl();
 
-        return new Member(updatedName, updatedMemberId, updatedTags);
+        return new Member(updatedName, updatedMemberId, updatedTags, imagePath);
     }
 
     @Override
@@ -124,7 +125,6 @@ public class EditMemberCommand extends Command {
      */
     public static class EditMemberDescriptor {
         private MemberName name;
-        private MemberId id;
         private Set<Tag> tags;
 
         public EditMemberDescriptor() {}
@@ -135,7 +135,6 @@ public class EditMemberCommand extends Command {
          */
         public EditMemberDescriptor(EditMemberDescriptor toCopy) {
             setName(toCopy.name);
-            setId(toCopy.id);
             setTags(toCopy.tags);
         }
 
@@ -143,16 +142,9 @@ public class EditMemberCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, id, tags);
+            return CollectionUtil.isAnyNonNull(name, tags);
         }
 
-        public void setId(MemberId id) {
-            this.id = id;
-        }
-
-        public Optional<MemberId> getId() {
-            return Optional.ofNullable(id);
-        }
         public void setName(MemberName name) {
             this.name = name;
         }
@@ -194,7 +186,6 @@ public class EditMemberCommand extends Command {
             EditMemberDescriptor e = (EditMemberDescriptor) other;
 
             return getName().equals(e.getName())
-                    && (getId().equals(e.getId()))
                     && getTags().equals(e.getTags());
         }
     }

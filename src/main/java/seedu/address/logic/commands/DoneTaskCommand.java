@@ -22,6 +22,8 @@ import seedu.address.model.task.TaskStatus;
 public class DoneTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "done-task";
+    public static final String PREFIX_USAGE = "ti/";
+
     public static final String UPDATED_STATUS = TaskStatus.DONE.getDisplayName();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -29,7 +31,7 @@ public class DoneTaskCommand extends Command {
             + "by the index number used in the displayed task list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TASK_INDEX + "TASK_INDEX\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + "ti/1 ";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Updated Task to <"
             + UPDATED_STATUS + ">: %1$s";
@@ -46,6 +48,10 @@ public class DoneTaskCommand extends Command {
         requireNonNull(index);
 
         this.index = index;
+    }
+
+    public int getIndex() {
+        return index.getZeroBased();
     }
 
     @Override
@@ -66,6 +72,11 @@ public class DoneTaskCommand extends Command {
 
         model.setTask(taskToUpdate, updatedTask);
         model.updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+        if(taskToUpdate.getTags().contains(new Tag("Inventory"))) {
+            return new CommandResult("Type-1 /"
+                                                        + taskToUpdate.getName().toString() + "/"
+                                                        + index.getOneBased());
+        }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, updatedTask));
     }
 

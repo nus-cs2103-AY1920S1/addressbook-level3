@@ -1,5 +1,3 @@
 package seedu.address.model.mapping;
 
-public abstract class Mapping {
-
-}
+public abstract class Mapping {}

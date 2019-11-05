@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.scene.layout.Pane;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Communicates with {@code UserViewManager} to update the view based on user's command.
@@ -26,9 +27,11 @@ public class UserViewUpdate {
      *
      * @param commandText raw command of user
      */
-    public void parseUserCommand(String commandText) {
-        String preamble = commandText.split(" ")[0];
+    public void parseUserCommand(String commandText) throws ParseException {
+        String trimmedCommand = commandText.trim();
+        String[] split = trimmedCommand.split(" ");
 
+        String preamble = split[0];
         assert !(preamble.isEmpty());
 
         paneToRender.getChildren().clear();
@@ -54,8 +57,26 @@ public class UserViewUpdate {
             break;
 
         case "add-member":
+            paneToRender.getChildren().add(userViewMain.loadSpecificMember());
+            break;
+
+        case "set-image":
+            paneToRender.getChildren().add(userViewMain.loadSetImage());
+            break;
 
         case "find-member":
+            paneToRender.getChildren().add(userViewMain.loadFoundMembers());
+            break;
+
+        case "assign":
+            paneToRender.getChildren().add(userViewMain.loadAssign());
+            break;
+
+        case "fire":
+            paneToRender.getChildren().add(userViewMain.loadTasks());
+            break;
+
+        case "edit-member":
 
         case "remove-member":
 
@@ -69,24 +90,25 @@ public class UserViewUpdate {
 
         case "add-inv":
 
+        case "add-i":
+
         case "list-inv":
             paneToRender.getChildren().add(userViewMain.loadInventories());
             break;
 
-        case "assign-member":
 
-        case "fire-member":
 
-        case "get-member-stats":
+        case "member-stats":
            paneToRender.getChildren().add(userViewMain.loadMemberStats());
            break;
 
-        case "assign-task":
 
-        case "fire-task":
-
-        case "get-task-stats":
+        case "task-stats":
             paneToRender.getChildren().add(userViewMain.loadTaskStats());
+            break;
+
+        case "find-meeting-time":
+            paneToRender.getChildren().add(userViewMain.loadMeetingTimes());
             break;
 
         case "settings":
@@ -100,9 +122,17 @@ public class UserViewUpdate {
         case "clear":
 
         case "home":
+
+        case "add-d":
+
+        case "no":
+
+        case "yes":
             paneToRender.getChildren().add(userViewMain.loadDashboard());
             break;
 
+        case "help":
+            paneToRender.getChildren().add(userViewMain.loadHelpView());
         default:
             // show nothing (only exit has no case)
         }

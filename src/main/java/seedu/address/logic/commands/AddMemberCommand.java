@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_TAG;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
+
+import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -14,6 +17,7 @@ import seedu.address.model.member.Member;
  */
 public class AddMemberCommand extends Command {
     public static final String COMMAND_WORD = "add-member";
+    public static final String PREFIX_USAGE = "mn/ mi/ mt/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member to the address book. "
             + "Parameters: "
@@ -28,6 +32,7 @@ public class AddMemberCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New member added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_ID = "This ID is already in use, please choose another member id!";
 
     private final Member toAdd;
 
@@ -42,9 +47,17 @@ public class AddMemberCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
+        List<Member> members = model.getFilteredMembersList();
 
         if (model.hasMember(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEMBER);
+        }
+
+        for (Member mem : members) {
+            if (mem.getId().equals(toAdd.getId())) {
+                throw new CommandException(MESSAGE_DUPLICATE_ID);
+            }
         }
 
         model.addMember(toAdd);

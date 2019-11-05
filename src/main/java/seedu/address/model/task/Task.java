@@ -7,14 +7,12 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,6 +39,15 @@ public class Task {
         requireAllNonNull(name, tags);
         this.name = name;
         this.taskStatus = taskStatus;
+
+        if (taskStatus.equals(TaskStatus.DOING)) {
+            timeStart = Instant.now();
+        }
+
+        if (taskStatus.equals(TaskStatus.DONE)) {
+            timeEnd = Instant.now();
+        }
+
         this.tags.addAll(tags);
     }
 
@@ -100,9 +107,17 @@ public class Task {
         String timeTaken = " ";
         if (timeEnd == null) {
             timeTaken = " Task has yet to be completed ";
+        } else if (timeStart == null) {
+            timeTaken = " Task inputted was done from time of input.";
         } else {
             Duration timeElasped = Duration.between(timeStart, timeEnd);
-            timeTaken = timeElasped.toHours() + " hours";
+            long timeInHours = timeElasped.toHours();
+
+            if (timeInHours == 0 ) {
+                timeTaken = timeElasped.toMinutes() + "minutes";
+            } else {
+                timeTaken = timeInHours + "hours";
+            }
         }
 
         return timeTaken;
@@ -172,7 +187,7 @@ public class Task {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("Task status: " + getTaskStatus().getDisplayName())
+                .append(" Task status: " + getTaskStatus().getDisplayName())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         if (hasDeadline()) {
@@ -183,5 +198,9 @@ public class Task {
                     .append(formattedDeadline);
         }
         return builder.toString();
+    }
+
+    public String toStringShort() {
+        return name.fullName;
     }
 }
