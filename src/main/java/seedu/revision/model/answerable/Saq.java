@@ -14,8 +14,6 @@ public class Saq extends Answerable {
 
     public static final String MESSAGE_CONSTRAINTS = "SAQs should not be blank.";
 
-    private static final Logger logger = Logger.getLogger(Saq.class.getName());
-
     /**
      * Every field must be present and not null.
      */

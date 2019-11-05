@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -33,7 +33,7 @@ public class MainWindow extends Window {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public MainWindow(Stage primaryStage, MainLogic mainLogic) {
+    public MainWindow(Stage primaryStage, Logic mainLogic) {
         super(FXML, primaryStage, mainLogic);
     }
 
@@ -120,7 +120,7 @@ public class MainWindow extends Window {
     /**
      * Executes the command and returns the result.
      *
-     * @see MainLogic#execute(String)
+     * @see Logic#execute(String)
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {

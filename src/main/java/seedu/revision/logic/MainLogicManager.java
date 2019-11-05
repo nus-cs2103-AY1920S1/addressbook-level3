@@ -25,7 +25,7 @@ import seedu.revision.storage.Storage;
 /**
  * The main MainLogicManager of the app.
  */
-public class MainLogicManager implements MainLogic {
+public class MainLogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private static final Logger logger = LogsCenter.getLogger(MainLogicManager.class);
 
@@ -60,14 +60,6 @@ public class MainLogicManager implements MainLogic {
     }
 
 
-    /**
-     * Executes commands while the Quiz session in operation. Takes in user input and determines command to execute.
-     * @param commandText The command as entered by the user.
-     * @param currentAnswerable The current question to be responded to.
-     * @return commandResult to be executed.
-     * @throws ParseException
-     * @throws CommandException
-     */
     @Override
     public CommandResult execute(String commandText, Answerable currentAnswerable)
             throws ParseException, CommandException {

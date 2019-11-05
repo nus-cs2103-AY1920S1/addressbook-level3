@@ -18,8 +18,6 @@ import seedu.revision.model.category.Category;
  */
 public abstract class Answerable {
 
-    private static final Logger logger = Logger.getLogger(Answerable.class.getName());
-
     protected final Question question;
     protected final Difficulty difficulty;
     protected final ArrayList<Answer> correctAnswerList;

@@ -40,7 +40,7 @@ public class MainLogicManagerTest {
     public Path temporaryFolder;
 
     private Model model = new ModelManager();
-    private MainLogic mainLogic;
+    private Logic mainLogic;
 
     @BeforeEach
     public void setUp() {

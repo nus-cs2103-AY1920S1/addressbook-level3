@@ -25,7 +25,7 @@ class JsonAdaptedCategory {
      * Converts a given {@code category} into this class for Jackson use.
      */
     public JsonAdaptedCategory(Category source) {
-        categoryName = source.categoryName;
+        categoryName = source.category;
     }
 
     @JsonValue
@@ -39,7 +39,7 @@ class JsonAdaptedCategory {
      * @throws IllegalValueException if there were any data constraints violated in the adapted category.
      */
     public Category toModelType() throws IllegalValueException {
-        if (!Category.isValidCategoryName(categoryName)) {
+        if (!Category.isValidCategory(categoryName)) {
             throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
         }
         return new Category(categoryName);

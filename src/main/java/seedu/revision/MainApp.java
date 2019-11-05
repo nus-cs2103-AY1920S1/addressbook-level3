@@ -13,7 +13,7 @@ import seedu.revision.commons.core.Version;
 import seedu.revision.commons.exceptions.DataConversionException;
 import seedu.revision.commons.util.ConfigUtil;
 import seedu.revision.commons.util.StringUtil;
-import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.MainLogicManager;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
@@ -41,7 +41,7 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    protected MainLogic mainLogic;
+    protected Logic mainLogic;
     protected Storage storage;
     protected Model model;
     protected Config config;

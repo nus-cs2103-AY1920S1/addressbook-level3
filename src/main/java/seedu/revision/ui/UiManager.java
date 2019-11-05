@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import seedu.revision.MainApp;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.commons.util.StringUtil;
-import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.Logic;
 
 /**
  * The manager of the UI component.
@@ -22,10 +22,10 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/idea.png";
 
-    private MainLogic mainLogic;
+    private Logic mainLogic;
     private MainWindow mainWindow;
 
-    public UiManager(MainLogic mainLogic) {
+    public UiManager(Logic mainLogic) {
         super();
         this.mainLogic = mainLogic;
     }
