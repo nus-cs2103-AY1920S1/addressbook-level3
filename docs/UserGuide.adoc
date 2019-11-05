@@ -897,46 +897,48 @@ have worked towards their goal(s)). Users may also set reminders to remind them 
 feedback.
 //end::personalisedUserExperience[]
 
-=== DATA ANALYSIS
+=== DATA SUMMARY/ANALYSIS
 
-==== Display the daily/weekly/monthly average of records in a line graph: `average`
+==== Displays the daily/weekly/monthly average of records in a line graph: `average`
 
 Format: `average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]`
 
 AVERAGE_TYPE is either "daily", "weekly" or "monthly". +
 RECORD_TYPE is either "bloodsugar" or "bmi". +
-Displays a graph of the "daily"/"weekly"/"monthly" average of a particular RECORD_TYPE.
-COUNT is an integer between 1 to 9 inclusive. +
-If COUNT is given, SugarMummy shows __up to__ COUNT most recent number of average values.
-Else, COUNT is set to 5 by default and show most recent 5 average values.
+Displays a graph of the "daily", "weekly" or "monthly" average of a particular RECORD_TYPE. +
+COUNT is an optional field that takes integer between 1 to 12 inclusive. +
+If COUNT is given, SugarMummy shows **up to** COUNT most recent number of average values.
+Else, COUNT is set to 5 by default and shows 5 most recent average values.
 
-NOTE: If SugarMummy does not show __exactly__ COUNT number of average values,
+NOTE: If SugarMummy **does not show exactly** COUNT number of average values,
 that means you do not have enough records in the database.
 
 Example usage 1: `average a/weekly rt/bloodsugar`:
-Shows the latest 5 weekly average of blood sugar records.
+Shows the 5 latest weekly average of blood sugar records.
 
 Example usage 2: `average a/daily rt/bmi n/9`:
-Shows the latest 9 weekly average of BMI records.
+Shows the 9 latest daily average of BMI records.
 
 
-==== Display interesting statistics: `summary` `[coming in v1.4]`
+==== Summary statistics of a particular record type `[coming in v2.0]`
 
-Shows minimum, maximum, average of the records. Categorize records into low, normal, high values
-in pie chart.
+Shows minimum, maximum, average of a record type. Categorizes records into low, normal
+and high values in a pie chart. User can specify the date interval of the summary by giving
+a start date and end date.
 
-Format: `summary rt/RECORD_TYPE [d/START_DATE]`
+==== Shows relationship between record types: `[coming in v2.0]`
 
-If START_DATE is given, statistics from START_DATE to the current date will be retrieved.
-Else, statistics will be based on all data.
+User can see how a particular record type changes with other record types.
+This information will be displayed on a scatter plot where trends can be spotted
+easily. Note that this feature will work well only if
 
-==== Export summary of all medical records into pdf: `export` `[coming in v2.0]`
+. You have records for both record types in any given day.
+. You have more than 50 days worth of records.
 
+==== Exports summary of all medical records into pdf `[coming in v2.0]`
 
-Format: `export [d/START_DATE]`
-
-If START_DATE is given, summary from START_DATE to the current date will be exported.
-Else, summary of all data will be exported.
+Need to share your records with your doctor or others? With SugarMummy export function,
+you can save any graphs and plots generated in a pdf file.
 
 === Food Recommendation
 
@@ -1159,8 +1161,6 @@ E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
-. *Summary*: `summary rt/RECORD_TYPE [d/START_DATE]`
-E.g `summary rt/bloodsugar d/01.09.2019`
 
 == FAQ
 
