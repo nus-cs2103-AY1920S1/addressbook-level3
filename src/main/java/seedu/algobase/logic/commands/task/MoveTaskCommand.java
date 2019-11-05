@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_FROM;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_TO;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -62,39 +61,36 @@ public class MoveTaskCommand extends Command {
             || moveTaskDescriptor.planToIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        Plan planFrom = lastShownPlanList.get(moveTaskDescriptor.planFromIndex.getZeroBased());
-        Plan planTo = lastShownPlanList.get(moveTaskDescriptor.planToIndex.getZeroBased());
+        Plan planToBeMovedFrom = lastShownPlanList.get(moveTaskDescriptor.planFromIndex.getZeroBased());
+        Plan planToBeMovedInto = lastShownPlanList.get(moveTaskDescriptor.planToIndex.getZeroBased());
 
-        List<Task> taskListFrom = planFrom.getTaskList();
-        List<Task> taskListTo = planTo.getTaskList();
+        List<Task> taskListToBeMovedFrom = planToBeMovedFrom.getTaskList();
+        List<Task> taskListToBeMovedInto = planToBeMovedInto.getTaskList();
         int taskIndex = moveTaskDescriptor.taskIndex.getZeroBased();
-        if (taskIndex >= taskListFrom.size()) {
+        if (taskIndex >= taskListToBeMovedFrom.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        Task taskToMove = taskListFrom.get(taskIndex);
-        taskListFrom.remove(taskIndex);
-        Set<Task> taskSetFrom = new HashSet<>(taskListFrom);
-        Set<Task> taskSetTo = new HashSet<>(taskListTo);
-        if (taskSetTo.contains(taskToMove)) {
+        Task taskToBeMoved = taskListToBeMovedFrom.get(taskIndex);
+        taskListToBeMovedFrom.remove(taskIndex);
+        Set<Task> taskSetToBeMovedFrom = new HashSet<>(taskListToBeMovedFrom);
+        Set<Task> taskSetToBeMovedInto = new HashSet<>(taskListToBeMovedInto);
+        if (taskSetToBeMovedInto.contains(taskToBeMoved)) {
             throw new CommandException(
-                String.format(MESSAGE_DUPLICATE_TASK, taskToMove.getName(), planTo.getPlanName()));
+                String.format(MESSAGE_DUPLICATE_TASK, taskToBeMoved.getName(), planToBeMovedInto.getPlanName()));
         }
-        if (!planTo.checkWithinDateRange(taskToMove.getTargetDate())) {
+        if (!planToBeMovedInto.checkWithinDateRange(taskToBeMoved.getTargetDate())) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
         }
-        taskSetTo.add(taskToMove);
+        taskSetToBeMovedInto.add(taskToBeMoved);
 
-        Plan updatedPlanFrom = Plan.updateTasks(planFrom, taskSetFrom);
-        Plan updatedPlanTo = Plan.updateTasks(planTo, taskSetTo);
-        model.setPlan(planFrom, updatedPlanFrom);
-        model.setPlan(planTo, updatedPlanTo);
-        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        model.updateTasks(taskSetToBeMovedFrom, planToBeMovedFrom);
+        model.updateTasks(taskSetToBeMovedInto, planToBeMovedInto);
 
         return new CommandResult(
             String.format(MESSAGE_MOVE_TASK_SUCCESS,
-                taskToMove.getName(),
-                updatedPlanFrom.getPlanName(),
-                updatedPlanTo.getPlanName()
+                taskToBeMoved.getName(),
+                planToBeMovedFrom.getPlanName(),
+                planToBeMovedInto.getPlanName()
             )
         );
     }

@@ -3,7 +3,6 @@ package seedu.algobase.logic.commands.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -68,12 +67,10 @@ public class DeleteTaskCommand extends Command {
         taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
 
-        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
-        model.setPlan(planToUpdate, updatedPlan);
-        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        model.updateTasks(taskSet, planToUpdate);
 
         return new CommandResult(
-                String.format(MESSAGE_DELETE_TASK_SUCCESS, task.getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_DELETE_TASK_SUCCESS, task.getName(), planToUpdate.getPlanName()));
     }
 
     @Override

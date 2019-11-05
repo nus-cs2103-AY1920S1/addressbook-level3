@@ -40,7 +40,7 @@ import seedu.algobase.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editprob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the details of the Problem identified "
@@ -104,6 +104,7 @@ public class EditCommand extends Command {
                 }
             }
         }
+        model.updateProblemInAllPlans(problemToEdit, editedProblem);
 
         model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
         return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedProblem.getName()));

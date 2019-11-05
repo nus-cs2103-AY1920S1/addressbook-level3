@@ -17,7 +17,7 @@ import seedu.algobase.logic.Logic;
  */
 public class UiManager implements Ui {
 
-    public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
+    private static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/algobase.png";
@@ -53,7 +53,7 @@ public class UiManager implements Ui {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+    private void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 

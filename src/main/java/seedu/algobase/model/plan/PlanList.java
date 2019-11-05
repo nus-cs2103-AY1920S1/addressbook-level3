@@ -35,6 +35,7 @@ public class PlanList implements Iterable<Plan> {
     private final StringProperty currentPlan = new SimpleStringProperty();
     private final IntegerProperty solvedCount = new SimpleIntegerProperty();
     private final IntegerProperty unsolvedCount = new SimpleIntegerProperty();
+    private final IntegerProperty taskCount = new SimpleIntegerProperty();
 
     /**
      * Check whether any plan in the list contains the given problem.
@@ -49,7 +50,16 @@ public class PlanList implements Iterable<Plan> {
      */
     public void removeProblem(Problem problem) {
         List<Plan> updatedList = new ArrayList<>();
-        internalList.stream().forEach(plan -> updatedList.add(plan.removeProblem(problem)));
+        internalList.forEach(plan -> updatedList.add(plan.removeProblem(problem)));
+        setPlans(updatedList);
+    }
+
+    /**
+     * Updates the given problem in all tasks.
+     */
+    public void updateProblem(Problem oldProblem, Problem newProblem) {
+        List<Plan> updatedList = new ArrayList<>();
+        internalList.forEach(plan -> updatedList.add(plan.updateProblem(oldProblem, newProblem)));
         setPlans(updatedList);
     }
 
@@ -87,10 +97,7 @@ public class PlanList implements Iterable<Plan> {
         if (!internalList.remove(toRemove)) {
             throw new PlanNotFoundException();
         }
-        currentPlan.set("");
-        solvedCount.set(0);
-        unsolvedCount.set(0);
-        internalTaskList.setAll();
+        clearCurrentPlan();
     }
 
     /**
@@ -112,7 +119,7 @@ public class PlanList implements Iterable<Plan> {
             // Default to first plan in list
             setCurrentPlan(plans.get(0));
         } else {
-            currentPlan.set("");
+            clearCurrentPlan();
         }
     }
 
@@ -124,13 +131,36 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
+     * Sets the current plan as identified by the given index.
+     */
+    public void setCurrentPlan(int index) {
+        setCurrentPlan(internalList.get(index));
+    }
+
+    /**
      * Sets the current {@code Plan}.
      */
     public void setCurrentPlan(Plan plan) {
-        currentPlan.set(plan.getPlanName().fullName);
-        solvedCount.set(plan.getSolvedTaskCount());
-        unsolvedCount.set(plan.getUnsolvedTaskCount());
-        internalTaskList.setAll(plan.getTaskList());
+        if (plan != null) {
+            currentPlan.set(plan.getPlanName().fullName);
+            solvedCount.set(plan.getSolvedTaskCount());
+            unsolvedCount.set(plan.getUnsolvedTaskCount());
+            taskCount.set(plan.getSolvedTaskCount() + plan.getUnsolvedTaskCount());
+            internalTaskList.setAll(plan.getTaskList());
+        } else {
+            clearCurrentPlan();
+        }
+    }
+
+    /**
+     * Sets the current {@code Plan} as empty.
+     */
+    private void clearCurrentPlan() {
+        currentPlan.set("");
+        solvedCount.set(0);
+        unsolvedCount.set(0);
+        taskCount.set(0);
+        internalTaskList.setAll();
     }
 
     /**
@@ -141,10 +171,17 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
-     * Returns the number of solved tasks in current plan.
+     * Returns the number of unsolved tasks in current plan.
      */
     public IntegerProperty getCurrentUnsolvedCount() {
         return unsolvedCount;
+    }
+
+    /**
+     * Returns the total number of tasks in current plan.
+     */
+    public IntegerProperty getCurrentTaskCount() {
+        return taskCount;
     }
 
     /**

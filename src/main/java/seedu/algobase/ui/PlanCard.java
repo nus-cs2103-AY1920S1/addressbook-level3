@@ -13,6 +13,7 @@ import javafx.scene.text.TextAlignment;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
@@ -24,10 +25,10 @@ import seedu.algobase.storage.SaveStorageRunnable;
 public class PlanCard extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(PlanCard.class);
-
     private static final String FXML = "PlanListCard.fxml";
 
     public final Plan plan;
+    private final int planIndex;
 
     @FXML
     private HBox cardPane;
@@ -46,9 +47,11 @@ public class PlanCard extends UiPart<Region> {
         Plan plan,
         int displayedIndex,
         WriteOnlyTabManager writeOnlyTabManager,
-        SaveStorageRunnable saveStorageRunnable
+        SaveStorageRunnable saveStorageRunnable,
+        ReadOnlyAlgoBase algoBase
     ) {
         super(FXML);
+        this.planIndex = displayedIndex - 1;
         this.plan = plan;
         id.setText(displayedIndex + ". ");
         id.setWrapText(true);
@@ -65,7 +68,7 @@ public class PlanCard extends UiPart<Region> {
         endDate.setText(plan.getEndDate().format(ParserUtil.FORMATTER));
         endDate.setWrapText(true);
         endDate.setTextAlignment(TextAlignment.JUSTIFY);
-        addMouseClickListener(writeOnlyTabManager, saveStorageRunnable);
+        addMouseClickListener(writeOnlyTabManager, saveStorageRunnable, algoBase);
     }
 
     @Override
@@ -94,7 +97,8 @@ public class PlanCard extends UiPart<Region> {
      */
     public void addMouseClickListener(
         WriteOnlyTabManager writeOnlyTabManager,
-        SaveStorageRunnable saveStorageRunnable
+        SaveStorageRunnable saveStorageRunnable,
+        ReadOnlyAlgoBase algoBase
     ) {
         cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -105,6 +109,7 @@ public class PlanCard extends UiPart<Region> {
                         logger.info("Opening new plan tab");
                         writeOnlyTabManager.openDetailsTab(new TabData(ModelType.PLAN, plan.getId()));
                         saveStorageRunnable.save();
+                        algoBase.setCurrentPlan(planIndex);
                     }
                 }
             }

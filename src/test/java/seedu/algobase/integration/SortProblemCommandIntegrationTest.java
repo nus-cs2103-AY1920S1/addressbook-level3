@@ -20,8 +20,6 @@ import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
 public class SortProblemCommandIntegrationTest {
-    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @TempDir
     public Path testFolder;
 
@@ -39,21 +37,19 @@ public class SortProblemCommandIntegrationTest {
         logicManager = new LogicManager(modelManager, storageManager);
     }
 
-    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @Test
     public void sortproblem_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("sort m/name\n");
-        logicManager.execute("sort m/name ord/ascend\n");
-        logicManager.execute("sort m/author ord/ascend\n");
-        logicManager.execute("sort m/weblink ord/ascend\n");
-        logicManager.execute("sort m/difficulty ord/ascend\n");
-        logicManager.execute("sort m/source ord/ascend\n");
-        logicManager.execute("sort m/name ord/descend\n");
-        logicManager.execute("sort m/author ord/descend\n");
-        logicManager.execute("sort m/weblink ord/descend\n");
-        logicManager.execute("sort m/difficulty ord/descend\n");
-        logicManager.execute("sort m/source ord/descend\n");
-        logicManager.execute("sort m/source ord/descend\n");
+        logicManager.execute("sortprob m/name\n");
+        logicManager.execute("sortprob m/name ord/ascend\n");
+        logicManager.execute("sortprob m/author ord/ascend\n");
+        logicManager.execute("sortprob m/weblink ord/ascend\n");
+        logicManager.execute("sortprob m/difficulty ord/ascend\n");
+        logicManager.execute("sortprob m/source ord/ascend\n");
+        logicManager.execute("sortprob m/name ord/descend\n");
+        logicManager.execute("sortprob m/author ord/descend\n");
+        logicManager.execute("sortprob m/weblink ord/descend\n");
+        logicManager.execute("sortprob m/difficulty ord/descend\n");
+        logicManager.execute("sortprob m/source ord/descend\n");
+        logicManager.execute("sortprob m/source ord/descend\n");
     }
 }

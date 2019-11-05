@@ -60,19 +60,13 @@ public class Plan {
     }
 
     /**
-     * Creates and returns a {@code Plan} with the details of {@code planToUpdate}
+     * Creates and returns a {@code Plan} with the details of the original plan
      * with an updated {@code taskSet}.
      */
-    public static Plan updateTasks(Plan planToUpdate, Set<Task> taskSet) {
-        assert planToUpdate != null;
+    public Plan updateTasks(Set<Task> taskSet) {
+        requireAllNonNull(taskSet);
 
-        Id id = planToUpdate.id;
-        PlanName name = planToUpdate.planName;
-        PlanDescription description = planToUpdate.planDescription;
-        LocalDate startDate = planToUpdate.startDate;
-        LocalDate endDate = planToUpdate.endDate;
-
-        return new Plan(id, name, description, startDate, endDate, taskSet);
+        return new Plan(id, planName, planDescription, startDate, endDate, taskSet);
     }
 
     /**
@@ -80,6 +74,8 @@ public class Plan {
      * @return true/false based on whether the given date is within plan date range.
      */
     public boolean checkWithinDateRange(LocalDate date) {
+        requireAllNonNull(date);
+
         return date.compareTo(this.getStartDate()) >= 0 && date.compareTo(this.getEndDate()) <= 0;
     }
 
@@ -87,32 +83,51 @@ public class Plan {
      * Check whether its tasks contain the given problem.
      * @return true/false based on whether the given problem is contained in one of its tasks.
      */
-    public boolean containsProblem(Problem problem) {
-        return tasks.stream().anyMatch(task -> task.getProblem().equals(problem));
+    boolean containsProblem(Problem problem) {
+        requireAllNonNull(problem);
+
+        return this.tasks.stream().anyMatch(task -> task.getProblem().equals(problem));
     }
 
     /**
      * Deletes the given problem from all tasks.
      */
-    public Plan removeProblem(Problem problem) {
-        Set<Task> taskSet = tasks.stream().filter(task -> !task.getProblem().equals(problem))
+    Plan removeProblem(Problem problem) {
+        requireAllNonNull(problem);
+
+        Set<Task> taskSet = this.tasks.stream().filter(task -> !task.getProblem().equals(problem))
             .collect(Collectors.toSet());
-        return updateTasks(this, taskSet);
+        return this.updateTasks(taskSet);
+    }
+
+    /**
+     * Updates the given problem in all tasks.
+     */
+    Plan updateProblem(Problem oldProblem, Problem newProblem) {
+        Set<Task> taskSet = new HashSet<>();
+        this.tasks.forEach(task -> {
+            if (task.getProblem().equals(oldProblem)) {
+                taskSet.add(task.updateProblem(newProblem));
+            } else {
+                taskSet.add(task);
+            }
+        });
+        return this.updateTasks(taskSet);
     }
 
     /**
      * Returns number of solved tasks within plan.
      * @return number of solved tasks.
      */
-    public int getSolvedTaskCount() {
-        return (int) this.getTasks().stream().filter((task) -> task.getIsSolved()).count();
+    int getSolvedTaskCount() {
+        return (int) this.getTasks().stream().filter(Task::getIsSolved).count();
     }
 
     /**
      * Returns number of unsolved tasks within plan.
      * @return number of unsolved tasks.
      */
-    public int getUnsolvedTaskCount() {
+    int getUnsolvedTaskCount() {
         return (int) this.getTasks().stream().filter((task) -> !task.getIsSolved()).count();
     }
 

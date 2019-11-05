@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.storage.SaveStorageRunnable;
@@ -22,6 +23,7 @@ public class PlanListPanel extends UiPart<Region> {
 
     private final WriteOnlyTabManager writeOnlyTabManager;
     private final SaveStorageRunnable saveStorageRunnable;
+    private final ReadOnlyAlgoBase algoBase;
 
     @FXML
     private ListView<Plan> planListView;
@@ -29,13 +31,15 @@ public class PlanListPanel extends UiPart<Region> {
     public PlanListPanel(
         ObservableList<Plan> planList,
         WriteOnlyTabManager writeOnlyTabManager,
-        SaveStorageRunnable saveStorageRunnable
+        SaveStorageRunnable saveStorageRunnable,
+        ReadOnlyAlgoBase algoBase
     ) {
         super(FXML);
         planListView.setItems(planList);
         planListView.setCellFactory(listView -> new PlanListViewCell());
         this.writeOnlyTabManager = writeOnlyTabManager;
         this.saveStorageRunnable = saveStorageRunnable;
+        this.algoBase = algoBase;
     }
 
     /**
@@ -54,7 +58,8 @@ public class PlanListPanel extends UiPart<Region> {
                     plan,
                     getIndex() + 1,
                     writeOnlyTabManager,
-                    saveStorageRunnable
+                    saveStorageRunnable,
+                    algoBase
                 ).getRoot());
             }
         }

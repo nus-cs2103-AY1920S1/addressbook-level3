@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
@@ -26,12 +26,6 @@ JsonSerializableAlgoBase .down.> JsonAdaptedProblemSearchRule
 JsonSerializableAlgoBase .down.> JsonAdaptedTag
 JsonAdaptedGuiState .down.> JsonAdaptedTabManager
 JsonAdaptedProblem .down.> JsonAdaptedTag
-JsonAdaptedProblemSearchRule .down.> JsonAdaptedNameContainsKeywordsPredicate
-JsonAdaptedProblemSearchRule .down.> JsonAdaptedAuthorMatchesKeywordsPredicate
-JsonAdaptedProblemSearchRule .down.> JsonAdaptedDescriptionContainsKeywordsPredicate
-JsonAdaptedProblemSearchRule .down.> JsonAdaptedSourceMatchesKeywordsPredicate
-JsonAdaptedProblemSearchRule .down.> JsonAdaptedDifficultyIsInRangePredicate
-JsonAdaptedProblemSearchRule .down.> JsonAdaptedTagIncludesKeywordsPredicate
 JsonAdaptedPlan .down.> JsonAdaptedTask
 JsonAdaptedTabManager .down.> JsonAdaptedTab
 @enduml

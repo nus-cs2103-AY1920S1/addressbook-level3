@@ -133,6 +133,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public IntegerProperty getCurrentTaskCount() {
+        return model.getCurrentTaskCount();
+    }
+
+    @Override
     public ObservableList<ProblemSearchRule> getProcessedFindRuleList() {
         return model.getFilteredFindRuleList();
     }

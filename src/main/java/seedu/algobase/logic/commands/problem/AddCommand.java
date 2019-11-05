@@ -21,7 +21,7 @@ import seedu.algobase.model.problem.Problem;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addprob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a Problem to AlgoBase.\n"
