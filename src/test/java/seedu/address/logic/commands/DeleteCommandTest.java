@@ -20,7 +20,10 @@ import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Title;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.ActivityBookBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
@@ -90,18 +93,21 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_deletePersonPreviouslyInActivity_success() {
-        showPersonAtIndex(model2, INDEX_FIRST);
+        showPersonAtIndex(model, INDEX_FIRST);
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
-        Person personToDelete = model2.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        Activity a = new Activity(new Title("asdf"), personToDelete.getPrimaryKey());
+        model.addActivity(a);
+        ActivityBook ab = new ActivityBookBuilder().withActivity(a).build();
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(),
-                new UserPrefs(), new InternalState(), new ActivityBook(getTypicalActivityBook()));
+                new UserPrefs(), new InternalState(), ab);
         expectedModel.getActivityBook().getActivityList().get(0).disinvite(personToDelete);
         expectedModel.deletePerson(personToDelete);
         expectedModel.updateFilteredPersonList(x -> false);
 
-        assertCommandSuccess(deleteCommand, model2, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
