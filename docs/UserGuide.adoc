@@ -76,6 +76,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`addgroup`* `g/CS2103` : adds a new group called `CS2103` to the TimeBook.
 * *`addtogroup`* `n/John Doe` `g/CS2103` : Adds a person `John Doe` into the group `CS2103`.
 * *`exit`* : exits the app
++
+[IMPORTANT]
+====
+include::UserGuide.adoc[tag=alice]
+====
 
 . Refer to <<Features>> for details of each command.
 
@@ -259,6 +264,35 @@ Edits the phone number and email address of the person with name 'John Doe' to b
 * `edit ed/Betsy n/Betsy Crower tag/` +
 Edits the person 'Betsy' to a new name 'Betsy Crower' and clears all existing tags.
 
+[[edit-user-command]]
+==== Editing your details: `edituser`
+
+[IMPORTANT]
+====
+When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create.
+
+To personalize TimeBook and make it yours, use this `edituser` command as described below.
+====
+
+Edits your details in the TimeBook. +
+Format: `edituser [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
+
+****
+* Edits your details.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, your existing tags will be removed (i.e. adding of tags is not cumulative).
+* You can remove all your tags by typing `tag/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edituser n/Frank` +
+Renames your profile to the new name `Frank`.
+* `edituser p/81234567 em/frank@example.com` +
+Edits your phone number and email address to be `81234567` and `frank@example.com` respectively.
+
+
 // tag::delete[]
 ==== Deleting a person: `deleteperson`
 
@@ -315,7 +349,7 @@ Format:
 * `addevent n/NAME e/EVENT_NAME t/DATETIME` +
 
 *****
-image:./icons/lightbulb.png[] By not specifying `NAME`, the event will be added to the User.
+image:./icons/lightbulb.png[] By not specifying `NAME`, the event will be added to your schedule.
 *****
 
 * `addevent e/Project Meeting t/27092019-1500-1600-I3`
@@ -341,7 +375,7 @@ Format:
 * `deleteevent e/EVENT_NAME`
 
 ****
-Deletes an event specified by `EVENT_NAME` from the User's schedule.
+Deletes an event specified by `EVENT_NAME` from your schedule.
 ****
 
 * `deleteevent n/NAME e/EVENT_NAME
@@ -426,7 +460,7 @@ Format: `addgroup g/GROUP_NAME [d/GROUP_DESCRIPTION] [r/GROUP_REMARK] [role/USER
 
 ****
 * Creates a with name `GROUP_NAME`.
-* A group can be optionally created with a description, a remark, and the user's role in the Group.
+* A group can be optionally created with a description, a remark, and your role in the Group.
 ****
 
 Examples:
@@ -440,7 +474,7 @@ Creates a group called `Friends`
 * `addgroup g/CS2103 d/Project Group role/Leader`
 
 ****
-Creates a group called `CS2103` which a description and your role in the Group.
+Creates a group called `CS2103` with a description of `Project Group` and your role in the Group as the `Leader`.
 ****
 
 ==== Editing a group: `editgroup`
@@ -696,9 +730,18 @@ TimeBook data are saved in the hard disk automatically after any command that ch
 There is no need to save manually.
 
 == FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TimeBook folder.
+[qanda]
+[[alice-notice]]
+Who is Alice? / How do I store my details and schedule?::
+// tag::alice[]
+When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. +
+{nbsp} +
+To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-person-command,`edituser` command>>.
+// end::alice[]
++
+{nbsp} +
+How do I transfer my data to another Computer?::
+ Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TimeBook folder.
 
 == Command Summary
 
