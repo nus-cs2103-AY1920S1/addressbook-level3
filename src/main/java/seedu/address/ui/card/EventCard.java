@@ -61,7 +61,7 @@ public class EventCard extends Card {
     public EventCard(EventSource event, Integer index) {
         super(FXML);
         eventName.setText(event.getDescription());
-        eventStartDate.setText("Start Date: " + event.getStartDateTime().toEnglishDateTime());
+        eventStartDate.setText("Start Date: " + event.getStartDateTime());
         eventIndex.setText("[" + index + "]");
         addOptions(event);
     }
@@ -75,7 +75,7 @@ public class EventCard extends Card {
     public EventCard(EventSource event) {
         super(FXML);
         eventName.setText(event.getDescription());
-        eventStartDate.setText("Start Date: " + event.getStartDateTime().toEnglishDateTime());
+        eventStartDate.setText("Start Date: " + event.getStartDateTime());
         eventIndexBase.getChildren().remove(eventIndex);
         addOptions(event);
     }
@@ -88,14 +88,14 @@ public class EventCard extends Card {
     private void addOptions(EventSource event) {
         // End Date Option
         if (event.getEndDateTime() != null) {
-            eventEndDate.setText("End Date: " + event.getEndDateTime().toEnglishDateTime());
+            eventEndDate.setText("End Date: " + event.getEndDateTime());
         } else {
             eventDetails.getChildren().remove(eventEndDateBase);
         }
 
         // Remind Date Option
         if (event.getRemindDateTime() != null) {
-            eventRemindDate.setText("Remind Date: " + event.getRemindDateTime().toEnglishDateTime());
+            eventRemindDate.setText("Remind Date: " + event.getRemindDateTime());
         } else {
             eventDetails.getChildren().remove(eventRemindDateBase);
         }

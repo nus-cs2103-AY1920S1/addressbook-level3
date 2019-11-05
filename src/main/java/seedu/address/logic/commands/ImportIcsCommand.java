@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_IMPORT_ICS_SUCCESS;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import seedu.address.ics.IcsException;
 import seedu.address.ics.IcsParser;
 import seedu.address.model.ModelData;

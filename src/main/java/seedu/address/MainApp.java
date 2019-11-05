@@ -1,6 +1,8 @@
 package seedu.address;
 
 import java.nio.file.Paths;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -36,6 +38,9 @@ import seedu.address.model.ModelManager;
  * Runs the application.
  */
 public class MainApp extends Application {
+
+    public static final Locale LOCALE = Locale.ENGLISH;
+    public static final ZoneId TIME_ZONE = ZoneId.systemDefault();
 
     private static final String VERSION = "1.4";
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);

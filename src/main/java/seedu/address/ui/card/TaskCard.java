@@ -80,7 +80,7 @@ public class TaskCard extends Card {
     private void addOptions(TaskSource task) {
         // Due Date
         if (task.getDueDate() != null) {
-            taskDueDate.setText(task.getDueDate().toEnglishDateTime());
+            taskDueDate.setText(task.getDueDate().toString());
         } else {
             taskDetails.getChildren().remove(taskDueDateBase);
         }

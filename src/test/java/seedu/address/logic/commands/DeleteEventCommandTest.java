@@ -5,126 +5,188 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.DeleteEventCommandBuilder.OPTION_TAGS;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DateTime;
+import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 
 class DeleteEventCommandTest {
 
     @Test
-    void build_fullCommand_success() {
+    void build_allParameters_success() {
         String[] indexes = new String[]{"0", "1", "2"};
         String[] tags = new String[]{"a", "b", "c"};
-        assertDoesNotThrow(() -> {
-            DeleteEventCommand.newBuilder(null)
-                .acceptSentence(indexes[0])
-                .acceptSentence(indexes[1])
-                .acceptSentence(indexes[2])
-                .acceptSentence(OPTION_TAGS)
-                .acceptSentence(tags[0])
-                .acceptSentence(tags[1])
-                .acceptSentence(tags[2])
-                .build();
-        });
+        assertDoesNotThrow(() -> DeleteEventCommand.newBuilder(null)
+            .acceptSentence(indexes[0])
+            .acceptSentence(indexes[1])
+            .acceptSentence(indexes[2])
+            .acceptSentence(OPTION_TAGS)
+            .acceptSentence(tags[0])
+            .acceptSentence(tags[1])
+            .acceptSentence(tags[2])
+            .build());
     }
 
     @Test
-    void execute_emptyCommand_failure() {
-        assertThrows(CommandException.class, () -> {
-            ModelManager model = new ModelManager();
-            assertEquals(model.getEvents().size(), 0);
+    void execute_noParameters_failure() {
+        ModelManager model = new ModelManager();
+        assertEquals(0, model.getEvents().size());
 
-            Command command = DeleteEventCommand.newBuilder(model)
-                .build();
+        assertThrows(CommandException.class, () -> DeleteEventCommand.newBuilder(model)
+            .build()
+            .execute());
 
-            command.execute();
-            assertEquals(model.getEvents().size(), 0);
-        });
+        assertEquals(0, model.getEvents().size());
     }
 
-    @Test
-    void execute_deleteOne_success() {
-        String index = "1";
-        assertDoesNotThrow(() -> {
-            ModelManager model = new ModelManager();
-            model.addEvents(
-                EventSource.newBuilder("a", DateTime.now()).build(),
-                EventSource.newBuilder("b", DateTime.now()).build(),
-                EventSource.newBuilder("c", DateTime.now()).build());
-            assertEquals(model.getEvents().size(), 3);
-
-            Command command = DeleteEventCommand.newBuilder(model)
-                .acceptSentence(index)
-                .build();
-
-            command.execute();
-            assertEquals(model.getEvents().size(), 2);
-        });
-    }
+    /* Delete by Index */
 
     @Test
-    void execute_deleteOneInvalidIndex_failed() {
-        String[] indexes = new String[]{"-1", "0", "1"};
-        for (String index : indexes) {
-            assertThrows(CommandException.class, () -> {
-                ModelManager model = new ModelManager();
-                assertEquals(model.getEvents().size(), 0);
-
-                Command command = DeleteEventCommand.newBuilder(model)
-                    .acceptSentence(index)
-                    .build();
-
-                command.execute();
-            });
-        }
-    }
-
-    @Test
-    void execute_deleteMultiple_success() {
+    void execute_deleteMultipleIndexes_success() {
         String[] indexes = new String[]{"1", "2", "3"};
-        assertDoesNotThrow(() -> {
-            ModelManager model = new ModelManager();
-            model.addEvents(
-                EventSource.newBuilder("a", DateTime.now()).build(),
-                EventSource.newBuilder("b", DateTime.now()).build(),
-                EventSource.newBuilder("c", DateTime.now()).build(),
-                EventSource.newBuilder("d", DateTime.now()).build(),
-                EventSource.newBuilder("e", DateTime.now()).build()
-            );
-            assertEquals(model.getEvents().size(), 5);
+        DateTime start = DateTime.now();
+        List<EventSource> events = List.of(
+            EventSource.newBuilder("a", start).build(),
+            EventSource.newBuilder("b", start).build(),
+            EventSource.newBuilder("c", start).build(),
+            EventSource.newBuilder("d", start).build(),
+            EventSource.newBuilder("e", start).build());
 
-            Command command = DeleteEventCommand.newBuilder(model)
-                .acceptSentence(indexes[0])
-                .acceptSentence(indexes[1])
-                .acceptSentence(indexes[2])
-                .build();
+        ModelManager model = new ModelManager();
+        model.setModelData(new ModelData(events, List.of()));
+        assertEquals(5, model.getEvents().size());
 
-            command.execute();
-            assertEquals(model.getEvents().size(), 2);
-        });
+        assertDoesNotThrow(() -> DeleteEventCommand.newBuilder(model)
+            .acceptSentence(indexes[0])
+            .acceptSentence(indexes[1])
+            .acceptSentence(indexes[2])
+            .build()
+            .execute());
+
+        // Delete 'b', 'c', 'd'
+        assertEquals(2, model.getEvents().size());
+        assertEquals(events.get(0), model.getEvents().get(0));
+        assertEquals(events.get(4), model.getEvents().get(1));
     }
 
     @Test
     void execute_deleteMultipleInvalidIndexes_failed() {
         String[] indexes = new String[]{"0", "1", "2"};
-        assertThrows(CommandException.class, () -> {
-            ModelManager model = new ModelManager();
-            model.addEvents(
-                EventSource.newBuilder("a", DateTime.now()).build(),
-                EventSource.newBuilder("b", DateTime.now()).build()
-            );
-            assertEquals(model.getEvents().size(), 2);
+        DateTime start = DateTime.now();
+        List<EventSource> events = List.of(
+            EventSource.newBuilder("a", start).build(),
+            EventSource.newBuilder("b", start).build());
 
-            Command command = DeleteEventCommand.newBuilder(model)
-                .acceptSentence(indexes[0])
-                .acceptSentence(indexes[1])
-                .acceptSentence(indexes[2])
-                .build();
+        ModelManager model = new ModelManager();
+        model.setModelData(new ModelData(events, List.of()));
+        assertEquals(2, model.getEvents().size());
 
-            command.execute();
-        });
+        assertThrows(CommandException.class, () -> DeleteEventCommand.newBuilder(model)
+            .acceptSentence(indexes[0])
+            .acceptSentence(indexes[1])
+            .acceptSentence(indexes[2])
+            .build().execute());
+
+        assertEquals(2, model.getEvents().size());
+    }
+
+    /* Delete by Tags */
+
+    @Test
+    void execute_deleteMultipleTags_success() {
+        String[] tags = new String[]{"3", "4"};
+        DateTime start = DateTime.now();
+        List<EventSource> events = List.of(
+            EventSource.newBuilder("a", start).setTags(List.of("1", "2", "3")).build(),
+            EventSource.newBuilder("b", start).setTags(List.of("2", "3", "4")).build(),
+            EventSource.newBuilder("c", start).setTags(List.of("3", "4", "5")).build(),
+            EventSource.newBuilder("d", start).setTags(List.of("4", "5", "6")).build(),
+            EventSource.newBuilder("e", start).setTags(List.of("5", "6", "7")).build());
+
+        ModelManager model = new ModelManager();
+        model.setModelData(new ModelData(events, List.of()));
+        assertEquals(5, model.getEvents().size());
+
+        assertDoesNotThrow(() -> DeleteEventCommand.newBuilder(model)
+            .acceptSentence(OPTION_TAGS)
+            .acceptSentence(tags[0])
+            .acceptSentence(tags[1])
+            .build()
+            .execute());
+
+        // Delete 'b' and 'c'
+        assertEquals(3, model.getEvents().size());
+        assertEquals(events.get(0), model.getEvents().get(0));
+        assertEquals(events.get(3), model.getEvents().get(1));
+        assertEquals(events.get(4), model.getEvents().get(2));
+    }
+
+    /* Delete by Index and Tags */
+
+    @Test
+    void execute_deleteMultipleIndexAndTags_success() {
+        String[] indexes = new String[]{"0", "1"};
+        String[] tags = new String[]{"3", "4"};
+        DateTime start = DateTime.now();
+        List<EventSource> events = List.of(
+            EventSource.newBuilder("a", start).setTags(List.of("1", "2", "3")).build(),
+            EventSource.newBuilder("b", start).setTags(List.of("2", "3", "4")).build(),
+            EventSource.newBuilder("c", start).setTags(List.of("3", "4", "5")).build(),
+            EventSource.newBuilder("d", start).setTags(List.of("4", "5", "6")).build(),
+            EventSource.newBuilder("e", start).setTags(List.of("5", "6", "7")).build());
+
+        ModelManager model = new ModelManager();
+        model.setModelData(new ModelData(events, List.of()));
+        assertEquals(5, model.getEvents().size());
+
+        assertDoesNotThrow(() -> DeleteEventCommand.newBuilder(model)
+            .acceptSentence(indexes[0])
+            .acceptSentence(indexes[1])
+            .acceptSentence(OPTION_TAGS)
+            .acceptSentence(tags[0])
+            .acceptSentence(tags[1])
+            .build()
+            .execute());
+
+        // Delete 'b'
+        assertEquals(4, model.getEvents().size());
+        assertEquals(events.get(0), model.getEvents().get(0));
+        assertEquals(events.get(2), model.getEvents().get(1));
+        assertEquals(events.get(3), model.getEvents().get(2));
+        assertEquals(events.get(4), model.getEvents().get(3));
+    }
+
+    @Test
+    void execute_deleteNoMatches_failure() {
+        String[] indexes = new String[]{"0", "1"};
+        String[] tags = new String[]{"5", "6"};
+        DateTime start = DateTime.now();
+        List<EventSource> events = List.of(
+            EventSource.newBuilder("a", start).setTags(List.of("1", "2", "3")).build(),
+            EventSource.newBuilder("b", start).setTags(List.of("2", "3", "4")).build(),
+            EventSource.newBuilder("c", start).setTags(List.of("3", "4", "5")).build(),
+            EventSource.newBuilder("d", start).setTags(List.of("4", "5", "6")).build(),
+            EventSource.newBuilder("e", start).setTags(List.of("5", "6", "7")).build());
+
+        ModelManager model = new ModelManager();
+        model.setModelData(new ModelData(events, List.of()));
+        assertEquals(5, model.getEvents().size());
+
+        assertThrows(CommandException.class, () -> DeleteEventCommand.newBuilder(model)
+            .acceptSentence(indexes[0])
+            .acceptSentence(indexes[1])
+            .acceptSentence(OPTION_TAGS)
+            .acceptSentence(tags[0])
+            .acceptSentence(tags[1])
+            .build()
+            .execute());
+
+        // Check size
+        assertEquals(5, model.getEvents().size());
     }
 }

@@ -6,9 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_DELETE_EVENT_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_INDEX;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,44 +38,37 @@ public class DeleteEventCommand extends Command {
     public UserOutput execute() throws CommandException {
         List<EventSource> events = new ArrayList<>(model.getEvents());
 
-        LinkedHashSet<EventSource> toDelete = new LinkedHashSet<>();
-        if (this.indexes.isEmpty()) {
-            if (this.tags.isEmpty()) {
-                throw new CommandException(MESSAGE_DELETE_EVENT_EMPTY);
-            }
+        // No indexes or tags specified.
+        if (this.indexes.isEmpty() && this.tags.isEmpty()) {
+            throw new CommandException(MESSAGE_DELETE_EVENT_EMPTY);
+        }
 
-            // Indexes empty but tags is not empty:
-            // Delete all events with matching tags.
-            for (EventSource event : events) {
-                Set<String> tags = event.getTags();
-                if (tags == null || tags.containsAll(this.tags)) {
-                    toDelete.add(event);
-                }
-            }
+        // toDelete all events with matching indexes.
+        // If no indexes specified, toDelete all events.
+        List<EventSource> toDelete;
+        if (this.indexes.isEmpty()) {
+            toDelete = new ArrayList<>(model.getEvents());
         } else {
-            // Indexes not empty:
-            // Delete given events with matching tags
-            for (Integer index : indexes) {
+            toDelete = new ArrayList<>();
+            for (Integer index : this.indexes) {
                 try {
-                    EventSource event = events.get(index);
-                    // Delete EventSource only if it matches all tags.
-                    Set<String> tags = event.getTags();
-                    if (tags == null || tags.containsAll(this.tags)) {
-                        toDelete.add(events.get(index));
-                    }
+                    toDelete.add(events.get(index));
                 } catch (IndexOutOfBoundsException e) {
                     throw new CommandException(String.format(MESSAGE_INVALID_EVENT_INDEX, index));
                 }
             }
         }
 
-        // No events found.
+        // Remove events from toDelete that do not have matching tags.
+        toDelete.removeIf(event -> !event.getTags().containsAll(this.tags));
+
+        // No events to delete found.
         if (toDelete.isEmpty()) {
             throw new CommandException(MESSAGE_DELETE_EVENT_FAILURE);
         }
 
-        // Remove event if toDelete contains the same event
-        events.removeIf(toDelete::contains);
+        // Remove all events that are in toDelete.
+        events.removeAll(toDelete);
 
         // Replace model
         this.model.setModelData(new ModelData(events, this.model.getTasks()));

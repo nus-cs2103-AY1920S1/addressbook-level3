@@ -9,10 +9,13 @@ import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_REMIND
 import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_START_DATE_TIME;
 import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_TAGS;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DateTime;
+import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 
@@ -53,11 +56,12 @@ class EditEventCommandTest {
         assertThrows(CommandException.class, () -> {
 
             ModelManager model = new ModelManager();
-            model.addEvents(
-                EventSource.newBuilder("a", DateTime.now()).build(),
-                EventSource.newBuilder("b", DateTime.now()).build(),
-                EventSource.newBuilder("c", DateTime.now()).build()
-            );
+            model.setModelData(new ModelData(
+                List.of(
+                    EventSource.newBuilder("a", DateTime.now()).build(),
+                    EventSource.newBuilder("b", DateTime.now()).build(),
+                    EventSource.newBuilder("c", DateTime.now()).build()
+                ), List.of()));
 
             Command command = EditEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])
@@ -95,10 +99,11 @@ class EditEventCommandTest {
         String[] indexes = new String[]{"1", "2", "3"};
         assertThrows(CommandException.class, () -> {
             ModelManager model = new ModelManager();
-            model.addEvents(
-                EventSource.newBuilder("a", DateTime.now()).build(),
-                EventSource.newBuilder("b", DateTime.now()).build()
-            );
+            model.setModelData(new ModelData(
+                List.of(
+                    EventSource.newBuilder("a", DateTime.now()).build(),
+                    EventSource.newBuilder("b", DateTime.now()).build()
+                ), List.of()));
             assertEquals(model.getEvents().size(), 2);
 
             Command command = EditEventCommand.newBuilder(model)

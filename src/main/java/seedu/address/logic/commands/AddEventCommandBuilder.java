@@ -79,7 +79,7 @@ class AddEventCommandBuilder extends CommandBuilder {
     }
 
     List<String> getTags() {
-        return tags;
+        return this.tags;
     }
 
     @Override

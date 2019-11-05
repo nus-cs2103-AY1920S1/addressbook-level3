@@ -25,7 +25,15 @@ public class NotificationChecker {
         ArrayList<PopupNotification> returnValue = new ArrayList<>();
 
         for (EventSource eventSource : model.getEvents()) {
-            if (eventSource.notificationTimeMatchesCurrentTime()) {
+            // Checks if a particular instance EventSource should have its notification posted now.
+            boolean notify;
+            if (eventSource.getRemindDateTime() == null) {
+                notify = eventSource.getStartDateTime().equals(DateTime.now());
+            } else {
+                notify = eventSource.getRemindDateTime().equals(DateTime.now());
+            }
+
+            if (notify) {
                 String name = eventSource.getDescription();
                 DateTime eventDateTime = eventSource.getStartDateTime();
 
@@ -35,7 +43,7 @@ public class NotificationChecker {
 
         for (TaskSource taskSource : model.getTasks()) {
             DateTime taskDueDate = taskSource.getDueDate();
-            if (taskDueDate != null && taskDueDate.equalsPrecisionMinute(DateTime.now())) {
+            if (taskDueDate != null && taskDueDate.equals(DateTime.now())) {
                 String name = taskSource.getDescription();
 
                 returnValue.add(new PopupNotification(name, taskDueDate.toString()));

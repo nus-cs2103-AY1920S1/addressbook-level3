@@ -6,14 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.parser.DateTimeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
@@ -250,7 +247,7 @@ public class IcsParser {
         }
 
         if (due == null && !(duration == null || taskStart == null)) {
-            due = taskStart.addDuration(duration);
+            due = taskStart.plus(duration);
         }
         return due != null
                 ? TaskSource.newBuilder(description).setDueDate(due).build()
@@ -265,10 +262,7 @@ public class IcsParser {
      */
     public static DateTime parseTimeStamp(String icsTimeStamp) throws IcsException {
         try {
-            DateTimeParser dateTimeParser =
-                    new DateTimeParser(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
-                            .withZone(ZoneId.of("GMT")));
-            return dateTimeParser.parse(icsTimeStamp);
+            return DateTime.fromIcsString(icsTimeStamp);
         } catch (ParseException e) {
             throw new IcsException(TIMESTAMP_IS_INVALID);
         }

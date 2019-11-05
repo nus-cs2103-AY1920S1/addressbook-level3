@@ -1,5 +1,6 @@
 package seedu.address.model.events;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,7 +31,11 @@ public class EventSource {
         this.description = builder.getDescription();
         this.start = builder.getStart();
         this.end = builder.getEnd();
-        this.tags = builder.getTags();
+        if (builder.getTags() == null) {
+            this.tags = new HashSet<>();
+        } else {
+            this.tags = builder.getTags();
+        }
         this.remind = builder.getRemind();
     }
 
@@ -49,19 +54,6 @@ public class EventSource {
 
     public static EventSourceBuilder newBuilder(String description, DateTime start) {
         return new EventSourceBuilder(description, start);
-    }
-
-    /**
-     * Checks if a particular instance EventSource should have its notification posted now.
-     *
-     * @return <code>true</code> if the EventSource's notification timing matches the current notification timing.
-     */
-    public boolean notificationTimeMatchesCurrentTime() {
-        if (remind != null) {
-            return remind.equalsPrecisionMinute(DateTime.now());
-        } else {
-            return start.equalsPrecisionMinute(DateTime.now());
-        }
     }
 
     @JsonProperty("description")
