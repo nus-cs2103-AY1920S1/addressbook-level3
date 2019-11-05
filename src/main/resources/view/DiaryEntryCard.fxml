@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@Diary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <VBox alignment="CENTER" prefHeight="108.0" prefWidth="122.0" stylesheets="@Diary.css">
@@ -44,10 +45,7 @@
          </HBox>
          <HBox>
             <children>
-               <Label fx:id="memory" styleClass="cell_small_label" text="\\$memory">
-                  <padding>
-                     <Insets bottom="5.0" left="3.0" right="3.0" top="3.0" />
-                  </padding></Label>
+               <Text fx:id = "memory" strokeType="OUTSIDE" strokeWidth="0.0" text="\$memory" />
             </children>
          </HBox>
       </children>

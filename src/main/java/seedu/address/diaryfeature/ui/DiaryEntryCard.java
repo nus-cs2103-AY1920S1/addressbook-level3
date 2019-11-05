@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 
 /**
@@ -34,7 +35,7 @@ public class DiaryEntryCard extends UiPart<Region> {
     @FXML
     private Label place;
     @FXML
-    private Label memory;
+    private Text memory;
 
     //Image credited to: Icon made by Icongeek26 from Flaticon
 

@@ -1,7 +1,9 @@
 package seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions;
 
-public class DiaryEntryParseException extends Exception {
-    private final String USAGE_MESSAGE =
+import seedu.address.logic.parser.exceptions.ParseException;
+
+public class DiaryEntryParseException extends ParseException {
+    private static final String USAGE_MESSAGE =
             "Wrong format for the add diary entry command! \n" +
                     "Add Diary Entries like this (place and memory are optional): add t/{title} d/{date} p/{place} m/{memory}";
 
@@ -9,7 +11,7 @@ public class DiaryEntryParseException extends Exception {
      * DiaryEntryParseException serves as the template exception for other entry exceptions
      */
     public DiaryEntryParseException() {
-        super();
+        super(USAGE_MESSAGE);
     }
 
     /**
