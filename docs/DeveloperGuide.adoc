@@ -219,7 +219,19 @@ meals are first added to separate a `toBeAddedMealList` and once all the indexes
 `MealLog#addListOfMeals(toBeAddedMealList)` is called to add all the meals in to the meal log at once.
 
 ==== Design Consideration
-===== Aspect:
+===== Aspect: What is considered the same meal
+* **Alternative 1 (Current choice):** Compare name and calorie only
+** Pros: More precise compared to just comparing names.
+** Cons: Complications when adding meals.
+
+* **Alternative 2:** Compare name only
+** Pros: Easy comparison. Reduces complications when adding meals.
+** Cons: High collision.
+
+* **Explanation of choice:** As a calorie counter, the calories is an important
+part of the meal. Hence we need to consider it when comparing meals. Certain meals
+with the same name may not have the same amount of calories. Hence we decided to go
+with alternative 1.
 
 === Delete feature
 ==== Implementation
