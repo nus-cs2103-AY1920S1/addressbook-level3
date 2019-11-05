@@ -16,6 +16,8 @@ public class Time {
             "There is no such date / time! Input should be in dd/MM/yyyy HHmm format.";
     public static final String MESSAGE_TIME_CONSTRAINT =
             "Time stated should not be before current time.";
+    public static final String VALIDATION_REGEX = "[\\d]{1,2}" + "/" + "[\\d]{1,2}" + "/" + "[\\d]{2,4}"
+            + " " + "[\\d]{4}";
 
     private final Calendar time;
 
@@ -41,6 +43,13 @@ public class Time {
 
     public String getStringTime() {
         return this.toString();
+    }
+
+    /**
+     * Returns if a given string is a valid time.
+     */
+    public static boolean isValidTime(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
