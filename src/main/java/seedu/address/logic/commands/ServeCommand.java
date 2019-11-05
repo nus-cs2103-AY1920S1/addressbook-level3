@@ -22,7 +22,7 @@ public class ServeCommand extends ReversibleCommand {
             + PREFIX_BORROWER_ID + "K0001 ";
 
     public static final String MESSAGE_SUCCESS = "Currently serving Borrower: %1$s\n";
-    public static final String MESSAGE_ALREADY_IN_SERVE_MODE = "Currently still in serve mode! Please enter "
+    public static final String MESSAGE_ALREADY_IN_SERVE_MODE = "Still serving %1$s! Please enter "
             + "\"done\" to exit serve mode before serving another borrower.";
 
     private final BorrowerId borrowerId;
@@ -49,7 +49,8 @@ public class ServeCommand extends ReversibleCommand {
         requireNonNull(model);
 
         if (model.isServeMode()) {
-            throw new CommandException(MESSAGE_ALREADY_IN_SERVE_MODE);
+            throw new CommandException(
+                    String.format(MESSAGE_ALREADY_IN_SERVE_MODE, model.getServingBorrower().getName().toString()));
         }
 
         if (!model.hasBorrowerId(borrowerId)) {
@@ -61,8 +62,7 @@ public class ServeCommand extends ReversibleCommand {
 
         undoCommand = new DoneCommand();
         redoCommand = this;
-        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, borrower), false,
-                false, true, false);
+        commandResult = CommandResult.commandResultServe(String.format(MESSAGE_SUCCESS, borrower));
 
         return commandResult;
     }

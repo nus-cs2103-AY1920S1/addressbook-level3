@@ -34,6 +34,7 @@ public class LoanSlipDocument {
     private static final int HEADER_FONT_SIZE = 32;
     private static final int MID_HEADER_FONT_SIZE = 28;
     private static final int PARAGRAPH_FONT_SIZE = 20;
+    private static final int ROW_SIZE = 14;
     private static final double SCALE_RATIO = 0.1;
 
     private static final String FONT = "/font/Lato-Black.ttf";
@@ -125,7 +126,7 @@ public class LoanSlipDocument {
     public void addCell(String text) {
         Cell cell = new Cell();
         cell.setBorder(Border.NO_BORDER);
-        cell.add(customLeftParagraph(text, 18));
+        cell.add(customLeftParagraph(text, ROW_SIZE));
         table.addCell(cell);
     }
 

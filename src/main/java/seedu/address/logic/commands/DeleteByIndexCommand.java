@@ -8,6 +8,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -40,6 +41,7 @@ public class DeleteByIndexCommand extends DeleteCommand {
             Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, FINE_AMOUNT_ZERO);
 
             Book returnedBook = bookToDelete.returnBook();
+            LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToDelete);
 
             // mark book as returned
             super.markBookAsReturned(model, bookToDelete, returnedBook, loanToBeReturned, returnedLoan);

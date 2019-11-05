@@ -30,8 +30,23 @@ public class UndoCommand extends Command {
         CommandResult commandResult = model.undoCommand();
         String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
 
-        return new CommandResult(msgSuccess, commandResult.isShowHelp(), commandResult.isExit(),
-                commandResult.isServe(), commandResult.isDone());
+        if (commandResult.isDone()) {
+            return CommandResult.commandResultDone(msgSuccess);
+        }
+
+        if (commandResult.isShowHelp()) {
+            return CommandResult.commandResultHelp(msgSuccess);
+        }
+
+        if (commandResult.isExit()) {
+            return CommandResult.commandResultExit(msgSuccess);
+        }
+
+        if (commandResult.isServe()) {
+            return CommandResult.commandResultServe(msgSuccess);
+        }
+
+        return new CommandResult(msgSuccess);
     }
 
     @Override

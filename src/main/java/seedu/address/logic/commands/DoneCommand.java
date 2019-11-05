@@ -43,11 +43,10 @@ public class DoneCommand extends ReversibleCommand {
         redoCommand = this;
 
         if (unusedArguments != null) {
-            commandResult = new CommandResult(String.format(MESSAGE_SUCCESS
-                    + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD),
-                    false, false, false, true);
+            commandResult = CommandResult.commandResultDone(String.format(MESSAGE_SUCCESS
+                    + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD));
         } else {
-            commandResult = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+            commandResult = CommandResult.commandResultDone(MESSAGE_SUCCESS);
         }
 
         model.exitsServeMode();

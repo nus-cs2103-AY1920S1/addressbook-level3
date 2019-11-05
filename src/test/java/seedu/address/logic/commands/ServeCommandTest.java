@@ -54,7 +54,7 @@ public class ServeCommandTest {
         new ServeCommand(ALICE.getBorrowerId()).execute(modelManager);
         ServeCommand serveCommand = new ServeCommand(BOB.getBorrowerId());
 
-        Assert.assertThrows(CommandException.class, ServeCommand.MESSAGE_ALREADY_IN_SERVE_MODE, () ->
-                serveCommand.execute(modelManager));
+        String msg = String.format(ServeCommand.MESSAGE_ALREADY_IN_SERVE_MODE, ALICE.getName());
+        Assert.assertThrows(CommandException.class, msg, () -> serveCommand.execute(modelManager));
     }
 }
