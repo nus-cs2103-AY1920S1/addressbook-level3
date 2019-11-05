@@ -103,27 +103,7 @@ public class ParserManager {
 
     }
 
-    private boolean checkIfCommandIsValid(String text) {
-        List<ModeEnum> allModes = new ArrayList<>();
-        allModes.add(ModeEnum.OPEN);
-        allModes.add(ModeEnum.HOME);
-        allModes.add(ModeEnum.SETTINGS);
-        allModes.add(ModeEnum.GAME);
-        SpecificModeParser tempParser;
-        for (ModeEnum modeEnum : allModes) {
-            tempParser = setCurrentParser(modeEnum);
-            try {
-                Command command = tempParser.parseCommand(text);
-                if (command != null) {
-                    return true;
-                }
-            } catch (ParseException e) {
 
-            }
-        }
-        return false;
-
-    }
 
     /**
      * Gets current mode from internal state.
@@ -253,12 +233,64 @@ public class ParserManager {
             return switchCommand;
         } else if (currentModeCommand != null) {
             return currentModeCommand;
+        } else if (checkIfModeCommandIsValid(userInput)) {
+            throw new ParseException("This command does not work right now\n"
+                    + "Try switching mode, selecting WordBank or Stopping game");
+        } else if (checkIfSwitchCommandValid(userInput)) {
+            throw new ParseException("Unable to switch mode. Try selecting WordBank or stopping game.");
         } else {
-            if (checkIfCommandIsValid(userInput)) {
-                throw new ParseException("Wrong mode, WordBank not loaded or Game is running");
-            }
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+
+    }
+
+    /**
+     * Checks if user input can be parsed by other mode parsers.
+     * @param text is user input
+     * @return true if it can be parsed
+     */
+    private boolean checkIfModeCommandIsValid(String text) {
+        List<ModeEnum> allModes = new ArrayList<>();
+        allModes.add(ModeEnum.OPEN);
+        allModes.add(ModeEnum.HOME);
+        allModes.add(ModeEnum.SETTINGS);
+        allModes.add(ModeEnum.GAME);
+        SpecificModeParser tempParser;
+        for (ModeEnum modeEnum : allModes) {
+            tempParser = setCurrentParser(modeEnum);
+            try {
+                Command command = tempParser.parseCommand(text);
+                if (command != null) {
+                    return true;
+                }
+            } catch (ParseException e) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * Checks if user input can be parsed by switch parsers.
+     * @param text is user input
+     * @return true if it can be parsed
+     */
+    private boolean checkIfSwitchCommandValid(String text) {
+        SpecificModeParser tempParser = new SpecificModeParser();
+        tempParser.add(SwitchToOpenCommand.class, null);
+        tempParser.add(SwitchToHomeCommand.class, null);
+        tempParser.add(SwitchToStartCommand.class, StartCommandParser.class);
+        tempParser.add(SwitchToSettingsCommand.class, null);
+        try {
+            Command command = tempParser.parseCommand(text);
+            if (command != null) {
+                return true;
+            }
+        } catch (ParseException e) {
+            return true;
+        }
+        return false;
 
     }
 
