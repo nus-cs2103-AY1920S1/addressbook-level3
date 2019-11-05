@@ -1,0 +1,14 @@
+{
+  "wordBank" : [ {
+    "id" : "V[Xsfwq(i;c/7Uw_P^|M%=Qqds#3Z4t>",
+    "name" : "dag",
+    "description" : "directed graph with no cycle",
+    "tagged" : [ ]
+  }, {
+    "id" : "lcTewjBg;h%7S<[r?.Yi)A8K42dBJxPn",
+    "name" : "tree",
+    "description" : "connected, e=v-1",
+    "tagged" : [ ]
+  } ],
+  "name" : "cs2040"
+}
