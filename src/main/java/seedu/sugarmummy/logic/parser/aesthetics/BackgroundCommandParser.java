@@ -77,7 +77,7 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         Optional<String> bgRepeat;
 
         if ((bgSize = argMultimap.getValue(PREFIX_BG_SIZE)).isPresent()) {
-            if (Background.isValidBackgroundSize(bgSize.get())) {
+            if (!Background.isValidBackgroundSize(bgSize.get())) {
                 throw new ParseException(String.format(MESSAGE_INVALID_BACKGROUND_SIZE,
                         BackgroundCommand.MESSAGE_USAGE));
             }
@@ -85,7 +85,7 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         }
 
         if ((bgRepeat = argMultimap.getValue(PREFIX_BG_REPEAT)).isPresent()) {
-            if (Background.isValidBackgroundRepeat(bgRepeat.get())) {
+            if (!Background.isValidBackgroundRepeat(bgRepeat.get())) {
                 throw new ParseException(String.format(MESSAGE_INVALID_BACKGROUND_REPEAT,
                         BackgroundCommand.MESSAGE_USAGE));
             }
