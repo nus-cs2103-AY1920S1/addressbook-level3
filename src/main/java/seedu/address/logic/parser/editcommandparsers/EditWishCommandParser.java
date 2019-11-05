@@ -60,9 +60,10 @@ public class EditWishCommandParser implements Parser<EditWishCommand> {
             editWishDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+        // TODO: allow category of wish to be edited
+        /*if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             editWishDescriptor.setAmount(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
-        }
+        }*/
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editWishDescriptor::setTags);
 

@@ -19,7 +19,6 @@ public class Budget extends Entry {
     private FilteredList<Expense> filteredExpenses;
     private ExpenseMatchesBudgetPredicate expenseMatchesBudgetPredicate;
 
-
     /*
     Date - start date
     Period - time period for which budget is effective

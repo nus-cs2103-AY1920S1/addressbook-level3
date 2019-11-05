@@ -130,9 +130,6 @@ public class GuiltTripParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);
 
@@ -147,11 +144,7 @@ public class GuiltTripParser {
 
         case AddWishCommand.COMMAND_WORD:
             return new AddWishCommandParser().parse(arguments);
-
-            /*
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);*/
-
+            
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);
 
