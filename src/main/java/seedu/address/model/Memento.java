@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+//@@author weikiat97
 /**
  * Represents a state of the Classroom.
  */

@@ -27,15 +27,15 @@ public class EditLessonCommandParser implements Parser<EditLessonCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME);
 
         Index index;
+        Index day;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            day = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditLessonCommand.MESSAGE_USAGE), pe);
         }
-
-        Index day = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
 
         EditLessonDescriptor editLessonDescriptor = new EditLessonDescriptor();
         if (argMultimap.getValue(PREFIX_LESSONNAME).isPresent()) {

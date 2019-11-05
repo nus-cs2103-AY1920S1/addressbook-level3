@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.AddLessonCommand.MESSAGE_INVALID_END_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
@@ -31,12 +32,14 @@ public class EditLessonCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the lesson identified "
             + "by the index number used in the displayed lesson list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_LESSONNAME + "LESSONNAME] "
+            + "Parameters: LESSON_INDEX (must be a positive integer) "
+            + PREFIX_DAY + "DAY_OF_THE_WEEK (Monday: 1, Tuesday: 2 etc) "
+            + "[" + PREFIX_LESSONNAME + "LESSON_NAME] "
             + "[" + PREFIX_STARTTIME + "START TIME] "
             + "[" + PREFIX_ENDTIME + "END TIME] "
             + "[" + PREFIX_REPEAT + "REPEAT] "
             + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_DAY + "3 "
             + PREFIX_LESSONNAME + "Math 3E7 "
             + PREFIX_STARTTIME + "14/10/2019 1200";
 
@@ -85,6 +88,7 @@ public class EditLessonCommand extends Command {
 
         model.setLesson(lessonToEdit, editedLesson);
         model.updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
+        model.saveState();
         return new CommandResult(String.format(MESSAGE_EDIT_LESSON_SUCCESS, editedLesson));
     }
 

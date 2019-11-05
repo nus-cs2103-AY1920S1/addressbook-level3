@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 
+//@@author weikiat97
 /**
  * Manages a list of all the previous Notebooks.
  */
@@ -19,27 +20,17 @@ public class Caretaker extends Notebook {
         statePointer = 0;
         mementos.add(start);
         this.notebook = notebook;
-        //Notebook toAdd = new Notebook(this.notebook);
-        //toAdd.setClassrooms(notebook.getClassroomList());
-        //mementos.add(new Memento(toAdd));
-        //mementos.add(new Memento(new Notebook(this.notebook)));
-        //System.out.println("START: ");
-        //mementos.get(statePointer).getState().getClassroomList().get(0).getAssignmentList()
-        // .forEach(assignment -> System.out.println(assignment));
     }
 
     /**
      * Saves the current state of notebook into the list of mementos.
      */
     public void saveState() {
-        //System.out.println("FIRST");
-        //mementos.get(0).getState().getClassroomList().get(0).getAssignmentList()
-        // .forEach(assignment -> System.out.println(assignment));
         mementos = new ArrayList<>(mementos.subList(0, statePointer + 1));
-        Memento mementoToAdd = new Memento(new Notebook(this.notebook));
+        Notebook notebookToAdd = new Notebook(this.notebook);
+        notebookToAdd.setCurrentClassroom(this.notebook.getCurrentClassroom());
+        Memento mementoToAdd = new Memento(notebookToAdd);
         mementos.add(mementoToAdd);
-        //System.out.println("SIZE::  " + mementos.size());
-        //System.out.println(mementos.get(0).getState().equals(mementos.get(1).getState()));
         statePointer++;
     }
 
@@ -50,7 +41,6 @@ public class Caretaker extends Notebook {
     public ReadOnlyNotebook undo() {
         statePointer--;
         ReadOnlyNotebook previousCopy = mementos.get(statePointer).getState();
-        resetData(previousCopy);
         return previousCopy;
     }
 
@@ -61,7 +51,6 @@ public class Caretaker extends Notebook {
     public ReadOnlyNotebook redo() {
         statePointer++;
         ReadOnlyNotebook previousCopy = mementos.get(statePointer).getState();
-        resetData(previousCopy);
         return previousCopy;
     }
 
