@@ -30,7 +30,7 @@ checkstyle {
 }
 
 run {
-    enableAssertions = true
+    enableAssertions(true)
 }
 
 jacocoTestReport {
@@ -75,7 +75,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveBaseName = 'KeyboardFlashCards-1.3'
+    archiveName = 'KeyboardFlashCards.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

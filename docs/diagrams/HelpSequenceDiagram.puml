@@ -1,0 +1,59 @@
+//@@author LeonardTay748
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":HelpCommand" as HelpCommand LOGIC_COLOR
+participant ":logic" as Logic LOGIC_COLOR
+end box
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":HelpWindow" as HelpWindow UI_COLOR
+end box
+
+box JavaFx EXTERNAL_LIBRARY_COLOR_T1
+participant ":Image" as Image EXTERNAL_LIBRARY_COLOR
+participant ":ImageView" as ImageView EXTERNAL_LIBRARY_COLOR
+participant ":Stage" as Stage EXTERNAL_LIBRARY_COLOR
+end box
+
+[-> LogicManager : parseCommand(stats)
+activate LogicManager
+
+    LogicManager -> HelpCommand : execute(model)
+    activate HelpCommand
+        LogicManager <-- HelpCommand : CommandResult
+    deactivate HelpCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+[-> MainWindow : executeCommand(stats)
+activate MainWindow
+
+
+       MainWindow -> MainWindow : handleHelp()
+           activate MainWindow
+
+                MainWindow -> HelpWindow : isShowing()
+                activate HelpWindow
+                MainWindow <-- HelpWindow : result
+                deactivate HelpWindow
+
+                alt result = false
+
+                MainWindow -> HelpWindow : show()
+                ref over HelpWindow, Stage : show help
+                MainWindow <-- HelpWindow :
+                MainWindow <-- MainWindow :
+
+           deactivate MainWindow
+           [<-- MainWindow :
+           deactivate MainWindow
+
+       end
+
+
+@enduml

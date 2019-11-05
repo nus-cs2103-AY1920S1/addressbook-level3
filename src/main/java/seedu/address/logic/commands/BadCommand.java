@@ -28,14 +28,14 @@ public class BadCommand extends Command {
     public static final String COMMAND_WORD = "bad";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets a specific flashCard identified by the\n "
-            + "index number used in the displayed flashCard list.\n"
-            + "as a 'Bad' flashcard that will require re-test.\n"
+            + ": Sets a specific FlashCard identified by the\n "
+            + "index number used in the displayed FlashCard list.\n"
+            + "as a 'Bad' FlashCard that will require re-test.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Flashcard has been added into Deadlines!";
-    public static final String DUPLICATE_DEADLINE = "Flashcard has been added into an existing deadline!";
+    public static final String MESSAGE_SUCCESS = "FlashCard has been added into Deadlines!";
+    public static final String DUPLICATE_DEADLINE = "FlashCard has been added into an existing deadline!";
 
     private final Index index;
 

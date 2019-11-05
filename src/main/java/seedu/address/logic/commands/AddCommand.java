@@ -19,7 +19,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashCard to the Application. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a FlashCard to the application. "
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_ANSWER + "ANSWER "
@@ -32,8 +32,8 @@ public class AddCommand extends Command {
             + PREFIX_CATEGORY + "CS2105 "
             + PREFIX_CATEGORY + "computerNetworking";
 
-    public static final String MESSAGE_SUCCESS = "New flashCard added: %1$s";
-    public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashCard already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New FlashCard added: %1$s";
+    public static final String MESSAGE_DUPLICATE_FLASHCARD = "This FlashCard already exists.";
 
     private final FlashCard toAdd;
 
