@@ -105,7 +105,6 @@ public class TransactionEditCommand extends ScriptCommand {
             Transaction updatedTransaction = getUpdatedTransaction(targetTransaction, updatedTransactionDescriptor,
                     targetAccount, model.getAccountsManager().getActiveAccount());
 
-
             targetAccount.addTransaction(updatedTransaction);
             Index updatedTxnIndex = Index.fromOneBased(targetAccount.getTransactionList().getTransactionsCount());
             RuleEngine.executeRules(model, scriptEngine, updatedTxnIndex, targetAccount);
