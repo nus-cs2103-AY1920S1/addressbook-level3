@@ -36,7 +36,8 @@ public class PrevMods {
 
     @Override
     public String toString() {
-        return value;
+        String toReturn = value.replaceAll(", ", "\n");
+        return toReturn;
     }
 
     @Override

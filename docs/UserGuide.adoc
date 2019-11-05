@@ -323,14 +323,14 @@ Sample output:
 
 image::RemoveModCommandDemoAfter2.png[width="790"]
 
-=== Update maximum workload for a student: `set`
+=== Update maximum workload for a student: `setcredits`
 Sets an existing student’s maximum modular credit for this semester to a new value.
 
-Format: `set STUDENT_ID NEW_MC` New MC must be a positive integer
+Format: `set INDEX NEW_MC` New MC must be a positive integer and not less than already credits.
 
 Examples:
 
-* `set A0111111B 28`
+* `set 2 28`
 
 Sample output:
 
@@ -459,13 +459,21 @@ To add module CS2103 to student A0180000
 - e.g `removemod s/A0180000 m/CS1020` `removemod i/4 m/CS1020`
 To remove module CS2103 from student A0180000
 
-* **set**: `set STUDENT_ID NEW_MC`
-- e.g. `set A0180000 28`
+* **setcredits**: `setcredits INDEX NEW_MC`
+- e.g. `set 2 28`
 To set the student’s maximum modular credit for this semester to a new value.
 
-* **remark**: `remark s/STUDENT_ID rr/REMARKS`
-- e.g. `remark A0180000 timetable clash waivered`
-To add remarks to a student’s particulars page
+* **backup**: `backup t/TAG`
+- e.g. `backup t/first_backup`
+To save a snapshot of the current state in the data folder.
+
+* **undo**: `undo`
+- e.g. `undo`
+Undo last undoable action.
+
+* **redo**: `redo`
+- e.g. `redo`
+Redo do last Undo if availiable.
 
 * **approve**:
 ** `approve [a/INDEX] [r/REMARK]`
