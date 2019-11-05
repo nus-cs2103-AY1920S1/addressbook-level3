@@ -287,7 +287,10 @@ extension. We currently support exporting to JSON (.json) and document (.docx) f
 
 NOTE: Only the questions and answers of FlashCards will be exported. 
 
-WARNING: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following: TODO //TODO
+CAUTION: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following characters: `~\/-_!:[]()` +
+It must also end in either `.json` or `.docx`.
+
+CAUTION: Do note that some directories may be protected by your operating system (`C:\` on Windows, `/` on Unix). You may not be allowed to save files to these directories.
 
 TIP: Use this to export your flashcards into an easily-printable cheat sheet! Use them for your assessments or
 self-learning.
