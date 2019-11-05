@@ -20,6 +20,7 @@ public class BudgetTest {
 
     private static final String VALID_DATE = "31122025";
     private static final Set<Category> CATEGORIES = new HashSet<>();
+    private static final String VALID_CATEGORIES = "food";
 
     @Test
     public void budgetConstructor_overBoundary_throwsException() {
@@ -27,6 +28,40 @@ public class BudgetTest {
                 new Date(VALID_DATE)));
         assertThrows(IllegalArgumentException.class, () -> new Budget(new Amount(Amount.UNSIGNED_INT_LIMIT + 1),
                 new Date(VALID_DATE), CATEGORIES));
+    }
+
+    @Test
+    public void getBudget_success() {
+        assertEquals(ONE, new Budget(ONE, new Date(VALID_DATE)).getBudget());
+        assertEquals(new Amount(10000), new Budget(new Amount(10000), new Date(VALID_DATE)).getBudget());
+    }
+
+    @Test
+    public void getBudget_fail() {
+        assertNotEquals(ONE, new Budget(new Amount(100), new Date(VALID_DATE)).getBudget());
+    }
+
+    @Test
+    public void getDeadline_success() {
+        assertEquals(new Date(VALID_DATE), new Budget(ONE, new Date(VALID_DATE)).getDeadline());
+        assertEquals(new Date("31122020"), new Budget(new Amount(10000), new Date("31122020")).getDeadline());
+    }
+
+    @Test
+    public void getDeadline_fail() {
+        assertNotEquals(new Date(VALID_DATE), new Budget(new Amount(100), new Date("31122020")).getDeadline());
+    }
+
+    @Test
+    public void getCategories_success() {
+        CATEGORIES.add(new Category(VALID_CATEGORIES));
+        assertEquals(CATEGORIES, new Budget(ONE, new Date(VALID_DATE), CATEGORIES).getCategories());
+    }
+
+    @Test
+    public void getCategories_fail() {
+        CATEGORIES.add(new Category(VALID_CATEGORIES));
+        assertNotEquals(new HashSet<Category>(), new Budget(ONE, new Date(VALID_DATE), CATEGORIES).getCategories());
     }
 
     @Test
@@ -63,25 +98,4 @@ public class BudgetTest {
         assertFalse(budgetTwo.isSameBudget(budgetThree));
     }
 
-    @Test
-    public void getBudget_success() {
-        assertEquals(ONE, new Budget(ONE, new Date(VALID_DATE)).getBudget());
-        assertEquals(new Amount(10000), new Budget(new Amount(10000), new Date(VALID_DATE)).getBudget());
-    }
-
-    @Test
-    public void getBudget_fail() {
-        assertNotEquals(ONE, new Budget(new Amount(100), new Date(VALID_DATE)).getBudget());
-    }
-
-    @Test
-    public void getDeadline_success() {
-        assertEquals(new Date(VALID_DATE), new Budget(ONE, new Date(VALID_DATE)).getDeadline());
-        assertEquals(new Date("31122020"), new Budget(new Amount(10000), new Date("31122020")).getDeadline());
-    }
-
-    @Test
-    public void getDeadline_fail() {
-        assertNotEquals(new Date(VALID_DATE), new Budget(new Amount(100), new Date("31122020")).getDeadline());
-    }
 }

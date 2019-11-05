@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class JsonAdaptedBudgetTest {
-    private static final String INVALID_AMOUNT = "-100";
     private static final String INVALID_CATEGORY = "#food";
 
     private static final String VALID_AMOUNT = BUDGET_ONE.getBudget().toString();
