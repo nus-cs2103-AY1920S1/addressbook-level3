@@ -275,6 +275,18 @@ Examples:
 
 * `edittag 1 t/difficult`
 
+==== Editing tag color: `edittagcolor`
+
+Edits an existing tag's tag color +
+Format: `edittagcolor INDEX c/TAGCOLOR`
+
+Examples:
+
+* `edittagcolor 1 c/RED`
+
+[NOTE]
+Tag color can be "GREEN" "BULE" "YELLOW" "RED" "PINK" "BLACK".
+
 === Training Plans
 
 Training plans consist of wrapped-up problems which we call `task` s.
@@ -597,7 +609,8 @@ e.g. `addtag t/sssp`
 e.g. `deletetag 3`
 * *Edit tag* : `edittag INDEX t/TAGNAME` +
 e.g. `edittag 1 t/sort`
-
+* *Edit tag color* : `edittagcolor INDEX c/TAGCOLOR` +
+e.g. `edittagcolor 1 c/RED`
 * *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
 * *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
