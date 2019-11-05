@@ -6,10 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.planner.logic.commands.HelpCommand;
-import seedu.planner.logic.commands.ListAccommodationCommand;
-import seedu.planner.logic.commands.ListActivityCommand;
-import seedu.planner.logic.commands.ListCommand;
-import seedu.planner.logic.commands.ListContactCommand;
+import seedu.planner.logic.commands.listcommand.ListAccommodationCommand;
+import seedu.planner.logic.commands.listcommand.ListActivityCommand;
+import seedu.planner.logic.commands.listcommand.ListCommand;
+import seedu.planner.logic.commands.listcommand.ListContactCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**

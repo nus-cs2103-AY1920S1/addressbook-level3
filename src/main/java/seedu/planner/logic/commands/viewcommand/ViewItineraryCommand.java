@@ -1,4 +1,4 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.viewcommand;
 
 import static java.util.Objects.requireNonNull;
 
@@ -9,30 +9,30 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 
 /**
- * Views the help tab.
+ * Views the itinerary tab.
  */
-public class ViewHelpCommand extends ViewCommand {
+public class ViewItineraryCommand extends ViewCommand {
 
-    public static final String SECOND_COMMAND_WORD = "help";
+    public static final String SECOND_COMMAND_WORD = "itinerary";
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "Opens the help tab.",
+            "Opens the itinerary tab.",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
             COMMAND_WORD + " " + SECOND_COMMAND_WORD
     );
 
-    public static final String MESSAGE_SUCCESS = "Opened the help tab!";
+    public static final String MESSAGE_SUCCESS = "Opened the itinerary!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS, new UiFocus[] {UiFocus.HELP});
+        return new CommandResult(MESSAGE_SUCCESS, new UiFocus[] {UiFocus.AGENDA});
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof ViewHelpCommand);
+                || (other instanceof ViewItineraryCommand);
     }
 }

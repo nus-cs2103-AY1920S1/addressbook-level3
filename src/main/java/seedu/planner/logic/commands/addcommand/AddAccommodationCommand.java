@@ -1,4 +1,4 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.addcommand;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;

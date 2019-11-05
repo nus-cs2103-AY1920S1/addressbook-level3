@@ -1,10 +1,11 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.listcommand;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.commands.listcommand.ListCommand;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;

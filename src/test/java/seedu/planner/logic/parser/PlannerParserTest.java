@@ -13,15 +13,15 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.planner.logic.commands.AddContactCommand;
+import seedu.planner.logic.commands.addcommand.AddContactCommand;
 import seedu.planner.logic.commands.ClearCommand;
-import seedu.planner.logic.commands.DeleteContactCommand;
-import seedu.planner.logic.commands.EditContactCommand;
-import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.FindCommand;
 import seedu.planner.logic.commands.HelpCommand;
-import seedu.planner.logic.commands.ListContactCommand;
+import seedu.planner.logic.commands.listcommand.ListContactCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.field.NameContainsKeywordsPredicate;

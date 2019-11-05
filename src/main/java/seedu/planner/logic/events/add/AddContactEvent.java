@@ -1,7 +1,7 @@
 package seedu.planner.logic.events.add;
 
-import seedu.planner.logic.commands.AddContactCommand;
-import seedu.planner.logic.commands.DeleteContactCommand;
+import seedu.planner.logic.commands.addcommand.AddContactCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.contact.Contact;

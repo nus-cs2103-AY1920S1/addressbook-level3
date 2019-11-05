@@ -31,7 +31,7 @@ import static seedu.planner.testutil.contact.TypicalContacts.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.planner.logic.commands.AddContactCommand;
+import seedu.planner.logic.commands.addcommand.AddContactCommand;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.contact.Email;
 import seedu.planner.model.contact.Phone;

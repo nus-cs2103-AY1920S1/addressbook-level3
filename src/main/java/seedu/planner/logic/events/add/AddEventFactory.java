@@ -1,10 +1,10 @@
 package seedu.planner.logic.events.add;
 
-import seedu.planner.logic.commands.AddAccommodationCommand;
-import seedu.planner.logic.commands.AddActivityCommand;
-import seedu.planner.logic.commands.AddCommand;
-import seedu.planner.logic.commands.AddContactCommand;
-import seedu.planner.logic.commands.AddDayCommand;
+import seedu.planner.logic.commands.addcommand.AddAccommodationCommand;
+import seedu.planner.logic.commands.addcommand.AddActivityCommand;
+import seedu.planner.logic.commands.addcommand.AddCommand;
+import seedu.planner.logic.commands.addcommand.AddContactCommand;
+import seedu.planner.logic.commands.addcommand.AddDayCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.accommodation.Accommodation;

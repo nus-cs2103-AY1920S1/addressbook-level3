@@ -1,6 +1,6 @@
 package seedu.planner.testutil.day;
 
-import seedu.planner.logic.commands.AddDayCommand;
+import seedu.planner.logic.commands.addcommand.AddDayCommand;
 import seedu.planner.model.Itinerary;
 
 /**

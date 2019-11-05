@@ -3,9 +3,9 @@ package seedu.planner.logic.events.schedule;
 import java.time.LocalTime;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.ScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
 import seedu.planner.logic.commands.UndoableCommand;
-import seedu.planner.logic.commands.UnscheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
 import seedu.planner.logic.events.Event;
 
 /**

@@ -4,8 +4,8 @@ import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.AddActivityCommand;
-import seedu.planner.logic.commands.DeleteActivityCommand;
+import seedu.planner.logic.commands.addcommand.AddActivityCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteActivityCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.logic.events.exceptions.EventException;

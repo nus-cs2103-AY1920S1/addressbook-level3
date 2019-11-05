@@ -16,11 +16,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import seedu.planner.logic.commands.AddAccommodationCommand;
-import seedu.planner.logic.commands.AddActivityCommand;
-import seedu.planner.logic.commands.AddCommand;
-import seedu.planner.logic.commands.AddContactCommand;
-import seedu.planner.logic.commands.AddDayCommand;
+import seedu.planner.logic.commands.addcommand.AddAccommodationCommand;
+import seedu.planner.logic.commands.addcommand.AddActivityCommand;
+import seedu.planner.logic.commands.addcommand.AddCommand;
+import seedu.planner.logic.commands.addcommand.AddContactCommand;
+import seedu.planner.logic.commands.addcommand.AddDayCommand;
 import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 import seedu.planner.model.accommodation.Accommodation;

@@ -3,8 +3,8 @@ package seedu.planner.logic.events.edit;
 import java.util.List;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.EditAccommodationCommand;
-import seedu.planner.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
+import seedu.planner.logic.commands.editcommand.EditAccommodationCommand;
+import seedu.planner.logic.commands.editcommand.EditAccommodationCommand.EditAccommodationDescriptor;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.Model;

@@ -1,7 +1,7 @@
 package seedu.planner.logic.events.add;
 
-import seedu.planner.logic.commands.AddAccommodationCommand;
-import seedu.planner.logic.commands.DeleteAccommodationCommand;
+import seedu.planner.logic.commands.addcommand.AddAccommodationCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteAccommodationCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.accommodation.Accommodation;

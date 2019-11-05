@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.AutoScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.AutoScheduleCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.system.SetItineraryCommand;
 import seedu.planner.logic.events.Event;

@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.commands.addcommand.AddCommand;
+import seedu.planner.logic.commands.addcommand.AddContactCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.model.ContactManager;

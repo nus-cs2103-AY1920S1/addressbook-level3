@@ -6,11 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.DeleteAccommodationCommand;
-import seedu.planner.logic.commands.DeleteActivityCommand;
-import seedu.planner.logic.commands.DeleteCommand;
-import seedu.planner.logic.commands.DeleteContactCommand;
-import seedu.planner.logic.commands.DeleteDayCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteAccommodationCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteActivityCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteDayCommand;
 import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 

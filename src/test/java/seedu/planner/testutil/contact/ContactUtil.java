@@ -8,8 +8,8 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.planner.logic.commands.AddContactCommand;
-import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.planner.logic.commands.addcommand.AddContactCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.tag.Tag;
 

@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.AutoScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.AutoScheduleCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.NameOrTagWithTime;

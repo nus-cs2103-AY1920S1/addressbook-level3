@@ -1,4 +1,6 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.editcommand;
+
+import seedu.planner.logic.commands.UndoableCommand;
 
 /**
  * Represents EditActivityCommand and EditContactCommand.
