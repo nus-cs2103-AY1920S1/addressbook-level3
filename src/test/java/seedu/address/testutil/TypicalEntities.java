@@ -96,6 +96,7 @@ public class TypicalEntities {
             im.addPerson(person);
         }
 
+        //add incidents
         Incident firstIncident = new Incident(ALICE, new District(2), validDateTime,
                 commonIncidentId,
                 new CallerNumber("84738293"),
@@ -104,9 +105,6 @@ public class TypicalEntities {
                 new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("ABC1234D"),
                         new District(9), new Availability("BUSY")));
         im.addIncident(firstIncident);
-
-        im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
-                new District(16), new Availability("BUSY")));
 
         Incident secondIncident = new Incident(ALICE, new District(3), validDateTime,
                 commonIncidentId,
@@ -117,6 +115,15 @@ public class TypicalEntities {
                         new District(4), new Availability("BUSY")));
 
         im.addIncident(secondIncident);
+
+        //add vehicles
+        im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
+                new District(16), new Availability("BUSY")));
+
+        im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GER4389F"),
+                new District(4), new Availability("AVAILABLE")));
+
+
 
         return im;
     }

@@ -23,6 +23,8 @@ import seedu.address.model.incident.DescriptionKeywordsPredicate;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.vehicle.VNumKeywordsPredicate;
+import seedu.address.model.vehicle.Vehicle;
 import seedu.address.testutil.UpdatePersonDescriptorBuilder;
 
 /**
@@ -149,5 +151,17 @@ public class CommandTestUtil {
         final Description description = new Description(descriptionArr[0]);
         model.updateFilteredIncidentList(new DescriptionKeywordsPredicate(Arrays.asList(descriptionArr)));
         assertEquals(1, model.getFilteredIncidentList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the vehicle at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showVehicleAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredIncidentList().size());
+
+        Vehicle vehicle = model.getFilteredVehicleList().get(targetIndex.getZeroBased());
+        model.updateFilteredVehicleList(new VNumKeywordsPredicate(vehicle.getVehicleNumber()));
+        assertEquals(1, model.getFilteredVehicleList().size());
     }
 }

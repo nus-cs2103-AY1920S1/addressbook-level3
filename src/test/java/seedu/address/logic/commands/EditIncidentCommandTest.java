@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showIncidentAtIndex;
 import static seedu.address.testutil.IncidentBuilder.DEFAULT_CALLER;
 import static seedu.address.testutil.IncidentBuilder.DEFAULT_DISTRICT;
-import static seedu.address.testutil.IncidentBuilder.DEFAULT_ID;
 import static seedu.address.testutil.TypicalEntities.ALICE;
 import static seedu.address.testutil.TypicalEntities.getTypicalIncidentManager;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
@@ -41,6 +40,8 @@ public class EditIncidentCommandTest {
         Incident editedIncident = new IncidentBuilder().build();
         EditIncident editor = new EditIncidentBuilder(editedIncident).build();
         EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_FIRST_ENTITY, editor);
+
+        //admin access so that exception is not thrown for unauthorized edit
         model.setSession(ALICE);
         String expectedMessage = String.format(EditIncidentCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
 
@@ -58,7 +59,7 @@ public class EditIncidentCommandTest {
         model.setSession(ALICE);
         IncidentBuilder incidentBuilder = new IncidentBuilder(lastIncident);
         Incident editedIncident = incidentBuilder.withCaller(DEFAULT_CALLER).withDistrict(DEFAULT_DISTRICT)
-                .withId(DEFAULT_ID).build();
+               .build();
 
         EditIncident editor = new EditIncidentBuilder().withCaller(DEFAULT_CALLER)
                 .withDistrict(DEFAULT_DISTRICT).build();
@@ -75,7 +76,7 @@ public class EditIncidentCommandTest {
     }
 
 
-
+    //what is this?????
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         Incident incidentToEdit = model.getFilteredIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
@@ -132,6 +133,7 @@ public class EditIncidentCommandTest {
     public void execute_unmodifiedIncidentFilteredList_failure() {
         showIncidentAtIndex(model, INDEX_FIRST_ENTITY);
         model.setSession(ALICE);
+
         // edit incident in filtered list into a duplicate in address book
         Incident incidentInList = model.getIncidentManager().getIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
         EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_FIRST_ENTITY,

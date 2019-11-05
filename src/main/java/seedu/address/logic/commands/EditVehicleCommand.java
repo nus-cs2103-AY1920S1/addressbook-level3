@@ -53,7 +53,6 @@ public class EditVehicleCommand extends Command {
     }
 
     @Override
-
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Vehicle> listOfVehicle = model.getFilteredVehicleList();
@@ -68,6 +67,7 @@ public class EditVehicleCommand extends Command {
         if (!editedVehicle.equals(vehicleToEdit) && model.hasVehicle(editedVehicle)) {
             throw new CommandException(MESSAGE_DUPLICATE_VEHICLE);
         }
+
         if (editedVehicle.equals(vehicleToEdit) && editedVehicle.getDistrict().equals(vehicleToEdit.getDistrict())
                 && editedVehicle.getAvailability().equals(vehicleToEdit.getAvailability())) {
             throw new CommandException(MESSAGE_VEHICLE_NOT_EDITED);
@@ -91,6 +91,23 @@ public class EditVehicleCommand extends Command {
         return new Vehicle(vehicleType, vehicleNumber, vehicleDistrict, vehicleAvailability);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditVehicleCommand)) {
+            return false;
+        }
+
+        // state check
+        EditVehicleCommand e = (EditVehicleCommand) other;
+        return index.equals(e.index)
+                && editVehicle.equals(e.editVehicle);
+    }
     /**
      * Stores the details to edit the vehicle with. Each non-empty field value will replace the
      * corresponding field value of the the vehicle.
