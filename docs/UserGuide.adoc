@@ -113,14 +113,14 @@ from the club's funds).
 There is a limitation to the amount that you may enter which would be -999999.99 to 999999.
 ====
 
-==== Add a Transaction
+==== To Add a Transaction in the Home Tab
 This command allows you to add a transaction to the table and saves it into the system.
 
 * Command:
 `add dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
 
-* Example:
-[blue]`add dt/24-Aug-2019 d/Printer ink c/Miscellaneous a/3.50 p/Alex Yeoh`
+* Example
+** [blue]`add dt/24-Aug-2019 d/Printer ink c/Miscellaneous a/3.50 p/Alex Yeoh`
 
 [NOTE]
 The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
@@ -132,7 +132,7 @@ and under the "Sales" category for it to show up in the Overview Tab correctly.
 If you are adding a transaction that is considered a spending which requires reimbursement to the member, the transaction *must* be negative-valued for it
 to show up in the Reimbursements Tab.
 
-* Steps:
+* Steps
 
 1. Type the command with all parameters filled in, as shown in the screenshot below:
 
@@ -178,15 +178,15 @@ it will simply be added to his existing row. This is shown in the screenshot bel
 image::homeUG/HomeAddShowInR.png[width = "400"]
 
 
-==== Delete Transaction(s)
+==== To Delete Transaction(s) in the Home Tab
 This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the table.
 
-* Command:
+* Command
 `delete ID` or `delete p/PERSON`
 
-* Examples:
-** [blue]`delete 1`
-** [blue]`delete p/Alex Yeoh`
+* Examples
+** Delete by ID: [blue]`delete 1`
+** Delete by Person: [blue]`delete p/Alex Yeoh`
 
 * Steps for Deleting by ID:
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
@@ -229,7 +229,7 @@ image::homeUG/HomeAddUnsuccessfulStep2cr.png[width = "500"]
 ////
 If the person does not have any transactions, Leo will also respond with a message to inform you.
 
-==== Edit a Transaction
+==== To Edit a Transaction in the Home Tab
 This command allows you to edit an existing transaction in the table and change its details.
 
 * Command:
@@ -260,7 +260,7 @@ image::homeUG/HomeEditStep2cr.png[]
 
 If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Add Command>>.
 
-==== Sort Transactions
+==== To Sort Transactions in the Home Tab
 This command enables you to sort the table of transactions into a specified order for viewing and carrying out of subsequent commands.
 
 * To sort:
@@ -273,7 +273,7 @@ This command enables you to sort the table of transactions into a specified orde
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
 [[findCommandHome]]
-==== Find Transactions that Match Keywords:
+==== To Find Transactions that Match Keywords in the Home Tab
 This command transactions matching the specified keywords for viewing and for carrying out of subsequent commands,
 based on the filtered table of transactions shown.
 
@@ -333,7 +333,7 @@ The screenshot below shows the table after entering `back` which shows all the t
 .Screenshot of the user input for Back Command after entering Find Command in Home Tab
 image::homeUG/HomeFindStep3Back.png[width="600"]
 
-==== Go Back to Display the Full List
+==== To Go Back to Display the Full List in the Home Tab
 This command helps you to display the full transaction list after Find Commands. After a Find Command, you can enter Delete, Edit or Sort Commands
 before entering the Back Command to display the full list.
 
