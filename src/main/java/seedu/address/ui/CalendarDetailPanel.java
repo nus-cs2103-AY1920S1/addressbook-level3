@@ -11,6 +11,7 @@ import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.AttendanceEntry;
 
 /**
  * UI component that is displayed when the command to view trainings and performance on a
@@ -42,15 +43,15 @@ public class CalendarDetailPanel extends UiPart<Region> {
      * name and attendance in the same row.
      */
     private void initialiseAttendanceData() {
-        if (model.hasTraining(date)) {
+        if (model.hasTrainingOnDate(date)) {
             attendanceBox.getChildren().add(new AttendanceTableHeader().getRoot());
-            HashMap<Person, Boolean> attendanceData = model.getTrainingAttendanceOnDate(date);
-            attendanceData.forEach((person, attendance) -> {
-                String name = person.getName().toString();
-                boolean isPresent = attendance;
+            List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
+            for (AttendanceEntry entry: attendanceData) {
+                String name = entry.getPerson().getName().toString();
+                boolean isPresent = entry.getIsPresent();
                 AttendanceTableContent content = new AttendanceTableContent(name, isPresent);
                 attendanceBox.getChildren().add(content.getRoot());
-            });
+            }
         } else {
             String errorMsg = "No Training Record on " + date.toString();
             ErrorMessageLabel error = new ErrorMessageLabel(errorMsg);
