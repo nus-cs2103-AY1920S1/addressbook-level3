@@ -61,7 +61,7 @@ class ReturnCommandTest {
             actualMessage = e.getMessage();
         }
         String expectedMessage = String.format(ReturnCommand.MESSAGE_SUCCESS, returnedBook, model.getServingBorrower(),
-                FineUtil.centsToDollarString(0));
+                FineUtil.centsToDollarString(0)).trim();
         assertEquals(actualMessage, expectedMessage);
 
         assertFalse(model.getServingBorrower().hasCurrentLoan(LOAN_7));
@@ -81,7 +81,7 @@ class ReturnCommandTest {
 
         Model model = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
 
-        ReturnCommand returnCommand = new ReturnCommand(INDEX_FIRST_BOOK);
+        ReturnCommand returnCommand = new ReturnCommand();
 
         String actualMessage;
         try {

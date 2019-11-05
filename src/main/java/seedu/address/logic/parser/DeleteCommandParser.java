@@ -24,11 +24,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
-        boolean isIndex = false;
         try {
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SERIAL_NUMBER);
             if (isPrefixPresent(argMultimap, PREFIX_SERIAL_NUMBER)) {
-                isIndex = false;
                 //attempting to delete by serial number
                 SerialNumber sn = ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER).get());
                 return new DeleteBySerialNumberCommand(sn);

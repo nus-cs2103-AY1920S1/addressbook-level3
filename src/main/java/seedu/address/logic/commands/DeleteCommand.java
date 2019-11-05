@@ -19,9 +19,9 @@ public abstract class DeleteCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the book identified by the \n"
+            + ": Deletes the book identified by the "
             + "index number used in the displayed book list.\n"
-            + "Parameters: INDEX (must be a positive integer) \n"
+            + "Parameters: INDEX (must be a positive integer)\n"
             + "or \n"
             + "SERIAL_NUMBER (must be valid serial number)\n"
             + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " sn/B00001";
