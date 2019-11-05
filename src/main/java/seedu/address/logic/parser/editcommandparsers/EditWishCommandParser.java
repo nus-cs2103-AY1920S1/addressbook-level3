@@ -3,6 +3,7 @@ package seedu.address.logic.parser.editcommandparsers;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -35,7 +36,7 @@ public class EditWishCommandParser implements Parser<EditWishCommand> {
     public EditWishCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
 
         Index index;
 
@@ -58,6 +59,11 @@ public class EditWishCommandParser implements Parser<EditWishCommand> {
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editWishDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
+
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editWishDescriptor.setAmount(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editWishDescriptor::setTags);
 
         if (!editWishDescriptor.isAnyFieldEdited()) {

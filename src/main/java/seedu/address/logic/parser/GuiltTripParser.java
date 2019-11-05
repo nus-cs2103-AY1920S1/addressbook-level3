@@ -148,7 +148,8 @@ public class GuiltTripParser {
         case AddWishCommand.COMMAND_WORD:
             return new AddWishCommandParser().parse(arguments);
 
-        /*case EditCommand.COMMAND_WORD:
+            /*
+        case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);*/
 
         case EditCategoryCommand.COMMAND_WORD:

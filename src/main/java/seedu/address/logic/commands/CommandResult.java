@@ -41,7 +41,6 @@ public class CommandResult {
 
     private boolean toShowConditionPanel = false;
 
-
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */

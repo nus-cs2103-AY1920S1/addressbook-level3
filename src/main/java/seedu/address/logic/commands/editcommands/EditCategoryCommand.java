@@ -41,7 +41,7 @@ public class EditCategoryCommand extends Command {
     private final EditCategoryDescriptor editCategoryDescriptor;
 
     /**
-     * @param index               of the entry in the filtered entry list to edit
+     * @param index of the entry in the filtered entry list to edit
      * @param editEntryDescriptor details to edit the entry with
      */
     public EditCategoryCommand(Category toEditCategory, EditCategoryDescriptor editCategoryDescriptor) {

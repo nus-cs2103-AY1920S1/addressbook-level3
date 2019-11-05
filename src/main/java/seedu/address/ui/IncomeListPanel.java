@@ -8,38 +8,38 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
 
 /**
- * Panel containing the list of expenses.
+ * Panel containing the list of incomes.
  */
-public class ExpenseListPanel extends UiPart<Region> {
-    private static final String FXML = "ExpenseListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ExpenseListPanel.class);
+public class IncomeListPanel extends UiPart<Region> {
+    private static final String FXML = "IncomeListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(IncomeListPanel.class);
 
     @FXML
-    private ListView<Expense> expenseListView;
+    private ListView<Income> incomeListView;
 
-    public ExpenseListPanel(ObservableList<Expense> expenseList) {
+    public IncomeListPanel(ObservableList<Income> incomeList) {
         super(FXML);
-        expenseListView.setItems(expenseList);
-        expenseListView.setCellFactory(listView -> new ExpenseListViewCell());
+        incomeListView.setItems(incomeList);
+        incomeListView.setCellFactory(listView -> new IncomeListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Expense} using a {@code ExpenseCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Income} using a {@code IncomeCard}.
      */
-    class ExpenseListViewCell extends ListCell<Expense> {
+    class IncomeListViewCell extends ListCell<Income> {
         @Override
-        protected void updateItem(Expense expense, boolean empty) {
-            super.updateItem(expense, empty);
+        protected void updateItem(Income income, boolean empty) {
+            super.updateItem(income, empty);
 
-            if (empty || expense == null) {
+            if (empty || income == null) {
 
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ExpenseCard(expense, getIndex() + 1).getRoot());
+                setGraphic(new IncomeCard(income, getIndex() + 1).getRoot());
             }
         }
     }
