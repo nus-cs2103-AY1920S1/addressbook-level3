@@ -42,5 +42,4 @@ public class TransactionListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -27,6 +28,7 @@ public class ModelManager implements Model {
     private final FilteredList<BankAccountOperation> filteredTransactions;
     private final FilteredList<Budget> filteredBudgets;
     private final FilteredList<LedgerOperation> filteredLedgerOperations;
+    private final FilteredList<Projection> filteredProjections;
 
     /**
      * Initializes a ModelManager with the given bankAccount and userPrefs.
@@ -42,6 +44,7 @@ public class ModelManager implements Model {
         filteredTransactions = new FilteredList<>(this.versionedUserState.getBankAccount().getTransactionHistory());
         filteredBudgets = new FilteredList<>(this.versionedUserState.getBankAccount().getBudgetHistory());
         filteredLedgerOperations = new FilteredList<>(this.versionedUserState.getLedger().getLedgerHistory());
+        filteredProjections = new FilteredList<>(this.versionedUserState.getBankAccount().getProjectionHistory());
     }
 
     public ModelManager() {
@@ -119,6 +122,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean has(Projection projection) {
+        return versionedUserState.getBankAccount().has(projection);
+    }
+
+    @Override
     public void deleteTransaction(BankAccountOperation transaction) {
         versionedUserState.remove(transaction);
     }
@@ -126,6 +134,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteBudget(Budget budget) {
         versionedUserState.remove(budget);
+    }
+
+    @Override
+    public void deleteProjection(Projection projectionToDelete) {
+        versionedUserState.remove(projectionToDelete);
     }
 
     @Override
@@ -158,6 +171,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void add(Projection projection) {
+        versionedUserState.add(projection);
+    }
+
+    @Override
     public ObservableList<BankAccountOperation> getFilteredTransactionList() {
         return filteredTransactions;
     }
@@ -170,6 +188,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<LedgerOperation> getFilteredLedgerOperationsList() {
         return filteredLedgerOperations;
+    }
+
+    @Override
+    public ObservableList<Projection> getFilteredProjectionsList() {
+        return filteredProjections;
     }
 
     @Override

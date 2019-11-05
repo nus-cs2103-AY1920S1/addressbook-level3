@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -103,6 +104,9 @@ public class MainParser {
 
         case ReceiveCommand.COMMAND_WORD:
             return new ReceiveCommandParser().parse(arguments);
+
+        case DisplayCommand.COMMAND_WORD:
+            return new DisplayCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
