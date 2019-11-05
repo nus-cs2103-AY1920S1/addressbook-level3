@@ -299,9 +299,9 @@ public class EditDayFieldCommand extends Command {
             StringBuilder builder = new StringBuilder();
 
             this.startDate.ifPresent(startDate ->
-                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate)));
+                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayDateTime(startDate)));
             this.endDate.ifPresent(endDate ->
-                    builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
+                    builder.append(" End date: ").append(ParserDateUtil.getDisplayDateTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
             this.description.ifPresent(description -> builder.append(" Description: ").append(description));

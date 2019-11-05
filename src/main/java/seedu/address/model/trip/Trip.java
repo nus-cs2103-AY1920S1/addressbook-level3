@@ -1,5 +1,6 @@
 package seedu.address.model.trip;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
@@ -81,7 +82,7 @@ public class Trip {
      * Creates a list of days upon first initialization.
      */
     public void initializeDayList() {
-        int totalDays = endDate.getDayOfMonth() - startDate.getDayOfMonth() + 1;
+        int totalDays = (int) DAYS.between(startDate, endDate) + 1;
         assert(totalDays > 0);
         this.dayList.internalList.clear();
         for (int i = 0; i < totalDays; i++) {
@@ -201,9 +202,9 @@ public class Trip {
         builder.append("Name: ")
                 .append(name.toString())
                 .append(" From: ")
-                .append(ParserDateUtil.getDisplayTime(startDate))
+                .append(ParserDateUtil.getDisplayDateTime(startDate))
                 .append(" To: ")
-                .append(ParserDateUtil.getDisplayTime(endDate))
+                .append(ParserDateUtil.getDisplayDateTime(endDate))
                 .append(" Destination: ")
                 .append(destination.toString())
                 .append(" Total Budget: ")

@@ -55,7 +55,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             Event event = internalList.get(i);
             if (event.getName().equals(expenditure.getName())) {
                 set(event, new Event(event.getName(),
-                        event.getStartDate(), event.getEndDate(), expenditure, event.getDestination()));
+                        event.getStartDate(), event.getEndDate(), expenditure, event.getDestination(), null));
                 updated = true;
             }
         }

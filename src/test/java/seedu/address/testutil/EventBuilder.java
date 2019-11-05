@@ -89,7 +89,7 @@ public class EventBuilder {
     }
 
     public Event build() {
-        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination);
+        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination, null);
     }
 
 }

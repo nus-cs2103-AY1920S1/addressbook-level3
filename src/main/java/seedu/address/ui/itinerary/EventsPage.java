@@ -46,6 +46,8 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     @FXML
     private Label nameLabel;
 
+    @FXML
+    private Label descriptionLabel;
 
     public EventsPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
@@ -118,10 +120,13 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
             totalBudgetLabel.setText("Total Budget: "
                                                 + event.getExpenditure().get().getBudget()
                                                 .getValueStringInCurrency(model.getTravelPal().getCurrencies().get(0)));
-        } else {
-            totalBudgetLabel.setText("Total Budget: 0");
         }
+
         nameLabel.setText(event.getName().toString());
+
+        if (event.getDescription().isPresent()) {
+            descriptionLabel.setText("Description: " + event.getDescription().get().toString());
+        }
     }
 
     @FXML

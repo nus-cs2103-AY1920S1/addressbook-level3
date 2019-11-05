@@ -3,9 +3,9 @@ package seedu.address.ui.itinerary;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.ParserDateUtil.DATE_FORMATTER;
 import static seedu.address.logic.parser.ParserDateUtil.TIME_FORMATTER;
 
 import javafx.fxml.FXML;
@@ -35,6 +35,7 @@ public class EditEventPage extends Page<AnchorPane> {
     private TimeFormItem eventStartTimeFormItem;
     private TimeFormItem eventEndTimeFormItem;
     private DoubleFormItem eventTotalBudgetFormItem;
+    private TextFormItem eventDescriptionFormItem;
     //private TextFormItem eventInventoryFormItem;
     //private TextFormItem eventBookingFormItem;
 
@@ -67,10 +68,12 @@ public class EditEventPage extends Page<AnchorPane> {
         currentEditDescriptor.getBudget().ifPresent(budget ->
                 eventTotalBudgetFormItem.setValue(budget.value));
 
-        currentEditDescriptor.getStartDate().ifPresent(startDate ->
-                eventStartTimeFormItem.setValue(startDate.toLocalTime()));
-        currentEditDescriptor.getEndDate().ifPresent(endDate ->
-                eventEndTimeFormItem.setValue(endDate.toLocalTime()));
+        currentEditDescriptor.getStartTime().ifPresent(startDate ->
+                eventStartTimeFormItem.setValue(startDate));
+        currentEditDescriptor.getEndTime().ifPresent(endDate ->
+                eventEndTimeFormItem.setValue(endDate));
+        currentEditDescriptor.getDescription().ifPresent(description ->
+                eventDescriptionFormItem.setValue(description.toString()));
     }
 
     /**
@@ -87,13 +90,11 @@ public class EditEventPage extends Page<AnchorPane> {
         eventStartTimeFormItem = new TimeFormItem("Start time : ", startTime -> {
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
                     + " " + PREFIX_DATE_START
-                    + model.getPageStatus().getDay().getStartDate().format(DATE_FORMATTER)
                     + " " + startTime.format(TIME_FORMATTER));
         });
         eventEndTimeFormItem = new TimeFormItem("End time : ", endTime -> {
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
                     + " " + PREFIX_DATE_END
-                    + model.getPageStatus().getDay().getEndDate().format(DATE_FORMATTER)
                     + " " + endTime.format(TIME_FORMATTER));
         });
 
@@ -105,6 +106,10 @@ public class EditEventPage extends Page<AnchorPane> {
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
                     + " " + PREFIX_LOCATION + destinationValue);
         });
+        eventDescriptionFormItem = new TextFormItem("Description : ", descriptionValue -> {
+            mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_DESCRIPTION + descriptionValue);
+        });
 
         fillPage(); //update and overwrite with existing edit descriptor
 
@@ -113,7 +118,8 @@ public class EditEventPage extends Page<AnchorPane> {
                 eventStartTimeFormItem.getRoot(),
                 eventEndTimeFormItem.getRoot(),
                 eventTotalBudgetFormItem.getRoot(),
-                eventDestinationFormItem.getRoot());
+                eventDestinationFormItem.getRoot(),
+                eventDescriptionFormItem.getRoot());
     }
 
     @FXML
