@@ -13,7 +13,7 @@
    <center>
       <HBox style="-fx-border-color: #383838;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="qnsTextArea" editable="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="result-display" stylesheets="@DarkTheme.css">
+            <TextArea fx:id="qnsTextArea" editable="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -24,7 +24,7 @@
             <Separator fx:id="flashcardSeparator" orientation="VERTICAL" />
             <StackPane fx:id="rightPane">
                <children>
-                  <TextArea fx:id="ansTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" />
+                  <TextArea fx:id="ansTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true" />
                   <Label fx:id="timerLabel" stylesheets="@DarkTheme.css" text="500" textFill="RED">
                      <font>
                         <Font size="47.0" />
