@@ -13,27 +13,40 @@ To be copied from UG.
 
 == Summary of contributions
 
-* *Major enhancement*: Implemented a series of commands and features to manage user's password. This includes adding a `Password` model
-and its subclasses of `Description`, `Username`, `PasswordValue`, `Website`, `ModifiedAt`, `ExpiryMode` and others, as well as
-implementing the `AddPasswordCommand`, `FindPasswordCommand`, `CopyPasswordCommand`,`DeletePasswordCommand`,
-`ReadPasswordCommand`, `EditPasswordCommand` commands.
-** What it does: allows the user manage personal passwords and keep track of when they should change their passwords.
-** Justification: Businesses now have a plethora of accounts to use for day-to-day activities.
-It is hard to keep track of all the passwords without compromising on security.
-** Highlights:
+*Major enhancement*
 
+Implemented a series of commands and features to manage user's password. This includes adding a `Password` model
+and its subclasses of `Description`, `Username`, `PasswordValue`, `Website`, `ModifiedAt`, `ExpiryMode`. In addition,
+I implemented the supportive commands to the password model such as `AddPasswordCommand`, `FindPasswordCommand`, `CopyCommand`, `DeletePasswordCommand`,
+`ReadPasswordCommand` and `EditPasswordCommand`  commands.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+*What it does*
+
+* Allows the user manage passwords and keep track of when they should change their passwords.
+
+*Justification*
+
+* Many small and medium enterprises now have a plethora of accounts to use for day-to-day activities.
+It is hard to keep track of all the passwords without compromising on security. This feature aims to alleviate the password management
+on businesses and improve data security.
+
+*Highlights*
+
+* This enhancement requires good adherence to the existing architecture as it touches all components
+of the architecture. A new `Password` model was created to support the storage of passwords.
+In addition, numerous commands were implemented for this enhancement. Besides, several Software Engineering Principles,
+such as SOLID, YAGNI and DRY Principles, were closely followed.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-* *Other contributions*:
+*Other contributions*:
 
 ** Project management:
-*** Set up team repository and Travis for the project on GitHub
+*** Set up team repository and other essential tools such as Travis and Coverall on GitHub
+*** Maintained the team repository by managing issue tracking, issue assigment and milestones.
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Enhanced the UI of the existing application (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 
 ** Documentation:
