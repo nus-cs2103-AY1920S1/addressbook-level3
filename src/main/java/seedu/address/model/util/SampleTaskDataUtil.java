@@ -65,35 +65,35 @@ public class SampleTaskDataUtil {
 
     public static InvMemMapping[] getSampleInvMemMapping() {
         return new InvMemMapping[] {
-                new InvMemMapping(2,0),
-                new InvMemMapping(2,1),
-                new InvMemMapping(0,2),
-                new InvMemMapping(1,3),
-                new InvMemMapping(2,4),
-                new InvMemMapping(0,5),
+            new InvMemMapping(2,0),
+            new InvMemMapping(2,1),
+            new InvMemMapping(0,2),
+            new InvMemMapping(1,3),
+            new InvMemMapping(2,4),
+            new InvMemMapping(0,5),
         };
     }
 
     public static InvTasMapping[] getSampleInvTasMapping() {
         return new InvTasMapping[]{
-                new InvTasMapping(5, 0),
-                new InvTasMapping(2, 1),
-                new InvTasMapping(5, 2),
-                new InvTasMapping(5, 3),
-                new InvTasMapping(2, 4),
-                new InvTasMapping(4, 5),
+            new InvTasMapping(5, 0),
+            new InvTasMapping(2, 1),
+            new InvTasMapping(5, 2),
+            new InvTasMapping(5, 3),
+            new InvTasMapping(2, 4),
+            new InvTasMapping(4, 5),
         };
     }
 
 
     public static TasMemMapping[] getSampleTasMemMapping() {
         return new TasMemMapping[] {
-                new TasMemMapping(1, 1),
-                new TasMemMapping(1, 2),
-                new TasMemMapping(2, 1),
-                new TasMemMapping(3, 4),
-                new TasMemMapping(4, 3),
-                new TasMemMapping(5, 5),
+            new TasMemMapping(1, 1),
+            new TasMemMapping(1, 2),
+            new TasMemMapping(2, 1),
+            new TasMemMapping(3, 4),
+            new TasMemMapping(4, 3),
+            new TasMemMapping(5, 5),
         };
     }
 
