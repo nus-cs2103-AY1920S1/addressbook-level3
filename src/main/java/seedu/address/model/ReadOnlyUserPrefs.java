@@ -11,8 +11,6 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getAddressBookFilePath();
-
     Path getCustomerBookFilePath();
 
     Path getPhoneBookFilePath();
@@ -20,5 +18,7 @@ public interface ReadOnlyUserPrefs {
     Path getScheduleBookFilePath();
 
     Path getOrderBookFilePath();
+
+    Path getArchivedOrderBookFilePath();
 
 }

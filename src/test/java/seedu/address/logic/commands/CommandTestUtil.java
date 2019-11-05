@@ -30,7 +30,6 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
-import seedu.address.logic.commands.editcommand.EditCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescriptor;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand.EditPhoneDescriptor;
@@ -43,15 +42,12 @@ import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Price;
 import seedu.address.model.order.predicates.OrderContainsKeywordsPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
 import seedu.address.testutil.EditScheduleDescriptorBuilder;
 import seedu.address.testutil.TypicalCustomers;
@@ -229,8 +225,6 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
     public static final EditCustomerDescriptor DESC_ALICE;
     public static final EditCustomerDescriptor DESC_BEN;
     public static final EditPhoneDescriptor DESC_IPHONE;
@@ -241,13 +235,6 @@ public class CommandTestUtil {
     public static final EditScheduleDescriptor DESC_FRIDAY;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-
         DESC_ALICE = new EditCustomerDescriptorBuilder().withCustomerName(VALID_NAME_ALICE)
                 .withContactNumber(VALID_CONTACT_NUMBER_ALICE).withEmail(VALID_EMAIL_ALICE)
                 .withTags(VALID_TAG_REGULAR).build();
@@ -403,19 +390,6 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredOrderList, actualModel.getFilteredOrderList());
         assertEquals(expectedFilteredScheduleList, actualModel.getFilteredScheduleList());
         assertEquals(expectedFilteredArchivedOrderList, actualModel.getFilteredArchivedOrderList());
-    }
-    /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
-
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredPersonList().size());
     }
 
     /**

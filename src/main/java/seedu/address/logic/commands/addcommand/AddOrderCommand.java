@@ -56,7 +56,7 @@ public class AddOrderCommand extends UndoableCommand {
     private final Set<Tag> toAddTags;
 
     /**
-     * Creates an AddCommand to add the specified {@code Order}
+     * Creates an AddOrderCommand to add the specified {@code Order}
      */
     public AddOrderCommand(Index customerIndex, Index phoneIndex, Price price, Set<Tag> tags) {
         requireNonNull(customerIndex);
