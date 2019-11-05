@@ -60,8 +60,8 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0, "xx");
         PersonContainsKeywordPredicate predicate = preparePredicate("xx");
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0, predicate.toString());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPatientList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -70,8 +70,8 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_personsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1, "Elle");
         PersonContainsKeywordPredicate predicate = preparePredicate("Elle");
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1, predicate.toString());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPatientList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

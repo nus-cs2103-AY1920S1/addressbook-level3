@@ -66,9 +66,9 @@ class AppointmentsCommandTest {
     //    execute_zeroKeywords_noEventFound
     @Test
     public void execute_zeroKeywords_allEventsFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
-                model.getFilteredAppointmentList().size());
         AppointmentsCommand command = new AppointmentsCommand(PREDICATE_SHOW_ALL_EVENTS);
+        String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
+                model.getFilteredAppointmentList().size(), PREDICATE_SHOW_ALL_EVENTS.toString());
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -76,10 +76,12 @@ class AppointmentsCommandTest {
 
     @Test
     public void execute_invalidKeywords_noEventFound() throws ParseException {
-        String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, 0);
 
         EventMatchesRefIdPredicate invalidPredicate = new EventMatchesRefIdPredicate(
                 PersonReferenceId.issuePatientReferenceId("0000"));
+
+        String expectedMessage = String.format(
+                Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, 0, invalidPredicate.toString());
 
         AppointmentsCommand command = new AppointmentsCommand(invalidPredicate);
         expectedModel.updateFilteredAppointmentList(invalidPredicate);
@@ -99,7 +101,7 @@ class AppointmentsCommandTest {
         expectedModel.updateFilteredAppointmentList(validPredicate);
 
         String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
-                expectedModel.getFilteredAppointmentList().size());
+                expectedModel.getFilteredAppointmentList().size(), validPredicate.toString());
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         model.updateFilteredAppointmentList(validPredicate);
