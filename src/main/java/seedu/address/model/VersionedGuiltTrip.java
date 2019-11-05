@@ -3,6 +3,8 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.commons.core.step.Step;
+
 /**
  * {@code GuiltTrip} that keeps track of its own history.
  */
@@ -38,7 +40,7 @@ public class VersionedGuiltTrip extends GuiltTrip {
      * Restores the address book to its previous state.
      */
     public void undo() {
-        if (!canUndo()) {
+        if (!canUndo(new Step("1"))) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
@@ -49,7 +51,7 @@ public class VersionedGuiltTrip extends GuiltTrip {
      * Restores the address book to its previously undone state.
      */
     public void redo() {
-        if (!canRedo()) {
+        if (!canRedo(new Step("1"))) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
@@ -59,15 +61,15 @@ public class VersionedGuiltTrip extends GuiltTrip {
     /**
      * Returns true if {@code undo()} has address book states to undo.
      */
-    public boolean canUndo() {
-        return currentStatePointer > 0;
+    public boolean canUndo(Step step) {
+        return currentStatePointer >= step.value;
     }
 
     /**
      * Returns true if {@code redo()} has address book states to redo.
      */
-    public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+    public boolean canRedo(Step step) {
+        return currentStatePointer + step.value <= addressBookStateList.size() - 1;
     }
 
     @Override

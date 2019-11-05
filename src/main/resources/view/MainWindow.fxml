@@ -18,7 +18,7 @@
 
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="guiltTrip() - your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/guiltTrip()_32.png" />
+<!--        <Image url="@/images/guiltTrip()_32.png" />-->
     </icons>
     <scene>
         <Scene fx:id="scene">

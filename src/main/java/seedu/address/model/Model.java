@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.step.Step;
+
 import seedu.address.model.entry.AutoExpense;
 import seedu.address.model.entry.Budget;
 import seedu.address.model.entry.Category;
@@ -261,12 +263,12 @@ public interface Model {
     /**
      * Returns true if the model has previous finance tracker states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoAddressBook(Step step);
 
     /**
      * Returns true if the model has undone finance tracker states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoAddressBook(Step step);
 
     /**
      * Restores the model's finance tracker to its previous state.

@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.addcommands.AddAutoExpenseCommand;
 import seedu.address.logic.commands.addcommands.AddBudgetCommand;
 import seedu.address.logic.commands.addcommands.AddCategoryCommand;
-import seedu.address.logic.commands.addcommands.AddCommand;
-import seedu.address.logic.commands.BudgetListCommand;
 import seedu.address.logic.commands.addcommands.AddExpenseCommand;
 import seedu.address.logic.commands.addcommands.AddIncomeCommand;
 import seedu.address.logic.commands.addcommands.AddWishCommand;
@@ -24,12 +22,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.deletecommands.DeleteAutoExpenseCommand;
 import seedu.address.logic.commands.deletecommands.DeleteBudgetCommand;
 import seedu.address.logic.commands.deletecommands.DeleteCategoryCommand;
-import seedu.address.logic.commands.deletecommands.DeleteCommand;
 import seedu.address.logic.commands.deletecommands.DeleteWishCommand;
 import seedu.address.logic.commands.editcommands.EditAutoExpenseCommand;
 import seedu.address.logic.commands.editcommands.EditBudgetCommand;
 import seedu.address.logic.commands.editcommands.EditCategoryCommand;
-import seedu.address.logic.commands.editcommands.EditCommand;
 import seedu.address.logic.commands.editcommands.EditWishCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.findcommands.FindBudgetCommand;
@@ -37,6 +33,7 @@ import seedu.address.logic.commands.findcommands.FindCommand;
 import seedu.address.logic.commands.findcommands.FindWishCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListBudgetCommand;
 import seedu.address.logic.commands.ListCategoriesCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.uicommands.ListFontCommand;
@@ -69,7 +66,6 @@ import seedu.address.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.address.logic.parser.addcommandparsers.AddAutoExpenseCommandParser;
 import seedu.address.logic.parser.addcommandparsers.AddBudgetCommandParser;
 import seedu.address.logic.parser.addcommandparsers.AddCategoryCommandParser;
-import seedu.address.logic.parser.addcommandparsers.AddCommandParser;
 import seedu.address.logic.parser.addcommandparsers.AddExpenseCommandParser;
 import seedu.address.logic.parser.addcommandparsers.AddIncomeCommandParser;
 import seedu.address.logic.parser.addcommandparsers.AddWishCommandParser;
@@ -83,14 +79,12 @@ import seedu.address.logic.parser.conditioncommandparsers.ReplaceConditionComman
 import seedu.address.logic.parser.deletecommandparsers.DeleteAutoExpenseCommandParser;
 import seedu.address.logic.parser.deletecommandparsers.DeleteBudgetCommandParser;
 import seedu.address.logic.parser.deletecommandparsers.DeleteCategoryCommandParser;
-import seedu.address.logic.parser.deletecommandparsers.DeleteCommandParser;
 import seedu.address.logic.parser.deletecommandparsers.DeleteExpenseCommandParser;
 import seedu.address.logic.parser.deletecommandparsers.DeleteIncomeCommandParser;
 import seedu.address.logic.parser.deletecommandparsers.DeleteWishCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditAutoExpenseCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditBudgetCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditCategoryCommandParser;
-import seedu.address.logic.parser.editcommandparsers.EditCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditExpenseCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditIncomeCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditWishCommandParser;
@@ -206,8 +200,8 @@ public class GuiltTripParser {
         case WishListCommand.COMMAND_WORD:
             return new WishListCommand();
 
-        case BudgetListCommand.COMMAND_WORD:
-            return new BudgetListCommand();
+        case ListBudgetCommand.COMMAND_WORD:
+            return new ListBudgetCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -288,10 +282,10 @@ public class GuiltTripParser {
             return new TogglePanelCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return new UndoCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            return new RedoCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

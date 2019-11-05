@@ -41,6 +41,9 @@ public class CommandResult {
 
     private boolean toShowConditionPanel = false;
 
+    /** For listing the budgets. */
+    private final boolean listBudgets;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -57,6 +60,7 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.listBudgets = false;
         this.changeTheme = false;
         this.newTheme = null;
     }
@@ -82,10 +86,32 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.listBudgets = false;
         this.changeTheme = false;
         this.newTheme = null;
     }
 
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean listBudgets) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.panelName = null;
+        this.togglePanel = false;
+        this.toggleStats = false;
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
+        this.changeTheme = false;
+        this.newTheme = null;
+        this.listBudgets = listBudgets;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
@@ -103,6 +129,7 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.listBudgets = false;
         this.changeTheme = false;
         this.newTheme = null;
     }
@@ -125,6 +152,7 @@ public class CommandResult {
         this.togglePieChart = false;
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
+        this.listBudgets = false;
     }
 
     /**
@@ -145,6 +173,7 @@ public class CommandResult {
         this.togglePieChart = false;
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
+        this.listBudgets = false;
     }
 
     public void showConditionPanel() {
@@ -211,6 +240,9 @@ public class CommandResult {
         return changeTheme;
     }
 
+    public boolean isListBudgets() {
+        return listBudgets;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -232,6 +264,7 @@ public class CommandResult {
                 && fontName == otherCommandResult.fontName
                 && listFonts == otherCommandResult.listFonts
                 && changeFont == otherCommandResult.changeFont
+                && listBudgets == otherCommandResult.listBudgets
                 && changeTheme == otherCommandResult.changeTheme
                 && newTheme.equals(otherCommandResult.newTheme);
     }
@@ -239,7 +272,7 @@ public class CommandResult {
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont,
-                newTheme, changeTheme);
+                newTheme, changeTheme, listBudgets);
     }
 
 }
