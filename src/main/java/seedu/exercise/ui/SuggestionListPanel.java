@@ -46,6 +46,16 @@ public class SuggestionListPanel extends ResourceListPanel {
         }
     }
 
+    @Override
+    protected void resetListSelection() {
+        suggestionListView.getSelectionModel().clearSelection();
+    }
+
+    @Override
+    protected ListView<Exercise> getResourceListView() {
+        return suggestionListView;
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseInfoPanel}.
      */

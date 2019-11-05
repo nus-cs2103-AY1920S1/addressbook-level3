@@ -27,10 +27,6 @@ public class ScheduleListPanel extends ResourceListPanel {
         scheduleListView.getFocusModel().focusedItemProperty().addListener(getDefaultListViewListener());
     }
 
-    public ListView<Schedule> getScheduleListView() {
-        return scheduleListView;
-    }
-
     @Override
     protected void selectGivenIndex(int index) {
         if (index >= 0) {
@@ -44,6 +40,16 @@ public class ScheduleListPanel extends ResourceListPanel {
              */
             Platform.runLater(() -> selectFocusAndScrollTo(scheduleListView, index));
         }
+    }
+
+    @Override
+    protected void resetListSelection() {
+        scheduleListView.getSelectionModel().clearSelection();
+    }
+
+    @Override
+    protected ListView<Schedule> getResourceListView() {
+        return scheduleListView;
     }
 
     /**

@@ -30,7 +30,7 @@ public class ExerciseListPanel extends ResourceListPanel {
         exerciseListView.getFocusModel().focusedItemProperty().addListener(getDefaultListViewListener());
     }
 
-    public ListView<Exercise> getExerciseListView() {
+    public ListView<Exercise> getResourceListView() {
         return exerciseListView;
     }
 
@@ -52,6 +52,11 @@ public class ExerciseListPanel extends ResourceListPanel {
              */
             Platform.runLater(() -> selectFocusAndScrollTo(exerciseListView, index));
         }
+    }
+
+    @Override
+    protected void resetListSelection() {
+        exerciseListView.getSelectionModel().clearSelection();
     }
 
     /**

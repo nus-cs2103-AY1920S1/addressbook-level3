@@ -27,10 +27,6 @@ public class RegimeListPanel extends ResourceListPanel {
         regimeListView.getFocusModel().focusedItemProperty().addListener(getDefaultListViewListener());
     }
 
-    public ListView<Regime> getRegimeListView() {
-        return regimeListView;
-    }
-
     @Override
     protected void selectGivenIndex(int index) {
         if (index >= 0) {
@@ -44,6 +40,16 @@ public class RegimeListPanel extends ResourceListPanel {
              */
             Platform.runLater(() -> selectFocusAndScrollTo(regimeListView, index));
         }
+    }
+
+    @Override
+    protected void resetListSelection() {
+        regimeListView.getSelectionModel().clearSelection();
+    }
+
+    @Override
+    protected ListView<Regime> getResourceListView() {
+        return regimeListView;
     }
 
     /**

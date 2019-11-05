@@ -7,7 +7,7 @@
 
 == Overview
 
-My team of 4 computer science students were tasked with changing a basic command line application. Our team
+My team of 5 computer science students were tasked with changing a basic command line application. Our team
 decided to morph the application into ExerHealth. **ExerHealth** is a desktop application used for tracking
 and scheduling the user's exercises. The application has statistical analysis of exercises users have completed
 in the past. Additionally, it also acts as a personal trainer by suggesting different exercises which both

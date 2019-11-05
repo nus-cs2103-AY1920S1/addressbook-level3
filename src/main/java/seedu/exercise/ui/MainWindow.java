@@ -38,10 +38,10 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private ResolveWindow resolveWindow;
     private CustomPropertiesWindow customPropertiesWindow;
-    private ExerciseListPanel exerciseListPanel;
-    private RegimeListPanel regimeListPanel;
-    private ScheduleListPanel scheduleListPanel;
-    private SuggestionListPanel suggestionListPanel;
+    private ResourceListPanel exerciseListPanel;
+    private ResourceListPanel regimeListPanel;
+    private ResourceListPanel scheduleListPanel;
+    private ResourceListPanel suggestionListPanel;
     private InfoDisplayPanel infoDisplayPanel;
     private StatsDisplayPanel statsDisplayPanel;
 
@@ -112,19 +112,19 @@ public class MainWindow extends UiPart<Stage> {
 
         exerciseListPanel = new ExerciseListPanel(logic.getSortedExerciseList());
         exerciseListTabPlaceholder = new Tab();
-        exerciseListTabPlaceholder.setContent((exerciseListPanel).getExerciseListView());
+        exerciseListTabPlaceholder.setContent(exerciseListPanel.getResourceListView());
 
         regimeListPanel = new RegimeListPanel(logic.getSortedRegimeList());
         regimeListTabPlaceholder = new Tab();
-        regimeListTabPlaceholder.setContent(regimeListPanel.getRegimeListView());
+        regimeListTabPlaceholder.setContent(regimeListPanel.getResourceListView());
 
         scheduleListPanel = new ScheduleListPanel(logic.getSortedScheduleList());
         scheduleListTabPlaceholder = new Tab();
-        scheduleListTabPlaceholder.setContent(scheduleListPanel.getScheduleListView());
+        scheduleListTabPlaceholder.setContent(scheduleListPanel.getResourceListView());
 
         suggestionListPanel = new SuggestionListPanel(logic.getSuggestedExerciseList());
         suggestionListTabPlaceholder = new Tab();
-        suggestionListTabPlaceholder.setContent(suggestionListPanel.getSuggestionListView());
+        suggestionListTabPlaceholder.setContent(suggestionListPanel.getResourceListView());
 
         resourceListPanelPlaceholder.getTabs().add(exerciseListTabPlaceholder);
         resourceListPanelPlaceholder.getTabs().add(regimeListTabPlaceholder);
@@ -222,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             setChart();
             setStats();
+            resetResourceListTabs();
 
             shouldShowWindowsBasedOnCommandResult(commandResult);
             shouldExitAppBasedOnCommandResult(commandResult);
@@ -233,6 +234,16 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Resets the selection models of the resource list panels on the left of the GUI.
+     */
+    private void resetResourceListTabs() {
+        exerciseListPanel.resetListSelection();
+        regimeListPanel.resetListSelection();
+        scheduleListPanel.resetListSelection();
+        suggestionListPanel.resetListSelection();
     }
 
     /**
