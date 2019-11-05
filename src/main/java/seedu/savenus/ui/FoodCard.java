@@ -46,7 +46,13 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private Label optionalInfo;
+    private Label locations;
+    @FXML
+    private Label openingHours;
+    @FXML
+    private Label restriction;
+    @FXML
+    private Label recommendation;
 
     public FoodCard(Food food, int displayedIndex) {
         super(FXML);
@@ -67,47 +73,46 @@ public class FoodCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        // The label for short optional information which contains
-        // opening hours, location, restrictions, and recommendations.
-        String textForOptionalInfo = "";
-
-        String partition;
-        // Partition string.
-        if (CollapseCommand.getStatus()) {
-            partition = "  |  ";
-        } else {
-            partition = "\n";
-        }
         // Label for location.
-        textForOptionalInfo += "Location: " + food.getLocation().location + partition;
+        String location = "Location: " + food.getLocation().location;
+
+        locations.setText(location);
 
         // Label for opening hours.
+        String hour = "";
         if (food.getOpeningHours().openingHours.equals(OpeningHours.DEFAULT_VALUE)) {
-            textForOptionalInfo += "No opening hours specified." + partition;
+            hour += "No opening hours specified.";
         } else {
             String[] hours = food.getOpeningHours().openingHours.split(" ");
             String open = hours[0];
             String close = hours[1];
-            textForOptionalInfo += "Opens: " + open + " - Closes: " + close + partition;
+            hour += "Opens: " + open + " - Closes: " + close;
         }
+
+        openingHours.setText(hour);
 
         // Label for restrictions.
+        String restrictions = "";
+
         if (food.getRestrictions().restrictions.equals(Restrictions.DEFAULT_VALUE)) {
-            textForOptionalInfo += "No restrictions.";
+            restrictions += "No restrictions.";
         } else {
-            textForOptionalInfo += "Restrictions: " + food.getRestrictions().restrictions;
+            restrictions += "Restrictions: " + food.getRestrictions().restrictions;
         }
 
+        restriction.setText(restrictions);
+
+        // Label for recommendation.
+        String recommendations = "";
         double recommendationValue = RecommendationSystem.getInstance().calculateRecommendation(food);
 
         if (recommendationValue >= 0) {
-            textForOptionalInfo += partition + "+" + String.format("%.2f", recommendationValue);
+            recommendations += "Recommendation: " + "+" + String.format("%.2f", recommendationValue);
         } else {
-            textForOptionalInfo += partition + String.format("%.2f", recommendationValue);
+            recommendations += "Recommendation: " + String.format("%.2f", recommendationValue);
         }
 
-        // Setting the text for optional info.
-        optionalInfo.setText(textForOptionalInfo);
+        recommendation.setText(recommendations);
     }
 
     @Override
