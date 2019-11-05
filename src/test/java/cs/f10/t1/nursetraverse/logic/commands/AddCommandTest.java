@@ -120,6 +120,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getAppointmentBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPatient(Patient patient) {
             throw new AssertionError("This method should not be called.");
         }

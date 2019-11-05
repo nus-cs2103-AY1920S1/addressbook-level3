@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
+import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 
 
 /**
@@ -69,6 +70,10 @@ public class RecurringDateTime {
         return minutes;
     }
 
+    public Long[] getFreqArray() {
+        return freqArray;
+    }
+
     /**
      * Converts the JSON storage String to an array of type long
      * @return Long[] array
@@ -92,9 +97,8 @@ public class RecurringDateTime {
     /**
      * @return boolean, which is true if frequency is valid
      */
-    public static boolean isValidFrequency(String freq) {
-        Long[] freqLongArray = frequencyStringToLong(freq);
-        return freqLongArray.length == EXPECTED_FREQUENCY_ARRAY_LENGTH;
+    public static boolean isValidFrequency(Long[] freq) {
+        return freq.length == EXPECTED_FREQUENCY_ARRAY_LENGTH;
     }
 
     /**
@@ -141,5 +145,29 @@ public class RecurringDateTime {
                     .plusMinutes(minutes);
 
         return nextAppointmentLocalDateTime.format(DATE_DISPLAY_FORMATTER);
+    }
+
+    /**
+     * Returns true if both frequencies have the same identity and data fields.
+     * This defines a stronger notion of equality between two frequencies.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof RecurringDateTime)) {
+            return false;
+        }
+
+        RecurringDateTime otherFrequency = (RecurringDateTime) other;
+
+        return otherFrequency.getYears().equals(getYears())
+                && otherFrequency.getMonths().equals(getMonths())
+                && otherFrequency.getWeeks().equals(getWeeks())
+                && otherFrequency.getDays().equals(getDays())
+                && otherFrequency.getHours().equals(getHours())
+                && otherFrequency.getMinutes().equals(getMinutes());
     }
 }

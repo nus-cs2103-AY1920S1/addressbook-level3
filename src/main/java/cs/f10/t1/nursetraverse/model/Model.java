@@ -61,6 +61,16 @@ public interface Model {
     void setPatientBookFilePath(Path patientBookFilePath);
 
     /**
+     * Returns the user prefs' appointment book file path.
+     */
+    Path getAppointmentBookFilePath();
+
+    /**
+     * Sets the user prefs' appointment book file path.
+     */
+    void setAppointmentBookFilePath(Path appointmentBookFilePath);
+
+    /**
      * Replaces patient book data with the data in {@code patientBook}.
      */
     void setStagedPatientBook(ReadOnlyPatientBook patientBook);

@@ -17,6 +17,7 @@ import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
+import cs.f10.t1.nursetraverse.model.util.SampleDataUtil;
 import cs.f10.t1.nursetraverse.model.visit.Visit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,16 +59,21 @@ public class ModelManager implements Model {
     private Predicate<Appointment> previousPredicateAppointments = PREDICATE_SHOW_ALL_APPOINTMENTS;
 
     /**
-     * Initializes a ModelManager with the given patientBook and userPrefs.
+     * Initializes a ModelManager with the given patientBook and userPrefs and appointmentBook.
      */
-    public ModelManager(ReadOnlyPatientBook patientBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyPatientBook patientBook, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyAppointmentBook appointmentBook) {
         super();
-        CollectionUtil.requireAllNonNull(patientBook, userPrefs);
+        CollectionUtil.requireAllNonNull(patientBook, userPrefs, appointmentBook);
 
-        logger.fine("Initializing with patient book: " + patientBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with patient book: " + patientBook + " and user prefs " + userPrefs
+                    + " and appointment book: " + appointmentBook);
 
         this.basePatientBook = new PatientBook(patientBook);
         this.stagedPatientBook = this.basePatientBook.deepCopy();
+        this.baseAppointmentBook = new AppointmentBook(appointmentBook);
+        this.stagedAppointmentBook = this.baseAppointmentBook.deepCopy();
+
         this.historyManager = new HistoryManager(MAX_HISTORY_SIZE);
         this.userPrefs = new UserPrefs(userPrefs);
 
@@ -81,16 +87,13 @@ public class ModelManager implements Model {
         refreshStagedData();
 
         //Initializing appointment related book and appointments
-        this.baseAppointmentBook = new AppointmentBook();
-        this.stagedAppointmentBook = this.baseAppointmentBook.deepCopy();
-
         stagedAppointments = FXCollections.observableArrayList();
         filteredAppointments = new FilteredList<>(FXCollections.unmodifiableObservableList(stagedAppointments));
         refreshStagedAppointments();
     }
 
     public ModelManager() {
-        this(new PatientBook(), new UserPrefs());
+        this(new PatientBook(), new UserPrefs(), new AppointmentBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -126,6 +129,17 @@ public class ModelManager implements Model {
     public void setPatientBookFilePath(Path patientBookFilePath) {
         requireNonNull(patientBookFilePath);
         userPrefs.setPatientBookFilePath(patientBookFilePath);
+    }
+
+    @Override
+    public Path getAppointmentBookFilePath() {
+        return userPrefs.getAppointmentBookFilePath();
+    }
+
+    @Override
+    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+        requireNonNull(appointmentBookFilePath);
+        userPrefs.setAppointmentBookFilePath(appointmentBookFilePath);
     }
 
     //=========== PatientBook ================================================================================
@@ -485,6 +499,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return stagedPatientBook.equals(other.stagedPatientBook)
+                && stagedAppointmentBook.equals(other.stagedAppointmentBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPatients.equals(other.filteredPatients)
                 && filteredAppointments.equals(other.filteredAppointments);

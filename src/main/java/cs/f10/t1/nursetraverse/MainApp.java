@@ -13,13 +13,17 @@ import cs.f10.t1.nursetraverse.commons.util.ConfigUtil;
 import cs.f10.t1.nursetraverse.commons.util.StringUtil;
 import cs.f10.t1.nursetraverse.logic.Logic;
 import cs.f10.t1.nursetraverse.logic.LogicManager;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.PatientBook;
+import cs.f10.t1.nursetraverse.model.ReadOnlyAppointmentBook;
 import cs.f10.t1.nursetraverse.model.ReadOnlyPatientBook;
 import cs.f10.t1.nursetraverse.model.ReadOnlyUserPrefs;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
 import cs.f10.t1.nursetraverse.model.util.SampleDataUtil;
+import cs.f10.t1.nursetraverse.storage.AppointmentBookStorage;
+import cs.f10.t1.nursetraverse.storage.JsonAppointmentBookStorage;
 import cs.f10.t1.nursetraverse.storage.JsonPatientBookStorage;
 import cs.f10.t1.nursetraverse.storage.JsonUserPrefsStorage;
 import cs.f10.t1.nursetraverse.storage.PatientBookStorage;
@@ -49,7 +53,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing PatientBook ]===========================");
+        logger.info("=============================[ Initializing PatientBook and AppointmentBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -58,7 +62,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         PatientBookStorage patientBookStorage = new JsonPatientBookStorage(userPrefs.getPatientBookFilePath());
-        storage = new StorageManager(patientBookStorage, userPrefsStorage);
+        AppointmentBookStorage appointmentBookStorage = new JsonAppointmentBookStorage(userPrefs
+                                                                                        .getAppointmentBookFilePath());
+        storage = new StorageManager(patientBookStorage, userPrefsStorage, appointmentBookStorage);
 
         initLogging(config);
 
@@ -70,28 +76,42 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s patient book and {@code userPrefs}. <br>
-     * The data from the sample patient book will be used instead if {@code storage}'s patient book is not found,
-     * or an empty patient book will be used instead if errors occur when reading {@code storage}'s patient book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s patient book and {@code userPrefs}
+     * and {@code storage}'s appointment book. <br>
+     * The data from the sample patient book or sample appointment book will be used instead if {@code storage}'s
+     * patient book or appointment's is not found, or an empty patient book or appointment book will be used instead if
+     * errors occur when reading {@code storage}'s patient book or appointment book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyPatientBook> patientBookOptional;
         ReadOnlyPatientBook initialData;
+
+        Optional<ReadOnlyAppointmentBook> appointmentBookOptional;
+        ReadOnlyAppointmentBook initialDataAppointments;
         try {
             patientBookOptional = storage.readPatientBook();
+            appointmentBookOptional = storage.readAppointmentBook();
             if (!patientBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample PatientBook");
             }
+            if (!appointmentBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AppointmentBook");
+            }
             initialData = patientBookOptional.orElseGet(SampleDataUtil::getSamplePatientBook);
+            initialDataAppointments = appointmentBookOptional.orElseGet(SampleDataUtil::getSampleAppointmentBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty PatientBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
             initialData = new PatientBook();
+            initialDataAppointments = new AppointmentBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty PatientBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
             initialData = new PatientBook();
+            initialDataAppointments = new AppointmentBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, initialDataAppointments);
     }
 
     private void initLogging(Config config) {
