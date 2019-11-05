@@ -56,7 +56,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
             throw new ParseException(MESSAGE_NOT_PATIENTLIST);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ENTRY, PREFIX_START) || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_ENTRY, PREFIX_START) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeAppCommand.MESSAGE_USAGE));
         }
 
@@ -70,7 +70,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
             String startString = argMultimap.getValue(PREFIX_START).get();
             Timing timing;
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+            if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
                 timing = ParserUtil.parseTiming(startString, null);
             } else {
                 String endString = argMultimap.getValue(PREFIX_END).get();
@@ -86,13 +86,5 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
         } catch (ParseException e) {
             throw new ParseException(e.getMessage());
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 }

@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
+
+import seedu.address.logic.parser.exceptions.ParseException;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -14,6 +19,8 @@ import java.util.Optional;
  * can be inserted multiple times for the same prefix.
  */
 public class ArgumentMultimap {
+
+    public static final String DUPLICATED_FIELD_MESSAGE_FORMAT = "Duplicate %s fields are not allowed!";
 
     /**
      * Prefixes mapped to their respective arguments
@@ -33,11 +40,31 @@ public class ArgumentMultimap {
         argMultimap.put(prefix, argValues);
     }
 
+
     /**
      * Returns the last value of {@code prefix}.
      */
-    public Optional<String> getValue(Prefix prefix) {
+    public boolean isPrefixPresent(Prefix prefix) {
+        return !getAllValues(prefix).isEmpty();
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values.
+     */
+    public boolean arePrefixesPresent(Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> isPrefixPresent(prefix));
+    }
+
+    /**
+     * Returns the last value of {@code prefix}.
+     */
+    public Optional<String> getValue(Prefix prefix) throws ParseException {
         List<String> values = getAllValues(prefix);
+
+        if (values.size() > 1) {
+            throw new ParseException(String.format(DUPLICATED_FIELD_MESSAGE_FORMAT, prefix.toString().trim()));
+        }
+
         return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
     }
 
@@ -56,7 +83,7 @@ public class ArgumentMultimap {
     /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
-    public String getPreamble() {
+    public String getPreamble() throws ParseException {
         return getValue(new Prefix("")).orElse("");
     }
 }
