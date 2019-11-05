@@ -13,6 +13,8 @@ public class AthletickDate {
     public static final String MESSAGE_CONSTRAINTS = "Please specify date in %s format.";
     public static final String WRONG_DATE_FORMAT = "Invalid date specified.";
     public static final String ERROR_MESSAGE = WRONG_DATE_FORMAT + " " + MESSAGE_CONSTRAINTS;
+    public static final String MONTH_CONSTRAINTS = "MM has to be from 01 to 12.";
+    public static final String YEAR_CONSTRAINTS = "YYYY has to be from 0001 to 9999.";
 
     private int day;
     private int month;

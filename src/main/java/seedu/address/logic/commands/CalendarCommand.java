@@ -14,10 +14,11 @@ public class CalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "calendar";
 
-    public static final String MESSAGE_USAGE = "calendar" + ": Jumps to a specified date."
-            + " 1) Specify month and year to view calendar for that month.\nParameters: MMYYYY\n"
-            + "Example: calendar 062019\n2) Specify day, month and year to view details for that"
-            + " date.\nParameters: DDMMYYYY\nExample: calendar 09062019";
+    public static final String MESSAGE_USAGE = "calendar" + ": Navigates the calendar feature. "
+            + "The calendar command has 2 possible variations.\n"
+            + "1) Specify month and year to view calendar for particular month.\nParameters: "
+            + "MMYYYY\nExample: calendar 062019\n2) Specify day, month and year to view details for "
+            + "particular date.\nParameters: DDMMYYYY\nExample: calendar 09062019";
 
     public static final String MESSAGE_SUCCESS_1 = "Viewing details for: ";
     public static final String MESSAGE_SUCCESS_2 = "Viewing calendar for: ";
