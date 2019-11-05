@@ -34,7 +34,8 @@ public class BinItemExpiryCommand extends Command {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DAYS + "30";
 
-    public static final String MESSAGE_SUCCESS = "Changed bin item expiry time to %s %s";
+    public static final String MESSAGE_SUCCESS = "Changed bin item expiry time! Items in the Bin will be removed"
+        + " permanently after %s %s.";
 
     private final int timeToLiveAmount;
     private final ChronoUnit timeToLiveUnit;
