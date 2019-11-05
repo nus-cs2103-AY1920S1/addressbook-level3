@@ -218,6 +218,11 @@ public interface Model {
     void deletePlan(Plan plan);
 
     /**
+     * Clear the list of plans
+     */
+    void clearPlans();
+
+    /**
      * Adds the given Plan.
      * {@code Plan} must not already exist in the algobase.
      * @param plan the plan to be added
