@@ -1,12 +1,9 @@
 package seedu.address.ui;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;

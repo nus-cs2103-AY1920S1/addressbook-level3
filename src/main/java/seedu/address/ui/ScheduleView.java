@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,14 +54,15 @@ public class ScheduleView extends UiPart<Region> {
     private int currentDay;
     private LocalDate currentDate;
 
-    public ScheduleView(List<HashMap<DayOfWeek, ArrayList<PersonTimeslot>>> weekSchedules, List<String> colors, String title, LocalDate date) {
+    public ScheduleView(List<HashMap<DayOfWeek, ArrayList<PersonTimeslot>>> weekSchedules,
+                        List<String> colors, String title, LocalDate date) {
         super(FXML);
-        this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
+        this.currentDay = date.getDayOfWeek().getValue();
         this.currentDate = date;
         this.colors = colors;
         this.title.setText(title + "'s Schedule");
         initialise();
-        initialiseHeaders();
+        initialiseDayHeaders();
         initialiseTimeslotHeaders();
         initialiseTableCells();
         showSchedule(weekSchedules);
@@ -91,14 +91,14 @@ public class ScheduleView extends UiPart<Region> {
     /**
      * initialise top headers in the table view.
      */
-    private void initialiseHeaders() {
+    private void initialiseDayHeaders() {
+        //Method to initialise the day/date headers of the schedule view.
         Region placeHolder = new Region();
         placeHolder.setId("dayLabelContainer");
         scheduleHeader.add(placeHolder, 0, 0);
         ColumnConstraints colCOffset = new ColumnConstraints();
         colCOffset.setPercentWidth(9);
         scheduleHeader.getColumnConstraints().add(colCOffset);
-        //day headers
         for (int i = 1; i <= 7; i++) {
             int offset = (currentDay + i - 1) > 7 ? currentDay + i - 8 : currentDay + i - 1;
             StackPane sp = new StackPane();
@@ -122,7 +122,7 @@ public class ScheduleView extends UiPart<Region> {
      * Helper method to initialise the time slot headers in the table view.
      */
     private void initialiseTimeslotHeaders() {
-        //timeslot headers
+        //Method to initialise time slot headers of the schedule view.
         ColumnConstraints colCOffset = new ColumnConstraints();
         colCOffset.setPercentWidth(9);
         scheduleView.getColumnConstraints().add(colCOffset);
@@ -148,7 +148,9 @@ public class ScheduleView extends UiPart<Region> {
      * Helper method to initialise table cells and grid lines in the table view.
      */
     private void initialiseTableCells() {
-        //timeslot data
+        //A separate method to initialise table cells because the container for the table headers and table cells
+        //must be different in order for the user to scroll down while still being able to look at the header
+        //information.
         for (int l = 1; l <= 7; l++) {
             int offsetDay = (currentDay + l - 1) > 7 ? (currentDay + l - 8) : (currentDay + l - 1);
             StackPane stackPane = new StackPane();

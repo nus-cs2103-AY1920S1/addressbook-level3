@@ -8,7 +8,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.GmapsModelManager;
@@ -16,7 +15,11 @@ import seedu.address.model.TimeBook;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.*;
+import seedu.address.model.display.schedulewindow.FreeSchedule;
+import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -109,10 +112,10 @@ public class DisplayModelManager {
      */
     public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type, TimeBook timeBook) {
         User user = timeBook.getPersonList().getUser();
-            ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
-            PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
-                    time, user, Role.emptyRole());
-            personSchedules.add(personSchedule);
+        ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+        PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
+                time, user, Role.emptyRole());
+        personSchedules.add(personSchedule);
 
         ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
         updateScheduleWindowDisplay(scheduleWindowDisplay);
@@ -164,7 +167,7 @@ public class DisplayModelManager {
             for (int h = 0; h < 4; h++) {
                 final int finalH = h;
                 FreeSchedule freeSchedule = generateFreeSchedule(personSchedules
-                        .stream().map(sch -> { return sch.getScheduleDisplay().getScheduleForWeek(finalH); })
+                        .stream().map(sch -> sch.getScheduleDisplay().getScheduleForWeek(finalH))
                         .collect(Collectors.toCollection(ArrayList::new)), now);
                 freeScheduleForMonth.add(freeSchedule);
             }

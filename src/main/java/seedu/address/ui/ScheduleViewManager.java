@@ -19,13 +19,14 @@ public interface ScheduleViewManager {
         switch(displayType) {
         case PERSON:
             //There is only 1 schedule in the scheduleWindowDisplay
-            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules().get(0).getScheduleDisplay(),
+            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules()
+                    .get(0).getScheduleDisplay(),
                     scheduleWindowDisplay.getPersonDisplays().get(0), colors.get(0));
         case GROUP:
             return new GroupScheduleViewManager(scheduleWindowDisplay
                     .getPersonSchedules()
                     .stream()
-                    .map(sch -> { return sch.getScheduleDisplay(); }).collect(Collectors.toCollection(ArrayList::new)),
+                    .map(sch -> sch.getScheduleDisplay()).collect(Collectors.toCollection(ArrayList::new)),
                     colors,
                     scheduleWindowDisplay.getGroupDisplay().getGroupName(),
                     scheduleWindowDisplay.getFreeSchedule());

@@ -50,8 +50,8 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleViewCopy() {
-        return new ScheduleView(List.of(monthSchedule.getScheduleForWeek(weekNumber)), List.of(color), personDisplay.getName().fullName,
-                currentDate);
+        return new ScheduleView(List.of(monthSchedule.getScheduleForWeek(weekNumber)),
+                List.of(color), personDisplay.getName().fullName, currentDate);
     }
 
     @Override
