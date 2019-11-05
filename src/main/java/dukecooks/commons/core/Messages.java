@@ -23,6 +23,7 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
     public static final String MESSAGE_RECIPE_LISTED_OVERVIEW = "%1$d recipes listed!";
+    public static final String MESSAGE_INGREDIENT_DOES_NOT_EXIST = "%s does not exist in this recipe!";
 
     public static final String MESSAGE_INVALID_MEALPLAN_DISPLAYED_INDEX = "The meal plan index provided is invalid";
     public static final String MESSAGE_MEALPLAN_LISTED_OVERVIEW = "%1$d meal plans listed!";
