@@ -22,8 +22,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -33,6 +35,7 @@ import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescri
 import seedu.address.logic.commands.editcommand.EditPhoneCommand.EditPhoneDescriptor;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand.EditScheduleDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
@@ -42,6 +45,7 @@ import seedu.address.model.order.predicates.OrderContainsKeywordsPredicate;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
+import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
@@ -360,8 +364,32 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
+        DataBook<Customer> expectedCustomerBook = new DataBook<>(actualModel.getCustomerBook());
+        DataBook<Phone> expectedPhoneBook = new DataBook<>(actualModel.getPhoneBook());
+        DataBook<Order> expectedOrderBook = new DataBook<>(actualModel.getOrderBook());
+        DataBook<Schedule> expectedScheduleBook = new DataBook<>(actualModel.getScheduleBook());
+        DataBook<Order> expectedArchivedOrderBook = new DataBook<>(actualModel.getArchivedOrderBook());
+
+
+        List<Customer> expectedFilteredCustomerList = new ArrayList<>(actualModel.getFilteredCustomerList());
+        List<Phone> expectedFilteredPhoneList = new ArrayList<>(actualModel.getFilteredPhoneList());
+        List<Order> expectedFilteredOrderList = new ArrayList<>(actualModel.getFilteredOrderList());
+        List<Schedule> expectedFilteredScheduleList = new ArrayList<>(actualModel.getFilteredScheduleList());
+        List<Order> expectedFilteredArchivedOrderList = new ArrayList<>(actualModel.getFilteredArchivedOrderList());
+
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, new CommandHistory(),
                 new UndoRedoStack()));
+        assertEquals(expectedCustomerBook, actualModel.getCustomerBook());
+        assertEquals(expectedPhoneBook, actualModel.getPhoneBook());
+        assertEquals(expectedOrderBook, actualModel.getOrderBook());
+        assertEquals(expectedScheduleBook, actualModel.getScheduleBook());
+        assertEquals(expectedArchivedOrderBook, actualModel.getArchivedOrderBook());
+
+        assertEquals(expectedFilteredCustomerList, actualModel.getFilteredCustomerList());
+        assertEquals(expectedFilteredPhoneList, actualModel.getFilteredPhoneList());
+        assertEquals(expectedFilteredOrderList, actualModel.getFilteredOrderList());
+        assertEquals(expectedFilteredScheduleList, actualModel.getFilteredScheduleList());
+        assertEquals(expectedFilteredArchivedOrderList, actualModel.getFilteredArchivedOrderList());
     }
 
     /**
