@@ -61,7 +61,7 @@ class JsonAdaptedRepeater {
         this.uniqueId = source.getUniqueId().toString();
         this.description = source.getDescription().toString();
         this.amount = source.getAmount().toString();
-        this.category = source.getDescription().toString();
+        this.category = source.getCategory().toString();
         this.transactionType = source.getTransactionType().toString();
         this.monthStartOffset = source.getMonthStartOffset().toString();
         this.monthEndOffset = source.getMonthEndOffset().toString();

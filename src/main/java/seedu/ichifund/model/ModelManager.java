@@ -242,7 +242,7 @@ public class ModelManager implements Model {
                         repeater.getAmount(),
                         repeater.getCategory(),
                         new Date(
-                            new Day(String.valueOf(daysInMonth - (repeater.getMonthStartOffset().value - 1))),
+                            new Day(String.valueOf(daysInMonth - (repeater.getMonthEndOffset().value - 1))),
                             new Month(String.valueOf(currentMonth)),
                             new Year(String.valueOf(currentYear))),
                         repeater.getTransactionType(),

@@ -373,46 +373,51 @@ For a more detailed guide on how to modify these transactions, refer to <<repeat
 
 [[repeaters]]
 === Repeaters
+There is sometimes a need to add the same transaction over and over again. Such is the case for recurring transactions such as phone bills and salaries. With our repeater feature, you can add these recurring transactions in a hassle free manner.
+
+In the repeater tab, you can maintain a list of your repeaters. Each repeater is associated with a list of transactions, which are managed by the repeater. The image below gives an overview of the GUI of the feature. The associated transactions managed by each repeater are highlighted with the respective colored box.
+
+image::rep.png[]
 
 ==== Creating repeater: `add`
 
-Creates repeater together with the associated transactions. +
+You can use the `add` command to create a repeater. This also creates the transactions associated with the created repeater. +
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 
 Examples:
 
-* `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2025` +
-Creates a repeater titled "Phone bills" as an expenditure for Utilities of $42.15 for every third day and second last day of the month, between January 2019 to December 2025. Also creates the associated transactions.
+* `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2020` +
+This creates a repeater titled "Phone bills" as an expenditure for utilities of $42.15 for every third day and second last day of the month, between January 2019 to December 2020. This also creates the transactions associated with the created repeater.
 
 ==== Editing repeater `edit`
 
-Edits repeater together with the associated transactions. +
+You can use the `edit` command to edit a repeater. This also edits the transactions associated with the edited repeater. +
 Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 
 Examples:
 
 * `edit 1 a/31.34 c/Food ty/in so/1 eo/-1 sm/1 sy/2019 em/12 ey/2020` +
-Edits the first repeater in the current list into a $31.34 expenditure for every first day of the month, between January 2019 and December 2020. Also updates the associated transactions.
+This edits the first repeater in the current list into a $31.34 expenditure for every first day of the month, between January 2019 and December 2020. This also updates the transactions associated with the edited repeater.
 
 ==== Deleting repeater: `delete`
 
-Deletes repeater together with all created transactions associated with the specified repeater. +
+You can use the `delete` command to delete a repeater. This also deletes all transactions associated with the deleted repeater. +
 Format: `delete INDEX`
 
 Examples:
 
 * `delete 12` +
-Deletes the 12th repeater in the current list. Also deletes the associated transactions.
+Deletes the 12th repeater in the current list. This also deletes the transactions associated with the deleted repeater.
 
-==== Finding repeater: `find` [Coming in v2.0]
+==== Finding repeater: `find`
 
-Finds repeaters whose description matches all the (case-insensitive) given keywords. +
+You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s). +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
 * `find phone john` +
-Finds all repeaters whose description contains all of the keywords "phone" and "john".
+This finds all repeaters whose description contains all of the keywords "phone" and "john".
 
 === Budgets
 

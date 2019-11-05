@@ -64,10 +64,10 @@ public class RepeaterCard extends UiPart<Region> {
             offsetsString += "Month start offset: " + repeater.getMonthStartOffset().toString();
         }
         if (!repeater.getMonthEndOffset().isIgnored()) {
-            if (offsetsString.equals("")) {
-                offsetsString += ",";
+            if (!offsetsString.equals("")) {
+                offsetsString += ", ";
             }
-            offsetsString += ", Month end offset: " + repeater.getMonthEndOffset().toString();
+            offsetsString += "Month end offset: " + repeater.getMonthEndOffset().toString();
         }
         offsets.setText(offsetsString);
     }
