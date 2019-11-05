@@ -119,7 +119,7 @@ public abstract class MultiLoanCommand extends Command {
      * @param successMessage Message for when at least one target was found and acted upon.
      * @return The result message.
      */
-    protected String constructMultiLoanResult(String successMessage) {
+    protected String constructMultiLoanResult(String successMessage) throws CommandException {
 
         successMessage = String.format(successMessage,
                 hitLoanIndices.stream()
@@ -131,7 +131,7 @@ public abstract class MultiLoanCommand extends Command {
         }
 
         if (hitLoanIndices.isEmpty()) {
-            return MESSAGE_NO_TARGETS_HIT;
+            throw new CommandException(MESSAGE_NO_TARGETS_HIT);
         }
 
         if (!missingLoanIndices.isEmpty()) {
