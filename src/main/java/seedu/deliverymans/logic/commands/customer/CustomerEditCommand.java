@@ -35,11 +35,9 @@ public class CustomerEditCommand extends Command {
             + "by the index number used in the displayed customer database. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_USERNAME + "USERNAME] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 ";
 
@@ -91,7 +89,7 @@ public class CustomerEditCommand extends Command {
                                                  EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
-        Name updatedUserName = editCustomerDescriptor.getUserName().orElse(customerToEdit.getUserName());
+        Name updatedUserName = customerToEdit.getUserName();
         Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
         Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
         Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
@@ -121,7 +119,6 @@ public class CustomerEditCommand extends Command {
      * value of the customer.
      */
     public static class EditCustomerDescriptor {
-        private Name userName;
         private Name name;
         private Phone phone;
         private Address address;
@@ -134,7 +131,6 @@ public class CustomerEditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditCustomerDescriptor(EditCustomerDescriptor toCopy) {
-            setUserName(toCopy.userName);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setAddress(toCopy.address);
@@ -144,15 +140,7 @@ public class CustomerEditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(userName, name, phone, address);
-        }
-
-        public void setUserName(Name userName) {
-            this.userName = userName;
-        }
-
-        public Optional<Name> getUserName() {
-            return Optional.ofNullable((userName));
+            return CollectionUtil.isAnyNonNull(name, phone, address);
         }
 
         public void setName(Name name) {
@@ -194,8 +182,7 @@ public class CustomerEditCommand extends Command {
             // state check
             EditCustomerDescriptor e = (EditCustomerDescriptor) other;
 
-            return getUserName().equals(e.getUserName())
-                    && getName().equals(e.getName())
+            return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getAddress().equals(e.getAddress());
         }
