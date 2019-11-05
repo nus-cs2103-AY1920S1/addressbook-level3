@@ -60,16 +60,16 @@
         <TextArea fx:id="planDescription" wrapText="true" />
       </StackPane>
 
-      <HBox alignment="BOTTOM_RIGHT">
+      <HBox alignment="BOTTOM_RIGHT" spacing="5">
         <padding>
           <Insets top="10" bottom="10" />
         </padding>
 
         <!-- Edit Button -->
-        <Button fx:id="editButton" text="Edit Plan" />
+        <Button fx:id="editButton" styleClass="edit_button" text="Edit Plan" />
 
         <!-- Delete Button -->
-        <Button fx:id="deleteButton" text="Delete Plan" />
+        <Button fx:id="deleteButton" styleClass="delete_button" text="Delete Plan" />
       </HBox>
     </VBox>
   </ScrollPane>

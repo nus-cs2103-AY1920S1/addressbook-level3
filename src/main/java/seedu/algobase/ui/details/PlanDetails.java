@@ -34,6 +34,8 @@ public class PlanDetails extends UiPart<Region> {
     private Button editButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private WarningDialog warningDialog;
 
     public PlanDetails(Plan plan, UiActionExecutor uiActionExecutor) {
         super(FXML);
@@ -74,7 +76,20 @@ public class PlanDetails extends UiPart<Region> {
             e.consume();
         });
 
-        deleteButton.setOnMouseClicked((e) -> {
+        this.warningDialog = new WarningDialog(
+            "Are you sure you want to delete this plan?", (Object... objects) -> {
+
+            boolean shouldDelete = (boolean) objects[0];
+
+            // Close the warning dialog
+            if (warningDialog.isShowing()) {
+                warningDialog.hide();
+            }
+
+            if (!shouldDelete) {
+                return;
+            }
+
             // Close the tab
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.CLOSE_DETAILS_TAB,
@@ -87,6 +102,14 @@ public class PlanDetails extends UiPart<Region> {
                 UiActionType.DELETE_PLAN,
                 plan.getId()
             ));
+        });
+
+        deleteButton.setOnMouseClicked((e) -> {
+            if (!warningDialog.isShowing()) {
+                warningDialog.show();
+            } else {
+                warningDialog.focus();
+            }
             e.consume();
         });
     }

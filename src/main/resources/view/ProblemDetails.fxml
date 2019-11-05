@@ -97,16 +97,16 @@
           </StackPane>
 
 
-        <HBox alignment="BOTTOM_RIGHT">
+        <HBox alignment="BOTTOM_RIGHT" spacing="5">
           <padding>
             <Insets top="10" bottom="10" />
           </padding>
 
           <!-- Edit Button -->
-          <Button fx:id="editButton" text="Edit Problem" />
+          <Button fx:id="editButton" styleClass="edit_button" text="Edit Problem" />
 
           <!-- Delete Button -->
-          <Button fx:id="deleteButton" text="Delete Problem" />
+          <Button fx:id="deleteButton" styleClass="delete_button" text="Delete Problem" />
         </HBox>
       </VBox>
   </ScrollPane>

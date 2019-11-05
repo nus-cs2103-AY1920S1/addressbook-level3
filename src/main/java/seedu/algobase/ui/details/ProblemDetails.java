@@ -39,6 +39,8 @@ public class ProblemDetails extends UiPart<Region> {
     private Button editButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private WarningDialog warningDialog;
 
     public ProblemDetails(Problem problem, UiActionExecutor uiActionExecutor) {
         super(FXML);
@@ -97,7 +99,22 @@ public class ProblemDetails extends UiPart<Region> {
             e.consume();
         });
 
-        deleteButton.setOnMouseClicked((e) -> {
+        this.warningDialog = new WarningDialog(
+            "Are you sure you want to delete this problem?",
+            "Delete this problem from existing tasks", (Object... objects) -> {
+
+            boolean shouldDelete = (boolean) objects[0];
+            boolean isForcedDelete = (boolean) objects[1];
+
+            // Close the warning dialog
+            if (warningDialog.isShowing()) {
+                warningDialog.hide();
+            }
+
+            if (!shouldDelete) {
+                return;
+            }
+
             // Close the tab
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.CLOSE_DETAILS_TAB,
@@ -109,8 +126,16 @@ public class ProblemDetails extends UiPart<Region> {
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.DELETE_PROBLEM,
                 problem.getId(),
-                Boolean.valueOf(true)
+                isForcedDelete
             ));
+        });
+
+        deleteButton.setOnMouseClicked((e) -> {
+            if (!warningDialog.isShowing()) {
+                warningDialog.show();
+            } else {
+                warningDialog.focus();
+            }
             e.consume();
         });
     }
