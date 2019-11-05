@@ -1,9 +1,9 @@
 package seedu.address.model;
 
-import seedu.address.commons.core.step.Step;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.commons.core.step.Step;
 
 /**
  * {@code GuiltTrip} that keeps track of its own history.

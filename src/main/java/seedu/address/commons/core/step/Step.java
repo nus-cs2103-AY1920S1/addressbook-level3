@@ -11,7 +11,7 @@ public class Step {
     public static final long MAX_VALUE = Long.parseLong("9999999");
     public static final String MESSAGE_CONSTRAINTS =
             "Step should only contain an integer. It should also not be bigger than " + MAX_VALUE;
-    public static final String VALIDATION_REGEX = "[0-9]+" ;
+    public static final String VALIDATION_REGEX = "[0-9]+";
     public final long value;
 
     /**
