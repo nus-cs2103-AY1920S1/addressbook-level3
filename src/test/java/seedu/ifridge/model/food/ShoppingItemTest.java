@@ -1,10 +1,7 @@
 package seedu.ifridge.model.food;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.HashSet;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.testutil.TypicalBoughtList.EGG;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalShoppingList.APPLE;
@@ -13,6 +10,10 @@ import static seedu.ifridge.testutil.TypicalShoppingList.BOUGHT_EGGS;
 import static seedu.ifridge.testutil.TypicalShoppingList.CAKE;
 import static seedu.ifridge.testutil.TypicalShoppingList.EGGS;
 import static seedu.ifridge.testutil.TypicalShoppingList.URGENT_EGGS;
+
+import java.util.HashSet;
+
+import org.junit.jupiter.api.Test;
 
 class ShoppingItemTest {
 

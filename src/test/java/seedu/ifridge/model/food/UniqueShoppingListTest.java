@@ -1,18 +1,22 @@
 package seedu.ifridge.model.food;
 
-import org.junit.jupiter.api.Test;
-import seedu.ifridge.model.food.exceptions.DuplicateShoppingItemException;
-import seedu.ifridge.model.food.exceptions.FoodNotFoundException;
-import seedu.ifridge.testutil.ShoppingItemBuilder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.testutil.Assert.assertThrows;
+import static seedu.ifridge.testutil.TypicalShoppingList.BANANA;
+import static seedu.ifridge.testutil.TypicalShoppingList.EGGS;
+import static seedu.ifridge.testutil.TypicalShoppingList.SPAGHETTI;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.ifridge.testutil.Assert.assertThrows;
-import static seedu.ifridge.testutil.TypicalShoppingList.BANANA;
-import static seedu.ifridge.testutil.TypicalShoppingList.SPAGHETTI;
+import org.junit.jupiter.api.Test;
+
+import seedu.ifridge.model.food.exceptions.DuplicateShoppingItemException;
+import seedu.ifridge.model.food.exceptions.FoodNotFoundException;
+import seedu.ifridge.testutil.ShoppingItemBuilder;
 
 public class UniqueShoppingListTest {
 

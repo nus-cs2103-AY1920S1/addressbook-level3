@@ -1,10 +1,5 @@
 package seedu.ifridge.testutil;
 
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_NUTS;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_ORANGES;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_CARBS;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_VEGETABLE;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
