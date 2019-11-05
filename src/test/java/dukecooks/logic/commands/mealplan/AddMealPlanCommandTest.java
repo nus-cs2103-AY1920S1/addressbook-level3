@@ -1,6 +1,5 @@
 package dukecooks.logic.commands.mealplan;
 
-import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
-import dukecooks.logic.commands.recipe.AddRecipeCommand;
 import dukecooks.model.ModelStub;
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
