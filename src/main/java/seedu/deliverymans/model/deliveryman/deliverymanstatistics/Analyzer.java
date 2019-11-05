@@ -84,12 +84,17 @@ public class Analyzer {
 
     private double calcActivityLevel(ObservableList<Deliveryman> list1, ObservableList<Deliveryman> list2,
                                      ObservableList<Deliveryman> list3) {
-        return ( (double) (calcDeliveringMen(list3) + calcAvailableMen(list1)) / (calcTotalMenSize(list1, list2, list3)))
-                * 100.00;
+        return ((double) (calcDeliveringMen(list3) + calcAvailableMen(list1))
+                / (calcTotalMenSize(list1, list2, list3))) * 100.00;
     }
 
     // ======= Functions to calculate state levels ============================================================
 
+    /**
+     *
+     * @param utilLevel
+     * @return
+     */
     private State calcUtilisationState(double utilLevel) {
         if (utilLevel <= lowUtilisationBoundary) {
             return LOW;
@@ -102,6 +107,11 @@ public class Analyzer {
         }
     }
 
+    /**
+     *
+     * @param activeLevel
+     * @return
+     */
     private State calcActivityState(double activeLevel) {
         if (activeLevel <= lowActivityBoundary) {
             return LOW;

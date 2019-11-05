@@ -50,9 +50,9 @@ public class StatisticsRecordCard {
         String resultMessage = "=========================================\n" + "TOTAL DELIVERYMEN  :  "
                 + numTotalMen + "\n" + "AVAILABLE      :  " + numAvailableMen + "\n" + "UNAVAILABLE    :  "
                 + numUnavailableMen + "\n" + "DELIVERING     :  " + numDeliveringMen + "\n"
-                + "=========================================\n\n" + "UTILIZATION LEVEL  :  " + String.format("%.2f%%", utilisationLevel)
-                + "\n" + UTILIZATION_MESSAGE + "\n\n"+ "ACTIVITY LEVEL  :  " + String.format("%.2f%%", activityLevel) +
-                "\n" + ACTIVITY_MESSAGE + "\n\n";
+                + "=========================================\n\n" + "UTILIZATION LEVEL  :  "
+                + String.format("%.2f%%", utilisationLevel) + "\n" + UTILIZATION_MESSAGE + "\n\n"
+                + "ACTIVITY LEVEL  :  " + String.format("%.2f%%", activityLevel) + "\n" + ACTIVITY_MESSAGE + "\n\n";
         return resultMessage;
     }
 
