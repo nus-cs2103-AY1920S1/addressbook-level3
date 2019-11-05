@@ -12,7 +12,8 @@ import java.net.URL;
  */
 public class WebLink implements Comparable<WebLink> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Weblinks should be parsable by java.net.URL";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Weblinks should have legal protocols such as https, ftp, gopher, etc.";
     public static final String VALIDATION_REGEX =
             "<\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]>";
     public static final String DEFAULT_WEBLINK_STRING = "";

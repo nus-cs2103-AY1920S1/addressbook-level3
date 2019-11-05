@@ -29,13 +29,14 @@ public class SortCommand extends Command {
         byDifficulty,
         bySource;
 
-        public static final String MESSAGE_CONSTRAINTS = "Sorting method should be one of \"name\", "
-                + "\"author\", \"weblink\", \"difficulty\" or \"source\"";
         public static final String KEYWORD_NAME = "name";
         public static final String KEYWORD_AUTHOR = "author";
         public static final String KEYWORD_WEBLINK = "weblink";
         public static final String KEYWORD_DIFFICULTY = "difficulty";
         public static final String KEYWORD_SOURCE = "source";
+        public static final String MESSAGE_CONSTRAINTS = String.format("Sorting method should be one of "
+            + "\"%1$s\", \"%2$s\", \"%3$s\", \"%4$s\" or \"%5$s\"",
+            KEYWORD_NAME, KEYWORD_AUTHOR, KEYWORD_WEBLINK, KEYWORD_DIFFICULTY, KEYWORD_SOURCE);
     }
 
     /**
@@ -45,9 +46,11 @@ public class SortCommand extends Command {
         ascend,
         descend;
 
-        public static final String MESSAGE_CONSTRAINTS = "Sorting order should be either \"ascend\" or \"descend\"";
         public static final String KEYWORD_ASCEND = "ascend";
         public static final String KEYWORD_DESCEND = "descend";
+        public static final String MESSAGE_CONSTRAINTS = String.format(
+            "Sorting order should be either \"%1$s\" or \"%2$s\"",
+            KEYWORD_ASCEND, KEYWORD_DESCEND);
     }
 
     public static final String COMMAND_WORD = "sort";
@@ -55,7 +58,7 @@ public class SortCommand extends Command {
             + ": Sorts the current view in a certain order. "
             + "Parameters:\n"
             + PREFIX_SORTING_METHOD + "SORTING_METHOD "
-            + PREFIX_SORTING_ORDER + "SORTING_ORDER\n"
+            + "[" + PREFIX_SORTING_ORDER + "SORTING_ORDER]\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_SORTING_METHOD + "name "
