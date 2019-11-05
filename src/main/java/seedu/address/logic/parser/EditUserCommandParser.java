@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditUserCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -21,15 +20,6 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new EditUserCommand object
  */
 public class EditUserCommandParser implements Parser<EditUserCommand> {
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean allPrefixesNotPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> !argumentMultimap.getValue(prefix).isPresent());
-    }
-
     @Override
     public EditUserCommand parse(String args) throws ParseException {
 
@@ -38,8 +28,10 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG);
 
-        if (allPrefixesNotPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+        if (Parser.allPrefixesNotPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG)
+                || Parser.areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_ADDRESS, PREFIX_REMARK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditUserCommand.MESSAGE_USAGE));
         }

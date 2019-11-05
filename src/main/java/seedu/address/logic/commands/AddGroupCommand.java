@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.time.LocalDateTime;
@@ -24,7 +23,6 @@ public class AddGroupCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
             + PREFIX_GROUPNAME + "GROUP_NAME" + " "
-            + "[" + PREFIX_REMARK + "GROUP_REMARK]" + " "
             + "[" + PREFIX_DESCRIPTION + "GROUP_DESCRIPTION]" + " "
             + "[" + PREFIX_ROLE + "USER_ROLE]";
 

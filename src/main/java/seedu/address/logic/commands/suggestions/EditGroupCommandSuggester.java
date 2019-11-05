@@ -48,9 +48,7 @@ public class EditGroupCommandSuggester extends Suggester {
 
         final Group selectedGroup = optionalSelectedGroup.get();
 
-        if (prefix.equals(CliSyntax.PREFIX_REMARK)) {
-            return List.of(selectedGroup.getGroupRemark().toString());
-        } else if (prefix.equals(CliSyntax.PREFIX_DESCRIPTION)) {
+        if (prefix.equals(CliSyntax.PREFIX_DESCRIPTION)) {
             return List.of(selectedGroup.getGroupDescription().toString());
         } else if (prefix.equals(CliSyntax.PREFIX_ROLE)) {
             return List.of(selectedGroup.getUserRole().getRole());

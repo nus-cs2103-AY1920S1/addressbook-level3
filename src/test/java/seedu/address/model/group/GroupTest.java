@@ -7,8 +7,6 @@ import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP2;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME2;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPREMARK1;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPREMARK2;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +20,6 @@ class GroupTest {
     void init() {
         group1 = new Group(GROUP1);
         group2 = new Group(GROUP2);
-    }
-
-    @Test
-    void getGroupRemark() {
-        assertTrue(GROUPREMARK1.equals(group1.getGroupRemark()));
-
-        assertFalse(group1.getGroupRemark().equals(null));
-        assertFalse(group1.getGroupRemark().equals(GROUPREMARK2));
     }
 
     @Test

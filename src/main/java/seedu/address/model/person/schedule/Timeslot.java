@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Timeslot of an Event.
  */
 public class Timeslot {
+
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu HH:mm");
     private LocalDateTime startTime;
     private LocalDateTime endTime;

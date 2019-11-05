@@ -31,10 +31,8 @@ class GroupListTest {
         Group group1 = groupList.addGroup(GROUP1);
 
         assertEquals(group1.getGroupName().toString(), GROUP1.getGroupName().toString());
-        assertEquals(group1.getGroupRemark().toString(), GROUP1.getGroupRemark().toString());
 
         assertNotEquals(group1.getGroupName().toString(), GROUP2.getGroupName().toString());
-        assertNotEquals(group1.getGroupRemark().toString(), GROUP2.getGroupRemark().toString());
     }
 
     @Test
