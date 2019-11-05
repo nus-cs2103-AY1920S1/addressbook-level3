@@ -120,7 +120,11 @@ public class AddCommandParser implements Parser<AddCommand> {
                     throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
                 }
             case "saq":
-                return true;
+                if (numCorrect > 0 && numWrong == 0) {
+                    return true;
+                } else {
+                    throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
+                }
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }

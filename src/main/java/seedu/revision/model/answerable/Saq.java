@@ -12,7 +12,8 @@ import seedu.revision.model.category.Category;
  */
 public class Saq extends Answerable {
 
-    public static final String MESSAGE_CONSTRAINTS = "SAQs should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "SAQs should have at least one correct answer" +
+            " and no wrong answers.";
 
     private static final Logger logger = Logger.getLogger(Saq.class.getName());
 
