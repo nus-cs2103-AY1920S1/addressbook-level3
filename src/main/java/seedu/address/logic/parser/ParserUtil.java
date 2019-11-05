@@ -1,13 +1,19 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ALL_FLAG_CONSTRAINTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
+import static seedu.address.logic.parser.Flag.RETURN_AND_RENEW_FLAG_MESSAGE_CONSTRAINTS;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.SerialNumber;
@@ -274,5 +280,50 @@ public class ParserUtil {
             flagSet.add(parseFlag(flagName));
         }
         return flagSet;
+    }
+
+    /**
+     * Returns true if only -all is present in the userInput.
+     */
+    public static boolean onlyAllFlagPresent(String userInput, String commandWord) throws ParseException {
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_FLAG);
+        if (argumentMultimap.getValue(PREFIX_FLAG).isEmpty()) {
+            return false;
+        }
+
+        Optional<Flag> allFlag = parseAllFlag(argumentMultimap.getAllValues(PREFIX_FLAG), commandWord);
+
+        if (allFlag.isPresent() && !argumentMultimap.getPreamble().isEmpty()) { // if there are things before -all
+            throw new ParseException(MESSAGE_ALL_FLAG_CONSTRAINTS);
+        }
+
+        return allFlag.isPresent();
+    }
+
+    /**
+     * Parses all flags and returns an Optional of the -all flag.
+     */
+    private static Optional<Flag> parseAllFlag(Collection<String> flags, String commandWord) throws ParseException {
+        requireNonNull(flags);
+
+        if (flags.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Set<Flag> flagSet;
+        try {
+            flagSet = parseFlags(flags);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(RETURN_AND_RENEW_FLAG_MESSAGE_CONSTRAINTS, commandWord));
+        }
+
+        if (flagSet.isEmpty() || flagSet.contains(Flag.AVAILABLE) || flagSet.contains(Flag.LOANED)
+                || flagSet.contains(Flag.OVERDUE)) {
+            throw new ParseException(
+                    String.format(RETURN_AND_RENEW_FLAG_MESSAGE_CONSTRAINTS, commandWord));
+        }
+
+        return Optional.of(new ArrayList<>(flagSet).get(0));
     }
 }

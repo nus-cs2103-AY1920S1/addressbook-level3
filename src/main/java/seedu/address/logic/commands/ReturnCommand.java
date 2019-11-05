@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_RETURNABLE_BOOKS;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ public class ReturnCommand extends ReversibleCommand {
             + "-all\n"
             + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " -all";
 
-    public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s\n\n";
+    public static final String MESSAGE_SUCCESS =
+            "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s\n\n";
 
     private final Index index;
     private final boolean isReturnAll;
@@ -48,8 +50,7 @@ public class ReturnCommand extends ReversibleCommand {
     }
 
     /**
-     * Creates a RenewCommand to return all of the currently served Borrower's {@code Book}s.
-     *
+     * Creates a ReturnCommand to return all of the currently served Borrower's {@code Book}s.
      */
     public ReturnCommand() {
         this.isReturnAll = true;
@@ -66,11 +67,13 @@ public class ReturnCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
 
-        ArrayList<Book> returningBooks = getReturningBooks(model, isReturnAll);
+        ArrayList<Book> returningBooks = getReturningBooks(model);
+        Borrower servingBorrower = model.getServingBorrower();
 
         String feedbackMessage = "";
         ArrayList<Book> returnedBookList = new ArrayList<>();
@@ -81,7 +84,6 @@ public class ReturnCommand extends ReversibleCommand {
 
         for (Book bookToBeReturned : returningBooks) {
             Loan loanToBeReturned = bookToBeReturned.getLoan().get();
-            Borrower servingBorrower = model.getServingBorrower();
 
             int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
                     * model.getUserSettings().getFineIncrement();
@@ -120,14 +122,17 @@ public class ReturnCommand extends ReversibleCommand {
      * Retrieves the books that we are returning in an ArrayList.
      *
      * @param model {@code Model} which the command should operate on.
-     * @param isReturnAll Whether this command is returning all valid books or not.
      * @return ArrayList of returningBooks.
      * @throws CommandException If an error occurs during command execution.
      */
-    private ArrayList<Book> getReturningBooks(Model model, boolean isReturnAll) throws CommandException {
+    private ArrayList<Book> getReturningBooks(Model model) throws CommandException {
         List<Book> lastShownBorrowerBooksList = model.getBorrowerBooks();
 
         if (isReturnAll) { // return all valid books
+            if (lastShownBorrowerBooksList.isEmpty()) {
+                throw new CommandException(MESSAGE_NO_RETURNABLE_BOOKS);
+            }
+
             return new ArrayList<>(lastShownBorrowerBooksList);
         } else { // return book corresponding to index
             if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {

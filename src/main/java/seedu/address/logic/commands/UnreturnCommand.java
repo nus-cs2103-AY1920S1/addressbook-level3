@@ -31,7 +31,10 @@ public class UnreturnCommand extends Command {
     /**
      * Creates an UnreturnCommand to unreturn the currently served Borrower's {@code Book}(s).
      *
-     * @param
+     * @param bookToBeUnreturnedList books which loans are returned.
+     * @param unreturnedBookList resultant books after loans are unreturned.
+     * @param loanToBeUnreturnedList loans that are to be unreturned.
+     * @param unreturnedLoanList previous loans before return.
      */
     public UnreturnCommand(ArrayList<Book> bookToBeUnreturnedList, ArrayList<Book> unreturnedBookList,
                            ArrayList<Loan> loanToBeUnreturnedList, ArrayList<Loan> unreturnedLoanList) {

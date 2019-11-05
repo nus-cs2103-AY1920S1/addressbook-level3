@@ -14,13 +14,19 @@ class RenewCommandParserTest {
     private static final String VALID_INDEX_ONE = "1";
     private static final String EMPTY_STRING = "";
     private static final String INVALID_INDEX = "a";
+    private static final String ALL_FLAG = " -all";
 
     private RenewCommandParser renewCommandParser = new RenewCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
+    public void parse_indexPresent_success() {
         Index index = INDEX_FIRST_BOOK;
         assertParseSuccess(renewCommandParser, VALID_INDEX_ONE, new RenewCommand(index));
+    }
+
+    @Test
+    public void parse_allFlagPresent_success() {
+        assertParseSuccess(renewCommandParser, ALL_FLAG, new RenewCommand());
     }
 
     @Test
