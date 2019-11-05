@@ -1,9 +1,16 @@
 package seedu.address.logic.commands.flashcard;
 
+//import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+//import static seedu.address.commons.core.Messages.DELETE;
+//import static seedu.address.commons.core.Messages.MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD;
+//import static seedu.address.commons.core.Messages.MESSAGE_HIT_ENTER_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showFlashcardAtIndex;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalAddressBook;
+
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
 
@@ -11,31 +18,44 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+//import seedu.address.logic.commands.CommandResult;
+//import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
+//import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+//import seedu.address.model.flashcard.Flashcard;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeleteFlashcardCommand}.
  */
 public class DeleteFlashcardCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    /* Void test. Kept as reference for format. To change assertCommandSuccess usage to use CommandResult type in third
-    argument.
+    /*
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Flashcard flashcardToDelete = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
+        DeleteFlashcardCommand deleteCommand = new DeleteFlashcardCommand(INDEX_FIRST_FLASHCARD);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteFlashcardCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS,
+                flashcardToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        CommandResult expectedCommandResult = new FlashcardCommandResult(expectedMessage);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        ModelManager expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
+        expectedModel.deleteFlashcard(flashcardToDelete);
+        try {
+            CommandResult result = deleteCommand.execute(model);
+        } catch (CommandException e) {
+            assertEquals(e, new CommandException(MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD
+                    + "\n" + flashcardToDelete
+                    + "\n" + MESSAGE_HIT_ENTER_TO_DELETE));
+        }
+
+        //assertCommandSuccess(deleteCommand, model, expectedCommandResult, expectedModel);
     }
     */
 
@@ -47,8 +67,7 @@ public class DeleteFlashcardCommandTest {
         assertCommandFailure(deleteFlashcardCommand, model, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
     }
 
-    /* Void test. Kept as reference for format. To change assertCommandSuccess usage to use CommandResult type in third
-    argument.
+    /*
     @Test
     public void execute_validIndexFilteredList_success() {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
@@ -59,26 +78,28 @@ public class DeleteFlashcardCommandTest {
         String expectedMessage = String.format(DeleteFlashcardCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS,
         flashcardToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        CommandResult expectedCommandResult = new FlashcardCommandResult(expectedMessage);
+
+        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
         expectedModel.deleteFlashcard(flashcardToDelete);
         showNoFlashcard(expectedModel);
 
-        assertCommandSuccess(deleteFlashcardCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteFlashcardCommand, model, expectedCommandResult, expectedModel);
     }
-     */
+    */
 
-    //    @Test
-    //    public void execute_invalidIndexFilteredList_throwsCommandException() {
-    //        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
-    //
-    //        Index outOfBoundIndex = INDEX_SECOND_FLASHCARD;
-    //        // ensures that outOfBoundIndex is still in bounds of address book list
-    //        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getFlashcardList().size());
-    //
-    //        DeleteFlashcardCommand deleteFlashcardCommand = new DeleteFlashcardCommand(outOfBoundIndex);
-    //
-    //        assertCommandFailure(deleteFlashcardCommand, model, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
-    //    }
+    @Test
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
+        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
+
+        Index outOfBoundIndex = INDEX_SECOND_FLASHCARD;
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getStudyBuddyPro().getFlashcardList().size());
+
+        DeleteFlashcardCommand deleteFlashcardCommand = new DeleteFlashcardCommand(outOfBoundIndex);
+
+        assertCommandFailure(deleteFlashcardCommand, model, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
+    }
 
 
     @Test
@@ -99,7 +120,7 @@ public class DeleteFlashcardCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different flashcard -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
@@ -111,4 +132,5 @@ public class DeleteFlashcardCommandTest {
 
         assertTrue(model.getFilteredFlashcardList().isEmpty());
     }
+
 }

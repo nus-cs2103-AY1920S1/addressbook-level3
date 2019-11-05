@@ -67,7 +67,21 @@ public class Flashcard extends StudyBuddyItem {
     }
 
     /**
-     * Returns true if both flashcards have all the same fields except the statistics field.
+     * Returns true if both flashcards have either the same Question or Title.
+     * This defines a weaker notion of equality between two flashcards.
+     */
+    public boolean isSameFlashcard(Flashcard otherFlashcard) {
+        if (otherFlashcard == this) {
+            return true;
+        }
+
+        return otherFlashcard != null && (otherFlashcard.getTitle().equals(getTitle())
+                || otherFlashcard.getQuestion().equals(getQuestion()));
+    }
+
+    /**
+     * Returns true if both flashcards have all the same fields.
+     * This defines a stronger notion of equality between two flashcards.
      */
     @Override
     public boolean equals(Object other) {
@@ -83,7 +97,8 @@ public class Flashcard extends StudyBuddyItem {
         return otherFlashcard.getQuestion().equals(getQuestion())
                 && otherFlashcard.getAnswer().equals(getAnswer())
                 && otherFlashcard.getTitle().equals(getTitle())
-                && otherFlashcard.getTags().equals(getTags());
+                && otherFlashcard.getTags().equals(getTags())
+                && otherFlashcard.getStatistics().equals(getStatistics());
     }
 
     @Override
