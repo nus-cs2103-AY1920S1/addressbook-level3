@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.CurrentCommand;
+import com.typee.logic.commands.DeleteCommand;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.exceptions.CommandException;
@@ -18,6 +20,7 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
 import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
+import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
 import com.typee.logic.parser.exceptions.ParseException;
@@ -27,7 +30,6 @@ public class Parser implements InteractiveParser {
     private static final String BUFFER_TEXT = " ";
     private static final String MESSAGE_CLEAR_ALL = "// clear";
     private static final String MESSAGE_CURRENT = "// current";
-    private static final String MESSAGE_INVALID_COMMAND = "No such command exists!";
     private static final String MESSAGE_MISSING_PREFIX = "Please input only the prefix %s and its argument."
             + " You may enter additional prefixes and arguments as long as they follow the specified ordering.";
     private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
@@ -191,8 +193,12 @@ public class Parser implements InteractiveParser {
             currentState = new TypeState(new ArgumentMultimap());
             break;
 
+        case DeleteCommand.COMMAND_WORD:
+            currentState = new IndexState(new ArgumentMultimap());
+            break;
+
         default:
-            throw new ParseException(MESSAGE_INVALID_COMMAND);
+            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
@@ -202,7 +208,7 @@ public class Parser implements InteractiveParser {
 
         // If there is no unique command word, throw an exception.
         if (commandWords.size() != 1) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND);
+            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
 
         return commandWords.get(0);
@@ -240,7 +246,5 @@ public class Parser implements InteractiveParser {
         temporaryState = currentState;
         currentState = new HelpState(new ArgumentMultimap());
     }
-
-
 
 }
