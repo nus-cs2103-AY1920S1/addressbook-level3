@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.profile.person.Person;
-import dukecooks.model.profile.person.exceptions.DuplicatePersonException;
+import dukecooks.model.profile.person.exceptions.DuplicateProfileException;
 import dukecooks.testutil.profile.PersonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,7 +48,7 @@ public class UserProfileTest {
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         UserProfileStub newData = new UserProfileStub(newPersons);
 
-        assertThrows(DuplicatePersonException.class, () -> userProfile.resetData(newData));
+        assertThrows(DuplicateProfileException.class, () -> userProfile.resetData(newData));
     }
 
     @Test

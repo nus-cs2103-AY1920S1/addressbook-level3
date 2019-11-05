@@ -7,7 +7,6 @@ import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.BURPEES;
 import static dukecooks.testutil.profile.TypicalProfiles.ALICE;
-import static dukecooks.testutil.profile.TypicalProfiles.BENSON;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -251,7 +250,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        UserProfile userProfile = new UserProfileBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        UserProfile userProfile = new UserProfileBuilder().withPerson(ALICE).build();
         UserProfile differentUserProfile = new UserProfile();
 
         DashboardRecords dashboardRecords = new DashboardRecordBuilder()

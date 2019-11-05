@@ -393,7 +393,7 @@ public class ParserUtil {
         if (!Weight.isValidNumber(trimmedWeight)) {
             throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
         }
-        return new Weight(trimmedWeight, DateParser.getCurrentTimestamp());
+        return new Weight(trimmedWeight);
     }
 
     /**
@@ -408,7 +408,7 @@ public class ParserUtil {
         if (!Height.isValidNumber(trimmedHeight)) {
             throw new ParseException(Height.MESSAGE_CONSTRAINTS);
         }
-        return new Height(trimmedHeight, DateParser.getCurrentTimestamp());
+        return new Height(trimmedHeight);
     }
 
     /**

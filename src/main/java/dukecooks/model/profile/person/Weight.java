@@ -8,8 +8,13 @@ import dukecooks.commons.util.AppUtil;
  * Represents User's weight.
  */
 public class Weight {
+    public static final int WEIGHT_LIMIT = 500;
+
     public static final String MESSAGE_CONSTRAINTS =
             "Weight should only contain numeric characters and represented by kilograms";
+
+    public static final String MESSAGE_INFLATED_WEIGHT =
+            "Weight entered should not exceed " + WEIGHT_LIMIT + "kg! Try again!";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -19,19 +24,16 @@ public class Weight {
 
     public final int weight;
 
-    public final String timestamp;
-
     /**
      * Constructs a {@code Weight}.
      *
      * @param weight A valid weight.
-     * @param datetime The timestamp of latest input of user's weight.
      */
-    public Weight(String weight, String datetime) {
+    public Weight(String weight) {
         requireNonNull(weight);
         AppUtil.checkArgument(isValidNumber(weight), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidWeight(Integer.parseInt(weight)), MESSAGE_INFLATED_WEIGHT);
         this.weight = Integer.parseInt(weight);
-        this.timestamp = datetime;
     }
 
     /**
@@ -39,6 +41,14 @@ public class Weight {
      */
     public static boolean isValidNumber(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if weight is within the limit set.
+     * Prevents input of large values set to weight.
+     */
+    public static boolean isValidWeight(int test) {
+        return test > 0 && test <= WEIGHT_LIMIT;
     }
 
     @Override
