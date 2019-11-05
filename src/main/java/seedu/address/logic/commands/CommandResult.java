@@ -5,8 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import seedu.address.model.person.PanelName;
+import seedu.address.model.entry.PanelName;
 import seedu.address.ui.FontName;
+import seedu.address.ui.util.Theme;
 
 /**
  * Represents the result of a command execution.
@@ -25,12 +26,18 @@ public class CommandResult {
     private final PanelName panelName;
     private final boolean togglePanel;
     private final boolean toggleStats;
-    private final boolean toggleGraphics;
+    private final boolean togglePieChart;
+    private final boolean toggleBarChart;
+    private final boolean toggleEntryPanel;
 
     /** For changing the font. */
     private final FontName fontName;
     private final boolean listFonts;
     private final boolean changeFont;
+
+    /** For changing the theme */
+    private final boolean changeTheme;
+    private final Theme newTheme;
 
     private boolean toShowConditionPanel = false;
 
@@ -47,11 +54,15 @@ public class CommandResult {
         this.panelName = null;
         this.togglePanel = false;
         this.toggleStats = false;
-        this.toggleGraphics = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
         this.listBudgets = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
     /**
@@ -69,11 +80,15 @@ public class CommandResult {
         this.togglePanel = false;
         this.panelName = null;
         this.toggleStats = toggleBooleans.get(0);
-        this.toggleGraphics = toggleBooleans.get(1);
+        this.togglePieChart = toggleBooleans.get(1);
+        this.toggleBarChart = toggleBooleans.get(2);
+        this.toggleEntryPanel = toggleBooleans.get(3);
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
         this.listBudgets = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
 
@@ -87,10 +102,14 @@ public class CommandResult {
         this.panelName = null;
         this.togglePanel = false;
         this.toggleStats = false;
-        this.toggleGraphics = false;
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
+        this.changeTheme = false;
+        this.newTheme = null;
         this.listBudgets = listBudgets;
     }
 
@@ -104,11 +123,15 @@ public class CommandResult {
         this.panelName = panelName;
         this.togglePanel = togglePanel;
         this.toggleStats = false;
-        this.toggleGraphics = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
         this.listBudgets = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
     /**
@@ -124,7 +147,32 @@ public class CommandResult {
         this.listFonts = listFonts;
         this.changeFont = changeFont;
         this.toggleStats = false;
-        this.toggleGraphics = false;
+        this.changeTheme = false;
+        this.newTheme = null;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
+        this.listBudgets = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean changeTheme, Theme theme) {
+        this.feedbackToUser = feedbackToUser;
+        this.changeTheme = changeTheme;
+        this.newTheme = theme;
+        this.showHelp = false;
+        this.exit = false;
+        this.panelName = null;
+        this.togglePanel = false;
+        this.toggleStats = false;
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
         this.listBudgets = false;
     }
 
@@ -140,6 +188,18 @@ public class CommandResult {
         return feedbackToUser;
     }
 
+    public PanelName getPanelName() {
+        return this.panelName;
+    }
+
+    public FontName getFontName() {
+        return fontName;
+    }
+
+    public Theme getNewTheme() {
+        return newTheme;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
     }
@@ -152,16 +212,20 @@ public class CommandResult {
         return togglePanel;
     }
 
+    public boolean isToggleEntryPanel() {
+        return toggleEntryPanel;
+    }
+
     public boolean isToggleStats() {
         return toggleStats;
     }
 
-    public boolean isToggleGraphics() {
-        return toggleGraphics;
+    public boolean isTogglePieChart() {
+        return togglePieChart;
     }
 
-    public PanelName getPanelName() {
-        return this.panelName;
+    public boolean isToggleBarChart() {
+        return toggleBarChart;
     }
 
     public boolean isChangeFont() {
@@ -172,8 +236,8 @@ public class CommandResult {
         return listFonts;
     }
 
-    public FontName getFontName() {
-        return fontName;
+    public boolean isChangeTheme() {
+        return changeTheme;
     }
 
     public boolean isListBudgets() {
@@ -200,13 +264,15 @@ public class CommandResult {
                 && fontName == otherCommandResult.fontName
                 && listFonts == otherCommandResult.listFonts
                 && changeFont == otherCommandResult.changeFont
-                && listBudgets == otherCommandResult.listBudgets;
+                && listBudgets == otherCommandResult.listBudgets
+                && changeTheme == otherCommandResult.changeTheme
+                && newTheme.equals(otherCommandResult.newTheme);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts,
-                changeFont, listBudgets);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont,
+                newTheme, changeTheme, listBudgets);
     }
 
 }

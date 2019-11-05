@@ -18,7 +18,7 @@
 //import seedu.address.model.Model;
 //import seedu.address.model.ModelManager;
 //import seedu.address.model.UserPrefs;
-//import seedu.address.model.person.predicates.entries.DescriptionContainsKeywordsPredicate;
+//import seedu.address.model.entry.predicates.entries.DescriptionContainsKeywordsPredicate;
 //
 ///**
 // * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -50,7 +50,7 @@
 //        // null -> returns false
 //        assertFalse(findFirstCommand.equals(null));
 //
-//        // different person -> returns false
+//        // different entry -> returns false
 //        assertFalse(findFirstCommand.equals(findSecondCommand));
 //    }
 //

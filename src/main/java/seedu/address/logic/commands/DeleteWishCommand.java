@@ -9,10 +9,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Wish;
+import seedu.address.model.entry.Wish;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a entry identified using it's displayed index from the address book.
  */
 public class DeleteWishCommand extends Command {
 

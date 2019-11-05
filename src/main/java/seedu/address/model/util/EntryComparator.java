@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.SortSequence;
-import seedu.address.model.person.SortType;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.SortSequence;
+import seedu.address.model.entry.SortType;
 import seedu.address.model.tag.Tag;
 
 /**

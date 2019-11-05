@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -20,9 +22,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.PanelName;
-import seedu.address.ui.stats.StatisticsGraphics;
+import seedu.address.model.entry.PanelName;
+import seedu.address.ui.stats.StatisticsBarChart;
+import seedu.address.ui.stats.StatisticsPieChartHolder;
 import seedu.address.ui.stats.StatisticsWindow;
+import seedu.address.ui.util.Theme;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,6 +35,11 @@ import seedu.address.ui.stats.StatisticsWindow;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private final String lightThemeUrl = getClass().getResource("/view/LightTheme.css").toExternalForm();
+    private final String lightExtensionsUrl = getClass().getResource("/view/ExtensionsLight.css")
+            .toExternalForm();
+    private final String darkThemeUrl = getClass().getResource("/view/DarkTheme.css").toExternalForm();
+    private final String darkExtensionsUrl = getClass().getResource("/view/ExtensionsDark.css").toExternalForm();
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -42,10 +51,18 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statsListPanel;
-    private StatisticsGraphics statsGraphics;
+    private StatisticsPieChartHolder statsGraphics;
+    private StatisticsBarChart statsBar;
 
     private boolean isStatsWindow;
     private boolean isStatsGraphicsWindow;
+
+    // Customisable GUI elements
+    private String font;
+    private Theme theme;
+
+    @FXML
+    private Scene scene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -91,7 +108,7 @@ public class MainWindow extends UiPart<Stage> {
         this.isStatsWindow = false;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setUpGui(logic.getGuiSettings());
 
         setAccelerators();
 
@@ -108,6 +125,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -140,8 +158,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        statsListPanel = new StatisticsWindow(logic);
-        statsGraphics = new StatisticsGraphics(logic.getListOfStatsForExpense(), logic.getListOfStatsForIncome());
+        statsListPanel = new StatisticsWindow(logic.getListOfStatsForExpense(), logic.getListOfStatsForIncome(),
+                logic.getTotalExpenseForPeriod(), logic.getTotalIncomeForPeriod());
+        statsBar = new StatisticsBarChart(logic.getListOfStatsForBarChart());
 
         entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
@@ -160,11 +179,21 @@ public class MainWindow extends UiPart<Stage> {
 
         BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
+
         ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
 
         AutoExpensesPanel autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
         autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
+    }
+
+    /**
+     * Sets up the GUI.
+     */
+    private void setUpGui(GuiSettings guiSettings) {
+        setWindowDefaultSize(guiSettings);
+        setFont(guiSettings);
+        setTheme(guiSettings);
     }
 
     /**
@@ -177,6 +206,25 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    /**
+     * Sets the font based on {@code guiSettings}.
+     */
+    private void setFont(GuiSettings guiSettings) {
+        String savedFont = guiSettings.getFont();
+        this.font = savedFont;
+        String style = "-fx-font-family: " + savedFont;
+        window.setStyle(style);
+    }
+
+    /**
+     * Sets the theme based on {@code guiSettings}.
+     */
+    private void setTheme(GuiSettings guiSettings) {
+        Theme savedTheme = guiSettings.getTheme();
+        this.theme = savedTheme;
+        switchThemeTo(savedTheme);
     }
 
     /**
@@ -201,7 +249,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), font, theme);
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -218,6 +266,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Calls the togglePlaceHolder method with the place holder of the specified panel.
+     *
      * @param panelName name of the specified panel to be toggled.
      */
     private void togglePanel(String panelName) {
@@ -241,7 +290,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Replaces the Reminder Panel with the Conditions Panel;
+     * Replaces the Reminder Panel with the Conditions Panel.
      */
     private void showConditionPanel() {
         remindersPlaceHolder.getChildren().clear();
@@ -249,8 +298,9 @@ public class MainWindow extends UiPart<Stage> {
         ConditionPanel conditionPanel = new ConditionPanel(logic.getFilteredConditions());
         remindersPlaceHolder.getChildren().add(conditionPanel.getRoot());
     }
+
     /**
-     * Replaces the Conditions Panel with the Reminder Panel;
+     * Replaces the Conditions Panel with the Reminder Panel.
      */
     private void showReminderPanel() {
         remindersPlaceHolder.getChildren().clear();
@@ -261,6 +311,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Toggles the isVisible and isManaged properties of the specified place holder.
+     *
      * @param placeHolder specified place holder to be toggled.
      */
     private void togglePlaceHolder(VBox placeHolder) {
@@ -274,7 +325,7 @@ public class MainWindow extends UiPart<Stage> {
      * Toggles the isVisible and isManaged properties of the sidePanelsPlaceHolder.
      */
     private void togglePlaceHolderForStats(boolean isStatsWindow) {
-        if (isStatsWindow == true) {
+        if (isStatsWindow) {
             sidePanelsPlaceHolder.setManaged(false);
             sidePanelsPlaceHolder.setVisible(false);
         } else {
@@ -316,6 +367,7 @@ public class MainWindow extends UiPart<Stage> {
      * Changes font in the application to the specified font.
      */
     private void handleChangeFont(String font) {
+        this.font = font;
         String style = "-fx-font-family: " + font;
         window.setStyle(style);
     }
@@ -334,17 +386,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills the entryListPanel with either the StatisticsWindow or the EntryListPanel.
-     * entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
-     * @param isStatistics is the truthvalue of whether it is the statistics panel.
+     * Fills the entryListPanel with the type of Panel passed in.
      */
-    private void fillEntryListPanel(boolean isStatistics) {
+    private void fillEntryListPanel(UiPart typeOfPanel) {
         entryListPanelPlaceholder.getChildren().clear();
-        if (isStatistics) {
-            entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
-        } else {
-            entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
-        }
+        entryListPanelPlaceholder.getChildren().add((Node) typeOfPanel.getRoot());
     }
 
     /**
@@ -357,6 +403,50 @@ public class MainWindow extends UiPart<Stage> {
             entryListPanelPlaceholder.getChildren().add(statsGraphics.getRoot());
         } else {
             entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Switches the current to the {@code newTheme}.
+     */
+    private void switchThemeTo(Theme newTheme) {
+        String oldThemeUrl = null;
+        String oldExtensionsUrl = null;
+        String newThemeUrl = null;
+        String newExtensionsUrl = null;
+
+        switch (newTheme) {
+        case LIGHT:
+            this.theme = Theme.LIGHT;
+            oldThemeUrl = darkThemeUrl;
+            oldExtensionsUrl = darkExtensionsUrl;
+            newThemeUrl = lightThemeUrl;
+            newExtensionsUrl = lightExtensionsUrl;
+            break;
+        case DARK:
+            this.theme = Theme.DARK;
+            oldThemeUrl = lightThemeUrl;
+            oldExtensionsUrl = lightExtensionsUrl;
+            newThemeUrl = darkThemeUrl;
+            newExtensionsUrl = darkExtensionsUrl;
+            break;
+        default:
+            // Do nothing.
+            break;
+        }
+
+        removeAndAddStylesheets(oldThemeUrl, newThemeUrl);
+        removeAndAddStylesheets(oldExtensionsUrl, newExtensionsUrl);
+    }
+
+    /**
+     * Removes the {@code oldThemeUrl} from the scene's stylesheets and adds the {@code newThemeUrl} to the scene's
+     * stylesheets.
+     */
+    private void removeAndAddStylesheets(String oldThemeUrl, String newThemeUrl) {
+        if (this.scene.getStylesheets().contains(oldThemeUrl)) {
+            this.scene.getStylesheets().remove(oldThemeUrl);
+            this.scene.getStylesheets().add(newThemeUrl);
         }
     }
 
@@ -402,16 +492,26 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isToggleStats()) {
-                isStatsWindow = !isStatsWindow;
-                this.togglePlaceHolderForStats(isStatsWindow);
-                this.fillEntryListPanel(isStatsWindow);
+                this.togglePlaceHolderForStats(true);
+                this.fillEntryListPanel(this.statsListPanel);
+                this.statsListPanel.fillStatsTable();
             }
 
-            if (commandResult.isToggleGraphics()) {
-                isStatsWindow = true;
-                isStatsGraphicsWindow = !isStatsGraphicsWindow;
+            if (commandResult.isTogglePieChart()) {
                 this.togglePlaceHolderForStats(true);
-                this.toggleStatsPanel();
+                this.fillEntryListPanel(this.statsListPanel);
+                this.statsListPanel.fillStatsPie();
+            }
+
+            if (commandResult.isToggleEntryPanel()) {
+                this.togglePlaceHolderForStats(false);
+                this.toggleAllTrue();
+                this.fillEntryListPanel(this.entryListPanel);
+            }
+
+            if (commandResult.isToggleBarChart()) {
+                this.togglePlaceHolderForStats(true);
+                this.fillEntryListPanel(this.statsBar);
             }
 
             if (commandResult.toShowConditionPanel()) {
@@ -437,7 +537,13 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
 
+            if (commandResult.isChangeTheme()) {
+                Theme themeToChangeTo = commandResult.getNewTheme();
+                switchThemeTo(themeToChangeTo);
+            }
+
             return commandResult;
+
         } catch (CommandException | ParseException | IllegalArgumentException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

@@ -21,7 +21,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Description;
+import seedu.address.model.entry.Description;
 /**
  * Parses input argument and creates a new SetEntryReminderCommand object.
  */

@@ -10,7 +10,7 @@
 //
 //import seedu.address.logic.commands.AddCommand;
 //import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-//import seedu.address.model.person.Person;
+//import seedu.address.model.entry.Person;
 //import seedu.address.model.tag.Tag;
 //
 ///**
@@ -19,22 +19,22 @@
 //public class PersonUtil {
 //
 //    /**
-//     * Returns an add command string for adding the {@code person}.
+//     * Returns an add command string for adding the {@code entry}.
 //     */
-//    public static String getAddCommand(Person person) {
-//        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+//    public static String getAddCommand(Person entry) {
+//        return AddCommand.COMMAND_WORD + " " + getPersonDetails(entry);
 //    }
 //
 //    /**
-//     * Returns the part of command string for the given {@code person}'s details.
+//     * Returns the part of command string for the given {@code entry}'s details.
 //     */
-//    public static String getPersonDetails(Person person) {
+//    public static String getPersonDetails(Person entry) {
 //        StringBuilder sb = new StringBuilder();
-//        sb.append(PREFIX_DESC + person.getName().fullDesc + " ");
-//        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-//        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-//        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-//        person.getTags().stream().forEach(
+//        sb.append(PREFIX_DESC + entry.getName().fullDesc + " ");
+//        sb.append(PREFIX_PHONE + entry.getPhone().value + " ");
+//        sb.append(PREFIX_EMAIL + entry.getEmail().value + " ");
+//        sb.append(PREFIX_ADDRESS + entry.getAddress().value + " ");
+//        entry.getTags().stream().forEach(
 //            s -> sb.append(PREFIX_TAG + s.tagName + " ")
 //        );
 //        return sb.toString();

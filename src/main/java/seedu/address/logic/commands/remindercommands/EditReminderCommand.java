@@ -20,12 +20,12 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Description;
+import seedu.address.model.entry.Description;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing entry in the address book.
  */
 public class EditReminderCommand extends Command {
 
@@ -56,7 +56,7 @@ public class EditReminderCommand extends Command {
 
     /**
      * @param index of the expenseReminder in the filtered expense reminder list to edit
-     * @param editReminderDescriptor details to edit the person with
+     * @param editReminderDescriptor details to edit the entry with
      */
     public EditReminderCommand(Index index, EditReminderDescriptor editReminderDescriptor) {
         requireNonNull(index);
@@ -152,8 +152,8 @@ public class EditReminderCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the entry with. Each non-empty field value will replace the
+     * corresponding field value of the entry.
      */
     public static class EditReminderDescriptor {
         private Description desc;

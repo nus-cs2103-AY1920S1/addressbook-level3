@@ -1,15 +1,17 @@
 package seedu.address.model.statistics;
 
 import java.time.Month;
+import java.time.YearMonth;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.CategoryList;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
 
 /**
  * Contains the entries for the current Month in the idea.
@@ -20,10 +22,11 @@ public class MonthList {
     private List<Category> listOfIncomeCategories;
     private ObservableMap<Category, FilteredList<Expense>> mapOfExpenseCategories;
     private ObservableMap<Category, FilteredList<Income>> mapOfIncomeCategories;
+    private ObservableList<DailyStatistics> listOfDailyStatistics;
+    private ObservableMap<Integer, DailyList> mapOfDailyLists;
     private FilteredList<Expense> filteredListForExpense;
     private FilteredList<Income> filteredListForIncome;
-    private Month month;
-    private int year;
+    private YearMonth yearMonth;
     private double totalExpense;
     private double totalIncome;
 
@@ -38,8 +41,9 @@ public class MonthList {
         this.filteredListForIncome = filteredListOfIncome;
         mapOfExpenseCategories = FXCollections.observableHashMap();
         mapOfIncomeCategories = FXCollections.observableHashMap();
-        this.month = month;
-        this.year = year;
+        listOfDailyStatistics = FXCollections.observableArrayList();
+        mapOfDailyLists = FXCollections.observableHashMap();
+        this.yearMonth = YearMonth.of(year, month);
         totalExpense = 0.00;
         totalIncome = 0.00;
         initRecords();
@@ -62,6 +66,22 @@ public class MonthList {
                     new EntryContainsCategoryPredicate(toFilterCategory));
             mapOfIncomeCategories.put(toFilterCategory, filteredByCategory);
         }
+
+        for (int j = 1; j <= this.yearMonth.lengthOfMonth(); j++) {
+            FilteredList<Expense> dailyExpense = new FilteredList<Expense> (filteredListForExpense,
+                    new EntryDayContainsPredicate(j, yearMonth.getMonthValue(), yearMonth.getYear()));
+            FilteredList<Income> dailyIncome = new FilteredList<Income> (filteredListForIncome,
+                    new EntryDayContainsPredicate(j, yearMonth.getMonthValue(), yearMonth.getYear()));
+            DailyList dailyListOfMonth = new DailyList(dailyExpense, dailyIncome, j,
+                    this.yearMonth.getMonth(), this.yearMonth.getYear());
+            this.mapOfDailyLists.put(j, dailyListOfMonth);
+        }
+
+        for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
+            DailyList dl = this.mapOfDailyLists.get(i);
+            DailyStatistics statsCalculate = dl.calculateBarChart();
+            this.listOfDailyStatistics.add(statsCalculate);
+        }
     }
 
     /**
@@ -77,9 +97,6 @@ public class MonthList {
             for (int i = 0; i < toCalculate.size(); i++) {
                 calculatedTotal = calculatedTotal + toCalculate.get(i).getAmount().value;
             }
-            if (calculatedTotal != 0.00) {
-                System.out.println(calculatedTotal);
-            }
             return calculatedTotal;
         } else {
             FilteredList<Expense> toCalculate = this.mapOfExpenseCategories.get(cat);
@@ -87,10 +104,24 @@ public class MonthList {
             for (int i = 0; i < toCalculate.size(); i++) {
                 calculatedTotal = calculatedTotal + toCalculate.get(i).getAmount().value;
             }
-            if (calculatedTotal != 0.00) {
-                System.out.println(calculatedTotal);
-            }
             return calculatedTotal;
         }
+    }
+
+    /**
+     * Calculates the statistics everyday to be used in the bar chart.
+     *
+     * @return listOfDailyStatistics a ObservableList of the statistics of income and expense per day in the month to
+     * be used in the bar chart.
+     */
+    public ObservableList<DailyStatistics> calculateBarChart() {
+        for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
+            DailyList dl = this.mapOfDailyLists.get(i);
+            DailyStatistics statsCalculate = dl.calculateBarChart();
+            if (!listOfDailyStatistics.get(i - 1).equals(statsCalculate)) {
+                listOfDailyStatistics.set(i - 1, statsCalculate);
+            }
+        }
+        return listOfDailyStatistics;
     }
 }

@@ -16,13 +16,13 @@ import seedu.address.commons.core.step.Step;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.PanelName;
-import seedu.address.model.person.Period;
-import seedu.address.model.person.SortSequence;
-import seedu.address.model.person.SortType;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.PanelName;
+import seedu.address.model.entry.Period;
+import seedu.address.model.entry.SortSequence;
+import seedu.address.model.entry.SortType;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Frequency;
@@ -49,6 +49,7 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+
     /**
      * Parses {@code String indexes} into a {@code List<Index}.
      */
@@ -62,7 +63,6 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD
      * Parses {@code Collection<String> tags} into a {@code List<Index>}.
      */
     public static List<Index> parseIndexes(Collection<String> indexes) throws ParseException {
@@ -74,8 +74,13 @@ public class ParserUtil {
         return indexList;
     }
     /**
+<<<<<<< HEAD
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
+=======
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
+     * whitespaces will be trimmed.
+>>>>>>> 925c723bff2f48f1093b3fd2ea32660532b89be2
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -108,6 +113,17 @@ public class ParserUtil {
     public static Date parseDate(String date) {
         requireNonNull(date);
         return new Date(date);
+    }
+
+    /**
+     * Parses a date in String to Date.
+     *
+     * @param date the date as a String.
+     * @return the specified date as Date which has been parsed in the month format.
+     */
+    public static Date parseMonth(String date) {
+        requireNonNull(date);
+        return new Date(date, true);
     }
 
     /**

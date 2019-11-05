@@ -4,19 +4,19 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
+import seedu.address.model.GuiltTrip;
+import seedu.address.model.ReadOnlyGuiltTrip;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code GuiltTrip} with sample data.
  */
 public class SampleDataUtil {
     public static Entry[] getSampleEntries() {
@@ -52,8 +52,8 @@ public class SampleDataUtil {
     /**
      * Adds a default set of Categories if the addressBook is empty.
      */
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook(true);
+    public static ReadOnlyGuiltTrip getSampleAddressBook() {
+        GuiltTrip sampleAb = new GuiltTrip(true);
         for (Entry sampleEntry : getSampleEntries()) {
             sampleAb.addEntry(sampleEntry);
         }

@@ -18,13 +18,13 @@
 //
 //import javafx.collections.FXCollections;
 //import javafx.collections.ObservableList;
-//import seedu.address.model.person.Person;
-//import seedu.address.model.person.exceptions.DuplicateEntryException;
+//import seedu.address.model.entry.Person;
+//import seedu.address.model.entry.exceptions.DuplicateEntryException;
 //import seedu.address.testutil.EntryBuilder;
 //
 //public class AddressBookTest {
 //
-//    private final AddressBook addressBook = new AddressBook();
+//    private final GuiltTrip addressBook = new GuiltTrip();
 //
 //    @Test
 //    public void constructor() {
@@ -38,7 +38,7 @@
 //
 //    @Test
 //    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-//        AddressBook newData = getTypicalAddressBook();
+//        GuiltTrip newData = getTypicalAddressBook();
 //        addressBook.resetData(newData);
 //        assertEquals(newData, addressBook);
 //    }
@@ -84,9 +84,9 @@
 //    }
 //
 //    /**
-//     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+//     * A stub ReadOnlyGuiltTrip whose persons list can violate interface constraints.
 //     */
-//    private static class AddressBookStub implements ReadOnlyAddressBook {
+//    private static class AddressBookStub implements ReadOnlyGuiltTrip {
 //        private final ObservableList<Person> persons = FXCollections.observableArrayList();
 //
 //        AddressBookStub(Collection<Person> persons) {

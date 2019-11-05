@@ -19,7 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditAutoExpenseCommand;
 import seedu.address.logic.commands.EditAutoExpenseCommand.EditAutoExpenseDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Category;
+import seedu.address.model.entry.Category;
 import seedu.address.model.tag.Tag;
 
 /**
