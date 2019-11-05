@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.ui.tab.Tab;
 
 
 /**
@@ -61,7 +62,8 @@ public class FilterCommandTest {
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         expectedModel.commitUserState();
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model,
+            new CommandResult(expectedMessage, false, false, Tab.TRANSACTION), expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
     }
 

@@ -20,6 +20,18 @@ public class CommandResultTest {
 
         // different values -> returns false
         assertNotEquals(feedback, new CommandResult("false").getFeedbackToUser());
+
+        CommandResult warningCommandResult = new CommandResult(
+            "feedback", "warnings1", "warnings2");
+        String warningFeedback = warningCommandResult.getFeedbackToUser();
+
+        // same values -> returns true
+        assertEquals(warningFeedback, new CommandResult(
+            "feedback", "warnings1", "warnings2").getFeedbackToUser());
+
+        // different values -> returns false
+        assertNotEquals(warningFeedback, new CommandResult(
+            "feedback", "warnings", "warningsFalse"));
     }
 
     @Test
@@ -71,7 +83,6 @@ public class CommandResultTest {
     }
 
     @Test
-
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
 

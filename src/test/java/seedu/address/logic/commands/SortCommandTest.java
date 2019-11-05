@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for SortCommand.
@@ -38,7 +39,8 @@ public class SortCommandTest {
         expectedSortedByAmountModel.setTransactions(sortedTransactionHistory);
         expectedSortedByAmountModel.commitUserState();
         assertCommandSuccess(new SortCommand(amountComparator), model,
-            SortCommand.MESSAGE_SUCCESS, expectedSortedByAmountModel);
+            new CommandResult(SortCommand.MESSAGE_SUCCESS, false, false, Tab.TRANSACTION),
+            expectedSortedByAmountModel);
     }
 
     @Test
@@ -49,7 +51,8 @@ public class SortCommandTest {
         expectedSortedByAmountModel.setTransactions(sortedTransactionHistory);
         expectedSortedByAmountModel.commitUserState();
         assertCommandSuccess(new SortCommand(dateComparator), model,
-            SortCommand.MESSAGE_SUCCESS, expectedSortedByAmountModel);
+            new CommandResult(SortCommand.MESSAGE_SUCCESS, false, false, Tab.TRANSACTION),
+            expectedSortedByAmountModel);
     }
 
     @Test

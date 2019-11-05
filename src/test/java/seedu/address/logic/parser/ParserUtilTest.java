@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.Address;
@@ -62,6 +63,21 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseType_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseType((String) null));
+    }
+
+    @Test
+    public void parseType_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseType(""));
+    }
+
+    @Test
+    public void parseType_validValue_success() throws Exception {
+        assertEquals("b", ParserUtil.parseType("b1"));
+    }
+
+    @Test
     public void parseName_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
     }
@@ -82,6 +98,27 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseNames_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseNames(null));
+    }
+
+    @Test
+    public void parseNames_collectionWithInvalidNames_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNames(Arrays.asList("John", "Doe!")));
+    }
+
+    @Test
+    public void parseNames_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseNames(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseNames_collectionWithValidNames_throwsParseException() throws Exception {
+        List<Name> validNames = ParserUtil.parseNames(Arrays.asList("John", "Doe"));
+        assertEquals(validNames, ParserUtil.parseNames(Arrays.asList("John", "Doe")));
     }
 
     @Test
@@ -270,6 +307,7 @@ public class ParserUtilTest {
     @Test
     public void parseAmount_invalidAmount_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseAmount("$100.00"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("100.005"));
     }
 
     @Test
@@ -282,5 +320,26 @@ public class ParserUtilTest {
     public void parseAmount_validNegativeValue_returnsAmount() throws Exception {
         Amount expectedNegativeAmount = new Amount(-10.00);
         assertEquals(expectedNegativeAmount, ParserUtil.parseAmount("-10.00"));
+    }
+
+    @Test
+    public void parseBudgetIndex_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseBudgetIndex(null));
+    }
+
+    @Test
+    public void parseBudgetIndex_invalidZeroValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseBudgetIndex("0"));
+    }
+
+    @Test
+    public void parseBudgetIndex_invalidNegativeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseBudgetIndex("-1"));
+    }
+
+    @Test
+    public void parseBudgetIndex_validPositiveValue_returnsBudgetIndex() throws Exception {
+        Index index = Index.fromOneBased(1);
+        assertEquals(index, ParserUtil.parseBudgetIndex("1"));
     }
 }

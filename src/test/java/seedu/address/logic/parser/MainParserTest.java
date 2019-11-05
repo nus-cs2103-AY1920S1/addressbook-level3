@@ -19,10 +19,17 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.OutCommand;
+import seedu.address.logic.commands.ProjectCommand;
+import seedu.address.logic.commands.ReceiveCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SplitCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
@@ -31,6 +38,54 @@ import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 public class MainParserTest {
 
     private final MainParser parser = new MainParser();
+
+    @Test
+    public void parseCommand_split() throws Exception {
+        assertTrue(parser.parseCommand(SplitCommand.COMMAND_WORD + " $/69 n/John") instanceof SplitCommand);
+        assertTrue(parser.parseCommand(
+            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/2 s/3") instanceof SplitCommand);
+        assertTrue(parser.parseCommand(
+            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/1 s/2 s/3") instanceof SplitCommand);
+    }
+
+    @Test
+    public void parseCommand_receive() throws Exception {
+        assertTrue(parser.parseCommand(ReceiveCommand.COMMAND_WORD + " $/69 n/John") instanceof ReceiveCommand);
+    }
+
+    @Test
+    public void parseCommand_in() throws Exception {
+        assertTrue(parser.parseCommand(
+            InCommand.COMMAND_WORD + " $/69 n/John d/19112019") instanceof InCommand);
+        assertTrue(parser.parseCommand(
+            InCommand.COMMAND_WORD + " $/69 n/John d/19112019 c/Food") instanceof InCommand);
+        assertTrue(parser.parseCommand(
+            InCommand.COMMAND_WORD + " $/69 n/John d/19112019 c/Food c/Drink") instanceof InCommand);
+    }
+
+    @Test
+    public void parseCommand_out() throws Exception {
+        assertTrue(parser.parseCommand(
+            OutCommand.COMMAND_WORD + " $/69 n/John d/21032019") instanceof OutCommand);
+        assertTrue(parser.parseCommand(
+            OutCommand.COMMAND_WORD + " $/69 n/John d/21032019 c/Food") instanceof OutCommand);
+        assertTrue(parser.parseCommand(
+            OutCommand.COMMAND_WORD + " $/69 n/John d/21032019 c/Drink") instanceof OutCommand);
+    }
+
+    @Test
+    public void parseCommand_set() throws Exception {
+        assertTrue(parser.parseCommand(
+            SetCommand.COMMAND_WORD + " $/69 d/31122019") instanceof SetCommand);
+        assertTrue(parser.parseCommand(
+            SetCommand.COMMAND_WORD + " $/69 d/31122019 c/Food") instanceof SetCommand);
+    }
+
+    @Test
+    public void parseCommand_project() throws Exception {
+        assertTrue(parser.parseCommand(
+            ProjectCommand.COMMAND_WORD + " d/31122019") instanceof ProjectCommand);
+    }
 
     @Test
     public void parseCommand_filter() throws Exception {
@@ -71,6 +126,18 @@ public class MainParserTest {
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_update() throws Exception {
+        assertTrue(parser.parseCommand(UpdateCommand.COMMAND_WORD + " t1 $/69") instanceof UpdateCommand);
+        assertTrue(parser.parseCommand(UpdateCommand.COMMAND_WORD + " b1 $/69") instanceof UpdateCommand);
+        assertTrue(parser.parseCommand(
+            UpdateCommand.COMMAND_WORD + " t1 $/69 c/Food") instanceof UpdateCommand);
+        assertTrue(parser.parseCommand(
+            UpdateCommand.COMMAND_WORD + " t1 $/69 c/Food d/19112019") instanceof UpdateCommand);
+        assertTrue(parser.parseCommand(
+            UpdateCommand.COMMAND_WORD + " t1 $/69 c/Food d/19112019 n/KFC") instanceof UpdateCommand);
     }
 
     @Test
