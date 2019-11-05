@@ -713,6 +713,34 @@ description and quantity fields, `Model` will search all the sales items in the 
 according to the specified category and suggestions would be shown by Leo, the assistant. +
 If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
 
+If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method
+to show a list of suggestions. +
+The following are two code snippets from `getRecommendedItems(description)`:
+
+            if (description.length() >= 3) {
+                char[] arr = description.toCharArray();
+                ArrayList<String> combinations = getCombination(arr, arr.length);
+                for (int j = 0; j < combinations.size(); j++) {
+                    if (combinations.get(j).contains(itemDescription) // itemDescription refers to the actual description of an item in the inventory
+                            || itemDescription.contains(combinations.get(j))) {
+                        recommendedItems.add(item.getDescription());
+                        continue;
+                    }
+                }
+            }
+
+The `getCombination(arr, arr.length)` method in line 3 of the above snippet returns an ArrayList of all subsets of
+descriptions that are of at least length 3. While iterating through the `InventoryList`, these subsets are compared with the
+actual descriptions of all items in the inventory to check if either contains the other.
+
+            ArrayList<String> newList = recommendedItems.stream()
+            .distinct()
+            .collect(Collectors
+            .toCollection(ArrayList::new));
+            return newList;
+
+After adding all the suggested words into the `recommendedItems` list, the list is passed into a stream to remove duplicates.
+
 The following sequence diagram shows how the `AddCommand` works and is the reference
 from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
 
