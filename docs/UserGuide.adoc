@@ -104,7 +104,7 @@ image::statistics_page.png[width="790"]
 
 ==== Sidebar
 
-Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Alternatively, the user can also make use of keyboard shortcut `ctrl + tab` to scroll through the different pages. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
 
 ==== Details Page (Coming in v2.0)
 
@@ -119,7 +119,7 @@ image::details_page.png[width="790"]
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/SHOW_NAME t/SHOW_TYPE`, `SHOW_NAME` and `SHOW_TYPE` are parameters which can be used as `add n/The Angry Birds Movie 2 t/movie`.
-* Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [d/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie t/movie`.
+* Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [s/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie t/movie`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo Di Carpio`, `a/Leonardo Di Carpio a/Christian Bale` etc.
 * Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
 ====
@@ -133,7 +133,14 @@ Format: `help`
 Adds a show to the watchlist +
 
 Format: `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]...`
-[TIP]
+
+* `SHOW_NAME`, `DESCRIPTION` and `ACTOR_NAME` can be any words
+* `DATE_OF_RELEASE` must be in the format dd/MM/yyyy
+* `SHOW_TYPE` can only be 'movie' or 'tv'
+* `WATCHED` can only be 'true' or 'false'
+* `RUNNING_TIME` can be any number above 0
+
+[TIPS]
 A show can have any number of actors (including 0)
 
 Examples:

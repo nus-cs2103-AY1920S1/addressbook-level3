@@ -148,7 +148,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of main window.
      */
     void fillInnerParts() {
-        showListPanel = new ShowListPanel(logic.getFilteredShowList());
+        showListPanel = new ShowListPanel(logic.getUnWatchedList());
         showListPanel.setMainWindow(this);
         watchedPanel = new WatchedPanel(logic.getWatchedList());
         watchedPanel.setMainWindow(this);
@@ -291,15 +291,27 @@ public class MainWindow extends UiPart<Stage> {
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException {
         try {
-            if (currentTab.equals(WATCHED_TAB)) { // to ensure that the command executed is based off watched list index
-                logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
+            switch (currentTab) {
+            case (MAIN_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
+                break;
+            case (WATCHED_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
+                break;
+            case (SEARCH_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                break;
+            case (STATISTICS_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                break;
+            default:
+                break;
             }
+
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            //somehow use this code to display list of search results???
-            //showListPanel = new ShowListPanel(logic.getSearchResultList());
-            //contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -324,7 +336,7 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
-        logic.getModel().updateFilteredShowList(Model.PREDICATE_SHOW_ALL_SHOWS);
+        logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
         currentTab = MAIN_TAB;
         move(currentButton, watchlistButton);
         currentButton = watchlistButton;
@@ -337,7 +349,7 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatched() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
-        logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
+        logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
         currentTab = WATCHED_TAB;
         move(currentButton, watchedButton);
         currentButton = watchedButton;

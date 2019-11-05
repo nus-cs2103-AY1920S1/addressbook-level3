@@ -8,7 +8,7 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 
-import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
+import static seedu.ezwatchlist.model.Model.PREDICATE_ALL_SHOWS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,7 +91,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }
         model.setShow(showToEdit, editedShow);
-        model.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
+        model.updateFilteredShowList(PREDICATE_ALL_SHOWS);
         return new CommandResult(String.format(MESSAGE_EDIT_SHOW_SUCCESS, editedShow));
     }
 

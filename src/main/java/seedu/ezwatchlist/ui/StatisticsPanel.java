@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -81,7 +84,9 @@ public class StatisticsPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ShowCard(show, getIndex() + 1).getRoot());
+                ShowCard showCard = new ShowCard(show, getIndex() + 1);
+                setGraphic(showCard.getRoot());
+                showCard.setWatchedListener(new NonChangeableCheckBox(showCard.getWatched(), show));
             }
         }
     }
@@ -115,6 +120,26 @@ public class StatisticsPanel extends UiPart<Region> {
             } else {
                 setGraphic(new RecommendationCard(tv).getRoot());
             }
+        }
+    }
+
+    /**
+     * This class prevents the user from marking the checkbox by clicking
+     *
+     * @author AxxG "How to make checkbox or combobox readonly in JavaFX"
+     */
+    class NonChangeableCheckBox implements ChangeListener<Boolean> {
+        private CheckBox checkBox;
+        private Show show;
+
+        public NonChangeableCheckBox (CheckBox checkBox, Show show) {
+            this.show = show;
+            this.checkBox = checkBox;
+        }
+
+        @Override
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
+            this.checkBox.setSelected(show.isWatched().value);
         }
     }
 }

@@ -2,7 +2,7 @@ package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NUM_OF_EPISODES;
-import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
+import static seedu.ezwatchlist.model.Model.PREDICATE_ALL_SHOWS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -96,7 +96,7 @@ public class WatchCommand extends Command {
         }
 
         model.setShow(showToEdit, editedShow);
-        model.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
+        model.updateFilteredShowList(PREDICATE_ALL_SHOWS);
 
         boolean isWatched = editedShow.isWatched().value;
 
@@ -132,7 +132,7 @@ public class WatchCommand extends Command {
 
         if (showToEdit.getType().equals("Movie")) {
 
-            IsWatched updatedIsWatched = new IsWatched(!showToEdit.isWatched().value);
+            IsWatched updatedIsWatched = new IsWatched(Boolean.toString(!showToEdit.isWatched().value));
             Movie editedShow = new Movie(name, description, updatedIsWatched, dateOfRelease, runningTime, actors);
             editedShow.setPoster(poster);
             editedShow.addGenres(genres);
@@ -146,7 +146,7 @@ public class WatchCommand extends Command {
             IsWatched updatedIsWatched = showToEdit.isWatched();
 
             if (isToggle) {
-                updatedIsWatched = new IsWatched(!showToEdit.isWatched().value);
+                updatedIsWatched = new IsWatched(Boolean.toString(!showToEdit.isWatched().value));
             }
 
             if (seasonsArePresent && !isValidSeasonNumber(showToEdit, numOfSeasonsWatched)) {
@@ -180,9 +180,9 @@ public class WatchCommand extends Command {
                 }
             } else {
                 if (numOfEpisodesWatched == totalNumOfEpisodes) {
-                    updatedIsWatched = new IsWatched(true);
+                    updatedIsWatched = new IsWatched("true");
                 } else {
-                    updatedIsWatched = new IsWatched(false);
+                    updatedIsWatched = new IsWatched("false");
                 }
             }
 

@@ -73,7 +73,7 @@ public class ApiUtil {
         RunningTime runtime = new RunningTime(movie.getRuntime());
         Description overview = new Description(movie.getOverview());
         Date releaseDate = new Date(movie.getReleaseDate());
-        IsWatched isWatched = new IsWatched(false);
+        IsWatched isWatched = new IsWatched("false");
 
         //actors
         Set<Actor> actors = getActors(movie.getCast());
@@ -149,7 +149,7 @@ public class ApiUtil {
         Date date = new Date(series.getFirstAirDate()); //date of release
         int totalNumOfEpisodes = getTotalNumOfEpisodes(seasonsList);
         Description description = new Description(tv.getOverview()); //description
-        IsWatched isWatched = new IsWatched(false);
+        IsWatched isWatched = new IsWatched("false");
 
         //actors
         Credits credits = apiCallTvSeries.getCredits(tvId, null);
