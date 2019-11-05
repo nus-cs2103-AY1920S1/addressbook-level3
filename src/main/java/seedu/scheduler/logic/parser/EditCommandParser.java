@@ -32,6 +32,7 @@ import seedu.scheduler.model.person.Department;
 import seedu.scheduler.model.person.Emails;
 import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.Role;
+import seedu.scheduler.model.person.RoleType;
 import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.tag.Tag;
 
@@ -66,7 +67,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
 
-        if (role.value.equals("interviewee")) {
+        if (role.getRole().equals(RoleType.INTERVIEWEE)) {
             EditIntervieweeDescriptor descriptor = new EditIntervieweeDescriptor();
             fillIntervieweeDescriptor(descriptor, argMultimap);
 
@@ -75,7 +76,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
             return new EditIntervieweeCommand(name, descriptor);
         }
-        if (role.value.equals("interviewer")) {
+        if (role.getRole().equals(RoleType.INTERVIEWER)) {
             EditInterviewerDescriptor descriptor = new EditInterviewerDescriptor();
             fillInterviewerDescriptor(descriptor, argMultimap);
 

@@ -11,5 +11,8 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_CRITICAL_ERROR = "Internal Error!";
     public static final String MESSAGE_INVALID_YEAR_OF_STUDY =
-            "The year of study must be a positive integer within the range [0, 2^31 - 1].";
+            "The year of study must be a positive integer within the range [0, 2^31 - 1].\n"
+            + "Examples:\n"
+            + "Correct: '2019'\n"
+            + "Incorrect: '-1'";
 }

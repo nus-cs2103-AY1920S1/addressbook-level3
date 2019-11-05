@@ -62,9 +62,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         // hierarchical parsing
-        if (role.getRole() == RoleType.INTERVIEWEE) {
+        if (role.getRole().equals(RoleType.INTERVIEWEE)) {
             return parseAddIntervieweeCommand(argMultimap, name, phone, tagList);
-        } else if (role.getRole() == RoleType.INTERVIEWER) {
+        } else if (role.getRole().equals(RoleType.INTERVIEWER)) {
             return parseAddInterviewerCommand(argMultimap, name, phone, tagList);
         }
 

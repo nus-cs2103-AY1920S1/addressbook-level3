@@ -11,6 +11,7 @@ import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.Role;
+import seedu.scheduler.model.person.RoleType;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -40,11 +41,11 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         String deleted;
         try {
-            if (targetRole.value.equals("interviewee")) {
+            if (targetRole.getRole().equals(RoleType.INTERVIEWEE)) {
                 Interviewee i = model.getInterviewee(targetName.fullName);
                 model.deleteInterviewee(i);
                 deleted = i.toString();
-            } else if (targetRole.value.equals("interviewer")) {
+            } else if (targetRole.getRole().equals(RoleType.INTERVIEWER)) {
                 Interviewer i = model.getInterviewer(targetName.fullName);
                 model.deleteInterviewer(i);
                 deleted = i.toString();
