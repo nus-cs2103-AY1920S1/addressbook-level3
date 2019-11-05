@@ -59,7 +59,7 @@ public class InformationDisplay extends UiPart<Region> {
         address.setText(this.person.getAddress().value);
         address.setPrefWidth(150);
         address.setWrapText(true);
-//        gender.setText(this.person.getGender().genderOfPerson);
+        //gender.setText(this.person.getGender().genderOfPerson);
         email.setText(this.person.getEmail().value);
         photo.setImage(new Image(this.person.getPhoto().filePath));
         photo.setPreserveRatio(true);

@@ -33,10 +33,11 @@ public class UndoCommand extends Command {
         }
         Command undoneCommand = model.undo();
         if (undoneCommand instanceof TrainingCommand) {
-            return new CommandResult(MESSAGE_SUCCESS + undoneCommand + " Success!",
-                ((TrainingCommand) undoneCommand).getDate(), model);
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!", ((TrainingCommand) undoneCommand).getDate(), model);
         } else {
-            return new CommandResult(MESSAGE_SUCCESS + undoneCommand + " Success!");
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!");
         }
     }
     @Override

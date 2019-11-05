@@ -24,10 +24,11 @@ public class RedoCommand extends Command {
         } else {
             Command redoneCommand = model.redo();
             if (redoneCommand instanceof TrainingCommand) {
-                return new CommandResult(MESSAGE_SUCCESS + redoneCommand + " Success!",
-                    ((TrainingCommand) redoneCommand).getDate(), model);
+                return new CommandResult(MESSAGE_SUCCESS + redoneCommand
+                    + " Success!", ((TrainingCommand) redoneCommand).getDate(), model);
             } else {
-                return new CommandResult(MESSAGE_SUCCESS + redoneCommand + " Success!");
+                return new CommandResult(MESSAGE_SUCCESS + redoneCommand
+                    + " Success!");
             }
         }
     }
