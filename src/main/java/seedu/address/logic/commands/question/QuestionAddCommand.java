@@ -29,7 +29,7 @@ public class QuestionAddCommand extends QuestionCommand {
         + "Example: question question/ What is 1+1? answer/ 2 type/open\n"
         + "Example: question question/ What is 1+1? answer/ 2 type/ mcq a/ 1 b/ 2 c/ 3 d/ 4";
 
-    public static final String MESSAGE_SUCCESS = "Added question: %1$s";
+    public static final String MESSAGE_SUCCESS = "Added question:\n%1$s";
 
     private final String question;
     private final String answer;

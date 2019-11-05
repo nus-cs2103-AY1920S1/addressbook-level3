@@ -21,7 +21,7 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 Creating and managing your students and classes have never been easier.
 *Njoy* teaching assistant aims to enable teachers to easily manage their students and activities
 right from their keyboard. With just a few commands, you will be able to
-_manage your classes, create questions, generate quizzes and much more!_ Interested?
+_manage your classes, create questions, start a slideshow, generate quizzes and much more!_ Interested?
 Jump to <<Getting Started>> to get started.
 
 == Features Summary
@@ -55,15 +55,19 @@ Simply define a type, a topic and an answer and you are all set.
 Manage your questions using a single interface. Saving questions is easy, simply enter a topic, a question
 and an answer and you are all set!
 
+image::questions/ListQuestionResult.png[]
+
 === Slideshow
-Engage your students in the classroom with our Slideshow feature. Easily display existing questions
+Engage your students in the classroom with our slideshow feature. Easily display existing questions
 without the need to recreate them.
 
+image::questions/SlideshowExample.png[]
+
 ==== Control
-Controlling Slideshow is simple. With just your arrow and space keys, you are in control of the questions.
+Controlling Slideshow is simple. With just your arrow and space keys, you are in control of your questions.
 
 ==== Polling _(MCQ only)_
-Get your students participating in the discussion with the polling feature included in Slideshow. Gather
+Get your students participating in the discussion with the polling feature included in slideshow. Gather
 responses before revealing the answer to test your students' understanding.
 
 
@@ -79,6 +83,7 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing `help` and pressing kbd:[Enter] will open the help window. +
 
+[[Getting-Started-Run]]
 === Running .jar file
 . Download the `njoy.jar` file
 . Double click on `njoy.jar` file to run the application
@@ -134,7 +139,7 @@ different command: `event view` has to be keyed into the command line.
 
 *Command Format*
 ====
-All commands start with a forward slash “/” followed by the command name. Certain commands may include additional options and will be specified in the description. An optional field will be marked ​(optional) beside the field.
+All commands start with a command word (e.g `student`, `question`, `quiz`, `event`, `note`) followed by the command action. Certain commands may include additional keywords and will be specified in the description.
 ====
 
 === Students - `student`
@@ -359,22 +364,31 @@ Shows all the students that belong to group with groupID `G01`
 
 === Questions ​-​ `question`
 
+The questions feature is the starting point for creating quizzes and starting a slideshow. With questions, you are able to manage
+your existing questions, and add new ones which will be automatically saved.
+
+[[Feature-Question-Add]]
 ==== Creating a question
 
 Create and store questions according to the type specified. +
-Format: `question question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+
+[big]*Format:* `question question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
 [NOTE]
-Note that for mcq question type, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
+Note that for mcq question type, it is necessary to input keywords `a/`, `b/`, `c/`, `d/`.
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `question` - Question topic.
-. `answer` - Answer to the question.
-. `type` - Type of question(`open` or `mcq`).
-. `a` - Option A for MCQ.
-. `b` - Option B for MCQ.
-. `c` - Option C for MCQ.
-. `d` - Option D for MCQ.
+|==============================
+| Keyword | Description
+
+| `question` | Question topic.
+| `answer` | Answer to the question.
+| `type` | Type of question(`open` or `mcq`).
+| `a` | Option A for MCQ.
+| `b` | Option B for MCQ.
+| `c` | Option C for MCQ.
+| `d` | Option D for MCQ.
+|==============================
 
 [NOTE]
 Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
@@ -388,23 +402,33 @@ Creates an open ended question with topic _'Which year did Singapore gain indepe
 Creates an mcq with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_ and
 choices _'1965', '1963', '1968', '1970'_.
 
+image::questions/AddQuestion.png[]
+_Creating an open ended question._
+
+{nbsp}
+
 ==== Editing a question
 
-Edit a question currently stored. All fields are *optional*. +
-Format: `question [INDEX] question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+Edit a question currently stored. All keywords are *optional*. +
+
+[big]*Format:* `question [INDEX] question/... answer/... type/... (MCQ KEYWORDS IF APPLICABLE)`
 [NOTE]
 Note that when changing question type from open ended to mcq, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
-. `question` - Question topic.
-. `answer` - Answer to the question.
-. `type` - Type of question(`open` or `mcq`).
-. `a` - Option A for MCQ.
-. `b` - Option B for MCQ.
-. `c` - Option C for MCQ.
-. `d` - Option D for MCQ.
+|==============================
+| Keyword | Description
+
+| `[INDEX]` | The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+| `question` | Question topic.
+| `answer` | Answer to the question.
+| `type` | Type of question(`open` or `mcq`).
+| `a` | Option A for MCQ.
+| `b` | Option B for MCQ.
+| `c` | Option C for MCQ.
+| `d` | Option D for MCQ.
+|==============================
 
 [NOTE]
 Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
@@ -417,33 +441,53 @@ Edits the first question in the list changing existing question topic to _'What 
 * `question 1 type/mcq a/1965 b/1963 c/1968 d/1970` +
 Edits the type of the first question in the list from open ended question to mcq and state choices _'1965', '1963', '1968', '1970'_.
 
+image::questions/EditQuestion.png[]
+_Editing the first question._
+
+{nbsp}
+
 ==== Deleting a question
 
 Delete a question from the question list. +
-Format: `question delete [INDEX]`
 
-The options supported by this feature includes:
+[big]*Format:* `question delete [INDEX]`
 
-. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
+The keywords supported by this feature includes:
+|==============================
+| Keyword | Description
+
+| `[INDEX]` | The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+|==============================
 
 Example:
 
 * `question delete 1` +
 Deletes the first question in the list.
 
+image::questions/DeleteQuestion.png[]
+_Deleting the first question._
+
+{nbsp}
+
 [[Feature-Question-List]]
 ==== Listing your saved questions
 
-Display the stored questions and list them in ascending order according to the time created. +
-Format: `question list`
+Display the stored questions and list them in ascending order according to the time that it was created. +
 
-The options supported by this feature includes: +
-*_-This command does not require any additional options-_*
+[big]*Format:* `question list`
+
+The keywords supported by this feature includes: +
+*_-This command does not require any additional keywords-_*
 
 Example:
 
 * `question list` +
 Lists the question list.
+
+image::questions/ListQuestionResult.png[]
+_Listing saved questions._
+
+{nbsp}
 
 [[Feature-Question-Find]]
 ==== Searching for a question
@@ -453,45 +497,91 @@ Search and display questions using keywords and similar terms.
 The ordering of questions is based on *similarity* and the ordering is such that the question that is most similar
 to your search term will be at the top.
 
-Format: `question find/...`
+[big]*Format:* `question find/...`
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `find` - Search term to find in the list of questions.
+|==============================
+| Keyword | Description
+
+| `find` | Search term to find in the list of questions.
+|==============================
 
 Example:
 
 * `question find/What is 1+1?` +
 Searches through the question list to find questions close to the search term _'What is 1+1?'_.
 
+image::questions/FindQuestion.png[]
+_Finding questions that matches search term._
+
+{nbsp}
+
 ==== Starting a Slideshow
 
 Start a slideshow based on the questions selected. The sequence of the questions displayed will follow the ordering of input. +
-Format: `question slideshow [QUESTIONS INDEX]`
 
-The options supported by this feature includes:
+[big]*Format:* `question slideshow [QUESTIONS INDEX]`
 
-. `[QUESTIONS INDEX]` - Index of questions *separated by a whitespace*.
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `[QUESTIONS INDEX]` | Index of questions *separated by a whitespace*.
 Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+|==============================
 
-The following keys are used to control the slideshow:
+The following controls are used to navigate through the slideshow:
 
-. `Right arrow(→)` - Go to next question.
-. `Left arrow(←)` - Go to previous question.
-. `Esc` - Quit the slideshow.
-. `Space` - Show or hide the answer to the question.
+|==============================
+| Control | Description
 
-The following keys are used for polling for mcq type questions:
+| `Right arrow(→)` | Go to next question.
+| `Left arrow(←)` | Go to previous question.
+| `Esc` | Quit the slideshow.
+| `Space` | Show or hide the answer to the question.
+|==============================
 
-. `1` - Plus one to option A.
-. `2` - Plus one to option B.
-. `3` - Plus one to option C.
-. `4` - Plus one to option D.
+The following controls are used for polling mcq type questions:
+
+|==============================
+| Control | Description
+
+| `1` | Plus one to option A.
+| `2` | Plus one to option B.
+| `3` | Plus one to option C.
+| `4` | Plus one to option D.
+|==============================
 
 Example:
 
 * `question slideshow 1 2 3` +
 Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
+
+image::questions/StartSlideshow.png[]
+_Starting a slideshow._
+
+Below is an example of how to navigate through the slideshow and utilise the polling feature:
+
+*Step 1.* When the slideshow window appears, scroll between the questions using the `Left arrow(←)` and `Right arrow(→)` keys.
+
+image::questions/StartSlideshowResult.png[]
+_Slideshow window appears._
+
+*Step 2.* Use the `Space` key to show or hide the answer. For mcq type questions, you may use the `1-4` keys to add to the poll results for options A to D respectively.
+
+image::questions/SlideshowAllShown.png[]
+_Answer shown with polling results._
+
+*Step 3.* When you want to end the slideshow, use the `Esc` key to exit or navigate beyond the last question of the slideshow and it will automatically exit.
+
+Here is a summary of the various components of the slideshow feature:
+
+image::questions/SlideshowFeatureDescription.png[]
+_Description of the various components._
+
+{nbsp}
 
 === Quizzes ​-​ `quiz`
 
@@ -503,20 +593,7 @@ or even assignments?
 Unfortunately, since majority of the quiz commands rely on question and quiz question indexes, it is entirely up to the user
 to ensure the correct indexes of the questions or quiz questions have been entered.
 
-The following steps attempt to illustrate how one can set up the questions for a quiz.
-
-*Step 1.* First, the user has to think of a question to add to the NJoy Assistant. What question and answer should
-it be? And also, is it an mcq or open-ended question? The image below gives an overview of how to create a question: +
-
-image::CreateQuestion.jpg[]
-_`question question/How many sheeps? answer/5 type/mcq a/1 b/2 c/4 d/5` - creates a sample mcq question._
-
-{nbsp} +
-*Step 2.* The user can create as many questions as he wishes. If the user wishes to view the question indexes at any point of time - the image below gives a reminder of
-how one can view the question list: +
-
-image::QuestionList.jpg[]
-_`question list` - displays the question list._
+You may refer to <<Feature-Question-Add>> for examples on how to add questions and <<Feature-Question-List>> to view the list of questions added.
 
 {nbsp} +
 
@@ -1014,7 +1091,7 @@ image::ExcelFormat.png[]
 === Help ​-​ `help`
 
 Opens up the help window. +
-Format: `help`
+[big]*Format:* `help`
 
 The format supported by this feature includes:
 
@@ -1022,9 +1099,10 @@ _-This command does not require any additional options-_
 
 == FAQ
 
-*Q*: Typing a command result in “Invalid command entered.” +
-*A*: Please ensure that the command is entered as specified in the format above.
-Note that all fields all mandatory unless stated otherwise.​
+*Q*: Where can I find a list of commands? +
+*A*: You may access the help guide included in the application by navigating to `Help > Help F1` located on the menu bar or by pressing the `F1` key.
+*Q*: Unable to run the application. +
+*A*: Please see <<Getting-Started-Run>> on how to start the application.
 
 == Command Summary
 

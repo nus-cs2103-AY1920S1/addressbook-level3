@@ -15,7 +15,7 @@ public class QuestionDeleteCommand extends QuestionCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Deletes a question\n"
         + "Note: index has to be greater than 0";
 
-    public static final String MESSAGE_SUCCESS = "Deleted question: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted question:\n%1$s";
 
     private final Index index;
 

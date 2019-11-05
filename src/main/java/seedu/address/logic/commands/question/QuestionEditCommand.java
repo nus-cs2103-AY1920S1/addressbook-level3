@@ -26,7 +26,7 @@ public class QuestionEditCommand extends QuestionCommand {
         + "Example: answer/ 2\n"
         + "Example: type/ open";
 
-    public static final String MESSAGE_SUCCESS = "Edited question: %1$s";
+    public static final String MESSAGE_SUCCESS = "Edited question:\n%1$s";
 
     private final Index index;
     private final String question;
