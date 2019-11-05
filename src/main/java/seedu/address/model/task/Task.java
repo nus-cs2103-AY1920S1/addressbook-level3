@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -85,8 +86,7 @@ public class Task implements Comparable<Task> {
         Task otherTask = (Task) other;
         return this.heading.equals(otherTask.getHeading())
                 && getDate().equals(otherTask.getDate())
-                && getTime().equals(otherTask.getTime())
-                && getStatusIcon().equals(otherTask.getStatusIcon());
+                && getTime().equals(otherTask.getTime());
     }
 
     /**
@@ -115,22 +115,20 @@ public class Task implements Comparable<Task> {
 
     @Override
     public int compareTo(Task task) {
-        int compareDate = this.getDate().compareTo(task.getDate());
-        if (compareDate != 0) {
-            return compareDate;
-        }
-
-        int compareTime = this.getTime().compareTo(task.getTime());
-        if (compareTime != 0) {
-            return compareTime;
-        }
-
-        if (this.getStatus() && !task.getStatus()) {
-            return -1;
-        } else if (!this.getStatus() && task.getStatus()) {
-            return 1;
+        LocalDateTime thisDateTime = LocalDateTime.of(this.getDate(), this.getTime());
+        LocalDateTime otherDateTime = LocalDateTime.of(task.getDate(), task.getTime());
+        if (thisDateTime.isBefore(otherDateTime)) {
+            return thisDateTime.compareTo(otherDateTime);
         } else {
-            return 0;
+            if (this.getStatus() == task.getStatus()) {
+                return this.getHeading().toString().compareTo(task.getHeading().toString());
+            } else {
+                if (this.getStatus()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
         }
     }
 }

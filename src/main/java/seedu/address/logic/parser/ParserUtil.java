@@ -16,6 +16,7 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.QuestionBody;
 import seedu.address.model.question.Subject;
+import seedu.address.model.task.Heading;
 import seedu.address.model.task.Task;
 
 /**
@@ -134,6 +135,21 @@ public class ParserUtil {
             throw new ParseException(Difficulty.MESSAGE_CONSTRAINTS);
         }
         return new Difficulty((trimmedDifficulty));
+    }
+
+    /**
+     * Parses a {@code String heading} into a {@code Heading}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code heading} is invalid.
+     */
+    public static Heading parseHeading(String heading) throws ParseException {
+        requireNonNull(heading);
+        String trimmedHeading = heading.trim();
+        if (!Heading.isValidHeading(trimmedHeading)) {
+            throw new ParseException(Heading.MESSAGE_CONSTRAINTS);
+        }
+        return new Heading(trimmedHeading);
     }
 
     /**

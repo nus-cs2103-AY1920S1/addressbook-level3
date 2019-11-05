@@ -558,7 +558,7 @@ Priorities:
 
 *MSS*
 
-1. Student gives the command to add a lecture note – `addnote -t TITLE -c CONTENT`
+1. Student gives the command to add a lecture note – `addnote t/TITLE c/CONTENT`
 2. Application shows a lecture note with the given title and contents to the user
 3. Application also updates the lecture note list with the new note
 
@@ -567,7 +567,7 @@ Use case ends
 *Extensions*
 
 [none]
-* 1a. Student also gives `-i` in the command
+* 1a. Student also gives `i/` in the command
 [none]
 ** 1a1. Application brings up a file selection dialog
 ** 1a2. Student selects the image they wish to include in the lecture note
@@ -818,7 +818,6 @@ Use case ends
 * Use case resumes at step 2
 // end::usecasew[]
 
-// tag::quizUseCase[]
 [discrete]
 === Use case: Delete an existing question (Dongjun)
 
@@ -839,6 +838,7 @@ Use case ends
 ** 1a2. Student enters the valid index
 * Use case resumes from step 1
 
+// tag::quizUseCase[]
 [discrete]
 === Use case: Take a test (Dongjun)
 
