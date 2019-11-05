@@ -25,6 +25,8 @@ public class JsonImportUtil {
      * @throws DataConversionException If there is an error in converting the data from the file
      */
     public static Optional<List<FlashCard>> importFlashCardsFromJson(JsonExportPath jsonExportPath) throws DataConversionException {
+        assert JsonExportPath.isValid(jsonExportPath.toString());
+
         return readFromOptionalKfc(
                 getOptionalKfc(
                         jsonExportPath

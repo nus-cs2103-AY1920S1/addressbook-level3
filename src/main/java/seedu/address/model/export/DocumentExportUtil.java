@@ -27,6 +27,8 @@ public class DocumentExportUtil {
      * @throws IOException If an error arises in writing to the File.
      */
     public static void exportFlashCardsToDocument(List<FlashCard> cards, DocumentPath documentPath) throws IOException {
+        assert DocumentPath.isValid(documentPath.toString());
+
         XWPFDocument doc = new XWPFDocument();
 
         for (FlashCard card : cards) {
