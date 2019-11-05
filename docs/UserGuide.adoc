@@ -45,6 +45,7 @@ This section contains the features and their respective commands
 * Items in square brackets are optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
 * Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
 * Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
+* Currently, our application does not support emoji.
 ====
 
 // tag::flashcard[]
