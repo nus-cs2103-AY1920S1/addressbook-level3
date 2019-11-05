@@ -94,7 +94,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         codeWindow = new CodeWindow();
         financialTrackerPage = new FinancialTrackerPage();
         calendarPage = new CalendarPage();
-        itineraryPage = new ItineraryPage(primaryStage);
+        itineraryPage = new ItineraryPage(logic.getItineraryLogic());
         diaryPage = new DiaryPage(logic.getDiaryLogic());
         achievementsPage = new AchievementsPage(primaryStage, logic.getAchievementsLogic());
         addressBookPage = new AddressBookPage(primaryStage, logic.getAddressBookLogic());
