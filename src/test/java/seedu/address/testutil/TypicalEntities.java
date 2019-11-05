@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ADMIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_BOB;
+import static seedu.address.testutil.IncidentBuilder.DEFAULT_VEHICLE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,6 +81,9 @@ public class TypicalEntities {
 
     private static final IncidentDateTime validDateTime = new IncidentDateTime("2016-12-02T14:30:40");
     private static final IncidentId commonIncidentId = new IncidentId("1220160001");
+    private static final Incident COMMON_INCIDENT = new Incident(ALICE, new District(2), validDateTime,
+            commonIncidentId, new CallerNumber("91234567"), new Description("test"),
+            Incident.Status.SUBMITTED_REPORT, DEFAULT_VEHICLE);
     private TypicalEntities() {} // prevents instantiation
 
     /**
@@ -107,7 +111,7 @@ public class TypicalEntities {
         Incident secondIncident = new Incident(ALICE, new District(3), validDateTime,
                 commonIncidentId,
                 new CallerNumber("90878965"),
-                new Description("Pickpocket spotted at the pasar malam in District 3"),
+                new Description("Thief spotted"),
                 Incident.Status.SUBMITTED_REPORT,
                 new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GBC1434D"),
                         new District(4), new Availability("BUSY")));

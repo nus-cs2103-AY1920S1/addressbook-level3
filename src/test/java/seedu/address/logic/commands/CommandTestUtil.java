@@ -92,6 +92,7 @@ public class CommandTestUtil {
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
+            //System.out.println(ce.toString());
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
@@ -147,7 +148,6 @@ public class CommandTestUtil {
         String[] descriptionArr = incident.getDesc().toString().split(" ", 2);
         final Description description = new Description(descriptionArr[0]);
         model.updateFilteredIncidentList(new DescriptionKeywordsPredicate(Arrays.asList(descriptionArr)));
-
-        assertEquals(2, model.getFilteredIncidentList().size());
+        assertEquals(1, model.getFilteredIncidentList().size());
     }
 }
