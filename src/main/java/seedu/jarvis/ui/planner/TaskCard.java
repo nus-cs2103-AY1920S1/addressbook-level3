@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.enums.TaskType;
 import seedu.jarvis.model.planner.tasks.Deadline;
