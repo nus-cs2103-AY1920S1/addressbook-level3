@@ -76,9 +76,4 @@ public class TaskSource {
     public Set<String> getTags() {
         return tags;
     }
-
-    /*
-    TODO: implement the following method:
-    public String toIcsString
-    */
 }
