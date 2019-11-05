@@ -2,6 +2,7 @@ package seedu.deliverymans.model.deliveryman.deliverymanstatistics;
 
 import static seedu.deliverymans.model.deliveryman.deliverymanstatistics.State.HIGH;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatistics.State.LOW;
+import static seedu.deliverymans.model.deliveryman.deliverymanstatistics.State.MAX;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatistics.State.MODERATE;
 
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ public class Analyzer {
     private static double highUtilisationBoundary = 80.0;
     private static double lowActivityBoundary = 40.0;
     private static double highActivityBoundary = 90.0;
+    private static double maxBoundary = 100;
 
     public Analyzer() {}
 
@@ -40,15 +42,18 @@ public class Analyzer {
     public StatisticsRecordCard analyze(StatisticsRecordCard recordCard, ObservableList<Deliveryman> availableMenList,
                                         ObservableList<Deliveryman> unavailableMenList,
                                         ObservableList<Deliveryman> deliveringMenList) {
-        recordCard.editCard(
-                calcAvailableMen(availableMenList),
-                calcUnavailableMen(unavailableMenList),
-                calcDeliveringMen(deliveringMenList),
-                calcTotalMenSize(availableMenList, unavailableMenList, deliveringMenList),
-                calcUtilisationLevel(availableMenList, unavailableMenList, deliveringMenList),
-                calcActivityLevel(availableMenList, unavailableMenList, deliveringMenList),
-                HIGH,
-                MODERATE);
+        int availableMen = calcAvailableMen(availableMenList);
+        int unavailableMen = calcUnavailableMen(unavailableMenList);
+        int deliveringMen = calcDeliveringMen(deliveringMenList);
+        int totalMen = calcTotalMenSize(availableMenList, unavailableMenList, deliveringMenList);
+        double utilisationLevel = calcUtilisationLevel(availableMenList, unavailableMenList, deliveringMenList);
+        double activityLevel = calcActivityLevel(availableMenList, unavailableMenList, deliveringMenList);
+
+        State utilisationState = calcUtilisationState(utilisationLevel);
+        State activityState = calcActivityState(activityLevel);
+
+        recordCard.editCard(availableMen, unavailableMen, deliveringMen, totalMen, utilisationLevel, activityLevel,
+                utilisationState, activityState);
 
         return recordCard;
     }
@@ -74,23 +79,42 @@ public class Analyzer {
 
     private double calcUtilisationLevel(ObservableList<Deliveryman> list1, ObservableList<Deliveryman> list2,
                                         ObservableList<Deliveryman> list3) {
-        return (double) calcDeliveringMen(list3) / (calcDeliveringMen(list3) + calcAvailableMen(list1)) * 100;
+        return ((double) calcDeliveringMen(list3) / (calcDeliveringMen(list3) + calcAvailableMen(list1))) * 100.0;
     }
 
     private double calcActivityLevel(ObservableList<Deliveryman> list1, ObservableList<Deliveryman> list2,
                                      ObservableList<Deliveryman> list3) {
-        return (double) ((calcDeliveringMen(list3) + calcAvailableMen(list1)) / (calcTotalMenSize(list1, list2, list3)))
-                * 100;
+        return ( (double) (calcDeliveringMen(list3) + calcAvailableMen(list1)) / (calcTotalMenSize(list1, list2, list3)))
+                * 100.00;
     }
 
     // ======= Functions to calculate state levels ============================================================
 
     private State calcUtilisationState(double utilLevel) {
-        return HIGH;
+        if (utilLevel <= lowUtilisationBoundary) {
+            return LOW;
+        } else if (utilLevel == maxBoundary) {
+            return MAX;
+        } else if (utilLevel >= highUtilisationBoundary) {
+            return HIGH;
+        } else {
+            return MODERATE;
+        }
     }
 
     private State calcActivityState(double activeLevel) {
-        return LOW;
+        if (activeLevel <= lowActivityBoundary) {
+            return LOW;
+        } else if (activeLevel == maxBoundary) {
+            return MAX;
+        } else if (activeLevel >= highActivityBoundary) {
+            return HIGH;
+        } else {
+            return MODERATE;
+        }
     }
 
+    // ======= Functions to alter boundary values ============================================================
+
+    private void changeBoundaryValues() {}
 }
