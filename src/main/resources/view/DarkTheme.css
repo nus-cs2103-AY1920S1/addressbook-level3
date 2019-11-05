@@ -359,7 +359,8 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 14;
-  
+}
+
 #budgetInfo .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
