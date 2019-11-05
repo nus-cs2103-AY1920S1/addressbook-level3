@@ -257,7 +257,7 @@ public class FileUtil {
      * @return True if the file is a valid image file path.
      * @throws IOException Unexpected error encountered from probeContentType().
      */
-    private static boolean isValidImageExtension(Path filePath) throws IOException {
+    public static boolean isValidImageExtension(Path filePath) throws IOException {
         return !(new Image(filePath.toUri().toURL().toString()).isError());
     }
 
