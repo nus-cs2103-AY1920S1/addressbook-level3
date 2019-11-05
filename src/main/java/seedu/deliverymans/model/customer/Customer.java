@@ -63,8 +63,8 @@ public class Customer {
     /**
      * Constructor for saving to storage
      */
-    public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags, ObservableMap<Tag, Integer> totalTags,
-                    ObservableList<Order> orders) {
+    public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags,
+                    ObservableMap<Tag, Integer> totalTags, ObservableList<Order> orders) {
         requireAllNonNull(userName, phone, tags, orders);
         this.userName = userName;
         this.name = name;

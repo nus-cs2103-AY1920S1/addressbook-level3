@@ -5,13 +5,7 @@ import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_USERNAME;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.customer.CustomerEditCommand;
@@ -21,8 +15,6 @@ import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.model.Tag;
-
 
 /**
  * Parses input arguments and creates a new EditCommand object

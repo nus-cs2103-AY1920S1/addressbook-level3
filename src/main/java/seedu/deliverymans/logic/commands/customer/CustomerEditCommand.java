@@ -8,11 +8,8 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
@@ -24,7 +21,6 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
-import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.customer.Address;
 import seedu.deliverymans.model.customer.Customer;
 
