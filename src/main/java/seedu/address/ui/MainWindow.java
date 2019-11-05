@@ -44,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private ProjectionListPanel projectionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -155,7 +156,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getUserStateFilePath());
+        statusBarFooter = new StatusBarFooter(logic.getUserStateFilePath(), transactionList);
         statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -197,7 +198,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -252,6 +253,9 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isSwitchTab()) {
                 handleSwitchTab(commandResult.getTab());
             }
+
+            ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+            statusBarFooter.setBalance(transactionList);
 
             return commandResult;
         } catch (CommandException | ParseException e) {

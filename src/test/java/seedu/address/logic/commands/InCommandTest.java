@@ -60,11 +60,13 @@ public class InCommandTest {
                 .withAmount("100")
                 .withDate("10102019")
                 .build();
+
         BankAccountOperation secondTransaction = new BankOperationBuilder()
                 .withCategories("Drinks")
                 .withAmount("80")
                 .withDate("10102019")
                 .build();
+
         InCommand addFirstCommand = new InCommand(firstTransaction);
         InCommand addSecondCommand = new InCommand(secondTransaction);
 

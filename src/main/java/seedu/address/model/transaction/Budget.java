@@ -69,7 +69,6 @@ public class Budget {
         return String.format("%d more days", this.between);
     }
 
-
     public boolean isValid() {
         return this.valid;
     }
@@ -125,7 +124,6 @@ public class Budget {
      * Checks if the given budget is the same Budget object as this budget.
      *
      * @param otherBudget
-     * @return
      */
     public boolean isSameBudget(Budget otherBudget) {
         if (otherBudget == this) {
