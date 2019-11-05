@@ -43,4 +43,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_EVENT_DATETIME_RANGE = "Invalid event date time range."
             + " Start date time should be earlier than end date time.";
     public static final String MESSAGE_MISSING_EVENT_NAME = "Event name cannot be empty or blank.";
+    public static final String MESSAGE_SCREENSHOT_SCHEDULE_FILE_ERROR = "Event Screenshot Command Error. "
+            + "Printable file name field cannot be empty or have any special characters \\ / : * ? \" < > |";
 }

@@ -19,6 +19,9 @@ import seedu.address.model.student.exceptions.DuplicateStudentException;
 import seedu.address.testutil.student.StudentBuilder;
 import seedu.address.testutil.student.TypicalStudents;
 
+/**
+ * Test for the StudentRecord model.
+ */
 public class StudentRecordTest {
     private final StudentRecord studentRecord = new StudentRecord();
     private final Student student = TypicalStudents.STUDENT_ONE;

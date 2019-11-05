@@ -256,17 +256,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Handles Taking a screenshot of the schedule
-     * @param targetFilePath the targetFilePath to save the screenshot to
+     * Handles Taking a screenshot of the schedule, opens full screen window of event schedule and takes a screenshot.
+     * @param targetPrintableFileName the fileName of the screenshots
      * @throws IOException for invalid path specified
      */
     @FXML
-    public void handleScheduleScreenshot(String targetFilePath) throws IOException {
+    public void handleScheduleScreenshot(String targetPrintableFileName) throws IOException {
         EventScheduleWindow eventScheduleWindow = new EventScheduleWindow(new Stage(), eventSchedulePanel.getRoot());
         eventScheduleWindow.show();
         WritableImage scheduleSnapShotImage = eventScheduleWindow.takeSnapShot();
         try {
-            logic.savePrintable(new SchedulePrintable(scheduleSnapShotImage, targetFilePath));
+            logic.savePrintable(new SchedulePrintable(scheduleSnapShotImage, targetPrintableFileName));
         } catch (IOException ex) {
             eventScheduleWindow.close();
             mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
@@ -399,7 +399,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleQuestionSearch();
                 break;
             case SCHEDULE_SCREENSHOT:
-                handleScheduleScreenshot(commandResult.getTargetFilePath());
+                handleScheduleScreenshot(commandResult.getTargetPrintableFileName());
                 break;
             default:
                 break;

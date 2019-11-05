@@ -11,7 +11,7 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    private String targetFilePath;
+    private String targetPrintableFileName;
 
     /**
      * Represents the type of Command entered.
@@ -32,10 +32,10 @@ public class CommandResult {
     }
 
     public CommandResult(String feedbackToUser, CommandResultType commandResultType,
-                         String targetFilePath) {
+                         String targetPrintableFileName) {
         this.feedbackToUser = feedbackToUser;
-        this.commandResultType = commandResultType;
-        this.targetFilePath = targetFilePath;
+        this.commandResultType = commandResultType;;
+        this.targetPrintableFileName = targetPrintableFileName;
     }
 
     public String getFeedbackToUser() {
@@ -46,19 +46,11 @@ public class CommandResult {
         return commandResultType;
     }
 
-    public void setResultType(CommandResultType resultType) {
-        this.commandResultType = resultType;
-    }
-
-    public String getTargetFilePath() throws NullPointerException {
-        if (targetFilePath == null) {
-            throw new NullPointerException("no target file path specified in command result");
+    public String getTargetPrintableFileName() throws NullPointerException {
+        if (targetPrintableFileName == null) {
+            throw new NullPointerException("no target export file name specified in command result");
         }
-        return targetFilePath;
-    }
-
-    public void setTargetFilePath(String targetFilePath) {
-        this.targetFilePath = targetFilePath;
+        return targetPrintableFileName;
     }
 
     @Override

@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GET_INDEX;
@@ -61,7 +60,7 @@ public class EventCommandParser implements Parser<EventCommand> {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer
-            .tokenize(args, PREFIX_EVENT,
+            .tokenize(args,
                     PREFIX_EVENT_NAME,
                     PREFIX_START_DATETIME,
                     PREFIX_END_DATETIME,
@@ -71,7 +70,6 @@ public class EventCommandParser implements Parser<EventCommand> {
                     PREFIX_VIEW,
                     PREFIX_DELETE,
                     PREFIX_EXPORT,
-                    PREFIX_DIRECTORY,
                     PREFIX_VIEW_MODE,
                     PREFIX_VIEW_DATE,
                     PREFIX_SCREENSHOT);
@@ -93,7 +91,7 @@ public class EventCommandParser implements Parser<EventCommand> {
         if (argMultimap.getValue(PREFIX_VIEW).isPresent()) { // View command
             return viewCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_SCREENSHOT).isPresent()) { //screenshot Command
-            return screenshotCommand(argMultimap);
+            return screenshotCommand();
         } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { //Export Command
             return exportCommand();
         } else if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
@@ -110,18 +108,10 @@ public class EventCommandParser implements Parser<EventCommand> {
     /**
      * Performs validation and return the EventScreenshot Object
      *
-     * @param argMultimap for tokenized input.
      * @return EventScreenshotCommand object.
-     *      * @throws ParseExceptions
      */
-    private EventScreenshotCommand screenshotCommand(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_DIRECTORY) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EventScreenshotCommand.MESSAGE_USAGE));
-        }
-        String targetDirectory = argMultimap.getValue(PREFIX_DIRECTORY).orElse("");
-
-        return new EventScreenshotCommand(targetDirectory);
+    private EventScreenshotCommand screenshotCommand() {
+        return new EventScreenshotCommand();
     }
 
     /**
@@ -160,7 +150,7 @@ public class EventCommandParser implements Parser<EventCommand> {
      * @return EventEditCommand object.
      * @throws ParseException
      */
-    private EventEditCommand editCommand(Index index, ArgumentMultimap argMultimap) {
+    private EventEditCommand editCommand(Index index, ArgumentMultimap argMultimap) throws ParseException{
         HashMap<String, String> fields = new HashMap<>();
 
         String eventName = argMultimap.getValue(PREFIX_EVENT_NAME).orElse("");
@@ -168,6 +158,11 @@ public class EventCommandParser implements Parser<EventCommand> {
         String endDateTime = argMultimap.getValue(PREFIX_END_DATETIME).orElse("");
         String recurType = argMultimap.getValue(PREFIX_RECUR).orElse("");
         String colorString = argMultimap.getValue(PREFIX_COLOR).orElse("");
+
+        if ((eventName.isBlank() && startDateTime.isBlank() && endDateTime.isBlank() && recurType.isBlank() &&
+                recurType.isBlank() && colorString.isBlank())) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventEditCommand.MESSAGE_USAGE));
+        }
 
         fields.put("eventName", eventName);
         fields.put("startDateTime", startDateTime);
@@ -218,15 +213,19 @@ public class EventCommandParser implements Parser<EventCommand> {
                 PREFIX_END_DATETIME, PREFIX_RECUR, PREFIX_COLOR)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                String
-                    .format(MESSAGE_INVALID_COMMAND_FORMAT, EventAddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventAddCommand.MESSAGE_USAGE));
         }
 
-        String eventName = argMultimap.getValue(PREFIX_EVENT_NAME).orElse("");
-        String startDateTime = argMultimap.getValue(PREFIX_START_DATETIME).orElse("");
-        String endDateTime = argMultimap.getValue(PREFIX_END_DATETIME).orElse("");
-        String recurType = argMultimap.getValue(PREFIX_RECUR).orElse("");
-        String colorNumber = argMultimap.getValue(PREFIX_COLOR).orElse("");
+        String eventName = argMultimap.getValue(PREFIX_EVENT_NAME).orElse("").trim();
+        String startDateTime = argMultimap.getValue(PREFIX_START_DATETIME).orElse("").trim();
+        String endDateTime = argMultimap.getValue(PREFIX_END_DATETIME).orElse("").trim();
+        String recurType = argMultimap.getValue(PREFIX_RECUR).orElse("").trim();
+        String colorNumber = argMultimap.getValue(PREFIX_COLOR).orElse("").trim();
+
+        if (eventName.isBlank() || startDateTime.isBlank() || endDateTime.isBlank() || recurType.isBlank()
+            || colorNumber.isBlank()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventAddCommand.MESSAGE_USAGE));
+        }
 
         return new EventAddCommand(eventName, startDateTime, endDateTime, recurType, colorNumber);
     }

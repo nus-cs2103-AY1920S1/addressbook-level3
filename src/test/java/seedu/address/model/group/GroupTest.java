@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.group.GroupBuilder;
 import seedu.address.testutil.group.TypicalGroups;
 
+/**
+ * Test for the Group Model.
+ */
 public class GroupTest {
 
     private static final Group EMPTY_GROUP = new Group("empty");

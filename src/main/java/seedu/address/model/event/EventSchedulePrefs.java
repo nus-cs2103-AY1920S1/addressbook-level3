@@ -55,4 +55,13 @@ public class  EventSchedulePrefs {
         return otherPrefs.getTargetViewDateTime().equals(getTargetViewDateTime())
                 && otherPrefs.getViewMode().equals(getViewMode());
     }
+
+    /**
+     * Formats the event schedule pref object into a printable string format
+     * @return a string representation of the event schedule prefs object
+     */
+    @Override
+    public String toString() {
+        return viewMode.name() + "_" + targetViewDateTime.toLocalDate().toString();
+    }
 }
