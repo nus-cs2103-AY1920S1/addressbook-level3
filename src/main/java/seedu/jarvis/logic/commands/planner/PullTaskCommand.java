@@ -5,15 +5,19 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 import java.util.function.Predicate;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Pulls a list of tasks based on certain specified attributes
  * Attributes are priority, tags and date.
  */
+//TODO tests
 public class PullTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "pull-task";
@@ -58,9 +62,22 @@ public class PullTaskCommand extends Command {
         return HAS_INVERSE;
     }
 
+    /**
+     * Pulls all {@code Task} in the planner that pass the {@code Predicate} of the command.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return {@code Model} of the number of {@code Task} matching the {@code Predicate}.
+     * @throws CommandException
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        model.updateFilteredTaskList(predicate);
+        model.setViewStatus(ViewType.LIST_PLANNER_FIND);
+
+        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),
+                true);
     }
 
     /**
