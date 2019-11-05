@@ -1,6 +1,6 @@
 package seedu.address.transaction.logic.parser;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.logic.commands.Command;
 
 /**
@@ -13,5 +13,5 @@ public interface CommandParserWithPersonModel {
      * and returns a Command object for execution.
      * @throws Exception If the user input does not conform the expected format
      */
-    Command parse(String userInput, GetPersonByNameOnlyModel personModel) throws Exception;
+    Command parse(String userInput, CheckAndGetPersonByNameModel personModel) throws Exception;
 }

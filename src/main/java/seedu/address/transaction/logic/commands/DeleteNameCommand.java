@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_BY_PERSON;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
@@ -23,7 +24,7 @@ public class DeleteNameCommand extends DeleteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
+    public CommandResult execute(Model model, CheckAndGetPersonByNameModel personModel)
             throws NoSuchPersonException {
         requireNonNull(model);
         requireNonNull(personModel);

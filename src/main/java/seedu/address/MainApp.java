@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import seedu.address.inventory.model.ReadInUpdatedListOnlyModel;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.person.commons.core.Config;
 import seedu.address.person.commons.core.LogsCenter;
@@ -18,7 +19,7 @@ import seedu.address.person.commons.util.StringUtil;
 import seedu.address.person.logic.Logic;
 import seedu.address.person.logic.LogicManager;
 import seedu.address.person.model.AddressBook;
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.ReadOnlyAddressBook;
@@ -32,6 +33,7 @@ import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.transaction.model.AddTransactionOnlyModel;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.exception.FileReadWriteException;
 import seedu.address.ui.Ui;
@@ -95,10 +97,10 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
 
         //For Transaction Storage and Model
-        GetPersonByNameOnlyModel getPersonByNameOnlyModel = (GetPersonByNameOnlyModel) model;
+        CheckAndGetPersonByNameModel checkAndGetPersonByNameModel = (CheckAndGetPersonByNameModel) model;
         transactionStorage =
                 new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION),
-                        getPersonByNameOnlyModel);
+                        checkAndGetPersonByNameModel);
         transactionModel = initTransactionModelManager(transactionStorage);
 
         //For Reimbursement Storage and Model
@@ -114,7 +116,7 @@ public class MainApp extends Application {
 
         transactionLogic = new
                 seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage,
-                getPersonByNameOnlyModel);
+                checkAndGetPersonByNameModel);
         //storage,
         //reimbursementModel, reimbursementStorage
 
@@ -132,15 +134,19 @@ public class MainApp extends Application {
         //For Overview Storage and Model
         overviewStorage = new seedu.address.overview.storage.StorageManager(
                 new File("data/overviewInformation.txt"));
-        overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage.readFromFile());
+        overviewModel = new seedu.address.overview.model.ModelManager(initOverviewModelManager(overviewStorage));
 
         //All logic
 
         reimbursementLogic = new
                 seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage, model);
 
-        cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model,
-                transactionModel, inventoryModel);
+        AddTransactionOnlyModel addTransactionOnlyModel = (AddTransactionOnlyModel) transactionModel;
+
+        ReadInUpdatedListOnlyModel readInUpdatedListOnlyModel = (ReadInUpdatedListOnlyModel) inventoryModel;
+
+        cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage,
+                checkAndGetPersonByNameModel, addTransactionOnlyModel, readInUpdatedListOnlyModel);
 
         overviewLogic = new seedu.address.overview.logic.LogicManager(overviewModel, overviewStorage, transactionLogic,
                 inventoryLogic);
@@ -230,6 +236,22 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty reimbursement list");
             return new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
+        }
+    }
+
+    /**
+     * Initialises the overview model. Throws an appropriate error and returns default values if the file is corrupt.
+     * @param storage The storage manager for overview.
+     * @return A double array of the 6 values stored in overview.
+     */
+    private double[] initOverviewModelManager(seedu.address.overview.storage.Storage storage) {
+        try {
+            return storage.readFromFile();
+        } catch (NumberFormatException e) {
+            logger.warning("Data file not in correct format or problem reading from the file. "
+                    + "Will reset all Overview values to 0.");
+        } finally {
+            return new double[6];
         }
     }
 

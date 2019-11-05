@@ -3,8 +3,6 @@ package seedu.address.cashier.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.address.cashier.logic.commands.Command;
-import seedu.address.person.model.Model;
-
 
 /**
  * Contains helper methods for testing command parsers.
@@ -17,7 +15,7 @@ public class CommandParserTestUtil {
      */
     public static void assertCommandParserSuccess(Parser parser, String userInput,
                                                   Command expectedCommand, seedu.address.cashier.model.Model model,
-                                                  Model personModel) {
+                                                  seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         try {
             Command command = parser.parse(userInput, model, personModel);
             System.out.println("expected: " + expectedCommand);
@@ -34,7 +32,7 @@ public class CommandParserTestUtil {
      */
     public static void assertCommandParserFailure(Parser parser, String userInput,
                                                   String expectedMessage, seedu.address.cashier.model.Model model,
-                                                  Model personModel) {
+                                                  seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         try {
             parser.parse(userInput, model, personModel);
             throw new AssertionError("The expected exception was not thrown.");

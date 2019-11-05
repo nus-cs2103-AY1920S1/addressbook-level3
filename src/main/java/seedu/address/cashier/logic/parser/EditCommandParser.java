@@ -35,7 +35,8 @@ public class EditCommandParser implements Parser {
      * @throws NotANumberException if the user input is not a number
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args, Model modelManager, seedu.address.person.model.Model personModel)
+    public EditCommand parse(String args, Model modelManager,
+                             seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
             throws NotANumberException, ParseException, NoSuchItemException,
             InsufficientAmountException, NegativeQuantityException, NoSuchIndexException {
         int index;

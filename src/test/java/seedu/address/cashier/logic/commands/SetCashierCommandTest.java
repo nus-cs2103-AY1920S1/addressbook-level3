@@ -33,7 +33,8 @@ public class SetCashierCommandTest {
 
     @Test
     public void execute_validCashier_setSuccessful() throws NoSuchPersonException, NoSuchIndexException,
-            CommandException, NoCashierFoundException {
+            CommandException, NoCashierFoundException,
+            seedu.address.cashier.logic.commands.exception.NoSuchPersonException {
 
         Person validPerson = new PersonBuilder().build();
         PersonModelStubWithPerson modelStubWithPerson = new PersonModelStubWithPerson(validPerson);
@@ -57,7 +58,8 @@ public class SetCashierCommandTest {
     public void execute_invalidCashier_failure() {
         Person nonExistingPerson = TypicalPersons.AMY;
 
-        PersonModelStubAcceptingPersonAdded personModelStub2 = new PersonModelStubAcceptingPersonAdded();
+        PersonModelStubAcceptingPersonAdded personModelStub2 =
+                new PersonModelStubAcceptingPersonAdded();
         SetCashierCommand setCashierCommand = new SetCashierCommand(nonExistingPerson);
 
         String expectedMessage = String.format(NO_SUCH_PERSON);

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
@@ -38,7 +39,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
+    public CommandResult execute(Model model, CheckAndGetPersonByNameModel personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException {
         Transaction transactionToEdit;
         requireNonNull(model);
@@ -73,7 +74,7 @@ public class EditCommand extends Command {
      */
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
                                                         EditTransactionDescriptor editTransactionDescriptor,
-                                                        seedu.address.person.model.GetPersonByNameOnlyModel
+                                                        CheckAndGetPersonByNameModel
                                                                 personModel) {
 
         String updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());

@@ -111,7 +111,7 @@ public class LogicManagerTest {
 
     @Test
     public void correctValue_getTotalExpenses_success() {
-        assertEquals(212.0, logicManager.getTotalExpenses());
+        assertEquals(-0.0, logicManager.getTotalExpenses());
     }
 
     @Test
@@ -121,7 +121,7 @@ public class LogicManagerTest {
 
     @Test
     public void correctValue_getRemainingBudget_success() {
-        assertEquals(1288.0, logicManager.getRemainingBudget());
+        assertEquals(1500.0, logicManager.getRemainingBudget());
     }
 
     @Test
@@ -160,7 +160,7 @@ public class LogicManagerTest {
 
     @Test
     public void correctValue_getTransactionTotalByCategory_success() {
-        assertEquals(201.0, logicManager.getTransactionTotalByCategory("marketing"));
+        assertEquals(-0.0, logicManager.getTransactionTotalByCategory("marketing"));
     }
 
     @Test
@@ -176,7 +176,7 @@ public class LogicManagerTest {
 
     @Test
     public void correctValue_getBudgetLeftByMonth_success() {
-        assertEquals(1275.0, logicManager.getBudgetLeftByMonth(
+        assertEquals(1487.0, logicManager.getBudgetLeftByMonth(
                 LocalDate.of(2019, Month.SEPTEMBER, 1)));
     }
 

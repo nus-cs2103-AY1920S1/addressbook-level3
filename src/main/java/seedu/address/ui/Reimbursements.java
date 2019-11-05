@@ -52,6 +52,12 @@ public class Reimbursements extends UiPart<Region> {
         });
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, String>("descriptionCol"));
         deadlineCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, String>("deadlineCol"));
+
+        idCol.setSortable(false);
+        personCol.setSortable(false);
+        amountCol.setSortable(false);
+        descriptionCol.setSortable(false);
+        deadlineCol.setSortable(false);
     }
 
     /**
