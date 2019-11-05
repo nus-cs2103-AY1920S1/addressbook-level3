@@ -119,12 +119,12 @@ public class ScriptObjectWrapper {
             return null;
         }
 
-        Integer retInt = get(key, Integer.class);
+        Integer retInt = get(key, Integer.class, false);
         if (retInt != null) {
             return retInt.longValue();
         }
 
-        String retStr = get(key, String.class);
+        String retStr = get(key, String.class, false);
         if (retStr != null) {
             try {
                 return Long.parseLong(retStr, 10);
@@ -133,7 +133,8 @@ public class ScriptObjectWrapper {
             }
         }
 
-        return null;
+        throw new IllegalArgumentException(String.format(MESSAGE_WRONG_TYPE, "int, or a long in a String",
+                so.get(key).getClass().getSimpleName()));
     }
 
     public boolean has(String key) {
