@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.AddEventCommandBuilder.OPTION_END_DATE_TIME;
-import static seedu.address.logic.commands.AddEventCommandBuilder.OPTION_REMIND_DATE_TIME;
-import static seedu.address.logic.commands.AddEventCommandBuilder.OPTION_TAGS;
+import static seedu.address.logic.commands.AddEventCommand.Builder.OPTION_END_DATE_TIME;
+import static seedu.address.logic.commands.AddEventCommand.Builder.OPTION_REMIND_DATE_TIME;
+import static seedu.address.logic.commands.AddEventCommand.Builder.OPTION_TAGS;
 
 import java.util.List;
 

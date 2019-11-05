@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_DESCRIPTION;
-import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_END_DATE_TIME;
-import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_REMIND_DATE_TIME;
-import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_START_DATE_TIME;
-import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_TAGS;
+import static seedu.address.logic.commands.EditEventCommand.Builder.OPTION_DESCRIPTION;
+import static seedu.address.logic.commands.EditEventCommand.Builder.OPTION_END_DATE_TIME;
+import static seedu.address.logic.commands.EditEventCommand.Builder.OPTION_REMIND_DATE_TIME;
+import static seedu.address.logic.commands.EditEventCommand.Builder.OPTION_START_DATE_TIME;
+import static seedu.address.logic.commands.EditEventCommand.Builder.OPTION_TAGS;
 
 import java.time.Duration;
 import java.util.List;

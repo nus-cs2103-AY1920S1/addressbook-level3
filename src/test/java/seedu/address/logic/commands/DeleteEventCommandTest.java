@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.DeleteEventCommandBuilder.OPTION_TAGS;
+import static seedu.address.logic.commands.DeleteEventCommand.Builder.OPTION_TAGS;
 
 import java.util.List;
 

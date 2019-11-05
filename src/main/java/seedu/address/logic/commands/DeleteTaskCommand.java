@@ -7,8 +7,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_INDEX;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.commands.arguments.IndexVariableArguments;
+import seedu.address.logic.commands.arguments.StringVariableArguments;
+import seedu.address.logic.commands.arguments.list.ArgumentList;
+import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
+import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
@@ -24,14 +30,14 @@ public class DeleteTaskCommand extends Command {
     private final List<Integer> indexes;
     private final List<String> tags;
 
-    DeleteTaskCommand(DeleteTaskCommandBuilder builder) {
-        this.model = builder.getModel();
-        this.indexes = builder.getIndexes();
-        this.tags = builder.getTags();
+    private DeleteTaskCommand(Builder builder) {
+        this.model = builder.model;
+        this.indexes = builder.indexes;
+        this.tags = builder.tags;
     }
 
     public static CommandBuilder newBuilder(ModelManager model) {
-        return new DeleteTaskCommandBuilder(model).init();
+        return new Builder(model).init();
     }
 
     @Override
@@ -76,5 +82,44 @@ public class DeleteTaskCommand extends Command {
         return new UserOutput(String.format(MESSAGE_DELETE_TASK_SUCCESS, toDelete.stream()
             .map(TaskSource::getDescription)
             .collect(Collectors.joining(", "))));
+    }
+
+    /**
+     * Represents a CommandBuilder responsible for creating {@link DeleteTaskCommand}.
+     */
+    static class Builder extends CommandBuilder {
+
+        public static final String OPTION_TAGS = "--tag";
+
+        private static final String ARGUMENT_INDEXES = "INDEXES";
+        private static final String ARGUMENT_TAGS = "TAGS";
+
+        private final ModelManager model;
+
+        private List<Integer> indexes;
+        private List<String> tags;
+
+        private Builder(ModelManager model) {
+            this.model = model;
+        }
+
+        @Override
+        protected RequiredArgumentList defineCommandArguments() {
+            return ArgumentList.required()
+                .setVariableArguments(IndexVariableArguments.newBuilder(ARGUMENT_INDEXES, o -> this.indexes = o));
+        }
+
+        @Override
+        protected Map<String, OptionalArgumentList> defineCommandOptions() {
+            return Map.of(
+                OPTION_TAGS, ArgumentList.optional()
+                    .setVariableArguments(StringVariableArguments.newBuilder(ARGUMENT_TAGS, o -> this.tags = o))
+            );
+        }
+
+        @Override
+        protected Command commandBuild() {
+            return new DeleteTaskCommand(this);
+        }
     }
 }
