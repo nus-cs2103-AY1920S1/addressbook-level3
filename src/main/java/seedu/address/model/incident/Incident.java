@@ -168,6 +168,16 @@ public class Incident {
     }
 
     /**
+     * Checks if all required fields in this incident are 'filled' i.e. not null.
+     * @return true if all required incident fields are non-null, false otherwise.
+     */
+    public boolean areAllFieldsFilled() {
+        // method can be extended if new compulsory incident fields are added
+        return this.operator != null && this.district != null && this.incidentDateTime != null && this.id != null
+                && this.callerNumber != null && this.description != null && this.vehicle != null;
+    }
+
+    /**
      * Checks if incident is an incomplete draft.
      * @return true if incident is a incomplete draft, false otherwise.
      */

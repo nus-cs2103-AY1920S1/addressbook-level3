@@ -27,6 +27,8 @@ public class SubmitCommand extends Command {
     public static final String MESSAGE_DRAFT_IS_INCOMPLETE = "This draft is incomplete and is not ready for submission"
             + " Please use the 'Fill' command to first complete the report";
     public static final String MESSAGE_REPORT_HAS_BEEN_SUBMITTED = "This report has already been submitted";
+    public static final String MESSAGE_REPORT_COMPLETE_BUT_UNFILLED = "Error! Report is marked 'Complete' but is not "
+            + "actually fully filled!";
 
     private final Index targetIndex;
 
@@ -73,6 +75,10 @@ public class SubmitCommand extends Command {
             return MESSAGE_DRAFT_IS_INCOMPLETE;
         } else if (toSubmit.isSubmitted()) {
             return MESSAGE_REPORT_HAS_BEEN_SUBMITTED;
+        } else if (!toSubmit.areAllFieldsFilled()) {
+            // defensive programming
+            // confirm that the incident marked as 'complete' is actually fully filled
+            return MESSAGE_REPORT_COMPLETE_BUT_UNFILLED;
         }
 
         // submit incident as it is a complete draft
