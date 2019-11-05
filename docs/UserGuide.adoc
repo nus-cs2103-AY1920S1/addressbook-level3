@@ -207,10 +207,16 @@ Examples: +
 ==== Students grades by student index
 
 Finds all the grades of all the assignments of the student chosen. +
-Format: get s/STUDENT_INDEX
+Format: getgrades STUDENT_INDEX
 
 Examples: +
-* get s/2
+* getgrades 2 +
+
+==== Undone assignments
+
+Finds all the undone assignments in the current classroom. +
+Format: getgrades undone
+
 
 //end::get[]
 
@@ -274,7 +280,7 @@ e.g. setclass c/4C
 * Add Class: addclass n/CLASS +
 e.g. addclass c/4C
 * Add Student: addstudent n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG] … +
-e.g. addstudent n/John Doe p/91234567 e/john_doe@gmail.com pp/98765432
+e.g. addstudent n/John Doe p/91234567 e/john_doe@gmail.com a/National University of Singapore Science Office 117546 pp/98765432
 * Add Assignment: addassignment as/ASSIGNMENT_NAME d/DEADLINE +
 e.g. addassignment as/Math Homework 3 d/31/10/2019 2359
 * Add Lesson: addlesson l/LESSON_NAME st/START_TIME et/END_TIME +
@@ -294,8 +300,9 @@ e.g. liststudents +
 e.g. listassignments
 * Find: findstudent STUDENT_NAME +
 e.g. findstudent John Doe
-* Get: get s/STUDENT_INDEX +
-e.g. get s/2
+* Get: getgrades STUDENT_INDEX OR getgrades undone +
+e.g. getgrades 2 +
+e.g. getgrades undone
 * Delete Student: deletestudent STUDENT_INDEX +
 e.g. deletestudent 3
 * Delete Assignment: deleteassignment ASSIGNMENT_INDEX +
