@@ -33,7 +33,7 @@ public class SetDescriptionExpression extends PerformableExpression {
             Transaction toEdit = account.getTransaction(txnIndex);
             Description updatedDesc = CommandParserUtil.parseDescription(value.toString());
 
-            Transaction updatedTransaction = new Transaction(toEdit.getDate(), toEdit.getAmount(),
+            Transaction updatedTransaction = new Transaction(toEdit.getLocalDate(), toEdit.getAmount(),
                     toEdit.getDirection(), updatedDesc, toEdit.getCategories());
 
             account.updateTransaction(txnIndex, updatedTransaction);

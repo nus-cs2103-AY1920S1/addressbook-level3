@@ -42,7 +42,7 @@ public class SetCategoryExpression extends PerformableExpression {
             }
 
             categories.add(categoryToAdd);
-            Transaction updatedTransaction = new Transaction(toEdit.getDate(), toEdit.getAmount(),
+            Transaction updatedTransaction = new Transaction(toEdit.getLocalDate(), toEdit.getAmount(),
                     toEdit.getDirection(), toEdit.getDescription(), categories);
 
             account.updateTransaction(txnIndex, updatedTransaction);

@@ -30,7 +30,7 @@ public class SwitchDirectionExpression extends PerformableExpression {
         Transaction toEdit = account.getTransaction(txnIndex);
         Direction updatedDirection = toEdit.getDirection().equals(Direction.IN) ? Direction.OUT : Direction.IN;
 
-        Transaction updatedTransaction = new Transaction(toEdit.getDate(), toEdit.getAmount(), updatedDirection,
+        Transaction updatedTransaction = new Transaction(toEdit.getLocalDate(), toEdit.getAmount(), updatedDirection,
                 toEdit.getDescription(), toEdit.getCategories());
 
         account.updateTransaction(txnIndex, updatedTransaction);

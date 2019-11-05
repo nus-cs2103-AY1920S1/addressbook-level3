@@ -8,7 +8,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_UNTIL;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import budgetbuddy.logic.commands.view.ViewFilterCommand;
+import budgetbuddy.logic.commands.viewcommands.ViewFilterCommand;
 import budgetbuddy.logic.parser.ArgumentMultimap;
 import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;

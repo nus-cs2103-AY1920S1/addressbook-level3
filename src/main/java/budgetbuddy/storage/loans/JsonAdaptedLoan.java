@@ -100,7 +100,7 @@ public class JsonAdaptedLoan {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Direction.class.getSimpleName()));
         }
-        if (!Direction.contains(direction)) {
+        if (!Direction.isValidDirection(direction)) {
             throw new IllegalValueException(Direction.MESSAGE_CONSTRAINTS);
         }
         return Direction.valueOf(direction);

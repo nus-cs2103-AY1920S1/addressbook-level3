@@ -1,4 +1,4 @@
-package budgetbuddy.logic.commands.view;
+package budgetbuddy.logic.commands.viewcommands;
 
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACCOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_CATEGORY;

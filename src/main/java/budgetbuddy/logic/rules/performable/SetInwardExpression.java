@@ -30,7 +30,7 @@ public class SetInwardExpression extends PerformableExpression {
         Transaction toEdit = account.getTransaction(txnIndex);
         Direction updatedDirection = Direction.IN;
 
-        Transaction updatedTransaction = new Transaction(toEdit.getDate(), toEdit.getAmount(), updatedDirection,
+        Transaction updatedTransaction = new Transaction(toEdit.getLocalDate(), toEdit.getAmount(), updatedDirection,
                 toEdit.getDescription(), toEdit.getCategories());
 
         account.updateTransaction(txnIndex, updatedTransaction);
