@@ -13,18 +13,18 @@ import java.util.Map;
 public class AssignmentGrades {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Marks should only contain numeric characters and spaces between 0 to 100, and it should not be blank";
+            "Marks should only contain numeric characters and spaces, and it should not be blank";
 
     public static final String SINGLE_ASSIGNMENT_MESSAGE_CONSTRAINTS =
             "There should be only one mark when editing an individual student's marks, which should only contain "
-                    + "numeric characters between 0 to 100, and it should not be blank";
+                    + "numeric characters, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
 
-    public static final String VALIDATION_REGEX = "100|\\d{1,2}";
+    public static final String VALIDATION_REGEX = "\\d+";
 
     private HashMap<String, String> assignmentGrades;
 

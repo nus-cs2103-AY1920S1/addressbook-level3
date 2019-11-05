@@ -35,13 +35,13 @@ public class UpdateGradesCommandParser implements Parser<UpdateGradesCommand> {
         String grade = null;
         boolean updatingIndividualGrades = false;
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ASSIGNMENT, PREFIX_MARKS) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ASSIGNMENT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateGradesCommand.MESSAGE_USAGE));
         }
 
         assignment = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ASSIGNMENT).get());
 
-        if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValue(PREFIX_MARKS).isPresent()) {
             student = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get());
             grade = ParserUtil.parseSingleAssignmentGrade(argMultimap.getValue(PREFIX_MARKS).get());
             updatingIndividualGrades = true;
