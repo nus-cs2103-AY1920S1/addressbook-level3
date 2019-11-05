@@ -56,14 +56,22 @@ public class Note extends StudyBuddyItem {
         return new Content(cleanedContent);
     }
 
+    private List<NoteFragment> getNoteFragments() {
+        return noteFragments;
+    }
+
     public List<NoteFragment> getFilteredNoteFragments(Predicate<? super NoteFragment> predicate) {
         List<NoteFragment> noteFragmentList = new ArrayList<>();
-        for (NoteFragment noteFragment : noteFragments) {
+        for (NoteFragment noteFragment : getNoteFragments()) {
             if (predicate.test(noteFragment)) {
                 noteFragmentList.add(noteFragment);
             }
         }
         return noteFragmentList;
+    }
+
+    public boolean hasNoteFragments() {
+        return !getNoteFragments().isEmpty();
     }
 
     /**
@@ -102,6 +110,20 @@ public class Note extends StudyBuddyItem {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(title, content, getTags());
+    }
+
+    public String toStringWithNoteFragments() {
+        final StringBuilder builder = new StringBuilder(this.toString());
+        if (this.hasNoteFragments()) {
+            builder.append("\n\nNote fragment tags detected:");
+            for (NoteFragment frag : getNoteFragments()) {
+                builder.append(frag.toString())
+                        .append("\n");
+            }
+        } else {
+            builder.append("\n\nThe added Note has no detected note fragment tags!");
+        }
+        return builder.toString();
     }
 
     @Override

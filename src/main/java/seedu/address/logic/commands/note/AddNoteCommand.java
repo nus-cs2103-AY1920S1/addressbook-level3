@@ -70,7 +70,7 @@ public class AddNoteCommand extends Command {
         }
 
         model.addNote(toAdd);
-        return new NoteCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new NoteCommandResult(String.format(MESSAGE_SUCCESS, toAdd.toStringWithNoteFragments()));
     }
 
     @Override
