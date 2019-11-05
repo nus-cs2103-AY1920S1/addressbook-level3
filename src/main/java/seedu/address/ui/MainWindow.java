@@ -158,24 +158,7 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
 
-//        primaryStage.setResizable(true);
-
-        // set listeners to resize responsively
-//        primaryStage.widthProperty().addListener((observableValue, number, number2) -> setCurrentWidthToStage(number2));
-
-//        primaryStage.heightProperty().addListener((observableValue, number, number2) ->
-//                setCurrentHeightToStage(number2));
     }
-
-    /*
-    private void setCurrentWidthToStage(Number number2) {
-        primaryStage.setWidth((double) number2);
-    }
-
-    private void setCurrentHeightToStage(Number number2) {
-        primaryStage.setHeight((double) number2);
-    }
-     */
 
     /**
      * Sets the default theme of +Work based on {@code defaultTheme}.
