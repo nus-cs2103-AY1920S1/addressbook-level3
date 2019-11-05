@@ -53,9 +53,9 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public boolean hasShowName(Name showName) {
         requireNonNull(showName);
-        Show movie = new Movie(showName, new Description(), new IsWatched(false), new Date(),
+        Show movie = new Movie(showName, new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
-        Show tvShow = new TvShow(showName, new Description(), new IsWatched(false), new Date(),
+        Show tvShow = new TvShow(showName, new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()),
                 0, 0, new ArrayList<>());
         return internalList.stream().anyMatch(movie::isSameName) && internalList.stream().anyMatch(tvShow::isSameName);
@@ -99,9 +99,9 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
         requireNonNull(actorSet);
-        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched(false), new Date(),
+        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), actorSet);
-        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched(false), new Date(),
+        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), actorSet,
                 0, 0, new ArrayList<>());
         return internalList.stream().filter(show -> show.hasActorWithName(currentMovie)
@@ -115,10 +115,10 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
         requireNonNull(genreSet);
-        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched(false), new Date(),
+        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
         currentMovie.addGenres(genreSet);
-        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched(false), new Date(),
+        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()),
                 0, 0, new ArrayList<>());
         currentTvShow.addGenres(genreSet);

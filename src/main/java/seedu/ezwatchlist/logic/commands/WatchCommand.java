@@ -132,7 +132,7 @@ public class WatchCommand extends Command {
 
         if (showToEdit.getType().equals("Movie")) {
 
-            IsWatched updatedIsWatched = new IsWatched(!showToEdit.isWatched().value);
+            IsWatched updatedIsWatched = new IsWatched(Boolean.toString(!showToEdit.isWatched().value));
             Movie editedShow = new Movie(name, description, updatedIsWatched, dateOfRelease, runningTime, actors);
             editedShow.setPoster(poster);
             editedShow.addGenres(genres);
@@ -146,7 +146,7 @@ public class WatchCommand extends Command {
             IsWatched updatedIsWatched = showToEdit.isWatched();
 
             if (isToggle) {
-                updatedIsWatched = new IsWatched(!showToEdit.isWatched().value);
+                updatedIsWatched = new IsWatched(Boolean.toString(!showToEdit.isWatched().value));
             }
 
             if (seasonsArePresent && !isValidSeasonNumber(showToEdit, numOfSeasonsWatched)) {
@@ -180,9 +180,9 @@ public class WatchCommand extends Command {
                 }
             } else {
                 if (numOfEpisodesWatched == totalNumOfEpisodes) {
-                    updatedIsWatched = new IsWatched(true);
+                    updatedIsWatched = new IsWatched("true");
                 } else {
-                    updatedIsWatched = new IsWatched(false);
+                    updatedIsWatched = new IsWatched("false");
                 }
             }
 

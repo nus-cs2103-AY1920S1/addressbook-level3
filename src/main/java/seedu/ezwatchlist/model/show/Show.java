@@ -227,6 +227,8 @@ public abstract class Show {
                 .append(getDescription())
                 .append(" Running Time: ")
                 .append(getRunningTime())
+                .append(" Watched: ")
+                .append(isWatched().toString())
                 .append(" Actors: ");
         getActors().forEach(builder::append);
         return builder.toString();
