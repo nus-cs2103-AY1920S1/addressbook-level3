@@ -80,6 +80,7 @@ Types include: +
 `guide` (opens a web browser and bring you to our user guide) +
 `api` (for advanced users who want to know the inner workings of the command)
 
+
 :bulb: A friendly tip:
 ....
 If you type `help` without any other parameters, a window will appear and display a command list with similar instructions to this page!
