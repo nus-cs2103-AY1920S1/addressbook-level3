@@ -53,7 +53,7 @@ image::UiStartPlan.png[]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addprob n/NAME`, `NAME` is a parameter which can be used as `add n/Two Sequences`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addprob n/NAME`, `NAME` is a parameter which can be used as `addprob n/Two Sequences`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/factorial t/recursion` or as `n/factorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/recursion`, `t/recursion t/dynamic-programming` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
@@ -121,6 +121,7 @@ Edits the name of the 2nd problem to be `permutations` and clears all existing t
 Displays a list of all existing problems. +
 Format: `listprob`
 
+// tag::sort[]
 ==== Sorting problems: `sortprob`
 
 Sorts the current list of results by a specified order and direction. +
@@ -142,8 +143,11 @@ Sorts the current list of problems in descending order of author names.
 * `sortprob m/difficulty ord/ascend`
 Sorts the current list of problems from lowest to highest difficulty.
 
+// end::sort[]
+
 === Searching Problems
 
+// tag::find[]
 ==== Locating problems: `findprob`
 
 Finds problems fulfilling all provided constraints. +
@@ -184,6 +188,10 @@ Returns any problem with word `sequence` (case-insensitive) in its name.
 Returns any problem with `algorithm` as one of its tags AND with a difficulty between 2.0 and 4.0 (inclusive).
 * `findprob a/Hentin Marz src/Kattis` +
 Returns any problem from `Kattis` that's authored by `Hentin Marz`.
+
+// end::find[]
+
+// tag::findrule[]
 
 ==== Storing a problem-finding rule: `addfindrule`
 
@@ -241,6 +249,8 @@ Examples:
 * `deletefindrule 2` or `dfr 2` +
 Deletes the 2nd find rule in the displayed list.
 
+// end::findrule[]
+
 === Tags
 
 ==== Creating new tags: `addtag`
@@ -282,7 +292,7 @@ Training plans consist of wrapped-up problems which we call `task` s.
 ==== Adding a plan: `addplan`
 
 Generates a new plan. +
-Format: `add n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
+Format: `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 
 * Plans cannot have duplicate names.
 * `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
@@ -323,9 +333,9 @@ Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DAT
 
 Examples:
 
-* `edit 1 d/past year questions of sit-in labs` +
+* `editplan 1 d/past year questions of sit-in labs` +
 Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
-* `edit 2 start/2019-08-13` +
+* `editplan 2 start/2019-08-13` +
 Edits the starting date of the 2nd plan to be `2019-08-13`.
 
 ==== Listing all plans : `listplan`
@@ -579,8 +589,8 @@ Format: `help [COMMAND_WORD]`
 
 * `help`
 Shows all possible commands.
-* `help add`
-Shows command usage for `add` command.
+* `help addprob`
+Shows command usage for `addprob` command.
 
 ==== Clearing all entries : `clear`
 

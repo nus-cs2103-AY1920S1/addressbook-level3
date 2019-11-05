@@ -1,4 +1,4 @@
-= Lu Wen Qi - Project Portfolio
+= Lu Wenqi - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -21,7 +21,8 @@ AlgoBase is a desktop address book application used for teaching Software Engine
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LuWenQ&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[code contributed]
 
 * *Other contributions*:
 
