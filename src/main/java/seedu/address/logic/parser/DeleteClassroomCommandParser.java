@@ -5,34 +5,34 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSROOM;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddClassroomCommand;
+import seedu.address.logic.commands.DeleteClassroomCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.classroom.Classroom;
 
-
+//@@author weikiat97
 /**
- *
- * Parses input arguments and creates a new AddClassroomCommand object
+ * Parses input arguments and creates a new DeleteClassroomCommand object
  */
-public class AddClassroomCommandParser implements Parser<AddClassroomCommand> {
+public class DeleteClassroomCommandParser {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddClassroomCommand
-     * and returns an AddClassroomCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteClassroomCommand
+     * and returns a DeleteClassroomCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddClassroomCommand parse(String args) throws ParseException {
+    public DeleteClassroomCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CLASSROOM);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CLASSROOM)
-                    || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClassroomCommand.MESSAGE_USAGE));
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteClassroomCommand.MESSAGE_USAGE));
         }
 
         String classroomName = ParserUtil.parseClassroomName(argMultimap.getValue(PREFIX_CLASSROOM).get());
         Classroom classroom = new Classroom(classroomName);
-        return new AddClassroomCommand(classroom.getClassroomName());
+        return new DeleteClassroomCommand(classroom);
     }
 
     /**
@@ -42,5 +42,4 @@ public class AddClassroomCommandParser implements Parser<AddClassroomCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

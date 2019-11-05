@@ -107,7 +107,15 @@ public class UniqueClassroomList implements Iterable<Classroom> {
      */
     public void remove(Classroom toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        boolean found = false;
+        for (Classroom classroom : internalList) {
+            if (classroom.getClassroomName().equals(toRemove.getClassroomName())) {
+                internalList.remove(classroom);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
             throw new ClassroomNotFoundException();
         }
     }

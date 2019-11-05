@@ -49,7 +49,7 @@ public class DeleteAssignmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                   || (other instanceof DeleteStudentCommand // instanceof handles nulls
+                   || (other instanceof DeleteAssignmentCommand // instanceof handles nulls
                            && targetIndex.equals(((DeleteAssignmentCommand) other).targetIndex)); // state check
     }
 }
