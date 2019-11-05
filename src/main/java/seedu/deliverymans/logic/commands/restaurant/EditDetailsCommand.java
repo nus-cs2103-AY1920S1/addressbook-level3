@@ -8,8 +8,10 @@ import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.util.CollectionUtil;
@@ -65,15 +67,24 @@ public class EditDetailsCommand extends Command {
 
         Restaurant restaurantToEdit = model.getEditingRestaurantList().get(0);
         Restaurant editedRestaurant = createEditedRestaurant(restaurantToEdit, editRestaurantDescriptor);
-
         if (!restaurantToEdit.isSameRestaurant(editedRestaurant) && model.hasRestaurant(editedRestaurant)) {
             throw new CommandException(MESSAGE_DUPLICATE_RESTAURANT);
         }
-
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.setEditingRestaurant(editedRestaurant);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         model.updateEditingRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+
+        List<Order> orders = model.getFilteredOrderList().stream()
+                .filter(order -> order.getRestaurant().equals(restaurantToEdit.getName()))
+                .collect(Collectors.toList());
+        for (Order order : orders) {
+            Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
+                    .setRestaurant(editedRestaurant.getName())
+                    .setDeliveryman(order.getDeliveryman())
+                    .setFood(order.getFoodList()).completeOrder();
+            model.setOrder(order, newOrder);
+        }
 
         return new CommandResult(String.format(MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant));
     }
@@ -91,9 +102,10 @@ public class EditDetailsCommand extends Command {
         Rating originalRating = restaurantToEdit.getRating();
         Set<Tag> updatedTags = editRestaurantDescriptor.getTags().orElse(restaurantToEdit.getTags());
         ObservableList<Food> originalMenu = restaurantToEdit.getMenu();
-        ObservableList<Order> originalOrders = restaurantToEdit.getOrders();
+        int originalQuantityOrdered = restaurantToEdit.getQuantityOrdered();
 
-        return new Restaurant(updatedName, updatedLocation, originalRating, updatedTags, originalMenu, originalOrders);
+        return new Restaurant(updatedName, updatedLocation, originalRating, updatedTags, originalMenu,
+                originalQuantityOrdered);
     }
 
     /**

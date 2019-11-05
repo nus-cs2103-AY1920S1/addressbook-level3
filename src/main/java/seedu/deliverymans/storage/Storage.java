@@ -10,7 +10,7 @@ import seedu.deliverymans.model.UserPrefs;
 
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.storage.customer.CustomerDatabaseStorage;
 import seedu.deliverymans.storage.deliveryman.DeliverymenDatabaseStorage;
@@ -56,8 +56,8 @@ public interface Storage extends CustomerDatabaseStorage, DeliverymenDatabaseSto
     void saveRestaurantDatabase(ReadOnlyRestaurantDatabase addressBook) throws IOException;
 
     @Override
-    Optional<ReadOnlyOrderBook> readOrderBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyOrderDatabase> readOrderBook() throws DataConversionException, IOException;
 
     @Override
-    void saveOrderDatabase(ReadOnlyOrderBook orderBook) throws IOException;
+    void saveOrderDatabase(ReadOnlyOrderDatabase orderBook) throws IOException;
 }

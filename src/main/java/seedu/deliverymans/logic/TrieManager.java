@@ -1,4 +1,4 @@
-package seedu.deliverymans.model.trie;
+package seedu.deliverymans.logic;
 
 import java.util.LinkedList;
 
@@ -40,13 +40,13 @@ import seedu.deliverymans.logic.parser.universal.Context;
 /**
  * TO fill
  */
-public class TrieManager {
+class TrieManager {
     private final Trie universalTrie;
     private final Trie customerTrie;
     private final Trie deliverymanTrie;
     private final Trie restaurantTrie;
 
-    public TrieManager() {
+    TrieManager() {
         universalTrie = new Trie();
         customerTrie = new Trie();
         deliverymanTrie = new Trie();
@@ -61,49 +61,49 @@ public class TrieManager {
      * TO fill
      */
     private void addCustomerCommands() {
-        customerTrie.insert(CustomerAddCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerDeleteCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerEditCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerHistoryCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerListCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerSortCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerAddCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerDeleteCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerEditCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerHistoryCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerListCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerSortCommand.COMMAND_WORD);
     }
 
     /**
      * TO fill
      */
     private void addDeliverymanCommands() {
-        deliverymanTrie.insert(DeliverymanAddCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanAssignCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanDeleteCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanEditCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanGetStatisticsCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanListStatusCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanStatusSwitchCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanAddCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanAssignCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanDeleteCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanEditCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanGetStatisticsCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanListStatusCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanStatusSwitchCommand.COMMAND_WORD);
     }
 
     /**
      * TO fill
      */
     private void addRestaurantCommands() {
-        restaurantTrie.insert(AddFoodCommand.COMMAND_WORD);
-        restaurantTrie.insert(AddRatingCommand.COMMAND_WORD);
-        restaurantTrie.insert(AddRestaurantCommand.COMMAND_WORD);
-        restaurantTrie.insert(DeleteFoodCommand.COMMAND_WORD);
-        restaurantTrie.insert(DeleteRestaurantCommand.COMMAND_WORD);
-        restaurantTrie.insert(EditDetailsCommand.COMMAND_WORD);
-        restaurantTrie.insert(EditModeCommand.COMMAND_WORD);
-        restaurantTrie.insert(ExitEditCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(AddFoodCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(AddRatingCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(AddRestaurantCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(DeleteFoodCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(DeleteRestaurantCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(EditDetailsCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(EditModeCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(ExitEditCommand.COMMAND_WORD);
     }
 
     /**
      * TO fill
      */
     private void addUniversalCommands() {
-        insertCommandToAllTries(AddOrderCommand.COMMAND_WORD);
+        insertCommandToAllTries(AddOrderCommand.COMMAND_WORD, AddOrderCommand.getPrefixesList());
         insertCommandToAllTries(CompleteOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(DeleteOrderCommand.COMMAND_WORD);
-        insertCommandToAllTries(EditOrderCommand.COMMAND_WORD);
+        insertCommandToAllTries(EditOrderCommand.COMMAND_WORD, EditOrderCommand.getPrefixesList());
         insertCommandToAllTries(ExitCommand.COMMAND_WORD);
         insertCommandToAllTries(HelpCommand.COMMAND_WORD);
         insertCommandToAllTries(ListOrderCommand.COMMAND_WORD);
@@ -119,25 +119,66 @@ public class TrieManager {
      * TO fill
      */
     private void insertCommandToAllTries(String command) {
-        universalTrie.insert(command);
-        customerTrie.insert(command);
-        deliverymanTrie.insert(command);
-        restaurantTrie.insert(command);
+        universalTrie.insertCommand(command);
+        customerTrie.insertCommand(command);
+        deliverymanTrie.insertCommand(command);
+        restaurantTrie.insertCommand(command);
     }
 
     /**
      * TO fill
      */
-    public LinkedList<String> getAutoCompleteResults(String input, Context context) {
+    private void insertCommandToAllTries(String command, String[] prefixes) {
+        universalTrie.insertCommand(command, prefixes);
+        customerTrie.insertCommand(command, prefixes);
+        deliverymanTrie.insertCommand(command, prefixes);
+        restaurantTrie.insertCommand(command, prefixes);
+    }
+
+    /**
+     * TO fill
+     */
+    LinkedList<String> getAutoCompleteResults(String input, Context context) {
+        int firstSpace = input.indexOf(" ");
+        if (firstSpace == -1) { // no space present - user is still typing in the command word
+            return autocompleteCommandWord(input, context);
+        }
+        // user is typing in prefixes
+        String commandWord = input.substring(0, firstSpace);
+        int lastSpace = input.lastIndexOf(" ");
+        String prefixes = input.substring(lastSpace + 1);
+        return autoCompletePrefix(commandWord, prefixes, context);
+    }
+
+    /**
+     * TO fill
+     */
+    private LinkedList<String> autocompleteCommandWord(String input, Context context) {
         switch (context) {
         case CUSTOMER:
-            return customerTrie.autoComplete(input);
+            return customerTrie.autoCompleteCommandWord(input);
         case DELIVERYMEN:
-            return deliverymanTrie.autoComplete(input);
+            return deliverymanTrie.autoCompleteCommandWord(input);
         case RESTAURANT:
-            return restaurantTrie.autoComplete(input);
+            return restaurantTrie.autoCompleteCommandWord(input);
         default:
-            return universalTrie.autoComplete(input);
+            return universalTrie.autoCompleteCommandWord(input);
+        }
+    }
+
+    /**
+     * TO fill
+     */
+    private LinkedList<String> autoCompletePrefix(String commandWord, String prefixes, Context context) {
+        switch (context) {
+        case CUSTOMER:
+            return customerTrie.autoCompletePrefix(commandWord, prefixes);
+        case DELIVERYMEN:
+            return deliverymanTrie.autoCompletePrefix(commandWord, prefixes);
+        case RESTAURANT:
+            return restaurantTrie.autoCompletePrefix(commandWord, prefixes);
+        default:
+            return universalTrie.autoCompletePrefix(commandWord, prefixes);
         }
     }
 }

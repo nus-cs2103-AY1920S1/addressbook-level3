@@ -147,10 +147,10 @@ public class StatusManager {
     }
 
     /**
-     * Resets the status of the deliveryman after he has successfully completed an order.
+     * Resets the status of the deliveryman after an order has become inactive (ie. deleted or completed).
      */
     public void updateDeliverymanStatusAfterChangesToOrder(Name nameOfDeliveryman) {
-        for (Deliveryman man : deliveringMen ) {
+        for (Deliveryman man : deliveringMen) {
             if (man.getName().equals(nameOfDeliveryman)) {
                 Deliveryman deliveryman = man;
                 updateStatusOf(deliveryman, "AVAILABLE");

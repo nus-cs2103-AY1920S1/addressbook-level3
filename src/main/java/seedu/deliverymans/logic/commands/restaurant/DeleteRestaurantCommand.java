@@ -2,6 +2,7 @@ package seedu.deliverymans.logic.commands.restaurant;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.deliverymans.commons.core.Messages;
@@ -11,6 +12,7 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
+import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -36,14 +38,22 @@ public class DeleteRestaurantCommand extends Command {
     @Override
     public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
-        List<Restaurant> lastShownList = model.getFilteredRestaurantList();
 
+        List<Restaurant> lastShownList = model.getFilteredRestaurantList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
-
         Restaurant restaurantToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteRestaurant(restaurantToDelete);
+
+        List<Order> allOrders = new ArrayList<>(model.getFilteredOrderList());
+        for (Order order : allOrders) {
+            if (order.getRestaurant().equals(restaurantToDelete.getName())) {
+                model.deleteOrder(order);
+                model.updateDeliverymanStatusAfterChangesToOrder(order.getDeliveryman());
+            }
+        }
+
         return new CommandResult(String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, restaurantToDelete));
     }
 

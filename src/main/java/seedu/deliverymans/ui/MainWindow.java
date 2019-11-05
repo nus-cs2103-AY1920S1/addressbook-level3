@@ -135,7 +135,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getOrderBookFilePath()); // to be edited
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         deliverymenStatusListPanel = new DeliverymenStatusListPanel(logic.getAvailableDeliverymenList(),
@@ -186,7 +186,6 @@ public class MainWindow extends UiPart<Stage> {
      * Changes context of the system depending on {@code context}.
      */
     private void changeContext(Context context) {
-
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
 
@@ -220,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
             foodListPanel = new FoodListPanel(editing.getMenu());
             listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-            orderListPanel = new OrderListPanel(editing.getOrders());
+            orderListPanel = new OrderListPanel(editing.getOrders(logic));
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
 
             break;
@@ -281,9 +280,10 @@ public class MainWindow extends UiPart<Stage> {
             } else if (isNewContext) {
                 changeContext(nextContext);
             } else {
-                if (commandResult.isShowHelp()) {
-                    handleHelp();
-                }
+
+            }
+            if (commandResult.isShowHelp()) {
+                handleHelp();
             }
             if (commandResult.isExit()) {
                 handleExit();

@@ -2,7 +2,9 @@ package seedu.deliverymans.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.LinkedList;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
@@ -17,7 +19,7 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsRecordCard;
@@ -37,11 +39,13 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final TrieManager trieManager;
     private final UniversalParser universalParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        this.trieManager = new TrieManager();
         universalParser = new UniversalParser();
     }
 
@@ -66,7 +70,37 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //=========== Autocomplete =========================================================
+    @Override
+    public LinkedList<String> getAutoCompleteResults(String input) {
+        if (input.endsWith("/")) {
+            int index = input.lastIndexOf(" ");
+            if (index != -1) {
+                String prefix = input.substring(index + 1);
+                return getRelevantList(prefix);
+            }
+            return new LinkedList<>();
+        }
+        return trieManager.getAutoCompleteResults(input, currentContext);
+    }
+
+    private LinkedList<String> getRelevantList(String input) {
+        switch(input) {
+        case "c/":
+            return getFilteredCustomerList().stream().map(x -> x.getName().fullName)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        case "r/":
+            return getFilteredRestaurantList().stream().map(x -> x.getName().fullName)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        case "f/":
+            return new LinkedList<>();
+        default:
+            return new LinkedList<>();
+        }
+    }
+
     //=========== Customer =============================================================
+
     @Override
     public ReadOnlyCustomerDatabase getCustomerDatabase() {
         return model.getCustomerDatabase();
@@ -146,7 +180,7 @@ public class LogicManager implements Logic {
 
     //=========== Order =============================================================
     @Override
-    public ReadOnlyOrderBook getOrderBook() {
+    public ReadOnlyOrderDatabase getOrderBook() {
         return model.getOrderDatabase();
     }
 

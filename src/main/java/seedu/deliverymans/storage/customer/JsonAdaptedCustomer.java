@@ -1,8 +1,10 @@
 package seedu.deliverymans.storage.customer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
@@ -30,6 +33,7 @@ public class JsonAdaptedCustomer {
     private final String name;
     private final String phone;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTotalTags> totalTags = new ArrayList<>();
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
 
     /**
@@ -58,6 +62,9 @@ public class JsonAdaptedCustomer {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        totalTags.addAll(source.getTotalTags().entrySet().stream()
+                .map(JsonAdaptedTotalTags::new)
+                .collect(Collectors.toList()));
         orders.addAll(source.getOrders().stream()
                 .map(JsonAdaptedOrder::new)
                 .collect(Collectors.toList()));
@@ -71,6 +78,7 @@ public class JsonAdaptedCustomer {
     public Customer toModelType() throws IllegalValueException {
         final List<Tag> customerTags = new ArrayList<>();
         final List<Order> customerOrders = new ArrayList<>();
+        final Map<Tag, Integer> customerTotalTags = new HashMap<>();
 
         for (JsonAdaptedTag tag : tagged) {
             customerTags.add(tag.toModelType());
@@ -78,6 +86,11 @@ public class JsonAdaptedCustomer {
 
         for (JsonAdaptedOrder order : orders) {
             customerOrders.add(order.toModelType());
+        }
+
+        for (JsonAdaptedTotalTags totalTag : totalTags) {
+            Map.Entry<Tag, Integer> entry = totalTag.toModelType();
+            customerTotalTags.put(entry.getKey(), entry.getValue());
         }
 
         if (name == null) {
@@ -99,7 +112,9 @@ public class JsonAdaptedCustomer {
         final Set<Tag> modelTags = new HashSet<>(customerTags);
         final ObservableList<Order> modelOrders = FXCollections.observableArrayList();
         modelOrders.addAll(customerOrders);
-        return new Customer(modelName, modelPhone, modelTags, modelOrders);
+        final ObservableMap<Tag, Integer> modelTotalTags = FXCollections.observableHashMap();
+        modelTotalTags.putAll(customerTotalTags);
+        return new Customer(modelName, modelPhone, modelTags, modelTotalTags, modelOrders);
     }
 
 }
