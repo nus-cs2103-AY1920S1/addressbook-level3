@@ -23,12 +23,10 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_ANSWER + "ANSWER "
-            + PREFIX_RATING + "RATING "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "End-to-end delay "
             + PREFIX_ANSWER + "2L/R (assuming no other delay) "
-            + PREFIX_RATING + "good "
             + PREFIX_CATEGORY + "CS2105 "
             + PREFIX_CATEGORY + "computerNetworking";
 

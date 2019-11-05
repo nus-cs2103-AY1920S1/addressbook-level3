@@ -130,6 +130,7 @@ image::ClearStep2.png[width="600"]
 === Search for flashcards: `search`
 
 The section will show you 3 methods to search for flashcards. Keywords are case-insensitive.
+Current search function does not support fuzzy search, so remove punctuations when adding the flashcards or include the punctuations for searching
 
 ==== Either the question or the answer matches the keyword(s): "search [keyword(s)]
 
