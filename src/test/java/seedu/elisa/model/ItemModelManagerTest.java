@@ -17,6 +17,7 @@ import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.core.item.ItemDescription;
+import seedu.elisa.commons.core.item.Priority;
 import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.Task;
 import seedu.elisa.commons.exceptions.IllegalValueException;
@@ -162,6 +163,8 @@ public class ItemModelManagerTest {
             assertEquals(1, testModel.getVisualList().size());
             testModel.setVisualList("R");
             assertEquals(1, testModel.getVisualList().size());
+            testModel.setVisualList("C");
+            assertEquals(1, testModel.getVisualList().size());
         } catch (IllegalValueException e) {
             // should not reach this loop as it is already tested above
             fail(e);
@@ -173,6 +176,19 @@ public class ItemModelManagerTest {
         testModel.addItem(validItem);
         assertEquals(validItem, testModel.deleteItem(0));
         assertEquals(0, testModel.getVisualList().size());
+        try {
+            testModel.setVisualList("T");
+            assertEquals(0, testModel.getVisualList().size());
+            testModel.setVisualList("E");
+            assertEquals(0, testModel.getVisualList().size());
+            testModel.setVisualList("R");
+            assertEquals(0, testModel.getVisualList().size());
+            testModel.setVisualList("C");
+            assertEquals(0, testModel.getVisualList().size());
+        } catch (IllegalValueException e) {
+            // should not reach this loop as it is already tested above
+            fail(e);
+        }
     }
 
     @Test
@@ -232,6 +248,77 @@ public class ItemModelManagerTest {
             testModel.setVisualList("R");
             assertThrows(IllegalListException.class, () -> testModel.togglePriorityMode());
         } catch (IllegalValueException e) {
+            fail(e);
+        }
+    }
+
+    @Test
+    public void markComplete_incompleteTask_markTaskAsComplete() {
+        testModel.addItem(template.setTask(new Task(false)).build());
+        try {
+            testModel.markComplete(0);
+            assertTrue(testModel.getItem(0).getTask().get().isComplete());
+        } catch (IllegalListException e) {
+            fail(e);
+        }
+    }
+
+    @Test
+    public void done_inPriorityMode_finishAllTask_priorityModeOff() {
+        testModel.addItem(template.setTask(new Task(false)).build());
+        try {
+            testModel.togglePriorityMode();
+            testModel.markComplete(0);
+            assertFalse(testModel.getPriorityMode().getValue());
+        } catch (IllegalListException e) {
+            fail(e);
+        }
+    }
+
+    @Test
+    public void delete_inPriorityMode_finishAllTask_priorityModeOff() {
+        testModel.addItem(template.setTask(new Task(false)).build());
+        try {
+            testModel.togglePriorityMode();
+            testModel.deleteItem(0);
+            assertFalse(testModel.getPriorityMode().getValue());
+        } catch (IllegalListException e) {
+            fail(e);
+        }
+    }
+
+    @Test
+    public void done_inPriorityMode_getNextTask() {
+        testModel.addItem(template.setTask(new Task(false)).build());
+        Item lowPriority = new Item.ItemBuilder()
+                .setItemPriority(Priority.LOW)
+                .setItemDescription(new ItemDescription("Low priority"))
+                .setTask(new Task(false))
+                .build();
+        testModel.addItem(lowPriority);
+        try {
+            testModel.togglePriorityMode();
+            testModel.markComplete(0);
+            assertEquals(lowPriority, testModel.getVisualList().get(0));
+        } catch (IllegalListException e) {
+            fail(e);
+        }
+    }
+
+    @Test
+    public void delete_inPriorityMode_getNextTask() {
+        testModel.addItem(template.setTask(new Task(false)).build());
+        Item lowPriority = new Item.ItemBuilder()
+                .setItemPriority(Priority.LOW)
+                .setItemDescription(new ItemDescription("Low priority"))
+                .setTask(new Task(false))
+                .build();
+        testModel.addItem(lowPriority);
+        try {
+            testModel.togglePriorityMode();
+            testModel.deleteItem(0);
+            assertEquals(lowPriority, testModel.getVisualList().get(0));
+        } catch (IllegalListException e) {
             fail(e);
         }
     }
