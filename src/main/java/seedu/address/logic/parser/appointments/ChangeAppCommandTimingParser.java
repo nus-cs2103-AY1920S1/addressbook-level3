@@ -77,7 +77,8 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
                 timing = ParserUtil.parseTiming(startString, endString);
             }
             Event eventToEdit = lastShownList.get(idx);
-            Event editedEvent = new Appointment(eventToEdit.getPersonId(), timing, new Status());
+            Event editedEvent = new Appointment(eventToEdit.getPersonId(),
+                    eventToEdit.getPersonName(), timing, new Status());
 
             return new ReversibleActionPairCommand(new ChangeAppCommand(eventToEdit, editedEvent),
                     new ChangeAppCommand(editedEvent, eventToEdit));

@@ -79,7 +79,9 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
             }
             Event eventToEdit = lastShownList.get(idx);
 
-            Event editedEvent = new Event(eventToEdit.getPersonId(), timing, new Status());
+            Event editedEvent = new Event(eventToEdit.getPersonId(),
+                    eventToEdit.getPersonName(),
+                    timing, new Status());
 
             return new ReversibleActionPairCommand(
                     new ChangeDutyShiftCommand(eventToEdit, editedEvent),

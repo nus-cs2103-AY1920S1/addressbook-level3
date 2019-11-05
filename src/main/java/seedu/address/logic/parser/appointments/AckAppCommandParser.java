@@ -65,7 +65,8 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
                 Timing timing = unAck.getEventTiming();
                 Status status = new Status(Status.AppointmentStatuses.ACKNOWLEDGED);
-                Event toAck = new Appointment(referenceId, timing, status);
+                Event toAck = new Appointment(referenceId,
+                        model.resolvePatient(referenceId).getName(), timing, status);
 
                 return new ReversibleActionPairCommand(new AckAppCommand(unAck, toAck),
                         new AckAppCommand(toAck, unAck));

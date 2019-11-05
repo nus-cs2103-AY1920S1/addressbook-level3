@@ -90,7 +90,8 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
 
             Index recursiveTimes = ParserUtil.parseTimes(recursiveStringTimesOptional.get());
             int times = recursiveTimes.getZeroBased() + 1;
-            Event event = new Event(referenceId, timing, new Status());
+
+            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
             List<Event> eventList = getRecEvents(event, recursiveString, times);
             return new ReversibleActionPairCommand(new AddDutyShiftCommand(eventList),
                     new CancelDutyShiftCommand(eventList));
@@ -100,7 +101,8 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddDutyShiftCommand.MESSAGE_USAGE));
             }
-            Event event = new Event(referenceId, timing, new Status());
+
+            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
             return new ReversibleActionPairCommand(
                     new AddDutyShiftCommand(event),
                     new CancelDutyShiftCommand(event));
@@ -128,7 +130,7 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
         }
 
         for (int i = 0; i < times; i++) {
-            eventList.add(new Event(event.getPersonId(), timing, new Status()));
+            eventList.add(new Event(event.getPersonId(), event.getPersonName(), timing, new Status()));
             timing = func.apply(timing);
         }
 
