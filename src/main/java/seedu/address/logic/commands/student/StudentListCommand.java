@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class StudentListCommand extends StudentCommand {
 
-    public static String MESSAGE_SUCCESS = "This is the list of students: \n";
+    public static final String MESSAGE_SUCCESS = "This is the list of students: \n";
 
     /**
      * Executes the student list command.
