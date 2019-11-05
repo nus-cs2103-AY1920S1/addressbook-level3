@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Region?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" >
-  <GridPane HBox.hgrow="ALWAYS">
+  <GridPane HBox.hgrow="ALWAYS" styleClass="autoexp_card">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
          <ColumnConstraints />
@@ -24,10 +24,25 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="desc" styleClass="cell_big_label" text="\$desc" />
-        <Label fx:id="freq" styleClass="cell_big_label" text="\$freq" />
+        <Label fx:id="desc" styleClass="cell_big_label" text="\$desc"/>
+        <Label fx:id="freq" styleClass="cell_big_label" text="\$freq">
+          <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE" />
+          </minWidth>
+        </Label>
       </HBox>
-    <FlowPane GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="tags" />
+
+    <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="5">
+      <Label fx:id="category" styleClass="labelCategoryExpense" style="-fx-background-color: coral" text="/$cat">
+        <minWidth>
+          <!-- Ensures that the label text is never truncated -->
+          <Region fx:constant="USE_PREF_SIZE" />
+        </minWidth>
+      </Label>
+      <FlowPane fx:id="tags" />
+    </HBox>
+
     <Label fx:id="amt" styleClass="cell_big_label_amt" text="\$amt" GridPane.columnIndex="1"/>
     <Label GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="nextTime" styleClass="cell_small_label" text="\$nextTime" />
   </GridPane>

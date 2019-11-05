@@ -39,6 +39,8 @@ public class AutoExpensesCard extends UiPart<Region> {
     @FXML
     private Label amt;
     @FXML
+    private Label category;
+    @FXML
     private FlowPane tags;
 
     public AutoExpensesCard(AutoExpense autoExpense, int displayedIndex) {
@@ -48,11 +50,11 @@ public class AutoExpensesCard extends UiPart<Region> {
 
         String fullDesc = autoExpense.getDesc().fullDesc;
         desc.setText(fullDesc);
-        freq.setText(autoExpense.getFrequency().toString());
+        freq.setText("[" + autoExpense.getFrequency().toString() + "] ");
         //lastTime.setText(autoExpense.getLastTime().toString());
-        nextTime.setText(autoExpense.getNextTime().toString());
-        amt.setText(autoExpense.getAmount().toString());
-        //spent.setText("spent: $" + autoExpense.getSpent().value);
+        nextTime.setText("Next: " + autoExpense.getNextTime().toString());
+        amt.setText("$" + autoExpense.getAmount().toString());
+        category.setText(autoExpense.getCategory().toString());
 
         autoExpense.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

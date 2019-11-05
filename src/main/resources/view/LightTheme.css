@@ -18,6 +18,38 @@
     -fx-text-fill: #010504;
 }
 
+.expense_card {
+    -fx-text-fill: LightSalmon;
+    -fx-border-width: 3px;
+    -fx-border-color: transparent transparent transparent LightSalmon;
+}
+
+.income_card {
+    -fx-text-fill: MediumSeaGreen;
+    -fx-border-width: 3px;
+    -fx-border-color: transparent transparent transparent MediumSeaGreen;
+}
+
+.wish_card {
+    -fx-border-width: 3px;
+    -fx-border-color: transparent transparent transparent MediumPurple;
+}
+
+.autoexp_card {
+    -fx-border-width: 3px;
+    -fx-border-color: transparent transparent transparent Coral;
+}
+
+.reminder_card {
+    -fx-border-width: 3px;
+    -fx-border-color: transparent transparent transparent GoldenRod;
+}
+
+.budget_card {
+    -fx-border-width: 3px;
+    -fx-border-color: transparent transparent transparent SteelBlue;
+}
+
 .stack-pane {
      -fx-background-color: White;
 }
@@ -165,7 +197,7 @@
 
 .labelCategoryIncome {
     -fx-text-fill: white;
-    -fx-background-color: #A9A9A9 ;
+    -fx-background-color: MediumSeaGreen;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
@@ -174,7 +206,7 @@
 
 .labelCategoryExpense {
     -fx-text-fill: white;
-    -fx-background-color: #9400D3 ;
+    -fx-background-color: IndianRed;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

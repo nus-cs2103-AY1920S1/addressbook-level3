@@ -37,6 +37,8 @@ public class WishListCard extends UiPart<Region> {
     @FXML
     private Label amt;
     @FXML
+    private Label category;
+    @FXML
     private FlowPane tags;
 
     public WishListCard(Wish wish, int displayedIndex) {
@@ -48,6 +50,7 @@ public class WishListCard extends UiPart<Region> {
         desc.setText(descWithType);
         date.setText(wish.getDate().toString());
         amt.setText("$" + wish.getAmount().value);
+        category.setText(wish.getCategory().toString());
 
         wish.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
+  <GridPane HBox.hgrow="ALWAYS" styleClass="reminder_card">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
          <ColumnConstraints />
