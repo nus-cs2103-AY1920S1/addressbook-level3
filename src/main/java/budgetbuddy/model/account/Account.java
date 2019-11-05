@@ -175,7 +175,11 @@ public class Account {
 
 
     public String getBalanceString() {
+        if (balance >= 0) {
             return String.format("%s%d.%02d", CURRENCY_SIGN, balance / 100, balance % 100);
+        } else {
+            return "-" + String.format("%s%d.%02d", CURRENCY_SIGN, Math.abs(balance / 100), Math.abs(balance % 100));
         }
+    }
 }
 
