@@ -88,7 +88,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model2, expectedMessage, expectedModel);
     }
 
-    @Test
+    /*@Test
     public void execute_deletePersonPreviouslyInActivity_success() {
         showPersonAtIndex(model2, INDEX_FIRST);
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
@@ -102,7 +102,7 @@ public class DeleteCommandTest {
         expectedModel.updateFilteredPersonList(x -> false);
 
         assertCommandSuccess(deleteCommand, model2, expectedMessage, expectedModel);
-    }
+    }*/
 
     @Test
     public void execute_deletePersonInActivity_throwsCommandException() {
