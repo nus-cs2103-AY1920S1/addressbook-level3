@@ -24,7 +24,7 @@ import static seedu.address.testutil.TypicalTransactions.ALICE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.InCommand;
+import seedu.address.logic.commands.OutCommand;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
@@ -32,38 +32,41 @@ import seedu.address.model.transaction.Description;
 import seedu.address.model.util.Date;
 import seedu.address.testutil.TransactionBuilder;
 
-public class InCommandParserTest {
-    private InCommandParser parser = new InCommandParser();
+public class OutCommandParserTest {
+    private OutCommandParser parser = new OutCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        BankAccountOperation expectedTransaction = new TransactionBuilder(ALICE).build();
+        // original amount made negative to account for Amount.makeNegative() in OutTransaction constructor
+        BankAccountOperation expectedTransaction = new TransactionBuilder(ALICE)
+                .withAmount("-100").build();
         BankAccountOperation expectedTransactionCategories = new TransactionBuilder(ALICE)
-                .withCategories("food", "friends").build();
+                .withAmount("-100").withCategories("food", "friends").build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, new InCommand(expectedTransaction));
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, new OutCommand(expectedTransaction));
 
         // multiple categories
         assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE + " c/friends",
-                new InCommand(expectedTransactionCategories));
+                        + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE + " c/friends",
+                new OutCommand(expectedTransactionCategories));
 
-        assertParseSuccess(parser, " n/milk c/food $/100 d/10112019", new InCommand(expectedTransaction));
+        assertParseSuccess(parser, " n/milk c/food $/100 d/10112019", new OutCommand(expectedTransaction));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE).withCategories().build();
+        BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE)
+                .withAmount("-100").withCategories().build();
         /* TODO: FIX
         assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE, new InCommand(expectedTransaction2));
+                + DESCRIPTION_DESC_ALICE, new OutCommand(expectedTransaction2));
          */
     }
 
     @Test void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE);
 
         // missing amount prefix
         assertParseFailure(parser, " " + VALID_AMOUNT_ALICE + DATE_DESC_ALICE
@@ -87,11 +90,11 @@ public class InCommandParserTest {
 
         // invalid amount (zero)
         assertParseFailure(parser, " " + INVALID_AMOUNT_ZERO_DESC + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, InCommand.MESSAGE_AMOUNT_ZERO);
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, OutCommand.MESSAGE_AMOUNT_ZERO);
 
         // invalid amount (range)
         assertParseFailure(parser, " " + INVALID_AMOUNT_RANGE_DESC + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, InCommand.MESSAGE_AMOUNT_OVERFLOW);
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, OutCommand.MESSAGE_AMOUNT_OVERFLOW);
 
         // invalid amount (double)
         assertParseFailure(parser, " " + INVALID_AMOUNT_TYPE_DESC + DATE_DESC_ALICE
@@ -99,7 +102,7 @@ public class InCommandParserTest {
 
         // invalid amount (overflow)
         assertParseFailure(parser, " " + INVALID_AMOUNT_OVERFLOW_DESC + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, InCommand.MESSAGE_AMOUNT_OVERFLOW);
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, OutCommand.MESSAGE_AMOUNT_OVERFLOW);
 
         // invalid date (format)
         assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + INVALID_DATE_DESC
@@ -118,5 +121,4 @@ public class InCommandParserTest {
                 + DESCRIPTION_DESC_ALICE + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
 
     }
-
 }
