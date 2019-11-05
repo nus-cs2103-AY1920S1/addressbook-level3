@@ -268,7 +268,7 @@ public class LoanSlipUtil {
         try {
             Desktop.getDesktop().open(currentFile);
         } catch (IOException e) {
-            logger.info("Unable to open");
+            logger.info("Error in opening loan slip");
         }
     }
 }

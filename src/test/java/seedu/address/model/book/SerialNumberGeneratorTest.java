@@ -36,4 +36,5 @@ class SerialNumberGeneratorTest {
         assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00005"));
         assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00007"));
     }
+
 }

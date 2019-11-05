@@ -254,7 +254,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasBook(SerialNumber bookSn) {
         requireNonNull(bookSn);
-        return catalog.checkIfSerialNumberExists(bookSn);
+        return catalog.serialNumberExists(bookSn);
     }
 
     @Override
