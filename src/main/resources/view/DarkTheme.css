@@ -434,13 +434,14 @@
 }
 
 #pageTitle {
-    -fx-font-size: 20;
-    -fx-font-family: 'Raleway', 'sans-serif';
+    -fx-font-size: 28;
+    -fx-font-family: 'Roboto', sans-serif;
     -fx-background-color: transparent;
 }
 
 #pageDescription {
-    -fx-font-size: 14;
+    -fx-font-size: 18;
+    -fx-font-family: 'Roboto', sans-serif;
 }
 
 #commandTypeLabel {

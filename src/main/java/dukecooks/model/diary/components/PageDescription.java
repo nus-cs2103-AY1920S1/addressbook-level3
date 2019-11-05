@@ -12,7 +12,7 @@ import dukecooks.commons.util.AppUtil;
 public class PageDescription {
 
     public static final String MESSAGE_CONSTRAINTS = "Page description should not be empty and it should be within "
-            + "280 characters";
+            + "500 characters";
 
     /*
      * The page description must not be a whitespace,
@@ -37,7 +37,7 @@ public class PageDescription {
      * Returns true if a given string is a valid page description.
      */
     public static boolean isValidPageDescription(String test) {
-        return test.matches(VALIDATION_REGEX) && test.length() <= 280;
+        return test.matches(VALIDATION_REGEX) && test.length() <= 500;
     }
 
 

@@ -29,7 +29,7 @@
                   </Label>
                   <HBox fillHeight="false" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
                      <children>
-                        <ImageView fx:id="pageImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="pageImage" fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
                               <Insets left="25.0" top="25.0" />
                            </HBox.margin>
@@ -37,9 +37,9 @@
                               <Image url="@../images/man_cook.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="pageDescription" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="366.0" stylesheets="@DarkTheme.css" text="Display for the label" wrapText="true">
+                        <Label fx:id="pageDescription" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" prefHeight="236.0" prefWidth="366.0" stylesheets="@DarkTheme.css" text="Display for the label" wrapText="true" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets left="35.0" top="35.0" />
+                              <Insets left="35.0" right="35.0" top="35.0" />
                            </HBox.margin>
                         </Label>
                      </children>
