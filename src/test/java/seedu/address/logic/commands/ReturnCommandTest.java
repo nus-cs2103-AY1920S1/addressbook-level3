@@ -35,6 +35,11 @@ class ReturnCommandTest {
     }
 
     @Test
+    public void constructor_isAllFalse_assertionError() {
+        assertThrows(AssertionError.class, () -> new ReturnCommand(false));
+    }
+
+    @Test
     public void execute_validLoanedBook_returnSuccessful() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         borrowerRecords.addBorrower(IDA);
@@ -61,7 +66,7 @@ class ReturnCommandTest {
             actualMessage = e.getMessage();
         }
         String expectedMessage = String.format(ReturnCommand.MESSAGE_SUCCESS, returnedBook, model.getServingBorrower(),
-                FineUtil.centsToDollarString(0));
+                FineUtil.centsToDollarString(0)).trim();
         assertEquals(actualMessage, expectedMessage);
 
         assertFalse(model.getServingBorrower().hasCurrentLoan(LOAN_7));

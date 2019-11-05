@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.Flag.RETURN_AND_RENEW_FLAG_MESSAGE_CONS
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,6 +43,9 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
         }
     }
 
+    /**
+     * Returns true if only -all is present in the userInput.
+     */
     private static boolean onlyAllFlagPresent(String userInput) throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_FLAG);
         if (argumentMultimap.getValue(PREFIX_FLAG).isEmpty()) {
@@ -59,6 +61,9 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
         return allFlag.isPresent();
     }
 
+    /**
+     * Parses all flags and returns an Optional of the -all flag.
+     */
     private static Optional<Flag> parseAllFlag(Collection<String> flags) throws ParseException {
         requireNonNull(flags);
 

@@ -1,10 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_BOOK_NOT_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
-import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,12 +19,12 @@ import seedu.address.model.borrower.Borrower;
 import seedu.address.model.loan.Loan;
 
 /**
- * Returns a Book with the given Index.
+ * Returns all valid Books or the Book with the given Index.
  */
 public class ReturnCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "return";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a book borrowed by a borrower.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Return book(s) borrowed by a borrower.\n"
             + "Command can only be used in Serve mode.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "or\n"
