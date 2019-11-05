@@ -116,6 +116,13 @@ public class EncryptedFile {
                 .resolve(FileNameUtil.getFileNameWithPrefix(getFileName().value)).toString();
     }
 
+    /**
+     * Returns the file extension of the encrypted file.
+     */
+    public String getFileExtension() {
+        return fileName.getExtension();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

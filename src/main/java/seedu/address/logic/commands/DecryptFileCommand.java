@@ -59,11 +59,7 @@ public class DecryptFileCommand extends Command {
         FileCommandUtil.checkIfFileExists(fileToDecrypt, model);
 
         try {
-            if (!EncryptionUtil.isFileEncrypted(fileToDecrypt.getEncryptedPath())) {
-                model.setFileStatus(fileToDecrypt, FileStatus.CORRUPTED);
-                model.updateFilteredFileList(PREDICATE_SHOW_ALL_FILES);
-                throw new CommandException(MESSAGE_DECRYPT_FILE_FAILURE);
-            }
+            FileCommandUtil.checkIfFileEncrypted(fileToDecrypt, model);
             EncryptionUtil.decryptFile(fileToDecrypt.getEncryptedPath(), fileToDecrypt.getFullPath(), password);
         } catch (FileSystemException e) {
             throw new CommandException(MESSAGE_FILE_IS_OPENED);

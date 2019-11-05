@@ -21,6 +21,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
+import seedu.address.model.file.ViewableFile;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.report.AnalysisReport;
@@ -51,6 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private ExpiryDisplay expiryDisplay;
     private ReadDisplayPasswordReport readDisplayPasswordReport;
+    private FilePreviewPanel filePreviewPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -231,6 +233,10 @@ public class MainWindow extends UiPart<Stage> {
             readDisplayCard.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayCard.getRoot());
             readDisplayCard.setFeedbackToUser((Card) object);
+        } else if (object instanceof ViewableFile) {
+            filePreviewPanel = new FilePreviewPanel();
+            readListPanelPlaceholder.getChildren().add(filePreviewPanel.getRoot());
+            filePreviewPanel.setFeedbackToUser((ViewableFile) object);
         }
     }
 
