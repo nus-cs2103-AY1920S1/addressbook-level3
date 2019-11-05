@@ -36,7 +36,7 @@ public class AcademicYear {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AcademicYear // instanceof handles nulls
+            || (other instanceof AcademicYear // instanceof handles nulls
                 && this.academicYear == academicYear); // state check
     }
 
@@ -53,8 +53,8 @@ public class AcademicYear {
             DateFormat df = new SimpleDateFormat("yy");
             int formattedDate = Integer.parseInt(df.format(Calendar.getInstance().getTime()));
 
-            int firstYear = Integer.parseInt(academicYear.substring(0, 2));
-            int secondYear = Integer.parseInt(academicYear.substring(2, 4));
+            int firstYear = Integer.parseInt(academicYear.substring(0, 2)); //first year input
+            int secondYear = Integer.parseInt(academicYear.substring(2, 4)); //second year input
 
             if (secondYear > (formattedDate + 6) || firstYear > (formattedDate + 5)) {
                 return false;

@@ -41,7 +41,7 @@ public class Faculty {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Faculty // instanceof handles nulls
+            || (other instanceof Faculty // instanceof handles nulls
                 && faculty.equals(((Faculty) other).faculty)); // state check
     }
 

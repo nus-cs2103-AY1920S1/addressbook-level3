@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Module's name in modulo.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class ModuleCode {
@@ -22,9 +22,9 @@ public class ModuleCode {
     public final String moduleCode;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code ModuleCode}.
      *
-     * @param code A valid name.
+     * @param code A valid module code.
      */
     public ModuleCode(String code) {
         requireNonNull(code);
@@ -33,7 +33,7 @@ public class ModuleCode {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid module code.
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -52,7 +52,7 @@ public class ModuleCode {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ModuleCode // instanceof handles nulls
+            || (other instanceof ModuleCode // instanceof handles nulls
                 && moduleCode.equals(((ModuleCode) other).moduleCode)); // state check
     }
 

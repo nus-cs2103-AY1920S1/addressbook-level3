@@ -73,7 +73,7 @@ public class Title {
     }
 
     /**
-     * This method checks if a string is in fact a number.
+     * This method checks if a string is in fact numeric.
      *
      * @param strNum the string that will be tested upon.
      * @return boolean value of whether the string is a number.

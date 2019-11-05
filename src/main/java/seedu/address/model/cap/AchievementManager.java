@@ -1,8 +1,8 @@
 package seedu.address.model.cap;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
-import seedu.address.commons.core.*;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.cap.person.rank.Fail;
 import seedu.address.model.cap.person.rank.FirstClass;
 import seedu.address.model.cap.person.rank.Freshie;
