@@ -97,17 +97,6 @@ Examples:
 * `find \n Two Chefs Eating Place`
 * `find \t Chinese`
 
-==== Changing address of an eatery: `changeaddress`
-
-*Coming in v1.4*
-
-Changes the address of an eatery. +
-Format: `changeaddress [id] \a [new address]`
-
-Examples:
-
-* `changeaddress 2 \a 116 Commonwealth Cres, #01-130`
-
 ==== Marking an eatery as closed: `close`
 
 Closes an eatery if the eatery is no longer there. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +

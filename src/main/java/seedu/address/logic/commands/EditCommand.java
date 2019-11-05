@@ -93,7 +93,9 @@ public class EditCommand extends Command {
         Category updatedCategory = editEateryDescriptor.getCategory().orElse(eateryToEdit.getCategory());
         Set<Tag> updatedTags = editEateryDescriptor.getTags().orElse(eateryToEdit.getTags());
 
-        return new Eatery(updatedName, updatedAddress, updatedCategory, updatedTags);
+        Eatery newEatery = new Eatery(updatedName, updatedAddress, updatedCategory, updatedTags);
+        newEatery.setReviews(eateryToEdit.getReviews());
+        return newEatery;
     }
 
     @Override
