@@ -1,4 +1,4 @@
-package seedu.address.model.card;
+package seedu.address.model.card.meaning;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Meaning {
 
-    /** Maximum length of Meanings's string is set at 256 characters to ensure Hints showing properly. */
-    public static final int MAX_LEN = 256;
+    /** Maximum length of Meanings's string is set at 200 characters to ensure Hints showing properly. */
+    public static final int MAX_LEN = 200;
 
     public static final String MESSAGE_CONSTRAINTS =
             "Meanings should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
