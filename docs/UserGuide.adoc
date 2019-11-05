@@ -328,7 +328,7 @@ Format: `renew INDEX` or `renew -all` ** - Coming in v2.0** +
 Reduces the outstanding amount of borrower's fines by AMOUNT (in dollars). +
 Format: `pay $AMOUNT`
 
-==== Reserve a book: `reserve` ** - Coming in v2.0**
+==== Reserve a book: `reserve` - Coming in v2.0
 
 Reserve a particular book
 Format: `reserve INDEX` or `reserve sn/BOOK_SN`

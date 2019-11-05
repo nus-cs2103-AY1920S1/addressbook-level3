@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.Flag.FIND_FLAGS_MESSAGE_CONSTRAINTS;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -27,7 +28,7 @@ import seedu.address.model.genre.Genre;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
-    private static final int MAX_LOANSTATE_FLAGS = 1;
+    private static final int MAX_LOAN_STATE_FLAGS = 1;
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -115,13 +116,23 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (flags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<Flag> flagSet = flags.size() == 1 && flags.contains("") ? Collections.emptySet()
-                : ParserUtil.parseFlags(flags);
+
+        Collection<Flag> flagSet;
+        try {
+            flagSet = flags.size() == 1 && flags.contains("") ? Collections.emptySet()
+                    : ParserUtil.parseFlags(flags);
+        } catch (ParseException pe) {
+            throw new ParseException(FIND_FLAGS_MESSAGE_CONSTRAINTS);
+        }
+
+        if (flagSet.contains(Flag.ALL)) {
+            throw new ParseException(FIND_FLAGS_MESSAGE_CONSTRAINTS);
+        }
 
         List<Flag> loanStates = flagSet.stream()
                 .filter(flag -> flag == Flag.AVAILABLE || flag == Flag.OVERDUE || flag == Flag.LOANED)
                 .collect(Collectors.toList());
-        if (loanStates.size() > MAX_LOANSTATE_FLAGS) {
+        if (loanStates.size() > MAX_LOAN_STATE_FLAGS) {
             throw new ParseException(Messages.MESSAGE_LOAN_STATE_CONSTRAINTS);
         } else {
             return Optional.of(loanStates.get(0));
