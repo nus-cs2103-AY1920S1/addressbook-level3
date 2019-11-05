@@ -3,9 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.uicommands.ChangeFontCommand;
+import seedu.address.logic.commands.ChangeFontCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.util.FontName;
+import seedu.address.ui.FontName;
 
 /**
  * Parses input argument and creates a new ChangeFontCommand object.

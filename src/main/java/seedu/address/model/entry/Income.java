@@ -54,15 +54,16 @@ public class Income extends Entry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Category: ")
+        builder.append(ENTRY_TYPE + ": ")
+                .append(" | Category: ")
                 .append(getCategory())
-                .append(" | Description: ")
+                .append(" Description: ")
                 .append(getDesc())
-                .append(" | Amount: ")
+                .append(" Amount: ")
                 .append(getAmount())
-                .append(" | Tags: ");
+                .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append(" (" + getDate() + ")");
+        builder.append("(" + getDate() + ")");
         return builder.toString();
     }
 
