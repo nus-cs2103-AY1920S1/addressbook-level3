@@ -20,14 +20,14 @@ import seedu.address.model.student.Student;
  */
 public class GetStudentGradesCommand extends Command {
 
-    public static final String COMMAND_WORD = "get";
+    public static final String COMMAND_WORD = "getgrades";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets all the grades of the student "
-            + "Parameters: "
-            + PREFIX_STUDENT + "STUDENT_INDEX\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_STUDENT + "2\n"
-            + COMMAND_WORD + " undone: Gets all the undone assignments in the class";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets all the grades of a specific student "
+            + "OR all the undone assignemnts in the class.\n"
+            + "Parameters (Specific student): STUDENT_INDEX\n"
+            + "Parameters (Undone assignments): undone\n"
+            + "Example (Specific student): " + COMMAND_WORD + " 2\n"
+            + "Example (Undone assignments): " + COMMAND_WORD + " undone.";
 
     public static final String MESSAGE_SUCCESS_INDIVIDUAL = "Grades of %1$s retrieved: \n%2$s";
     public static final String MESSAGE_SUCCESS_UNDONE = "Undone assignments: \n%1$s";
