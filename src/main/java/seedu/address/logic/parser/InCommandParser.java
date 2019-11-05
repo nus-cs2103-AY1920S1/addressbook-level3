@@ -47,9 +47,10 @@ public class InCommandParser implements Parser<InCommand> {
         }
 
         /* handles overflow value */
-        if (Integer.parseInt(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
+        if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
             throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
+
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
 

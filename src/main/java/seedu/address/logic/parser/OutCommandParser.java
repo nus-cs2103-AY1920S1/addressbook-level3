@@ -47,7 +47,7 @@ public class OutCommandParser implements Parser<OutCommand> {
         }
 
         /* handles overflow value */
-        if (Integer.parseInt(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
+        if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
             throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
 
