@@ -75,4 +75,4 @@ include::../UserGuide.adoc[tag=statsjason]
 documentation and the technical depth of my contributions to the project._
 |===
 include::../DeveloperGuide.adoc[tag=jasonstats]
-
+include::../DeveloperGuide.adoc[tag=jason-feature]
