@@ -82,8 +82,12 @@ public class Meal implements Comparable<Meal> {
 
     @Override
     public String toString() {
-        return this.dish.getName().toString() + " "
-                + this.dish.getCalories().toString() + "cal " + this.dish.getTags().toString();
+        String mealString = this.dish.getName().toString() + " "
+                + this.dish.getCalories().toString() + "cal";
+        if (!this.dish.getTags().isEmpty()) {
+            mealString = mealString + " " + this.dish.getTags().toString();
+        }
+        return mealString;
     }
 
     /**

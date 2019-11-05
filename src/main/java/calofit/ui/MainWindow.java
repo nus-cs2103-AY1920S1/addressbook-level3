@@ -1,11 +1,7 @@
 package calofit.ui;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -14,12 +10,10 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.logic.Logic;
-import calofit.logic.NotificationHelper;
 import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.exceptions.ParseException;
@@ -45,12 +39,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
-    private NotificationWindow notificationWindow;
-
-    private Timeline checkTimer = new Timeline(new KeyFrame(Duration.minutes(30), event -> {
-        Optional<String> notifMessage = NotificationHelper.execute(logic.getModel());
-        notifMessage.ifPresent(s -> new NotificationWindow(s).show());
-    }));
 
     @FXML
     private BudgetBar budgetBar;
@@ -90,8 +78,6 @@ public class MainWindow extends UiPart<Stage> {
         budgetBar.mealsProperty().set(logic.getModel().getMealLog().getTodayMeals());
         budgetBar.budgetProperty().bind(logic.getModel().getCalorieBudget().currentBudget());
 
-        checkTimer.setCycleCount(Animation.INDEFINITE);
-        checkTimer.play();
     }
 
     public Stage getPrimaryStage() {
