@@ -45,6 +45,8 @@ public class ClassroomParser {
     /**
      * Parses user input into command for execution.
      *
+     * Please add any new command to the command masterlist as well.
+     *
      * @param userInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format

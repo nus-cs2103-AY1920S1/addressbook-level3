@@ -19,3 +19,4 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+hs_err_pid20908.log
