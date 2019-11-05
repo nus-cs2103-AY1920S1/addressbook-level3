@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.weme.model.template.exceptions.MemeCreationException;
 import seedu.weme.model.template.exceptions.MemeTextNotFoundException;
 import seedu.weme.model.util.ImageUtil;
 
@@ -75,9 +76,9 @@ public class MemeCreation {
      * Removes the meme text from the list.
      * The meme text must exist in the list.
      */
-    public void remove(MemeText toRemove) {
-        requireNonNull(toRemove);
-        if (!textList.remove(toRemove)) {
+    public void deleteText(MemeText toDelete) {
+        requireNonNull(toDelete);
+        if (!textList.remove(toDelete)) {
             throw new MemeTextNotFoundException();
         }
     }
@@ -165,11 +166,15 @@ public class MemeCreation {
      * Generates the meme and writes it to the specified path. The current session will be cleared afterwards.
      *
      * @param destination the path to write the meme image file
-     * @throws IOException if an error occurred during IO
+     * @throws MemeCreationException if an error occurs while attempting to create the meme
      */
-    public void generate(Path destination) throws IOException {
-        ImageIO.write(render(), "jpg", destination.toFile());
-        clear();
+    public void generate(Path destination) throws MemeCreationException {
+        try {
+            ImageIO.write(render(), "jpg", destination.toFile());
+            clear();
+        } catch (IOException e) {
+            throw new MemeCreationException(e);
+        }
     }
 
     /**

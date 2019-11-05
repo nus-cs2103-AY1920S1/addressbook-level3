@@ -11,7 +11,6 @@ import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
-import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.MemeText;
 
 /**
@@ -55,8 +54,7 @@ public class TextAddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        MemeCreation session = model.getMemeCreation();
-        session.addText(text);
+        model.addMemeText(text);
         model.addMemeTextToRecords(text);
 
         CommandResult result = new CommandResult(

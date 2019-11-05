@@ -3,6 +3,7 @@ package seedu.weme.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -11,6 +12,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -26,9 +28,9 @@ import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
-import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
+import seedu.weme.model.template.exceptions.MemeCreationException;
 
 /**
  * Represents the in-memory model of Weme data.
@@ -303,13 +305,38 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public MemeCreation getMemeCreation() {
-        return versionedWeme.getMemeCreation();
+    public void abortMemeCreation() {
+        versionedWeme.abortMemeCreation();
     }
 
     @Override
-    public void abortMemeCreation() {
-        versionedWeme.abortMemeCreation();
+    public ObservableList<MemeText> getMemeTextList() {
+        return versionedWeme.getMemeTextList();
+    }
+
+    @Override
+    public void addMemeText(MemeText text) {
+        versionedWeme.addMemeText(text);
+    }
+
+    @Override
+    public void deleteMemeText(MemeText toDelete) {
+        versionedWeme.deleteMemeText(toDelete);
+    }
+
+    @Override
+    public void setMemeText(MemeText toReplace, MemeText replacement) {
+        versionedWeme.setMemeText(toReplace, replacement);
+    }
+
+    @Override
+    public Optional<BufferedImage> getMemeCreationImage() {
+        return versionedWeme.getMemeCreationImage();
+    }
+
+    @Override
+    public void createMeme(Path path) throws MemeCreationException {
+        versionedWeme.createMeme(path);
     }
 
     @Override

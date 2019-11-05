@@ -20,7 +20,6 @@ import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
 import seedu.weme.model.template.Coordinates;
-import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.MemeTextColor;
 import seedu.weme.model.template.MemeTextSize;
@@ -85,8 +84,7 @@ public class TextEditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        MemeCreation session = model.getMemeCreation();
-        List<MemeText> textList = session.getMemeTextList();
+        List<MemeText> textList = model.getMemeTextList();
 
         if (index.getZeroBased() >= textList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEME_TEXT_DISPLAYED_INDEX);
@@ -95,7 +93,7 @@ public class TextEditCommand extends Command {
         MemeText textToEdit = textList.get(index.getZeroBased());
         MemeText editedText = createEditedMemeText(textToEdit, editMemeTextDescriptor);
 
-        session.setText(textToEdit, editedText);
+        model.setMemeText(textToEdit, editedText);
 
         CommandResult result = new CommandResult(
                 String.format(MESSAGE_EDIT_MEME_TEXT_SUCCESS, editedText.toString()));

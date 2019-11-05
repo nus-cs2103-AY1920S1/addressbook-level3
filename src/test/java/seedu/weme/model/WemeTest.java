@@ -11,9 +11,11 @@ import static seedu.weme.testutil.TypicalMemes.DOGE;
 import static seedu.weme.testutil.TypicalMemes.JOKER;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +33,7 @@ import seedu.weme.model.statistics.TagWithDislike;
 import seedu.weme.model.statistics.TagWithLike;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
 import seedu.weme.testutil.MemeBuilder;
 
@@ -107,7 +110,7 @@ public class WemeTest {
         private final ObservableList<Template> templates = FXCollections.observableArrayList();
         private final Stats stats = new StatsManager();
         private final Records records = new RecordsManager();
-        private final MemeCreation memeCreeation = new MemeCreation();
+        private final MemeCreation memeCreation = new MemeCreation();
 
         WemeStub() {
         }
@@ -177,8 +180,19 @@ public class WemeTest {
 
         @Override
         public MemeCreation getMemeCreation() {
-            return memeCreeation;
+            return memeCreation;
         }
+
+        @Override
+        public ObservableList<MemeText> getMemeTextList() {
+            return memeCreation.getMemeTextList();
+        }
+
+        @Override
+        public Optional<BufferedImage> getMemeCreationImage() {
+            return memeCreation.getCurrentImage();
+        }
+
     }
 
 }

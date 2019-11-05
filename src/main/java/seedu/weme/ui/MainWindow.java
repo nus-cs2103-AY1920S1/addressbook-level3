@@ -21,7 +21,6 @@ import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.ModelContext;
-import seedu.weme.model.template.MemeCreation;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -161,7 +160,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getObservableLikeData(),
                 logic.getObservableDislikeData());
         templateGridPanel = new TemplateGridPanel(logic.getFilteredTemplateList());
-        createPanel = new CreatePanel(logic.getMemeCreation());
+        createPanel = new CreatePanel(logic.getMemeTextList(), logic.getMemeCreationImage().orElse(null));
         statsPanel = new StatsPanel(logic.getWeme());
         exportGridPanel = new MemeGridPanel(
                 logic.getFilteredStagedMemeList(), logic.getObservableLikeData(), logic.getObservableDislikeData());
@@ -265,8 +264,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (logic.getContext().getValue() == ModelContext.CONTEXT_CREATE) {
-                MemeCreation memeCreation = logic.getMemeCreation();
-                createPanel.updateImage(memeCreation);
+                createPanel.updateImage(logic.getMemeCreationImage().orElse(null));
             }
 
             if (commandResult.isShowHelp()) {

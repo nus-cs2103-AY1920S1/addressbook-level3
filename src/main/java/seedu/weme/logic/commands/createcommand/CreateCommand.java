@@ -3,7 +3,6 @@ package seedu.weme.logic.commands.createcommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
-import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.exceptions.MemeCreationException;
 import seedu.weme.model.util.ImageUtil;
 
 /**
@@ -43,13 +42,12 @@ public class CreateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        MemeCreation memeCreation = model.getMemeCreation();
         ReadOnlyUserPrefs userPrefs = model.getUserPrefs();
         Path newPath = ImageUtil.getNewImagePath(userPrefs.getMemeImagePath(), "jpg");
         try {
-            memeCreation.generate(newPath);
-        } catch (IOException ioe) {
-            throw new CommandException(MESSAGE_IO_ERROR, ioe);
+            model.createMeme(newPath);
+        } catch (MemeCreationException mce) {
+            throw new CommandException(MESSAGE_IO_ERROR, mce);
         }
         Meme newMeme = new Meme(new ImagePath(newPath.toString()), description, tags);
         model.addMeme(newMeme);

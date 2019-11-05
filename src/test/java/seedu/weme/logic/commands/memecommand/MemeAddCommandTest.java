@@ -7,9 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.MemeUtil.isSameMemeImage;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -30,9 +32,9 @@ import seedu.weme.model.Weme;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
-import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
+import seedu.weme.model.template.exceptions.MemeCreationException;
 import seedu.weme.testutil.MemeBuilder;
 import seedu.weme.testutil.TestUtil;
 import seedu.weme.testutil.UserPrefsBuilder;
@@ -294,12 +296,37 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public MemeCreation getMemeCreation() {
+        public void abortMemeCreation() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void abortMemeCreation() {
+        public ObservableList<MemeText> getMemeTextList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMemeText(MemeText text) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMemeText(MemeText toDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMemeText(MemeText toReplace, MemeText replacement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<BufferedImage> getMemeCreationImage() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void createMeme(Path path) throws MemeCreationException {
             throw new AssertionError("This method should not be called.");
         }
 
