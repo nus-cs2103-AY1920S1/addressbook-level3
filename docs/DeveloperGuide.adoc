@@ -155,7 +155,7 @@ The format for the `help` command is as follows:
 ==== Overview
 
 The `Help` mechanism is facilitated by `HelpCommand` and `HelpCommandParser`, taking in the following inputs from the user: `SecondaryCommand` and `Type`.
-After the parameters have been parsed, the relavant `CommandResult` object will be instantiated based on the input `Type` and pertaining to the input `SecondaryCommand`. 
+After the parameters have been parsed, the relevant `CommandResult` object will be instantiated based on the input `Type` and pertaining to the input `SecondaryCommand`.
 
 ==== Current Implementation
 
@@ -163,7 +163,7 @@ The activity diagram below shows how it would look like from a user's point of v
 
 <<helpActDiagram>> describes the workflow of the `help` command
 command is entered.
-[[helptActDiagram]]
+[[helpActDiagram]]
 [reftext="Figure 2.1.2.1"]
 [caption="Figure 2.1.2.1: "]
 .Activity diagram of the `help` command
@@ -173,7 +173,7 @@ The series of steps below explain the process and current implementation of the 
 
 *Step 1 :* The user requests for help.
 
-*Step 2 :* The `HelpParser` then calls the execute function of the `HelpCommand` 
+*Step 2 :* The `HelpParser` then calls the execute function of the `HelpCommand`.
 
 *Step 3 :* The `HelpCommand` then returns a `CommandResult` based on what parameters the user enters.
 
@@ -196,9 +196,9 @@ With the multi-faceted approach, the user can control the depth of help and have
 
 ==== Alternatives Considered
 
-We have considered between two differing help philosiphies.
+We have considered between two differing help philosophies.
 
-.Help philosiphies 
+.Help philosophies
 [options="header,footer"]
 |=======================
 | Methods of Help 				|	Pros and Cons
@@ -209,7 +209,7 @@ We have considered between two differing help philosiphies.
 | Multi-faceted help				|	*Pros* : Provides multiple types of help .
 							*Cons* : There is a risk of over-complicating the `help` function, which would prompt the user to be confused on how to even use the help command.
 |=======================
-* We have settled on adopting the multi-faceted help philosiphy as the current implementation of help simply does not cut it. Measures have been taken such as allowing the user to type in `help` with no additional
+* We have settled on adopting the multi-faceted help philosophy as the current implementation of help simply does not cut it. Measures have been taken such as allowing the user to type in `help` with no additional
 parameters to display the command list and explain the deeper features of the help command; thus retaining its simplicity.
 
 === Claim feature
@@ -645,7 +645,7 @@ With so many claims and incomes, all having differing dates, it can be hard to k
 
 We have considered between two differing graph designs.
 
-.Graph design to 
+.Graph Designs
 [options="header,footer"]
 |=======================
 | Graph Design Considerations 			|	Pros and Cons
