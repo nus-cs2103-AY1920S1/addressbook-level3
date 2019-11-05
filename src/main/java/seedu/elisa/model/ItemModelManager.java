@@ -266,6 +266,7 @@ public class ItemModelManager implements ItemModel {
         visualList.remove(item);
         taskList.remove(item);
         eventList.remove(item);
+        calendarList.remove(item);
         reminderList.remove(item);
         futureReminders.remove(item);
         activeReminders.remove(item);
@@ -484,7 +485,7 @@ public class ItemModelManager implements ItemModel {
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
 
-        if (sortedTask.peek().getTask().get().isComplete()) {
+        if (sortedTask.isEmpty() || sortedTask.peek().getTask().get().isComplete()) {
             systemToggle = true;
             priorityExitStatus = PriorityExitStatus.ALL_TASK_COMPLETED;
             toggleOffPriorityMode();
