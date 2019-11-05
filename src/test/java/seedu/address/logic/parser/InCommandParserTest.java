@@ -1,0 +1,93 @@
+package seedu.address.logic.parser;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_RANGE_DESC;
+//import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_TYPE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_ZERO_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ALICE;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalTransactions.ALICE;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.InCommand;
+//import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.testutil.TransactionBuilder;
+
+public class InCommandParserTest {
+    private InCommandParser parser = new InCommandParser();
+
+    @Test
+    public void parse_allFieldsPresent_success() {
+        BankAccountOperation expectedTransaction = new TransactionBuilder(ALICE).build();
+        BankAccountOperation expectedTransactionCategories = new TransactionBuilder(ALICE)
+                .withCategories("food", "friends").build();
+
+        // whitespace only preamble
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, new InCommand(expectedTransaction));
+
+        // multiple categories
+        assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE + " c/friends",
+                new InCommand(expectedTransactionCategories));
+
+        assertParseSuccess(parser, " n/milk c/food $/100 d/10112019", new InCommand(expectedTransaction));
+    }
+
+    @Test
+    public void parse_optionalFieldsMissing_success() {
+        BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE).withCategories().build();
+        /* TODO: FIX
+        assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
+                + DESCRIPTION_DESC_ALICE, new InCommand(expectedTransaction2));
+         */
+    }
+    @Test void parse_compulsoryFieldMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE);
+
+        // missing amount prefix
+        assertParseFailure(parser, " " + VALID_AMOUNT_ALICE + DATE_DESC_ALICE
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, expectedMessage);
+
+        // missing date prefix
+        assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + VALID_DATE_ALICE
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, expectedMessage);
+
+        // missing description prefix
+        assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
+                + VALID_DESCRIPTION_ALICE + CATEGORY_DESC_ALICE, expectedMessage);
+
+        // all prefix missing
+        assertParseFailure(parser, " " + VALID_AMOUNT_ALICE + VALID_DATE_ALICE
+                + VALID_DESCRIPTION_ALICE + VALID_CATEGORY_ALICE, expectedMessage);
+    }
+
+    @Test
+    public void parse_invalidValue_failure() {
+
+        //invalid amount (zero)
+        assertParseFailure(parser, " " + INVALID_AMOUNT_ZERO_DESC + DATE_DESC_ALICE
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, InCommand.MESSAGE_AMOUNT_ZERO);
+
+        //invalid amount (range)
+        assertParseFailure(parser, " " + INVALID_AMOUNT_RANGE_DESC + DATE_DESC_ALICE
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, InCommand.MESSAGE_AMOUNT_OVERFLOW);
+
+        //invalid amount (double)
+        //assertParseFailure(parser, " " + INVALID_AMOUNT_TYPE_DESC + DATE_DESC_ALICE
+        //        + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, Amount.DOUBLE_CONSTRAINTS);
+    }
+
+
+}
