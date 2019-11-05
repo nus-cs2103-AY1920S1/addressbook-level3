@@ -6,7 +6,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 
@@ -23,7 +22,7 @@ public class DateTimeUtilTest {
     private static final String FALL_SHORT_DAY_DATE_TIME_FORMAT = "0-10-2018 18:00";
     private static final String FALL_SHORT_MONTH_DATE_TIME_FORMAT = "22-00-2018 15:00";
 
-    private static final String VALID_LEAP_YEAR = "29-02-2020 10:00";
+    private static final String VALID_LEAP_YEAR = "29-02-2020 20:00";
     private static final String INVALID_LEAP_YEAR = "29-02-2019 10:00";
 
     private static final String DUE_SOON_DATE_TIME = "31/01/2020 10:00";
@@ -68,11 +67,10 @@ public class DateTimeUtilTest {
 
     // EP leap days in leap and non-leap years
     @Test
-    public void parseDateTime_dateTimeLeapYear_accurateDateGiven() throws ParseException {
+    public void parseDateTime_dateTimeLeapYear_throwsParseExceptionWhenInvalid() throws ParseException {
         assertEquals(LocalDateTime.parse(VALID_LEAP_YEAR, DateTimeUtil.getDefaultFormatter()),
                 DateTimeUtil.parseDateTime(VALID_LEAP_YEAR));
-        assertEquals(LocalDateTime.parse(INVALID_LEAP_YEAR, DateTimeUtil.getDefaultFormatter()),
-                DateTimeUtil.parseDateTime(INVALID_LEAP_YEAR));
+        assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(INVALID_LEAP_YEAR));
     }
 
     @Test
