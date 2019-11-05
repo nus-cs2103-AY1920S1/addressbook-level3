@@ -115,7 +115,7 @@ Displays below expenses (for example) in the GUI: +
 This feature allows you to assign tags to your expenses. Expenses with the same tag will be grouped together, allowing you to search for related expenses easily.
 
 [NOTE]
-Tag names should be *alphanumeric*. This means that they should not contain spaces and special characters. +
+Tag names should be *alphanumeric*. This means that they should not contain spaces or special characters. +
 Tag names are *case sensitive.* +
 You are *not* able to use this feature on *archived expenses*.
 
@@ -180,7 +180,7 @@ Usage:
 
 
 Example: +
-Lets say that you want to filter your expenses by the tag `tech`.
+Lets say that you want to filter your expenses by the tag `tech`. +
 To filter your expenses: +
 1. Type `tag filter t/tech` in the command box and press `enter` to execute it. +
 image:tagging/filterTagOne.png[] +
