@@ -45,6 +45,11 @@ public class Time {
         return this.toString();
     }
 
+    public String getJsonStringTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        return formatter.format(time.getTime());
+    }
+
     /**
      * Returns if a given string is a valid time.
      */

@@ -37,8 +37,8 @@ public class JsonAdaptedLesson {
      */
     public JsonAdaptedLesson(Lesson source) {
         className = source.getName().toString();
-        startTime = source.getStartTime().getStringTime();
-        endTime = source.getEndTime().getStringTime();
+        startTime = source.getStartTime().getJsonStringTime();
+        endTime = source.getEndTime().getJsonStringTime();
         isRepeat = source.getRepeatString();
     }
 

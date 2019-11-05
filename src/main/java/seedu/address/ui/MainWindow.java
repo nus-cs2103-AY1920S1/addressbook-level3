@@ -32,7 +32,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonWeekList;
 import seedu.address.model.scheduler.Scheduler;
+import seedu.address.model.lesson.UniqueLessonList;
 
 /**
  * The Main Window. Provides the basic application layout containing

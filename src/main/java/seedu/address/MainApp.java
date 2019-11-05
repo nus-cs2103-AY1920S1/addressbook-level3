@@ -90,7 +90,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Notebook");
             initialData = new Notebook();
         }
-
+        int size = initialData.getLessonWeekList().get(0).asUnmodifiableObservableList().size();
         return new ModelManager(initialData, userPrefs);
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,6 +12,9 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.classroom.Classroom;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.Time;
+import seedu.address.model.lesson.ClassName;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
@@ -59,10 +63,33 @@ public class SampleDataUtil {
         return sampleClassroom;
     }
 
+    public static Lesson[] getSampleLessons() {
+        Calendar monStartCalendar = Calendar.getInstance();
+        monStartCalendar.set(2020, 0, 6, 12, 0);
+        Calendar monEndCalendar = Calendar.getInstance();
+        monEndCalendar.set(2020, 0, 6, 13, 0);
+        Calendar wedStartCalendar = Calendar.getInstance();
+        wedStartCalendar.set(2020, 0, 8, 12, 0);
+        Calendar wedEndCalendar = Calendar.getInstance();
+        wedEndCalendar.set(2020, 0, 8, 13, 0);
+        Calendar friStartCalendar = Calendar.getInstance();
+        friStartCalendar.set(2020, 0, 10, 12, 0);
+        Calendar friEndCalendar = Calendar.getInstance();
+        friEndCalendar.set(2020, 0, 10, 13, 0);
+        return new Lesson[] {
+            new Lesson(new Time(monStartCalendar), new Time(monEndCalendar), new ClassName("4E7 Math")),
+            new Lesson(new Time(wedStartCalendar), new Time(wedEndCalendar), new ClassName("2E6 English")),
+            new Lesson(new Time(friStartCalendar), new Time(friEndCalendar), new ClassName("3E8 Math"))
+        };
+    }
+
     public static ReadOnlyNotebook getSampleNotebook() {
         Notebook sampleNotebook = new Notebook();
         //sampleNotebook.addClassroom(new Classroom("testing"));
         sampleNotebook.addClassroom(getSampleClassroom());
+        for (Lesson sampleLesson : getSampleLessons()) {
+            sampleNotebook.addLesson(sampleLesson);
+        }
         return sampleNotebook;
     }
 
