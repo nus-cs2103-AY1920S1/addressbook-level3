@@ -79,6 +79,13 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
+     * Returns amount in dollars
+     */
+    public double getActualValue() {
+        return this.amount / 100.0;
+    }
+
+    /**
      * Sets amount in cents.
      */
     public void setAmount(Amount amount) {
