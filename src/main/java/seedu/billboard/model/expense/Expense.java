@@ -91,6 +91,13 @@ public class Expense {
     }
 
     /**
+     * Returns deep clone of the expenses by creating a new Expense object with the same data.
+     */
+    public Expense getClone() {
+        return new Expense(this.name, this.description, this.amount, this.created, this.tags, this.archiveName);
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
