@@ -533,42 +533,142 @@ Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choic
 //@@author
 
 //@@author tiuweehan
-// tag::switchTab[]
-
+// tag::gui
 === GUI Enhancements
 
-An intuitive GUI facilitates the overall user friendliness of the application. The user should be able to navigate around the application easily to facilitate a smooth experience using AlgoBase. Additionally, multitasking is important as a user may be tackling multiple algorithmic questions at a single time. One of the main enhancements that we introduced to the GUI is tabbing, which fulfils these 2 requirements.
+An intuitive GUI facilitates the overall user friendliness of the application.
+The user should be able to navigate around the application easily to facilitate a smooth experience using AlgoBase.
+While the command line is fast for typing short commands, it us not ideal if the user is editing large amounts of text (e.g. when the user is adding description for a new problem).
+In this case, having a GUI will be more beneficial to the user and facilitates a smoother user experience.
 
-==== Current Implementation
+Additionally, multitasking is important as a user may be tackling multiple algorithmic questions at a single time.
+This, we introduced tabbing, which facilitates multitasking in AlgoBase, which is an important requirement for competitive programmers.
 
-The state of the GUI is stored in a `GuiState` object. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
+==== Editing Problems from GUI
+
+===== Current Implementation
+
+When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below.
+
+.An example of a high level representation of GUI actions.
+image::ArchitectureSequenceDiagram1.png[]
+
+The following classes facilitate the handling of GUI actions:
+
+* `UiActionType` - An enum of the types of UI actions that exist in AlgoBase.
+* `UiActionDetails` - An object containing details of a UI action.
+* `UiAction` - Interface with instructions for executing a UI action.
+* `UiLogicManager` - Manages the overall UI Logic.
+* `AlgoBaseUiActionParser` - Parses a `UiActionDetails` object into an implementation of `UiAction`.
+* `UiActionResult` - The result of executing the UI action.
+
+When the user performs any action in the GUI (e.g. Editing a problem), a `UiActionDetails` object is created with a given `UiActionType`, an enum type.
+This object contains information about the action which will later be used to make changes to the application.
+
+This `UiActionDetails` object is sent to the `AlgoBaseUiActionParser`, which instantiates a `UiParser` depending on the `UiActionType` of the object.
+The purpose of the `UiParser` is to convert the `UiActionDetails` object into a `UiAction` object.
+
+The `UiAction` object stores the instructions to make the specified changes to the `Model`, which will run when its `execute` method is called.
+The `UiAction` object is passed along to the `UiLogicManager`, which calls its `execute` method on the `Model` object.
+
+This process is captured by the example in the Sequence Diagrams below.
+
+.Interaction between `UI` and `UiLogic`
+image::gui/EditProblemUiActionSequenceDiagram0.png[]
+
+Step 1: The user edits the `ProblemDetails` controller class through his/her actions in the GUI.
+
+Step 2: The `ProblemDetails` class constructs a new `UiActionDetails` object with using `UiActionType.EditProblem`.
+
+Step 3: The `executeUiAction` of the `MainWindow` class is called with the `UiActionDetails` object,
+which in turn calls the `execute` method of `UiLogicManager`.
+
+Step 4: The method call returns a `UiActionResult` object, which may optionally contain feedback for the user.
+
+The following diagram goes into more details on how the `UiLogic` handles the `UiActionDetails`
+
+.Interactions between classes in the `UiLogic`
+image::gui/EditProblemUiActionSequenceDiagram1.png[]
+
+Step 1: The `UiLogicManager` passes the `UiActionDetails` object to the `AlgoBaseActionParser`,
+which in turn passes it to the `EditProblemUiActionParser` based on its Action type.
+
+Step 2: The `EditProblemUiActionParser` converts the `UiActionDetails` object into a `EditProblemUiAction` object,
+and passes it back to the `UiLogicManager`.
+
+Step 3: The `UiLogicManager` executes the `EditProblemUiAction` together with the `Model`, and returns the `CommandResult`.
+
+===== Design Considerations
+
+[width="100%",cols="33%,<33%,<33%",options="header",]
+|=======================================================================
+|Aspect| Alternative 1 (Current Choice) | Alternative 2
+| Handling Commands and UI Actions |
+Handle Commands and UI Actions separately.
+
+**Pros**: Higher modularity. Allows separation the different architectures as well
+(Synchronous for Commands & Event-Driven for UI Actions)
+
+**Cons**: Multiple Logic managers (LogicManager and UiLogicManager)
+|
+Handle Commands and UI Actions together.
+
+**Pros**: Less code and higher reusability.
+
+**Cons**: Higher coupling and less cohesion.
+| Handling different kinds of UI Actions |
+Using a command structure with a central parser and many smaller parsers.
+
+**Pros**: Higher extensibility, easier to add new UI Actions
+
+**Cons**: Have to write more code to achieve the same functionality.
+|
+
+Handling each UI action individually.
+
+**Pros**: Can write less code to achieve the same functionality.
+
+**Cons**: Lower extensibility, harder to add new UI Actions
+|
+|=======================================================================
+
+==== Tabbing Feature
+
+===== Current Implementation
+
+The state of the GUI is stored in a `GuiState` object, which is in turn stored in the `Model`. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
 
 The information is linked to the `UI` through listeners. When the attributes of the `TabManager` object is updated, it triggers callback functions in the UI controllers that update the state of the UI displayed.
 
+The following class diagram illustrates how the classes in the `GuiState` interact with one another:
+
+.Class Dagram for the `GuiState` class
+image::design/model/GuiPackageDiagram.png[width='60%']
+
 The following commands facilitate the management of tabs:
 
-* `AlgoBase#switchTab()` - Switch between tabs within a specified Tab pane.
-* `AlgoBase#openTab()` - Opens a new tab containing details of a model.
-* `AlgoBase#closeTab()` - Closes an existing tab.
+* `switchTab` - Switch between tabs within a specified Tab pane.
+* `openTab` - Opens a new tab containing details of a model.
+* `closeTab` - Closes an existing tab.
 
 These operations are exposed in the `TabManager` class respectively as:
 
-* `SwitchTab()`: `TabManager#setDisplayTabIndex` and `TabManager#setDetailsTabIndex`
-* `OpenTab()`: `TabManager#addTab`
-* `CloseTab()`: `TabManager#removeTab`
+* `SwitchTab`: `TabManager#switchTab`
+* `OpenTab`: `TabManager#openTab`
+* `CloseTab`: `TabManager#closeTab`
 
 The following Activity Diagrams illustrate what happens when the user executes a `SwitchTabCommand` or `OpenTabCommand`
 
+.Activity Diagram for the Execution of `switchtab` Command
 image::gui/SwitchTabCommandActivityDiagram.png[width="50%"]
-_Figure 1.1 Activity Diagram for the Execution of `switchtab` Command_
 
+.Activity Diagram for the Execution of `opentab` Command
 image::gui/OpenTabCommandActivityDiagram.png[width="50%"]
-_Figure 1.2 Activity Diagram for the Execution of `opentab` Command_
 
 Given below is an example usage scenario and how the tag mechanism behaves at each step.
 
+.Sequence Diagram for instantiating a `SwitchCommand` object
 image::gui/SwitchTabsSequenceDiagram0.png[]
-_Figure 2.1 Sequence Diagram for instantiating a `SwitchCommand` object_
 
 Step 1: The user executes `switchtab tt/display i/1` to switch to the first tab in the `display` tabpane.
 
@@ -576,28 +676,26 @@ Step 2: `SwitchTabCommandParser` processes the user input, retrieving the tab ty
 
 Step 3: These two attributes are passed into the constructor of a `SwitchTabCommand` and a corresponding `SwitchTabCommand` object is returned to the LogicManager
 
-
+.Sequence Diagram for updating the tab index in the TabManager
 image::gui/SwitchTabsSequenceDiagram1.png[]
-_Figure 2.2 Sequence Diagram for updating the tab index in the TabManager_
 
 Step 4: `LogicManager` invokes `execute()` method of the returned `SwitchTabCommand`, which retrieves the TabManager from the `Model` object. The `setDisplayTabPaneIndex(1)` method is invoked with the index 1 that the `SwitchTabCommand` was instantiated with.
 
 Step 5: Invoking this method updates the integer value in the `displayTabIndex` field (type `ObservableIntegerValue`) of the `TabManager`.
 
-
+.Sequence Diagram for reflecting the tab changes
 image::gui/SwitchTabsSequenceDiagram2.png[]
-_Figure 3.3 Sequence Diagram for reflecting the tab changes_
 
 Step 6: A listener was added to the `displayTabIndex` field when the application was initialized. When a change in the value is detected, it triggers the `selectTab(1)` method with the value of the new index passed as an argument. This updates the selected tab in the UI.
 
+.Sequence Diagram for storing new GUI state
 image::gui/SwitchTabsSequenceDiagram3.png[]
-_Figure 3.4 Sequence Diagram for storing new GUI state_
 
 Step 7: After the command is executed, the state of the GUI changes. This causes the `StorageManager` to save the modified GUI state as a new `JSON` file.
 This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
 These wrapper classes can be converted into `JSON` format for storage without any data loss.
 
-==== Design Considerations
+===== Design Considerations
 
 [width="100%",cols="33%,<33%,<33%",options="header",]
 |=======================================================================
@@ -629,7 +727,7 @@ Updating the UI synchronously
 |
 |=======================================================================
 
-// end::switchTab[]
+// end::gui[]
 //@@author
 
 //@@author Seris370
