@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_PERSON;
 
@@ -12,6 +13,7 @@ public class Flag {
     private final String flag;
 
     public Flag(String flag) {
+        requireNonNull(flag);
         this.flag = flag;
     }
 

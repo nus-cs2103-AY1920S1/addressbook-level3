@@ -41,7 +41,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEvent_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEvent((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEvent(null));
     }
 
     @Test
