@@ -348,7 +348,8 @@ OR
 
 * it is an existing transaction and has been successfully edited.
 
-WARNING: All rules will be executed in the order they were added.
+WARNING: All rules will be executed from the bottom of the list upwards.
+Typically, this is order in which the rules were added.
 Rules with conflicting actions will therefore be allowed.
 
 ==== Add a new rule: `rule add`
@@ -407,6 +408,16 @@ Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | scr
 Deletes a rule with the specified rule ID.
 
 Format: `rule delete <rule ID>`
+
+==== Swap two rules: `rule swap`
+
+NOTE: Ths will affect the execution order of the rules.
+Rules will be executed from the bottom of the list upwards.
+
+Swaps the position of two specified rules in the Rule Engine.
+
+Format: `rule swap <rule 1 ID> <rule 2 ID>
+
 // end::rules[]
 
 // tag::scripting[]
