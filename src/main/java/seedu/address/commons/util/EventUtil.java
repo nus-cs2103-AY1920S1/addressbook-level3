@@ -240,4 +240,17 @@ public class EventUtil {
                 vEvent.getDateTimeStart().getValue().toString(),
                 vEvent.getDateTimeEnd().getValue().toString());
     }
+
+    /**
+     * Compares between 2 vEvents to see whether they are the same. Attributes used to determine this include
+     * event name, start and end date time
+     * @param vEvent1 first event to be compared
+     * @param vEvent2 second event to be compared
+     * @return true if both vEvents are the same
+     */
+    public static boolean isSameVEvent(VEvent vEvent1, VEvent vEvent2) {
+        return vEvent1.getSummary().equals(vEvent2.getSummary())
+                && vEvent1.getDateTimeStart().equals(vEvent2.getDateTimeStart())
+                && vEvent1.getDateTimeEnd().equals(vEvent2.getDateTimeEnd());
+    }
 }

@@ -38,35 +38,12 @@ public class EventAddCommand extends EventCommand {
             + "Please follow the format: yyyy-MM-ddTHH:mm, "
             + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
     private static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
-    private static final String DEFAULT_COLOR_STRING = "group00";
 
     private final String eventName;
     private final String startDateTimeString;
     private final String endDateTimeString;
     private final String recurTypeString;
     private final String colorNumberString;
-
-    /**
-     * Creates a EventAddCommand object.
-     *
-     * @param eventName to set.
-     * @param startDateTimeString   string representation of eventStartDateTime.
-     * @param endDateTimeString   string representation of eventEndDateTime.
-     * @param recurTypeString     of event e.g weekly, daily, or none.
-     */
-    public EventAddCommand(String eventName, String startDateTimeString, String endDateTimeString,
-                           String recurTypeString) {
-        requireNonNull(eventName);
-        requireNonNull(startDateTimeString);
-        requireNonNull(endDateTimeString);
-        requireNonNull(recurTypeString);
-
-        this.eventName = eventName;
-        this.startDateTimeString = startDateTimeString;
-        this.endDateTimeString = endDateTimeString;
-        this.recurTypeString = recurTypeString.toLowerCase();
-        this.colorNumberString = DEFAULT_COLOR_STRING;
-    }
 
     /**
      * Overloaded constructor to create a EventAddCommand object with color type
@@ -82,6 +59,7 @@ public class EventAddCommand extends EventCommand {
         requireNonNull(startDateTimeString);
         requireNonNull(endDateTimeString);
         requireNonNull(recurTypeString);
+        requireNonNull(colorNumberString);
 
         this.eventName = eventName;
         this.startDateTimeString = startDateTimeString;
@@ -167,6 +145,10 @@ public class EventAddCommand extends EventCommand {
 
         // state check
         EventAddCommand e = (EventAddCommand) other;
-        return eventName.equals(e.eventName);
+        return eventName.equals(e.eventName)
+                && startDateTimeString.equals(e.startDateTimeString)
+                && endDateTimeString.equals(e.endDateTimeString)
+                && colorNumberString.equals(e.colorNumberString)
+                && recurTypeString.equals(e.recurTypeString);
     }
 }

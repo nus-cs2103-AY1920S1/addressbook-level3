@@ -3,10 +3,11 @@ package seedu.address.logic.parser.event;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GET_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCREENSHOT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
@@ -17,11 +18,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.event.EventAddCommand;
-import seedu.address.logic.commands.event.EventCommand;
+import seedu.address.logic.commands.event.EventDeleteCommand;
 import seedu.address.logic.commands.event.EventEditCommand;
 import seedu.address.logic.commands.event.EventExportCommand;
+import seedu.address.logic.commands.event.EventIndexCommand;
+import seedu.address.logic.commands.event.EventScreenshotCommand;
 import seedu.address.logic.commands.event.EventViewCommand;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class EventCommandParserTest {
@@ -57,7 +59,13 @@ public class EventCommandParserTest {
     public static final String VALID_VIEW_MODE_FULL = VALID_VIEW_NO_PARAM_COMMAND + " " + VALID_VIEW_MODE + " "
             + VALID_TARGET_DATE;
     public static final String VALID_EXPORT_COMMAND = " " + PREFIX_EXPORT;
-
+    public static final String VALID_SCREENSHOT_COMMAND = " " + PREFIX_SCREENSHOT;
+    public static final String VALID_DELETE = " " + PREFIX_DELETE + "1";
+    public static final String INVALID_DELETE = " " + PREFIX_DELETE + "one";
+    public static final String INVALID_DELETE_ZERO_INDEX = " " + PREFIX_DELETE + "0";
+    public static final String INVALID_DELETE_NEGATIVE_INDEX = " " + PREFIX_DELETE + "-1";
+    public static final String INVALID_DELETE_NO_INDEX = " " + PREFIX_DELETE;
+    public static final String VALID_INDEX_OF = " " + PREFIX_GET_INDEX + "my event";
 
 
     private final EventCommandParser parser = new EventCommandParser();
@@ -143,46 +151,72 @@ public class EventCommandParserTest {
     }
 
     /**
-     * Test valid screenshot event command
+     * Test valid screenshot event command with bad index format passed
      * @throws Exception
      */
     @Test
     public void parseCommand_validScreenshotCommand_success() throws Exception {
-        Command command = parser.parse(VALID_EXPORT_COMMAND);
-        assertTrue(command instanceof EventExportCommand);
+        Command command = parser.parse(VALID_SCREENSHOT_COMMAND);
+        assertTrue(command instanceof EventScreenshotCommand);
     }
 
-//
-//    @Test
-//    public void parseCommand_validSort_success() throws Exception {
-//        Command command = parser.parse(VALID_SORT);
-//        assertTrue(command instanceof NoteSortCommand);
-//    }
-//
-//    @Test
-//    public void parseCommand_validDelete_success() throws Exception {
-//        Command command = parser.parse(VALID_DELETE);
-//        assertTrue(command instanceof NoteDeleteCommand);
-//    }
-//
-//    @Test
-//    public void parseCommand_invalidList_throwsException() {
-//        assertThrows(ParseException.class,
-//                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NoteListCommand.MESSAGE_USAGE), () ->
-//                        parser.parse(INVALID_LIST));
-//    }
-//
-//    @Test
-//    public void parseCommand_invalidSort_throwsException() {
-//        assertThrows(ParseException.class,
-//                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NoteSortCommand.MESSAGE_USAGE), () ->
-//                        parser.parse(INVALID_SORT));
-//    }
-//
-//    @Test
-//    public void parseCommand_invalidDelete_throwsException() {
-//        assertThrows(ParseException.class,
-//                Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX + "\n" + NoteDeleteCommand.MESSAGE_USAGE, () ->
-//                        parser.parse(INVALID_DELETE));
-//    }
+    /**
+     * Test a valid delete event command
+     * @throws Exception
+     */
+    @Test
+    public void parseCommand_validDelete_success() throws Exception {
+        Command command = parser.parse(VALID_DELETE);
+        assertTrue(command instanceof EventDeleteCommand);
+    }
+
+    /**
+     * Test a invalid delete command
+     */
+    @Test
+    public void parseCommand_invalidDelete_throwsParseException(){
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventDeleteCommand.MESSAGE_USAGE), () ->
+                        parser.parse(INVALID_DELETE));
+    }
+
+    /**
+     * Test invalid delete event command by passing zero as index
+     */
+    @Test
+    public void parseCommand_invalidDeleteZeroIndex_throwsParseException(){
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventDeleteCommand.MESSAGE_USAGE), () ->
+                        parser.parse(INVALID_DELETE_ZERO_INDEX));
+    }
+
+    /**
+     * Test invalid delete event command by passing negative index value
+     */
+    @Test
+    public void parseCommand_invalidDeleteNegativeIndex_throwsParseException(){
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventDeleteCommand.MESSAGE_USAGE), () ->
+                        parser.parse(INVALID_DELETE_NEGATIVE_INDEX));
+    }
+
+    /**
+     * Test invalid delete event command by not passing a index
+     */
+    @Test
+    public void parseCommand_invalidDeleteNoIndex_throwsParseException(){
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventDeleteCommand.MESSAGE_USAGE), () ->
+                        parser.parse(INVALID_DELETE_NO_INDEX));
+    }
+
+    /**
+     * Test a valid event index command.
+     * @throws Exception
+     */
+    @Test
+    public void parseCommand_validIndexOf_success() throws Exception {
+        Command command = parser.parse(VALID_INDEX_OF);
+        assertTrue(command instanceof EventIndexCommand);
+    }
 }

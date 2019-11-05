@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.EventUtil.eventToVEventMapper;
+import static seedu.address.commons.util.EventUtil.isSameVEvent;
 import static seedu.address.commons.util.StringUtil.calculateStringSimilarity;
 
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.EventUtil;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.event.exceptions.DuplicateVEventException;
 import seedu.address.model.event.exceptions.VEventNotFoundException;
 
@@ -179,18 +179,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         return vEvents.stream().anyMatch(vEvent -> isSameVEvent(vEvent, toCheck));
     }
 
-    /**
-     * Compares between 2 vEvents to see whether they are the same. Attributes used to determine this include
-     * event name, start and end date time
-     * @param vEvent1 first event to be compared
-     * @param vEvent2 second event to be compared
-     * @return true if both vEvents are the same
-     */
-    private boolean isSameVEvent(VEvent vEvent1, VEvent vEvent2) {
-        return vEvent1.getSummary().equals(vEvent2.getSummary())
-                && vEvent1.getDateTimeStart().equals(vEvent2.getDateTimeStart())
-                && vEvent1.getDateTimeEnd().equals(vEvent2.getDateTimeEnd());
-    }
+
 
     /**
      * Gets a list of pair of Index and VEvent which eventNames are equal to the desiredEventName

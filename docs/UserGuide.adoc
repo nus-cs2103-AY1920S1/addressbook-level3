@@ -766,18 +766,25 @@ Deletes the event with index 1
 ==== Taking screenshot of schedule
 
 Takes a screen shot of the calendar as PNG file +
-Format: `event screenshot directory/[DIRECTORY]`
+Format: `event screenshot`
 
-The options supported by this feature includes:
-
-. `[DIRECTORY]` - The target directory to save the screenshot to
 [NOTE]
 Scroll to which portion of the calendar is to be taken, and the application will then open a separate
 full screen window to maximise the content captured of the screenshot.
 
+[NOTE]
+The event schedule screenshot is stored in the same place as where the JAR file is installed.
+The screenshot can be found under a newly created printable directory.
+If the directory exists beforehand, no new directory is created.
+See <<Feature-Statistics, statistics print feature>>
 
-* `event screenshot directory/Users/John/Desktop` +
-Takes a screenshot of the current calendar and saves it to John's desktop.
+[NOTE]
+The screenshot will be saved based on the current settings of your event schedule.
+For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23.
+
+
+* `event screenshot` +
+Takes a screenshot of the current calendar and saves it into Printable folder.
 
 ==== Viewing all events
 
@@ -917,6 +924,7 @@ Example:
 * `note sort` +
 Sorts the notes by priority.
 
+[[Feature-Statistics]]
 === Statistics - `statistics`
 
 ==== Generating a Statistics report
@@ -1038,7 +1046,7 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Deleting an Event* : `event delete [INDEX]`
 * *Viewing all Event* : `event view scheduleMode/... targetDate/...`
 * *Exporting Events* : `event export`
-* *Screenshot Calendar* : `event screenshot directory/...`
+* *Screenshot Calendar* : `event screenshot`
 * *Creating a Note* : `note note/... desc/...`
 * *Creating a Note with Priority* : `note note/... desc/... priority/...`
 * *Editing a Note* : `note [INDEX] note/... desc/... priority/...`

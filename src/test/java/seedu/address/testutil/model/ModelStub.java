@@ -283,6 +283,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public String getEventSchedulePrefString() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasVEvent(VEvent vEvent) {
         throw new AssertionError("This method should not be called.");
     }
