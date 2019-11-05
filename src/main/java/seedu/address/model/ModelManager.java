@@ -35,10 +35,12 @@ public class ModelManager implements Model {
 
     private boolean hasBank = false;
 
-    WordBank currentWordBank = SampleDataUtil.getSampleWordBank();
+    private WordBank currentWordBank = SampleDataUtil.getPokemonWordBank();
+
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
+
     private final WordBankStatisticsList wordBankStatisticsList;
 
     private final GlobalStatistics globalStatistics;
@@ -66,7 +68,7 @@ public class ModelManager implements Model {
         this.wordBankStatisticsList = wbStatsList;
         this.globalStatistics = globalStatistics;
 
-        this.userPrefs = new UserPrefs(userPrefs);
+        this.userPrefs = (UserPrefs) userPrefs;
         this.appSettings = new AppSettings(appSettings);
 
         filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
@@ -234,7 +236,7 @@ public class ModelManager implements Model {
     public void updateWordBank(String name) {
         if (currentWordBank.isSameName(name)) {
             hasBank = false;
-            this.currentWordBank = SampleDataUtil.getSampleWordBank();
+            this.currentWordBank = SampleDataUtil.getPokemonWordBank();
         }
     }
 

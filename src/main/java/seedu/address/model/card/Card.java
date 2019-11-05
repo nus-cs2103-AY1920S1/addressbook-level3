@@ -20,7 +20,7 @@ public class Card {
     private final Meaning meaning;
     private final Set<Tag> tags = new HashSet<>();
 
-    // stateful objects, will create a new hintSupplier every game session. (by instantiaing a new card).
+    // stateful objects, will create a new hintSupplier every game session. (by instantiating a new card).
     private HintSupplier hintSupplier;
 
     /**
@@ -50,6 +50,14 @@ public class Card {
      */
     public static Card createNewCard(Word word, Meaning meaning, Set<Tag> tags) {
         return new Card(UidGenerator.get(), word, meaning, tags);
+    }
+
+    /**
+     * Creates a new {@code card} with a new id.
+     */
+    public static Card createDummyCard() {
+        Set<Tag> set = new HashSet<>();
+        return new Card(UidGenerator.get(), new Word("dummy"), new Meaning("dummy"), set);
     }
 
     public Word getWord() {
@@ -86,7 +94,7 @@ public class Card {
     }
 
     /**
-     * Returns the next hint of the name, and null if no more hints available.
+     * Returns the next {@code FormattedHint}, and null if no more hints available.
      */
     public FormattedHint getHint() {
         return hintSupplier.get();

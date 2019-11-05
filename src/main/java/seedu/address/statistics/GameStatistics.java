@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbankstats.ScoreData;
-
 /**
  * Represents the statistics of a single game.
  */

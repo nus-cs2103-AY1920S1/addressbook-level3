@@ -63,17 +63,14 @@ Holds the data of live game sessions in-memory.
 * <<Design-Storage,*`Storage`*>>: +
 Reads data from, and writes data to, the local hard disk.
 
-For the components UI, Logic, Model, Timer and Game:
+For the components UI, Logic, Model, Timer, Storage and Game:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
+** ie. `StorageManager` implements `Storage`, `GameTimerManager` implements `GameTimer`.
 
 // end::yida-design[]
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -99,13 +96,27 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the `AppManager` component.
+* Listens for changes to `Model` data and `Timer` through the `AppManager` so that the UI can be updated correspondingly.
+
+// tag::yida-AppManager[]
 
 [[Design-AppManager]]
 === AppManager component
 
-"Explain AppManager component"
+.Structure of the AppManager Component
+image::AppManagerClassDiagram.png[]
+
+The `AppManager` component serves as a _Facade_ layer and communication hub between the internal components of _Dukemon_ and the _UI_ components.
+Using this extra layer provides better abstraction between the `UI` and the internal components, especially between the `Timer`
+and the `UI`.
+
+`AppManager` communicates with both the `Logic` and `Timer` components to send feedback to the `UI` to display back to the user.
+
+* Gets feedback for commands by through `Logic`
+* Starts and Stops the `Timer` when required.
+* Makes call-backs to the `UI` to update various `UI` components.
+* Initiates collection of `Statistics` by pulling data (eg. Time Elapsed) from `Timer` and `Logic`.
 
 [[Design-Timer]]
 === Timer component
@@ -124,31 +135,53 @@ and notify the `AppManager`, who will notify the `UI` components.
 * Periodically triggering _callbacks_ that will notify the `AppManager` component.
 * Gets timestamps to trigger `Hints` via a `HintTimingQueue`
 
-_Due to the fact that the timer has to work closely with the `UI` and `AppManager` (without being
+_Due to the fact that the `Timer` has to work closely with the `UI` and `AppManager` (without being
 coupled directly), it is separated from the `Logic`, `Model` and `Game` components._
+
+// end::yida-AppManager[]
 
 // tag::subbashdg2[]
 [[Design-Logic]]
 === Logic component
+_This section breakdown the logic package into its internal components_
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
+Logic is primarily built by two segments: Command and Parser.
+
+===== Command
+
+    Command is an abstract class.
+
+    Four other abstract classes (HomeCommand, OpenCommand, GameCommand and SettingsCommand) extend Command.
+
+    Concrete Command classes with an execute method implementation extend one of the above four abstract classes.
+
+===== Parser
+
+    ParserManager holds reference to a SpecificModeParser and a SwitchModeParser.
+
+    The SpecificModeParser changes based on current application mode.
+
+    Both of them hold references to all concrete Parser and Command Classes with the help of ClassUtil
+
+Logic fulfils its contracts with other packages through two interfaces: Logic and UiLogicHelper
+
+Examples of transactions promised by Logic API include command execution, command result and update statistics.
+
+UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for AutoComplete. It exposes the functionalities through the following getter methods:
+
+* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
+* `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
+* `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
+
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/UiLogicHelper.java[`UiLogicHelper.java`]
 
-.  `Logic` uses the `ParserManager` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-.  Furthermore, through the UiLogicHelper Interface, it updates the AutoComplete suggestions for every keystroke.
 
-Given below is the Activity Diagram that shows the workflows that change state of `ParserManager` that produce different outcomes for commands entered.
-
-.Activity diagram of Application flow
-image::ParserManagerActivityDiagram.PNG[]
 
 
 // end::subbashdg2[]
@@ -186,7 +219,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Game Component
 image::GameClassDiagram.png[]
 
-The `Game`,
+The `Game` component,
 
 * stores a _shuffled_ `List<Card>` that is cloned/copied from a `ReadOnlyWordBank`.
 * maintains an `Index` to keep track of the state of the game.
@@ -221,125 +254,10 @@ current week.
 * A `WordBankStatisticsList`, which is a collection of `WordBankStatistics`, one for each `WordBank`.
 
 
-==== Implementation
-
 The class diagram of the Statistics component is shown below:
 
-.Statistics class diagram TO BE UPDATED.
+.Statistics class diagram.
 image::StatisticsClassDiagram.png[]
-
-
-The work of the Statistics component can be neatly captured and explained using a common series of user actions
-when operating the app.
-
-[%header,cols=3*]
-|===
-|User action
-|Statistics work
-|UI Statistics updates
-
-|User opens the app.
-|User's `GlobalStatistics` and `WordBankStatisticsList` are loaded into `Model` by the `MainApp`.
-|User is shown their `GlobalStatistics` and their most played word bank from the `WordBankStatisticsList` in
-the main title page.
-
-|User selects a word bank.
-|The selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded into `Model`.
-|
-
-|User opens the selected word bank.
-|
-|In open mode, User is shown the `WordBankStatistics` of the opened word bank.
-
-|User plays the game.
-|A `GameStatisticsBuilder` is used to record user actions during the game.
-|
-|User finishes the game.
-a|
-* A `GameStatistics` is created from the `GameStatisticsBuilder`.
-* The `WordBankStatistics` and `GlobalStatistics` are updated accordingly and saved to disk.
-| `GameStatistics` and the corresponding `WordBankStatistics` are displayed to user in the game result page.
-|===
-
-
-We will discuss each step with its implementation details primarily on the statistics work.
-
-===== 1. [underline]#User opens the app# +
-
-When the user opens the app, their `GlobalStatistics` and `WordBankStatisticsList` are loaded into `Model` by
-`MainApp`.
-
-.Sequence diagram for loading statistics
-image::LoadStatisticsSequenceDiagram.png[]
-
-===== 2. [underline]#User selects a word bank# +
-When the user selects a word bank, the selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded
-into Model. +
-
-.Sequence diagram for selecting a word bank statistics.
-image::SelectWordBankStatisticsSequenceDiagram.png[]
-It is necessary to set the active `WordBankStatistics` in the `Model` such that when the user opens the `WordBank`, the
-`WordBankStatistics` can be found in `Model` and shown in the UI.
-
-===== 3. [underline]#User opens the selected word bank# +
-In open mode, the user is shown the `WordBankStatistics` of the opened word bank, which is set in `Model` at step 2.
-
-===== 4. [underline]#User plays the game# +
-A `GameStatisticsBuilder` is used to record user actions during the game.
-
-When the user starts the game by calling a `StartCommand`, the `GameStatisticsBuilder` is initialized.
-
-.Sequence diagram when user starts a game.
-image::InitializeStatisticsSequenceDiagram.png[]
-
-During the game, the `GameStatisticsBuilder` is updated with every `GuessCommand` or `SkipCommand` made. It receives
-the timestamp from the `GameTimer` which also resides in `AppManager`.
-
-.Sequence diagram when user makes a guess.
-image::UpdateStatisticsSequenceDiagram.png[]
-
-===== [underline]#5. User finishes the game# +
-When the user finishes the game, a `GameStatistics` is created from the `GameStatisticsBuilder`. The `GameStatistics`
-is shown to the user in the game result page.
-
-The `GameStatistics` is used to update its corresponding `WordBankStatistics`, which is then saved to disk.
-Additionally, the `GlobalStatistics` is also updated and saved to disk.
-
-.Sequence diagram for saving the statistics to disk.
-image::UpdateSaveStatisticsSequenceDiagram.png[]
-
-==== Design Considerations
-
-There were some design considerations on implementing the statistics.
-
-|===
-||**Alternative 1**|**Alternative 2**
-|**Aspect 1**: +
-How to store `WordBankStatistics` in the storage?
-| **Store in a separate file from the `WordBank` json file, but with the same name in a different directory.**
-
-Example: `WordBank` data is stored at _data/wordbanks/pokemon.json_ while the `WordBankStatistics` data is stored at
-_data/wbstats/pokemon.json_
-
-_Pros:_ +
-More abstraction to separate the data. +
-
-_Cons:_ +
-The data is linked by name, so if the user changes the file name, the link is broken. +
-
-|**Store `WordBankStatistics` data in the same file as `WordBank`** +
-
-_Pros:_ +
-Less number of files. +
-
-_Cons:_ +
-Data is combined into one which lowers abstraction.
-
-3+|**Why we decided to choose Alternative 1:** +
-We decided that abstraction between the data is important as each team member should work in parallel, such that it is
-easier for one person to modify the storage system for the word bank and another person to modify the storage system
-for the word bank statistics freely.
-|===
 
 // end::jasonstats[]
 
@@ -354,66 +272,101 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::autocompleteimplementation[]
-=== [underline]#AutoComplete Feature# (for command execution)
-==== Implementation
+=== [underline]#AutoComplete and Command Execution#
+_This section explains how the design choice of Dynamic Parsers fulfils AutoComplete and Command Execution._
 
-The AutoComplete is facilitated by `ParserManager`.
-It dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
+ParserManager dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
 
-For the UI package to have access to this information, it exposes its functionality through `LogicManager` as `UiLogicHelper` interface with the following getter methods:
-
-* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
-* `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
-* `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
-
-These operations are implemented in `SpecificModeParser` aided by `ClassUtil` to handle instantiation of Parser and Command objects.
-
-Given below is an example usage scenario and how the AutoCompletion mechanism behaves at each step.
-
-Step 1. The user launches the application. The `VersionedDukemon` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-Replace image with state of ParserManager
+==== Implementation details
 
 
-Step 2. The user enters `start difficult` command to begin the game. The `LogicManager` passes string to `Model#commitDukemon()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `DukemonStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+.  `ParserManager` instance has reference to a `SwitchModeParser` and `SpecificModeParser`
+.   When user enters a keystroke, the `SwitchModeParser` and/or `SpecificModeParser` are accessed based on internal state.
+.  It updates the AutoComplete suggestions for every keystroke.
+.   Internal State consists of booleans: gameIsOver, bankLoaded and enumeration ModeEnum: HOME, OPEN, GAME, SETTINGS
+.   The above process is aided by `ClassUtil` to handle instantiation of Parser and Command objects.
 
 
-Step 3. The user executes `stop` to abruptly end the game. The `add` command also calls `Model#commitDukemon()`, causing another modified address book state to be saved into the `DukemonStateList`.
+    The state management is complex. The below sequence diagram demonstrates all possible workflows.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoDukemon()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+.Activity diagram of Application flow
+image::ParserManagerActivityDiagram.PNG[]
+
+NOTE: Home (No Switch) means HomeModeParser is used and SwitchModeParser is not used
 
 
-The following sequence diagram shows how the AutoComplete operation works:
+==== Walkthrough of Command Execution
 
+* Command Execution through `Logic Interface`
+
+.  A String from Ui package gets to `ParserManager` and gets converted into a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a word meaning pair into wordbank).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+==== Walkthrough of AutoComplete
+
+* AutoComplete through `UiLogicHelper Interface`
+
+The following sequence diagram shows how the AutoComplete operation runs when user keys in "st" into command box.
+
+.Sequence Diagram of AutoComplete
 image::AutoCompleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoDukemon()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 
 ==== Design Considerations
 
-===== Aspect: How parser and command objects are instantiated in SpecificModeParser
 
-* **Alternative 1 (current choice):** Use java reflections to hold a List of Classes and iterate through them to pick the matching Classes
-** Pros: Open Close Principle strictly followed. Adding a command with a parser takes only one line of code.
-** Cons: It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
-* **Alternative 2:** Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.
-** Pros: Compile time error would be thrown if new command or parser does not subclass correctly.
-** Cons: Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+How parser and command objects are instantiated in SpecificModeParser
+| **Use java reflections to hold a List of Classes and iterate through them to pick the matching Classes** +
+ +
+[underline]_Pros:_ +
+Open Close Principle strictly followed. Adding a command with a parser takes only one line of code. +
+ +
+[underline]_Cons:_ +
+It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
+|**Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.** +
+ +
+[underline]_Pros:_ +
+Compile time error would be thrown if new command or parser does not subclass correctly. +
+ +
+[underline]_Cons:_ +
+Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
 
-===== Aspect: Single Parser vs Parser Manager
+3+|**Why did we choose Alternative 1:** +
+d
 
-* **Alternative 1 (current choice):** Using a ParserManager to dynamically switch between Parsers based on current state
-** Pros: Commands not belonging to specific mode would not be parsed
-** Cons: More code to right for initial developer. However it is easily extnensible for new modes and parsers by the Open Close Principle
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+|**Aspect 2:** +
+Single Parser vs Parser Manager
+| **Using a ParserManager to dynamically switch between Parsers based on current state** +
+ +
+[underline]_Pros:_ +
+Commands not belonging to specific mode would not be parsed +
+ +
+[underline]_Cons:_ +
+More code to write for initial developer. However it is easily extnensible for new modes and parsers by the Open Close Principle
+| **Use a single parser** +
+ +
+[underline]_Pros_ +
+We do not need to restructure the logic package. +
+ +
+[underline]_Cons_ +
+Bad user experience as it autocompletes and parses commands that do not belong to a particular mode.
+3+| **Why did we choose Alternative 1:** +
+d
+|===
+
+
+
+==== Technical details
+
+<Insert class util code demonstrating java reflections>
+
+<Insert where one line of code can be inserted for adding new commands and parsers>
+
 // end::autocompleteimplementation[]
 
 // tag::settings[]
@@ -482,17 +435,17 @@ There were a few considerations for implementing an interface that essentially a
 Where to effect change when a setting is changed by the user
 | **Effecting the change inside the `execute()` command of the settings commands**: +
  +
-_Pros:_ +
+[underline]_Pros:_ +
 Since the Command is taking care of all the execution, there is no need to worry about extra implementation of the settings' effects in their classes. +
  +
-_Cons:_ +
+[underline]_Cons:_ +
 However, there are certain situations that will break software design principles, such as the *Single Responsibility Principle* by doing the job of already existing classes.
 |**Effecting the change in the part of the architecture that the setting is affecting. E.g, Changing the theme inside Ui or changing the difficulty inside model** +
  +
-_Pros:_ +
+[underline]_Pros:_ +
 This method practises good software engineering principles and it abides by the architecture diagram shown above as to where the changes of the settings are being effected. +
  +
-_Cons:_ +
+[underline]_Cons:_ +
 This method however requires that the reader gets familiar with the whole architecture diagram as they need to know where to implement the actual change in settings as opposed to creating a new class that performs the same functionality of an existing class.
 
 3+|**Why did we choose Alternative 2:** +
@@ -502,17 +455,17 @@ We believe that software design principles exist for a reason. Furthermore, whil
 How to store information regarding the different settings
 | **Storing it inside the enumerations that make up the choices for the settings** +
  +
-_Pros:_ +
+[underline]_Pros:_ +
 Having the information stored inside the enum allows for immutablilty, such that no other class can change the properties of the enums. Only the developer can change the values of the enums and it will subsequently affect all the methods and functionality that relies on said enum. +
  +
-_Cons:_ +
+[underline]_Cons:_ +
 In the case that the user wants to customise certain continuous settings such as time limit, they are unable to as those settings are already defined by the developer to be discrete options.
 | **Storing it inside the classes that implement the settings** +
  +
-_Pros_ +
+[underline]_Pros_ +
 The information is easily accessible from within the class itself and there is no need for extra import classes to handle the enums in alternative 1. +
  +
-_Cons_ +
+[underline]_Cons_ +
 Unlike Alternative 1, the developer can create an extension to the class implementing the setting to allow the user to customise their settings even further, allowing for continuous values to be used rather than discrete values.
 3+| **Why did we choose Alternative 1:** +
 The considerations for this aspect was mainly down to how much customisability we wanted to grant our users. While having more customisability is better in some cases,
@@ -522,10 +475,13 @@ in this one, we do not think the added functionality of allowing the user to ext
 
 // tag::yida-timer[]
 
-=== [underline]#Timer Feature#
+=== [underline]#Timer-based Features#
 
-.Screenshot of the `Timer` component in action as seen through the `UI`.
+.Screenshot of the `Timer` component in action.
 image::TimerDGScreenshot.png[]
+
+.Screenshot of the automatic `Hints` feature in action.
+image::HintDGScreenshot.png[]
 
 ==== Implementation Overview
 
@@ -562,9 +518,9 @@ and display accordingly on the `UI`.
 The call-backs for each of these events are implemented as nested _Functional Interfaces_
 within the  `GameTimer` interface, which is concretized via the `GameTimerManager`.
 
-==== Flow of Events
+==== Flow of Events - `Hints` Disabled
 
-This section describes the sequential flow of events in the life cycle of a `GameTimer` object.
+This section describes the sequential flow of events in the life cycle of a `GameTimer` object with *no hints*.
 
 .Sequence diagram describing the flow of registering and executing callbacks between the different components
 image::TimerSequenceDiagram1.png[]
@@ -574,8 +530,12 @@ the `Timer` component. Periodically, the `Timer` will notify the `AppManager` to
 the `UI` component. This is to provide better abstraction between the `UI` and `Timer`.
 
 A `GameTimer` instance is created by the `AppManager` for every `Card` of a `Game`.
-The `AppManager` provides information regarding the duration in which the `Timer` should run for, and whether
-to trigger `Hints` at the point when a `GameTimer` instance is created.
+The `AppManager` provides information regarding the duration in which the `Timer` should run for.
+
+==== Flow of Events - `Hints` Enabled
+
+.Activity diagram of the `Timer` component when `Hints` are enabled
+image::TimerActivityDiagramWithHints.png[]
 
 ==== Design Considerations
 
@@ -615,7 +575,7 @@ debug and resolve problems in the code.
 
 // tag::chenhui-feature[]
 
-=== [underline]#Word Bank features#
+=== [underline]#WordBank Features#
 Dukemon, a flashcard app, requires a non-trivial implementation of a data structure to contain it's information. +
 It comes along with a set of commands that either modifies it's data, or modify the view. +
 These commands will then synchronise the data in storage, or update the model for viewing. +
@@ -672,7 +632,7 @@ image::CardDiagram.png[]
 
 A `Card` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. +
 
-`id` : for statistical tracking +
+`id` : for statistical tracking +``
 `word`: answer to the question +
 `meaning`: the question that will appear in the game +
 `tags`: optional tag to classify cards
@@ -890,6 +850,125 @@ drop feature is just a function call away, as all data structure and functions a
 |===
 
 // end::chenhui-feature[]
+// tag::jason-feature[]
+=== [underline]#Statistics features#
+
+==== Implementation
+
+The work of the Statistics component can be neatly captured and explained using a common series of user actions
+when operating the app.
+
+[%header,cols=3*]
+|===
+|User action
+|Statistics work
+|UI Statistics updates
+
+|User opens the app.
+|User's `GlobalStatistics` and `WordBankStatisticsList` are loaded into `Model` by the `MainApp`.
+|User is shown their `GlobalStatistics` and their most played word bank from the `WordBankStatisticsList` in
+the main title page.
+
+|User selects a word bank.
+|The selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded into `Model`.
+|
+
+|User opens the selected word bank.
+|
+|In open mode, User is shown the `WordBankStatistics` of the opened word bank.
+
+|User plays the game.
+|A `GameStatisticsBuilder` is used to record user actions during the game.
+|
+|User finishes the game.
+a|
+* A `GameStatistics` is created from the `GameStatisticsBuilder`.
+* The `WordBankStatistics` and `GlobalStatistics` are updated accordingly and saved to disk.
+| `GameStatistics` and the corresponding `WordBankStatistics` are displayed to user in the game result page.
+|===
+
+
+We will discuss each step with its implementation details primarily on the statistics work.
+
+===== 1. [underline]#User opens the app# +
+
+When the user opens the app, their `GlobalStatistics` and `WordBankStatisticsList` are loaded into `Model` by
+`MainApp`.
+
+.Sequence diagram for loading statistics
+image::LoadStatisticsSequenceDiagram.png[]
+
+===== 2. [underline]#User selects a word bank# +
+When the user selects a word bank, the selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded
+into Model. +
+
+.Sequence diagram for selecting a word bank statistics.
+image::SelectWordBankStatisticsSequenceDiagram.png[]
+It is necessary to set the active `WordBankStatistics` in the `Model` such that when the user opens the `WordBank`, the
+`WordBankStatistics` can be found in `Model` and shown in the UI.
+
+===== 3. [underline]#User opens the selected word bank# +
+In open mode, the user is shown the `WordBankStatistics` of the opened word bank, which is set in `Model` at step 2.
+
+===== 4. [underline]#User plays the game# +
+A `GameStatisticsBuilder` is used to record user actions during the game.
+
+When the user starts the game by calling a `StartCommand`, the `GameStatisticsBuilder` is initialized.
+
+.Sequence diagram when user starts a game.
+image::InitializeStatisticsSequenceDiagram.png[]
+
+During the game, the `GameStatisticsBuilder` is updated with every `GuessCommand` or `SkipCommand` made. It receives
+the timestamp from the `GameTimer` which also resides in `AppManager`.
+
+.Sequence diagram when user makes a guess.
+image::UpdateStatisticsSequenceDiagram.png[]
+
+===== [underline]#5. User finishes the game# +
+When the user finishes the game, a `GameStatistics` is created from the `GameStatisticsBuilder`. The `GameStatistics`
+is shown to the user in the game result page.
+
+The `GameStatistics` is used to update its corresponding `WordBankStatistics`, which is then saved to disk.
+Additionally, the `GlobalStatistics` is also updated and saved to disk.
+
+.Sequence diagram for saving the statistics to disk.
+image::UpdateSaveStatisticsSequenceDiagram.png[]
+
+
+==== Design Considerations
+
+There were some design considerations on implementing the statistics.
+
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+How to store `WordBankStatistics` in the storage?
+| **Store in a separate file from the `WordBank` json file, but with the same name in a different directory.**
+
+Example: `WordBank` data is stored at _data/wordbanks/pokemon.json_ while the `WordBankStatistics` data is stored at
+_data/wbstats/pokemon.json_
+
+_Pros:_ +
+More abstraction to separate the data. +
+
+_Cons:_ +
+The data is linked by name, so if the user changes the file name, the link is broken. +
+
+|**Store `WordBankStatistics` data in the same file as `WordBank`** +
+
+_Pros:_ +
+Less number of files. +
+
+_Cons:_ +
+Data is combined into one which lowers abstraction.
+
+3+|**Why we decided to choose Alternative 1:** +
+We decided that abstraction between the data is important as each team member should work in parallel, such that it is
+easier for one person to modify the storage system for the word bank and another person to modify the storage system
+for the word bank statistics freely.
+|===
+
+// end::jason-feature[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

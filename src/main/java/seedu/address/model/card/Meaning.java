@@ -9,7 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Meaning {
 
-    public static final int MAX_LEN = 512;
+    /** Maximum length of Meanings's string is set at 200 characters to ensure Hints showing properly. */
+    public static final int MAX_LEN = 200;
+
     public static final String MESSAGE_CONSTRAINTS =
             "Meanings should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
 
@@ -28,6 +30,19 @@ public class Meaning {
     public Meaning(String meaning) {
         requireNonNull(meaning);
         checkArgument(isValidMeaning(meaning), MESSAGE_CONSTRAINTS);
+        this.value = meaning;
+    }
+
+    /**
+     * Constructs a {@code Meaning}.
+     *
+     * @param meaning A valid meaning.
+     */
+    public Meaning(String meaning, boolean isByPass) {
+        requireNonNull(meaning);
+        if (!isByPass) {
+            checkArgument(isValidMeaning(meaning), MESSAGE_CONSTRAINTS);
+        }
         this.value = meaning;
     }
 

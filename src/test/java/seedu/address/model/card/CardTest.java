@@ -1,5 +1,6 @@
 package seedu.address.model.card;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEANING_BUTTERFREE;
@@ -9,13 +10,16 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 
-//import java.util.HashSet;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
 
 public class CardTest {
+
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
@@ -41,17 +45,18 @@ public class CardTest {
         assertFalse(ABRA.isSameMeaning(editedAbra));
     }
 
-    //    @Test
-    //    public void getHint() {
-    //        String wordStr = "Pikachu";
-    //        String meaningStr = "PIKA PIKA";
-    //        Card card = new Card(new Word(wordStr), new Meaning(meaningStr), new HashSet<>());
-    //        for (int i = 0; i < wordStr.length(); ++i) {
-    //            Hint hint = card.getHint();
-    //            assertTrue(wordStr.charAt(hint.index.getZeroBased()) == hint.letter);
-    //        }
-    //        assertTrue(card.getHint() == null); // hints exhausted
-    //    }
+    @Test
+    public void getHint() {
+        String wordStr = "Pikachu";
+        String meaningStr = "PIKA PIKA";
+        Card card = new Card("dummyID", new Word(wordStr), new Meaning(meaningStr), new HashSet<>());
+        FormattedHint formattedHint = card.getHint();
+        for (int i = 0; i < wordStr.length(); ++i) {
+            formattedHint = card.getHint();
+        }
+        /** After all hint characters are supplied, the formatted hint should be same as original word. */
+        assertTrue(formattedHint.toString().equals(wordStr));
+    }
 
 
 
@@ -84,5 +89,48 @@ public class CardTest {
         // different tags -> returns false
         editedAbra = new CardBuilder(ABRA).withTags(VALID_TAG_BUG).build();
         assertFalse(ABRA.equals(editedAbra));
+    }
+
+    @Test
+    public void testClone() {
+        Card abraCopy = new CardBuilder(ABRA).build();
+        assertFalse(abraCopy == abraCopy.clone());
+        assertTrue(abraCopy.equals(abraCopy.clone()));
+    }
+
+    @Test
+    public void getHintFormatSize() {
+        String wordStr = "Pikachu";
+        String meaningStr = "PIKA PIKA";
+        Card card = new Card("dummyID", new Word(wordStr), new Meaning(meaningStr), new HashSet<>());
+        assertEquals(card.getHintFormatSize(), wordStr.length());
+
+        String wordWithSpaces = "0            0";
+        card = new Card("dummyID", new Word(wordWithSpaces), new Meaning("0 0"), new HashSet<>());
+        assertEquals(card.getHintFormatSize(), wordWithSpaces.length());
+    }
+
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        Word dummyWord = new Word("dummy");
+        Meaning dummyMeaning = new Meaning("dummy");
+        String idStr = "dummy";
+        Set<Tag> dummyHashSet = new HashSet<>();
+
+        assertThrows(NullPointerException.class, () ->
+                new Card(null, dummyWord, dummyMeaning, dummyHashSet)
+        );
+
+        assertThrows(NullPointerException.class, () ->
+                new Card(idStr, null, dummyMeaning, dummyHashSet)
+        );
+
+        assertThrows(NullPointerException.class, () ->
+                new Card(idStr, dummyWord, null, dummyHashSet)
+        );
+
+        assertThrows(NullPointerException.class, () ->
+                new Card(idStr, dummyWord, dummyMeaning, null)
+        );
     }
 }

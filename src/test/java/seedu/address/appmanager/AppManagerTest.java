@@ -123,7 +123,7 @@ class AppManagerTest {
     }
 
     @Test
-    void setTimerDisplayCallBack() {
+    void registerTimerDisplayCallBack() {
         TimerDisplayStub timerDisplayStub = new TimerDisplayStub();
         AppManager.TimerDisplayCallBack dummyCallBack = timerDisplayStub::updateTimerDisplay;
         dummyAppManager.registerTimerDisplayCallBack(dummyCallBack);
@@ -137,12 +137,12 @@ class AppManagerTest {
     }
 
     @Test
-    void setTimerDisplayCallBack_null_throwsNullPointerException() {
+    void registerTimerDisplayCallBack_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> dummyAppManager.registerTimerDisplayCallBack(null));
     }
 
     @Test
-    void setHintDisplayCallBack() {
+    void registerHintDisplayCallBack() {
         HintDisplayStub hintDisplayStub = new HintDisplayStub();
         AppManager.HintDisplayCallBack dummyCallBack = hintDisplayStub::updateHintDisplay;
         dummyAppManager.registerHintDisplayCallBack(dummyCallBack);
@@ -156,12 +156,12 @@ class AppManagerTest {
     }
 
     @Test
-    void setHintDisplayCallBack_null_throwsNullPointerException() {
+    void registerHintDisplayCallBack_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> dummyAppManager.registerHintDisplayCallBack(null));
     }
 
     @Test
-    void setMainWindowExecuteCallBack() {
+    void registerMainWindowExecuteCallBack() {
         MainWindowStub mainWindowStub = new MainWindowStub();
         AppManager.MainWindowExecuteCallBack dummyCallBack = mainWindowStub::execute;
         dummyAppManager.registerMainWindowExecuteCallBack(dummyCallBack);
@@ -175,12 +175,12 @@ class AppManagerTest {
     }
 
     @Test
-    void setMainWindowExecuteCallBack_null_throwsNullPointerException() {
+    void registerMainWindowExecuteCallBack_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> dummyAppManager.registerMainWindowExecuteCallBack(null));
     }
 
     @Test
-    void setQuestionDisplayCallBack() {
+    void registerQuestionDisplayCallBack() {
         QuestionDisplayStub questionDisplayStub = new QuestionDisplayStub();
         AppManager.QuestionDisplayCallBack dummyCallBack = questionDisplayStub::updateQuestionDisplay;
         dummyAppManager.registerQuestionDisplayCallBack(dummyCallBack);
@@ -194,7 +194,7 @@ class AppManagerTest {
     }
 
     @Test
-    void setQuestionDisplayCallBack_null_throwsNullPointerException() {
+    void registerQuestionDisplayCallBack_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> dummyAppManager.registerQuestionDisplayCallBack(null));
     }
 
@@ -237,6 +237,11 @@ class AppManagerTest {
 
         @Override
         public void updateStatistics(GameStatistics gameStats) throws CommandException {
+
+        }
+
+        @Override
+        public void updateRevisionBank(GameStatistics gameStats) {
 
         }
 

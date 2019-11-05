@@ -14,6 +14,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.gamecommands.GameCommandResult;
+import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -29,27 +30,28 @@ import seedu.address.statistics.GameStatisticsBuilder;
 import seedu.address.storage.Storage;
 
 /**
- * Class that serves as a hub for communication between the GUI and The internal components.
+ * Class that serves as a hub for communication between the GUI and the internal components.
  * This is done to separate all logic of the game away from the GameTimer entirely.
  */
 public class AppManager {
 
     private Logic logic;
+
+    /** GameTimer object to keep track of time elapsed during Game mode. */
     private GameTimer gameTimer;
+
+    /** Call-back methods that AppManager is dependent on. */
     private TimerDisplayCallBack timerDisplayCallBack;
-    // Call-back method to update ResultDisplay in MainWindow
     private HintDisplayCallBack hintDisplayCallBack;
     private MainWindowExecuteCallBack mainWindowExecuteCallBack;
-    private GameStatisticsBuilder gameStatisticsBuilder;
     private QuestionDisplayCallBack questionDisplayCallBack;
+
+    private GameStatisticsBuilder gameStatisticsBuilder;
+
 
     public AppManager(Logic logic) {
         requireAllNonNull(logic);
         this.logic = logic;
-    }
-
-    public void setGuiSettings(GuiSettings guiSettings) {
-        logic.setGuiSettings(guiSettings);
     }
 
     /**
@@ -106,11 +108,13 @@ public class AppManager {
             // should make logic save the updated game statistics
             if (gameCommandResult.isFinishedGame()) {
                 abortAnyExistingGameTimer();
+                GameStatistics gameStatistics = gameStatisticsBuilder.build();
                 logic.updateStatistics(gameStatisticsBuilder.build());
+                logic.updateRevisionBank(gameStatisticsBuilder.build());
             }
         }
 
-        /** AppManager will always abort Timer when a new valid command is entered while Game is running. */
+        /* AppManager will always abort Timer when a new valid command is entered while Game is running. */
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
@@ -118,10 +122,10 @@ public class AppManager {
 
             Platform.runLater(() -> {
 
-                /** Call-back to UI to update QuestionDisplay with current Question. */
+                /* Call-back to UI to update QuestionDisplay with current Question. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
 
-                /** Starts the initialized GameTimer for this current Card. */
+                /* Starts the initialized GameTimer for this current Card. */
                 gameTimer.run();
             });
         }
@@ -141,6 +145,10 @@ public class AppManager {
     }
     public String getSelectedWbName() {
         return logic.getActiveWordBankStatistics().getWordBankName();
+    }
+
+    public void setGuiSettings(GuiSettings guiSettings) {
+        logic.setGuiSettings(guiSettings);
     }
 
     /**
@@ -214,7 +222,7 @@ public class AppManager {
      */
     private void skipOverToNextQuestion() {
         try {
-            this.mainWindowExecuteCallBack.execute("skip");
+            this.mainWindowExecuteCallBack.execute(SkipCommand.COMMAND_WORD);
         } catch (ParseException e) {
             e.printStackTrace();
         } catch (CommandException e) {

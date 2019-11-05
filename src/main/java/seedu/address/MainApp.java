@@ -12,6 +12,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -51,15 +52,15 @@ import seedu.address.Game.*;
  * Runs the application.
  */
 public class MainApp extends Application {
-    public static final Version VERSION = new Version(1, 3, 0, true);
+    private static final Version VERSION = new Version(1, 3, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
-    protected AppManager appManager;
+    private Config config;
+    private AppManager appManager;
 
     @Override
     public void init() throws Exception {
@@ -72,7 +73,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         logger.info("initialized userPrefs");
-        WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath());
+        WordBankListStorage wordBankListStorage = initWordBankListStorage(userPrefsStorage, userPrefs);
         logger.info("initialized wordBankListStorage");
         WordBankStatisticsListStorage wbStatsStorage =
                 new JsonWordBankStatisticsListStorage(userPrefs.getDataFilePath());
@@ -85,34 +86,27 @@ public class MainApp extends Application {
                 wbStatsStorage, globalStatsStorage, appSettingsStorage);
         logger.info("initialized Storage");
         initLogging(config);
-
         model = initModel(storage, userPrefs);
-
         logic = new LogicManager(model, storage);
-
-        /*
-        Step 9.
-        Create AppManager using logic and pass to UIManager.
-         */
         appManager = new AppManager(logic);
-
-        /*
-        Step 10
-        Initialize UIManager using GameManager
-         */
-
         ui = new UiManager(appManager);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s storage and {@code userPrefs}. <br>
+     * The data from the sample storage will be used instead if {@code storage}'s storage is not found,
+     * or an empty storage will be used instead if errors occur when reading {@code storage}'s storage.
      */
 
     private Model initModel(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
-        WordBankList wbl = (WordBankList) optionalWbl.get();
+        WordBankList wbl;
+        if (optionalWbl.isPresent()) {
+            wbl = (WordBankList) optionalWbl.get();
+        } else {
+            wbl = null;
+            logger.warning("Word Bank List not initiated. IO exception.");
+        }
         WordBankStatisticsList wbStatsList = storage.getWordBankStatisticsList();
         GlobalStatistics globalStatistics = storage.getGlobalStatistics();
         ReadOnlyAppSettings appSettings = null;
@@ -125,16 +119,6 @@ public class MainApp extends Application {
         return new ModelManager(wbl, wbStatsList, globalStatistics, userPrefs, appSettings);
     }
 
-    /*
-    Step 3.
-    Extends to Step 4 : storage.readGame()
-    Extends to Step 5 : define ReadOnlyGame class;
-    Extends to Step 6 : constructor for new Game();
-    Extends to Step 7 : constructor for new GameManger;
-
-
-    */
-
     private void initLogging(Config config) {
         LogsCenter.init(config);
     }
@@ -144,7 +128,7 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    private Config initConfig(Path configFilePath) {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -176,11 +160,36 @@ public class MainApp extends Application {
     }
 
     /**
+     /**
+     * Returns a {@code WordBankListStorage} with the data from {@code UserPrefs}'s storage and {@code userPrefs}. <br>
+     *
+     * @param userPrefsStorage
+     * @param userPrefs
+     * @return WordBankListStorage.
+     * @throws DataConversionException if word banks are corrupted.
+     * @throws IllegalValueException if word banks list contain duplicate name or it's bank has duplicate cards.
+     * @throws IOException file is not found.
+     */
+    private WordBankListStorage initWordBankListStorage(UserPrefsStorage userPrefsStorage, UserPrefs userPrefs)
+            throws DataConversionException, IllegalValueException, IOException {
+        WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath(),
+                userPrefs.isSampleInitiated());
+
+        if (!userPrefs.isSampleInitiated()) {
+            userPrefs.setSampleInitiated();
+            logger.info("UserPrefs isSampleInitiated set to true");
+            userPrefsStorage.saveUserPrefs(userPrefs);
+            logger.info("UserPrefs saved");
+        }
+        return wordBankListStorage;
+    }
+
+    /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+    private UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
@@ -193,7 +202,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Dukemon");
             initializedPrefs = new UserPrefs();
         }
 

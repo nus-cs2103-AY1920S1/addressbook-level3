@@ -39,11 +39,14 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * It also initialises the folder and sample data if necessary.
      *
      * @param filePath of storage. By default, it is at data folder.
+     * @param isSampleInitiated checks to see if sample data has been initiated before
+     * @throws DataConversionException if there is corrupted file.
+     * @throws IllegalValueException if word banks contain duplicate names or it's card contain duplicate values
      */
-    public JsonWordBankListStorage(Path filePath) throws DataConversionException, IllegalValueException {
-        initDataByDefault(filePath);
+    public JsonWordBankListStorage(Path filePath, boolean isSampleInitiated)
+            throws DataConversionException, IllegalValueException {
+        initDataByDefault(filePath, isSampleInitiated);
         initWordBankList();
-
     }
 
     /**
@@ -52,8 +55,9 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param filePath of storage. By default, it is at data folder.
      * @param folder   specifies another layer of folder to contain word banks.
      */
-    public JsonWordBankListStorage(Path filePath, String folder) throws DataConversionException, IllegalValueException {
-        initData(filePath, folder);
+    public JsonWordBankListStorage(Path filePath, String folder, boolean isSampleInitiated)
+            throws DataConversionException, IllegalValueException {
+        initData(filePath, folder, isSampleInitiated);
         initWordBankList();
     }
 
@@ -64,8 +68,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      *
      * @param filePath of storage. By default, it is data.
      */
-    private void initDataByDefault(Path filePath) {
-        initData(filePath, "wordBanks");
+    private void initDataByDefault(Path filePath, boolean isSampleInitiated) {
+        initData(filePath, "wordBanks", isSampleInitiated);
     }
 
     /**
@@ -75,16 +79,14 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      *
      * @param filePath of storage. By default, it is data.
      */
-    private void initData(Path filePath, String folder) {
+    private void initData(Path filePath, String folder, boolean isSampleInitiated) {
         if (folder.equals("")) {
             wordBanksFilePath = filePath;
         } else {
             wordBanksFilePath = Paths.get(filePath.toString(), folder);
         }
+
         try {
-            if (!wordBanksFilePath.toFile().exists()) {
-                Files.createDirectories(wordBanksFilePath);
-            }
             if (!wordBanksFilePath.toFile().exists()) {
                 Files.createDirectories(wordBanksFilePath);
             }
@@ -92,19 +94,13 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             e.printStackTrace();
         }
 
-        File wordBanksDirectory = wordBanksFilePath.toFile();
-        String[] wordBanks = wordBanksDirectory.list();
-        boolean haveSampleWordBank = false;
-        for (int i = 0; i < wordBanks.length; i++) {
-            if (wordBanks[i].equals(SampleDataUtil.getName() + ".json")) {
-                haveSampleWordBank = true;
-                break;
-            }
-        }
-
-        if (!haveSampleWordBank) {
-            WordBank sampleWb = SampleDataUtil.getSampleWordBank();
-            saveWordBank(sampleWb);
+        if (!isSampleInitiated) {
+            WordBank pokemonWb = SampleDataUtil.getPokemonWordBank();
+            WordBank arithmeticWb = SampleDataUtil.getArithmeticWordBank();
+            WordBank getTriviaWordBank = SampleDataUtil.getTriviaWordBank();
+            saveWordBank(pokemonWb);
+            saveWordBank(arithmeticWb);
+            saveWordBank(getTriviaWordBank);
         }
     }
 
@@ -311,4 +307,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         return wordBanksFilePath;
     }
 
+    @Override
+    public WordBank getWordBankFromName(String name) {
+        return readOnlyWordBankList.getWordBankFromName(name);
+    }
 }

@@ -18,7 +18,7 @@ public class AppParameters {
 
     private Path configPath;
 
-    public Path getConfigPath() {
+    Path getConfigPath() {
         return configPath;
     }
 
