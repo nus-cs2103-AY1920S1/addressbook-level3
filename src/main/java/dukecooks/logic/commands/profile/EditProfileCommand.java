@@ -293,8 +293,6 @@ public class EditProfileCommand extends EditCommand {
                     && getDateOfBirth().equals(e.getDateOfBirth())
                     && getGender().equals(e.getGender())
                     && getBloodType().equals(e.getBloodType())
-                    && getWeight().equals(e.getWeight())
-                    && getHeight().equals(e.getHeight())
                     && getMedicalHistoriesToAdd().equals(e.getMedicalHistoriesToAdd())
                     && getMedicalHistoriesToRemove().equals(e.getMedicalHistoriesToRemove());
         }

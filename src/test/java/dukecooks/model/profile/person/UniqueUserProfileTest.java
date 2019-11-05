@@ -1,4 +1,4 @@
-package dukecooks.model.profile;
+package dukecooks.model.profile.person;
 
 import static dukecooks.logic.commands.CommandTestUtil.VALID_HISTORY_DENGUE;
 import static dukecooks.testutil.Assert.assertThrows;
@@ -14,8 +14,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import dukecooks.model.profile.person.Person;
-import dukecooks.model.profile.person.UniqueUserProfile;
 import dukecooks.model.profile.person.exceptions.DuplicatePersonException;
 import dukecooks.model.profile.person.exceptions.PersonNotFoundException;
 import dukecooks.testutil.profile.PersonBuilder;

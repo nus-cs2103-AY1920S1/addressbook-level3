@@ -17,22 +17,22 @@ public class TypicalProfiles {
             .withGender("female")
             .withDoB("30/12/1985")
             .withBloodType("A+")
-            .withWeight("50", "30/08/2019 1200")
-            .withHeight("165", "30/08/2019 1200")
+            .withWeight("50")
+            .withHeight("165")
             .withMedicalHistories("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withGender("male")
             .withDoB("03/01/1965")
             .withBloodType("B-")
-            .withWeight("75", "30/08/2019 1200")
-            .withHeight("175", "30/08/2019 1200")
+            .withWeight("75")
+            .withHeight("175")
             .withMedicalHistories("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
             .withGender("male")
             .withDoB("14/04/1995")
             .withBloodType("AB+")
-            .withWeight("80", "30/08/2019 1200")
-            .withHeight("185", "30/08/2019 1200")
+            .withWeight("80")
+            .withHeight("185")
             .build();
 
     // Manually added

@@ -23,9 +23,8 @@ public class PersonBuilder {
     public static final String DEFAULT_DOB = "30/12/1985";
     public static final String DEFAULT_BLOODTYPE = "A+";
     public static final String DEFAULT_WEIGHT = "50";
-    public static final String DEFAULT_WEIGHT_TIMESTAMP = "30/08/2019 1200";
     public static final String DEFAULT_HEIGHT = "165";
-    public static final String DEFAULT_HEIGHT_TIMESTAMP = "30/08/2019 1200";
+    public static final String DEFAULT_MEDICALHISTORY = "high blood pressure";
 
     private Name name;
     private Gender gender;
@@ -40,9 +39,10 @@ public class PersonBuilder {
         gender = new Gender(DEFAULT_GENDER);
         dateOfBirth = new DoB(DEFAULT_DOB);
         bloodGroup = new BloodType(DEFAULT_BLOODTYPE);
-        weight = new Weight(DEFAULT_WEIGHT, DEFAULT_WEIGHT_TIMESTAMP);
-        height = new Height(DEFAULT_HEIGHT, DEFAULT_HEIGHT_TIMESTAMP);
+        weight = new Weight(DEFAULT_WEIGHT);
+        height = new Height(DEFAULT_HEIGHT);
         medicalHistories = new HashSet<>();
+        medicalHistories.add(new MedicalHistory(DEFAULT_MEDICALHISTORY));
     }
 
     /**
@@ -93,16 +93,16 @@ public class PersonBuilder {
     /**
      * Sets the {@code Weight} of the {@code Person} that we are building.
      */
-    public PersonBuilder withWeight(String weight, String weightTimestamp) {
-        this.weight = new Weight(weight, weightTimestamp);
+    public PersonBuilder withWeight(String weight) {
+        this.weight = new Weight(weight);
         return this;
     }
 
     /**
      * Sets the {@code height} of the {@code Person} that we are building.
      */
-    public PersonBuilder withHeight(String height, String heightTimestamp) {
-        this.height = new Height(height, heightTimestamp);
+    public PersonBuilder withHeight(String height) {
+        this.height = new Height(height);
         return this;
     }
 

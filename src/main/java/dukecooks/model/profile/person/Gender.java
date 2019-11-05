@@ -27,15 +27,14 @@ public class Gender {
     public Gender(String gender) {
         requireNonNull(gender);
         AppUtil.checkArgument(isValidGender(gender), MESSAGE_CONSTRAINTS);
-        this.gender = gender;
+        this.gender = gender.toLowerCase();
     }
 
     /**
      * Returns true if a given string is a valid gender.
-     * Preconditions: assumes (@code String test) is in lower case.
      */
     public static boolean isValidGender(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.toLowerCase().matches(VALIDATION_REGEX);
     }
 
 

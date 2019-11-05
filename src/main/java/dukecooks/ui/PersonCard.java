@@ -53,10 +53,8 @@ public class PersonCard extends UiPart<Region> {
         dateOfBirth.setText(person.getDateOfBirth().dateOfBirth.toString());
         gender.setText(person.getGender().gender);
         bloodGroup.setText(person.getBloodType().bloodGroup);
-        weight.setText(String.valueOf(person.getWeight().weight) + "kg (last updated: "
-                + person.getWeight().timestamp + ")");
-        height.setText(String.valueOf(person.getHeight().height) + "cm (last updated: "
-                + person.getHeight().timestamp + ")");
+        weight.setText(String.valueOf(person.getWeight().weight) + "kg");
+        height.setText(String.valueOf(person.getHeight().height) + "cm");
         person.getMedicalHistories().stream()
                 .sorted(Comparator.comparing(history -> history.medicalHistoryName))
                 .forEach(history -> medicalHistories.getChildren().add(new Label(history.medicalHistoryName)));
