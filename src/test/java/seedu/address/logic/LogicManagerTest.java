@@ -23,9 +23,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserStateStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.BankOperationBuilder;
+import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalTransactions;
 
 
@@ -65,30 +68,30 @@ public class LogicManagerTest {
         assertCommandSuccess(inCommand, String.format(InCommand.MESSAGE_SUCCESS, TypicalTransactions.ALICE), model);
     }
 
-    // TODO: FIX
-    /*
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
-        JsonBankAccountStorage bankAccountStorage =
-                new JsonBankAccountIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionBankAccount.json"));
+        // Setup LogicManager with JsonUserStateIoExceptionThrowingStub
+        JsonUserStateStorage userStateStorage =
+            new JsonUserStateIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionUserState.json"));
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(bankAccountStorage, userPrefsStorage);
+            new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(userStateStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withCategories().build();
+        // Execute in command
+        String inCommand = InCommand.COMMAND_WORD + " n/milk" + " d/19112019" + " $/69";
+        BankAccountOperation expectedOp = new BankOperationBuilder()
+            .withDescription("milk")
+            .withAmount("69")
+            .withDate("19112019")
+            .withCategories("Uncategorised")
+            .build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.add(expectedOp);
+        expectedModel.commitUserState();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+        assertCommandFailure(inCommand, CommandException.class, expectedMessage, expectedModel);
     }
-     */
 
     @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
@@ -156,8 +159,8 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonBankAccountIoExceptionThrowingStub extends JsonUserStateStorage {
-        private JsonBankAccountIoExceptionThrowingStub(Path filePath) {
+    private static class JsonUserStateIoExceptionThrowingStub extends JsonUserStateStorage {
+        private JsonUserStateIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 

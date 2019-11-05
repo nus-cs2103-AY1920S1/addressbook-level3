@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
@@ -81,7 +82,7 @@ public class TransactionBuilder {
     /**
      * Builds BankOperation of InTransaction or OutTransaction
      */
-    public Transaction build() {
+    public BankAccountOperation build() {
         if (amount.isNegative()) {
             return new OutTransaction(amount, date, description, categories);
         } else {
