@@ -31,8 +31,6 @@ public class IndivMeetingCard extends UiPart<Region> {
     private Label displayIndex;
     @FXML
     private Label meetingTime;
-//    @FXML
-//    private Label attendance;
     @FXML
     private Text memberListDisplay;
     @FXML
@@ -44,10 +42,9 @@ public class IndivMeetingCard extends UiPart<Region> {
 
         displayIndex.setText(index + ". ");
 
-        meetingTime.setText(DateTimeUtil.displayDateTime(meeting.getStartTime()) + " - " +
-                meeting.getEndTime().toLocalTime().toString());
+        meetingTime.setText(DateTimeUtil.displayDateTime(meeting.getStartTime()) + " - "
+                + meeting.getEndTime().toLocalTime().toString());
         ObservableList<MemberName> memberList = meeting.getMemberNameList();
-//        attendance.setText("" + memberList.size());
         String memberListString = "";
         for (int i = 0; i < memberList.size(); i++) {
             memberListString += (i + 1) + ". " + memberList.get(i).fullName + "\n";
