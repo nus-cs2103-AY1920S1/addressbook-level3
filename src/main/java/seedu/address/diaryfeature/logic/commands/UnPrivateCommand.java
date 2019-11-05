@@ -13,8 +13,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 public class UnPrivateCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "unprivate";
-    private static final String OVERFLOW = "For the private command, your index has to be less than the size" +
-            "of the list! Make your number smaller.";
+    private static final String OVERFLOW = "For the unprivate command, your index has to be less than the size" +
+            " of the list! Make your number smaller.";
     private static final String MESSAGE_UNPRIVATE_ENTRY_SUCCESS = "Entry %1$d has become unprivate. Everyone can see it";
     private static final String MESSAGE_HAS_DETAILS = "There is password protection!\n"
             +"Use the unlock command";

@@ -19,6 +19,7 @@ import seedu.address.diaryfeature.logic.commands.SetDetailsCommand;
 import seedu.address.diaryfeature.logic.commands.UnLockCommand;
 import seedu.address.diaryfeature.logic.commands.UnPrivateCommand;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryUnknownException;
+import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.GoToParser;
@@ -37,7 +38,7 @@ public class DiaryBookParser {
      * @param userInput full user input string
      * @return the command based on the user input
      */
-    public Command parseCommand(String userInput) {
+    public Command parseCommand(String userInput) throws ParseException, EmptyArgumentException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             logger.info("Couldn't match the command word");
@@ -46,7 +47,7 @@ public class DiaryBookParser {
         }
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        try {
+     //  try {
             switch (commandWord) {
                 case AddCommand.COMMAND_WORD:
                     return new AddCommandParser().parse(arguments);
@@ -87,9 +88,9 @@ public class DiaryBookParser {
                 default:
                     return new ErrorCommand(new DiaryUnknownException());
             }
-        } catch (Exception error) {
-            return new ErrorCommand(error);
-        }
+        //} catch (EmptyArgumentException error) {
+        //    return new ErrorCommand(error);
+      //  }
     }
 
 }

@@ -17,7 +17,7 @@ public class FindCommand extends Command<DiaryModel> {
 
 
     public static final String COMMAND_WORD = "find";
-    private static String MESSAGE_ENTRIES_LISTED_OVERVIEW = "%1$d entries listed";
+    private static String MESSAGE_ENTRIES_LISTED_OVERVIEW = "%1$d entries listed. Type list to get the original list back";
     private final FindPredicate predicate;
 
     /**

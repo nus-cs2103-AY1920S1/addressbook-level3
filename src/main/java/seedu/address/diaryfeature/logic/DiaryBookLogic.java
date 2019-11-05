@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.diaryfeature.logic.parser.DiaryBookParser;
+import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
@@ -53,7 +54,7 @@ public class DiaryBookLogic {
         this.diaryBookParser = new DiaryBookParser();
     }
 
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, EmptyArgumentException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
