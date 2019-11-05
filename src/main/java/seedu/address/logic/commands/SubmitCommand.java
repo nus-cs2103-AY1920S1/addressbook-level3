@@ -23,12 +23,6 @@ public class SubmitCommand extends Command {
             + COMMAND_WORD + " INDEX (positive integer) to submit the specified draft.";
 
     public static final String MESSAGE_SUBMIT_SUCCESS = "New incident report submitted: %1$s";
-    public static final String MESSAGE_NO_COMPLETED_REPORTS_TO_SUBMIT = "No reports ready for submission";
-    public static final String MESSAGE_DRAFT_IS_INCOMPLETE = "This draft is incomplete and is not ready for submission"
-            + " Please use the 'Fill' command to first complete the report";
-    public static final String MESSAGE_REPORT_HAS_BEEN_SUBMITTED = "This report has already been submitted";
-    public static final String MESSAGE_REPORT_COMPLETE_BUT_UNFILLED = "Error! Report is marked 'Complete' but is not "
-            + "actually fully filled!";
 
     private final Index targetIndex;
 
@@ -46,7 +40,7 @@ public class SubmitCommand extends Command {
         requireNonNull(model);
 
         if (!model.ifAnyIncidentsSatisfyPredicate(PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS)) {
-            return new CommandResult(MESSAGE_NO_COMPLETED_REPORTS_TO_SUBMIT);
+            throw new CommandException(Messages.MESSAGE_NO_INCIDENT_TO_SUBMIT);
         }
 
         // there are drafts to be submitted. Get the last shown list.
@@ -69,16 +63,16 @@ public class SubmitCommand extends Command {
      * @param toSubmit incident report to be submitted
      * @return the string representing the command result
      */
-    private String processReportSubmission(Model model, Incident toSubmit) {
+    private String processReportSubmission(Model model, Incident toSubmit) throws CommandException {
         // if incident is not a complete draft, do not allow submission
         if (toSubmit.isIncompleteDraft()) {
-            return MESSAGE_DRAFT_IS_INCOMPLETE;
+            throw new CommandException(Messages.MESSAGE_DRAFT_IS_INCOMPLETE);
         } else if (toSubmit.isSubmitted()) {
-            return MESSAGE_REPORT_HAS_BEEN_SUBMITTED;
+            throw new CommandException(Messages.MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED);
         } else if (!toSubmit.areAllFieldsFilled()) {
             // defensive programming
             // confirm that the incident marked as 'complete' is actually fully filled
-            return MESSAGE_REPORT_COMPLETE_BUT_UNFILLED;
+            throw new CommandException(Messages.MESSAGE_REPORT_COMPLETE_BUT_UNFILLED);
         }
 
         // submit incident as it is a complete draft

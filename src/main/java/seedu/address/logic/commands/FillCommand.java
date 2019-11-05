@@ -31,9 +31,6 @@ public class FillCommand extends Command {
             + "Existing completed reports will be overwritten. Submitted reports can be edited using 'edit' command.";
 
     private static final String MESSAGE_FILL_DRAFT_SUCCESS = "Incident report filled: %1$s";
-    private static final String MESSAGE_NO_DRAFTS_TO_FILL = "No drafts present in the system";
-    private static final String MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED = "This incident cannot be filled as it has been"
-            + " submitted. Please use the 'edit' command instead.";
 
     private final Index targetIndex;
     private final CallerNumber callerNumber;
@@ -54,7 +51,7 @@ public class FillCommand extends Command {
         requireNonNull(model);
 
         if (!model.ifAnyIncidentsSatisfyPredicate(PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS)) {
-            return new CommandResult(MESSAGE_NO_DRAFTS_TO_FILL);
+            throw new CommandException(Messages.MESSAGE_NO_DRAFTS_LISTED);
         }
 
         // there are drafts to be filled. Get the last shown list.
@@ -76,10 +73,10 @@ public class FillCommand extends Command {
      * @param toFill incident report to be filled
      * @return the string representing the command result
      */
-    private String processReportFilling(Model model, Incident toFill) {
+    private String processReportFilling(Model model, Incident toFill) throws CommandException {
         // if incident has already been submitted, do not allow update
         if (toFill.isSubmitted()) {
-            return MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED;
+            throw new CommandException(Messages.MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED);
         }
 
         // update incident as it is a draft
