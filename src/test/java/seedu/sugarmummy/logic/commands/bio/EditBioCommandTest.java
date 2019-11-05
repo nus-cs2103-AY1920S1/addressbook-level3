@@ -42,13 +42,13 @@ class EditBioCommandTest {
     @Test
     public void null_editUserDescriptor_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
-                .getMessage(), () -> new EditBioCommand(null));
+                        .getMessage(), () -> new EditBioCommand(null));
     }
 
     @Test
     public void executeEditBio_nullModel_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
-                .getMessage(), () -> (new EditBioCommand(getUnModifiedUserDescriptor())).execute(null));
+                        .getMessage(), () -> (new EditBioCommand(getUnModifiedUserDescriptor())).execute(null));
     }
 
     @Test
@@ -64,7 +64,7 @@ class EditBioCommandTest {
 
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_NO_CHANGE, false, false);
         assertCommandSuccess(new EditBioCommand(getUnModifiedUserDescriptor()), new ModelStubWithUserListForEditing(),
-                expectedCommandResult, model);
+            expectedCommandResult, model);
     }
 
     @Test
@@ -86,15 +86,16 @@ class EditBioCommandTest {
                 editedFields.append("Deleted from ").append(key).append(": ").append(before);
             } else {
                 editedFields.append("Modified ").append(key)
-                        .append(": from ").append(before).append(" to ").append(after);
+                    .append(": from ").append(before).append(" to ").append(after);
             }
             editedFields.append("\n");
         });
 
         CommandResult expectedCommandResult = new CommandResult(String.format(String.format(MESSAGE_EDIT_USER_SUCCESS,
-                String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())), false, false));
+            String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())), false, false));
+        System.out.println(expectedCommandResult);
         assertCommandSuccess(new EditBioCommand(getModifiedEditUserDescriptor()), new ModelStubWithUserListForEditing(),
-                expectedCommandResult, model);
+            expectedCommandResult, model);
     }
 
     @Test

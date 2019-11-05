@@ -148,6 +148,7 @@ public class Colour {
         int red = getRed() - other.getRed();
         int green = getGreen() - other.getGreen();
         int blue = getBlue() - other.getBlue();
+        System.out.println(red * red + green * green + blue * blue);
         return (red * red + green * green + blue * blue)
                 <= CLOSE_COLOURS_THRESHOLD * CLOSE_COLOURS_THRESHOLD;
     }
