@@ -10,6 +10,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.StudyBuddyCounter;
+import seedu.address.model.tag.Tag;
 
 /**
  * Lists all tags in the StudyBuddy Application to the user.
@@ -28,11 +30,23 @@ public class ListAllTagsCommand extends Command {
         requireNonNull(model);
         model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
         StringBuilder outputString = new StringBuilder();
-        ArrayList<String> sortedTagList = model.getListOfTags();
-        Collections.sort(sortedTagList);
-        for (String s : sortedTagList) {
-            outputString.append(s);
-            outputString.append("\n");
+        ArrayList<String> sortedTagListInStringForm = model.getListOfTags();
+        Collections.sort(sortedTagListInStringForm);
+
+        ArrayList<Tag> sortedTagList = new ArrayList<>();
+        for (String s : sortedTagListInStringForm) {
+            sortedTagList.add(new Tag(s));
+        }
+
+        ArrayList<StudyBuddyCounter> studyBuddyCounters = model.getStatistics(sortedTagList);
+
+        for (int i = 0; i < sortedTagListInStringForm.size(); i++) {
+            if (studyBuddyCounters.get(i).isTagExisting()) {
+                outputString.append(sortedTagListInStringForm.get(i));
+                outputString.append(" | ");
+                outputString.append(studyBuddyCounters.get(i).toString());
+                outputString.append("\n");
+            }
         }
         return new GlobalCommandResult(MESSAGE_SUCCESS + outputString.toString());
     }

@@ -245,4 +245,6 @@ public interface Model {
 
     public ArrayList<String> getListOfTags();
 
+    public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList);
+
 }

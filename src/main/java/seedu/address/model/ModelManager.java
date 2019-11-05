@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,8 +17,11 @@ import seedu.address.commons.core.LogsCenter;
 
 import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteContainsTagPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -452,8 +456,38 @@ public class ModelManager implements Model {
     public ArrayList<String> getListOfTags() {
         ArrayList<String> listOfTags = new ArrayList<>();
         for (Tag t : studyBuddyPro.getTagList()) {
-            listOfTags.add(t.toString());
+            listOfTags.add(t.getTagName());
         }
         return listOfTags;
+    }
+
+    @Override
+    public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
+        ArrayList<StudyBuddyCounter> counterList = new ArrayList<>();
+        for (Tag t : tagList) {
+            StudyBuddyCounter studyBuddyCounter = new StudyBuddyCounter();
+            HashSet<Tag> temp = new HashSet<>();
+            temp.add(t);
+            FlashcardContainsTagPredicate fcp = new FlashcardContainsTagPredicate(temp);
+            NoteContainsTagPredicate np = new NoteContainsTagPredicate(temp);
+            CheatSheetContainsTagPredicate cp = new CheatSheetContainsTagPredicate(temp);
+            for (Flashcard fc : filteredFlashcards) {
+                if (fcp.test(fc)) {
+                    studyBuddyCounter.increaseFlashcardCount();
+                }
+            }
+            for (Note n : filteredNotes) {
+                if (np.test(n)) {
+                    studyBuddyCounter.increaseNotesCount();
+                }
+            }
+            for (CheatSheet cs : filteredCheatSheets) {
+                if (cp.test(cs)) {
+                    studyBuddyCounter.increaseCheatSheetCount();
+                }
+            }
+            counterList.add(studyBuddyCounter);
+        }
+        return counterList;
     }
 }
