@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.typee.commons.core.Messages;
 import com.typee.model.Model;
-import com.typee.model.person.DescriptionContainsKeywordsPredicate;
+import com.typee.model.engagement.EngagementPredicate;
 
 /**
  * Finds and lists all engagements in engagement list whose description contains any of the argument keywords.
@@ -19,9 +19,9 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " interview";
 
-    private final DescriptionContainsKeywordsPredicate predicate;
+    private final EngagementPredicate predicate;
 
-    public FindCommand(DescriptionContainsKeywordsPredicate predicate) {
+    public FindCommand(EngagementPredicate predicate) {
         this.predicate = predicate;
     }
 

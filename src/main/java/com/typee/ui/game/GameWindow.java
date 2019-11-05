@@ -58,6 +58,7 @@ public class GameWindow extends UiPart<Stage> {
     /**
      * Creates a new game instance with a new player upon exit.
      */
+    @Override
     @FXML
     public void handleExit() {
         getRoot().close();

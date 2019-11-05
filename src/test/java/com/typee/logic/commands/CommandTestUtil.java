@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.typee.commons.core.index.Index;
@@ -13,7 +12,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.EngagementList;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.DescriptionContainsKeywordsPredicate;
+import com.typee.model.engagement.EngagementPredicate;
 
 /**
  * Contains helper methods for testing commands.
@@ -107,11 +106,9 @@ public class CommandTestUtil {
 
         Engagement engagement = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
         final String[] splitDescription = engagement.getDescription().split("\\s+");
-        model.updateFilteredEngagementList(new DescriptionContainsKeywordsPredicate((
-                Arrays.asList(splitDescription[0]))
-        ));
+        model.updateFilteredEngagementList(new EngagementPredicate());
 
-        assertEquals(1, model.getFilteredEngagementList().size());
+        assertEquals(3, model.getFilteredEngagementList().size());
     }
 
 }
