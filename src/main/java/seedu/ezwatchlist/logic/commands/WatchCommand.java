@@ -374,10 +374,6 @@ public class WatchCommand extends Command {
             this.totalNumOfEpisodes = totalNumOfEpisodes;
         }
 
-        public int getTotalNumOfEpisodes() {
-            return totalNumOfEpisodes;
-        }
-
         public void setNumOfSeasonsWatched(int numOfSeasonsWatched) {
             this.numOfSeasonsWatched = numOfSeasonsWatched;
         }
