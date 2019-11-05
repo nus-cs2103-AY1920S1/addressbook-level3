@@ -714,7 +714,7 @@ according to the specified category and suggestions would be shown by Leo, the a
 If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
 
 If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method
-to show a list of suggestions. + 
+to show a list of suggestions. +
 The following are two code snippets from `getRecommendedItems(description)`:
 
             if (description.length() >= 3) {
