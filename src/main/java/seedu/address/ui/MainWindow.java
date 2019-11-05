@@ -274,10 +274,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens up the CheckContactWindow for the specific {@code contact}.
+     */
     private void handleContact(Contact contact) {
         ObservableList<Claim> claimList = logic.getFilteredClaimList();
         CheckContactWindow checkContactWindow = new CheckContactWindow(contact, claimList);
-//        IndividualContactWindow checkContactWindow = new IndividualContactWindow(contact);
 
         if (!checkContactWindow.isShowing()) {
             checkContactWindow.show();

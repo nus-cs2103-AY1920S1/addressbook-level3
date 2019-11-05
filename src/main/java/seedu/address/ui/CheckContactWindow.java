@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -81,7 +83,7 @@ public class CheckContactWindow extends UiPart<Stage> {
         descriptionCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("description"));
         amountCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("amount"));
 
-        claims.getColumns().addAll(snCol, claimIdCol, dateCol, statusCol, descriptionCol, amountCol);
+        claims.getColumns().setAll(snCol, claimIdCol, dateCol, statusCol, descriptionCol, amountCol);
 
         ObservableList<ClaimItem> claimItems = getClaimItems();
         claims.setItems(claimItems);
@@ -156,7 +158,7 @@ public class CheckContactWindow extends UiPart<Stage> {
     }
 
     private ObservableList<ClaimItem> getClaimItems() {
-        ObservableList<ClaimItem> lst = FXCollections.observableArrayList();
+        List<ClaimItem> lst = new ArrayList<>();
         int count = 1;
         for (Id id: contact.getClaims()) {
             Claim claim = findClaimById(id);
@@ -171,9 +173,12 @@ public class CheckContactWindow extends UiPart<Stage> {
                 count++;
             }
         }
-        return lst;
+        return (ObservableList<ClaimItem>) FXCollections.observableArrayList(lst);
     }
 
+    /**
+     * Finds the claim by its id.
+     */
     private Claim findClaimById(Id id) {
         for (Claim claim: claimList) {
             if (claim.getId().equals(id)) {

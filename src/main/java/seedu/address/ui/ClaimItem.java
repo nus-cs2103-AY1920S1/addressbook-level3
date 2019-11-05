@@ -2,25 +2,18 @@ package seedu.address.ui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import seedu.address.model.claim.Claim;
 
+/**
+ * Row item to contain claim for CheckContactWindow.
+ */
 public class ClaimItem {
-    private final SimpleStringProperty sn = new SimpleStringProperty(this, "sn");;
-    private final StringProperty claimId = new SimpleStringProperty(this, "claimId");
-    private final StringProperty date = new SimpleStringProperty(this, "date");
-    private final StringProperty status = new SimpleStringProperty(this, "status");
-    private final StringProperty description = new SimpleStringProperty(this, "description");
-    private final StringProperty amount = new SimpleStringProperty(this, "amount");
 
-    public ClaimItem(int sn, Claim claim) {
-        this(sn + "",
-                claim.getId().toString(),
-                claim.getDate().toString(),
-                claim.getStatus().toString(),
-                claim.getDescription().toString(),
-                claim.getAmount().toString());
-    }
-
+    private final SimpleStringProperty sn = new SimpleStringProperty(this, "sn");
+    private final SimpleStringProperty claimId = new SimpleStringProperty(this, "claimId");
+    private final SimpleStringProperty date = new SimpleStringProperty(this, "date");
+    private final SimpleStringProperty status = new SimpleStringProperty(this, "status");
+    private final SimpleStringProperty description = new SimpleStringProperty(this, "description");
+    private final SimpleStringProperty amount = new SimpleStringProperty(this, "amount");
 
     public ClaimItem(String sn, String claimId, String date, String status, String description, String amount) {
         setSn(sn);
@@ -31,18 +24,11 @@ public class ClaimItem {
         setAmount(amount);
     }
 
-    public ClaimItem(String claimId, String date, String status, String description, String amount) {
-        setClaimId(claimId);
-        setDate(date);
-        setStatus(status);
-        setDescription(description);
-        setAmount(amount);
+    public ClaimItem() {
+        this("", "", "", "", "", "");
     }
 
     public StringProperty snProperty() {
-//        if (sn == null) {
-//            sn = new SimpleStringProperty(this, "sn");
-//        }
         return sn;
     }
 
@@ -56,9 +42,6 @@ public class ClaimItem {
     }
 
     public StringProperty claimIdProperty() {
-//        if (claimId == null) {
-//            claimId = new SimpleStringProperty(this, "claimId");
-//        }
         return claimId;
     }
 
@@ -72,9 +55,6 @@ public class ClaimItem {
     }
 
     public StringProperty dateProperty() {
-//        if (date == null) {
-//            date = new SimpleStringProperty(this, "date");
-//        }
         return date;
     }
 
@@ -88,9 +68,6 @@ public class ClaimItem {
     }
 
     public StringProperty statusProperty() {
-//        if (status == null) {
-//            status = new SimpleStringProperty(this, "claimId");
-//        }
         return status;
     }
 
@@ -104,9 +81,6 @@ public class ClaimItem {
     }
 
     public StringProperty descriptionProperty() {
-//        if (description == null) {
-//            description = new SimpleStringProperty(this, "claimId");
-//        }
         return description;
     }
 
@@ -120,9 +94,6 @@ public class ClaimItem {
     }
 
     public StringProperty amountProperty() {
-//        if (amount == null) {
-//            amount = new SimpleStringProperty(this, "claimId");
-//        }
         return amount;
     }
 

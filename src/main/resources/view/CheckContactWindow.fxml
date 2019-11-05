@@ -10,6 +10,7 @@
 <?import javafx.stage.Stage?>
 
 <?import seedu.address.ui.ClaimItem?>
+<?import javafx.collections.FXCollections?>
 <fx:root fx:id="root" resizable="false" title="IndividualClaim" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
@@ -32,6 +33,11 @@
                          <TableColumn fx:id="descriptionCol" prefWidth="398.4000244140625" text="Description" />
                          <TableColumn fx:id="amountCol" prefWidth="146.4000244140625" text="Amount ($)" />
                        </columns>
+                         <items>
+                             <FXCollections fx:factory = "observableArrayList" >
+                                 <ClaimItem />
+                             </FXCollections>
+                         </items>
                      </TableView>
                   </children>
                </VBox>
