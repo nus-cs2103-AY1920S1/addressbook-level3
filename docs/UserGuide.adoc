@@ -108,7 +108,15 @@ Displays below expenses (for example) in the GUI: +
 {nbsp} +
 
 === Tagging expenses: `tag`
+This feature allows you to assign tags to your expenses. Expenses with the same tag will be grouped together which allows you to search for related expenses easily.
 
+[IMPORTANT]
+Tag names should be *alphanumeric*. This means that they should not contain spaces and special characters.
+
+[NOTE]
+You are not able to use this feature on archived expenses.
+
+To view a list of supported tag commands, you could type `tag` in the command box and press `enter`
 . _Adding a tag: tag add_ +
 Adds your input tag/s to the expense at the index you have specified. +
 {nbsp} +
