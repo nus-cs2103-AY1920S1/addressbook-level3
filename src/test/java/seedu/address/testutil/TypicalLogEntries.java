@@ -54,7 +54,7 @@ public class TypicalLogEntries {
             .withTransactionMethod("NETS Flashpay")
             .withCats("umian", "terrace")
             .withPlace("Terrace")
-            .withPerson("NILL").buildSpend();
+            .withPerson("NIL").buildSpend();
     public static final LogEntry LOG5 = new LogEntryBuilder().withAmount("10")
             .withTransactionDate("29-10-2019")
             .withDescription("Groceries")
