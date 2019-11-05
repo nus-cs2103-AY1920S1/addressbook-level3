@@ -104,8 +104,11 @@ public class AccountsManager {
      * @param editedAccount The edited account to replace the target account with.
      */
     public void editAccount(Index toEdit, Account editedAccount) throws AccountNotFoundException {
-        setActiveAccount(toEdit);
         accounts.replace(filteredAccounts.get(toEdit.getZeroBased()), editedAccount);
+        //editing the account may cause it to no longer be part of the filtered list,
+        //so we have to reset the filtered account list.
+        resetFilteredAccountList();
+        setActiveAccount(accounts.indexOfEquivalent(editedAccount));
     }
 
     /**
@@ -127,7 +130,6 @@ public class AccountsManager {
             setActiveAccount(Index.fromZeroBased(0));
         } else {
             accounts.remove(accountToDelete);
-            setActiveAccount(Index.fromZeroBased(0));
         }
     }
 
