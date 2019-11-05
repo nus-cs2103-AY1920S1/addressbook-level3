@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.Address;
@@ -270,6 +271,7 @@ public class ParserUtilTest {
     @Test
     public void parseAmount_invalidAmount_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseAmount("$100.00"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("100.005"));
     }
 
     @Test
@@ -282,5 +284,26 @@ public class ParserUtilTest {
     public void parseAmount_validNegativeValue_returnsAmount() throws Exception {
         Amount expectedNegativeAmount = new Amount(-10.00);
         assertEquals(expectedNegativeAmount, ParserUtil.parseAmount("-10.00"));
+    }
+
+    @Test
+    public void parseBudgetIndex_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseBudgetIndex(null));
+    }
+
+    @Test
+    public void parseBudgetIndex_invalidZeroValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseBudgetIndex("0"));
+    }
+
+    @Test
+    public void parseBudgetIndex_invalidNegativeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseBudgetIndex("-1"));
+    }
+
+    @Test
+    public void parseBudgetIndex_validPositiveValue_returnsBudgetIndex() throws Exception {
+        Index index = Index.fromOneBased(1);
+        assertEquals(index, ParserUtil.parseBudgetIndex("1"));
     }
 }

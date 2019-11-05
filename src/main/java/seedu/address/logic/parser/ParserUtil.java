@@ -238,17 +238,14 @@ public class ParserUtil {
     }
 
     /**
-     *
-     *
-     * @throws ParseException
-     */
-    /**
      * Parse Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
      * and trailing whitespaces will be trimmed.
+     *
      * @return {@code Index} representing the budget's index
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseBudgetIndex(String oneBasedIndex) throws ParseException {
+        requireNonNull(oneBasedIndex);
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
