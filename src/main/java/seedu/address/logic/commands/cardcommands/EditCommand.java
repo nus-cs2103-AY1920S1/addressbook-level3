@@ -20,7 +20,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.meaning.Meaning;
+import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 

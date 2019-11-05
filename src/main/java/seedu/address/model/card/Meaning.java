@@ -1,4 +1,4 @@
-package seedu.address.model.card.meaning;
+package seedu.address.model.card;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

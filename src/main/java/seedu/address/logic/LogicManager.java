@@ -27,7 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
-import seedu.address.model.card.meaning.Meaning;
+import seedu.address.model.card.Meaning;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;

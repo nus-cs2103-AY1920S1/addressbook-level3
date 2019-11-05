@@ -10,9 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Meaning;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
-import seedu.address.model.card.meaning.Meaning;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.

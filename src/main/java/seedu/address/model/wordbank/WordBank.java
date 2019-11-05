@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.meaning.Meaning;
+import seedu.address.model.card.Meaning;
 
 /**
  * Word bank stores multiple word - meaning pair
