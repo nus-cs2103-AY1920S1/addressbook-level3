@@ -14,14 +14,12 @@ import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
-import seedu.savenus.logic.commands.CollapseCommand;
 import seedu.savenus.logic.commands.CustomSortCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.commands.DislikeCommand;
 import seedu.savenus.logic.commands.EditCommand;
 import seedu.savenus.logic.commands.ExitCommand;
-import seedu.savenus.logic.commands.ExpandCommand;
 import seedu.savenus.logic.commands.FilterCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
@@ -50,14 +48,12 @@ public class HelpWindow extends UiPart<Stage> {
             + BudgetCommand.COMMAND_WORD + "\n"
             + BuyCommand.COMMAND_WORD + "\n"
             + ClearCommand.COMMAND_WORD + "\n"
-            + CollapseCommand.COMMAND_WORD + "\n"
             + CustomSortCommand.COMMAND_WORD + "\n"
             + DefaultCommand.COMMAND_WORD + "\n"
             + DeleteCommand.COMMAND_WORD + "\n"
             + DislikeCommand.COMMAND_WORD + "\n"
             + EditCommand.COMMAND_WORD + "\n"
             + ExitCommand.COMMAND_WORD + "\n"
-            + ExpandCommand.COMMAND_WORD + "\n"
             + FilterCommand.COMMAND_WORD + "\n"
             + FindCommand.COMMAND_WORD + "\n"
             + HelpCommand.COMMAND_WORD + "\n"

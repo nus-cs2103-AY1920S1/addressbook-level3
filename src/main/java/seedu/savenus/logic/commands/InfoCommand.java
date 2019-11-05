@@ -26,8 +26,6 @@ public class InfoCommand extends Command {
 
     public static final String CLEAR_INFO = COMMAND_INDICATOR + ClearCommand.COMMAND_WORD;
 
-    public static final String COLLAPSE_INFO = COMMAND_INDICATOR + CollapseCommand.COMMAND_WORD;
-
     public static final String CUSTOM_SORT_INFO = COMMAND_INDICATOR + CustomSortCommand.COMMAND_WORD;
 
     public static final String DEFAULT_INFO = COMMAND_INDICATOR + DefaultCommand.COMMAND_WORD;
@@ -39,8 +37,6 @@ public class InfoCommand extends Command {
     public static final String EDIT_INFO = COMMAND_INDICATOR + EditCommand.COMMAND_WORD;
 
     public static final String EXIT_INFO = COMMAND_INDICATOR + ExitCommand.COMMAND_WORD;
-
-    public static final String EXPAND_INFO = COMMAND_INDICATOR + ExpandCommand.COMMAND_WORD;
 
     public static final String FILTER_INFO = COMMAND_INDICATOR + FilterCommand.COMMAND_WORD;
 
@@ -101,8 +97,6 @@ public class InfoCommand extends Command {
             return new CommandResult(BUY_INFO);
         case ClearCommand.COMMAND_WORD :
             return new CommandResult(CLEAR_INFO);
-        case CollapseCommand.COMMAND_WORD :
-            return new CommandResult(COLLAPSE_INFO);
         case CustomSortCommand.COMMAND_WORD :
             return new CommandResult(CUSTOM_SORT_INFO);
         case DefaultCommand.COMMAND_WORD :
@@ -115,8 +109,6 @@ public class InfoCommand extends Command {
             return new CommandResult(EDIT_INFO);
         case ExitCommand.COMMAND_WORD :
             return new CommandResult(EXIT_INFO);
-        case ExpandCommand.COMMAND_WORD :
-            return new CommandResult(EXPAND_INFO);
         case FilterCommand.COMMAND_WORD:
             return new CommandResult(FILTER_INFO);
         case FindCommand.COMMAND_WORD :

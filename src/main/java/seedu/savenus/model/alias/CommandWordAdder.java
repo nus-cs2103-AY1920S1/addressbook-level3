@@ -9,7 +9,6 @@ import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
-import seedu.savenus.logic.commands.CollapseCommand;
 import seedu.savenus.logic.commands.CustomSortCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
@@ -50,7 +49,6 @@ public class CommandWordAdder {
         aliasPairList.add(new AliasPair(BudgetCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(BuyCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(ClearCommand.COMMAND_WORD, emptyAliasWord));
-        aliasPairList.add(new AliasPair(CollapseCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(CustomSortCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(DefaultCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(DeleteCommand.COMMAND_WORD, emptyAliasWord));

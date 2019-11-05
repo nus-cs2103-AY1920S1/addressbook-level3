@@ -12,7 +12,6 @@ import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
-import seedu.savenus.logic.commands.CollapseCommand;
 import seedu.savenus.logic.commands.Command;
 import seedu.savenus.logic.commands.CustomSortCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
@@ -20,7 +19,6 @@ import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.commands.DislikeCommand;
 import seedu.savenus.logic.commands.EditCommand;
 import seedu.savenus.logic.commands.ExitCommand;
-import seedu.savenus.logic.commands.ExpandCommand;
 import seedu.savenus.logic.commands.FilterCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
@@ -131,12 +129,6 @@ public class SaveNusParser {
 
         case RemoveDislikeCommand.COMMAND_WORD:
             return new RemovePreferenceCommandParser().parse(arguments, false);
-
-        case CollapseCommand.COMMAND_WORD:
-            return new CollapseCommand();
-
-        case ExpandCommand.COMMAND_WORD:
-            return new ExpandCommand();
 
         case CustomSortCommand.COMMAND_WORD:
             return new CustomSortCommand();
