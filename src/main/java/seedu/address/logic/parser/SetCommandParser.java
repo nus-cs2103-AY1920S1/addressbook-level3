@@ -42,8 +42,8 @@ public class SetCommandParser implements Parser<SetCommand> {
 
         }
 
-        /* handles amount above 1 million */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH) {
+        /* handles overflow value */
+        if (Integer.parseInt(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
             throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
 
