@@ -52,6 +52,14 @@ public class Card {
         return new Card(UidGenerator.get(), word, meaning, tags);
     }
 
+    /**
+     * Creates a new {@code card} with a new id.
+     */
+    public static Card createDummyCard() {
+        Set<Tag> set = new HashSet<>();
+        return new Card(UidGenerator.get(), new Word("dummy"), new Meaning("dummy"), set);
+    }
+
     public Word getWord() {
         return word;
     }
