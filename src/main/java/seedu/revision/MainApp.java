@@ -41,7 +41,7 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    protected Logic mainLogic;
+    protected Logic logic;
     protected Storage storage;
     protected Model model;
     protected Config config;
@@ -63,9 +63,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        mainLogic = new LogicManager(model, storage);
+        logic = new LogicManager(model, storage);
 
-        ui = new UiManager(mainLogic);
+        ui = new UiManager(logic);
     }
 
     /**

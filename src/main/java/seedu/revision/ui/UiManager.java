@@ -22,12 +22,12 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/idea.png";
 
-    private Logic mainLogic;
+    private Logic logic;
     private MainWindow mainWindow;
 
-    public UiManager(Logic mainLogic) {
+    public UiManager(Logic logic) {
         super();
-        this.mainLogic = mainLogic;
+        this.logic = logic;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, mainLogic);
+            mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

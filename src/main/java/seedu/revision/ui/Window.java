@@ -25,7 +25,7 @@ import seedu.revision.ui.answerables.AnswerableListPanel;
 public abstract class Window extends UiPart<Stage> {
 
     protected Stage primaryStage;
-    protected Logic mainLogic;
+    protected Logic logic;
 
     // Independent Ui parts residing in this Ui container
     protected AnswerableListPanel answerableListPanel;
@@ -50,21 +50,21 @@ public abstract class Window extends UiPart<Stage> {
     @FXML
     protected StackPane scoreProgressAndTimerPlaceholder;
 
-    public Window(String fxml, Stage primaryStage, Logic mainLogic) {
+    public Window(String fxml, Stage primaryStage, Logic logic) {
         super(fxml, primaryStage);
         this.primaryStage = primaryStage;
-        this.mainLogic = mainLogic;
+        this.logic = logic;
         setAccelerators();
         helpWindow = new HelpWindow();
-        setWindowDefaultSize(this.mainLogic.getGuiSettings());
+        setWindowDefaultSize(this.logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public Logic getMainLogic() {
-        return mainLogic;
+    public Logic getLogic() {
+        return logic;
     }
 
     private void setAccelerators() {

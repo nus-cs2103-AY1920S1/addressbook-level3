@@ -1,7 +1,5 @@
 package seedu.revision.logic;
 
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -13,7 +11,6 @@ import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
-import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.MainParser;
 import seedu.revision.logic.parser.quiz.QuizCommandParser;
@@ -68,10 +65,10 @@ public class LogicManager implements Logic {
         Command command = QuizCommandParser.parseCommand(commandText, currentAnswerable);
         CommandResult commandResult = command.execute(model);
 
-        //If user exits the quiz, restore the filtered list to original state.
-        if (commandResult.isExit()) {
-            ListCommand restoreList = new ListCommand(PREDICATE_SHOW_ALL_ANSWERABLE);
-            restoreList.execute(model);
+        if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
+            logger.info("Correct answer selected");
+        } else {
+            logger.info("Wrong answer selected");
         }
 
         return commandResult;

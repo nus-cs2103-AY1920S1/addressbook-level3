@@ -63,8 +63,8 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
-    public StartQuizWindow(Stage primaryStage, Logic mainLogic, Mode mode) {
-        super(FXML, primaryStage, mainLogic);
+    public StartQuizWindow(Stage primaryStage, Logic logic, Mode mode) {
+        super(FXML, primaryStage, logic);
         this.mode = mode;
     }
 
@@ -72,7 +72,7 @@ public class StartQuizWindow extends Window {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.quizList = mainLogic.getFilteredSortedAnswerableList();
+        this.quizList = logic.getFilteredSortedAnswerableList();
         answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
@@ -82,7 +82,7 @@ public class StartQuizWindow extends Window {
         questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         commandBox = new CommandBox(this::executeCommand);
@@ -127,7 +127,7 @@ public class StartQuizWindow extends Window {
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
+            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
                 // TODO: KhiangLeon use the updateStatistics() method here or in McqInputCommand#execute.
                 //  Both has access to the answerable.
@@ -183,8 +183,8 @@ public class StartQuizWindow extends Window {
     private void handleNextLevel(Answerable nextAnswerable) {
         int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().difficulty);
         AlertDialog nextLevelDialog = AlertDialog.getNextLevelAlert(nextLevel, score,
-                mainLogic.getFilteredAnswerableList().size());
-        //TODO: Khiangleon to replace mainLogic.getFilteredAnswerableList to the total score so far.
+                logic.getFilteredAnswerableList().size());
+        //TODO: Khiangleon to replace logic.getFilteredAnswerableList to the total score so far.
 
         Task<Void> task = new Task<>() {
             @Override
@@ -224,8 +224,8 @@ public class StartQuizWindow extends Window {
     private void handleEnd() {
         currentProgressIndex.set(currentProgressIndex.get() + 1);
         boolean isFailure = mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext();
-        AlertDialog endAlert = AlertDialog.getEndAlert(score, mainLogic.getFilteredAnswerableList().size(), isFailure);
-        //TODO: Khiangleon to replace mainLogic.getFilteredAnswerableList to the total score so far.
+        AlertDialog endAlert = AlertDialog.getEndAlert(score, logic.getFilteredAnswerableList().size(), isFailure);
+        //TODO: Khiangleon to replace logic.getFilteredAnswerableList to the total score so far.
 
         Task<Void> task = new Task<>() {
             @Override
@@ -266,8 +266,8 @@ public class StartQuizWindow extends Window {
     @FXML
     protected void handleExit() {
         timer.stopTimer();
-        mainLogic.removeFiltersFromAnswerableList();
-        mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
+        logic.removeFiltersFromAnswerableList();
+        mainWindow = new MainWindow(getPrimaryStage(), logic);
         mainWindow.show();
         mainWindow.fillInnerParts();
         mainWindow.resultDisplay.setFeedbackToUser("Great attempt! Type 'start mode/MODE' "

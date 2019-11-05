@@ -19,7 +19,7 @@ import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.main.RestoreCommand;
-import seedu.revision.logic.commands.main.StartQuizCommand;
+import seedu.revision.logic.commands.main.StartCommand;
 
 
 /**
@@ -128,6 +128,6 @@ public class AutoComplete extends TextField {
         commandKeywords.add(ListCommand.COMPLETE_COMMAND);
         commandKeywords.add(HelpCommand.COMMAND_WORD);
         commandKeywords.add(RestoreCommand.COMMAND_WORD);
-        commandKeywords.add(StartQuizCommand.COMMAND_AUTOCOMPLETE);
+        commandKeywords.add(StartCommand.COMMAND_AUTOCOMPLETE);
     }
 }
