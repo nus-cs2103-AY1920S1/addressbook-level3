@@ -1,29 +1,27 @@
 package seedu.jarvis.logic.commands.planner;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
-import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
+import java.util.function.Predicate;
+
 /**
- * Finds and lists all tasks in the planner whose description contains any of the argument
- * keywords.
- * Keyword matching is case insensitive.
+ * Pulls a list of tasks based on certain specified attributes
+ * Attributes are priority, tags and date.
  */
-public class FindTaskCommand extends Command {
+public class PullTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "find-task";
+    public static final String COMMAND_WORD = "pull-task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " homework cs urgent";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks"
+             + "with the specified attribute.\n"
+             + "Parameters: {p/PRIORITY_LEVEL | d/DATE | #TAG }\n"
+             + "Example: " + COMMAND_WORD + " pull-task #school";
 
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be undone.";
 
@@ -31,11 +29,12 @@ public class FindTaskCommand extends Command {
 
     public static final boolean HAS_INVERSE = false;
 
-    private final TaskDesContainsKeywordsPredicate predicate;
+    private final Predicate<Task> predicate;
 
-    public FindTaskCommand(TaskDesContainsKeywordsPredicate predicate) {
+    public PullTaskCommand(Predicate<Task> predicate) {
         this.predicate = predicate;
     }
+
 
     /**
      * Gets the command word of the command.
@@ -59,22 +58,9 @@ public class FindTaskCommand extends Command {
         return HAS_INVERSE;
     }
 
-    /**
-     * Finds all {@code Task} in the planner that pass the {@code Predicate} of the command.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @return {@code Model} of the number of {@code Task} matching the {@code Predicate}.
-     * @throws CommandException
-     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
-        model.updateFilteredTaskList(predicate);
-        model.setViewStatus(ViewType.LIST_PLANNER_FIND);
-
-        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),
-                    true);
+        return null;
     }
 
     /**
@@ -101,8 +87,8 @@ public class FindTaskCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this //short circuit if same object
-                || (other instanceof FindTaskCommand) // instanceof handles nulls
-                && predicate.equals(((FindTaskCommand) other).predicate); //state check
+        return other == this
+                || (other instanceof PullTaskCommand)
+                && predicate.equals(((PullTaskCommand) other).predicate);
     }
 }
