@@ -133,4 +133,10 @@ public interface ItemModel {
     public Item editItem(Item oldItem, Item newItem);
 
     Item getLatestOccurredReminder() throws NoSuchElementException;
+
+    PriorityExitStatus getExitStatus();
+
+    boolean isFocusMode();
+
+    void toggleOnFocusMode();
 }

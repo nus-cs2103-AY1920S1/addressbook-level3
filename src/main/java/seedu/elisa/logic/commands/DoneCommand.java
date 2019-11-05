@@ -39,12 +39,16 @@ public class DoneCommand extends UndoableCommand {
         VisualizeList lastShownList = model.getVisualList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
         try {
             oldItem = model.getItem(targetIndex.getZeroBased());
             itemDone = model.markComplete(targetIndex.getZeroBased());
+            if (!isExecuted()) {
+                model.getElisaCommandHistory().clearRedo();
+                setExecuted(true);
+            }
             return new CommandResult(String.format(MESSAGE_COMPLETE_ITEM_SUCCESS, itemDone));
         } catch (IllegalListException e) {
             throw new CommandException("Done can only be done on the task list.");

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.commands.exceptions.CommandException;
+import seedu.elisa.logic.commands.exceptions.FocusModeException;
 import seedu.elisa.model.ItemModel;
 
 /**
@@ -22,6 +23,9 @@ public class AddReminderCommand extends AddCommand {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
+        if (model.isFocusMode()) {
+            throw new FocusModeException();
+        }
 
         // Check if item already exists, else, add it to the model.
         if (model.hasItem(toAdd)) {
@@ -37,6 +41,10 @@ public class AddReminderCommand extends AddCommand {
             // should not enter here as itemType is definitely valid.
         }
 
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

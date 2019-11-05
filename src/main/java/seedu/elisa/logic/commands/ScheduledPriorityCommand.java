@@ -17,7 +17,8 @@ public class ScheduledPriorityCommand extends PriorityCommand {
      * Constructor to create the command
      * @param ldt the time at which the priority mode will end.
      */
-    public ScheduledPriorityCommand(LocalDateTime ldt) {
+    public ScheduledPriorityCommand(LocalDateTime ldt, boolean focusMode) {
+        super(focusMode);
         ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
         this.ldt = ldt;
     }

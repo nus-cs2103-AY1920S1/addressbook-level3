@@ -19,6 +19,7 @@ import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.AutoRescheduleManager;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.ItemStorage;
+import seedu.elisa.model.PriorityExitStatus;
 import seedu.elisa.model.item.VisualizeList;
 import seedu.elisa.storage.Storage;
 
@@ -118,5 +119,9 @@ public class LogicManager implements Logic {
 
     public boolean isSystemToggle() {
         return model.isSystemToggle();
+    }
+
+    public PriorityExitStatus getExitStatus() {
+        return model.getExitStatus();
     }
 }
