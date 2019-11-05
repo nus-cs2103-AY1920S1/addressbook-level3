@@ -418,16 +418,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void markStudent(Student student) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void unmarkStudent(Student student) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public boolean getIsMarked(Student student) {
         throw new AssertionError("This method should not be called.");
     }

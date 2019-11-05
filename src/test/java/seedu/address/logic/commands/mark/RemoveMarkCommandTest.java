@@ -168,14 +168,5 @@ public class RemoveMarkCommandTest {
             return student.getIsMarked();
         }
 
-        /**
-         * Unmarks a student.
-         *
-         * @param student Student to be unmarked.
-         */
-        @Override
-        public void unmarkStudent(Student student) {
-            student.setUnmarked();
-        }
     }
 }

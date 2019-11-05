@@ -27,8 +27,10 @@ Jump to <<Getting Started>> to get started.
 == Features Summary
 
 . *Manage your classes* easily with just a few strokes of your keyboard.
-.. Attendance taking
-.. Record student scores
+.. Managing your list of students.
+.. Tagging students who are weak at certain subjects.
+.. Marking students performing poorly overall in academics.
+.. Add students to groups to manage them better.
 . *Create questions* that allows you to start in-class activities and distribute quizzes to your students.
 Simply define a type, a topic and an answer and you are all set.
 .. Easy input and management of your questions.
@@ -222,7 +224,7 @@ Represents the weak subjects of a student, allowing users to focus on the specif
 
 ==== Adds a tag to a student: `tag`
 
-Allows a user to add a tag to an already added student. +
+Allows a user to add a tag to an already tagged student. +
 Format: `tag index/... tag/...`
 
 The format supported by this feature includes:
@@ -339,6 +341,9 @@ Removes the student with group index number 1 for the group named G01.
 ==== Exporting a Group to a Word Document: `export`
 
 Allows a user to export a group to a Word Document. +
+This feature was implemented as we realise that teachers may not have access to their computers at all times,
+and thus may print out group information to view during these times. +
+
 Format: `group export groupID/...`
 
 The format supported by this feature includes:
