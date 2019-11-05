@@ -413,6 +413,9 @@ Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYP
 
 You can use the `edit` command to edit a repeater. This also edits the transactions associated with the edited repeater.
 
+[NOTE]
+The repeater fields will only be updated where the arguments are specified.
+
 Constraints:
 
 * Repeater end must not occur before repeater start.
@@ -437,8 +440,9 @@ Deletes the 12th repeater in the current list. This also deletes the transaction
 
 ==== Finding repeater: `find`
 
-You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s). +
 Format: `find KEYWORD [MORE_KEYWORDS]`
+
+You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s).
 
 Examples:
 
