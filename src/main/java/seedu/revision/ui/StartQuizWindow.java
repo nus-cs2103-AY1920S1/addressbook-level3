@@ -22,7 +22,6 @@ import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
@@ -38,7 +37,7 @@ import seedu.revision.ui.bar.ScoreProgressAndTimerGridPane;
 import seedu.revision.ui.bar.Timer;
 
 /**
- * The Main Window. Provides the basic application layout containing
+ * The Quiz Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class StartQuizWindow extends Window {
@@ -48,7 +47,6 @@ public class StartQuizWindow extends Window {
     private MainWindow mainWindow;
     private ObservableList<Answerable> quizList;
     private Mode mode;
-    private Model model;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay questionDisplay;
@@ -69,7 +67,6 @@ public class StartQuizWindow extends Window {
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
         super(primaryStage, mainLogic);
         this.mode = mode;
-        this.model = super.mainLogic.getModel();
     }
 
     public final double getCurrentProgressIndex() {
@@ -296,7 +293,7 @@ public class StartQuizWindow extends Window {
         });
 
         Statistics newResult = new Statistics(score, mainLogic.getFilteredAnswerableList().size());
-        updateHistory(model, newResult);
+        updateHistory(mainLogic, newResult);
 
         new Thread(task).start();
 
@@ -382,8 +379,8 @@ public class StartQuizWindow extends Window {
         }
     }
 
-    private void updateHistory(Model model, Statistics newResult) {
-        requireNonNull(model);
-        model.addStatistics(newResult);
+    private void updateHistory(MainLogic mainLogic, Statistics newResult) {
+        requireNonNull(mainLogic.getModel());
+        mainLogic.getModel().addStatistics(newResult);
     }
 }
