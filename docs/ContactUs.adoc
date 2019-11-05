@@ -4,4 +4,4 @@
 
 * *Bug reports, suggestions*: Post in our https://github.com/AY1920S1-CS2103T-F11-4/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributing*: We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
-* *Email us* at `e0191785 [at] u.nus.edu`
+* *Email us* at `e0191785@u.nus.edu`
