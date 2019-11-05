@@ -46,6 +46,11 @@ public class OutCommandParser implements Parser<OutCommand> {
             throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_ZERO));
         }
 
+        /* handles overflow value */
+        if (Integer.parseInt(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
+            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_OVERFLOW));
+        }
+
         Description description = new Description(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
