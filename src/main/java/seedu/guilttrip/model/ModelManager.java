@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
+import seedu.guilttrip.commons.core.step.Step;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;

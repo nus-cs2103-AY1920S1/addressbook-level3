@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.guilttrip.commons.core.index.Index;
+import seedu.guilttrip.commons.core.step.Step;
 import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Amount;

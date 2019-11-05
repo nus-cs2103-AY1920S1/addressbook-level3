@@ -3,7 +3,8 @@ package seedu.guilttrip.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.commons.core.step.Step;
+import seedu.guilttrip.commons.core.step.Step;
+
 
 /**
  * {@code GuiltTrip} that keeps track of its own history.
