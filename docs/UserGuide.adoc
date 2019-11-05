@@ -83,6 +83,8 @@ Examples:
 
 Suggest possible meals based on user calorie intake budget. +
 The available meals will be shown under the "Suggested Meals" section of the application. +
+The suggest feature can be toggled back by typing the "suggest" command. +
+
 Format: `suggest`
 
 === Setting calorie intake budget: `set`
