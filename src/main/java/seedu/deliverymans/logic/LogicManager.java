@@ -21,6 +21,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.ParserUtil;
+import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.logic.parser.universal.UniversalParser;
@@ -111,7 +112,7 @@ public class LogicManager implements Logic {
             if (hasDuplicatePrefix(input, prefix)) {
                 return new LinkedList<>();
             }
-            return getFilteredCustomerList().stream().map(x -> x.getName().fullName)
+            return getFilteredCustomerList().stream().map(x -> x.getUserName().fullName)
                     .collect(Collectors.toCollection(LinkedList::new));
         case "r/":
             if (hasDuplicatePrefix(input, prefix)) {
@@ -132,8 +133,7 @@ public class LogicManager implements Logic {
     }
 
     private boolean hasDuplicatePrefix(String input, String prefix) {
-//        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-        return false;
+        return ParserUtil.hasRepeatedPrefix(input, new Prefix(prefix));
     }
 
     private Restaurant getInputRestaurant(String input) {

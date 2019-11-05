@@ -24,8 +24,10 @@ import seedu.deliverymans.model.order.Order;
 public class Customer {
 
     // Identity fields
+    private final Name userName;
     private final Name name;
     private final Phone phone;
+    private final Address address;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -35,19 +37,23 @@ public class Customer {
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, Phone phone) {
-        requireAllNonNull(name, phone, tags);
+    public Customer(Name userName, Name name, Phone phone, Address address) {
+        requireAllNonNull(userName, phone, tags);
+        this.userName = userName;
         this.name = name;
         this.phone = phone;
+        this.address = address;
     }
 
     /**
      * Constructor for SampleDataUtil.
      */
-    public Customer(Name name, Phone phone, Set<Tag> tags) {
-        requireAllNonNull(name, phone, tags);
+    public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags) {
+        requireAllNonNull(userName, phone, tags);
+        this.userName = userName;
         this.name = name;
         this.phone = phone;
+        this.address = address;
         this.tags.addAll(tags);
         for (Tag tag : tags) {
             totalTags.put(tag, 1);
@@ -57,14 +63,20 @@ public class Customer {
     /**
      * Constructor for saving to storage
      */
-    public Customer(Name name, Phone phone, Set<Tag> tags, ObservableMap<Tag, Integer> totalTags,
-                    ObservableList<Order> orders) {
-        requireAllNonNull(name, phone, tags, orders);
+    public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags,
+                    ObservableMap<Tag, Integer> totalTags, ObservableList<Order> orders) {
+        requireAllNonNull(userName, phone, tags, orders);
+        this.userName = userName;
         this.name = name;
         this.phone = phone;
+        this.address = address;
         this.tags.addAll(tags);
         this.totalTags.putAll(totalTags);
         this.orders.addAll(orders);
+    }
+
+    public Name getUserName() {
+        return userName;
     }
 
     public Name getName() {
@@ -73,6 +85,10 @@ public class Customer {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     /**
@@ -182,7 +198,7 @@ public class Customer {
         }
 
         return otherCustomer != null
-                && otherCustomer.getName().equals(getName());
+                && otherCustomer.getUserName().equals(getUserName());
     }
 
     /**
@@ -200,23 +216,29 @@ public class Customer {
         }
 
         Customer otherCustomer = (Customer) other;
-        return otherCustomer.getName().equals(getName())
+        return otherCustomer.getUserName().equals(getUserName())
+                && otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
+                && otherCustomer.getAddress().equals(getAddress())
                 && otherCustomer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, tags, orders);
+        return Objects.hash(userName, name, phone, address, tags, orders);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getUserName())
+                .append(" Name: ")
+                .append(getName().toString())
                 .append(" Phone: ")
                 .append(getPhone().toString())
+                .append(" Address: ")
+                .append(getAddress().toString())
                 .append(" Favourite cuisine: ");
         getTags().forEach(builder::append);
         return builder.toString();

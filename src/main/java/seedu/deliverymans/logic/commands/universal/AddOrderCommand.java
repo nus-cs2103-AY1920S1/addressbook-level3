@@ -82,7 +82,7 @@ public class AddOrderCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
         model.addOrder(order);
-
+        model.addOrderInCustomer(order);
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, order));
     }
 
@@ -95,7 +95,7 @@ public class AddOrderCommand extends Command {
 
         // Customer validity check
         for (Customer customer : model.getFilteredCustomerList()) {
-            if (customer.getName().equals(toAdd.getCustomer())) {
+            if (customer.getUserName().equals(toAdd.getCustomer())) {
                 customerToAdd = customer;
                 break;
             }
@@ -129,8 +129,6 @@ public class AddOrderCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_FOOD);
             }
         }
-
-        customerToAdd.addOrder(toAdd, restaurantToAdd.getTags());
     }
 
     public static LinkedList<Prefix> getPrefixesList() {
