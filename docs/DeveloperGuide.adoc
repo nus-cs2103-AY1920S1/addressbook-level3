@@ -182,12 +182,14 @@ The feature comprises of five commands namely,
 * <<Feature-Question-Edit, `QuestionEditCommand`>> - Editing questions
 * <<Feature-Question-Delete, `QuestionDeleteCommand`>> - Deleting questions
 * <<Feature-Question-List, `QuestionListCommand`>> - Listing questions
+* <<Feature-Question-Find, `QuestionFindCommand`>> - Finding questions
 * `QuestionSlideshowCommand` - Starting a slideshow (See <<Feature-Slideshow, slideshow feature>>)
 
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
 
-_To Add: Class diagram of the interaction between the question parser and commands_
+image::QuestionsClassDiagram.png[]
+_Figure 5. Overview of questions classes_
 
 [[Feature-Question-Add]]
 ==== Add command
@@ -197,7 +199,10 @@ The following is a detailed explanation of the operations `QuestionAddCommand` p
 *Step 1*. The `QuestionAddCommand#execute(Model model)` method is executed and it validates type of question defined.
 The type defined will dictate if the resulting question will be a `OpenEndedQuestion` or `McqQuestion` question type.
 
-*Step 2*. The method `Model#addQuestion(Question question)` will then be called to add the question and the question added,
+*Step 2*. The question is then searched through the `QuestionBank#questions` list using the `Model#hasQuestion(Question question)` method
+to check if the question already exists.
+
+*Step 3*. The method `Model#addQuestion(Question question)` will then be called to add the question and the question added,
 will be appended with the `QuestionAddCommand#MESSAGE_SUCCESS` constant and a new `CommandResult` will be returned with the message.
 
 [[Feature-Question-Edit]]
@@ -212,10 +217,13 @@ the `Question` object.
 [NOTE]
 If the question type is changed from open ended to mcq, it is necessary for the user to define all four options i.e a/ b/ c/ d/.
 
-*Step 2*. A new `Question` with the updated values will be created and replace the existing question object
-through the `Model#setQuestion(Index index, Question question)` method at the specified `Index` defined by the user.
+*Step 2*. A new `Question` with the updated values will be created and the question is then searched through the `QuestionBank#questions` list
+using the `Model#hasQuestion(Question question)` method to check if the question already exists.
 
-*Step 3*. A success message with the edited question, will be appended with the `QuestionEditCommand#MESSAGE_SUCCESS` constant
+*Step 3*. The newly created `Question` will replace the existing question object through the `Model#setQuestion(Index index, Question question)` method
+at the specified `Index` defined by the user.
+
+*Step 4*. A success message with the edited question, will be appended with the `QuestionEditCommand#MESSAGE_SUCCESS` constant
 and a new `CommandResult` will be returned with the message.
 
 [[Feature-Question-Delete]]
@@ -226,7 +234,7 @@ The following is a detailed explanation of the operations `QuestionDeleteCommand
 *Step 1*. The `QuestionDeleteCommand#execute(Model model)` method is executed and it checks if the `Index` defined when
 instantiating `QuestionDeleteCommand(Index index, HashMap<String, String> fields)` is valid.
 
-*Step 2*. The `Question` at the specified `Index` is then removed from the `QuestionBank#questions` observable list through
+*Step 2*. The `Question` at the specified `Index` is then removed from the `ObservableList` of `QuestionBank#questions` through
 the `Model#deleteQuestion(Index index)` method.
 
 *Step 3*. A success message with the deleted question, will be appended with the `QuestionDeleteCommand#MESSAGE_SUCCESS` constant
@@ -242,6 +250,37 @@ does not write to the question list.
 
 *Step 2*. The `Model#getQuestionsSummary()` method is then called and the questions are returned as a `String` to the new `CommandResult`
 object.
+
+[[Feature-Question-Find]]
+==== Find command
+
+The following is a detailed explanation of the operations `QuestionFindCommand` performs.
+[NOTE]
+Note that questions searched using this command has it's own `ObservableList` stored under `QuestionBank#questionsFiltered`.
+
+*Step 1*. The `QuestionFindCommand#execute(Model model)` method is executed. No validation is necessary here since it
+does not write to the question list.
+
+*Step 2*. The method `QuestionBank#searchQuestions(String textToFind)` is then called through the `Model#searchQuestions(String textToFind)` method.
+
+*Step 3*. The existing `QuestionBank#questionsFiltered` is cleared in case there are existing questions from a previous search. A temporary `ArrayList<Question> similarAl` to store `Question` objects
+is also created to store similar questions.
+
+*Step 4*. The `QuestionBank#questions` list is iterated once and the search is performed on the user's search term using 2 levels of searching.
+Firstly, the question is tested to see if it matches the search term using the `StringUtils.containsIgnoreCase(...)` method.
+Next, if the search term is not found, we test the question to see if it is similar to the user's search term using the `LevenshteinDistance` method
+that implements the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula] with a threshold of [underline]#40 percent#(See <<Feature-Question-Design-Similarity>>).
+
+*Step 5*. The questions are then duplicated with their index appended to the question in order to keep a separate reference from the main `QuestionBank#questions` list.
+Questions that matches the search term will be added to the `QuestionBank#questionsFiltered` list whereas for similar questions,
+they will be added to the temporary `similarAl` list instead.
+
+*Step 6*. The `QuestionBank#questionsFiltered` is then sorted in ascending order of their question length.
+
+*Step 7*. A new `CommandResult` will be returned with a message stating the search term and the number of results returned.
+
+image::QuestionsFindCommandActivityDiagram.png[]
+_Figure 6. Activity diagram of find command_
 
 ==== Design Considerations
 
@@ -265,6 +304,18 @@ to the user initially, it should be easy to pick up and will make it less tediou
 ** Using more descriptive terms as arguments such that each argument will be specified clearly. However, this decreases
 the user experience as the command will be too long.
 
+[[Feature-Question-Design-Similarity]]
+===== Similarity Threshold
+
+* ** Current Implementation: **
+** The current similarity threshold calibrated is 40 percent of the user's search term and it is the most optimal
+for medium sized strings. It is based on the observation that a user is more likely to make mistakes when searching
+using a longer search term as compared to a shorter one. Long search terms are also rare.
+
+* ** Alternatives Considered: **
+** Using a calibration percentage of above 70 percent. This is not optimal for our use case as words with similar spelling but
+different meanings e.g fog and frog, will be more often included in the search results.
+
 [[Feature-Slideshow]]
 === Slideshow feature
 
@@ -277,7 +328,7 @@ Below is the sequence diagram of the interactions that happen from when the slid
 questions displayed in the slideshow.
 
 image::SlideshowFeatureSequenceDiagram.png[]
-_Sequence diagram illustrating the interactions happening_
+_Figure 7. Sequence diagram illustrating the interactions happening_
 
 The following is an example and detailed explanation as to how the questions are fetched and displayed on the slideshow. +
 
@@ -304,7 +355,7 @@ the user navigates to the next question and decremented when navigating to the p
 The behaviour of this follows the common procedure that most presentation programs adopt thus, it will not  feel foreign to users.
 
 image::SlideshowFeatureActivityDiagram.png[]
-_Activity diagram of the actions performed_
+_Figure 8. Activity diagram of the actions performed_
 
 ==== Design Considerations
 
