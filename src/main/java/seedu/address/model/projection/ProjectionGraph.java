@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.projection;
 
 import java.util.stream.IntStream;
 
@@ -8,6 +8,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.StackPane;
 
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.GradientDescent;

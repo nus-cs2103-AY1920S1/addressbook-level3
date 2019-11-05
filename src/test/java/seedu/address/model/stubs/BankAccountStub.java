@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -42,6 +43,11 @@ public class BankAccountStub implements ReadOnlyBankAccount {
     @Override
     public ObservableList<Budget> getBudgetHistory() {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Projection> getProjectionHistory() {
+        return null;
     }
 
     @Override

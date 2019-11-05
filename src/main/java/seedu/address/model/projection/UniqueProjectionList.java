@@ -1,0 +1,135 @@
+package seedu.address.model.projection;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.projection.exceptions.DuplicateProjectionException;
+import seedu.address.model.projection.exceptions.ProjectionNotFoundException;
+
+/**
+ * A list of Projections that enforces uniqueness between its elements and does not allow nulls.
+ * A Projection is considered unique by comparing using {@code Projection#isSameProjection(Projection)}.
+ * As such, adding and updating of Projections uses Projection#isSameProjection(Projection) for equality so as
+ * to ensure that the Projection being added or updated is unique in terms of identity in the UniqueProjectionList.
+ * However, the removal of a Projection uses Projection#equals(Object) so
+ * as to ensure that the Projection with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Projection#isSameProjection(Projection)
+ */
+public class UniqueProjectionList implements Iterable<Projection> {
+
+    private final ObservableList<Projection> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Projection> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
+
+    /**
+     * Returns true if the list contains an equivalent projection as the given argument.
+     */
+    public boolean contains(Projection toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
+     * Adds a Projection to the list.
+     * The Projection must not already exist in the list.
+     */
+    public void add(Projection toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateProjectionException();
+        }
+        internalList.add(toAdd);
+    }
+
+    /**
+     * Replaces the Projection {@code target} in the list with {@code editedProjection}.
+     * {@code target} must exist in the list.
+     * The Projection identity of {@code editedProjection} must not be the same as
+     * another existing Projection in the list.
+     */
+    public void setProjection(Projection target, Projection edited) {
+        requireAllNonNull(target, edited);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ProjectionNotFoundException();
+        }
+
+        if (!target.equals(edited) && contains(edited)) {
+            throw new DuplicateProjectionException();
+        }
+
+        internalList.set(index, edited);
+    }
+
+    /**
+     * Removes the equivalent projection from the list.
+     * The projection must exist in the list.
+     */
+    public void remove(Projection toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new ProjectionNotFoundException();
+        }
+    }
+
+    /**
+     * Replaces the contents of this list with {@code Projections}.
+     * {@code Projections} must not contain duplicate Projections.
+     */
+    public void setProjections(List<Projection> Projections) {
+        requireAllNonNull(Projections);
+        if (!ProjectionsAreUnique(Projections)) {
+            throw new DuplicateProjectionException();
+        }
+
+        internalList.setAll(Projections);
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     * @return
+     */
+    public ObservableList<Projection> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
+
+    @Override
+    public Iterator<Projection> iterator() {
+        return internalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueProjectionList // instanceof handles nulls
+                && internalList.equals(((UniqueProjectionList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
+
+    /**
+     * Returns true if {@code Projections} contains only unique Projections.
+     */
+    private boolean ProjectionsAreUnique(List<Projection> Projections) {
+        for (int i = 0; i < Projections.size() - 1; i++) {
+            for (int j = i + 1; j < Projections.size(); j++) {
+                if (Projections.get(i).equals(Projections.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}

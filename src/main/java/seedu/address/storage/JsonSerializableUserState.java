@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserState;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -24,10 +25,12 @@ class JsonSerializableUserState {
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
     public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
     public static final String MESSAGE_DUPLICATE_LEDGER = "Ledgers list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_PROJECTION = "Projections list contains duplicate projection(s).";
 
     private final List<JsonAdaptedBankOperations> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
     private final List<JsonAdaptedLedgerOperations> ledgers = new ArrayList<>();
+    private final List<JsonAdaptedProjection> projections = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableUserState} with the given transactions.
@@ -35,10 +38,12 @@ class JsonSerializableUserState {
     @JsonCreator
     public JsonSerializableUserState(@JsonProperty("transactions") List<JsonAdaptedBankOperations> transactions,
                                      @JsonProperty("budgets") List<JsonAdaptedBudget> budgets,
-                                     @JsonProperty("ledgers") List<JsonAdaptedLedgerOperations> ledgers) {
+                                     @JsonProperty("ledgers") List<JsonAdaptedLedgerOperations> ledgers,
+                                     @JsonProperty("projections") List<JsonAdaptedProjection> projections) {
         this.transactions.addAll(transactions);
         this.budgets.addAll(budgets);
         this.ledgers.addAll(ledgers);
+        this.projections.addAll(projections);
     }
 
     public JsonSerializableUserState(ReadOnlyUserState source) {
@@ -57,6 +62,11 @@ class JsonSerializableUserState {
                         .stream()
                         .map(JsonAdaptedLedgerOperations::new)
                         .collect(Collectors.toList()));
+        projections
+                .addAll(source.getBankAccount().getProjectionHistory()
+                .stream()
+                .map(JsonAdaptedProjection::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -88,6 +98,14 @@ class JsonSerializableUserState {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_LEDGER);
             }
             userState.add(ledgerOperation);
+        }
+
+        for (JsonAdaptedProjection jsonAdaptedProjection : projections) {
+            Projection projection = jsonAdaptedProjection.toModelType();
+            if (userState.has(projection)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PROJECTION);
+            }
+            userState.add(projection);
         }
 
         return userState;

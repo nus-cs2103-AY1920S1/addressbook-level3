@@ -41,7 +41,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.switchTab = switchTab;
-        if (warnings != null) {
+        if (warnings.length > 0) {
             StringBuilder sb = new StringBuilder();
             for (String warning : warnings) {
                 sb.append(warning).append('\n');

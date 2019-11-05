@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.Comparator;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -27,6 +28,8 @@ public interface ReadOnlyBankAccount {
     Amount getBalance();
 
     ObservableList<Budget> getBudgetHistory();
+
+    ObservableList<Projection> getProjectionHistory();
 
     boolean has(BankAccountOperation transaction);
 

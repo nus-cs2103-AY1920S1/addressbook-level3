@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.ProjectionGraph;
+import seedu.address.model.projection.ProjectionGraph;
 
 /**
  * Panel containing the different tabs of the application.
@@ -33,7 +33,7 @@ public class MainTabPanel extends UiPart<Region> {
     private TabPane mainTabPanel;
 
     public MainTabPanel(TransactionListPanel transactionListPanel, BudgetListPanel budgetListPanel,
-                        LedgerListPanel ledgerListPanel, StackPane projectionGraph) {
+                        LedgerListPanel ledgerListPanel, ProjectionListPanel projectionListPanel) {
         super(FXML);
 
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
@@ -42,7 +42,7 @@ public class MainTabPanel extends UiPart<Region> {
 
         ledgerListPanelPlaceholder.getChildren().add(ledgerListPanel.getRoot());
 
-        projectionGraphPlaceholder = projectionGraph;
+        projectionGraphPlaceholder.getChildren().add(projectionListPanel.getRoot());
     }
 
     //  TODO: remove
@@ -60,9 +60,5 @@ public class MainTabPanel extends UiPart<Region> {
 
     protected void switchToProjectionTab() {
         this.mainTabPanel.getSelectionModel().select(3);
-    }
-
-    public void updateProjectionGraph(ProjectionGraph projectionGraph) {
-        this.projectionGraphPlaceholder = projectionGraph;
     }
 }
