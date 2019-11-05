@@ -46,20 +46,20 @@ This enhancement is highly straightforward and works well with the current appli
 
 * Project management:
 ** Mainly managed milestone v1.3.
-** Designed the mockup for the application’s Ui (#49).
+** Designed the mockup for the application’s Ui (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/49[#49]).
 
 * Developing existing features:
-** Added barebones for the cheatsheet functionality, which was later on finished up by my groupmate (#124).
-** Helped with the linking of the Storage component to our new features (#124).
+** Added barebones for the cheatsheet functionality, which was later on finished up by my groupmate (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/124[#124]).
+** Helped with the linking of the Storage component to our new features (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/124[#124]).
 
 * Enhancements to existing features:
-** Upgraded the auto-generation cheatsheet feature of the application to pull intra-content tags from the content feature of the application (#244).
-** Enhanced delete commands to prompt the user once to confirm his/her deletion.
-** Updated the appIcons for the application, and created the logo for the application using an online software, logomakr.
-** Wrote additional tests for existing features to increase the test coverage.
+** Upgraded the auto-generation cheatsheet feature of the application to pull intra-content tags from the content feature of the application (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/244[#244]).
+** Enhanced delete commands to prompt the user once to confirm his/her deletion(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/244[#244]).
+** Updated the appIcons for the application, and created the logo for the application using an online software, logomakr (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/254[#254]).
+** Wrote additional tests for existing features to increase the test coverage(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/316[#316]).
 
 * Documentation:
-** Added NFRs for the application. (#77)
+** Added NFRs for the application(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/77[#77]).
 
 * Community:
 ** Reported bugs and offered suggestions for the other team during the Practical Exam dry run.
@@ -82,11 +82,11 @@ Displays a full list of all tags currently in StudyBuddyPro.
     Expected output:
     Here are all the tags in StudyBuddyPro.
     Listing all tags :
-    [cs2100]
-    [cs2101]
-    [cs2104]
-    [math]
-    [pipelining]
+    [cs2100] |  flashcards : 0 notes : 3 cheatsheets : 1
+    [cs2101] |  flashcards : 6 notes : 2 cheatsheets : 1
+    [cs2104] |  flashcards : 20 notes : 8 cheatsheets : 3
+    [math] |  flashcards : 10 notes : 2 cheatsheets : 1
+    [pipelining] |  flashcards : 1 notes : 5 cheatsheets : 2
 
 * The user can make use of `taglist` to quickly see which tag they would like to view.
 
@@ -200,7 +200,7 @@ The current implementation of StudyBuddyItems in StudyBuddyPro is such that it c
 
 The following objects of each individual feature shares similar Tagging behaviour, as shown in the class diagram 2 below.
 
-image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
+image::kaibindiagrams/studyBuddyItemClassDiagram.png[]
 _Figure 2. Implementation of StudyBuddyItem_
 
 * Design Considerations
@@ -213,9 +213,17 @@ _Figure 2. Implementation of StudyBuddyItem_
 
 ==== Aspect: How tag predicates are implemented
 
+image::kaibindiagrams/tagPredicateClassDiagram.png[]
+_Figure 3 : Class Diagram of how StudyBuddyItemContainsTagPredicate is implemented_
+
+* The above class diagram shows how tag predicates are being implemented.
+
+* The set of tags that is stored in `StudyBuddyItemContainsTagPredicate` refers to the tags specified by the user.
+
+
 image::kaibindiagrams/tagPredicateCodeSnippet.png[]
 
-_Figure 3 : Code Snippet of StudyBuddyItemContainsTagPredicate#test()_
+_Figure 4 : Code Snippet of StudyBuddyItemContainsTagPredicate#test()_
 
 The current implementation is that test() only returns true if all tags specified by the user matches the current Item.
 
@@ -241,7 +249,7 @@ If multiple tags are specified, only items that match all the specified tags wil
 * The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
 
 image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
-_Figure 4. Sequence diagram of listing items by a specified tag_
+_Figure 5. Sequence diagram of listing items by a specified tag_
 
 [Proposed] Future improvements (Coming in v2.0)
 
