@@ -90,13 +90,14 @@ public class CalendarScreen extends UiPart<Region> {
      */
     private void changeColor(List<Object> eventTaskList) {
         // We do not want to change the color of next and previous month.
-        for (Object source :eventTaskList) {
+        resetColor();
+        for (Object source : eventTaskList) {
             if (source instanceof EventSource) {
                 EventSource event = (EventSource) source;
                 DateTime eventDateTime = event.getStartDateTime();
                 if (calendarDate.sameMonthYear(eventDateTime.getMonth(), eventDateTime.getYear())) {
                     Integer day = eventDateTime.getDay();
-                    dayIndexList.get(day - 1).addAnEvent();
+                    dayIndexList.get(day - 1).increaseIntensity();
                 }
             } else if (source instanceof TaskSource) {
                 TaskSource task = (TaskSource) source;
@@ -106,7 +107,7 @@ public class CalendarScreen extends UiPart<Region> {
                 }
                 if (calendarDate.sameMonthYear(taskDateTime.getMonth(), taskDateTime.getYear())) {
                     Integer day = taskDateTime.getDay();
-                    dayIndexList.get(day - 1).addAnEvent();
+                    dayIndexList.get(day - 1).increaseIntensity();
                 }
             }
         }
@@ -116,6 +117,12 @@ public class CalendarScreen extends UiPart<Region> {
         CalendarDate currentDate = CalendarDate.now();
         if (currentDate.sameMonthYear(calendarDate.getMonth(), calendarDate.getYear())) {
             dayIndexList.get(currentDate.getDay() - 1).setCurrentDate();
+        }
+    }
+
+    private void resetColor() {
+        for (CalendarGridDay day : dayIndexList) {
+            day.resetColor();
         }
     }
 }

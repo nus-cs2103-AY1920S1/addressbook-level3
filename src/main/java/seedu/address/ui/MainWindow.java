@@ -323,31 +323,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Changes the UI based on the new and changed event list.
+     * Changes the UI based on the new events and tasks list.
      *
      * @param events The given event list.
+     * @param tasks The given task list.
      */
-    public void onEventListChange(List<EventSource> events, HashMap<Integer, Integer> eventHash) {
+    public void onModelListChange(List<EventSource> events,
+                                  List<TaskSource> tasks,
+                                  HashMap<EventSource, Integer> eventHash,
+                                  HashMap<TaskSource, Integer> taskHash) {
         this.listPanel.onEventListChange(events, eventHash);
-    }
-
-    /**
-     * Changes the UI based on the new and changed task list.
-     *
-     * @param tasks The given task list.
-     */
-    public void onTaskListChange(List<TaskSource> tasks, HashMap<Integer, Integer> taskHash) {
         this.listPanel.onTaskListChange(tasks, taskHash);
-    }
-
-    /**
-     * Changes the UI based on the new and changed model lists.
-     *
-     * @param events The given event list.
-     * @param tasks The given task list.
-     */
-    public void onModelListChange(List<EventSource> events, List<TaskSource> tasks) {
-        this.calendarPanel.onModelListChange(events, tasks);
+        this.calendarPanel.onModelListChange(events, tasks, eventHash, taskHash);
     }
 
     /**

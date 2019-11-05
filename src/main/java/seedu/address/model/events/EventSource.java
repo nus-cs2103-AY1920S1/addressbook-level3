@@ -93,4 +93,13 @@ public class EventSource {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.description,
+            this.start,
+            this.end,
+            this.remind,
+            this.tags);
+    }
 }

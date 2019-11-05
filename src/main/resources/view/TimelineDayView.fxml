@@ -25,7 +25,7 @@
          <content>
             <GridPane fx:id="timelineGrid">
               <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" maxWidth="100.0" minWidth="80.0" prefWidth="80.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="75.0" />
                 <ColumnConstraints hgrow="ALWAYS" />
               </columnConstraints>
             </GridPane>

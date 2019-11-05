@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CALENDAR_DATE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MONTH_YEAR;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -37,6 +38,8 @@ public class CalendarDateParser implements Parser<CalendarDate> {
             }
         } catch (DateTimeParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_CALENDAR_DATE, pattern));
+        } catch (Exception e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_MONTH_YEAR, pattern));
         }
     }
 }

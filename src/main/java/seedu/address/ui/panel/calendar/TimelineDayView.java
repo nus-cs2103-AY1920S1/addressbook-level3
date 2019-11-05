@@ -1,5 +1,6 @@
 package seedu.address.ui.panel.calendar;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.scene.layout.RowConstraints;
@@ -27,7 +28,10 @@ public class TimelineDayView extends TimelineView {
      * @param calendarDate Represents the given or current date.
      * @param eventTaskList Represents the current list of events and task.
      */
-    public TimelineDayView(CalendarDate calendarDate, List<Object> eventTaskList) {
+    public TimelineDayView(CalendarDate calendarDate,
+                           List<Object> eventTaskList,
+                           HashMap<EventSource, Integer> eventHash,
+                           HashMap<TaskSource, Integer> taskHash) {
         super(FXML);
         this.calendarDate = calendarDate;
 
@@ -39,7 +43,7 @@ public class TimelineDayView extends TimelineView {
         addGrids();
         addLabels(getLabels());
         addEventCardHolders();
-        onChange(eventTaskList);
+        onChange(eventTaskList, eventHash, taskHash);
     }
 
     /**
@@ -59,10 +63,10 @@ public class TimelineDayView extends TimelineView {
     }
 
     @Override
-    void addEventCard(EventSource event) {
+    void addEventCard(EventSource event, Integer eventIndex) {
         Integer eventHour = event.getStartDateTime().getHour();
 
-        EventCard eventCard = new EventCard(event);
+        EventCard eventCard = new EventCard(event, eventIndex);
         CardHolder eventCardHolder = getCardHolder().get(eventHour);
         eventCardHolder.addCard(eventCard);
 
@@ -72,10 +76,10 @@ public class TimelineDayView extends TimelineView {
     }
 
     @Override
-    void addTaskCard(TaskSource task) {
+    void addTaskCard(TaskSource task, Integer taskIndex) {
         Integer taskHour = task.getDueDate().getHour();
 
-        TaskCard taskCard = new TaskCard(task);
+        TaskCard taskCard = new TaskCard(task, taskIndex);
         CardHolder cardHolder = getCardHolder().get(taskHour);
         cardHolder.addCard(taskCard);
 
