@@ -744,7 +744,7 @@ After adding all the suggested words into the `recommendedItems` list, the list 
 as shown in the second code snippet.
 
 The following sequence diagram shows how the `AddCommand` works and is the reference
-from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
+from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 
@@ -784,7 +784,7 @@ image::SetCashierCommandSeq1.png[]
 If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
 
 The following sequence diagram shows how the set cashier command works and is the reference
-from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
+from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Set Cashier Command (cashier package)
 
@@ -813,7 +813,8 @@ transaction of the sales made.
 [NOTE]
 After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
 
-The following sequence diagram shows how the checkout command is executed:
+The following sequence diagram shows how the checkout command is executed and is the reference
+from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Checkout Command (cashier package)
 
