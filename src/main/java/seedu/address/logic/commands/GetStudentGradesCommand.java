@@ -22,7 +22,7 @@ public class GetStudentGradesCommand extends Command {
     public static final String COMMAND_WORD = "getgrades";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets all the grades of a specific student "
-            + "OR all the undone assignemnts in the class.\n"
+            + "OR all the undone assignments in the class.\n"
             + "Parameters (Specific student): STUDENT_INDEX\n"
             + "Parameters (Undone assignments): undone\n"
             + "Example (Specific student): " + COMMAND_WORD + " 2\n"
