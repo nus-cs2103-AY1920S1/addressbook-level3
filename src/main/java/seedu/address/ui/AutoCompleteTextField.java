@@ -15,25 +15,23 @@ import javafx.scene.control.TextField;
 public class AutoCompleteTextField extends TextField {
 
     private final SortedSet<String> entries;
-    //popup GUI
     private ContextMenu entriesPopup;
 
     public AutoCompleteTextField() {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
-
+        this.entries.add("add");
+        this.entries.add("edit");
         setListener();
     }
 
     /**
-     * "Suggestion" specific listners
+     * "Suggestion" specific listeners
      */
     private void setListener() {
-        //Add "suggestions" by changing text
         textProperty().addListener((observable, oldValue, newValue) -> {
             String enteredText = getText();
-            //always hide suggestion if nothing has been entered (only "spacebars" are dissalowed in TextFieldWithLengthLimit)
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
             } else {
@@ -60,7 +58,7 @@ public class AutoCompleteTextField extends TextField {
         });
     }
 
-    private void populatePopup(List<String> searchResult, String searchReauest) {
+    private void populatePopup(List<String> searchResult, String searchRequest) {
         //List of "suggestions"
         List<CustomMenuItem> menuItems = new LinkedList<>();
         //List size - 10 or founded suggestions count
@@ -71,7 +69,7 @@ public class AutoCompleteTextField extends TextField {
             final String result = searchResult.get(i);
             //label with graphic (text flow) to highlight founded subtext in suggestions
             Label entryLabel = new Label();
-            entryLabel.setGraphic(Styles.buildTextFlow(result, searchReauest));
+            entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
             entryLabel.setPrefHeight(10);  //don't sure why it's changed with "graphic"
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             menuItems.add(item);
