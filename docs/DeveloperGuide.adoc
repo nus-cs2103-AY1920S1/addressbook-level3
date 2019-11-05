@@ -1,4 +1,4 @@
-= StudyBuddy Pro Level 3 - Developer Guide
+= StudyBuddyPro - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -19,15 +20,16 @@ By: `Team AY1920S1-CS2103T-W13-3`
 
 == Introduction
 
-Welcome to StudyBuddy Pro!
+Welcome to StudyBuddyPro!
 
-StudyBuddy Pro is a desktop-based application with a Graphical User Interface (GUI). It is intended for students in the School of Computing at National University of Singapore (NUS) who prefer to work with a Command Line Interface (CLI).
+StudyBuddyPro is a desktop-based application with a Graphical User Interface (GUI). It is intended for students in the School of Computing at National University of Singapore (NUS) who prefer to work with a Command Line Interface (CLI).
 
-StudyBuddy Pro aims to lessen target users' revision time consumption without compromising the quality of studies. The application provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
+StudyBuddyPro aims to lessen target users' revision time consumption without compromising the quality of studies. The application provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
 
-This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddy Pro's information for set-ups, its architectures and its key features.
+This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddyPro's information for set-ups, its architectures and its key features.
 
-If you wish to know more details about StudyBuddy Pro, please do not hesitate to contact us!
+If you wish to know more details about StudyBuddyPro, please do not hesitate to
+https://ay1920s1-cs2103t-w13-3.github.io/main/ContactUs.html[contact us]!
 
 === Callouts Signs
 
@@ -79,16 +81,16 @@ An example of `switch` versus 'switch':
 
 == Setting up
 
-Do refer to the guide <<SettingUp#, here>> to set up our StudyBuddy Pro on your device(s)!
+Do refer to the guide <<SettingUp#, here>> to set up our StudyBuddyPro on your device(s)!
 
 == Design
 
-The following sections will show how StudyBuddy Pro is being constructed in details.
+The following sections will show how StudyBuddyPro is being constructed in details.
 
 [[Design-Architecture]]
 === Architecture
 
-The _figure 1_ below displays the high-level design of our StudyBuddy Pro.
+The _figure_ below displays the high-level design of our StudyBuddy Pro.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -139,7 +141,7 @@ In each mode, the users will interact with only the modes' commands, unless it i
 - `switch cs` - switches to cheatsheet mode
 - `switch notes` - switches to notes mode
 
-The following _figure 3_ is an activity diagram that describes the execution of the `switch` command.
+The following _figure_ is an activity diagram that describes the execution of the `switch` command.
 
 .Activity Diagram of `Switch` command execution
 image::jasmineDiagrams/SwitchActivityDiagram.png[]
@@ -149,7 +151,7 @@ From the activity diagram above, it shows the logic flow of the actions taken wh
 [discrete]
 ==== How the architecture components interact with each other
 
-The _figure 4_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _figure_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 [IMPORTANT]
 ====
@@ -159,13 +161,13 @@ Assuming that the user is currently in the _flashcard_ mode.
 .Sequence diagram of component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
-The above sequence diagram illustrates the relationships between each components in the StudyBuddy Pro's architecture. The sections below will give more details of each of those components.
+The above sequence diagram illustrates the relationships between each components in the StudyBuddyPro's architecture. The sections below will give more details of each of those components.
 
 [[Design-Ui]]
 === User Interface (UI) component
 
 This section describes the behaviour of the `UI` component in details.
-The _figure 5_ below portrays the internal structures of the `UI` components and their interactions.
+The _figure_ below portrays the internal structures of the `UI` components and their interactions.
 
 .Class diagram of the structure of the `UI` Component
 image::UiClassDiagram.png[]
@@ -188,7 +190,7 @@ The `UI` component,
 === Logic component
 
 This section describes the behaviour of the `logic` component in details.
-The _figure 6_ below portrays the internal structures of the `logic` components and their interactions.
+The _figure_ below portrays the internal structures of the `logic` components and their interactions.
 
 [[fig-LogicClassDiagram]]
 .Class diagram of the structure of the `logic` Component
@@ -206,7 +208,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-The _figure 7_ below is the sequence diagram for the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The _figure_ below is the sequence diagram for the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 [IMPORTANT]
 ====
@@ -239,7 +241,7 @@ The `Model`,
 === Storage component
 
 This section describes the behaviour of the `storage` component in details.
-The _figure 8_ below portrays the internal structures of the `storage` components and their interactions.
+The _figure_ below portrays the internal structures of the `storage` components and their interactions.
 
 .Class diagram of the structure of the `Storage` Component
 image::StorageClassDiagram.png[]
@@ -298,16 +300,49 @@ image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 ** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
 ** To reduce confusion for the user, all tags will be converted to lower-case upon initialization.
 
+===== Aspect: How tag predicates are implemented
+
+image::kaibindiagrams/tagPredicateCodeSnippet.png[]
+Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`
+
+* The current implementation is that test() only returns true if *all* tags specified by the user matches the current Item.
+* As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
+** If a user wishes to generate a cheatsheet and pull items with tags [cs2100] and [difficult], it would strictly only pull difficult CS2100 contents, and not pull other items
+that might have tags containing [difficult].
+
 ==== Usage of Tags
 
+===== a. To search for items
+
 ** Inside each feature
-*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `list tag/cs2100`).
-** Using Tags globally
-*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro.
-** Currently, the user is able to specify multiple tags in his/her query.
+*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `filter tag/cs2100`).
+** Searching using Tags globally
+*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro (e.g. `filterall tag/ma1521`).
+** Currently, the user is able to specify multiple tags in his/her query (e.g. `filter tag/cs2100 tag/difficult`).
+** If multiple tags are specified, only items that match all the specified tags will be listed.
 ** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
 
 image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
+
+Diagram 8 : Sequence diagram of filtering all StudyBuddyItems by a tag.
+
+===== b. For Auto-generation of CheatSheets
+
+** Upon adding a cheatsheet, the cheatsheet will make use of tags to automatically pull contents from other features of StudyBuddyPro.
+** StudyBuddyItems with tags that match the user's input will be pulled over.
+** This feature will be further elaborated in the next section, Section 4.4.
+
+===== c. For TimeTrial Mode
+
+** The TimeTrial Mode of the flashcard feature, will make use of the tagging feature.
+** It will do so by filtering out flashcards with tags that match the user's input.
+** For instance, if a user wishes to revise only important flashcards, he/she could enter the following command, `timetrial important`.
+
+[IMPORTANT]
+====
+The syntax used here is slightly different. The user need not specify the `tag/` keyword to indicate that the item is a tag.
+====
+** The TimeTrial feature will be further elaborated in Section 4.5.
 
 ==== [Proposed] Future improvements
 
@@ -319,6 +354,8 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
+
+tag::cheatsheetAutomation[]
 
 === Customizable Auto-generated Cheatsheet Feature
 
@@ -343,12 +380,12 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following _figure 9_ shows a high-level view of how the auto-generation operation works.
+The following _figure_ shows a high-level view of how the auto-generation operation works.
 
 .Sequence diagram to illustrate auto-generation operation
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
 
-Through the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure 10_ below further explains the details within the sequence diagram.
+From the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure_ below explains the details within the sequence diagram.
 
 .Detailed sequence diagram for retrieval of tagged contents
 image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[]
@@ -366,9 +403,7 @@ Different _cheatsheet_ objects are created to ensure that the _cheatsheet_ objec
 
 ===== Step 2: Customizing contents
 
-The customization is based on the contents that the user wants to remove.
-
-The customization feature is used in the `EditCheatSheetCommand` during the editing of the cheatsheet. After the customization, the cheatsheet is then stored in the `studyBuddyBook`.
+The customization is based on the contents that the user wants to remove. The customization feature is used in the `EditCheatSheetCommand` during the editing of the cheatsheet. After the customization, the cheatsheet is then stored in the `studyBuddyBook`.
 
 It is involved in the following operations:
 
@@ -378,7 +413,7 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following _figure 11_ shows the activity flow how the customization feature works using an example command called `edit 1 c/1 c/3 c/7`.
+The following _figure_ shows the activity flow how the customization feature works using an example command called `edit 1 c/1 c/3 c/7`.
 
 [IMPORTANT]
 ====
@@ -386,13 +421,11 @@ The index provided after `c/` indicates the content to be _removed_, not to be _
 ====
 
 .Activity diagram of the `edit` command for the removal of contents
-image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[]
+image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[pdfwidth=50%,scaledwidth=50%]
 
 The activity diagram above shows the general flow of customization of cheatsheet feature. The changes for _contents_ have to come first before the changes for _tags_. This is to ensure that the _contents_ are still relevant to the _tags_ specified. An example is provided below.
 
-Example cheatsheet of _title_, "An Example Title" with corresponding _table 2_ of _tags_ and _contents_.
-
-.Example of tags and contents in the cheatsheet
+.Example of tags and contents in a cheatsheet titled "An Example"
 
 |===
 |Tag | Content
@@ -407,7 +440,7 @@ Example cheatsheet of _title_, "An Example Title" with corresponding _table 2_ o
 |content3
 |===
 
-According to the above table, if the order of removal is not followed, the system will be able to remove _tag2_ first before _content2_. This may result in *potential errors* in the system as _content2_ may not be found or the position of it is being replaced with another content.
+According to the above table, the system will be able to remove _tag2_ first before _content2_ if the order of removal is not followed. This may result in *potential errors* in the system as _content2_ may not be found or the position of it is being replaced with another content.
 
 ==== Design Considerations
 ===== Aspect: How auto-generation is implemented
@@ -428,6 +461,8 @@ According to the above table, if the order of removal is not followed, the syste
 ** Pros: Codes may be cleaner and easier to understand.
 ** Cons: Harder to implement. More abstraction and modifications have to be done.
 
+end::cheatsheetAutomation[]
+
 ==== [Proposed] Future improvements
 
 - Alerts users of possible duplications of contents
@@ -438,18 +473,30 @@ According to the above table, if the order of removal is not followed, the syste
 
 === Flashcards Time Trial Feature
 
+[IMPORTANT]
+The following commands assume that the user is in the _flashcard_ mode.
+
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
 
 image:: To be added
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
+<<<<<<< HEAD
 c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
 d.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
 e.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowController#startTimeTrial`, which in turns construct a `Timeline` with the following added for 3 flashcards:
 1.	A `KeyFrame` to call the `FlashcardTabWindowController#loadTimeTrial` method, which displays the question of the flashcard on the window, with a `KeyValue` that starts the timer on the screen.
 2.	A `KeyFrame` to call the `FlashcardTabWindowController#showFlashcardAns` method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
 3.	A `KeyFrame` is then added to the timeline to call the `FlashcardTabWindowController#resetViews` method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+=======
+c. Upon initialization of the StudyBuddyPro and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
+d.	The user executes (timetrial cs2100), and the StartTimeTrialCommand retrieves a List of flashcards with the associated tag through the Model#getTaggedFlashcards, which is then passed into the FlashcardTabWindowController.
+e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#startTimeTrial, which in turns construct a timeline with the following added for 3 flashcards:
+1.	A KeyFrame to call the FlashcardTabWindowController #loadTimeTrial method, which displays the question of the flashcard on the window, with a KeyValue that starts the timer on the screen.
+2.	A KeyFrame to call the FlashcardTabWindowController#showFlashcardAns method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
+3.	A KeyFrame is then added to the timeline to call the FlashcardTabWindowController#resetViews method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+>>>>>>> 2f14b0f5e65dd517771fb347a728b47747a2b690
 
 ==== Design Considerations
 ===== Aspect: How the timetrial is implemented
@@ -477,11 +524,33 @@ object.
 ** Allowing users to decide when to move on to the next flashcard
 *** Question will still be shown for a fixed period of time, but a command will be required to move on to the next flashcard instead of just flashing the answer for a set amount of time
 
-=== Remind Flashcard Feature
+=== Remind Feature
+
+[NOTE]
+====
+For this section, a _due flashcard_ refers to a flashcard that is due for revision today.
+In other words, the current date (according to the user's system date) matches the date the
+flashcard was next supposed to be viewed for optimum revision. Similarly, an _overdue flashcard_
+refers to a flashcard whose view date for optimum revision was _before_ the current date. Further
+details on how the optimum revision date is calculated is provided in this section!
+====
+
+This feature aims to help the user stay on track with the user's revision schedule through two
+other sub-features. The first sub-feature is the `remind` command which helps the user
+keep track of which flashcards are due (or overdue) for revision. The second sub-feature is
+integrated with the `exit` command, and automatically asks the user for confirmation if they
+wish to exit StudyBuddyPro if the user still has due or overdue flashcards left for revision.
+An activity diagram summarizing how the remind feature works can be found below.
 
 {To be completed soon}
 
-==== Implementation
+image:: to be added + caption
+
+==== Implementation of `remind` command
+
+[IMPORTANT]
+The following commands assume that the user is in the _flashcard_ mode.
+
 The  remind feature is facilitated by ``
 
 image::remindDiagrams/RemindFeatureRelevantClassDiagram.png[]
@@ -517,67 +586,262 @@ or incorrectly to create a more dynamic reminding schedule.
 *** Checks if the user viewed all flashcards to be revised on the day.
 *** If some of the relevant flashcards were not viewed, reminds user about remaining flashcards and stalls
 application exit.
-*** User can either go back into StudyBuddy and view the relevant flashcards or supply an `exit` command again to
+*** User can either go back into StudyBuddyPro and view the relevant flashcards or supply an `exit` command again to
 close the application.
 
 ** More statistics for motivation
 *** Tracks how often user viewed flashcards on time and how many flashcards users missed viewing on the relevant
 deadline.
+
+==== Implementation of `exit` command
 // end::remind[]
 
-=== Note feature
+=== Add Tags Within Notes feature
 
-Notes are used in the creation of CheatSheet objects as well as in general use of StudyBuddyPro.
+`Notes` are used in the creation of `CheatSheet` objects as well as in general use of StudyBuddyPro. This Add Tags
+Within Notes feature allows for the addition of tags within the content of the `Note`, to allow more precise
+highlighting and tagging of information.
+
+[IMPORTANT]
+All the operations assume that the user is in the _notes_ mode.
+
+==== Design Implementation of Notes
+
+`Notes` contain a `Title` and a `Content`, with optional `Tags` and `NoteFragments`, as shown in the diagram below:
+
+image::samDiagrams/NoteModelClassDiagram.png[]
+
+`Notes` are `StudyBuddyItems`, and can contain any number of `NoteFragments`. `NoteFragment` objects are used to
+represent the specific areas within a `Note` that have been tagged. Each tag within a `Note` is referred to as a *note
+fragment tag* (which is represented by a `NoteFragment` object).
+
+NOTE: Note fragment tags should not be confused with `Tags`.
+
+`NoteFragments` contain:
+
+** A `Title` that is the same as their parent `Note`
+** A `Content` that is a substring of their parent `Note`
+** Any indicated `Tags` that are independent of their parent `Note`
+
+`NoteFragments` are viewed or used in the following situations:
+
+** Viewable through the `filter` and `filterall` commands
+** Usable through `add` commands in _cheatsheet_ mode (see Section 4.4)
+
+==== Usages of Notes
+
+`Notes` can be used to:
+
+** Store information under a title
+** Categorize information via the use of `Tags`
+** Provide information to `CheatSheets` for collation
+
+`Notes` can currently be:
+
+** Added to `StudyBuddyBook`
+** Deleted from `StudyBuddyBook`
+** Viewed raw or cleaned from `StudyBuddyBook`
+** Viewed using `filter` from `StudyBuddyBook`
+
+==== Design Implementation of the Add Tags Within Notes feature
+
+The Add Tags Within Notes feature was implemented in the following way:
+
+** Creation of a `NoteFragment` class that represents one tag within a `Note`
+** Have each `Note` contain any number of `NoteFragments` in a list
+** Upon addition of a `Note`, parse its `Content` to check for any note fragment tags within it
+** Create any required `NoteFragment` objects and add them to the list in their parent `Note`
+** Since `NoteFragments` are contained within `Notes`, when a `Note` is deleted, its `NoteFragments` will be deleted as well.
+
+There are four main methods that involve `NoteFragments`. They are listed below:
+
+** `NoteFeatureUtil#parseNoteFragmentsFromNote()`: Used by `Note` to create `NoteFragments`.
+** `ModelManager#collectTaggedItems()`: Used in the `filterall` command.
+** `ModelManager#collectTaggedNotes()`: Used in the _notes_ `filter` command.
+** `AddCheatSheetCommand#getRelevantContents()`: Used to generate `CheatSheets`.
+
+Out of these four methods, only `NoteFeatureUtil#parseNoteFragmentsFromNote()` is aware of the `NoteFragment` class.
+The other three methods are only aware of the `Note` class.
+
+The implementation of these four methods is shown below:
+
+===== Implementation of `NoteFeatureUtil#parseNoteFragmentsFromNote()`:
+
+The method of parsing `Content` in `NoteFeatureUtil#parseNoteFragmentsFromNote()` relies on the use of `Prefixes`
+around each note fragment tag. Each note fragment tag is specified with a start ("/\*") and end ("*/") marker, and
+its `Content` and `Tags` are also represented with the `Prefixes` 'C/' and 'TAG/'.
+
+Example usage:
+
+    add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+
+[NOTE]
+'C/' and 'TAG/' have to be used instead of the default 'c/' and 'tag/' because otherwise the note fragment tag would
+raise an error (since only one 'c/' tag is allowed per command).
+
+Expected output:
+
+    New note added:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
+        Tags: [about]
+
+A `Note` has been added with the `Content` of "Notes can be highlighted if needed.", and a note fragment tag with
+`Content` "highlighted" and two `Tags` "cs2100" and "important". Despite this, the `Note` itself is instead tagged
+with the `Tag` "about".
+
+When an `add` command is made:
+
+** Only the `Prefixes` 't/', 'c/', and 'tag/' are identified and parsed.
+** A `Note` is then created with the desired `Title`, `Content`, and `Tags`.
+** After creation, the `Content` of the `Note` is parsed immediately for the `Prefixes` '/\*', '*/', 'C/', and 'TAG/'
+.
+** All four `Prefixes` must be present for the note fragment tag to be considered valid. Otherwise, an exception is
+thrown.
+
+The sequence diagram below describes the process of adding a new note that contains a note fragment tag:
+
+<INSERT SEQUENCE DIAGRAM HERE, and refer to it below>
+
+===== Implementation of `NoteFragments` in `list` command:
+
+When `Notes` are listed, `NoteFragments` do not appear in the list of resulting `Notes`. This is because the
+`ListCommand#execute()` method uses `ModelManager#updatedFilteredNoteList()`, which does not check for any
+`NoteFragments` within `Notes`. This is illustrated in the <WHAT KIND OF> diagram below:
+
+<SOME DIAGRAM SHOWING CALLING OF LISTCOMMAND FOR NOTE - but is this necessary? Would need to refer to it after the text>
+
+This decision is made because the `list` command already lists all `Notes`, and therefore it would be unnecessary to
+also list all `NoteFragments`, as `NoteFragments` form a subset of `Notes`.
+
+===== Implementation of `NoteFragments` in `filter` command:
+
+When `Notes` are filtered, the method `ModelManager#collectTaggedNotes()` is used, which checks for any valid tags in
+`NoteFragments` within the `Note` as it checks each `Note`.
+
+However, `ModelManager` uses the method `Note#getFilteredNoteFragments()` to achieve this, and therefore is not
+aware of the existence of `NoteFragments`. This is illustrated in the <WHAT KIND OF> diagram below:
+
+<SOME DIAGRAM SHOWING CALLING OF FILTERCOMMAND FOR NOTE - but is this necessary? Would need to refer to it after the
+text>
+
+This diagram can be contrasted with the <WHICH NUMBER?> diagram above, which uses a different method <DESCRIBE> that
+does not account for `NoteFragments`.
+
+The separation between `Notes` and `NoteFragments` in the `filter` command allows for more finely-tuned viewing of
+specific tagged details. For instance:
+
+** A small portion of a long `Note` can be tagged out as 'important'.
+** Different parts of the same `Note` can be given different `Tags` like 'CS2103T' or 'CS2100', even as the entire
+`Note` is tagged under a larger category like 'CS'.
+
+===== Implementation of `NoteFragments` in `filterall` command:
+
+When all `StudyBuddyItems` are filtered, the method `ModeManager#collectTaggedItems()` is used, which performs a
+similar task to `ModelManager#collectTaggedNotes()`, but also collects `Flashcard` and `CheatSheet` objects as well.
+The reasoning for this decision is similar to that in the `filter` command.
+
+===== Implementation of `NoteFragments` in `add` command in `CheatSheets`:
+
+When a `CheatSheet` is created, the method `AddCheatSheetCommand#getRelevantContent()` is used to filter out all
+`Notes` and `NoteFragments` that contain the specified `Tags`. Again, `AddCheatSheetCommand` uses the method
+`Note#getFilteredNoteFragments()` to obtain the filtered list of `NoteFragments`, and is therefore unaware of the
+existence of `NoteFragment`.
+
+Since the `Tags` stored in `Notes` and `NoteFragments` are independent of each other, they are filtered in the same
+way as in the `filter` command. As a result, it is possible for a `NoteFragment` to be included in a `CheatSheet`
+even when its parent `Note` is not.
+
+==== Design Considerations of the Add Tags Within Notes feature
+
+===== Aspect: Container location for `NoteFragment`
+
+** Alternative 1 (current choice): Each `Note` contains a `List<NoteFragment>`:
+*** Pros: Much easier maintenance, since `NoteFragments` are automatically deleted with the deletion of their parent
+`Note`.
+*** Cons: O(n^2^) search time for `filter` commands, as all `NoteFragments` in each `Note` in the `UniqueNoteList`
+must be searched through to filter them out.
+
+** Alternative 2: Separate `UniqueNoteFragmentList` from `UniqueNoteList`:
+*** Pros: O(n) search time for `filter` commands, as the `UniqueNoteFragmentList` exists separately from the
+`UniqueNoteList`.
+*** Cons: Difficult to maintain; deletion of a parent Note requires searching the `UniqueNoteFragmentList` for any
+child `NoteFragments` to delete as well.
+
+==== Usages of the Add Tags Within Notes feature
+
+** Use in `filter` and `filterall` to make the GUI less cluttered
+** Use in `filter` to highlight specific sections of `Notes`
+** Use in `add` for `CheatSheets` for more parsimonious usage of space
+
+==== (Proposed) Future Improvements for v2.0
+
+===== `edit` command for `Notes`
+
+This feature will allow for users to edit their `Notes`, by specifying a new `Title`, `Content`, or `Tags`.
+
+===== (Proposed) Implementation
+
+** Expected inputs:
+*** The original `Title` of the `Note` to be edited
+*** One or more fields that the user wants to edit
+** Create an `EditCommandParser` to parse the input command using `ArgumentTokenizer`
+** Create an `EditCommand` which contains `EditCommand#execute()`
+*** This method creates a new `Note` which contains all old fields, then replaces any old field with a new field, if
+it is made available
+
+Example usage:
+
+    edit Old Title t/New Title
+
+This would result in the `Note` which was originally called 'Old Title' having its `Title` changed to 'New Title'.
+Since no two `Notes` are allowed to have the same `Title`, it is a unique identifier of the `Note` to be edited.
+
+===== Design Considerations
+
+====== Aspect: Method of editing
+
+** Alternative 1: Create a new `Note` object
+*** Pros: Is more defensive, since only a shallow copy of the `Note` object is returned.
+*** Cons: Longer command run time, as a new `Note` object needs to be created first, and then edited.
+
+** Alternative 2: Edit the exiting `Note` object
+*** Pros: Command will run faster, since no new `Note` object needs to be created.
+*** Cons: Is not defensively programmed, as `Notes` should be immutable.
+
+=== Deletion prompting feature
+Upon deletion of any StudyBuddyItem, the user will be prompted once before they can
+successfully delete the specified item.
 
 ==== Implementation
 
 [NOTE]
-All the operations assume that the user is in the _notes_ mode.
+The deletion prompting applies to all three modes in StudyBuddyPro.
 
-Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
+The activity diagram below shows how the user is prompted upon calling a delete command.
 
-image::samDiagrams/NoteModelClassDiagram.png[]
+image::kaibindiagrams/activitydiagramdeleteprompt.png[]
+Diagram 20 : Activity Diagram for prompting user upon deletion.
 
-==== Usages of Notes
+* The marked index has to be constantly tracked, to prevent the user from successfully deleting a different indexed item without any prompts.
 
-Notes can be used to:
+==== Usage of deletion prompts
+* Upon entering a delete command, e.g. `delete 6`, the item that is to be deleted will be displayed to the user, and they will be required to confirm their deletion.
+* The user only needs to hit enter once more to successfully delete the item.
 
-** Store information under a title
-** Categorize information via the use of Tags
-** Provide information to CheatSheets for collation
+==== Design considerations
+Aspect : Deletion prompts versus Undo feature.
 
-Notes can currently be:
+Current Implementation (prompting user before delete)
 
-** Added to StudyBuddyBook
-** Deleted from StudyBuddyBook
-** Viewed from StudyBuddyBook
-** Viewed with filter from StudyBuddyBook
+* Pros
+** Much easier to implement as compared to undo feature.
+** Hitting enter once more to delete is highly convenient for the user, as
+compared to perhaps asking the user to input a 'yes' or 'no' to confirm their deletion.
 
-The sequence diagram below describes the calls within the Model component upon the addition of a Note object:
-
-image::samDiagrams/AddNoteSequenceDiagram.png[]
-
-The two main steps of the process are:
-
-** The parsing of a Command from the input String
-** The execution of the Command which alters Model
-
-==== [Proposed] Note content tagging feature
-
-The proposed feature involves the application of tags within the Note content.
-
-===== Design Implementation
-
-This feature can be achieved by:
-
-** Including a user-inputted tag within portions of the Note content
-** Parsing for this content tag when filtering by tag
-** Listing these content fragments upon filtering by tag
-
-===== Usages of feature
-
-** More precise inclusion of tags when creating CheatSheet objects
-** Ability to nest tags inside each other
+* Cons
+** Less versatile than the undo feature.
+** User might still accidentally delete the wrong item.
 
 == Documentation
 
@@ -692,7 +956,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `StudyBuddy` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `StudyBuddyPro` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === *User story 1:*
@@ -735,37 +999,37 @@ Preconditions: StuddyBuddy application is opened
 
 2.	User chooses to list all cheatsheet.
 
-3.	StudyBuddy displays all cheatsheets.
+3.	StudyBuddyPro displays all cheatsheets.
 +
 Use case ends.
 
 [discrete]
 === Use case: UC03 – Edit a cheatsheet
 
-Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
+Preconditions: StudyBuddyPro application is opened, User knows cheatsheet ID
 
 *MSS*
 
-1.	User navigates to cheetsheat section.
+1.	User navigates to cheetsheet section.
 
 2.	User chooses to edit cheatsheet.
 
-3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be edited.
+3.	StudyBuddyPro asks for cheatsheet ID for cheatsheet to be edited.
 
 4.	User inputs cheatsheet ID.
 
-5.	StudyBuddy asks for parameters to be edited.
+5.	StudyBuddyPro asks for parameters to be edited.
 
 6.	User inputs perimeters to be edited.
 
-7.	StudyBuddy displays edited cheatsheet.
+7.	StudyBuddyPro displays edited cheatsheet.
 +
 Use case ends.
 
 [discrete]
 === Use case: UC04 – View a cheatsheet
 
-Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
+Preconditions: StudyBuddyPro application is opened, User knows cheatsheet ID
 
 *MSS*
 
@@ -773,11 +1037,11 @@ Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
 
 2.	User chooses to view cheatsheet.
 
-3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be viewed.
+3.	StudyBuddyPro asks for cheatsheet ID for cheatsheet to be viewed.
 
 4.	User inputs cheatsheet ID.
 
-5.	StudyBuddy displays cheatsheet.
+5.	StudyBuddyPro displays cheatsheet.
 +
 Use case ends.
 
@@ -808,9 +1072,9 @@ As a student who finds it very cumbersome to store tutorial questions that I wou
 
 [discrete]
 === Use case: UC05 – Create a flashcard from image
-Software system: StudyBuddy, OS
+Software system: StudyBuddyPro, OS
 
-Preconditions: StudyBuddy application is opened
+Preconditions: StudyBuddyPro application is opened
 
 *MSS*
 
@@ -820,31 +1084,31 @@ Preconditions: StudyBuddy application is opened
 
 3.	OS asks user where screenshot should be saved.
 
-4.	User saves screenshot in designated StudyBuddy image folder with custom name.
+4.	User saves screenshot in designated StudyBuddyPro image folder with custom name.
 
-5.	User opens StudyBuddy application.
+5.	User opens StudyBuddyPro application.
 
 6.	User navigates to flashcard section.
 
 7.	User chooses to create new flashcard from image source.
 
-8.	StudyBuddy asks user for file name.
+8.	StudyBuddyPro asks user for file name.
 
 9.	User inputs file name.
 
-10.	StudyBuddy asks user for flashcard’s answer.
+10.	StudyBuddyPro asks user for flashcard’s answer.
 
 11.	User inputs flashcard’s answer.
 
-12.	StudyBuddy asks user for flashcard’s title.
+12.	StudyBuddyPro asks user for flashcard’s title.
 
 13.	User inputs flashcard’s title.
 
-14.	StudyBuddy asks user for flashcard’s module.
+14.	StudyBuddyPro asks user for flashcard’s module.
 
 15.	User inputs flashcard’s module.
 
-16.	StudyBuddy displays created flashcard.
+16.	StudyBuddyPro displays created flashcard.
 +
 Use case ends.
 
@@ -888,15 +1152,15 @@ Use case resumes from step 16.
 
 2.	User chooses to start time trial.
 
-3.	StudyBuddy asks user for time per flashcard.
+3.	StudyBuddyPro asks user for time per flashcard.
 
 4.	User inputs time per flashcard.
 
-5.	StudyBuddy asks user for tags to select flashcards for inclusion.
+5.	StudyBuddyPro asks user for tags to select flashcards for inclusion.
 
 6.	User inputs tags.
 
-7.	StudyBuddy starts time trial with specified parameters.
+7.	StudyBuddyPro starts time trial with specified parameters.
 +
 Use case ends.
 
@@ -989,6 +1253,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
+    {To be edited}
+
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
@@ -1003,5 +1269,234 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Remind feature
 
+[TIP]
+====
+Refer to the note at the start of the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#46-remind-feature[Remind feature]
+section for an explanation of the terms "due flashcards" and "overdue flashcards" used in
+this section.
+====
+
+Testing this section may require the user to switch their system date. A quick guide on how this
+can be done for the Windows 10 operating system can be found
+https://kb.wisc.edu/helpdesk/79027[here] while one for Mac can be found
+https://www.lifewire.com/manually-change-the-date-and-time-on-mac-2378143[here]. The process
+should be similar for different versions of the operating systems.
+
+. Testing `remind` command
+
+* Test case 1
+
+.. Prerequisites
+
+... Currently in flashcard mode with Flashcard icon highlighted.
+
+... There are no due or overdue flashcards.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Well done - No due or overdue flashcards!
+
+* Test case 2
+
+.. Prerequisites
+
+... Currently in notes or cheatsheet mode with the respective icon highlighted.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Unknown command
+
+* Test case 3
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are due flashcards. This can be simulated by adding a flashcard with the `add`
+command and then changing the system date to the next day.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]"
+
+* Test case 4
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are overdue flashcards. This can be simulated by adding a flashcard with the `add`
+command and then changing the system date to 2 days later.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on YYYY-MM-DD)"
+
+* Test case 5
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are overdue flashcards but no due flashcards. This can be simulated by the following
+steps:
+
+.... Add a flashcard (Called flashcard A) with the `add` command.
+
+.... Add a flashcard (Called flashcard B) with the `add` command.
+
+.... Switch the system date to 2 days later. Both flashcards A and B are now overdue. This
+can be verified by using the `remind` command at this stage.
+
+.... View flashcard A using the `view 1` command and then show its answer with the `show` command.
+This means flahscard A is no longer overdue. Now there are no due flashcards today and one
+overdue flashcard (flashcard B).
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Note how only the overdue flashcard B was shown while no explicit output was provided
+to indicate there were no other flashcards due today. This is an intended behaviour to
+avoid clutter.
+
+* Test case 6
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are both due and overdue flashcards. This can be simulated by the following
+steps:
+
+.... Add a flashcard (Called flashcard A) with the `add` command.
+
+.... Switch the system date to 1 day later. Flashcard A is now due. This
+can be verified by using the `remind` command at this stage.
+
+.... Add a flashcard (Called flashcard B) with the `add` command.
+
+.... Switch the system date to 1 day later. Flashcard A is now overdue while flashcard B
+is due.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Note how flashcard B is listed under due today while flashcard A is listed under overdue
+flashcards.
+
+. Testing `exit` command
+
+* Test case 1
+
+.. Prerequisites
+
+... StudyBuddyPro just launched with no mode selected. GUI does not show any icon highlighted.
+
+... There are due flashcards. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 3, for how this can be simulated.
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Type 'exit' again to exit the application!
+
+.. Pressing kbd:[Enter] exits StudyBuddyPro. This also highlights how the this sub-feature
+of the remind feature works regardless of which mode the user is in since `exit` is a global
+command.
+
+.. Alternatively, the user can switch back to flashcard mode using `switch fc`, view the
+added flashcard and its answer using `view 1` and `show`, before using `exit` again. This time
+StudyBuddyPro exits immediately since now there are no due or overdue flashcards.
+
+* Test case 2
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There 1 due and 1 overdue flashcard. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 6, for how this can be simulated.
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+    Type 'exit' again to exit the application!
+
+.. Enter another generic command e.g. `switch notes`. Now, entering the test command `exit`
+will prompt the same feedback as shown above in part c. This highlights how entering another
+valid command will refresh the "state" of the exit command which again requires a
+double-confirmation before the user can exit StudyBuddyPro.
+
+. Combination testing: `remind` and `exit` command with `timetrial`
+
+* Test case 1
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There 1 due and 1 overdue flashcard. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 6, for how this can be simulated. Ensure the flashcard
+due today is tagged with the tag "pop". For example, the flashcard could be added with the command:
+`add q/What is 1+1? a/2 t/Math Question 1 tag/pop`.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Start a timetrial with the flashcard that is due today i.e. tagged with "pop" using the
+command  `timetrial pop`
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Type 'exit' again to exit the application!
+
+.. This highlights how the flashcard that was due today (tagged with "pop") was updated
+when it was viewed during the timetrial and was no longer considered due. Thus, when the user
+tried to exit, only the one overdue flashcard which was still not viewed was flagged.

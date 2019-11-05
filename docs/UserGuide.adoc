@@ -12,6 +12,8 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W13-3
 
@@ -19,64 +21,92 @@ By: `Team AY1920S1-CS2103T-W13-3`
 
 == Introduction
 
-StudyBuddy Pro specifically caters to students in the School of Computing at NUS
-that prefer to use a desktop app to help their studies.
-StudyBuddy is also optimized for those who prefer to work with
+StudyBuddyPro is a student application that aims to simplify the hassle of revision
+by providing a suite of tools for effective revision.
+
+StudyBuddyPro is optimized for students who prefer to work with
 a Command Line Interface (CLI) while still having the benefits of a
-Graphical User Interface (GUI). Being highly familiar working with CLI,
-Computing Students can greatly benefit from the app to
-manage their studies efficiently which also aims to be faster than traditional GUI apps.
+Graphical User Interface (GUI).
+
+Moreover, StudyBuddyPro comes geared with pre-loaded features specially
+catered for computing students. So whether you're a computing student getting
+used to a CLI for the first time or if you're a CLI expert who wants to reap
+the benefits of a fast typing speed, give StudyBuddyPro a try! {To be implemented!}
+
+If you're interested, head over to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#2-quick-start[Quick Start]
+section to get started!
+
+=== Callouts Signs
+
+Do refer to the signs below that will be used across the documents for references. These will prove to be useful when you are reading this document.
+
+[WARNING]
+====
+Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+====
+
+
+[IMPORTANT]
+====
+Indicates information that are crucial to understand so that you will be able to follow the flow of the document. Confusion may arise if you do not grasp the information here.
+====
+
+[NOTE]
+====
+Indicates information that are note-worthy. Do read them for more information and better understandings.
+====
+
+[TIP]
+====
+Indicates additional information that are helpful. Fret not, tips can be good to know but are not vital.
+====
 
 == Quick Start
 
-To begin, download the latest version of `StudyBuddy` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here]
-and double-click the downloaded jar file. If double-clicking does not work, please follow the instructions below.
+NOTE: Please ensure you have Java 11 or above installed before proceeding!
 
-=== Running the jar file
+1. Download the latest version of `StudyBuddyPro.jar` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here].
 
-==== For cross-platform users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro.jar
+2. Place the file in the folder you want to set as the home directory. All data and
+miscellaneous files associated with StudyBuddyPro will be placed in this folder.
 
-==== For Windows users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro-Win.jar
+3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds. If not, please
+refer to the first question in the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#8-FAQ[FAQ]
+for help!
 
-==== For Mac users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro-Mac.jar
++
+image::Ui.png[width="700"]
++
+
+4. Type a command in the command box execute it by pressing kbd:[Enter]. Refer to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
+section for a quick overview of all the available commands!
 
 == Command Format / Rules
 
 Things noted here are standardization of the User Guide.
 These points are absolute, unless stated otherwise in the specific section(s).
 
-****
-* All commands are written in ENGLISH with only alphanumeric characters.
+=== How to read the Command sections
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+* Words in `UPPER_CASE` are parameters to be supplied by the user.
 E.g. `add t/TITLE` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
 
 * Items indicated in square brackets are optional.
 E.g `t/TITLE [tag/TAG]` can be used as `t/Midterm note tag/exam` or as `t/Midterm`.
 
 * Items with `...`​ after them can be used multiple times including zero times.
-E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family`
+E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family`.
 
-* All flashcards, notes, and cheatsheet objects can have a maximum of 10 `TAGs` each.
+=== General rules for all commands
 
-* All `MODULE` parameters in the flashcard feature are `TAGs`.
+* All commands are written in English with alphanumeric characters.
 
-* In EDITING (`edit`):
-** All optional fields provided, except `tag/TAG`, will overwrite their relevant fields.
-** `tag/TAG` optional field, will be added to the flashcard, if they do not already exist.
+* Any indexes provided (denoted by `id`) must be a positive integer (e.g. 1, 2, 3, ...).
 
-* In DELETING (`delete`), Confirmation reply of `y` or `n` has to be given, else no objects is deleted.
-** `y` indicates `YES` and notes will be deleted.
-** `n` indicates `NO` and notes will not be deleted.
-
-* Any indexes (`id`) must be positive integer (e.g. 1, 2, 3, ...).
-The indexes refers to the index number shown in the displayed list of objects (e.g. flashcards, notes, cheatsheets, tags).
+* All flashcards, notes, and cheatsheets can have a maximum of 10 tags.
 
 * Only exact matches of any searches will be returned.
 E.g. "noted" will return "noted" but not "note" or "notes"
@@ -84,11 +114,9 @@ E.g. "noted" will return "noted" but not "note" or "notes"
 * All searches are case insensitive.
 E.g. 'cs2103t' will match 'CS2103T'
 
-****
-
 == Global Commands
 
-Global commands in StudyBuddyPro, are commands that can be called regardless of which mode the user is currently in.
+Global commands in StudyBuddyPro are commands that can be called regardless of which mode the user is currently in.
 
 === Entering the various modes of StudyBuddyPro: `switch`
 
@@ -96,40 +124,63 @@ Upon startup, you will be prompted to enter one of the modes before you can proc
 
 ==== Getting into Flashcard mode: `switch fc`
 
-Brings the user to the Flashcard section (see Section 5), regardless of where the user is.
+Switches the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-commands[Flashcard]
+mode regardless of where the user is.
 
     Format: switch fc
 
 ==== Getting into Notes function: `switch notes`
 
-Brings the user to the Notes section (see Section 6), regardless of where the user is.
+Brings the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#6-note-commands[Notes]
+mode regardless of where the user is.
 
     Format: switch notes
 
 ==== Getting into CheatSheet function: `switch cs`
 
-Brings the user to the CheatSheet section (see Section 7), regardless of where the user is.
+Brings the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#7-cheatsheet-commands[CheatSheet]
+mode regardless of where the user is.
 
     Format: switch cs
 
 === Viewing Help: `help`
 
-Views the help session of all the functionality.
+A pop-up dialog box will display a URL link to a help document.
 
     Format: help
 
-A pop-up dialog box will display a URL link to a help document.
+=== Listing all current Tags in StudyBuddyPro : `taglist`
 
-=== Listing all StudyBuddy items by their tag : `filterall`
+Displays a full list of all tags currently in StudyBuddyPro.
 
-Lists all StudyBuddy items with matching tags in the application.
+    Format: taglist
+
+    Expected output:
+    Here are all the tags in StudyBuddyPro.
+    Listing all tags :
+    [cs2100]
+    [cs2101]
+    [cs2104]
+    [math]
+    [pipelining]
+
+* The user can make use of taglist, to quickly see which tag they would like to view.
+
+* The list of tags is also automatically sorted alphabetically.
+
+=== Listing all StudyBuddyPro items by their tag : `filterall`
+
+Lists all StudyBuddyPro items with matching tags in the application.
 
     Format: filterall tag/TAG [tag/TAG]...
 
     Example usage: filterall tag/CS2100
 
     Expected output:
-        Lists the whole StudyBuddy after filtering by tag(s) :
+        Lists the whole StudyBuddyPro after filtering by tag(s) :
     CS2100
     Flashcard: 6.
         Question: What is 101 Binary in its Decimal form?
@@ -142,7 +193,7 @@ Lists all StudyBuddy items with matching tags in the application.
         Contents: [ 1. Pipelining is a process where a processor executes multiple processes simultaneously.]
             [ 2. Question: What is 101 Binary in its Decimal form?; Answer: 5 ]
     Note: 5.
-        Title: Pipelining Defition
+        Title: Pipelining Definition
         Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100]
     Note Fragment: 6-2.
@@ -150,14 +201,15 @@ Lists all StudyBuddy items with matching tags in the application.
         Content: highlighted
         Tags: [cs2100]
 
+NOTE: 'Note Fragments' (as seen in the example above) are described further in the Notes section (see Section 6.1).
+
 The user is also able to specify a multiple number of tags.
 For example,
 
     filterall tag/CS2100 tag/difficult
 
-will list all items that match at least one of the specified tags.
+will list all items that match all of the specified tags.
 
-NOTE: 'Note Fragments' are described further in the Notes section (see Section 6.1).
 
 === Exiting the application: `exit`
 
@@ -196,6 +248,21 @@ After any of the 3 scenarios above user can override the warning by entering the
 
 if no remaining or overdue flashcards for revision found, application exits immediately.
 
+=== Editing a tag: `edit tag` (proposed in v2.0)
+
+Edits a tag by the specified index.
+
+    Format: edit tag/CURRENT tag/NEW
+
+    Example usage: edit tag/midterm tag/finals
+
+    Expected output:
+    Tag editted!
+    All items and contents in StudyBuddy tagged ‘midterm’ is replaced with tag ‘finals’.
+
+Allows the user to easily modify the tags of all the items. For instance, if every item that is marked difficult does not appear hard to you
+anymore, you could replace all items tagged 'difficult' with a tag 'moderate'.
+
 == Flashcard Feature
 
 === Creating a flashcard: `add`
@@ -208,6 +275,7 @@ Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
 
     Expected output: New flashcard added:
         Title: Binary Stuff
+        Statictics: This flashcard was last viewed on: 2019-11-01. This flashcard should next be viewed on 2019-11-02 for optimum revision!
         Question: What is 100 Binary in its Decimal form?
         Answer: 4
         Tags: [cs2100]
@@ -247,6 +315,8 @@ Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
 === Listing flashcards: `list`
 
+{Answer to be removed in v2.0}
+
 Lists all flashcards.
 
    Format: list
@@ -262,14 +332,27 @@ Lists all flashcards.
 
 Deletes the flashcard by <FLASHCARD_INDEX>.
 
+The user will be prompted once to confirm their deletion.
+
    Format: delete (index)
 
     Example usage: delete 6
+
+    Expected output: Are you sure you would like to delete the following flashcard?
+	    Question: What is 101 Binary in its Decimal form?
+	    Answer: 5
+	    Title: BinaryQn
+	    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+	    Tags: [cs2100]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, the flashcard will be deleted.
 
     Expected output: Deleted Flashcard:
         Question: What is 101 Binary in its Decimal form?
         Answer: 5
         Title: BinaryQn
+        Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
         Tags: [cs2100]
 
 === Time Trial: `timetrial`
@@ -279,16 +362,17 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
     Format: timetrial [tag/TAG]...
 
 * At least one tag must be specified.
-* If more than one tag is specified, selects all flashcards that contains any of the specified tags.
+* If more than one tag is specified, selects all flashcards that contains all of the specified tags.
 * Default <TIME> will be 5 seconds.
 * Answer will be flashed for 3 seconds.
-ts
+
+
 === Listing by tags: `filter`
 
 * Filters the flashcard library by the user specified tag(s).
 * The user must specify at least one tag.
 * The user is able to specify multiple tags.
-* Flashcards that match at least one of the specified tags will be displayed.
+* Flashcards that match all of the specified tags will be displayed.
 
     Format: filter tag/TAG [tag/TAG]...
 
@@ -362,19 +446,26 @@ same time as the note is created.
 
     Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
 
-NOTE: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not 'tag/'.
+IMPORTANT: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not
+'tag/'.
 
 * In the following example, two note fragment tags are added to the same note fragment:
 
     Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
 
-    Expected output:
+Expected output:
+
     New note added:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
 
+* This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
+"highlighted" and two tags "cs2100" and "important".
+
 * Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
+
+IMPORTANT: Overlapping note fragment tags are not allowed.
 
 NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3).
 For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
@@ -384,14 +475,24 @@ commands.
 
 Deletes the note of index `NOTE_INDEX`.
 
+The user will be prompted once to confirm their deletion.
+
     Format: delete (index)
 
     Example usage: delete 3
 
     Expected output:
+        Are you sure you would like to delete the following note?
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+        Tags: [about]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, the note will be deleted.
+
     Deleted note:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
 
 === Viewing a note: `view`
@@ -407,7 +508,7 @@ NOTE: To view the note with its note fragment tags, use the `viewraw` command in
     Expected output:
     Viewing note:
         Title: About
-        Content: Notes can be highlighted if needed
+        Content: Notes can be highlighted if needed.
         Tags: [about]
 
 === Viewing a raw note: `viewraw`
@@ -421,7 +522,7 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
     Expected output:
     Viewing raw note:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
 
 === Listing notes: `list`
@@ -450,8 +551,8 @@ visualize specific note fragment tags, use the `filter` command (see Section 6.6
 
 * Filters the note library by the user specified tag(s).
 * The user must specify at least one tag, and can specify multiple tags.
-* Notes that match at least one of the specified tags will be displayed.
-* Note fragment tags containing at least one of the specified tags will also be displayed, even if their parent note is
+* Notes that match all of the specified tags will be displayed.
+* Note fragment tags containing all of the specified tags will also be displayed, even if their parent note is
 not tagged.
 
     Format: filter tag/TAG [tag/TAG]...
@@ -489,72 +590,185 @@ Edits a note's title, content, or tags. The note will be referred to by their or
         Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100finals]
 
+
 == CheatSheet Feature:
 
-=== Creating a cheatSheet: `add`
+[IMPORTANT]
+====
+All the operations in this section assume that the user is in the _cheatsheet_ mode.
+====
 
-* Adds a cheatSheet from user input title <TITLE> and content <CONTENT>.
-* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the
-cheatsheet.
+tag::cheatsheetAdd[]
+
+=== Creating a Cheatsheet: `add`
+
+Adds a cheatsheet from user input title <TITLE> and content <CONTENT>. Flashcards and notes in StudyBuddyPro that have the specified tag will be used as contents in the cheatsheet.
 
     Format: add t/TITLE [tag/TAG]...
 
-    Example usage: add t/CS2100 Midterm CheatSheet tag/cs2100midterm
+Example usage:
 
-    Expected output: New cheatsheet added:
+    add t/CS2100 Midterm CheatSheet tag/cs2100midterm
+
+[IMPORTANT]
+====
+Assuming that there is a flashcard object with the tag "cs2100midterm"
+====
+
+Expected output:
+
+    New cheatsheet added:
     Title: CS2100 Midterm CheatSheet
     Tags: [cs2100midterm]
-    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-        [ 2. 110 in Binary is 6 in Decimal ]
+    1 content(s) have been successfully generated from the other modes.
 
-=== Editing a cheatSheet: `edit`
+end::cheatsheetAdd[]
+tag::cheatsheetEdit[]
 
-Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
+=== Editing a Cheatsheet: `edit`
 
-* The user can specify one of the optional fields to edit.
+Edits cheatsheet's title, tag, content by a specified <CHEATSHEET_INDEX>. At least one of the optional fields must be specified to edit.
 
     Format: edit (index) [t/TITLE] [tag/TAG]...
 
-    Example usage: edit 8 t/cs2100 final cheatsheet tag/cs2100finals
+[IMPORTANT]
+====
+** Only `t/TITLE` optional field will overwrite its field.
+** All other optional fields will remove itsn existing content(s).
+** Any invalid `c/CONTENT_INDEX` or `tag/TAG` will be *ignored*.
+====
 
-    Expected output: Edited Cheatsheet:
-        Title: cs2100 final cheatsheet
-        Tags: [cs2100finals]
-        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-            [ 2. 110 in Binary is 6 is Decimal ]
+Example CheatSheet of index 8:
 
-=== Deleting a cheatSheet: `delete`
+    Title: cs2100 cheatsheet
+    Tags: [cs2100finals][formula]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. 10 + 10 = 20]
 
-1. Deletes a cheatSheet by the specified index.
+Example usage:
+
+    edit 8 t/cs2100 final cheatsheet tag/formula
+
+Expected output:
+
+[NOTE]
+====
+The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Edited Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+
+end::cheatsheetEdit[]
+
+=== Deleting a Cheatsheet: `delete`
+
+Deletes a cheatsheet by the specified index.
+
+The user will be prompted once to confirm their deletion.
 
     Format: delete (index)
 
     Example usage: delete 8
 
-    Expected output: Deleted Cheatsheet:  Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+    Expected output:
+        Are you sure you would like to delete the following cheatsheet?
+        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+            [ 2. 110 in Binary is 6 is Decimal ]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, the specified cheatsheet will be deleted.
+
+    Expected output: Deleted Cheatsheet:
+        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
         Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
             [ 2. 110 in Binary is 6 is Decimal ]
 
-=== Listing cheatSheets: `list`
+tag::cheatsheetView[]
 
-* Lists all cheatSheets found in StudyBuddyPro.
+=== Viewing Cheatsheets: `view`
+
+Views a cheatsheet by the specified index.
+
+   Format: view (index)
+
+Example CheatSheet of index 1:
+
+    Title: cs2100 cheatsheet
+    Tags: [cs2100finals][important]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. 10 + 10 = 20]
+
+Example usage:
+
+    view 1
+
+Expected output:
+
+.Screenshot for `view 1` expected output
+image::jasmineDiagrams/ssForViewUG.png[]
+
+The above screenshot shows the cheatsheet with index 1 in the GUI of StudyBuddyPro.
+
+end::cheatsheetView[]
+
+tag::cheatsheetViewSpecific[]
+
+=== Viewing Cheatsheets of Specific Tag: `show`
+
+Views a cheatsheet's content for a specified tag. User must be in a `view` command before using `show` command.
+
+   Format: show (index)
+
+[NOTE]
+====
+Assuming user is in the `view 1` command from above example in `view` command.
+====
+
+Example usage:
+
+    show 1
+
+Expected output:
+
+[NOTE]
+====
+Currently, cheatsheets only allow contents that match all the specified tags. Hence, `show` command will only show color toggling at the tags segment at the moment.
+====
+
+.Screenshot for `show 1` expected output
+image::jasmineDiagrams/ssForViewSpecificUG.png[]
+
+The above screenshot shows the cheatsheet's content with tag index 1 in the GUI of StudyBuddyPro.
+
+
+end::cheatsheetViewSpecific[]
+
+tag::cheatsheetList[]
+
+=== Listing Cheatsheets: `list`
+
+Lists all cheatsheets found in StudyBuddyPro.
 
    Format: list
 
-   Expected output: a complete list of all cheatSheets currently in StudyBuddyPro
+end::cheatsheetList[]
 
 === Listing by tags: `filter`
 
-* Filters the cheatSheet library by the user specified tag(s).
+* Filters the cheatsheet library by the user specified tag(s).
 * The user must specify at least one tag.
 * The user is able to specify multiple tags.
-* CheatSheets that match at least one of the specified tags will be displayed.
+* CheatSheets that match all of the specified tags will be displayed.
 
     Format: filter tag/TAG [tag/TAG]...
 
     Example usage: filter tag/difficult
 
-    Expeted output: Filter cheatSheets by tag(s) :
+    Expeted output: Filter cheatsheet by tag(s) :
         [difficult]
         2. Title: Tough Math
             Tags: [difficult][math]
@@ -565,26 +779,79 @@ Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
             Content: [ 1. dy/dx is a process where mathematicians..]
                 [ 2. Question: what is dy/dx?; Answer: find gradient]
 
+tag::cheatsheetUpdate[]
 
+=== Updating a Cheatsheet: `update` (Coming in v2.0)
 
-<NOT INCLUDED IN DRAFT>
+Updates cheatsheet's contents by a specified <CHEATSHEET_INDEX>. Tags specified are added into the list of tags for the cheatsheet if it not already exist.
 
-*Q*: Do I need to create a new tag before using the tag? +
-*A*: No, you do not need to. Tags, if not exist, are automatically created.
+[WARNING]
+====
+This command may overwrite any customization of contents done prior to it as the cheatsheet's contents will be regenerated.
+====
+
+    Format: update (index) [tag/TAG]...
+
+Example CheatSheet of index 8:
+
+    Title: cs2100 cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+
+Example usage 1:
+
+    update 8
+
+Expected output:
+
+[NOTE]
+====
+The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Updated Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. Binary is in bits of 1 and 0.]
+
+Example usage 2:
+
+    update 8 tag/formula
+
+Expected output:
+
+[NOTE]
+====
+The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Updated Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals][formula]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. 10 + 10 = 20]
+
+end::cheatsheetUpdate[]
+
+== FAQ
+
+*Q*: Help! Double-clicking `StudyBuddyPro.jar` does not launch the application - what
+should I do? +
+*A*: Trying running the application from the command line using the following command:
+`java -jar StudyBuddyPro.jar`. Windows users can use the Command Prompt application to
+do this while Mac users can use the Terminal application.
 
 == Command Summary
 
-<NOT INCLUDED IN DRAFT>
+{To be added}
 
-== Mock-up User Interface
+=== Global Commands
 
-image::UiMockUp1.png[width="790"]
-image::UiMockUp2.png[width="790"]
+=== Flashcard Commands
 
-== Draft Workflow (To-be-removed)
+=== Note Commands
 
-image::WorkflowDraft.png[width="790"]
-
-
+=== CheatSheet Commands
 
 

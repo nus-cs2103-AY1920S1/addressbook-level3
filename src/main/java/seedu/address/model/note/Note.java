@@ -6,11 +6,13 @@ import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_END_DETECTION_
 import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_START_DETECTION_REGEX;
 import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_TAG_DETECTION_REGEX;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 
-import seedu.address.logic.commands.note.NoteFragmentFeatureUtil;
+import seedu.address.logic.commands.note.NoteFeatureUtil;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
@@ -33,7 +35,7 @@ public class Note extends StudyBuddyItem {
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
-        this.noteFragments = NoteFragmentFeatureUtil.parseNoteFragmentsFromNote(this);
+        this.noteFragments = NoteFeatureUtil.parseNoteFragmentsFromNote(this);
     }
 
     public Title getTitle() {
@@ -54,8 +56,14 @@ public class Note extends StudyBuddyItem {
         return new Content(cleanedContent);
     }
 
-    public List<NoteFragment> getNoteFragments() {
-        return noteFragments;
+    public List<NoteFragment> getFilteredNoteFragments(Predicate<? super NoteFragment> predicate) {
+        List<NoteFragment> noteFragmentList = new ArrayList<>();
+        for (NoteFragment noteFragment : noteFragments) {
+            if (predicate.test(noteFragment)) {
+                noteFragmentList.add(noteFragment);
+            }
+        }
+        return noteFragmentList;
     }
 
     /**

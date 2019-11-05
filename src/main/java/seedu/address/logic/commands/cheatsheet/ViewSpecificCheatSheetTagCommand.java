@@ -28,6 +28,7 @@ public class ViewSpecificCheatSheetTagCommand extends Command {
     private final Index targetIndex;
 
     public ViewSpecificCheatSheetTagCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 
@@ -38,7 +39,6 @@ public class ViewSpecificCheatSheetTagCommand extends Command {
         if (CheatsheetTabWindowController.getCurrCheatSheet().isEmpty()) {
             throw new CommandException(Messages.MESSAGE_NO_CHEATSHEET_LOADED);
         }
-
 
         if (CheatsheetTabWindowController.getCurrCheatSheet().get().getTags().size() < targetIndex.getOneBased()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TAG_INDEX);
