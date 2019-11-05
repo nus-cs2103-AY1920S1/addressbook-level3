@@ -1,5 +1,6 @@
 package seedu.mark.logic.parser;
 
+import static seedu.mark.commons.core.Messages.MESSAGE_FILE_NAME_INCLUDES_EXTENSION;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.nio.file.Path;
@@ -24,6 +25,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         if (trimmedArgs.isEmpty() || trimmedArgs.split(" ").length != 1) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+        }
+
+        if (trimmedArgs.endsWith(".json")) {
+            throw new ParseException(MESSAGE_FILE_NAME_INCLUDES_EXTENSION);
         }
 
         Path sourceFile = Path.of("data", "bookmarks", trimmedArgs + ".json");

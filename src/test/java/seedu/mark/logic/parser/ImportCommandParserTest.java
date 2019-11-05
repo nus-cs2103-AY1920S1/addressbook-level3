@@ -1,5 +1,6 @@
 package seedu.mark.logic.parser;
 
+import static seedu.mark.commons.core.Messages.MESSAGE_FILE_NAME_INCLUDES_EXTENSION;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -23,6 +24,10 @@ public class ImportCommandParserTest {
         // multiple words
         assertParseFailure(parser, "more than one word",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+
+        // file name ends with .json
+        assertParseFailure(parser, "myBookmarks.json",
+                MESSAGE_FILE_NAME_INCLUDES_EXTENSION);
     }
 
     @Test
