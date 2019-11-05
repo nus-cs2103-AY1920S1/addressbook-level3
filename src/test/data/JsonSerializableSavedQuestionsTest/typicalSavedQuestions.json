@@ -1,0 +1,19 @@
+{
+  "questions" : [ {
+    "question" : "What is 1+1?",
+    "answer" : "2",
+    "type" : "open",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  }, {
+    "question" : "What is 1+1?",
+    "answer" : "B",
+    "type" : "mcq",
+    "optionA" : 1,
+    "optionB" : 2,
+    "optionC" : 3,
+    "optionD" : 4
+  } ]
+}

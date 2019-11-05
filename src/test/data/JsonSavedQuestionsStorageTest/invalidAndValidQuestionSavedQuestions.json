@@ -1,0 +1,35 @@
+{
+  "questions" : [ {
+    "question" : "Example question.",
+    "answer" : "Sample answer.",
+    "type" : "open",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  }, {
+    "question" : "New ques",
+    "answer" : "Ans",
+    "type" : "test",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  }, {
+    "question" : "New que",
+    "answer" : "Ans",
+    "type" : "mcq",
+    "optionA" : "A",
+    "optionB" : "B",
+    "optionC" : "C",
+    "optionD" : "D"
+  }, {
+    "question" : "HM?",
+    "answer" : "H,?",
+    "type" : "open",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  } ]
+}

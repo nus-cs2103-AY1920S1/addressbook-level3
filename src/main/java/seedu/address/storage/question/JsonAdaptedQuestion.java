@@ -1,5 +1,7 @@
 package seedu.address.storage.question;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -73,33 +75,33 @@ class JsonAdaptedQuestion {
      *                               question.
      */
     public Question toModelType() throws IllegalValueException {
-        if (question == null) {
+        if (StringUtils.isBlank(question)) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "QUESTION"));
         }
-        if (answer == null) {
+        if (StringUtils.isBlank(answer)) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ANSWER"));
         }
-        if (type == null) {
+        if (StringUtils.isBlank(type)) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "TYPE"));
         }
 
         if (type.equals("open")) {
             return new OpenEndedQuestion(question, answer);
         } else if (type.equals("mcq")) {
-            if (optionA == null) {
+            if (StringUtils.isBlank(optionA)) {
                 throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, "OPTION A"));
             }
-            if (optionB == null) {
+            if (StringUtils.isBlank(optionB)) {
                 throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, "OPTION B"));
             }
-            if (optionC == null) {
+            if (StringUtils.isBlank(optionC)) {
                 throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, "OPTION C"));
             }
-            if (optionD == null) {
+            if (StringUtils.isBlank(optionD)) {
                 throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, "OPTION D"));
             }

@@ -504,6 +504,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasQuestion(Question question) {
+        requireNonNull(question);
+        return savedQuestions.hasQuestion(question);
+    }
+
+    @Override
     public String searchQuestions(String textToFind) {
         return savedQuestions.searchQuestions(textToFind);
     }

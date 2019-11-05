@@ -109,6 +109,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasQuestion(Question question) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public String searchQuestions(String textToFind) {
         throw new AssertionError("This method should not be called.");
     }
