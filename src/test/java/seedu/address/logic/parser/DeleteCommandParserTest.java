@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_PERSON;
+import static seedu.address.logic.parser.CliSyntax.FLAG_TRAINING;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -30,6 +31,7 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
     private static final String eventName = "freestyle 50m";
     private static final String index = "1";
+    private static final String FLAG_INVALID = "-person";
 
     @Test
     public void parse_validArgsPerson_returnsDeletePersonCommand() {
@@ -50,15 +52,31 @@ public class DeleteCommandParserTest {
             parser,
             FLAG_EVENT + eventName, String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         // invalid flag
-        String invalidFlag = "-flag";
         assertParseFailure(
             parser,
-            invalidFlag + " " + index,
+            FLAG_INVALID + " " + index,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        assertParseFailure(
-            parser,
-            invalidFlag + " " + eventName,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void getFlag_invalidArgs_throwsParseException() {
+        // null argument
+        assertThrows(NullPointerException.class, () -> parser.getFlag(null));
+        // short argument
+        assertThrows(ParseException.class, () -> parser.getFlag("p"));
+        assertThrows(ParseException.class, () -> parser.getFlag("-"));
+        // invalid flag
+        assertThrows(ParseException.class, () -> parser.getFlag(FLAG_INVALID));
+    }
+
+    @Test
+    public void getFlag_validArgs_returnsTrimmedFlag() throws ParseException {
+        // person flag
+        assertEquals(FLAG_PERSON.getFlag(), parser.getFlag("-p"));
+        // event flag
+        assertEquals(FLAG_EVENT.getFlag(), parser.getFlag("-e"));
+        // training flag
+        assertEquals(FLAG_TRAINING.getFlag(), parser.getFlag("-t"));
     }
 
     @Test
