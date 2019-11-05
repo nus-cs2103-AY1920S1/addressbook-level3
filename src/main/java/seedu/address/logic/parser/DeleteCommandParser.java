@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.performance.Event;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new appropriate DeleteCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
@@ -38,21 +38,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         return deleteCommand;
-    }
-
-    /**
-     * Extracts the valid flag from the argument string.
-     */
-    private String getFlag(String args) throws ParseException {
-        String[] stringArray = args.split("\\s+", 2);
-        String flag = stringArray[0].trim();
-        if (flag.length() < 2) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-        if (!Flag.isValidFlag(flag)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-        return flag;
     }
 
     /**
@@ -90,5 +75,20 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE), pe);
         }
+    }
+
+    /**
+     * Extracts the valid flag from the argument string.
+     */
+    private String getFlag(String args) throws ParseException {
+        String[] stringArray = args.split("\\s+", 2);
+        String flag = stringArray[0].trim();
+        if (flag.length() < 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        if (!Flag.isValidFlag(flag)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        return flag;
     }
 }

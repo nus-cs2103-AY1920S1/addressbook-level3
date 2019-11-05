@@ -214,14 +214,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void addEvent(Event event) {
-
-        }
+        public void addEvent(Event event) { }
 
         @Override
         public boolean hasEvent(Event event) {
             return false;
         }
+
+        @Override
+        public void deleteEvent(Event target) { }
 
         @Override
         public ReadOnlyPerformance getPerformance() {
