@@ -23,7 +23,7 @@ to the feature and relevant documentations in detail.
 Here are some explanations of the icons and formatting used in this portfolio.
 
 ****
-* A grey highlight `monospace` implies that this is a command that can be inputted and executed by the application.
+* A highlighted `monospace` implies that this is a command that can be inputted and executed by the application.
 * _Italics_ implies a component, class or object in the architecture of the application.
 * The pull requests and issues are represented by a # and its number (e.g. [#1])
 ****
@@ -67,18 +67,22 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/pull/74[#74]).
 
 == User guide contributions
 
-We have updated the User Guide of Address Book to fit the commands of our project. The following part shows my contribution
-to the modification of *NUStudy User Guide* for quiz feature.
+We have updated the User Guide of Address Book to fit the commands of our project. The following part shows my
+contribution to the modification of *NUStudy User Guide* for quiz feature.
 
 '''
 
-include::../UserGuide.adoc[tag=quiz]
+include::../UserGuide.adoc[tag=quizStart]
+
+include::../UserGuide.adoc[tag=quizQuit]
+
+=== Coming in v2.0
 
 include::../UserGuide.adoc[tag=quizFuture]
 
 == Developer guide contributions
 
-We also updated the Developer Guide so that the style and architecture fits our project. The following parts shows my
+We also updated the Developer Guide so that the style and architecture fits our project. The following part shows my
 contribution to the modification of *NUStudy Developer Guide* for quiz feature.
 
 NOTE: In this sections, `monospace` indicates both user command and class objects and methods.
