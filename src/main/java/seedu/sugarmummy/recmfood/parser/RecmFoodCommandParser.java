@@ -2,11 +2,15 @@ package seedu.sugarmummy.recmfood.parser;
 
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SORT_ASC;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SORT_DES;
+import static seedu.sugarmummy.recmfood.model.FoodComparator.DEFAULT_SORT_ORDER_STRING;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,6 +20,7 @@ import seedu.sugarmummy.logic.parser.Parser;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.recmfood.commands.RecmFoodCommand;
 import seedu.sugarmummy.recmfood.model.Flag;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.recmfood.model.FoodType;
 import seedu.sugarmummy.recmfood.predicates.FoodNameContainsKeywordsPredicate;
 import seedu.sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
@@ -27,16 +32,25 @@ public class RecmFoodCommandParser implements Parser<RecmFoodCommand> {
 
     @Override
     public RecmFoodCommand parse(String userInput) throws ParseException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_FOOD_NAME);
-        String flagsString = argumentMultimap.getPreamble().trim();
-        String foodWordsString = argumentMultimap.getValue(PREFIX_FOOD_NAME).orElse("");
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput,
+                PREFIX_FOOD_NAME, PREFIX_SORT_ASC, PREFIX_SORT_DES);
 
-        Set<FoodType> foodTypes = flagsString.length() == 0 ? new HashSet<>() : getWantedFoodTypes(flagsString);
-        List<String> foodKeywords =
-                foodWordsString.length() == 0 ? new ArrayList<>() : getWantedFoodKeywords(foodWordsString);
+        if (Parser.arePrefixesPresent(argumentMultimap, PREFIX_SORT_ASC, PREFIX_SORT_DES)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FoodComparator.MESSAGE_PREFIX_CONSTRAINTS));
+        }
+
+        String flagsStr = argumentMultimap.getPreamble().trim();
+        String namesStr = argumentMultimap.getValue(PREFIX_FOOD_NAME).orElse("");
+        Optional<String> sortOrderAscStrOpt = argumentMultimap.getValue(PREFIX_SORT_ASC);
+        Optional<String> sortOrderDesStrOpt = argumentMultimap.getValue(PREFIX_SORT_DES);
+
+        Set<FoodType> foodTypes = flagsStr.length() == 0 ? new HashSet<>() : getWantedFoodTypes(flagsStr);
+        List<String> foodKeywords = namesStr.length() == 0 ? new ArrayList<>() : getWantedFoodKeywords(namesStr);
+        FoodComparator foodComparator = getComparator(sortOrderAscStrOpt, sortOrderDesStrOpt);
 
         return new RecmFoodCommand(new FoodTypeIsWantedPredicate(foodTypes),
-                new FoodNameContainsKeywordsPredicate(foodKeywords));
+                new FoodNameContainsKeywordsPredicate(foodKeywords), foodComparator);
     }
 
     /**
@@ -44,23 +58,23 @@ public class RecmFoodCommandParser implements Parser<RecmFoodCommand> {
      *
      * @throws ParseException if one or more food types are invalid.
      */
-    private Set<FoodType> getWantedFoodTypes(String flagsString) throws ParseException {
+    private Set<FoodType> getWantedFoodTypes(String flagsStr) throws ParseException {
 
         Set<FoodType> validTypes = new HashSet<>();
-        String[] flagStrings = flagsString.split("\\s+");
+        String[] flagStrs = flagsStr.split("\\s+");
 
-        if (Arrays.stream(flagStrings).anyMatch(str -> !Flag.isValidFlag(str))) {
+        if (Arrays.stream(flagStrs).anyMatch(str -> !Flag.isValidFlag(str))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecmFoodCommand.MESSAGE_USAGE));
         }
 
-        List<String> uniqueTypeStrings = Arrays.stream(flagStrings).map(str -> new Flag(str))
+        List<String> uniqueTypeStrs = Arrays.stream(flagStrs).map(str -> new Flag(str))
                 .map(flag -> flag.getFlagContent())
                 .distinct()
                 .collect(Collectors.toList());
 
-        for (String typeString : uniqueTypeStrings) {
-            if (FoodType.isValidType(typeString)) {
-                validTypes.add(FoodType.getFrom(typeString));
+        for (String typeStr : uniqueTypeStrs) {
+            if (FoodType.isValidType(typeStr)) {
+                validTypes.add(FoodType.getFrom(typeStr));
             } else {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecmFoodCommand.MESSAGE_USAGE));
             }
@@ -70,5 +84,20 @@ public class RecmFoodCommandParser implements Parser<RecmFoodCommand> {
 
     private List<String> getWantedFoodKeywords(String foodWords) {
         return Arrays.asList(foodWords.trim().split("\\s+"));
+    }
+
+    private FoodComparator getComparator(Optional<String> ascStrOpt, Optional<String> desStrOpt) throws ParseException {
+
+        try {
+            if (ascStrOpt.isPresent()) {
+                return new FoodComparator(ascStrOpt.get());
+            } else if (desStrOpt.isPresent()) {
+                return new FoodComparator(desStrOpt.get()).reversed();
+            } else {
+                return new FoodComparator(DEFAULT_SORT_ORDER_STRING);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(FoodComparator.MESSAGE_CONSTRAINTS);
+        }
     }
 }

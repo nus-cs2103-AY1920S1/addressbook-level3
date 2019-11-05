@@ -48,7 +48,7 @@ class ClearBioCommandTest {
 
     @Test
     public void getNewPaneIsToBeCreated_test() {
-        assertTrue(new ClearBioCommand().getNewPaneIsToBeCreated());
+        assertTrue(new ClearBioCommand().isToCreateNewPane());
     }
 
 }

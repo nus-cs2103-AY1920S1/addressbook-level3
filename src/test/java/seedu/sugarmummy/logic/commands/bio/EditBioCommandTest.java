@@ -105,7 +105,7 @@ class EditBioCommandTest {
 
     @Test
     public void getNewPaneIsToBeCreated_test() {
-        assertTrue(new EditBioCommand(getUnModifiedUserDescriptor()).getNewPaneIsToBeCreated());
+        assertTrue(new EditBioCommand(getUnModifiedUserDescriptor()).isToCreateNewPane());
     }
 
     @Test

@@ -67,7 +67,7 @@ class AddBioCommandTest {
 
     @Test
     public void getNewPaneToBecreated_test() {
-        assertTrue(new AddBioCommand(VALID_USER).getNewPaneIsToBeCreated());
+        assertTrue(new AddBioCommand(VALID_USER).isToCreateNewPane());
     }
 
     @Test

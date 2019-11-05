@@ -62,9 +62,15 @@ public interface Logic {
      */
     ObservableList<Food> getFilterFoodList();
 
+    /**
+     * Returns an unmodifiable view of the mix of foods from each food type.
+     */
+    ObservableList<Food> getMixedFoodList();
+
     ObservableList<Record> getRecordList();
 
     ObservableList<Record> getFilterRecordList();
+
 
     /**
      * Returns the user prefs' GUI settings.
