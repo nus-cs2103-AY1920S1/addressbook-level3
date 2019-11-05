@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.application.Platform;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,7 +48,7 @@ public class DeleteCommand extends UndoableCommand {
 
     private Entity entityToDelete;
     private Fridge fridge;
-    private List<Notif> notifList;
+    private List<Notif> notifList = Collections.emptyList();
 
     public DeleteCommand(Index targetIndexNum, String entityType) {
         this.targetIndexNum = targetIndexNum;
@@ -139,10 +141,14 @@ public class DeleteCommand extends UndoableCommand {
             }
         }
         this.notifList = new ArrayList<>(notifsToRemove);
-
         for (Notif notif : notifsToRemove) {
             model.deleteNotif(notif);
         }
+
+        Platform.runLater(() -> {
+            model.updateFilteredFridgeList(fridge -> true);
+        });
+
     }
 
     //@@author ambervoong

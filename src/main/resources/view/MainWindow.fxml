@@ -30,15 +30,22 @@
                 <AnchorPane maxHeight="30.0" prefWidth="1250.0" VBox.vgrow="NEVER">
                     <children>
                         <MenuBar fx:id="menuBar" layoutX="16.0" layoutY="-5.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <Menu mnemonicParsing="false" text="File">
+                            <Menu fx:id="fileButton" mnemonicParsing="false" text="File">
                                 <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                             </Menu>
-                            <Menu mnemonicParsing="false" text="Help">
+                            <Menu fx:id="helpButton" mnemonicParsing="false" text="Help">
                                 <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                             </Menu>
                         </MenuBar>
-                        <StackPane fx:id="commandBoxPlaceholder" prefWidth="800.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="3.0" />
-                        <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" AnchorPane.rightAnchor="260.0" />
+                  <HBox layoutX="150.0">
+                     <children>
+                              <StackPane fx:id="commandBoxPlaceholder" prefWidth="800.0" />
+                              <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" maxHeight="22.0" maxWidth="22.0" prefHeight="22.0" prefWidth="22.0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin></StackPane>
+                     </children>
+                  </HBox>
                         <HBox layoutX="1064.0" AnchorPane.rightAnchor="0.0">
                             <children>
                                 <Button fx:id="minimiseButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="45.0">
@@ -81,7 +88,7 @@
                                 </StackPane>
                             </children>
                         </HBox>
-                        <HBox prefHeight="150.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="220.0" spacing="15.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <StackPane fx:id="fridgeListPlaceholder" prefWidth="204.0" styleClass="stack-pane" HBox.hgrow="ALWAYS">
                                     <effect>
