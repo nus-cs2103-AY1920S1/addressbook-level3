@@ -13,7 +13,7 @@ import seedu.ifridge.model.food.ShoppingItem;
 public class TypicalShoppingList {
 
     public static final ShoppingItem APPLE = new ShoppingItemBuilder().withName("Apple")
-            .withAmount("3g").build();
+            .withAmount("3units").build();
     public static final ShoppingItem BANANA = new ShoppingItemBuilder().withName("Banana")
             .withAmount("5g").build();
     public static final ShoppingItem CAKE = new ShoppingItemBuilder().withName("Cake")
@@ -21,11 +21,15 @@ public class TypicalShoppingList {
     public static final ShoppingItem DATES = new ShoppingItemBuilder().withName("Dates")
             .withAmount("11g").build();
     public static final ShoppingItem EGGS = new ShoppingItemBuilder().withName("Eggs")
-            .withAmount("15g").build();
+            .withAmount("12units").build();
     public static final ShoppingItem FRIES = new ShoppingItemBuilder().withName("Fries")
             .withAmount("20g").build();
     public static final ShoppingItem GRAPES = new ShoppingItemBuilder().withName("Grapes")
             .withAmount("25g").build();
+    public static final ShoppingItem BOUGHT_EGGS = new ShoppingItemBuilder().withName("Eggs")
+            .withAmount("15g").withBought(true).build();
+    public static final ShoppingItem URGENT_EGGS = new ShoppingItemBuilder().withName("Eggs")
+            .withAmount("15g").withUrgent(true).build();
 
     private TypicalShoppingList() {} // prevents instantiation
 
