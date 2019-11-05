@@ -8,8 +8,8 @@ import seedu.address.model.eatery.Address;
 import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
-import seedu.address.model.eatery.Tag;
 import seedu.address.model.eatery.Review;
+import seedu.address.model.eatery.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -111,6 +111,9 @@ public class EateryBuilder {
         return new Eatery(name, isOpen, address, category, tags);
     }
 
+    /**
+     * Builds an eatery with some default reviews.
+     */
     public Eatery buildWithReviews() {
         Eatery eatery = new Eatery(name, isOpen, address, category, tags);
         eatery.setReviews(reviews);
