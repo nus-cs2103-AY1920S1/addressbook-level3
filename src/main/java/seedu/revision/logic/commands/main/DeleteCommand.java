@@ -46,6 +46,15 @@ public class DeleteCommand extends Command {
             }
         }
 
+        for (int i = 0; i <= targetIndexList.size() - 1; i++) {
+            for (int j = i + 1; j <= targetIndexList.size() - 1; j++) {
+                if (targetIndexList.get(i).equals(targetIndexList.get(j))) {
+                    throw new CommandException("You have indicated duplicate questions to be deleted. \n"
+                            + "Please indicate only once for each question to be deleted!");
+                }
+            }
+        }
+
         for (Index targetIndex : targetIndexList) {
             Answerable answerableToDelete = lastShownList.get(targetIndex.getZeroBased());
             toBeDeleted.add(answerableToDelete);
