@@ -292,7 +292,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 ** The current implementation of StudyBuddyItems in StudyBuddyPro is such that it contains a Set of Tags.
 ** The following objects of each individual feature shares similar Tagging behaviour, as shown in the class diagram below.
 
-image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
+image::kaibindiagrams/studyBuddyItemClassDiagram.png[]
 
 ==== Design Considerations
 
@@ -302,8 +302,15 @@ image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 
 ===== Aspect: How tag predicates are implemented
 
+image::kaibindiagrams/tagPredicateClassDiagram.png[]
+_Diagram 6: Class Diagram of how StudyBuddyItemContainsTagPredicate is implemented_
+
+* The above class diagram shows how tag predicates are being implemented.
+
+* The set of tags that is stored in `StudyBuddyItemContainsTagPredicate` refers to the tags specified by the user.
+
 image::kaibindiagrams/tagPredicateCodeSnippet.png[]
-Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`
+_Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`_
 
 * The current implementation is that test() only returns true if *all* tags specified by the user matches the current Item.
 * As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
@@ -352,8 +359,6 @@ The syntax used here is slightly different. The user need not specify the `tag/`
 *** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
 *** As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
 
-** Supporting statistics for Tags
-*** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
 tag::cheatsheetAutomation[]
 
