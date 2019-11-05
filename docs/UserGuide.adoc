@@ -212,7 +212,7 @@ Clears all existing actors of the 2nd show in the list.
 Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
 ====
 
-Finds shows whose names contain any of the given keywords from the watchlist, watched list and online. +
+Searches for shows whose names contain any of the given keywords from the watchlist, watched list and online. +
 Format:
 
 * by name: `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]`

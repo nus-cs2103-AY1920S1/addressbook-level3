@@ -27,10 +27,13 @@ import seedu.ezwatchlist.model.show.TvShow;
  */
 public class SearchCommand extends Command {
     public static final String COMMAND_WORD = "search";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for shows online whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " Joker";
+    public static final String MESSAGE_USAGE = "No result found.\n"
+            + COMMAND_WORD + ": Searches for shows whose names contain any of the given keywords from the watchlist, "
+            + "watched list and online.\n"
+            + "- by name: search n/SHOW_NAME… [g/GENRE]… [a/ACTOR_NAME]… [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]\n"
+            + "- by genre: search g/GENRE… [n/SHOW_NAME]… [a/ACTOR_NAME]… [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]\n"
+            + "- by actor (from watchlist): search a/ACTOR_NAME…\u200B [n/SHOW_NAME]… [g/GENRE]… [t/TYPE] "
+            + "[w/IS_WATCH]\n";
     private static final String MESSAGE_INVALID_IS_INTERNAL_COMMAND =
             "Invalid input. i/[OPTION] where OPTION is either true/yes or false/no";
     private static final String MESSAGE_INVALID_TYPE_COMMAND =
@@ -94,7 +97,7 @@ public class SearchCommand extends Command {
             if (!genreList.isEmpty()) {
                 searchByGenre(model);
             }
-            if (searchResult.isEmpty()) {
+            if (searchResult.isEmpty()) { // User only input search
                 throw new CommandException(MESSAGE_USAGE);
             }
             /*else { // if has no name and actor to be searched
@@ -157,7 +160,7 @@ public class SearchCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
         } else { // there's no restriction on where to search from
             addShowFromWatchListIfHasActor(actorSet, model);
-            //addShowFromOnlineIfHasActor(actorSet); // unable to search online for now
+            // addShowFromOnlineIfHasActor(actorSet); // unable to search online for now
         }
     }
 
