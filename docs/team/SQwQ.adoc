@@ -1,0 +1,69 @@
+= Zheng Shi Qiao - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :exclamation:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
+
+== PROJECT: VISIT
+
+---
+
+== Overview
+
+VISIT is a Java desktop patient-tracking application for doctors on-the-go. The user interacts with it using a CLI(Command-Line-Interface), and it has a GUI(Graphical User Interface) created with JavaFX. It is written by the 5 man team UnrealUnity(which I am a part of), and has about 16 kLoC.
+
+.VISIT Main Window
+image::Ui.png[width="790"]
+
+I was in charge of implementing the *Visitation Report* system which consists of the *addvisit*, *editvisit* and *deletevisit* commands. The rest of this document serves to provide a comprehensive overview of my involvement in this project.
+
+== Summary of contributions
+This section provides a brief synopsis of my contributions.
+
+* *Major enhancement*: Implemented *the Visit Report system*
+** What it does: Allows doctors to create, edit and delete patient reports.
+** Justification: The feature is essential as it enables doctors to record down vital information(such as the prescription and diagnosis) for each consultation with the patient and thus, grant doctors the ability to track the well-being of their patients.
+** Highlights: This enhancement required a holistic understanding of the code base since the implementation necessitates changes in every component of the Model-View-Controller framework. Making sure that the different components of storage, logic and UI interacts with one another correctly is a great technical challenge.
+
+* *Minor enhancement*: implemented pop-up form for doctors to fill in consultation details.
+
+* *Minor enhancement*: implemented list pop-up for doctors to view the list of visit reports for a particular patient. The list automatically sorts itself by date, with the most recent report on the top of the list.
+
+* *Minor enhancement*: implemented a prompt window to notify the doctor when the chosen patient has no records
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=SQwQ&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=SQwQ&tabRepo=AY1920S1-CS2103T-F12-2%2Fmain%5Bmaster%5D[RepoSense]]
+
+* *Other contributions*:
+
+** Tests:
+*** Wrote tests for Visit Report system (Example https://github.com/AY1920S1-CS2103T-F12-2/main/pull/27[#27])
+** Project management:
+*** Vetted and assigned issues to team members. (Example https://github.com/AY1920S1-CS2103T-F12-2/main/issues/155[#155] https://github.com/AY1920S1-CS2103T-F12-2/main/issues/157[#157])
+** Documentation:
+*** Contributed to both https://github.com/AY1920S1-CS2103T-F12-2/main/pull/75[dev guide] and https://github.com/AY1920S1-CS2103T-F12-2/main/pull/95[user guide]
+** Community:
+*** 9 PRs reviewed
+*** Reported bugs for https://github.com/SQwQ/ped/issues?q=is%3Aopen+is%3Aissue[DukeCooks], another AddressBook3-based application.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=visitreports]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=visitationreport]

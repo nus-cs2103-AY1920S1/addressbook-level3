@@ -15,4 +15,4 @@ for filename in $(git grep --cached -I -l -e '' -- ':/'); do
     fi
 done
 
-exit $ret
+isExit $ret

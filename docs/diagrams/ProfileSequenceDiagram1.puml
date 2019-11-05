@@ -20,17 +20,17 @@ end box
 [--> MainWindow : executeCommand(commandText)
 activate MainWindow
 
-MainWindow -> LogicManager : execute(profile)
+MainWindow -> LogicManager : execute(isProfile)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(profile)
+LogicManager -> AddressBookParser : parseCommand(isProfile)
 activate AddressBookParser
 
 create ProfileCommandParser
 AddressBookParser -> ProfileCommandParser
 activate ProfileCommandParser
 
-ProfileCommandParser -> ProfileCommandParser : parse(profile)
+ProfileCommandParser -> ProfileCommandParser : parse(isProfile)
 activate ProfileCommandParser
 
 opt invalid argument

@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.VisitReport;
@@ -80,6 +82,12 @@ public class VisitListPanel extends UiPart<Stage> {
         getRoot().show();
         getRoot().setAlwaysOnTop(true);
         getRoot().centerOnScreen();
+        getRoot().addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+                    if (KeyCode.ESCAPE == event.getCode()) {
+                        this.hide();
+                    }
+                }
+        );
 
     }
 
