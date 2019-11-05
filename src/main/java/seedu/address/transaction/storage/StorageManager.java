@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
@@ -27,9 +27,9 @@ public class StorageManager implements Storage {
 
     private final File file;
     private final Logger logger = new LogsCenter().getLogger(getClass());
-    private final GetPersonByNameOnlyModel personModel;
+    private final CheckAndGetPersonByNameModel personModel;
 
-    public StorageManager(File file, GetPersonByNameOnlyModel personModel) {
+    public StorageManager(File file, CheckAndGetPersonByNameModel personModel) {
         this.file = file;
         this.personModel = personModel;
     }
@@ -75,7 +75,7 @@ public class StorageManager implements Storage {
      * @param personModel Address Book model.
      * @return Transaction created.
      */
-    private static Transaction readInFileLine(String line, GetPersonByNameOnlyModel personModel) {
+    private static Transaction readInFileLine(String line, CheckAndGetPersonByNameModel personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);

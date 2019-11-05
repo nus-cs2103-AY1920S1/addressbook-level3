@@ -14,6 +14,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.stubs.PersonModelStubWithPerson;
@@ -23,7 +25,6 @@ import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.transaction.Transaction;
 
 class AddCommandTest {
@@ -63,13 +64,14 @@ class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModelFilteredList_addSuccessful() {
-        Model model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        Model model = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(model, TypicalPersons.ALICE.getName().toString());
         Transaction transaction = new TransactionBuilder(TypicalPersons.AMY).build();
         AddCommand addCommand = new AddCommand(transaction);
-        seedu.address.person.model.GetPersonByNameOnlyModel personModel =
-                new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        CheckAndGetPersonByNameModel personModel =
+                new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.ALICE.getName().toString());
         expectedModel.resetPredicate();
         expectedModel.addTransaction(transaction);

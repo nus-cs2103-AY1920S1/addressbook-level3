@@ -10,6 +10,7 @@ import seedu.address.cashier.logic.parser.CashierTabParser;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 
 /**
  * Represents a Cashier tab's Logic stub.
@@ -28,8 +29,8 @@ public class CashierLogicStub implements Logic {
     public CommandResult execute(String commandText) throws Exception {
         CashierTabParser parser = new CashierTabParser();
         Command command = parser.parseCommand(commandText,
-                model, personModel);
-        CommandResult commandResult = command.execute(model, personModel);
+                model, (CheckAndGetPersonByNameModel) personModel);
+        CommandResult commandResult = command.execute(model, (CheckAndGetPersonByNameModel) personModel);
         return commandResult;
     }
 

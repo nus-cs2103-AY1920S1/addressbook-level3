@@ -9,10 +9,11 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -26,10 +27,11 @@ public class CheckoutCommandTest {
     private static final Double INVALID_TOTAL_AMOUNT = -50.32;
     private static final Double INVALID_CHANGE = -3.21;
 
-    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
 
-    private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_invalidTotalAmount_throwsAssertionError() {
@@ -45,7 +47,7 @@ public class CheckoutCommandTest {
     public void execute_validTotalAmountAndChangeWithoutCashier_throwsNoCashierFoundException() {
         CheckoutCommand checkoutCommand = new CheckoutCommand(VALID_TOTAL_AMOUNT, VALID_CHANGE);
         String expectedMessage = CashierMessages.NO_CASHIER;
-        assertCommandFailure(checkoutCommand, model, expectedMessage, personModel);
+        assertCommandFailure(checkoutCommand, model, expectedMessage, (CheckAndGetPersonByNameModel) personModel);
     }
 
     @Test
@@ -55,14 +57,17 @@ public class CheckoutCommandTest {
         model.setCashier(cashier);
 
         model.addItem(STORYBOOK);
-        String expectedMessage = String.format(MESSAGE_CHECKOUT_SUCCESS, Item.DECIMAL_FORMAT.format(VALID_TOTAL_AMOUNT),
+        String expectedMessage = String.format(MESSAGE_CHECKOUT_SUCCESS,
+                Item.DECIMAL_FORMAT.format(VALID_TOTAL_AMOUNT),
                 Item.DECIMAL_FORMAT.format(VALID_CHANGE));
 
-        ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList(),
+        seedu.address.cashier.model.ModelManager expectedModel =
+                new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                 TypicalTransactions.getTypicalTransactionList());
         expectedModel.setCashier(new PersonBuilder().build());
 
-        assertCommandSuccess(checkoutCommand, model, expectedMessage, expectedModel, personModel);
+        assertCommandSuccess(checkoutCommand, model, expectedMessage, expectedModel,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
 
     }

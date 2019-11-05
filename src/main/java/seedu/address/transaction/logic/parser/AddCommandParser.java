@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.AddCommand;
@@ -34,8 +34,8 @@ import seedu.address.util.Prefix;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements CommandParserWithPersonModel {
-    private static final double MAX_AMOUNT_ACCEPTED = 9999;
-    private static final double MIN_AMOUNT_ACCEPTED = -9999;
+    private static final double MAX_AMOUNT_ACCEPTED = 999999.99;
+    private static final double MIN_AMOUNT_ACCEPTED = -999999.99;
     private static final double ZERO = 0.0;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -46,7 +46,7 @@ public class AddCommandParser implements CommandParserWithPersonModel {
      * @throws ParseException if the user input does not conform the expected format
      * @throws NoSuchPersonException if user inputs a transaction done by someone not in date base
      */
-    public AddCommand parse(String args, GetPersonByNameOnlyModel personModel)
+    public AddCommand parse(String args, CheckAndGetPersonByNameModel personModel)
             throws ParseException, NoSuchPersonException {
         requireNonNull(personModel);
         ArgumentMultimap argMultimap =
@@ -65,9 +65,9 @@ public class AddCommandParser implements CommandParserWithPersonModel {
         String amountString = argMultimap.getValue(PREFIX_AMOUNT).get();
         try {
             double amount = Double.parseDouble(amountString);
-            if (amount > MAX_AMOUNT_ACCEPTED) {
+            if (amount >= MAX_AMOUNT_ACCEPTED) {
                 throw new ParseException(MESSAGE_AMOUNT_TOO_LARGE);
-            } else if (amount < MIN_AMOUNT_ACCEPTED) {
+            } else if (amount <= MIN_AMOUNT_ACCEPTED) {
                 throw new ParseException(MESSAGE_AMOUNT_TOO_SMALL);
             } else if (amount == ZERO) {
                 throw new ParseException(MESSAGE_NO_ZERO_ALLOWED);

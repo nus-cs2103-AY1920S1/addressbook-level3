@@ -1,8 +1,6 @@
 package seedu.address.person.logic.parser;
 
-import static seedu.address.person.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.person.commons.core.Messages.MESSAGE_NO_COMMAND;
-import static seedu.address.person.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.MissingFormatArgumentException;
 import java.util.regex.Matcher;
@@ -41,7 +39,7 @@ public class AddressBookParser {
         if (!matcher.matches()) {
             String errorMsg;
             try {
-                errorMsg = String.format(MESSAGE_INVALID_COMMAND_FORMAT);
+                errorMsg = String.format(MESSAGE_NO_COMMAND);
             } catch (MissingFormatArgumentException e) {
                 throw new ParseException(MESSAGE_NO_COMMAND);
             }
@@ -67,7 +65,7 @@ public class AddressBookParser {
             return new ListCommand();
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_NO_COMMAND);
         }
     }
 

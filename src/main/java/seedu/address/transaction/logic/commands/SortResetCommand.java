@@ -2,6 +2,7 @@ package seedu.address.transaction.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.ui.TransactionMessages;
 
@@ -11,7 +12,7 @@ import seedu.address.transaction.ui.TransactionMessages;
 public class SortResetCommand extends SortCommand {
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+    public CommandResult execute(Model model, CheckAndGetPersonByNameModel personModel) {
         requireNonNull(model);
         requireNonNull(personModel);
         model.sortReset();

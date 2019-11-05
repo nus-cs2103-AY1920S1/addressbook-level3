@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.DeleteCommand;
@@ -32,7 +32,7 @@ public class DeleteCommandParser implements CommandParserWithPersonModel {
      * and returns a DeleteIndexCommand object for execution.
      * @throws NotANumberException if the user input does not conform the expected format
      */
-    public DeleteCommand parse(String userInput, GetPersonByNameOnlyModel personModel) throws NotANumberException,
+    public DeleteCommand parse(String userInput, CheckAndGetPersonByNameModel personModel) throws NotANumberException,
             NoSuchPersonException {
         requireNonNull(personModel);
         if (userInput.length() > 1 && userInput.substring(1).matches("-?(0|[1-9]\\d*)")) {
