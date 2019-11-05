@@ -24,7 +24,7 @@ public class TagCard extends UiPart<Region> {
     @FXML
     private Label tagName;
 
-    TagCard(Tag tag, int displayedIndex) {
+    public TagCard(Tag tag, int displayedIndex) {
         super(FXML);
         this.tag = tag;
         id.setText(displayedIndex + ". ");

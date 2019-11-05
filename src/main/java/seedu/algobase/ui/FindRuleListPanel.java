@@ -13,14 +13,14 @@ import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 /**
  * Panel containing the list of find rules.
  */
-class FindRuleListPanel extends UiPart<Region> {
+public class FindRuleListPanel extends UiPart<Region> {
 
     private static final String FXML = "FindRuleListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(FindRuleListPanel.class);
     @FXML
     private ListView<ProblemSearchRule> findRuleListView;
 
-    FindRuleListPanel(ObservableList<ProblemSearchRule> findRuleList) {
+    public FindRuleListPanel(ObservableList<ProblemSearchRule> findRuleList) {
         super(FXML);
         findRuleListView.setItems(findRuleList);
         findRuleListView.setCellFactory(listView -> new FindRuleListViewCell());

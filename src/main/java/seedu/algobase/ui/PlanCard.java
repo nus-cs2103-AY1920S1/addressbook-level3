@@ -43,7 +43,7 @@ public class PlanCard extends UiPart<Region> {
     @FXML
     private Label endDate;
 
-    PlanCard(
+    public PlanCard(
         Plan plan,
         int displayedIndex,
         WriteOnlyTabManager writeOnlyTabManager,

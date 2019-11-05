@@ -61,33 +61,33 @@ public class CopyTaskCommand extends Command {
             || copyTaskDescriptor.planToIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        Plan planFrom = lastShownPlanList.get(copyTaskDescriptor.planFromIndex.getZeroBased());
-        Plan planTo = lastShownPlanList.get(copyTaskDescriptor.planToIndex.getZeroBased());
+        Plan planToBeCopiedFrom = lastShownPlanList.get(copyTaskDescriptor.planFromIndex.getZeroBased());
+        Plan planToBeCopiedInto = lastShownPlanList.get(copyTaskDescriptor.planToIndex.getZeroBased());
 
-        List<Task> taskListFrom = planFrom.getTaskList();
-        List<Task> taskListTo = planTo.getTaskList();
+        List<Task> taskListToBeCopiedFrom = planToBeCopiedFrom.getTaskList();
+        List<Task> taskListToBeCopiedInto = planToBeCopiedInto.getTaskList();
         int taskIndex = copyTaskDescriptor.taskIndex.getZeroBased();
-        if (taskIndex >= taskListFrom.size()) {
+        if (taskIndex >= taskListToBeCopiedFrom.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        Task taskToCopy = taskListFrom.get(taskIndex);
-        Set<Task> taskSetTo = new HashSet<>(taskListTo);
-        if (taskSetTo.contains(taskToCopy)) {
+        Task taskToBeCopied = taskListToBeCopiedFrom.get(taskIndex);
+        Set<Task> taskSetToBeCopiedInto = new HashSet<>(taskListToBeCopiedInto);
+        if (taskSetToBeCopiedInto.contains(taskToBeCopied)) {
             throw new CommandException(
-                String.format(MESSAGE_DUPLICATE_TASK, taskToCopy.getName(), planTo.getPlanName()));
+                String.format(MESSAGE_DUPLICATE_TASK, taskToBeCopied.getName(), planToBeCopiedInto.getPlanName()));
         }
-        if (!planTo.checkWithinDateRange(taskToCopy.getTargetDate())) {
+        if (!planToBeCopiedInto.checkWithinDateRange(taskToBeCopied.getTargetDate())) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
         }
-        taskSetTo.add(taskToCopy);
+        taskSetToBeCopiedInto.add(taskToBeCopied);
 
-        model.updateTasks(taskSetTo, planTo);
+        model.updateTasks(taskSetToBeCopiedInto, planToBeCopiedInto);
 
         return new CommandResult(
             String.format(MESSAGE_MOVE_TASK_SUCCESS,
-                taskToCopy.getName(),
-                planFrom.getPlanName(),
-                planTo.getPlanName()
+                taskToBeCopied.getName(),
+                planToBeCopiedFrom.getPlanName(),
+                planToBeCopiedInto.getPlanName()
             )
         );
     }

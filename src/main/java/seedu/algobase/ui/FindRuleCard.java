@@ -44,7 +44,7 @@ public class FindRuleCard extends UiPart<Region> {
     @FXML
     private Label tag;
 
-    FindRuleCard(ProblemSearchRule findRule, int displayedIndex) {
+    public FindRuleCard(ProblemSearchRule findRule, int displayedIndex) {
         super(FXML);
         this.findRule = findRule;
         id.setText(displayedIndex + ". ");

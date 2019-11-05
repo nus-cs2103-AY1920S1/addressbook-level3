@@ -13,7 +13,7 @@ import seedu.algobase.commons.core.LogsCenter;
 /**
  * Controller for a help page
  */
-class HelpWindow extends UiPart<Stage> {
+public class HelpWindow extends UiPart<Stage> {
 
     private static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html";
     private static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
@@ -32,7 +32,7 @@ class HelpWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    private HelpWindow(Stage root) {
+    public HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
     }
@@ -40,7 +40,7 @@ class HelpWindow extends UiPart<Stage> {
     /**
      * Creates a new HelpWindow.
      */
-    HelpWindow() {
+    public HelpWindow() {
         this(new Stage());
     }
 

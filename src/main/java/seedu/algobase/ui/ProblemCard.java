@@ -59,7 +59,7 @@ public class ProblemCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    ProblemCard(
+    public ProblemCard(
         Problem problem,
         int displayedIndex,
         WriteOnlyTabManager writeOnlyTabManager,

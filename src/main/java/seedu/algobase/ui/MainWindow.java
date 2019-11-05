@@ -60,7 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private SplitPane layoutPanePlaceholder;
 
-    MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -75,7 +75,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
-    Stage getPrimaryStage() {
+    public Stage getPrimaryStage() {
         return primaryStage;
     }
 

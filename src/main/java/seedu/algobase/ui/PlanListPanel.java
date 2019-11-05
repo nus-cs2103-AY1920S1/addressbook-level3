@@ -17,7 +17,7 @@ import seedu.algobase.storage.SaveStorageRunnable;
 /**
  * Panel containing the list of plans.
  */
-class PlanListPanel extends UiPart<Region> {
+public class PlanListPanel extends UiPart<Region> {
     private static final String FXML = "PlanListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PlanListPanel.class);
 
@@ -28,7 +28,7 @@ class PlanListPanel extends UiPart<Region> {
     @FXML
     private ListView<Plan> planListView;
 
-    PlanListPanel(
+    public PlanListPanel(
         ObservableList<Plan> planList,
         WriteOnlyTabManager writeOnlyTabManager,
         SaveStorageRunnable saveStorageRunnable,

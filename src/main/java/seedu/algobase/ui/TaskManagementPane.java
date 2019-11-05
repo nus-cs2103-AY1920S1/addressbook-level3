@@ -19,7 +19,7 @@ import seedu.algobase.model.task.Task;
 /**
  * Panel containing the list of tasks.
  */
-class TaskManagementPane extends UiPart<Region> {
+public class TaskManagementPane extends UiPart<Region> {
     private static final String FXML = "TaskManagementPane.fxml";
     private final Logger logger = LogsCenter.getLogger(TaskManagementPane.class);
     private ObservableList<Data> taskProgress = FXCollections.observableArrayList();
@@ -31,7 +31,7 @@ class TaskManagementPane extends UiPart<Region> {
     @FXML
     private PieChart taskProgressChart;
 
-    TaskManagementPane(ObservableList<Task> taskList,
+    public TaskManagementPane(ObservableList<Task> taskList,
                        ObservableStringValue plan,
                        ObservableIntegerValue solvedCount,
                        ObservableIntegerValue unsolvedCount,
