@@ -17,8 +17,10 @@ import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
+import budgetbuddy.model.transaction.TransactionList;
 
 /**
  * Provides convenience classes to the script environment.
@@ -37,21 +39,189 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     public void initialise(ScriptEngine engine) {
         engine.setVariable("bb", model);
 
+        engine.setVariable("refreshAccountView", (Interfaces.Void) this::scriptRefreshAccountView);
+        engine.setVariable("refreshTxnView", (Interfaces.Void) this::scriptRefreshTxnView);
+
+        engine.setVariable("getAccounts", (Interfaces.Void) this::scriptGetAccounts);
+        engine.setVariable("getAccount", (Interfaces.ObjectOnly) this::scriptGetAccount);
+        engine.setVariable("getActiveAccount", (Interfaces.Void) this::scriptGetActiveAccount);
+        engine.setVariable("setActiveAccount", (Interfaces.ObjectOnly) this::scriptSetActiveAccount);
+        engine.setVariable("addAccount", (Interfaces.StringString) this::scriptAddAccount);
+        engine.setVariable("morphAccount", (Interfaces.AccountObjects) this::scriptMorphAccount);
+        engine.setVariable("editAccount", (Interfaces.ObjectObjects) this::scriptEditAccount);
+        engine.setVariable("deleteAccount", (Interfaces.ObjectOnly) this::scriptDeleteAccount);
+
+        engine.setVariable("accountName", (Interfaces.AccountOnly) this::scriptAccountName);
+        engine.setVariable("accountBalance", (Interfaces.AccountOnly) this::scriptAccountBalance);
+        engine.setVariable("accountDescription", (Interfaces.AccountOnly) this::scriptAccountDescription);
+        engine.setVariable("accountTxns", (Interfaces.AccountOnly) this::scriptAccountTxns);
+
         engine.setVariable("addTxn", (Interfaces.LongStringStringObjects) this::scriptAddTxn);
         engine.setVariable("editTxn", (Interfaces.AccountTransactionObjects) this::scriptEditTxn);
         engine.setVariable("morphTxn", (Interfaces.TransactionObjects) this::scriptMorphTxn);
         engine.setVariable("deleteTxn", (Interfaces.AccountTransaction) this::scriptDeleteTxn);
-        engine.setVariable("getAccounts", (Interfaces.Void) this::scriptGetAccounts);
         engine.setVariable("getShownTxns", (Interfaces.Void) this::scriptGetShownTxns);
         engine.setVariable("getShownTxn", (Interfaces.Int) this::scriptGetShownTxn);
+        engine.setVariable("editShownTxn", (Interfaces.IntObjects) this::scriptEditShownTxn);
         engine.setVariable("deleteShownTxn", (Interfaces.Int) this::scriptDeleteShownTxn);
-        engine.setVariable("getActiveAccountTxns", (Interfaces.Void) this::scriptGetActiveAccountTxns);
 
         engine.setVariable("txnAmount", (Interfaces.TransactionOnly) this::scriptTxnAmount);
         engine.setVariable("txnDescription", (Interfaces.TransactionOnly) this::scriptTxnDescription);
         engine.setVariable("txnDate", (Interfaces.TransactionOnly) this::scriptTxnDate);
         engine.setVariable("txnDirection", (Interfaces.TransactionOnly) this::scriptTxnDirection);
         engine.setVariable("txnCategories", (Interfaces.TransactionOnly) this::scriptTxnCategories);
+    }
+
+    /**
+     * Provides <code>refreshAccountView()</code>.
+     */
+    private Object scriptRefreshAccountView() {
+        model.getAccountsManager().resetFilteredAccountList();
+
+        return null;
+    }
+
+    /**
+     * Provides <code>refreshTxnView()</code>.
+     */
+    private Object scriptRefreshTxnView() {
+        model.getAccountsManager().transactionListUpdateSource();
+
+        return null;
+    }
+
+    /**
+     * Provides <code>getAccounts() -> List&lt;Account&gt;</code>.
+     */
+    private Object scriptGetAccounts() throws Exception {
+        return model.getAccountsManager().getAccounts();
+    }
+
+    /**
+     * Provides <code>getActiveAccount() -> Account</code>.
+     */
+    private Account scriptGetActiveAccount() throws Exception {
+        return model.getAccountsManager().getActiveAccount();
+    }
+
+    /**
+     * Provides <code>setActiveAccount(nameOrIndex) -> Account</code>.
+     */
+    private Account scriptSetActiveAccount(Object nameOrIndex) throws Exception {
+        requireAllNonNull(nameOrIndex);
+
+        Account toSet = scriptGetAccount(nameOrIndex);
+        int toSetIndex = model.getAccountsManager().getAccounts().indexOf(toSet);
+        model.getAccountsManager().setActiveAccount(Index.fromZeroBased(toSetIndex));
+
+        return toSet;
+    }
+
+    /**
+     * Provides <code>getAccount(nameOrIndex) -> Account</code>.
+     */
+    private Account scriptGetAccount(Object nameOrIndex) throws Exception {
+        requireAllNonNull(nameOrIndex);
+
+        if (nameOrIndex instanceof Integer) {
+            return model.getAccountsManager().getAccount(Index.fromZeroBased((int) nameOrIndex));
+        } else if (nameOrIndex instanceof String) {
+            return model.getAccountsManager().getAccount(CommandParserUtil.parseName((String) nameOrIndex));
+        }
+
+        throw new IllegalArgumentException(
+                "Expected integer or string, got " + nameOrIndex.getClass().getSimpleName());
+    }
+
+    /**
+     * Provides <code>addAccount(name, description) -> Account</code>.
+     */
+    private Account scriptAddAccount(String name, String description) throws Exception {
+        Account account = new Account(CommandParserUtil.parseName(name),
+                CommandParserUtil.parseDescription(description), new TransactionList());
+        model.getAccountsManager().addAccount(account);
+
+        return account;
+    }
+
+    /**
+     * Provides <code>morphAccount(oldAccount, { name, description }) -> Account</code>.
+     */
+    private Account scriptMorphAccount(Account acc, Object... optional) throws Exception {
+        requireAllNonNull(acc, optional);
+        ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
+
+        Name name = acc.getName();
+        Description desc = acc.getDescription();
+
+        String newName = opt.get("name", String.class);
+        if (newName != null) {
+            name = CommandParserUtil.parseName(newName);
+        }
+
+        String newDesc = opt.get("description", String.class);
+        if (newDesc != null) {
+            desc = CommandParserUtil.parseDescription(newDesc);
+        }
+
+        return new Account(name, desc, acc.getTransactionList(), acc.getBalance());
+    }
+
+    /**
+     * Provides <code>editAccount(nameOrIndex, { name, description }) -> Account</code>.
+     */
+    private Account scriptEditAccount(Object nameOrIndex, Object... optional) throws Exception {
+        requireAllNonNull(nameOrIndex, optional);
+
+        Account toEdit = scriptGetAccount(nameOrIndex);
+        Account newAccount = scriptMorphAccount(toEdit, optional);
+
+        int toEditIndex = model.getAccountsManager().getAccounts().indexOf(toEdit);
+
+        model.getAccountsManager().editAccount(Index.fromZeroBased(toEditIndex), newAccount);
+
+        return newAccount;
+    }
+
+    /**
+     * Provides <code>deleteAccount(nameOrIndex)</code>.
+     */
+    private Object scriptDeleteAccount(Object nameOrIndex) throws Exception {
+        requireAllNonNull(nameOrIndex);
+
+        Account toDelete = scriptGetAccount(nameOrIndex);
+        int toDeleteIndex = model.getAccountsManager().getAccounts().indexOf(toDelete);
+        model.getAccountsManager().deleteAccount(Index.fromZeroBased(toDeleteIndex));
+
+        return null;
+    }
+
+    /**
+     * Provides <code>accountName(account) -> string</code>
+     */
+    private String scriptAccountName(Account account) throws Exception {
+        return account.getName().toString();
+    }
+
+    /**
+     * Provides <code>accountDescription(account) -> string</code>
+     */
+    private String scriptAccountDescription(Account account) throws Exception {
+        return account.getDescription().getDescription();
+    }
+
+    /**
+     * Provides <code>accountBalance(account) -> number</code>
+     */
+    private long scriptAccountBalance(Account account) throws Exception {
+        return account.getBalance();
+    }
+
+    /**
+     * Provides <code>accountTxns(account) -> List&lt;Transaction&gt;</code>
+     */
+    private Object scriptAccountTxns(Account account) throws Exception {
+        return account.getTransactionList().asUnmodifiableObservableList();
     }
 
     /**
@@ -163,6 +333,15 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     }
 
     /**
+     * Provides <code>editShownTxn(index, { amount, direction, description, date, categories })
+     * -> Transaction</code>.
+     */
+    private Transaction scriptEditShownTxn(int index, Object... optional) throws Exception {
+        Transaction toEdit = model.getFilteredTransactions().get(index);
+        return scriptEditTxn(model.getAccountsManager().getActiveAccount(), toEdit, optional);
+    }
+
+    /**
      * Provides <code>deleteShownTxn(index)</code>.
      */
     private Object scriptDeleteShownTxn(int index) throws Exception {
@@ -177,21 +356,6 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
      */
     private Object scriptGetShownTxns() throws Exception {
         return model.getFilteredTransactions();
-    }
-
-    /**
-     * Provides <code>getActiveAccountTxns() -> List&lt;Transaction&gt; </code>.
-     */
-    private Object scriptGetActiveAccountTxns() throws Exception {
-        return model.getAccountsManager().getActiveAccount().getTransactionList()
-                .asUnmodifiableObservableList();
-    }
-
-    /**
-     * Provides <code>getAccounts() -> List&lt;Account&gt;</code>.
-     */
-    private Object scriptGetAccounts() throws Exception {
-        return model.getAccountsManager().getAccounts();
     }
 
     /**
@@ -281,6 +445,14 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
          * Helps to bind a Java method with the same signature into the script environment.
          */
         @FunctionalInterface
+        public interface StringString {
+            Object apply(String a0, String a1) throws Exception;
+        }
+
+        /**
+         * Helps to bind a Java method with the same signature into the script environment.
+         */
+        @FunctionalInterface
         public interface AccountTransaction {
             Object apply(Account a0, Transaction a1) throws Exception;
         }
@@ -291,6 +463,38 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
         @FunctionalInterface
         public interface TransactionOnly {
             Object apply(Transaction a1) throws Exception;
+        }
+
+        /**
+         * Helps to bind a Java method with the same signature into the script environment.
+         */
+        @FunctionalInterface
+        public interface AccountOnly {
+            Object apply(Account a1) throws Exception;
+        }
+
+        /**
+         * Helps to bind a Java method with the same signature into the script environment.
+         */
+        @FunctionalInterface
+        public interface ObjectOnly {
+            Object apply(Object a1) throws Exception;
+        }
+
+        /**
+         * Helps to bind a Java method with the same signature into the script environment.
+         */
+        @FunctionalInterface
+        public interface ObjectObjects {
+            Object apply(Object a1, Object... a2) throws Exception;
+        }
+
+        /**
+         * Helps to bind a Java method with the same signature into the script environment.
+         */
+        @FunctionalInterface
+        public interface AccountObjects {
+            Object apply(Account a0, Object... a2) throws Exception;
         }
 
         /**
@@ -315,6 +519,14 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
         @FunctionalInterface
         public interface LongStringStringObjects {
             Object apply(long a1, String a2, String a3, Object... a4) throws Exception;
+        }
+
+        /**
+         * Helps to bind a Java method with the same signature into the script environment.
+         */
+        @FunctionalInterface
+        public interface IntObjects {
+            Object apply(int a1, Object... a2) throws Exception;
         }
 
         /**
