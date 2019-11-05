@@ -264,6 +264,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteEvent(Event target) {
+        performance.removeEvent(target);
+    }
+
+    @Override
     public ReadOnlyPerformance getPerformance() {
         return performance;
     }
