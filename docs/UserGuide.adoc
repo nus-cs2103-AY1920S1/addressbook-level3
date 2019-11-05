@@ -55,6 +55,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .. *Register a new borrower* to LiBerry by using `register n/John Smith p/97875454 e/jsmith@gmail.com`
 
 .  Refer to <<Features>> for details of each command.
+
+. A list of books will be displayed at the left column but not a list of borrowers as a list of borrowers
+    will not be very useful. The borrowers will need to provide their `borrowerId`
+    when they borrower books. Thus, to borrow books or check a borrower's information,
+    simply enter the serve mode with the borrower's `borrowerId`.
 // end::quickStart[]
 
 [[Features]]
