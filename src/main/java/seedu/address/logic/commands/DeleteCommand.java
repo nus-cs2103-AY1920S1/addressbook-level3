@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Deletes a { @code Transaction } or { @code Budget } identified using it's displayed index from the bank account.
@@ -24,7 +25,7 @@ public class DeleteCommand extends Command {
         + "Example: " + COMMAND_WORD + " t1\n"
         + COMMAND_WORD + " b1";
 
-    public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Entry: %1$s";
+    public static final String MESSAGE_DELETE_ENTRY_SUCCESS = "Deleted Entry: %1$s";
 
     private final String type;
     private final Index targetIndex;
@@ -51,7 +52,8 @@ public class DeleteCommand extends Command {
             BankAccountOperation transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteTransaction(transactionToDelete);
             model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete));
+            return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete),
+                false, false, Tab.TRANSACTION);
         } else if (this.type.equals("b")) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
 
@@ -62,7 +64,8 @@ public class DeleteCommand extends Command {
             Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteBudget(budgetToDelete);
             model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, budgetToDelete));
+            return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, budgetToDelete),
+                false, false, Tab.BUDGET);
         } else {
             throw new CommandException("Unknown command error");
         }
