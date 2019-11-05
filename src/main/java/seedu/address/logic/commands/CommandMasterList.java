@@ -20,13 +20,15 @@ public class CommandMasterList {
      */
     public static HashSet getCommandWords() {
         commandHashSet.add(SetClassroomCommand.COMMAND_WORD + " c/CLASSROOM_NAME");
-        commandHashSet.add(AddClassroomCommand.COMMAND_WORD + "c/CLASSROOM_NAME");
-        commandHashSet.add(UpdateGradesCommand.COMMAND_WORD);
-        commandHashSet.add(EditAssignmentCommand.COMMAND_WORD + " ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/DEADLINE]");
+        commandHashSet.add(AddClassroomCommand.COMMAND_WORD + " c/CLASSROOM_NAME");
+        commandHashSet.add(UpdateGradesCommand.COMMAND_WORD + " as/ASSIGNMENT_INDEX s/STUDENT_INDEX g/GRADE");
+        commandHashSet.add(UpdateGradesCommand.COMMAND_WORD + " as/ASSIGNMENT_INDEX g/grade");
+        commandHashSet.add(EditAssignmentCommand.COMMAND_WORD
+                + " ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/DEADLINE]");
         commandHashSet.add(AddStudentCommand.COMMAND_WORD
                 + " n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS "
                 + "pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG]");
-        commandHashSet.add(EditStudentCommand.COMMAND_WORD + "STUDENT_INDEX [n/NAME] [p/PHONE] "
+        commandHashSet.add(EditStudentCommand.COMMAND_WORD + " STUDENT_INDEX [n/NAME] [p/PHONE] "
                 + "[e/EMAIL] [a/ADDRESS] [m/MEDICAL_CONDITIONS] [t/TAG]");
         commandHashSet.add(DeleteStudentCommand.COMMAND_WORD + " STUDENT_INDEX");
         commandHashSet.add(DeleteAssignmentCommand.COMMAND_WORD + " ASSIGNMENT_INDEX");
@@ -34,9 +36,9 @@ public class CommandMasterList {
         commandHashSet.add(FindStudentCommand.COMMAND_WORD + " STUDENT_NAME");
         commandHashSet.add(FindAssignmentCommand.COMMAND_WORD + " ASSIGNMENT_NAME");
         commandHashSet.add(AddAssignmentCommand.COMMAND_WORD + " as/ASSIGNMENT d/DEADLINE:dd/MM/yy HHmm");
-        commandHashSet.add(AddLessonCommand.COMMAND_WORD + "l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm");
+        commandHashSet.add(AddLessonCommand.COMMAND_WORD + " l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm");
         commandHashSet.add(DeleteLessonCommand.COMMAND_WORD + " LESSON_INDEX");
-        commandHashSet.add(EditLessonCommand.COMMAND_WORD + "LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] "
+        commandHashSet.add(EditLessonCommand.COMMAND_WORD + " LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] "
                 + "[st/START_TIME] [et/END_TIME]");
         commandHashSet.add(GetStudentGradesCommand.COMMAND_WORD + " STUDENT_INDEX");
         commandHashSet.add(UploadPictureCommand.COMMAND_WORD + " STUDENT_INDEX");
