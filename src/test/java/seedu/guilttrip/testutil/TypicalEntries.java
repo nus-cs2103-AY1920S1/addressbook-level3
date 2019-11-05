@@ -14,9 +14,9 @@ import seedu.guilttrip.model.entry.Expense;
  */
 public class TypicalEntries {
 
-    public static final Entry FOOD_EXPENSE = new EntryBuilder().withDesc("pgp mala").withTime("2019-09-09")
+    public static final Expense FOOD_EXPENSE = new ExpenseBuilder().withDesc("pgp mala").withTime("2019-09-09")
             .withAmt(5.50).withTags("food").build();
-    public static final Entry CLOTHING_EXPENSE = new EntryBuilder().withDesc("cotton on jeans on sale")
+    public static final Expense CLOTHING_EXPENSE = new ExpenseBuilder().withDesc("cotton on jeans on sale")
             .withTime("2019-09-09").withAmt(14.90).withTags("want", "clothes").build();
     public static final Expense TRAVEL_EXPENSE = new ExpenseBuilder().withDesc("Travel to Mars")
             .withCategory("Travel").withTime("2019-08-11").withAmt(10000.00).withTags("Gettingalife", "Rest").build();

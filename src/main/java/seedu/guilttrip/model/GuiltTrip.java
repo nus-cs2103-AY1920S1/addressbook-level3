@@ -24,7 +24,6 @@ import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.ExpenseList;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.IncomeList;
-import seedu.guilttrip.model.entry.UniqueEntryList;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.entry.WishList;
 import seedu.guilttrip.model.reminders.Reminder;
@@ -39,7 +38,6 @@ import seedu.guilttrip.model.util.SampleDataUtil;
  */
 public class GuiltTrip implements ReadOnlyGuiltTrip {
     private final CategoryList categoryList;
-    private final UniqueEntryList entries;
     private final ExpenseList expenses;
     private final IncomeList incomes;
     private final BudgetList budgets;
@@ -59,7 +57,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     {
         categoryList = new CategoryList();
-        entries = new UniqueEntryList();
         expenses = new ExpenseList();
         incomes = new IncomeList();
         budgets = new BudgetList();
@@ -99,11 +96,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setCategories(List<Category> expenseCategories, List<Category> incomeCategories) {
         this.categoryList.setEntries(expenseCategories, incomeCategories);
-        indicateModified();
-    }
-
-    public void setEntries(List<Entry> entries) {
-        this.entries.setEntries(entries);
         indicateModified();
     }
 
@@ -170,7 +162,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void resetData(ReadOnlyGuiltTrip newData) {
         requireNonNull(newData);
         setCategories(newData.getExpenseCategoryList(), newData.getIncomeCategoryList());
-        setEntries(newData.getEntryList());
         setExpenses(newData.getExpenseList());
         setIncomes(newData.getIncomeList());
         setWishes(newData.getWishList());
@@ -185,6 +176,24 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * guilttrip book.
      */
+    public boolean hasExpense(Expense expense) {
+        requireNonNull(expense);
+        return expenses.contains(expense);
+    }
+
+    /**
+     * Returns true if a entry with the same identity as {@code entry} exists in the
+     * guilttrip book.
+     */
+    public boolean hasIncome(Income income) {
+        requireNonNull(income);
+        return incomes.contains(income);
+    }
+
+    /**
+     * Returns true if a entry with the same identity as {@code entry} exists in the
+     * guilttrip book.
+     */
     public boolean hasCategory(Category category) {
         requireNonNull(category);
         return categoryList.contains(category);
@@ -194,9 +203,9 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * guilttrip book.
      */
-    public boolean hasEntry(Entry entry) {
-        requireNonNull(entry);
-        return entries.contains(entry);
+    public boolean hasAutoExpense(AutoExpense category) {
+        requireNonNull(category);
+        return autoExpenses.contains(category);
     }
 
     /**
@@ -247,9 +256,17 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * The entry must not already exist in the guilttrip book.
      */
     public void addEntry(Entry entry) {
-        entries.add(entry);
-        conditions.addEntryUpdate(entry);
-        indicateModified();
+        if (entry instanceof Expense) {
+            addExpense((Expense) entry);
+        } else if (entry instanceof Income) {
+            addIncome((Income) entry);
+        } else if (entry instanceof Wish) {
+            addWish((Wish) entry);
+        } else if (entry instanceof Budget) {
+            addBudget((Budget) entry);
+        } else if (entry instanceof AutoExpense) {
+            addAutoExpense((AutoExpense) entry);
+        }
     }
 
     /**
@@ -259,7 +276,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void addExpense(Expense expense) {
         checkArgument(hasCategory(expense.getCategory()), MESSAGE_INVALID_CATEGORY);
-        entries.add(expense);
         expenses.add(expense);
         conditions.addEntryUpdate(expense);
         indicateModified();
@@ -273,7 +289,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void addIncome(Income income) {
         checkArgument(hasCategory(income.getCategory()), MESSAGE_INVALID_CATEGORY);
-        entries.add(income);
         incomes.add(income);
         conditions.addEntryUpdate(income);
         indicateModified();
@@ -329,21 +344,19 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void addAutoExpense(AutoExpense autoExpense) {
         checkArgument(hasCategory(autoExpense.getCategory()), MESSAGE_INVALID_CATEGORY);
-        entries.add(autoExpense);
         autoExpenses.add(autoExpense);
         conditions.addEntryUpdate(autoExpense);
         indicateModified();
     }
 
     //TODO:(MC) Is there a better way about this? ALso update the rest
-
     /**
+     * Checks all the current entries for entries that have the same category and create an editedEntry. Long winded
+     * method due to the fact of java restrictions on list inheritance.
      *
      * @param oldCategoryName is the original CategoryName which is about to be edited
      * @param newCategoryName is the new CategoryName which is about to replace the original
      * @param categoryType is the type of the Category
-     *
-     * Checks all the current entries for entries that have the same category and create an editedEntry.
      */
     public void editCategoryNamesToNewName(String oldCategoryName, String newCategoryName, String categoryType) {
         if (categoryType.equalsIgnoreCase("Income")) {
@@ -354,17 +367,26 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
             filteredListOfIncome.stream().forEach(t -> setIncome(t, t.modifiedCategory(newCategoryName)));
         } else {
             ObservableList<Expense> toCheckExpenseList = this.getExpenseList();
+            ObservableList<Wish> toCheckWishList = this.getWishList();
+            ObservableList<Budget> toCheckBudget = this.getBudgetList();
+            ObservableList<AutoExpense> toCheckAutoExpense = this.getAutoExpenseList();
             List<Expense> filteredListOfExpense = toCheckExpenseList.stream()
                     .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfExpense.stream().forEach(t -> setExpense(t, t.modifiedCategory(newCategoryName)));
+            List<Wish> filteredListOfWish = toCheckWishList.stream()
+                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .collect(Collectors.toList());
+            filteredListOfWish.stream().forEach(t -> setWish(t, t.modifiedWish(newCategoryName)));
+            List<AutoExpense> filteredListOfAutoExpense = toCheckAutoExpense.stream()
+                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .collect(Collectors.toList());
+            filteredListOfAutoExpense.stream().forEach(t -> setAutoExpense(t, t.modifiedAutoExpense(newCategoryName)));
+            List<Budget> filteredListOfBudget = toCheckBudget.stream()
+                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .collect(Collectors.toList());
+            filteredListOfBudget.stream().forEach(t -> setBudget(t, t.modifiedBudget(newCategoryName)));
         }
-        ObservableList<Entry> toCheckEntryList = this.getEntryList();
-        List<Entry> filteredListOfEntry = toCheckEntryList.stream()
-                .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName)
-                        && t.getCategory().categoryType.equalsIgnoreCase(categoryType))
-                .collect(Collectors.toList());
-        filteredListOfEntry.stream().forEach(t -> setEntry(t, t.modifiedCategory(newCategoryName)));
         indicateModified();
     }
 
@@ -379,21 +401,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         categoryList.setCategory(target, editedCategory);
         String categoryType = target.categoryType;
         editCategoryNamesToNewName(oldCategoryName, newCategoryName, categoryType);
-        indicateModified();
-    }
-
-    /**
-     * Replaces the given entry {@code target} in the list with
-     * {@code editedPerson}. {@code target} must exist in the guilttrip book. The
-     * entry identity of {@code editedPerson} must not be the same as another
-     * existing entry in the guilttrip book.
-     */
-    public void setEntry(Entry target, Entry editedEntry) {
-        requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
-        entries.setEntry(target, editedEntry);
-        System.out.println("ASD");
-        conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
 
@@ -492,7 +499,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         autoExpenses.setAutoExpense(target, editedEntry);
-        entries.setEntry(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -537,7 +543,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * {@code key} must exist in the guilttrip book.
      */
     public void removeEntry(Entry key) {
-        entries.remove(key);
         conditions.deleteEntryUpdate(key);
         indicateModified();
     }
@@ -548,7 +553,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
-        entries.remove(key);
         conditions.deleteEntryUpdate(key);
         indicateModified();
     }
@@ -559,7 +563,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeIncome(Income key) {
         incomes.remove(key);
-        entries.remove(key);
         conditions.deleteEntryUpdate(key);
         indicateModified();
     }
@@ -591,7 +594,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeAutoExpense(AutoExpense key) {
         autoExpenses.remove(key);
-        entries.remove(key);
         conditions.deleteEntryUpdate(key);
         indicateModified();
     }
@@ -635,7 +637,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     //// util methods
     @Override
     public String toString() {
-        return entries.asUnmodifiableObservableList().size() + " entries";
+        return expenses.asUnmodifiableObservableList().size() + " entries";
         // TODO: refine later
     }
 
@@ -652,11 +654,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     @Override
     public ObservableList<Category> getExpenseCategoryList() {
         return categoryList.getInternalListForOtherEntries();
-    }
-
-    @Override
-    public ObservableList<Entry> getEntryList() {
-        return entries.asUnmodifiableObservableList();
     }
 
     @Override
@@ -703,11 +700,11 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof GuiltTrip // instanceof handles nulls
-                        && entries.equals(((GuiltTrip) other).entries));
+                        && expenses.equals(((GuiltTrip) other).expenses));
     }
 
     @Override
     public int hashCode() {
-        return entries.hashCode();
+        return expenses.hashCode();
     }
 }

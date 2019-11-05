@@ -6,7 +6,6 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_FREQ;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_AUTOEXPENSES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -68,6 +67,7 @@ public class EditAutoExpenseCommand extends Command {
         this.editAutoExpenseDescriptor = new EditAutoExpenseDescriptor(editAutoExpenseDescriptor);
     }
 
+    //TODO:YJ confirm if still setEntry?
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -80,12 +80,11 @@ public class EditAutoExpenseCommand extends Command {
         AutoExpense entryToEdit = lastShownList.get(index.getZeroBased());
         AutoExpense editedEntry = createEditedAutoExpense(entryToEdit, editAutoExpenseDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (!entryToEdit.isSameEntry(editedEntry) && model.hasAutoExpense(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
-        model.updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_AUTOEXPENSES);
+        model.setAutoExpense(entryToEdit, editedEntry);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }

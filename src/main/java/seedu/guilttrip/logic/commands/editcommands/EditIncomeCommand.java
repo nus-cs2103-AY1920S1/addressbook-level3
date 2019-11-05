@@ -5,8 +5,6 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_INCOMES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -78,13 +76,11 @@ public class EditIncomeCommand extends Command {
         Income incomeToEdit = lastShownList.get(index.getZeroBased());
         Income editedIncome = createEditedIncome(incomeToEdit, editIncomeDescriptor);
 
-        if (incomeToEdit.isSameEntry(editedIncome) && model.hasEntry(editedIncome)) {
+        if (incomeToEdit.isSameEntry(editedIncome) && model.hasIncome(editedIncome)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(incomeToEdit, editedIncome);
-        model.updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
-        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.setIncome(incomeToEdit, editedIncome);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedIncome));
     }

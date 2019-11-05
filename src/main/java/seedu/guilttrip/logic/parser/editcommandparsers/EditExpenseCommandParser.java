@@ -21,6 +21,7 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
@@ -62,10 +63,10 @@ public class EditExpenseCommandParser implements Parser<EditExpenseCommand> {
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editExpenseDescriptor::setTags);
 
-        // TODO: allow category of expense to be edited
-        /*if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editWishDescriptor.setAmount(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
-        }*/
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            Category editedCategory = new Category(argMultimap.getValue(PREFIX_CATEGORY).get(), "Expense");
+            editExpenseDescriptor.setCategory(editedCategory);
+        }
 
         if (!editExpenseDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditExpenseCommand.MESSAGE_NOT_EDITED);

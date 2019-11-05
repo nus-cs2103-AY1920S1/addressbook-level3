@@ -275,9 +275,6 @@ public class ParserUtil {
     }
     /**
      * Parses {@code String panelNamee} into a {@code PanelName}.
-=======
-     * Parses {@code String panelName} into a {@code PanelName}.
->>>>>>> b2ec7d64249172d26ceccb183976364b8bb21fc9
      */
     public static PanelName parsePanelName(String panelName) throws ParseException {
         requireNonNull(panelName);
