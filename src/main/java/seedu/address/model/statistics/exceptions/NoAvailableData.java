@@ -5,7 +5,7 @@ package seedu.address.model.statistics.exceptions;
  */
 public class NoAvailableData extends Exception {
 
-    public NoAvailableData(String message) {
-        super(message);
+    public NoAvailableData() {
+        super("Unable to generate statistics due to unknown error.");
     }
 }

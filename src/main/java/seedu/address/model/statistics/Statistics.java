@@ -39,7 +39,7 @@ public class Statistics {
         this.eateries = getEateriesWithReviews(allEateries);
 
         if (eateries.size() == 0) {
-            throw new NoAvailableData("No available data to create statistics currently; try adding some reviews.");
+            throw new NoAvailableData();
         }
 
         // needed for stats
@@ -58,7 +58,7 @@ public class Statistics {
             this.leastVisitedEatery = getLeastVisited();
 
         } catch (Exception e) {
-            throw new CannotGenerateStatistics("Unable to generate statistics due to unknown error.");
+            throw new CannotGenerateStatistics();
         }
     }
 

@@ -21,7 +21,9 @@ public class StatsCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_STATS_SUCCESS = "Currently generating your statistics.";
-    public static final String MESSAGE_STATS_ERROR = "Can't execute statistics in Todo mode.";
+    public static final String MESSAGE_STATS_ERROR_WRONGMODE = "Can't execute statistics in Todo mode.";
+    public static final String MESSAGE_STATS_ERROR_UNKNOWN = "Unable to generate statistics due to unknown error.";
+    public static final String MESSAGE_STATS_ERROR_NODATA = "No available review data to create statistics currently.";
 
     public final boolean canExecute;
 
@@ -32,7 +34,7 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (!canExecute) {
-            throw new CommandException(MESSAGE_STATS_ERROR);
+            throw new CommandException(MESSAGE_STATS_ERROR_WRONGMODE);
         }
 
         requireNonNull(model);
@@ -43,10 +45,10 @@ public class StatsCommand extends Command {
             return new CommandResult(MESSAGE_STATS_SUCCESS, false, false, false, true);
 
         } catch (NoAvailableData n) {
-            throw new CommandException(n.getMessage());
+            throw new CommandException(MESSAGE_STATS_ERROR_NODATA);
 
         } catch (CannotGenerateStatistics c) {
-            throw new CommandException(c.getMessage());
+            throw new CommandException(MESSAGE_STATS_ERROR_UNKNOWN);
         }
     }
 }

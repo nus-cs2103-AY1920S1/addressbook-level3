@@ -5,7 +5,7 @@ package seedu.address.model.statistics.exceptions;
  * statistics.
  */
 public class CannotGenerateStatistics extends Exception {
-    public CannotGenerateStatistics(String message) {
-        super(message);
+    public CannotGenerateStatistics() {
+        super("Unable to generate statistics due to unknown error.");
     }
 }
