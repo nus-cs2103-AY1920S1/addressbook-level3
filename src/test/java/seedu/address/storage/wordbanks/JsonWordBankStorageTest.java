@@ -19,47 +19,47 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 
-public class JsonWordBankStorageTest {
+class JsonWordBankStorageTest {
     private Path testDataFolder =
             Paths.get("src", "test", "data", "JsonWordBankListStorageTest");
 
     @Test
-    public void readWordBank_nullFilePath_throwsNullPointerException() {
+    void readWordBank_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readWordBank(null, "firstTest"));
     }
 
     @Test
-    public void read_nonExistentFile_emptyResult() throws Exception {
+    void read_nonExistentFile_emptyResult() throws Exception {
         assertFalse(readWordBank("NonExistentFile.json", "secondTest").isPresent());
     }
 
     @Test
-    public void read_notJsonWordBankFormat_exceptionThrown() {
+    void read_notJsonWordBankFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readWordBank("notJsonFormatWordBank.json", "thirdTest"));
     }
 
     @Test
-    public void readWordBank_invalidWordBank_throwIllegalValueException() {
+    void readWordBank_invalidWordBank_throwIllegalValueException() {
         assertThrows(IllegalValueException.class, () -> readWordBank("invalidWordBank.json", "fourthTest"));
     }
 
     @Test
-    public void readWordBank_invalidAndValidCardsWordBank_throwIllegalValueException() {
+    void readWordBank_invalidAndValidCardsWordBank_throwIllegalValueException() {
         assertThrows(IllegalValueException.class, () -> readWordBank("invalidAndValidCardsWordBank.json", "fifthTest"));
     }
 
     @Test
-    public void saveWordBank_nullWordBank_throwsNullPointerException() {
+    void saveWordBank_nullWordBank_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveWordBank(null, "SomeFile.json", "sixthTest"));
     }
 
     @Test
-    public void saveWordBank_nullFilePath_throwsNullPointerException() {
+    void saveWordBank_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveWordBank(new WordBank("test"), null, "seventhTest"));
     }
 
     @Test
-    public void readAndSaveWordBank_allInOrder_success() throws Exception {
+    void readAndSaveWordBank_allInOrder_success() throws Exception {
         Path filePath = testDataFolder;
         JsonWordBankListStorage jsonWordBankListStorage = new JsonWordBankListStorage(filePath);
         WordBank original = getTypicalWordBank();

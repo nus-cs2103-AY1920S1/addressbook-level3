@@ -19,7 +19,7 @@ import seedu.address.model.wordbank.WordBank;
 @JsonRootName(value = "wordBank")
 class JsonSerializableWordBank {
 
-    public static final String MESSAGE_DUPLICATE_CARDS_IN_WORD_BANK = "Word bank contains duplicate card(s).";
+    private static final String MESSAGE_DUPLICATE_CARDS_IN_WORD_BANK = "Word bank contains duplicate card(s).";
 
     private final List<JsonAdaptedCard> wordBank = new ArrayList<>();
 
@@ -38,7 +38,7 @@ class JsonSerializableWordBank {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableWordBank}.
      */
-    public JsonSerializableWordBank(ReadOnlyWordBank source) {
+    JsonSerializableWordBank(ReadOnlyWordBank source) {
         this.name = source.getName();
         wordBank.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
     }
