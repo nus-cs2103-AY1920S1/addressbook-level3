@@ -72,7 +72,6 @@ public class SwitchToStartCommand extends SwitchCommand {
                     + "\n" + model.getGame().getCurrQuestion());
         }
 
-
         String wordBankName = model.getCurrentWordBank().getName();
         WordBankList wbList = model.getWordBankList();
         WordBank wordBank = wbList.getWordBankFromName(wordBankName);

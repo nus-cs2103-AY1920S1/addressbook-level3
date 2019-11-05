@@ -18,7 +18,7 @@ public abstract class GameCommandResult extends CommandResult {
     /** The card displayed when command is executed **/
     private final Optional<Card> card;
 
-    public GameCommandResult(Card card, String feedback, boolean isFinishedGame) {
+    GameCommandResult(Card card, String feedback, boolean isFinishedGame) {
         super(feedback, !isFinishedGame);
         this.isFinishedGame = isFinishedGame;
         this.card = Optional.of(card);

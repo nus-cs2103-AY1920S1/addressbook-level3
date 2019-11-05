@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Meaning;
 
 /**
  * Word bank stores multiple word - meaning pair
@@ -94,6 +95,10 @@ public class WordBank implements ReadOnlyWordBank {
     @Override
     public Card getCard(Index index) {
         return cards.get(index).clone();
+    }
+
+    public Card getCard(Meaning meaning) {
+        return cards.getCard(meaning);
     }
 
     @Override
