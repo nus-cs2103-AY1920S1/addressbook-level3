@@ -52,7 +52,7 @@
                         <Insets bottom="5" right="5" top="5" left="10" />
                     </padding>
                     <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Tasks Assigned" />
-                    <Text fx:id="listTasks" styleClass="tasks_text" wrappingWidth=""/>
+                    <Text fx:id="listTasks" styleClass="tasks_text"/>
                 </VBox>
             </HBox>
         </VBox>
