@@ -249,6 +249,11 @@ public class ModelManager implements Model {
     //=========== Performance =================================================================================
 
     @Override
+    public void setPerformance(ReadOnlyPerformance performance) {
+        this.performance.resetData(performance);
+    }
+
+    @Override
     public void addEvent(Event event) {
         performance.addEvent(event);
     }
