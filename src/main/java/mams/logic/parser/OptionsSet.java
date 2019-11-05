@@ -56,6 +56,16 @@ public class OptionsSet {
     }
 
     /**
+     * Checks if none of the options in the supplied array {@code options}
+     * are present in the current {@code OptionsSet} object.
+     * @param options variable length argument or array of options to check against
+     * @return true is at least none of the specified options are present, false otherwise
+     */
+    public boolean areAllTheseOptionAbsent(Option... options) {
+        return !isAnyOptionPresent(options);
+    }
+
+    /**
      * Checks if all the options in the supplied array {@code options}
      * are present in the current {@code OptionsSet} object.
      * @param options variable length argument or array of options to check against

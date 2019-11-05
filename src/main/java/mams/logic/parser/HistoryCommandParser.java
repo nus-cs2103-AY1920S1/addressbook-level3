@@ -14,9 +14,8 @@ import mams.logic.parser.exceptions.ParseException;
  */
 public class HistoryCommandParser implements Parser<HistoryCommand> {
 
-    public static final Option OPTION_HIDE_OUTPUT = new Option("ho");
-    public static final Option OPTION_HIDE_SUCCESSFUL = new Option("hs");
-    public static final Option OPTION_HIDE_UNSUCCESSFUL = new Option("hf");
+    public static final Option OPTION_HIDE_OUTPUT = new Option("o");
+    public static final Option OPTION_HIDE_UNSUCCESSFUL = new Option("s");
 
     public static final String OPTIONS_NOT_RECOGNIZED = "Invalid options: %1$s";
 
@@ -30,18 +29,11 @@ public class HistoryCommandParser implements Parser<HistoryCommand> {
         requireNonNull(args);
         OptionsSet optionsSet = OptionsTokenizer.tokenize(args);
 
-        verifyNoUnrecognizedOptions(optionsSet, OPTION_HIDE_OUTPUT, OPTION_HIDE_UNSUCCESSFUL, OPTION_HIDE_SUCCESSFUL);
-
-        // cannot hide both successful and unsuccessful commands at the same time
-        if (optionsSet.areAllOptionsPresent(OPTION_HIDE_SUCCESSFUL, OPTION_HIDE_UNSUCCESSFUL)) {
-            throw new ParseException(HistoryCommand.ERROR_HIDE_BOTH_SUCCESSFUL_UNSUCCESSFUL);
-        }
+        verifyNoUnrecognizedOptions(optionsSet, OPTION_HIDE_OUTPUT, OPTION_HIDE_UNSUCCESSFUL);
 
         // determine whether user has decided to filter successful or unsuccessful command out
         HistoryFilterSettings displayOptions;
-        if (optionsSet.isOptionPresent(OPTION_HIDE_SUCCESSFUL)) {
-            displayOptions = HistoryFilterSettings.SHOW_ONLY_UNSUCCESSFUL;
-        } else if (optionsSet.isOptionPresent(OPTION_HIDE_UNSUCCESSFUL)) {
+        if (optionsSet.isOptionPresent(OPTION_HIDE_UNSUCCESSFUL)) {
             displayOptions = HistoryFilterSettings.SHOW_ONLY_SUCCESSFUL;
         } else {
             displayOptions = HistoryFilterSettings.SHOW_ALL;
@@ -53,7 +45,7 @@ public class HistoryCommandParser implements Parser<HistoryCommand> {
      * Throws a ParseException if there are any options in {@code optionsSet} not matching those in the
      * supplied {@code options} array.
      * @param optionsSet tokenized options
-     * @param options recognized options to compare againse
+     * @param options recognized options to compare against
      * @throws ParseException if any options other than the recognized options are found.
      */
     private void verifyNoUnrecognizedOptions(OptionsSet optionsSet, Option... options) throws ParseException {

@@ -4,8 +4,8 @@ import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.logic.commands.CommandTestUtil.showAppealAtIndex;
 import static mams.logic.commands.CommandTestUtil.showModuleAtIndex;
 import static mams.logic.commands.CommandTestUtil.showStudentAtIndex;
-import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalCommandHistory.getTypicalCommandHistory;
+import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalMams.getTypicalMams;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

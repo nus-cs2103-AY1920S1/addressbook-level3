@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import mams.logic.history.HistoryFilterSettings;
 import mams.model.Model;
 import mams.model.ModelManager;
 
@@ -15,20 +16,39 @@ public class HistoryCommandTest {
 
     @Test
     public void execute() {
-        assertCommandSuccess(new HistoryCommand(), model,
+        // no parameters -> success
+        assertCommandSuccess(new HistoryCommand(false, HistoryFilterSettings.SHOW_ALL), model,
                 new CommandResult(HistoryCommand.SHOWING_HISTORY_MESSAGE, true, false, false, false),
                 expectedModel);
 
-        assertCommandSuccess(new HistoryCommand(true), model,
-                new CommandResult(HistoryCommand.SHOWING_HISTORY_MESSAGE, true, true, false, false),
+        // hide command feedback -> success with specific message
+        assertCommandSuccess(new HistoryCommand(true, HistoryFilterSettings.SHOW_ALL), model,
+                new CommandResult(HistoryCommand.SHOWING_HISTORY_MESSAGE + "\n"
+                        + HistoryCommand.HIDING_COMMAND_OUTPUT_MESSAGE,
+                        true, true, false, false),
+                expectedModel);
+
+        // hide all unsuccessful commands -> success with specific message
+        assertCommandSuccess(new HistoryCommand(false, HistoryFilterSettings.SHOW_ONLY_SUCCESSFUL), model,
+                new CommandResult(HistoryCommand.SHOWING_HISTORY_MESSAGE + "\n"
+                        + HistoryCommand.SHOW_ONLY_SUCCESSFUL_MESSAGE,
+                        true, false, false, false),
+                expectedModel);
+
+        // hide command feedback and all unsuccessful commands -> success with specific message
+        assertCommandSuccess(new HistoryCommand(true, HistoryFilterSettings.SHOW_ONLY_SUCCESSFUL), model,
+                new CommandResult(HistoryCommand.SHOWING_HISTORY_MESSAGE + "\n"
+                        + HistoryCommand.HIDING_COMMAND_OUTPUT_MESSAGE + "\n"
+                        + HistoryCommand.SHOW_ONLY_SUCCESSFUL_MESSAGE,
+                        true, true, false, false),
                 expectedModel);
     }
 
     @Test
     public void equals() {
-        HistoryCommand showOutput = new HistoryCommand();
-        HistoryCommand hideOutput = new HistoryCommand(true);
-        HistoryCommand anotherShowOutput = new HistoryCommand();
+        HistoryCommand showOutput = new HistoryCommand(false, HistoryFilterSettings.SHOW_ALL);
+        HistoryCommand hideOutput = new HistoryCommand(true, HistoryFilterSettings.SHOW_ALL);
+        HistoryCommand anotherShowOutput = new HistoryCommand(false, HistoryFilterSettings.SHOW_ALL);
 
 
         // same object -> returns true

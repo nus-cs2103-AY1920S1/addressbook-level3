@@ -30,12 +30,13 @@ public class Option {
     }
 
     /**
-     * Checks if {@code arg} is a valid option, ie. it is prepended by a '-' character.
+     * Checks if {@code arg} is a valid option, ie. it is prepended by a '-' character, and
+     * is is then proceeded by non-whitespace characters.
      * @param arg argument to be checked
      * @return true if it is a valid option, false otherwise.
      */
     public static boolean isValidOption(String arg) {
-        if (arg.startsWith(DASH)) {
+        if (arg.startsWith(DASH) && arg.length() > 1 && !arg.substring(1, 2).isBlank()) {
             return true;
         } else {
             return false;
