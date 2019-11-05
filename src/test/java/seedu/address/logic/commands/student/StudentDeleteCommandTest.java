@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.student.StudentDeleteCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
 import static seedu.address.testutil.student.TypicalStudents.getTypicalStudentRecord;
@@ -39,7 +40,7 @@ public class StudentDeleteCommandTest {
         Student studentToDelete = model.getFilteredStudentList().get(INDEX_ONE.getZeroBased());
         StudentDeleteCommand deleteCommand = new StudentDeleteCommand(INDEX_ONE);
 
-        String expectedMessage = String.format(StudentDeleteCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
+        String expectedMessage = String.format(MESSAGE_SUCCESS, studentToDelete);
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.setStudentRecord(getTypicalStudentRecord());

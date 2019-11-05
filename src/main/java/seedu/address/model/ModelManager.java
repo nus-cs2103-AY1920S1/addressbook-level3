@@ -195,30 +195,6 @@ public class ModelManager implements Model {
     }
     //endregion
 
-    //region FilteredStudent List Accessors
-    @Override
-    public ObservableList<Student> getFilteredStudentList() {
-        return studentRecord.getStudentList();
-    }
-
-    @Override
-    public Optional<Index> getIndexFromStudentList(Student student) {
-        return studentRecord.getIndex(student);
-    }
-
-    @Override
-    public void setStudentWithIndex(Index index, Student student) {
-        requireAllNonNull(index, student);
-        studentRecord.setStudentWithIndex(index, student);
-    }
-
-    @Override
-    public void updateFilteredStudentList(Predicate<Student> predicate) {
-        requireNonNull(predicate);
-        filteredStudents.setPredicate(predicate);
-    }
-    //endregion
-
     //region Statistics
     @Override
     public ReadOnlyStatisticsRecord getStatisticsRecord() {
@@ -235,26 +211,39 @@ public class ModelManager implements Model {
         statisticsRecord.setStatistics(statistic);
     }
 
+    //region FilteredStudent List Accessors
+
+    /**
+     * Gets the filtered list of students stored in the student record.
+     * @return Filtered list of students stored in the student record.
+     */
+    @Override
+    public ObservableList<Student> getFilteredStudentList() {
+        return studentRecord.getStudentList();
+    }
+
+    /**
+     * Gets the Index of the student from the student record.
+     * @param student Returns the index of the student from the student record, or Optional.empty() if not present.
+     * @return
+     */
+    @Override
+    public Optional<Index> getIndexFromStudentList(Student student) {
+        return studentRecord.getIndex(student);
+    }
+
+    /**
+     * Updates the filtered student list.
+     * @param predicate Predicate.
+     */
+    @Override
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
+        requireNonNull(predicate);
+        filteredStudents.setPredicate(predicate);
+    }
+    //endregion
+
     //region Mark
-
-    /**
-     * Mark a student who is struggling academically.
-     *
-     * @param student Student who is struggling with academics.
-     */
-    public void markStudent(Student student) {
-        student.setMarked();
-    }
-
-    /**
-     * Unmark a student who has been wrongly marked/has made significant improvements and
-     * no longer needs to be monitored.
-     *
-     * @param student
-     */
-    public void unmarkStudent(Student student) {
-        student.setUnmarked();
-    }
 
     public boolean getIsMarked(Student student) {
         return student.getIsMarked();
@@ -283,6 +272,17 @@ public class ModelManager implements Model {
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return studentRecord.hasStudent(student);
+    }
+
+    /**
+     * Sets student into the student record with a specific index.
+     * @param index Index of the student that the user wants to set.
+     * @param student Student to be inserted into the student record.
+     */
+    @Override
+    public void setStudentWithIndex(Index index, Student student) {
+        requireAllNonNull(index, student);
+        studentRecord.setStudentWithIndex(index, student);
     }
 
     /**
@@ -411,19 +411,6 @@ public class ModelManager implements Model {
             groupSize = group.getObservableListStudents().size();
         }
         return groupSize;
-    }
-
-    /**
-     * Returns a students from a group in list view.
-     */
-    public String getStudentsFromGroup(String groupId) {
-        String students = "";
-        int groupIndex = groupList.getGroupIndex(groupId);
-        if (groupIndex != -1) {
-            Group group = groupList.getGroup(groupIndex);
-            students = group.getStudentsFormatted();
-        }
-        return students;
     }
 
     /**

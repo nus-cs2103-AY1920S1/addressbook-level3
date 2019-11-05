@@ -20,7 +20,7 @@ public class StudentDeleteCommand extends StudentCommand {
             + "Note: index has to be greater than 0\n"
             + "Full Example: student delete 1 --> removes student with index number 1\n\n";
 
-    public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted Student: %1$s";
 
     private final Index targetIndex;
 
@@ -61,7 +61,7 @@ public class StudentDeleteCommand extends StudentCommand {
      * @param student that has been added.
      */
     private String generateSuccessMessage(Student student) {
-        return String.format(MESSAGE_DELETE_STUDENT_SUCCESS, student);
+        return String.format(MESSAGE_SUCCESS, student);
     }
 
 }

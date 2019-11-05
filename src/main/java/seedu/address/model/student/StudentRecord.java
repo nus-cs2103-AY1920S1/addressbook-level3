@@ -13,7 +13,7 @@ import seedu.address.commons.core.index.Index;
  * Wraps all data at the njoyAssistant level
  * Duplicates are not allowed (by .isSameStudent comparison)
  */
-public class StudentRecord implements ReadOnlyStudentRecord {
+public class    StudentRecord implements ReadOnlyStudentRecord {
 
     private final UniqueStudentList students;
 
