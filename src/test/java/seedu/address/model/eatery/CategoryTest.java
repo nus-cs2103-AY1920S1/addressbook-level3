@@ -44,6 +44,7 @@ public class CategoryTest {
         assertTrue(Category.isValidCategory("chinese"));
         assertTrue(Category.isValidCategory("CHINESE"));
         assertTrue(Category.isValidCategory("Chinese Food"));
+        assertTrue(Category.isValidCategory("C"));
     }
 
     @Test

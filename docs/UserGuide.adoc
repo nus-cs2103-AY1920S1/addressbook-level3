@@ -60,7 +60,8 @@ These are just a few of the commands you can execute on EatMe. Refer to <<Featur
 *Command Format*
 
 * Items in square brackets are the parameters to be supplied by the user. For example, in `add \n [name of eatery]`, `[name of eatery]` is a parameter which can be used as `add n\ Two Chefs Eating Place`.
-* Items in curly brackets are optional parameters. For example, in `add \n [name of eatery] \a [address] \c [category] {\t [tags, space-delimited]}`, `{\t [tags, space-delimited]}` is an optional parameter that the user can choose to supply if he/she wishes to add certain tags to the eatery.
+* Items in curly brackets are optional parameters. For example, in `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`, `{\t [tags]...}` is an optional parameter that the user can choose to supply if he/she wishes to add certain tags to the eatery.
+* Items with `…` after them can be used multiple times including zero times e.g. `{nbsp}` can be used as (i.e. 0 times), `\t non-aircon`, `\t good-for-groups \t non-aircon`, etc.
 * Parameters can be in any order. For example, if the command specifies `\n [name of eatery] \a [address] \c [category]`, `\a [address] \n [name of eatery] \c [category]` is also acceptable.
 ====
 
@@ -77,12 +78,12 @@ Format: `exit`
 ==== Adding an eatery: `add`
 
 Adds an eatery to the app. +
-Format: `add \n [name of eatery] \a [address] \c [category] {\t [tags, space-delimited]}`
+Format: `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`
 
 Examples:
 
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese`
-* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups non-aircon`
+* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups \t non-aircon`
 
 ==== Finding an eatery: `find`
 
@@ -95,17 +96,6 @@ Examples:
 
 * `find \n Two Chefs Eating Place`
 * `find \t Chinese`
-
-==== Changing address of an eatery: `changeaddress`
-
-*Coming in v1.4*
-
-Changes the address of an eatery. +
-Format: `changeaddress [id] \a [new address]`
-
-Examples:
-
-* `changeaddress 2 \a 116 Commonwealth Cres, #01-130`
 
 ==== Marking an eatery as closed: `close`
 
@@ -137,16 +127,16 @@ Examples:
 ==== Tagging an eatery: `addtag`
 
 Adds tags to an eatery. +
-Format: `addtag [id] \t [tags, space-delimited]`
+Format: `addtag [id] \t [tags]...`
 
 Examples:
 
-* `addtag 2 \t hawker good-for-sharing`
+* `addtag 2 \t hawker \t good-for-sharing`
 
 ==== Removing tags from an eatery: `removetag`
 
 Removes tags from an eatery. +
-Format: `removetag [id] \t [tags, space-delimited]`
+Format: `removetag [id] \t [tags]...`
 
 Examples:
 

@@ -44,12 +44,16 @@ public class TagTest {
         assertFalse(Tag.isValidTag("Free Wifi"));
         assertFalse(Tag.isValidTag("_FreeWifi"));
         assertFalse(Tag.isValidTag("FreeWifi_"));
+        assertFalse(Tag.isValidTag("FreeWifi-"));
+        assertFalse(Tag.isValidTag("-FreeWifi"));
 
         //valid category
         assertTrue(Tag.isValidTag("freewifi"));
         assertTrue(Tag.isValidTag("FreeWifi"));
         assertTrue(Tag.isValidTag("free_wifi"));
         assertTrue(Tag.isValidTag("Free_Wifi"));
+        assertTrue(Tag.isValidTag("Free-Wifi"));
+        assertTrue(Tag.isValidTag("go"));
     }
 
     @Test
