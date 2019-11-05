@@ -43,7 +43,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_FILEPATH = "File not found or invalid file path given.";
     public static final String MESSAGE_INVALID_DIRECTORYPATH = "Invalid directory path given.";
-    public static final String MESSAGE_INVALID_COORDINATES = "Coorinates must be numbers between 0 and 1 inclusive";
+    public static final String MESSAGE_INVALID_COORDINATES = "Coordinates must be numbers between 0 and 1 inclusive";
 
     public static final MemeParser MEMES_PARSER = new MemeParser();
     public static final TemplateParser TEMPLATE_PARSER = new TemplateParser();
