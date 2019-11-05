@@ -117,6 +117,9 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 
 //@@author le0tan
 [[Design-Model]]
+
+// tag::model[]
+
 === Model component
 
 .Structure of the Model Component
@@ -150,6 +153,9 @@ image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
 .Structure of the PlanSearchRule Package
 image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
+
+// end::model[]
+
 //@@author
 
 //@@author jiayushe
@@ -441,7 +447,7 @@ This section will describe in detail the current implementation and design consi
 The following activity diagram summarizes what happens when a user executes `addfindrule` command:
 
 .Activity Diagram for the Execution of `addfindrule` Command
-image::savefindrule/AddFindRuleActivityDiagram.png[width="70%"]
+image::savefindrule/AddFindRuleActivityDiagram.png[width="70%", scaledwidth=10cm]
 
 ==== Current Implementation
 
@@ -470,17 +476,17 @@ Since these commands share similar implementations, we will only take `AddFindRu
 The `addfindrule` feature is facilitated by `AddFindRuleCommand` and `AddFindRuleCommandParser` class.
 
 .Class Diagram for Add Find Rule Feature
-image::savefindrule/AddFindRuleClassDiagram.png[width="70%"]
+image::savefindrule/AddFindRuleClassDiagram.png[width="70%", scaledwidth=12cm]
 
 The sequence diagram below shows the high-level abstraction of how AlgoBase processes the request when user types in `addfindrule rule1 n/Sequences`:
 
 .High-level Sequence Diagram for the Execution of `addfindrule rule1 n/Sequences`
-image::savefindrule/HighLevelAddFindRuleSequenceDiagram.png[width="70%"]
+image::savefindrule/HighLevelAddFindRuleSequenceDiagram.png[width="70%", scaledwidth=12cm]
 
 The sequence diagram below illustrates the interaction between the `Logic` and `Model` component when executing `AddFindRuleCommand`. Notice that the constructor for `AddFindRuleCommand` requires `Name` to be non-null and accepts null values for other predicates. Thus if the predicate is not present in the arguments, `AddFindRuleCommandParser` will pass null to the constructor of `AddFindRuleCommand`.
 
 .Sequence Diagram for the Execution of `addfindrule` Command
-image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%"]
+image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%", scaledwidth=12cm]
 
 ==== Design Considerations
 

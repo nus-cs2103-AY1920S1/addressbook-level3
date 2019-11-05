@@ -1,7 +1,7 @@
 package seedu.algobase.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.algobase.logic.commands.DeleteTagCommand.COMMAND_WORD;
+import static seedu.algobase.logic.commands.tag.DeleteTagCommand.COMMAND_WORD;
 
 import org.junit.jupiter.api.Test;
 

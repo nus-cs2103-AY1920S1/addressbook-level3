@@ -5,7 +5,7 @@ import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.EditTagCommand;
+import seedu.algobase.logic.commands.tag.EditTagCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
