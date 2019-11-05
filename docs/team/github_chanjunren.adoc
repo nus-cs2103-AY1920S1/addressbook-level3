@@ -1,0 +1,79 @@
+= Chan Jun Ren - Project Portfolio for StudyBuddyPro
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+
+
+== About The Project
+
+My team of 4 Computer Science students and I were tasked with enhancing a basic command line interface
+desktop address book application for our CS2103T module, and we chose to modify it into a 3-in-1 application that serves
+as a tool to aid revision called StudyBuddy. This application allows students to store and utilize flashcards, create
+notes that can be later used to generate a reference to create a cheat sheet.
+
+This is what our project looks like:
+
+image::kaibindiagrams/AppDisplay.png[]
+_Figure 1. The graphical user interface for *StudyBuddyPro*._
+
+== Summary of contributions
+
+* *Major enhancement*: added *ability to start a time trial of flashcards.*
+** What it does: The `timetrial` command initializes a test whereby the user will be tested a sequence of flashcards.
+** Justification: Pushes the user to test his understanding / familiarity of a certain topic.
+** Highlights: This enhancement works with existing as well as future commands. An in-depth analysis of design
+alternatives was necessary to implement the feature in a way that doesn’t disrupt other features. The implementation was also challenging because there was a need to read up on an existing API that I did not have prior experience in.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: Designed the overall GUI of the StudyBuddyPro application.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=chanjunren[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
