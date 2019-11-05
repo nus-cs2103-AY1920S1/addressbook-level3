@@ -2,15 +2,18 @@ package budgetbuddy.logic.commands.scriptcommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
+import budgetbuddy.logic.commands.CommandContinuation;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.ScriptLibrary;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.script.Script;
 import budgetbuddy.model.script.ScriptName;
@@ -27,8 +30,10 @@ public class ScriptAddCommand extends Command {
 
     public static final String MESSAGE_SCRIPT_UPDATED = "Script %1$s updated.";
     public static final String MESSAGE_SCRIPT_ADDED = "New script %1$s added.";
+    public static final String MESSAGE_NEED_PATH = "Please select a script file.";
 
-    public static final String MESSAGE_INVALID_PATH = "Invalid path.";
+    public static final String MESSAGE_INVALID_PATH = "Invalid path, or no path selected.";
+    public static final String MESSAGE_FAILED_READING = "Failed to read file: %s";
 
     private final ScriptName scriptName;
     private final Description description;
@@ -53,20 +58,44 @@ public class ScriptAddCommand extends Command {
 
     @Override
     protected CommandResult execute(Model model) throws CommandException {
-        ScriptLibrary library = model.getScriptLibrary();
-
         if (scriptSource != null) {
-            Script newScript = new Script(scriptName, description, scriptSource);
-            boolean updated = library.addScript(newScript);
-            return new CommandResult(
-                    String.format(updated ? MESSAGE_SCRIPT_UPDATED : MESSAGE_SCRIPT_ADDED, scriptName),
-                    CommandCategory.SCRIPT
-            );
+            return addScriptToLibrary(model, scriptSource);
+        } else if (scriptPath != null) {
+            return addScriptFromPath(model, scriptPath);
         } else {
-            // TODO
-            throw new CommandException("TODO: Adding scripts from a file is to-be-implemented.\n"
-                    + "Please specify the source on the command line using s/.");
+            return new CommandResult(MESSAGE_NEED_PATH, CommandCategory.SCRIPT,
+                    CommandContinuation.showFilePicker(path -> addScriptFromPath(model, path)));
         }
+    }
+
+    /**
+     * Adds the script to the script library.
+     */
+    private CommandResult addScriptToLibrary(Model model, String scriptSource) {
+        Script newScript = new Script(scriptName, description, scriptSource);
+        boolean updated = model.getScriptLibrary().addScript(newScript);
+        return new CommandResult(
+                String.format(updated ? MESSAGE_SCRIPT_UPDATED : MESSAGE_SCRIPT_ADDED, scriptName),
+                CommandCategory.SCRIPT
+        );
+    }
+
+    /**
+     * Reads the script from the given path and then adds it to the library.
+     */
+    private CommandResult addScriptFromPath(Model model, Path path) throws CommandException {
+        if (path == null) {
+            throw new CommandException(MESSAGE_INVALID_PATH);
+        }
+
+        String scriptSource;
+        try {
+            scriptSource = Files.readString(path, StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            throw new CommandException(String.format(MESSAGE_FAILED_READING, ex.getMessage()));
+        }
+
+        return addScriptToLibrary(model, scriptSource);
     }
 
     @Override
