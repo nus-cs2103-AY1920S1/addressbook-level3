@@ -81,6 +81,5 @@ public class OptionsTokenizerTest {
         Collections.sort(output);
         Collections.sort(unrecognizedArguments);
         assertEquals(output, unrecognizedArguments);
-
     }
 }
