@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 
 /**
- * Command to pay out Salary to the Employee and record it
+ * Command to pay Salary to the Employee and record it
  */
 public class Pay extends Command {
 

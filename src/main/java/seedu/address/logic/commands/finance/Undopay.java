@@ -17,7 +17,7 @@ import seedu.address.model.employee.Employee;
 
 
 /**
- * Command to pay out Salary to the Employee and record it
+ * Command to undo payment made to the Employee and record it
  */
 public class Undopay extends Command {
 
