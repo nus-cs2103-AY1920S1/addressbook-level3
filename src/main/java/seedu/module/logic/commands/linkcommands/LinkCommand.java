@@ -25,6 +25,7 @@ public abstract class LinkCommand extends Command {
     public static final String MESSAGE_MODULE_NOT_TRACKED = "Links can only be added to tracked modules. "
             + "Current displayed module has not been tracked.";
     public static final String MESSAGE_DELETE_SUCCESS = "Link deleted successfully.";
+    public static final String MESSAGE_EDIT_SUCCESS = "Link edited successfully.";
 
     /**
      * Returns the current TrackedModule that is being viewed, if any.

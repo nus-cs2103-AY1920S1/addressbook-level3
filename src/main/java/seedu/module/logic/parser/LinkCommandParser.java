@@ -3,11 +3,14 @@ package seedu.module.logic.parser;
 import static seedu.module.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.module.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.module.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.module.logic.parser.CliSyntax.PREFIX_NEW_LINK;
+import static seedu.module.logic.parser.CliSyntax.PREFIX_NEW_NAME;
 
 import seedu.module.logic.commands.linkcommands.LinkCommand;
 import seedu.module.logic.parser.exceptions.ParseException;
 import seedu.module.logic.parser.linkcommandparsers.AddLinkCommandParser;
 import seedu.module.logic.parser.linkcommandparsers.DeleteLinkCommandParser;
+import seedu.module.logic.parser.linkcommandparsers.EditLinkCommandParser;
 import seedu.module.logic.parser.linkcommandparsers.LaunchLinkCommandParser;
 
 /**
@@ -26,7 +29,8 @@ public class LinkCommandParser implements Parser<LinkCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, LinkCommand.MESSAGE_USAGE));
         }
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LINK, PREFIX_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LINK, PREFIX_NAME, PREFIX_NEW_LINK,
+                PREFIX_NEW_NAME);
         try {
             String action = argMultimap.getPreamble().trim();
             if (action.equals("add")) {
@@ -35,6 +39,8 @@ public class LinkCommandParser implements Parser<LinkCommand> {
                 return new LaunchLinkCommandParser().parse(argMultimap);
             } else if (action.equals("delete")) {
                 return new DeleteLinkCommandParser().parse(argMultimap);
+            } else if (action.equals("edit")) {
+                return new EditLinkCommandParser().parse(argMultimap);
             } else {
                 throw new ParseException("Command not recognized");
             }

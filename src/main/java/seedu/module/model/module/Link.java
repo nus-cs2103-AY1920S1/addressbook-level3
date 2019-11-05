@@ -20,12 +20,17 @@ public class Link {
     public final String name;
 
     public Link(String name, String url) throws IllegalArgumentException {
+
         requireNonNull(url);
-        if (!isValidUrl(url)) {
+        String properLink = url;
+        if (!url.toLowerCase().startsWith("http://") && !url.toLowerCase().startsWith("https://")) {
+            properLink = "http://" + url;
+        }
+        if (!isValidUrl(properLink)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
         this.name = name;
-        this.url = url;
+        this.url = properLink;
     }
 
     /**
@@ -34,7 +39,8 @@ public class Link {
      * @return
      */
     public static boolean isValidUrl(String url) {
-        UrlValidator urlValidator = new UrlValidator();
+        String[] scheme = {"http", "https"};
+        UrlValidator urlValidator = new UrlValidator(scheme);
         return urlValidator.isValid(url);
     }
 
