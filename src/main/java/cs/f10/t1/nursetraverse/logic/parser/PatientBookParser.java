@@ -58,8 +58,7 @@ public class PatientBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, ModelState modelState)
-            throws ParseException {
+    public Command parseCommand(String userInput, ModelState modelState) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -67,118 +66,78 @@ public class PatientBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        Command command;
-        switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            command = new AddCommandParser().parse(arguments);
-            break;
-
-        case EditCommand.COMMAND_WORD:
-            command = new EditCommandParser().parse(arguments);
-            break;
-
-        case DeleteCommand.COMMAND_WORD:
-            command = new DeleteCommandParser().parse(arguments);
-            break;
-
-        case ClearCommand.COMMAND_WORD:
-            command = new ClearCommand();
-            break;
-
-        case FindCommand.COMMAND_WORD:
-            command = new FindCommandParser().parse(arguments);
-            break;
-
-        case ListCommand.COMMAND_WORD:
-            command = new ListCommand();
-            break;
-
-        case ExitCommand.COMMAND_WORD:
-            command = new ExitCommand();
-            break;
-
-        case HelpCommand.COMMAND_WORD:
-            command = new HelpCommand();
-            break;
-
-        case ExportCommand.COMMAND_WORD:
-            command = new ExportCommandParser().parse(arguments);
-            break;
-
-        case ImportReplaceCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.VISIT_ONGOING)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_NORMAL);
-            }
-            command = new ImportReplaceCommandParser().parse(arguments);
-            break;
-
-        case ImportMergeCommand.COMMAND_WORD:
-            command = new ImportMergeCommandParser().parse(arguments);
-            break;
-
-        case HistoryCommand.COMMAND_WORD:
-            command = new HistoryCommand();
-            break;
-
-        case UndoCommand.COMMAND_WORD:
-            command = new UndoCommandParser().parse(arguments);
-            break;
-
-        case RedoCommand.COMMAND_WORD:
-            command = new RedoCommand();
-            break;
-
-        case BeginVisitCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.VISIT_ONGOING)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_NORMAL);
-            }
-            command = new BeginVisitCommandParser().parse(arguments);
-            break;
-
-        case FinishOngoingVisitCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.NORMAL)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
-            }
-            command = new FinishOngoingVisitCommand();
-            break;
-
-        case UpdateOngoingVisitCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.NORMAL)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
-            }
-            command = new UpdateOngoingVisitCommandParser().parse(arguments);
-            break;
-
-        case CancelOngoingVisitCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.NORMAL)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
-            }
-            command = new CancelOngoingVisitCommand();
-            break;
-
-        case AddAppointmentCommand.COMMAND_WORD:
-            command = new AddAppointmentCommandParser().parse(arguments);
-            break;
-
-        case DeleteAppointmentCommand.COMMAND_WORD:
-            command = new DeleteAppointmentCommandParser().parse(arguments);
-            break;
-
-        case EditAppointmentCommand.COMMAND_WORD:
-            command = new EditAppointmentCommandParser().parse(arguments);
-            break;
-
-        case FindAppointmentCommand.COMMAND_WORD:
-            command = new FindAppointmentCommandParser().parse(arguments);
-            break;
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
-
+        Command command = parseCommandByCommandWord(commandWord, arguments, modelState);
         command.setCommandText(userInput);
         return command;
     }
 
+    /**
+     * Helper method to create command by commandWord.
+     */
+    private Command parseCommandByCommandWord(final String commandWord, final String arguments, ModelState modelState)
+            throws ParseException {
+        switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
+        case ImportReplaceCommand.COMMAND_WORD:
+            if (modelState.equals(ModelState.VISIT_ONGOING)) {
+                throw new ParseException(MESSAGE_REQUIRE_STATE_NORMAL);
+            }
+            return new ImportReplaceCommandParser().parse(arguments);
+        case ImportMergeCommand.COMMAND_WORD:
+            return new ImportMergeCommandParser().parse(arguments);
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+        case BeginVisitCommand.COMMAND_WORD:
+            if (modelState.equals(ModelState.VISIT_ONGOING)) {
+                throw new ParseException(MESSAGE_REQUIRE_STATE_NORMAL);
+            }
+            return new BeginVisitCommandParser().parse(arguments);
+        case FinishOngoingVisitCommand.COMMAND_WORD:
+            if (modelState.equals(ModelState.NORMAL)) {
+                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
+            }
+            return new FinishOngoingVisitCommand();
+        case UpdateOngoingVisitCommand.COMMAND_WORD:
+            if (modelState.equals(ModelState.NORMAL)) {
+                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
+            }
+            return new UpdateOngoingVisitCommandParser().parse(arguments);
+        case CancelOngoingVisitCommand.COMMAND_WORD:
+            if (modelState.equals(ModelState.NORMAL)) {
+                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
+            }
+            return new CancelOngoingVisitCommand();
+        case AddAppointmentCommand.COMMAND_WORD:
+            return new AddAppointmentCommandParser().parse(arguments);
+        case DeleteAppointmentCommand.COMMAND_WORD:
+            return new DeleteAppointmentCommandParser().parse(arguments);
+        case EditAppointmentCommand.COMMAND_WORD:
+            return new EditAppointmentCommandParser().parse(arguments);
+        case FindAppointmentCommand.COMMAND_WORD:
+            return new FindAppointmentCommandParser().parse(arguments);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
 }
