@@ -74,13 +74,11 @@ class AddEventCommandTest {
         // Check size
         assertEquals(1, model.getEvents().size());
 
-        assertThrows(CommandException.class, () -> {
-            AddEventCommand.newBuilder(model)
-                .acceptSentence(description)
-                .acceptSentence(start.toUserString())
-                .build()
-                .execute();
-        });
+        assertThrows(CommandException.class, () -> AddEventCommand.newBuilder(model)
+            .acceptSentence(description)
+            .acceptSentence(start.toUserString())
+            .build()
+            .execute());
 
         // Check size
         assertEquals(1, model.getEvents().size());

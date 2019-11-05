@@ -43,11 +43,13 @@ public class AddEventCommand extends Command {
     public UserOutput execute() throws CommandException {
         List<EventSource> events = new ArrayList<>(this.model.getEvents());
         events.add(this.event);
+
         try {
             this.model.setModelData(new ModelData(events, this.model.getTasks()));
         } catch (DuplicateElementException e) {
             throw new CommandException(MESSAGE_ADD_EVENT_DUPLICATE);
         }
+
         return new UserOutput(String.format(MESSAGE_ADD_EVENT_SUCCESS, this.event.getDescription()));
     }
 }

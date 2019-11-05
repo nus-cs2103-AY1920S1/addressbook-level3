@@ -11,6 +11,7 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -148,5 +149,10 @@ public class DateTime implements Comparable<DateTime> {
                 .equals(d.instant.truncatedTo(ChronoUnit.MINUTES));
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.instant);
     }
 }
