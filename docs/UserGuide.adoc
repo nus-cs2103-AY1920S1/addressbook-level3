@@ -246,6 +246,20 @@ Examples: +
 
 //end::delete[]
 
+//tag::undo_redo[]
+=== Undo Redo
+
+Calling undo will undo the previous command that changes the state of the notebook.
+Commands that do not change the notebook will not be undone (e.g. findstudent, listassignments etc.).
+Undo will only work if there is a previous command that is executed.
+
+Calling redo will redo any of the previous undo commands that were executed.
+Redo will only work if there is a previous undo command that is executed. +
+
+Format: undo / redo
+
+//end::undo_redo[]
+
 //tag::history[]
 === History
 
