@@ -235,7 +235,8 @@ public class ParserUtil {
      */
     public static boolean hasRepeatedPrefix(String input, Prefix... prefixes) {
         for (Prefix prefix : prefixes) {
-            if (input.split(prefix.getPrefix()).length > 2) {
+            final String s = prefix.getPrefix();
+            if (input.indexOf(s) != input.lastIndexOf(s)) {
                 return true;
             }
         }
