@@ -53,7 +53,7 @@ public class SortCommand extends Command {
             KEYWORD_ASCEND, KEYWORD_DESCEND);
     }
 
-    public static final String COMMAND_WORD = "sort";
+    public static final String COMMAND_WORD = "sortprob";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the current view in a certain order. "
             + "Parameters:\n"

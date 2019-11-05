@@ -164,16 +164,6 @@ public class ModelManager implements Model {
         sortedProblems.setComparator(problemComparator);
     }
 
-    @Override
-    public boolean checkIsProblemUsed(Problem problem) {
-        return algoBase.checkIsProblemUsed(problem);
-    }
-
-    @Override
-    public void removeProblemFromAllPlans(Problem problem) {
-        algoBase.removeProblemFromAllPlans(problem);
-    }
-
     //=========== Tag ===================================================================
 
     @Override
@@ -280,7 +270,27 @@ public class ModelManager implements Model {
         filteredPlans.setPredicate(predicate);
     }
 
+    @Override
+    public boolean checkIsProblemUsed(Problem problem) {
+        return algoBase.checkIsProblemUsed(problem);
+    }
+
+    @Override
+    public void removeProblemFromAllPlans(Problem problem) {
+        algoBase.removeProblemFromAllPlans(problem);
+    }
+
+    @Override
+    public void updateProblemInAllPlans(Problem oldProblem, Problem newProblem) {
+        algoBase.updateProblemInAllPlans(oldProblem, newProblem);
+    }
+
     //========== Task ===================================================================
+
+    @Override
+    public void updateTasks(Set<Task> taskSet, Plan plan) {
+        this.algoBase.updateTasks(taskSet, plan);
+    }
 
     @Override
     public void setCurrentPlan(Plan plan) {
@@ -305,6 +315,11 @@ public class ModelManager implements Model {
     @Override
     public IntegerProperty getCurrentUnsolvedCount() {
         return this.algoBase.getCurrentUnsolvedCount();
+    }
+
+    @Override
+    public IntegerProperty getCurrentTaskCount() {
+        return this.algoBase.getCurrentTaskCount();
     }
 
     //========== Find Rules =============================================================

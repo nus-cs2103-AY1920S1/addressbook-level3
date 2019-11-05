@@ -3,8 +3,8 @@ package seedu.algobase.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
@@ -61,7 +61,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     /**
      * Resets the existing data of this {@code AlgoBase} with {@code newData}.
      */
-    public void resetData(ReadOnlyAlgoBase newData) {
+    void resetData(ReadOnlyAlgoBase newData) {
         requireNonNull(newData);
 
         setProblems(newData.getProblemList());
@@ -116,7 +116,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * {@code target} must exist in the algobase.
      * The Problem identity of {@code editedProblem} must not be the same as another existing Problem in the algobase.
      */
-    public void setProblem(Problem target, Problem editedProblem) {
+    void setProblem(Problem target, Problem editedProblem) {
         requireNonNull(editedProblem);
 
         problems.setProblem(target, editedProblem);
@@ -126,7 +126,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * Removes {@code key} from this {@code AlgoBase}.
      * {@code key} must exist in the algobase.
      */
-    public void removeProblem(Problem key) {
+    void removeProblem(Problem key) {
         problems.remove(key);
     }
 
@@ -138,9 +138,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     @Override
     public Problem findProblemById(Id problemId) throws IllegalValueException {
         requireNonNull(problemId);
-        Iterator<Problem> iterator = problems.iterator();
-        while (iterator.hasNext()) {
-            Problem problem = iterator.next();
+        for (Problem problem : problems) {
             if (problem.getId().equals(problemId)) {
                 return problem;
             }
@@ -157,8 +155,17 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * Removes the given problem from all plans
      * @param problem the problem to be removed
      */
-    public void removeProblemFromAllPlans(Problem problem) {
+    void removeProblemFromAllPlans(Problem problem) {
         plans.removeProblem(problem);
+    }
+
+    /**
+     * Updates the given problem in all plans
+     * @param oldProblem the existing problem to be updated
+     * @param newProblem the new problem to be added
+     */
+    void updateProblemInAllPlans(Problem oldProblem, Problem newProblem) {
+        plans.updateProblem(oldProblem, newProblem);
     }
 
     //========== Tag ====================================================================
@@ -192,7 +199,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * {@code target} must exist in the algobase.
      * The Tag identity of {@code editedTag} must not be the same as another existing Tag in the algobase.
      */
-    public void setTag(Tag target, Tag editedTag) {
+    void setTag(Tag target, Tag editedTag) {
         requireNonNull(editedTag);
         tags.setTag(target, editedTag);
     }
@@ -201,7 +208,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * Removes {@code key} from this {@code AlgoBase}.
      * {@code key} must exist in the algobase.
      */
-    public void removeTag(Tag key) {
+    void removeTag(Tag key) {
         tags.remove(key);
     }
 
@@ -213,9 +220,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     @Override
     public Tag findTagById(Id tagId) throws IllegalValueException {
         requireNonNull(tagId);
-        Iterator<Tag> iterator = tags.iterator();
-        while (iterator.hasNext()) {
-            Tag tag = iterator.next();
+        for (Tag tag : tags) {
             if (tag.getId().equals(tagId)) {
                 return tag;
             }
@@ -236,7 +241,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     /**
      * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.
      */
-    public boolean hasPlan(Plan plan) {
+    boolean hasPlan(Plan plan) {
         requireNonNull(plan);
         return plans.contains(plan);
     }
@@ -263,7 +268,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     /**
      Removes a Plan from the algobase.
      */
-    public void removePlan(Plan key) {
+    void removePlan(Plan key) {
         plans.remove(key);
     }
 
@@ -275,9 +280,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     @Override
     public Plan findPlanById(Id planId) throws IllegalValueException {
         requireNonNull(planId);
-        Iterator<Plan> iterator = plans.iterator();
-        while (iterator.hasNext()) {
-            Plan plan = iterator.next();
+        for (Plan plan : plans) {
             if (plan.getId().equals(planId)) {
                 return plan;
             }
@@ -288,11 +291,22 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     //========== Task ===================================================================
 
     /**
-     * Sets the given plan as the current plan in main display
-     * @param plan the plan to be set as current plan
+     * Updates the task set in the given Plan.
+     * @param taskSet the task set to be updated
+     * @param plan the plan to be updated in
      */
+    public void updateTasks(Set<Task> taskSet, Plan plan) {
+        plans.setPlan(plan, plan.updateTasks(taskSet));
+    }
+
+    @Override
     public void setCurrentPlan(Plan plan) {
         plans.setCurrentPlan(plan);
+    }
+
+    @Override
+    public void setCurrentPlan(int index) {
+        plans.setCurrentPlan(index);
     }
 
     @Override
@@ -315,11 +329,16 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         return plans.getCurrentUnsolvedCount();
     }
 
+    @Override
+    public IntegerProperty getCurrentTaskCount() {
+        return plans.getCurrentTaskCount();
+    }
+
     //========== Find Rules =============================================================
 
     /**
      * Returns true of {@code rule} has the same identity as one {@code ProblemSearchRule} in AlgoBase.
-     * @param rule
+     * @param rule the rule to be checked
      */
     public boolean hasFindRule(ProblemSearchRule rule) {
         requireNonNull(rule);
@@ -328,7 +347,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     /**
      * Adds a {@code rule} into AlgoBase's list of {@code ProblemSearchRule}.
-     * @param rule
+     * @param rule the rule to be added
      */
     public void addFindRule(ProblemSearchRule rule) {
         requireNonNull(rule);
@@ -340,10 +359,10 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * {@code target} must exist in the Algobase.
      * The identity of {@code editedRule} must not be the same as another existing {@code ProblemSearchRule}
      * in the algobase.
-     * @param target
-     * @param editedRule
+     * @param target the old rule to be updated
+     * @param editedRule the new rule to be added
      */
-    public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
+    void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
         requireAllNonNull(target, editedRule);
         findRules.setFindRule(target, editedRule);
     }
@@ -351,17 +370,18 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     /**
      * Replaces the contents of the FindRule list with {@code rules}.
      * {@code rules} must not contain duplicate problems.
+     * @param rules the list of rules to be be used to reset the database
      */
-    public void setFindRules(List<ProblemSearchRule> rules) {
+    private void setFindRules(List<ProblemSearchRule> rules) {
         this.findRules.setFindRules(rules);
     }
 
     /**
      * Removes a given {@code ProblemSearchRule} in the AlgoBase.
      * {@code toRemove} must exist in the Algobase.
-     * @param toRemove
+     * @param toRemove the rule to be removed
      */
-    public void removeFindRule(ProblemSearchRule toRemove) {
+    void removeFindRule(ProblemSearchRule toRemove) {
         requireNonNull(toRemove);
         findRules.remove(toRemove);
     }

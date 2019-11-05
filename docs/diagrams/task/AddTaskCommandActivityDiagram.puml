@@ -7,7 +7,7 @@ start
 if () then ([command is valid])
 	:Instantiate an AddTaskCommand with a corresponding AddTaskDescriptor;
 	:Execute AddTaskCommand;
-	:Update UI with current plan with corresponding task list;
+	:Update Task Management Pane in UI with current plan and corresponding task list;
 else ([else])
 	:Throw an exception;
 	:Update UI to notify the user;

@@ -20,7 +20,7 @@ public class ResultDisplay extends UiPart<Region> {
         super(FXML);
     }
 
-    public void setFeedbackToUser(String feedbackToUser) {
+    void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         resultDisplay.setText(feedbackToUser);
     }

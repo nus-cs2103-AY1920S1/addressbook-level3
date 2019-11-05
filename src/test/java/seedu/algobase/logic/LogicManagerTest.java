@@ -55,13 +55,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
-        String invalidCommand = "uicfhmowqewca";
+        String invalidCommand = "addpr0b";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "deleteprob 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX);
     }
 
@@ -81,7 +81,7 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(jsonAlgoBaseStorage, jsonUserPrefsStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
+        // Execute addprob command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_QUICK_SORT + DESCRIPTION_DESC_QUICK_SORT
                 + AUTHOR_DESC_QUICK_SORT + WEBLINK_DESC_QUICK_SORT + REMARK_DESC_QUICK_SORT + SOURCE_DESC_QUICK_SORT;
         Problem expectedProblem = new ProblemBuilder(QUICK_SORT).withTags().build();

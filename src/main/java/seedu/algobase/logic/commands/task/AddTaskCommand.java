@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -42,7 +41,7 @@ public class AddTaskCommand extends Command {
             + PREFIX_DUE_DATE + "2019-12-12";
 
     public static final String MESSAGE_SUCCESS = "New Task [%1$s] added to Plan [%2$s].";
-    public static final String MESSAGE_DUPLICATE_TASK = "Task [%1$s] already exists in Plan [%2$s].";
+    private static final String MESSAGE_DUPLICATE_TASK = "Task [%1$s] already exists in Plan [%2$s].";
 
     private final AddTaskDescriptor addTaskDescriptor;
 
@@ -90,15 +89,14 @@ public class AddTaskCommand extends Command {
         Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());
         if (taskSet.contains(task)) {
             throw new CommandException(
-                    String.format(MESSAGE_DUPLICATE_TASK, task.getProblem().getName(), planToUpdate.getPlanName()));
+                    String.format(MESSAGE_DUPLICATE_TASK, task.getName(), planToUpdate.getPlanName()));
         }
         taskSet.add(task);
 
-        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
-        model.setPlan(planToUpdate, updatedPlan);
-        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        model.updateTasks(taskSet, planToUpdate);
+
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, task.getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_SUCCESS, task.getName(), planToUpdate.getPlanName()));
     }
 
     @Override
