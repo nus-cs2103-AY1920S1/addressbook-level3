@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.step.Step;
 import seedu.address.model.entry.AutoExpense;
 import seedu.address.model.entry.Budget;
 import seedu.address.model.entry.Category;
@@ -509,6 +510,7 @@ public class ModelManager implements Model {
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredEntries.setPredicate(predicate);
+        versionedAddressBook.updateBudgets(filteredExpenses);
     }
 
     @Override
@@ -567,13 +569,13 @@ public class ModelManager implements Model {
     // =========== Undo/Redo =============================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoAddressBook(Step step) {
+        return versionedAddressBook.canUndo(step);
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoAddressBook(Step step) {
+        return versionedAddressBook.canRedo(step);
     }
 
     @Override
