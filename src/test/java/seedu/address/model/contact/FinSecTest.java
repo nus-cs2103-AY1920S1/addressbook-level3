@@ -25,10 +25,11 @@ public class FinSecTest {
 
     @Test
     public void isSameIncome() {
+
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameContact() {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));
 

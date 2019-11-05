@@ -14,17 +14,17 @@ import seedu.address.model.help.exceptions.CommandNotFoundException;
 
 /**
  * A list of CommandItems that enforces uniqueness between its elements and does not allow nulls.
- * A CommandItem is considered unique by comparing using
- * {@code CommandItem#isSameCommand(CommandItem)}. As such, adding and updating of
- * CommandItem uses CommandItem#isSameCommand(CommandItem) for equality
- * so as to ensure that the CommandItem being added or updated is
+ * A commanditem is considered unique by comparing using
+ * {@code commanditem#isSameCommand(commanditem)}. As such, adding and updating of
+ * commanditem uses commanditem#isSameCommand(commanditem) for equality
+ * so as to ensure that the commanditem being added or updated is
  * unique in terms of identity in the UniqueCommandItemsList. However,
- * the removal of a CommandItem uses CommandItem#equals(Object) so
+ * the removal of a commanditem uses commanditem#equals(Object) so
  * as to ensure that the earning with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see CommandItem #isSameCommand(CommandItem)
+ * @see CommandItem #isSameCommand(commanditem)
  */
 public class UniqueCommandItemsList implements Iterable<CommandItem> {
 
@@ -33,7 +33,7 @@ public class UniqueCommandItemsList implements Iterable<CommandItem> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent CommandItem as the given argument.
+     * Returns true if the list contains an equivalent commanditem as the given argument.
      */
     public boolean contains(CommandItem toCheck) {
         requireNonNull(toCheck);
@@ -41,8 +41,8 @@ public class UniqueCommandItemsList implements Iterable<CommandItem> {
     }
 
     /**
-     * Adds a CommandItem to the list.
-     * The CommandItem must not already exist in the list.
+     * Adds a commanditem to the list.
+     * The commanditem must not already exist in the list.
      */
     public void add(CommandItem toAdd) {
         requireNonNull(toAdd);
@@ -53,10 +53,10 @@ public class UniqueCommandItemsList implements Iterable<CommandItem> {
     }
 
     /**
-     * Replaces the CommandItem {@code target} in the list with {@code editedCommand}.
+     * Replaces the commanditem {@code target} in the list with {@code editedCommand}.
      * {@code target} must exist in the list.
-     * The CommandItem identity of {@code editCommand} must not be the same as another
-     * existing CommandItem in the list.
+     * The commanditem identity of {@code editCommand} must not be the same as another
+     * existing commanditem in the list.
      */
     public void setCommand(CommandItem target, CommandItem editedCommand) {
         requireAllNonNull(target, editedCommand);
@@ -93,7 +93,7 @@ public class UniqueCommandItemsList implements Iterable<CommandItem> {
 
     /**
      * Removes the equivalent CommandObject from the list.
-     * The CommandItem must exist in the list.
+     * The commanditem must exist in the list.
      */
     public void remove(CommandItem toRemove) {
         requireNonNull(toRemove);

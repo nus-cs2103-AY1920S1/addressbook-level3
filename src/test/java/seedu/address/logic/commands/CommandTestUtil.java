@@ -63,6 +63,13 @@ public class CommandTestUtil {
     public static final String VALID_DATE_DURINGMONTH2 = "23-11-2019";
     public static final String VALID_DATE_FIRSTDAYOFMONTH = "01-11-2019";
     public static final String VALID_DATE_AFTERMONTH = "11-11-2099";
+    public static final String VALID_AUTOCORRECTSUGGESTION_CLAIMJOSHUA = "add_claim n/joshua";
+    public static final String VALID_AUTOCORRECTSUGGESTION_CLAIMBOB = "add_claim n/Bob";
+    public static final String VALID_COMMANDWORD_ADD = "add";
+    public static final String VALID_COMMANDWORD_DELETE = "delete";
+    public static final String VALID_COMMANDTASK_ADDCONTACT = "add_contact";
+    public static final String VALID_COMMANDTASK_DELETEINCOME = "delete_income";
+
 
 
 
@@ -113,6 +120,7 @@ public class CommandTestUtil {
         DESC_FUNDRAISING = new EditIncomeDescriptorBuilder().withDescription(VALID_DESCRIPTION_FUNDRAISING)
                 .withAmount(VALID_AMOUNT_FUNDRAISING).withDate(VALID_DATE_FUNDRAISING).withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).build();
+
     }
 
     /**

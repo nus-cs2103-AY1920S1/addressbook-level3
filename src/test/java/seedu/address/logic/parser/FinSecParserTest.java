@@ -20,10 +20,8 @@ import seedu.address.logic.commands.EditIncomeCommand.EditIncomeDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
-
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.ContactUtil;
 import seedu.address.testutil.EditIncomeDescriptorBuilder;
@@ -85,6 +83,10 @@ public class FinSecParserTest {
                 + INDEX_FIRST_PERSON.getOneBased() + " " + IncomeUtil.getEditIncomeDescriptorDetails(descriptor));
         assertEquals(new EditIncomeCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
+
+
+    //=========== Shortcut ================================================================================
+
 
 
 
