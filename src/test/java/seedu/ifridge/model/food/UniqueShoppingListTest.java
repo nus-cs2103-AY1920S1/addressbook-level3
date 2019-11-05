@@ -51,9 +51,28 @@ public class UniqueShoppingListTest {
     }
 
     @Test
-    public void add_duplicateShoppingItem_throwsCommandException() {
+    public void add_duplicateShoppingItem_throwsDuplicateShoppingItemException() {
         uniqueShoppingList.add(BANANA);
         assertThrows(DuplicateShoppingItemException.class, () -> uniqueShoppingList.add(BANANA));
+    }
+
+    @Test
+    public void urgent_nullShoppingItem_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueShoppingList.markAsUrgent(null));
+    }
+
+    @Test
+    public void urgent_shoppingItemDoesNotExist_throwsFoodNotFoundException() {
+        uniqueShoppingList.add(BANANA.setUrgent(true));
+        assertThrows(FoodNotFoundException.class, () -> uniqueShoppingList.markAsUrgent(
+                new ShoppingItem(new Name("nonexistentitem"), new Amount("1units"))));
+    }
+
+    @Test
+    public void urgent_shoppingItemExists_success() {
+        uniqueShoppingList.add(EGGS);
+        uniqueShoppingList.markAsUrgent(EGGS);
+        assertTrue(uniqueShoppingList.get(EGGS).isUrgent());
     }
 
     @Test
@@ -162,7 +181,7 @@ public class UniqueShoppingListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueShoppingList.asUnmodifiableObservableList().remove(0));
+        assertThrows(
+            UnsupportedOperationException.class, () -> uniqueShoppingList.asUnmodifiableObservableList().remove(0));
     }
 }
