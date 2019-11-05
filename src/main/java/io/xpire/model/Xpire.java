@@ -100,11 +100,11 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
     public XpireMethodOfSorting getMethodOfSorting() {
         return this.items.getXpireMethodOfSorting();
     }
-
+/*
     //@@author liawsy
     /**
      * Checks expiry date of every item in xpire.
-     */
+
     public void checkExpiryDates() {
         Iterator<XpireItem> itr = items.iterator();
         XpireItem item;
@@ -123,7 +123,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
     /**
      * Updates tags of item specified.U
      * @param item The item to update tags for.
-     */
+
     public void updateItemTag(XpireItem item) {
         Set<Tag> newTag = new TreeSet<>(new TagComparator());
         newTag.addAll(item.getNewTagSet(new Tag(EXPIRED_TAG)));
@@ -131,6 +131,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
                 newTag, item.getReminderThreshold());
         setItem(item, updatedItem);
     }
+*/
 
     //// util methods
 

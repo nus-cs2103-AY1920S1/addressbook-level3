@@ -76,6 +76,10 @@ public class XpireItem extends Item {
         this.reminderThreshold = xpireItem.getReminderThreshold();
     }
 
+    public Item remodel() {
+        return new Item(this.name, this.tags);
+    }
+
     public ExpiryDate getExpiryDate() {
         return this.expiryDate;
     }

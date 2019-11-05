@@ -1,5 +1,7 @@
 package io.xpire.model;
 
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.model.tag.Tag.EXPIRED_TAG;
 import static java.util.Objects.requireNonNull;
 
@@ -25,10 +27,11 @@ import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.state.State;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 /**
- * Represents the in-memory model of sthe xpire data.
+ * Represents the in-memory model of Xpire data.
  */
 public class ModelManager implements Model {
 
@@ -37,6 +40,9 @@ public class ModelManager implements Model {
     private final Xpire xpire;
     private final ReplenishList replenishList;
     private final UserPrefs userPrefs;
+    private FilteredList<? extends Item> currentList;
+
+
     private FilteredList<XpireItem> filteredXpireItems;
     private FilteredList<Item> filteredReplenishItems;
     private final FilteredList<XpireItem> previousXpireItems;
@@ -50,13 +56,15 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyListView<? extends Item>[] lists,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(lists, userPrefs);
+        requireAllNonNull(lists, userPrefs);
 
         logger.fine("Initializing with xpire: " + Arrays.toString(lists) + " and user prefs " + userPrefs);
 
         this.xpire = new Xpire(lists[0]);
         this.replenishList = new ReplenishList(lists[1]);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.currentList = new FilteredList<>(this.xpire.getItemList());
+
         this.filteredXpireItems = new FilteredList<>(this.xpire.getItemList());
         this.previousXpireItems = new FilteredList<>(this.xpire.getItemList());
         this.filteredReplenishItems = new FilteredList<>(this.replenishList.getItemList());
@@ -110,18 +118,212 @@ public class ModelManager implements Model {
         return new ReadOnlyListView<?>[]{this.xpire, this.replenishList};
     }
 
-    //=========== expiryDateTracker  ================================================================================
+    //=========== Model methods ================================================================================
+
+    public void setList(ListType listType, ReadOnlyListView<? extends Item> list) {
+        requireAllNonNull(listType, list);
+
+        switch(listType) {
+        case XPIRE:
+            this.xpire.resetData(list);
+            break;
+        case REPLENISH:
+            this.replenishList.resetData(list);
+            break;
+        default:
+            logger.warning("Unknown list type");
+            assert false;
+        }
+    }
+
+    public ObservableList<? extends Item> getItemList(ListType listType) {
+        requireNonNull(listType);
+
+        switch(listType) {
+        case XPIRE:
+            return this.xpire.getItemList();
+        case REPLENISH:
+            return this.replenishList.getItemList();
+        default:
+            logger.warning("Unknown list type");
+            assert false;
+            return null;
+        }
+    }
+
+    public boolean hasItem(ListType listType, Item item) {
+        requireAllNonNull(listType, item);
+
+        switch(listType) {
+        case XPIRE:
+            try {
+                return this.xpire.hasItem((XpireItem) item);
+            } catch (ClassCastException e) {
+                logger.warning("Wrong item type for Xpire");
+                return false;
+            }
+        case REPLENISH:
+            return this.replenishList.hasItem(item);
+        default:
+            logger.warning("Unknown list type");
+            assert false;
+            return false;
+        }
+    }
+
+    public void deleteItem(ListType listType, Item item) {
+        requireAllNonNull(listType, item);
+
+        switch(listType) {
+        case XPIRE:
+            try {
+                this.xpire.removeItem((XpireItem) item);
+            } catch (ClassCastException e) {
+                logger.warning("Wrong item type for Xpire");
+            }
+            break;
+        case REPLENISH:
+            this.replenishList.removeItem(item);
+            break;
+        default:
+            logger.warning("Unknown list type");
+            assert false;
+        }
+    }
+
+    public void addItem(ListType listType, Item item) {
+        requireAllNonNull(listType, item);
+
+        switch(listType) {
+        case XPIRE:
+            try {
+                this.xpire.addItem((XpireItem) item);
+            } catch (ClassCastException e) {
+                logger.warning("Wrong item type for Xpire");
+            }
+            break;
+        case REPLENISH:
+            this.replenishList.addItem(item);
+            break;
+        default:
+            logger.warning("Unknown list type");
+            assert false;
+        }
+    }
+
+    public void setItem(ListType listType, Item currentItem, Item newItem) {
+        requireAllNonNull(listType, currentItem, newItem);
+
+        switch(listType) {
+        case XPIRE:
+            try {
+                this.xpire.setItem((XpireItem) currentItem, (XpireItem) newItem);
+            } catch (ClassCastException e) {
+                logger.warning("Wrong item type for Xpire");
+            }
+            break;
+        case REPLENISH:
+            this.replenishList.setItem(currentItem, newItem);
+            break;
+        default:
+            logger.warning("Unknown list type");
+            assert false;
+        }
+    }
+
+    public void sortXpire(XpireMethodOfSorting method) {
+        requireNonNull(method);
+        this.xpire.setMethodOfSorting(method);
+    }
+
+    /**
+     * Returns an unmodifiable view of the current viewing list of {@code Item} backed by the internal list of
+     * {@code Xpire} or {@code ReplenishList}.
+     */
+    public ObservableList<? extends Item> getCurrentList() {
+        return this.currentList;
+    }
+
+    public void setCurrentList(ListType listType) {
+        requireAllNonNull(listType);
+
+        switch(listType) {
+        case XPIRE:
+            this.currentList = new FilteredList<>(this.xpire.getItemList());
+            break;
+        case REPLENISH:
+            this.currentList = new FilteredList<>(this.replenishList.getItemList());
+            break;
+        default:
+            logger.warning("Unknown list type");
+            assert false;
+        }
+    }
+
+    public void filterCurrentList(Predicate<Item> predicate) {
+        requireNonNull(predicate);
+        this.currentList.setPredicate(predicate);
+    }
+
+    public void refreshCurrentList(ListType listType) {
+        requireNonNull(listType);
+
+        FilteredList<? extends Item> currentList
+        switch (listType) {
+        case XPIRE:
+            FilteredList<? extends Item> currentList
+        }
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof ModelManager)) {
+            return false;
+        } else {
+            ModelManager other = (ModelManager) obj;
+            return this.xpire.equals(other.xpire)
+                    && this.userPrefs.equals(other.userPrefs)
+                    && this.filteredXpireItems.equals(other.filteredXpireItems);
+        }
+    }
+
+    // =========== Undo/Redo Methods =============================================================
+
+    @Override
+    public void update(State state) {
+        CloneModel clone = state.getCloneModel();
+        this.setUserPrefs(clone.getUserPrefs());
+        this.setXpire(clone.getXpire());
+        this.xpire.setMethodOfSorting(state.getMethod());
+        this.setReplenishList(clone.getReplenishList());
+        this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
+        this.setFilteredXpireItems(clone.getFilteredXpireItemList());
+        this.setCurrentFilteredItemList(clone.getListToView());
+    }
+
+    @Override
+    public void update(ListToView listToView) {
+        FilteredList<XpireItem> filteredXpireList = new FilteredList<>(getXpire().getItemList());
+        FilteredList<Item> filteredReplenishList = new FilteredList<>(getReplenishList().getItemList());
+        filteredXpireList.setPredicate(this.filteredXpireItems.getPredicate());
+        filteredReplenishList.setPredicate(this.filteredReplenishItems.getPredicate());
+        setFilteredXpireItems(filteredXpireList);
+        setFilteredReplenishItems(filteredReplenishList);
+        setCurrentFilteredItemList(listToView);
+    }
+
+    @Override
+    public ListToView getListToView() {
+        return this.listToView;
+    }
 
     @Override
     public void setXpire(ReadOnlyListView<XpireItem> xpire) {
         this.xpire.resetData(xpire);
     }
-
-    @Override
-    public Xpire getXpire() {
-        return this.xpire;
-    }
-
 
     @Override
     public boolean hasItem(XpireItem xpireItem) {
@@ -144,37 +346,17 @@ public class ModelManager implements Model {
 
     @Override
     public void setItem(XpireItem target, XpireItem editedXpireItem) {
-        CollectionUtil.requireAllNonNull(target, editedXpireItem);
+        requireAllNonNull(target, editedXpireItem);
         update(this.listToView);
         this.xpire.setItem(target, editedXpireItem);
     }
 
-    //@@author febee99
-    @Override
-    public Set<Tag> getAllItemTags() {
-        Set<Tag> tagSet = new TreeSet<>(new TagComparator());
-        this.previousXpireItems.forEach(item -> tagSet.addAll(item.getTags()));
-        return tagSet;
-    }
-
-    @Override
-    public Set<Name> getAllItemNames() {
-        Set<Name> nameSet = new TreeSet<>(Comparator.comparing(Name::toString));
-        this.previousXpireItems.forEach(item -> nameSet.add(item.getName()));
-        return nameSet;
-    }
-
-    //@@author liawsy
-    //=========== replenish list methods  ==============================================================================
     @Override
     public void setReplenishList(ReadOnlyListView<Item> replenishList) {
         this.replenishList.resetData(replenishList);
     }
 
-    @Override
-    public ReplenishList getReplenishList() {
-        return this.replenishList;
-    }
+
 
     @Override
     public boolean hasReplenishItem(Item item) {
@@ -197,10 +379,29 @@ public class ModelManager implements Model {
 
     @Override
     public void setReplenishItem(Item target, Item editedItem) {
-        CollectionUtil.requireAllNonNull(target, editedItem);
+        requireAllNonNull(target, editedItem);
         this.replenishList.setItem(target, editedItem);
         update(this.listToView);
     }
+
+    //@@author febee99
+    @Override
+    public Set<Tag> getAllItemTags() {
+        Set<Tag> tagSet = new TreeSet<>(new TagComparator());
+        this.previousXpireItems.forEach(item -> tagSet.addAll(item.getTags()));
+        return tagSet;
+    }
+
+    @Override
+    public Set<Name> getAllItemNames() {
+        Set<Name> nameSet = new TreeSet<>(Comparator.comparing(Name::toString));
+        this.previousXpireItems.forEach(item -> nameSet.add(item.getName()));
+        return nameSet;
+    }
+
+    //@@author liawsy
+    //=========== replenish list methods  ==============================================================================
+
 
     @Override
     public Set<Tag> getAllReplenishItemTags() {
@@ -243,6 +444,8 @@ public class ModelManager implements Model {
         return new Item(itemName, newTags);
     }
 
+
+
     //@@author febee99
     //=========== Sorted XpireItem List Accessors ======================================================================
 
@@ -256,10 +459,7 @@ public class ModelManager implements Model {
     //@@author liawsy
     // =========== Filtered XpireItem List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code XpireItem} backed by the internal list of
-     * {@code versionedXpire}
-     */
+
     @Override
     public FilteredList<XpireItem> getFilteredXpireItemList() {
         return this.filteredXpireItems;
@@ -275,6 +475,7 @@ public class ModelManager implements Model {
     public FilteredList<? extends Item> getCurrentFilteredItemList() {
         return this.currentFilteredItems;
     }
+
 
     @Override
     public void setCurrentFilteredItemList(ListToView list) {
@@ -358,49 +559,5 @@ public class ModelManager implements Model {
                 xpire.updateItemTag(item);
             }
         }
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        } else if (!(obj instanceof ModelManager)) {
-            return false;
-        } else {
-            ModelManager other = (ModelManager) obj;
-            return this.xpire.equals(other.xpire)
-                    && this.userPrefs.equals(other.userPrefs)
-                    && this.filteredXpireItems.equals(other.filteredXpireItems);
-        }
-    }
-
-    // =========== Undo/Redo Methods =============================================================
-
-    @Override
-    public void update(State state) {
-        CloneModel clone = state.getCloneModel();
-        this.setUserPrefs(clone.getUserPrefs());
-        this.setXpire(clone.getXpire());
-        this.xpire.setMethodOfSorting(state.getMethod());
-        this.setReplenishList(clone.getReplenishList());
-        this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
-        this.setFilteredXpireItems(clone.getFilteredXpireItemList());
-        this.setCurrentFilteredItemList(clone.getListToView());
-    }
-
-    @Override
-    public void update(ListToView listToView) {
-        FilteredList<XpireItem> filteredXpireList = new FilteredList<>(getXpire().getItemList());
-        FilteredList<Item> filteredReplenishList = new FilteredList<>(getReplenishList().getItemList());
-        filteredXpireList.setPredicate(this.filteredXpireItems.getPredicate());
-        filteredReplenishList.setPredicate(this.filteredReplenishItems.getPredicate());
-        setFilteredXpireItems(filteredXpireList);
-        setFilteredReplenishItems(filteredReplenishList);
-        setCurrentFilteredItemList(listToView);
-    }
-
-    @Override
-    public ListToView getListToView() {
-        return this.listToView;
     }
 }
