@@ -84,8 +84,9 @@ public class CalendarWindow extends UiPart<Region> {
             calendarDateCell.setDate(calendarDate);
             calendarDate = calendarDate.plusDays(1);
         }
-        calendarTitle.setText(this.currentDisplayedYearMonth.getMonth().toString() + " "
-                + this.currentDisplayedYearMonth.getYear());
+        String calendarTitleText = String.format("%s %04d", currentDisplayedYearMonth.getMonth().toString(),
+                currentDisplayedYearMonth.getYear());
+        calendarTitle.setText(calendarTitleText);
     }
 
     /**
@@ -169,14 +170,13 @@ public class CalendarWindow extends UiPart<Region> {
      * @param date The specified date.
      */
     public void display(LocalDate date) {
+        currentDisplayedYearMonth = YearMonth.of(date.getYear(), date.getMonthValue());
+        populateCalendar();
         for (CalendarDateCell calendarDateCell : calendarDateCells) {
             if (calendarDateCell.getDate().equals(date)) {
                 calendarDateCell.displayEngagements();
-                return;
             }
         }
-        throw new IllegalArgumentException("Please choose a date within the displayed calendar month"
-                + " to show engagements for.");
     }
 
     /**
