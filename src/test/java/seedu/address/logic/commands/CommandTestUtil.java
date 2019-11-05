@@ -72,6 +72,7 @@ public class CommandTestUtil {
     public static final String INVALID_AMOUNT_ZERO_DESC = " " + PREFIX_AMOUNT + "0";
     public static final String INVALID_AMOUNT_RANGE_DESC = " " + PREFIX_AMOUNT + "10000000";
     public static final String INVALID_AMOUNT_TYPE_DESC = " " + PREFIX_AMOUNT + "10.002";
+    public static final String INVALID_AMOUNT_OVERFLOW_DESC = " " + PREFIX_AMOUNT + "100000000";
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "10";
     public static final String INVALID_DATETYPE_DESC = " " + PREFIX_DATE + "40402019";
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_NAME + "Milk@";

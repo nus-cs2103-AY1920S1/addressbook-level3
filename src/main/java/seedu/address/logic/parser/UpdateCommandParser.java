@@ -55,9 +55,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                 && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
                 throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_ZERO));
             }
-
             /* handles overflow value */
-            if (Integer.parseInt(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
+            if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
                 throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_OVERFLOW));
             }
             updateTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
