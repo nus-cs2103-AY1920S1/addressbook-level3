@@ -88,7 +88,9 @@ public class UserState implements ReadOnlyUserState {
         bankAccount.add(budget);
     }
 
-    public void add(Projection projection) {bankAccount.add(projection); }
+    public void add(Projection projection) {
+        bankAccount.add(projection);
+    }
 
     public boolean has(BankAccountOperation txn) {
         return bankAccount.has(txn);

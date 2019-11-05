@@ -71,6 +71,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void add(Projection projection) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyBankAccount getBankAccount() {
         throw new AssertionError("This method should not be called.");
     }

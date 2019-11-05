@@ -24,8 +24,8 @@ public class Projection {
     private Budget budget;
     private Amount projection;
     private Amount budgetProjection;
-    public boolean onTrackToMeetBudget;
     private GradientDescent projector;
+    private boolean onTrackToMeetBudget;
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date) {
         this.transactionHistory = transactionHistory;
@@ -84,7 +84,9 @@ public class Projection {
         return Optional.ofNullable(this.budget);
     }
 
-    public Amount getProjection() { return this.projection; }
+    public Amount getProjection() {
+        return this.projection;
+    }
 
     public Date getDate() {
         return this.date;

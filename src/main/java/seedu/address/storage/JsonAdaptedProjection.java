@@ -1,22 +1,19 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
 import seedu.address.model.util.Date;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Projection}.
@@ -64,8 +61,9 @@ class JsonAdaptedProjection {
      */
     public Projection toModelType() throws IllegalValueException {
 
-        if(this.transactions.isEmpty()) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Transaction.class.getSimpleName()));
+        if (this.transactions.isEmpty()) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Transaction.class.getSimpleName()));
         }
 
         UniqueTransactionList txns = new UniqueTransactionList();
@@ -84,10 +82,12 @@ class JsonAdaptedProjection {
         }
 
         if (this.budget == null) {
-            return new Projection(txns.asUnmodifiableObservableList(), new Amount(Double.parseDouble(amount)), new Date(date));
+            return new Projection(txns.asUnmodifiableObservableList(),
+                    new Amount(Double.parseDouble(amount)), new Date(date));
         }
 
-        return new Projection(txns.asUnmodifiableObservableList(), new Amount(Double.parseDouble(amount)), new Date(date), this.budget.toModelType());
+        return new Projection(txns.asUnmodifiableObservableList(), new Amount(Double.parseDouble(amount)),
+                new Date(date), this.budget.toModelType());
     }
 
 }

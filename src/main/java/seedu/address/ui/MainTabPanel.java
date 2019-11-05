@@ -8,7 +8,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.projection.ProjectionGraph;
 
 /**
  * Panel containing the different tabs of the application.

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -9,8 +11,10 @@ import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Budget;
 import seedu.address.ui.tab.Tab;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Displays a {@code Projection} identified using it's displayed index from the bank account.
+ * TODO: extend display to other data types
+ */
 public class DisplayCommand extends Command {
 
     public static final String COMMAND_WORD = "display";

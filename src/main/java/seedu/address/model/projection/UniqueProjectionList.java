@@ -85,13 +85,13 @@ public class UniqueProjectionList implements Iterable<Projection> {
      * Replaces the contents of this list with {@code Projections}.
      * {@code Projections} must not contain duplicate Projections.
      */
-    public void setProjections(List<Projection> Projections) {
-        requireAllNonNull(Projections);
-        if (!ProjectionsAreUnique(Projections)) {
+    public void setProjections(List<Projection> projections) {
+        requireAllNonNull(projections);
+        if (!projectionsAreUnique(projections)) {
             throw new DuplicateProjectionException();
         }
 
-        internalList.setAll(Projections);
+        internalList.setAll(projections);
     }
 
     /**
@@ -122,10 +122,10 @@ public class UniqueProjectionList implements Iterable<Projection> {
     /**
      * Returns true if {@code Projections} contains only unique Projections.
      */
-    private boolean ProjectionsAreUnique(List<Projection> Projections) {
-        for (int i = 0; i < Projections.size() - 1; i++) {
-            for (int j = i + 1; j < Projections.size(); j++) {
-                if (Projections.get(i).equals(Projections.get(j))) {
+    private boolean projectionsAreUnique(List<Projection> projections) {
+        for (int i = 0; i < projections.size() - 1; i++) {
+            for (int j = i + 1; j < projections.size(); j++) {
+                if (projections.get(i).equals(projections.get(j))) {
                     return false;
                 }
             }

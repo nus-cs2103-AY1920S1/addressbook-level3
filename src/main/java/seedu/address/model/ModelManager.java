@@ -161,7 +161,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void add(Projection projection) { versionedUserState.add(projection); }
+    public void add(Projection projection) {
+        versionedUserState.add(projection);
+    }
 
     @Override
     public ObservableList<BankAccountOperation> getFilteredTransactionList() {
