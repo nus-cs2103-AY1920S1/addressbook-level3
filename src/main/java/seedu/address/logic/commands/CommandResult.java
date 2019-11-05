@@ -4,9 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.earnings.Earnings;
-import seedu.address.model.task.Task;
-
 
 /**
  * Represents the result of a command execution.
@@ -24,10 +21,11 @@ public class CommandResult {
     private boolean unknown;
 
     private boolean showEarnings;
-    private Earnings earnings;
+    private boolean showNotes;
     private boolean userRegister = false;
     private boolean showTasks;
-    private Task task;
+    private boolean showPersons;
+    private boolean showReminder;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -44,30 +42,21 @@ public class CommandResult {
 
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp,
-                         boolean exit, boolean showEarnings, Earnings earnings) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings,
+                         boolean unknown, boolean showTasks, boolean showPersons,
+                         boolean showNotes, boolean showReminder) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showEarnings = showEarnings;
-        this.earnings = earnings;
-
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp,
-                         boolean exit, boolean showTasks, Task task) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
+        this.unknown = unknown;
         this.showTasks = showTasks;
-        this.task = task;
+        this.showPersons = showPersons;
+        this.showNotes = showNotes;
+        this.showReminder = showReminder;
     }
+
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -98,8 +87,16 @@ public class CommandResult {
         return unknown;
     }
 
-    public Earnings getEarnings() {
-        return earnings;
+    public boolean isPersons() {
+        return showPersons;
+    }
+
+    public boolean isNotes() {
+        return showNotes;
+    }
+
+    public boolean isReminder() {
+        return showReminder;
     }
 
     public void userRegistering() {
@@ -112,10 +109,6 @@ public class CommandResult {
 
     public boolean isTasks() {
         return showTasks;
-    }
-
-    public Task getTask() {
-        return task;
     }
 
     @Override

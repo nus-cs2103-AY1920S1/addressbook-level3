@@ -29,7 +29,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static boolean loggedIn = false;
 
-    private final AddressBook addressBook;
+    private final TutorAid tutorAid;
     private final UserPrefs userPrefs;
     private Account account;
     private final FilteredList<Person> filteredPersons;
@@ -41,36 +41,36 @@ public class ModelManager implements Model {
     private final FilteredList<Notes> filteredNotes;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given tutorAid and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTutorAid tutorAid, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(tutorAid, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + tutorAid + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.tutorAid = new TutorAid(tutorAid);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredEarnings = new FilteredList<>(this.addressBook.getEarningsList());
-        filteredCommands = new FilteredList<>(this.addressBook.getCommandsList());
+        filteredPersons = new FilteredList<>(this.tutorAid.getPersonList());
+        filteredEarnings = new FilteredList<>(this.tutorAid.getEarningsList());
+        filteredCommands = new FilteredList<>(this.tutorAid.getCommandsList());
         savedCommand = new Stack<String>();
-        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
-        filteredReminder = new FilteredList<>(this.addressBook.getReminderList());
-        filteredNotes = new FilteredList<>(this.addressBook.getNotesList());
+        filteredTasks = new FilteredList<>(this.tutorAid.getTaskList());
+        filteredReminder = new FilteredList<>(this.tutorAid.getReminderList());
+        filteredNotes = new FilteredList<>(this.tutorAid.getNotesList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TutorAid(), new UserPrefs());
     }
 
     /*public ModelManager(Account acc) {
-        this(new AddressBook(), new UserPrefs());
+        this(new TutorAid(), new UserPrefs());
         this.account = acc;
     }*/
 
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Account acc) {
-        this(addressBook, userPrefs);
+    public ModelManager(ReadOnlyTutorAid tutorAid, ReadOnlyUserPrefs userPrefs, Account acc) {
+        this(tutorAid, userPrefs);
         this.account = acc;
         loggedIn = true;
     }
@@ -100,62 +100,63 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getTutorAidFilePath() {
+        return userPrefs.getTutorAidFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setTutorAidFilePath(Path tutorAidFilePath) {
+        requireNonNull(tutorAidFilePath);
+        userPrefs.setTutorAidFilePath(tutorAidFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== TutorAid ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setTutorAid(ReadOnlyTutorAid tutorAid) {
+        this.tutorAid.resetData(tutorAid);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyTutorAid getTutorAid() {
+        return tutorAid;
     }
 
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return tutorAid.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        tutorAid.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        tutorAid.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
+
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        tutorAid.setPerson(target, editedPerson);
     }
 
     @Override
     public boolean hasEarnings(Earnings earnings) {
         requireAllNonNull(earnings);
-        return addressBook.hasEarnings(earnings);
+        return tutorAid.hasEarnings(earnings);
     }
 
     @Override
     public void addEarnings(Earnings earnings) {
-        addressBook.addEarnings(earnings);
+        tutorAid.addEarnings(earnings);
         updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
     }
 
@@ -163,29 +164,29 @@ public class ModelManager implements Model {
     public void setEarnings(Earnings target, Earnings editedEarnings) {
         requireAllNonNull(target, editedEarnings);
 
-        addressBook.setEarnings(target, editedEarnings);
+        tutorAid.setEarnings(target, editedEarnings);
     }
 
     @Override
     public void deleteEarnings(Earnings target) {
-        addressBook.removeEarnings(target);
+        tutorAid.removeEarnings(target);
     }
 
 
     @Override
     public boolean hasCommand(CommandObject command) {
         requireAllNonNull(command);
-        return addressBook.hasCommand(command);
+        return tutorAid.hasCommand(command);
     }
 
     @Override
     public void deleteCommand(CommandObject target) {
-        addressBook.removeCommand(target);
+        tutorAid.removeCommand(target);
     }
 
     @Override
     public void addCommand(CommandObject command) {
-        addressBook.addCommand(command);
+        tutorAid.addCommand(command);
         updateFilteredCommandsList(PREDICATE_SHOW_ALL_COMMANDS);
     }
 
@@ -193,7 +194,7 @@ public class ModelManager implements Model {
     public void setCommands(CommandObject target, CommandObject editedCommands) {
         requireAllNonNull(target, editedCommands);
 
-        addressBook.setCommands(target, editedCommands);
+        tutorAid.setCommands(target, editedCommands);
     }
 
     @Override
@@ -207,26 +208,21 @@ public class ModelManager implements Model {
     }
 
     /**
-     *  Checks if the task exists in the addressbook.
+     *  Checks if the task exists in the TutorAid.
      */
     public boolean hasTask(Task task) {
         requireNonNull(task);
-        return addressBook.hasTask(task);
+        return tutorAid.hasTask(task);
     }
 
     @Override
     public void deleteTask(Task target) {
-        addressBook.removeTask(target);
+        tutorAid.removeTask(target);
     }
 
     @Override
     public void addTask(Task task) {
-        addressBook.addTask(task);
-        //updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-    }
-
-    @Override
-    public void afterAddTask() {
+        tutorAid.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
@@ -234,14 +230,14 @@ public class ModelManager implements Model {
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
-        addressBook.setTask(target, editedTask);
+        tutorAid.setTask(target, editedTask);
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedTutorAid}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -252,7 +248,7 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-        UiManager.startStudentProfile();
+        //UiManager.startStudentProfile();
     }
 
     public ObservableList<Earnings> getFilteredEarningsList() {
@@ -276,7 +272,7 @@ public class ModelManager implements Model {
     public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
         requireNonNull(predicate);
         filteredEarnings.setPredicate(predicate);
-        UiManager.startEarnings();
+        //UiManager.startEarnings();
     }
 
     @Override
@@ -288,7 +284,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedTutorAid}
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
@@ -299,7 +295,7 @@ public class ModelManager implements Model {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
-        UiManager.startTasks();
+        //UiManager.startTasks();
     }
 
     @Override
@@ -322,7 +318,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return (addressBook.equals(other.addressBook)
+        return (tutorAid.equals(other.tutorAid)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons));
     }
@@ -330,35 +326,35 @@ public class ModelManager implements Model {
     //=========== Filtered Reminder List Accessors =============================================================
 
     /**
-     *  Checks if the task exists in the addressbook.
+     *  Checks if the task exists in the TutorAid.
      */
     public boolean hasReminder(Reminder reminder) {
         requireNonNull(reminder);
-        return addressBook.hasReminder(reminder);
+        return tutorAid.hasReminder(reminder);
     }
 
     @Override
     public void addReminder(Reminder reminder) {
-        addressBook.addReminder(reminder);
+        tutorAid.addReminder(reminder);
         updateFilteredReminderList(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteReminder(Reminder target) {
-        addressBook.removeReminder(target);
+        tutorAid.removeReminder(target);
     }
 
     @Override
     public void updateFilteredReminderList(Predicate<Reminder> predicate) {
         requireNonNull(predicate);
         filteredReminder.setPredicate(predicate);
-        UiManager.startReminders();
+        //UiManager.startReminders();
     }
 
     @Override
     public void setReminder(Reminder reminder, Reminder editedReminder) {
         requireAllNonNull(reminder, editedReminder);
-        addressBook.setReminder(reminder, editedReminder);
+        tutorAid.setReminder(reminder, editedReminder);
     }
 
     public Account getAccount() {
@@ -381,31 +377,31 @@ public class ModelManager implements Model {
     @Override
     public boolean hasNotes(Notes note) {
         requireNonNull(note);
-        return addressBook.hasNotes(note);
+        return tutorAid.hasNotes(note);
     }
 
     @Override
     public void addNotes(Notes notes) {
-        addressBook.addNotes(notes);
+        tutorAid.addNotes(notes);
         updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
     }
 
     @Override
     public void deleteNotes(Notes target) {
-        addressBook.removeNotes(target);
+        tutorAid.removeNotes(target);
     }
 
     @Override
     public void setNotes(Notes target, Notes editedNote) {
         requireAllNonNull(target, editedNote);
 
-        addressBook.setNotes(target, editedNote);
+        tutorAid.setNotes(target, editedNote);
     }
 
     @Override
     public void updateFilteredNotesList(Predicate<Notes> predicate) {
         requireNonNull(predicate);
         filteredNotes.setPredicate(predicate);
-        UiManager.startNotes();
+        //UiManager.startNotes();
     }
 }

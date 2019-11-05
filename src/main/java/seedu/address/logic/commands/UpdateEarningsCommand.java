@@ -80,7 +80,9 @@ public class UpdateEarningsCommand extends Command {
 
         model.setEarnings(earningsToEdit, editedEarnings);
         model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
-        return new CommandResult(String.format(MESSAGE_UPDATE_SUCCESS, editedEarnings));
+        return new CommandResult(String.format(MESSAGE_UPDATE_SUCCESS, editedEarnings),
+                false, false, true, false, false,
+                false, false, false);
     }
 
     /**

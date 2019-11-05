@@ -27,7 +27,7 @@ public class NotesListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Earnings} using a {@code EarningsCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Notes} using a {@code NotesCard}.
      */
     class NotesListViewCell extends ListCell<Notes> {
         @Override

@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTutorAid;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TutorAid;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.note.Notes;
@@ -176,12 +176,12 @@ public class AddEarningsCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getTutorAidFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setTutorAidFilePath(Path tutorAidFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -201,12 +201,12 @@ public class AddEarningsCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setTutorAid(ReadOnlyTutorAid newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyTutorAid getTutorAid() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -285,10 +285,6 @@ public class AddEarningsCommandTest {
 
         }
 
-        @Override
-        public void afterAddTask() {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public boolean userHasLoggedIn() {
@@ -305,9 +301,6 @@ public class AddEarningsCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        /*@Override
-        public ReadOnlyCalendar getCalendar() {
-        }*/
 
         public void setTask(Task target, Task editedTask) {
 
@@ -381,8 +374,8 @@ public class AddEarningsCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyTutorAid getTutorAid() {
+            return new TutorAid();
         }
     }
 }

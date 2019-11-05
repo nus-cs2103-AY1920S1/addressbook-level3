@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 
-* *`help`* : gives you a list of commands that are available.
+* *`help`* : Links you to the User Guide so you can view how to use all the available commands.
 * **`add_task c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
@@ -87,13 +87,13 @@ If there are multiple task times, they will be automatically sorted based on the
 
 Examples:
 
-* `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 13:00, 20/9/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
+* `add_task c/CS2103T Lecture  mark/Y tt/20/09/2019 13:00, 20/09/2019 16:00 tt/21/09/2019 13:00, 21/09/2019 15:00`
 * `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
 ==== Editing task: `edit_task`
 
 Update task information. +
-Format: `edit_task INDEX [mark/STATUS] [tt/TASK_TIME]`
+Format: `edit_task INDEX [c/CLASSID] [mark/STATUS] [tt/TASK_TIME]`
 
 [TIP]
 INDEX must be a positive integer. +
@@ -294,6 +294,11 @@ Format: `add n/NAME c/CLASSID`
 
 [NOTE]
 You can add multiple students at a time by separating their names with a single ','.
+
+[NOTE]
+Please also note that you can't add students with the exact same name in the same class.
+e.g. You can add "Tom" in CS2030 and CS2040 but not 2 "Tom"s in CS2030. If there are students with the same
+first name in the class, please add their last name as well.
 
 Examples:
 

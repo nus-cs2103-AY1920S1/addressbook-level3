@@ -137,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -177,7 +177,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -197,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -219,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -239,7 +239,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -287,8 +287,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleReminder() throws CommandException, ParseException {
-        String userCommand = "change_tab tab/reminders";
-        executeCommand(userCommand);
+        try {
+            String userCommand = "change_tab tab/reminders";
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
     }
 
     /**
@@ -296,8 +300,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleEarnings() throws ParseException, CommandException {
-        String userCommand = "change_tab tab/earnings";
-        executeCommand(userCommand);
+        try {
+            String userCommand = "change_tab tab/earnings";
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+
     }
 
     /**
@@ -305,8 +314,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleCalendarDate() throws ParseException, CommandException {
-        String userCommand = "change_tab tab/calendar";
-        executeCommand(userCommand);
+        try {
+            String userCommand = "change_tab tab/calendar";
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
     }
 
     /**
@@ -314,8 +327,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleCalendarTask() throws ParseException, CommandException {
-        String userCommand = "change_tab tab/task";
-        executeCommand(userCommand);
+        try {
+            String userCommand = "change_tab tab/task";
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
     }
 
     /**
@@ -323,8 +340,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleNotes() throws ParseException, CommandException {
-        String userCommand = "change_tab tab/notepad";
-        executeCommand(userCommand);
+        try {
+            String userCommand = "change_tab tab/notepad";
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
     }
 
     void show() {
@@ -380,22 +401,35 @@ public class MainWindow extends UiPart<Stage> {
                     setUnknownFalse();
                 }
             }
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
+            //logger.info("Result: " + commandResult.getFeedbackToUser());
+            //resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            //reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isUnknown()) {
+            } else if (commandResult.isUnknown()) {
                 setUnknownTrue();
+            } else if (commandResult.isPersons()) {
+                UiManager.startStudentProfile();
+            } else if (commandResult.isTasks()) {
+                UiManager.startTasks();
+            } else if (commandResult.isEarnings()) {
+                UiManager.startEarnings();
+            } else if (commandResult.isNotes()) {
+                UiManager.startNotes();
+            } else if (commandResult.isReminder()) {
+                UiManager.startReminders();
             }
 
+
+
+
+
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
             return commandResult;
 
         } catch (CommandException | ParseException e) {

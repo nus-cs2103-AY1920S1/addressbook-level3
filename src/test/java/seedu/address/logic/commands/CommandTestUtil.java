@@ -22,8 +22,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateEarningsCommand.EditEarningsDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.util.EditPersonDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.TutorAid;
 import seedu.address.model.earnings.ClassIdContainKeywordPredicate;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -48,6 +48,13 @@ public class CommandTestUtil {
     public static final String VALID_PICTURE_AMY = "amy.png";
     public static final String VALID_RESULT_BOB = "92";
     public static final String VALID_RESULT_AMY = "32";
+    public static final String VALID_MARKING_Y = "Y";
+    public static final String VALID_MARKING_N = "N";
+    public static final String VALID_TASK_TIME_1 = "10/11/2019 12:00, 10/11/2019 14:00";
+    public static final String VALID_TASK_TIME_2 = "01/12/2019 15:00, 01/12/2019 16:00";
+    public static final String VALID_TASK_TIME_3 = "30/01/2020 12:00, 30/01/2019 14:00";
+
+
 
     public static final String CLASSID_DESC_AMY = " " + PREFIX_CLASSID + VALID_CLASSID_AMY;
     public static final String CLASSID_DESC_BOB = " " + PREFIX_CLASSID + VALID_CLASSID_BOB;
@@ -155,11 +162,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        TutorAid expectedTutorAid = new TutorAid(actualModel.getTutorAid());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedTutorAid, actualModel.getTutorAid());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 

@@ -7,7 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTutorAid;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.note.Notes;
@@ -30,11 +30,11 @@ public interface Logic {
     CommandResult execute(String commandText, boolean isUnknown) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the TutorAid.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getTutorAid()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyTutorAid getTutorAid();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -57,7 +57,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getTutorAidFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

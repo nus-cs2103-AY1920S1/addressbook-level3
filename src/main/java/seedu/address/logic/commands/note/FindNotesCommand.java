@@ -31,7 +31,9 @@ public class FindNotesCommand extends Command {
         requireNonNull(model);
         model.updateFilteredNotesList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_NOTES_LISTED_OVERVIEW, model.getFilteredNotesList().size()));
+                String.format(Messages.MESSAGE_NOTES_LISTED_OVERVIEW, model.getFilteredNotesList().size()),
+                false, false, false, false, false,
+                false, true, false);
     }
 
     @Override

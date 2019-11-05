@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalTutorAid;
 import static seedu.address.testutil.TypicalTasks.CS2103T;
 
 import java.util.Arrays;
@@ -28,30 +28,30 @@ import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TaskBuilder;
 
-public class AddressBookTest {
+public class TutorAidTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final TutorAid tutorAid = new TutorAid();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
-        assertEquals(Collections.emptyList(), addressBook.getEarningsList());
-        assertEquals(Collections.emptyList(), addressBook.getTaskList());
-        assertEquals(Collections.emptyList(), addressBook.getCommandsList());
-        assertEquals(Collections.emptyList(), addressBook.getNotesList());
-        assertEquals(Collections.emptyList(), addressBook.getReminderList());
+        assertEquals(Collections.emptyList(), tutorAid.getPersonList());
+        assertEquals(Collections.emptyList(), tutorAid.getEarningsList());
+        assertEquals(Collections.emptyList(), tutorAid.getTaskList());
+        assertEquals(Collections.emptyList(), tutorAid.getCommandsList());
+        assertEquals(Collections.emptyList(), tutorAid.getNotesList());
+        assertEquals(Collections.emptyList(), tutorAid.getReminderList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> tutorAid.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyTutorAid_replacesData() {
+        TutorAid newData = getTypicalTutorAid();
+        tutorAid.resetData(newData);
+        assertEquals(newData, tutorAid);
     }
 
     @Test
@@ -60,9 +60,9 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withClassId("Tutorial 7")
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons, ALICE);
+        TutorAidStub newData = new TutorAidStub(newPersons, ALICE);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicatePersonException.class, () -> tutorAid.resetData(newData));
     }
 
     @Test
@@ -70,76 +70,76 @@ public class AddressBookTest {
         // Two tasks with the same identity fields
         Task editedCS2103T = new TaskBuilder(CS2103T).build();
         List<Task> newTasks = Arrays.asList(CS2103T, editedCS2103T);
-        AddressBookStub newData = new AddressBookStub(newTasks, CS2103T);
+        TutorAidStub newData = new TutorAidStub(newTasks, CS2103T);
 
-        assertThrows(DuplicateTaskException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateTaskException.class, () -> tutorAid.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> tutorAid.hasPerson(null));
     }
 
     @Test
     public void hatTask_nullTask_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasTask(null));
+        assertThrows(NullPointerException.class, () -> tutorAid.hasTask(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasPerson_personNotInTutorAid_returnsFalse() {
+        assertFalse(tutorAid.hasPerson(ALICE));
     }
 
     @Test
-    public void hasTask_taskNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasTask(CS2103T));
+    public void hasTask_taskNotInTutorAid_returnsFalse() {
+        assertFalse(tutorAid.hasTask(CS2103T));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasPerson_personInTutorAid_returnsTrue() {
+        tutorAid.addPerson(ALICE);
+        assertTrue(tutorAid.hasPerson(ALICE));
     }
 
     @Test
-    public void hasTask_taskInAddressBook_returnsTrue() {
-        addressBook.addTask(CS2103T);
-        assertTrue(addressBook.hasTask(CS2103T));
+    public void hasTask_taskInTutorAid_returnsTrue() {
+        tutorAid.addTask(CS2103T);
+        assertTrue(tutorAid.hasTask(CS2103T));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+    public void hasPerson_personWithSameIdentityFieldsInTutorAid_returnsTrue() {
+        tutorAid.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withClassId("Tutorial 7")
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(tutorAid.hasPerson(editedAlice));
     }
 
     @Test
-    public void hasTask_taskWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addTask(CS2103T);
+    public void hasTask_taskWithSameIdentityFieldsInTutorAid_returnsTrue() {
+        tutorAid.addTask(CS2103T);
         Task editedCS2103T = new TaskBuilder(CS2103T).build();
-        assertTrue(addressBook.hasTask(editedCS2103T));
+        assertTrue(tutorAid.hasTask(editedCS2103T));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> tutorAid.getPersonList().remove(0));
     }
 
     @Test
     public void getTaskList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getTaskList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> tutorAid.getTaskList().remove(0));
     }
 
     @Test
     public void getEarningsList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getEarningsList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> tutorAid.getEarningsList().remove(0));
     }
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyTutorAid whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class TutorAidStub implements ReadOnlyTutorAid {
 
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Earnings> earnings = FXCollections.observableArrayList();
@@ -150,11 +150,11 @@ public class AddressBookTest {
 
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Person person) {
+        TutorAidStub(Collection<Person> persons, Person person) {
             this.persons.setAll(persons);
         }
 
-        AddressBookStub(Collection<Task> tasks, Task task) {
+        TutorAidStub(Collection<Task> tasks, Task task) {
             this.tasks.setAll(tasks);
         }
 

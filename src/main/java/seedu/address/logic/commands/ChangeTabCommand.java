@@ -57,22 +57,32 @@ public class ChangeTabCommand extends Command {
 
         if (newView.getIndexNumber() == 2) {
             model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
-            return new CommandResult(MESSAGE_SUCCESS_EARNINGS);
+            return new CommandResult(MESSAGE_SUCCESS_EARNINGS,
+                    false, false, true, false, false,
+                    false, false, false);
         } else if (newView.getIndexNumber() == 1) {
             model.updateFilteredCalendarList();
             return new CommandResult(MESSAGE_SUCCESS_CALENDAR);
         } else if (newView.getIndexNumber() == 3) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(MESSAGE_SUCCESS_STUDENT_PROFILE);
+            return new CommandResult(MESSAGE_SUCCESS_STUDENT_PROFILE,
+                    false, false, false, false, false,
+                    true, false, false);
         } else if (newView.getIndexNumber() == 4) {
             model.updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
-            return new CommandResult(MESSAGE_SUCCESS_NOTEPAD);
+            return new CommandResult(MESSAGE_SUCCESS_NOTEPAD,
+                    false, false, false, false, false,
+                    false, true, false);
         } else if (newView.getIndexNumber() == 5) {
             model.updateFilteredReminderList(PREDICATE_SHOW_ALL_REMINDERS);
-            return new CommandResult(MESSAGE_SUCCESS_REMINDERS);
+            return new CommandResult(MESSAGE_SUCCESS_REMINDERS,
+                    false, false, false, false, false,
+                    false, false, true);
         } else if (newView.getIndexNumber() == 6) {
             model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-            return new CommandResult(MESSAGE_SUCCESS_TASK);
+            return new CommandResult(MESSAGE_SUCCESS_TASK,
+                    false, false, false, false, true,
+                    false, false, false);
         } else {
             return new CommandResult(MESSAGE_ERROR);
         }

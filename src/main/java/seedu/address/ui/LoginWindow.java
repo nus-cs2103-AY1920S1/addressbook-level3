@@ -71,7 +71,7 @@ public class LoginWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
@@ -85,7 +85,7 @@ public class LoginWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
