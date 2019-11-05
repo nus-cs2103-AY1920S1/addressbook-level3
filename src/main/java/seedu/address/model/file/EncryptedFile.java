@@ -19,9 +19,9 @@ public class EncryptedFile {
 
     private final FileName fileName;
     private final FilePath filePath;
+    private final FileStatus status;
     private EncryptedAt encryptedAt;
     private ModifiedAt modifiedAt;
-    private FileStatus status;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -71,10 +71,6 @@ public class EncryptedFile {
 
     public FileStatus getFileStatus() {
         return status;
-    }
-
-    public void setFileStatus(FileStatus value) {
-        status = value;
     }
 
     public void setEncryptedAt(EncryptedAt value) {
