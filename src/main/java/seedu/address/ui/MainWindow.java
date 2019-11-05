@@ -53,6 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private StatisticsWindow statsListPanel;
     private StatisticsPieChartHolder statsGraphics;
     private StatisticsBarChart statsBar;
+    private BudgetPanel budgetsPanel;
 
     private boolean isStatsWindow;
     private boolean isStatsGraphicsWindow;
@@ -177,7 +178,7 @@ public class MainWindow extends UiPart<Stage> {
         WishListPanel wishListPanel = new WishListPanel(logic.getFilteredWishList());
         wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
 
-        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
+        budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
 
         ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
@@ -522,19 +523,17 @@ public class MainWindow extends UiPart<Stage> {
                 showReminderPanel();
             }
 
+
+            //swaps the panel for budget and entry
             if (commandResult.isListBudgets()) {
-                if (wishesPlaceHolder.isVisible()) {
-                    togglePanel("wishlist"); //closes wishlist panel if visible
-                }
-                if (autoExpensesPlaceHolder.isVisible()) {
-                    togglePanel("autoexpense"); //closes autoexpense panel if visible
-                }
-                if (remindersPlaceHolder.isVisible()) {
-                    togglePanel("reminder"); //closes reminder panel if visible
-                }
-                if (!budgetsPlaceHolder.isVisible()) {
-                    togglePanel("budget"); //opens budget panel if not visible
-                }
+                fillEntryListPanel(budgetsPanel);
+                /*entryListPanelPlaceholder.getChildren().clear();
+                budgetsPlaceHolder.getChildren().clear();
+                entryListPanelPlaceholder.getChildren().add(budgetsPanel.getRoot()); */
+            } else {
+                fillEntryListPanel(entryListPanel);
+                budgetsPlaceHolder.getChildren().clear();
+                budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
             }
 
             if (commandResult.isChangeTheme()) {

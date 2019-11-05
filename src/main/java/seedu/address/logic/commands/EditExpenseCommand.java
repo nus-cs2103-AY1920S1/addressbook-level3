@@ -78,8 +78,6 @@ public class EditExpenseCommand extends Command {
         Expense entryToEdit = lastShownList.get(index.getZeroBased());
         Expense editedEntry = createEditedExpense(entryToEdit, editEntryDescriptor);
 
-        System.out.println(entryToEdit.isSameEntry(editedEntry));
-
         if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }

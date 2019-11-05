@@ -390,7 +390,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         entries.setEntry(target, editedEntry);
-        System.out.println("ASD");
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }

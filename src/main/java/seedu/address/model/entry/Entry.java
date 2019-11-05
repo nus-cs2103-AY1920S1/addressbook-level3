@@ -97,11 +97,6 @@ public class Entry {
         if (otherEntry == this) {
             return true;
         }
-        System.out.println(otherEntry.getCategory().equals(getCategory()));
-        System.out.println(otherEntry.getDesc().equals(getDesc()));
-        System.out.println(otherEntry.getAmount().equals(getAmount()));
-        System.out.println(otherEntry.getTags().equals(getTags()) + "TAGS");
-        System.out.println(otherEntry.getDate().equals(getDate()) + "DATE");
 
         return otherEntry != null
                 && otherEntry.getCategory().equals(getCategory())

@@ -13,7 +13,7 @@ public class ListBudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "listBudget";
 
-    public static final String MESSAGE_SUCCESS = "Listed all budgets on the right";
+    public static final String MESSAGE_SUCCESS = "Listed all budgets";
 
 
     @Override

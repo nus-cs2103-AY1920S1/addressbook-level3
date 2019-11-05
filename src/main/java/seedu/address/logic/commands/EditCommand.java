@@ -94,7 +94,6 @@ public class EditCommand extends Command {
     private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
         assert entryToEdit != null;
         if (editEntryDescriptor.getTempCategoryName().isPresent()) {
-            System.out.println(editEntryDescriptor.getTempCategoryName());
             String changedCatName = editEntryDescriptor.getTempCategoryName().get();
             editEntryDescriptor.setCategory(new Category(changedCatName, entryToEdit.getCategory().categoryType));
         }
