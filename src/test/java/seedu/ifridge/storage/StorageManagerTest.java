@@ -11,7 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.model.UserPrefs;
-import seedu.ifridge.storage.shoppinglist.JsonBoughtItemStorage;
+import seedu.ifridge.storage.shoppinglist.JsonBoughtListStorage;
 import seedu.ifridge.storage.shoppinglist.JsonShoppingListStorage;
 import seedu.ifridge.storage.unitdictionary.JsonUnitDictionaryStorage;
 import seedu.ifridge.storage.wastelist.JsonWasteListStorage;
@@ -30,7 +30,7 @@ public class StorageManagerTest {
         JsonTemplateListStorage templateListStorage = new JsonTemplateListStorage(getTempFilePath("ac"));
         JsonWasteListStorage wasteListStorage = new JsonWasteListStorage(getTempFilePath("ad"));
         JsonShoppingListStorage shoppingListStorage = new JsonShoppingListStorage(getTempFilePath("ae"));
-        JsonBoughtItemStorage boughtListStorage = new JsonBoughtItemStorage(getTempFilePath("af"));
+        JsonBoughtListStorage boughtListStorage = new JsonBoughtListStorage(getTempFilePath("af"));
         JsonUnitDictionaryStorage unitDictionaryStorage = new JsonUnitDictionaryStorage(getTempFilePath("ag"));
         storageManager = new StorageManager(groceryListStorage, userPrefsStorage, templateListStorage,
                 wasteListStorage, shoppingListStorage, boughtListStorage, unitDictionaryStorage);
