@@ -75,7 +75,7 @@ class RenewCommandTest {
         expectedModel.updateLoan(LOAN_7, renewedLoan);
 
         String expectedMessage = String.format(RenewCommand.MESSAGE_SUCCESS, renewedBook,
-                expectedModel.getServingBorrower(), DateUtil.formatDate(extendedDueDate));
+                expectedModel.getServingBorrower(), DateUtil.formatDate(extendedDueDate)).trim();
 
         assertCommandSuccess(renewCommand, actualModel, expectedMessage, expectedModel);
     }
