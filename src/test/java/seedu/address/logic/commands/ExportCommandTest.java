@@ -4,7 +4,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.util.FileUtil.isFileExists;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_1;
@@ -12,10 +11,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_2
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JSON_EXPORT_PATH_1;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.ExportTestUtil.deleteFileIfExists;
+import static seedu.address.testutil.ExportTestUtil.isFilePresent;
 import static seedu.address.testutil.TypicalFlashCards.NUS;
 import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
-
-import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +24,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.category.Category;
 import seedu.address.model.export.DocumentPath;
-import seedu.address.model.export.ExportPath;
 import seedu.address.model.export.JsonExportPath;
 
 /**
@@ -109,23 +107,4 @@ public class ExportCommandTest {
                 )
         );
     }
-
-    private boolean isFilePresent(ExportPath exportPath) {
-        return isFileExists(
-                exportPath.getPath()
-        );
-    }
-
-    private void deleteFile(ExportPath exportPath) {
-        File file = new File(exportPath.toString());
-        file.delete();
-    }
-
-    private void deleteFileIfExists(ExportPath exportPath) {
-        if (isFilePresent(exportPath)) {
-            deleteFile(exportPath);
-        }
-    }
-
-
 }
