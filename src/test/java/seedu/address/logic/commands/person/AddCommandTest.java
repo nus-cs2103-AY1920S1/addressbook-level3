@@ -23,6 +23,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.StudyBuddyCounter;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;
@@ -174,6 +175,12 @@ public class AddCommandTest {
         }
 
         //=============Person stuff===============================================
+        @Override
+        public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=============Flashcard stuff===============================================
 
         @Override
         public boolean hasPerson(Person person) {
