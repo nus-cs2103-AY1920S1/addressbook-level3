@@ -30,6 +30,8 @@ public class TypicalShoppingList {
             .withAmount("15g").withBought(true).build();
     public static final ShoppingItem URGENT_EGGS = new ShoppingItemBuilder().withName("Eggs")
             .withAmount("15g").withUrgent(true).build();
+    public static final ShoppingItem SPAGHETTI = new ShoppingItemBuilder().withName("Spaghetti")
+            .withAmount("3units").build();
 
     private TypicalShoppingList() {} // prevents instantiation
 
