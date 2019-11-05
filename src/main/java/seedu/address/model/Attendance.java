@@ -2,11 +2,11 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 /**
@@ -25,18 +25,10 @@ public class Attendance {
     }
 
     /**
-     * Checks if there has been a Training at input date.
-     *
-     * @param date Date used to check for training
-     * @return boolean indicating whether there has been a Training at the date.
+     * Resets all data in the Attendance.
      */
-    public boolean hasTraining(AthletickDate date) {
-        for (Training recordedTraining : trainings) {
-            if (recordedTraining.getDate().equals(date)) {
-                return true;
-            }
-        }
-        return false;
+    public void resetAttendance() {
+        this.trainings = new ArrayList<>();
     }
 
     /**
@@ -45,6 +37,9 @@ public class Attendance {
      * @param training Training to add.
      */
     public void addTraining(Training training) {
+        if (this.hasTrainingOnDate(training.getDate())) {
+            this.deleteTrainingOnDate(training.getDate());
+        }
         this.trainings.add(training);
         this.trainings.sort(new Comparator<Training>() {
             @Override
@@ -61,6 +56,38 @@ public class Attendance {
                 }
             }
         });
+    }
+
+    /**
+     * Checks if there has been a Training at input date.
+     *
+     * @param date Date used to check for training
+     * @return boolean indicating whether there has been a Training at the date.
+     */
+    public boolean hasTrainingOnDate(AthletickDate date) {
+        for (Training recordedTraining : trainings) {
+            if (recordedTraining.getDate().equals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Removes a training on the specified date.
+     * @param date Training that occurred on this date will be removed.
+     */
+    public void deleteTrainingOnDate(AthletickDate date) {
+        assert(hasTrainingOnDate(date));
+        int index = 0;
+        while (index < trainings.size()) {
+            Training training = trainings.get(index);
+            if (training.getDate().equals(date)) {
+                break;
+            }
+            index++;
+        }
+        trainings.remove(index);
     }
 
     public List<Training> getTrainings() {
@@ -101,35 +128,29 @@ public class Attendance {
         return total;
     }
 
+    public double getPersonAttendanceRate(Person person) {
+        return ((double) getPersonAttendedTrainings(person) / getPersonTotalTrainings(person));
+    }
+
     /**
      * Returns the attendance rate of a given person name
      */
-    public String getPersonAttendanceString(Person person) {
+    public String getPersonAttendanceRateString(Person person) {
         int attended = getPersonAttendedTrainings(person);
         int total = getPersonTotalTrainings(person);
         if (total == 0) { // Has not had the opportunity to go for any trainings yet
             return "No training records";
         } else {
-            double result = ((double) attended / total);
+            double result = getPersonAttendanceRate(person);
             return String.format("%d/%d (%.2f%%)", attended, total, result * 100);
         }
     }
 
-    public Training getTrainingOnDate(AthletickDate date) {
-        assert (this.hasTraining(date));
+    public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
+        assert(this.hasTrainingOnDate(date));
         for (Training training : trainings) {
             if (date.equals(training.getDate())) {
-                return training;
-            }
-        }
-        return null; // With assertion, code should not reach here.
-    }
-
-    public HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date) {
-        assert (this.hasTraining(date));
-        for (Training training : trainings) {
-            if (date.equals(training.getDate())) {
-                return training.getTrainingAttendance();
+                return training.getTrainingAttendanceList();
             }
         }
         return null; // With assertion, code should not reach here.
