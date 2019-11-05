@@ -22,6 +22,7 @@ import seedu.address.logic.export.Exporter;
 import seedu.address.logic.export.GroupScheduleExporter;
 import seedu.address.logic.export.IndividualScheduleExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
@@ -29,6 +30,8 @@ import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.util.DefaultStartView;
 import seedu.address.ui.util.LocationPopup;
 import seedu.address.ui.util.LocationsView;
+import seedu.address.ui.util.TimeslotPopup;
+import seedu.address.ui.util.TimeslotView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -96,6 +99,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -165,6 +169,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Handles change of details view
+     *
      * @param details details to be set inside detailsViewPlaceHolder in MainWindow.
      */
     public void handleChangeOnDetailsView(Node details) {
@@ -328,7 +333,7 @@ public class MainWindow extends UiPart<Stage> {
                 scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
             }
 
-            switch(displayType) {
+            switch (displayType) {
             case PERSON:
                 //There is only 1 schedule in the scheduleWindowDisplay
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
@@ -366,6 +371,19 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSelect()) {
+                PersonTimeslot personTimeslot;
+                if (commandResult.getPersonTimeslotData().isPresent()) {
+                    personTimeslot = commandResult.getPersonTimeslotData().get();
+
+                    TimeslotView timeslotView = new TimeslotView(personTimeslot);
+                    new TimeslotPopup(timeslotView.getRoot()).show();
+
+                } else {
+                    return commandResult;
+                }
             }
 
             if (commandResult.isPopUp()) {

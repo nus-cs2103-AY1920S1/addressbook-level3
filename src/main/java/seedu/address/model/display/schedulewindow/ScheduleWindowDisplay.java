@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import seedu.address.model.display.detailwindow.PersonSchedule;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.exceptions.InvalidTimeslotException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Main window display model.
@@ -71,6 +75,42 @@ public class ScheduleWindowDisplay {
             personDisplays.add(p.getPersonDisplay());
         }
         return personDisplays;
+    }
+
+    public FreeTimeslot getFreeTimeslot(int week, int id) throws InvalidTimeslotException {
+        return freeScheduleWeeks.get(week).getFreeTimeslot(id);
+    }
+
+    public PersonTimeslot getPersonTimeslot(int week, Name name, int day, int id)
+            throws PersonNotFoundException, InvalidTimeslotException {
+
+        // week must be 0 - 3
+        //ArrayList<PersonSchedule> personSchedules = this.personSchedules.get(week);
+
+        // find the schedule of the person with the given name
+        PersonSchedule selectedPersonSchedule = null;
+        for (int i = 0; i < personSchedules.size(); i++) {
+            if (personSchedules.get(i).getPersonDisplay().getName().equals(name)) {
+                selectedPersonSchedule = personSchedules.get(i);
+            }
+        }
+
+        if (selectedPersonSchedule == null) {
+            throw new PersonNotFoundException();
+        }
+
+        // select the day of week
+        ArrayList<PersonTimeslot> personTimeslots = selectedPersonSchedule.getScheduleDisplay()
+                .getScheduleForWeek(week).get(DayOfWeek.of(day));
+
+        // select specific timeslot
+        try {
+            PersonTimeslot selectedPersonTimeslot = personTimeslots.get(id);
+            return selectedPersonTimeslot;
+        } catch (IndexOutOfBoundsException iobe) {
+            throw new InvalidTimeslotException();
+        }
+
     }
 
     /**
