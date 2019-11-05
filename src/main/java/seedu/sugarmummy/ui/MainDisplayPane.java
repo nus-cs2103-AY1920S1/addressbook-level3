@@ -74,6 +74,11 @@ public class MainDisplayPane {
                                 logic.getFilteredUserList()),
                         newPaneIsToBeCreated);
             }
+
+        case ADD_FOOD:
+            return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFoodList()),
+                newPaneIsToBeCreated);
+
         case RECM_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()),
                     newPaneIsToBeCreated);

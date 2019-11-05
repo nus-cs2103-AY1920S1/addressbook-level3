@@ -13,6 +13,7 @@ import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
@@ -54,12 +55,13 @@ public class AddFoodCommand extends Command {
         }
 
         model.addFood(toAdd);
+        model.sortFoodListInAscendingOrder(new FoodComparator(FoodComparator.DEFAULT_SORT_ORDER_STRING));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.RECM_FOOD;
+        return DisplayPaneType.ADD_FOOD;
     }
 
     @Override

@@ -68,7 +68,9 @@ public class RecmFoodCommand extends Command {
         if (!(other instanceof RecmFoodCommand)) {
             return false;
         }
-        return typePredicate.equals(((RecmFoodCommand) other).typePredicate)
-                && namePredicate.equals(namePredicate);
+        RecmFoodCommand another = (RecmFoodCommand) other;
+        return typePredicate.equals(another.typePredicate)
+                && namePredicate.equals(another.namePredicate)
+                && foodComparator.equals(another.foodComparator);
     }
 }

@@ -8,6 +8,7 @@ public enum DisplayPaneType {
     MAIN,
     BIO,
     ACHVM,
+    ADD_FOOD,
     RECM_FOOD,
     RECM_MIXED_FOOD,
     ADD,
