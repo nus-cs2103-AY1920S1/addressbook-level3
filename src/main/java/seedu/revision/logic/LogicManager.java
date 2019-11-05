@@ -23,17 +23,17 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.Storage;
 
 /**
- * The main MainLogicManager of the app.
+ * The main LogicManager of the app.
  */
-public class MainLogicManager implements Logic {
+public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private static final Logger logger = LogsCenter.getLogger(MainLogicManager.class);
+    private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     protected final Model model;
     private final Storage storage;
     private final MainParser mainParser;
 
-    public MainLogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         mainParser = new MainParser();

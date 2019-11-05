@@ -14,7 +14,7 @@ import seedu.revision.commons.exceptions.DataConversionException;
 import seedu.revision.commons.util.ConfigUtil;
 import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.Logic;
-import seedu.revision.logic.MainLogicManager;
+import seedu.revision.logic.LogicManager;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
@@ -63,7 +63,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        mainLogic = new MainLogicManager(model, storage);
+        mainLogic = new LogicManager(model, storage);
 
         ui = new UiManager(mainLogic);
     }

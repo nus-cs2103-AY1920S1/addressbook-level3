@@ -33,7 +33,7 @@ import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.StorageManager;
 import seedu.revision.testutil.McqBuilder;
 
-public class MainLogicManagerTest {
+public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
@@ -48,7 +48,7 @@ public class MainLogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        mainLogic = new MainLogicManager(model, storage);
+        mainLogic = new LogicManager(model, storage);
     }
 
     @Test
@@ -73,13 +73,13 @@ public class MainLogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup MainLogicManager with JsonAddressBookIoExceptionThrowingStub
+        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        mainLogic = new MainLogicManager(model, storage);
+        mainLogic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_ALPHA
@@ -87,7 +87,7 @@ public class MainLogicManagerTest {
         Answerable expectedAnswerable = new McqBuilder(MCQ_A).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addAnswerable(expectedAnswerable);
-        String expectedMessage = MainLogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
