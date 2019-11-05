@@ -2,6 +2,7 @@ package seedu.address.inventory.logic.parser;
 
 import seedu.address.inventory.logic.commands.DeleteCommand;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
+import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
 import seedu.address.inventory.ui.InventoryMessages;
 
 /**
@@ -18,6 +19,9 @@ public class DeleteCommandParser {
         int index;
         try {
             index = Integer.parseInt(userInput.substring(1));
+            if (index < 1) {
+                throw new InvalidNumberException(InventoryMessages.NO_SUCH_INDEX_INVENTORY);
+            }
         } catch (Exception e) {
             throw new NotANumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
         }
