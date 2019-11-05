@@ -437,8 +437,9 @@ Deletes the 12th repeater in the current list. This also deletes the transaction
 
 ==== Finding repeater: `find`
 
-You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s). +
 Format: `find KEYWORD [MORE_KEYWORDS]`
+
+You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s).
 
 Examples:
 
