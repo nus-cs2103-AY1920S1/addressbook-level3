@@ -243,4 +243,6 @@ public interface Model {
      */
     public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate);
 
+    public ArrayList<String> getListOfTags();
+
 }

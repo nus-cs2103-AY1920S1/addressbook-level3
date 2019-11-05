@@ -31,15 +31,14 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a tag to the list.
      * The person must not already exist in the list.
      */
     public void add(Tag toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTagException();
+        if (!contains(toAdd)) {
+            internalList.add(toAdd);
         }
-        internalList.add(toAdd);
     }
 
     //    /**

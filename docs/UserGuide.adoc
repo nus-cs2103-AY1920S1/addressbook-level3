@@ -152,6 +152,25 @@ A pop-up dialog box will display a URL link to a help document.
 
     Format: help
 
+=== Listing all current Tags in StudyBuddyPro : `taglist`
+
+Displays a full list of all tags currently in StudyBuddyPro.
+
+    Format: taglist
+
+    Expected output:
+    Here are all the tags in StudyBuddyPro.
+    Listing all tags :
+    [cs2100]
+    [cs2101]
+    [cs2104]
+    [math]
+    [pipelining]
+
+* The user can make use of taglist, to quickly see which tag they would like to view.
+
+* The list of tags is also automatically sorted alphabetically.
+
 === Listing all StudyBuddyPro items by their tag : `filterall`
 
 Lists all StudyBuddyPro items with matching tags in the application.

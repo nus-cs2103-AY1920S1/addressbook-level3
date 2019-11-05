@@ -72,6 +72,7 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
         setNotes(newData.getNoteList());
         setFlashcards(newData.getFlashcardList());
         setCheatSheets(newData.getCheatSheetList());
+        setTags(newData.getTagList());
     }
 
     @Override
@@ -173,6 +174,9 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
      */
     public void addFlashcard(Flashcard f) {
         flashcards.add(f);
+        for (Tag t : f.getTags()) {
+            tags.add(t);
+        }
     }
 
     public ObservableList<Flashcard> getFlashcardList() {
@@ -215,6 +219,9 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
      */
     public void addNote(Note note) {
         notes.add(note);
+        for (Tag t : note.getTags()) {
+            tags.add(t);
+        }
     }
 
     /**
@@ -259,6 +266,9 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
      */
     public void addCheatSheet(CheatSheet cs) {
         cheatSheets.add(cs);
+        for (Tag t : cs.getTags()) {
+            tags.add(t);
+        }
     }
 
     /**
@@ -285,6 +295,10 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
      */
     public void setCheatSheets(List<CheatSheet> cheatsheets) {
         this.cheatSheets.setCheatSheets(cheatsheets);
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
     }
 
     /**

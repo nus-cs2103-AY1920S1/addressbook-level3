@@ -447,4 +447,13 @@ public class ModelManager implements Model {
         }
         return taggedItems;
     }
+
+    @Override
+    public ArrayList<String> getListOfTags() {
+        ArrayList<String> listOfTags = new ArrayList<>();
+        for (Tag t : studyBuddyPro.getTagList()) {
+            listOfTags.add(t.toString());
+        }
+        return listOfTags;
+    }
 }
