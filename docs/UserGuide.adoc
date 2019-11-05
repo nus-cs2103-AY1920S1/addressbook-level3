@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: images/UserGuideImages
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -44,17 +44,58 @@ There are 2 formats that can be used: +
 Format 1: `add n/MEAL_NAME [c/CALORIES] [t/TAGS]` +
 Inputting calories of the meal is optional. +
 If the meal is a dish stored in CaloFit, the calories will be taken from CaloFit. If not, a default value of 700 will be added for you, +
-Tags are completely optional and there is no default tag. +
+Tags are completely optional and there is no default tag. You could also have more than 1 tag. +
 
-Format 2: `add NUMBER_IN_SUGGESTED_MEAL_LIST` +
-NUMBER_IN_SUGGESTED_MEAL_LIST is the number that corresponds to the meal in suggested list on the right side of the application
+Format 2: `add NUMBER_IN_SUGGESTED_MEAL_LIST [NUMBER_IN_SUGGESTED_MEAL_LIST] ...` +
+NUMBER_IN_SUGGESTED_MEAL_LIST is the number that corresponds to the meal in suggested list on the right side of the application.
+You can also add multiple meals at one go using the indexes. This can be done by separating the numbers with a space.
+e.g. `add 1 2 3`
 
-Examples:
+Examples usage:
+It is lunchtime and you are about to go have some Mushroom Soup.
+You would like to add the meal into CaloFit to record it down. What do you do?
 
-* `add n/Spaghetti c/480 t/tasty`
-* `add n/Chicken Rice c/500`
-* `add n/Mushroom Soup`
-* `add 1`
+If `format 1` is your preferred choice, you could do the following:
+
+* Type `add n/Mushroom Soup` into the command bar and press the `enter` key.
+
+image::AddCommandInitialFormat1.png[]
+
+* If calofit has the information for the meal (Mushroom Soup in this case),
+it will grab the relevant information and update the meal log accordingly.
+The meal that is added will be shown in the result window.
+
+image::AddCommandAddedFormat1.png[]
+
+* If CaloFit does not have the information, and the information is not provided,
+the default calorie information will be 700 calories
+
+If `format 2` is your prefered choice, you could do the following:
+
+* Type `find mushroom soup` into the command bar and press the `enter` key.
+
+image::AddCommandFind1Command.png[]
+
+* If the meal exist in our meal database, it will show up under the suggested
+meals header.
+
+image::AddCommandSearchResult.png[]
+
+* Afterwards, enter the command `add 1` to the command bar and press the `enter` key.
+
+image::AddCommandAdd1.png[]
+
+* The meal "Mushroom Soup" will then be added to the consumed meals.
+
+image::AddCommandAdd1Success.png[]
+
+Commands below are come other example commands:
+
+* `add n/Spaghetti c/480 t/tasty` - Adds a meal named Spaghetti of 480 calories with the tag "tasty".
+* `add n/Chicken Rice c/500` - Adds a meal named Chicken Rice of 500 calories.
+* `add n/Mushroom Soup` - Adds a meal named Mushroom Soup of 700 calories by default.
+* `add 1` - Adds the first meal shown under the suggested meal section.
+* `add 1 2 3` - Adds the first and second meal shown under the suggested meal section.
 
 === Editing previous meal entry : `edit`
 
@@ -73,11 +114,12 @@ Examples:
 === Deleting previous meal entry : `delete`
 
 Deletes a meal that the user previously ate today. +
-Format: `delete MEAL_NUMBER`
+Format: `delete MEAL_NUMBER [MEAL_NUMBER] ...`
 
 Examples:
 
 * `delete 1`
+* `delete 1 2 3`
 
 === Suggesting Meal options: `suggest`
 
