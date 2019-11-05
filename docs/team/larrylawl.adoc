@@ -16,7 +16,7 @@ endif::[]
 == Overview
 Insurelytics is a desktop client management application for insurance agents.
 Insurelytics facilitates the tracking of client and policies, and also generate statistical analytics to provide insights for the agent.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 80 kLoC.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 85 kLoC.
 
 == Summary of contributions
 
