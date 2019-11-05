@@ -14,6 +14,8 @@ import seedu.address.logic.commands.BudgetListCommand;
 import seedu.address.logic.commands.addcommands.AddExpenseCommand;
 import seedu.address.logic.commands.addcommands.AddIncomeCommand;
 import seedu.address.logic.commands.addcommands.AddWishCommand;
+import seedu.address.logic.commands.deletecommands.DeleteExpenseCommand;
+import seedu.address.logic.commands.deletecommands.DeleteIncomeCommand;
 import seedu.address.logic.commands.editcommands.EditExpenseCommand;
 import seedu.address.logic.commands.editcommands.EditIncomeCommand;
 import seedu.address.logic.commands.uicommands.ChangeFontCommand;
@@ -82,6 +84,8 @@ import seedu.address.logic.parser.deletecommandparsers.DeleteAutoExpenseCommandP
 import seedu.address.logic.parser.deletecommandparsers.DeleteBudgetCommandParser;
 import seedu.address.logic.parser.deletecommandparsers.DeleteCategoryCommandParser;
 import seedu.address.logic.parser.deletecommandparsers.DeleteCommandParser;
+import seedu.address.logic.parser.deletecommandparsers.DeleteExpenseCommandParser;
+import seedu.address.logic.parser.deletecommandparsers.DeleteIncomeCommandParser;
 import seedu.address.logic.parser.deletecommandparsers.DeleteWishCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditAutoExpenseCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditBudgetCommandParser;
@@ -144,7 +148,7 @@ public class GuiltTripParser {
 
         case AddWishCommand.COMMAND_WORD:
             return new AddWishCommandParser().parse(arguments);
-            
+
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);
 
@@ -160,8 +164,14 @@ public class GuiltTripParser {
         case EditBudgetCommand.COMMAND_WORD:
             return new EditBudgetCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        /*case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);*/
+
+        case DeleteExpenseCommand.COMMAND_WORD:
+            return new DeleteExpenseCommandParser().parse(arguments);
+
+        case DeleteIncomeCommand.COMMAND_WORD:
+            return new DeleteIncomeCommandParser().parse(arguments);
 
         case DeleteCategoryCommand.COMMAND_WORD:
             return new DeleteCategoryCommandParser().parse(arguments);

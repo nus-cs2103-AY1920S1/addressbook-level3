@@ -11,47 +11,47 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.entry.Wish;
+import seedu.address.model.entry.Expense;
 
 /**
- * Deletes a wish entry identified using it's displayed index from the address book.
+ * Deletes an expense entry identified using it's displayed index from guiltTrip.
  */
-public class DeleteWishCommand extends Command {
+public class DeleteExpenseCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteWish";
+    public static final String COMMAND_WORD = "deleteExpense";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the wish identified by the index number used in the displayed wish list.\n"
+            + ": Deletes the expense identified by the index number used in the displayed expense list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_ENTRY_SUCCESS = "Deleted Wish: %1$s";
+    public static final String MESSAGE_DELETE_ENTRY_SUCCESS = "Deleted Expense: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteWishCommand(Index targetIndex) {
+    public DeleteExpenseCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Wish> lastShownList = model.getFilteredWishes();
+        List<Expense> lastShownList = model.getFilteredExpenses();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
-        Wish wishToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteWish(wishToDelete);
+        Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteExpense(expenseToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, wishToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, expenseToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteWishCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteWishCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteExpenseCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteExpenseCommand) other).targetIndex)); // state check
     }
 }

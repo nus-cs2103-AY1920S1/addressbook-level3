@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.entry.Budget;
 
 /**
- * Deletes a Budget identified using its displayed index from the finance tracker.
+ * Deletes a Budget identified using its displayed index from guiltTrip.
  */
 public class DeleteBudgetCommand extends Command {
 
@@ -42,10 +42,10 @@ public class DeleteBudgetCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
-        Budget entryToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteBudget(entryToDelete);
+        Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteBudget(budgetToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, budgetToDelete));
     }
 
     @Override
