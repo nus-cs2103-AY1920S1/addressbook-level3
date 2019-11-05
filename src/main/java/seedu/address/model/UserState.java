@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -63,6 +64,10 @@ public class UserState implements ReadOnlyUserState {
         bankAccount.remove(budget);
     }
 
+    public void remove(Projection projection) {
+        bankAccount.remove(projection);
+    }
+
     public void set(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         bankAccount.setTransaction(transactionTarget, transactionEdit);
     }
@@ -87,8 +92,16 @@ public class UserState implements ReadOnlyUserState {
         bankAccount.add(budget);
     }
 
+    public void add(Projection projection) {
+        bankAccount.add(projection);
+    }
+
     public boolean has(BankAccountOperation txn) {
         return bankAccount.has(txn);
+    }
+
+    public boolean has(Projection projection) {
+        return bankAccount.has(projection);
     }
 
     public boolean has(Budget budget) {

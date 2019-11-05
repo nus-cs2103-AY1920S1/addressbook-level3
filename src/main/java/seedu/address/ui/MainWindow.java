@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -40,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private TransactionListPanel transactionListPanel;
     private BudgetListPanel budgetListPanel;
     private LedgerListPanel ledgerListPanel;
+    private ProjectionListPanel projectionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBarFooter statusBarFooter;
@@ -145,9 +147,10 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<LedgerOperation> ledgerOperationsList = logic.getLedgerOperationsList();
         ledgerListPanel = new LedgerListPanel(ledgerOperationsList);
 
-        StackPane projectionGraph = new StackPane();
+        ObservableList<Projection> projectionsList = logic.getProjectionList();
+        projectionListPanel = new ProjectionListPanel(projectionsList);
 
-        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionGraph);
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

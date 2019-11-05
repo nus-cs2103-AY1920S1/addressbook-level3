@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -70,6 +71,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void add(Projection projection) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyBankAccount getBankAccount() {
         throw new AssertionError("This method should not be called.");
     }
@@ -116,12 +122,17 @@ public class ModelStub implements Model {
 
     @Override
     public boolean has(Budget budget) {
-        throw new AssertionError("This method should not be calld.");
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean has(LedgerOperation ledgerOperation) {
-        throw new AssertionError("This method should not be calld.");
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean has(Projection projection) {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -156,7 +167,7 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Budget> getFilteredBudgetList() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -165,7 +176,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void deleteProjection(Projection projectionToDelete) {
+
+    }
+
+    @Override
     public ObservableList<LedgerOperation> getFilteredLedgerOperationsList() {
-        return null;
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Projection> getFilteredProjectionsList() {
+        throw new AssertionError("This method should not be called.");
     }
 }
