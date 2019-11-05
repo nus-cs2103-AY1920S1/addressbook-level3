@@ -18,6 +18,7 @@ import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.customer.Address;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.storage.JsonAdaptedTag;
@@ -33,6 +34,7 @@ public class JsonAdaptedCustomer {
     private final String userName;
     private final String name;
     private final String phone;
+    private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedTotalTags> totalTags = new ArrayList<>();
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
@@ -44,11 +46,13 @@ public class JsonAdaptedCustomer {
     public JsonAdaptedCustomer(@JsonProperty("userName") String userName,
                                @JsonProperty("name") String name,
                                @JsonProperty("phone") String phone,
+                               @JsonProperty("address") String address,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                                @JsonProperty("orders") List<JsonAdaptedOrder> orders) {
         this.userName = userName;
         this.name = name;
         this.phone = phone;
+        this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -64,6 +68,7 @@ public class JsonAdaptedCustomer {
         userName = source.getUserName().fullName;
         name = source.getName().fullName;
         phone = source.getPhone().value;
+        address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -122,12 +127,17 @@ public class JsonAdaptedCustomer {
         }
         final Phone modelPhone = new Phone(phone);
 
+        if (address == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        }
+        final Address modelAddress = new Address(address);
+
         final Set<Tag> modelTags = new HashSet<>(customerTags);
         final ObservableList<Order> modelOrders = FXCollections.observableArrayList();
         modelOrders.addAll(customerOrders);
         final ObservableMap<Tag, Integer> modelTotalTags = FXCollections.observableHashMap();
         modelTotalTags.putAll(customerTotalTags);
-        return new Customer(modelUserName, modelName, modelPhone, modelTags, modelTotalTags, modelOrders);
+        return new Customer(modelUserName, modelName, modelPhone, modelAddress, modelTags, modelTotalTags, modelOrders);
     }
 
 }

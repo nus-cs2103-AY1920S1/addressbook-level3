@@ -27,6 +27,7 @@ public class Customer {
     private final Name userName;
     private final Name name;
     private final Phone phone;
+    private final Address address;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -36,21 +37,23 @@ public class Customer {
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name userName, Name name, Phone phone) {
+    public Customer(Name userName, Name name, Phone phone, Address address) {
         requireAllNonNull(userName, phone, tags);
         this.userName = userName;
         this.name = name;
         this.phone = phone;
+        this.address = address;
     }
 
     /**
      * Constructor for SampleDataUtil.
      */
-    public Customer(Name userName, Name name, Phone phone, Set<Tag> tags) {
+    public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags) {
         requireAllNonNull(userName, phone, tags);
         this.userName = userName;
         this.name = name;
         this.phone = phone;
+        this.address = address;
         this.tags.addAll(tags);
         for (Tag tag : tags) {
             totalTags.put(tag, 1);
@@ -60,12 +63,13 @@ public class Customer {
     /**
      * Constructor for saving to storage
      */
-    public Customer(Name userName, Name name, Phone phone, Set<Tag> tags, ObservableMap<Tag, Integer> totalTags,
+    public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags, ObservableMap<Tag, Integer> totalTags,
                     ObservableList<Order> orders) {
         requireAllNonNull(userName, phone, tags, orders);
         this.userName = userName;
         this.name = name;
         this.phone = phone;
+        this.address = address;
         this.tags.addAll(tags);
         this.totalTags.putAll(totalTags);
         this.orders.addAll(orders);
@@ -81,6 +85,10 @@ public class Customer {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     /**
@@ -211,13 +219,14 @@ public class Customer {
         return otherCustomer.getUserName().equals(getUserName())
                 && otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
+                && otherCustomer.getAddress().equals(getAddress())
                 && otherCustomer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(userName, name, phone, tags, orders);
+        return Objects.hash(userName, name, phone, address, tags, orders);
     }
 
     @Override
@@ -228,6 +237,8 @@ public class Customer {
                 .append(getName().toString())
                 .append(" Phone: ")
                 .append(getPhone().toString())
+                .append(" Address: ")
+                .append(getAddress().toString())
                 .append(" Favourite cuisine: ");
         getTags().forEach(builder::append);
         return builder.toString();

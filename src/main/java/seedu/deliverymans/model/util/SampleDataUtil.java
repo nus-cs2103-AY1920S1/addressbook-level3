@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.customer.Address;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
@@ -37,14 +38,19 @@ public class SampleDataUtil {
     public static Customer[] getSampleCustomers() {
         return new Customer[]{
             new Customer(new Name("AlexYeoh"), new Name("Alex Yeoh"), new Phone("87438807"),
+                    new Address("Blk 30 Geylang Street 29, #06-40"),
                     getTagSet("FastFood", "Western")),
             new Customer(new Name("BerniceYu"), new Name("Bernice Yu"), new Phone("99272758"),
+                    new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                     getTagSet("Indian")),
             new Customer(new Name("CharlotteOliveiro"), new Name("Charlotte Oliveiro"), new Phone("93210283"),
+                    new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     getTagSet("Bar")),
             new Customer(new Name("DavidLi"), new Name("David Li"), new Phone("91031282"),
+                    new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                     getTagSet("Japanese")),
             new Customer(new Name("IfranIbrahim"), new Name("Ifran Ibrahim"), new Phone("92492021"),
+                    new Address("Blk 45 Aljunied Street 85, #11-31"),
                     getTagSet("Barbeque"))
         };
     }
@@ -107,24 +113,24 @@ public class SampleDataUtil {
 
     public static Order[] getSampleOrders() {
         return new Order[]{
-            new Order.OrderBuilder().setCustomer(new Name("Alex Yeoh"))
+            new Order.OrderBuilder().setCustomer(new Name("AlexYeoh"))
                     .setRestaurant(new Name("KFC"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("3 Piece Chicken"), 1)))
                     .completeOrder(),
-            new Order.OrderBuilder().setCustomer(new Name("Bernice Yu"))
+            new Order.OrderBuilder().setCustomer(new Name("BerniceYu"))
                     .setRestaurant(new Name("Prata House"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Curry Fountain"), 1)))
                     .completeOrder(),
-            new Order.OrderBuilder().setCustomer(new Name("Charlotte Oliveiro"))
+            new Order.OrderBuilder().setCustomer(new Name("CharlotteOliveiro"))
                     .setRestaurant(new Name("SkyBar Bar and Restaurant"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Buffalo Wings"), 5)))
                     .completeOrder(),
-            new Order.OrderBuilder().setCustomer(new Name("David Li"))
+            new Order.OrderBuilder().setCustomer(new Name("DavidLi"))
                     .setRestaurant(new Name("IchiNiSan Ramen"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1),
                             new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen E"), 3)))
                     .completeOrder(),
-            new Order.OrderBuilder().setCustomer(new Name("Irfan Ibrahim"))
+            new Order.OrderBuilder().setCustomer(new Name("IrfanIbrahim"))
                     .setRestaurant(new Name("Piggys Self Barbeque"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Trotter"), 7),
                                 new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Shank"), 7),
