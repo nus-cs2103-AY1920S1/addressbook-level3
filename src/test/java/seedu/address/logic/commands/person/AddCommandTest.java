@@ -173,7 +173,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //=============Flashcard stuff===============================================
+        //=============Person stuff===============================================
 
         @Override
         public boolean hasPerson(Person person) {

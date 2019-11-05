@@ -35,7 +35,8 @@ public class AddFlashcardCommand extends Command {
             + PREFIX_TAG + "math";
 
     public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";
-    public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the application";
+    public static final String MESSAGE_DUPLICATE_FLASHCARD = "A flashcard with the same title or question already " +
+            "exists in Flashcards.";
 
     private final Flashcard toAdd;
 

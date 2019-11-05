@@ -24,7 +24,7 @@ public class TypicalFlashcards {
             .withTags("maths").build();
     public static final Flashcard CS_ONE = new FlashcardBuilder().withQuestion("What does the SLAP acronym mean?")
             .withAnswer("Single Layer of Abstraction Principle")
-            .withTags("owesMoney", "friends").build();
+            .withTags("CS2103T").build();
 
     // Manually added - Flashcard's details found in {@code CommandTestUtil}
     public static final Flashcard INTELLIJ_ONE =
