@@ -6,8 +6,7 @@ package seedu.address.diaryfeature.logic.parser.exceptions;
  */
 public class EmptyArgumentException extends Exception {
         private String parserName;
-        private static String filler = "Cant have the arguments for the ";
-        private static String second = " command empty!!!";
+        private static String filler = "Something is wrong with the ";
         private  String usage;
 
     /**
@@ -36,7 +35,7 @@ public class EmptyArgumentException extends Exception {
      * @return String representation of the Error message
      */
     public String toString() {
-            return filler + parserName + second + "\n" + usage;
+            return filler + parserName + " command" +  "\n" + usage;
         }
     }
 

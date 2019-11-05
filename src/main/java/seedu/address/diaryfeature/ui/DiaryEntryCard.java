@@ -35,7 +35,7 @@ public class DiaryEntryCard extends UiPart<Region> {
     @FXML
     private Label place;
     @FXML
-    private Text memory;
+    private Label memory;
 
     //Image credited to: Icon made by Icongeek26 from Flaticon
 
