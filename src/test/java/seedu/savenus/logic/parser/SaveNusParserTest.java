@@ -157,18 +157,6 @@ public class SaveNusParserTest {
     }
 
     @Test
-    public void parseCommand_collapse() throws ParseException {
-        assertTrue(
-                parser.parseCommand(model.getAliasList(), CollapseCommand.COMMAND_WORD) instanceof CollapseCommand);
-    }
-
-    @Test
-    public void parseCommand_expand() throws ParseException {
-        assertTrue(
-                parser.parseCommand(model.getAliasList(), ExpandCommand.COMMAND_WORD) instanceof ExpandCommand);
-    }
-
-    @Test
     public void parseCommand_customSort() throws ParseException {
         assertTrue(
                 parser.parseCommand(model.getAliasList(), CustomSortCommand.COMMAND_WORD) instanceof CustomSortCommand);
