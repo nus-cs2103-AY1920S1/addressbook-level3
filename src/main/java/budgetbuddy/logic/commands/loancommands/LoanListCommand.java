@@ -60,6 +60,7 @@ public class LoanListCommand extends Command {
     private List<Predicate<Loan>> filters;
 
     public LoanListCommand(Optional<Comparator<Loan>> optionalSorter, List<Predicate<Loan>> filters) {
+        requireAllNonNull(optionalSorter, filters);
         this.optionalSorter = optionalSorter;
         this.filters = new ArrayList<Predicate<Loan>>();
         this.filters.addAll(filters);
