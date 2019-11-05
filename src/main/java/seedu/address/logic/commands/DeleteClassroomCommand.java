@@ -23,6 +23,8 @@ public class DeleteClassroomCommand extends Command {
 
     private static final String MESSAGE_DELETE_CLASSROOM_SUCCESS = "Deleted Classroom: %1$s";
     private static final String MESSAGE_NO_SUCH_CLASSROOM = "This classroom does not exist in the notebook";
+    public static final String MESSAGE_BLANK_CLASSNAME = "A class must have a name.";
+
 
 
     private final Classroom toDelete;

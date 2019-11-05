@@ -20,7 +20,7 @@ public class AddClassroomCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New classroom added: %1$s";
     public static final String MESSAGE_DUPLICATE_CLASSROOM = "This classroom already exists in the notebook";
-
+    public static final String MESSAGE_BLANK_CLASSNAME = "A class must have a name.";
 
     private final Classroom toAdd;
 
