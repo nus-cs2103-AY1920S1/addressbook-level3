@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 
 import seedu.address.logic.commands.InCommand;
@@ -23,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserStateStorage;
@@ -42,11 +44,29 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonUserStateStorage bankAccountStorage =
-            new JsonUserStateStorage(temporaryFolder.resolve("bankAccount.json"));
+        JsonUserStateStorage userStateStorage =
+            new JsonUserStateStorage(temporaryFolder.resolve("userState.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(bankAccountStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(userStateStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
+    }
+
+    @Test
+    public void getUserState() {
+        UserState userState = new UserState();
+        assertEquals(userState, logic.getUserState());
+    }
+
+    @Test
+    public void getGuiSettings() {
+        assertEquals(new GuiSettings(), logic.getGuiSettings());
+    }
+
+    @Test
+    public void setGuiSettings() {
+        GuiSettings guiSettings = new GuiSettings(300.00, 300.00, 10, 10);
+        logic.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, logic.getGuiSettings());
     }
 
     @Test
@@ -95,6 +115,21 @@ public class LogicManagerTest {
     @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredTransactionList().remove(0));
+    }
+
+    @Test
+    public void getTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getTransactionList().remove(0));
+    }
+
+    @Test
+    public void getBudgetList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getBudgetList().remove(0));
+    }
+
+    @Test
+    public void getLedgerOperationsList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getLedgerOperationsList().remove(0));
     }
 
     /**
