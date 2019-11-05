@@ -31,7 +31,7 @@
             <FlowPane fx:id="tags" />
             <Label fx:id="deadline" styleClass="label" text="\$first" />
             <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Members Allocated" />
-            <Text fx:id="members" styleClass="tasks_text"/>
+            <Label fx:id="members" styleClass="tasks_text"/>
         </VBox>
         <rowConstraints>
             <RowConstraints />
