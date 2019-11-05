@@ -29,9 +29,10 @@ class DateTest {
         assertFalse(Date.isValidDate(""));
         assertFalse(Date.isValidDate(" ")); // spaces only
         assertFalse(Date.isValidDate("30/12/2019")); // wrong format
-        assertFalse(Date.isValidDate("12/25/2019")); // day and month in wrong positions
+        assertFalse(Date.isValidDate("12-25-2019")); // day and month in wrong positions
 
         // valid dates
         assertTrue(Date.isValidDate("30-12-2019")); // exactly 3 numbers
+        assertTrue(Date.isValidDate("25-12-2019")); // exactly 3 numbers
     }
 }
