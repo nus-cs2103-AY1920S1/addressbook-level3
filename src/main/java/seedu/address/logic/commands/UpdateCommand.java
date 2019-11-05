@@ -45,7 +45,6 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
-import seedu.address.model.person.Name;
 
 
 //@@author ambervoong
@@ -164,7 +163,7 @@ public class UpdateCommand extends UndoableCommand {
                         && (!updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
                             && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))))) {
                     // auto-update status to CONTACT_POLICE
-                    handleRemovingNotifs(model, originalBodyDescriptor, updateBodyDescriptor);
+                    handleRemovingNotifs(model);
                 }
 
                 if (!originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
@@ -254,16 +253,13 @@ public class UpdateCommand extends UndoableCommand {
      * Removes all the associated notifs when the status of a body is changed from CONTACT_POLICE.
      *
      * @param model                  refers to the AddressBook model.
-     * @param originalBodyDescriptor refers to the original description of the body.
-     * @param updateBodyDescriptor   refers to the updated description of the body.
      */
-    private void handleRemovingNotifs(Model model, UpdateBodyDescriptor originalBodyDescriptor,
-                                      UpdateBodyDescriptor updateBodyDescriptor) {
+    private void handleRemovingNotifs(Model model) {
         List<Notif> notifList = model.getFilteredNotifList();
         this.toDeleteNotif = new ArrayList<>();
-        Name bodyName = originalBodyDescriptor.getName().get();
+        IdentificationNumber bodyId = entity.getIdNum();
         for (Notif notif : notifList) {
-            if (notif.getBody().getName().equals(bodyName)) {
+            if (notif.getBody().getIdNum().equals(bodyId)) {
                 toDeleteNotif.add(notif);
             }
         }
