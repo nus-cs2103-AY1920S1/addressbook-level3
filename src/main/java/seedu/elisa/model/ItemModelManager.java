@@ -47,6 +47,7 @@ public class ItemModelManager implements ItemModel {
     private boolean systemToggle = false;
     private PriorityExitStatus priorityExitStatus = null;
     private PriorityQueue<Item> sortedTask = null;
+    private boolean focusMode = false;
 
     //Bryan Reminder
     //These three lists must be synchronized
@@ -535,7 +536,8 @@ public class ItemModelManager implements ItemModel {
     private void toggleOffPriorityMode() {
         offPriorityMode();
 
-        this.sortedTask = null;
+        sortedTask = null;
+        focusMode = false;
         if (visualList instanceof TaskList) {
             this.visualList = taskList;
         }
@@ -638,5 +640,13 @@ public class ItemModelManager implements ItemModel {
 
     public PriorityExitStatus getExitStatus() {
         return priorityExitStatus;
+    }
+
+    public void toggleOnFocusMode() {
+        focusMode = true;
+    }
+
+    public boolean isFocusMode() {
+        return focusMode;
     }
 }

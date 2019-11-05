@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.commands.exceptions.CommandException;
+import seedu.elisa.logic.commands.exceptions.FocusModeException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.RescheduleTask;
 
@@ -23,6 +24,9 @@ public class AddEventCommand extends AddCommand {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
+        if (model.isFocusMode()) {
+            throw new FocusModeException();
+        }
 
         // Check if item already exists, else, add it to the model.
         if (model.hasItem(toAdd)) {
