@@ -174,10 +174,8 @@ public class UpdateCommand extends UndoableCommand {
 
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
 
-            //@@author shaoyi1997
             SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
             selectCommand.execute(model);
-            //@@author
 
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
@@ -230,9 +228,7 @@ public class UpdateCommand extends UndoableCommand {
         }
 
         // this method is called to signal to Ui that the list is updated
-        //
         Platform.runLater(() -> model.updateFilteredFridgeList(fridge -> true));
-
     }
 
     /**

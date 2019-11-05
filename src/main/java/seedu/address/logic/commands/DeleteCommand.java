@@ -144,9 +144,7 @@ public class DeleteCommand extends UndoableCommand {
             model.deleteNotif(notif);
         }
 
-        Platform.runLater(() -> {
-            model.updateFilteredFridgeList(fridge -> true);
-        });
+        Platform.runLater(() -> model.updateFilteredFridgeList(fridge -> true));
 
     }
 
