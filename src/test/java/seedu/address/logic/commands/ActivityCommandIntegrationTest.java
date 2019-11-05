@@ -53,7 +53,6 @@ public class ActivityCommandIntegrationTest {
         Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
         expectedModel.setContext(newContext);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel, newContext);
@@ -83,7 +82,7 @@ public class ActivityCommandIntegrationTest {
         Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
         expectedModel.setContext(newContext);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
+
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel, newContext);
     }
@@ -112,7 +111,6 @@ public class ActivityCommandIntegrationTest {
         Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
         expectedModel.setContext(newContext);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel, newContext);
