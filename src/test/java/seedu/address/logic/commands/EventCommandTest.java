@@ -267,7 +267,9 @@ public class EventCommandTest {
         }
 
         @Override
-        public void deleteEvent(Event target) { throw new AssertionError("This method should not be called."); }
+        public void deleteEvent(Event target) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ReadOnlyPerformance getPerformance() {
