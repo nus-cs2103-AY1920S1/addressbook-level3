@@ -108,7 +108,7 @@
                 </children>
             </HBox>
             <VBox prefHeight="5.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" />
-            <VBox fx:id="resultDisplayPlaceholder" prefHeight="85.0" prefWidth="552.0" style="-fx-padding: 5 50;" />
-            <StackPane fx:id="commandBoxPlaceholder" prefHeight="42.0" prefWidth="552.0" style="-fx-padding: 5 50;" />
+            <VBox fx:id="resultDisplayPlaceholder" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" prefWidth="552.0" style="-fx-padding: 5 10;" />
+            <StackPane fx:id="commandBoxPlaceholder" prefHeight="42.0" prefWidth="552.0" style="-fx-padding: 5 10;" />
         </children></VBox>
 </Scene>
