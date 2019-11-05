@@ -10,7 +10,7 @@ import seedu.algobase.ui.action.UiParser;
 import seedu.algobase.ui.action.actions.OpenDetailsTabUiAction;
 
 /**
- * UI Parser for the Open Details Tab Action.
+ * Parses input arguments and creates a new OpenDetailsTabUiAction object
  */
 public class OpenDetailsTabUiActionParser implements UiParser<OpenDetailsTabUiAction> {
 
@@ -35,7 +35,7 @@ public class OpenDetailsTabUiActionParser implements UiParser<OpenDetailsTabUiAc
     }
 
     /**
-     * Converts an id of type {@Id} into an id of type {@Id}
+     * Converts an id of type {@Object} into an id of type {@Id}
      *
      * @throws ParseException if given object is not of type {@Id}
      */

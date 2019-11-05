@@ -36,6 +36,8 @@ public class ProblemDetails extends UiPart<Region> {
     private TextArea description;
     @FXML
     private Button editButton;
+    @FXML
+    private Button deleteButton;
 
     public ProblemDetails(Problem problem, UiActionExecutor uiActionExecutor) {
         super(FXML);

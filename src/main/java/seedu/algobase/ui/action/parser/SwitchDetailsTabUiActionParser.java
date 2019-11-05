@@ -9,7 +9,7 @@ import seedu.algobase.ui.action.UiParser;
 import seedu.algobase.ui.action.actions.SwitchDetailsTabUiAction;
 
 /**
- * UI Parser for the Switch Details Tab Action.
+ * Parses input arguments and creates a new SwitchDetailsTabUiAction object
  */
 public class SwitchDetailsTabUiActionParser implements UiParser<SwitchDetailsTabUiAction> {
 
@@ -20,7 +20,7 @@ public class SwitchDetailsTabUiActionParser implements UiParser<SwitchDetailsTab
     }
 
     /**
-     * Converts an index of type {@Index} into an id of type {@Index}
+     * Converts an index of type {@Object} into an id of type {@Index}
      *
      * @throws ParseException if given object is not of type {@Index}
      */

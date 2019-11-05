@@ -31,6 +31,8 @@ public class PlanDetails extends UiPart<Region> {
     private TextArea planDescription;
     @FXML
     private Button editButton;
+    @FXML
+    private Button deleteButton;
 
     public PlanDetails(Plan plan, UiActionExecutor uiActionExecutor) {
         super(FXML);

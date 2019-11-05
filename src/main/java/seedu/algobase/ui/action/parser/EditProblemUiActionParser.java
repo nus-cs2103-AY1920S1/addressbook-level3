@@ -18,7 +18,7 @@ import seedu.algobase.ui.action.actions.EditProblemUiAction;
 import seedu.algobase.ui.action.actions.EditProblemUiAction.EditProblemDescriptor;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditProblemUiAction object
  */
 public class EditProblemUiActionParser implements UiParser<EditProblemUiAction> {
 
@@ -32,8 +32,8 @@ public class EditProblemUiActionParser implements UiParser<EditProblemUiAction> 
     private static final int SOURCE_INDEX = 7;
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code UiActionDetails} object
+     * and returns an EditProblemUiAction object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditProblemUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
@@ -100,7 +100,7 @@ public class EditProblemUiActionParser implements UiParser<EditProblemUiAction> 
     }
 
     /**
-     * Converts an id of type {@Id} into an id of type {@Id}
+     * Converts an id of type {@Object} into an id of type {@Id}
      *
      * @throws ParseException if given object is not of type {@Id}
      */

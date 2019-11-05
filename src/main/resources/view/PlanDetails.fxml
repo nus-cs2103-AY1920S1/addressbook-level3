@@ -67,6 +67,9 @@
 
         <!-- Edit Button -->
         <Button fx:id="editButton" text="Edit Plan" />
+
+        <!-- Delete Button -->
+        <Button fx:id="deleteButton" text="Delete Plan" />
       </HBox>
     </VBox>
   </ScrollPane>

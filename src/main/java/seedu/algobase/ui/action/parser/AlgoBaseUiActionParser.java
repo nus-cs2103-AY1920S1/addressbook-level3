@@ -34,10 +34,14 @@ public class AlgoBaseUiActionParser {
         // Problems
         case EDIT_PROBLEM:
             return new EditProblemUiActionParser().parse(uiActionDetails);
+        case DELETE_PROBLEM:
+            return new DeleteProblemUiActionParser().parse(uiActionDetails);
 
         // Plans
         case EDIT_PLAN:
             return new EditPlanUiActionParser().parse(uiActionDetails);
+        case DELETE_PLAN:
+            return new DeletePlanUiActionParser().parse(uiActionDetails);
         case SET_PLAN:
             return new SetPlanUiActionParser().parse(uiActionDetails);
 

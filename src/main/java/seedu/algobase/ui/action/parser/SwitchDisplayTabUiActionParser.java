@@ -20,7 +20,7 @@ public class SwitchDisplayTabUiActionParser implements UiParser<SwitchDisplayTab
     }
 
     /**
-     * Converts an index of type {@Index} into an id of type {@Index}
+     * Converts an index of type {@Object} into an id of type {@Index}
      *
      * @throws ParseException if given object is not of type {@Index}
      */

@@ -104,6 +104,9 @@
 
           <!-- Edit Button -->
           <Button fx:id="editButton" text="Edit Problem" />
+
+          <!-- Delete Button -->
+          <Button fx:id="deleteButton" text="Delete Problem" />
         </HBox>
       </VBox>
   </ScrollPane>
