@@ -53,16 +53,6 @@ image::Ui.png[width="790"]
 
 === Common commands
 
-==== To view a list of commands and help
-
-Format: help
-
-==== Return to the homepage
-
-Homepage, in this case, is the Calendar section.
-
-Format: home
-
 ==== Switch to another feature’s tab
 There are 4 features in _Modulo_: Calendar, Cap (i.e. Modules), Quiz and Finance. +
 
