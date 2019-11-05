@@ -32,6 +32,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ScrollCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.commands.SwitchTabCommand;
@@ -180,6 +181,8 @@ public class TimeBookParser {
         case DeleteFromGroupCommand.COMMAND_WORD:
             return new DeleteFromGroupCommandParser().parse(arguments);
 
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -25,17 +25,6 @@ class EditGroupCommandSuggesterTest extends EditCommandSuggesterTest {
     }
 
     @Test
-    void getSuggestion_prefixRemarkExactGroup_currentRemark() {
-        final ArgumentList argumentList = argumentListOf(
-                new CommandArgument(CliSyntax.PREFIX_EDIT, 0, TypicalGroups.GROUPNAME1.toString()),
-                new CommandArgument(CliSyntax.PREFIX_REMARK, 1, EMPTY_STRING)
-        );
-
-        final List<String> expectedSuggestions = List.of(TypicalGroups.GROUPREMARK1.toString());
-        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);
-    }
-
-    @Test
     void getSuggestion_prefixRemarkNonExistentGroup_noSuggestion() {
         final ArgumentList argumentList = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_EDIT, 0, TypicalGroups.GROUPNAME0.toString()),

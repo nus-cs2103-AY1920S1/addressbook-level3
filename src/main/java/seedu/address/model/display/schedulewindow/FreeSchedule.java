@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
+import seedu.address.model.person.exceptions.InvalidTimeslotException;
+
 /**
  * A FreeSchedule class that represents the free timeslot among the Persons for the week.
  */
@@ -26,17 +28,16 @@ public class FreeSchedule {
      * @param id Identifier used to identify free time.
      * @return Optional FreeTimeslot.
      */
-    public Optional<FreeTimeslot> getFreeTimeslot(int id) {
+    public FreeTimeslot getFreeTimeslot(int id) throws InvalidTimeslotException {
         Optional<FreeTimeslot> freeTimeslot = Optional.empty();
         for (int i = 1; i <= 7; i++) {
             ArrayList<FreeTimeslot> timeslotForDay = freeSchedule.get(DayOfWeek.of(i));
             for (int j = 0; j < timeslotForDay.size(); j++) {
                 if (id == timeslotForDay.get(j).getId()) {
-                    freeTimeslot = Optional.of(timeslotForDay.get(j));
-                    break;
+                    return timeslotForDay.get(j);
                 }
             }
         }
-        return freeTimeslot;
+        throw new InvalidTimeslotException();
     }
 }

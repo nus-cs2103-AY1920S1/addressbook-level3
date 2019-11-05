@@ -19,6 +19,10 @@ public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
+    }
+
     @Override
     public DeleteEventCommand parse(String args) throws ParseException {
 
@@ -26,6 +30,7 @@ public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EVENTNAME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENTNAME)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENTNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
         }
@@ -35,7 +40,7 @@ public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
             name = new Name(argMultimap.getValue(PREFIX_NAME).get());
         }
 
-        String eventName = argMultimap.getValue(PREFIX_EVENTNAME).get();
+        String eventName = ParserUtil.parserEventName(argMultimap.getValue(PREFIX_EVENTNAME).get());
 
         return new DeleteEventCommand(name, eventName);
     }

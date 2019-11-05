@@ -30,6 +30,10 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
         return Stream.of(prefixes).allMatch(prefix -> !argumentMultimap.getValue(prefix).isPresent());
     }
 
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
+    }
+
     @Override
     public EditUserCommand parse(String args) throws ParseException {
 
@@ -40,6 +44,8 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
 
         if (allPrefixesNotPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_ADDRESS, PREFIX_REMARK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditUserCommand.MESSAGE_USAGE));
         }

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 
 /**
  * Represents the result of a command execution.
@@ -56,9 +57,19 @@ public class CommandResult {
     private boolean isSwitchTabs;
 
     /**
+     * The app will select.
+     */
+    private boolean isSelect = false;
+
+    /**
      * Data to show in popup.
      */
     private Optional<ClosestCommonLocationData> locationData = Optional.empty();
+
+    /**
+     * Data to show in select.
+     */
+    private Optional<PersonTimeslot> personTimeslotData = Optional.empty();
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -206,6 +217,22 @@ public class CommandResult {
 
     public boolean isSwitchTabs() {
         return isSwitchTabs;
+    }
+
+    public void setIsSelect(boolean isSelect) {
+        this.isSelect = isSelect;
+    }
+
+    public boolean isSelect() {
+        return this.isSelect;
+    }
+
+    public void setPersonTimeslotData(PersonTimeslot personTimeslot) {
+        this.personTimeslotData = Optional.of(personTimeslot);
+    }
+
+    public Optional<PersonTimeslot> getPersonTimeslotData() {
+        return this.personTimeslotData;
     }
 
     public ClosestCommonLocationData getLocationData() throws CommandException {

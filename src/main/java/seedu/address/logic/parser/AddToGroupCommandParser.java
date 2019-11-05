@@ -17,8 +17,13 @@ import seedu.address.model.person.Name;
  * Parses input arguments and creates a new AddToGroupCommand object.
  */
 public class AddToGroupCommandParser implements Parser<AddToGroupCommand> {
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 
     @Override
@@ -27,6 +32,7 @@ public class AddToGroupCommandParser implements Parser<AddToGroupCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GROUPNAME, PREFIX_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME, PREFIX_ROLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddToGroupCommand.MESSAGE_USAGE));
         }

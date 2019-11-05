@@ -13,8 +13,13 @@ import seedu.address.model.group.GroupName;
  * Parses input arguments and creates a new DeleteGroupCommand object.
  */
 public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 
     @Override
@@ -23,6 +28,7 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_GROUPNAME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_GROUPNAME)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_GROUPNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteGroupCommand.MESSAGE_USAGE));
         }

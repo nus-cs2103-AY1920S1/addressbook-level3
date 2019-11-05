@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.stream.Stream;
@@ -18,8 +17,13 @@ import seedu.address.model.group.GroupName;
  * Parses input arguments and creates a new EditGroupCommand object.
  */
 public class EditGroupCommandParser implements Parser<EditGroupCommand> {
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 
     @Override
@@ -27,9 +31,11 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EDIT, PREFIX_GROUPNAME,
-                        PREFIX_REMARK, PREFIX_DESCRIPTION, PREFIX_ROLE);
+                        PREFIX_DESCRIPTION, PREFIX_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EDIT)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_EDIT, PREFIX_GROUPNAME,
+                PREFIX_DESCRIPTION, PREFIX_ROLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE));
         }
@@ -40,11 +46,6 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
         if (argMultimap.getValue(PREFIX_GROUPNAME).isPresent()) {
             groupDescriptor.setGroupName(ParserUtil.parseGroupName(
                     argMultimap.getValue(PREFIX_GROUPNAME).get()));
-        }
-
-        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
-            groupDescriptor.setGroupRemark(ParserUtil.parseGroupRemark(
-                    argMultimap.getValue(PREFIX_REMARK).get()));
         }
 
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
