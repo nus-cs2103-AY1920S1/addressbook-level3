@@ -132,11 +132,6 @@ public class TagCommandTest {
         }
 
         @Override
-        public void markStudent(Student student) {
-            student.setMarked();
-        }
-
-        @Override
         public void setStudentWithIndex(Index index, Student student) {
             requireAllNonNull(index, student);
             studentRecord.setStudentWithIndex(index, student);

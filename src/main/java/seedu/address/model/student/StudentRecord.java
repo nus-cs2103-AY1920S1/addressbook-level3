@@ -91,6 +91,7 @@ public class StudentRecord implements ReadOnlyStudentRecord {
 
     /**
      * Returns student with specific index number
+     *
      * @param index Index number of student
      * @return Student with index number.
      */
