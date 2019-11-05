@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.util.CollectionUtil;
-import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -62,7 +61,7 @@ public class EditDetailsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Logic logic) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         Restaurant restaurantToEdit = model.getEditingRestaurantList().get(0);
@@ -82,7 +81,9 @@ public class EditDetailsCommand extends Command {
             Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
                     .setRestaurant(editedRestaurant.getName())
                     .setDeliveryman(order.getDeliveryman())
-                    .setFood(order.getFoodList()).completeOrder();
+                    .setFood(order.getFoodList())
+                    .setCompleted(order.isCompleted())
+                    .completeOrder();
             model.setOrder(order, newOrder);
         }
 

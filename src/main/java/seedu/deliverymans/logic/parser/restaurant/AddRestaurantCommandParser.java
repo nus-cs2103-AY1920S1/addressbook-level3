@@ -35,7 +35,8 @@ public class AddRestaurantCommandParser implements Parser<AddRestaurantCommand> 
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LOCATION, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_LOCATION)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()
+                || ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME, PREFIX_LOCATION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRestaurantCommand.MESSAGE_USAGE));
         }
 

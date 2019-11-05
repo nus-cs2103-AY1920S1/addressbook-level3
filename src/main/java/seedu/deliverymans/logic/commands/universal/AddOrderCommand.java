@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -60,7 +59,7 @@ public class AddOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Logic logic) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         Name deliverymanToAdd;
 
         // Validity checks for customer, restaurant and foodList

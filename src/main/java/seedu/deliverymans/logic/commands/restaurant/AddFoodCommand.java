@@ -6,7 +6,6 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import javafx.collections.ObservableList;
-import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -48,7 +47,7 @@ public class AddFoodCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Logic logic) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Restaurant restaurant = model.getEditingRestaurantList().get(0);
 
@@ -67,6 +66,7 @@ public class AddFoodCommand extends Command {
         }
 
         restaurant.addFood(toAdd);
+        restaurant.updateQuantity(0);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
