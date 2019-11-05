@@ -167,7 +167,9 @@ public class MainWindow extends UiPart<Stage> {
         importPanel = new StackPane();
         preferencesPanel = new StackPane();
 
-        MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(), logic.getObservableLikeData());
+        MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(),
+                logic.getObservableLikeData(),
+                logic.getObservableDislikeData());
         memesPanel.getChildren().add(memeGridPanel.getRoot());
 
         TemplateGridPanel templateGridPanel = new TemplateGridPanel(logic.getFilteredTemplateList());
@@ -180,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
         statisticsPanel.getChildren().add(statsPanel.getRoot());
 
         MemeGridPanel exportGridPanel = new MemeGridPanel(
-                logic.getFilteredStagedMemeList(), logic.getObservableLikeData());
+                logic.getFilteredStagedMemeList(), logic.getObservableLikeData(), logic.getObservableDislikeData());
 
         ImportGridPanel importGridPanel = new ImportGridPanel(
                 logic.getFilteredImportList());

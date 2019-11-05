@@ -283,11 +283,6 @@ public interface Model {
     void commitWeme(String feedback);
 
     /**
-     * Returns the number of likes of a meme.
-     */
-    int getLikesByMeme(Meme meme);
-
-    /**
      * Returns the like data.
      */
     ObservableMap<String, SimpleIntegerProperty> getObservableLikeData();
@@ -301,6 +296,21 @@ public interface Model {
      * Decrements likes of a meme by the Meme object.
      */
     void decrementMemeLikeCount(Meme meme);
+
+    /**
+     * Returns the dislike data.
+     */
+    ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData();
+
+    /**
+     * Increments dislikes of a meme by the Meme object.
+     */
+    void incrementMemeDislikeCount(Meme meme);
+
+    /**
+     * Decrements dislikes of a meme by the Meme object.
+     */
+    void decrementMemeDislikeCount(Meme meme);
 
     /**
      * Deletes stats data by meme.

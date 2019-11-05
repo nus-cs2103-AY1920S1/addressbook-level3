@@ -12,7 +12,8 @@
   } ],
   "templates": [],
   "stats" : {
-    "likeMap" : {}
+    "likeMap" : {},
+    "dislikeMap" : {}
   }
 
 }

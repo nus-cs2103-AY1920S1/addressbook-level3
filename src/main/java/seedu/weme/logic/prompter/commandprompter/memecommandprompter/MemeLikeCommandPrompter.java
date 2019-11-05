@@ -16,6 +16,7 @@ import seedu.weme.model.Model;
  * Prompt arguments for MemeLikeCommand.
  */
 public class MemeLikeCommandPrompter implements Prompter {
+    private static final String ARROW_KEY_LIKE_USAGE = "You can now use UP arrow key to spam likes!";
 
     @Override
     public CommandPrompt prompt(Model model, String userInput) throws PromptException {
@@ -29,8 +30,7 @@ public class MemeLikeCommandPrompter implements Prompter {
 
         try {
             Integer.parseInt(arguments.trim());
-            String displayText = "You can now use UP arrow key to spam likes!";
-            return new CommandPrompt(displayText, userInput);
+            return new CommandPrompt(ARROW_KEY_LIKE_USAGE, userInput);
         } catch (NumberFormatException e) {
             throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }

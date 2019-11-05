@@ -25,12 +25,16 @@ public class MemeGridPanel extends UiPart<Region> {
     private GridView<Meme> memeGridView;
 
     private ObservableMap<String, SimpleIntegerProperty> likeData;
+    private ObservableMap<String, SimpleIntegerProperty> dislikeData;
 
-    public MemeGridPanel(ObservableList<Meme> memeList, ObservableMap<String, SimpleIntegerProperty> likeData) {
+    public MemeGridPanel(ObservableList<Meme> memeList,
+                         ObservableMap<String, SimpleIntegerProperty> likeData,
+                         ObservableMap<String, SimpleIntegerProperty> dislikeData) {
         super(FXML);
         memeGridView.setItems(memeList);
         memeGridView.setCellFactory(listView -> new MemeGridViewCell());
         this.likeData = likeData;
+        this.dislikeData = dislikeData;
     }
 
     /**
@@ -46,7 +50,8 @@ public class MemeGridPanel extends UiPart<Region> {
             } else {
                 String filePath = meme.getImagePath().toString();
                 SimpleIntegerProperty likes = likeData.get(filePath);
-                setGraphic(new MemeCard(meme, getIndex() + 1, likes).getRoot());
+                SimpleIntegerProperty dislikes = dislikeData.get(filePath);
+                setGraphic(new MemeCard(meme, getIndex() + 1, likes, dislikes).getRoot());
             }
         }
     }

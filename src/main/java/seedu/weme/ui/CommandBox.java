@@ -92,7 +92,8 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        if (!matcher.group(COMMAND_WORD).equals(MemeLikeCommand.COMMAND_WORD)) {
+        if (!(matcher.group(COMMAND_WORD).equals(MemeLikeCommand.COMMAND_WORD)
+                || matcher.group(COMMAND_WORD).equals(MemeDislikeCommand.COMMAND_WORD))) {
             // Do not handle if the command word is not a like command.
             return;
         } else {
@@ -117,10 +118,9 @@ public class CommandBox extends UiPart<Region> {
         if (matcher.matches()) {
             try {
                 final String commandWord = matcher.group(WemeParser.COMMAND_WORD);
-                if (commandWord.equals(MemeLikeCommand.COMMAND_WORD)
-                        && event.getCode().equals(KeyCode.UP)
-                        || commandWord.equals(MemeDislikeCommand.COMMAND_WORD)
-                        && event.getCode().equals(KeyCode.DOWN)) {
+                if ((commandWord.equals(MemeLikeCommand.COMMAND_WORD)
+                        || commandWord.equals(MemeDislikeCommand.COMMAND_WORD))
+                        && event.getCode().equals(KeyCode.UP)) {
                     commandExecutor.execute(commandTextField.getText());
                 }
             } catch (CommandException | ParseException e) {

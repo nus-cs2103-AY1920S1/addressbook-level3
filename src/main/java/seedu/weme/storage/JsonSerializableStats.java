@@ -19,13 +19,16 @@ import seedu.weme.model.statistics.StatsManager;
 class JsonSerializableStats {
 
     private final Map<String, Integer> likeMap = new HashMap<>();
+    private final Map<String, Integer> dislikeMap = new HashMap<>();
 
     /**
      * Constructs a {@code JsonSerializableWeme} with the given memes.
      */
     @JsonCreator
-    public JsonSerializableStats(@JsonProperty("likeMap") Map<String, Integer> likeData) {
+    public JsonSerializableStats(@JsonProperty("likeMap") Map<String, Integer> likeData,
+                                 @JsonProperty("dislikeMap") Map<String, Integer> dislikeData) {
         likeMap.putAll(likeData);
+        dislikeMap.putAll(dislikeData);
     }
 
     /**
@@ -35,8 +38,12 @@ class JsonSerializableStats {
      */
     public JsonSerializableStats(Stats source) {
         Map<String, SimpleIntegerProperty> likeData = source.getObservableLikeData();
+        Map<String, SimpleIntegerProperty> dislikeData = source.getObservableDislikeData();
         for (Map.Entry<String, SimpleIntegerProperty> entry : likeData.entrySet()) {
             likeMap.put(entry.getKey(), entry.getValue().get());
+        }
+        for (Map.Entry<String, SimpleIntegerProperty> entry : dislikeData.entrySet()) {
+            dislikeMap.put(entry.getKey(), entry.getValue().get());
         }
     }
 
@@ -48,10 +55,15 @@ class JsonSerializableStats {
     public Stats toModelType() throws IllegalValueException {
         Stats stats = new StatsManager();
         Map<String, SimpleIntegerProperty> likeData = new HashMap<>();
+        Map<String, SimpleIntegerProperty> dislikeData = new HashMap<>();
         for (Map.Entry<String, Integer> entry : likeMap.entrySet()) {
             likeData.put(entry.getKey(), new SimpleIntegerProperty(entry.getValue()));
         }
+        for (Map.Entry<String, Integer> entry : dislikeMap.entrySet()) {
+            dislikeData.put(entry.getKey(), new SimpleIntegerProperty(entry.getValue()));
+        }
         stats.setLikeData(likeData);
+        stats.setDislikeData(dislikeData);
         return stats;
     }
 

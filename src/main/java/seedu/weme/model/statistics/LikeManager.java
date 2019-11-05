@@ -19,41 +19,46 @@ public class LikeManager {
     private static final int INCREMENT = 1;
     private static final int DECREMENT = -1;
 
-    private LikeData data;
+    private LikeData likeData;
+    private DislikeData dislikeData;
 
-    public LikeManager(LikeData data) {
+    public LikeManager(LikeData likeData, DislikeData dislikeData) {
         super();
-        requireAllNonNull(data);
+        requireAllNonNull(likeData);
 
-        logger.fine("Initializing with like data: " + data);
+        logger.fine("Initializing with like data: " + likeData);
 
-        this.data = new LikeData(data.getObservableLikeData());
+        this.likeData = new LikeData(likeData.getObservableLikeData());
+        this.dislikeData = new DislikeData(dislikeData.getObservableDislikeData());
     }
 
     public LikeManager() {
-        this.data = new LikeData();
+        this.likeData = new LikeData();
+        this.dislikeData = new DislikeData();
     }
+
+    // ================ Like methods ===============================================
 
     /**
      * Returns the number of likes of a meme.
      */
     public int getLikesByMeme(Meme meme) {
         String memeRef = meme.getImagePath().toString();
-        return data.getLikesByMemeRef(memeRef);
+        return likeData.getLikesByMemeRef(memeRef);
     }
 
     /**
      * Returns an unmodifiable view of {@code LikeData}.
      */
     public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
-        return data.getObservableLikeData();
+        return likeData.getObservableLikeData();
     }
 
     /**
      * Replace the current like data with a new set of data.
      */
     public void setLikeData(Map<String, SimpleIntegerProperty> replacement) {
-        data.setLikeMap(replacement);
+        likeData.setLikeMap(replacement);
     }
 
     /**
@@ -61,7 +66,7 @@ public class LikeManager {
      */
     public void addDefaultLikeData(Meme meme) {
         String memeRef = meme.getImagePath().toString();
-        data.setLikesByMemeRef(memeRef, 0);
+        likeData.setLikesByMemeRef(memeRef, 0);
     }
 
     /**
@@ -69,7 +74,7 @@ public class LikeManager {
      */
     public void incrementMemeLikeCount(Meme meme) {
         String memeRef = meme.getImagePath().toString();
-        data.setLikesByMemeRef(memeRef, INCREMENT);
+        likeData.setLikesByMemeRef(memeRef, INCREMENT);
     }
 
     /**
@@ -77,7 +82,7 @@ public class LikeManager {
      */
     public void decrementLikesByMeme(Meme meme) {
         String memeRef = meme.getImagePath().toString();
-        data.setLikesByMemeRef(memeRef, DECREMENT);
+        likeData.setLikesByMemeRef(memeRef, DECREMENT);
     }
 
     /**
@@ -85,11 +90,71 @@ public class LikeManager {
      */
     public void deleteLikesByMeme(Meme meme) {
         String memeRef = meme.getImagePath().toString();
-        data.deleteLikesByMemeRef(memeRef);
+        likeData.deleteLikesByMemeRef(memeRef);
+    }
+
+    // ================ Dislike methods ===============================================
+
+    /**
+     * Returns the number of dislikes of a meme.
+     */
+    public int getDislikesByMeme(Meme meme) {
+        String memeRef = meme.getImagePath().toString();
+        return dislikeData.getDislikesByMemeRef(memeRef);
+    }
+
+    /**
+     * Returns an unmodifiable view of {@code DislikeData}.
+     */
+    public ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData() {
+        return dislikeData.getObservableDislikeData();
+    }
+
+    /**
+     * Replace the current like data with a new set of data.
+     */
+    public void setDislikeData(Map<String, SimpleIntegerProperty> replacement) {
+        dislikeData.setDislikeMap(replacement);
+    }
+
+    /**
+     * Initializes the like count of a meme.
+     */
+    public void addDefaultDislikeData(Meme meme) {
+        String memeRef = meme.getImagePath().toString();
+        dislikeData.setDislikesByMemeRef(memeRef, 0);
+    }
+
+    /**
+     * Increments a meme's like count by 1.
+     */
+    public void incrementMemeDislikeCount(Meme meme) {
+        String memeRef = meme.getImagePath().toString();
+        dislikeData.setDislikesByMemeRef(memeRef, INCREMENT);
+    }
+
+    /**
+     * Decrements a meme's like count by 1.
+     */
+    public void decrementDislikesByMeme(Meme meme) {
+        String memeRef = meme.getImagePath().toString();
+        dislikeData.setDislikesByMemeRef(memeRef, DECREMENT);
+    }
+
+    /**
+     * Deletes like data of a meme when it gets deleted.
+     */
+    public void deleteDislikesByMeme(Meme meme) {
+        String memeRef = meme.getImagePath().toString();
+        dislikeData.deleteDislikesByMemeRef(memeRef);
     }
 
     public Map<String, SimpleIntegerProperty> getCopyLikeData() {
-        return data.getCopy();
+        return likeData.getCopy();
+    }
+
+    public Map<String, SimpleIntegerProperty> getCopyDislikeData() {
+        return dislikeData.getCopy();
     }
 
 }

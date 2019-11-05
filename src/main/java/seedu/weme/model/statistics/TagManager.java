@@ -17,15 +17,18 @@ import seedu.weme.model.tag.Tag;
 public class TagManager {
 
     public static final int INITIAL_LIKE_COUNT = 0;
+    public static final int INITIAL_DISLIKE_COUNT = 0;
 
     private final Set<Tag> tags;
     private final List<TagWithCount> tagsWithCount;
     private final List<TagWithLike> tagsWithLike;
+    private final List<TagWithDislike> tagsWithDislike;
 
     public TagManager() {
         tags = new HashSet<>();
         tagsWithCount = new ArrayList<>();
         tagsWithLike = new ArrayList<>();
+        tagsWithDislike = new ArrayList<>();
     }
 
     public Set<Tag> getTagsInSet() {
@@ -58,6 +61,11 @@ public class TagManager {
         return tagsWithLike;
     }
 
+    public List<TagWithDislike> getTagsWithDislike(List<Meme> memeList, LikeManager likeData) {
+        parseMemeListAndLikeDataForTags(memeList, likeData);
+        return tagsWithDislike;
+    }
+
     /**
      * Resets the data.
      */
@@ -65,6 +73,7 @@ public class TagManager {
         tags.clear();
         tagsWithCount.clear();
         tagsWithLike.clear();
+        tagsWithDislike.clear();
     }
 
     /**
@@ -97,18 +106,25 @@ public class TagManager {
     public void parseMemeListAndLikeDataForTags(List<Meme> memeList, LikeManager likeData) {
         purgeData();
         Map<Tag, Integer> tagToLike = new HashMap<>();
+        Map<Tag, Integer> tagToDislike = new HashMap<>();
         int likeCount;
+        int dislikeCount;
 
         for (Meme meme : memeList) {
             likeCount = likeData.getLikesByMeme(meme);
+            dislikeCount = likeData.getDislikesByMeme(meme);
             tags.addAll(meme.getTags());
             for (Tag tag : tags) {
                 tagToLike.put(tag, tagToLike.getOrDefault(tag, INITIAL_LIKE_COUNT) + likeCount);
+                tagToDislike.put(tag, tagToDislike.getOrDefault(tag, INITIAL_DISLIKE_COUNT) + dislikeCount);
             }
         }
 
         for (Map.Entry<Tag, Integer> mapEntry : tagToLike.entrySet()) {
             tagsWithLike.add(new TagWithLike(mapEntry.getKey(), mapEntry.getValue()));
+        }
+        for (Map.Entry<Tag, Integer> mapEntry : tagToDislike.entrySet()) {
+            tagsWithDislike.add(new TagWithDislike(mapEntry.getKey(), mapEntry.getValue()));
         }
 
         Collections.sort(tagsWithLike);

@@ -339,11 +339,6 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public int getLikesByMeme(Meme meme) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
             throw new AssertionError("This method should not be called");
         }
@@ -355,6 +350,21 @@ public class MemeAddCommandTest {
 
         @Override
         public void decrementMemeLikeCount(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void incrementMemeDislikeCount(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void decrementMemeDislikeCount(Meme meme) {
             throw new AssertionError("This method should not be called");
         }
 

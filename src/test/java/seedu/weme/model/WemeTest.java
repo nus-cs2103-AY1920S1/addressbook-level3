@@ -17,13 +17,17 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.exceptions.DuplicateMemeException;
 import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.StatsManager;
 import seedu.weme.model.statistics.TagWithCount;
+import seedu.weme.model.statistics.TagWithDislike;
 import seedu.weme.model.statistics.TagWithLike;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
@@ -137,6 +141,16 @@ public class WemeTest {
         }
 
         @Override
+        public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
+            return stats.getObservableLikeData();
+        }
+
+        @Override
+        public ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData() {
+            return stats.getObservableDislikeData();
+        }
+
+        @Override
         public int getCountOfTag(Tag tag) {
             return stats.getCountOfTag(getMemeList(), tag);
         }
@@ -149,6 +163,11 @@ public class WemeTest {
         @Override
         public List<TagWithLike> getTagsWithLikeCountList() {
             return stats.getTagsWithLikeCountList(memes);
+        }
+
+        @Override
+        public List<TagWithDislike> getTagsWithDislikeCountList() {
+            return stats.getTagsWithDislikeCountList(memes);
         }
 
         @Override

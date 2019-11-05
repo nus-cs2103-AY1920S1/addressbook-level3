@@ -137,6 +137,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData() {
+        return model.getObservableDislikeData();
+    }
+
+    @Override
     public void cleanUp() {
         new Thread(() -> model.cleanMemeStorage()).start();
         new Thread(() -> model.cleanTemplateStorage()).start();

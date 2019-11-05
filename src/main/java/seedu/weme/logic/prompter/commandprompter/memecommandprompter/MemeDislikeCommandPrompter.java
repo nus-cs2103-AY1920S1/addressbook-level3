@@ -16,6 +16,7 @@ import seedu.weme.model.Model;
  * Prompt arguments for MemeDisLikeCommand.
  */
 public class MemeDislikeCommandPrompter implements Prompter {
+    private static final String ARROW_KEY_DISLIKE_USAGE = "You can now use UP arrow key to spam dislikes!";
 
     @Override
     public CommandPrompt prompt(Model model, String userInput) throws PromptException {
@@ -29,7 +30,7 @@ public class MemeDislikeCommandPrompter implements Prompter {
 
         try {
             Integer.parseInt(arguments.trim());
-            return new CommandPrompt(MESSAGE_USAGE, userInput);
+            return new CommandPrompt(ARROW_KEY_DISLIKE_USAGE, userInput);
         } catch (NumberFormatException e) {
             throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }

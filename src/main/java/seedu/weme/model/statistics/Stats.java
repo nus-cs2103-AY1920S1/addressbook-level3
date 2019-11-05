@@ -55,6 +55,43 @@ public interface Stats {
      */
     void deleteLikesByMeme(Meme meme);
 
+    //============= Dislike Data ====================================
+
+    /**
+     * Returns the number of dislikes of a meme.
+     */
+    int getDislikesByMeme(Meme meme);
+
+    /**
+     * Replaces the contents of the dislike data with {@code dislikeData}.
+     */
+    void setDislikeData(Map<String, SimpleIntegerProperty> dislikeData);
+
+    /**
+     * Returns an unmodifiable view of DislikeData.
+     */
+    ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData();
+
+    /**
+     * Adds default dislike when the dislike data of a meme is not captured.
+     */
+    void addDefaultDislikeData(Meme meme);
+
+    /**
+     * Increments dislike count of a meme.
+     */
+    void incrementMemeDislikeCount(Meme meme);
+
+    /**
+     * Increments dislike count of a meme.
+     */
+    void decrementMemeDislikeCount(Meme meme);
+
+    /**
+     * Deletes dislike count of a meme from dislikeData.
+     */
+    void deleteDislikesByMeme(Meme meme);
+
     //============= Tag Data ====================================
 
     public int getCountOfTag(List<Meme> memeList, Tag tag);
@@ -69,4 +106,8 @@ public interface Stats {
      */
     List<TagWithLike> getTagsWithLikeCountList(List<Meme> memeList);
 
+    /**
+     * Returns a list of tags with their like counts in descending order.
+     */
+    List<TagWithDislike> getTagsWithDislikeCountList(List<Meme> memeList);
 }

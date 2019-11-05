@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -25,9 +26,19 @@
       <Label fx:id="description" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_small_label" text="\$description" />
         <Pane prefHeight="24.0" prefWidth="240.0">
           <children>
-            <Label fx:id="likes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="193.0" layoutY="4.0" styleClass="cell_small_label" text="\$likes" />
+               <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="240.0">
+                  <children>
+                     <ImageView fx:id="likeIcon" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="likes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_small_label" />
+                     <ImageView fx:id="dislikeIcon" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="dislikes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_small_label" />
+                  </children>
+               </HBox>
           </children>
          </Pane>
     </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>

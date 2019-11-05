@@ -49,7 +49,7 @@ public class MemeDislikeCommand extends Command {
 
         Meme memeToDislike = lastShownList.get(index.getZeroBased());
 
-        model.decrementMemeLikeCount(memeToDislike);
+        model.incrementMemeDislikeCount(memeToDislike);
 
         CommandResult result = new CommandResult(String.format(MESSAGE_DISLIKE_MEME_SUCCESS, memeToDislike));
         model.commitWeme(result.getFeedbackToUser());

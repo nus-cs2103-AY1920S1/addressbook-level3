@@ -101,6 +101,11 @@ public interface Logic {
     ObservableMap<String, SimpleIntegerProperty> getObservableLikeData();
 
     /**
+     * Returns an unmodifiable view of dislike data.
+     */
+    ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData();
+
+    /**
      * Handles any logic that needs to be done before exiting Weme.
      */
     void cleanUp();

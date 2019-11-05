@@ -10,7 +10,8 @@
     "isArchived": false
   } ],
   "stats" : {
-    "likeMap" : {}
+    "likeMap" : {},
+    "dislikeMap" : {}
   }
 
 }

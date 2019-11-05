@@ -340,11 +340,6 @@ public class ModelManager implements Model {
     //=========== Statistics Methods =============================================================
 
     @Override
-    public int getLikesByMeme(Meme meme) {
-        return versionedWeme.getLikesByMeme(meme);
-    }
-
-    @Override
     public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
         return versionedWeme.getObservableLikeData();
     }
@@ -357,6 +352,21 @@ public class ModelManager implements Model {
     @Override
     public void decrementMemeLikeCount(Meme meme) {
         versionedWeme.decrementMemeLikeCount(meme);
+    }
+
+    @Override
+    public ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData() {
+        return versionedWeme.getObservableDislikeData();
+    }
+
+    @Override
+    public void incrementMemeDislikeCount(Meme meme) {
+        versionedWeme.incrementMemeDislikeCount(meme);
+    }
+
+    @Override
+    public void decrementMemeDislikeCount(Meme meme) {
+        versionedWeme.decrementMemeDislikeCount(meme);
     }
 
     @Override

@@ -71,6 +71,41 @@ public class StatsManager implements Stats {
         likeManager.deleteLikesByMeme(meme);
     }
 
+    //============= Dislike Data ====================================
+
+    public int getDislikesByMeme(Meme meme) {
+        return likeManager.getDislikesByMeme(meme);
+    }
+
+    public ObservableMap<String, SimpleIntegerProperty> getObservableDislikeData() {
+        return likeManager.getObservableDislikeData();
+    }
+
+    public void setDislikeData(Map<String, SimpleIntegerProperty> replacement) {
+        likeManager.setDislikeData(replacement);
+    }
+
+    public void addDefaultDislikeData(Meme meme) {
+        likeManager.addDefaultDislikeData(meme);
+    }
+
+    public void incrementMemeDislikeCount(Meme meme) {
+        likeManager.incrementMemeDislikeCount(meme);
+    }
+
+    /**
+     * Decrements a meme's like count by 1.
+     */
+    public void decrementMemeDislikeCount(Meme meme) {
+        likeManager.decrementDislikesByMeme(meme);
+    }
+
+    /**
+     * Deletes like data of a meme when it gets deleted.
+     */
+    public void deleteDislikesByMeme(Meme meme) {
+        likeManager.deleteDislikesByMeme(meme);
+    }
     //============= Tag Data ====================================
 
     @Override
@@ -88,6 +123,11 @@ public class StatsManager implements Stats {
         return tagManager.getTagsWithLike(memeList, likeManager);
     }
 
+    @Override
+    public List<TagWithDislike> getTagsWithDislikeCountList(List<Meme> memeList) {
+        return tagManager.getTagsWithDislike(memeList, likeManager);
+    }
+
     /**
      * Resets the existing data of this {@code StatsManager} with {@code newData}.
      */
@@ -96,6 +136,7 @@ public class StatsManager implements Stats {
         requireNonNull(newData);
 
         setLikeData(newData.getObservableLikeData());
+        setDislikeData(newData.getObservableDislikeData());
     }
 
     /**
@@ -104,8 +145,9 @@ public class StatsManager implements Stats {
     @Override
     public Stats getStats() {
         Stats newStats = new StatsManager(this);
-        // needs a full copy of likedata using it's own SIP
+        // needs a full copy of likedata and dislikedata using it's own SIP
         newStats.setLikeData(likeManager.getCopyLikeData());
+        newStats.setDislikeData(likeManager.getCopyDislikeData());
         return newStats;
     }
 

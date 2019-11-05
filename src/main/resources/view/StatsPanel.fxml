@@ -9,14 +9,19 @@
    <HBox prefHeight="100.0" prefWidth="200.0">
       <children>
         <StackPane id="StackPane" prefHeight="800" prefWidth="400">
-            <children>
-             <PieChart id="tagCountChart" fx:id="tagCountChart" prefHeight="800.0" prefWidth="313.0" />
-            </children>
+          <children>
+            <PieChart id="tagCountChart" fx:id="tagCountChart" prefHeight="800.0" prefWidth="313.0" />
+          </children>
         </StackPane>
         <StackPane id="StackPane" prefHeight="800" prefWidth="400">
-            <children>
-             <PieChart id="tagLikeChart" fx:id="tagLikeChart" />
-            </children>
+          <children>
+            <PieChart id="tagLikeChart" fx:id="tagLikeChart" />
+          </children>
+        </StackPane>
+        <StackPane id="StackPane" prefHeight="800" prefWidth="400">
+          <children>
+            <PieChart id="tagDislikeChart" fx:id="tagDislikeChart" />
+          </children>
         </StackPane>
       </children>
    </HBox>

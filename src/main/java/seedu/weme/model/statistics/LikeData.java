@@ -78,12 +78,14 @@ public class LikeData {
 
     /**
      * Deletes like count of a meme by its URL.
-     * @param memeRef
      */
     public void deleteLikesByMemeRef(String memeRef) {
         likeMap.remove(memeRef);
     }
 
+    /**
+     * Returns a deep copy of the current like map.
+     */
     public Map<String, SimpleIntegerProperty> getCopy() {
         Map<String, SimpleIntegerProperty> copy = new HashMap<>();
         for (Map.Entry<String, SimpleIntegerProperty> entry : likeMap.entrySet()) {
