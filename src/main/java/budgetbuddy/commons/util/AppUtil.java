@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
  */
 public class AppUtil {
     private static final DateTimeFormatter dateFormatter =
-            DateTimeFormatter.ofPattern("d/M/yy");
+            DateTimeFormatter.ofPattern("d/M/yyyy");
 
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);
