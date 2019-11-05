@@ -141,9 +141,17 @@ public class UrlUtil {
     }
 
     /**
-     *
+     * This method is used to check if the key is present
      */
     public static boolean isGmapsKeyPresent() {
         return gmapsApiKey.length() != 0;
+    }
+
+    /**
+     * This method is used to set the gmaps API key
+     * @param gmapsApiKey
+     */
+    public static void setGmapsApiKey(String gmapsApiKey) {
+        UrlUtil.gmapsApiKey = gmapsApiKey;
     }
 }

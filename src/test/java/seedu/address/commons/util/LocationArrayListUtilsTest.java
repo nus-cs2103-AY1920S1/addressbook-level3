@@ -30,6 +30,13 @@ class LocationArrayListUtilsTest {
     }
 
     @Test
+    void getIndexNullElement() {
+        locationArrayList.add(null);
+        locationArrayList.add( new Location("BarFoo"));
+        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "BarFoo"), 4);
+    }
+
+    @Test
     void getIndexExceptionFlow() {
         assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "BarFooBarFoo"), -1);
     }
