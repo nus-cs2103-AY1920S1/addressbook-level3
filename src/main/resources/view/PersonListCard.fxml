@@ -20,18 +20,18 @@
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
       <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="id" styleClass="cell_big_label">
+        <Label fx:id="id" styleClass="cell_big_label" text="\$id" wrapText="true">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
       </HBox>
-      <Label fx:id="gender" styleClass="cell_small_label" text="\$gender"/>
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+      <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" wrapText="true" />
+      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" wrapText="true" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="email" styleClass="cell_small_label" text="\$email" wrapText="true" />
       <FlowPane fx:id="tags" />
     </VBox>
       <rowConstraints>
