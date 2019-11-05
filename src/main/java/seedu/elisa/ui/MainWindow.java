@@ -129,6 +129,18 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
+        // Listen to changes in focus of stage
+        primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> o, Boolean old, Boolean n) {
+                if (!primaryStage.focusedProperty().get()) {
+                    popup.hide();
+                } else {
+                    popup.show(primaryStage);
+                }
+            }
+        });
+
         //Listen to changes in tab selection
         viewsPlaceholder.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>() {
