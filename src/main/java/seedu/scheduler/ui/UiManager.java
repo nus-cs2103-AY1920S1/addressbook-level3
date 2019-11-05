@@ -55,6 +55,20 @@ public class UiManager implements Ui, RefreshListener {
         mainWindow.scheduleDataUpdated(logic.getTitlesLists(), logic.getObservableLists());
     }
 
+    /**
+     * Signals the main window that list of interviewee is updated.
+     */
+    public void intervieweeListUpdated() {
+        mainWindow.intervieweeListUpdated(logic.getFilteredIntervieweeList());
+    }
+
+    /**
+     * Signals the main window that list of interviewer is updated.
+     */
+    public void interviewerListUpdated() {
+        mainWindow.interviewerListUpdated(logic.getFilteredInterviewerList());
+    }
+
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }

@@ -4,8 +4,8 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 
 import seedu.scheduler.commons.core.LogsCenter;
@@ -18,30 +18,58 @@ public class IntervieweeListPanel extends UiPart<Region> {
     private static final String FXML = "IntervieweeListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(IntervieweeListPanel.class);
 
-    @FXML
-    private ListView<Interviewee> intervieweeListView;
+    private ObservableList<Interviewee> intervieweeList;
 
-    public IntervieweeListPanel(ObservableList<Interviewee> interviewees) {
+    @FXML
+    private TableView<Interviewee> intervieweeTableView;
+
+    IntervieweeListPanel(ObservableList<Interviewee> intervieweeList) {
         super(FXML);
-        intervieweeListView.setItems(interviewees);
-        intervieweeListView.setCellFactory(listView -> new IntervieweeListViewCell());
+        this.intervieweeList = intervieweeList;
+        initialise();
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Interviewee} using a {@code IntervieweeCard}.
+     * Set the columns and the data from each column
      */
-    class IntervieweeListViewCell extends ListCell<Interviewee> {
-        @Override
-        protected void updateItem(Interviewee interviewee, boolean empty) {
-            super.updateItem(interviewee, empty);
-
-            if (empty || interviewee == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new IntervieweeCard(interviewee, getIndex() + 1).getRoot());
-            }
-        }
+    private void initialise() {
+        setTableColumn();
+        this.intervieweeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        this.intervieweeTableView.setItems(this.intervieweeList);
     }
 
+    /**
+     * Set the table columns.
+     */
+    private void setTableColumn() {
+        createNewTableColumn("Full Name");
+        createNewTableColumn("NUS Email");
+        createNewTableColumn("Personal Email");
+        createNewTableColumn("Mobile");
+        createNewTableColumn("Faculty/School");
+        createNewTableColumn("Acad Year");
+        createNewTableColumn("Choice of Department");
+        createNewTableColumn("Time Slots");
+    }
+
+    /**
+     * Create a new TableColumn object.
+     * @param titles The titles for each columns.
+     */
+    private void createNewTableColumn(String titles) {
+        TableColumn columnTitle = new TableColumn(titles);
+        columnTitle.setReorderable(false);
+        columnTitle.setMinWidth(80);
+
+        intervieweeTableView.getColumns().add(columnTitle);
+    }
+
+    protected void listUpdated(ObservableList<Interviewee> newIntervieweeList) {
+        clearData();
+        this.intervieweeTableView.setItems(newIntervieweeList);
+    }
+
+    protected void clearData() {
+        this.intervieweeTableView.getItems().removeAll();
+    }
 }
