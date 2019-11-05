@@ -176,7 +176,7 @@ public class QuestionBank implements Iterable<Question> {
         questionsFiltered.clear();
         int textToFindSize = textToFind.length();
         int similarityThreshold = (int) (textToFindSize * 0.4); // 40% match
-        ArrayList<Question> similiarAl = new ArrayList<>(); // Used for grouping similiar terms
+        ArrayList<Question> similarAl = new ArrayList<>(); // Used for grouping similiar terms
 
         // 2-levels of searching occurs here
         for (int i = 0; i < questions.size(); i++) {
@@ -193,12 +193,13 @@ public class QuestionBank implements Iterable<Question> {
                 questionsFiltered.add(question);
             } else if (difference <= similarityThreshold) { // Search for similar terms
                 question.setQuestion(index.getOneBased() + ". " + question.getQuestion());
-                similiarAl.add(question);
+                similarAl.add(question);
             }
         }
 
-        questionsFiltered.addAll(similiarAl);
+        similarAl.sort(Comparator.comparingInt(o -> o.getQuestion().length()));
         questionsFiltered.sort(Comparator.comparingInt(o -> o.getQuestion().length()));
+        questionsFiltered.addAll(similarAl);
 
         return "Displaying results for \'" + textToFind + "\' and similar terms.\n"
             + "Found " + questionsFiltered.size() + " results";

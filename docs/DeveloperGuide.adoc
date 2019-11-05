@@ -275,12 +275,14 @@ that implements the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshte
 Questions that matches the search term will be added to the `QuestionBank#questionsFiltered` list whereas for similar questions,
 they will be added to the temporary `similarAl` list instead.
 
-*Step 6*. The `QuestionBank#questionsFiltered` is then sorted in ascending order of their question length.
+*Step 6*. Both the `QuestionBank#questionsFiltered` and `similarAl` list is then sorted in ascending order of their question length.
+
+*Step 7*. The `similarAl` list is then appended to the `QuestionBank#questionsFiltered` list.
 
 *Step 7*. A new `CommandResult` will be returned with a message stating the search term and the number of results returned.
 
-image::QuestionsFindCommandActivityDiagram.png[]
-_Figure 6. Activity diagram of find command_
+image::QuestionsSearchActivityDiagram.png[]
+_Figure 6. Activity diagram of questions search_
 
 ==== Design Considerations
 
@@ -314,7 +316,7 @@ using a longer search term as compared to a shorter one. Long search terms are a
 
 * ** Alternatives Considered: **
 ** Using a calibration percentage of above 70 percent. This is not optimal for our use case as words with similar spelling but
-different meanings e.g fog and frog, will be more often included in the search results.
+different meanings e.g 'moon' and 'noon', will be more often included in the search results.
 
 [[Feature-Slideshow]]
 === Slideshow feature
