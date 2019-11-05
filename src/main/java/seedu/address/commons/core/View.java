@@ -1,7 +1,5 @@
 package seedu.address.commons.core;
 
-import seedu.address.logic.parser.ParserUtil;
-
 //@@author {lawncegoh}
 /**
  * Gives the specific view that the user inputs

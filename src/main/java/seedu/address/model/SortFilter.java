@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.logic.parser.ParserUtil;
-
 /**
  * Gives the specific filter to sort the lists by
  */
