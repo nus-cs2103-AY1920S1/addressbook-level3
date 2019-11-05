@@ -787,6 +787,10 @@ _{explain how the user can enable/disable data encryption}_
 A list of policies that a person is eligible for will be shown if the user attempts to assign a policy to someone who is
 ineligible for it.
 
+=== Suggestions while typing `[coming in v2.0]`
+
+Suggestions of correct command words will be listed immediately once an incorrect command word is detected.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
