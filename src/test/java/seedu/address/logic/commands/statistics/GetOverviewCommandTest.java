@@ -50,7 +50,7 @@ class GetOverviewCommandTest {
     }
 
     @Test
-    public void execute_emptyQuizResultList_throwsCommandException() {
+    void execute_emptyQuizResultList_throwsCommandException() {
         QuizResultFilter quizResultFilter = null;
         try {
             quizResultFilter = new QuizResultFilterBuilder()

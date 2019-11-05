@@ -412,6 +412,17 @@ Returns a panel containing a report of how well you have answered a particular q
 the number of times the question has been attempted and the past answers to the question.
 Typing any other non-statistics command will close this panel. +
 Format: `report INDEX`
+
+Example:
+Let's say you have answered some questions from CS2103T previously
+and would like a ballpark figure to estimate how well you know the subject.
+
+To get this figure:
+
+. Type `stats s/CS2103T` into the command box, and press *Enter* to execute it.
+. The result box will display the message "Here are the statistics:"
+. And you can see a pie chart of the number of correctly and incorrectly answered questions.
+
 // end::report[]
 
 // tag::overview[]

@@ -28,7 +28,7 @@ class GetStatisticsCommandTest {
     }
 
     @Test
-    public void execute_validQuizResultFilter_success() {
+    void execute_validQuizResultFilter_success() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withSubjects(Arrays.asList("CS2105"))
                 .withDifficulty("hard")
