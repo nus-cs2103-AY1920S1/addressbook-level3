@@ -83,10 +83,9 @@ public abstract class MultiLoanCommand extends Command {
 
         for (Person person : persons) {
             boolean isInLoanList = false;
-            for (int i = 0; i < loansManager.getLoansCount(); i++) {
-                Index index = Index.fromZeroBased(i);
-                if (loansManager.getLoan(index).getPerson().isSamePerson(person)) {
-                    targetLoanIndices.add(index);
+            for (int i = 0; i < loansManager.getFilteredLoans().size(); i++) {
+                if (loansManager.getFilteredLoans().get(i).getPerson().isSamePerson(person)) {
+                    targetLoanIndices.add(Index.fromZeroBased(i));
                     isInLoanList = true;
                 }
             }
