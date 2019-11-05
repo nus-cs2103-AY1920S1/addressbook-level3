@@ -14,14 +14,14 @@ import seedu.scheduler.model.tag.Tag;
 public class DefaultValues {
 
     // Person
-    public static final Name DEFAULT_NAME = new Name("John Cena");
+    public static final Name DEFAULT_NAME = new Name("John Doe");
     public static final Phone DEFAULT_PHONE = new Phone("88888888");
     public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
     // Interviewee
     public static final Role DEFAULT_INTERVIEWEE_ROLE = new Role("interviewee");
-    public static final Email DEFAULT_PERSONAL_EMAIL = new Email("default@example.com");
-    public static final Email DEFAULT_NUS_WORK_EMAIL = new Email("default@u.nus.edu");
+    public static final Email DEFAULT_PERSONAL_EMAIL = new Email("john_doe@gmail.com");
+    public static final Email DEFAULT_NUS_WORK_EMAIL = new Email("john_doe@u.nus.edu");
     public static final Emails DEFAULT_EMAILS = new Emails()
                 .addPersonalEmail(DEFAULT_PERSONAL_EMAIL)
                 .addNusEmail(DEFAULT_NUS_WORK_EMAIL);
