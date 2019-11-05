@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
@@ -31,11 +32,11 @@ import seedu.address.testutil.NoteBuilder;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
  * and unit tests for EditNoteCommand.
  */
-public class EditNoteCommandTest {
+class EditNoteCommandTest {
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    void execute_allFieldsSpecifiedUnfilteredList_success() {
         Note editedNote = new NoteBuilder().build();
         EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder(editedNote).build();
         EditNoteCommand editNoteCommand = new EditNoteCommand(INDEX_FIRST, descriptor);
@@ -49,7 +50,7 @@ public class EditNoteCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastNote = Index.fromOneBased(model.getFilteredNoteList().size());
         Note lastNote = model.getFilteredNoteList().get(indexLastNote.getZeroBased());
 
@@ -69,7 +70,7 @@ public class EditNoteCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    void execute_noFieldSpecifiedUnfilteredList_success() {
         EditNoteCommand editNoteCommand = new EditNoteCommand(INDEX_FIRST,
                 new EditNoteCommand.EditNoteDescriptor());
         Note editedNote = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
@@ -82,7 +83,7 @@ public class EditNoteCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    void execute_filteredList_success() {
         showNoteAtIndex(model, INDEX_FIRST);
 
         Note noteInFilteredList = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
@@ -99,7 +100,7 @@ public class EditNoteCommandTest {
     }
 
     @Test
-    public void execute_duplicateNoteUnfilteredList_failure() {
+    void execute_duplicateNoteUnfilteredList_failure() {
         Note firstNote = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
         EditNoteCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder(firstNote).build();
         EditNoteCommand editNoteCommand = new EditNoteCommand(INDEX_SECOND, descriptor);
@@ -108,7 +109,7 @@ public class EditNoteCommandTest {
     }
 
     @Test
-    public void execute_duplicateNoteFilteredList_failure() {
+    void execute_duplicateNoteFilteredList_failure() {
         showNoteAtIndex(model, INDEX_FIRST);
 
         // edit note in filtered list into a duplicate in notes
@@ -120,7 +121,7 @@ public class EditNoteCommandTest {
     }
 
     @Test
-    public void execute_invalidNoteIndexUnfilteredList_failure() {
+    void execute_invalidNoteIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredNoteList().size() + 1);
         EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_BOB).build();
         EditNoteCommand editNoteCommand = new EditNoteCommand(outOfBoundIndex, descriptor);
@@ -133,7 +134,7 @@ public class EditNoteCommandTest {
      * but smaller than number of notes
      */
     @Test
-    public void execute_invalidNoteIndexFilteredList_failure() {
+    void execute_invalidNoteIndexFilteredList_failure() {
         showNoteAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of lecture note list
@@ -146,27 +147,27 @@ public class EditNoteCommandTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         final EditNoteCommand standardCommand = new EditNoteCommand(INDEX_FIRST, DESC_AMY);
 
         // same values -> returns true
         EditNoteDescriptor copyDescriptor = new EditNoteCommand.EditNoteDescriptor(DESC_AMY);
         EditNoteCommand commandWithSameValues = new EditNoteCommand(INDEX_FIRST, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearNoteCommand()));
+        assertNotEquals(standardCommand, new ClearNoteCommand());
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditNoteCommand(INDEX_SECOND, DESC_AMY)));
+        assertNotEquals(standardCommand, new EditNoteCommand(INDEX_SECOND, DESC_AMY));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditNoteCommand(INDEX_FIRST, DESC_BOB)));
+        assertNotEquals(standardCommand, new EditNoteCommand(INDEX_FIRST, DESC_BOB));
     }
 }

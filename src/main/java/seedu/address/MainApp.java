@@ -36,7 +36,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 2, 0, false);
+    public static final Version VERSION = new Version(1, 4, 0, false);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -78,7 +78,7 @@ public class MainApp extends Application {
         ReadOnlyAppData initialData;
         try {
             appDataOptional = storage.readAppData();
-            if (!appDataOptional.isPresent()) {
+            if (appDataOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with sample data");
             }
             initialData = appDataOptional.orElseGet(SampleDataUtil::getSampleAppData);

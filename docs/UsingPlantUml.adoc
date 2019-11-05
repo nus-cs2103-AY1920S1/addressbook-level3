@@ -39,7 +39,6 @@ After installing the `PlantUML integration` plugin, simply create or open any `.
 image::EditingDeleteSequenceDiagram.png[]
 Any changes you make in editor pane on the left will be reflected in the preview pane on the right.
 However, do take note that these changes _will not_ be reflected in the developers guide until you export the diagram.
-//TODO: Discussion about why we're not using asciidoctor-diagram
 
 == Export PlantUML diagrams
 
@@ -88,7 +87,7 @@ For example, `skinparam backgroundColor transparent` turns the background of the
 
 For a comprehensive list of ``skinparam``s head over to the https://plantuml-documentation.readthedocs.io/en/latest/[unofficial PlantUML skinparam documentation].
 
-***
+'''
 
 === Repositioning elements in PlantUML diagrams
 

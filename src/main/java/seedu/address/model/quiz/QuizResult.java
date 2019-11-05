@@ -1,25 +1,26 @@
 package seedu.address.model.quiz;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static java.time.LocalDate.parse;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.QuestionBody;
 import seedu.address.model.question.Subject;
-import seedu.address.model.quiz.exceptions.WrongDateFormatException;
 
 /**
- * Represents a question. Its answer, questionBody, quizTime and result are guaranteed non-null.
+ * Represents a quiz result. Its answer, questionBody, subject,
+ * difficulty, quizTime and result are guaranteed non-null.
  */
 public class QuizResult {
     private final Answer answer;
     private final QuestionBody questionBody;
     private final Subject subject;
     private final Difficulty difficulty;
-    private final String quizTime; // need to convert to date object
+    private final String quizTime;
     private final boolean result;
 
     public QuizResult(Answer answer, QuestionBody questionBody, Subject subject, Difficulty difficulty,
@@ -56,22 +57,20 @@ public class QuizResult {
         return result;
     }
 
+    public String getResultToString() {
+        return result ? "Correct" : "Incorrect";
+    }
+
     /**
      * Returns true if the quizResult is stored within the given time period and false otherwise.
      * @param start The starting date.
      * @param end The ending date.
      * @return A boolean.
      */
-    public boolean isWithinDate(Date start, Date end) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = null;
-        try {
-            date = formatter.parse(quizTime);
-        } catch (ParseException e) {
-            throw new WrongDateFormatException();
-        }
-        boolean isWithinDate = !(date.before(start) || date.after(end));
-        return isWithinDate;
+    public boolean isWithinDate(LocalDate start, LocalDate end) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate date = parse(quizTime.split(" ")[0], formatter);
+        return !(date.isBefore(start) || date.isAfter(end));
     }
 
     @Override

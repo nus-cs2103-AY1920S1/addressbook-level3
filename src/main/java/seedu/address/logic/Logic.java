@@ -44,6 +44,8 @@ public interface Logic {
      */
     ObservableList<PieChart.Data> getStatsPieChartData();
 
+    ObservableList<PieChart.Data> getQnsPieChartData();
+
     ObservableList<StackBarChartModel> getStackBarChartData();
 
     ObservableList<Subject> getUniqueSubjectList();

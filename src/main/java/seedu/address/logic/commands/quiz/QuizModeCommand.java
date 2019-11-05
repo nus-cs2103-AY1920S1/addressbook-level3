@@ -33,7 +33,7 @@ public class QuizModeCommand extends Command {
             + PREFIX_SUBJECT + "Maths ";
 
     public static final String MESSAGE_SUCCESS = "You have successfully entered quiz mode!";
-    public static final String INSUFFICIENT_QUESTION = "There are insufficient questions to do the quiz!";
+    private static final String INSUFFICIENT_QUESTIONS = "There are insufficient questions to do the requested quiz";
 
     private final int numOfQuestions;
     private final Subject subject;
@@ -56,7 +56,7 @@ public class QuizModeCommand extends Command {
             model.setQuizQuestionList(quizQuestionList);
             LogicManager.setIsQuiz(true);
         } catch (IllegalArgumentException e) {
-            throw new CommandException(INSUFFICIENT_QUESTION);
+            throw new CommandException(INSUFFICIENT_QUESTIONS + " " + e.getMessage());
         }
 
         return new CommandResult(MESSAGE_SUCCESS, 4);

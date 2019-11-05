@@ -32,15 +32,14 @@ public class GetQnsCommandParser implements Parser<GetQnsCommand> {
         QuizResultFilter quizResultFilter;
         boolean getCorrectQns;
 
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SUBJECT);
-
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SUBJECT);
         List<Subject> subjects = new ArrayList<>();
+
         for (String subject : argMultimap.getAllValues(PREFIX_SUBJECT)) {
             subjects.add(ParserUtil.parseSubject(subject));
         }
 
-        if (!(args.contains("-c") ^ args.contains("-i"))) {
+        if (args.contains("-c") == args.contains("-i")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     GetQnsCommand.MESSAGE_USAGE));
         }
@@ -48,7 +47,25 @@ public class GetQnsCommandParser implements Parser<GetQnsCommand> {
         getCorrectQns = args.contains("-c");
         quizResultFilter = new QuizResultFilter(subjects, getCorrectQns);
 
-        return new GetQnsCommand(quizResultFilter);
+        return new GetQnsCommand(quizResultFilter, returnMessage(getCorrectQns, subjects));
+    }
+
+    /**
+     * Returns a string to be placed in the result display.
+     * @param getCorrectQns Denotes if message includes correct or incorrect questions.
+     * @param subjects Denotes the subjects to include in the result display.
+     * @return The message to be placed in result display.
+     */
+    private String returnMessage(boolean getCorrectQns, List<Subject> subjects) {
+        String returnMessage;
+        if (!subjects.isEmpty()) {
+            returnMessage = "Here are the " + (getCorrectQns ? "correct" : "incorrect")
+                    + " questions for " + subjects + ":";
+        } else {
+            returnMessage = "Here are the " + (getCorrectQns ? "correct" : "incorrect")
+                    + " questions:";
+        }
+        return returnMessage;
     }
 
 }

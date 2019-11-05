@@ -42,7 +42,6 @@ public class DeleteQuestionCommand extends Command {
 
         Question questionToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteQuestion(questionToDelete);
-        model.updateFilteredQuestionList(Model.PREDICATE_SHOW_ALL_QUESTIONS);
         return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questionToDelete));
     }
 

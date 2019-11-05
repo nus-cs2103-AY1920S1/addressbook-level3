@@ -5,11 +5,13 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
+import javafx.util.Duration;
 import seedu.address.ui.UiPart;
 
 /**
- * A UI component that displays statistics.
+ * A UI component that displays a pie chart.
  */
 public class StatsPieChart extends UiPart<Region> {
     private static final String FXML = "StatsPieChart.fxml";
@@ -28,7 +30,16 @@ public class StatsPieChart extends UiPart<Region> {
                 + "Number of questions answered incorrectly: " + (int) data.get(1).getPieValue() + "\n");
     }
 
-    public PieChart getChart() {
-        return pc;
+    /**
+     * Sets a mouseover event displaying the value of the pie chart slice.
+     */
+    public void setMouseover() {
+        pc.getData().forEach(data -> {
+            String value = "" + (int) data.getPieValue();
+            Tooltip toolTip = new Tooltip(value);
+            toolTip.setStyle("-fx-font-size: 20");
+            toolTip.setShowDelay(Duration.seconds(0));
+            Tooltip.install(data.getNode(), toolTip);
+        });
     }
 }

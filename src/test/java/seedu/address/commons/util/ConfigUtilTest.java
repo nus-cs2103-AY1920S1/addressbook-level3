@@ -16,7 +16,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 
-public class ConfigUtilTest {
+class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
 
@@ -24,22 +24,22 @@ public class ConfigUtilTest {
     public Path tempDir;
 
     @Test
-    public void read_null_throwsNullPointerException() {
+    void read_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> read(null));
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws DataConversionException {
+    void read_missingFile_emptyResult() throws DataConversionException {
         assertFalse(read("NonExistentFile.json").isPresent());
     }
 
     @Test
-    public void read_notJsonFormat_exceptionThrown() {
+    void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> read("NotJsonFormatConfig.json"));
     }
 
     @Test
-    public void read_fileInOrder_successfullyRead() throws DataConversionException {
+    void read_fileInOrder_successfullyRead() throws DataConversionException {
 
         Config expected = getTypicalConfig();
 
@@ -48,13 +48,13 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
+    void read_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
         Config actual = read("EmptyConfig.json").get();
         assertEquals(new Config(), actual);
     }
 
     @Test
-    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
+    void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
 
@@ -74,17 +74,17 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void save_nullConfig_throwsNullPointerException() {
+    void save_nullConfig_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
     }
 
     @Test
-    public void save_nullFile_throwsNullPointerException() {
+    void save_nullFile_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(new Config(), null));
     }
 
     @Test
-    public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
+    void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
 
         Path configFilePath = tempDir.resolve("TempConfig.json");

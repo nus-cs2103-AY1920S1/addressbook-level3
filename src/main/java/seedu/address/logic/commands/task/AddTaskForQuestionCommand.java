@@ -66,7 +66,7 @@ public class AddTaskForQuestionCommand extends Command {
     }
 
     private Task getQuestionTask(Model model) throws CommandException {
-        Index targetIndex = null;
+        Index targetIndex;
         try {
             targetIndex = ParserUtil.parseIndex(toAdd.getHeading().toString());
         } catch (ParseException e) {

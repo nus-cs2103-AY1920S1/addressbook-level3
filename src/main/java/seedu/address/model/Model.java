@@ -21,15 +21,7 @@ import seedu.address.model.task.Task;
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
-
-    /**
-     * {@code Predicate} that always evaluate to false
-     */
-    Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
 
     Predicate<Task> PREDICATE_SHOW_NO_TASKS = task -> false;
 
@@ -39,21 +31,10 @@ public interface Model {
 
     Predicate<Task> PREDICATE_SHOW_NOT_DONE_TASKS = task -> !task.getStatus();
 
-    Predicate<Task> PREDICATE_SHOW_OVERDUE_TASKS = new Predicate<Task>() {
-        @Override
-        public boolean test(Task task) {
-            LocalDateTime now = LocalDateTime.now();
-            System.out.println(now.toString());
-            if (task.getStatus()) {
-                return false;
-            }
-            LocalDateTime taskDateTime = LocalDateTime.of(task.getDate(), task.getTime());
-            if (taskDateTime.compareTo(now) < 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+    Predicate<Task> PREDICATE_SHOW_OVERDUE_TASKS = task -> {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime taskDateTime = LocalDateTime.of(task.getDate(), task.getTime());
+        return !task.getStatus() && taskDateTime.isBefore(now);
     };
 
     /**
@@ -178,6 +159,11 @@ public interface Model {
     void deleteQuestion(Question target);
 
     /**
+     * Clears all questions.
+     */
+    void clearQuestions();
+
+    /**
      * Replaces the given question {@code target} with {@code editedQuestion}.
      * {@code target} must exist in NUStudy.
      * The question body of {@code editedQuestion} must not be the same as another existing question in NUStudy.
@@ -227,8 +213,16 @@ public interface Model {
      */
     ObservableList<Question> getFilteredQuizQuestionList();
 
+    /**
+     * Filters the quiz result list with {@code QuizResultFilter}.
+     * @param quizResultFilter The filter to be applied.
+     */
     void filterQuizResult(QuizResultFilter quizResultFilter);
 
+    /**
+     * Updates the existing {@code QuizResultFilter}.
+     * @param quizResultFilter The filter to update with.
+     */
     void updateQuizResultFilter(QuizResultFilter quizResultFilter);
 
     /**
@@ -241,6 +235,10 @@ public interface Model {
      */
     boolean checkQuizAnswer(Answer answer);
 
+    /**
+     * Adds the quiz result to the quiz result list.
+     * @param quizResult The quiz result to be added.
+     */
     void addQuizResult(QuizResult quizResult);
 
     /**
@@ -267,9 +265,29 @@ public interface Model {
      */
     ObservableList<PieChart.Data> getStatsPieChartData();
 
+    /**
+     * Returns an unmodifiable view of the quiz result list.
+     */
     ObservableList<QuizResult> getQuizResultList();
 
+    /**
+     * Filters the quiz result list by the question.
+     * @param question The question to filter by.
+     */
+    void generateQnsReport(Question question);
+
+    /**
+     * Returns an unmodifiable view of a list of unique subjects.
+     */
     ObservableList<Subject> getUniqueSubjectList();
 
+    /**
+     * Returns an unmodifiable view of the series list of a bar chart.
+     */
     ObservableList<StackBarChartModel> getStackBarChartData();
+
+    /**
+     * Returns an unmodifiable view of the data list for a pie chart.
+     */
+    ObservableList<PieChart.Data> getQnsPieChartData();
 }

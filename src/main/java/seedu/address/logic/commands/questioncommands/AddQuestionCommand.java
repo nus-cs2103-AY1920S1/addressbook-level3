@@ -25,10 +25,10 @@ public class AddQuestionCommand extends Command {
             + PREFIX_SUBJECT + "SUBJECT "
             + PREFIX_DIFFICULTY + "DIFFICULTY \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_QUESTION + "MSS stands for? "
-            + PREFIX_ANSWER + "Main Success Scenario "
-            + PREFIX_SUBJECT + "CS2103T "
-            + PREFIX_DIFFICULTY + "Easy ";
+            + PREFIX_QUESTION + "1 + 1 =  "
+            + PREFIX_ANSWER + "2 "
+            + PREFIX_SUBJECT + "Math "
+            + PREFIX_DIFFICULTY + "easy ";
 
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";
     public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in NUStudy";

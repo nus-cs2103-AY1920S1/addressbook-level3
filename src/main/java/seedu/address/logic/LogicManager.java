@@ -88,6 +88,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<PieChart.Data> getQnsPieChartData() {
+        return model.getQnsPieChartData();
+    }
+
+    @Override
     public ObservableList<StackBarChartModel> getStackBarChartData() {
         return model.getStackBarChartData();
     }

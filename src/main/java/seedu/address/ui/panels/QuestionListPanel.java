@@ -29,7 +29,7 @@ public class QuestionListPanel extends PanelComponent<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Question} using a {@code QuestionCard}.
      */
-    class QuestionListViewCell extends ListCell<Question> {
+    static class QuestionListViewCell extends ListCell<Question> {
         @Override
         protected void updateItem(Question question, boolean empty) {
             super.updateItem(question, empty);

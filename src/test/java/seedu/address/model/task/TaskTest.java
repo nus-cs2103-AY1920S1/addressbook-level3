@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.task.Task.isValidStatusIcon;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -16,10 +17,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.TaskBuilder;
 
-public class TaskTest {
-
+class TaskTest {
     @Test
-    public void getStatusIcon_default_returnsN() {
+    void getStatusIcon_default_returnsN() {
         assertEquals(new TaskForNote(CONAN, TaskBuilder.DEFAULT_DATE, TaskBuilder.DEFAULT_TIME).getStatusIcon(),
                 "[N]");
         assertEquals(new TaskForQuestion(CONAN_QUESTION, TaskBuilder.DEFAULT_DATE, TaskBuilder.DEFAULT_TIME)
@@ -29,7 +29,7 @@ public class TaskTest {
     }
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    void constructor_null_throwsNullPointerException() {
         //null date
         assertThrows(NullPointerException.class, () -> new TaskForNote(CONAN, null, TaskBuilder.DEFAULT_TIME));
         assertThrows(NullPointerException.class, () -> new TaskForQuestion(CONAN_QUESTION, null,
@@ -58,7 +58,7 @@ public class TaskTest {
     }
 
     @Test
-    public void isValidStatusIcon_invalidIcon_returnsFalse() {
+    void isValidStatusIcon_invalidIcon_returnsFalse() {
         assertFalse(isValidStatusIcon("hello"));
         assertFalse(isValidStatusIcon("1"));
         assertFalse(isValidStatusIcon(""));
@@ -66,24 +66,24 @@ public class TaskTest {
         assertTrue(isValidStatusIcon("[N]"));
     }
     @Test
-    public void equals() {
+    void equals() {
         // same values -> returns true
         Task conanCopy = new TaskBuilder(CONAN_TASK_DEFAULT).build();
-        assertTrue(CONAN_TASK_DEFAULT.equals(conanCopy));
+        assertEquals(CONAN_TASK_DEFAULT, conanCopy);
 
         // same object -> returns true
-        assertTrue(CONAN_TASK_DEFAULT.equals(CONAN_TASK_DEFAULT));
+        assertEquals(CONAN_TASK_DEFAULT, CONAN_TASK_DEFAULT);
 
         // different type -> returns false
-        assertFalse(CONAN_TASK_DEFAULT.equals(5));
+        assertNotEquals(5, CONAN_TASK_DEFAULT);
 
         // different date -> returns false
-        assertFalse(CONAN_TASK_DEFAULT.equals(CONAN_TASK_MODIFIED_DATE));
+        assertNotEquals(CONAN_TASK_DEFAULT, CONAN_TASK_MODIFIED_DATE);
 
         //different time -> returns false
-        assertFalse(CONAN_TASK_DEFAULT.equals(CONAN_TASK_MODIFIED_TIME));
+        assertNotEquals(CONAN_TASK_DEFAULT, CONAN_TASK_MODIFIED_TIME);
 
         //different status -> returns false
-        assertFalse(CONAN_TASK_DEFAULT.equals(CONAN_TASK_DONE));
+        assertNotEquals(CONAN_TASK_DEFAULT, CONAN_TASK_DONE);
     }
 }

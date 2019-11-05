@@ -16,12 +16,15 @@ import seedu.address.logic.commands.note.EditNoteCommand;
 import seedu.address.logic.commands.note.FindNoteCommand;
 import seedu.address.logic.commands.note.ListNoteCommand;
 import seedu.address.logic.commands.questioncommands.AddQuestionCommand;
+import seedu.address.logic.commands.questioncommands.ClearQuestionCommand;
 import seedu.address.logic.commands.questioncommands.DeleteQuestionCommand;
 import seedu.address.logic.commands.questioncommands.EditQuestionCommand;
+import seedu.address.logic.commands.questioncommands.FindDifficultyCommand;
 import seedu.address.logic.commands.questioncommands.FindQuestionCommand;
+import seedu.address.logic.commands.questioncommands.FindSubjectCommand;
 import seedu.address.logic.commands.questioncommands.ListQuestionCommand;
 import seedu.address.logic.commands.quiz.QuizModeCommand;
-import seedu.address.logic.commands.statistics.GetOverviewqCommand;
+import seedu.address.logic.commands.statistics.GetOverviewCommand;
 import seedu.address.logic.commands.statistics.GetQnsCommand;
 import seedu.address.logic.commands.statistics.GetReportCommand;
 import seedu.address.logic.commands.statistics.GetStatisticsCommand;
@@ -30,6 +33,8 @@ import seedu.address.logic.commands.task.AddTaskForQuestionCommand;
 import seedu.address.logic.commands.task.ClearTaskCommand;
 import seedu.address.logic.commands.task.DeleteTaskCommand;
 import seedu.address.logic.commands.task.DoneTaskCommand;
+import seedu.address.logic.commands.task.EditTaskCommand;
+import seedu.address.logic.commands.task.FindTaskCommand;
 import seedu.address.logic.commands.task.ListAllTaskCommand;
 import seedu.address.logic.commands.task.ListDoneTaskCommand;
 import seedu.address.logic.commands.task.ListNotDoneTaskCommand;
@@ -42,9 +47,11 @@ import seedu.address.logic.parser.note.FindNoteCommandParser;
 import seedu.address.logic.parser.questionparser.AddQuestionCommandParser;
 import seedu.address.logic.parser.questionparser.DeleteQuestionCommandParser;
 import seedu.address.logic.parser.questionparser.EditQuestionCommandParser;
+import seedu.address.logic.parser.questionparser.FindDifficultyCommandParser;
 import seedu.address.logic.parser.questionparser.FindQuestionCommandParser;
+import seedu.address.logic.parser.questionparser.FindSubjectCommandParser;
 import seedu.address.logic.parser.quiz.QuizModeCommandParser;
-import seedu.address.logic.parser.statistics.GetOverviewqCommandParser;
+import seedu.address.logic.parser.statistics.GetOverviewCommandParser;
 import seedu.address.logic.parser.statistics.GetQnsCommandParser;
 import seedu.address.logic.parser.statistics.GetReportCommandParser;
 import seedu.address.logic.parser.statistics.GetStatisticsCommandParser;
@@ -52,6 +59,8 @@ import seedu.address.logic.parser.task.AddTaskForNoteCommandParser;
 import seedu.address.logic.parser.task.AddTaskForQuestionCommandParser;
 import seedu.address.logic.parser.task.DeleteTaskCommandParser;
 import seedu.address.logic.parser.task.DoneTaskCommandParser;
+import seedu.address.logic.parser.task.EditTaskCommandParser;
+import seedu.address.logic.parser.task.FindTaskCommandParser;
 
 /**
  * Parses user input.
@@ -116,8 +125,8 @@ public class AppDataParser {
         case GetReportCommand.COMMAND_WORD:
             return new GetReportCommandParser().parse(arguments);
 
-        case GetOverviewqCommand.COMMAND_WORD:
-            return new GetOverviewqCommandParser().parse(arguments);
+        case GetOverviewCommand.COMMAND_WORD:
+            return new GetOverviewCommandParser().parse(arguments);
 
         case AddQuestionCommand.COMMAND_WORD:
             return new AddQuestionCommandParser().parse(arguments);
@@ -134,6 +143,15 @@ public class AppDataParser {
         case FindQuestionCommand.COMMAND_WORD:
             return new FindQuestionCommandParser().parse(arguments);
 
+        case FindDifficultyCommand.COMMAND_WORD:
+            return new FindDifficultyCommandParser().parse(arguments);
+
+        case FindSubjectCommand.COMMAND_WORD:
+            return new FindSubjectCommandParser().parse(arguments);
+
+        case ClearQuestionCommand.COMMAND_WORD:
+            return new ClearQuestionCommand();
+
         case AddTaskForNoteCommand.COMMAND_WORD:
             return new AddTaskForNoteCommandParser().parse(arguments);
 
@@ -142,6 +160,9 @@ public class AppDataParser {
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
+
+        case EditTaskCommand.COMMAND_WORD:
+            return new EditTaskCommandParser().parse(arguments);
 
         case DeleteTaskCommand.COMMAND_WORD:
             return new DeleteTaskCommandParser().parse(arguments);
@@ -160,6 +181,9 @@ public class AppDataParser {
 
         case ListOverdueTaskCommand.COMMAND_WORD:
             return new ListOverdueTaskCommand();
+
+        case FindTaskCommand.COMMAND_WORD:
+            return new FindTaskCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

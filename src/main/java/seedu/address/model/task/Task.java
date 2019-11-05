@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,9 +12,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Task implements Comparable<Task> {
     public static final String MESSAGE_DATE_CONSTRAINT = "Please follow Singapore local date format 'dd/MM/yyyy', "
-            + "with 1 <= dd <= 31, 1 <= MM <= 12, 0 < yyyy < 9999";
-    public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HH/mm', "
-            + "with 00 <= HH <= 23, 00 <= mm <= 59";
+            + "with 01 <= dd <= 31, 01 <= MM <= 12, 0000 < yyyy < 9999.\n"
+            + "Note that 'dd' and 'MM' should be 2-digit, and 'yyyy' should be 4-digit.";
+    public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HHmm', "
+            + "with 00 <= HH <= 23, 00 <= mm <= 59.\n" + "Note that both 'HH' and 'mm' should be 2-digit.";
     public static final DateTimeFormatter FORMAT_FILE_DATE_STRING = DateTimeFormatter.ofPattern("dd MMMM yyyy");
     public static final DateTimeFormatter FORMAT_FILE_TIME_STRING = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter FORMAT_USER_INPUT_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -84,8 +86,7 @@ public class Task implements Comparable<Task> {
         Task otherTask = (Task) other;
         return this.heading.equals(otherTask.getHeading())
                 && getDate().equals(otherTask.getDate())
-                && getTime().equals(otherTask.getTime())
-                && getStatusIcon().equals(otherTask.getStatusIcon());
+                && getTime().equals(otherTask.getTime());
     }
 
     /**
@@ -114,22 +115,20 @@ public class Task implements Comparable<Task> {
 
     @Override
     public int compareTo(Task task) {
-        int compareDate = this.getDate().compareTo(task.getDate());
-        if (compareDate != 0) {
-            return compareDate;
-        }
-
-        int compareTime = this.getTime().compareTo(task.getTime());
-        if (compareTime != 0) {
-            return compareTime;
-        }
-
-        if (this.getStatus() && !task.getStatus()) {
-            return -1;
-        } else if (!this.getStatus() && task.getStatus()) {
-            return 1;
+        LocalDateTime thisDateTime = LocalDateTime.of(this.getDate(), this.getTime());
+        LocalDateTime otherDateTime = LocalDateTime.of(task.getDate(), task.getTime());
+        if (thisDateTime.isBefore(otherDateTime)) {
+            return thisDateTime.compareTo(otherDateTime);
         } else {
-            return 0;
+            if (this.getStatus() == task.getStatus()) {
+                return this.getHeading().toString().compareTo(task.getHeading().toString());
+            } else {
+                if (this.getStatus()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
         }
     }
 }

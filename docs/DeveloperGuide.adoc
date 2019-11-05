@@ -133,7 +133,8 @@ This section describes some finer details on how certain features are implemente
 Usually, we do not learn best from just text; we rely on images that our minds can process more easily.
 As such, implementing images in lecture notes was considered very important. Although some lecture notes
 have multiple images, it is always possible to combine them using basic image editing software like the
-GNU Image Manipulation Program (GIMP) and Paint, so the implementation was limited to at most image per note.
+GNU Image Manipulation Program (GIMP) and Paint, so the implementation was limited to at most one
+image per note.
 
 ==== Implementation
 
@@ -142,16 +143,25 @@ This is out of necessity, since an `ImageView` is needed to display an image in 
 an `Image` object, not just a `String` path to the image. No significant coupling is introduced
 by this choice because `Image` objects can exist without a GUI to display them.
 
-The dialog brought up to let the user choose a file returns `null` if the dialog is closed
-_without_ choosing a file (i.e. clicking the close button). Treating `null` as "no image" would surprise the user who
-decides to edit a lecture note's image but then decides not to – the image would simply disappear without
-warning. Therefore the value `i/none` has to be explicitly provided to remove the image, and `EditNoteDescriptor`
-has an additional field `isImageRemoved` to track this. If the image comes out as `null` but `i/none` was
-not provided, the image is unchanged.
-
 The static method `selectImage()` in `AppUtil` opens up a dialog allowing the user to choose the necessary image.
 This is possible because `FileChooser#showOpenDialog()`, which shows the dialog, can be fed an argument of `null`
 instead of having to rely on a `Window` object, which is the domain of the `UI` module.
+
+The aforementioned dialog returns `null` if it is closed
+without choosing a file (i.e. clicking the close button). We interpret this as "no change"
+rather than "no image", i.e. `addnote` and `editnote` proceed as if `i/` was not provided.
+If the "no image" interpretation was used, the user who decides to edit a lecture note's image
+but then decides not to would be surprised to see the image disappear without warning.
+Therefore the value `i/none` has to be explicitly provided in `editnote` to remove the image; `EditNoteDescriptor`
+has the field `isImageRemoved` to track this.
+
+We also defer image selection until after the title has been checked against existing lecture notes,
+which saves time that would otherwise be wasted in navigating to the desired image.
+This is accomplished using
+
+* the `finalizeImage()` method of the `Note` class, calling `selectImage()`
+* the `needsImage` field of `Note`, which allows a one-time execution of `finalizeImage()`
+* the `isImageReplaced` field of `EditNoteDescriptor`
 
 .Sequence diagram for the execution of `EditNoteCommandParser`
 image::ImageSelectionSequenceDiagram.png[]
@@ -159,23 +169,16 @@ image::ImageSelectionSequenceDiagram.png[]
 The diagram above shows how `EditNoteCommandParser` creates an `EditNoteCommand`. It first
 creates an `EditNoteDescriptor` to hold details of what changes in the note, setting the new
 title (provided by the `t/` argument) and content (`c/`) as necessary. If `i/none` is present,
-the `EditNoteDescriptor` is set to remove the image and no dialog is shown. If `i/` is
-otherwise provided, `EditNoteCommandParser` calls the static method `NoteImageSelector#selectImage()`,
-opening up the image selection dialog; the returned `Image` object is then set in the `EditNoteDescriptor`.
-An `EditNoteCommand` containing the `EditNoteDescriptor` is finally returned for execution.
+the `EditNoteDescriptor` is set to remove the image. If `i/` is provided, it is set to replace
+the image. An `EditNoteCommand` containing the `EditNoteDescriptor` is finally returned for execution.
 
 Images are only referenced, not embedded, in the JSON file holding application data. These references are
 Uniform Resource Identifiers (URIs) of system files, e.g. `file:data/picture.png`. Since NUStudy is meant to be portable,
 we cannot use absolute paths, since they would break when the images are moved or deleted. Instead we copy images
-into its data folder, side-by-side with the JSON file, upon execution of any `addnote` or `editnote` command with
-an image. The references are then changed to point to these local copies, becoming relative URIs.
+into application data using `finalizeImage()`, which points references to these local copies.
+// end::lecimage[]
 
-'''
-
-Unlike `Title` and `Content`, which are wrappers around `String` objects, both the use of a JavaFX
-built-in object and the system-dependent implementation of graphics-related objects required me to
-make certain critical decisions on the implementation of image support.
-
+// tag::lecimagedesignconsiderations[]
 ==== Design considerations: where to place the image?
 
 * _Alternative 1 (current choice):_ Images are shown within each lecture note in the first column, and each lecture note
@@ -194,13 +197,14 @@ in the second column
 ** Pros: Effects a better separation of concerns (image selection is not execution of the command, image
 copying may be thought of as a side effect of command execution)
 ** Cons: Need to adapt the file copying code to each command
-* _Alternative 2:_ Images are copied when the image is selected, i.e. `NoteImageSelector#selectImage()`
+* _Alternative 2:_ Images are copied when the image is selected, i.e. `AppUtil#selectImage()`
 ** Pros: Compared to alternative 1, has less time between initial image selection and the copy into
 application data. There is a potential application risk if
 ** Cons: `selectImage()` has two only loosely related responsibilities (worse separation of concerns),
 impossible to take into account user preferences for where the application data is stored
-// end::lecimage[]
+// end::lecimagedesignconsiderations[]
 
+// tag::questiond[]
 === Question management feature
 ==== Current implementation
 
@@ -262,7 +266,9 @@ in local storage when the command finishes executing.
 ** Pros: Do not need to maintain a separate list class.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
+// end::questiond[]
 
+// tag::quiz[]
 === Quiz mode for revision
 ==== Implementation
 
@@ -280,9 +286,8 @@ The commands include:
 
 These operations are exposed in the `Model` interface as `Model#getQuizQuestions(int numOfQuestions, Subject subject
 Difficulty difficulty)`, `Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`,
-`Model#showQuizAnswer(int index)`, `Model#getFilteredQuizQuestionList()`, `Model#getFilteredQuizResultList()`,
-`Model#checkQuizAnswer(int index, Answer answer)`, `Model#addQuizResult(QuizResult quizResult)`,
-`Model#getFilteredQuizResultList()` and `Model#clearQuizQuestionList()` respectively.
+`Model#showQuizAnswer()`, `Model#getFilteredQuizQuestionList()`, `Model#checkQuizAnswer(Answer answer)`
+and `Model#clearQuizQuestionList()` respectively.
 
 Given below is an example usage scenario and how the question mechanism behaves at each step.
 
@@ -293,23 +298,24 @@ The `quiz` command calls `Model#getQuizQuestions(int numOfQuestions, Subject sub
 `Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`, causing the `AppData` to be updated with
 a list of specific question selected by user for quiz.
 
-Step 3. The user executes `INDEX:ANSWER` to answer the question. It calls `Model#checkQuizAnswer(int index,
-Answer answer)` and `Model#addQuizResult(QuizResult quizResult)`, causing the `AppData` to be updated with the result
-of the answer.
+Step 3. The user types answer to answer the question. It calls `Model#checkQuizAnswer(Answer answer)` and
+`Model#addQuizResult(QuizResult quizResult)`, causing the `AppData` to be updated with the result of the answer.
 
-Step 4. The user executes `show 2` command to show the answer of 2nd quiz question in the app. The `show` command calls
-`Model#showQuizAnswer(int index)`, causing the `AppData` to display the answer on the Ui.
+Step 4. The user executes `show` command to show the answer of current quiz question in the app. The `show` command calls
+`Model#showQuizAnswer()`, causing the `AppData` to display the answer on the Ui.
 
 Step 5. The user executes `quit` command to exit from the quiz mode. The `quit` command calls
 `Model#clearQuizQuestionList()`, causing the `AppData` to clear all quiz question list and return to normal mode.
 
 The following sequence diagram shows how the `quiz` operation works:
 
+.QuizModeSequenceDiagram
 image::QuizModeSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command for quiz:
 
-image::QuizModeActivityDiagram.png[]
+.QuizModeActivityDiagram
+image::QuizModeActivityDiagram.png[width=400]
 
 ==== Design Considerations
 
@@ -330,7 +336,9 @@ updated appData in local storage when the command finishes executing.
 ** Pros: Do not need to maintain a separate list class.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
+// end::quiz[]
 
+// tag::stats[]
 === Statistics feature
 ==== Implementation
 
@@ -378,31 +386,36 @@ image::StatisticsActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: The number of notes and tasks that can be seen without scrolling will be decreased.
 The charts will be small and condensed making it difficult to see the data at first glance.
+// end::stats[]
 
 === Add revision task
 ==== Implementation
-`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `radd`. It extends `Command` class and adds a
-`Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data.
+`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `rn`. It extends `Command` class and adds a
+`Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data. Similarly,
+`AddTaskForQuestionCommand` is implemented to add a task for question notes.
 
 The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
 exposed to `AppData#addTask(Task)`.
 
-The following sequence diagram illustrates how `radd` command is executed:
+The following sequence diagram illustrates how `rn` command is executed (adding a task for question is similar, but with different user command):
 
-image::AddTaskSequenceDiagram.png[]
+.Sequence diagram for adding a task for note
+image::task/AddTaskForNoteSequenceDiagram.png[]
+
 
 ==== Design considerations
 ===== Aspect: Design of `Task`
-* **Alternative 1 (current implementation):** implement `Task` as abstract class with two subclasses to support task for
+* **Alternative 1 (current implementation):** implement `Task` as a concrete class with two subclasses to support task for
 notes and questions respectively.
-** Pros: It allows polymorphism to support different behaviours of task for `Note` and task for `Question`. Fields and
-methods in common are concretely implemented to reduce duplicate code snippets.
+** Pros: It supports different behaviours of task for `Note` and task for `Question` by polymorphism. The concrete `Task`
+class will also allow adding of general tasks in *v2.0*.
 ** Cons: We need to implement two different `AddTask` commands to support addition of the two different types of tasks.
-
+Hence we need to write more pieces of code.
 
 The class diagram below illustrates how `Task` class is designed:
 
-image::TaskClassDiagram.png[]
+.Design for `Task` class
+image::task/TaskClassDiagram.png[]
 
 * **Alternative 2:** design `Task` as an interface to be implemented by two different classes.
 ** Pros: More flexible design. Less exposure of internal properties of Task to client.
@@ -470,7 +483,7 @@ Priorities:
 
 * High (must have) – `* * *`
 * Medium (nice to have) – `* *`
-* Low (unlikely to have) – `*`
+* Low (will be implemented in *v2.0*) – `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%,<30%",options="header",]
 |=======================================================================
@@ -486,23 +499,23 @@ Priorities:
 
 |`*`|quizmaster|quiz contestants about their knowledge using the app|the contestants can have as much fun as possible|Jeremy
 
-|`* * *`|student|view my revision plan| be more clear on the big picture of my revision and check whatever is left to do when I forget|Shui Yao
-
-|`* * *`|student|set a revision plan|I can be more organised in my revision and will not lose my focus|Shui Yao
+|`* * *`|student|set a revision plan and add tasks to my plan|I can be more organised in my revision and will not lose my focus|Shui Yao
 
 |`* * *`|student|remove a revision task|I can remove accidentally added revision task or remove a revision task should there be a change of plan|Shui Yao
 
-|`* *`|student|edit the revision task|I can modify the details of a particular revision task|Shui Yao
+|`* * *`|student|edit the revision task|I can modify the details of a particular revision task in case I messed up some information|Shui Yao
 
 |`* *`|student|mark a task as done|I can update the status of my revision plan and have greater motivation to move on|Shui Yao
 
+|`* * *`|student|view my revision plan| be more clear on the big picture of my revision and check whatever is left to do when I forget|Shui Yao
+
 |`* *`|student|view unfinished tasks|I can have a easy overview of what I need to to next|Shui Yao
 
-|`*`|student|view overdue tasks|I can re-schedule my revision and be more careful with the workload in my next planning|Shui Yao
+|`* *`|student|view overdue tasks|I can re-schedule my revision and be more careful with the workload in my next planning|Shui Yao
 
-|`* *`|student|get notified when a revision task is about to start|I can finish up whatever stuff at hand and get ready for revision|Shui Yao
+|`*`|student|get notified when a revision task is about to start|I can finish up whatever stuff at hand and get ready for revision|Shui Yao
 
-|`* *`|student|disable notification|I will not be bothered in some important events|Shui Yao
+|`*`|student|disable notification|I will not be bothered in some important events|Shui Yao
 
 |`* * *`|student|change the difficulty level of questions|I can customize the difficulty level of the questions as I progress along the time|Xueting
 
@@ -549,7 +562,7 @@ Priorities:
 
 *MSS*
 
-1. Student gives the command to add a lecture note – `addnote -t TITLE -c CONTENT`
+1. Student gives the command to add a lecture note – `addnote t/TITLE c/CONTENT`
 2. Application shows a lecture note with the given title and contents to the user
 3. Application also updates the lecture note list with the new note
 
@@ -558,7 +571,7 @@ Use case ends
 *Extensions*
 
 [none]
-* 1a. Student also gives `-i` in the command
+* 1a. Student also gives `i/` in the command
 [none]
 ** 1a1. Application brings up a file selection dialog
 ** 1a2. Student selects the image they wish to include in the lecture note
@@ -724,6 +737,7 @@ Use case ends
 ** Repeat 1a1 and 1a2 until a valid index is provided
 * Use case resumes from step 2
 
+// tag::usecasew[]
 [discrete]
 === Use case: Specify difficulty level of questions (Xueting)
 
@@ -740,7 +754,7 @@ Use case ends
 * 1a. Student does not specify the difficulty level
 [none]
 ** 1a1. Application shows an error message to require difficulty level input
-** 1a2. Student inputs the difficulty level following the previous tags
+** 1a2. Student inputs the difficulty level
 ** Repeat 1a1 and 1a2 until a difficulty level is provided
 * Use case resumes from step 2
 
@@ -806,6 +820,7 @@ Use case ends
 ** 1b2. Student re-enter the necessary fields by choosing from the list
 ** Repeat 1b1 and 1b2 until valid inputs are provided
 * Use case resumes at step 2
+// end::usecasew[]
 
 [discrete]
 === Use case: Delete an existing question (Dongjun)
@@ -827,12 +842,13 @@ Use case ends
 ** 1a2. Student enters the valid index
 * Use case resumes from step 1
 
+// tag::quizUseCase[]
 [discrete]
 === Use case: Take a test (Dongjun)
 
 *MSS*
 
-1. Student gives the command to enter the test mode `test [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+1. Student gives the command to enter the test mode `quiz [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
 2. Application shows a question with difficulty and subject indicated
 3. Application waits for the student to key in the answer
 4. Student enters the answer
@@ -874,6 +890,7 @@ Use case ends
 ** a1. Student gives the command `quit`
 ** a2. Application exits from the test mode
 * Use case ends
+// end::quizUseCase[]
 
 // tag::nfrglossary[]
 [appendix]
@@ -893,35 +910,32 @@ It is not quizzable.
 // end::nfrglossary[]
 
 [appendix]
-== Instructions for Manual Testing
+== Manual testing
+A few ways of manually testing NUStudy are listed below. Of course, any tester
+should explore more than just these.
 
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
+=== Opening and closing
 . Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
+.. Download the JAR file and copy into an empty folder.
+.. Open the jar file. _The GUI with some initial application data should be visible._
 . Saving window preferences
+.. Change the position and size of the window and close it.
+.. Re-launch NUStudy. _It should look just like when it was closed._
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Image support
+. Adding a lecture note with an image
+.. Type `addnote t/t c/c i/` in the command line. _An image dialog should be brought up._
+.. Select any image. _It should appear in the lecture note panel, as a new lecture note with
+title "t" and content "c"._
+. Modifying an image
+.. After adding one lecture note with an image, type `editnote i i/` where `i` is its index.
+.. _The same image dialog should be brought up_; select a different image.
+_This image should appear in place of the old image, if any, even if the filename is the same._
+. Local copy of images
+.. Close the application and move the JAR file and its associated application data to another location.
+.. Relaunch the application. _Images should display as before._
+. Silent ignoring of broken images
+.. Once lecture notes with images have been added, close NUStudy and delete all images
+in its data folder.
+.. Relaunch the application. _The app should not throw an exception, merely not display any images._
+.. Add back the images to the lecture notes using `editnote`. _This operation should succeed._

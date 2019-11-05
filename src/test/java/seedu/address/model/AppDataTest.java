@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAppData.ALICE;
-import static seedu.address.testutil.TypicalAppData.ALICE_QUESTION;
-import static seedu.address.testutil.TypicalAppData.ALICE_RESULT;
+import static seedu.address.testutil.TypicalAppData.MVC_QUESTION;
+import static seedu.address.testutil.TypicalAppData.MVC_RESULT;
 import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
 import java.time.LocalDate;
@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.model.note.Note;
 import seedu.address.model.note.exceptions.DuplicateTitleException;
 import seedu.address.model.question.Question;
@@ -30,29 +29,28 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskForNote;
 import seedu.address.testutil.NoteBuilder;
 
-public class AppDataTest {
-
+class AppDataTest {
     private final AppData appData = new AppData();
 
     @Test
-    public void constructor() {
+    void constructor() {
         assertEquals(Collections.emptyList(), appData.getNoteList());
     }
 
     @Test
-    public void resetData_null_throwsNullPointerException() {
+    void resetData_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> appData.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAppData_replacesData() {
+    void resetData_withValidReadOnlyAppData_replacesData() {
         AppData newData = getTypicalAppData();
         appData.resetData(newData);
         assertEquals(newData, appData);
     }
 
     @Test
-    public void resetData_withDuplicateNotes_throwsDuplicateNoteException() {
+    void resetData_withDuplicateNotes_throwsDuplicateNoteException() {
         // Two notes with the same identity fields
         Note editedAlice = new NoteBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
         List<Note> newNotes = Arrays.asList(ALICE, editedAlice);
@@ -60,40 +58,40 @@ public class AppDataTest {
         LocalDate date = LocalDate.parse("06/07/2019", Task.FORMAT_USER_INPUT_DATE);
         LocalTime time = LocalTime.parse("1500", Task.FORMAT_USER_INPUT_TIME);
         Task task = new TaskForNote(editedAlice, date, time);
-        List<Task> newTasks = Arrays.asList(task);
+        List<Task> newTasks = Collections.singletonList(task);
 
-        List<Question> newQuestions = Arrays.asList(ALICE_QUESTION);
-        List<QuizResult> newQuizResults = Arrays.asList(ALICE_RESULT);
+        List<Question> newQuestions = Collections.singletonList(MVC_QUESTION);
+        List<QuizResult> newQuizResults = Collections.singletonList(MVC_RESULT);
         AppDataStub newData = new AppDataStub(newNotes, newTasks, newQuestions, newQuizResults);
 
         assertThrows(DuplicateTitleException.class, () -> appData.resetData(newData));
     }
 
     @Test
-    public void hasNote_nullNote_throwsNullPointerException() {
+    void hasNote_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> appData.hasNote(null));
     }
 
     @Test
-    public void hasNote_noteNotInAppData_returnsFalse() {
+    void hasNote_noteNotInAppData_returnsFalse() {
         assertFalse(appData.hasNote(ALICE));
     }
 
     @Test
-    public void hasNote_noteInAppData_returnsTrue() {
+    void hasNote_noteInAppData_returnsTrue() {
         appData.addNote(ALICE);
         assertTrue(appData.hasNote(ALICE));
     }
 
     @Test
-    public void hasNote_noteWithSameIdentityFieldsInAppData_returnsTrue() {
+    void hasNote_noteWithSameIdentityFieldsInAppData_returnsTrue() {
         appData.addNote(ALICE);
         Note editedAlice = new NoteBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
         assertTrue(appData.hasNote(editedAlice));
     }
 
     @Test
-    public void getNoteList_modifyList_throwsUnsupportedOperationException() {
+    void getNoteList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> appData.getNoteList().remove(0));
     }
 

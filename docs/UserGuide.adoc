@@ -16,8 +16,8 @@ endif::[]
 
 == Introduction
 
-NUStudy is an application for managing two kinds of informational material:
-lecture notes and flash cards. Their primary purpose is preparing for exams
+NUStudy is an application for managing three kinds of informational material:
+lecture notes, quizzes and revision tasks. Their primary purpose is preparing for exams
 and tests in universities, but they can also be useful for refreshing memory,
 particularly after a module has ended (the reliance of some computing modules
 on prior knowledge is rather heavy).
@@ -29,8 +29,9 @@ the results. The overall appearance is similar to a simple note-taking client.
 
 .  Ensure you have Java 11+ installed.
 .  Download the latest `nustudy.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the application's home folder.
+.  Double-click the file to start the app (if this does not work, use `java -jar nustudy.jar`).
+The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -43,6 +44,8 @@ image::Ui.png[width="790"]
 
 [[Features]]
 == Features
+
+This section helps you navigate through the features and commands.
 
 ====
 *Command Format*
@@ -68,8 +71,10 @@ will pop up, and you can select the image from your file system. Once done, you 
 
 image::screenshots/addnote.png[]
 
-Your images are copied into the local application data folder of NUStudy, so don't worry about losing track of
-your images – you can always take them along with the application.
+It is fine to back out of the image selection dialog; an image can always be added later using `editnote`.
+Your images are copied into the application's data folder, so don't worry about losing them –
+you can always take them along. Images resize according to the window, but if an image is small enough that it can fit at its
+natural resolution, it is left that way.
 
 ==== Editing lecture notes: `editnote`
 If your lecture notes need updating, use this command, providing arguments `t/`, `c/` and `i/` (at least one)
@@ -92,7 +97,7 @@ Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/[none]]`
 
 ==== Viewing lecture notes: `findnote`
 Of course, what use are virtual lecture notes if you can't search through them? This command
-displays those notes whose titles contain every word (space-separated, ignoring case) you provide
+displays those notes whose titles contain any one of the words (space-separated, ignoring case) you provide
 as arguments. +
 Format: `findnote WORD [WORD]…`
 
@@ -111,6 +116,7 @@ them all. Your quiz questions and revision tasks will not be affected. +
 Format: `clearnote`
 // end::lecnote[]
 
+// tag::question[]
 === Questions
 
 NUStudy can also store different sets of questions and answers;
@@ -118,39 +124,79 @@ at your command, the system will prompt you to answer those questions.
 
 ==== Adding Questions : `addq`
 
-Adds a question and its answer. +
+You can add a question and its answer together with the necessary fields to the app. +
 Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+
+****
+* You can define any type of difficulty level that is customized to your understanding of the question.
+****
+
+Example:
+
+* `addq q/How to represent 85 in binary? a/1010101 s/CS2100 d/medium`
+
+image::questionCommandsDemo/addqcommand.png[width = "600"]
+
+The new question will be added to your question bank.
+
+image::questionCommandsDemo/addqresult.png[width = "600"]
 
 ==== Listing all questions: `listq`
 
-Shows a list of questions. +
+This command allows you to view the list of all questions. +
 Format: `listq`
 
-==== Listing all questions with answers: `listq -all`
+image::questionCommandsDemo/listqcommand.png[width = "600"]
 
-Shows a list of questions and their corresponding answers. +
-Format: `listq -all`
+image::questionCommandsDemo/listqresult.png[width = "600"]
 
 ==== Editing a question: `editq`
 
-Edits the fields of an existing question. +
+You can edit the fields of an existing question by providing the fields you want to change. +
 Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ****
-* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed
+question list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
+
+Examples:
+
+* `editq 7 a/16 d/easy`
+
+image::questionCommandsDemo/editqcommand.png[width = "600"]
+
+Edits the answer and difficulty of the 2nd question to be `16` and `easy` respectively.
+
+image::questionCommandsDemo/editqresult.png[width = "600"]
 
 ==== Locating questions by keyword: `findq`
 
-Finds questions containing the keyword. +
+This command will give you a list of questions containing the keyword(s) you specified. +
 Format: `findq KEYWORD [MORE KEYWORDS]`
+
+****
+* The search is case insensitive.
+* The order of the keywords does not matter.
+* Only full words will be matched.
+****
+
+Examples:
+
+* `findq UDP`
+
+image::questionCommandsDemo/findqcommand.png[width = "600"]
+
+Finds the question whose body contains the keyword `UDP`.
+
+image::questionCommandsDemo/findqresult.png[width = "600"]
+
 
 ==== Deleting a question: `deleteq`
 
-Deletes the specific question at the specified INDEX and its answer from the list. +
+You can delete a question at its specified INDEX together with its relevant fields from the list. +
 Format: `deleteq INDEX`
 
 ****
@@ -159,144 +205,408 @@ Format: `deleteq INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-==== Find difficulty: `difficulty`
+Example:
 
-Views the list of all questions with a specific difficulty. +
-Format: `difficulty d/DIFFICULTY`
+* `listq` +
+`deleteq 3`
 
-==== Find difficulty within a subject: `difficulty -s`
+image::questionCommandsDemo/deleteqcommand.png[width = "600"]
 
-Views the list of questions of a specified subject with a specific difficulty. +
-Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
+Deletes the 2nd question from the question list.
 
+image::questionCommandsDemo/deleteqresult.png[width = "600"]
+
+* `findq character` +
+`deleteq 1`
+
+Deletes the 1st question in the results of `findq` command.
+
+==== Filter by difficulty: `difficulty`
+
+You can view the list of all questions filtered by the specific difficulty. +
+Format: `difficulty DIFFICULTY`
+
+****
+* The search is case insensitive.
+* Only full difficulty will be matched.
+****
+
+Example:
+
+* `difficulty hard`
+
+image::questionCommandsDemo/difficultycommand.png[width = "600"]
+
+Returns a list of `hard` questions.
+
+image::questionCommandsDemo/difficultyresult.png[width = "600"]
+
+==== Filter by subject: `subject`
+
+You can view the list of all questions from a specific subject. +
+Format: `subject SUBJECT`
+
+****
+* The search is case insensitive.
+* Only full subject will be matched.
+****
+
+Example:
+
+* `subject CS2103T`
+
+image::questionCommandsDemo/subjectcommand.png[width = "600"]
+
+Returns a list of questions of `CS2103T`.
+
+image::questionCommandsDemo/subjectresult.png[width = "600"]
+
+==== Clear all questions: `clearq`
+
+You can delete all questions from the app. +
+Format: `clearq`
+
+image::questionCommandsDemo/clearcommand.png[width = "600"]
+
+image::questionCommandsDemo/clearresult.png[width = "600"]
+// end::question[]
+
+// tag::quizStart[]
 === Quiz mode
 
-There is a built-in Test mode in NUStudy for you to take a revision test based on questions and answers input by you.
+There is a built-in quiz mode in NUStudy for you to take a revision quiz. You can indicate the number of questions,
+subject and difficulty and the quiz will randomly select questions for you according to your requirement. You will
+answer the question one by one and your result will be given.
 
 ==== Enter quiz mode : `quiz`
 
-Enters quiz mode for you to answer questions. +
+You can enter the quiz mode using this command. +
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT`
 
-==== Answer the quiz question : `type answer` +
-Answers the specified question. +
-Format: `ANSWER`
+****
+* The `NUMBER_OF_QUESTIONS` must be a positive integer.
+* `DIFFICULTY` and `SUBJECT` are case insensitive.
+****
 
-==== Set mixed difficulty : `mix -dif`
+Example:
 
-Set the exam with mixed levels of difficulty, minimum of two levels. +
-Format: +
-`mix -dif [d/DIFFICULTY1] [n/NUMBER1] [d/DIFFICULTY2] [n/NUMBER2] [d/DIFFICULTY3] [n/NUMBER3]...` +
-`mix -dif all n/NUMBER`
+Step 1: Types `quiz n/2 d/Easy s/CS2040` in the command box and presses `Enter` to execute the command. The following
+graph specifies how you can input the command. +
+
+.Typing `quiz` command
+image::quiz/QuizModeCommand.png[]
+
+Step 2: The result will show the message of successfully entering the quiz mode. The first quiz question will appear
+on the third column. The following graph shows the result of your `quiz` command. +
+
+.Result of `quiz` command
+image::quiz/QuizModeCommandResult.png[]
+
+==== Answer the quiz question
+You can type your `answer` in the command box to answer the question.
+
+****
+* The `answer` is case sensitive.
+****
+
+Example:
+
+Step 1: Types your `answer` in the command box and presses `Enter` to execute the command. The figure below is an example
+of how to answer question. +
+
+.Typing answer in the command line
+image::quiz/QuizAnswer.png[]
+
+Step 2: The result of your answer will reflect your correctness and the next question will be displayed. The following
+graph simulates the situation after you answer the question. +
+
+.The result after answer
+image::quiz/QuizAnswerResult.png[]
+// end::quizStart[]
 
 ==== Show an answer : `show`
 
-Shows an answer for the displayed quiz question. +
+You can check the answer for the current quiz question using this command. You can use it as reference and please do
+not use it to cheat. +
 Format: `show`
+
+Example:
+
+Step 1: Types `show` in the command box and presses `Enter` to execute the command. +
+
+Step 2: The answer of current question will be displayed. +
+
+.Typing `show` command and its result
+image::quiz/ShowAnswerCommand.png[]
 
 ==== Skip a question : `skip`
 
-Skips current question and displays the next one. +
+You can skip current question and go to the next one using this command. +
 Format: `skip`
 
-==== Exit test mode : `quit`
+****
+* The question you have skipped will be marked as false for result.
+****
 
-Exits from the quiz mode. +
+Example:
+
+Step 1: Types `skip` in the command box and presses `Enter` to execute the command. +
+
+.Typing `skip` command
+image::quiz/SkipCommand.png[]
+
+Step 2: The current question is skipped and next question will be displayed. +
+
+.The result of `skip` command
+image::quiz/SkipCommandResult.png[]
+
+// tag::quizQuit[]
+==== Exit quiz mode : `quit`
+
+You can exit from the quiz mode using this command. +
 Format: `quit`
 
+****
+* You need to `quit` the quiz mode every time after you finish quiz.
+* You can `quit` the quiz mode anytime you want.
+****
+
+Example:
+
+Step 1: Types `quit` in the command box and presses `Enter` to execute the command. +
+
+.Typing `quit` command
+image::quiz/QuitQuizCommand.png[]
+
+Step 2: The result shows message of exit from the quiz mode and the original questions will appear. The following graph
+explains what would happen after you `quit` from the quiz mode. +
+
+.The result of `quit` command
+image::quiz/QuitQuizCommandResult.png[]
+// end::quizQuit[]
+
 === Get statistics
+You can get statistics of the questions that you have done in the app.
+The statistics functions listed below are used to filter the type of statistics that you want to get.
 
+NOTE: Quiz results stored in the app are not synchronised with the questions.
+If a question has been modified by the editq command,
+the stored quiz result will still refer to the original question
+to minimise inconsistencies in the statistics. This is because a question that has been modified to a large extent
+might cause past answers to become irrelevant and distort the statistics.
+
+// tag::stats[]
 ==== Get statistics for subjects : `stats`
-
-Returns a pie chart of the number of questions that have been answered correctly and incorrectly.
+Returns a panel containing a break down of the questions by its results.
 You can choose to get the statistics for a difficulty level by adding `d/` or
-get the statistics of different subjects by adding `s/`. +
+get the statistics of different subjects by adding `s/`.
+Typing any other non-statistics command will close this panel. +
 Format: `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
+// end::stats[]
 
-==== Get questions with correct/incorrect answers: `questions`
-Gets all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
-Either one of `-c` or `-i` must be used, you can also filter by subjects by adding `s/`. +
-Format: `questions [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
+// tag::question[]
+==== Get questions with correct/incorrect answers: `question`
+Get a panel containing all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
+Either one of `-c` or `-i` must be used. You can also filter by subjects by adding `s/`.
+Typing any other non-statistics command will close this panel. +
+Format: `question [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
+// end::question[]
 
+// tag::report[]
 ==== Get a report for individual questions: `report`
-Returns a report of how well you have answered a particular question,
-the number of times the question has been attempted and the past answers to the question. +
+Returns a panel containing a report of how well you have answered a particular question,
+the number of times the question has been attempted and the past answers to the question.
+Typing any other non-statistics command will close this panel. +
 Format: `report INDEX`
+// end::report[]
 
-==== Get overview of lecture notes: `overviewn`
-Gets an overview of the types of notes that have been added into the app.
-A stacked bar graph, sorted by subjects will be returned. +
-Format: `overviewn`
-
-==== Get overview of questions attempted: `overviewq`
-Gets an overview of the types of questions that have been attempted overall.
-A stacked bar graph, sorted by subjects will be returned.
-You can also add a `dt/` field to get questions that you have done within that time period. +
-Format: `overviewq [dt/START_DATE] [dt/END_DATE]`
+// tag::overview[]
+==== Get overview of questions attempted: `overview`
+Get an overview of the types of questions that have been attempted overall.
+A panel containing a stacked bar graph, sorted by subjects will be returned.
+You can also add two `dt/` fields representing a time period to get questions you did
+within that time period. The format for date is dd/MM/yyyy. Typing any other non-statistics
+command will close this panel. +
+Format: `overview [dt/START_DATE dt/END_DATE]`
+// end::overview[]
 
 === Revision tasks
 
-==== View revision tasks: `rlist`
-Displays the revision task list +
-Format: `rlist`
+This section provides instructions to manipulate revision tasks. The revision tasks help you plan your revision of notes
+and questions.
+
+The diagram below shows how a revision task looks like:
+
+image::UserGuideRes/TaskUI.png[]
+
+NOTE: The revision tasks are not synchronised with the note and the question. Once created, the task content will not
+change if you modify the corresponding note or question. For example, if you have added a task for note "An AVL Tree"
+and then you delete the note or change the title of the note, the task still exist with the heading unchanged. We adopt
+this approach because we would like to allow you to customise the task headings in *version v2.0* of the app. Therefore,
+we disassociate the task from notes and questions once created.
+
+NOTE: Revision tasks with the same heading, same date and same time are considered duplicate tasks and cannot co-exist
+in the revision task list. Tasks with the same heading, same date, same time, but different status are cannot co-exist
+because it does not make sense to have same tasks but different status.
 
 ==== Add a revision task for a note: `rn`
-Adds a revision task for a note to the current revision task list +
-The GUI will display all tasks upon completing the command +
+You can add a revision task for a note to the current revision task list with this command.
+The heading will copy the title and the GUI will display all tasks upon completing the command.
+An invalid date will be interpreted as the nearest valid date. +
 Format: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
+Example: +
+
+1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it
++
+image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[]
++
+2. The result box will display the message "Revision task added: [N] NOTE : CS2103T UML diagram by: 01 November 2019 09:00".
+The task is added to the task list shown in the middle panel.
++
+image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[]
+
+
+
+NOTE: You need to follow the format "dd/MM/yyyy" for START_DATE input and "HHmm" with 24-hour format for START_TIME
+input. For example: "31/12/2019" to represent "31st December 2019", "0900" to represent "9am", "1400" to represent "2pm".
 
 ==== Add a revision task for a question: `rq`
-Adds a revision task for a question to the current revision task list +
-The GUI will display all tasks upon completing the command +
-Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME`
+You can add a revision task for a question to the current revision task list with this command. +
+The heading will copy the question body. +
+The GUI will display all tasks upon completing the command. +
+Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
+Example: +
+`rq i/1 dt/11/11/2019 tm/1500`
 
 ==== Remove revision task: `rdelete`
-Removes the specified revision task from current list +
-The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view +
-Format: `rdelete INDEX_OF_TASK`
-
-==== Clear current revision plan: `rclear`
-Deletes all revision tasks
-Format: `rclear`
+You can remove a particular revision task from current list with this command. +
+The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
+Format: `rdelete INDEX_OF_TASK` +
+Example: +
+`rdelete 2`
 
 ==== Mark the revision task as done: `rdone`
-The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view +
-Format: `rdone INDEX`
+You can mark a task as done once you finished it.
+The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
+Format: `rdone INDEX` +
+Example: +
+`rdone 1`
+
+NOTE: You cannot use "undone" (marking a task as not done) feature as we believe that the chance of accidentally marking
+an unfinished task as done is fairly low by command line input. So the app should not support a "undo" action for `rdone`.
+People usually "undone" a task because they realise that some parts of the task are not fully completed. In this case, you
+should create a new task with a new date or time (same as "re-scheduling" in the real world).
+
+==== Edit a revision task: `redit`
+You can edit a revision task with this command. You need to provide non-empty arguments with prefix `h/`, `dt/` and `tm/` (at least one)
+as you would do with `rn`, but only those arguments you want to change. +
+Format: `redit INDEX [h/HEADING] [dt/DATE] [tm/TIME]` +
+Example: +
+`redit 1 h/CS2100 Logic Circuit dt/15/08/2019 tm/1200`
+
+NOTE: Please note that the prefix for the heading of a task is no longer `t/` (for note task) or `i/` (for question task).
+Instead, the prefix becomes `h/` for both types of tasks. `HEADING` can be the title of a note or the question body of a question.
+The edited `HEADING` must be an existing title or question body. +
+
+NOTE: You cannot edit the status (done or not done) of a task with this command. Instead, you may want to use `rdone` if you want to mark a
+task as done. You cannot do "undone" operation as explained in `rdone` feature.
+
+==== View all revision tasks: `rlist`
+This command displays the whole revision task list. +
+Format: `rlist`
 
 ==== View completed revision tasks: `finished`
-Displays the list of revision tasks which are completed +
+This command displays the list of revision tasks that you have completed. +
 Format: `finished`
 
 ==== View uncompleted revision task: `unfinished`
-Displays the list of revision tasks that are yet to be completed +
+This command displays the list of revision tasks that you have not completed. +
 Format: `unfinished`
 
 ==== View overdue revision tasks: `overdue`
-Displays the revision tasks that are yet to be done but having passed the deadline
-Format: `roverdue`
+This command displays the revision tasks which you have not done but having passed the start time. +
+Format: `overdue`
+
+==== Find tasks with specified details: `rfind`
+You may use this command to search for tasks with specified details. You may key in keyword(s) of the heading, or the date, or the time,
+with prefix `h/` `dt/` `tm/` respectively.
+The GUI will display a task list of all tasks with field (heading or date or time) that matches your input. +
+Format:
+`rfind h/WORD [WORD]...` or `rfind dt/DATE` or `rfind tm/TIME`
+
+Example: +
+`rfind h/hello world` - This command gives you all tasks with headings containing "hello" or "world" or "hello world". +
+`rfind dt/01/11/2019` - This command gives you all tasks on 1 November 2019. +
+`rfind tm/1200` - This command gives you all tasks at 12:00 (12pm), regardless of date.
+
+NOTE: When searching according to keywords in the heading, NUStudy will return tasks with headings containing any one of
+the words (*not characters*). For example, if you search by "hello world", tasks whose headings contain "hello", "world", "hello world", "world hello",
+or "hello world blablabla..." will all appear in the GUI. Our rationale is to provide you with as many matching tasks as
+possible in case you cannot remember every word of the headings. Please note that the minimum matching unit is a word in
+the heading. For instance, if you key in "he" or "word" while the full task list has tasks with headings "hello", "hello world",
+no task will be retrieved because "he" and "word" are not complete words contained in the headings.
+
+==== Clear current revision plan: `rclear`
+You can remove all revision tasks with this command. +
+Format: `rclear`
+
+// tag::v2.0[]
+=== Other features coming in v2.0
+==== Auto-complete for command
+NUStudy will automatically complete the command as you type, just like how it behaves in most IDEs.
+
+// tag::quizFuture[]
+==== Set a timer for quiz mode
+You can set a time limit before you start a quiz to train yourself under exam conditions. NUStudy will automatically end the quiz when time is up. +
+Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT tl/TIME_LIMIT`
+// end::quizFuture[]
 
 ==== Enable push notification: `notify -e`
-Format: `notify -e [-A] [INDEX]`
+You can enable the push notification feature to send a desktop reminder when the task is about to start. +
+Format: `notify -e [-A]`
 
 ==== Disable push notification: `notify -d`
-Format: `notify -d [-A] [INDEX]`
+You can disable the push notification with this command. +
+Format: `notify -d [-A]`
 
-=== Auto-complete feature `[coming in v2.0]`
-Returns suggestions when you are typing commands.
+==== Sort revision tasks: `sort`
+You can sort the revision tasks based on certain fields with ascending/descending order. +
+Format: `sort o/ORDER f/FIELD` +
+Example: +
+`sort o/a f/dt` - You can sort the tasks according to date in ascending order. +
+`sort o/d f/h` - You can sort the tasks according to heading in descending alphabetical order.
 
-=== Set a timer for test mode `[coming in v2.0]`
-The student sets a time limit for the test mode. The app will exit test mode once the time ends.
+==== Share notes and questions with other users
+You can share your notes and questions with other NUStudy users with Internet connection.
 
-=== Share notes and questions with other users `[coming in v2.0]`
-The student shares notes and questions with other students with Internet connection.
-
-=== Login using email and password `[coming in v2.0]`
-The student can register and login to the application using their email and password.
+==== Login using email and password
+You can create an account in the application and login with your email and password. This allows you to access to NUStudy on other platforms.
+// end::v2.0[]
 
 // tag::lngroup[]
-=== Lecture note grouping suggestions `[coming in v2.0]`
+==== Lecture note grouping suggestions
 NUStudy will intelligently suggest groupings of lecture notes based on their content.
 // end::lngroup[]
+
+== Command summary
+
+*Add a revision task for note*: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
+eg. `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900`
+
+*Add a revision task for question*: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
+eg. `rq 1 dt/11/11/2019 tm/1500`
+
+*Remove a revision task*: `rdelete INDEX_OF_TASK` +
+eg. `rdelete 2`
+
+*Mark the revision task as done*: `rdone INDEX` +
+eg. `rdone 1`
+
+*View all revision tasks*:
+
+
+
+
 
 == FAQ
 

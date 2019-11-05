@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.statistics;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
@@ -24,7 +25,7 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
 
     /**
      * Parses the given {@code String} of arguments in the context of the GetStatisticsCommand
-     * and returns an GetStatisticsCommand object for execution.
+     * and returns a GetStatisticsCommand object for execution.
      *
      * @throws ParseException if the user input does not conform to the expected format
      */
@@ -41,13 +42,37 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
 
         Optional<String> d = argMultimap.getValue(PREFIX_DIFFICULTY);
 
+        if (argMultimap.getAllValues(PREFIX_DIFFICULTY).size() > 1) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+
         if (d.isPresent()) {
             difficulty = ParserUtil.parseDifficulty(d.get());
             quizResultFilter = new QuizResultFilter(subjects, difficulty);
+            return new GetStatisticsCommand(quizResultFilter, returnMessage(d.get(), subjects));
         } else {
             quizResultFilter = new QuizResultFilter(subjects);
+            return new GetStatisticsCommand(quizResultFilter, returnMessage(subjects));
         }
+    }
 
-        return new GetStatisticsCommand(quizResultFilter);
+    /**
+     * Returns a string listing some subjects.
+     *
+     * @param s the list of subjects to show
+     * @return the shown string
+     */
+    private String returnMessage(List<Subject> s) {
+        return !s.isEmpty() ? "\n" + s.toString() : "";
+    }
+
+    /**
+     * Returns a string listing some subjects and a difficulty.
+     *
+     * @param d difficulty to show
+     * @see #returnMessage(List)
+     */
+    private String returnMessage(String d, List<Subject> s) {
+        return "\n[" + d + "]" + returnMessage(s);
     }
 }

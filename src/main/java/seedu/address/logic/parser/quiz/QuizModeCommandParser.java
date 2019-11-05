@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.quiz.QuizModeCommand;
@@ -46,10 +47,15 @@ public class QuizModeCommandParser implements Parser<QuizModeCommand> {
 
         try {
             numOfQuestions = ParserUtil.parseNumber(argMultimap.getValue(PREFIX_NUMBER).get());
+            if (numOfQuestions < 1) {
+                throw new ParseException(INVALID_NUMBER);
+            }
             subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
             difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
         } catch (NumberFormatException e) {
             throw new ParseException(INVALID_NUMBER);
+        } catch (NoSuchElementException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizModeCommand.MESSAGE_USAGE));
         }
         return new QuizModeCommand(numOfQuestions, subject, difficulty);
     }

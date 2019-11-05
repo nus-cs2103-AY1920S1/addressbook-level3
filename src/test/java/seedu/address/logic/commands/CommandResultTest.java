@@ -1,42 +1,40 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class CommandResultTest {
+class CommandResultTest {
     @Test
-    public void equals() {
+    void equals() {
         CommandResult commandResult = new CommandResult("feedback");
 
         // same values -> returns true
-        assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", 0)));
+        assertEquals(commandResult, new CommandResult("feedback"));
+        assertEquals(commandResult, new CommandResult("feedback", 0));
 
         // same object -> returns true
-        assertTrue(commandResult.equals(commandResult));
+        assertEquals(commandResult, commandResult);
 
         // null -> returns false
-        assertFalse(commandResult.equals(null));
+        assertNotEquals(null, commandResult);
 
         // different types -> returns false
-        assertFalse(commandResult.equals(0.5f));
+        assertNotEquals(0.5, commandResult);
 
         // different feedbackToUser value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("different")));
+        assertNotEquals(commandResult, new CommandResult("different"));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", 1)));
+        assertNotEquals(commandResult, new CommandResult("feedback", 1));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", 2)));
+        assertNotEquals(commandResult, new CommandResult("feedback", 2));
     }
 
     @Test
-    public void hashcode() {
+    void hashcode() {
         CommandResult commandResult = new CommandResult("feedback");
 
         // same values -> returns same hashcode
