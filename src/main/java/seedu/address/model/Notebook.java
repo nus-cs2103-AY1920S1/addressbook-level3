@@ -73,6 +73,10 @@ public class Notebook implements ReadOnlyNotebook {
     public void resetData(ReadOnlyNotebook newData) {
         requireNonNull(newData);
         setClassrooms(newData.getClassroomList());
+
+        for (int i = 0; i < 7; i++) {
+            lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
+        }
     }
 
     //=========== Notebook ================================================================================
