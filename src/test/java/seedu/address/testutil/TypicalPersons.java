@@ -136,7 +136,6 @@ public class TypicalPersons {
         int totalTypicalLifeInsurance = 4;
         int totalTypicalFireInsurance = 5;
         int totalTypicalSeniorInsurance = 1;
-        
         result.put(HEALTH_INSURANCE.getName().toString(), totalTypicalHealthInsurance);
         result.put(LIFE_INSURANCE.getName().toString(), totalTypicalLifeInsurance);
         result.put(FIRE_INSURANCE.getName().toString(), totalTypicalFireInsurance);
@@ -149,7 +148,6 @@ public class TypicalPersons {
         int totalTypicalBelowTwenty = 4;
         int totalTypicalTwentyToSixtyFive = 6;
         int totalTypicalAboveSixtyFive = 5;
-        
         result.put(BELOW_TWENTY, totalTypicalBelowTwenty);
         result.put(TWENTY_TO_SIXTYFOUR, totalTypicalTwentyToSixtyFive);
         result.put(ABOVE_SIXTYFIVE, totalTypicalAboveSixtyFive);
@@ -160,7 +158,6 @@ public class TypicalPersons {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
         int totalTypicalMale = 9;
         int totalTypicalFemale = 6;
-        
         result.put(MALE, totalTypicalMale);
         result.put(FEMALE, totalTypicalFemale);
         return result;

@@ -12,13 +12,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_POLICY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_POLICY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.ASYRAF;
-import static seedu.address.testutil.TypicalPersons.CHLOE;
 import static seedu.address.testutil.TypicalPersons.KEITH;
-import static seedu.address.testutil.TypicalPersons.NATASHA;
-import static seedu.address.testutil.TypicalPersons.RACHEL;
 import static seedu.address.testutil.TypicalPersons.ROBIN;
 import static seedu.address.testutil.TypicalPersons.TAYYANG;
-import static seedu.address.testutil.TypicalPersons.VICTORIA;
 
 import java.util.Arrays;
 

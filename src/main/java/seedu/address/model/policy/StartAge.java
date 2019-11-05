@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class StartAge {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ages should only contain numbers, and cannot be blank.";
+            "Ages should only contain numbers, cannot be blank and cannot exceed 120.";
     public static final String DATA_TYPE = "START AGE";
 
     /*
@@ -44,7 +44,7 @@ public class StartAge {
      * Returns true if a given string is a valid coverage declaration.
      */
     public static boolean isValidAge(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) < Integer.parseInt(EndAge.AGE_INFINITY);
     }
 
     @Override

@@ -38,6 +38,8 @@ public class PolicyInformationHolder extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private FlowPane criteria;
+    @FXML
     private VBox informationHolder;
 
     public PolicyInformationHolder(Policy policy) {
@@ -55,7 +57,7 @@ public class PolicyInformationHolder extends UiPart<Region> {
         }
         policy.getCriteria().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> criteria.getChildren().add(new Label(tag.tagName)));
         policy.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
