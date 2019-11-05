@@ -16,4 +16,5 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists";
     public static final String MESSAGE_TASK_ALREADY_DONE = "This task has already been marked as done";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "The format of date is incorrect. \n%1$s";
+    public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
 }
