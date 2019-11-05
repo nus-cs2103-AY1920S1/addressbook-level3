@@ -3,6 +3,7 @@ package seedu.address.logic.parser.patients;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_FIELD;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -73,7 +74,7 @@ public class EditPatientDetailsCommandParserTest {
         assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, ENTRY_ID_EMPTY + "1", EditPatientDetailsCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, ENTRY_ID_EMPTY + "1", MESSAGE_NO_FIELD);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
