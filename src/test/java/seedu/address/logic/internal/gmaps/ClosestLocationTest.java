@@ -121,7 +121,7 @@ class ClosestLocationTest {
         String expectedResult =
                 "Cannot get result because All location entered cannot be identified by TimeBook. Refer to  "
                         + "Supported Location table in User Guide to ge the supported locations.\n"
-                        +"Source location: BIAP, BIAP, BIAP\n"
+                        + "Source location: BIAP, BIAP, BIAP\n"
                         + "Invalid Source location: BIAP, BIAP, BIAP\n";
         assertEquals(expectedResult, result);
     }

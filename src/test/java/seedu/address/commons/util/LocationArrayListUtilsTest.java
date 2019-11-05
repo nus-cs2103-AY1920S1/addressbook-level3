@@ -32,7 +32,7 @@ class LocationArrayListUtilsTest {
     @Test
     void getIndexNullElement() {
         locationArrayList.add(null);
-        locationArrayList.add( new Location("BarFoo"));
+        locationArrayList.add(new Location("BarFoo"));
         assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "BarFoo"), 4);
     }
 

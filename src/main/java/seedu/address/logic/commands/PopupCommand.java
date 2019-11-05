@@ -24,7 +24,9 @@ public class PopupCommand extends Command {
 
     public static final String COMMAND_WORD = "popup";
     public static final String MESSAGE_SUCCESS = "Closest Location found! See the popup for information.";
-    public static final String MESSAGE_INTERNAL_ERROR = "Internal error";
+    public static final String ERROR_CANNOT_FIND_GROUP = "Cannot recognise GROUP_NAME. Make sure you entered"
+            + " the correct value.";
+    public static final String INTERNAL_ERROR = "Internal Error. Please try again later.";
     public static final String MESSAGE_USER_ERROR = "We could not find a common "
             + "location because:\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_GROUPNAME + " GROUPNAME"
@@ -64,7 +66,7 @@ public class PopupCommand extends Command {
                         errorResponse = commonLocationData.getErrorResponse();
                     } else {
                         logger.warning("Unknown error for time slot: " + freeTimeslot.toString());
-                        return new CommandResult(MESSAGE_INTERNAL_ERROR);
+                        return new CommandResult(INTERNAL_ERROR);
                     }
                     return new CommandResult(MESSAGE_USER_ERROR + errorResponse);
                 }
@@ -78,7 +80,7 @@ public class PopupCommand extends Command {
             }
 
         } catch (GroupNotFoundException e) {
-            return new CommandResult(MESSAGE_INTERNAL_ERROR);
+            return new CommandResult(ERROR_CANNOT_FIND_GROUP);
         }
     }
 
