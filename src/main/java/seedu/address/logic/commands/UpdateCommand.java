@@ -27,6 +27,7 @@ import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,6 +50,7 @@ import seedu.address.model.person.Name;
 
 
 //@@author ambervoong
+
 /**
  * Updates the details of an existing body or worker in Mortago.
  */
@@ -97,7 +99,8 @@ public class UpdateCommand extends UndoableCommand {
     private Entity entity;
     private Fridge originalFridge;
     private Fridge updatedFridge;
-    private List<Notif> toDeleteNotif;
+    private List<Notif> toDeleteNotif = Collections.emptyList();
+    private List<Notif> autoNotif = Collections.emptyList();
     private boolean isUpdatedFromNotif = false;
 
 
@@ -152,7 +155,7 @@ public class UpdateCommand extends UndoableCommand {
 
                 //@@author ambervoong
                 if (!originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())
-                    && updateBodyDescriptor.getFridgeId().isPresent()) {
+                        && updateBodyDescriptor.getFridgeId().isPresent()) {
                     handleUpdatingFridgeAndEntity(model, originalBodyDescriptor, updateBodyDescriptor);
                 }
                 //@@author
@@ -161,7 +164,7 @@ public class UpdateCommand extends UndoableCommand {
                         && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE)))
                         || (originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
                         && (!updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
-                            && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))))) {
+                        && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))))) {
                     handleRemovingNotifs(model, originalBodyDescriptor, updateBodyDescriptor);
                 }
 
@@ -175,6 +178,17 @@ public class UpdateCommand extends UndoableCommand {
 
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
 
+            // Re-add notifs when redoing.
+            if (getCommandState().equals(UndoableCommandState.REDOABLE) && isUpdatedFromNotif) {
+                for (Notif notif : autoNotif) {
+                    // This is to reset the UI appearance, because a spent Notif does not update it.
+                    if (model.hasNotif(notif)) {
+                        model.deleteNotif(notif);
+                    }
+                    model.addNotif(notif);
+                }
+            }
+
             //@@author shaoyi1997
             SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
             selectCommand.execute(model);
@@ -184,10 +198,8 @@ public class UpdateCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
 
-        if (!isUpdatedFromNotif) {
-            setUndoable();
-            model.addExecutedCommand(this);
-        }
+        setUndoable();
+        model.addExecutedCommand(this);
 
         return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
     }
@@ -295,10 +307,12 @@ public class UpdateCommand extends UndoableCommand {
                 }
 
                 // Undo Notif removal
-                if (toDeleteNotif != null) {
-                    for (Notif n : toDeleteNotif) {
-                        model.addNotif(n);
-                    }
+                for (Notif n : toDeleteNotif) {
+                    model.addNotif(n);
+                }
+
+                if (isUpdatedFromNotif) {
+                    findNotifAndDelete(model, (UpdateBodyDescriptor) originalEntityDescriptor);
                 }
             }
         } catch (NullPointerException e) {
@@ -307,6 +321,27 @@ public class UpdateCommand extends UndoableCommand {
         setRedoable();
         model.addUndoneCommand(this);
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entity));
+    }
+
+    /**
+     * Finds and deletes Notifs of a Body. Only called when undoing a NotifCommand-triggered UpdateCommand.
+     *
+     * @param model
+     * @param originalDesc
+     */
+    public void findNotifAndDelete(Model model, UpdateBodyDescriptor originalDesc) {
+        List<Notif> notifList = model.getFilteredNotifList();
+        this.autoNotif = new ArrayList<>();
+        Name bodyName = originalDesc.getName().get();
+        for (Notif notif : notifList) {
+            if (notif.getBody().getName().equals(bodyName)) {
+                autoNotif.add(notif);
+            }
+        }
+
+        for (Notif notif : autoNotif) {
+            model.deleteNotif(notif);
+        }
     }
 
     public void setUpdateFromNotif(boolean isUpdatedFromNotif) {

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.io.IOException;
@@ -104,7 +105,7 @@ public class NotifCommand extends Command {
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                 UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
                 up.setUpdateFromNotif(true);
-                //body.setBodyStatus(ARRIVED);
+                body.setBodyStatus(ARRIVED);
                 try {
                     up.execute(model);
                     NotifWindow notifWindow = new NotifWindow();
