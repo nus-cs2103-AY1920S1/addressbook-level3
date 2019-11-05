@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_PERSON;
+import static seedu.address.logic.parser.CliSyntax.FLAG_TRAINING;
 
 /**
  * A flag that marks the beginning of a type that the command is applied to.
@@ -18,7 +19,9 @@ public class Flag {
     }
 
     public static boolean isValidFlag(String args) {
-        return args.equals(FLAG_PERSON.toString()) || args.equals(FLAG_EVENT.toString());
+        return args.equals(FLAG_PERSON.toString())
+            || args.equals(FLAG_EVENT.toString())
+            || args.equals(FLAG_TRAINING.toString());
     }
 
     public String getFlag() {
