@@ -31,7 +31,7 @@ public class TripBuilder {
     private InventoryList inventoryList;
 
     private TripBuilder() {
-        dayList = new DayList();
+        dayList = new DayList(startDate, endDate);
     }
 
     public static TripBuilder newInstance() {

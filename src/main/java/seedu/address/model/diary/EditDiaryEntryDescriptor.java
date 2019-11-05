@@ -52,6 +52,10 @@ public class EditDiaryEntryDescriptor {
 
     public void setDiaryText(String diaryText) {
         this.diaryText = diaryText;
+
+        if (diaryText.charAt(diaryText.length() - 1) != '\n') {
+            this.diaryText += '\n';
+        }
     }
 
     /**

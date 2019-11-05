@@ -108,8 +108,8 @@ public interface DiaryTestUtil {
             rand -= generateTextBreakChance;
             rand /= (1.0 - generateTextBreakChance);
 
-            diaryLineText.append(((int) (rand * (maxRandomAsciiChar - minRandomAsciiChar)))
-                    + minRandomAsciiChar);
+            diaryLineText.append((char) (((int) (rand * (maxRandomAsciiChar - minRandomAsciiChar)))
+                    + minRandomAsciiChar));
         }
 
         return diaryLineText.toString();

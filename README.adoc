@@ -34,5 +34,24 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Many icons used were provided by the site https://icons8.com[Icons8]
++
+[%collapsible]
+[title="full list"]
+====
+* https://icons8.com/icons/set/globe - Globe icon
+* https://icons8.com/icons/set/airplane-front-view" - Airplane icon
+* https://icons8.com/icons/set/trave-diary"> - Travel Diary icon
+* https://icons8.com/icons/set/overtime"> - Schedule icon
+* https://icons8.com/icons/set/back"> - Back icon
+* https://icons8.com/icons/set/in-inventory"> - In Inventory icon
+* https://icons8.com/icons/set/turkish-lira"> - Turkish Lira icon
+* https://icons8.com/icons/set/grid"> - Grid icon
+* https://icons8.com/icons/set/help"> - Help icon
+
+
+
+====
+[%collapsible]
 
 == Licence : link:LICENSE[MIT]

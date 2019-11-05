@@ -16,13 +16,13 @@ public class TypicalDays {
             .setStartDate(LocalDateTime.of(2019, 2, 6, 0, 0))
             .setEndDate(LocalDateTime.of(2019, 2, 6, 23, 59))
             .setLocation(new Location("Australia"))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDateTime.of(2019, 2, 6, 0, 0)))
             .build();
 
     public static final Day DAY_B = DayBuilder.newInstance().setName(new Name("Arrival Day"))
             .setStartDate(LocalDateTime.of(2019, 2, 7, 0, 0))
             .setEndDate(LocalDateTime.of(2019, 2, 7, 23, 59))
             .setLocation(new Location("Belarus"))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDateTime.of(2019, 2, 7, 0, 0)))
             .build();
 }

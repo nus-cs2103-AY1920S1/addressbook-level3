@@ -8,12 +8,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * {@link Parser} that parses user input to return a {@link AppendEntryTextCommand}.
+ * The leading white space that after the command word of {@link AppendEntryTextCommand} is stripped.
  */
 public class AppendEntryTextParser implements Parser<AppendEntryTextCommand> {
     @Override
     public AppendEntryTextCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
 
-        return new AppendEntryTextCommand(userInput);
+        return new AppendEntryTextCommand(userInput.stripLeading());
     }
 }

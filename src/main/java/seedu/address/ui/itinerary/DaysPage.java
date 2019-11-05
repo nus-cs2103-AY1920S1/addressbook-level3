@@ -1,10 +1,13 @@
 package seedu.address.ui.itinerary;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,7 +16,6 @@ import javafx.scene.layout.FlowPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.commands.itinerary.days.EnterCreateDayCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.day.Day;
@@ -44,12 +46,17 @@ public class DaysPage extends PageWithSidebar<AnchorPane> {
     public void fillPage() {
         // Filling Days
         dayThumbnailPane.getChildren().clear();
-        List<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
+        ObservableList<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
+
+        // Stores the current list being displayed to user in PageStatus
+        SortedList<Day> sortedDays = days.sorted(Comparator.comparing(Day::getStartDate));
+        model.setPageStatus(model.getPageStatus().withNewSortedOccurrencesList(sortedDays));
 
         List<Node> dayThumbnails = IntStream.range(0, days.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
                 .map(index -> {
-                    DayThumbnail dayThumbnail = new DayThumbnail(days.get(index.getZeroBased()), index, mainWindow);
+                    DayThumbnail dayThumbnail =
+                            new DayThumbnail(sortedDays.get(index.getZeroBased()), index, mainWindow);
                     return dayThumbnail.getRoot();
                 }).collect(Collectors.toList());
 
@@ -59,10 +66,5 @@ public class DaysPage extends PageWithSidebar<AnchorPane> {
     @FXML
     private void handleAddDay() {
         mainWindow.executeGuiCommand(EnterCreateDayCommand.COMMAND_WORD);
-    }
-
-    @FXML
-    private void handlePreferences() {
-        mainWindow.executeGuiCommand(EnterPrefsCommand.COMMAND_WORD);
     }
 }

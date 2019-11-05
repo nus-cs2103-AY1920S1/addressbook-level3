@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -25,8 +26,8 @@ public class ShowEventDetailsCommand extends Command {
 
     private final Index indexToEdit;
 
-    public ShowEventDetailsCommand(Index indexToEdit) {
-        this.indexToEdit = indexToEdit;
+    public ShowEventDetailsCommand(Index indexToShow) {
+        this.indexToEdit = indexToShow;
     }
 
     @Override
@@ -36,11 +37,17 @@ public class ShowEventDetailsCommand extends Command {
         // Assumes EnterDayCommand has already been called
         List<Event> lastShownList = model.getPageStatus().getDay().getEventList().internalList;
 
-        if (indexToEdit.getZeroBased() >= lastShownList.size()) {
+        // Set when the trip list is first displayed to the user
+        SortedList currentSortedDayList = model.getPageStatus().getSortedOccurrencesList();
+
+        int rawZeroBasedIndex = currentSortedDayList.getSourceIndex(indexToEdit.getZeroBased());
+
+
+        if (rawZeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
-        Event eventToShow = lastShownList.get(indexToEdit.getZeroBased());
+        Event eventToShow = lastShownList.get(rawZeroBasedIndex);
 
         //Sets context for the details
         model.setPageStatus(model.getPageStatus()
