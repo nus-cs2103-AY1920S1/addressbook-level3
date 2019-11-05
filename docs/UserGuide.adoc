@@ -101,7 +101,7 @@ Format: `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME w/PASSWORD [t/TAG]...
 A account can have any number of tags (including 0). Only logged-in admins can add tags.
 
 ****
-* Usernames must be at least 3 characters in length.
+* Usernames must be at least 3 characters in length and must be unique.
 * Usernames can only consist of alphanumeric characters and the following special characters, excluding the parentheses, (.-)
 * Usernames cannot begin or end with a non alphanumeric character.
 * Usernames and Passwords cannot be blank or contain a whitespace.
