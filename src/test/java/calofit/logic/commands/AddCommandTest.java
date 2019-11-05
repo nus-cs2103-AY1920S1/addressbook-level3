@@ -24,7 +24,7 @@ public class AddCommandTest {
 
     @Test
     public void constructor_nullDish_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        Assert.assertThrows(NullPointerException.class, () -> new AddCommand((Dish) null));
     }
 
     @Test
