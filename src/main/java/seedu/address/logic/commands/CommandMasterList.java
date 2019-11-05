@@ -21,8 +21,10 @@ public class CommandMasterList {
     public static HashSet getCommandWords() {
         commandHashSet.add(SetClassroomCommand.COMMAND_WORD + " c/CLASSROOM_NAME");
         commandHashSet.add(AddClassroomCommand.COMMAND_WORD + " c/CLASSROOM_NAME");
-        commandHashSet.add(UpdateGradesCommand.COMMAND_WORD);
-        commandHashSet.add(EditAssignmentCommand.COMMAND_WORD + " ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/DEADLINE]");
+        commandHashSet.add(UpdateGradesCommand.COMMAND_WORD + " as/ASSIGNMENT_INDEX s/STUDENT_INDEX g/GRADE");
+        commandHashSet.add(UpdateGradesCommand.COMMAND_WORD + " as/ASSIGNMENT_INDEX g/grade");
+        commandHashSet.add(EditAssignmentCommand.COMMAND_WORD
+                + " ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/DEADLINE]");
         commandHashSet.add(AddStudentCommand.COMMAND_WORD
                 + " n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS "
                 + "pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG]");

@@ -203,7 +203,7 @@ The `redo` command does the opposite -- it calls `Model#redo()`, which shifts th
 [NOTE]
 If the `statePointer` is at index `mementos.size() - 1`, pointing to the latest classroom state, then there are no undone classroom states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the classroom, such as `list`, will usually not call `Model#saveState()`, `Model#undo()` or `Model#redo()`. Thus, the `mementos` remains unchanged.
+Step 5. The user then decides to execute the command `liststudents`. Commands that do not modify the classroom, such as `liststudents`, will usually not call `Model#saveState()`, `Model#undo()` or `Model#redo()`. Thus, the `mementos` remains unchanged.
 
 image::UndoRedoState4.png[]
 
