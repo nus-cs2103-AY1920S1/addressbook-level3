@@ -1,14 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 
 import java.io.FileNotFoundException;
 import java.util.stream.Stream;
 
 import net.fortuna.ical4j.model.Calendar;
-
 import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendar.CalendarWrapper;

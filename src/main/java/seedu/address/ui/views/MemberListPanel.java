@@ -32,11 +32,10 @@ public class MemberListPanel extends UiPart<Region> {
 
         for (int i=0; i<memberList.size(); i++) {
             Member memberInvolved = memberList.get(i);
-            int memIndex = memberList.indexOf(memberInvolved);
 
             ArrayList<Task> specificTasks = new ArrayList<>();
             for (TasMemMapping mapping : tasMemMappings) {
-                if (mapping.hasMember(memIndex)) {
+                if (mapping.hasMember(i)) {
                     specificTasks.add(taskList.get(mapping.getTaskIndex()));
                 }
             }
