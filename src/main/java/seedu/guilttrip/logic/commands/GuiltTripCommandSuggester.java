@@ -1,5 +1,9 @@
 package seedu.guilttrip.logic.commands;
 
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.guilttrip.logic.parser.GuiltTripParser.BASIC_COMMAND_FORMAT;
+import static seedu.guilttrip.logic.parser.GuiltTripParser.COMMANDS_SET;
+
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.regex.Matcher;
@@ -10,10 +14,6 @@ import seedu.guilttrip.logic.commands.util.EditDistanceComparator;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
-
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.guilttrip.logic.parser.GuiltTripParser.BASIC_COMMAND_FORMAT;
-import static seedu.guilttrip.logic.parser.GuiltTripParser.COMMANDS_SET;
 
 /**
  * Implements one main function suggest: to return a suggestion string
@@ -31,7 +31,7 @@ public final class GuiltTripCommandSuggester {
      * @param textInput String to be processed
      * @return Appropriate helping string.
      */
-    public static String suggest(String textInput) {
+    public static String getSuggestionString(String textInput) {
         try {
             String commandWord = getCommandWord(textInput);
 
@@ -81,6 +81,6 @@ public final class GuiltTripCommandSuggester {
         Queue<String> commandsHeap = new PriorityQueue<>(new EditDistanceComparator(commandWord));
         commandsHeap.addAll(COMMANDS_SET);
 
-        return IntStream.rangeClosed(1, 5).mapToObj(i -> commandsHeap.poll()).collect(Collectors.joining("\n"));
+        return IntStream.rangeClosed(1, 10).mapToObj(i -> commandsHeap.poll()).collect(Collectors.joining("\n"));
     }
 }

@@ -185,179 +185,179 @@ public class GuiltTripParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-            case AddExpenseCommand.COMMAND_WORD:
-                // Fallthrough
-            case AddExpenseCommand.COMMAND_WORD_SHORT:
-                return new AddExpenseCommandParser().parse(arguments);
+        case AddExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case AddExpenseCommand.COMMAND_WORD_SHORT:
+            return new AddExpenseCommandParser().parse(arguments);
 
-            case AddIncomeCommand.COMMAND_WORD:
-                return new AddIncomeCommandParser().parse(arguments);
+        case AddIncomeCommand.COMMAND_WORD:
+            return new AddIncomeCommandParser().parse(arguments);
 
-            case AddBudgetCommand.COMMAND_WORD:
-                return new AddBudgetCommandParser().parse(arguments);
+        case AddBudgetCommand.COMMAND_WORD:
+            return new AddBudgetCommandParser().parse(arguments);
 
-            case AddCategoryCommand.COMMAND_WORD:
-                return new AddCategoryCommandParser().parse(arguments);
+        case AddCategoryCommand.COMMAND_WORD:
+            return new AddCategoryCommandParser().parse(arguments);
 
-            case EditExpenseCommand.COMMAND_WORD:
-                // Fallthrough
-            case EditExpenseCommand.COMMAND_WORD_SHORT:
-                return new EditExpenseCommandParser().parse(arguments);
+        case EditExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case EditExpenseCommand.COMMAND_WORD_SHORT:
+            return new EditExpenseCommandParser().parse(arguments);
 
-            case EditIncomeCommand.COMMAND_WORD:
-                return new EditIncomeCommandParser().parse(arguments);
+        case EditIncomeCommand.COMMAND_WORD:
+            return new EditIncomeCommandParser().parse(arguments);
 
-            case EditCategoryCommand.COMMAND_WORD:
-                return new EditCategoryCommandParser().parse(arguments);
+        case EditCategoryCommand.COMMAND_WORD:
+            return new EditCategoryCommandParser().parse(arguments);
 
-            case EditWishCommand.COMMAND_WORD:
-                return new EditWishCommandParser().parse(arguments);
+        case EditWishCommand.COMMAND_WORD:
+            return new EditWishCommandParser().parse(arguments);
 
-            case EditBudgetCommand.COMMAND_WORD:
-                return new EditBudgetCommandParser().parse(arguments);
+        case EditBudgetCommand.COMMAND_WORD:
+            return new EditBudgetCommandParser().parse(arguments);
 
-            case DeleteExpenseCommand.COMMAND_WORD:
-                // Fallthrough
-            case DeleteExpenseCommand.COMMAND_WORD_SHORT:
-                return new DeleteExpenseCommandParser().parse(arguments);
+        case DeleteExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case DeleteExpenseCommand.COMMAND_WORD_SHORT:
+            return new DeleteExpenseCommandParser().parse(arguments);
 
-            case DeleteIncomeCommand.COMMAND_WORD:
-                return new DeleteIncomeCommandParser().parse(arguments);
+        case DeleteIncomeCommand.COMMAND_WORD:
+            return new DeleteIncomeCommandParser().parse(arguments);
 
-            case DeleteCategoryCommand.COMMAND_WORD:
-                return new DeleteCategoryCommandParser().parse(arguments);
+        case DeleteCategoryCommand.COMMAND_WORD:
+            return new DeleteCategoryCommandParser().parse(arguments);
 
-            case DeleteWishCommand.COMMAND_WORD:
-                return new DeleteWishCommandParser().parse(arguments);
+        case DeleteWishCommand.COMMAND_WORD:
+            return new DeleteWishCommandParser().parse(arguments);
 
-            case DeleteBudgetCommand.COMMAND_WORD:
-                return new DeleteBudgetCommandParser().parse(arguments);
+        case DeleteBudgetCommand.COMMAND_WORD:
+            return new DeleteBudgetCommandParser().parse(arguments);
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
 
-            case FindWishCommand.COMMAND_WORD:
-                return new FindWishCommandParser().parse(arguments);
+        case FindWishCommand.COMMAND_WORD:
+            return new FindWishCommandParser().parse(arguments);
 
-            case FindBudgetCommand.COMMAND_WORD:
-                return new FindBudgetCommandParser().parse(arguments);
+        case FindBudgetCommand.COMMAND_WORD:
+            return new FindBudgetCommandParser().parse(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case ListCategoriesCommand.COMMAND_WORD:
-                return new ListCategoriesCommand();
+        case ListCategoriesCommand.COMMAND_WORD:
+            return new ListCategoriesCommand();
 
-            case ListFontCommand.COMMAND_WORD:
-                return new ListFontCommand();
+        case ListFontCommand.COMMAND_WORD:
+            return new ListFontCommand();
 
-            case WishListCommand.COMMAND_WORD:
-                return new WishListCommand();
+        case WishListCommand.COMMAND_WORD:
+            return new WishListCommand();
 
-            case ListBudgetCommand.COMMAND_WORD:
-                return new ListBudgetCommand();
+        case ListBudgetCommand.COMMAND_WORD:
+            return new ListBudgetCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case SortCommand.COMMAND_WORD:
-                return new SortCommandParser().parse(arguments);
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case AddReminderCommand.COMMAND_WORD:
-                return new AddReminderCommandParser().parse(arguments);
+        case AddReminderCommand.COMMAND_WORD:
+            return new AddReminderCommandParser().parse(arguments);
 
-            case EditReminderCommand.COMMAND_WORD:
-                return new EditReminderCommandParser().parse(arguments);
+        case EditReminderCommand.COMMAND_WORD:
+            return new EditReminderCommandParser().parse(arguments);
 
-            case DeleteReminderCommand.COMMAND_WORD:
-                return new DeleteReminderCommandParser().parse(arguments);
+        case DeleteReminderCommand.COMMAND_WORD:
+            return new DeleteReminderCommandParser().parse(arguments);
 
-            case AddConditionToReminderCommand.COMMAND_WORD:
-                return new AddConditionToReminderCommandParser().parse(arguments);
+        case AddConditionToReminderCommand.COMMAND_WORD:
+            return new AddConditionToReminderCommandParser().parse(arguments);
 
-            case RemoveConditionFromReminderCommand.COMMAND_WORD:
-                return new RemoveConditionFromReminderCommandParser().parse(arguments);
+        case RemoveConditionFromReminderCommand.COMMAND_WORD:
+            return new RemoveConditionFromReminderCommandParser().parse(arguments);
 
-            case ListAllRemindersCommand.COMMAND_WORD:
-                return new ListAllRemindersCommand();
+        case ListAllRemindersCommand.COMMAND_WORD:
+            return new ListAllRemindersCommand();
 
-            case ListActiveRemindersCommand.COMMAND_WORD:
-                return new ListActiveRemindersCommand();
+        case ListActiveRemindersCommand.COMMAND_WORD:
+            return new ListActiveRemindersCommand();
 
-            case AddClassConditionCommand.COMMAND_WORD:
-                return new AddClassConditionCommandParser().parse(arguments);
+        case AddClassConditionCommand.COMMAND_WORD:
+            return new AddClassConditionCommandParser().parse(arguments);
 
-            case AddDateConditionCommand.COMMAND_WORD:
-                return new AddDateConditionCommandParser().parse(arguments);
+        case AddDateConditionCommand.COMMAND_WORD:
+            return new AddDateConditionCommandParser().parse(arguments);
 
-            case AddHasKeyWordConditionCommand.COMMAND_WORD:
-                return new AddHasKeyWordConditionCommandParser().parse(arguments);
+        case AddHasKeyWordConditionCommand.COMMAND_WORD:
+            return new AddHasKeyWordConditionCommandParser().parse(arguments);
 
-            case AddQuotaConditionCommand.COMMAND_WORD:
-                return new AddQuotaConditionCommandParser().parse(arguments);
+        case AddQuotaConditionCommand.COMMAND_WORD:
+            return new AddQuotaConditionCommandParser().parse(arguments);
 
-            case AddTagsConditionCommand.COMMAND_WORD:
-                return new AddHasTagConditionCommandParser().parse(arguments);
+        case AddTagsConditionCommand.COMMAND_WORD:
+            return new AddHasTagConditionCommandParser().parse(arguments);
 
-            case DeleteConditionCommand.COMMAND_WORD:
-                return new DeleteConditionCommandParser().parse(arguments);
+        case DeleteConditionCommand.COMMAND_WORD:
+            return new DeleteConditionCommandParser().parse(arguments);
 
-            case ReplaceConditionCommand.COMMAND_WORD:
-                return new ReplaceConditionCommandParser().parse(arguments);
+        case ReplaceConditionCommand.COMMAND_WORD:
+            return new ReplaceConditionCommandParser().parse(arguments);
 
-            case ShowConditionListCommand.COMMAND_WORD:
-                return new ShowConditionListCommand();
+        case ShowConditionListCommand.COMMAND_WORD:
+            return new ShowConditionListCommand();
 
-            case AddAutoExpenseCommand.COMMAND_WORD:
-                return new AddAutoExpenseCommandParser().parse(arguments);
+        case AddAutoExpenseCommand.COMMAND_WORD:
+            return new AddAutoExpenseCommandParser().parse(arguments);
 
-            case EditAutoExpenseCommand.COMMAND_WORD:
-                return new EditAutoExpenseCommandParser().parse(arguments);
+        case EditAutoExpenseCommand.COMMAND_WORD:
+            return new EditAutoExpenseCommandParser().parse(arguments);
 
-            case DeleteAutoExpenseCommand.COMMAND_WORD:
-                return new DeleteAutoExpenseCommandParser().parse(arguments);
+        case DeleteAutoExpenseCommand.COMMAND_WORD:
+            return new DeleteAutoExpenseCommandParser().parse(arguments);
 
-            case ViewBarChartCommand.COMMAND_WORD:
-                return new ViewBarChartCommandParser().parse(arguments);
+        case ViewBarChartCommand.COMMAND_WORD:
+            return new ViewBarChartCommandParser().parse(arguments);
 
-            case ViewTableCommand.COMMAND_WORD:
-                return new ViewTableCommandParser().parse(arguments);
+        case ViewTableCommand.COMMAND_WORD:
+            return new ViewTableCommandParser().parse(arguments);
 
-            case ViewPieChartCommand.COMMAND_WORD:
-                return new ViewPieChartCommandParser().parse(arguments);
+        case ViewPieChartCommand.COMMAND_WORD:
+            return new ViewPieChartCommandParser().parse(arguments);
 
-            case ViewEntryCommand.COMMAND_WORD:
-                return new ViewEntryCommand();
+        case ViewEntryCommand.COMMAND_WORD:
+            return new ViewEntryCommand();
 
-            case TogglePanelCommand.COMMAND_WORD:
-                return new TogglePanelCommandParser().parse(arguments);
+        case TogglePanelCommand.COMMAND_WORD:
+            return new TogglePanelCommandParser().parse(arguments);
 
-            case UndoCommand.COMMAND_WORD:
-                return new UndoCommandParser().parse(arguments);
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
 
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommandParser().parse(arguments);
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommandParser().parse(arguments);
 
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
-            case ChangeFontCommand.COMMAND_WORD:
-                return new ChangeFontCommandParser().parse(arguments);
+        case ChangeFontCommand.COMMAND_WORD:
+            return new ChangeFontCommandParser().parse(arguments);
 
-            case SetLightThemeCommand.COMMAND_WORD:
-                return new SetLightThemeCommand();
+        case SetLightThemeCommand.COMMAND_WORD:
+            return new SetLightThemeCommand();
 
-            case SetDarkThemeCommand.COMMAND_WORD:
-                return new SetDarkThemeCommand();
+        case SetDarkThemeCommand.COMMAND_WORD:
+            return new SetDarkThemeCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
