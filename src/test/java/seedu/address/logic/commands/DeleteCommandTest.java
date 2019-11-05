@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalActivities.getTypicalActivityBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIFTH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -28,6 +29,8 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(
             getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+    private Model model2 = new ModelManager(
+            getTypicalAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -71,6 +74,37 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_deletePersonOutsideActivity_success() {
+        showPersonAtIndex(model2, INDEX_FIFTH);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
+        Person personToDelete = model2.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+
+        Model expectedModel = new ModelManager(
+                getTypicalAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
+        expectedModel.deletePerson(personToDelete);
+        expectedModel.updateFilteredPersonList(x -> false);
+
+        assertCommandSuccess(deleteCommand, model2, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deletePersonPreviouslyInActivity_success() {
+        showPersonAtIndex(model2, INDEX_FIRST);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
+        Person personToDelete = model2.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+
+        Model expectedModel = new ModelManager(getTypicalAddressBook(),
+                new UserPrefs(), new InternalState(), new ActivityBook(getTypicalActivityBook()));
+        expectedModel.getActivityBook().getActivityList().get(0).disinvite(personToDelete);
+        expectedModel.deletePerson(personToDelete);
+        expectedModel.updateFilteredPersonList(x -> false);
+
+        assertCommandSuccess(deleteCommand, model2, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_deletePersonInActivity_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST);
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
@@ -83,6 +117,7 @@ public class DeleteCommandTest {
 
         assertCommandFailure(deleteCommand, tempmodel, errmsg);
     }
+
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST);
