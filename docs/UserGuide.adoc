@@ -104,10 +104,10 @@ Adds an expenditure of your personal finance +
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` input accepts a non-negative value lesser than 1,000,000 of the expenditure.
-* `ITEM` input accepts the description of the expenditure
+* `AMOUNT` accepts the value of this expenditure. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
+* `ITEM` accepts the description of this expenditure.
 * `DATE` accepts the date of this transaction
-* `CATEGORY` accepts the CATEGORY for this expenditure
+* `CATEGORY` accepts the CATEGORY for this expenditure. An `out` Transaction can be created without any `CATEGORY`.
 * `in` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
 ****
 
@@ -123,10 +123,10 @@ Adds an income of your personal finance +
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` input accepts a non-negative value lesser than 1,000,000 of the income.
-* `ITEM` input accepts the description of the income
-* `DATE` input accepts accepts the date of this transaction
-* `CATEGORY` input accepts the CATEGORY for this income
+* `AMOUNT` accepts the value of this income. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
+* `ITEM` accepts the description of this income.
+* `DATE` accepts accepts the date of this transaction
+* `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
 * `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
 ****
 
@@ -148,7 +148,7 @@ Format: `set $/AMOUNT d/DATE c/CATEGORY`
 * `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
 less than 1,000,000.
 * `DATE` input accepts the deadline to be set. It cannot be a date in the past.
-* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without any `CATEGORY`.
+* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without `CATEGORY` inputs.
 ****
 
 Example: Let's say you want to restrict your spending for a certain category until a certain deadline.
@@ -185,10 +185,10 @@ Deletes the specified Transaction or Budget from the finance manager. +
 Format: `delete TYPE+INDEX`
 
 ****
-* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
-* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `delete b1` refers to deleting an *Budget* of index 1)
-* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work)
-* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget with `INDEX` does not exists.
+* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
+* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `delete b1` refers to deleting an *Budget* of index 1).
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work).
+* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
@@ -200,15 +200,19 @@ Examples:
 === Updating Finance : `update`
 
 Updates the specified income or expenditure from the finance manager. +
-Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
+Format: `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]`
 
 ****
-* `AMOUNT` accepts a non-negative value less than or equal to 1,000,000 to update the target Transaction or Budget
-* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
-* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update b1 ...` refers to updating a *Budget* of index 1)
-* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work)
+* `AMOUNT` accepts a non-negative value lesser than 1,000,000.
+* `ITEM` accepts the description of this Transaction or Budget.
+* `DATE` accepts the date of this Transaction or Budget
+* `CATEGORY` accepts the CATEGORY for the Transaction or Budget.
+* At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
+* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
+* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `update b1 ...` refers to updating a *Budget* of index 1).
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
 * `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted).
-* You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget with `INDEX` does not exists.
+* You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget of `INDEX` does not exists.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
