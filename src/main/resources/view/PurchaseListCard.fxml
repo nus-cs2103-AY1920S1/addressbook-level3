@@ -18,14 +18,12 @@
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="name" styleClass="cell_purchase_history" text="\$first">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-      </HBox>
+     <Label fx:id="name" styleClass="cell_purchase_history" text="\$first" wrapText="true">
+       <minWidth>
+         <!-- Ensures that the label text is never truncated -->
+         <Region fx:constant="USE_PREF_SIZE" />
+       </minWidth>
+     </Label>
       <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
       <Label fx:id="timeAgo" styleClass="cell_small_label" text="\$timeAgo" />
     </VBox>
