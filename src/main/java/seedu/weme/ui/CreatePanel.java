@@ -1,5 +1,7 @@
 package seedu.weme.ui;
 
+import java.awt.image.BufferedImage;
+
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -8,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.MemeText;
 
 /**
@@ -32,22 +33,21 @@ public class CreatePanel extends UiPart<Region> {
     private StackPane memeTextListPlaceholder;
 
 
-    public CreatePanel(MemeCreation memeCreation) {
+    public CreatePanel(ObservableList<MemeText> memeTextList, BufferedImage image) {
         super(FXML);
-        ObservableList<MemeText> memeTexts = memeCreation.getMemeTextList();
-        MemeTextListPanel memeTextListPanel = new MemeTextListPanel(memeTexts);
+        MemeTextListPanel memeTextListPanel = new MemeTextListPanel(memeTextList);
         memeTextListPlaceholder.getChildren().addAll(memeTextListPanel.getRoot());
-        updateImage(memeCreation);
+        updateImage(image);
     }
 
     /**
      * Updates the image displayed.
      *
-     * @param session the current meme creation session
+     * @param image the current image of the meme creation session
      */
-    public void updateImage(MemeCreation session) {
-        if (session.getCurrentImage().isPresent()) {
-            memeImage.setImage(SwingFXUtils.toFXImage(session.getCurrentImage().get(), null));
+    public void updateImage(BufferedImage image) {
+        if (image != null) {
+            memeImage.setImage(SwingFXUtils.toFXImage(image, null));
             verticalRule.setFitHeight(memeImage.getBoundsInParent().getHeight());
             horizontalRule.setFitWidth(memeImage.getBoundsInParent().getWidth());
             memeCreationBox.setVisible(true);

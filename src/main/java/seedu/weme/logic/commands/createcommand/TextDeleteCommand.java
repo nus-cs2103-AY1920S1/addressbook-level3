@@ -10,7 +10,6 @@ import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
-import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.MemeText;
 
 /**
@@ -36,15 +35,14 @@ public class TextDeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        MemeCreation session = model.getMemeCreation();
-        List<MemeText> memeTextList = session.getMemeTextList();
+        List<MemeText> memeTextList = model.getMemeTextList();
 
         if (targetIndex.getZeroBased() >= memeTextList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEME_TEXT_DISPLAYED_INDEX);
         }
 
         MemeText textToDelete = memeTextList.get(targetIndex.getZeroBased());
-        session.remove(textToDelete);
+        model.deleteMemeText(textToDelete);
 
         CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_MEME_TEXT_SUCCESS, textToDelete));
         model.commitWeme(result.getFeedbackToUser());

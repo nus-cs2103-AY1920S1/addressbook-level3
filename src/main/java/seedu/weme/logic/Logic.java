@@ -1,6 +1,8 @@
 package seedu.weme.logic;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
@@ -15,7 +17,7 @@ import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
 
 /**
@@ -74,11 +76,19 @@ public interface Logic {
     void setContext(ModelContext context);
 
     /**
-     * Returns the current meme creation session.
+     * Returns the list of {@code MemeText} in the current meme creation session.
      *
-     * @return the current meme creation session.
+     * @return the list of {@code MemeText} in the current meme creation session
      */
-    MemeCreation getMemeCreation();
+    ObservableList<MemeText> getMemeTextList();
+
+
+    /**
+     * Returns the image of the meme creation session, if any.
+     *
+     * @return the image of the meme creation session, or {@link Optional#empty} if there is none.
+     */
+    Optional<BufferedImage> getMemeCreationImage();
 
     /**
      * Returns the user prefs' Weme file path.

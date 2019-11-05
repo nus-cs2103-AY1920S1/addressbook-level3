@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.weme.commons.exceptions.IllegalValueException;
+import seedu.weme.model.template.exceptions.MemeCreationException;
 import seedu.weme.model.template.exceptions.MemeTextNotFoundException;
 import seedu.weme.model.util.ImageUtil;
 
@@ -51,13 +51,9 @@ public class MemeCreation {
      * Adds text to the meme currently being generated.
      *
      * @param text specified the text to be added
-     * @throws IllegalValueException if the text added will exceed image boundary
      */
-    public void addText(MemeText text) throws IllegalValueException {
+    public void addText(MemeText text) {
         requireNonNull(text);
-        if (!isWithinImageBoundary(getTextBoundary(text))) {
-            throw new IllegalValueException("Text exceeds image boundary");
-        }
         textList.add(text);
     }
 
@@ -66,17 +62,12 @@ public class MemeCreation {
      *
      * @param target      the {@code MemeText} to replace
      * @param replacement the {@code MemeText} to use as replacement
-     * @throws IllegalValueException if the new text will exceed image boundary
      */
-    public void setText(MemeText target, MemeText replacement) throws IllegalValueException {
+    public void setText(MemeText target, MemeText replacement) {
         requireAllNonNull(target, replacement);
         int index = textList.indexOf(target);
         if (index == -1) {
             throw new MemeTextNotFoundException();
-        }
-
-        if (!isWithinImageBoundary(getTextBoundary(replacement))) {
-            throw new IllegalValueException("Text exceeds image boundary");
         }
         textList.set(index, replacement);
     }
@@ -85,20 +76,15 @@ public class MemeCreation {
      * Removes the meme text from the list.
      * The meme text must exist in the list.
      */
-    public void remove(MemeText toRemove) {
-        requireNonNull(toRemove);
-        if (!textList.remove(toRemove)) {
+    public void deleteText(MemeText toDelete) {
+        requireNonNull(toDelete);
+        if (!textList.remove(toDelete)) {
             throw new MemeTextNotFoundException();
         }
     }
 
     public ObservableList<MemeText> getMemeTextList() {
         return unmodifiableObservableTextList;
-    }
-
-    private boolean isWithinImageBoundary(TextBoundaries boundaries) {
-        return boundaries.getX1() >= 0 && boundaries.getX2() <= initialImage.getWidth()
-            && boundaries.getY1() >= 0 && boundaries.getY2() <= initialImage.getHeight();
     }
 
     /**
@@ -180,11 +166,15 @@ public class MemeCreation {
      * Generates the meme and writes it to the specified path. The current session will be cleared afterwards.
      *
      * @param destination the path to write the meme image file
-     * @throws IOException if an error occurred during IO
+     * @throws MemeCreationException if an error occurs while attempting to create the meme
      */
-    public void generate(Path destination) throws IOException {
-        ImageIO.write(render(), "jpg", destination.toFile());
-        clear();
+    public void generate(Path destination) throws MemeCreationException {
+        try {
+            ImageIO.write(render(), "jpg", destination.toFile());
+            clear();
+        } catch (IOException e) {
+            throw new MemeCreationException(e);
+        }
     }
 
     /**

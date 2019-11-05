@@ -1,8 +1,10 @@
 package seedu.weme.model;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -14,9 +16,9 @@ import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
-import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
+import seedu.weme.model.template.exceptions.MemeCreationException;
 
 /**
  * The API of the Model component.
@@ -244,15 +246,52 @@ public interface Model {
     void startMemeCreation(Template template) throws IOException;
 
     /**
-     * Returns the current meme creation session.
-     * @return the current meme creation session.
-     */
-    MemeCreation getMemeCreation();
-
-    /**
      * Aborts the current meme creation session.
      **/
     void abortMemeCreation();
+
+    /**
+     * Returns the meme text list of the meme creation session.
+     *
+     * @return the meme text list of the meme creation session
+     */
+    ObservableList<MemeText> getMemeTextList();
+
+    /**
+     * Adds a {@code MemeText} to the current meme creation session.
+     *
+     * @param text the {@code MemeText} to add
+     */
+    void addMemeText(MemeText text);
+
+    /**
+     * Deletes a {@code MemeText} from the current meme creation session.
+     *
+     * @param toDelete the {@code MemeText} to delete
+     */
+    void deleteMemeText(MemeText toDelete);
+
+    /**
+     * Replaces a {@code MemeText} in the current meme creation session with another {@code MemeText}.
+     *
+     * @param toReplace   the {@code MemeText} to replace
+     * @param replacement the {@code MemeText} to use as replacement
+     */
+    void setMemeText(MemeText toReplace, MemeText replacement);
+
+    /**
+     * Returns the image of the meme creation session, if any.
+     *
+     * @return the image of the meme creation session, or {@link Optional#empty} if there is none.
+     */
+    Optional<BufferedImage> getMemeCreationImage();
+
+    /**
+     * Creates a new {@code Meme} from the current meme creation session and save it into Weme.
+     * @param path the {@code Path} to save the new meme image to
+     * @throws MemeCreationException if an IO error occurs while writing the image to the disk
+     */
+    void createMeme(Path path) throws MemeCreationException;
 
     /**
      * Returns true if model has a previous state to restore.

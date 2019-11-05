@@ -14,14 +14,12 @@ import java.util.Optional;
 
 import seedu.weme.commons.core.Messages;
 import seedu.weme.commons.core.index.Index;
-import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.commons.util.CollectionUtil;
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
 import seedu.weme.model.template.Coordinates;
-import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.MemeTextColor;
 import seedu.weme.model.template.MemeTextSize;
@@ -86,8 +84,7 @@ public class TextEditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        MemeCreation session = model.getMemeCreation();
-        List<MemeText> textList = session.getMemeTextList();
+        List<MemeText> textList = model.getMemeTextList();
 
         if (index.getZeroBased() >= textList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEME_TEXT_DISPLAYED_INDEX);
@@ -96,11 +93,7 @@ public class TextEditCommand extends Command {
         MemeText textToEdit = textList.get(index.getZeroBased());
         MemeText editedText = createEditedMemeText(textToEdit, editMemeTextDescriptor);
 
-        try {
-            session.setText(textToEdit, editedText);
-        } catch (IllegalValueException ive) {
-            throw new CommandException(ive.getMessage(), ive);
-        }
+        model.setMemeText(textToEdit, editedText);
 
         CommandResult result = new CommandResult(
                 String.format(MESSAGE_EDIT_MEME_TEXT_SUCCESS, editedText.toString()));

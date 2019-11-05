@@ -43,9 +43,9 @@ public class Coordinates {
             return false;
         }
 
-        Coordinates otherCoorinates = (Coordinates) other;
-        return x == otherCoorinates.x
-            && y == otherCoorinates.y;
+        Coordinates otherCoordinates = (Coordinates) other;
+        return x == otherCoordinates.x
+            && y == otherCoordinates.y;
     }
 
 }

@@ -1,7 +1,9 @@
 package seedu.weme.logic;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -24,7 +26,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
 import seedu.weme.storage.Storage;
 
@@ -74,8 +76,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public MemeCreation getMemeCreation() {
-        return model.getMemeCreation();
+    public ObservableList<MemeText> getMemeTextList() {
+        return model.getMemeTextList();
+    }
+
+    @Override
+    public Optional<BufferedImage> getMemeCreationImage() {
+        return model.getMemeCreationImage();
     }
 
     @Override

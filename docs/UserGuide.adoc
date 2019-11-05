@@ -314,7 +314,7 @@ Format: `add TEXT x/X_COORDINATE y/Y_COORDINATE [c/COLOR] [s/SIZE] [S/STYLE]...`
 
 ****
 * `X_COORDINATE` and `Y_COORDINATE` denote the position at which the supplied text will be placed and are represented as ratios of the image dimensions.
-`x/0.3 y/0.5` means the center of the supplied text will be 30% right of the left border and 50% down from the top border.
+`x/0.5 y/0.3` means the *center* of the supplied text will be 50% right of the left border and 30% down from the top border.
 * `COLOR` can be a name, e.g. `cyan`, or a hex RGB value, e.g. `#FF34E2`.
 * Weme supports 6 levels of font size. `SIZE` must be an integer from 1 to 6, where 1 denotes the smallest font size and 6 denotes the largest font size. Some text of each font size can be found at the right hand side of the image as a reference.
 * `STYLE` must be `plain`, `bold`, or `italic`. In the case you specify multiple font styles, Weme will combine them. For example, `S/bold S/italic` will give you bold and italic text.
@@ -324,10 +324,10 @@ Format: `add TEXT x/X_COORDINATE y/Y_COORDINATE [c/COLOR] [s/SIZE] [S/STYLE]...`
 
 Examples:
 
-* `add CS students be like x/0.3 y/0.5` +
-Adds text `CS students be like` to the template, placing its center 30% right of the left border and 50% down from the top border.
+* `add CS students be like x/0.5 y/0.3` +
+Adds text `CS students be like` to the template, placing its *center* 50% right of the left border and 30% down from the top border.
 * `add sToNKs x/0.5 y/0.75 c/red s/5 S/bold` +
-Adds red and bold text `sToNKs` with size 5 to the template, placing its center 50% right of the left border and 75% down from the top border.
+Adds red and bold text `sToNKs` with size 5 to the template, placing its *center* 50% right of the left border and 75% down from the top border.
 
 ==== Editing text: `edit`
 

@@ -3,10 +3,12 @@ package seedu.weme.model;
 import static java.util.Objects.requireNonNull;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -23,9 +25,11 @@ import seedu.weme.model.statistics.TagWithDislike;
 import seedu.weme.model.statistics.TagWithLike;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
 import seedu.weme.model.template.UniqueTemplateList;
+import seedu.weme.model.template.exceptions.MemeCreationException;
 import seedu.weme.model.util.ImageUtil;
 
 /**
@@ -290,6 +294,32 @@ public class Weme implements ReadOnlyWeme {
 
     public void abortMemeCreation() {
         memeCreation.abort();
+    }
+
+    @Override
+    public ObservableList<MemeText> getMemeTextList() {
+        return memeCreation.getMemeTextList();
+    }
+
+    public void addMemeText(MemeText memeText) {
+        memeCreation.addText(memeText);
+    }
+
+    public void deleteMemeText(MemeText toDelete) {
+        memeCreation.deleteText(toDelete);
+    }
+
+    public void setMemeText(MemeText toReplace, MemeText replacement) {
+        memeCreation.setText(toReplace, replacement);
+    }
+
+    @Override
+    public Optional<BufferedImage> getMemeCreationImage() {
+        return memeCreation.getCurrentImage();
+    }
+
+    public void createMeme(Path path) throws MemeCreationException {
+        memeCreation.generate(path);
     }
 
     //// util methods

@@ -319,20 +319,17 @@ The `FilteredList<Template>` in `ModelManager` is updated with a predicate that 
 Step 3. Assuming the template that the user wants to use is displayed as the first template, the user executes `use 1` to start creating a meme using that template.
 Weme starts a new `MemeCreation` session and enters the "*Create*" tab.
 
-Step 4. The user executes `add cs students be like x/0.3 y/0.5` command to add the text "cs students be like".
+Step 4. The user executes `add cs students be like x/0.5 y/0.3` command to add the text "cs students be like".
 A new `MemeText` is created and added to the list in the current `MemeCreation` session.
 The UI requests `MemeCreation` to render the resultant image, and `MemeCreation` returns an image with the text "cs students be like"
-placed 30% horizontally from the left border and 50% vertically from the top border.
+whose center is placed 50% horizontally from the left border and 30% vertically from the top border.
 
 Step 5. The user decides that there is a typo in the text because "cs" is not capitalized.
-The user executes the command `delete 1` to delete the text labelled *1*, which is the text that was just added.
-`MemeCreation` deletes this `MemeText` from the list.
+The user executes the command `edit 1 t/CS students be like` to edit the text labelled *1*, which is the text that was just added.
+`MemeCreation` changes the text of this `MemeText` from "cs students be like" to "CS students be like".
 Upon request by the UI, `MemeCreation` generates the updated image for the UI for display.
 
-Step 6. The user then executes `add CS student be like x/0.3 y/0.5` to add the correct text.
-`MemeCreation` adds this newly created `MemeText` to its internal list.
-
-Step 7. The user executes `create d/A meme about CS students t/funny t/CS` to complete the creation session.
+Step 6. The user executes `create d/A meme about CS students t/funny t/CS` to complete the creation session.
 Weme will create a new image with the text added and save it to the data directory.
 Weme will also create a new `Meme` entry with that image, with description "A meme about CS students" and tags "funny" and "CS".
 The description and tag arguments are similar to those for `Meme` add command.

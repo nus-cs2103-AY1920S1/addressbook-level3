@@ -1,6 +1,8 @@
 package seedu.weme.model;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
@@ -13,6 +15,7 @@ import seedu.weme.model.statistics.TagWithDislike;
 import seedu.weme.model.statistics.TagWithLike;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
 
 /**
@@ -92,4 +95,17 @@ public interface ReadOnlyWeme {
      */
     MemeCreation getMemeCreation();
 
+    /**
+     * Returns the {@code MemeText}s in the current meme creation session.
+     *
+     * @return the {@code MemeText}s in the current meme creation session
+     */
+    ObservableList<MemeText> getMemeTextList();
+
+    /**
+     * Returns the image of the meme creation session, if any.
+     *
+     * @return the image of the meme creation session, or {@link Optional#empty} if there is none.
+     */
+    Optional<BufferedImage> getMemeCreationImage();
 }
