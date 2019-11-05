@@ -22,9 +22,9 @@ import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.ReopenCommand;
 import seedu.address.logic.commands.ReviewCommand;
 import seedu.address.logic.commands.SaveTodoCommand;
+import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.StatsCommand;
 
-import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -105,7 +105,7 @@ public class AddressBookParser {
             return new DeleteFeedCommandParser().parse(arguments);
 
         case StatsCommand.COMMAND_WORD:
-            return new StatsCommand();
+            return new StatsCommand(isMainMode);
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(arguments);

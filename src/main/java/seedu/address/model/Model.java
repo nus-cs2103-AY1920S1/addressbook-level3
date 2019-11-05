@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.feed.Feed;
-import seedu.address.model.statistics.StatisticsList;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * The API of the Model component.
@@ -154,10 +154,10 @@ public interface Model {
     /**
      * Sets the statistics of the eateries and reviews to {@code stats}.
      */
-    void setStatistics(StatisticsList stats);
+    void setStatistics(Statistics stats);
 
     /**
      * Gets the statistics of the eateries and reviews.
      */
-    StatisticsList getStatistics();
+    Statistics getStatistics();
 }

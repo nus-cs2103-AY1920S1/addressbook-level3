@@ -1,63 +1,76 @@
 package seedu.address.model.statistics;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.TreeMap;
 
 import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Eatery;
-import seedu.address.model.eatery.Review;
-import seedu.address.model.statistics.exceptions.InvalidStatisticsType;
+import seedu.address.model.statistics.exceptions.CannotGenerateStatistics;
+import seedu.address.model.statistics.exceptions.NoAvailableData;
 
 /**
  * This class represents a type of statistic that can be generated from the application.
  */
 public class Statistics {
-    /**
-     * Specifies the type of statistics.
-     */
-    public enum StatisticsType {
-        GRAPH_OVERALL_CATEGORY_TOTAL,
-        GRAPH_OVERALL_CATEGORY_AVG; /* TODO: implement GRAPH_OVERALL_DATE_TOTAL, GRAPH_OVERALL_DATE_AVG */
-    }
-
     public static final String MAX_VARIABLE = "max";
     public static final String MIN_VARIABLE = "min";
 
-    private static final String MESSAGE_INVALID_STATS = "Invalid statistics type.";
+    public final TreeMap<Category, Double> graphCategoryAvgExpense;
+    public final TreeMap<Category, Double> graphCategoryTotalExpense;
+    public final TreeMap<Category, Integer> chartCategoryTotalVisited;
+    public final List<Eatery> mostExpEatery;
+    public final List<Eatery> leastExpEatery;
+    public final List<Eatery> mostVisitedEatery;
+    public final List<Eatery> leastVisitedEatery;
 
     private List<Eatery> eateries;
-    private TreeMap<Category, List<Eatery>> groupedByCategory;
+    private TreeMap<Category, List<Eatery>> groupByCategory;
+    private PriorityQueue<Eatery> sortByExpense;
+    private PriorityQueue<Eatery> sortByVisit;
 
-    public Statistics(List<Eatery> eateries) {
-        this.eateries = eateries;
+    public Statistics(List<Eatery> allEateries) throws NoAvailableData, CannotGenerateStatistics {
+        this.eateries = getEateriesWithReviews(allEateries);
+
+        if (eateries.size() == 0) {
+            throw new NoAvailableData("No available data to create statistics currently; try adding some reviews.");
+        }
+
+        // needed for stats
+        this.groupByCategory = groupEaterybyCategory();
+        this.sortByExpense = sortEateriesByExpense();
+        this.sortByVisit = sortEateriesByVisit();
+
+        // generate stats
+        try {
+            this.graphCategoryAvgExpense = generateCategoryCostAvg();
+            this.graphCategoryTotalExpense = generateCategoryCostTotal();
+            this.chartCategoryTotalVisited = generateCategoryVisit();
+            this.mostExpEatery = getMostExpEateries();
+            this.leastExpEatery = getLeastExpEateries();
+            this.mostVisitedEatery = getMostVisited();
+            this.leastVisitedEatery = getLeastVisited();
+
+        } catch (Exception e) {
+            throw new CannotGenerateStatistics("Unable to generate statistics due to unknown error.");
+        }
     }
 
-    /**
-     * Generates the data needed for the statistics of the type specified by {@link StatisticsType}.
-     * @param type the type of statistics to be generated.
-     * @return the data needed for the type of statistics stored in a {@link TreeMap}.
-     * @throws InvalidStatisticsType if statistics type is invalid.
-     */
-    public TreeMap<? extends Object, Double> generate(StatisticsType type) throws InvalidStatisticsType {
-        try {
-            switch (type) {
-            case GRAPH_OVERALL_CATEGORY_TOTAL:
-                return generateCategoryTotal();
-
-            case GRAPH_OVERALL_CATEGORY_AVG:
-                return generateCategoryAvg();
-
-            default:
-                throw new InvalidStatisticsType(MESSAGE_INVALID_STATS);
+    public static List<Eatery> getEateriesWithReviews(List<Eatery> eateries) {
+        List<Eatery> filteredEateries = new ArrayList<>();
+        for (Eatery e : eateries) {
+            if (e.getNumberOfReviews() > 0) {
+                filteredEateries.add(e);
             }
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            throw new InvalidStatisticsType(e.getMessage());
         }
+
+        return filteredEateries;
     }
 
     public static HashMap<String, Double> getMaxMinValue(TreeMap<? extends Object, Double> stats) {
@@ -76,7 +89,7 @@ public class Statistics {
         }
 
         maxMinMap.put(MAX_VARIABLE, max);
-        maxMinMap.put(MIN_VARIABLE, max);
+        maxMinMap.put(MIN_VARIABLE, min);
         return maxMinMap;
     }
 
@@ -84,11 +97,8 @@ public class Statistics {
      * Groups the eateries by categories; to be used when generating statistics to do with categories.
      */
     private TreeMap<Category, List<Eatery>> groupEaterybyCategory() {
-        if (groupedByCategory != null) {
-            return groupedByCategory;
-        }
+        TreeMap<Category, List<Eatery>> groupedByCategory = new TreeMap<>();
 
-        this.groupedByCategory = new TreeMap<Category, List<Eatery>>();
         for (Eatery e : eateries) {
             if (groupedByCategory.containsKey(e.getCategory())) {
                 groupedByCategory.get(e.getCategory()).add(e);
@@ -102,46 +112,159 @@ public class Statistics {
     }
 
     /**
-     * Calculates the total amount spent for all categories.
+     * Generates a priority queue that sorts the eateries by the number of reviews (i.e. visits).
+     * @return a priority queue of {@link Eatery} sorted by the number of visits.
      */
-    private TreeMap<Category, Double> generateCategoryTotal() {
+    private PriorityQueue sortEateriesByVisit() {
+        PriorityQueue sortedVisits = new PriorityQueue(eateries.size(), new Comparator<Eatery>() {
+            @Override
+            public int compare(Eatery e1, Eatery e2) {
+                return e1.getNumberOfReviews() == e2.getNumberOfReviews() ? e1.getName().compareTo(e2.getName())
+                        : e1.getNumberOfReviews() > e2.getNumberOfReviews() ? e1.getNumberOfReviews()
+                        : e2.getNumberOfReviews();
+            }
+        });
+
+        for (Eatery e : eateries) {
+            sortedVisits.add(e);
+        }
+
+        return sortedVisits;
+    }
+
+    /**
+     * Generates a priority queue that sorts the eateries by the total expense (i.e. total cost for every review in
+     * the eatery).
+     * @return a priority queue of {@link Eatery} sorted by the total expense.
+     */
+    private PriorityQueue sortEateriesByExpense() {
+        PriorityQueue sortedExpense = new PriorityQueue(eateries.size(), new Comparator<Eatery>() {
+            @Override
+            public int compare(Eatery e1, Eatery e2) {
+                double e1Expense = e1.getTotalExpense() / e1.getNumberOfReviews();
+                double e2Expense = e2.getTotalExpense() / e2.getNumberOfReviews();
+
+                return e1Expense == e2Expense ? e1.getName().compareTo(e2.getName())
+                        : e1Expense > e2Expense ? (int) e1Expense
+                        : (int) e2Expense;
+            }
+        });
+
+        for (Eatery e : eateries) {
+            sortedExpense.add(e);
+        }
+
+        return sortedExpense;
+    }
+
+    /**
+     * Calculates the total amount spent for all categories; used to create the charts.
+     */
+    private TreeMap<Category, Double> generateCategoryCostTotal() {
         Map<Category, List<Eatery>> duplicateMap = new TreeMap<>(groupEaterybyCategory());
         TreeMap<Category, Double> statsMap = new TreeMap<>();
 
         for (Map.Entry<Category, List<Eatery>> entry : duplicateMap.entrySet()) {
             double total = 0;
-
             for (Eatery e : entry.getValue()) {
-                for (Review r : e.getReviews()) {
-                    total = total + r.getCost();
-                }
+                total = total + e.getTotalExpense();
             }
+
             statsMap.put(entry.getKey(), total);
         }
-
         return statsMap;
     }
 
     /**
-     * Calculates the average amount spent for all categories.
+     * Calculates the average amount spent for all categories; used to create the charts.
      */
-    private TreeMap<Category, Double> generateCategoryAvg() {
+    private TreeMap<Category, Double> generateCategoryCostAvg() {
         Map<Category, List<Eatery>> duplicateMap = new TreeMap<>(groupEaterybyCategory());
         TreeMap<Category, Double> statsMap = new TreeMap<>();
 
         for (Map.Entry<Category, List<Eatery>> entry : duplicateMap.entrySet()) {
-            double totalCost = 0;
-            int numberofReviews = 0;
-
+            double total = 0;
+            int numberOfReviews = 0;
             for (Eatery e : entry.getValue()) {
-                numberofReviews = e.getReviews().size();
-                for (Review r : e.getReviews()) {
-                    totalCost = totalCost + r.getCost();
-                }
+                numberOfReviews = e.getNumberOfReviews();
+                total = total + e.getTotalExpense();
             }
-            statsMap.put(entry.getKey(), totalCost / numberofReviews);
+
+            statsMap.put(entry.getKey(), total / numberOfReviews);
         }
         return statsMap;
+    }
+
+    /**
+     * Calculates the total number of visits to eateries in the different categories; used to create the charts.
+     */
+    private TreeMap<Category, Integer> generateCategoryVisit() {
+        Map<Category, List<Eatery>> duplicateMap = new TreeMap<>(groupEaterybyCategory());
+        TreeMap<Category, Integer> statsMap = new TreeMap<>();
+
+        for (Map.Entry<Category, List<Eatery>> entry : duplicateMap.entrySet()) {
+            int numberOfVisits = 0;
+            for (Eatery e : entry.getValue()) {
+                numberOfVisits = numberOfVisits + e.getNumberOfReviews();
+            }
+
+            statsMap.put(entry.getKey(), numberOfVisits);
+        }
+        return statsMap;
+    }
+
+    private List<Eatery> getMostExpEateries() {
+        List<Eatery> mostExp = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            mostExp.add(sortByExpense.poll());
+        }
+
+        Collections.reverse(mostExp);
+        return mostExp;
+    }
+
+    private List<Eatery> getLeastExpEateries() {
+        List<Eatery> leastExp = new ArrayList<>();
+        Iterator value = sortByExpense.iterator();
+
+        int i = 0;
+        while (value.hasNext()) {
+            i = i + 1;
+            Eatery e = (Eatery) value.next();
+
+            if (i >= eateries.size() - 5) {
+                leastExp.add(e);
+            }
+        }
+
+        return leastExp;
+    }
+
+    private List<Eatery> getMostVisited() {
+        List<Eatery> mostVisited = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            mostVisited.add(sortByVisit.poll());
+        }
+
+        Collections.reverse(mostVisited);
+        return mostVisited;
+    }
+
+    private List<Eatery> getLeastVisited() {
+        List<Eatery> leastVisited = new ArrayList<>();
+        Iterator value = sortByVisit.iterator();
+
+        int i = 0;
+        while (value.hasNext()) {
+            i = i + 1;
+            Eatery e = (Eatery) value.next();
+
+            if (i >= eateries.size() - 5) {
+                leastVisited.add(e);
+            }
+        }
+
+        return leastVisited;
     }
 
     @Override

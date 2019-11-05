@@ -6,9 +6,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 import seedu.address.model.statistics.Statistics;
-import seedu.address.model.statistics.Statistics.StatisticsType;
-import seedu.address.model.statistics.StatisticsList;
-import seedu.address.model.statistics.exceptions.InvalidStatisticsType;
+import seedu.address.model.statistics.exceptions.CannotGenerateStatistics;
+import seedu.address.model.statistics.exceptions.NoAvailableData;
 
 /**
  * Shows overall statistics gathered from the reviews of all the eateries in the application.
@@ -21,26 +20,33 @@ public class StatsCommand extends Command {
             + ": Presents a visual overview of all your eateries and reviews.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_STATS_ERROR = "Unable to generate your statistics.";
     public static final String MESSAGE_STATS_SUCCESS = "Currently generating your statistics.";
+    public static final String MESSAGE_STATS_ERROR = "Can't execute statistics in Todo mode.";
+
+    public final boolean canExecute;
+
+    public StatsCommand(boolean isMainMode) {
+        this.canExecute = isMainMode;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (!canExecute) {
+            throw new CommandException(MESSAGE_STATS_ERROR);
+        }
+
         requireNonNull(model);
-        Statistics stats = new Statistics(model.getAddressBook().getEateryList());
-        StatisticsList statsList = new StatisticsList();
 
         try {
-            statsList.addToStatisticsList(StatisticsType.GRAPH_OVERALL_CATEGORY_TOTAL,
-                    stats.generate(StatisticsType.GRAPH_OVERALL_CATEGORY_TOTAL));
-            statsList.addToStatisticsList(StatisticsType.GRAPH_OVERALL_CATEGORY_AVG,
-                    stats.generate(StatisticsType.GRAPH_OVERALL_CATEGORY_AVG));
-
-            model.setStatistics(statsList);
+            Statistics stats = new Statistics(model.getAddressBook().getEateryList());
+            model.setStatistics(stats);
             return new CommandResult(MESSAGE_STATS_SUCCESS, false, false, false, true);
 
-        } catch (InvalidStatisticsType s) {
-            throw new CommandException(MESSAGE_STATS_ERROR);
+        } catch (NoAvailableData n) {
+            throw new CommandException(n.getMessage());
+
+        } catch (CannotGenerateStatistics c) {
+            throw new CommandException(c.getMessage());
         }
     }
 }

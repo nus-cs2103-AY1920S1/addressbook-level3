@@ -1,15 +1,15 @@
 package seedu.address.ui;
 
-import java.util.HashMap;
-import java.util.TreeMap;
-
 import javafx.fxml.FXML;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import javafx.stage.WindowEvent;
-import seedu.address.model.statistics.Statistics.StatisticsType;
-import seedu.address.model.statistics.StatisticsList;
+import seedu.address.model.eatery.Eatery;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * Creates the statistics window that displays multiple statistics.
@@ -17,16 +17,20 @@ import seedu.address.model.statistics.StatisticsList;
 public class StatsWindow extends UiPart<Stage> {
     private static final String FXML = "StatsWindow.fxml";
 
-    private StatisticsList statisticsList;
+    private Statistics statistics;
 
     @FXML
-    private FlowPane statsDisplayView;
+    private HBox chartDisplayView;
+
+    @FXML
+    private HBox numDisplayView;
 
     public StatsWindow(Stage root) {
         super(FXML, root);
 
         root.setOnCloseRequest((WindowEvent event) -> {
-            statsDisplayView.getChildren().clear();
+            numDisplayView.getChildren().clear();
+            chartDisplayView.getChildren().clear();
         });
     }
 
@@ -65,16 +69,71 @@ public class StatsWindow extends UiPart<Stage> {
 
     /**
      * Initialises the charts and graphs.
-     * @param statisticsList contains the data used to generate the charts and graphs.
+     * @param statistics contains the data used to generate the charts and graphs.
      */
-    public void initStats(StatisticsList statisticsList) {
-        HashMap<StatisticsType, TreeMap<? extends Object, Double>> stats = statisticsList.getStatisticsList();
+    public void initStats(Statistics statistics) {
+        initCharts(statistics);
+        initNum(statistics);
+    }
 
-        if (stats.containsKey(StatisticsType.GRAPH_OVERALL_CATEGORY_TOTAL)) {
-            CustomGraph graph = new CustomGraph("How much you spent on food per category",
-                    stats.get(StatisticsType.GRAPH_OVERALL_CATEGORY_TOTAL),
-                    stats.get(StatisticsType.GRAPH_OVERALL_CATEGORY_TOTAL));
-            statsDisplayView.getChildren().add(graph.getRoot());
+    /**
+     * Creates the graphs and charts needed for the statistics.
+     */
+    private void initCharts(Statistics statistics) {
+        CustomLayeredGraph graph = new CustomLayeredGraph("How much you spent per category",
+                statistics.graphCategoryTotalExpense,
+                statistics.graphCategoryAvgExpense);
+        CustomPieChart pieChart = new CustomPieChart("How many times visited per category",
+                statistics.chartCategoryTotalVisited);
+
+        chartDisplayView.getChildren().addAll(graph.getRoot(), pieChart.getRoot());
+        chartDisplayView.setStyle("-fx-padding: 20 0 0 0");
+    }
+
+    /**
+     * Creates other miscellaneous statistics that do not require graph or chart representation.
+     */
+    private void initNum(Statistics statistics) {
+        TextFlow mostExpEateries = new TextFlow();
+        mostExpEateries.setTextAlignment(TextAlignment.CENTER);
+        Text titleMostExp = new Text("Top 3 eateries you spent the most at\n");
+        titleMostExp.setStyle("-fx-font-weight: bold; -fx-font-size: 15px");
+        mostExpEateries.getChildren().add(titleMostExp);
+        for (Eatery e : statistics.mostExpEatery) {
+            mostExpEateries.getChildren().add(new Text(e.getName().fullName + "\n"));
         }
+
+        TextFlow leastExpEateries = new TextFlow();
+        leastExpEateries.setTextAlignment(TextAlignment.CENTER);
+        leastExpEateries.setStyle(String.format("-fx-padding: 0 20 0 20"));
+        Text titleLeastExp = new Text("Top 3 eateries you spent the least at\n");
+        titleLeastExp.setStyle("-fx-font-weight: bold; -fx-font-size: 15px");
+        leastExpEateries.getChildren().add(titleLeastExp);
+        for (Eatery e : statistics.leastExpEatery) {
+            leastExpEateries.getChildren().add(new Text(e.getName().fullName + "\n"));
+        }
+
+        TextFlow mostVisitedEateries = new TextFlow();
+        mostVisitedEateries.setTextAlignment(TextAlignment.CENTER);
+        Text titleMostVisited = new Text("Top 3 eateries you visited the most\n");
+        titleMostVisited.setStyle("-fx-font-weight: bold; -fx-font-size: 15px");
+        mostVisitedEateries.getChildren().add(titleMostVisited);
+        for (Eatery e : statistics.mostVisitedEatery) {
+            mostVisitedEateries.getChildren().add(new Text(e.getName().fullName + "\n"));
+        }
+
+        TextFlow leastVisitedEateries = new TextFlow();
+        leastVisitedEateries.setTextAlignment(TextAlignment.CENTER);
+        leastVisitedEateries.setStyle(String.format("-fx-padding: 0 0 0 20"));
+        Text titleLeastVisited = new Text("Top 3 eateries you visited the least\n");
+        titleLeastVisited.setStyle("-fx-font-weight: bold; -fx-font-size: 15px");
+        leastVisitedEateries.getChildren().add(titleLeastVisited);
+        for (Eatery e : statistics.leastVisitedEatery) {
+            leastVisitedEateries.getChildren().add(new Text(e.getName().fullName + "\n"));
+        }
+
+        numDisplayView.getChildren().addAll(mostExpEateries, leastExpEateries, mostVisitedEateries,
+                leastVisitedEateries);
+        numDisplayView.setStyle("-fx-padding: 0 10 0 10");
     }
 }
