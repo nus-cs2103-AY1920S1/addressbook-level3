@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -276,5 +277,10 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPerformanceOn(AthletickDate date) {
         return performance.hasPerformanceOn(date);
+    }
+
+    @Override
+    public ArrayList<Event> getAthleteEvents(Person athlete) {
+        return performance.getAthleteEvent(athlete);
     }
 }

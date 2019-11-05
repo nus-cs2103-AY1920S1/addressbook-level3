@@ -57,11 +57,11 @@ public class UniqueEventList implements Iterable<Event> {
         return null;
     }
 
-    public ArrayList<String> getAthleteEvent(Person person) {
-        ArrayList<String> athleteEventList = new ArrayList<>();
+    public ArrayList<Event> getAthleteEvent(Person person) {
+        ArrayList<Event> athleteEventList = new ArrayList<>();
         for (Event event : internalList) {
             if (event.getRecords().containsKey(person)) {
-                athleteEventList.add(event.getName());
+                athleteEventList.add(event);
             }
         }
         return athleteEventList;
