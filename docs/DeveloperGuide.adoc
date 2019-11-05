@@ -680,7 +680,9 @@ its `Content` and `Tags` are also represented with the `Prefixes` 'C/' and 'TAG/
 
 Example usage:
 
-    add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+```
+add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+```
 
 [NOTE]
 'C/' and 'TAG/' have to be used instead of the default 'c/' and 'tag/' because otherwise the note fragment tag would

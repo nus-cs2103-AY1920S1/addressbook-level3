@@ -112,6 +112,10 @@ public class Note extends StudyBuddyItem {
         return Objects.hash(title, content, getTags());
     }
 
+    /**
+     * Returns a String displaying this {@code Note's} information as well as all following {@code NoteFragments'}.
+     * @return Returns a String.
+     */
     public String toStringWithNoteFragments() {
         final StringBuilder builder = new StringBuilder(this.toString());
         if (this.hasNoteFragments()) {
