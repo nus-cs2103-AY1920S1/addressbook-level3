@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.util;
+package seedu.guilttrip.logic.commands.util;
 
 import java.util.Arrays;
 import java.util.Comparator;

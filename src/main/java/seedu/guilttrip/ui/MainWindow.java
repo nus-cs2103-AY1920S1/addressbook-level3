@@ -184,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, this::suggestCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, GuiltTripCommandSuggester::suggest);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         WishListPanel wishListPanel = new WishListPanel(logic.getFilteredWishList());
