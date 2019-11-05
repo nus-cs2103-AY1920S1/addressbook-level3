@@ -31,9 +31,6 @@ public class FillCommand extends Command {
             + "Existing completed reports will be overwritten. Submitted reports can be edited using 'edit' command.";
 
     private static final String MESSAGE_FILL_DRAFT_SUCCESS = "Incident report filled: %1$s";
-    private static final String MESSAGE_NO_DRAFTS_TO_FILL = "No drafts present in the system";
-    private static final String MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED = "This incident cannot be filled as it has been"
-            + " submitted. Please use the 'edit' command instead.";
 
     private final Index targetIndex;
     private final CallerNumber callerNumber;
@@ -54,7 +51,7 @@ public class FillCommand extends Command {
         requireNonNull(model);
 
         if (!model.ifAnyIncidentsSatisfyPredicate(PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS)) {
-            return new CommandResult(MESSAGE_NO_DRAFTS_TO_FILL);
+            throw new CommandException(Messages.MESSAGE_NO_DRAFTS_LISTED);
         }
 
         // there are drafts to be filled. Get the last shown list.
@@ -66,6 +63,13 @@ public class FillCommand extends Command {
         }
 
         Incident toFill = lastShownList.get(targetIndex.getZeroBased());
+        assert toFill != null : "Retrieved incident must not be null";
+
+        // check if operating executing the command is the same as the operator who created this draft
+        if (!model.canLoggedInPersonModifyIncidentStatus(toFill)) {
+            throw new CommandException(Messages.MESSAGE_NO_ACCESS_TO_FILL_DRAFT);
+        }
+
         return new CommandResult(processReportFilling(model, toFill));
     }
 
@@ -76,13 +80,15 @@ public class FillCommand extends Command {
      * @param toFill incident report to be filled
      * @return the string representing the command result
      */
-    private String processReportFilling(Model model, Incident toFill) {
+    private String processReportFilling(Model model, Incident toFill) throws CommandException {
         // if incident has already been submitted, do not allow update
+        // added for defensive programming
         if (toFill.isSubmitted()) {
-            return MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED;
+            throw new CommandException(Messages.MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED);
         }
 
         // update incident as it is a draft
+        assert !toFill.isSubmitted() : "Incident to be filled must be a draft.";
         Incident updatedIncident = fillReport(toFill, callerNumber, description);
 
         // old incident is removed from the list, and replaced by the updated incident
@@ -101,10 +107,13 @@ public class FillCommand extends Command {
      * @return updated incident report.
      */
     private Incident fillReport(Incident toUpdate, CallerNumber callerNumber, Description description) {
-        Incident updatedIncident = new Incident(toUpdate.getOperator(), toUpdate.getDistrict(),
+        assert toUpdate != null;
+        assert toUpdate.isDraft();
+        assert callerNumber != null;
+        assert description != null;
+        return new Incident(toUpdate.getOperator(), toUpdate.getDistrict(),
                 toUpdate.getIncidentDateTime(), toUpdate.getIncidentId(), callerNumber, description,
-                Incident.Status.COMPLETE_DRAFT, toUpdate.getVehicle()); // set status as complete
-        return updatedIncident;
+                Incident.Status.COMPLETE_DRAFT, toUpdate.getVehicle());
     }
 
 
