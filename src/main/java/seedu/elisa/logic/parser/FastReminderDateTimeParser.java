@@ -15,8 +15,8 @@ import seedu.elisa.logic.parser.exceptions.ParseException;
  */
 public class FastReminderDateTimeParser implements DateTimeParser {
 
-    private static final String MESSAGE_BEYOND_RANGE = "That's a bit too far don't you think? I can't reschedule something that far away! I can only accept integers less than 100. "
-            + "For example: 100.day.later or 2.min.later";
+    private static final String MESSAGE_BEYOND_RANGE = "That's a bit too far don't you think? "
+            + "I can only accept integers less than 100. For example: 100.day.later or 2.min.later";
 
     private static final String DAY_INDICATOR = "DAY";
     private static final String HOUR_INDICATOR = "HOUR";
@@ -29,7 +29,7 @@ public class FastReminderDateTimeParser implements DateTimeParser {
      * Parse this stringDateTime into a LocalDateTime representation
      * @param stringDateTime of the unprocessed date time string
      * @return LocalDateTime representation of the stringDateTime
-     * @throws ParseException if the format of stringDateTime is incorrect
+     * @throws ParseException if the format of stringDateTime is incorrect or if the value given is greater than 100
      */
     public LocalDateTime parseDateTime(String stringDateTime) throws ParseException {
         //stringDateTime should be of format "10.min.later" or "3.hour.later" or "2.day.later"

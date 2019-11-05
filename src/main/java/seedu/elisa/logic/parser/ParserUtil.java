@@ -18,6 +18,7 @@ import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.commons.util.StringUtil;
 import seedu.elisa.logic.parser.exceptions.FastReminderParseException;
+import seedu.elisa.logic.parser.exceptions.MidnightParseException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.AutoReschedulePeriod;
 
@@ -31,13 +32,13 @@ public class ParserUtil {
     public static final String MESSAGE_INCORRECT_AUTORESCHEDULE_FORMAT = "Auto Reschedule format given is incorrect. "
             + "Use either hour/day/week or 10.min.later format";
     public static final String MESSAGE_INCORRECT_DATETIME_FORMAT = "Date Time format given is incorrect. "
-            + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
-            + "or \"-r 25/09/2019 2359\""
-            + "of \"-r 10.min.later\"";
+            + "Please follow this format: \"2019-09-25T23:59\""
+            + "or \"25/09/2019 2359\""
+            + "or \"10.min.later\"";
     public static final String MESSAGE_INCORRECT_PRIORITY_FORMAT = "Priority format given is incorrect. "
             + "Please follow this format \"-p High\"";
     public static final String MESSAGE_INVALID_SNOOZE_TIME = "You can't snooze backwards in time you lazy bird.";
-
+    public static final String MESSAGE_MIDNIGHT = "Perhaps you mean %s of the next day?";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -263,6 +264,9 @@ public class ParserUtil {
             } catch (FastReminderParseException fp) {
                 invalidFormat = true;
                 parseException = fp;
+            } catch (MidnightParseException mp) {
+                String formatted = String.format(MESSAGE_MIDNIGHT, mp.getMessage());
+                parseException = new ParseException(formatted);
             } catch (ParseException err) {
                 invalidFormat = true;
             }
