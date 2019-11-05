@@ -37,6 +37,7 @@ public class LoanList implements Iterable<Loan> {
     public LoanList addToNewCopy(Loan loan) {
         ArrayList<Loan> newList = new ArrayList<>(this.loanList);
         newList.add(loan);
+        Collections.sort(newList);
         return new LoanList(newList);
     }
 
