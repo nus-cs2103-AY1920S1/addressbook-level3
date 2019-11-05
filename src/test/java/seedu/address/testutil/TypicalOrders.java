@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalCustomers.ALICE;
+import static seedu.address.testutil.TypicalCustomers.BENSON;
+import static seedu.address.testutil.TypicalCustomers.CARL;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERONE;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERTHREE;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERTWO;
@@ -41,20 +43,21 @@ public class TypicalOrders {
     private static final String DEFAULT_TAG_3 = "Old";
     private static final String VALID_PRICE_HIGH = "$3000";
 
-    public static final Order ORDERONE = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERONE)
+    public static final Order ORDERONE = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(BENSON)
             .withPhone(IPHONEONE).withPrice(DEFAULT_PRICE_1).withStatus(Status.SCHEDULED)
             .withSchedule(Optional.of(MONDAY_SCHEDULE)).withTags(DEFAULT_TAG_1).build();
 
-    public static final Order ORDERTWO = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTWO)
+    public static final Order ORDERTWO = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CARL)
             .withPhone(ANDROIDONE).withPrice(DEFAULT_PRICE_2).withStatus(Status.SCHEDULED)
             .withSchedule(Optional.of(FRIDAY_SCHEDULE)).withTags(DEFAULT_TAG_2).build();
 
-    public static final Order ORDERTHREE = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTHREE)
+    public static final Order ORDERTHREE = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(ALICE)
             .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.UNSCHEDULED)
             .withSchedule(Optional.empty()).withTags(DEFAULT_TAG_3).build();
 
-    public static final Order VIPORDER = new OrderBuilder().withCustomer(ALICE).withPhone(IPHONEXR)
-            .withPrice(VALID_PRICE_HIGH).withTags(DEFAULT_TAG_2).build();
+    public static final Order VIPORDER = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(ALICE)
+            .withPhone(IPHONEXR).withPrice(VALID_PRICE_HIGH).withTags(DEFAULT_TAG_2).withStatus(Status.UNSCHEDULED)
+            .withSchedule(Optional.empty()).build();
 
     //1231.12 - 300
     public static final Order ORDERONESTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERONE)
@@ -91,6 +94,11 @@ public class TypicalOrders {
             .withStatus(Status.COMPLETED)
             .withSchedule(Optional.of(FRIDAY_SCHEDULE))
             .withTags(DEFAULT_TAG_2).build();
+
+
+    public static final Order ORDER_JSON_TEST = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERONE)
+            .withPhone(IPHONEONE).withPrice(DEFAULT_PRICE_1).withStatus(Status.SCHEDULED)
+            .withSchedule(Optional.of(MONDAY_SCHEDULE)).withTags(DEFAULT_TAG_1).build();
 
     /**
      * Returns a {@code DataBook} with all the typical orders.

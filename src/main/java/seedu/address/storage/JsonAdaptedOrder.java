@@ -105,7 +105,13 @@ class JsonAdaptedOrder {
                     UUID.class.getSimpleName()));
         }
 
-        final UUID modelId = UUID.fromString(id);
+        UUID modelId;
+        try {
+            modelId = UUID.fromString(id);
+        } catch (java.lang.IllegalArgumentException e) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    UUID.class.getSimpleName()));
+        }
 
         if (customer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

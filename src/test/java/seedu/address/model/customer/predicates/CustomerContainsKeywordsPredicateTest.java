@@ -62,25 +62,12 @@ public class CustomerContainsKeywordsPredicateTest {
         predicate = new CustomerContainsKeywordsPredicate(Collections.singletonList("Rich"));
         assertTrue(predicate.test(new CustomerBuilder().withTags("Rich").build()));
 
+
+
         // Multiple keywords
         predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
         assertTrue(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
 
-        // Only one matching keyword in customer name
-        predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new CustomerBuilder().withName("Alice Carol").build()));
-
-        // Only one matching keyword in email
-        predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("alice", "bob"));
-        assertTrue(predicate.test(new CustomerBuilder().withEmail("alice@gmail.com").build()));
-
-        // Only one matching keyword in contact number
-        predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("99817283", "27371929"));
-        assertTrue(predicate.test(new CustomerBuilder().withContactNumber("99817283").build()));
-
-        // Only one matching keyword in tags
-        predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("Regular", "Rich"));
-        assertTrue(predicate.test(new CustomerBuilder().withTags("Rich").build()));
 
 
         // Mixed-case keywords
@@ -90,8 +77,27 @@ public class CustomerContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
+
+        // Only one matching keyword in customer name
         CustomerContainsKeywordsPredicate predicate =
+                new CustomerContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+        assertFalse(predicate.test(new CustomerBuilder().withName("Alice Carol").build()));
+
+        // Only one matching keyword in email
+        predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("alice", "bob"));
+        assertFalse(predicate.test(new CustomerBuilder().withEmail("alice@gmail.com").build()));
+
+        // Only one matching keyword in contact number
+        predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("99817283", "27371929"));
+        assertFalse(predicate.test(new CustomerBuilder().withContactNumber("99817283").build()));
+
+        // Only one matching keyword in tags
+        predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("Regular", "Rich"));
+        assertFalse(predicate.test(new CustomerBuilder().withTags("Rich").build()));
+
+
+        // Zero keywords
+        predicate =
                 new CustomerContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new CustomerBuilder().withName("Alice").build()));
 

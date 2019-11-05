@@ -38,6 +38,10 @@ public class TypicalPhones {
             .withCapacity(Capacity.SIZE_128GB).withColour("Purple").withCost("$1649").withTags("New")
             .withTags("Bestseller").build();
 
+    public static final Phone IPHONE_JSON_TEST = new PhoneBuilder().withIdentityNumber("111111111111111")
+            .withSerialNumber("A342432").withName("iPhone 11").withBrand("iPhone")
+            .withCapacity(Capacity.SIZE_32GB).withColour("White").withCost("$5000").withTags("used").build();
+
     /**
      * Returns a {@code DataBook} with all the typical phones.
      */

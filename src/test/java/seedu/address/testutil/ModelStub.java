@@ -274,6 +274,7 @@ public class ModelStub implements Model {
     public void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook) {
         throw new AssertionError("This method should not be called.");
     }
+
     @Override
     public ReadOnlyDataBook<Order> getArchivedOrderBook() {
         throw new AssertionError("This method should not be called.");
@@ -308,4 +309,10 @@ public class ModelStub implements Model {
     public void updateFilteredArchivedOrderList(Predicate<Order> predicate) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void resolveOrderBooksConflict() {
+        throw new AssertionError("This method should not be called.");
+    }
+
 }

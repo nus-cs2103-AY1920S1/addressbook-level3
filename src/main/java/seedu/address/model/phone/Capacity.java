@@ -21,7 +21,7 @@ public enum Capacity {
 
     public static final String VALIDATION_REGEX = "\\d{1,}";
     public static final List<String> VALID_CAPACITY_STRINGS =
-            new ArrayList<>(List.of("8", "16", "64", "128", "256", "512", "1024"));
+            new ArrayList<>(List.of("8", "16", "32", "64", "128", "256", "512", "1024"));
 
     public final String value;
 

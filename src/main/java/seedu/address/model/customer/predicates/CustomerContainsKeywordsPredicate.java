@@ -18,8 +18,13 @@ public class CustomerContainsKeywordsPredicate implements Predicate<Customer> {
 
     @Override
     public boolean test(Customer customer) {
+
+        if (keywords.isEmpty()) {
+            return false;
+        }
+
         return keywords.stream()
-                .anyMatch(keyword ->
+                .allMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(customer.getCustomerName().toString(), keyword)
                                 || StringUtil.containsWordIgnoreCase(customer.getContactNumber().toString(), keyword)
                                 || StringUtil.containsWordIgnoreCase(customer.getEmail().toString(), keyword)

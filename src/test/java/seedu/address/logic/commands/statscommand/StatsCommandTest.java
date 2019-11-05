@@ -11,6 +11,8 @@ import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -34,7 +36,8 @@ public class StatsCommandTest {
         StatsPayload expectedPayload = new StatsPayload(STARTING_DATE_2019, ENDING_DATE_2019, StatisticType.COST);
         CommandResult expectedResult = new CommandResult(MESSAGE_USAGE, expectedPayload, UiChange.STATS);
         try {
-            assertTrue(expectedResult.equals(testStatCommand.execute(model)));
+            assertTrue(expectedResult.equals(
+                    testStatCommand.execute(model, new CommandHistory(), new UndoRedoStack())));
         } catch (CommandException e) {
             e.printStackTrace();
         }

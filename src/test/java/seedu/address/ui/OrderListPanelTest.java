@@ -47,14 +47,13 @@ public class OrderListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_ORDERS.size(); i++) {
             orderListPanelHandle.navigateToCard(TYPICAL_ORDERS.get(i));
             Order expectedOrder = TYPICAL_ORDERS.get(i);
-            System.out.println(expectedOrder);
             OrderCardHandle actualCard = orderListPanelHandle.getOrderCardHandle(i);
 
             assertCardDisplaysOrder(expectedOrder, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
-    }
-    */
+    }*/
+
 
 
     /**

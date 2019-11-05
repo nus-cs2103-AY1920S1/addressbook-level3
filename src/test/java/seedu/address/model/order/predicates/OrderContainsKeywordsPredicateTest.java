@@ -66,16 +66,6 @@ public class OrderContainsKeywordsPredicateTest {
                 new PhoneBuilder().withColour("Purple").build()).build()));
 
 
-        // Only one matching keyword in customer name
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new OrderBuilder().withCustomer(
-                new CustomerBuilder().withName("Alice Carol").build()).build()));
-
-
-        // Only one matching keyword in customer contact number
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("1234", "4321"));
-        assertTrue(predicate.test(new OrderBuilder().withCustomer(
-                new CustomerBuilder().withContactNumber("12345678").build()).build()));
 
 
         //one keyword that matches identity number
@@ -98,8 +88,20 @@ public class OrderContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
+
+        // Only one matching keyword in customer name
+        OrderContainsKeywordsPredicate predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+        assertFalse(predicate.test(new OrderBuilder().withCustomer(
+                new CustomerBuilder().withName("Alice Carol").build()).build()));
+
+
+        // Only one matching keyword in customer contact number
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("1234", "4321"));
+        assertFalse(predicate.test(new OrderBuilder().withCustomer(
+                new CustomerBuilder().withContactNumber("12345678").build()).build()));
+
         // Zero keywords
-        OrderContainsKeywordsPredicate predicate =
+        predicate =
                 new OrderContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new OrderBuilder().withPrice("$1820").build()));
 

@@ -33,11 +33,17 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label contactNumber;
+    private Label customerContactNumber;
     @FXML
     private Label customerName;
     @FXML
-    private Label phoneId;
+    private Label customerEmail;
+    @FXML
+    private Label phoneIdentityNumber;
+    @FXML
+    private Label phoneSerialNumber;
+    @FXML
+    private Label phoneCost;
     @FXML
     private Label phoneName;
     @FXML
@@ -52,6 +58,8 @@ public class OrderCard extends UiPart<Region> {
     private Label orderStatus;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane scheduleTags;
 
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
@@ -59,26 +67,50 @@ public class OrderCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
 
         customerName.setText(order.getCustomer().getCustomerName().fullName);
-        contactNumber.setText(order.getCustomer().getContactNumber().value);
+        customerContactNumber.setText(order.getCustomer().getContactNumber().value);
+        customerEmail.setText(order.getCustomer().getEmail().value);
 
-        phoneId.setText(order.getPhone().getIdentityNumber().value);
+        phoneIdentityNumber.setText(order.getPhone().getIdentityNumber().value);
+        phoneSerialNumber.setText(order.getPhone().getSerialNumber().value);
         phoneName.setText(order.getPhone().getPhoneName().fullName);
         phoneColour.setText(order.getPhone().getColour().value);
         phoneCapacity.setText(order.getPhone().getCapacity().value);
+        phoneCost.setText(order.getPhone().getCost().value);
 
         orderId.setText(order.getId().toString());
         orderPrice.setText(order.getPrice().value);
 
         if (order.getStatus().equals(Status.SCHEDULED)) {
-            orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
+            assert(order.getSchedule().isPresent());
+            orderStatus.setText(String.format("%s : %s | Venue: %s ", order.getStatus().toString(),
                     order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
         } else {
             orderStatus.setText(order.getStatus().toString());
         }
 
+        if (order.getSchedule().isPresent()) {
+            order.getSchedule().get().getTags().stream().sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> scheduleTags.getChildren().add(new Label(tag.tagName)));
+        }
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        customerName.setWrapText(true);
+        customerContactNumber.setWrapText(true);
+        customerEmail.setWrapText(true);
+
+        phoneIdentityNumber.setWrapText(true);
+        phoneSerialNumber.setWrapText(true);
+        phoneName.setWrapText(true);
+        phoneColour.setWrapText(true);
+        phoneCapacity.setWrapText(true);
+        phoneCost.setWrapText(true);
+
+        orderId.setWrapText(true);
+        orderPrice.setWrapText(true);
+        orderStatus.setWrapText(true);
+
     }
 
     @Override

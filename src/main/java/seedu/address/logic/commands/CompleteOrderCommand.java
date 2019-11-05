@@ -10,6 +10,8 @@ import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -23,7 +25,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Completes an order identified using it's displayed index from the seller manager.
  */
-public class CompleteOrderCommand extends Command {
+public class CompleteOrderCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "complete";
 
@@ -34,6 +36,10 @@ public class CompleteOrderCommand extends Command {
 
     public static final String MESSAGE_COMPLETE_ORDER_SUCCESS = "Completed Order: %1$s";
 
+    public static final String MESSAGE_UNSCHEDULED_ORDER_CANNOT_BE_COMPLETED =
+            "Unscheduled orders cannot be completed.";
+
+
     private final Index targetIndex;
 
     public CompleteOrderCommand(Index targetIndex) {
@@ -41,7 +47,8 @@ public class CompleteOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         List<Order> lastShownList = model.getFilteredOrderList();
 
@@ -50,6 +57,11 @@ public class CompleteOrderCommand extends Command {
         }
 
         Order orderToComplete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (orderToComplete.getStatus().equals(Status.UNSCHEDULED)) {
+            throw new CommandException(MESSAGE_UNSCHEDULED_ORDER_CANNOT_BE_COMPLETED);
+        }
+
         UUID id = orderToComplete.getId();
         Customer customer = orderToComplete.getCustomer();
         Phone phone = orderToComplete.getPhone();
@@ -58,7 +70,10 @@ public class CompleteOrderCommand extends Command {
         Set<Tag> tags = orderToComplete.getTags();
         Order completedOrder = new Order(id, customer, phone, price, Status.COMPLETED, schedule, tags);
 
-        model.addArchivedOrder(completedOrder);
+
+        if (!model.hasArchivedOrder(completedOrder)) {
+            model.addArchivedOrder(completedOrder);
+        }
 
         if (model.hasPhone(phone)) {
             model.deletePhone(phone);

@@ -19,24 +19,27 @@ public class DateUtil {
         return order.getSchedule().get().getCalendar().get(Calendar.YEAR);
     }
 
+    /**
+     * takes in an order and remove the time from it, leaving just month and year
+     */
+    public static Calendar extractMonthYear(Order order) {
+        int month = extractMonth(order);
+        int year = extractYear(order);
+        int day = order.getSchedule().get().getCalendar().get(Calendar.DAY_OF_MONTH);
+        Calendar temp = new Calendar.Builder().setDate(year, month, day).build();
+        //System.out.println(temp.getTime());
+        return temp;
+    }
+
     public static List<Calendar> getListOfYearMonth(StatsPayload statsPayload) {
 
         List<Calendar> listOfYearMonth = new ArrayList<>();
         Calendar startDate = statsPayload.getStartingDate();
-        int startingMonth = startDate.get(Calendar.MONTH);
-        int startingYear = startDate.get(Calendar.YEAR);
-        int startingDay = startDate.get(Calendar.DAY_OF_MONTH);
         Calendar endDate = statsPayload.getEndingDate();
-        int endingMonth = endDate.get(Calendar.MONTH);
-        int endingYear = endDate.get(Calendar.YEAR);
-        int endingDay = endDate.get(Calendar.DAY_OF_MONTH);
+        //clone to create new copy
+        Calendar startDateCloned = (Calendar) startDate.clone();
+        Calendar endDateCloned = (Calendar) endDate.clone();
 
-        Calendar startDateCloned = new Calendar.Builder()
-                .setDate(startingYear, startingMonth, startingDay)
-                .build();
-        Calendar endDateCloned = new Calendar.Builder()
-                .setDate(endingYear, endingMonth, endingDay)
-                .build();
         while (startDateCloned.before(endDateCloned)) {
             if (startDateCloned.get(Calendar.MONTH) == endDateCloned.get(Calendar.MONTH)
                     && startDateCloned.get(Calendar.YEAR) == endDateCloned.get(Calendar.YEAR)) {

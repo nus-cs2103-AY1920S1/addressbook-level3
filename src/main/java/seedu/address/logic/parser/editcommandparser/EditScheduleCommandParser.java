@@ -18,6 +18,7 @@ import seedu.address.logic.commands.editcommand.EditScheduleCommand;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand.EditScheduleDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
@@ -25,7 +26,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new EditScheduleCommand object
  */
-public class EditScheduleCommandParser {
+public class EditScheduleCommandParser implements Parser<EditScheduleCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditScheduleCommand

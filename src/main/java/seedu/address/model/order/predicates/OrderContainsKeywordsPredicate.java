@@ -18,16 +18,26 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
 
     @Override
     public boolean test(Order order) {
+
+        if (keywords.isEmpty()) {
+            return false;
+        }
+
         return keywords.stream()
-                .anyMatch(keyword ->
+                .allMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(order.getCustomer().getCustomerName().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(
                                 order.getCustomer().getContactNumber().toString(), keyword)
+                        || StringUtil.containsWordIgnoreCase(
+                                order.getCustomer().getEmail().toString(), keyword)
 
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getCapacity().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getColour().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getIdentityNumber().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getPhoneName().toString(), keyword)
+                        || StringUtil.containsWordIgnoreCase(order.getPhone().getBrand().toString(), keyword)
+                        || StringUtil.containsWordIgnoreCase(order.getPhone().getSerialNumber().toString(), keyword)
+                        || StringUtil.containsWordIgnoreCase(order.getPhone().getCost().toString(), keyword)
 
                         || StringUtil.containsWordIgnoreCase(order.getId().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPrice().toString(), keyword)

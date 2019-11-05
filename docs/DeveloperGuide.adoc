@@ -302,6 +302,15 @@ form or string form. With this the feature has finished executing! Attached belo
 
 image::StatisticsCalculationUI.png[]
 
+Limitations:
+
+Below are some limitations that we have put in place for `v1.4` of SMLJ:
+
+*Date range starts from 1970 onwards
+** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
+
+
+
 === Autocomplete feature
 ==== Current Implementation
 
@@ -342,8 +351,8 @@ To set the display information of the `Schedule` object, we will find its `Order
 
 Schedule supports a few basic commands:
 
-* Add -- adds a new schedule into SML, command will be in this format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAGS]`
-* Edit -- edits an existing schedule in SML, command will be in this format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAGS]`
+* Add -- adds a new schedule into SML, command will be in this format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAGS] [-allow]`
+* Edit -- edits an existing schedule in SML, command will be in this format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAGS] [-allow]`
 * Delete -- delete an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
 * Schedule -- switches the week on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
 
@@ -369,9 +378,6 @@ Here is a sample of what happens when a schedule command is entered by the user:
 image::ScheduleCommandSequenceDiagram.png[]
 
 Basically, after the setCalendarDate(calendar) method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its setAgendaView(calendar) method.
-
-Adding on, we will be adding an additional feature to check for clashing schedules.
-In the case of a clash, users will be given a choice to allow clashing schedules, or to just change to timing to avoid the clashes.
 
 ===== Design Considerations / Alternative designs considered
 
@@ -447,6 +453,37 @@ as one would need to understand the parsing.
 * **Alternative 2:** Single predicate.
 ** Pros: Less code written in total.
 ** Cons: Harder to maintain.
+
+=== Export feature
+==== Implementation
+
+The export mechanism is allows user to export current saved Json files into csv files available for import into MSExcel.
+We made use of `FileReader` to read the Json saved data files. The data is used to create `JsonObjects` and stored into `JsonArray` and then CSV formatted string using comma delimiters.
+
+Additionally, it implements the following operations:
+
+* `ExportCommand#getCSVString()` -- Returns CSV formatted string containing the customer data, phone data, order data and schedule data.
+
+===== How it works.
+Given below is an example usage scenario and how the export mechanism behaves at each step.
+
+The user executes `export filename` command to export current data into a CSV file.
+`UserPrefs` is created and used to get the file path of the data files (i.e. customerbook.json).
+The method getCSVString is executed to create `FileReader` and `BufferedReader` to read the data files from each of the path.
+The string is then used to create `JsonObject` and then converted to CSV formatted string data representation.
+At the end, the strings are appended to get the full CSV file containing the various data.
+
+
+==== Design Considerations
+
+* **Alternative 1 (current choice):** Converting Json formatted string into CSV formatted string.
+** Pros: Easy to implement.
+** Cons: Customisation to design CSV layout requires re-formatting of the string.
+* **Alternative 2:** Creating CSV formatted string straight from the Model.
+** Pros: Easier to implement on the fly the decided layout of created CSV file.
+** Cons: Harder to maintain. Had to code for the various cases in different data.
+
+// end::export[]
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation

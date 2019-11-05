@@ -18,8 +18,13 @@ public class PhoneContainsKeywordsPredicate implements Predicate<Phone> {
 
     @Override
     public boolean test(Phone phone) {
+
+        if (keywords.isEmpty()) {
+            return false;
+        }
+
         return keywords.stream()
-                .anyMatch(keyword ->
+                .allMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(phone.getIdentityNumber().toString(), keyword)
                                 || StringUtil.containsWordIgnoreCase(phone.getSerialNumber().toString(), keyword)
                                 || StringUtil.containsWordIgnoreCase(phone.getPhoneName().toString(), keyword)

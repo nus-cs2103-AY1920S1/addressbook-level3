@@ -19,11 +19,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
+import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
+import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.OrderBuilder;
@@ -56,7 +60,7 @@ public class AddScheduleCommandTest {
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
 
         CommandResult commandResult = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW)
-                .execute(modelStub);
+                .executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack());
 
         assertEquals(String.format(AddScheduleCommand.MESSAGE_SUCCESS, VALID_SCHEDULE),
                 commandResult.getFeedbackToUser());
@@ -69,14 +73,14 @@ public class AddScheduleCommandTest {
         ModelStub modelStub = new ModelStubWithSchedule(VALID_SCHEDULE, VALID_ORDER);
 
         assertThrows(CommandException.class, AddScheduleCommand.MESSAGE_DUPLICATE_SCHEDULE, ()
-            -> addScheduleCommand.execute(modelStub));
+            -> addScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack()));
     }
 
     @Test
     public void execute_clashingScheduleWithNoAllow_throwsCommandException() throws CommandException {
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
         AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW);
-        addScheduleCommand.execute(modelStub);
+        addScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack());
 
         Calendar newCalendar = (Calendar) VALID_SCHEDULE.getCalendar().clone();
         newCalendar.add(Calendar.MINUTE, 30);
@@ -87,14 +91,14 @@ public class AddScheduleCommandTest {
                 + ": Order 1\n";
 
         assertThrows(CommandException.class, Messages.MESSAGE_SCHEDULE_CONFLICT + conflict, ()
-            -> newAddScheduleCommand.execute(modelStub));
+            -> newAddScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack()));
     }
 
     @Test
     public void execute_clashingScheduleWithAllow_addSuccessful() throws Exception {
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
         AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW);
-        addScheduleCommand.execute(modelStub);
+        addScheduleCommand.execute(modelStub, new CommandHistory(), new UndoRedoStack());
 
         Calendar newCalendar = (Calendar) VALID_SCHEDULE.getCalendar().clone();
         newCalendar.add(Calendar.MINUTE, 10);
@@ -103,7 +107,8 @@ public class AddScheduleCommandTest {
         AddScheduleCommand newAddScheduleCommand = new AddScheduleCommand(clash, newIndex, VALID_ALLOW);
 
         assertEquals(String.format(AddScheduleCommand.MESSAGE_SUCCESS, clash),
-                newAddScheduleCommand.execute(modelStub).getFeedbackToUser());
+                newAddScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(),
+                        new UndoRedoStack()).getFeedbackToUser());
 
     }
 
@@ -202,8 +207,28 @@ public class AddScheduleCommandTest {
         }
 
         @Override
+        public ReadOnlyDataBook<Customer> getCustomerBook() {
+            return new DataBook<Customer>();
+        }
+
+        @Override
+        public ReadOnlyDataBook<Phone> getPhoneBook() {
+            return new DataBook<Phone>();
+        }
+
+        @Override
+        public ReadOnlyDataBook<Order> getOrderBook() {
+            return new DataBook<Order>();
+        }
+
+        @Override
         public ReadOnlyDataBook<Schedule> getScheduleBook() {
             return new DataBook<Schedule>();
+        }
+
+        @Override
+        public ReadOnlyDataBook<Order> getArchivedOrderBook() {
+            return new DataBook<Order>();
         }
 
         @Override

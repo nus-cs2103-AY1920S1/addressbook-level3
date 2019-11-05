@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 
 /**
@@ -15,7 +17,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         return new CommandResult(SHOWING_HELP_MESSAGE, UiChange.HELP);
     }
 }

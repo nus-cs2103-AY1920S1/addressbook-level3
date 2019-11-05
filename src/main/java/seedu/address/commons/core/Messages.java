@@ -17,16 +17,21 @@ public class Messages {
     public static final String MESSAGE_ORDERS_LISTED_OVERVIEW = "%1$d orders listed!";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_ORDER_SCHEDULED = "This order is already scheduled in SML.";
+    public static final String MESSAGE_ORDER_SCHEDULED_INVALID = "ERROR: Order status is SCHEDULED but schedule "
+            + "cannot be found.";
     public static final String MESSAGE_ORDER_CANCELLED = "This order is already cancelled in SML.";
     public static final String MESSAGE_ORDER_COMPLETED = "This order is already completed in SML.";
     public static final String MESSAGE_ORDER_UNSCHEDULED = "This order is unscheduled in SML.";
     public static final String MESSAGE_SCHEDULE_CONFLICT = "Scheduling conflict detected. Add \"-allow\" flag to "
             + "confirm overlapping schedules.";
 
-    public static final String TIME_MESSAGE_CONSTRAINTS = "Time should only contain numbers in the format of HH.MM";
+    public static final String TIME_MESSAGE_CONSTRAINTS = "Time should only contain numbers in the format of HH.MM, "
+            + "with valid hour and minute.";
+    public static final String DATE_MESSAGE_CONSTRAINTS_LESS_THAN_DEFAULT = "Year should not be less than 1970.";
+    public static final String DATE_MESSAGE_CONSTRAINTS_LESS_THAN_0 =
+            "Date should only contain numbers in the format of YYYY.MM.DD and be positive";
     public static final String DATE_MESSAGE_CONSTRAINTS =
-            "Date should only contain numbers in the format of YYYY.MM.DD , and it should not be blank "
-                    + "for profit,cost or revenue type";
+            "Date should only contain numbers in the format of YYYY.MM.DD, with valid year, month and date.";
     public static final String OPTIONAL_DATE_MESSAGE_CONSTRAINTS =
             "Date should have starting and ending in the format YYYY.MM.DD\n"
                     + "Example: d1/2018.10.05 d2/2019.04.12";

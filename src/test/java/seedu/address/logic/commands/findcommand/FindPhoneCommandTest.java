@@ -67,7 +67,7 @@ public class FindPhoneCommandTest {
     @Test
     public void execute_zeroKeywords_noPhoneFound() {
         String expectedMessage = String.format(MESSAGE_PHONE_LISTED_OVERVIEW, 0);
-        PhoneContainsKeywordsPredicate predicate = preparePredicate(" ");
+        PhoneContainsKeywordsPredicate predicate = preparePredicate("  ");
         FindPhoneCommand command = new FindPhoneCommand(predicate);
         expectedModel.updateFilteredPhoneList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

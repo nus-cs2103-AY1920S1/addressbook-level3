@@ -20,9 +20,11 @@ import java.util.UUID;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
@@ -33,7 +35,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing schedule in SML.
  */
-public class EditScheduleCommand extends Command {
+public class EditScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit-s";
 
@@ -74,7 +76,8 @@ public class EditScheduleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 
         List<Order> orderList = model.getFilteredOrderList();
@@ -95,6 +98,11 @@ public class EditScheduleCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ORDER_UNSCHEDULED);
         default:
             // do nothing
+        }
+
+        // additional check for invalid order (order is scheduled but optional is null)
+        if (orderToReschedule.getSchedule().isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
         }
 
         Schedule scheduleToEdit = orderToReschedule.getSchedule().get();
@@ -173,7 +181,8 @@ public class EditScheduleCommand extends Command {
         // state check
         EditScheduleCommand e = (EditScheduleCommand) other;
         return index.equals(e.index)
-                && editScheduleDescriptor.equals(e.editScheduleDescriptor);
+                && editScheduleDescriptor.equals(e.editScheduleDescriptor)
+                && canClash == e.canClash;
     }
 
     /**

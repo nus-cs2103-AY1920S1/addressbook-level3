@@ -10,9 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Costs must start with $, have at most 2 decimals and be non-negative.";
+            "Prices must start with $, have at most 2 decimals and be non-negative.";
 
-    public static final String VALIDATION_REGEX = "\\$\\d+(\\.\\d{1,2})?";
+    public static final String VALIDATION_REGEX = "\\$(0|([1-9]\\d*))(\\.\\d{1,2})?";
 
     public final String value;
 
