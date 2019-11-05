@@ -19,7 +19,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path recsFilePath = Paths.get("data" , "savenus-recs.json");
     private Path purchaseHistoryFilePath = Paths.get("data" , "savenus-purchases.json");
     private Path sortFilePath = Paths.get("data" , "savenus-sort.json");
-    private Path savingsAccountFilePath = Paths.get("data", "savings.json");
+    private Path savingsHistoryFilePath = Paths.get("data", "savings.json");
     private Path walletFilePath = Paths.get("data", "savenus-wallet.json");
 
     /**
@@ -43,7 +43,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setMenuFilePath(newUserPrefs.getMenuFilePath());
         setPurchaseHistoryFilePath(newUserPrefs.getPurchaseHistoryFilePath());
-        setSavingsAccountFilePath(newUserPrefs.getSavingsAccountFilePath());
+        setSavingsHistoryFilePath(newUserPrefs.getSavingsHistoryFilePath());
         setWalletFilePath(newUserPrefs.getWalletFilePath());
         setAliasFilePath(newUserPrefs.getAliasFilePath());
     }
@@ -66,13 +66,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.menuFilePath = menuFilePath;
     }
 
-    public Path getSavingsAccountFilePath() {
-        return savingsAccountFilePath;
+    public Path getSavingsHistoryFilePath() {
+        return savingsHistoryFilePath;
     }
 
-    public void setSavingsAccountFilePath(Path savingsAccountFilePath) {
-        requireNonNull(savingsAccountFilePath);
-        this.savingsAccountFilePath = savingsAccountFilePath;
+    public void setSavingsHistoryFilePath(Path savingsHistoryFilePath) {
+        requireNonNull(savingsHistoryFilePath);
+        this.savingsHistoryFilePath = savingsHistoryFilePath;
     }
 
     public Path getRecsFilePath() {
@@ -133,7 +133,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && menuFilePath.equals(o.menuFilePath)
-                && savingsAccountFilePath.equals(savingsAccountFilePath)
+                && savingsHistoryFilePath.equals(savingsHistoryFilePath)
                 && recsFilePath.equals(o.recsFilePath)
                 && purchaseHistoryFilePath.equals(o.purchaseHistoryFilePath)
                 && sortFilePath.equals(o.sortFilePath)
@@ -142,7 +142,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, menuFilePath, savingsAccountFilePath,
+        return Objects.hash(guiSettings, menuFilePath, savingsHistoryFilePath,
                 recsFilePath, purchaseHistoryFilePath, sortFilePath, aliasFilePath);
     }
 
@@ -151,7 +151,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + menuFilePath);
-        sb.append("\nLocal savings account data file location: " + savingsAccountFilePath);
+        sb.append("\nLocal savings account data file location: " + savingsHistoryFilePath);
         sb.append("\nRecommendations data file location : " + recsFilePath);
         sb.append("\nPurchase History data file location : " + purchaseHistoryFilePath);
         sb.append("\nCustomSort data file location : " + sortFilePath);

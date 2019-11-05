@@ -17,12 +17,15 @@ import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
+import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
+import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
 
 /**
  * The API of the Model component.
@@ -144,7 +147,7 @@ public interface Model {
     /**
      * Set user's wallet
      */
-    void setWallet(Wallet newWallet);
+    void setWallet(Wallet newWallet) throws BudgetAmountOutOfBoundsException, BudgetDurationOutOfBoundsException;
 
     /**
      * Returns the user prefs' wallet file path.
@@ -273,17 +276,17 @@ public interface Model {
     /**
      * Add money from wallet to savings account.
      */
-    void addToSavings(Savings savings);
+    void addToHistory(Savings savings) throws InvalidSavingsAmountException;
 
     /**
-     * Return an unmodifiable version of the user's SavingsAccount.
+     * Return an unmodifiable version of the user's SavingsHistory.
      */
-    ReadOnlySavingsAccount getSavingsAccount();
+    ReadOnlySavingsHistory getSavingsHistory();
 
     /**
-     * Replaces purchasing history data with the data in {@code purchaseHistory}.
+     * Replaces saving history data with the data in {@code savingsHistory}.
      */
-    void setSavingsAccount(ReadOnlySavingsAccount savingsAccount);
+    void setSavingsHistory(ReadOnlySavingsHistory savingsHistory);
 
     /**
      * Gets the list of aliases from the model.

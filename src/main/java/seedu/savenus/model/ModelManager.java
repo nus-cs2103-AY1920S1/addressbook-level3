@@ -28,9 +28,9 @@ import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.savings.Savings;
-import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
@@ -38,6 +38,7 @@ import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
+import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
 
 /**
  * Represents the in-memory model of the menu data.
@@ -52,7 +53,7 @@ public class ModelManager implements Model {
     private final Wallet wallet;
     private final CustomSorter customSorter;
     private final AliasList aliasList;
-    private final SavingsAccount savingsAccount;
+    private final SavingsHistory savingsHistory;
     private boolean autoSortFlag;
 
     /**
@@ -60,7 +61,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
                         ReadOnlyPurchaseHistory purchaseHistory, Wallet wallet,
-                        CustomSorter customSorter, ReadOnlySavingsAccount savingsAccount,
+                        CustomSorter customSorter, ReadOnlySavingsHistory savingsHistory,
                         AliasList aliasList) {
         super();
         requireAllNonNull(menu, userPrefs);
@@ -72,7 +73,7 @@ public class ModelManager implements Model {
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.wallet = wallet;
-        this.savingsAccount = new SavingsAccount(savingsAccount);
+        this.savingsHistory = new SavingsHistory(savingsHistory);
         this.customSorter = customSorter;
         this.autoSortFlag = false;
         this.aliasList = aliasList;
@@ -81,7 +82,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new Menu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(),
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(),
                 new AliasList());
     }
 
@@ -369,24 +370,31 @@ public class ModelManager implements Model {
         RecommendationSystem.getInstance().clearDislikes();
     }
 
+    /**
+     * Function that allows the addition of a Saving into the SavingsHistory
+     * @param savings
+     */
     @Override
-    public void addToSavings(Savings savings) {
+    public void addToHistory(Savings savings) throws InvalidSavingsAmountException {
         requireNonNull(savings);
-        savingsAccount.addSavings(savings);
+        if (Float.parseFloat(savings.toString()) <= 0) {
+            throw new InvalidSavingsAmountException();
+        } else {
+            savingsHistory.addToHistory(savings);
+        }
     }
-
 
     /**
      * Returns an unmodifiable Savings Account of the user.
      */
     @Override
-    public ReadOnlySavingsAccount getSavingsAccount() {
-        return savingsAccount;
+    public ReadOnlySavingsHistory getSavingsHistory() {
+        return savingsHistory;
     }
 
     @Override
-    public void setSavingsAccount(ReadOnlySavingsAccount savingsAccount) {
-        this.savingsAccount.resetData(savingsAccount);
+    public void setSavingsHistory(ReadOnlySavingsHistory savingsHistory) {
+        this.savingsHistory.resetData(savingsHistory);
     }
 
     @Override
@@ -409,7 +417,7 @@ public class ModelManager implements Model {
                 && purchaseHistory.equals(other.purchaseHistory)
                 && wallet.equals(other.wallet)
                 && customSorter.equals(other.customSorter)
-                && savingsAccount.equals(other.savingsAccount)
+                && savingsHistory.equals(other.savingsHistory)
                 && aliasList.equals(other.aliasList);
     }
 

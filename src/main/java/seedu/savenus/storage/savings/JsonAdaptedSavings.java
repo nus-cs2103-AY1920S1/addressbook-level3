@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.util.Money;
 
 /**
  * Jackson-friendly version of {@link Savings}.
@@ -12,14 +13,18 @@ import seedu.savenus.model.savings.Savings;
 class JsonAdaptedSavings {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Saving's %s field is missing!";
 
-    private final String savings;
+    private final String savingsAmount;
+    private final String timeStamp;
 
     /**
      * Constructs a {@code JsonAdaptedSavings} with the giving saving details.
      */
     @JsonCreator
-    public JsonAdaptedSavings(@JsonProperty("savings") String savings) {
-        this.savings = savings;
+    public JsonAdaptedSavings(@JsonProperty("savings") String savings,
+                              @JsonProperty("time") String timeStamp) {
+
+        this.savingsAmount = savings;
+        this.timeStamp = timeStamp;
     }
 
     /**
@@ -28,7 +33,8 @@ class JsonAdaptedSavings {
      * @param savings Savings to be converted and saved/removed from Jackson File.
      */
     public JsonAdaptedSavings(Savings savings) {
-        this.savings = savings.toString();
+        this.savingsAmount = savings.toString();
+        this.timeStamp = savings.getTimeStampString();
     }
 
     /**
@@ -37,12 +43,12 @@ class JsonAdaptedSavings {
      *
      */
     public Savings toModelType() throws IllegalValueException {
-        if (savings == null) {
+        if (this.savingsAmount == null || this.timeStamp == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Savings.class.getSimpleName()));
         }
-        if (!Savings.isValidSaving(savings)) {
+        if (!Money.isValidMoney(this.savingsAmount)) {
             throw new IllegalValueException(Savings.MESSAGE_CONSTRAINTS);
         }
-        return new Savings(savings);
+        return new Savings(this.savingsAmount, this.timeStamp);
     }
 }

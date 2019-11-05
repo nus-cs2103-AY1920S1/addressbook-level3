@@ -23,7 +23,7 @@ import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
@@ -35,7 +35,7 @@ import seedu.savenus.model.wallet.Wallet;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-            new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
+            new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new AliasList());
     private List<Index> indexes;
     private List<Index> secondindexes;
 
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new AliasList());
         expectedModel.deleteFood(foodToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -89,7 +89,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
         Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new AliasList());
         expectedModel.deleteFood(foodToDelete);
         showNoFood(expectedModel);
 

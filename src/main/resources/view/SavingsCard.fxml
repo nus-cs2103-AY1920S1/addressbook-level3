@@ -24,6 +24,12 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
+                <Label fx:id="timePane" text="\$first" styleClass="cell_big_label" >
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
             </HBox>
         </VBox>
     </GridPane>

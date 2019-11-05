@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 /**
  * Unmodifiable view of a savings account.
  */
-public interface ReadOnlySavingsAccount {
+public interface ReadOnlySavingsHistory {
 
     /**
      * Returns an unmodifiable view of the SavingsHistory.

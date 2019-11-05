@@ -12,7 +12,7 @@ import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.commons.util.FileUtil;
 import seedu.savenus.commons.util.JsonUtil;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 
 /**
  * A class to access Savings Account data stored as a json file on the hard disk.
@@ -28,29 +28,29 @@ public class JsonSavingsStorage implements SavingsStorage {
     }
 
     @Override
-    public Path getSavingsAccountFilePath() {
+    public Path getSavingsHistoryFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlySavingsAccount> readSavingsAccount() throws DataConversionException, IOException {
-        return readSavingsAccount(filePath);
+    public Optional<ReadOnlySavingsHistory> readSavingsHistory() throws DataConversionException, IOException {
+        return readSavingsHistory(filePath);
     }
 
     @Override
-    public Optional<ReadOnlySavingsAccount> readSavingsAccount(Path filePath)
+    public Optional<ReadOnlySavingsHistory> readSavingsHistory(Path filePath)
             throws DataConversionException, IOException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableSavingsAccount> jsonSavingsAccount = JsonUtil.readJsonFile(filePath,
-                JsonSerializableSavingsAccount.class);
+        Optional<JsonSerializableSavingsHistory> jsonSavingsHistory = JsonUtil.readJsonFile(filePath,
+                JsonSerializableSavingsHistory.class);
 
-        if (jsonSavingsAccount.isEmpty()) {
+        if (jsonSavingsHistory.isEmpty()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonSavingsAccount.get().toModelType());
+            return Optional.of(jsonSavingsHistory.get().toModelType());
         } catch (IllegalValueException e) {
             logger.info(("Illegal values found in " + filePath + e.getMessage()));
             throw new DataConversionException(e);
@@ -58,29 +58,29 @@ public class JsonSavingsStorage implements SavingsStorage {
     }
 
     /**
-     * Write into the user's savings account from the unmodifiable savings account.
+     * Write into the user's savings history from the unmodifiable savings history.
      *
-     * @param savingsAccount unmodifiable savings account of the user.
-     * @throws IOException from {@link #saveSavingsAccount(ReadOnlySavingsAccount, Path)}
+     * @param savingsHistory unmodifiable savings history of the user.
+     * @throws IOException from {@link #saveSavingsHistory(ReadOnlySavingsHistory, Path)}
      */
     @Override
-    public void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount) throws IOException {
-        saveSavingsAccount(savingsAccount, filePath);
+    public void saveSavingsHistory(ReadOnlySavingsHistory savingsHistory) throws IOException {
+        saveSavingsHistory(savingsHistory, filePath);
     }
 
     /**
-     * Similar to {@link #saveSavingsAccount(ReadOnlySavingsAccount)}.
+     * Similar to {@link #saveSavingsHistory(ReadOnlySavingsHistory)}.
      *
-     * @param savingsAccount savingsAccount of user must be provided.
+     * @param savingsHistory savingsAccount of user must be provided.
      * @param filePath location of the savings account data cannot be null.
      * @throws IOException when writing to the file fails.
      */
     @Override
-    public void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount, Path filePath) throws IOException {
-        requireNonNull(savingsAccount);
+    public void saveSavingsHistory(ReadOnlySavingsHistory savingsHistory, Path filePath) throws IOException {
+        requireNonNull(savingsHistory);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableSavingsAccount(savingsAccount), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableSavingsHistory(savingsHistory), filePath);
     }
 }

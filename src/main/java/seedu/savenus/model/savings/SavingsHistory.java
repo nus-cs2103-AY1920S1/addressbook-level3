@@ -2,59 +2,60 @@ package seedu.savenus.model.savings;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
-import java.util.List;
-
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 //@@author fatclarence
 /**
- * A list of the user's savings history.
+ * A savings account to track the user's savings.
  */
-public class SavingsHistory implements Iterable<Savings> {
+public class SavingsHistory implements ReadOnlySavingsHistory {
 
-    private final ObservableList<Savings> internalSavingsHistory = FXCollections.observableArrayList();
-    private final ObservableList<Savings> internalUnmodifiableSavingsHistory =
-            FXCollections.unmodifiableObservableList(internalSavingsHistory);
+    // Testing this without the recommended non-static initialization blocks.
+    private final SavingsHistoryList savingsHistoryList;
 
-    /**
-     * Adds a saving into the SavingsHistory.
-     */
-    public void add(Savings toAdd) {
-        requireNonNull(toAdd);
-        internalSavingsHistory.add(toAdd);
+    public SavingsHistory() {
+        savingsHistoryList = new SavingsHistoryList();
     }
 
     /**
-     * Returns the backing list as an unmodifiable {@code SavingHistory).}
-     * @return ObservableList of the unmodifiable SavingHistory.
+     * Creates a SavingsHistory using the HistoryItems in the {@code toBeCopied}
      */
-    public ObservableList<Savings> asUnmodifiableObservableList() {
-        return internalUnmodifiableSavingsHistory;
+    public SavingsHistory(ReadOnlySavingsHistory toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    /**
+     * Adds a saving into the savings History.
+     */
+    public void addToHistory(Savings savings) {
+        savingsHistoryList.add(savings);
+    }
+
+    /**
+     * Resets the existing data of this {@code SavingsAccount} with {@code newSavings}.
+     */
+    public void resetData(ReadOnlySavingsHistory newSavingsHistory) {
+        requireNonNull(newSavingsHistory);
+
+        // Overwrite the current savings history since there have been new ones added.
+        savingsHistoryList.setSavingsHistory(newSavingsHistory.getSavingsHistory());
     }
 
     @Override
-    public Iterator<Savings> iterator() {
-        return internalSavingsHistory.iterator();
+    public ObservableList<Savings> getSavingsHistory() {
+        return savingsHistoryList.asUnmodifiableObservableList();
     }
 
-    // For Tests
     @Override
     public boolean equals(Object other) {
-        return other == this
+        return other == this // short circuit if same object
                 || (other instanceof SavingsHistory
-                && internalSavingsHistory.equals(((SavingsHistory) other).internalSavingsHistory));
+                && savingsHistoryList.equals(((SavingsHistory) other).savingsHistoryList));
     }
 
     @Override
     public int hashCode() {
-        return internalSavingsHistory.hashCode();
-    }
-
-    public void setSavingsHistory(List<Savings> savings) {
-        requireNonNull(savings);
-
-        internalSavingsHistory.setAll(savings);
+        return savingsHistoryList.hashCode();
     }
 }

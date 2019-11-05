@@ -1,7 +1,9 @@
 package seedu.savenus.model.savings;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.savenus.commons.util.AppUtil.checkArgument;
+
+import seedu.savenus.model.util.Money;
+import seedu.savenus.model.util.TimeStamp;
 
 //@@author fatclarence
 /**
@@ -12,69 +14,37 @@ public class Savings {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Please provide a savings amount with 0 or 2 decimal places.\n"
-            + "For example: 1.50 or 200";
+            + "For example: 1.50 or 200\n"
+            + "Note that you also cannot save 0 or a negative amount of money!";
 
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
     // Identity fields of a saving.
-    private final String savingsAmount; // the amount to be saved.
-
-    /**
-     * TODO @FATCLARENCE
-     * Add time stamp of savings.
-     */
+    private final Money savingsAmount; // the amount to be saved.
+    private final TimeStamp timeStamp;
 
     // Default starting savings amount.
     public Savings() {
-        savingsAmount = "0.00";
+        savingsAmount = new Money("0.00");
+        timeStamp = new TimeStamp(TimeStamp.generateCurrentTimeStamp());
     }
 
-    public Savings(String savings) {
+    public Savings(String savings, String time) {
         requireNonNull(savings);
-        checkArgument(isValidSaving(savings), MESSAGE_CONSTRAINTS);
-        savingsAmount = convert(savings);
+        savingsAmount = new Money(savings);
+        timeStamp = new TimeStamp(time);
     }
 
-    /**
-     * Returns true if a given string is a valid saving representation.
-     */
-    public static boolean isValidSaving(String saving) {
-        if (saving.matches(VALIDATION_REGEX)) {
-            return true;
-        } else {
-            return false;
-        }
+    public String getTimeStampString() {
+        return timeStamp.toString();
     }
 
-    /**
-     * Checks if the input savings has decimal digits or not.
-     * @param savingsAmount the input String.
-     * @return true if the input savings has no decimal digits.
-     */
-    public boolean isPerfectNumber(String savingsAmount) {
-        try {
-            Integer.parseInt(savingsAmount);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Converts the input savings to a valid string representation.
-     * @param savingsAmount the input String.
-     * @return the correct String representation of the input savings.
-     */
-    public String convert(String savingsAmount) {
-        if (isPerfectNumber(savingsAmount)) {
-            return String.format("%d.00", Integer.parseInt(savingsAmount));
-        } else {
-            return String.format("%.2f", Double.parseDouble(savingsAmount));
-        }
+    public TimeStamp getTimeStamp() {
+        return timeStamp;
     }
 
     @Override
     public String toString() {
-        return savingsAmount;
+        return String.format("%.02f", savingsAmount.getAmount());
     }
 }

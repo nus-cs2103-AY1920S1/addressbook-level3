@@ -11,7 +11,7 @@ import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
@@ -32,7 +32,7 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private MenuStorage menuStorage;
-    private SavingsStorage savingsAccountStorage;
+    private SavingsStorage savingsHistoryStorage;
     private UserPrefsStorage userPrefsStorage;
     private RecsStorage userRecsStorage;
     private PurchaseHistoryStorage purchaseHistoryStorage;
@@ -42,11 +42,11 @@ public class StorageManager implements Storage {
 
     public StorageManager(MenuStorage menuStorage, UserPrefsStorage userPrefsStorage, RecsStorage userRecsStorage,
                           PurchaseHistoryStorage purchaseHistoryStorage, WalletStorage walletStorage,
-                          CustomSortStorage customSortStorage, SavingsStorage savingsAccountStorage,
+                          CustomSortStorage customSortStorage, SavingsStorage savingsHistoryStorage,
                           AliasStorage aliasStorage) {
         super();
         this.menuStorage = menuStorage;
-        this.savingsAccountStorage = savingsAccountStorage;
+        this.savingsHistoryStorage = savingsHistoryStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.userRecsStorage = userRecsStorage;
         this.purchaseHistoryStorage = purchaseHistoryStorage;
@@ -248,30 +248,30 @@ public class StorageManager implements Storage {
     // =============== Savings methods ========================
 
     @Override
-    public Path getSavingsAccountFilePath() {
-        return savingsAccountStorage.getSavingsAccountFilePath();
+    public Path getSavingsHistoryFilePath() {
+        return savingsHistoryStorage.getSavingsHistoryFilePath();
     }
 
     @Override
-    public void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount) throws IOException {
-        saveSavingsAccount(savingsAccount, savingsAccountStorage.getSavingsAccountFilePath());
+    public void saveSavingsHistory(ReadOnlySavingsHistory savingsHistory) throws IOException {
+        saveSavingsHistory(savingsHistory, savingsHistoryStorage.getSavingsHistoryFilePath());
     }
 
     @Override
-    public void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount, Path filePath) throws IOException {
+    public void saveSavingsHistory(ReadOnlySavingsHistory savingsAccount, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        savingsAccountStorage.saveSavingsAccount(savingsAccount, filePath);
+        savingsHistoryStorage.saveSavingsHistory(savingsAccount, filePath);
     }
 
     @Override
-    public Optional<ReadOnlySavingsAccount> readSavingsAccount() throws DataConversionException, IOException {
-        return readSavingsAccount(savingsAccountStorage.getSavingsAccountFilePath());
+    public Optional<ReadOnlySavingsHistory> readSavingsHistory() throws DataConversionException, IOException {
+        return readSavingsHistory(savingsHistoryStorage.getSavingsHistoryFilePath());
     }
 
     @Override
-    public Optional<ReadOnlySavingsAccount> readSavingsAccount(Path filePath)
+    public Optional<ReadOnlySavingsHistory> readSavingsHistory(Path filePath)
             throws DataConversionException, IOException {
-        logger.fine("Attempting to read savings account data from file: " + filePath);
-        return savingsAccountStorage.readSavingsAccount(filePath);
+        logger.fine("Attempting to read savings history from file: " + filePath);
+        return savingsHistoryStorage.readSavingsHistory(filePath);
     }
 }

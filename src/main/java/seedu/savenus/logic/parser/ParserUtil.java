@@ -24,7 +24,7 @@ import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.food.Tag;
-import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.util.Money;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
@@ -90,11 +90,11 @@ public class ParserUtil {
      *
      * @throws ParseException if given {@code String} is invalid.
      */
-    public static BigDecimal parseSavings(String savingsAmount) throws ParseException {
+    public static Money parseSavings(String savingsAmount) throws ParseException {
         String trimmedSavingsString = savingsAmount.trim();
         String[] splitSavingsString = trimmedSavingsString.split("\\s+");
         if (splitSavingsString.length != 1
-            || !Savings.isValidSaving(splitSavingsString[0])) {
+            || !Money.isValidMoney(splitSavingsString[0])) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
         }
 
@@ -103,9 +103,7 @@ public class ParserUtil {
          */
 
 
-        return new BigDecimal(splitSavingsString[0].contains(".")
-                ? splitSavingsString[0]
-                : String.format("%s.00", splitSavingsString[0]));
+        return new Money(splitSavingsString[0]);
     }
 
     /**

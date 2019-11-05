@@ -48,4 +48,23 @@ public class TimeStamp {
         return Long.toString(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
     }
 
+    /**
+     * Returns "Today" plus local time if same day, else returns Day of the week plus Date.
+     */
+    public String getTimeAgoString() {
+        long daysAgo = TimeFormatter.getDaysAgo((getTimeStampInLocalDateTime()));
+        if (daysAgo == 0) {
+            return "Today " + TimeFormatter.format12HourClock(getTimeStampInLocalDateTime());
+        } else {
+            return TimeFormatter.formatDayPlusDate(getTimeStampInLocalDateTime());
+        }
+    }
+
+    /**
+     * Return TimeStamp string for saving in Jackson Files.
+     */
+    @Override
+    public String toString() {
+        return this.timeStampString;
+    }
 }

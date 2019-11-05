@@ -31,7 +31,7 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
@@ -46,7 +46,7 @@ public class PreferenceCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
+                new Wallet(), new CustomSorter(), new SavingsHistory(), new AliasList());
         model.clearDislikes();
         model.clearLikes();
     }

@@ -23,8 +23,8 @@ import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
-import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.ReadOnlySavingsHistory;
+import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
@@ -77,7 +77,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
-        SavingsStorage savingsAccountStorage = new JsonSavingsStorage(userPrefs.getSavingsAccountFilePath());
+        SavingsStorage savingsHistoryStorage = new JsonSavingsStorage(userPrefs.getSavingsHistoryFilePath());
         RecsStorage userRecommendations = new JsonRecsStorage(userPrefs.getRecsFilePath());
         PurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(userPrefs
                 .getPurchaseHistoryFilePath());
@@ -85,12 +85,12 @@ public class MainApp extends Application {
         WalletStorage walletStorage = new JsonWalletStorage(userPrefs.getWalletFilePath());
         AliasStorage aliasStorage = new JsonAliasListStorage(userPrefs.getAliasFilePath());
         storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations,
-                purchaseHistoryStorage, walletStorage, sort, savingsAccountStorage, aliasStorage);
+                purchaseHistoryStorage, walletStorage, sort, savingsHistoryStorage, aliasStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage, walletStorage,
-                sort, savingsAccountStorage, aliasStorage);
+                sort, savingsHistoryStorage, aliasStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -104,13 +104,13 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs,
                                    PurchaseHistoryStorage purchaseHistoryStorage, WalletStorage walletStorage,
-                                   CustomSortStorage userSortFields, SavingsStorage savingsAccountStorage,
+                                   CustomSortStorage userSortFields, SavingsStorage savingsHistoryStorage,
                                    AliasStorage aliasStorage) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
 
-        Optional<ReadOnlySavingsAccount> savingsAccountOptional;
-        ReadOnlySavingsAccount initialSavingsAccount;
+        Optional<ReadOnlySavingsHistory> savingsAccountOptional;
+        ReadOnlySavingsHistory initialSavingsHistory;
 
         Optional<ReadOnlyPurchaseHistory> purchaseHistoryOptional;
         ReadOnlyPurchaseHistory initialPurchaseHistory;
@@ -133,11 +133,11 @@ public class MainApp extends Application {
             }
             initialData = menuOptional.orElseGet(SampleDataUtil::getSampleMenu);
 
-            savingsAccountOptional = storage.readSavingsAccount();
+            savingsAccountOptional = storage.readSavingsHistory();
             if (!savingsAccountOptional.isPresent()) {
                 logger.info("Savings Account file is not found. Will be starting with an empty Savings Account");
             }
-            initialSavingsAccount = savingsAccountOptional.orElse(new SavingsAccount());
+            initialSavingsHistory = savingsAccountOptional.orElse(new SavingsHistory());
 
             recsOptional = userRecs.readRecs();
             if (!recsOptional.isPresent()) {
@@ -171,7 +171,7 @@ public class MainApp extends Application {
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty application");
             initialData = new Menu();
-            initialSavingsAccount = new SavingsAccount();
+            initialSavingsHistory = new SavingsHistory();
             initialRecs = new UserRecommendations();
             initialPurchaseHistory = new PurchaseHistory();
             initialWallet = new Wallet();
@@ -180,7 +180,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty application");
             initialData = new Menu();
-            initialSavingsAccount = new SavingsAccount();
+            initialSavingsHistory = new SavingsHistory();
             initialRecs = new UserRecommendations();
             initialPurchaseHistory = new PurchaseHistory();
             initialWallet = new Wallet();
@@ -188,7 +188,7 @@ public class MainApp extends Application {
             initialAliasList = new AliasList();
         }
         return new ModelManager(initialData, userPrefs, initialRecs, initialPurchaseHistory,
-                initialWallet, initialSorter, initialSavingsAccount, initialAliasList);
+                initialWallet, initialSorter, initialSavingsHistory, initialAliasList);
     }
 
     private void initLogging(Config config) {
