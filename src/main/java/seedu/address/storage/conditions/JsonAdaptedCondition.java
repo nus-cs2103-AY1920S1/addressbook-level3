@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
 import seedu.address.model.reminders.conditions.ClassCondition;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.reminders.conditions.DateCondition;
@@ -32,7 +32,7 @@ public class JsonAdaptedCondition {
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedCondition} with the given person details.
+     * Constructs a {@code JsonAdaptedCondition} with the given entry details.
      */
     @JsonCreator
     public JsonAdaptedCondition(@JsonProperty("conditionType") String conditionType,
@@ -79,7 +79,7 @@ public class JsonAdaptedCondition {
     /**
      * Converts this Jackson-friendly adapted condition object into the model's {@code Condition} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted entry.
      */
     public Condition toModelType() throws IllegalValueException {
         switch (conditionType) {

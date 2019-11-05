@@ -17,12 +17,12 @@ import java.util.function.Predicate;
 import seedu.address.logic.commands.FindBudgetCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.predicates.EntryContainsAmountPredicate;
-import seedu.address.model.person.predicates.EntryContainsCategoryPredicate;
-import seedu.address.model.person.predicates.EntryContainsDatePredicate;
-import seedu.address.model.person.predicates.EntryContainsDescriptionPredicate;
-import seedu.address.model.person.predicates.EntryContainsTagsPredicate;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.predicates.EntryContainsAmountPredicate;
+import seedu.address.model.entry.predicates.EntryContainsCategoryPredicate;
+import seedu.address.model.entry.predicates.EntryContainsDatePredicate;
+import seedu.address.model.entry.predicates.EntryContainsDescriptionPredicate;
+import seedu.address.model.entry.predicates.EntryContainsTagsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**

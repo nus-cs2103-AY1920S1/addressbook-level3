@@ -1,34 +1,34 @@
 //package seedu.address.testutil;
 //
-//import seedu.address.model.AddressBook;
-//import seedu.address.model.person.Person;
+//import seedu.address.model.GuiltTrip;
+//import seedu.address.model.entry.Person;
 //
 ///**
 // * A utility class to help with building Addressbook objects.
 // * Example usage: <br>
-// *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+// *     {@code GuiltTrip ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
 // */
 //public class AddressBookBuilder {
 //
-//    private AddressBook addressBook;
+//    private GuiltTrip addressBook;
 //
 //    public AddressBookBuilder() {
-//        addressBook = new AddressBook();
+//        addressBook = new GuiltTrip();
 //    }
 //
-//    public AddressBookBuilder(AddressBook addressBook) {
+//    public AddressBookBuilder(GuiltTrip addressBook) {
 //        this.addressBook = addressBook;
 //    }
 //
 //    /**
-//     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+//     * Adds a new {@code Person} to the {@code GuiltTrip} that we are building.
 //     */
-//    public AddressBookBuilder withPerson(Person person) {
-//        addressBook.addPerson(person);
+//    public AddressBookBuilder withPerson(Person entry) {
+//        addressBook.addPerson(entry);
 //        return this;
 //    }
 //
-//    public AddressBook build() {
+//    public GuiltTrip build() {
 //        return addressBook;
 //    }
 //}

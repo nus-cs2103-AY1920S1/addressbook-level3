@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.function.Predicate;
 
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Entry;
 
 /**
  * Implements entry specific condition.
