@@ -370,7 +370,6 @@ Format: `viewPie [p/<RangeOfMonths>]`
 * `<RangeOfMonths>`: The dates that you would like to display the statistics by. If you are interested in a range of months, you have to make sure that the *startMonth* and *endMonth* is separated by a comma, `,`.
 
 Example Usage:
-
 [start = 1]
 . Let's say you want to view the Statistics in pie chart form for period *2018/01* to *2019/12*. You then type in the command `viewPie p/2018-01,2019-12`.
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
@@ -810,6 +809,20 @@ Examples:
 
 * `changeFont arial`
 * `changeFont segoe UI`
+
+==== Change to dark theme : `setDarkTheme`
+Changes the theme from light to dark.
+
+Format: `setDarkTheme`
+
+Example: `setDarkTheme`
+
+==== Change to light theme : `setLightTheme`
+Changes the theme from dark to light.
+
+Format: `setLightTheme`
+
+Example: `setLightTheme`
 
 == FAQ
 
