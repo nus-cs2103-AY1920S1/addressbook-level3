@@ -59,17 +59,22 @@ class JsonSerializableClassroom {
     public Classroom toModelType() throws IllegalValueException {
         Classroom classroom = new Classroom();
         classroom.setClassroomName(classroomName);
+        List<String> studentsName = new ArrayList<>();
         for (JsonAdaptedStudent jsonAdaptedStudent : students) {
             Student student = jsonAdaptedStudent.toModelType();
             if (classroom.hasStudent(student)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
             }
             classroom.addStudent(student);
+            studentsName.add(student.getName().toString());
         }
         for (JsonAdaptedAssignment jsonAdaptedAssignment : assignments) {
             Assignment assignment = jsonAdaptedAssignment.toModelType();
             if (classroom.hasAssignment(assignment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ASSIGNMENT);
+            }
+            if(!assignment.isCompleted()) {
+                assignment.initialiseGrades(studentsName);
             }
             classroom.addAssignment(assignment);
         }

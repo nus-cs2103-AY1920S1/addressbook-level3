@@ -33,6 +33,13 @@ public class Assignment {
         this.isCompleted = false;
     }
 
+    public void initialiseGrades(List<String> studentNames) {
+        requireNonNull(studentNames);
+        for (String studentName : studentNames) {
+            assignmentGrades.addOneStudentGrade(studentName);
+        }
+    }
+
     public AssignmentName getAssignmentName() {
         return this.assignmentName;
     }
