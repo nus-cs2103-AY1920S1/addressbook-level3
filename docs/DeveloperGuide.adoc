@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Insurelytics - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -647,10 +647,11 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is  `Insurelytics` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
 
 //tag::addperson[]
-[discrete]
 === Use case: Add person
 Guarantees: +
 
@@ -659,7 +660,7 @@ Guarantees: +
 *MSS*
 
 1.  User requests to add a person.
-2.  AddressBook adds the person.
+2.  Insurelytics adds the person.
 +
 Use case ends.
 
@@ -669,13 +670,13 @@ Use case ends.
 * 1a. Either of the given NRIC, contact number, or email address is invalid.
 +
 [none]
-** 1a1. AddressBook adds the person into address book.
-** 1a1. AddressBook shows a warning.
+** 1a1. Insurelytics adds the person into address book.
+** 1a1. Insurelytics shows a warning.
 
 * 1b. Duplicate profile is added.
 +
 [none]
-** 1b1. AddressBook shows an error message and will attempt to merge the profile.
+** 1b1. Insurelytics shows an error message and will attempt to merge the profile.
 +
 //end::addperson[]
 
@@ -689,9 +690,9 @@ Guarantees: +
 *MSS*
 
 1.  User requests to find a person
-2.  AddressBook shows details of the person
+2.  Insurelytics shows details of the person
 3.  User requests to edit that specific person.
-4.  AddressBook edits the person.
+4.  Insurelytics edits the person.
 +
 Use case ends.
 
@@ -701,15 +702,15 @@ Use case ends.
 * 1a. Person is not found
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. Insurelytics shows an error message.
 +
 Use case resumes at step 1.
 
 * 3a. Either of the given NRIC, contact number, or email address is invalid.
 +
 [none]
-** 3a1. AddressBook adds the person into address book.
-** 3a2. AddressBook shows a warning.
+** 3a1. Insurelytics adds the person into address book.
+** 3a2. Insurelytics shows a warning.
 +
 
 * *a. At any time, User requests to cancel the edit.
@@ -726,9 +727,9 @@ Use case ends.
 *MSS*
 
 1.  User requests to list contacts
-2.  AddressBook shows a list of contacts
+2.  Insurelytics shows a list of contacts
 3.  User requests to delete a specific contact in the list
-4.  AddressBook deletes the contact
+4.  Insurelytics deletes the contact
 5.  Contact appears in the recycling bin
 +
 Use case ends.
@@ -743,7 +744,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Insurelytics shows an error message.
 +
 Use case resumes at step 2.
 
@@ -753,7 +754,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  Insurelytics shows a list of persons
 3.  User requests to assign a policy to a specific person
 4.  The policy gets assigned to the person
 +
@@ -769,14 +770,14 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Insurelytics shows an error message.
 +
 Use case resumes at step 2.
 
 * 3b. The person is not eligible for the policy.
 +
 [none]
-** 3b1. AddressBook shows an error message and returns a list of policies the person is eligible for.
+** 3b1. Insurelytics shows an error message and returns a list of policies the person is eligible for.
 +
 Use case resumes at step 2.
 
@@ -787,7 +788,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to list recently deleted contacts from recycling bin
-2.  AddressBook shows a list of contacts
+2.  Insurelytics shows a list of contacts
 3.  User requests to restore a specific contact in the list
 4.  AddressBook restores the contact
 +
@@ -803,7 +804,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Insurelytics shows an error message.
 +
 Use case resumes at step 2.
 
@@ -816,7 +817,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to add a person.
-2.  AddressBook indicates that this person already exists and prompts a merge.
+2.  Insurelytics indicates that this person already exists and prompts a merge.
 3.  User indicates whether or not to edit this profile.
 4.  A different field is displayed and asks the user whether or not to update this field.
 5.  Steps 3 and 4 repeat until decisions whether or not to merge different fields have been completed.
@@ -830,7 +831,7 @@ Use case ends.
 +
 [none]
 ** 3a1. The user inputs an invalid command.
-** 3a2. The AddressBook indicates an error and prompts the merge again.
+** 3a2. The Insurelytics indicates an error and prompts the merge again.
 +
 Use case resumes at 4.
 // end::mergingusecase[]
