@@ -2,6 +2,7 @@ package seedu.address.logic.parser.statistics;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import static seedu.address.logic.commands.statistics.GetStatisticsCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -21,8 +22,9 @@ class GetStatisticsCommandParserTest {
 
     @Test
     void parse_invalidCommandFormat_failure() {
-        // multiple difficulty
-        assertParseFailure(parser, " d/d1 d/d2", MESSAGE_INVALID_COMMAND_FORMAT);
+        // multiple difficulties
+        assertParseFailure(parser, " d/d1 d/d2",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 
     @Test

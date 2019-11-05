@@ -18,7 +18,7 @@ public class GetQnsCommand extends Command {
     public static final String COMMAND_WORD = "question";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets all questions that have been answered "
-            + "correctly/incorrectly for a particular subject by using either -c/-i respectively.\n"
+            + "correctly/incorrectly by using either -c/-i respectively.\n"
             + "Either one of -c or -i must be used, you can also include optional subject fields.\n"
             + "Parameters: "
             + "[-c] [-i] ["

@@ -40,11 +40,11 @@ public class Subject {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Subject // instanceof handles nulls
-                && subject.equals(((Subject) other).subject)); // state check
+                && subject.equalsIgnoreCase(((Subject) other).subject)); // state check
     }
 
     @Override
     public int hashCode() {
-        return subject.hashCode();
+        return subject.toLowerCase().hashCode();
     }
 }

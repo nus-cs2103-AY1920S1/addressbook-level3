@@ -18,9 +18,8 @@ import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 public class GetStatisticsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the statistics of how well "
-            + "a question has been answered for a subject. "
-            + "A pie chart will be returned.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a break down of the questions "
+            + "by its results. You can get the statistics of a difficulty and multiple subjects.\n"
             + "Parameters: ["
             + PREFIX_DIFFICULTY + "DIFFICULTY] ["
             + PREFIX_SUBJECT + "SUBJECT1] "

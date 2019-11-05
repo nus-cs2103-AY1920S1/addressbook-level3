@@ -61,6 +61,8 @@ https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/97[#97]
 **	Contributed to forum discussions:
 https://github.com/nus-cs2103-AY1920S1/forum/issues/71[#71]
 **  Reported bugs found from other team's applications:
+https://github.com/irene-lly/ped/issues/1[#1]
+https://github.com/irene-lly/ped/issues/2[#2]
 *	Enhancements to existing features:
 **	Updated the GUI so that different panels can be stacked:
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/56[#56]
@@ -73,58 +75,7 @@ showing additions that I have made for the statistics features.
 
 '''
 
-include::../UserGuide.adoc[tag=stats]
-
-Example:
-Let's say you have answered some questions from CS2103T previously
-and you would like a ballpark figure to estimate how well you know the subject.
-
-To get this figure:
-
-. Type `stats s/CS2103T` into the command box, and press *Enter* to execute it.
-. The result box will display the message "Here are the statistics:"
-. And you can see a pie chart of the number of correctly and incorrectly answered questions.
-
-include::../UserGuide.adoc[tag=question]
-
-Example:
-Now that you have gotten the number of correct to incorrect answers, you want to see what questions
-you have done wrong to decide on how you can further improve.
-
-To see the questions:
-
-. Type `question -i s/CS2103T` into the command box, and press *Enter* to execute it.
-. The result box will display the message "Here are the questions:"
-. And you can see a list of all your incorrectly answered questions for CS2103T and
-your past answers to it as well as a break down of the number of questions by difficulty level.
-
-include::../UserGuide.adoc[tag=report]
-
-Example:
-After getting the questions that you have done wrong, you noticed that there is one particular
-question that you have answered wrong numerous times. This just so happened to be the third
-question in the question list. You decided to investigate further.
-
-To see a report of the question:
-
-. Type `report 3` into the command box, and press *Enter* to execute it.
-. The result box will display the message "Here is a report of the question:"
-. And you can see all your attempts at the question as well as a pie chart of your results.
-
-include::../UserGuide.adoc[tag=overview]
-
-Example:
-You are finally done viewing your quiz results and want to know what
-questions you should attempt next. To be a well-rounded individual, you decided to check
-if you have been neglecting any subjects during this period of time.
-
-To see an overview of your results:
-
-. Type `overview dt/20/10/2019 dt/30/10/2019` into the command box,
-and press *Enter* to execute it.
-. The result box will display the message "Here is an overview of the questions:"
-. And you can see a stack bar chart of all questions that you have attempted
-from 20/10/2019 to 30/10/2019
+include::../UserGuide.adoc[tag=statistics]
 
 == Developer guide contributions
 We have also modified the existing addressBook developer guide to include implementation of

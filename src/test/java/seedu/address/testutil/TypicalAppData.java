@@ -67,6 +67,12 @@ public class TypicalAppData {
             .withSubject("CS2105")
             .withDifficulty("hard")
             .build();
+    public static final Question CAMERA_QUESTION = new QuestionBuilder()
+            .withQuestionBody("The camera is positioned in the ()")
+            .withAnswer("world coordinates")
+            .withSubject("CS3241")
+            .withDifficulty("easy")
+            .build();
 
     // quiz results
     public static final QuizResult MVC_RESULT = new QuizResultBuilder()
@@ -205,7 +211,8 @@ public class TypicalAppData {
     }
 
     public static List<Question> getTypicalQuestions() {
-        return new ArrayList<>(Arrays.asList(MVC_QUESTION, TCP_QUESTION, UDP_QUESTION, CONAN_QUESTION));
+        return new ArrayList<>(Arrays.asList(MVC_QUESTION, TCP_QUESTION, UDP_QUESTION, CONAN_QUESTION,
+                CAMERA_QUESTION));
     }
 
     public static List<QuizResult> getTypicalQuizResults() {
