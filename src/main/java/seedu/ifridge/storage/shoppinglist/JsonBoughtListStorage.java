@@ -38,7 +38,7 @@ public class JsonBoughtListStorage implements BoughtListStorage {
     }
 
     /**
-     * Similar to {@link #readShoppingList(Path)}.
+     * Similar to {@link #readBoughtList(Path)}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
@@ -66,7 +66,7 @@ public class JsonBoughtListStorage implements BoughtListStorage {
     }
 
     /**
-     * Similar to {@link #saveShoppingList(ReadOnlyShoppingList, Path)}.
+     * Similar to {@link #saveBoughtList(ReadOnlyGroceryList, Path)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
