@@ -247,7 +247,7 @@ The checks described above all function in the command execution stage. The `Reg
 
 Simplified Sequence Diagram for illustration:
 
-image::AccessSequenceDiagram.png[width="800"]
+image::AccessSequenceDiagram.png[width="600"]
 
 NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
 
