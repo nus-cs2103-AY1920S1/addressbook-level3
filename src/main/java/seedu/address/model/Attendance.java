@@ -59,6 +59,17 @@ public class Attendance {
     }
 
     /**
+     * Replaces all occurences of person at {@code target} with {@code editedPerson} in training records.
+     */
+    void editPersonTrainingRecords(Person target, Person editedPerson) {
+        for (Training training: trainings) {
+            if (training.hasPerson(target)) {
+                training.editPersonDetails(target, editedPerson);
+            }
+        }
+    }
+
+    /**
      * Checks if there has been a Training at input date.
      *
      * @param date Date used to check for training
