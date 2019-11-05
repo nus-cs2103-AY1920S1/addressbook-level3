@@ -59,4 +59,9 @@ public class BankAccountStub implements ReadOnlyBankAccount {
     public boolean has(Budget budget) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public boolean has(Projection projection) {
+        throw new AssertionError("This method should not be called.");
+    }
 }

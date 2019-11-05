@@ -140,6 +140,11 @@ public class BankAccountTest {
         public boolean has(Budget budget) {
             return false;
         }
+
+        @Override
+        public boolean has(Projection projection) {
+            return false;
+        }
     }
 
 }

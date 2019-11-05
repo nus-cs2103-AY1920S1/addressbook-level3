@@ -122,12 +122,17 @@ public class ModelStub implements Model {
 
     @Override
     public boolean has(Budget budget) {
-        throw new AssertionError("This method should not be calld.");
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean has(LedgerOperation ledgerOperation) {
-        throw new AssertionError("This method should not be calld.");
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean has(Projection projection) {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -162,7 +167,7 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Budget> getFilteredBudgetList() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -171,12 +176,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void deleteProjection(Projection projectionToDelete) {
+
+    }
+
+    @Override
     public ObservableList<LedgerOperation> getFilteredLedgerOperationsList() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ObservableList<Projection> getFilteredProjectionsList() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 }
