@@ -168,14 +168,5 @@ public class AddMarkCommandTest {
             return student.getIsMarked();
         }
 
-        /**
-         * Marks a student.
-         *
-         * @param student Student to be marked.
-         */
-        @Override
-        public void markStudent(Student student) {
-            student.setMarked();
-        }
     }
 }

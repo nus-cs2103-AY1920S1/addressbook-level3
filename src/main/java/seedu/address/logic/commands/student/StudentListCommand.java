@@ -10,8 +10,11 @@ import seedu.address.model.Model;
  */
 public class StudentListCommand extends StudentCommand {
 
+    public static final String MESSAGE_SUCCESS = "This is the list of students: \n";
+
     /**
      * Executes the student list command.
+     *
      * @param model {@code Model} which the command should operate on.
      * @return Command result if the command is executed successfully.
      * @throws CommandException -
@@ -23,11 +26,13 @@ public class StudentListCommand extends StudentCommand {
 
     /**
      * Generates a command execution success message.
+     *
      * @param message The relevant message from the model.
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage(String message) {
-        return "This is the list of students: " + "\n"
-                + message;
+        return MESSAGE_SUCCESS + message;
     }
+
+
 }
