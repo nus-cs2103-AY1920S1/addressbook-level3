@@ -44,15 +44,13 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * Parses {@code type} into an {@code String} and returns it. Leading
      * and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the specified index is invalid (not non-zero
-     *                        unsigned integer).
      */
-    public static String parseType(String oneBasedIndex) throws ParseException {
+    public static String parseType(String type) throws ParseException {
+        requireNonNull(type);
         try {
-            String trimmedType = oneBasedIndex.trim().substring(0, 1);
+            String trimmedType = type.trim().substring(0, 1);
             return trimmedType;
         } catch (StringIndexOutOfBoundsException ex) {
             throw new ParseException(ex.getMessage());
@@ -238,17 +236,14 @@ public class ParserUtil {
     }
 
     /**
-     *
-     *
-     * @throws ParseException
-     */
-    /**
      * Parse Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
      * and trailing whitespaces will be trimmed.
+     *
      * @return {@code Index} representing the budget's index
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseBudgetIndex(String oneBasedIndex) throws ParseException {
+        requireNonNull(oneBasedIndex);
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);

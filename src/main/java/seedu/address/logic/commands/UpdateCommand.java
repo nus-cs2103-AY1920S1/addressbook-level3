@@ -24,6 +24,7 @@ import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.util.Date;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Updates the details of an existing Transaction in the BankAccount.
@@ -44,7 +45,7 @@ public class UpdateCommand extends Command {
         + PREFIX_DATE + "12022019";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
-    public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated: %1$s";
+    public static final String MESSAGE_UPDATE_ENTRY_SUCCESS = "Updated: %1$s";
     public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 million (i.e. 1000000)";
     public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
     public static final String MESSAGE_AMOUNT_ZERO = "Transaction amount cannot be zero";
@@ -79,7 +80,8 @@ public class UpdateCommand extends Command {
 
             model.setTransaction(transactionToReplace, updatedTransaction);
             model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
+            return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedTransaction),
+                false, false, Tab.TRANSACTION);
         } else if (this.type.equals("b")) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
 
@@ -93,7 +95,8 @@ public class UpdateCommand extends Command {
 
             model.setBudget(budgetToReplace, updatedBudget);
             model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedBudget));
+            return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),
+                false, false, Tab.BUDGET);
 
         } else {
             throw new CommandException("Unknown command error");

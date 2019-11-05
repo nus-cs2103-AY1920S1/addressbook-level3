@@ -6,6 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Filters the transactions in the bank account.
@@ -35,7 +36,7 @@ public class FilterCommand extends Command {
         model.commitUserState();
         return new CommandResult(
             String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
-                model.getFilteredTransactionList().size()));
+                model.getFilteredTransactionList().size()), false, false, Tab.TRANSACTION);
     }
 
     @Override
