@@ -293,6 +293,16 @@ Note: You can have more than one pair of FIELD and DIRECTION.
 *Example*: `sort PRICE ASC`
 ****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted by the fields you have entered.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of food items will be sorted by the fields you have entered.]
+
+image::sortsuccess.png[]
+
+{empty}
+|===
+
 ==== Make your own custom comparator: `makesort`
 Create your own custom comparator, which will be stored within the storage of the application, using specific
 FIELD and DIRECTION.
@@ -302,12 +312,32 @@ FIELD and DIRECTION.
 *Example*: `makesort PRICE ASC`
 ****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| Your custom comparator will be shwon.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| Your custom comparator will be shown.]
+
+image::makesortsuccess.png[]
+
+{empty}
+|===
+
 ==== Sort based on your custom comparator: `customsort`
 Sort Using your own custom comparator, which you have creating from MakeSort.
 
 ****
 *Format*: `customsort`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted by the fields your custom comparator.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|  The list of food items will be sorted by the fields your custom comparator.]
+
+image::customsortsuccess.png[]
+
+{empty}
+|===
 
 ==== Auto sorts list based on custom comparator: `autosort`
 Turns on and off auto sorting, based on your own custom comparator, every time you make changes to the food list.
@@ -318,6 +348,21 @@ There are only two states, ON or OFF.
 *Example*: `autosort ON`
 ****
 
+[NOTE]
+Once you turn auto sorting on, `customsort`, `sort` and `default` will not work. They will only work if and only if you
+turn auto sorting off.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| A message will inform you if you have turned autosorting on or off.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| A message will inform you if you have turned autosorting on or off.]
+
+image::autosortsuccess.png[]
+
+{empty}
+|===
+
+
 ==== Views the fields for the custom comparator: `viewsort`
 Views the current Custom Sorter.
 
@@ -325,12 +370,33 @@ Views the current Custom Sorter.
 *Format*: `viewsort`
 ====
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| A message will inform you of the fields of your custom comparator.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| A message will inform you of the fields of your custom comparator.]
+
+image::viewsortsuccess.png[]
+
+{empty}
+|===
+
 ==== Sorts food items based on natural order: `default`
-Sorts the food items based on their default ordering, where it is based on ascending price, name and then category.
+Sorts the food items based on their default ordering, where it is based on ascending category, name and then price.
 
 ****
 *Format*: `default`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted in its natural order.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of food items will be sorted in its natural order.]
+
+image::defaultsuccess.png[]
+
+{empty}
+|===
+
 //end::sorting[]
 
 //tag::budgeting[]

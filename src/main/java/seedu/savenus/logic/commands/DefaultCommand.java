@@ -17,10 +17,15 @@ public class DefaultCommand extends Command {
 
     public static final String COMMAND_WORD = "default";
     public static final String MESSAGE_SUCCESS = "Food items back in natural order.";
+    public static final String AUTO_SORT_WARNING = "Autosort is turned on! \n" +
+            "This command will not work unless you turn autosort off.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.getAutoSortFlag() == true) {
+            return new CommandResult(AUTO_SORT_WARNING);
+        }
         ObservableList<Food> foodList = model.getFilteredFoodList();
         SortedList<Food> sortedList = foodList.sorted(new DefaultComparator());
         model.setFoods(sortedList);
