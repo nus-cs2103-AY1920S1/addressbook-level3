@@ -119,7 +119,6 @@ public class Budget {
      */
     public int calculateRemaining() {
         return Date.daysBetween(Date.TODAY, deadline);
-
     }
 
     /**
@@ -157,5 +156,4 @@ public class Budget {
     public String toString() {
         return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
     }
-
 }

@@ -24,7 +24,7 @@ public class DisplayCommand extends Command {
             + "Parameter: USER_STATE_INSTANCE_ID (p -> Projection, b -> Budget)\n"
             + "Example: " + seedu.address.logic.commands.DisplayCommand.COMMAND_WORD + " p1";
 
-    public static final String MESSAGE_SUCCESS = "Display %s success! Enter \"close\" to terminate display window\n";
+    public static final String MESSAGE_SUCCESS = "Display %s success! Enter \"ALT-F4\" to terminate display window\n";
 
     private final String stateType;
     private final Index targetIndex;
@@ -48,7 +48,7 @@ public class DisplayCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_PROJECTION_DISPLAYED_INDEX);
             }
             lastShownList.get(targetIndex.getZeroBased()).displayAsStage();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "transactions"));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "projection"));
         } else if (this.stateType.equals("b")) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
 

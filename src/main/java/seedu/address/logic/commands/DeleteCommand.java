@@ -52,6 +52,14 @@ public class DeleteCommand extends Command {
 
             BankAccountOperation transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteTransaction(transactionToDelete);
+            model.getFilteredProjectionsList().forEach(x -> {
+                model.deleteProjection(x);
+                if (x.getBudget().isPresent()) {
+                    model.add(new Projection(model.getFilteredTransactionList(), x.getDate(), x.getBudget().get()));
+                } else {
+                    model.add(new Projection(model.getFilteredTransactionList(), x.getDate()));
+                }
+            });
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete),
                     false, false, Tab.TRANSACTION);
@@ -64,6 +72,12 @@ public class DeleteCommand extends Command {
 
             Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteBudget(budgetToDelete);
+            model.getFilteredProjectionsList().forEach(x -> {
+                if (x.getBudget().isPresent() && x.getBudget().equals(budgetToDelete)) {
+                    model.deleteProjection(x);
+                    model.add(new Projection(x.getTransactionHistory(), x.getDate()));
+                }
+            });
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, budgetToDelete),
                     false, false, Tab.BUDGET);

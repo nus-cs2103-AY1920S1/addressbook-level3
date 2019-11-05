@@ -89,7 +89,7 @@ public class ProjectCommand extends Command {
 
         if (model.has(this.projection)) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, this.projection.getDate().toString()),
-                    false, false, Tab.BUDGET);
+                    false, false, Tab.PROJECTION);
         }
         model.add(this.projection);
         model.commitUserState();

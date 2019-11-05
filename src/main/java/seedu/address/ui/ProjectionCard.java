@@ -32,9 +32,14 @@ public class ProjectionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         amount.setText(projection.getProjection().toString());
         date.setText(projection.getDate().toString());
-        String budget = projection.getBudgetForecastAbbreviatedText();
-        if (budget.length() > 0) {
+        if (projection.getBudget().isPresent()) {
+            budgetInfo.getChildren().add(new Label(projection.getBudget().get().toString()));
             budgetInfo.getChildren().add(new Label(projection.getBudgetForecastAbbreviatedText()));
+            if (projection.isOnTrackToMeetBudget()) {
+                budgetInfo.setId("SURPLUS");
+            } else {
+                budgetInfo.setId("DEFICIT");
+            }
         }
     }
 

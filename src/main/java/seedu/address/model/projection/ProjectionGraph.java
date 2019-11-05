@@ -31,7 +31,6 @@ public class ProjectionGraph extends StackPane {
     private double yRange;
 
     ProjectionGraph(Projection projection) {
-
         this.gradientDescent = projection.getProjector();
         this.budget = projection.getBudget().orElse(null);
 

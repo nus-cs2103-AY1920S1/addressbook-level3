@@ -91,6 +91,10 @@ public class Projection {
         return this.date;
     }
 
+    public boolean isOnTrackToMeetBudget() {
+        return this.onTrackToMeetBudget;
+    }
+
     public ObservableList<BankAccountOperation> getTransactionHistory() {
         return this.transactionHistory;
     }

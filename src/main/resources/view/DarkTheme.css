@@ -359,3 +359,21 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#DEFICIT .label {
+    -fx-background-color: #DC143C;
+    -fx-text-fill: white;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#SURPLUS .label {
+    -fx-background-color: #BDB76B;
+    -fx-text-fill: white;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
