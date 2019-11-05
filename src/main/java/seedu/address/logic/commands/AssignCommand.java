@@ -30,7 +30,7 @@ public class AssignCommand extends Command {
             + PREFIX_MEMBER_ID + "JD";
 
     public static final String MESSAGE_ASSIGN_SUCCESS = "Task set under member";
-    public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
+    public static final String MESSAGE_DUPLICATE_MAPPING = "This assignment already exists!";
 
     private final Index taskId;
     private final MemberId memberId;
