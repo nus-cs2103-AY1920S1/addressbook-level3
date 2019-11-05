@@ -671,6 +671,7 @@ Currently, the following commands are undoable and redoable. +
 
 [underline]#Examples#:
 
+// tag::statisticsCommand[]
 * Redo clear Customer Book
 . `clear-c`
 . `undo`
