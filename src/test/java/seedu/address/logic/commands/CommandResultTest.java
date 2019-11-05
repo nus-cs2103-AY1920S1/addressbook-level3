@@ -7,14 +7,89 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.ui.tab.Tab;
+
 public class CommandResultTest {
+    @Test
+    public void getFeedBackToUser() {
+        CommandResult commandResult = new CommandResult("feedback");
+        String feedback = commandResult.getFeedbackToUser();
+
+        // same values -> returns true
+        assertEquals(feedback, new CommandResult("feedback").getFeedbackToUser());
+
+        // different values -> returns false
+        assertNotEquals(feedback, new CommandResult("false").getFeedbackToUser());
+
+        CommandResult warningCommandResult = new CommandResult(
+            "feedback", "warnings1", "warnings2");
+        String warningFeedback = warningCommandResult.getFeedbackToUser();
+
+        // same values -> returns true
+        assertEquals(warningFeedback, new CommandResult(
+            "feedback", "warnings1", "warnings2").getFeedbackToUser());
+
+        // different values -> returns false
+        assertNotEquals(warningFeedback, new CommandResult(
+            "feedback", "warnings", "warningsFalse"));
+    }
+
+    @Test
+    public void isShowHelp() {
+        CommandResult commandResult =
+            new CommandResult("feedback", true, false, null);
+        boolean showHelp = commandResult.isShowHelp();
+
+        // same values -> returns true
+        assertEquals(showHelp,
+            new CommandResult("feedback", true, false, null).isShowHelp());
+
+        // different values -> returns false
+        assertNotEquals(showHelp,
+            new CommandResult("feedback", false, false, null).isShowHelp());
+    }
+
+    @Test
+    public void isExit() {
+        CommandResult commandResult =
+            new CommandResult("feedback", true, false, null);
+        boolean exit = commandResult.isExit();
+
+        // same values -> returns true
+        assertEquals(exit,
+            new CommandResult("feedback", true, false, null).isExit());
+
+        // different values -> returns false
+        assertNotEquals(exit,
+            new CommandResult("feedback", false, true, null).isExit());
+    }
+
+    @Test
+    public void isSwitchTab() {
+        CommandResult commandResult =
+            new CommandResult("feedback", true, false, Tab.BUDGET);
+        Tab tab = commandResult.getTab();
+        boolean switchTab = commandResult.isSwitchTab();
+
+        // same values -> returns true
+        assertEquals(tab,
+            new CommandResult("feedback", true, false, Tab.BUDGET).getTab());
+        assertEquals(switchTab,
+            new CommandResult("feedback", true, false, Tab.BUDGET).isSwitchTab());
+
+        // different values -> returns false
+        assertNotEquals(tab,
+            new CommandResult("feedback", false, false, Tab.TRANSACTION).getTab());
+    }
+
     @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
+        assertTrue(commandResult.equals(
+            new CommandResult("feedback", false, false, null)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -29,10 +104,16 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false)));
+        assertFalse(commandResult.equals(
+            new CommandResult("feedback", true, false, null)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+        assertFalse(commandResult.equals(
+            new CommandResult("feedback", false, true, null)));
+
+        // different switchTab value -> returns false
+        assertFalse(commandResult.equals(
+            new CommandResult("feedback", false, false, Tab.BUDGET)));
     }
 
     @Test
@@ -46,9 +127,15 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false).hashCode());
+        assertNotEquals(commandResult.hashCode(),
+            new CommandResult("feedback", true, false, null).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+        assertNotEquals(commandResult.hashCode(),
+            new CommandResult("feedback", false, true, null).hashCode());
+
+        // different switchTabValue -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(),
+            new CommandResult("feedback", false, false, Tab.BUDGET).hashCode());
     }
 }

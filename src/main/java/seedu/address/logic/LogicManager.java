@@ -10,11 +10,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.MainParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.projection.Projection;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.storage.Storage;
 
 /**
@@ -23,15 +26,14 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final MainParser mainParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        mainParser = new MainParser();
     }
 
     @Override
@@ -39,11 +41,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = mainParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveUserState(model.getUserState());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,18 +54,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyUserState getUserState() {
+        return model.getUserState();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getUserStateFilePath() {
+        return model.getUserStateFilePath();
     }
 
     @Override
@@ -75,4 +72,30 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public ObservableList<BankAccountOperation> getFilteredTransactionList() {
+        return model.getFilteredTransactionList();
+    }
+
+    @Override
+    public ObservableList<BankAccountOperation> getTransactionList() {
+        return model.getFilteredTransactionList();
+    }
+
+    @Override
+    public ObservableList<Budget> getBudgetList() {
+        return model.getFilteredBudgetList();
+    }
+
+    @Override
+    public ObservableList<LedgerOperation> getLedgerOperationsList() {
+        return model.getFilteredLedgerOperationsList();
+    }
+
+    @Override
+    public ObservableList<Projection> getProjectionList() {
+        return model.getFilteredProjectionsList();
+    }
+
 }

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+﻿= PalPay - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,33 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W12-3`      Since: `Sep 2019`      Licence: `MIT`
+
+== Introduction
+
+=== Purpose
+
+This document describes the architecture and system design of _PalPay_.
+It is a living document that evolves throughout the design and implementation for each release.
+Each release will have an edition of the document, and the current edition of the document is for the first public release of the application.
+
+This document is aimed at covering the high-level system architecture and design.
+It is segmented into two major parts: software design, including system architecture, and design implementation.
+The software design documents the main software components that operate and support the main system architecture.
+Essential details such as the user stories and use cases, as well as the Non Functional Requirements are included at the back of the document.
+
+=== Audience
+
+This document is written for software engineers want to gain an insight of the system architecture and design of the application.
+In particular, the intended audience of this document is the students taking the roles of the developers, designers, and software testers of _PalPay_ from CS2103T - Software Engineering.
+
+=== Description
+
+_PalPay_ is a CLI application targeted for users who have poor financial management skills.
+It allows the users to keep track of daily financial transactions, as well as set a budget for a time duration to achieve long-term financial success.
+Not only that, users can keep a ledger of lending and borrowing of money with others so that the users can keep track of the flow of their money.
 
 == Setting up
 
@@ -28,13 +52,11 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`].
+It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -58,6 +80,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
+//TODO: Update class diagram
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -72,16 +95,19 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -89,7 +115,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -98,41 +124,45 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+. `Logic` uses the `BankAccountParser` class to parse the user command.
+. This results in a `Command` object which is executed by the `LogicManager`.
+. The command execution can affect the `Model` (e.g. adding a transaction).
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete t1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete t1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
+// TODO: check accuracy?
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Bank Account data.
+* exposes an unmodifiable `ObservableList<BankOperation>` and `ObservableList<Budget>`
+that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change due to user command.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+//[NOTE]
+//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
+//This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+//An example of how such a model may look like is given below. +
+//+
+//image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -142,10 +172,10 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Bank Account data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common Classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -154,65 +184,121 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+//=== [Proposed] Undo/Redo Feature
+//
+//==== Proposed Implementation
+//
+//The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+//It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+//Additionally, it implements the following operations:
+//
+//* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+//* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+//* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+//
+//These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+//
+//Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+//
+//Step 1. The user launches the application for the first time.
+//The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+//
+//image::UndoRedoState0.png[]
+//
+//Step 2. The user executes `delete 5` command to delete the 5th person in the address book.
+//The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+//
+//image::UndoRedoState1.png[]
+//
+//Step 3. The user executes `add n/David ...` to add a new person.
+//The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+//
+//image::UndoRedoState2.png[]
+//
+//[NOTE]
+//If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+//
+//Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command.
+//The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+//
+//image::UndoRedoState3.png[]
+//
+//[NOTE]
+//If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore.
+//The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case.
+//If so, it will return an error to the user rather than attempting to perform the undo.
+//
+//The following sequence diagram shows how the undo operation works:
+//
+//image::UndoSequenceDiagram.png[]
+//
+//NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+//
+//The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+//
+//[NOTE]
+//If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore.
+//The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case.
+//If so, it will return an error to the user rather than attempting to perform the redo.
+//
+//Step 5. The user then decides to execute the command `list`.
+//Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`.
+//Thus, the `addressBookStateList` remains unchanged.
+//
+//image::UndoRedoState4.png[]
+//
+//Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`.
+//Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged.
+//We designed it this way because it no longer makes sense to redo the `add n/David ...` command.
+//This is the behavior that most modern desktop applications follow.
+//
+//image::UndoRedoState5.png[]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+// tag::transaction[]
+=== Transaction: `in` / `out` / `split`
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The `Transaction` abstract class allows user to input income, expense or split commands into the PalPay.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+==== Current Implementation
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extends the `Transaction` class.
+`Transaction` stores an *amount*, *date* and a set of *categories*. This describes the variables a `Transaction` with the `BankAccount` will typically hold.
+`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
+`inTransaction` and `outTransaction` implements `BankAccountOperation`.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+==== Design Considerations
 
-image::UndoRedoState0.png[]
+Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
+`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`, this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
+This allows multiple transaction calls within the same method.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+// end::transaction[]
 
-image::UndoRedoState1.png[]
+// tag::update[]
+=== Update: `update`
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+This feature allows users to update either the **Amount**, **Date** or **Category** of either a Transaction or Budget.
 
-image::UndoRedoState2.png[]
+==== Design Considerations
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+This `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended). This will minimize the need to input all non-required parameters if a user does not require all parameters of a Transaction or Budget to be changed.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+===== Aspect: Update requires `TYPE+INDEX` as one of its parameter
 
-image::UndoRedoState3.png[]
+* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
+** Pros: Requires lesser user steps to be taken before executing a `update` command
+** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
+For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1`)
+** Pros: Requires only one unique list required to store both Transactions and Budgets.
+** Cons: Requires additional user step to switch between modes before executing a updating command.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+// end::update[]
 
-The following sequence diagram shows how the undo operation works:
+// tag::undoredo[]
+=== Undo / Redo Command Feature: `undo`/`redo`
 
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+==== Current Implementation
 
 ==== Design Considerations
 
@@ -229,22 +315,236 @@ image::CommitActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice.
+For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
+Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::delete[]
+=== Delete Transaction Feature: `delete`
 
-_{Explain here how the data encryption feature will be implemented}_
+This feature allows the user to delete an existing transaction or budget from the list. +
+The following activity diagram summarizes what happens when a user executes Delete command:
 
-// end::dataencryption[]
+.Activity Diagram of Delete Command
+image::DeleteActivityDiagram.png[]
+
+==== Current Implementation
+
+`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
+`Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
+`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
+`inTransaction` and `outTransaction` implement `BankAccountOperation`.
+
+==== Design Consideration
+
+===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
+
+Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
+`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`,
+this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
+This allows multiple transaction calls within the same method.
+
+// end::delete[]
+
+// tag::sort[]
+=== Sort Feature: `sort`
+
+This feature allows the user to _sort_ their bank account by the _amount_ or _date_ of their transactions by using the command `sort amount` or `sort date` respectively.
+
+==== Current Implementation
+
+The `sort` command is facilitated by the _Logic_ and _Model_ components of the application.
+
+The following sequence diagram shows how the sorting of transactions work when the user enters `sort amount`.
+
+.Sequence Diagram for `sort amount`
+image::SortSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Sorting of the Bank Account
+
+* **Alternative 1 (Current Choice):** Creating a comparator for each area to be sorted.
+** **Pros:** Easy to implement.
+** **Cons:** Users can only sort by comparators that have been implemented.
+Developers have to create a new comparator class to sort a new area.
+* **Alternative 2:** Users can define the area to be sorted.
+** **Pros:** Extremely flexible for the users as they are not limited to the number of areas to be sorted.
+** **Cons:** Difficult to implement.
+
+// end::sort[]
+
+// tag::filter[]
+=== Filter Feature: `filter`
+
+This feature allows the user to _filter_ their bank account by the _category_ of their transactions by using the
+ `filter [CATEGORY]...`.
+
+==== Overview
+
+The `FilterCommandParser` implements `Parser` with the following operation:
+
+* `FilterCommandParser#parse()`: This operation will take in a `String` input from the user that represents different categories delimited by a whitespace.
+It will then create a `TransactionContainsCategoriesPredicate` and passed into a new `FilterCommand`.
+Finally, this operation will return the new `FilterCommand`.
+
+==== Current Implementation
+
+The `filter` command is facilitated by the `FilterCommandParser` and `FilterCommand` of the application.
+PalPay filters the list of transactions by checking if any of the specified categories exists in the transaction.
+
+For instance, the command `filter breakfast dinner` would display a list of transactions with categories of breakfast or dinner or both.
+
+The following class diagram depicts the relations of the FilterCommand, FilterCommandParser and its related classes.
+
+.Class Diagram for `Filter`
+image::FilterClassDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Filtering by multiple categories
+
+* **Alternative 1 (Current Choice):** Creating one predicate for all categories to be sorted.
+** **Pros:** Extremely flexible for the users as they are not limited to the number of categories to be filtered.
+** **Cons:** Difficult to implement.
+* **Alternative 2:** Creating a predicate for each category to be sorted.
+** **Pros:** Easy to implement.
+** **Cons:** Users can only filter by predicates that have been implemented.
+Developers have to create a new predicate class to filter a new category.
+
+// end::filter[]
+
+// tag::view[]
+=== View Feature: `view`
+
+This feature allows the user to switch between the different tabs of the application.
+
+==== Current Implementation
+
+The `view` command is facilitated by the `MainWindow`, `MainTabPanel`, `ViewCommandParser` and `ViewCommand`.
+
+The following activity diagram shows the flow of the `view` command.
+
+.Activity Diagram for `View`
+image::ViewActivityDiagram.png[]
+// end::view[]
+
+// tag::split[]
+=== Split Feature: `split`
+
+This feature allows the user to pay for a certain item or make a transaction on behalf of his friends.
+Refer to the <<UserGuide#Features, UserGuide>> for usage details.
+
+==== Current Implementation
+
+The `split` command is an abstraction of `LendMoney` class. +
+Given a list of *shares* and *people*, each person is assigned an *amount* based on the corresponding positional share and the total amount given to `split` command. +
+A `LendMoney` instance is created for each person and executed.
+
+image::LedgerOperationDiagram.png[]
+
+==== Design Considerations
+
+Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
+However, this introduces coupling as the behavior of `Split` is now inexplicably tied to `LendMoney`.
+
+// TODO: add sequence diagram here
+
+// end::split[]
+
+=== Settle Up Feature: `pay`
+
+This feature allows the user to send money to another person. +
+The balance in the `Ledger` and the balance of the recipient is updated accordingly.
+
+==== Current Implementation
+
+The `pay` command creates `LendMoney` class that handles the transfer of fund from the user to another person.
+
+// TODO: add sequence diagram here
+
+// tag::set[]
+=== Set Budget Feature: `set`
+
+This feature allows the user to set a budget for a given time period for a category, if specified.
+The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *tag*) are not allowed.
+Upon setting the budget and prior to the deadline, the user's `OutTransaction` will deduct the amount from each budget in the list respectively.
+
+==== Current Implementation
+
+The `set` command is an extension of parent `Command` class, facilitated by the _Logic_ and _Model_ components of the application, _PalPay_ +
+Given an *amount* and *date*, a new Budget is set for the user. +
+Upon setting a new budget, a `BudgetCard` is created and displayed in a list in the application window till the date set by the user. +
+
+// TODO: add PUML figure for Sequence diagram
+
+
+==== Design Considerations
+
+Currently, `Budget` does not extend from `Transaction` although the two behave in a similar way.
+There is an aggregation between `Budget` and `Transaction` as the two can exist independent of each other,
+although an effect on one may also cause an impact on the other.
+The current design was chosen over the former design of inheritance as there is a stark difference in the two
+in a way that `Budget` does not affect the `balance` of the user's bank account directly while `Transaction` does.
+Hence, by Liskov Substitution Principle, inheritance is not a suitable design. +
+
+// end::set[]
+
+// tag::project[]
+[[Implementation-Projection]]
+=== Project Balance Feature: `project`
+
+This feature allows users to _project_ their balance status based on past income and outflows as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
+
+==== Current Implementation
+
+The `project` command is facilitated by the Logic and Model components of the application, _PalPay_
+
+The sequence diagram below demonstrates how the `project [DATE]` command is handled by the application.
+
+.Sequence Diagram of Project Command
+image::Project.png[ProjectCommand Sequence Diagram]
+
+==== Future Enhancements
+
+===== Graphical Representation
+
+In future updates, the _user's_ balance projection will be displayed as a linear graph plotted against time, up until the date specified by the user in the command.
+
+===== Projection by Category
+
+In future updates, the _user_ will be able to customise projections beyond specifying a single date.
+Some possible customizations include solely projection _income_ / _outflow_ amounts, and filtered projections based on _categories_.
+For instance, `project d/22112019 c/Food -o` will project the _user's_ spending (or outflow, as denoted by the `-o` flag) on Food (specified by the `c/Food` tag) up until the 22nd of November, 2019 (specified by the `d/22112019` tag).
+
+==== Design Considerations
+
+The project command has multiple possible implementations as to how the projection may be computed.
+In the current implementation, the projected amount is calculated via the following equation:
+
+_Projected Balance = Current Balance - [(Past Income - Past Outflow) / Total Days Elapsed] * Days Until Date of Projection_
+
+While this algorithm allows for simple and fast computation, it does not hedge against one-time big purchases.
+For example, if the user were to buy a computer, his outflow projection is likely to be proportionally larger in the short run.
+
+==== Alternative Implementations
+
+===== Linear Regression
+
+In light of the above-mentioned limitation, a possible algorithm to be used is the
+https://en.wikipedia.org/wiki/Gradient_descent#targetText=Gradient%20descent%20is%20a%20first,function%20at%20the%20current%20point[_Gradient Descent_]
+algorithm in finding a best fit projection line for the user's balance.
+However, this will increase the computational cost of the `project` function significantly, causing _PalPay_ to run slower overall.
+// end::project[]
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging.
+The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
@@ -295,17 +595,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |data-oriented person |see an overview of my transactions in an intuitive graph |gain insights at a glance
+
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |student |input my spending into different categories |manage my expenses better
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |visual person | see how much budget I have left in each category |cut down on spending as necessary
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |student with many friends |split the bill with my friends |know how much I should payment for a meal
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student who forgets to payment his debt on time |be reminded to payment my debt before the deadline |stop incurring interests
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |patriotic Singaporean who travels to JB often |easily calculate how much Ringgit to bring |enjoy my holiday with insufficient money
+
+|`* *` |thrifty person |see how my savings or spending will project into the future |plan my budget
+
+|`*` |user who forgets to save money |be incentivized me to save money |be motivated to not overspend/save money
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,52 +620,73 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `PalPay` and the **Actor** is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add an income
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add an income amount.
+2. PalPay adds the income amount.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a.
+Amount entered by the user is invalid.
++
+[none]
+** 1a1. PalPay shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete expense
+
+*MSS*
+
+1. User requests to view spending.
+2. PalPay shows the list of expenses since beginning of time.
+3. User requests to delete an expense.
+4. PalPay deletes the specified expense.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a.
+User speicified days passed since.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. PalPay shows the list of expenses since the time period specified.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Should work on any <<mainstream-os,mainstream OS>> with JDK 11 or above installed.
+. A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Upon user input, PalPay should execute tasks (and display results) within 1 second.
+. Users should have (and be able to specify) default options such that they can issue minimal commands for common tasks.
+. Should be quick and efficient, with each user session lasting no longer than 3 minutes to effectively manage his current financial state.
+. Should not make users feel defeated, but rather empowered in managing their finances.
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+[[mainstream-os]]
+Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
+[[private-contact-detail]]
+Private contact detail::
 A contact detail that is not meant to be shared with others
 
 [appendix]
@@ -392,31 +720,39 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts.
+The window size may not be optimum.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to an optimum size.
+Move the window to a different location.
+Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Person
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all persons using the `list` command.
+Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list.
+Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No person is deleted.
+Error details shown in the status message.
+Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 

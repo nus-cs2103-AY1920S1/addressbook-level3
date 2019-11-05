@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,7 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.projection.Projection;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +23,32 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final VersionedUserState versionedUserState;
+    private final FilteredList<BankAccountOperation> filteredTransactions;
+    private final FilteredList<Budget> filteredBudgets;
+    private final FilteredList<LedgerOperation> filteredLedgerOperations;
+    private final FilteredList<Projection> filteredProjections;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given bankAccount and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyUserState userState, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(userState, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with bank account" + userState + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.versionedUserState = new VersionedUserState(userState);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTransactions = new FilteredList<>(this.versionedUserState.getBankAccount().getTransactionHistory());
+        filteredBudgets = new FilteredList<>(this.versionedUserState.getBankAccount().getBudgetHistory());
+        filteredLedgerOperations = new FilteredList<>(this.versionedUserState.getLedger().getLedgerHistory());
+        filteredProjections = new FilteredList<>(this.versionedUserState.getBankAccount().getProjectionHistory());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new UserState(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -65,68 +75,166 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //=========== Bank Account =============================================================
+
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getUserStateFilePath() {
+        return userPrefs.getUserStateFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setUserStateFilePath(Path userStateFilePath) {
+        requireNonNull(userStateFilePath);
+        userPrefs.setUserStateFilePath(userStateFilePath);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setUserState(ReadOnlyUserState userState) {
+        requireNonNull(userState);
+        this.versionedUserState.resetData(userState);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyBankAccount getBankAccount() {
+        return versionedUserState.getBankAccount();
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public ReadOnlyUserState getUserState() {
+        return this.versionedUserState;
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public boolean has(BankAccountOperation transaction) {
+        requireNonNull(transaction);
+        return versionedUserState.getBankAccount().has(transaction);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public boolean has(Budget budget) {
+        requireNonNull(budget);
+        return versionedUserState.getBankAccount().has(budget);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public boolean has(LedgerOperation ledgerOperation) {
+        return versionedUserState.getLedger().has(ledgerOperation);
+    }
+
+    @Override
+    public boolean has(Projection projection) {
+        return versionedUserState.getBankAccount().has(projection);
+    }
+
+    @Override
+    public void deleteTransaction(BankAccountOperation transaction) {
+        versionedUserState.remove(transaction);
+    }
+
+    @Override
+    public void deleteBudget(Budget budget) {
+        versionedUserState.remove(budget);
+    }
+
+    @Override
+    public void deleteProjection(Projection projectionToDelete) {
+        versionedUserState.remove(projectionToDelete);
+    }
+
+    @Override
+    public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
+        requireAllNonNull(transactionTarget, transactionEdit);
+
+        versionedUserState.set(transactionTarget, transactionEdit);
+    }
+
+    @Override
+    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+        requireAllNonNull(budgetTarget, budgetEdit);
+
+        versionedUserState.set(budgetTarget, budgetEdit);
+    }
+
+    @Override
+    public void add(Budget budget) {
+        versionedUserState.add(budget);
+    }
+
+    @Override
+    public void add(BankAccountOperation operation) {
+        versionedUserState.add(operation);
+    }
+
+    @Override
+    public void add(LedgerOperation operation) {
+        versionedUserState.add(operation);
+    }
+
+    @Override
+    public void add(Projection projection) {
+        versionedUserState.add(projection);
+    }
+
+    @Override
+    public ObservableList<BankAccountOperation> getFilteredTransactionList() {
+        return filteredTransactions;
+    }
+
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return filteredBudgets;
+    }
+
+    @Override
+    public ObservableList<LedgerOperation> getFilteredLedgerOperationsList() {
+        return filteredLedgerOperations;
+    }
+
+    @Override
+    public ObservableList<Projection> getFilteredProjectionsList() {
+        return filteredProjections;
+    }
+
+    @Override
+    public boolean canUndoUserState() {
+        return versionedUserState.canUndo();
+    }
+
+    @Override
+    public void undoUserState() {
+        versionedUserState.undo();
+    }
+
+    @Override
+    public boolean canRedoUserState() {
+        return versionedUserState.canRedo();
+    }
+
+    @Override
+    public void redoUserState() {
+        versionedUserState.redo();
+    }
+
+    @Override
+    public void commitUserState() {
+        versionedUserState.commit();
+    }
+
+    @Override
+    public void setTransactions(List<BankAccountOperation> transactionHistory) {
+        versionedUserState.set(transactionHistory);
+    }
+
+    @Override
+    public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredTransactions.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredLedgerList(Predicate<LedgerOperation> predicate) {
+        requireNonNull(predicate);
+        filteredLedgerOperations.setPredicate(predicate);
     }
 
     @Override
@@ -143,9 +251,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+        return versionedUserState.equals(other.versionedUserState)
+            && userPrefs.equals(other.userPrefs)
+            && filteredTransactions.equals(other.filteredTransactions)
+            && filteredBudgets.equals(other.filteredBudgets);
     }
 
 }

@@ -5,9 +5,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Split;
 
 /**
  * Represents a Person in the address book.
@@ -17,23 +20,39 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Optional<Phone> phone;
+    private final Optional<Email> email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Optional<Address> address;
+    private final Set<Category> categories = new HashSet<>();
+
+    private Amount balance;
 
     /**
-     * Every field must be present and not null.
+     * Only name must be non-null
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Category> categories, Amount amount) {
+        requireAllNonNull(name, phone, email, address, categories, amount);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.phone = Optional.of(phone);
+        this.email = Optional.of(email);
+        this.address = Optional.of(address);
+        this.categories.addAll(categories);
+        this.balance = amount;
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Category> categories) {
+        this(name, phone, email, address, categories, Amount.zero());
+    }
+
+    public Person(Name name) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.phone = Optional.empty();
+        this.email = Optional.empty();
+        this.address = Optional.empty();
+        this.balance = Amount.zero();
     }
 
     public Name getName() {
@@ -41,23 +60,27 @@ public class Person {
     }
 
     public Phone getPhone() {
-        return phone;
+        return phone.orElse(new Phone("65166666"));
     }
 
     public Email getEmail() {
-        return email;
+        return email.orElse(new Email("empty@emptyemail.com"));
     }
 
     public Address getAddress() {
-        return address;
+        return address.orElse(new Address("empty"));
+    }
+
+    public Amount getBalance() {
+        return balance;
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
     /**
@@ -70,9 +93,20 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+            && otherPerson.getName().equals(getName());
     }
+
+    /**
+     * @param amount amount of money spent in {@link Split}
+     */
+    public void spend(Amount amount) {
+        balance = balance.subtractAmount(amount);
+    }
+
+    public void receive(Amount amount) {
+        balance = balance.addAmount(amount);
+    }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.
@@ -90,30 +124,32 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+            && otherPerson.getPhone().equals(getPhone())
+            && otherPerson.getEmail().equals(getEmail())
+            && otherPerson.getAddress().equals(getAddress())
+            && otherPerson.getCategories().equals(getCategories());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, categories);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+            .append(" Balance: ")
+            .append(getBalance())
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" Categories: ");
+        getCategories().forEach(builder::append);
         return builder.toString();
     }
 

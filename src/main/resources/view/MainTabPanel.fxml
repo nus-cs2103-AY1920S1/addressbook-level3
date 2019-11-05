@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <TabPane fx:id="mainTabPanel" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Transaction">
+                <content>
+                    <VBox fx:id="transactionList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="transactionListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Budget">
+                <content>
+                    <VBox fx:id="budgetList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="budgetListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Ledger">
+                <content>
+                    <VBox fx:id="ledgerList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="ledgerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Projection">
+                <content>
+                    <VBox fx:id="projectionGraph" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="projectionGraphPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>
