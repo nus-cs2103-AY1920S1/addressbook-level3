@@ -11,6 +11,9 @@ import seedu.address.logic.commands.addcommands.AddBudgetCommand;
 import seedu.address.logic.commands.addcommands.AddCategoryCommand;
 import seedu.address.logic.commands.addcommands.AddCommand;
 import seedu.address.logic.commands.BudgetListCommand;
+import seedu.address.logic.commands.addcommands.AddExpenseCommand;
+import seedu.address.logic.commands.addcommands.AddIncomeCommand;
+import seedu.address.logic.commands.addcommands.AddWishCommand;
 import seedu.address.logic.commands.uicommands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -63,6 +66,9 @@ import seedu.address.logic.parser.addcommandparsers.AddAutoExpenseCommandParser;
 import seedu.address.logic.parser.addcommandparsers.AddBudgetCommandParser;
 import seedu.address.logic.parser.addcommandparsers.AddCategoryCommandParser;
 import seedu.address.logic.parser.addcommandparsers.AddCommandParser;
+import seedu.address.logic.parser.addcommandparsers.AddExpenseCommandParser;
+import seedu.address.logic.parser.addcommandparsers.AddIncomeCommandParser;
+import seedu.address.logic.parser.addcommandparsers.AddWishCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
@@ -129,8 +135,17 @@ public class GuiltTripParser {
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);
 
+        case AddExpenseCommand.COMMAND_WORD:
+            return new AddExpenseCommandParser().parse(arguments);
+
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
+
+        case AddIncomeCommand.COMMAND_WORD:
+            return new AddIncomeCommandParser().parse(arguments);
+
+        case AddWishCommand.COMMAND_WORD:
+            return new AddWishCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
