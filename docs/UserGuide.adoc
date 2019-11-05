@@ -220,13 +220,15 @@ Edits the phone number of the current contact in view to `999`. No changes are m
 Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
 // end::edit[]
 
-=== Finding contacts or activities (v1.4): `find`
+=== Finding contacts or activities: `find`
 
 Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
 
 Format: `find KEYWORD ...`
 
 ****
+* Find command can only be used when viewing list of activities or contacts.
+* Find command will search for activities if used under list activity view. If used under list contact view, the find command will search for contacts.
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name of contacts and title of activities are searched.
@@ -237,9 +239,8 @@ Format: `find KEYWORD ...`
 Examples:
 
 * `find John` +
-Returns contacts (e.g. `john` and `John Doe`) and activities (e.g. `John birthday party`).
-* `find Betsy Tim John` +
-Returns any contact or activity whose name or title contains the word `Betsy`, `Tim`, or `John`.
+If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
+If currently viewing list of activities, returns activities (e.g `lunch with john`).
 
 === Deleting a contact, activity or expense (v1.4) : `delete`
 
