@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.ReceiveMoney;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Splits an amount into smaller different amounts.
@@ -40,11 +41,11 @@ public class ReceiveCommand extends Command {
         requireNonNull(model);
 
         if (model.has(transaction)) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction));
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction), false, false, Tab.LEDGER);
         } else {
             model.add(transaction);
             model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.LEDGER);
         }
     }
 

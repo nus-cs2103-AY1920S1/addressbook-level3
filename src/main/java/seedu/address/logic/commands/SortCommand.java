@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.model.Model;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Sorts all transactions in the bank account to the user.
@@ -37,7 +38,7 @@ public class SortCommand extends Command {
             model.getBankAccount().getSortedTransactionHistory(comparator);
         model.setTransactions(sortedTransactionHistory);
         model.commitUserState();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, Tab.TRANSACTION);
     }
 
     @Override
