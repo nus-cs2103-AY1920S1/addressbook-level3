@@ -21,9 +21,6 @@ public class GmapsApi {
 
     private static final Logger logger = LogsCenter.getLogger(GmapsApi.class);
 
-    public GmapsApi() {
-    }
-
     /**
      * This method is used to execute the Google Maps distance matrix API. It will return
      * a complete matrix mapping of all the String in the locations

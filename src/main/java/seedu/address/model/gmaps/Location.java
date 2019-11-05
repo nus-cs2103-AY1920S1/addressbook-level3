@@ -10,8 +10,8 @@ public class Location {
     private String placeId = null;
     private String locationName;
     private String validLocation = null;
-    private String lat;
-    private String lng;
+    private String lat = "";
+    private String lng = "";
 
     public Location(String locationName) {
         requireNonNull(locationName);
