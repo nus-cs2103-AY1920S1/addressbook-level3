@@ -12,41 +12,24 @@ public class Budget extends Entry {
 
     private static final String ENTRY_TYPE = "Budget";
 
-    private Amount spent;
+    private BudgetAmount spent;
     private final Period period;
     private final Date startDate;
     private final Date endDate;
     private FilteredList<Expense> filteredExpenses;
     private ExpenseMatchesBudgetPredicate expenseMatchesBudgetPredicate;
 
-
-    /*
-    Date - start date
-    Period - time period for which budget is effective
-    private end date = start date + period
-
-    loop through income/ expense list
-    - if income/budget is in same cat as budget && date is within start date - end date
-    - budget add/minus income/budget
-
-    LocalDate functions - plusDays(long daysToAdd)
-                        - plusWeeks(long weeksToAdd)
-                        - plusMonths(long monthsToAdd)
-                        - plusYears(long yearsToAdd)
-
-     Parser e.g. 10d/ 2m/ 1y
-     */
     public Budget(Category cat, Description desc, Date startDate, Period period, Amount amount, Set<Tag> tags) {
         super(cat, desc, startDate, amount, tags);
         this.startDate = startDate;
         this.period = period;
         endDate = startDate.plus(period);
-        spent = new Amount("0");
+        spent = new BudgetAmount("0");
         new Budget(cat, desc, startDate, period, amount, tags, spent);
     }
 
     public Budget(Category cat, Description desc, Date startDate, Period period, Amount amount,
-                  Set<Tag> tags, Amount spent) {
+                  Set<Tag> tags, BudgetAmount spent) {
         super(cat, desc, startDate, amount, tags);
         this.startDate = startDate;
         this.period = period;
@@ -61,7 +44,7 @@ public class Budget extends Entry {
      *
      * @return amount Amount spent (calculated from expenses)
      */
-    public Amount getSpent() {
+    public BudgetAmount getSpent() {
         return spent;
     }
 
@@ -82,7 +65,7 @@ public class Budget extends Entry {
     }
 
     public void setSpentAmount(Amount amount) {
-        spent = amount;
+        spent = new BudgetAmount(amount.value);
     }
 
     public void setSpent(FilteredList<Expense> filteredExpenses) {
@@ -99,7 +82,7 @@ public class Budget extends Entry {
         for (Expense expense : filteredExpenses) {
             spentAmount += expense.getAmount().value;
         }
-        spent = new Amount(Double.toString(spentAmount));
+        spent = new BudgetAmount(spentAmount);
         return new Budget(getCategory(), getDesc(), getDate(), period, getAmount(), getTags(), spent);
     }
 

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
+
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
@@ -261,12 +262,12 @@ public interface Model {
     /**
      * Returns true if the model has previous finance tracker states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoAddressBook(Step step);
 
     /**
      * Returns true if the model has undone finance tracker states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoAddressBook(Step step);
 
     /**
      * Restores the model's finance tracker to its previous state.

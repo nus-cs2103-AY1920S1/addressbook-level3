@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
-
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
@@ -73,8 +72,8 @@ public class ParserUtil {
         return indexList;
     }
     /**
-     * Parses a {@code String name} into a {@code Name}. Leading and trailing
-     * whitespaces will be trimmed.
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -129,6 +128,24 @@ public class ParserUtil {
     public static Date parseTime(Optional<String> time) {
         requireNonNull(time);
         return time.isPresent() ? new Date(time.get()) : Date.now();
+    }
+
+    /**
+     * Parses step
+     *
+     * @param step the time as a String.
+     * @return the specified time as Time.
+     */
+    public static Step parseStep(String step) throws ParseException {
+        String trimmedStep = step.trim();
+        if (!Step.isValidStep(trimmedStep)) {
+            throw new ParseException(Step.MESSAGE_CONSTRAINTS);
+        }
+        if (trimmedStep.isEmpty()) {
+            return new Step("1");
+        } else {
+            return new Step(trimmedStep);
+        }
     }
 
     /**
@@ -273,7 +290,6 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD
      * Parses {@code String trackerType} into {@code TrackerType}
      * @param trackerType
      * @return

@@ -9,17 +9,17 @@ import seedu.guilttrip.model.Model;
 /**
  * Lists all persons in the guilttrip book to the user.
  */
-public class BudgetListCommand extends Command {
+public class ListBudgetCommand extends Command {
 
-    public static final String COMMAND_WORD = "budgetList";
+    public static final String COMMAND_WORD = "listBudget";
 
-    public static final String MESSAGE_SUCCESS = "Listed all budgets";
+    public static final String MESSAGE_SUCCESS = "Listed all budgets on the right";
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 }
