@@ -153,6 +153,7 @@ Classes used by multiple components are in the `seedu.sugarmummy.commons` packag
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::average[]
 === Average graph feature
 
 The average graph shows how the average blood sugar level or BMI of users change over time.
@@ -239,6 +240,7 @@ to the graph and color the area between the markers.
 ** Pros: User is able to tell which range a particular data point falls in immediately.
 ** Cons: Need to implement horizontal range markers and lay it out on the graph. Moreover,
 a custom legend box is needed to label the horizontal range markers.
+// end::average[]
 
 // tag::recmf[]
 === Food Recommendation Feature
