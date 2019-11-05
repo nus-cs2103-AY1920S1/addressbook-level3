@@ -233,10 +233,9 @@ public interface Model {
     ObservableList<Student> getObservableListStudentsFromGroup();
 
     /**
-     * Adds a student to a group.
-     * {@code groupId} Must already exist in the list of groups.
-     * {@code studentNumber} Must already exist in the list of students.
-     * {@code groupIndexNumber} Must already exist in the quiz.
+     * Adds a student to a group. {@code groupId} Must already exist in the list of groups. {@code
+     * studentNumber} Must already exist in the list of students. {@code groupIndexNumber} Must
+     * already exist in the quiz.
      */
     boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber);
 
@@ -252,6 +251,7 @@ public interface Model {
 
     /**
      * Check if student exists in group.
+     *
      * @param groupId Id of group.
      * @param student Student to check.
      * @return True if student exists in group.
@@ -295,6 +295,12 @@ public interface Model {
      * Returns the question based on its Index.
      */
     Question getQuestion(Index index);
+
+    /**
+     * Returns true if a note with the same identity as {@code question} exists in the Questions
+     * record.
+     */
+    boolean hasQuestion(Question question);
 
     /**
      * Returns the summary of questions searched.

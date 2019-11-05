@@ -80,4 +80,23 @@ public class McqQuestion extends Question {
             + " C:" + optionC
             + " D:" + optionD;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof McqQuestion)) {
+            return false;
+        }
+
+        McqQuestion e = (McqQuestion) other;
+        return question.equals(e.question)
+            && answer.equals(e.answer)
+            && optionA.equals(e.getOptionA())
+            && optionB.equals(e.getOptionB())
+            && optionC.equals(e.getOptionC())
+            && optionD.equals(e.getOptionD());
+    }
 }

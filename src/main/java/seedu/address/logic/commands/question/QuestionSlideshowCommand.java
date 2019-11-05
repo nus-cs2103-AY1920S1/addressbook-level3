@@ -21,6 +21,8 @@ public class QuestionSlideshowCommand extends QuestionCommand {
             + "Example: slideshow 1 2 3\n"
             + "(This will start a slideshow with question 1, 2 and 3)";
 
+    public static final String MESSAGE_SUCCESS = "Starting slideshow.";
+
     private final List<Index> questionIndexes;
 
     public QuestionSlideshowCommand(String questionsInput) {
@@ -43,6 +45,12 @@ public class QuestionSlideshowCommand extends QuestionCommand {
             }
         }
         model.setSlideshowQuestions(questionIndexes);
-        return new CommandResult("Starting slideshow.", CommandResultType.SHOW_SLIDESHOW);
+        return new CommandResult(MESSAGE_SUCCESS, CommandResultType.SHOW_SLIDESHOW);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof QuestionSlideshowCommand); // instanceof handles nulls
     }
 }

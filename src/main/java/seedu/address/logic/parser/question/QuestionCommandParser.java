@@ -68,32 +68,16 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
                 PREFIX_OPTIONA, PREFIX_OPTIONB, PREFIX_OPTIONC, PREFIX_OPTIOND,
                 PREFIX_DELETE, PREFIX_FIND, PREFIX_SLIDESHOW);
 
-        boolean isEdit = false;
-        Index index = Index.fromZeroBased(0);
-        try {
-            String preamble = argMultimap.getPreamble();
-
-            if (!preamble.isBlank()) {
-                index = ParserUtil.parseIndex(preamble);
-                isEdit = true;
-            }
-        } catch (ParseException pe) {
-            throw new ParseException(HELP_MESSAGE);
-        }
-
         if (argMultimap.getValue(PREFIX_LIST).isPresent()) { // List command
-            return new QuestionListCommand();
+            return listCommand();
         } else if (argMultimap.getValue(PREFIX_SLIDESHOW).isPresent()) { // Slideshow command
             return slideshowCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_FIND).isPresent()) { // Find command
-            if (argMultimap.getValue(PREFIX_FIND).orElse("").isEmpty()) {
-                throw new ParseException(MESSAGE_MISSING_TEXT_SEARCH);
-            }
-            return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));
-        } else if (isEdit) { // Edit command
-            return editCommand(index, argMultimap);
+            return findCommand(argMultimap);
+        } else if (!argMultimap.getPreamble().isBlank()) { // Edit command
+            return editCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) { // Create command
             return addCommand(argMultimap);
         } else { // No action defined after question command word
@@ -148,13 +132,19 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
     /**
      * Performs validation and return the QuestionEditCommand object.
      *
-     * @param index       of question in the list.
      * @param argMultimap for tokenized input.
      * @return QuestionEditCommand object.
      * @throws ParseException
      */
-    private QuestionEditCommand editCommand(Index index, ArgumentMultimap argMultimap)
+    private QuestionEditCommand editCommand(ArgumentMultimap argMultimap)
         throws ParseException {
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
+        }
+
         // Add parameters to be edited. Note: the fields are optional but need at least one field to change
         // options is compulsory for mcq
         if (noPrefixPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE,
@@ -196,8 +186,12 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         Index indexToDelete;
 
         try {
-            String deletePrefix = argMultimap.getValue(PREFIX_DELETE).orElse("0");
-            if (!areInputIndexesValid(deletePrefix)) {
+            String deletePrefix = argMultimap.getValue(PREFIX_DELETE).orElse("");
+
+            if (deletePrefix.isEmpty()) {
+                throw new ParseException(
+                    String.format(MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX));
+            } else if (!areInputIndexesValid(deletePrefix)) {
                 throw new ParseException(
                     String.format(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX));
             }
@@ -235,6 +229,29 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
     }
 
     /**
+     * Performs validation and return the QuestionListCommand object.
+     *
+     * @return QuestionListCommand object.
+     */
+    private QuestionListCommand listCommand() {
+        return new QuestionListCommand();
+    }
+
+    /**
+     * Performs validation and return the QuestionFindCommand object.
+     *
+     * @param argMultimap for tokenized input.
+     * @return QuestionFindCommand object.
+     * @throws ParseException
+     */
+    private QuestionFindCommand findCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(PREFIX_FIND).orElse("").isEmpty()) {
+            throw new ParseException(MESSAGE_MISSING_TEXT_SEARCH);
+        }
+        return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));
+    }
+
+    /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
@@ -265,7 +282,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
      */
     private String getPrefix(ArgumentMultimap argumentMultimap, Prefix prefix, String error)
         throws ParseException {
-        Optional<String> optional = argumentMultimap.getValue(prefix);
+        Optional<String> optional = argumentMultimap.getSingleValue(prefix);
         if (optional.isPresent()) { // check for empty string
             optional.filter(StringUtils::isNotEmpty)
                 .orElseThrow(() -> new ParseException(error));
