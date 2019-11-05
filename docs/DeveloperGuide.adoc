@@ -482,12 +482,21 @@ a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`
 image:: To be added
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
+<<<<<<< HEAD
+c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
+d.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
+e.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowController#startTimeTrial`, which in turns construct a `Timeline` with the following added for 3 flashcards:
+1.	A `KeyFrame` to call the `FlashcardTabWindowController#loadTimeTrial` method, which displays the question of the flashcard on the window, with a `KeyValue` that starts the timer on the screen.
+2.	A `KeyFrame` to call the `FlashcardTabWindowController#showFlashcardAns` method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
+3.	A `KeyFrame` is then added to the timeline to call the `FlashcardTabWindowController#resetViews` method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+=======
 c. Upon initialization of the StudyBuddyPro and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
 d.	The user executes (timetrial cs2100), and the StartTimeTrialCommand retrieves a List of flashcards with the associated tag through the Model#getTaggedFlashcards, which is then passed into the FlashcardTabWindowController.
 e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#startTimeTrial, which in turns construct a timeline with the following added for 3 flashcards:
 1.	A KeyFrame to call the FlashcardTabWindowController #loadTimeTrial method, which displays the question of the flashcard on the window, with a KeyValue that starts the timer on the screen.
 2.	A KeyFrame to call the FlashcardTabWindowController#showFlashcardAns method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
 3.	A KeyFrame is then added to the timeline to call the FlashcardTabWindowController#resetViews method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+>>>>>>> 2f14b0f5e65dd517771fb347a728b47747a2b690
 
 ==== Design Considerations
 ===== Aspect: How the timetrial is implemented
@@ -496,7 +505,7 @@ e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#
 object.
 ** Pros: Tidier and easier to understand.
 ** Cons: Have to read up on the API and learn about the relevant classes such as `KeyFrame` and `KeyValue`
-* **Alternative 2:** Looping Thread.sleep() to set the timer
+* **Alternative 2:** Looping `Thread.sleep()` to set the timer
 ** Pros: Easier to implement
 ** Cons: Code will be messier and harder to read
 
