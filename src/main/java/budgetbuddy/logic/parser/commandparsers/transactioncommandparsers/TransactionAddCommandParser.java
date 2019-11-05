@@ -49,7 +49,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
                 ArgumentTokenizer.tokenize(args, PREFIX_DIRECTION, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_ACCOUNT,
                         PREFIX_CATEGORY, PREFIX_DATE);
 
-        if (!arePrefixesPresent(argMultiMap, PREFIX_DIRECTION, PREFIX_AMOUNT)) {
+        if (!arePrefixesPresent(argMultiMap, PREFIX_DIRECTION, PREFIX_AMOUNT, PREFIX_DESCRIPTION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     TransactionAddCommand.MESSAGE_USAGE));
         }
@@ -58,10 +58,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
 
         Amount amount = CommandParserUtil.parseAmount(argMultiMap.getValue(PREFIX_AMOUNT).get());
 
-        Optional<String> optionalDescription = argMultiMap.getValue(PREFIX_DESCRIPTION);
-        Description description = optionalDescription.isPresent()
-                ? CommandParserUtil.parseDescription(optionalDescription.get())
-                : null;
+        Description description = CommandParserUtil.parseDescription(argMultiMap.getValue(PREFIX_DESCRIPTION).get());
 
         Optional<String> optionalAccountName = argMultiMap.getValue(PREFIX_ACCOUNT);
         Name accountName = optionalAccountName.isPresent()

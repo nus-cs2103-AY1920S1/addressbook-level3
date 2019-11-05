@@ -102,7 +102,7 @@ public class TransactionEditCommand extends ScriptCommand {
                 targetAccount = model.getAccountsManager().getAccount(targetAccountName);
             }
 
-            Transaction updatedTransaction = updateTransaction(targetTransaction, updatedTransactionDescriptor,
+            Transaction updatedTransaction = getUpdatedTransaction(targetTransaction, updatedTransactionDescriptor,
                     targetAccount, model.getAccountsManager().getActiveAccount());
 
 
@@ -141,10 +141,10 @@ public class TransactionEditCommand extends ScriptCommand {
      * edited with {@code transactionEditDescriptor}. Also validates that changes were made to the
      * transaction.
      */
-    private Transaction updateTransaction(Transaction targetTransaction,
-                                          TransactionEditDescriptor transactionEditDescriptor,
-                                          Account prevAccount,
-                                          Account updatedAccount) throws CommandException {
+    private Transaction getUpdatedTransaction(Transaction targetTransaction,
+                                              TransactionEditDescriptor transactionEditDescriptor,
+                                              Account prevAccount,
+                                              Account updatedAccount) throws CommandException {
 
         LocalDate updatedDate = transactionEditDescriptor.getDate().isPresent()
                 ? transactionEditDescriptor.getDate().get()

@@ -29,7 +29,7 @@ public class Transaction {
      */
     public Transaction(LocalDate date, Amount amount, Direction direction, Description description,
                        Category... categories) {
-        requireAllNonNull(date, amount, direction);
+        requireAllNonNull(date, amount, direction, description);
         this.direction = direction;
         this.amount = amount;
         this.description = description;
@@ -45,7 +45,7 @@ public class Transaction {
      */
     public Transaction(LocalDate date, Amount amount, Direction direction, Description description,
                        Set<Category> categories) {
-        requireAllNonNull(date, amount, direction);
+        requireAllNonNull(date, amount, direction, description);
         this.direction = direction;
         this.amount = amount;
         this.description = description;
