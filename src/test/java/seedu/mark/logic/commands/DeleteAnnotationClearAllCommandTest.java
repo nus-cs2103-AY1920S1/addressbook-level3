@@ -1,18 +1,18 @@
 package seedu.mark.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
 import java.util.HashMap;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
-import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.annotation.Annotation;
 import seedu.mark.model.annotation.OfflineDocument;
@@ -28,7 +28,7 @@ import seedu.mark.storage.StorageStub;
 class DeleteAnnotationClearAllCommandTest {
 
     @Test
-    public void execute__success() {
+    public void execute_success() {
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
                 .withCachedCopy(new CachedCopyStub(new TrueParagraph(Index.fromOneBased(1),
                         new ParagraphContent("lupus")))).build();

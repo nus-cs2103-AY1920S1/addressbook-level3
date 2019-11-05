@@ -1,16 +1,17 @@
 package seedu.mark.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
 import java.util.HashMap;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.commands.exceptions.CommandException;
@@ -61,13 +62,13 @@ class DeleteAnnotationNoteCommandTest {
 
     @Test
     public void execute_noNoteToDelete_throwsCommandException() {
-        Paragraph annotatedButNoNoteTP = new TrueParagraph(Index.fromOneBased(1),
+        Paragraph annotatedButNoNoteTrueP = new TrueParagraph(Index.fromOneBased(1),
                 new ParagraphContent("lupus"));
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
-                .withCachedCopy(new CachedCopyStub(annotatedButNoNoteTP)).build();
+                .withCachedCopy(new CachedCopyStub(annotatedButNoNoteTrueP)).build();
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
 
-        annotatedButNoNoteTP.addAnnotation(new Annotation(Highlight.YELLOW));
+        annotatedButNoNoteTrueP.addAnnotation(new Annotation(Highlight.YELLOW));
 
         assertThrows(CommandException.class,
                 DeleteAnnotationNoteCommand.MESSAGE_NOTHING_TO_DELETE, () ->

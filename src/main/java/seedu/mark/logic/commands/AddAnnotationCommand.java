@@ -66,7 +66,7 @@ public class AddAnnotationCommand extends AnnotationCommand {
 
     public AddAnnotationCommand(Index index, Highlight highlight, AnnotationNote note) {
         super(index, NULL_DUMMY_PID);
-        requireNonNull(highlight);  //dummy value that will come into existence when attached to true paragraph
+        requireNonNull(highlight); //dummy value that will come into existence when attached to true paragraph
         requireNonNull(note);
 
         this.note = note;
