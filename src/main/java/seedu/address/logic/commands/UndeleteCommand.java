@@ -38,8 +38,17 @@ public class UndeleteCommand extends Command {
         // update Book in model to have Loan removed
         model.setBook(bookToBeLoaned, loanedBook);
 
+        boolean wasServeMode = model.isServeMode();
+
+        if (!wasServeMode) {
+            model.setServingBorrower(loanToBeAdded.getBorrowerId());
+        }
         // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
         model.servingBorrowerUnreturnLoan(loanToBeAdded, addedLoan);
+
+        if (!wasServeMode) {
+            model.exitsServeMode();
+        }
 
         // update Loan in LoanRecords with returnDate and remainingFineAmount
         model.updateLoan(loanToBeAdded, addedLoan);

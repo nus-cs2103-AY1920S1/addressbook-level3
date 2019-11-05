@@ -149,12 +149,7 @@ public class DeleteByIndexCommandTest {
 
         DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(INDEX_FIRST_BOOK);
 
-        Book returned  = updatedLoanedOutBook.returnBook();
-
-        LocalDate returnDate = DateUtil.getTodayDate();
-        Loan returnedLoan = loan.returnLoan(returnDate, FINE_AMOUNT_ZERO);
-
-        deleteByIndexCommand.markBookAsReturned(model, loanedOutBook, returned, loan, returnedLoan);
+        deleteByIndexCommand.returnBook(model, loanedOutBook);
         Book result2 = model.getBook(target.getSerialNumber());
         assertFalse(result2.isCurrentlyLoanedOut());
 
