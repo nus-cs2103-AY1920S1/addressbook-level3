@@ -94,7 +94,7 @@ public class CustomerListPanelHandle extends NodeHandle<ListView<Customer>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code CustomerCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
@@ -126,7 +126,7 @@ public class CustomerListPanelHandle extends NodeHandle<ListView<Customer>> {
     }
 
     /**
-     * Remembers the selected {@code PersonCard} in the list.
+     * Remembers the selected {@code CustomerCard} in the list.
      */
     public void rememberSelectedCustomerCard() {
         List<Customer> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
