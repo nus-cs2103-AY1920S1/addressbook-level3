@@ -9,7 +9,7 @@ public class WindowView {
 
     public static final String MESSAGE_CONSTRAINTS =
             "WindowView should only contain the destinations "
-                    + "that are valid (i.e. calendar or student profile), and it should not be blank.";
+                    + "that are valid (i.e. calendar or student_profile), and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,

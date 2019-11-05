@@ -51,8 +51,10 @@ public class PersonCard extends UiPart<Region> {
         attendance.setText("Attendance: " + person.getAttendance().value);
         participation.setText("Class Participation: " + person.getParticipation().value);
         result.setText("Result: " + person.getResult().value);
-        Image studentPicture = new Image("file:" + person.getPicture().value);
-        picture.setImage(studentPicture);
+        if (!(person.getPicture().value.equals("null"))) {
+            Image studentPicture = new Image("file:" + person.getPicture().value);
+            picture.setImage(studentPicture);
+        }
     }
 
     @Override

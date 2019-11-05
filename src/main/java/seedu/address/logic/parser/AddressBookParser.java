@@ -31,6 +31,7 @@ import seedu.address.logic.commands.MarkAttendanceCommand;
 import seedu.address.logic.commands.MarkParticipationCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
+import seedu.address.logic.commands.SetPictureCommand;
 import seedu.address.logic.commands.TotalEarningsCommand;
 import seedu.address.logic.commands.UnknownCommand;
 import seedu.address.logic.commands.UpdateEarningsCommand;
@@ -119,6 +120,8 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(MarkAttendanceCommand.COMMAND_WORD, MarkAttendanceCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(MarkParticipationCommand.COMMAND_WORD, MarkParticipationCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(SetPictureCommand.COMMAND_WORD, SetPictureCommand.COMMAND_WORD);
+
     }
 
     /**
@@ -126,14 +129,15 @@ public class AddressBookParser {
      * Returns a {@code NewCommand} if the command exists or an {@code UnknownCommand} if it does not.
      */
     public Command checkCommand(String userInput, String prevUnknownCommand) {
-        if (userInput.equals("cancel")) {
+        String trimmedInput = userInput.trim();
+        if (trimmedInput.equals(CancelCommand.COMMAND_WORD)) {
             return new CancelCommand();
         } else {
-            if (AddressBookParser.commandList.containsKey(userInput)) {
-                AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
-                return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
+            if (AddressBookParser.commandList.containsKey(trimmedInput)) {
+                AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(trimmedInput));
+                return new NewCommand(AddressBookParser.commandList.get(trimmedInput), prevUnknownCommand);
             } else {
-                return new UnknownCommand(userInput);
+                return new UnknownCommand(trimmedInput);
             }
         }
     }
@@ -262,6 +266,9 @@ public class AddressBookParser {
 
             case MarkParticipationCommand.COMMAND_WORD:
                 return new MarkParticipationCommandParser().parse(arguments);
+
+            case SetPictureCommand.COMMAND_WORD:
+                return new SetPictureCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

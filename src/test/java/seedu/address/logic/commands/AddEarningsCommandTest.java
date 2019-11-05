@@ -19,7 +19,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-//import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
@@ -27,63 +26,59 @@ import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EarningsBuilder;
 
-public class AddCommandTest {
+public class AddEarningsCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddEarningsCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-        ArrayList<Person> testList = new ArrayList<>();
-        testList.add(validPerson);
-        CommandResult commandResult = new AddCommand(testList).execute(modelStub);
+    public void execute_earningsAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEarningsAdded modelStub = new ModelStubAcceptingEarningsAdded();
+        Earnings validEarnings = new EarningsBuilder().build();
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        CommandResult commandResult = new AddEarningsCommand(validEarnings).execute(modelStub);
+
+        assertEquals(String.format(AddEarningsCommand.MESSAGE_SUCCESS, validEarnings),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validEarnings), modelStub.earningsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        ArrayList<Person> testList = new ArrayList<>();
-        testList.add(validPerson);
-        AddCommand addCommand = new AddCommand(testList);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateEarnings_throwsCommandException() {
+        Earnings validEarnings = new EarningsBuilder().build();
+        AddEarningsCommand addEarningsCommand = new AddEarningsCommand(validEarnings);
+        ModelStub modelStub = new ModelStubWithEarnings(validEarnings);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddEarningsCommand.MESSAGE_DUPLICATE_EARNINGS, () -> addEarningsCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        ArrayList<Person> testListAlice = new ArrayList<>();
-        testListAlice.add(alice);
-        ArrayList<Person> testListBob = new ArrayList<>();
-        testListAlice.add(bob);
-        AddCommand addAliceCommand = new AddCommand(testListAlice);
-        AddCommand addBobCommand = new AddCommand(testListBob);
+        Earnings earnings1 = new EarningsBuilder().withDate("02/02/2019").build();
+        Earnings earnings2 = new EarningsBuilder().withDate("03/03/2020").build();
+        AddEarningsCommand addEarnings1Command = new AddEarningsCommand(earnings1);
+        AddEarningsCommand addEarnings2Command = new AddEarningsCommand(earnings2);
+
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addEarnings1Command.equals(addEarnings1Command));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(testListAlice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddEarningsCommand addEarnings1CommandCopy = new AddEarningsCommand(earnings1);
+        assertTrue(addEarnings1Command.equals(addEarnings1CommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addEarnings1Command.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addEarnings1Command.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different earnings -> returns false
+        assertFalse(addEarnings1Command.equals(addEarnings2Command));
     }
 
     /**
@@ -112,6 +107,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCommandsList(Predicate<CommandObject> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCalendarList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -156,6 +156,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setReminder(Reminder reminder, Reminder editedReminder) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getAddressBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -177,16 +197,6 @@ public class AddCommandTest {
 
         @Override
         public void addNotes(Notes notes) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addTask(Task task) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void afterAddTask() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -241,16 +251,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setReminder(Reminder reminders, Reminder editedReminders) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteReminder(Reminder reminders) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -280,7 +280,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void addTask(Task task) {
 
+        }
+
+        @Override
+        public void afterAddTask() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean userHasLoggedIn() {
@@ -312,11 +320,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReminderList(Predicate<Reminder> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -329,62 +342,42 @@ public class AddCommandTest {
         public void deleteTask(Task target) {
 
         }
-
-        @Override
-        public void addReminder(Reminder reminder) {
-
-        }
-
-        @Override
-        public boolean hasReminder(Reminder reminders) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredReminderList(Predicate<Reminder> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredCalendarList() {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithEarnings extends ModelStub {
+        private final Earnings earnings;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithEarnings(Earnings earnings) {
+            requireNonNull(earnings);
+            this.earnings = earnings;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasEarnings(Earnings earnings) {
+            requireNonNull(earnings);
+            return this.earnings.isSameEarnings(earnings);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingEarningsAdded extends ModelStub {
+        final ArrayList<Earnings> earningsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasEarnings(Earnings earnings) {
+            requireNonNull(earnings);
+            return earningsAdded.stream().anyMatch(earnings::isSameEarnings);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addEarnings(Earnings earnings) {
+            requireNonNull(earnings);
+            earningsAdded.add(earnings);
         }
 
         @Override
