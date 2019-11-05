@@ -1,10 +1,5 @@
 package seedu.address.model.transaction;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.transaction.exceptions.BudgetNotFoundException;
-import seedu.address.model.transaction.exceptions.DuplicateBudgetException;
-import seedu.address.testutil.BudgetBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,6 +7,11 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBudgets.BUDGET_ONE;
 import static seedu.address.testutil.TypicalBudgets.BUDGET_TWO;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.transaction.exceptions.BudgetNotFoundException;
+import seedu.address.model.transaction.exceptions.DuplicateBudgetException;
+import seedu.address.testutil.BudgetBuilder;
 
 public class UniqueBudgetListTest {
 

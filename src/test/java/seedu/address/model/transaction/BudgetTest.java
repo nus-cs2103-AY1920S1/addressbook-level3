@@ -1,20 +1,23 @@
 package seedu.address.model.transaction;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.category.Category;
-import seedu.address.model.util.Date;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.category.Category;
+import seedu.address.model.util.Date;
+
 
 public class BudgetTest {
     private static final Amount ONE = new Amount(1);
 
-    private static final String PAST_DATE = "01011990";
     private static final String VALID_DATE = "31122025";
     private static final Set<Category> CATEGORIES = new HashSet<>();
 
@@ -40,24 +43,24 @@ public class BudgetTest {
 
     @Test
     public void isSameBudget_true() {
-        Budget budget_one = new Budget();
-        Budget budget_two = new Budget(ONE, new Date(VALID_DATE));
-        Budget budget_three = new Budget(ONE, new Date(VALID_DATE), CATEGORIES);
+        Budget budgetOne = new Budget();
+        Budget budgetTwo = new Budget(ONE, new Date(VALID_DATE));
+        Budget budgetThree = new Budget(ONE, new Date(VALID_DATE), CATEGORIES);
 
-        assertTrue(budget_one.isSameBudget(budget_one));
-        assertTrue(budget_two.isSameBudget(budget_two));
-        assertTrue(budget_three.isSameBudget(budget_three));
+        assertTrue(budgetOne.isSameBudget(budgetOne));
+        assertTrue(budgetTwo.isSameBudget(budgetTwo));
+        assertTrue(budgetThree.isSameBudget(budgetThree));
     }
 
     @Test
     public void isSameBudget_false() {
-        Budget budget_one = new Budget();
-        Budget budget_two = new Budget(ONE, new Date(VALID_DATE));
-        Budget budget_three = new Budget(ONE, new Date(VALID_DATE), CATEGORIES);
+        Budget budgetOne = new Budget();
+        Budget budgetTwo = new Budget(ONE, new Date(VALID_DATE));
+        Budget budgetThree = new Budget(ONE, new Date(VALID_DATE), CATEGORIES);
 
-        assertFalse(budget_one.isSameBudget(null));
-        assertFalse(budget_one.isSameBudget(budget_two));
-        assertFalse(budget_two.isSameBudget(budget_three));
+        assertFalse(budgetOne.isSameBudget(null));
+        assertFalse(budgetOne.isSameBudget(budgetTwo));
+        assertFalse(budgetTwo.isSameBudget(budgetThree));
     }
 
     @Test
