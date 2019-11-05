@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -293,7 +294,7 @@ public class MainWindow extends UiPart<Stage> {
                 //@@author{lawncegoh}
                 if (commandResult.isContact()) {
                     Contact contact = commandResult.giveContact();
-                    Model.handleContact(contact);
+                    handleContact(contact);
                 }
 
                 if (commandResult.isCreateShortCut()) {
@@ -306,6 +307,20 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Opens up the CheckContactWindow for the specific {@code contact}.
+     */
+    private void handleContact(Contact contact) {
+        ObservableList<Claim> claimList = logic.getFilteredClaimList();
+        CheckContactWindow checkContactWindow = new CheckContactWindow(contact, claimList);
+
+        if (!checkContactWindow.isShowing()) {
+            checkContactWindow.show();
+        } else {
+            checkContactWindow.focus();
         }
     }
 
