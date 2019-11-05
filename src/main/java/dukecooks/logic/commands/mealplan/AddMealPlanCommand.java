@@ -24,7 +24,6 @@ import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
-import dukecooks.model.recipe.exceptions.RecipeNotFoundException;
 
 /**
  * Adds a recipe to Duke Cooks.

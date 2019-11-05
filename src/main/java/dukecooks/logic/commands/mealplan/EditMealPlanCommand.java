@@ -179,7 +179,7 @@ public class EditMealPlanCommand extends EditCommand {
                 throw new RecipeNotFoundException(name.fullName);
             }
         }
-        
+
         MealPlanName updatedName = editMealPlanDescriptor.getName().orElse(mealPlanToEdit.getName());
         List<RecipeName> updatedDay1;
         if (editMealPlanDescriptor.getDay1ToAdd().isPresent()
