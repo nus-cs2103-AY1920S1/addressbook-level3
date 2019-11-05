@@ -56,7 +56,7 @@ public class EditPolicyCommand extends Command {
     public static final String MESSAGE_EDIT_POLICY_SUCCESS = "Edited Policy: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_POLICY = "This policy already exists in the address book.";
-
+    public static final String MESSAGE_INVALID_AGE_RANGE = "Start age cannot exceed end age.";
     private final Index index;
     private final EditPolicyDescriptor editPolicyDescriptor;
 
@@ -88,6 +88,11 @@ public class EditPolicyCommand extends Command {
 
         Policy policyToEdit = lastShownList.get(index.getZeroBased());
         Policy editedPolicy = createEditedPolicy(policyToEdit, editPolicyDescriptor);
+        StartAge editedStartAge = editedPolicy.getStartAge();
+        EndAge editedEndAge = editedPolicy.getEndAge();
+        if (!isValidAgeRange(editedStartAge, editedEndAge)) {
+            throw new CommandException(MESSAGE_INVALID_AGE_RANGE);
+        }
 
         if (!policyToEdit.isSamePolicy(editedPolicy) && model.hasPolicy(editedPolicy)) {
             throw new CommandException(MESSAGE_DUPLICATE_POLICY);
@@ -101,6 +106,14 @@ public class EditPolicyCommand extends Command {
         // to maintain the model's state for undo/redo
         model.saveAddressBookState();
         return new CommandResult(String.format(MESSAGE_EDIT_POLICY_SUCCESS, editedPolicy));
+    }
+
+    /**
+     * Checks if the input age range is valid.
+     *
+     */
+    public boolean isValidAgeRange(StartAge startAge, EndAge endAge) {
+        return Integer.parseInt(endAge.age) >= Integer.parseInt(startAge.age);
     }
 
     /**

@@ -45,6 +45,7 @@ public class MergePolicyCommand extends MergeCommand {
         requireNonNull(model);
         this.originalPolicy = model.getPolicy(inputPolicy);
         getDifferences();
+        assert(differentFields.size() != 0);
         return new CommandResult(getNextMergePrompt());
     }
 
