@@ -13,8 +13,8 @@ import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.DeleteTrainingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.performance.Event;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.performance.Event;
 
 /**
  * Parses input arguments and creates a new appropriate DeleteCommand object

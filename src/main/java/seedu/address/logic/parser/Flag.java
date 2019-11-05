@@ -18,6 +18,9 @@ public class Flag {
         this.flag = flag;
     }
 
+    /**
+     * Checks if the flag is either for person, event or training.
+     */
     public static boolean isValidFlag(String args) {
         return args.equals(FLAG_PERSON.toString())
             || args.equals(FLAG_EVENT.toString())

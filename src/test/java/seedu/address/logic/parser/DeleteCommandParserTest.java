@@ -28,10 +28,11 @@ import seedu.address.model.performance.Event;
  */
 public class DeleteCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
     private static final String eventName = "freestyle 50m";
     private static final String index = "1";
     private static final String FLAG_INVALID = "-person";
+
+    private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
     public void parse_validArgsPerson_returnsDeletePersonCommand() {
