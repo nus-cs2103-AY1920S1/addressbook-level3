@@ -522,12 +522,28 @@ public class MainWindow extends UiPart<Stage> {
                 showReminderPanel();
             }
 
+            if (commandResult.isListBudgets()) {
+                if (wishesPlaceHolder.isVisible()) {
+                    togglePanel("wishlist"); //closes wishlist panel if visible
+                }
+                if (autoExpensesPlaceHolder.isVisible()) {
+                    togglePanel("autoexpense"); //closes autoexpense panel if visible
+                }
+                if (remindersPlaceHolder.isVisible()) {
+                    togglePanel("reminder"); //closes reminder panel if visible
+                }
+                if (!budgetsPlaceHolder.isVisible()) {
+                    togglePanel("budget"); //opens budget panel if not visible
+                }
+            }
+
             if (commandResult.isChangeTheme()) {
                 Theme themeToChangeTo = commandResult.getNewTheme();
                 switchThemeTo(themeToChangeTo);
             }
 
             return commandResult;
+
         } catch (CommandException | ParseException | IllegalArgumentException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
