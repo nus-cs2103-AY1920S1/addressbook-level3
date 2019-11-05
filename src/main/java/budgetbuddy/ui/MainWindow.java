@@ -1,5 +1,6 @@
 package budgetbuddy.ui;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -28,6 +29,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -237,6 +239,12 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    private File handleShowFilePicker() {
+        FileChooser filePicker = new FileChooser();
+        filePicker.setTitle("Open file for command");
+        return filePicker.showOpenDialog(primaryStage);
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -245,31 +253,23 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            while (true) {
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            CommandCategory category = commandResult.getCommandCategory();
-            PanelTab tabToView = category.isSecondaryCategory()
-                    ? tabMap.get(category.getPrimaryCategory(category))
-                    : tabMap.get(category);
-            updateView(tabToView, category);
+                CommandCategory category = commandResult.getCommandCategory();
+                PanelTab tabToView = category.isSecondaryCategory()
+                                     ? tabMap.get(category.getPrimaryCategory(category))
+                                     : tabMap.get(category);
+                updateView(tabToView, category);
 
-            for (CommandContinuation<?> cont : commandResult.getContinuations()) {
-                switch (cont.getType()) {
-                case EXIT:
-                    handleExit();
-                    break;
-                case SHOW_HELP:
-                    handleHelp();
-                    break;
-                case SHOW_FILE_PICKER:
-                    // TODO
-                    break;
-                default:
-                    assert false : "Unhandled command continuation type";
-                    logger.warning("Unhandled command continuation type");
-                    break;
+                CommandResult newResult = handleContinuations(commandResult);
+                if (newResult != null) {
+                    commandResult = newResult;
+                    continue;
                 }
+
+                break;
             }
 
             return commandResult;
@@ -278,5 +278,29 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Handles command continuations.
+     */
+    private CommandResult handleContinuations(CommandResult commandResult) throws CommandException {
+        for (CommandContinuation<?> cont : commandResult.getContinuations()) {
+            switch (cont.getType()) {
+            case EXIT:
+                handleExit();
+                break;
+            case SHOW_HELP:
+                handleHelp();
+                break;
+            case SHOW_FILE_PICKER:
+                File result = handleShowFilePicker();
+                return cont.asShowFilePicker().continueCommand(result == null ? null : result.toPath());
+            default:
+                assert false : "Unhandled command continuation type";
+                logger.warning("Unhandled command continuation type");
+                break;
+            }
+        }
+        return null;
     }
 }
