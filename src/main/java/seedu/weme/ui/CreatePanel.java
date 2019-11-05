@@ -14,9 +14,9 @@ import seedu.weme.model.template.MemeText;
 /**
  * Panel displaying the image of the current meme creation session.
  */
-public class CreateImageDisplay extends UiPart<Region> {
+public class CreatePanel extends UiPart<Region> {
 
-    private static final String FXML = "CreateImageDisplay.fxml";
+    private static final String FXML = "CreatePanel.fxml";
 
     @FXML
     private HBox memeCreationBox;
@@ -32,7 +32,7 @@ public class CreateImageDisplay extends UiPart<Region> {
     private StackPane memeTextListPlaceholder;
 
 
-    public CreateImageDisplay(MemeCreation memeCreation) {
+    public CreatePanel(MemeCreation memeCreation) {
         super(FXML);
         ObservableList<MemeText> memeTexts = memeCreation.getMemeTextList();
         MemeTextListPanel memeTextListPanel = new MemeTextListPanel(memeTexts);

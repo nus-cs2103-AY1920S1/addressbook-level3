@@ -282,7 +282,7 @@ When the handleExit command is called, MainWindow will create a Thread to call `
 
 // tag::templates[]
 === Templates feature
-Many memes are based off templates. Meme lovers often store a list of templates and process them to generate new memes when needed.
+Many memes are created from templates. Meme lovers often store a list of templates and process them to generate new memes when needed.
 A template typically reserves whitespace for the user to fill in text to give the template meanings.
 Weme provides this feature and allows the users to store their favourite templates and generate memes with the templates.
 
@@ -569,8 +569,7 @@ Step 6: The `CommandBox` listens to the "TAB" key press, and replace the current
 
 Most features in Weme can be logically grouped together.
 For example, listing memes and viewing a single meme forms a group,
-listing templates and generating memes with templates forms another group,
-whereas statistics and import/export form their own groups.
+whereas listing templates, statistics, import, and export form their own respective groups.
 As such, it seems logical for us to separate distinct groups of features at the UI level to make it more intuitive to the user.
 We achieve this by putting each group of features into a tab.
 
@@ -582,12 +581,12 @@ Within each context, Weme exposes different commands and has different behaviors
 Tabs can be roughly seen as the reflection of `ModelContext` at the UI level.
 For example, when the `ModelContext` changes from `Memes` to `Templates`, the UI should switch from the *Memes* tab to the *Templates* tab.
 However, a tab can house multiple contexts.
-For example, both *Templates* context for viewing templates and *MemeCreation* context for creating memes will be under the *Templates* tab.
+For example, both *Memes* context for viewing multiple memes and *Meme* context for viewing a single meme will be under the *Memes* tab.
 
 Shown below are the tabs and their associated `ModelContext`s.
 
 * *Memes* tab
-** Memes (showing all memes)
+** Memes (showing multiple memes)
 ** Meme (viewing a particular meme) (_to be added_)
 
 .Screenshot of Weme in the *Memes* tab
