@@ -48,28 +48,22 @@ public class BinItemExpiryCommandParser implements Parser<BinItemExpiryCommand> 
         if (argMultimap.getValue(PREFIX_SECONDS).isPresent()) {
             timeToLiveAmount = ParserUtil.parsePositiveInt(argMultimap.getValue(PREFIX_SECONDS).get());
             timeToLiveUnit = ChronoUnit.SECONDS;
-        }
-        else if (argMultimap.getValue(PREFIX_MINUTES).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_MINUTES).isPresent()) {
             timeToLiveAmount = ParserUtil.parsePositiveInt(argMultimap.getValue(PREFIX_MINUTES).get());
             timeToLiveUnit = ChronoUnit.MINUTES;
-        }
-        else if (argMultimap.getValue(PREFIX_HOURS).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_HOURS).isPresent()) {
             timeToLiveAmount = ParserUtil.parsePositiveInt(argMultimap.getValue(PREFIX_HOURS).get());
             timeToLiveUnit = ChronoUnit.HOURS;
-        }
-        else if (argMultimap.getValue(PREFIX_DAYS).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_DAYS).isPresent()) {
             timeToLiveAmount = ParserUtil.parsePositiveInt(argMultimap.getValue(PREFIX_DAYS).get());
             timeToLiveUnit = ChronoUnit.DAYS;
-        }
-        else if (argMultimap.getValue(PREFIX_MONTHS).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_MONTHS).isPresent()) {
             timeToLiveAmount = ParserUtil.parsePositiveInt(argMultimap.getValue(PREFIX_MONTHS).get());
             timeToLiveUnit = ChronoUnit.MONTHS;
-        }
-        else if (argMultimap.getValue(PREFIX_YEARS).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_YEARS).isPresent()) {
             timeToLiveAmount = ParserUtil.parsePositiveInt(argMultimap.getValue(PREFIX_YEARS).get());
             timeToLiveUnit = ChronoUnit.YEARS;
-        }
-        else {
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BinItemExpiryCommand.MESSAGE_USAGE));
         }
 

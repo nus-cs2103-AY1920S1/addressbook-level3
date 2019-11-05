@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,7 @@ public class LogicManagerTest {
             new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        model.setUserSettings(new UserSettings(false));
+        model.setUserSettings(new UserSettings(false, 30, ChronoUnit.DAYS));
         logic = new LogicManager(model, storage);
     }
 
