@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.model;
 
 import static cs.f10.t1.nursetraverse.testutil.Assert.assertThrows;
+import static cs.f10.t1.nursetraverse.testutil.TypicalAppointments.getTypicalAppointmentBook;
 import static cs.f10.t1.nursetraverse.testutil.TypicalPatients.getTypicalPatientBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,7 +19,7 @@ public class HistoryManagerTest {
     @Test
     public void pushRecord() {
         HistoryManager historyManager = new HistoryManager(1);
-        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook());
+        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook(), new AppointmentBook());
         assertTrue(historyManager.size() == 1);
         assertTrue(historyManager.asUnmodifiableObservableList().size() == 1);
     }
@@ -28,9 +29,10 @@ public class HistoryManagerTest {
         HistoryManager historyManager = new HistoryManager(1);
         DummyMutatorCommand targetCommand = new DummyMutatorCommand("2");
         PatientBook targetPatientBook = getTypicalPatientBook();
+        AppointmentBook targetAppointmentBook = getTypicalAppointmentBook();
 
-        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook());
-        historyManager.pushRecord(targetCommand, targetPatientBook);
+        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook(), new AppointmentBook());
+        historyManager.pushRecord(targetCommand, targetPatientBook, targetAppointmentBook);
         ObservableList<HistoryRecord> historyList = historyManager.asUnmodifiableObservableList();
 
         assertEquals(historyList.get(0).getCommand(), targetCommand);
@@ -43,10 +45,11 @@ public class HistoryManagerTest {
         HistoryManager historyManager = new HistoryManager(2);
         DummyMutatorCommand targetCommand = new DummyMutatorCommand("2");
         PatientBook targetPatientBook = getTypicalPatientBook();
+        AppointmentBook targetAppointmentBook = getTypicalAppointmentBook();
 
-        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook());
-        historyManager.pushRecord(targetCommand, targetPatientBook);
-        HistoryRecord record = historyManager.popRecord(new PatientBook()).get();
+        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook(), new AppointmentBook());
+        historyManager.pushRecord(targetCommand, targetPatientBook, targetAppointmentBook);
+        HistoryRecord record = historyManager.popRecord(new PatientBook(), new AppointmentBook()).get();
 
         assertEquals(record.getCommand(), targetCommand);
         assertEquals(record.getCopyOfPatientBook(), targetPatientBook);
@@ -57,12 +60,12 @@ public class HistoryManagerTest {
     public void popRecord_noRecords_emptyOptional() {
         HistoryManager historyManager = new HistoryManager(1);
 
-        assertEquals(historyManager.popRecord(new PatientBook()), Optional.empty());
+        assertEquals(historyManager.popRecord(new PatientBook(), new AppointmentBook()), Optional.empty());
 
-        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook());
-        historyManager.popRecord(new PatientBook());
+        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook(), new AppointmentBook());
+        historyManager.popRecord(new PatientBook(), new AppointmentBook());
 
-        assertEquals(historyManager.popRecord(new PatientBook()), Optional.empty());
+        assertEquals(historyManager.popRecord(new PatientBook(), new AppointmentBook()), Optional.empty());
     }
 
     @Test
@@ -71,31 +74,34 @@ public class HistoryManagerTest {
         ObservableList<HistoryRecord> historyList = historyManager.asUnmodifiableObservableList();
         DummyMutatorCommand targetCommand = new DummyMutatorCommand("1");
 
-        historyManager.pushRecord(targetCommand, new PatientBook());
-        historyManager.pushRecord(new DummyMutatorCommand("2"), new PatientBook());
-        historyManager.pushRecord(new DummyMutatorCommand("3"), new PatientBook());
-        historyManager.popRecordsTo(historyList.get(1), new PatientBook());
+        historyManager.pushRecord(targetCommand, new PatientBook(), new AppointmentBook());
+        historyManager.pushRecord(new DummyMutatorCommand("2"), new PatientBook(), new AppointmentBook());
+        historyManager.pushRecord(new DummyMutatorCommand("3"), new PatientBook(), new AppointmentBook());
+        historyManager.popRecordsTo(historyList.get(1), new PatientBook(), new AppointmentBook());
 
         assertEquals(historyList.get(0).getCommand(), targetCommand);
         assertTrue(historyList.size() == 1);
         assertTrue(historyManager.size() == 1);
 
         // Pop to end of history
-        historyManager.popRecordsTo(historyList.get(0), new PatientBook());
+        historyManager.popRecordsTo(historyList.get(0), new PatientBook(), new AppointmentBook());
 
         assertTrue(historyManager.size() == 0);
     }
 
     @Test
     public void popRecordsTo_noSuchRecord() {
-        HistoryRecord outsideRecord = new HistoryRecord(new DummyMutatorCommand("!!!"), new PatientBook());
+        HistoryRecord outsideRecord = new HistoryRecord(new DummyMutatorCommand("!!!"), new PatientBook(),
+                                                        new AppointmentBook());
         HistoryManager historyManager = new HistoryManager(1);
 
-        assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord, new PatientBook()));
+        assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord, new PatientBook(),
+                                                                                     new AppointmentBook()));
 
-        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook());
+        historyManager.pushRecord(new DummyMutatorCommand("1"), new PatientBook(), new AppointmentBook());
 
-        assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord, new PatientBook()));
+        assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord, new PatientBook(),
+                                                                                     new AppointmentBook()));
         assertTrue(historyManager.size() == 1);
     }
 }

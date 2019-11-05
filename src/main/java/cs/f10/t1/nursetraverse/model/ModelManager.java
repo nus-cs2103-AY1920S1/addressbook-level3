@@ -49,8 +49,8 @@ public class ModelManager implements Model {
 
     //Appointment list
 
-    private final AppointmentBook baseAppointmentBook;
-    private final AppointmentBook stagedAppointmentBook;
+    private AppointmentBook baseAppointmentBook;
+    private AppointmentBook stagedAppointmentBook;
     // Modifiable list containing current stagedAppointmentBook patients
     private final ObservableList<Appointment> stagedAppointments;
     // Unmodifiable view for the UI linked to stagedAppointments
@@ -304,8 +304,8 @@ public class ModelManager implements Model {
 
     @Override
     public void commit(MutatorCommand command) {
-        historyManager.pushRecord(command, basePatientBook);
-        changeBaseTo(stagedPatientBook);
+        historyManager.pushRecord(command, basePatientBook, baseAppointmentBook);
+        changeBaseTo(stagedPatientBook, stagedAppointmentBook);
     }
 
     @Override
@@ -316,18 +316,19 @@ public class ModelManager implements Model {
 
     @Override
     public List<HistoryRecord> undoTo(HistoryRecord record) throws NoSuchElementException {
-        List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record, stagedPatientBook);
-        changeBaseTo(record.getCopyOfPatientBook());
+        List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record, stagedPatientBook,
+                                                                        stagedAppointmentBook);
+        changeBaseTo(record.getCopyOfPatientBook(), record.getCopyOfAppointmentBook());
         return poppedRecords;
     }
 
     @Override
     public HistoryRecord redo() throws IllegalStateException {
-        Optional<HistoryRecord> redoneRecord = historyManager.popRedo(stagedPatientBook);
+        Optional<HistoryRecord> redoneRecord = historyManager.popRedo(stagedPatientBook, stagedAppointmentBook);
         if (redoneRecord.isEmpty()) {
             throw new IllegalStateException("Cannot redo: previous MutatorCommand was not an undo");
         }
-        changeBaseTo(redoneRecord.get().getCopyOfPatientBook());
+        changeBaseTo(redoneRecord.get().getCopyOfPatientBook(), redoneRecord.get().getCopyOfAppointmentBook());
         return redoneRecord.get();
     }
 
@@ -336,9 +337,10 @@ public class ModelManager implements Model {
         return historyManager.asUnmodifiableObservableList();
     }
 
-    private void changeBaseTo(PatientBook patientBook) {
+    private void changeBaseTo(PatientBook patientBook, AppointmentBook appointmentBook) {
         basePatientBook = patientBook;
         stagedPatientBook = basePatientBook.deepCopy();
+        stagedAppointmentBook = baseAppointmentBook.deepCopy();
         refreshStagedData();
     }
 
