@@ -2,6 +2,7 @@ package seedu.address.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -30,7 +31,7 @@ import seedu.address.model.entry.Income;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing entry in the address book.
+ * Edits the details of an existing income in the address book.
  */
 public class EditIncomeCommand extends Command {
 
@@ -40,30 +41,31 @@ public class EditIncomeCommand extends Command {
             + "by the index number used in the displayed Incomes list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_DESC + "NAME] "
-            + "[" + PREFIX_DATE + "TIME] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_AMOUNT + "5.60";
+            + PREFIX_AMOUNT + "3500";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Income: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This income already exists in guiltTrip.";
 
     private final Index index;
-    private final EditIncomeDescriptor editEntryDescriptor;
+    private final EditIncomeDescriptor editIncomeDescriptor;
 
     /**
-     * @param index of the entry in the filtered entry list to edit
-     * @param editEntryDescriptor details to edit the entry with
+     * @param index of the income in the filtered income list to edit
+     * @param editIncomeDescriptor details to edit the income with
      */
-    public EditIncomeCommand(Index index, EditIncomeDescriptor editEntryDescriptor) {
+    public EditIncomeCommand(Index index, EditIncomeDescriptor editIncomeDescriptor) {
         requireNonNull(index);
-        requireNonNull(editEntryDescriptor);
+        requireNonNull(editIncomeDescriptor);
 
         this.index = index;
-        this.editEntryDescriptor = new EditIncomeDescriptor(editEntryDescriptor);
+        this.editIncomeDescriptor = new EditIncomeDescriptor(editIncomeDescriptor);
     }
 
     @Override
@@ -75,31 +77,31 @@ public class EditIncomeCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
-        Income entryToEdit = lastShownList.get(index.getZeroBased());
-        Income editedEntry = createEditedIncome(entryToEdit, editEntryDescriptor);
+        Income incomeToEdit = lastShownList.get(index.getZeroBased());
+        Income editedIncome = createEditedIncome(incomeToEdit, editIncomeDescriptor);
 
-        if (entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (incomeToEdit.isSameEntry(editedIncome) && model.hasEntry(editedIncome)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
+        model.setEntry(incomeToEdit, editedIncome);
         model.updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
+        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedIncome));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Income} with the details of {@code incomeToEdit}
+     * edited with {@code editIncomeDescriptor}.
      */
-    private static Income createEditedIncome(Income incomeToEdit, EditIncomeDescriptor editEntryDescriptor) {
+    private static Income createEditedIncome(Income incomeToEdit, EditIncomeDescriptor editIncomeDescriptor) {
         assert incomeToEdit != null;
-        Category updatedCategory = editEntryDescriptor.getCategory().orElse(incomeToEdit.getCategory());
-        Description updatedName = editEntryDescriptor.getDesc().orElse(incomeToEdit.getDesc());
-        Date updatedTime = editEntryDescriptor.getTime().orElse(incomeToEdit.getDate());
-        Amount updatedAmount = editEntryDescriptor.getAmount().orElse(incomeToEdit.getAmount());
-        Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(incomeToEdit.getTags());
+        Category updatedCategory = editIncomeDescriptor.getCategory().orElse(incomeToEdit.getCategory());
+        Description updatedName = editIncomeDescriptor.getDesc().orElse(incomeToEdit.getDesc());
+        Date updatedTime = editIncomeDescriptor.getTime().orElse(incomeToEdit.getDate());
+        Amount updatedAmount = editIncomeDescriptor.getAmount().orElse(incomeToEdit.getAmount());
+        Set<Tag> updatedTags = editIncomeDescriptor.getTags().orElse(incomeToEdit.getTags());
         return new Income(updatedCategory, updatedName, updatedTime, updatedAmount, updatedTags);
     }
 
@@ -118,12 +120,12 @@ public class EditIncomeCommand extends Command {
         // state check
         EditIncomeCommand e = (EditIncomeCommand) other;
         return index.equals(e.index)
-                && editEntryDescriptor.equals(e.editEntryDescriptor);
+                && editIncomeDescriptor.equals(e.editIncomeDescriptor);
     }
 
     /**
-     * Stores the details to edit the entry with. Each non-empty field value will replace the
-     * corresponding field value of the entry.
+     * Stores the details to edit the Income with. Each non-empty field value will replace the
+     * corresponding field value of the income.
      */
     public static class EditIncomeDescriptor {
         private Category category;

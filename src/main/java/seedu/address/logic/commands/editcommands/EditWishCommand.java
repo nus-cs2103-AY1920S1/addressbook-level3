@@ -2,6 +2,7 @@ package seedu.address.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -30,7 +31,7 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Edits the details of an existing entry in the address book.
+ * Edits the details of an existing wish in the address book.
  */
 public class EditWishCommand extends Command {
 
@@ -40,8 +41,9 @@ public class EditWishCommand extends Command {
             + "by the index number used in the displayed Wishes list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_DESC + "NAME] "
-            + "[" + PREFIX_DATE + "TIME] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -49,21 +51,21 @@ public class EditWishCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Wish: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This wish already exists in guiltTrip.";
 
     private final Index index;
-    private final EditWishDescriptor editEntryDescriptor;
+    private final EditWishDescriptor editWishDescriptor;
 
     /**
-     * @param index of the entry in the filtered entry list to edit
-     * @param editEntryDescriptor details to edit the entry with
+     * @param index of the entry in the filtered wish list to edit
+     * @param editWishDescriptor details to edit the wish with
      */
-    public EditWishCommand(Index index, EditWishDescriptor editEntryDescriptor) {
+    public EditWishCommand(Index index, EditWishDescriptor editWishDescriptor) {
         requireNonNull(index);
-        requireNonNull(editEntryDescriptor);
+        requireNonNull(editWishDescriptor);
 
         this.index = index;
-        this.editEntryDescriptor = new EditWishDescriptor(editEntryDescriptor);
+        this.editWishDescriptor = new EditWishDescriptor(editWishDescriptor);
     }
 
     @Override
@@ -75,31 +77,31 @@ public class EditWishCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
-        Wish entryToEdit = lastShownList.get(index.getZeroBased());
-        Wish editedEntry = createEditedWish(entryToEdit, editEntryDescriptor);
+        Wish wishToEdit = lastShownList.get(index.getZeroBased());
+        Wish editedWish = createEditedWish(wishToEdit, editWishDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasWish(editedEntry)) {
+        if (!wishToEdit.isSameEntry(editedWish) && model.hasWish(editedWish)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setWish(entryToEdit, editedEntry);
+        model.setWish(wishToEdit, editedWish);
         model.updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
+        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedWish));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Wish} with the details of {@code wishToEdit}
+     * edited with {@code editWishDescriptor}.
      */
-    private static Wish createEditedWish(Wish wishToEdit, EditWishDescriptor editEntryDescriptor) {
+    private static Wish createEditedWish(Wish wishToEdit, EditWishDescriptor editWishDescriptor) {
         assert wishToEdit != null;
-        Category updatedCategory = editEntryDescriptor.getCategory().orElse(wishToEdit.getCategory());
-        Description updatedName = editEntryDescriptor.getDesc().orElse(wishToEdit.getDesc());
-        Date updatedTime = editEntryDescriptor.getDate().orElse(wishToEdit.getDate());
-        Amount updatedAmount = editEntryDescriptor.getAmount().orElse(wishToEdit.getAmount());
-        Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(wishToEdit.getTags());
+        Category updatedCategory = editWishDescriptor.getCategory().orElse(wishToEdit.getCategory());
+        Description updatedName = editWishDescriptor.getDesc().orElse(wishToEdit.getDesc());
+        Date updatedTime = editWishDescriptor.getDate().orElse(wishToEdit.getDate());
+        Amount updatedAmount = editWishDescriptor.getAmount().orElse(wishToEdit.getAmount());
+        Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
         return new Wish(updatedCategory, updatedName, updatedTime, updatedAmount, updatedTags);
     }
 
@@ -118,12 +120,12 @@ public class EditWishCommand extends Command {
         // state check
         EditWishCommand e = (EditWishCommand) other;
         return index.equals(e.index)
-                && editEntryDescriptor.equals(e.editEntryDescriptor);
+                && editWishDescriptor.equals(e.editWishDescriptor);
     }
 
     /**
-     * Stores the details to edit the entry with. Each non-empty field value will replace the
-     * corresponding field value of the entry.
+     * Stores the details to edit the wish with. Each non-empty field value will replace the
+     * corresponding field value of the wish.
      */
     public static class EditWishDescriptor {
         private Category category;

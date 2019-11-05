@@ -31,7 +31,7 @@ import seedu.address.model.entry.Expense;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing entry in the address book.
+ * Edits the details of an existing expense in the address book.
  */
 public class EditExpenseCommand extends Command {
 
@@ -43,7 +43,7 @@ public class EditExpenseCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_DESC + "NAME] "
-            + "[" + PREFIX_DATE + "TIME] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -51,21 +51,21 @@ public class EditExpenseCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This expense already exists in guiltTrip.";
 
     private final Index index;
-    private final EditExpenseDescriptor editEntryDescriptor;
+    private final EditExpenseDescriptor editExpenseDescriptor;
 
     /**
-     * @param index of the entry in the filtered entry list to edit
-     * @param editEntryDescriptor details to edit the entry with
+     * @param index of the entry in the filtered expense list to edit
+     * @param editExpenseDescriptor details to edit the expense with
      */
-    public EditExpenseCommand(Index index, EditExpenseDescriptor editEntryDescriptor) {
+    public EditExpenseCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
         requireNonNull(index);
-        requireNonNull(editEntryDescriptor);
+        requireNonNull(editExpenseDescriptor);
 
         this.index = index;
-        this.editEntryDescriptor = new EditExpenseDescriptor(editEntryDescriptor);
+        this.editExpenseDescriptor = new EditExpenseDescriptor(editExpenseDescriptor);
     }
 
     @Override
@@ -77,33 +77,33 @@ public class EditExpenseCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
-        Expense entryToEdit = lastShownList.get(index.getZeroBased());
-        Expense editedEntry = createEditedExpense(entryToEdit, editEntryDescriptor);
+        Expense expenseToEdit = lastShownList.get(index.getZeroBased());
+        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        System.out.println(entryToEdit.isSameEntry(editedEntry));
+        System.out.println(expenseToEdit.isSameEntry(editedExpense));
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (!expenseToEdit.isSameEntry(editedExpense) && model.hasEntry(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
+        model.setEntry(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
+        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedExpense));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
+     * edited with {@code editExpenseDescriptor}.
      */
-    private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editEntryDescriptor) {
+    private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
         assert expenseToEdit != null;
-        Category updatedCategory = editEntryDescriptor.getCategory().orElse(expenseToEdit.getCategory());
-        Description updatedName = editEntryDescriptor.getDesc().orElse(expenseToEdit.getDesc());
-        Date updatedTime = editEntryDescriptor.getTime().orElse(expenseToEdit.getDate());
-        Amount updatedAmount = editEntryDescriptor.getAmount().orElse(expenseToEdit.getAmount());
-        Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(expenseToEdit.getTags());
+        Category updatedCategory = editExpenseDescriptor.getCategory().orElse(expenseToEdit.getCategory());
+        Description updatedName = editExpenseDescriptor.getDesc().orElse(expenseToEdit.getDesc());
+        Date updatedTime = editExpenseDescriptor.getTime().orElse(expenseToEdit.getDate());
+        Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
+        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
         return new Expense(updatedCategory, updatedName, updatedTime, updatedAmount, updatedTags);
     }
 
@@ -122,12 +122,12 @@ public class EditExpenseCommand extends Command {
         // state check
         EditExpenseCommand e = (EditExpenseCommand) other;
         return index.equals(e.index)
-                && editEntryDescriptor.equals(e.editEntryDescriptor);
+                && editExpenseDescriptor.equals(e.editExpenseDescriptor);
     }
 
     /**
-     * Stores the details to edit the entry with. Each non-empty field value will replace the
-     * corresponding field value of the entry.
+     * Stores the details to edit the expense with. Each non-empty field value will replace the
+     * corresponding field value of the expense.
      */
     public static class EditExpenseDescriptor {
         private Category category;

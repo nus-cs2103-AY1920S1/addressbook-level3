@@ -14,6 +14,8 @@ import seedu.address.logic.commands.BudgetListCommand;
 import seedu.address.logic.commands.addcommands.AddExpenseCommand;
 import seedu.address.logic.commands.addcommands.AddIncomeCommand;
 import seedu.address.logic.commands.addcommands.AddWishCommand;
+import seedu.address.logic.commands.editcommands.EditExpenseCommand;
+import seedu.address.logic.commands.editcommands.EditIncomeCommand;
 import seedu.address.logic.commands.uicommands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -85,6 +87,8 @@ import seedu.address.logic.parser.editcommandparsers.EditAutoExpenseCommandParse
 import seedu.address.logic.parser.editcommandparsers.EditBudgetCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditCategoryCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditCommandParser;
+import seedu.address.logic.parser.editcommandparsers.EditExpenseCommandParser;
+import seedu.address.logic.parser.editcommandparsers.EditIncomeCommandParser;
 import seedu.address.logic.parser.editcommandparsers.EditWishCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.findcommandparsers.FindBudgetCommandParser;
@@ -112,12 +116,9 @@ public class GuiltTripParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput
-     *                      full user input string
+     * @param userInput full user input string
      * @return the command based on the user input
-     * @throws ParseException
-     *                            if the user input does not conform the expected
-     *                            format
+     * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException, IllegalArgumentException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -147,11 +148,17 @@ public class GuiltTripParser {
         case AddWishCommand.COMMAND_WORD:
             return new AddWishCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        /*case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);*/
 
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);
+
+        case EditExpenseCommand.COMMAND_WORD:
+            return new EditExpenseCommandParser().parse(arguments);
+
+        case EditIncomeCommand.COMMAND_WORD:
+            return new EditIncomeCommandParser().parse(arguments);
 
         case EditWishCommand.COMMAND_WORD:
             return new EditWishCommandParser().parse(arguments);
