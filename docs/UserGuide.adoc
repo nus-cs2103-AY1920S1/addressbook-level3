@@ -391,7 +391,7 @@ The optional arguments take the following default values if left unspecified.
 | Argument | Default values
 
 | Category | "Uncategorised"
-| Type | "exp" 
+| Type | "exp"
 | Month Start Offset | "-1" (Offset ignored)
 | Month End Offset | "-1" (Offset ignored)
 |==============================
