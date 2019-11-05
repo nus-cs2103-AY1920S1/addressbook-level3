@@ -41,7 +41,8 @@
 
                 <HBox VBox.vgrow="ALWAYS" styleClass="main">
 
-                    <StackPane fx:id="helpDeskPlaceholder" minWidth="200" VBox.vgrow="ALWAYS"/>
+                    <StackPane fx:id="helpDeskWindowPlaceholder" minWidth="200" maxWidth="200"  VBox.vgrow="ALWAYS">
+                    </StackPane>
 
                     <VBox id="parentVBox" HBox.hgrow="ALWAYS">
 

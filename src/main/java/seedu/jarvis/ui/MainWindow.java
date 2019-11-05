@@ -53,6 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private HelpDeskWindow helpDeskWindow;
 
     @FXML
     private VBox parentVBox;
@@ -68,6 +69,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane helpDeskWindowPlaceholder;
 
     @FXML
     private TabPane tabPanePlaceHolder;
@@ -120,10 +124,18 @@ public class MainWindow extends UiPart<Stage> {
             if (event.getCode() == KeyCode.TAB) {
                 event.consume();
                 SingleSelectionModel<Tab> selectionModel = tabPanePlaceHolder.getSelectionModel();
-                if (selectionModel.isSelected(FINANCES_INDEX)) {
-                    selectionModel.selectFirst();
-                } else {
+                if (selectionModel.isSelected(PLANNER_INDEX)) {
                     selectionModel.selectNext();
+                    helpDeskWindow.setCourseText();
+                } else if (selectionModel.isSelected(MODULES_INDEX)) {
+                    selectionModel.selectNext();
+                    helpDeskWindow.setCcaText();
+                } else if (selectionModel.isSelected(CCAS_INDEX)) {
+                    selectionModel.selectNext();
+                    helpDeskWindow.setFinanceText();
+                } else if (selectionModel.isSelected(FINANCES_INDEX)) {
+                    selectionModel.selectFirst();
+                    helpDeskWindow.setPlannerText();
                 }
             }
         });
@@ -148,6 +160,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        helpDeskWindow = new HelpDeskWindow();
+        helpDeskWindowPlaceholder.getChildren().add(helpDeskWindow.getRoot());
 
         // Press "Enter" to auto-focus to CommandBox
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -333,18 +348,22 @@ public class MainWindow extends UiPart<Stage> {
 
         case "plannerContentPlaceholder":
             tabPanePlaceHolder.getSelectionModel().select(PLANNER_INDEX);
+            helpDeskWindow.setPlannerText();
             break;
 
         case "financeContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
+            helpDeskWindow.setFinanceText();
             break;
 
         case "moduleContentPlaceholder":
             tabPanePlaceHolder.getSelectionModel().select(MODULES_INDEX);
+            helpDeskWindow.setCourseText();
             break;
 
         case "ccaContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(CCAS_INDEX);
+            helpDeskWindow.setCcaText();
             break;
 
         default:
