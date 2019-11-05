@@ -46,7 +46,7 @@ respectively.
 
 **Command Format**
 
-* Command words for universal commands are prepended with "-" *(not for now)*
+* Command words for universal commands are prepended with "-"
 ** Example Usage: `help`.
 * Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`,
 `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be supplied.
@@ -110,12 +110,16 @@ Format: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
 
 Example:  `-add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 
-Requirements:
+[NOTE]
+====
+
+.Requirements
 
 * A valid customer `c/CUSTOMER`, restaurant `r/RESTAURANT` and restaurant menu item `f/FOOD` must be provided and
 exists currently in the database.
 
-* The quantity of food to be delivered also be provided and be greater than 0.
+* The quantity of food `q/QUANTITY` to be delivered also be provided and be greater than 0.
+====
 
 {nbsp} +
 
@@ -126,11 +130,15 @@ Format: `-complete_order INDEX`
 
 Example:  `-complete_order 3`
 
-Requirements:
+[NOTE]
+====
 
-* A deliveryman must be assigned to the order before it can be completed.
+.Requirements
+
+* A deliveryman must already be assigned to the order before it can be completed.
 
 * The index provided must be within the order list size and be greater than or equals to 0.
+====
 
 {nbsp} +
 
@@ -139,23 +147,27 @@ This command enables you to edit an order. The order to edit will have to be spe
 
 You can change:
 
-* The customer who made the order
+* The customer `c/CUSTOMER` who made the order
 
-* The restaurant and/or food ordered
+* The restaurant `r/RESTAURANT` which the order was made from
 
-* The quantity of the food ordered
+* The food `f/FOOD` ordered as well as its quantity ``q/QUANTITY
 
 Format: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
 
 Example: `-edit_order i/1337 c/John Doe`
 
-Requirements:
+[NOTE]
+====
+
+.Requirements
 
 * The index `i/INDEX` provided must be within the order list size and be greater than or equals to 0.
 
 * A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
 
 * Optional items with '[]' tags may be ommitted e.g. `[r/RESTAURANT]`. However at least 1 tag has to be present for the order to be edited.
+====
 
 {nbsp} +
 
@@ -166,9 +178,12 @@ Format: `-delete_order INDEX`
 
 Example: `-delete_order 3`
 
-Requirements:
+[NOTE]
+====
 
+.Requirements
 * The index provided must be within the order list size and be greater than or equals to 0.
+====
 
 {nbsp} +
 
@@ -178,10 +193,6 @@ This command enables you to view all orders currently in the database.
 Format: `-list_orders`
 
 Example: `-list_orders`
-
-Requirements:
-
-* The index provided must be within the order list size and be greater than or equals to 0.
 
 {nbsp} +
 
@@ -253,6 +264,13 @@ Format: `edit INDEX [n/NAME] [p/PHONE]`
 
 Example: `edit 1 n/John Hoe p/97654321`
 
+[NOTE]
+====
+
+.Requirements
+* add requirements here
+====
+
 {nbsp} +
 
 ==== Deleting a customer: `delete`
@@ -263,6 +281,13 @@ Format: `delete INDEX`
 
 Example: `delete 1`
 
+[NOTE]
+====
+
+.Requirements
+* add requirements here
+====
+
 {nbsp} +
 
 ==== Viewing a customer's order history: `history`
@@ -272,6 +297,13 @@ This command allows you to view a customer's order history. The index of a custo
 Format: `history INDEX`
 
 Example: `history 1`
+
+[NOTE]
+====
+
+.Requirements
+* add requirements here
+====
 
 // end::customerCommand[]
 // tag::restaurantCommand[]
@@ -293,6 +325,13 @@ Format: `add n/NAME l/LOCATION [t/TAG]...`
 
 Example: `add n/KFC l/Jurong t/FastFood`
 
+[NOTE]
+====
+
+.Requirements
+* add requirements here
+====
+
 {nbsp} +
 
 ==== Deleting a restaurant: `delete`
@@ -303,6 +342,13 @@ Format: `delete INDEX`
 * `INDEX` must be a positive integer from 1 to n, the number of restaurants in the restaurant list.
 
 Example: `delete 1`
+
+[NOTE]
+====
+
+.Requirements
+* add requirements here
+====
 
 {nbsp} +
 
@@ -325,15 +371,19 @@ This command edits the details of the restaurant under EditMode.
 
 image::userguide\EditDetails.png[width="790"]
 
-
 Format: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 
+Example: `editdetails n/New KFC l/Tuas`
+
+[NOTE]
+====
+
+.Requirements
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the restaurant will be removed i.e adding of tags is not cumulative.
 * You can remove all the restaurant’s tags by typing t/ without specifying any tags after it.
-
-Example: `editdetails n/New KFC l/Tuas`
+====
 
 {nbsp} +
 
@@ -346,6 +396,13 @@ Format: `add n/NAME a/PRICE [t/TAG]...`
 
 Example: `add n/Chicken a/7.90 t/Recommended`
 
+[NOTE]
+====
+
+.Requirements
+* add requirements here
+====
+
 {nbsp} +
 
 ==== Deleting food item (under EditMode): `delete`
@@ -357,6 +414,13 @@ Format: `delete INDEX`
 
 Example: `delete 1`
 
+[NOTE]
+====
+
+.Requirements
+* add requirements here
+====
+
 {nbsp} +
 
 ==== Adding a rating (under EditMode): `rate`
@@ -367,9 +431,14 @@ image::userguide\AddRating.png[width="790"]
 
 Format: `rate RATING`
 
-* `RATING` must be a non-negative integer from 0 to 5.
-
 Example: `rate 4`
+
+[NOTE]
+====
+
+.Requirements
+* `RATING` must be a non-negative integer from 0 to 5.
+====
 
 {nbsp} +
 
@@ -394,6 +463,13 @@ Format: `add n/NAME p/PHONE`
 
 Example: `add n/John Doe p/91234567`
 
+[NOTE]
+====
+
+.Requirements
+* add reqs here
+====
+
 {nbsp} +
 
 ==== Editing a deliveryman: `edit`
@@ -408,6 +484,13 @@ Format: `edit INDEX [n/NAME] [p/PHONE]`
 
 Example: `edit 1 n/John Hoe p/97654321`
 
+[NOTE]
+====
+
+.Requirements
+* add reqs here
+====
+
 {nbsp} +
 
 ==== Deleting a deliveryman: `delete`
@@ -418,6 +501,13 @@ index of the deliveryman.
 Format: `delete INDEX`
 
 Example: `delete 1`
+
+[NOTE]
+====
+
+.Requirements
+* add reqs here
+====
 
 {nbsp} +
 
@@ -449,6 +539,13 @@ Format: `status INDEX`
 
 Example: `status 3`
 
+[NOTE]
+====
+
+.Requirements
+* add reqs here
+====
+
 {nbsp} +
 
 ==== Viewing the statistics of the deliverymen statuses: `stats`
@@ -471,6 +568,13 @@ WARNING: This is half-implemented. But you can still use it. For fun. But if you
 Format: `enter INDEX`
 
 Example: `enter 1`
+
+[NOTE]
+====
+
+.Requirements
+* add reqs here
+====
 
 {nbsp} +
 
