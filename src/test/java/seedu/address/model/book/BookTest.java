@@ -18,6 +18,8 @@ import seedu.address.testutil.BookBuilder;
 
 public class BookTest {
 
+
+
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Book book = new BookBuilder().build();
@@ -137,4 +139,5 @@ public class BookTest {
 
         assertTrue(book1.toString().equals(stringRep));
     }
+
 }

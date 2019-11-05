@@ -244,6 +244,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getLoanHistoryOfBookAsString(Book book) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Model excludeBookBeingReplaced(Book toBeReplaced) {
             throw new AssertionError(" This method should not be called.");
         }

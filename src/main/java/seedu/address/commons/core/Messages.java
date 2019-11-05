@@ -11,14 +11,17 @@ public class Messages {
     public static final String MESSAGE_LOAN_STATE_CONSTRAINTS = "Only 1 of -available / -loaned / -overdue flags can "
             + "be used at any time";
     public static final String MESSAGE_INVALID_DISPLAY_LIMIT = "Display limit must be a positive integer!";
-    public static final String MESSAGE_BOOK_TITLE_TOO_LONG = "Title of book should not be more than 30 characters!";
+    public static final String MESSAGE_BOOK_TITLE_TOO_LONG = "Title of book should not be more than %1$s characters!";
     public static final String MESSAGE_AUTHOR_NAME_TOO_LONG = "Name of author should not be more than 30 characters!";
     public static final String MESSAGE_UNUSED_ARGUMENT = "\n\'%1$s\' is ignored as \'%2$s\'"
             + " does not accept arguments";
+    public static final String MESSAGE_TOO_MANY_GENRES =
+            "Too many genres specified! The maximum number of genres is %1$d.";
+    public static final String MESSAGE_GENRE_TOO_LONG = "Genre name should not be more than %1$s characters!";
 
     // Book messages
     public static final String MESSAGE_DUPLICATE_BOOK = "Serial number provided is already in use!";
-    public static final String MESSAGE_INVALID_BOOK_DISPLAYED_INDEX = "The book index provided is invalid";
+    public static final String MESSAGE_INVALID_BOOK_DISPLAYED_INDEX = "The book index provided is invalid!";
     public static final String MESSAGE_BOOKS_LISTED_OVERVIEW = "%1$d books listed!";
     public static final String MESSAGE_NO_SUCH_BOOK = "No such book!";
 

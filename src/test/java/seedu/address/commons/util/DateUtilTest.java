@@ -109,4 +109,14 @@ class DateUtilTest {
     public void formatDate() {
         assertEquals(DateUtil.formatDate(LocalDate.of(2019, 10, 25)), "25/10/2019");
     }
+
+    @Test
+    public void getTodayFormattedDate() {
+        LocalDate todaysDate = DateUtil.getTodayDate();
+        String day = todaysDate.getDayOfMonth() < 10
+                ? "0" + todaysDate.getDayOfMonth()
+                : "" + todaysDate.getDayOfMonth();
+        assertEquals(DateUtil.getTodayFormattedDate(),
+                day + "/" + todaysDate.getMonthValue() + "/" + todaysDate.getYear());
+    }
 }

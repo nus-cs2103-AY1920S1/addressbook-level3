@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -16,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -254,7 +256,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasBook(SerialNumber bookSn) {
         requireNonNull(bookSn);
-        return catalog.checkIfSerialNumberExists(bookSn);
+        return catalog.serialNumberExists(bookSn);
     }
 
     @Override
@@ -274,6 +276,7 @@ public class ModelManager implements Model {
 
     @Override
     public Book getBook(SerialNumber bookSn) {
+        assert hasBook(bookSn) : "Book does not exist in catalog";
         return catalog.getBook(bookSn);
     }
 
@@ -292,6 +295,43 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Book> getOverdueBooks() {
         return catalog.getOverdueBooks();
+    }
+
+    @Override
+    public String getLoanHistoryOfBookAsString(Book target) {
+        ArrayList<Loan> loanStream = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Loan History:\n");
+        if (target.getLoanHistory().isEmpty()) {
+            sb.append("No loan history!");
+        } else {
+            target.getLoanHistory().forEach(loan -> loanStream.add(loan));
+            Collections.reverse(loanStream); // To make latest loan go on top
+            loanStream.stream()
+                    .map(loan -> singleLoanHistoryString(
+                            loan, target.isCurrentlyLoanedOut() && target.getLoan().get().equals(loan)))
+                    .forEach(history -> sb.append(history + "\n"));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Helper method to generate a loan history as a string.
+     *
+     * @param loan loan history to be generated.
+     * @param isCurrent if this loan is currently the loan associated with the book at the moment.
+     * @return String representation of loan history.
+     */
+    private String singleLoanHistoryString(Loan loan, boolean isCurrent) {
+        String startString = DateUtil.formatDate(loan.getStartDate());
+        String endString = DateUtil.formatDate(loan.getDueDate());
+        String nameString = getBorrowerFromId(loan.getBorrowerId()).getName().toString();
+        String borrowerIdString = "[" + loan.getBorrowerId().toString() + "]";
+        if (isCurrent) {
+            return startString + " - " + endString + " by " + borrowerIdString + " " + nameString + " (Current loan)";
+        } else {
+            return startString + " - " + endString + " by " + borrowerIdString + " " + nameString;
+        }
     }
 
     /**

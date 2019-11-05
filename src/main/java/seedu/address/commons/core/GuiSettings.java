@@ -20,6 +20,9 @@ public class GuiSettings implements Serializable {
 
     private boolean isDefault;
 
+    /**
+     * Default constructor for GuiSettings.
+     */
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
@@ -35,10 +38,12 @@ public class GuiSettings implements Serializable {
     }
 
     public double getWindowWidth() {
+        assert !isDefault : "Should return default width from fxml file";
         return windowWidth;
     }
 
     public double getWindowHeight() {
+        assert !isDefault : "Should return default height from fxml file";
         return windowHeight;
     }
 

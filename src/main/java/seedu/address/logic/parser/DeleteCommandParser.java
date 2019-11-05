@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
@@ -23,9 +24,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
+        boolean isIndex = false;
         try {
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SERIAL_NUMBER);
             if (isPrefixPresent(argMultimap, PREFIX_SERIAL_NUMBER)) {
+                isIndex = false;
                 //attempting to delete by serial number
                 SerialNumber sn = ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER).get());
                 return new DeleteBySerialNumberCommand(sn);
@@ -38,6 +41,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             if (serialNumberProvided(args)) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_SERIAL_NUMBER, DeleteCommand.MESSAGE_USAGE), pe);
+            } else if (indexProvided(args)) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX, DeleteCommand.MESSAGE_USAGE), pe);
             } else {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
@@ -56,6 +62,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         // Therefore, if the serial number prefix is present, the serial number provided is invalid.
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SERIAL_NUMBER);
         return isPrefixPresent(argMultimap, PREFIX_SERIAL_NUMBER);
+    }
+
+    private boolean indexProvided(String args) {
+        return args.trim().matches("^[0-9]*$");
     }
 
     /**

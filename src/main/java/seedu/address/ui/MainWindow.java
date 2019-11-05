@@ -15,6 +15,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.book.Book;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private BorrowerPanel borrowerPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private InfoWindow infoWindow;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -63,6 +65,8 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         helpWindow = new HelpWindow();
+        infoWindow = new InfoWindow();
+
         if (logic.isServeMode()) {
             mode.setText(SERVE_MODE);
         } else {
@@ -108,11 +112,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private double getDefaultWidth() {
+    public static double getDefaultWidth() {
         return Screen.getPrimary().getVisualBounds().getWidth();
     }
 
-    private double getDefaultHeight() {
+    public static double getDefaultHeight() {
         return Screen.getPrimary().getVisualBounds().getHeight();
     }
 
@@ -128,8 +132,25 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the info window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleInfo(Book book) {
+        infoWindow.updateData(book, logic.getLoanHistoryOfBookAsString(book));
+        if (!infoWindow.isShowing()) {
+            infoWindow.show();
+        } else {
+            infoWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
+    }
+
+    public BookListPanel getBookListPanel() {
+        return bookListPanel;
     }
 
     /**
@@ -141,6 +162,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        infoWindow.hide();
         primaryStage.hide();
     }
 
@@ -170,10 +192,6 @@ public class MainWindow extends UiPart<Stage> {
         borrowerPanel.reset();
     }
 
-    public BookListPanel getBookListPanel() {
-        return bookListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -193,6 +211,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleServe();
             } else if (commandResult.isDone()) {
                 handleDone();
+            } else if (commandResult.isInfo()) {
+                handleInfo(commandResult.getBook());
             }
 
             if (logic.isServeMode() && !commandResult.isDone()) {

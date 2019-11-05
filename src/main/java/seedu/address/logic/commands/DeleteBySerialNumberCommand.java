@@ -2,11 +2,16 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.model.loan.Loan;
 
 /**
  * Deletes a book identified using it's serial number from the catalog.
@@ -38,15 +43,24 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
         }
         Book bookToDelete = retrieveBookFromCatalog(model, targetSerialNumber);
         if (bookToDelete.isCurrentlyLoanedOut()) {
+            Loan loanToBeReturned = bookToDelete.getLoan().get();
+            LocalDate returnDate = DateUtil.getTodayDate();
+            Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, FINE_AMOUNT_ZERO);
+
+            Book returnedBook = bookToDelete.returnBook();
+            LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToDelete);
+
             // mark book as returned
-            super.markBookAsReturned(model, bookToDelete);
+            super.markBookAsReturned(model, bookToDelete, returnedBook, loanToBeReturned, returnedLoan);
+            undoCommand = new UndeleteCommand(returnedBook, bookToDelete, returnedLoan, loanToBeReturned);
+        } else {
+            undoCommand = new AddCommand(bookToDelete);
         }
 
-        undoCommand = new AddCommand(bookToDelete);
+        model.deleteBook(bookToDelete);
+
         redoCommand = this;
         commandResult = new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
-
-        model.deleteBook(bookToDelete);
 
         return commandResult;
     }

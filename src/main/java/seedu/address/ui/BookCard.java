@@ -46,22 +46,29 @@ public class BookCard extends UiPart<Region> {
     @FXML
     private Label renewCount;
 
-    public BookCard(Book book, int displayedIndex) {
+    private BookCard(Book book, String indexText) {
         super(FXML);
         this.book = book;
-        id.setText(displayedIndex + ". ");
+
+        id.setText(indexText);
         title.setText(book.getTitle().value);
         serialNumber.setText(book.getSerialNumber().value);
         author.setText(book.getAuthor().value);
+
         book.getGenres().stream()
                 .sorted(Comparator.comparing(tag -> tag.genreName))
                 .forEach(tag -> genres.getChildren().add(new Label(tag.genreName)));
+
         if (book.isCurrentlyLoanedOut()) {
             loanStatus.setText("On Loan");
             dueDate.setText("Due: " + DateUtil.formatDate(book.getLoan().get().getDueDate()));
             renewCount.setText("Renewed: " + book.getLoan().get().getRenewCount() + " times");
         }
 
+    }
+
+    public static BookCard bookCardWithIndex(Book book, int displayedIndex) {
+        return new BookCard(book, displayedIndex + ". ");
     }
 
     @Override

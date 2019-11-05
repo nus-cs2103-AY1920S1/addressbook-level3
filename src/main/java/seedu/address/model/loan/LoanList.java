@@ -1,6 +1,7 @@
 package seedu.address.model.loan;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -24,6 +25,7 @@ public class LoanList implements Iterable<Loan> {
      */
     public void add(Loan loan) {
         loanList.add(loan);
+        Collections.sort(loanList);
     }
 
     /**
@@ -65,7 +67,9 @@ public class LoanList implements Iterable<Loan> {
     public LoanList removeFromNewCopy(Loan loan) {
         ArrayList<Loan> newList = new ArrayList<>(this.loanList);
         newList.remove(loan);
+        Collections.sort(newList);
         return new LoanList(newList);
+
     }
 
     /**
@@ -81,6 +85,7 @@ public class LoanList implements Iterable<Loan> {
 
         ArrayList<Loan> newList = new ArrayList<>(this.loanList);
         newList.set(newList.indexOf(loanToBeReplaced), replacingLoan);
+        Collections.sort(newList);
         return new LoanList(newList);
     }
 
