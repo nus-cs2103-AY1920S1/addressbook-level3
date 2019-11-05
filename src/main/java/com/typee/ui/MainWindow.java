@@ -197,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switch the window to the {@code Tab} specified.
      */
-    private void handleTabSwitch(Tab tabInput) throws IOException, CommandException {
+    private void handleTabSwitch(Tab tabInput) {
         Parent root = tabInput.getController().getRoot();
         mainWindow.getChildren().clear();
         mainWindow.getChildren().add(root);
@@ -215,27 +215,19 @@ public class MainWindow extends UiPart<Stage> {
         }
         CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
         String calendarCommandType = commandResult.getCalendarCommandType();
-        try {
-            switch (calendarCommandType) {
-            case "opendisplay":
-                calendarWindow.display(commandResult.getCalendarDate());
-                break;
-            case "nextmonth":
-                calendarWindow.populateCalendarWithNextMonth();
-                break;
-            case "previousmonth":
-                calendarWindow.populateCalendarWithPreviousMonth();
-                break;
-            default:
-                throw new CommandException("Invalid calendar command.");
-            }
-        } catch (IllegalArgumentException e) {
-            throw new CommandException(e.getMessage());
+        switch (calendarCommandType) {
+        case "opendisplay":
+            calendarWindow.display(commandResult.getCalendarDate());
+            break;
+        case "nextmonth":
+            calendarWindow.populateCalendarWithNextMonth();
+            break;
+        case "previousmonth":
+            calendarWindow.populateCalendarWithPreviousMonth();
+            break;
+        default:
+            throw new CommandException("Invalid calendar command.");
         }
-    }
-
-    public EngagementListPanel getEngagementListPanel() {
-        return engagementListPanel;
     }
 
     /**
