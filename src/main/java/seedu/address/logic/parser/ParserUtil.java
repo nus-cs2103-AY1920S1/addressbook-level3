@@ -13,7 +13,6 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-
 import seedu.address.logic.commands.statisticcommand.StatisticType;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.ContactNumber;
@@ -30,7 +29,6 @@ import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
 import seedu.address.statistic.StatsParseUtil;
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -245,6 +243,7 @@ public class ParserUtil {
         }
         return new SerialNumber(trimmedSerialNumber);
     }
+
     /**
      * Parses a {@Code String statsInput} into {@Code statisticType}.
      * Leading and trailing whitespaces will be trimmed.
@@ -407,7 +406,8 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
-     /** Parses a {@code String name} into a {@code Name}.
+    /**
+     * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.

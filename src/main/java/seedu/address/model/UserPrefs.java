@@ -39,6 +39,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
+        setCustomerBookFilePath(newUserPrefs.getCustomerBookFilePath());
+        setPhoneBookFilePath(newUserPrefs.getPhoneBookFilePath());
+        setScheduleBookFilePath(newUserPrefs.getScheduleBookFilePath());
+        setOrderBookFilePath(newUserPrefs.getOrderBookFilePath());
+        setArchivedOrderBookFilePath(newUserPrefs.getArchivedOrderBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {

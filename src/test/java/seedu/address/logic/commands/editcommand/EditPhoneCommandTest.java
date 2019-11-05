@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.clearcommand.ClearCustomerCommand;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand.EditPhoneDescriptor;
 import seedu.address.model.DataBook;
 import seedu.address.model.Model;
@@ -36,7 +36,8 @@ import seedu.address.testutil.EditPhoneDescriptorBuilder;
 import seedu.address.testutil.PhoneBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditPhoneCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * and unit tests for EditPhoneCommand.
  */
 public class EditPhoneCommandTest {
 
@@ -177,7 +178,7 @@ public class EditPhoneCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearCustomerCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditPhoneCommand(INDEX_SECOND_PHONE, DESC_IPHONE)));

@@ -20,6 +20,7 @@ import static seedu.address.testutil.TypicalSchedules.CBD_SCHEDULE;
 import static seedu.address.testutil.TypicalSchedules.FRIDAY_SCHEDULE;
 import static seedu.address.testutil.TypicalSchedules.MONDAY_SCHEDULE;
 
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -727,6 +728,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
+        differentUserPrefs.setPhoneBookFilePath(Paths.get("diffFilePath"));
         assertFalse(modelManager.equals(new
                 ModelManager(customerBook, phoneBook, orderBook, scheduleBook,
                 archivedOrderBook, differentUserPrefs)));

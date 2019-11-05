@@ -1,14 +1,7 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Status;
-import seedu.address.model.phone.Phone;
-import seedu.address.model.schedule.Schedule;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,9 +12,15 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
+import seedu.address.model.phone.Phone;
+import seedu.address.model.schedule.Schedule;
 
 /**
  * Represents the in-memory model of the SML data.

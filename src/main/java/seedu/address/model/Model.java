@@ -1,15 +1,15 @@
 package seedu.address.model;
 
+import java.util.Calendar;
+import java.util.List;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
