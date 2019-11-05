@@ -491,7 +491,7 @@ You should see the _Saving my tummy_ budget disappear from the budget list.
 
 ==== Finding monthly budget by keywords: `find`
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [KEYWORDS]...`
 
 You can use `find` to find budgets with description that matches all the given keywords. To illustrate this, let us suppose you want to find all budgets with the word _saving_ in its description.
 To do so, type `find saving` into the command bar and press enter.
