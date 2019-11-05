@@ -16,12 +16,10 @@ This project portfolio briefly introduces the project, treasurerPro and outlines
 my features.
 
 === About the team
-
 My team consists of five software engineering students who are all taking the module CS2103T. Four of us, including me,
 are year 2 Computer Science students and the other is a year 4 Computer Engineering student.
 
 === About the project
-
 This project is part of the module - Software Engineering Project, CS2103T. We were tasked to develop a basic
 command line interface <<CLI>>
 desktop application by morphing or enhancing an existing AddressBook desktop application over a period of 2 months.
@@ -503,29 +501,55 @@ This section explains the design considerations for some crucial implementations
 |===
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
 
-|The Transaction, Inventory and Person Model interfaces are passed as parameters into Cashier package’s Logic
+|The Transaction, Inventory and Person `Model` interfaces are passed as parameters into Cashier package’s `Logic`
 to call relevant methods to update the inventory and transactions.
 
-[square]
-* Pro: Cashier's Logic can access all public methods in the Models
-* Cons: It might introduce cause any unintended modification to some of the data in the Models.
+*Pros*: Cashier's Logic can access all public methods in the respective `Model`.
 
-|Interfaces containing only methods from the Models of Transaction, Inventory and Person package that are needed by
-Cashier's Logic are created. These methods are called to update the relevant data in inventory and transaction.
-|Alternative 2 was implemented as the new interfaces act as facades and restrict access to all public methods in
-Inventory, Person and Transaction Models. This prevents in Cashier Tab’s Logic from causing any unintended modification to
-any of the data in the Models.
+*Cons*: It might result in unintended modification to some of the data in the Models.
+
+|Interfaces containing only required methods from the models are created.
+The methods are called via these interfaces to update the relevant data in inventory and transaction.
+
+*Pros*: Only necessary methods will be accessed by the Cashier's `Logic`, preventing any unwanted changes through other methods.
+This follows the Facade Pattern.
+
+*Cons*: If more methods are needed, they need to be added to these interfaces.
+
+|Alternative 2 was implemented as only a few methods are required from each `Model`, so the new interfaces can act as facades
+and restrict access to all public methods in the models. This prevents in Cashier’s `Logic` from causing any
+unintended modification to any of the data in the Models.
 
 |The Cashier Storage directly writes to and from the data file of the inventory and transaction.
-|The Cashier Storage accesses the methods from the Transaction and Inventory storage via the respective Logic
+
+*Pros*: It can access the data file directly without any dependencies.
+
+*Cons*: The data files can be modified from 2 sources, introducing more chances of bugs.
+
+|The Cashier Storage accesses the methods from the Transaction and Inventory storage via the respective `Logic`
 to update the stock and list of transactions.
+
+*Pros*: The data files are only modified from 1 source, ensuring cohesiveness in the format of data stored.
+
+*Cons*: It introduces more dependencies on the storage of other packages.
+
 |Alternative 2 is implemented to enforce defensive programming, so that the data files are not modified via 2 different
 methods and eliminate any chances of uncoordinated data in the data files. It also reduce duplicate codes.
 
 |An ArrayList is used to store a list of sales item on cart of the `Cashier Tab`.
+
+*Pros*: Elements are be accessed directly more efficiently.
+
+*Cons*: Adding and removing from the head of the list is less time-efficient for ArrayList.
+
 |A LinkedList is used to store a list of sales item on cart of the `Cashier Tab`.
+
+*Pros*: Time performance is better when elements are be accessed from the head of the list.
+
+*Cons*: Performance is poor when accessing directly via the index.
+
 |Alternative 1 is selected. An ArrayList has better performance with respect to time when accessing each elements
-of the list. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.
+of the list directly. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.
 
 |===
 
