@@ -1,7 +1,5 @@
 package seedu.address.calendar.model.date;
 
-import seedu.address.calendar.model.util.DateUtil;
-
 import java.util.Arrays;
 
 /**
