@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.GuiSettings.DARK_THEME_CSS_PATH;
+import static seedu.address.commons.core.GuiSettings.LIBERRY_THEME_CSS_PATH;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -25,13 +28,12 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
     private static final String SERVE_MODE = "SERVE MODE";
     private static final String NORMAL_MODE = "NORMAL MODE";
-    public static final String COLOR_ACCENT_2 = "#979EAB";
-    public static final String COLOR_TRANSPARENT = "transparent";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private GuiSettings guiSettings;
 
     // Independent Ui parts residing in this Ui container
     private BookListPanel bookListPanel;
@@ -60,10 +62,11 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        guiSettings = logic.getGuiSettings();
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
-
+        setWindowDefaultSize(guiSettings);
+        setTheme(guiSettings);
 
         helpWindow = new HelpWindow();
         if (logic.isServeMode()) {
@@ -71,7 +74,16 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             mode.setText(NORMAL_MODE);
         }
+    }
 
+    private void setTheme(GuiSettings guiSettings) {
+        if (guiSettings.isDarkTheme()) {
+            this.getRoot().getScene().getStylesheets().clear();
+            this.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
+        } else {
+            this.getRoot().getScene().getStylesheets().clear();
+            this.getRoot().getScene().getStylesheets().add(LIBERRY_THEME_CSS_PATH);
+        }
     }
 
     public Stage getPrimaryStage() {
@@ -80,23 +92,40 @@ public class MainWindow extends UiPart<Stage> {
 
     public void updateModeUI() {
         if (logic.isServeMode()) {
-            mode.setStyle("-fx-background-color: " + COLOR_ACCENT_2 + ";");
+            if (guiSettings.isDarkTheme()) {
+                mode.setStyle("-fx-background-color: " + GuiSettings.COLOR_DARK_THEME_MODE_LABEL + ";");
+            } else {
+                mode.setStyle("-fx-background-color: " + GuiSettings.COLOR_LIBERRY_THEME_MODE_LABEL + ";");
+            }
         } else {
-            mode.setStyle("-fx-background-color: " + COLOR_TRANSPARENT + ";");
+            mode.setStyle("-fx-background-color: " + GuiSettings.COLOR_TRANSPARENT + ";");
         }
+        primaryStage.show();
+    }
+
+    public void handleToggleUi() {
+        guiSettings.toggleTheme();
+        setTheme(guiSettings);
+        bookListPanel = new BookListPanel(logic.getFilteredBookList(), guiSettings.isDarkTheme());
+        bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
+        updateModeUI();
+        if (logic.isServeMode()) {
+            updateBorrowerPanel();
+        }
+        primaryStage.show();
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        bookListPanel = new BookListPanel(logic.getFilteredBookList());
+        bookListPanel = new BookListPanel(logic.getFilteredBookList(), guiSettings.isDarkTheme());
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        borrowerPanel = new BorrowerPanel();
+        borrowerPanel = new BorrowerPanel(guiSettings.isDarkTheme());
         borrowerPanelPlaceholder.getChildren().add(borrowerPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -149,9 +178,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        GuiSettings newGuiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY(), this.guiSettings.isDarkTheme());
+        logic.setGuiSettings(newGuiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -171,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void updateBorrowerPanel() {
         assert logic.isServeMode() : "Not in serve mode";
-        borrowerPanel.setBorrower(logic.getServingBorrower(), logic.getServingBorrowerBookList());
+        borrowerPanel.setBorrower(logic.getServingBorrower(), logic.getServingBorrowerBookList(), guiSettings.isDarkTheme());
     }
 
     /**
@@ -210,12 +239,13 @@ public class MainWindow extends UiPart<Stage> {
                 handleServe();
             } else if (commandResult.isDone()) {
                 handleDone();
+            } else if (commandResult.isToggleUi()) {
+                handleToggleUi();
             }
 
             if (logic.isServeMode() && !commandResult.isDone()) {
                 updateBorrowerPanel();
             }
-
 
             return commandResult;
         } catch (CommandException | ParseException e) {

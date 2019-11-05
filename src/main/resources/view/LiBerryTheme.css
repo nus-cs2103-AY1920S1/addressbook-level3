@@ -1,18 +1,28 @@
 .color_family {
     light:808999;
-    Dark: 010504;
-    Dark2: 1B212D;
+    font: 010504;
+    font2: 1B212D;
     Accent: 979EAB;
     Accent2: B3B8C1;
-    Void: D9DBE0;
-    Void2: 383838;
+    Accent3: #1C1413;
+    Accent4: #808999;
+    borders: D9DBE0;
+    empty: #383838;
     alt1: EEEFF0;
     alt2: E3E5E6;
+}
+
+.error {
+    -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
 }
 
 .background {
     -fx-background-color: purple;
     background-color: green; /* Used in the default.html file */
+}
+
+.header_pane {
+    -fx-background-color: #EEEFF0;
 }
 
 .text-field {
@@ -54,10 +64,6 @@
     -fx-border-width: 1;
 }
 
-.list-cell .label {
-    -fx-text-fill: #212232;
-}
-
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
@@ -73,7 +79,7 @@
 .serial_number {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #464B54;
+    -fx-text-fill: #1B212D;
     -fx-background-color: #979EAB;
     -fx-padding: 0 5 0 5;
     -fx-background-radius: 2;
@@ -174,11 +180,6 @@
     -fx-border-width: 0;
 }
 
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #1B1B29;
-}
-
 #commandTextField {
     -fx-background-color: #D9DBE0;
     -fx-background-insets: 0;
@@ -186,6 +187,7 @@
     -fx-border-width: 1 0 1 0;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 12pt;
+    -fx-text-inner-color: #1B1B29;
 }
 
 #resultDisplayPlaceholder {

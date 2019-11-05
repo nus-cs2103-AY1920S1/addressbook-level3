@@ -31,7 +31,7 @@ public class UndoCommand extends Command {
         String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
 
         return new CommandResult(msgSuccess, commandResult.isShowHelp(), commandResult.isExit(),
-                commandResult.isServe(), commandResult.isDone());
+                commandResult.isServe(), commandResult.isDone(), false);
     }
 
     @Override

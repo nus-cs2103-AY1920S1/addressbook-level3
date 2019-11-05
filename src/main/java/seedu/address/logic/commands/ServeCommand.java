@@ -62,7 +62,7 @@ public class ServeCommand extends ReversibleCommand {
         undoCommand = new DoneCommand();
         redoCommand = this;
         commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, borrower), false,
-                false, true, false);
+                false, true, false, false);
 
         return commandResult;
     }

@@ -39,7 +39,6 @@ public class UiManager implements Ui {
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);
-            mainWindow.getRoot().getScene().getStylesheets().add("/view/LiBerryTheme.css");
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

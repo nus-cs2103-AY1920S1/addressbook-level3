@@ -6,20 +6,24 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1"
+         xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/help_icon.png" />
+        <Image url="@/images/help_icon.png"/>
     </icons>
     <scene>
         <Scene>
             <TableView fx:id="helpTable" prefHeight="400.0" prefWidth="400.0">
-            <columns>
-               <TableColumn fx:id="commandCol" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="Command" />
-               <TableColumn fx:id="usageCol" editable="false" prefWidth="305.0" resizable="false" sortable="false" text="Usage" />
-            </columns>
-            <columnResizePolicy>
-               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy></TableView>
+                <columns>
+                    <TableColumn fx:id="commandCol" editable="false" prefWidth="75.0" resizable="false" sortable="false"
+                                 text="Command"/>
+                    <TableColumn fx:id="usageCol" editable="false" prefWidth="305.0" resizable="false" sortable="false"
+                                 text="Usage"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
         </Scene>
     </scene>
 </fx:root>

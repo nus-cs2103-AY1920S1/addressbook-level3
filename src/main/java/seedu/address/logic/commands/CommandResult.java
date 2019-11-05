@@ -21,15 +21,18 @@ public class CommandResult {
 
     private final boolean done;
 
+    private final boolean toggleUi;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean serve, boolean done) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean serve, boolean done, boolean toggleUi) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.serve = serve;
         this.done = done;
+        this.toggleUi = toggleUi;
     }
 
     /**
@@ -37,7 +40,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -58,6 +61,10 @@ public class CommandResult {
 
     public boolean isDone() {
         return done;
+    }
+
+    public boolean isToggleUi() {
+        return toggleUi;
     }
 
     @Override

@@ -30,8 +30,8 @@ public class HelpCommand extends Command {
         if (unusedArguments != null) {
             return new CommandResult(String.format(SHOWING_HELP_MESSAGE
                     + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD),
-                    true, false, false, false);
+                    true, false, false, false, false);
         }
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false, false, false);
     }
 }

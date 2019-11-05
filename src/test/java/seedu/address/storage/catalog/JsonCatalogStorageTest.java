@@ -53,59 +53,59 @@ public class JsonCatalogStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
+    public void readCatalog_invalidPersonCatalog_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readCatalog("invalidBookCatalog.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
+    public void readCatalog_invalidAndValidPersonCatalog_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readCatalog("invalidAndValidBookCatalog.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveCatalog_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempCatalog.json");
         Catalog original = getTypicalCatalog();
-        JsonCatalogStorage jsonAddressBookStorage = new JsonCatalogStorage(filePath);
+        JsonCatalogStorage jsonCatalogStorage = new JsonCatalogStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveCatalog(original, filePath);
-        ReadOnlyCatalog readBack = jsonAddressBookStorage.readCatalog(filePath, new LoanRecords()).get();
+        jsonCatalogStorage.saveCatalog(original, filePath);
+        ReadOnlyCatalog readBack = jsonCatalogStorage.readCatalog(filePath, new LoanRecords()).get();
         assertEquals(original, new Catalog(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addBook(BOOK_5);
         original.removeBook(BOOK_2);
-        jsonAddressBookStorage.saveCatalog(original, filePath);
-        readBack = jsonAddressBookStorage.readCatalog(filePath, new LoanRecords()).get();
+        jsonCatalogStorage.saveCatalog(original, filePath);
+        readBack = jsonCatalogStorage.readCatalog(filePath, new LoanRecords()).get();
         assertEquals(original, new Catalog(readBack));
 
         // Save and read without specifying file path
         original.addBook(BOOK_6);
-        jsonAddressBookStorage.saveCatalog(original); // file path not specified
-        readBack = jsonAddressBookStorage.readCatalog(new LoanRecords()).get(); // file path not specified
+        jsonCatalogStorage.saveCatalog(original); // file path not specified
+        readBack = jsonCatalogStorage.readCatalog(new LoanRecords()).get(); // file path not specified
         assertEquals(original, new Catalog(readBack));
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveCatalog_nullCatalog_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveCatalog(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code catalog} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyCatalog addressBook, String filePath) {
+    private void saveCatalog(ReadOnlyCatalog catalog, String filePath) {
         try {
             new JsonCatalogStorage(Paths.get(filePath))
-                    .saveCatalog(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveCatalog(catalog, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new Catalog(), null));
+    public void saveCatalog_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveCatalog(new Catalog(), null));
     }
 }

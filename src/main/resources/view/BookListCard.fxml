@@ -54,9 +54,9 @@
             <RowConstraints/>
         </rowConstraints>
     </GridPane>
-    <VBox minHeight="70.0" minWidth="110.0" prefHeight="80.0" prefWidth="150.0">
-        <Pane VBox.vgrow="ALWAYS"/>
-        <VBox fx:id="loanStatusBox" prefHeight="60" prefWidth="110" styleClass="loan_status_box">
+    <VBox alignment="CENTER_LEFT" minHeight="70.0" minWidth="110.0" prefHeight="80.0" prefWidth="150.0">
+        <VBox fx:id="loanStatusBox" alignment="CENTER_LEFT" prefHeight="60" prefWidth="110"
+              styleClass="loan_status_box">
             <Label fx:id="loanStatus" text=""/>
             <Label fx:id="dueDate" text=""/>
             <Label fx:id="renewCount" text=""/>
@@ -64,9 +64,8 @@
                 <Insets bottom="5" left="5.0" right="15.0" top="5"/>
             </VBox.margin>
             <padding>
-                <Insets bottom="9.0" left="9.0" right="9.0" top="9.0"/>
+                <Insets bottom="9.0" left="12.0" right="9.0" top="9.0"/>
             </padding>
         </VBox>
-        <Pane VBox.vgrow="ALWAYS"/>
     </VBox>
 </HBox>
