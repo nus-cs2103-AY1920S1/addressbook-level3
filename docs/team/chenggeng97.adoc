@@ -1,8 +1,10 @@
-= Ong Cheng Geng - Project Portfolio for Horo
+= Ong Cheng Geng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+---
+== Project: Horo (Calendar/Scheduling App)
 ---
 == Overview
 
@@ -24,7 +26,7 @@ This section lists the code and documentation I contributed to the project.
 
 [cols="2,8"]
 |=======
-|What it does  | The Notification System runs in parallel to the main thread in the app. Every minute, it checks whether the user should be reminded of any Event or Task, and posts a new notification if necessary.
+|What it does  | The Notification System runs in parallel to the main thread of the app. Every minute, it checks whether the user should be reminded of any Event or Task, and posts a new notification if necessary.
 |Justification | The Notification System is a natural extension of an application meant for tracking deadlines and schedules. It serves to remind a forgetful or busy user of their commitments.
 |Highlights    | •	An initial design for the notification system involved running it not as a parallel thread, but as a separate background application. This would allow notifications to be posted even if the main app were closed. However, this design was eventually reworked.  Going forward with the original design would necessitate the development of a second application that the user would have to install in addition to Horo. This would have been at odds with module requirements and learning objectives.
                   {empty} +
@@ -49,7 +51,7 @@ link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chenggeng&sort=g
 
 
 == Contributions to the User Guide
-The following section includes excerpts of my contribution to the Horo User Guide, explaining the Notification System and the notif_on and notif_off commands.
+The following section includes excerpts of my contribution to the Horo User Guide, explaining the Notification System and the `notif_on` and `notif_off` commands.
 
 // tag::ug[]
 === Notification System
