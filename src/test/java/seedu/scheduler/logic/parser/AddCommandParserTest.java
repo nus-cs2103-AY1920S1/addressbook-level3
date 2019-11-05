@@ -75,7 +75,6 @@ import seedu.scheduler.testutil.InterviewerBuilder;
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
-    // TODO: Add more tests according to how AddCommandParser has been changed.
     @Test
     public void parse_intervieweeAllFieldsPresent_success() {
         Interviewee expectedInterviewee = new IntervieweeBuilder(BOB_INTERVIEWEE_MANUAL).withTags(VALID_TAG_FRIEND)

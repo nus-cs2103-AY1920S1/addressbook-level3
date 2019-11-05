@@ -91,54 +91,67 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Fills the given interviewee descriptor with necessary values from the argumentMultiMap.
      */
-    private void fillIntervieweeDescriptor(EditIntervieweeDescriptor d, ArgumentMultimap a) throws ParseException {
-        if (a.getValue(PREFIX_NAME).isPresent()) {
-            d.setName(ParserUtil.parseName(a.getValue(PREFIX_NAME).get()));
+    private void fillIntervieweeDescriptor(EditIntervieweeDescriptor descriptor, ArgumentMultimap argMultimap)
+            throws ParseException {
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            descriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (a.getValue(PREFIX_PHONE).isPresent()) {
-            d.setPhone(ParserUtil.parsePhone(a.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            descriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
-        if (a.getValue(PREFIX_FACULTY).isPresent()) {
-            d.setFaculty(ParserUtil.parseFaculty(a.getValue(PREFIX_FACULTY).get()));
+        if (argMultimap.getValue(PREFIX_FACULTY).isPresent()) {
+            descriptor.setFaculty(ParserUtil.parseFaculty(argMultimap.getValue(PREFIX_FACULTY).get()));
         }
-        if (a.getValue(PREFIX_YEAR_OF_STUDY).isPresent()) {
-            d.setYearOfStudy(ParserUtil.parseYearOfStudy(a.getValue(PREFIX_YEAR_OF_STUDY).get()));
+        if (argMultimap.getValue(PREFIX_YEAR_OF_STUDY).isPresent()) {
+            descriptor.setYearOfStudy(ParserUtil.parseYearOfStudy(argMultimap.getValue(PREFIX_YEAR_OF_STUDY).get()));
         }
-        Emails emails = new Emails();
-        if (a.getValue(PREFIX_PERSONAL_EMAIL).isPresent()) {
-            emails.addPersonalEmail(ParserUtil.parseEmail(a.getValue(PREFIX_PERSONAL_EMAIL).get()));
+
+        if (argMultimap.getValue(PREFIX_PERSONAL_EMAIL).isPresent()
+                || argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).isPresent()) {
+            Emails emails = new Emails();
+            if (argMultimap.getValue(PREFIX_PERSONAL_EMAIL).isPresent()) {
+                emails.addPersonalEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSONAL_EMAIL).get()));
+            }
+            if (argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).isPresent()) {
+                emails.addNusEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).get()));
+            }
+            descriptor.setEmails(emails);
         }
-        if (a.getValue(PREFIX_NUS_WORK_EMAIL).isPresent()) {
-            emails.addNusEmail(ParserUtil.parseEmail(a.getValue(PREFIX_NUS_WORK_EMAIL).get()));
-        }
-        d.setEmails(emails);
 
         // parse collections for edit
-        parseTagsForEdit(a.getAllValues(PREFIX_TAG)).ifPresent(d::setTags);
-        parseDepartmentsForEdit(a.getAllValues(PREFIX_DEPARTMENT)).ifPresent(d::setDepartmentChoices);
-        parseSlotsForEdit(a.getAllValues(PREFIX_SLOT)).ifPresent(d::setAvailableTimeslots);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(descriptor::setTags);
+        if (argMultimap.getValue(PREFIX_DEPARTMENT).isPresent()) {
+            parseDepartmentsForEdit(
+                    argMultimap.getAllValues(PREFIX_DEPARTMENT)).ifPresent(descriptor::setDepartmentChoices);
+        }
+        if (argMultimap.getValue(PREFIX_SLOT).isPresent()) {
+            parseSlotsForEdit(argMultimap.getAllValues(PREFIX_SLOT)).ifPresent(descriptor::setAvailableTimeslots);
+        }
     }
 
     /**
      * Fills the given interviewer descriptor with necessary values from the argumentMultiMap.
      */
-    private void fillInterviewerDescriptor(EditInterviewerDescriptor d, ArgumentMultimap a) throws ParseException {
-        if (a.getValue(PREFIX_NAME).isPresent()) {
-            d.setName(ParserUtil.parseName(a.getValue(PREFIX_NAME).get()));
+    private void fillInterviewerDescriptor(EditInterviewerDescriptor descriptor, ArgumentMultimap argMultimap)
+            throws ParseException {
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            descriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (a.getValue(PREFIX_PHONE).isPresent()) {
-            d.setPhone(ParserUtil.parsePhone(a.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            descriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
-        if (a.getValue(PREFIX_NUS_WORK_EMAIL).isPresent()) {
-            d.setEmail(ParserUtil.parseEmail(a.getValue(PREFIX_NUS_WORK_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).isPresent()) {
+            descriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).get()));
         }
-        if (a.getValue(PREFIX_DEPARTMENT).isPresent()) {
-            d.setDepartment(ParserUtil.parseDepartment(a.getValue(PREFIX_DEPARTMENT).get()));
+        if (argMultimap.getValue(PREFIX_DEPARTMENT).isPresent()) {
+            descriptor.setDepartment(ParserUtil.parseDepartment(argMultimap.getValue(PREFIX_DEPARTMENT).get()));
         }
 
         // parse collections for edit
-        parseTagsForEdit(a.getAllValues(PREFIX_TAG)).ifPresent(d::setTags);
-        parseSlotsForEdit(a.getAllValues(PREFIX_SLOT)).ifPresent(d::setAvailabilities);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(descriptor::setTags);
+        if (argMultimap.getValue(PREFIX_SLOT).isPresent()) {
+            parseSlotsForEdit(argMultimap.getAllValues(PREFIX_SLOT)).ifPresent(descriptor::setAvailabilities);
+        }
     }
 
     /**
@@ -157,30 +170,29 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Converts a collection of strings into a Optional List of Departments.
+     * Converts a collection of strings into a Optional List of Departments. {@code departments} must contain at
+     * least one string.
      */
     private Optional<List<Department>> parseDepartmentsForEdit(Collection<String> departments) throws ParseException {
         assert departments != null;
 
         if (departments.isEmpty()) {
-            return Optional.empty();
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-        Collection<String> tagSet = departments.size() == 1 && departments.contains("")
-                ? Collections.emptyList() : departments;
+
         return Optional.of(ParserUtil.parseDepartments(departments));
     }
 
     /**
-     * Converts a collection of strings into a Optional List of Slots.
+     * Converts a collection of strings into a Optional List of Slots. {@code slots} must contain at least one string.
      */
     private Optional<List<Slot>> parseSlotsForEdit(Collection<String> slots) throws ParseException {
         assert slots != null;
 
         if (slots.isEmpty()) {
-            return Optional.empty();
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-        Collection<String> tagSet = slots.size() == 1 && slots.contains("")
-                ? Collections.emptyList() : slots;
+
         return Optional.of(ParserUtil.parseSlots(slots));
     }
 

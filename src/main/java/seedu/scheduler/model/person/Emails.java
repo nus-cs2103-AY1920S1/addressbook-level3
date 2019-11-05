@@ -89,10 +89,13 @@ public class Emails {
         if (hasEmailsOfType(PERSONAL) && hasEmailsOfType(NUS)) {
             return String.format("%s %s %s %s", PERSONAL, getEmailsOfType(PERSONAL), NUS, getEmailsOfType(NUS));
         }
-        if (hasEmailsOfType(NUS)) {
+        if (hasEmailsOfType(PERSONAL) && !hasEmailsOfType(NUS)) {
+            return String.format("%s %s", PERSONAL, getEmailsOfType(PERSONAL));
+        }
+        if (!hasEmailsOfType(PERSONAL) && hasEmailsOfType(NUS)) {
             return String.format("%s %s", NUS, getEmailsOfType(NUS));
         }
-        return String.format("%s %s", PERSONAL, getEmailsOfType(PERSONAL));
+        return "";
     }
 
     @Override
