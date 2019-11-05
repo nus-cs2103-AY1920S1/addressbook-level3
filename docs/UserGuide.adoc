@@ -148,7 +148,7 @@ add -w +
 /dateJoined dateJoined +
 (/designation designation) +
 (/employmentStatus employmentStatus) +
-(/phoneNo phoneNumber) +
+(/phone phoneNumber) +
 (/dob dateOfBirth) +
 (/photo pathToPhoto)
 
@@ -202,44 +202,39 @@ Example:
 | Command | Expected Output
 
 a|
-[source,java]
-add -w
-/name Mary
-/phoneNo 87654321
-/sex female
-/dateJoined 18/08/2019
-/designation Autopsy Technician
+`add -w
+ /name Mary
+ /phone 87654321
+ /sex female
+ /dateJoined 18/08/2019
+ /designation Autopsy Technician`
 
 ---
 
 | Worker added
 
 a|
-[source,java]
-add -b
+`add -b
 /name John Doe
 /sex male
 /dob 12/12/1984
 /dod 12/08/2019 2358
 /doa 13/08/2019 0200
-/status contactedNOK
+/status claimed
 /nric S8456372C
 /religion Catholic
-/nameNOK Jack Smith
+/NOKname Jack Smith
 /relationship Husband
-/phoneNOK 83462756
+/NOKphone 83462756
 /cod Car Accident
 /details Heavy bleeding and head injury
-/organsForDonation NIL
-/fridgeId 2
+/organsForDonation NIL`
 
 ---
 | Body added
 
 a|
-```
-add -f
-```
+`add -f`
 {nbsp} +
 
 
@@ -307,7 +302,7 @@ Fridge ID `/fridgeId` +
 
 | Worker
 a|
-Phone Number `/phoneNo` +
+Phone Number `/phone` +
 Sex `/sex` +
 Date of Birth `/dob` +
 Date Joined `/dateJoined` +
