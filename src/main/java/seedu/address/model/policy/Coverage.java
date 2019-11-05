@@ -19,7 +19,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 public class Coverage {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Coverage should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Coverage should contain valid day, month or year numbers, and should not be blank.";
     public static final String DATA_TYPE = "COVERAGE";
 
     /*
