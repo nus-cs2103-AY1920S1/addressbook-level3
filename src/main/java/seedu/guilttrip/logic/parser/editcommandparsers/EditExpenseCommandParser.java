@@ -3,6 +3,7 @@ package seedu.guilttrip.logic.parser.editcommandparsers;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
@@ -35,7 +36,7 @@ public class EditExpenseCommandParser implements Parser<EditExpenseCommand> {
     public EditExpenseCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
 
         Index index;
 
@@ -58,7 +59,13 @@ public class EditExpenseCommandParser implements Parser<EditExpenseCommand> {
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editExpenseDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editExpenseDescriptor::setTags);
+
+        // TODO: allow category of expense to be edited
+        /*if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editWishDescriptor.setAmount(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
+        }*/
 
         if (!editExpenseDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditExpenseCommand.MESSAGE_NOT_EDITED);

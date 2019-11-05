@@ -12,6 +12,8 @@ import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditExpenseCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditIncomeCommand;
 import seedu.guilttrip.logic.commands.uicommands.ChangeFontCommand;
 import seedu.guilttrip.logic.commands.ClearCommand;
 import seedu.guilttrip.logic.commands.Command;
@@ -83,6 +85,8 @@ import seedu.guilttrip.logic.parser.editcommandparsers.EditAutoExpenseCommandPar
 import seedu.guilttrip.logic.parser.editcommandparsers.EditBudgetCommandParser;
 import seedu.guilttrip.logic.parser.editcommandparsers.EditCategoryCommandParser;
 import seedu.guilttrip.logic.parser.editcommandparsers.EditCommandParser;
+import seedu.guilttrip.logic.parser.editcommandparsers.EditExpenseCommandParser;
+import seedu.guilttrip.logic.parser.editcommandparsers.EditIncomeCommandParser;
 import seedu.guilttrip.logic.parser.editcommandparsers.EditWishCommandParser;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddConditionToReminderCommandParser;
@@ -134,10 +138,11 @@ public class GuiltTripParser {
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditExpenseCommand.COMMAND_WORD:
+            return new EditExpenseCommandParser().parse(arguments);
 
-            
+        case EditIncomeCommand.COMMAND_WORD:
+            return new EditIncomeCommandParser().parse(arguments);
 
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);

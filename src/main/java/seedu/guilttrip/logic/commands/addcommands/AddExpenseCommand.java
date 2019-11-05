@@ -25,7 +25,7 @@ public class AddExpenseCommand extends Command {
     public static final String MESSAGE_CATEGORY = "Call the command listCategories for the list of Categories.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " / " + COMMAND_WORD_SHORT
-            + " : Adds an expense entry to the finance tracker. "
+            + " : Adds an expense entry to guiltTrip. "
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_DESC + "DESCRIPTION "

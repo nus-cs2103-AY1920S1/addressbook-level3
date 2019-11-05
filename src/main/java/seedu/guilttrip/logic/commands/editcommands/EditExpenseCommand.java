@@ -51,7 +51,7 @@ public class EditExpenseCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the guilttrip book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This expense already exists in guiltTrip.";
 
     private final Index index;
     private final EditExpenseDescriptor editEntryDescriptor;

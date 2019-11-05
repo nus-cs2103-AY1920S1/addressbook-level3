@@ -23,7 +23,7 @@ public class AddIncomeCommand extends Command {
 
     public static final String MESSAGE_CATEGORY = "Call the command listCategories for the list of Categories.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an income entry to the finance tracker. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an income entry to guiltTrip. "
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_DESC + "DESCRIPTION "
