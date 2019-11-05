@@ -46,6 +46,7 @@ import calofit.ui.UiManager;
  */
 public class MainApp extends Application {
 
+    public static final Duration TIME_UPDATE_PERIOD = Duration.ofSeconds(10);
     public static final Version VERSION = new Version(1, 2, 1, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
@@ -76,7 +77,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        timer.registerPeriodic(Duration.ofSeconds(10), () -> {
+        timer.registerPeriodic(TIME_UPDATE_PERIOD, () -> {
             nowProperty.set(LocalDateTime.now());
         });
 
