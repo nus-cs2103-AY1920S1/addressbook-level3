@@ -63,6 +63,7 @@ public class FillCommand extends Command {
         }
 
         Incident toFill = lastShownList.get(targetIndex.getZeroBased());
+        assert toFill != null : "Retrieved incident must not be null";
 
         // check if operating executing the command is the same as the operator who created this draft
         if (!model.canLoggedInPersonModifyIncidentStatus(toFill)) {
@@ -81,11 +82,13 @@ public class FillCommand extends Command {
      */
     private String processReportFilling(Model model, Incident toFill) throws CommandException {
         // if incident has already been submitted, do not allow update
+        // added for defensive programming
         if (toFill.isSubmitted()) {
             throw new CommandException(Messages.MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED);
         }
 
         // update incident as it is a draft
+        assert !toFill.isSubmitted() : "Incident to be filled must be a draft.";
         Incident updatedIncident = fillReport(toFill, callerNumber, description);
 
         // old incident is removed from the list, and replaced by the updated incident
@@ -104,10 +107,13 @@ public class FillCommand extends Command {
      * @return updated incident report.
      */
     private Incident fillReport(Incident toUpdate, CallerNumber callerNumber, Description description) {
-        Incident updatedIncident = new Incident(toUpdate.getOperator(), toUpdate.getDistrict(),
+        assert toUpdate != null;
+        assert toUpdate.isDraft();
+        assert callerNumber != null;
+        assert description != null;
+        return new Incident(toUpdate.getOperator(), toUpdate.getDistrict(),
                 toUpdate.getIncidentDateTime(), toUpdate.getIncidentId(), callerNumber, description,
-                Incident.Status.COMPLETE_DRAFT, toUpdate.getVehicle()); // set status as complete
-        return updatedIncident;
+                Incident.Status.COMPLETE_DRAFT, toUpdate.getVehicle());
     }
 
 

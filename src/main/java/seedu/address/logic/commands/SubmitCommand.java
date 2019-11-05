@@ -22,7 +22,7 @@ public class SubmitCommand extends Command {
             + "Use " + COMMAND_WORD + " with parameters:"
             + COMMAND_WORD + " INDEX (positive integer) to submit the specified draft.";
 
-    public static final String MESSAGE_SUBMIT_SUCCESS = "New incident report submitted: %1$s";
+    private static final String MESSAGE_SUBMIT_SUCCESS = "New incident report submitted: %1$s";
 
     private final Index targetIndex;
 
@@ -53,6 +53,7 @@ public class SubmitCommand extends Command {
 
         // retrieve incident and try to submit it
         Incident toSubmit = lastShownList.get(targetIndex.getZeroBased());
+        assert toSubmit != null : "Retrieved incident must not be null.";
 
         // check if operating executing the command is the same as the operator who created this draft
         if (!model.canLoggedInPersonModifyIncidentStatus(toSubmit)) {
@@ -98,11 +99,11 @@ public class SubmitCommand extends Command {
      * @param toSubmit the incident report to be submitted.
      * @return updated incident report.
      */
-    public Incident submitReport(Incident toSubmit) {
-        Incident updatedIncident = new Incident(toSubmit.getOperator(), toSubmit.getDistrict(),
+    private Incident submitReport(Incident toSubmit) {
+        assert toSubmit.isCompleteDraft() : "Only completed incidents can be submitted.";
+        return new Incident(toSubmit.getOperator(), toSubmit.getDistrict(),
                 toSubmit.getIncidentDateTime(), toSubmit.getIncidentId(), toSubmit.getCallerNumber(),
-                toSubmit.getDesc(), Incident.Status.SUBMITTED_REPORT, toSubmit.getVehicle()); // set status to submitted
-        return updatedIncident;
+                toSubmit.getDesc(), Incident.Status.SUBMITTED_REPORT, toSubmit.getVehicle());
     }
 
     @Override

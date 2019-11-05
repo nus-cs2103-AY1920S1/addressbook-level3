@@ -209,6 +209,7 @@ public class ModelManager implements Model {
     public void updateFilteredIncidentList(Predicate<Incident> predicate) {
         requireNonNull(predicate);
         filteredIncidents.setPredicate(predicate);
+        logger.info("Incident list view updated.");
     }
 
     /**
