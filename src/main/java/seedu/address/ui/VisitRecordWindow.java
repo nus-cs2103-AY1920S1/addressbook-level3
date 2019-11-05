@@ -180,7 +180,7 @@ public class VisitRecordWindow extends UiPart<Stage> {
         }
 
         scene.getAccelerators().put(
-                KeyCombination.valueOf("F3"),
+                KeyCombination.valueOf("F2"),
                 new Runnable() {
                     @FXML public void run() {
                         button.fire();

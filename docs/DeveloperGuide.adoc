@@ -425,7 +425,7 @@ If the user executes `deletevisit 1` instead, the index value will be set to `-1
 
 ===== Aspect: Keyboard binding to save report
 
-* **Alternative 1 (current choice):** `F3` key
+* **Alternative 1 (current choice):** `F2` key
 ** Pros: No conflict with any other functions.
 ** Cons: Not the most intuitive choice for users.
 * **Alternative 2:** `Enter` key
