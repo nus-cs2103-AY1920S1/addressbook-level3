@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.step.Step;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -75,10 +76,6 @@ public class ParserUtil {
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
-=======
-     * Parses a {@code String name} into a {@code Name}. Leading and trailing
-     * whitespaces will be trimmed.
->>>>>>> b2ec7d64249172d26ceccb183976364b8bb21fc9
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -122,6 +119,24 @@ public class ParserUtil {
     public static Date parseTime(Optional<String> time) {
         requireNonNull(time);
         return time.isPresent() ? new Date(time.get()) : Date.now();
+    }
+
+    /**
+     * Parses step
+     *
+     * @param step the time as a String.
+     * @return the specified time as Time.
+     */
+    public static Step parseStep(String step) throws ParseException {
+        String trimmedStep = step.trim();
+        if (!Step.isValidStep(trimmedStep)) {
+            throw new ParseException(Step.MESSAGE_CONSTRAINTS);
+        }
+        if (trimmedStep.isEmpty()) {
+            return new Step("1");
+        } else {
+            return new Step(trimmedStep);
+        }
     }
 
     /**
