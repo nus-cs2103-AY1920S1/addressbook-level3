@@ -2,6 +2,8 @@ package budgetbuddy.logic.commands.loancommands;
 
 import static budgetbuddy.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static budgetbuddy.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ import budgetbuddy.testutil.loanutil.DebtorBuilder;
 import budgetbuddy.testutil.loanutil.LoanBuilder;
 import budgetbuddy.testutil.loanutil.TypicalPersons;
 
+/**
+ * The default test scenario: loan split p/Alice p/Elle p/Benson x/0 x/40 x/60
+ */
 public class LoanSplitCommandTest {
 
     private static final Amount AMOUNT_ZERO = new Amount(0L);
@@ -95,9 +100,8 @@ public class LoanSplitCommandTest {
 
     @Test
     public void execute_validInputWithMaxShare_splitSuccess() throws CommandException {
-        List<Long> maxShares = List.of(AMOUNT_TEN.toLong());
         LoanSplitCommand loanSplitCommand = new LoanSplitCommand(
-                getDefaultPersons(), getDefaultAmounts(), maxShares,
+                getDefaultPersons(), getDefaultAmounts(), getDefaultMaxShares(),
                 Optional.empty(), Optional.empty(), Optional.empty());
 
         CommandResult expectedCommandResult =
@@ -123,14 +127,74 @@ public class LoanSplitCommandTest {
         assertCommandSuccess(loanSplitCommand, model, expectedCommandResult, expectedModel);
     }
 
+    @Test
+    public void equals() throws CommandException {
+        LoanSplitCommand loanSplitCommand = new LoanSplitCommand(
+                getDefaultPersons(), getDefaultAmounts(), getDefaultMaxShares(),
+                Optional.empty(), Optional.empty(), Optional.empty());
+
+        // same object -> returns true
+        assertEquals(loanSplitCommand, loanSplitCommand);
+
+        // same values -> returns true
+        LoanSplitCommand firstLoanSplitCommandCopy = new LoanSplitCommand(
+                getDefaultPersons(), getDefaultAmounts(), getDefaultMaxShares(),
+                Optional.empty(), Optional.empty(), Optional.empty());
+        assertEquals(loanSplitCommand, firstLoanSplitCommandCopy);
+
+        // different types -> returns false
+        assertNotEquals(loanSplitCommand, 5);
+
+        // null -> returns false
+        assertNotEquals(loanSplitCommand, null);
+
+        // different persons -> returns false
+        List<Person> persons = List.of(TypicalPersons.ALICE, TypicalPersons.GEORGE, TypicalPersons.AMY);
+        LoanSplitCommand loanSplitCommandDiffPersons = new LoanSplitCommand(
+                persons, getDefaultAmounts(), getDefaultMaxShares(),
+                Optional.empty(), Optional.empty(), Optional.empty());
+        assertNotEquals(loanSplitCommand, loanSplitCommandDiffPersons);
+
+        // different amounts -> returns false
+        List<Amount> amounts = List.of(AMOUNT_TWENTY, AMOUNT_TWENTY, AMOUNT_THIRTY);
+        LoanSplitCommand loanSplitCommandDiffAmounts = new LoanSplitCommand(
+                getDefaultPersons(), amounts, getDefaultMaxShares(),
+                Optional.empty(), Optional.empty(), Optional.empty());
+        assertNotEquals(loanSplitCommand, loanSplitCommandDiffAmounts);
+
+        // different max shares -> returns false
+        LoanSplitCommand loanSplitCommandDiffMaxShares = new LoanSplitCommand(
+                getDefaultPersons(), getDefaultAmounts(), new ArrayList<>(),
+                Optional.empty(), Optional.empty(), Optional.empty());
+        assertNotEquals(loanSplitCommand, loanSplitCommandDiffMaxShares);
+    }
+
+    /**
+     * Returns the list of persons for the default test scenario: Alice, Elle, Benson.
+     */
     private List<Person> getDefaultPersons() {
         return List.of(TypicalPersons.ALICE, TypicalPersons.ELLE, TypicalPersons.BENSON);
     }
 
+    /**
+     * Returns the list of amounts for the default test scenario: $0, $40, $60.
+     */
     private List<Amount> getDefaultAmounts() {
         return List.of(AMOUNT_ZERO, AMOUNT_FORTY, AMOUNT_SIXTY);
     }
 
+    /**
+     * Returns the list of max shares for the default test scenario: $10.
+     * The max share of $10 will belong to the first person in {@link #getDefaultPersons()}.
+     */
+    private List<Long> getDefaultMaxShares() {
+        return List.of(AMOUNT_TEN.toLong());
+    }
+
+    /**
+     * Returns the list of debtors for the default test scenario:
+     * Alice owes Benson $26.67 and Elle $6.66.
+     */
     private List<Debtor> getDefaultDebtors() {
         return List.of(new DebtorBuilder()
                 .withDebtor(TypicalPersons.ALICE.getName().toString())
@@ -142,6 +206,10 @@ public class LoanSplitCommandTest {
                 .build());
     }
 
+    /**
+     * Returns the list of debtors for the default test scenario with a max share of $10:
+     * Alice owes Benson $10, Elle owes Benson $5.
+     */
     private List<Debtor> getDefaultDebtorsWithMaxShare() {
         Debtor firstExpectedDebtor = new DebtorBuilder()
                 .withDebtor(TypicalPersons.ALICE.getName().toString())
@@ -154,6 +222,11 @@ public class LoanSplitCommandTest {
         return List.of(firstExpectedDebtor, secondExpectedDebtor);
     }
 
+    /**
+     * Returns the list of debtors for the default test scenario with the optional user present:
+     * Alice owes Benson $26.67 and You $6.66.
+     * The default optional user is Elle.
+     */
     private List<Debtor> getDefaultDebtorsWithOptionalUser() {
         return List.of(new DebtorBuilder()
                 .withDebtor(TypicalPersons.ALICE.getName().toString())
@@ -165,8 +238,11 @@ public class LoanSplitCommandTest {
                 .build());
     }
 
+    /**
+     * Returns the loan added for the default test scenario with the optional user present.
+     * The default optional user is Elle.
+     */
     private Loan getDefaultOptionalLoan() {
-        // the default optional user is ELLE
         return new LoanBuilder()
                 .withPerson(TypicalPersons.ALICE.getName().toString())
                 .withDirection("OUT")

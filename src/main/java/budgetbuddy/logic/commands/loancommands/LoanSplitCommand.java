@@ -295,7 +295,8 @@ public class LoanSplitCommand extends Command {
 
         LoanSplitCommand otherCommand = (LoanSplitCommand) other;
         return persons.equals(otherCommand.persons)
-                && amounts.equals(otherCommand.amounts);
+                && amounts.equals(otherCommand.amounts)
+                && maxShares.equals(otherCommand.maxShares);
     }
 
     /**
