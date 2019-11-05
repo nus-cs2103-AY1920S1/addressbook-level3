@@ -644,8 +644,8 @@ sequence diagram for the StudentAddCommand.
 
 .Sequence Diagram for `StudentAddCommand`
 image::StudentAddSequence.png[]
-
-*The following are the common steps among all Student commands.*
+{nbsp} +
+**The following are the common steps among all Student commands.**
 
 *Step 1*. The `NjoyParser` will delegate the parsing of the command to `StudentCommandParser`
 
@@ -825,8 +825,8 @@ diagram that depicts the execution of the `AddMarkCommand`.
 
 .Activity Diagram for `AddMarkCommand`
 image::MarkActivityDiagram.png[]
-
-*The following are the common steps among all Mark commands.*
+{nbsp} +
+**The following are the common steps among all Mark commands.**
 
 *Step 1*. The `NjoyParser` will delegate the parsing of the command to `MarkCommandParser`
 
@@ -898,8 +898,9 @@ The feature comprises of four commands namely,
 
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
+{nbsp} +
 
-*The following are the common steps among all Group commands.*
+**The following are the common steps among all Group commands.** +
 
 *Step 1*. The `NjoyParser` will delegate the parsing of the command to `GroupCommandParser`
 
