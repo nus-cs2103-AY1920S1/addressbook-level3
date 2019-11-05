@@ -367,6 +367,7 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [
 ** is matched word by word.
 ** is considered a match only when there is a task whose name is exactly the same as the given task name.
 
+// tag::task[]
 === Task Management
 
 ==== Adding a new task to a plan: `addtask`
@@ -448,6 +449,7 @@ Format: `setplan PLAN_INDEX`
 Examples:
 
 * `setplan 10`
+// end::task[]
 
 === Editing from GUI
 
