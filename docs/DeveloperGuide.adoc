@@ -167,7 +167,7 @@ command is entered.
 [reftext="Figure 2.1.2.1"]
 [caption="Figure 2.1.2.1: "]
 .Activity diagram of the `help` command
-image::DG-HelpActivityDiagram.png[width="800"] +
+image::DG-HelpActivityDiagram.png[width="800"]
 
 The series of steps below explain the process and current implementation of the `help` command.
 
@@ -569,7 +569,7 @@ command is entered.
 [reftext="Figure 2.6.2.1"]
 [caption="Figure 2.6.2.1: "]
 .Execution sequence of the `budget` command
-image::BudgetSequenceDiagram.png[width="800"] +
+image::BudgetSequenceDiagram.png[width="800"]
 
 *Step 1 :* The `budget` command is passed on to the `LogicManager` as `commandText` +
 
@@ -598,7 +598,7 @@ command is entered.
 [reftext="Figure 2.5.2.2"]
 [caption="Figure 2.5.2.2: "]
 .Activity diagram of the `budget` command
-image::DG-BudgetActivityDiagram.png[width="800"] +
+image::DG-BudgetActivityDiagram.png[width="800"]
 
 The series of steps below demonstrates what the `BudgetGraph` object does in parallel to Step 6 above.
 
