@@ -45,8 +45,6 @@ public class AccountBook {
         // need to put in lowercase?????
         for (Account acc : listOfAccounts) {
             Username name = userName.lowerCase();
-            //do we actually need to put in lowercase?
-            // is it stored in lowercase??
             if (acc.getUsername().equals(name)) {
                 return true;
             }

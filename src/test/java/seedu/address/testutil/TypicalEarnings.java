@@ -28,7 +28,7 @@ public class TypicalEarnings {
             .withType("lab").withClassId("Tutorial 99")
             .withAmount("19.00").build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
+    // Manually added - Earnings's details found in {@code CommandTestUtil}
     public static final Earnings CS2100 = new EarningsBuilder().withDate(VALID_DATE_EARNINGS_CS2100_A01)
             .withType(VALID_TYPE_EARNINGS_CS2100_A01)
             .withClassId(VALID_CLASSID_AMY)
