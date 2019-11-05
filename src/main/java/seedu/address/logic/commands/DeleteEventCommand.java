@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_DELETE_EVENT_EMPTY;
 import static seedu.address.commons.core.Messages.MESSAGE_DELETE_EVENT_FAILURE;
+import static seedu.address.commons.core.Messages.MESSAGE_DELETE_EVENT_NO_PARAMETERS;
 import static seedu.address.commons.core.Messages.MESSAGE_DELETE_EVENT_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_INDEX;
 
@@ -36,18 +36,18 @@ public class DeleteEventCommand extends Command {
 
     @Override
     public UserOutput execute() throws CommandException {
-        List<EventSource> events = new ArrayList<>(model.getEvents());
 
         // No indexes or tags specified.
         if (this.indexes.isEmpty() && this.tags.isEmpty()) {
-            throw new CommandException(MESSAGE_DELETE_EVENT_EMPTY);
+            throw new CommandException(MESSAGE_DELETE_EVENT_NO_PARAMETERS);
         }
 
+        List<EventSource> events = new ArrayList<>(this.model.getEvents());
         // toDelete all events with matching indexes.
         // If no indexes specified, toDelete all events.
         List<EventSource> toDelete;
         if (this.indexes.isEmpty()) {
-            toDelete = new ArrayList<>(model.getEvents());
+            toDelete = new ArrayList<>(this.model.getEvents());
         } else {
             toDelete = new ArrayList<>();
             for (Integer index : this.indexes) {

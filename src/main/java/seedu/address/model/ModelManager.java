@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
 import seedu.address.model.listeners.ModelListListener;
-import seedu.address.model.listeners.TaskListListener;
 import seedu.address.model.tasks.TaskSource;
 
 /**
@@ -15,8 +13,6 @@ import seedu.address.model.tasks.TaskSource;
 public class ModelManager {
     private ModelData model;
 
-    private final List<EventListListener> eventListListeners;
-    private final List<TaskListListener> taskListListeners;
     private final List<ModelListListener> modelListListeners;
 
     /**
@@ -26,17 +22,7 @@ public class ModelManager {
         super();
         this.model = new ModelData();
 
-        this.eventListListeners = new ArrayList<>();
-        this.taskListListeners = new ArrayList<>();
         this.modelListListeners = new ArrayList<>();
-    }
-
-    public void addEventListListener(EventListListener listener) {
-        this.eventListListeners.add(listener);
-    }
-
-    public void addTaskListListener(TaskListListener listener) {
-        this.taskListListeners.add(listener);
     }
 
     public void addModelListListener(ModelListListener listener) {
@@ -51,9 +37,9 @@ public class ModelManager {
         // Deep copy and reassign model.
         this.model = new ModelData(lists);
 
-        notifyEventListListeners();
-        notifyTaskListListeners();
-        notifyModelListListeners();
+        // Notify all listeners whenever either the EventList or TaskList is changed.
+        this.modelListListeners
+            .forEach(listener -> listener.onModelListChange(this.getModelData()));
     }
 
     /**
@@ -83,29 +69,5 @@ public class ModelManager {
      */
     public List<TaskSource> getTasks() {
         return this.model.getTasks();
-    }
-
-    /**
-     * Notify all listeners whenever the EventList is changed.
-     */
-    private void notifyEventListListeners() {
-        this.eventListListeners
-            .forEach(listener -> listener.onEventListChange(this.getEvents()));
-    }
-
-    /**
-     * Notify all listeners whenever the TaskList is changed.
-     */
-    private void notifyTaskListListeners() {
-        this.taskListListeners
-            .forEach(listener -> listener.onTaskListChange(this.getTasks()));
-    }
-
-    /**
-     * Notify all listeners whenever either the EventList or TaskList is changed.
-     */
-    private void notifyModelListListeners() {
-        this.modelListListeners
-            .forEach(listener -> listener.onModelListChange(this.getModelData()));
     }
 }

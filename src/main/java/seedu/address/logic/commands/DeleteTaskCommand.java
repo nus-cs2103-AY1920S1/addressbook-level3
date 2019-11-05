@@ -1,14 +1,12 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_DELETE_TASK_EMPTY;
 import static seedu.address.commons.core.Messages.MESSAGE_DELETE_TASK_FAILURE;
+import static seedu.address.commons.core.Messages.MESSAGE_DELETE_TASK_NO_PARAMETERS;
 import static seedu.address.commons.core.Messages.MESSAGE_DELETE_TASK_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_INDEX;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -38,46 +36,39 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public UserOutput execute() throws CommandException {
-        List<TaskSource> tasks = new ArrayList<>(model.getTasks());
 
-        LinkedHashSet<TaskSource> toDelete = new LinkedHashSet<>();
+        // No indexes or tags specified.
+        if (this.indexes.isEmpty() && this.tags.isEmpty()) {
+            throw new CommandException(MESSAGE_DELETE_TASK_NO_PARAMETERS);
+        }
+
+        List<TaskSource> tasks = new ArrayList<>(this.model.getTasks());
+        // toDelete all tasks with matching indexes.
+        // If no indexes specified, toDelete all tasks.
+        List<TaskSource> toDelete;
         if (this.indexes.isEmpty()) {
-            if (this.tags.isEmpty()) {
-                throw new CommandException(MESSAGE_DELETE_TASK_EMPTY);
-            }
-
-            // Indexes empty but tags is not empty:
-            // Delete all tasks with matching tags.
-            for (TaskSource task : tasks) {
-                Set<String> tags = task.getTags();
-                if (tags == null || tags.containsAll(this.tags)) {
-                    toDelete.add(task);
-                }
-            }
+            toDelete = new ArrayList<>(this.model.getTasks());
         } else {
-            // Indexes not empty:
-            // Delete given tasks with matching tags
-            for (Integer index : indexes) {
+            toDelete = new ArrayList<>();
+            for (Integer index : this.indexes) {
                 try {
-                    TaskSource task = tasks.get(index);
-                    // Delete TaskSource only if it matches all tags.
-                    Set<String> tags = task.getTags();
-                    if (tags == null || tags.containsAll(this.tags)) {
-                        toDelete.add(tasks.get(index));
-                    }
+                    toDelete.add(tasks.get(index));
                 } catch (IndexOutOfBoundsException e) {
                     throw new CommandException(String.format(MESSAGE_INVALID_TASK_INDEX, index));
                 }
             }
         }
 
-        // No tasks found.
+        // Remove tasks from toDelete that do not have matching tags.
+        toDelete.removeIf(task -> !task.getTags().containsAll(this.tags));
+
+        // No tasks to delete found.
         if (toDelete.isEmpty()) {
             throw new CommandException(MESSAGE_DELETE_TASK_FAILURE);
         }
 
-        // Remove task if toDelete contains the same task
-        tasks.removeIf(toDelete::contains);
+        // Remove all tasks that are in toDelete.
+        tasks.removeAll(toDelete);
 
         // Replace model
         this.model.setModelData(new ModelData(this.model.getEvents(), tasks));

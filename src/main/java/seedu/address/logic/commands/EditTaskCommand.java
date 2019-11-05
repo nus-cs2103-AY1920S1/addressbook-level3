@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EDIT_TASK_DUPLICATE;
+import static seedu.address.commons.core.Messages.MESSAGE_EDIT_TASK_NO_INDEXES;
+import static seedu.address.commons.core.Messages.MESSAGE_EDIT_TASK_NO_PARAMETERS;
 import static seedu.address.commons.core.Messages.MESSAGE_EDIT_TASK_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_INDEX;
 
@@ -15,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DateTime;
 import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
+import seedu.address.model.exceptions.DuplicateElementException;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UserOutput;
 
@@ -43,8 +47,20 @@ public class EditTaskCommand extends Command {
 
     @Override
     public UserOutput execute() throws CommandException {
-        List<TaskSource> tasks = new ArrayList<>(model.getTasks());
 
+        // No indexes given
+        if (this.indexes.isEmpty()) {
+            throw new CommandException(MESSAGE_EDIT_TASK_NO_INDEXES);
+        }
+
+        // No parameters given
+        if (this.description == null
+            && this.due == null
+            && this.tags.isEmpty()) {
+            throw new CommandException(MESSAGE_EDIT_TASK_NO_PARAMETERS);
+        }
+
+        List<TaskSource> tasks = new ArrayList<>(this.model.getTasks());
         LinkedHashSet<TaskSource> toEdit = new LinkedHashSet<>();
         for (Integer index : indexes) {
             try {
@@ -75,7 +91,7 @@ public class EditTaskCommand extends Command {
                 }
 
                 Collection<String> tags;
-                if (this.tags == null) {
+                if (this.tags.isEmpty()) {
                     tags = task.getTags();
                 } else {
                     tags = this.tags;
@@ -91,7 +107,11 @@ public class EditTaskCommand extends Command {
         }
 
         // Replace model
-        this.model.setModelData(new ModelData(this.model.getEvents(), tasks));
+        try {
+            this.model.setModelData(new ModelData(this.model.getEvents(), tasks));
+        } catch (DuplicateElementException e) {
+            throw new CommandException(MESSAGE_EDIT_TASK_DUPLICATE);
+        }
 
         return new UserOutput(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit.stream()
             .map(TaskSource::getDescription)

@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EDIT_EVENT_DUPLICATE;
+import static seedu.address.commons.core.Messages.MESSAGE_EDIT_EVENT_NO_INDEXES;
+import static seedu.address.commons.core.Messages.MESSAGE_EDIT_EVENT_NO_PARAMETERS;
 import static seedu.address.commons.core.Messages.MESSAGE_EDIT_EVENT_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_INDEX;
 
@@ -15,6 +18,7 @@ import seedu.address.model.DateTime;
 import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.exceptions.DuplicateElementException;
 import seedu.address.ui.UserOutput;
 
 /**
@@ -46,8 +50,22 @@ public class EditEventCommand extends Command {
 
     @Override
     public UserOutput execute() throws CommandException {
-        List<EventSource> events = new ArrayList<>(model.getEvents());
 
+        // No indexes given
+        if (this.indexes.isEmpty()) {
+            throw new CommandException(MESSAGE_EDIT_EVENT_NO_INDEXES);
+        }
+
+        // No parameters given
+        if (this.description == null
+            && this.start == null
+            && this.end == null
+            && this.remind == null
+            && this.tags.isEmpty()) {
+            throw new CommandException(MESSAGE_EDIT_EVENT_NO_PARAMETERS);
+        }
+
+        List<EventSource> events = new ArrayList<>(this.model.getEvents());
         LinkedHashSet<EventSource> toEdit = new LinkedHashSet<>();
         for (Integer index : indexes) {
             try {
@@ -92,7 +110,7 @@ public class EditEventCommand extends Command {
                 }
 
                 Collection<String> tags;
-                if (this.tags == null) {
+                if (this.tags.isEmpty()) {
                     tags = event.getTags();
                 } else {
                     tags = this.tags;
@@ -109,7 +127,11 @@ public class EditEventCommand extends Command {
         }
 
         // Replace model
-        this.model.setModelData(new ModelData(events, this.model.getTasks()));
+        try {
+            this.model.setModelData(new ModelData(events, this.model.getTasks()));
+        } catch (DuplicateElementException e) {
+            throw new CommandException(MESSAGE_EDIT_EVENT_DUPLICATE);
+        }
 
         return new UserOutput(String.format(MESSAGE_EDIT_EVENT_SUCCESS, toEdit.stream()
             .map(EventSource::getDescription)

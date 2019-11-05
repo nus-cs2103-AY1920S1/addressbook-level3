@@ -35,19 +35,26 @@ class DeleteEventCommandTest {
     @Test
     void execute_noParameters_failure() {
         ModelManager model = new ModelManager();
-        assertEquals(0, model.getEvents().size());
+        DateTime start = DateTime.now();
+        model.setModelData(new ModelData(
+            List.of(
+                EventSource.newBuilder("a", start).build(),
+                EventSource.newBuilder("b", start).build(),
+                EventSource.newBuilder("c", start).build()
+            ), List.of()));
+        assertEquals(3, model.getEvents().size());
 
         assertThrows(CommandException.class, () -> DeleteEventCommand.newBuilder(model)
             .build()
             .execute());
 
-        assertEquals(0, model.getEvents().size());
+        assertEquals(3, model.getEvents().size());
     }
 
     /* Delete by Index */
 
     @Test
-    void execute_deleteMultipleIndexes_success() {
+    void execute_deleteIndexes_success() {
         String[] indexes = new String[]{"1", "2", "3"};
         DateTime start = DateTime.now();
         List<EventSource> events = List.of(
@@ -69,13 +76,14 @@ class DeleteEventCommandTest {
             .execute());
 
         // Delete 'b', 'c', 'd'
-        assertEquals(2, model.getEvents().size());
-        assertEquals(events.get(0), model.getEvents().get(0));
-        assertEquals(events.get(4), model.getEvents().get(1));
+        List<EventSource> modelEvents = model.getEvents();
+        assertEquals(2, modelEvents.size());
+        assertEquals(events.get(0), modelEvents.get(0));
+        assertEquals(events.get(4), modelEvents.get(1));
     }
 
     @Test
-    void execute_deleteMultipleInvalidIndexes_failed() {
+    void execute_deleteInvalidIndexes_failed() {
         String[] indexes = new String[]{"0", "1", "2"};
         DateTime start = DateTime.now();
         List<EventSource> events = List.of(
@@ -98,7 +106,7 @@ class DeleteEventCommandTest {
     /* Delete by Tags */
 
     @Test
-    void execute_deleteMultipleTags_success() {
+    void execute_deleteTags_success() {
         String[] tags = new String[]{"3", "4"};
         DateTime start = DateTime.now();
         List<EventSource> events = List.of(
@@ -120,16 +128,17 @@ class DeleteEventCommandTest {
             .execute());
 
         // Delete 'b' and 'c'
-        assertEquals(3, model.getEvents().size());
-        assertEquals(events.get(0), model.getEvents().get(0));
-        assertEquals(events.get(3), model.getEvents().get(1));
-        assertEquals(events.get(4), model.getEvents().get(2));
+        List<EventSource> modelEvents = model.getEvents();
+        assertEquals(3, modelEvents.size());
+        assertEquals(events.get(0), modelEvents.get(0));
+        assertEquals(events.get(3), modelEvents.get(1));
+        assertEquals(events.get(4), modelEvents.get(2));
     }
 
     /* Delete by Index and Tags */
 
     @Test
-    void execute_deleteMultipleIndexAndTags_success() {
+    void execute_deleteIndexesAndTags_success() {
         String[] indexes = new String[]{"0", "1"};
         String[] tags = new String[]{"3", "4"};
         DateTime start = DateTime.now();
@@ -154,11 +163,12 @@ class DeleteEventCommandTest {
             .execute());
 
         // Delete 'b'
-        assertEquals(4, model.getEvents().size());
-        assertEquals(events.get(0), model.getEvents().get(0));
-        assertEquals(events.get(2), model.getEvents().get(1));
-        assertEquals(events.get(3), model.getEvents().get(2));
-        assertEquals(events.get(4), model.getEvents().get(3));
+        List<EventSource> modelEvents = model.getEvents();
+        assertEquals(4, modelEvents.size());
+        assertEquals(events.get(0), modelEvents.get(0));
+        assertEquals(events.get(2), modelEvents.get(1));
+        assertEquals(events.get(3), modelEvents.get(2));
+        assertEquals(events.get(4), modelEvents.get(3));
     }
 
     @Test

@@ -52,8 +52,8 @@ public class ImportIcsCommand extends Command {
         events.addAll(Arrays.asList(newEvents));
         tasks.addAll(Arrays.asList(newTasks));
 
+        // Replace model
         try {
-            // Replace model
             model.setModelData(new ModelData(events, tasks));
         } catch (DuplicateElementException e) {
             throw new CommandException(MESSAGE_ADD_EVENT_DUPLICATE);

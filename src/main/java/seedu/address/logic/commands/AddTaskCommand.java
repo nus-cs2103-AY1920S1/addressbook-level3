@@ -40,11 +40,14 @@ public class AddTaskCommand extends Command {
     public UserOutput execute() throws CommandException {
         List<TaskSource> tasks = new ArrayList<>(this.model.getTasks());
         tasks.add(this.task);
+
+        // Replace model
         try {
             this.model.setModelData(new ModelData(this.model.getEvents(), tasks));
         } catch (DuplicateElementException e) {
             throw new CommandException(MESSAGE_ADD_TASK_DUPLICATE);
         }
+
         return new UserOutput(String.format(MESSAGE_ADD_TASK_SUCCESS, this.task.getDescription()));
     }
 }

@@ -7,6 +7,8 @@ import static seedu.address.logic.commands.AddEventCommandBuilder.OPTION_END_DAT
 import static seedu.address.logic.commands.AddEventCommandBuilder.OPTION_REMIND_DATE_TIME;
 import static seedu.address.logic.commands.AddEventCommandBuilder.OPTION_TAGS;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -50,12 +52,9 @@ class AddEventCommandTest {
             .build()
             .execute());
 
-        // Check size
-        assertEquals(1, model.getEvents().size());
-
-        // Check equality
-        assertEquals(EventSource.newBuilder(description, start).build(),
-            model.getEvents().get(0));
+        List<EventSource> modelEvents = model.getEvents();
+        assertEquals(1, modelEvents.size());
+        assertEquals(EventSource.newBuilder(description, start).build(), modelEvents.get(0));
     }
 
     @Test

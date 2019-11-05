@@ -44,6 +44,7 @@ public class AddEventCommand extends Command {
         List<EventSource> events = new ArrayList<>(this.model.getEvents());
         events.add(this.event);
 
+        // Replace model
         try {
             this.model.setModelData(new ModelData(events, this.model.getTasks()));
         } catch (DuplicateElementException e) {
