@@ -2,11 +2,10 @@
 
 <?import javafx.scene.layout.GridPane?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 
 <GridPane fx:id="cardPane"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
@@ -21,18 +20,18 @@
     </rowConstraints>
 
     <children>
-        <Button styleClass="option-label" style="-fx-font-size: 25" fx:id="option1" text="\$option1" wrapText="true"
-                GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <Label styleClass="option-label" style="-fx-font-size: 25" fx:id="option1" text="\$option1" wrapText="true"
+                GridPane.columnIndex="0" GridPane.rowIndex="0" alignment="CENTER">
             <effect>
                 <DropShadow/>
             </effect>
-        </Button>
+        </Label>
 
-        <Button styleClass="option-label" style="-fx-font-size: 25" fx:id="option2" text="\$option2" wrapText="true"
-                GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <Label styleClass="option-label" style="-fx-font-size: 25" fx:id="option2" text="\$option2" wrapText="true"
+               GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="CENTER">
             <effect>
                 <DropShadow/>
             </effect>
-        </Button>
+        </Label>
     </children>
 </GridPane>

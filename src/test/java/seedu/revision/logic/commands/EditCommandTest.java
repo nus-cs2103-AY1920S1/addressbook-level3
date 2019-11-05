@@ -10,6 +10,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.revision.logic.commands.CommandTestUtil.showAnswerableAtIndex;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_INVALID_CORRECT_ANSWER_LIST;
 import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_SECOND_ANSWERABLE;
@@ -28,8 +29,10 @@ import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Mcq;
 import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -40,7 +43,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws ParseException {
-        Answerable editedAnswerable = new AnswerableBuilder().build();
+        Answerable editedAnswerable = new McqBuilder().build();
         EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder(editedAnswerable).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE, descriptor);
 
@@ -57,7 +60,7 @@ public class EditCommandTest {
         Index indexLastAnswerable = Index.fromOneBased(model.getFilteredAnswerableList().size());
         Answerable lastAnswerable = model.getFilteredAnswerableList().get(indexLastAnswerable.getZeroBased());
 
-        AnswerableBuilder answerableInList = new AnswerableBuilder(lastAnswerable);
+        AnswerableBuilder answerableInList = new McqBuilder(lastAnswerable);
         Answerable editedAnswerable = answerableInList.withQuestion(VALID_QUESTION_BETA)
                 .withDifficulty(VALID_DIFFICULTY_BETA)
                 .withCategories(VALID_CATEGORY_GREENFIELD).build();
@@ -92,7 +95,7 @@ public class EditCommandTest {
 
         Answerable answerableInFilteredList = model.getFilteredAnswerableList()
                 .get(INDEX_FIRST_ANSWERABLE.getZeroBased());
-        Answerable editedAnswerable = new AnswerableBuilder(answerableInFilteredList)
+        Answerable editedAnswerable = new McqBuilder(answerableInFilteredList)
                 .withQuestion(VALID_QUESTION_BETA).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE,
                 new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA).build());
@@ -104,6 +107,15 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
+
+    @Test
+    public void parse_multipleCorrectAnswer_failure() {
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder()
+                .withCorrectAnswerList(MCQ_INVALID_CORRECT_ANSWER_LIST).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_ANSWERABLE, descriptor);
+        assertCommandFailure(editCommand, model, Mcq.MESSAGE_CONSTRAINTS);
+    }
+
 
     @Test
     public void execute_duplicateAnswerableUnfilteredList_failure() {

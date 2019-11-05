@@ -32,8 +32,10 @@ public class DifficultyTest {
         assertFalse(Difficulty.isValidDifficulty("9011p041")); // alphabets within digits
         assertFalse(Difficulty.isValidDifficulty("9312 1534")); // spaces within digits
 
-        //TODO: Implement valid difficulty. These are not valid for test bank
-        assertTrue(Difficulty.isValidDifficulty("1")); // exactly 1 number
-        assertTrue(Difficulty.isValidDifficulty("2"));
+        //Boundary Value Analysis. EPs: [INT_MIN, 0], [1-3], [4, INT_MAX]
+        assertFalse(Difficulty.isValidDifficulty("0"));
+        assertFalse(Difficulty.isValidDifficulty("4"));
+        assertTrue(Difficulty.isValidDifficulty("1"));
+        assertTrue(Difficulty.isValidDifficulty("3"));
     }
 }

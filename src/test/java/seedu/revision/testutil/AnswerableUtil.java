@@ -12,9 +12,9 @@ import java.util.Set;
 
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -42,7 +42,7 @@ public class AnswerableUtil {
         } else {
             sb.append(PREFIX_QUESTION_TYPE + "saq" + " ");
         }
-        sb.append(PREFIX_QUESTION + answerable.getQuestion().value + " ");
+        sb.append(PREFIX_QUESTION + answerable.getQuestion().question + " ");
         sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().value + " ");
         answerable.getCorrectAnswerList().stream().forEach(
             s -> sb.append(PREFIX_CORRECT + s.toString() + " ")
@@ -59,7 +59,7 @@ public class AnswerableUtil {
     public static String getEditAnswerableDescriptorDetails(EditCommand.EditAnswerableDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION)
-                .append(question.value).append(" "));
+                .append(question.question).append(" "));
         descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY)
                 .append(difficulty.value).append(" "));
         if (descriptor.getCategories().isPresent()) {

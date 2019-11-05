@@ -15,7 +15,7 @@ public abstract class Mode {
 
     public static final String MESSAGE_CONSTRAINTS = "Mode can only be normal / arcade / custom";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
@@ -36,7 +36,6 @@ public abstract class Mode {
         this.value = value;
     }
 
-
     /**
      * Returns true if a given string is a valid mode.
      */
@@ -44,28 +43,11 @@ public abstract class Mode {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public int getTime() {
-        return this.time;
-    }
-
-    public int getLevelTwoTime() {
-        return time;
-    }
-
-    public int getLevelThreeTime() {
-        return time;
-    }
-
     public Predicate<Answerable> getCombinedPredicate() {
         return combinedPredicate;
     }
 
-    public abstract Mode withCombinedPredicate(Predicate<Answerable> combinedPredicate);
-
-    public abstract Mode withTime(int time);
-
-    public abstract Mode build();
-
+    public abstract int getTime(int nextLevel);
 
     @Override
     public String toString() {

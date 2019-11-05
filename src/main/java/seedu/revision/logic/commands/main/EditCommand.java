@@ -19,6 +19,7 @@ import seedu.revision.commons.util.CollectionUtil;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
@@ -26,7 +27,6 @@ import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -45,12 +45,13 @@ public class EditCommand extends Command {
             + "[" + PREFIX_CATEGORY + "ADDRESS] "
             + "[" + PREFIX_CATEGORY + "category]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_QUESTION + "Blackfield or Whitefield?"
+            + PREFIX_QUESTION + "Blackfield or Whitefield? "
             + PREFIX_DIFFICULTY + "1";
 
     public static final String MESSAGE_EDIT_ANSWERABLE_SUCCESS = "Edited Answerable: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This question already exists in the test bank.";
+    public static final String MESSAGE_CANNOT_EDIT_TYPE = "Edit command cannot edit question type.";
 
     private final Index index;
     private final EditAnswerableDescriptor editAnswerableDescriptor;

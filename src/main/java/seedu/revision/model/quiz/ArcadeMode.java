@@ -1,13 +1,10 @@
 package seedu.revision.model.quiz;
 
-import java.util.function.Predicate;
-
-import seedu.revision.model.answerable.Answerable;
-
 /** ArcadeMode class which has increasing difficulty each level and ends any time a user gets a question wrong. **/
 public class ArcadeMode extends Mode {
     /**
-     * Constructs an {@code ArcadeMode}.
+     * Constructs an {@code ArcadeMode}.Uses defensive programming to immediately provide default values to
+     * time and combinedPredicate.
      */
     public ArcadeMode() {
         super("arcade");
@@ -15,29 +12,15 @@ public class ArcadeMode extends Mode {
         this.combinedPredicate = NormalMode.NORMAL_MODE_PREDICATE;
     }
 
-    public int getLevelTwoTime() {
-        assert time < 5 : "invalid time";
-        return time - 5;
-    }
-
-    public int getLevelThreeTime() {
-        assert time < 10 : "invalid time";
-        return time - 10;
-    }
-
-    @Override
-    public Mode withCombinedPredicate(Predicate<Answerable> combinedPredicate) {
-        return this;
-    }
-
-    @Override
-    public Mode withTime(int time) {
-        return this;
-    }
-
-    @Override
-    public Mode build() {
-        return this;
+    public int getTime(int nextLevel) {
+        switch(nextLevel) {
+        case 2:
+            return 15;
+        case 3:
+            return 10;
+        default:
+            return this.time;
+        }
     }
 }
 

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.A_ANSWERABLE;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
 import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.exceptions.DuplicateAnswerableException;
-import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 public class AddressBookTest {
 
@@ -45,9 +45,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateAnswerable_throwsDuplicateAnswerableException() {
         // Two answerables with the same identity fields
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
+        Answerable editedAlice = new McqBuilder(MCQ_STUB).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
-        List<Answerable> newAnswerables = Arrays.asList(A_ANSWERABLE, editedAlice);
+        List<Answerable> newAnswerables = Arrays.asList(MCQ_STUB, editedAlice);
         AddressBookStub newData = new AddressBookStub(newAnswerables);
 
         assertThrows(DuplicateAnswerableException.class, () -> addressBook.resetData(newData));
@@ -60,13 +60,13 @@ public class AddressBookTest {
 
     @Test
     public void hasAnswerable_answerableNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasAnswerable(A_ANSWERABLE));
+        assertFalse(addressBook.hasAnswerable(MCQ_STUB));
     }
 
     @Test
     public void hasAnswerable_answerableInAddressBook_returnsTrue() {
-        addressBook.addAnswerable(A_ANSWERABLE);
-        assertTrue(addressBook.hasAnswerable(A_ANSWERABLE));
+        addressBook.addAnswerable(MCQ_STUB);
+        assertTrue(addressBook.hasAnswerable(MCQ_STUB));
     }
 
     @Test

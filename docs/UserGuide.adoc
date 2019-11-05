@@ -32,6 +32,7 @@ GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
+image::Ui2.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.

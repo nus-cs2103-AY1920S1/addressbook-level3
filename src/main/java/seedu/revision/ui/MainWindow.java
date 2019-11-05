@@ -29,10 +29,12 @@ import seedu.revision.ui.answerables.AnswerableListPanel;
  */
 public class MainWindow extends Window {
 
+    protected static final String FXML = "MainWindow.fxml";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     public MainWindow(Stage primaryStage, MainLogic mainLogic) {
-        super(primaryStage, mainLogic);
+        super(FXML, primaryStage, mainLogic);
     }
 
     /**
@@ -48,7 +50,8 @@ public class MainWindow extends Window {
         StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, true);
+        //CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 

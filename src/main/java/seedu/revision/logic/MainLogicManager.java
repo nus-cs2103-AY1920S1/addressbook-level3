@@ -5,7 +5,6 @@ import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -49,8 +48,6 @@ public class MainLogicManager implements MainLogic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        //Logging, safe to ignore
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         //Parse user input from String to a Command
@@ -82,14 +79,10 @@ public class MainLogicManager implements MainLogic {
     @Override
     public CommandResult execute(String commandText, Answerable currentAnswerable)
             throws ParseException, CommandException {
-        //Logging, safe to ignore
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         //Parse user input from String to a Command
-        QuizCommandParser quizCommandParser = new QuizCommandParser();
-        Command command = quizCommandParser.parseCommand(commandText, currentAnswerable);
-        commandResult = command.execute(model);
+        Command command = QuizCommandParser.parseCommand(commandText, currentAnswerable);
+        CommandResult commandResult = command.execute(model);
 
         //If user exits the quiz, restore the filtered list to original state.
         if (commandResult.isExit()) {
@@ -120,10 +113,13 @@ public class MainLogicManager implements MainLogic {
         return model.getStatisticsList();
     }
 
+    public ObservableList<Answerable> getFilteredSortedAnswerableList() {
+        return model.getFilteredAnswerableList().sorted(Comparator.comparing(a -> a.getDifficulty()));
+    }
+
     @Override
-    public ObservableList<Answerable> getFilteredSortedAnswerableList(
-            Predicate<Answerable> predicate, Comparator<Answerable> comparator) {
-        return model.getFilteredSortedAnswerableList(predicate, comparator);
+    public void removeFiltersFromAnswerableList() {
+        model.removeFiltersFromAnswerableList();
     }
 
     @Override

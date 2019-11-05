@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.A_ANSWERABLE;
 import static seedu.revision.testutil.TypicalAnswerables.B_ANSWERABLE;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasAnswerable_answerableNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasAnswerable(A_ANSWERABLE));
+        assertFalse(modelManager.hasAnswerable(MCQ_STUB));
     }
 
     @Test
     public void hasAnswerable_answerableInAddressBook_returnsTrue() {
-        modelManager.addAnswerable(A_ANSWERABLE);
-        assertTrue(modelManager.hasAnswerable(A_ANSWERABLE));
+        modelManager.addAnswerable(MCQ_STUB);
+        assertTrue(modelManager.hasAnswerable(MCQ_STUB));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withAnswerable(A_ANSWERABLE)
+        AddressBook addressBook = new AddressBookBuilder().withAnswerable(MCQ_STUB)
                 .withAnswerable(B_ANSWERABLE).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -119,7 +119,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, history)));
 
         // different filteredList -> returns false
-        String[] keywords = A_ANSWERABLE.getQuestion().value.split("\\s+");
+        String[] keywords = MCQ_STUB.getQuestion().question.split("\\s+");
         modelManager.updateFilteredAnswerableList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, history)));
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -29,12 +28,16 @@ public class Saq extends Answerable {
     public boolean isCorrect(Answer selectedAnswer) {
         boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(),
                 getCorrectAnswerList().get(0).toString());
-        if (answerIsCorrect) {
-            logger.info("answer is CORRECT");
-        } else {
-            logger.info("answer is WRONG");
-        }
         return answerIsCorrect;
+    }
+
+    /**
+     * Returns true if both {@code Saq}s with the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two {@code Saq}s.
+     */
+    public boolean isSameAnswerable(Answerable otherAnswerable) {
+        boolean generalAnswerableCheck = super.isSameAnswerable(otherAnswerable);
+        return generalAnswerableCheck && otherAnswerable.getQuestion().equals(getQuestion());
     }
 
     /**
@@ -44,7 +47,7 @@ public class Saq extends Answerable {
      */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Type: SAQ ")
+        builder.append("Type: SAQ\n")
                 .append("Question: ")
                 .append(getQuestion() + "\n")
                 .append("Correct Answers: ")

@@ -32,7 +32,6 @@ public class CustomMode extends Mode {
      * @param combinedPredicate combinedPredicate that will be set.
      * @return {@Mode} object with its combinedPredicate set.
      */
-    @Override
     public Mode withCombinedPredicate(Predicate<Answerable> combinedPredicate) {
         this.combinedPredicate = combinedPredicate;
         return this;
@@ -44,14 +43,20 @@ public class CustomMode extends Mode {
      * @param time time that will be set.
      * @return {@Mode} object with its time set.
      */
-    @Override
     public Mode withTime(int time) {
         this.time = time;
         return this;
     }
 
-    @Override
+    /**
+     * Builds the CustomMode with the parameters provided.
+     * @return CustomMode according to user input.
+     */
     public Mode build() {
         return new CustomMode(value, time, combinedPredicate);
+    }
+
+    public int getTime(int nextLevel) {
+        return this.time;
     }
 }

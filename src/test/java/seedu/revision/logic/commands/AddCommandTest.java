@@ -9,7 +9,6 @@ import static seedu.revision.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,8 @@ import seedu.revision.model.ReadOnlyHistory;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.quiz.Statistics;
-import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.McqBuilder;
+
 
 public class AddCommandTest {
 
@@ -38,7 +38,7 @@ public class AddCommandTest {
     @Test
     public void execute_answerableAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingAnswerableAdded modelStub = new ModelStubAcceptingAnswerableAdded();
-        Answerable validAnswerable = new AnswerableBuilder().build();
+        Answerable validAnswerable = new McqBuilder().build();
 
         CommandResult commandResult = new AddCommand(validAnswerable).execute(modelStub);
 
@@ -48,7 +48,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicateAnswerable_throwsCommandException() {
-        Answerable validAnswerable = new AnswerableBuilder().build();
+        Answerable validAnswerable = new McqBuilder().build();
         AddCommand addCommand = new AddCommand(validAnswerable);
         ModelStub modelStub = new ModelStubWithAnswerable(validAnswerable);
 
@@ -58,8 +58,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Answerable alice = new AnswerableBuilder().withQuestion("Alice").build();
-        Answerable bob = new AnswerableBuilder().withQuestion("Bob").build();
+        Answerable alice = new McqBuilder().withQuestion("Alice").build();
+        Answerable bob = new McqBuilder().withQuestion("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -179,13 +179,12 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public ObservableList<Answerable> getFilteredSortedAnswerableList(
-                Predicate<Answerable> predicate, Comparator<Answerable> comparator) {
+        public void updateFilteredAnswerableList(Predicate<Answerable> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
-        public void updateFilteredAnswerableList(Predicate<Answerable> predicate) {
+        public void removeFiltersFromAnswerableList() {
             throw new AssertionError("This method should not be called.");
         }
     }

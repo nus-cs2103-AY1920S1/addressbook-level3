@@ -1,5 +1,6 @@
 package seedu.revision.model.answerable;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -75,11 +75,10 @@ public abstract class Answerable {
      * @return true if correct or false if wrong.
      */
     public boolean isCorrect(Answer selectedAnswer) {
+        requireNonNull(selectedAnswer);
         if (correctAnswerList.contains(selectedAnswer)) {
-            logger.info("correct answer selected");
             return true;
         }
-        logger.info("WRONG answer selected");
         return false;
     }
 
@@ -91,21 +90,18 @@ public abstract class Answerable {
         if (otherAnswerable == this) {
             return true;
         }
+
+        if (otherAnswerable == null) {
+            return false;
+        }
+
         if (!(otherAnswerable.getClass().equals(this.getClass()))) {
             return false;
         }
 
-        boolean isSameMCq = true;
-        if (this instanceof Mcq) {
-            isSameMCq = otherAnswerable.getWrongAnswerList().equals(getWrongAnswerList());
-        }
-
-        return otherAnswerable != null
-            && otherAnswerable.getQuestion().equals(getQuestion())
-            && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList())
-            && otherAnswerable.getDifficulty().equals(getDifficulty())
-            && isSameMCq;
+        return true;
     }
+
 
     /**
      * Returns true if both Answerables have the same identity and data fields.
@@ -134,20 +130,4 @@ public abstract class Answerable {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Question: ")
-                .append(getQuestion() + "\n")
-                .append(" Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerList() + "\n")
-                .append(" Wrong Answers: " + getWrongAnswerList() + "\n")
-                .append(" Difficulty: ")
-                .append(getDifficulty() + "\n")
-                .append(" Categories: ");
-        getCategories().forEach(builder::append);
-        return builder.toString();
-    }
-
 }

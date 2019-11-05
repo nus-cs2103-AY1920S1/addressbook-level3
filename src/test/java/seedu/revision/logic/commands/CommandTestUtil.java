@@ -21,8 +21,8 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
@@ -41,9 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_UML = "UML";
 
     public static final String QUESTION_TYPE_MCQ = " " + PREFIX_QUESTION_TYPE + "mcq";
-    public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_ALPHA;
+    public static final String QUESTION_DESC_ALPHA = " " + PREFIX_QUESTION + VALID_QUESTION_ALPHA;
     public static final String QUESTION_DESC_BETA = " " + PREFIX_QUESTION + VALID_QUESTION_BETA;
-    public static final String CORRECT_ANSWER_DESC = " " + PREFIX_CORRECT + "Brownfield";
+    public static final String CORRECT_ANSWER_DESC_BROWNFIELD = " " + PREFIX_CORRECT + "Brownfield";
+    public static final String CORRECT_ANSWER_DESC_GREENFIELD = " " + PREFIX_CORRECT + "Greenfield";
     public static final String MCQ_WRONG_ANSWER_DESC = " " + PREFIX_WRONG + "Greenfield " + PREFIX_WRONG + "Blackfield "
             + PREFIX_WRONG + "Whitefield";
     public static final String QUESTION_TYPE_DESC = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE;
@@ -86,16 +87,13 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) throws ParseException {
+            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
-        } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
-        } catch (ParseException parseException) {
-            //TODO: Handle Error
-
+        } catch (CommandException | ParseException e) {
+            throw new AssertionError("Execution of command should not fail.", e);
         }
     }
 
@@ -133,7 +131,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAnswerableList().size());
 
         Answerable answerable = model.getFilteredAnswerableList().get(targetIndex.getZeroBased());
-        final String[] splitName = answerable.getQuestion().value.split("\\s+");
+        final String[] splitName = answerable.getQuestion().question.split("\\s+");
         model.updateFilteredAnswerableList(new QuestionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredAnswerableList().size());

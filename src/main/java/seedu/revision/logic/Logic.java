@@ -1,8 +1,6 @@
 package seedu.revision.logic;
 
 import java.nio.file.Path;
-import java.util.Comparator;
-import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
@@ -38,8 +36,10 @@ public interface Logic {
     ObservableList<Statistics> getStatisticsList();
 
     /** Returns an unmodifiable view of the filtered and sorted list of answerables */
-    ObservableList<Answerable> getFilteredSortedAnswerableList(
-            Predicate<Answerable> predicate, Comparator<Answerable> comparator);
+    ObservableList<Answerable> getFilteredSortedAnswerableList();
+
+    /** Removes the filters from answerable list and restores the list to its original size. **/
+    void removeFiltersFromAnswerableList();
 
     /**
      * Returns the user prefs' revision tool file path.

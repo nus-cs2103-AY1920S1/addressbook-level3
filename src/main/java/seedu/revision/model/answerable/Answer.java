@@ -1,4 +1,4 @@
-package seedu.revision.model.answerable.answer;
+package seedu.revision.model.answerable;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;
@@ -8,7 +8,7 @@ public class Answer {
 
     /** Message to be shown if user-added answer is not is in the wrong format**/
     public static final String MESSAGE_CONSTRAINTS = "Answers must be less than 150 characters "
-            + "and should be not be blank.";
+            + ", should be not be blank and cannot be duplicates.";
 
     /** Validation Regex for the Answer class used to validate user-added answers. **/
     public static final String VALIDATION_REGEX = "^(?=.{0,150}$)(?=\\s*\\S).*$";

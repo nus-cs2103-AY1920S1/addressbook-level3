@@ -9,25 +9,26 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  */
 public class Question {
 
-    public static final String MESSAGE_CONSTRAINTS = "Questions should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Questions must be less that 300 characters and "
+            + "should not be blank";
 
     /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^(?=\\s*\\S).*$";
+    public static final String VALIDATION_REGEX = "^(?=.{0,300}$)(?=\\s*\\S).*$";
 
-    public final String value;
+    public final String question;
 
     /**
      * Constructs a {@code Question}.
      *
-     * @param value A valid question.
+     * @param question A valid question.
      */
-    public Question(String value) {
-        requireNonNull(value);
-        checkArgument(isValidQuestion(value), MESSAGE_CONSTRAINTS);
-        this.value = value;
+    public Question(String question) {
+        requireNonNull(question);
+        checkArgument(isValidQuestion(question), MESSAGE_CONSTRAINTS);
+        this.question = question;
     }
 
     /**
@@ -40,19 +41,19 @@ public class Question {
 
     @Override
     public String toString() {
-        return value;
+        return question;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Question // instanceof handles nulls
-                && value.equals(((Question) other).value)); // state check
+                && question.equals(((Question) other).question)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return question.hashCode();
     }
 
 }
