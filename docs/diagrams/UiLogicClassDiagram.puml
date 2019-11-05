@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_LOGIC_COLOR_T4
+skinparam classBackgroundColor UI_LOGIC_COLOR
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
+package UiLogic {
+
+    package UiAction {
+
+        Class XYZUiAction
+        Class UiActionResult
+        Class "{abstract}\nUiAction" as UiAction
+        package exceptions {
+            Class UiActionException
+        }
+    }
+
+    package Parser {
+        package exceptions {
+            Class ParseException
+        }
+        Interface UiParser <<Interface>>
+        Class UiActionDetails
+        Enum UiActionType <<Enumeration>>
+        Class AlgoBaseUiActionParser
+        Class XYZUiActionParser
+        Class ParserUtil
+    }
+
+    Interface UiLogic <<Interface>>
+    Class UiLogicManager
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> UiLogic
+
+UiLogicManager ..|> UiLogic
+UiLogicManager -->"1" AlgoBaseUiActionParser
+AlgoBaseUiActionParser ..> UiActionDetails: parses >
+AlgoBaseUiActionParser ..> XYZUiActionParser: creates >
+XYZUiActionParser ..> UiActionDetails: parses >
+XYZUiActionParser ..> XYZUiAction : creates >
+XYZUiActionParser ..|> UiParser
+XYZUiActionParser ..> ParserUtil
+UiActionDetails ..> UiActionType : defined by >
+XYZUiAction --|> UiAction
+UiLogicManager ..> UiAction : executes >
+
+UiLogicManager --> Model
+UiAction ..> Model
+note left of XYZUiAction: XYZUiAction = EditPlanUiAction, \nSwitchDetailsTabUiAction, etc
+UiLogic ..> UiActionResult
+UiLogicManager ..> UiActionResult
+UiAction ..> UiActionResult
+UiActionResult -[hidden]-> UiParser
+@enduml

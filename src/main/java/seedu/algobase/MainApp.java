@@ -30,6 +30,8 @@ import seedu.algobase.storage.StorageManager;
 import seedu.algobase.storage.UserPrefsStorage;
 import seedu.algobase.ui.Ui;
 import seedu.algobase.ui.UiManager;
+import seedu.algobase.ui.action.UiLogic;
+import seedu.algobase.ui.action.UiLogicManager;
 
 /**
  * Runs the application.
@@ -42,6 +44,7 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected Logic logic;
+    protected UiLogic uiLogic;
     protected Storage storage;
     protected Model model;
     protected Config config;
@@ -67,8 +70,9 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
+        uiLogic = new UiLogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        ui = new UiManager(logic, uiLogic);
     }
 
     /**

@@ -449,35 +449,75 @@ Examples:
 
 * `setplan 10`
 
+=== Editing from GUI
+
+AlgoBase currently supports editing Problems and Plans from the GUI with an intuitive layout.
+
+==== Editing a Problem / Plan
+
+.Plan with name "Data Structures" is opened.
+image::gui/EditPlanUiAction0.png[width="70%"]
+
+Step 1: Select the problem / plan you want to delete by double clicking on it.
+
+.The name and start date of the plan are modified.
+image::gui/EditPlanUiAction1.png[width="70%"]
+
+Step 2: Make changes to the problem / plan by editing the fields directly.
+
+.The plan is successfully edited.
+image::gui/EditPlanUiAction2.png[width="70%"]
+
+Step 3: Save changes to the problem by clicking on the _"Edit Problem"_ / _"Edit Plan"_ button.
+
+
+==== Deleting a Problem / Plan
+
+.Problem with name "Sequences" is opened.
+image::gui/DeleteProblemUiAction0.png[width="70%"]
+
+Step 1: Select the problem / plan you want to delete by double clicking on it.
+
+.Warning Dialog to confirm problem being deleted.
+image::gui/DeleteProblemUiAction1.png[width="70%"]
+
+Step 2: Click on the red _"Delete Problem"_ / _"Delete Plan"_ button at the bottom right.
+
+Step 3: For _Problems_, select whether you want the problem to be removed from all existing plans.
+
+.The problem is successfully deleted.
+image::gui/DeleteProblemUiAction2.png[width="70%"]
+
+Step 4: Click on _Confirm_.
+
 === Tabs
 
-image::gui/TabsOverview.png[width="70%"]
-_fig 3.7.0 – Types of Tabs highlighted in Orange_
+There are 2 types of tabs in AlgoBase: Display and Details tabs, as seen in the figure below.
 
-There are 2 types of tabs in AlgoBase: Display and Details tabs.
+.Types of tabs highlighted in Orange
+image::gui/TabsOverview.png[width="70%"]
+
 
 * **Display tabs** give a high level overview of the contents of a list of items
-(e.g. a list of `problems`/`tags`/`plans`).
+(e.g. a list of _problems_ / _tags_ / _plans_ / _findrules_).
 * **Details tabs** give a more detailed description of an item in a display tab.
 
-In the example in fig 3.7.0, there is a problem called "Sequences" in the current display tab.
-The details for this problem can be seen in the details tab where the orange arrow is pointing to.
-
 ==== Switching Tabs: `switchtab`
+
+.Demonstration of the `SwitchTab` command
 image::gui/SwitchTabCommand.png[width="70%"]
-_fig 3.7.1 – Demonstration of `SwitchTab` command_
 
 Switches between tabs in the GUI +
-Format: `switchtab tt/TAB_TYPE i/TAB_INDEX`
+Format: `switchtab tt/TAB_TYPE i/TAB_INDEX` +
 Format: `st tt/TAB_TYPE i/TAB_INDEX`
 
 * Tab Type
-** can be `display` or `details`
-** Alternatively, `display` and `details` can be replaced by `1` and `2` respectively
+** can be **display** or **details**
+** Alternatively, **display** and **details** can be replaced by **1** and **2** respectively
 
 Examples:
 
-* `switchtab tt/display i/3` – Switches to the third **display** tab (i.e. `plans` tab), as seen in fig 3.7.1
+* `switchtab tt/display i/3` – Switches to the third **display** tab (i.e. _plans_ tab).
 * `st tt/1 i/3` – Same effects as the previous command but in a shorter format.
 * `switchtab tt/details i/3` – Switches to the third **details** tab
 * `st tt/2 i/3` – Same effects as the previous command but in a shorter format.
@@ -485,27 +525,28 @@ Examples:
 
 ==== Opening Tabs: `opentab`
 
+.Demonstration of the `OpenTab` command
 image::gui/OpenTabCommand.png[width="70%"]
 
 Opens a new **Details** tab in the GUI +
-Format: `opentab m/MODEL_TYPE i/MODEL_INDEX`
+Format: `opentab m/MODEL_TYPE i/MODEL_INDEX` +
 Format: `ot m/MODEL_TYPE i/MODEL_INDEX`
 
 
 * Model Type
-** can be `problem`, `tag`, `plan` and `findrule`
-** Alternatively, `problem`, `tag`, `plan` and `findrule` can be replaced by `1`, `2`, `3` and `4` respectively
+** can be _problem_, _tag_, _plan_ and _findrule_
+** Alternatively, _problem_, _tag_, _plan_ and _findrule_ can be replaced by _1_, _2_, _3_ and _4_ respectively
 
 Examples:
 
-* `opentab m/problem i/2` – Opens the 2nd problem in the list of problems, as seen in fig 3.7.2
+* `opentab m/problem i/2` – Opens the 2nd problem in the list of problems.
 * `ot m/1 i/2` – Same effects as the previous command but in a shorter format.
-* `opentab m/plan i/3` – Opens the 3nd plan in the list of plans, as seen in fig 3.7.2
+* `opentab m/plan i/3` – Opens the 3nd plan in the list of plans.
 * `ot m/3 i/3` – Same effects as the previous command but in a shorter format.
 
 ==== Closing Tabs: `closetab`
 Closes a **details** tab in the GUI +
-Format: `closetab i/DETAILS_TAB_INDEX`
+Format: `closetab i/DETAILS_TAB_INDEX` +
 Format: `ct i/DETAILS_TAB_INDEX`
 
 Examples:

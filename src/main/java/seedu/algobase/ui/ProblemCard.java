@@ -14,10 +14,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.ModelType;
-import seedu.algobase.model.gui.TabData;
-import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.problem.Problem;
-import seedu.algobase.storage.SaveStorageRunnable;
+import seedu.algobase.ui.action.UiActionDetails;
+import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionType;
 
 /**
  * An UI component that displays information of a {@code Problem}.
@@ -37,6 +37,7 @@ public class ProblemCard extends UiPart<Region> {
      */
 
     public final Problem problem;
+    private final UiActionExecutor uiActionExecutor;
 
     @FXML
     private HBox cardPane;
@@ -59,14 +60,11 @@ public class ProblemCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ProblemCard(
-        Problem problem,
-        int displayedIndex,
-        WriteOnlyTabManager writeOnlyTabManager,
-        SaveStorageRunnable saveStorageRunnable
-    ) {
+    public ProblemCard(Problem problem, int displayedIndex, UiActionExecutor uiActionExecutor) {
         super(FXML);
         this.problem = problem;
+        this.uiActionExecutor = uiActionExecutor;
+
         id.setText(displayedIndex + ". ");
         id.setWrapText(true);
         id.setTextAlignment(TextAlignment.JUSTIFY);
@@ -94,7 +92,7 @@ public class ProblemCard extends UiPart<Region> {
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        this.addMouseClickListener(writeOnlyTabManager, saveStorageRunnable);
+        this.addMouseClickListener();
     }
 
     @Override
@@ -117,21 +115,19 @@ public class ProblemCard extends UiPart<Region> {
 
     /**
      * Spawns a new Tab when the cardPane registers a double click event.
-     *
-     * @param writeOnlyTabManager the tabManager to be written to.
      */
-    public void addMouseClickListener(
-        WriteOnlyTabManager writeOnlyTabManager,
-        SaveStorageRunnable saveStorageRunnable
-    ) {
+    public void addMouseClickListener() {
         cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
                         logger.info("Double Clicked on Problem card with name " + problem.getName());
-                        writeOnlyTabManager.openDetailsTab(new TabData(ModelType.PROBLEM, problem.getId()));
-                        saveStorageRunnable.save();
+                        uiActionExecutor.execute(new UiActionDetails(
+                            UiActionType.OPEN_DETAILS_TAB,
+                            ModelType.PROBLEM,
+                            problem.getId()
+                        ));
                     }
                 }
             }

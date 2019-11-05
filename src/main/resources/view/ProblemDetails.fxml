@@ -5,11 +5,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <AnchorPane>
   <ScrollPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge">
+              AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge"
+              fitToWidth="true">
       <VBox alignment="CENTER_LEFT">
           <padding>
             <Insets top="10" right="10" bottom="5" left="10"/>
@@ -23,7 +25,7 @@
               <Label text="Name" styleClass="scroll-pane-text"/>
           </StackPane>
           <StackPane>
-              <TextField editable="false" fx:id="name" />
+              <TextField fx:id="name" />
           </StackPane>
 
           <!-- Author-->
@@ -34,7 +36,7 @@
               <Label text="Author" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField editable="false" fx:id="author" />
+              <TextField fx:id="author" />
           </StackPane>
 
           <!-- Weblink-->
@@ -45,7 +47,7 @@
               <Label text="Weblink" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField editable="false" fx:id="weblink" />
+              <TextField fx:id="weblink" />
           </StackPane>
 
           <!-- Difficulty-->
@@ -56,7 +58,7 @@
               <Label text="Difficulty" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField editable="false" fx:id="difficulty" />
+              <TextField fx:id="difficulty" />
           </StackPane>
 
           <!-- Remark-->
@@ -67,7 +69,7 @@
               <Label text="Remark" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField editable="false" fx:id="remark" />
+              <TextField fx:id="remark" />
           </StackPane>
 
           <!-- Source-->
@@ -78,7 +80,7 @@
               <Label text="Source" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField editable="false" fx:id="source" />
+              <TextField fx:id="source" />
           </StackPane>
 
           <!-- Description-->
@@ -89,8 +91,21 @@
             <Label text="Description" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextArea editable="false" fx:id="description" wrapText="true" />
+              <TextArea fx:id="description" wrapText="true" />
           </StackPane>
+
+
+        <HBox alignment="BOTTOM_RIGHT" spacing="5">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+
+          <!-- Edit Button -->
+          <Button fx:id="editButton" styleClass="edit_button" text="Edit Problem" />
+
+          <!-- Delete Button -->
+          <Button fx:id="deleteButton" styleClass="delete_button" text="Delete Problem" />
+        </HBox>
       </VBox>
   </ScrollPane>
 </AnchorPane>
