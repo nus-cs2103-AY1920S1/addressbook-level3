@@ -688,10 +688,17 @@ raise an error (since only one 'c/' tag is allowed per command).
 
 Expected output:
 
-    New note added:
-        Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
-        Tags: [about]
+```
+New note added:
+    Title: About Notes
+    Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+    Tags: [about]
+
+Note fragment tags detected:
+    Title: About Notes
+    Content: highlighted
+    Tags: [important][highlight]
+```
 
 A `Note` has been added with the `Content` of "Notes can be highlighted if needed.", and a note fragment tag with
 `Content` "highlighted" and two `Tags` "cs2100" and "important". Despite this, the `Note` itself is instead tagged

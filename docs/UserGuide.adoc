@@ -433,16 +433,24 @@ If there are both flashcards due for revision today and overdue flashcards:
 * Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
 of an existing note title.
 
-    Format: add t/TITLE c/CONTENT [tag/TAG]...
+```
+Format: add t/TITLE c/CONTENT [tag/TAG]...
+```
 
-    Example usage: add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes
-    simultaneously. tag/CS2100
+```
+Example usage: add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes simultaneously. tag/cs2100
+```
 
-    Expected output:
-    New note added:
-        Title: Pipelining Definition
-        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
-        Tags: [cs2100]
+```
+Expected output:
+
+New note added:
+    Title: Pipelining Definition
+    Content: Pipelining is a process where a processor executes multiple processes simultaneously.
+    Tags: [cs2100]
+
+The added Note has no detected note fragment tags!
+```
 
 * More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
 same time as the note is created.
@@ -450,21 +458,36 @@ same time as the note is created.
 * Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
 `FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
 
-    Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
+```
+Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
+```
 
-IMPORTANT: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not
+IMPORTANT: The format for note fragment content is 'C/', not 'c/', and the format for note fragment tags is 'TAG/', not
 'tag/'.
+
+WARNING: If the format is not followed correctly, the note fragment tag will simply not be added (but the note will 
+still be added). StudyBuddyPro will assume that the user typed the tags correctly.
 
 * In the following example, two note fragment tags are added to the same note fragment:
 
-    Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+```
+Example usage: add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+```
 
+```
 Expected output:
 
-    New note added:
-        Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
-        Tags: [about]
+New note added:
+	Title: About Notes
+	Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+	Tags: [about]
+
+Note fragment tags detected:
+	Title: About Notes
+	Content: highlighted
+	Tags: [important][highlight]
+
+```
 
 * This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
 "highlighted" and two tags "cs2100" and "important".

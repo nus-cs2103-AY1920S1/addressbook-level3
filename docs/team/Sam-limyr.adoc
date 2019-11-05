@@ -14,7 +14,8 @@ details my contributions to this project.
 
 == Summary of Contributions
 
-* *Major contribution*: Added *Notes*, and implemented the ability to *add tags within Notes*.
+* *Major contribution*: Added *Notes*, and implemented the ability to *add tags within Notes* (i.e. intra-content
+tagging).
 ** What Notes are: Notes are pieces of information with titles, content, and optional tags. The operations that they
 support are:
 *** Creation
