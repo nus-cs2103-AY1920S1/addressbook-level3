@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -32,13 +33,13 @@ public class ReturnCommand extends ReversibleCommand {
             + "-all\n"
             + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " -all";
 
-    public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s";
+    public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s\n\n";
 
     private final Index index;
     private final boolean returnAllValidBooks;
 
     /**
-     * Creates an ReturnCommand to return the currently served Borrower's {@code Book}.
+     * Creates a ReturnCommand to return the currently served Borrower's {@code Book}.
      *
      * @param index Index of book to be returned.
      */
@@ -48,7 +49,14 @@ public class ReturnCommand extends ReversibleCommand {
         this.returnAllValidBooks = false;
     }
 
+    /**
+     * Creates a RenewCommand to return all of the currently served Borrower's {@code Book}s.
+     *
+     * @param isAll True.
+     */
     public ReturnCommand(boolean isAll) {
+        assert isAll : "Wrong constructor used!";
+
         this.returnAllValidBooks = isAll;
         this.index = null;
     }
@@ -68,46 +76,59 @@ public class ReturnCommand extends ReversibleCommand {
         }
 
         List<Book> lastShownBorrowerBooksList = model.getBorrowerBooks();
-        if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
-            throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
+
+        ArrayList<Book> returningBooks = new ArrayList<>();
+        if (returnAllValidBooks) { // return all valid books
+            returningBooks.addAll(lastShownBorrowerBooksList);
+        } else { // return book corresponding to index
+            if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
+                throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
+            }
+
+            Book bookToBeReturned = lastShownBorrowerBooksList.get(index.getZeroBased());
+            returningBooks.add(bookToBeReturned);
         }
 
-        Book bookToBeReturned = lastShownBorrowerBooksList.get(index.getZeroBased());
-        if (!bookToBeReturned.isCurrentlyLoanedOut()) {
-            throw new CommandException(String.format(MESSAGE_BOOK_NOT_ON_LOAN, bookToBeReturned));
-        }
-
-        Loan loanToBeReturned = bookToBeReturned.getLoan().get();
-        Borrower servingBorrower = model.getServingBorrower();
-        // check if servingBorrower has this Book loaned
-        if (!servingBorrower.hasCurrentLoan(loanToBeReturned)) {
-            throw new CommandException(String.format(MESSAGE_NOT_LOANED_BY_BORROWER,
-                    servingBorrower, bookToBeReturned));
-        }
-
+        String feedbackMessage = "";
+        ArrayList<Book> returnedBookList = new ArrayList<>();
+        ArrayList<Book> bookToBeReturnedList = new ArrayList<>();
+        ArrayList<Loan> returnedLoanList = new ArrayList<>();
+        ArrayList<Loan> loanToBeReturnedList = new ArrayList<>();
         LocalDate returnDate = DateUtil.getTodayDate();
-        int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
-                * model.getUserSettings().getFineIncrement();
-        Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, fineAmount);
 
-        Book returnedBook = bookToBeReturned.returnBook();
+        for (Book bookToBeReturned : returningBooks) {
+            Loan loanToBeReturned = bookToBeReturned.getLoan().get();
+            Borrower servingBorrower = model.getServingBorrower();
 
-        // update Book in model to have Loan removed
-        model.setBook(bookToBeReturned, returnedBook);
+            int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
+                    * model.getUserSettings().getFineIncrement();
+            Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, fineAmount);
+            Book returnedBook = bookToBeReturned.returnBook();
 
-        // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
-        model.servingBorrowerReturnLoan(loanToBeReturned, returnedLoan);
+            // update Book in model to have Loan removed
+            model.setBook(bookToBeReturned, returnedBook);
 
-        // update Loan in LoanRecords with returnDate and remainingFineAmount
-        model.updateLoan(loanToBeReturned, returnedLoan);
+            // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
+            model.servingBorrowerReturnLoan(loanToBeReturned, returnedLoan);
 
-        // unmount this book in LoanSlipUtil if it is mounted
-        LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToBeReturned);
+            // update Loan in LoanRecords with returnDate and remainingFineAmount
+            model.updateLoan(loanToBeReturned, returnedLoan);
 
-        undoCommand = new UnreturnCommand(returnedBook, bookToBeReturned, returnedLoan, loanToBeReturned);
+            // unmount this book in LoanSlipUtil if it is mounted
+            LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToBeReturned);
+
+            feedbackMessage += String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
+                FineUtil.centsToDollarString(fineAmount));
+            returnedBookList.add(returnedBook);
+            bookToBeReturnedList.add(bookToBeReturned);
+            returnedLoanList.add(returnedLoan);
+            loanToBeReturnedList.add(loanToBeReturned);
+        }
+
+        undoCommand = new UnreturnCommand(returnedBookList, bookToBeReturnedList, returnedLoanList,
+                loanToBeReturnedList);
         redoCommand = this;
-        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
-                FineUtil.centsToDollarString(fineAmount)));
+        commandResult = new CommandResult(feedbackMessage.trim());
 
         return commandResult;
     }

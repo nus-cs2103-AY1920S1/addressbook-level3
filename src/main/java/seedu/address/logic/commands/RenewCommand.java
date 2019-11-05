@@ -37,7 +37,7 @@ public class RenewCommand extends ReversibleCommand {
     private final Index index;
 
     /**
-     * Creates an RenewCommand to renew the currently served Borrower's {@code Book}.
+     * Creates a RenewCommand to renew the currently served Borrower's {@code Book}.
      *
      * @param index Index of book to be renewed.
      */

@@ -2,13 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.commons.util.CollectionUtil.areAllSameSize;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.ArrayList;
 
 import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
 import seedu.address.model.loan.Loan;
 
 /**
@@ -17,29 +21,33 @@ import seedu.address.model.loan.Loan;
  * a undo/redo Command.
  */
 public class UnreturnCommand extends Command {
-    public static final String MESSAGE_SUCCESS = "Book: %1$s\nunreturned from\nBorrower: %2$s";
+    public static final String MESSAGE_SUCCESS = "Book: %1$s\nunreturned from\nBorrower: %2$s\n\n";
 
-    private final Book bookToBeUnreturned;
-    private final Book unreturnedBook;
-    private final Loan loanToBeUnreturned;
-    private final Loan unreturnedLoan;
+    private final ArrayList<Book> bookToBeUnreturnedList;
+    private final ArrayList<Book> unreturnedBookList;
+    private final ArrayList<Loan> loanToBeUnreturnedList;
+    private final ArrayList<Loan> unreturnedLoanList;
 
     /**
-     * Creates an UnreturnCommand to unreturn the currently served Borrower's {@code Book}.
+     * Creates an UnreturnCommand to unreturn the currently served Borrower's {@code Book}(s).
      *
      * @param
      */
-    public UnreturnCommand(Book bookToBeUnreturned, Book unreturnedBook, Loan loanToBeUnreturned, Loan unreturnedLoan) {
-        requireAllNonNull(bookToBeUnreturned, unreturnedBook, loanToBeUnreturned, unreturnedLoan);
+    public UnreturnCommand(ArrayList<Book> bookToBeUnreturnedList, ArrayList<Book> unreturnedBookList,
+                           ArrayList<Loan> loanToBeUnreturnedList, ArrayList<Loan> unreturnedLoanList) {
+        requireAllNonNull(bookToBeUnreturnedList, unreturnedBookList, loanToBeUnreturnedList,
+                unreturnedLoanList);
+        assert areAllSameSize(bookToBeUnreturnedList, unreturnedBookList, loanToBeUnreturnedList,
+                unreturnedLoanList);
 
-        this.bookToBeUnreturned = bookToBeUnreturned;
-        this.unreturnedBook = unreturnedBook;
-        this.loanToBeUnreturned = loanToBeUnreturned;
-        this.unreturnedLoan = unreturnedLoan;
+        this.bookToBeUnreturnedList = bookToBeUnreturnedList;
+        this.unreturnedBookList = unreturnedBookList;
+        this.loanToBeUnreturnedList = loanToBeUnreturnedList;
+        this.unreturnedLoanList = unreturnedLoanList;
     }
 
     /**
-     * Executes the ReturnCommand and returns the result message.
+     * Executes the UneturnCommand and returns the result message.
      *
      * @param model {@code Model} which the command should operate on.
      * @return Feedback message of the operation result for display.
@@ -49,22 +57,34 @@ public class UnreturnCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // update Book in model to have Loan removed
-        model.setBook(bookToBeUnreturned, unreturnedBook);
+        Borrower servingBorrower = model.getServingBorrower();
+        String feedbackMessage = "";
 
-        // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
-        model.servingBorrowerUnreturnLoan(loanToBeUnreturned, unreturnedLoan);
+        for (int i = 0; i < bookToBeUnreturnedList.size(); i++) {
+            Book bookToBeUnreturned = bookToBeUnreturnedList.get(i);
+            Book unreturnedBook = unreturnedBookList.get(i);
+            Loan loanToBeUnreturned = loanToBeUnreturnedList.get(i);
+            Loan unreturnedLoan = unreturnedLoanList.get(i);
 
-        // update Loan in LoanRecords with returnDate and remainingFineAmount
-        model.updateLoan(loanToBeUnreturned, unreturnedLoan);
+            // update Book in model to have Loan removed
+            model.setBook(bookToBeUnreturned, unreturnedBook);
 
-        try {
-            LoanSlipUtil.mountLoan(unreturnedLoan, unreturnedBook, model.getServingBorrower());
-        } catch (LoanSlipException e) {
-            e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
+            // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
+            model.servingBorrowerUnreturnLoan(loanToBeUnreturned, unreturnedLoan);
+
+            // update Loan in LoanRecords with returnDate and remainingFineAmount
+            model.updateLoan(loanToBeUnreturned, unreturnedLoan);
+
+            try {
+                LoanSlipUtil.mountLoan(unreturnedLoan, unreturnedBook, model.getServingBorrower());
+            } catch (LoanSlipException e) {
+                e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
+            }
+
+            feedbackMessage += String.format(MESSAGE_SUCCESS, unreturnedBook, servingBorrower);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, unreturnedBook, model.getServingBorrower()));
+        return new CommandResult(feedbackMessage.trim());
     }
 
     @Override
@@ -78,9 +98,9 @@ public class UnreturnCommand extends Command {
         }
 
         UnreturnCommand otherUnreturnCommand = (UnreturnCommand) o;
-        return this.bookToBeUnreturned.equals(otherUnreturnCommand.bookToBeUnreturned)
-                && this.unreturnedBook.equals(otherUnreturnCommand.unreturnedBook)
-                && this.loanToBeUnreturned.equals(otherUnreturnCommand.loanToBeUnreturned)
-                && this.unreturnedLoan.equals(otherUnreturnCommand.unreturnedLoan);
+        return this.bookToBeUnreturnedList.equals(otherUnreturnCommand.bookToBeUnreturnedList)
+                && this.unreturnedBookList.equals(otherUnreturnCommand.unreturnedBookList)
+                && this.loanToBeUnreturnedList.equals(otherUnreturnCommand.loanToBeUnreturnedList)
+                && this.unreturnedLoanList.equals(otherUnreturnCommand.unreturnedLoanList);
     }
 }
