@@ -11,8 +11,13 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import com.sun.javafx.collections.ObservableListWrapper;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.stubs.ModelStub;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.LedgerOperation;
@@ -51,15 +56,15 @@ public class InCommandTest {
     @Test
     public void equals() {
         BankAccountOperation firstTransaction = new BankOperationBuilder()
-            .withCategories("Food")
-            .withAmount("100")
-            .withDate("10102019")
-            .build();
+                .withCategories("Food")
+                .withAmount("100")
+                .withDate("10102019")
+                .build();
         BankAccountOperation secondTransaction = new BankOperationBuilder()
-            .withCategories("Drinks")
-            .withAmount("80")
-            .withDate("10102019")
-            .build();
+                .withCategories("Drinks")
+                .withAmount("80")
+                .withDate("10102019")
+                .build();
         InCommand addFirstCommand = new InCommand(firstTransaction);
         InCommand addSecondCommand = new InCommand(secondTransaction);
 
@@ -101,7 +106,7 @@ public class InCommandTest {
     /**
      * A Model stub that always accept the transaction being added.
      */
-    private class ModelStubAcceptingTransactionAdded extends ModelStub {
+    private static class ModelStubAcceptingTransactionAdded extends ModelStub {
         final ArrayList<BankAccountOperation> transactionsAdded = new ArrayList<>();
 
         @Override
@@ -128,6 +133,11 @@ public class InCommandTest {
         @Override
         public ReadOnlyBankAccount getBankAccount() {
             return new BankAccount();
+        }
+
+        @Override
+        public ObservableList<Projection> getFilteredProjectionsList() {
+            return new ObservableListWrapper<>(new ArrayList<>());
         }
     }
 

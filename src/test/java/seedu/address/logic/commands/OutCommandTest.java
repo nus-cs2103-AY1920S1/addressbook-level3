@@ -11,8 +11,13 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import com.sun.javafx.collections.ObservableListWrapper;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.stubs.ModelStub;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.LedgerOperation;
@@ -135,6 +140,10 @@ public class OutCommandTest {
         public ReadOnlyBankAccount getBankAccount() {
             return new BankAccount();
         }
-    }
 
+        @Override
+        public ObservableList<Projection> getFilteredProjectionsList() {
+            return new ObservableListWrapper<>(new ArrayList<>());
+        }
+    }
 }
