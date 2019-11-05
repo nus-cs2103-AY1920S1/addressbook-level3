@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="1000.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="1000.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
             <stylesheets>
@@ -41,11 +41,8 @@
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
                         <StackPane fx:id="bookListPanelPlaceholder" styleClass="placeholder" VBox.vgrow="ALWAYS" />
-                        <Pane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="120.0" VBox.vgrow="ALWAYS">
-                            <padding>
-                                <Insets left="20.0" />
-                            </padding>
-                        </Pane>
+                        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="120.0" VBox.vgrow="ALWAYS">
+                        </StackPane>
                     </VBox>
                 </center>
                 <top>
