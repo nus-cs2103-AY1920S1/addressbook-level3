@@ -47,6 +47,7 @@ public class WatchCommand extends Command {
     public static final String MESSAGE_UNWATCH_SHOW_SUCCESS = "Unmarked show as watched: %1$s";
     public static final String MESSAGE_MARK_EPISODES_SUCCESS = "Marked %1$s episodes as watched: %2$s";
     public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist.";
+    public static final String MESSAGE_EDITING_MOVIE_EPISODES_OR_SEASONS = "Movies do not have episodes and seasons.";
     public static final String MESSAGE_INVALID_EPISODE_NUMBER = "The provided number of episodes is too large, the are"
             + " only %1$s episodes in %2$s.";
     public static final String MESSAGE_INVALID_SEASON_NUMBER = "The provided number of seasons is too large, the are"
@@ -93,6 +94,10 @@ public class WatchCommand extends Command {
 
         if (!showToEdit.isSameShow(editedShow) && model.hasShow(editedShow)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
+        }
+
+        if (!showToEdit.getType().equals("movie") && !isToggle) {
+            throw new CommandException(MESSAGE_EDITING_MOVIE_EPISODES_OR_SEASONS);
         }
 
         model.setShow(showToEdit, editedShow);
