@@ -372,12 +372,13 @@ With questions, you are able to manage your existing questions, and add new ones
 ==== Creating a question
 
 Create and store questions according to the type specified. +
+{empty} +
 
 [big]*Format:* `question question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+
 [NOTE]
 Note that for mcq question type, it is necessary to input keywords `a/`, `b/`, `c/`, `d/`.
 
-{empty} +
 The keywords supported by this feature includes:
 
 |==============================
@@ -413,12 +414,12 @@ _Creating an open ended question._
 ==== Editing a question
 
 Edit a question currently stored. All keywords are *optional*. +
+{empty} +
 
 [big]*Format:* `question [INDEX] question/... answer/... type/... (MCQ KEYWORDS IF APPLICABLE)`
 [NOTE]
 Note that when changing question type from open ended to mcq, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
 
-{empty} +
 The keywords supported by this feature includes:
 
 |==============================
@@ -454,10 +455,10 @@ _Editing the first question._
 ==== Deleting a question
 
 Delete a question from the question list. +
+{empty} +
 
 [big]*Format:* `question delete [INDEX]`
 
-{empty} +
 The keywords supported by this feature includes:
 |==============================
 | Keyword | Description
@@ -480,10 +481,10 @@ _Deleting the first question._
 ==== Listing your saved questions
 
 Display the stored questions and list them in ascending order according to the time that it was created. +
+{empty} +
 
 [big]*Format:* `question list`
 
-{empty} +
 The keywords supported by this feature includes: +
 *_-This command does not require any additional keywords-_*
 
@@ -505,10 +506,10 @@ Search and display questions using keywords and similar terms.
 [NOTE]
 The ordering of questions is based on *similarity* and the ordering is such that the question that is most similar
 to your search term will be at the top.
+{empty} +
 
 [big]*Format:* `question find/...`
 
-{empty} +
 The keywords supported by this feature includes:
 
 |==============================
@@ -531,10 +532,10 @@ _Finding questions that matches search term._
 ==== Starting a Slideshow
 
 Start a slideshow based on the questions selected. The sequence of the questions displayed will follow the ordering of input. +
+{empty} +
 
 [big]*Format:* `question slideshow [QUESTIONS INDEX]`
 
-{empty} +
 The keywords supported by this feature includes:
 
 |==============================
