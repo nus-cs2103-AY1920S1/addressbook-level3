@@ -48,20 +48,3 @@
 .statusbar {
     -fx-padding: 0 10 10;
 }
-
-// Custom graph
-.chart-plot-background {
-    -fx-background-color: transparent;
-}
-
-#avg-chart .chart-legend {
-    -fx-background-insets: 0,1;
-    -fx-background-radius: 6,5;
-    -fx-padding: 0px, 100px, 0px, 0px;
-}
-
-#total-chart .chart-legend {
-   -fx-background-insets: 0,1;
-   -fx-background-radius: 6,5;
-   -fx-padding: 0px 0px 0px 100px;
-}
