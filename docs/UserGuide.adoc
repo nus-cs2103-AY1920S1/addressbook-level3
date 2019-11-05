@@ -356,7 +356,7 @@ Format: `list-i`
 
 ****
 * The listing returns all incidents, inclusive of all drafts and submitted incident reports
-* All keywords and parameters used are ignored
+* Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
 ****
 
 Example usage and expected outcome:
@@ -365,66 +365,69 @@ image::listIncidentsCommand.png[]
 
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
-Possible Parameters: `id`/`op`/`desc`
+Possible Parameters: `id/`, `op/`, `desc/`, `self`
 
 *Different Parameters*
 
 **By Operator Name** +
-Format: `find-i op/KEYWORD` +
-Lists all incidents whereby the operator name contains the given keyword
+Format: `find-i op/<OPERATOR KEYWORD [MORE_KEYWORDS]>` +
+Lists all incidents whereby the operator name contains any of the given keywords
 
-* Example of Successful Usage and Expected Outcome:
+* Accepts multiple search terms for the parameter, searching for any match with any search term
+
+* Example of Successful Single Operator Search and Expected Outcome:
 
 image::findIncidentsCommandWithOperatorParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
+* Example of Successful Multiple Operator Search and Expected Outcome:
 
-image::findIncidentsCommandWithOperatorParameterFailed.png[]
+image::findIncidentsCommandWithOperatorsParameter.png[]
 
 **By Description** +
-Format: `find-i desc/KEYWORD` +
-Lists all incidents whereby the incident description contains the given keyword
+Format: `find-i desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...>` +
+Lists all incidents whereby the incident description contains any the given keywords
 
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithDescriptionParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
-
-image::findIncidentsCommandWithDescriptionParameterFailed.png[]
-
-**By ID**
+**By ID** +
 Format: `find-i id/KEYWORD` +
 Lists all incidents whereby the incident ID is an exact match with the given keyword
+
+* Requires an exact ID match, only accepts one ID
 
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithIdParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
+**Self-Search** +
+Format: `find-i self` +
+Lists all incidents whereby the operator name matches the logged-in user's name.
 
-image::findIncidentsCommandWithIdParameterFailed.png[]
+* Requires an exact name match
 
-* Requires an exact ID match
-* Example of Failed Usage:
-** The ID does not match the given keyword exactly
-* Example of Successful Usage:
-** ID matches the given keyword exactly
+* Example of Successful Usage and Expected Outcome:
+
+image::findIncidentsCommandWithSelfParameter.png[]
 
 ****
 * The search is case insensitive. e.g `dave` will match `Dave`
-* Only the specified parameter is searched, and only one parameter can be searched each time
+* Multiple words can be taken for the operator and description parameter
+* Multiple parameters can be searched, returning incidents whereby all parameters match
 * Only full words will be matched e.g. `Fir` will not match `Fire`
 ****
 
 Examples:
 
-* `find-i id/0920160001` +
+* ID Match: `find-i id/0920160001` +
 Returns Incident #0920160001
-* `find-i op/Dave` +
-Returns any incidents whereby the operator's name contains 'Dave'
-* `find-i desc/fire` +
-Returns any incidents whereby the description contains 'fire'
+* Multiple Parameters: `find-i op/Dave desc/fire` +
+Returns any incidents whereby the operator's name contains 'Dave' and the description contains 'fire'
+* Multi-word Parameter Search: `find-i op/Alex Bernice` +
+Returns any incidents whereby the operator's name contains either 'Alex' or 'Bernice'
+* Self-Search: `find-i self` +
+Returns any incidents whereby the operator's name matches the logged-in operator's name
 
 === Editing an Incident: `edit-i`
 
@@ -658,8 +661,8 @@ e.g. `fill 1 c/98984932 d/This is a sample description for incident 1 in distric
 2. `submit` [INDEX] (to submit specified incident report) +
 e.g. `submit 4`
 * *List Incidents* : `list-i`
-* *Find Incidents* : `find-i [op/KEYWORD] [desc/KEYWORD] [id/KEYWORD]` +
-e.g. `find-i op/alex`
+* *Find Incidents* : `find-i [op/KEYWORD(s)] [desc/KEYWORD(s)] [id/KEYWORD] [self]` +
+e.g. `find-i op/alex yeoh desc/6 self`
 * *List Vehicles* : `list-v`
 * *Find Vehicles* : `find-v [ds/KEYWORDS] [vtype/KEYWORD] [vnum/KEYWORD]` +
 e.g. `find-v ds/1 2 3`
