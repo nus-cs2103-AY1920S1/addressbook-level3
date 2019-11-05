@@ -422,7 +422,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
      * LocalDate.
      */
     private LocalDate retrieveScriptDate(String key, ScriptObjectWrapper sow) {
-        LocalDate ret = sow.get(key, LocalDate.class);
+        LocalDate ret = sow.get(key, LocalDate.class, false);
         if (ret != null) {
             return ret;
         }
