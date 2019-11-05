@@ -272,7 +272,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the resolve window and blocks all events until closed
+     * Opens the resolve window and blocks all events until closed.
      */
     @FXML
     private void handleResolve() {
@@ -343,19 +343,47 @@ public class MainWindow extends UiPart<Stage> {
         resourceListPanelPlaceholder.getSelectionModel().select(tab);
     }
 
+    /**
+     * Updates the GUI to show the exercise list tab and refresh info display panel if the tab did change.
+     */
     private void handleShowExerciseList() {
+        if (!(isResourceListPanelShown(exerciseListTabPlaceholder))) {
+            infoDisplayPanel.showDefaultMessage();
+        }
         resourceListPanelPlaceholder.getSelectionModel().select(exerciseListTabPlaceholder);
     }
 
+    /**
+     * Updates the GUI to show the regime list tab and refresh info display panel if the tab did change.
+     */
     private void handleShowRegimeList() {
+        if (!(isResourceListPanelShown(regimeListTabPlaceholder))) {
+            infoDisplayPanel.showDefaultMessage();
+        }
         resourceListPanelPlaceholder.getSelectionModel().select(regimeListTabPlaceholder);
     }
 
+    /**
+     * Updates the GUI to show the schedule list tab and refresh info display panel if the tab did change.
+     */
     private void handleShowScheduleList() {
+        if (!(isResourceListPanelShown(scheduleListTabPlaceholder))) {
+            infoDisplayPanel.showDefaultMessage();
+        }
         resourceListPanelPlaceholder.getSelectionModel().select(scheduleListTabPlaceholder);
     }
 
+    /**
+     * Updates the GUI to show the suggestion list tab and refresh info display panel if the tab did change.
+     */
     private void handleShowSuggestionList() {
+        if (!(isResourceListPanelShown(suggestionListTabPlaceholder))) {
+            infoDisplayPanel.showDefaultMessage();
+        }
         resourceListPanelPlaceholder.getSelectionModel().select(suggestionListTabPlaceholder);
+    }
+
+    private boolean isResourceListPanelShown(Tab resourceListPlaceholder) {
+        return resourceListPanelPlaceholder.getSelectionModel().getSelectedItem().equals(resourceListPlaceholder);
     }
 }

@@ -42,7 +42,11 @@ public class InfoDisplayPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Updates the information displayed in the center panel of application to show the default message.
+     */
     public void showDefaultMessage() {
+        infoPanelPlaceholder.getChildren().clear();
         infoPanelPlaceholder.getChildren().add(new Label(DEFAULT_MESSAGE));
     }
 }
