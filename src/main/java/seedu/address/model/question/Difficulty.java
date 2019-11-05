@@ -40,11 +40,11 @@ public class Difficulty {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Difficulty)
-                && difficulty.equals(((Difficulty) other).difficulty);
+                && difficulty.equalsIgnoreCase(((Difficulty) other).difficulty);
     }
 
     @Override
     public int hashCode() {
-        return difficulty.hashCode();
+        return difficulty.toLowerCase().hashCode();
     }
 }
