@@ -308,8 +308,8 @@ public class MainWindow extends UiPart<Stage> {
         Image image = new Image(LOGO_URL);
         ImageView imageView = new ImageView();
         imageView.setImage(image);
-        imageView.setFitWidth(500);
-        imageView.setFitHeight(500);
+        imageView.setFitWidth(400);
+        imageView.setFitHeight(400);
         displayPlaceHolder.getChildren().add(imageView);
     }
 }
