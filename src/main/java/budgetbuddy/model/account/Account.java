@@ -19,6 +19,7 @@ import budgetbuddy.model.transaction.TransactionList;
 public class Account {
 
     // Identity fields
+    public static final String CURRENCY_SIGN = "$";
     private Name name;
     private Description description;
     private final TransactionList transactionList;
@@ -78,10 +79,10 @@ public class Account {
     public void addTransaction(Transaction toAdd) throws NumberFormatException {
         this.transactionList.add(toAdd);
         if (toAdd.getDirection().equals(Direction.IN)) {
-            checkBalanceValidity(balance = balance + toAdd.getAmount().toLong());
+            checkBalanceValidity(balance + toAdd.getAmount().toLong());
             balance = balance + toAdd.getAmount().toLong();
         } else {
-            checkBalanceValidity(balance = balance - toAdd.getAmount().toLong());
+            checkBalanceValidity(balance - toAdd.getAmount().toLong());
             balance = balance - toAdd.getAmount().toLong();
         }
     }
@@ -121,10 +122,10 @@ public class Account {
     public void deleteTransaction(Transaction toDelete) throws NumberFormatException {
         this.transactionList.remove(toDelete);
         if (toDelete.getDirection().equals(Direction.IN)) {
-            checkBalanceValidity(balance = balance + toDelete.getAmount().toLong());
+            checkBalanceValidity(balance + toDelete.getAmount().toLong());
             balance = balance - toDelete.getAmount().toLong();
         } else {
-            checkBalanceValidity(balance = balance - toDelete.getAmount().toLong());
+            checkBalanceValidity(balance - toDelete.getAmount().toLong());
             balance = balance - toDelete.getAmount().toLong();
         }
     }
@@ -173,5 +174,8 @@ public class Account {
     }
 
 
+    public String getBalanceString() {
+            return String.format("%s%d.%02d", CURRENCY_SIGN, balance / 100, balance % 100);
+        }
 }
 

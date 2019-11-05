@@ -35,7 +35,7 @@ public class AccountCard extends UiPart<Region> {
         id.setMinWidth(30);
         name.setText(account.getName().toString());
         description.setText(account.getDescription().toString());
-        balance.setText("Balance: $" + account.getBalance());
+        balance.setText("Balance: " + account.getBalanceString());
     }
 
     @Override

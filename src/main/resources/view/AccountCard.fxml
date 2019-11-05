@@ -28,7 +28,7 @@
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
             <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
-            <Label fx:id="balance" text="Your balance is $\$first" styleClass="cell_big_label" />
+            <Label fx:id="balance" text="\$first" styleClass="cell_big_label" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
         </VBox>
     </GridPane>
