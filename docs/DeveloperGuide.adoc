@@ -166,6 +166,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::statisticsCommand[]
+
 === Statistics Calculation and Chart generation feature
 ==== Implementation
 
@@ -309,7 +311,7 @@ Below are some limitations that we have put in place for `v1.4` of SMLJ:
 *Date range starts from 1970 onwards
 ** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
 
-
+// end:statisticsCommand[]
 
 === Autocomplete feature
 ==== Current Implementation
