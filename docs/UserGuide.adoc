@@ -358,29 +358,29 @@ To enter the Finances section, please enter the command: `switch finance`
 
 All amounts are taken to be in SGD and recorded as if with dollar signs and numerals. For example, 110 cents should be written as `1.10` or `1.1`.
 
-If dates are to be specified, only dates of format `DD-MM-YYYY` will be recognised.
+If dates are to be specified, only dates of format `DD-MM-YYYY` will be recognised. If dates are not specified, the default day will be set to the current day when the entry was entered.
 
 Note that category names should be without whitespaces (e.g. `catFood`, *not* `cat food`).
 
-==== Add an expenditure: `spend`
+==== Add an entry of expenditure: `spend`
 
-Record down an entry of spending with relevant information associated with it. Place of spending should also be specified.
+Record down an entry of spending with relevant information associated with it. If place of spending is not specified, it will default to `-`.
 
-Format: `*spend* <amt>AMOUNT <day>TRANSACTION_DATE <item>DESCRIPTION <met>TRANSACTION_METHOD <place>PLACE [<cat>CATEGORY]...` +
+Format: `*spend* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD [<place>PLACE] [<day>TRANSACTION_DATE] [<cat>CATEGORY]...` +
 e.g. `spend <amt>2.80 <day>15-10-2019 <item>Yong Tau Foo <met>Cash <place>Frontier`
 
-==== Add an income: `income`
+==== Add an entry of income: `income`
 
 Record down an entry of incoming money. Source of income should be specified.
 
-Format: `*income* <amt>AMOUNT <day>TRANSACTION_DATE <item>DESCRIPTION <met>TRANSACTION_METHOD <from>SOURCE_OF_INCOME [<cat>CATEGORY]...` +
+Format: `*income* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD <from>SOURCE_OF_INCOME [<day>TRANSACTION_DATE] [<cat>CATEGORY]...` +
 e.g. `income <amt>300 <day>09-08-2019 <item>GST Voucher <met>Bank credit <from>Govt`
 
 ==== Add an entry of borrowed money: `borrow`
 
 Record down an entry of money borrowed from someone but not yet repaid.
 
-Format: `*borrow* <amt>AMOUNT <day>DATE_BORROWED <item>DESCRIPTION <met>TRANSACTION_METHOD <from>PERSON_BORROWED_FROM [<cat>CATEGORY]...` +
+Format: `*borrow* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD <from>PERSON_BORROWED_FROM [<day>DATE_BORROWED] [<cat>CATEGORY]...` +
 
 e.g. `borrow <amt>2 <day>09-08-2019 <item>Dilys egg tarts <met>Cash <from>Classmate`
 
@@ -388,16 +388,25 @@ e.g. `borrow <amt>2 <day>09-08-2019 <item>Dilys egg tarts <met>Cash <from>Classm
 
 Record down an entry of money lent to someone but not yet repaid.
 
-Format: `*lend* <amt>AMOUNT <day>DATE_LENT <item>DESCRIPTION <met>TRANSACTION_METHOD <to>PERSON_LENT_TO [<cat>CATEGORY]...` +
+Format: `*lend* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD <to>PERSON_LENT_TO [<day>DATE_LENT] [<cat>CATEGORY]...` +
 e.g. `lend <amt>1 <day>08-08-2019 <item>HL Choco milk <met>Cash <to>Brother `
 
 ==== Mark a Borrow or Lend entry as repaid: `repaid`
 
 Indicate that borrowed money or money lent has been returned. Note that index of log entry in list has to be of type 'borrow' or 'lend' to be successfully marked as repaid, all other log entries (i.e. 'spend', 'income') will be considered invalid. +
-Once the log entry has been marked as repaid, it cannot be undone.
+Once the log entry has been marked as repaid, it cannot be undone and it is no longer editable.
 
-Format: `*repaid* INDEX` +
+If no day is specified, date repaid will be recorded as the day the entry was entered into the system.
+
+Format: `*repaid* INDEX [<day> DAY_REPAID]` +
 e.g. `repaid 3`
+
+==== Clone a log entry: `clone`
+
+Duplicate a log entry, with the same information except for the date of transaction. If date is not specified, it will be recorded as the day the entry was entered into the system.
+
+Format: `*clone* INDEX [<day> TRANSACTION_DATE]` +
+e.g. `clone 3`
 
 ==== List out finances: `list`
 
@@ -411,7 +420,7 @@ Edit an entry previously entered by index of entry in listed listed out by `list
 
 Note that the newly-entered information will overwrite the details at the attribute. For example, if there were categories `food` and `hobby` linked to the entry at index 5 of the list, command `edit 5 <cat>pet` will delete the previous two categories and replace them with a single category `pet.` +
 
-Repaid status and date repaid for 'Borrow' and 'Lend' entries cannot be edited.
+Repaid 'Borrow' and 'Lend' entries cannot be edited.
 
 Format: `*edit* INDEX [<amt>AMOUNT] [<day>DAY] [<item>DESCRIPTION] [<met>TRANSACTION_METHOD] [<cat>CATEGORY ]` +
 * Additional field available for 'Spend' entries: `[<place>PLACE]` +
@@ -441,15 +450,47 @@ E.g. `find <type>lend`
 
 ==== Show statistical summaries of finances: `stats`
 
-Shows an overview of the state of expenses and incomes. Log entries can be grouped by a specified attribute with either the frequency or total amount of each group shown in a graphical summary. These attributes include log entries of the same month, type, transaction method, category or place.
+Shows an overview of the state of expenses and incomes. Log entries can be grouped by a specified attribute (`<gb>`) with either the frequency or total amount of each group summarised (`<sum>`) in a graphical summary. These attributes include log entries of the same month, type, transaction method, category or place.
 
-Both `<groupby>` and `<summarise>` have to be present. Any combination of `ATTRIBUTE` and `STAT` should work.
+Both `<gb>` and `<sum>` have to be present. Any combination of `ATTRIBUTE` and `STAT` should work.
 
-Format: `*stats* <groupby>ATTRIBUTE <summarise>STAT` +
-Possible `ATTRIBUTES` are: `month`, `entrytype`, `met`, `cat`, `place` (only shows `Spend` entries) +
-Possible `STATS` are: `freq` and `amt` +
-E.g. `stats <amt> freq <summarise> entrytype`
+Format: `*stats* <gb>ATTRIBUTE <sum>STAT` +
+Possible `ATTRIBUTE` values for `<gb>` are: `month`, `entrytype`, `met`, `cat`, `place` (only shows `Spend` entries) +
+Possible `STAT` values for `<sum>` are: `freq` and `amt` +
+E.g. `stats <sum> freq <gb> entrytype`
 
+==== Add a budget: `budget`
+
+Specify a budget. Budgets will only take into account the amount spent (i.e. `Spend` entries) and are generally characterised by a starting date, an ending date and a limit (maximum threshold). When total amount associated with spending crosses this limit, the budget is considered to be exceeded.
+
+Budgets for a specific place, category or transaction method can also be set (optional). Only at most one field out of these 3 `<met>`, `<cat>`, `<place>` can be included to make the budget more specific. If a spend entry matches the specified field and fall within the budget duration, they will be included in the budget. If none of these fields are indicated, the budget will sum up the amounts of *all* `Spend` entries which fall between the budget duration.
+
+In essence, there are 3 optional fields (only at one can be used at a time):
+
+1. `[<met>TRANSACTION_METHOD]`
+2. `[<cat>CATEGORY_NAME]`
+3. `[<place>PLACE_OF_SPENDING]`
+
+There are 3 ways to specify the duration (start, end) of a budget:
+
+1. <start>START_DATE <end>END_DATE
+2. <start>START_DATE <dur>DURATION_IN_DAYS
+3. <month>MM-YYYY
+
+Example Format 1: `*budget* <amt>AMOUNT <start>START_DATE <end>END_DATE [<met>TRANSACTION_METHOD]` +
+Example Format 2: `*budget* <amt>AMOUNT <start>START_DATE <dur>DURATION_IN_DAYS [<cat>CATEGORY_NAME]` +
+Example Format 3: `*budget* <amt>AMOUNT <month>MM-YYYY [<place>PLACE_OF_SPENDING]` +
+e.g. `budget <amt> 300 <month>11-2019 <met>cash`
+
+
+Format: `*budget* INDEX [<day> TRANSACTION_DATE]` +
+e.g. `budget 3`
+
+==== List out all budgets: `listb`
+
+List out all budgets in recorded down. Budgets will
+
+Format: `*listb*`
 
 === Saving the data
 
