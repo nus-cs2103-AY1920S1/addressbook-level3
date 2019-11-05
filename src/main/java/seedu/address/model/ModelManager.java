@@ -38,13 +38,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyStudyBuddyPro addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyStudyBuddyPro studyBuddyPro, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(studyBuddyPro, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with StudyBuddyPro : " + studyBuddyPro + " and user prefs " + userPrefs);
 
-        this.studyBuddyPro = new StudyBuddyPro(addressBook);
+        this.studyBuddyPro = new StudyBuddyPro(studyBuddyPro);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.studyBuddyPro.getPersonList());
         filteredFlashcards = new FilteredList<>(this.studyBuddyPro.getFlashcardList());

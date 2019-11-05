@@ -55,7 +55,7 @@ import seedu.address.logic.parser.note.ViewRawNoteCommandParser;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class StudyBuddyProParser {
 
     /**
      * Used for initial separation of command word and args.
