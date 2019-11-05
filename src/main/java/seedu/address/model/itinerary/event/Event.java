@@ -9,6 +9,7 @@ import java.util.Optional;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 
@@ -30,12 +31,13 @@ public class Event {
     private final Inventory inventory;
     private final Expenditure expenditure;
     private final Booking booking;
+    private final Description description;
 
     /**
      * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
-                 Expenditure expenditure, Inventory inventory, Location destination) {
+                 Expenditure expenditure, Inventory inventory, Location destination, Description description) {
         requireAllNonNull(name, startDate, endDate);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
 
@@ -46,11 +48,12 @@ public class Event {
         this.destination = destination;
         this.expenditure = expenditure;
         this.inventory = inventory;
+        this.description = description;
     }
 
     // temporary constructor until we implement booking and inventory, accepts null for now
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Expenditure expenditure, Location destination) {
+                 Expenditure expenditure, Location destination, Description description) {
         requireAllNonNull(name, startDate, endDate, expenditure);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -60,13 +63,14 @@ public class Event {
         this.destination = destination;
         this.expenditure = expenditure;
         this.inventory = null;
+        this.description = description;
     }
 
     /**
      * Constructs a trip with optional expenditure field.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Optional<Expenditure> expenditure, Location destination) {
+                 Optional<Expenditure> expenditure, Location destination, Optional<Description> description) {
         requireAllNonNull(name, startDate, endDate, expenditure);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -76,6 +80,7 @@ public class Event {
         this.destination = destination;
         this.expenditure = expenditure.orElse(null);
         this.inventory = null;
+        this.description = description.orElse(null);
     }
 
 
@@ -111,6 +116,10 @@ public class Event {
 
     public Optional<Booking> getBooking() {
         return Optional.ofNullable(booking);
+    }
+
+    public Optional<Description> getDescription() {
+        return Optional.ofNullable(description);
     }
 
     /**
@@ -167,7 +176,8 @@ public class Event {
                 && otherTrip.getDestination().equals(getDestination())
                 && otherTrip.getBooking().equals(getBooking())
                 && otherTrip.getExpenditure().equals(getExpenditure())
-                && otherTrip.getInventory().equals(getInventory());
+                && otherTrip.getInventory().equals(getInventory())
+                && otherTrip.getDescription().equals(getDescription());
     }
 
 }

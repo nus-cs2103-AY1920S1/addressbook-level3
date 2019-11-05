@@ -319,9 +319,9 @@ public class EditTripFieldCommand extends Command {
 
             this.name.ifPresent(name -> builder.append(" Name of trip: ").append(name));
             this.startDate.ifPresent(startDate ->
-                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate)));
+                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayDateTime(startDate)));
             this.endDate.ifPresent(endDate ->
-                    builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
+                    builder.append(" End date: ").append(ParserDateUtil.getDisplayDateTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
             this.photo.ifPresent(photo -> builder.append("Photo path: ").append(photo));

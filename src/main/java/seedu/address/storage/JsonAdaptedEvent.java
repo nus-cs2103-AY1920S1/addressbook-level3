@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
@@ -26,6 +27,7 @@ public class JsonAdaptedEvent {
     //private final Optional<Booking> booking;
     private final Optional<JsonAdaptedExpenditure> expenditure;
     //private final Optional<Inventory> inventory;
+    private final Optional<String> description;
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -35,7 +37,8 @@ public class JsonAdaptedEvent {
             @JsonProperty("startTime") LocalDateTime from,
             @JsonProperty("endTime") LocalDateTime to,
             @JsonProperty("destination") String destination,
-            @JsonProperty("expenditure") Optional<JsonAdaptedExpenditure> expenditure
+            @JsonProperty("expenditure") Optional<JsonAdaptedExpenditure> expenditure,
+            @JsonProperty("description") Optional<String> description
     //, @JsonProperty("booking")Optional<Booking> booking,
     // @JsonProperty("inventory")Optional<Inventory> inventory
     ) {
@@ -44,6 +47,7 @@ public class JsonAdaptedEvent {
         this.endTime = to;
         this.destination = destination;
         this.expenditure = expenditure;
+        this.description = description;
     }
 
     /**
@@ -58,6 +62,11 @@ public class JsonAdaptedEvent {
             this.expenditure = Optional.of(new JsonAdaptedExpenditure(source.getExpenditure().get()));
         } else {
             this.expenditure = Optional.empty();
+        }
+        if (source.getDescription().isPresent()) {
+            this.description = Optional.of(source.getDescription().get().description);
+        } else {
+            this.description = Optional.empty();
         }
     }
 
@@ -117,8 +126,21 @@ public class JsonAdaptedEvent {
             modelExpenditure = Optional.empty();
         }
 
+        final Optional<Description> modelDescription;
 
-        return new Event(modelName, modelStartTime, modelEndTime, modelExpenditure, modelDestination);
+        if (description.isPresent()) {
+            if (!Description.isValidDescription(description.get())) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            }
+            modelDescription = Optional.of(new Description(description.get()));
+        } else {
+            modelDescription = Optional.empty();
+        }
+
+
+
+        return new Event(modelName, modelStartTime, modelEndTime, modelExpenditure, modelDestination, modelDescription);
     }
 }
 
