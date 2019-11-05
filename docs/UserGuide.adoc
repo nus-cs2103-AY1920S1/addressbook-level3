@@ -272,10 +272,11 @@ This command works in two modes:
 Format: `fill` +
 Lists all draft incident reports ready to be filled.
 
-****
 * This command lists both incomplete and complete drafts.
 ** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
-****
+
+[NOTE]
+The user can only fill the draft incident reports that have been created by them.
 
 * Example usage:
 
@@ -314,6 +315,9 @@ Using `fill` in both modes one after the other thus enables convenient listing a
 
 === Submitting a completed draft report: `submit`
 Submits a completed draft incident report if relevant parameters are specified, otherwise lists all completed drafts ready for submission.
+
+[NOTE]
+The user can only submit the completed incident reports that have been created by them.
 
 Similar to `fill`, this command also works in two modes:
 
