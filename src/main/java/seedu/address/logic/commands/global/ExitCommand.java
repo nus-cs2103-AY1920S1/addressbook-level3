@@ -31,10 +31,10 @@ public class ExitCommand extends Command {
     private RemindFeatureUtil remindFeatureUtil = new RemindFeatureUtil();
 
     /**
-     *
-     * @param overdueFlashcards
-     * @param dueFlashcards
-     * @return
+     * Formats list of due and overdue flashcards for output.
+     * @param overdueFlashcards List of all overdue flashcards
+     * @param dueFlashcards List of all due flashcards
+     * @return String formatted output of due and overdue flashcards
      */
     public String stringOutputFormatHelper(List<Flashcard> overdueFlashcards, List<Flashcard> dueFlashcards) {
         StringBuilder sb = new StringBuilder();

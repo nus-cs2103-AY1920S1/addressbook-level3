@@ -174,6 +174,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=============Person stuff===============================================
         @Override
         public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
             throw new AssertionError("This method should not be called.");

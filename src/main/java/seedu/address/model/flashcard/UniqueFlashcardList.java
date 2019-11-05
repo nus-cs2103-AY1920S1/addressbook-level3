@@ -9,6 +9,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.flashcard.exceptions.DuplicateFlashcardException;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashcardQuestionException;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashcardTitleException;
 import seedu.address.model.flashcard.exceptions.FlashcardNotFoundException;
 
 /**
@@ -29,11 +31,27 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Helper method to check if a flashcard contains the same question or title as any other flashcard in internalList.
+     * @param toCheck Flashcard to be checked.
+     * @throws DuplicateFlashcardQuestionException if toCheck has same question as another flashcard in list
+     * @throws DuplicateFlashcardTitleException if toCheck has same title as another flashcard in list
+     */
+    private void flashcardExceptionTypeHelper(Flashcard toCheck) throws DuplicateFlashcardQuestionException,
+            DuplicateFlashcardTitleException {
+        for (Flashcard beingChecked : internalList) {
+            if (beingChecked.getQuestion().equals(toCheck.getQuestion())) {
+                throw new DuplicateFlashcardQuestionException();
+            }
+        }
+        throw new DuplicateFlashcardTitleException();
+    }
+
+    /**
      * Returns true if the list contains an equivalent flashcard as the given argument.
      */
     public boolean contains(Flashcard toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameFlashcard);
     }
 
     /**
@@ -43,7 +61,7 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
     public void add(Flashcard toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateFlashcardException();
+            flashcardExceptionTypeHelper(toAdd);
         }
         internalList.add(toAdd);
     }
@@ -62,7 +80,11 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
         }
 
         if (!target.equals(editedFlashcard) && contains(editedFlashcard)) {
-            throw new DuplicateFlashcardException();
+            if (target.getQuestion().equals(editedFlashcard.getQuestion())) {
+                throw new DuplicateFlashcardQuestionException();
+            } else {
+                throw new DuplicateFlashcardTitleException();
+            }
         }
 
         internalList.set(index, editedFlashcard);
