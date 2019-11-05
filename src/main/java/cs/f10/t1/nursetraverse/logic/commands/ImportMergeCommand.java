@@ -38,6 +38,7 @@ public class ImportMergeCommand extends MutatorCommand {
     public static final String MESSAGE_DUPLICATE_CSV_PATIENTS = "Operation will result in duplicate patients.\n"
             + "Duplicates are not allowed.";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist: %s.csv cannot be found";
+    public static final String MESSAGE_FILE_EMPTY = "Provided file is empty, nothing to import.";
 
     private final String importFileName;
 
@@ -68,6 +69,11 @@ public class ImportMergeCommand extends MutatorCommand {
         if (CsvUtil.importsContainDupes(importedPatients)
             || model.hasAnyPatientInGivenList(importedPatients)) {
             throw new CommandException(MESSAGE_DUPLICATE_CSV_PATIENTS);
+        }
+
+        // Ensure imported list is non-empty.
+        if (importedPatients.size() == 0) {
+            throw new CommandException(MESSAGE_FILE_EMPTY);
         }
 
         model.addPatients(importedPatients);
