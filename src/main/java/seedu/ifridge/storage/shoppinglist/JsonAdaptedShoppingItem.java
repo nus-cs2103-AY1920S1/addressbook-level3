@@ -59,6 +59,9 @@ public class JsonAdaptedShoppingItem {
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        }
         final Name modelName = new Name(name);
         final Amount modelAmount = new Amount(amount);
         ShoppingItem result = new ShoppingItem(modelName, modelAmount);
