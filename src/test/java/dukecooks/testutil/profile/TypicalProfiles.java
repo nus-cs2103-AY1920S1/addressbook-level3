@@ -64,6 +64,6 @@ public class TypicalProfiles {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL));
+        return new ArrayList<>(Arrays.asList(ALICE));
     }
 }

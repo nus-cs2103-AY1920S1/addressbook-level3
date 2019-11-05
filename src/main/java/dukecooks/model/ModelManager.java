@@ -246,6 +246,32 @@ public class ModelManager implements Model {
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
         filteredWorkout = new FilteredList<>(this.workoutCatalogue.getWorkoutList());
     }
+
+    public ModelManager(ReadOnlyUserProfile userProfile, ReadOnlyUserPrefs userPrefs) {
+        super();
+        CollectionUtil.requireAllNonNull(userProfile, userPrefs);
+
+        logger.fine("Initializing with User Profile: " + userProfile
+                + "and user prefs " + userPrefs);
+
+        this.dashboard = defaultDashboardRecord;
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.userProfile = new UserProfile(userProfile);
+        this.healthRecords = defaultHealthRecords;
+        this.recipeBook = defaultRecipeBook;
+        this.mealPlanBook = defaultMealPlanBook;
+        this.exerciseCatalogue = defaultExerciseCatalogue;
+        this.workoutCatalogue = defaultWorkoutCatalogue;
+        this.diaryRecords = defaultDiaryRecords;
+        filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
+        filteredExercises = new FilteredList<>(this.exerciseCatalogue.getExerciseList());
+        filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+        filteredWorkout = new FilteredList<>(this.workoutCatalogue.getWorkoutList());
+    }
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -357,6 +383,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyUserProfile getUserProfile() {
         return userProfile;
+    }
+
+    @Override
+    public boolean hasProfile() {
+        return userProfile.hasProfile();
     }
 
     @Override

@@ -116,7 +116,7 @@
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: rgba(254, 95, 85, 0.6);
+    -fx-border-color: #995353;
     -fx-border-width: 2;
     -fx-border-radius: 4;
 }
@@ -180,7 +180,7 @@
     -fx-background-color: #f2eeeb;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: snow;
+    -fx-text-fill: grey;
 }
 
 .result-display .label {
@@ -255,11 +255,11 @@
 }
 
 .button:hover {
-    -fx-background-color: #4F6367;
+    -fx-background-color: #995353;
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: #4F6367;
+  -fx-background-color: #995353;
   -fx-text-fill: white;
 }
 
@@ -316,7 +316,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #4F6367;
+    -fx-background-color: #995353;
     -fx-background-insets: 3;
 }
 
@@ -457,7 +457,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: #4F6367;
+    -fx-background-color: #f2eeeb;
     -fx-background-radius: 1;
 }
 
@@ -491,13 +491,13 @@
 
 #featureMode {
     -fx-padding: 0 0 0 10;
-    -fx-text-fill: snow;
+    -fx-text-fill: grey;
     -fx-font-size: 17;
     -fx-font-family: "Microsoft Sans Serif";
 }
 
 #feature_bar {
-    -fx-background-color: #7A9E9F;
+    -fx-background-color: #f2eee5;
 }
 
 #summaryCard #type {
@@ -518,4 +518,18 @@
     -fx-border-width: 3;
     -fx-border-color: white;
     -fx-border-radius: 3;
+}
+
+.no_profile_label {
+    -fx-font-family: Tahoma;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+}
+
+.no_profile_sublabel {
+    -fx-font-family: Tahoma;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+    -fx-text-fill: rgba(254, 95, 85, 0.75);
 }

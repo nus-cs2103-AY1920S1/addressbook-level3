@@ -170,6 +170,11 @@ public interface Model {
     ReadOnlyUserProfile getUserProfile();
 
     /**
+     * Returns true if a profile exists in Duke Cooks.
+     */
+    boolean hasProfile();
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in User Profile.
      */
