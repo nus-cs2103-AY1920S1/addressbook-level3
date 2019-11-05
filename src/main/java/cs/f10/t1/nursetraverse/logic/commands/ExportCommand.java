@@ -12,6 +12,7 @@ import java.util.Set;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.importexport.CsvUtil;
+import cs.f10.t1.nursetraverse.importexport.ImportExportPaths;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ExportingException;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
@@ -78,9 +79,9 @@ public class ExportCommand extends Command {
             lastShownList = model.getPatientsByIndexes(targetIndexes.get());
         }
 
-        String pathString;
+        String pathString = ImportExportPaths.EXPORT_FOLDER + "/" + exportFileName + ".csv";
         try {
-            pathString = CsvUtil.writePatientsToCsv(lastShownList, exportFileName);
+            CsvUtil.writePatientsToCsv(lastShownList, pathString);
         } catch (ExportingException e) {
             throw new CommandException(MESSAGE_FILE_EXISTS, e);
         } catch (IOException e) {

@@ -9,6 +9,7 @@ import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.exceptions.IllegalValueException;
 import cs.f10.t1.nursetraverse.importexport.CsvUtil;
+import cs.f10.t1.nursetraverse.importexport.ImportExportPaths;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
@@ -52,10 +53,11 @@ public class ImportReplaceCommand extends MutatorCommand {
             throw new CommandException(MESSAGE_VISIT_ONGOING);
         }
 
+        String pathString = ImportExportPaths.IMPORT_FOLDER + "/" + importFileName + ".csv";
         List<Patient> importedPatients = new ArrayList<>();
 
         try {
-            importedPatients.addAll(CsvUtil.readPatientsFromCsv(importFileName));
+            importedPatients.addAll(CsvUtil.readPatientsFromCsv(pathString));
         } catch (ImportingException e) {
             throw new CommandException(String.format(MESSAGE_FILE_DOES_NOT_EXIST, importFileName), e);
         } catch (IOException e) {
@@ -65,7 +67,7 @@ public class ImportReplaceCommand extends MutatorCommand {
         }
 
         // Ensure imported list is unique.
-        if (!CsvUtil.importsAreUnique(importedPatients)) {
+        if (CsvUtil.importsContainDupes(importedPatients)) {
             throw new CommandException(MESSAGE_DUPLICATE_CSV_PATIENTS);
         }
 
