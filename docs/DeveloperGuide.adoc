@@ -22,6 +22,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+// tag::architectureDiagram[]
+
 [[Design-Architecture]]
 === Architecture
 
@@ -50,7 +52,7 @@ The rest of the App consists of five components.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-* <<Design-Statistics,*`Statistics`*>>: Generate statistics and charts.
+* <<Design-Statistics,*`Statistics`*>>: Generate statistics and charts. (The use of this module is covered in the Statistic Section)
 
 Each of the five components
 
@@ -58,6 +60,8 @@ Each of the five components
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+// end::architectureDiagram[]
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -71,6 +75,8 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
+
+// tag::UiUG[]
 
 [[Design-Ui]]
 === UI component
@@ -93,6 +99,8 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 * Different changes in each tab or panel is controlled via the enum `UiChange`
+
+// end::UiUG[]
 
 [[Design-Logic]]
 === Logic component
@@ -194,6 +202,7 @@ Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
 
 image::StatisticsCalculationAcitvityDiagram.png[]
 
+[[Design-Statistics]]
 ===== Statistic Module
 The statistic module exposes the calculation operations in the `Statistics` interface.
 analogous to the output mode, there are 2 types of methods in this module, one that returns a
