@@ -27,9 +27,9 @@ public class JsonSerializableNoteBookTest {
         JsonSerializableNoteBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_NOTES_FILE,
                 JsonSerializableNoteBook.class).get();
 
-        NoteBook addressBookFromFile = dataFromFile.toModelType();
+        NoteBook noteBookFromFile = dataFromFile.toModelType();
         NoteBook typicalNotesNoteBook = TypicalNotes.getTypicalNoteBook();
-        assertEquals(addressBookFromFile, typicalNotesNoteBook);
+        assertEquals(noteBookFromFile, typicalNotesNoteBook);
     }
 
     // impure test to check if NoteIDCounter can be retrieved from JSON

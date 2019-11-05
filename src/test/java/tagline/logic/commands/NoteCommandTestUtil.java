@@ -2,6 +2,7 @@ package tagline.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
+import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 import static tagline.testutil.Assert.assertThrows;
 
@@ -40,18 +41,20 @@ public class NoteCommandTestUtil {
     public static final String VALID_TIMECREATED_INCIDENT = "04-May-2012 13:12:34";
     public static final String VALID_TIMELASTUPDATED_INCIDENT = "16-Oct-2023 08:38:09";
 
-    public static final String VALID_TAG_AVENGERS = "avengers";
-    public static final String VALID_TAG_MOVIE = "movie";
+    public static final String VALID_TAG_AVENGER = "#avenger";
+    public static final String VALID_TAG_MOVIE = "#movie";
 
     public static final String TITLE_DESC_PROTECTOR = " " + PREFIX_TITLE + VALID_TITLE_PROTECTOR;
     public static final String TITLE_DESC_INCIDENT = " " + PREFIX_TITLE + VALID_TITLE_INCIDENT;
     public static final String CONTENT_DESC_PROTECTOR = " " + PREFIX_CONTENT + VALID_CONTENT_PROTECTOR;
     public static final String CONTENT_DESC_INCIDENT = " " + PREFIX_CONTENT + VALID_CONTENT_INCIDENT;
-    /* TO ADD FOR TAG WHEN TAG IMPLEMENTED */
+    public static final String TAG_DESC_AVENGER = " " + PREFIX_TAG + VALID_TAG_AVENGER;
+    public static final String TAG_DESC_MOVIE = " " + PREFIX_TAG + VALID_TAG_MOVIE;
 
-
-    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE
-            + "This title is too long, more than 50 characters. INVALID!"; // title cannot be more than 50 chars
+    public static final String INVALID_TAG = "tag"; // tags must start with @, # or %.
+    public static final String INVALID_TITLE =
+            "This title is too long, more than 50 characters. INVALID!"; // title cannot be more than 50 chars
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + INVALID_TITLE;
     public static final String BLANK_CONTENT_DESC = " " + PREFIX_CONTENT + " "; // content and
     public static final String BLANK_TITLE_DESC = " " + PREFIX_TITLE + " "; // title cannot be both blank
 

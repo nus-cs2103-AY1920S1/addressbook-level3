@@ -10,7 +10,9 @@ import static tagline.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -504,6 +506,7 @@ class CreateNoteCommandTest {
     private class ModelStubAcceptingContactAdded extends ModelStub {
         final NoteModelStubAcceptingNoteAdded noteModel = new NoteModelStubAcceptingNoteAdded();
         final ArrayList<Note> noteAdded = noteModel.noteAdded;
+        final Set<Tag> tagSet = new HashSet<>();
 
         @Override
         public boolean hasNote(Note note) {
@@ -517,6 +520,16 @@ class CreateNoteCommandTest {
 
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
+        }
+
+        @Override
+        public Tag createOrFindTag(Tag tag) {
+            if (tagSet.contains(tag)) {
+                return tag;
+            }
+
+            tagSet.add(tag);
+            return tag;
         }
     }
 }

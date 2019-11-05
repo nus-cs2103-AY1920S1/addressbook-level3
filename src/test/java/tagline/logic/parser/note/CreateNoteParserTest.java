@@ -6,6 +6,8 @@ import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.INVALID_TITLE_DESC;
 import static tagline.logic.commands.NoteCommandTestUtil.PREAMBLE_WHITESPACE;
+import static tagline.logic.commands.NoteCommandTestUtil.TAG_DESC_AVENGER;
+import static tagline.logic.commands.NoteCommandTestUtil.TAG_DESC_MOVIE;
 import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_NOTEID_PROTECTOR;
@@ -42,10 +44,9 @@ class CreateNoteParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + TITLE_DESC_PROTECTOR + CONTENT_DESC_PROTECTOR,
+                PREAMBLE_WHITESPACE + TITLE_DESC_PROTECTOR + CONTENT_DESC_PROTECTOR
+                        + TAG_DESC_AVENGER + TAG_DESC_MOVIE,
                 new CreateNoteCommand(expectedNote));
-
-        /* TODO ADD TEST FOR TAGS WHEN TAG IMPLEMENTED */
 
         // Set note id counter BACK TO 0
         NoteIdCounter.setCount(0);
@@ -78,22 +79,29 @@ class CreateNoteParserTest {
         // Set note id counter so generated id is VALID_NOTEID_PROTECTOR
         NoteIdCounter.setCount(VALID_NOTEID_PROTECTOR - 1);
 
-        // zero title, but with content
+        // zero title, but with content and tags
         Note expectedNote = new NoteBuilder(PROTECTOR).withTitle("").build();
         assertParseSuccess(parser,
-                CONTENT_DESC_PROTECTOR,
+                CONTENT_DESC_PROTECTOR + TAG_DESC_AVENGER + TAG_DESC_MOVIE,
                 new CreateNoteCommand(expectedNote));
 
         // Set note id counter so generated id is VALID_NOTEID_PROTECTOR
         NoteIdCounter.setCount(VALID_NOTEID_PROTECTOR - 1);
 
-        // zero content, but with title
+        // zero content, but with title and tags
         expectedNote = new NoteBuilder(PROTECTOR).withContent("").build();
         assertParseSuccess(parser,
-                TITLE_DESC_PROTECTOR,
+                TITLE_DESC_PROTECTOR + TAG_DESC_AVENGER + TAG_DESC_MOVIE,
                 new CreateNoteCommand(expectedNote));
 
-        /* TO ADD TEST FOR TAGS WHEN TAG IMPLEMENTED */
+        // Set note id counter so generated id is VALID_NOTEID_PROTECTOR
+        NoteIdCounter.setCount(VALID_NOTEID_PROTECTOR - 1);
+
+        // zero test, but with title and content
+        expectedNote = new NoteBuilder(PROTECTOR).withTags().build();
+        assertParseSuccess(parser,
+                TITLE_DESC_PROTECTOR + CONTENT_DESC_PROTECTOR,
+                new CreateNoteCommand(expectedNote));
 
         // Set note id counter BACK TO 0
         NoteIdCounter.setCount(0);

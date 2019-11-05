@@ -18,7 +18,7 @@ import tagline.model.tag.Tag;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class TagParserUtil {
-    private static final String TAG_USAGE = "A tag starts with '@' for contact, '%' for group, and '#' for hash tag";
+    public static final String TAG_USAGE = "A tag starts with '@' for contact, '%' for group, and '#' for hash tag";
     private static final Pattern BASIC_TAG_FORMAT = Pattern.compile("(?<tagKey>[%#@])(?<tagValue>.*)");
 
     /**

@@ -3,10 +3,10 @@ package tagline.logic.parser.note;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
+import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 import tagline.logic.commands.note.CreateNoteCommand;
@@ -36,7 +36,7 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CreateNoteCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT, PREFIX_TAG);
 
         checkArguments(argMultimap);
 
@@ -45,7 +45,7 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
         Content content = new Content(argMultimap.getValue(PREFIX_CONTENT).orElse(""));
         TimeCreated timeCreated = new TimeCreated();
         TimeLastEdited timeLastEdited = new TimeLastEdited(timeCreated.getTime());
-        Set<Tag> tags = new HashSet<>(); /* TO UPDATE TAG PARSING WHEN TAG IMPLEMENTED */
+        Set<Tag> tags = NoteParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         if (!Note.isValidNote(title.value, content.value)) {
             throw new ParseException(Note.MESSAGE_CONSTRAINTS);

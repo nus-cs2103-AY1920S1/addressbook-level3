@@ -7,11 +7,14 @@ import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
+import java.util.Set;
+
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.Note;
+import tagline.model.tag.Tag;
 
 /**
  * Creates a new note.
@@ -33,6 +36,7 @@ public class CreateNoteCommand extends NoteCommand {
 
     public static final String MESSAGE_SUCCESS = "New note added: %1$s";
     public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists.";
+    public static final String ERROR_UNABLE_TO_TAG = "Unable to tag %1$s";
 
     private final Note toCreate;
 
@@ -52,9 +56,28 @@ public class CreateNoteCommand extends NoteCommand {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
+        // Add note tags to model
+        addNoteTags(model, toCreate);
+
         model.addNote(toCreate);
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toCreate), ViewType.NOTE);
+    }
+
+    /**
+     * Add tags in {@code note} to {@code model}.
+     * @throws CommandException if unable to find or create tag.
+     */
+    private void addNoteTags(Model model, Note note) throws CommandException {
+        Set<Tag> tagsToCreate = note.getTags();
+
+        for (Tag tagToCreate : tagsToCreate) {
+            Tag tagCreated = model.createOrFindTag(tagToCreate);
+
+            if (tagCreated != tagToCreate) {
+                throw new CommandException(String.format(ERROR_UNABLE_TO_TAG, tagToCreate));
+            }
+        }
     }
 
     @Override

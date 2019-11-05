@@ -3,13 +3,18 @@ package tagline.logic.parser.note;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.Prefix;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.tag.TagParserUtil;
 import tagline.model.note.NoteId;
 import tagline.model.note.Title;
+import tagline.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -44,6 +49,21 @@ public class NoteParserUtil {
         }
 
         return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses {@code tagArgs} into a Set of {@code tags} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified tag argument string is invalid (does not start with @, #, %).
+     */
+    public static Set<Tag> parseTags(List<String> tagArgs) throws ParseException {
+        Set<Tag> tags = new HashSet<>();
+        for (String tagArg : tagArgs) {
+            Tag tag = TagParserUtil.parseTag(tagArg.trim());
+            tags.add(tag);
+        }
+
+        return tags;
     }
 
     /**

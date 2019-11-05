@@ -4,7 +4,6 @@ package tagline.logic.parser.note;
 import static java.util.Objects.requireNonNull;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
-import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
 import tagline.logic.commands.note.EditNoteCommand;
@@ -28,7 +27,7 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
     public EditNoteCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
 
         checkArguments(argMultimap);
 
@@ -41,7 +40,6 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
         if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
             editNoteDescriptor.setContent(new Content(argMultimap.getValue(PREFIX_CONTENT).get()));
         }
-        /* TO ADD TAGS WHEN TAG IMPLEMENTED */
 
         if (!editNoteDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditNoteCommand.MESSAGE_NOT_EDITED);
