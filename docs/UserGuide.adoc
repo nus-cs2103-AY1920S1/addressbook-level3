@@ -111,11 +111,11 @@ Examples: +
 ==== Lessons’ information
 
 Edits an existing lesson in the lesson list. +
-Format: editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]
+Format: editlesson LESSON_INDEX day/DAY_OF_THE_WEEK_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]
 
 Examples: +
-* editstudent 2 day/2 l/4C3 Math +
-* editstudent 4 day/3 st/01/11/2019 1200 et/01/11/2019 1400
+* editlesson 2 day/2 l/4C3 Math +
+* editlesson 4 day/3 st/01/11/2019 1200 et/01/11/2019 1400
 
 // end::edit[]
 
@@ -288,7 +288,7 @@ e.g. addlesson l/4C3 Math st/11/11/2011 1800 et/11/11/2011 2000
 * Edit Student: editstudent STUDENT_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
 [m/MEDICAL_CONDITIONS], [t/TAG] +
 e.g. editstudent 2 p/91111111
-* Edit Lesson: editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME] +
+* Edit Lesson: editlesson LESSON_INDEX day/DAY_OF_THE_WEEK_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME] +
 e.g. editlesson 3 day/3 l/4C3 Mathematics
 * Edit Assignment: editassignment ASSIGNMNET_INDEX [as/ASSIGNMENT_NAME] [d/DEADLINE] +
 e.g. editassignment 2 d/31/10/2019 2359

@@ -15,7 +15,7 @@ public class Time {
     public static final String MESSAGE_CONSTRAINTS =
             "There is no such date / time! Input should be in dd/MM/yyyy HHmm format.";
     public static final String MESSAGE_TIME_CONSTRAINT =
-            "Time stated should not be before current time.";
+            "Time inputted should not be before the current system time.";
 
     private final Calendar time;
 

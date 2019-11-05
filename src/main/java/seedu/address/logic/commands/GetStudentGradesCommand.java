@@ -70,11 +70,11 @@ public class GetStudentGradesCommand extends Command {
             StringBuilder output = new StringBuilder();
             for (Assignment assignment : lastShownAssignmentList) {
                 Map<String, String> currentAssignmentGrades = assignment.getGrades();
-                if (currentAssignmentGrades.containsValue("Did not do")) {
+                if (currentAssignmentGrades.containsValue("Not submitted")) {
                     output.append(assignment.getAssignmentName().toString() + ": ");
                     boolean foundFirst = false;
                     for (String student : currentAssignmentGrades.keySet()) {
-                        if (currentAssignmentGrades.get(student).equals("Did not do")) {
+                        if (currentAssignmentGrades.get(student).equals("Not submitted")) {
                             if (foundFirst) {
                                 output.append(", " + student);
                             } else {
