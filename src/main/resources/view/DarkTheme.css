@@ -402,3 +402,13 @@
     -fx-text-fill: -primaryColor;
     -fx-font-size: 13pt;
 }
+
+/** Command Box **/
+#commandBoxBase {
+    -fx-background-color: -surfaceColor;
+    -fx-background-radius: 8;
+}
+
+.context-menu {
+  -fx-background-color: -surfaceColor;
+}
