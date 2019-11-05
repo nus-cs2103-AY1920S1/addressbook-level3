@@ -1,0 +1,69 @@
+= Chow Yi Yin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Insurelytics
+---
+ifndef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+== Overview
+
+Insurelytics is a desktop client management application for insurance agents.
+Insurelytics facilitates the tracking of client and policies, and also generates statistical analytics to provide insights for the insurance agent.
+The user interacts with it using a CLI and has a GUI created with JavaFX. It is written in Java, and has about 85kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *features to complement input validation to ease the correction of invalid commands*
+** What it does: allows merging of duplicate profiles and policies and also gives suggestions for incorrectly entered command words.
+** Justification: this feature improves the product significantly because a user can make mistakes in commands and the app provides a convenient way to rectify them.
+Specifically, information does not have be re-entered after discovering a duplicate profile/policy. Additionally, typos can be corrected quickly through command suggestions.
+** Highlights: this enhancement affects existing commands and commands to be added in the future. The list of command words and prefixes has to be updated when new commands are added for the suggestion of commands.
+Moreover, the information used to create a duplicate profile/policy has to be stored to carry out a merge process and hence made the design process challenging.
+
+* *Minor enhancement*: added a command to turn suggestions on and off.
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chowyiyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiyin&tabRepo=AY1920S1-CS2103-F09-4%2Fmain%5Bmaster%5D[function and test code]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Added right panel to GUI (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109])
+*** Added classes for Policy and for new Person Fields (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75])
+*** Implemented command to add policy and wrote tests for the command (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75], https://github.com/AY1920S1-CS2103-F09-4/main/pull/93[#93])
+*** Implemented command to expand profiles and policies onto right panel (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109])
+** Documentation:
+*** Added the new basic commands to User Guide: https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-4/main/pull/95[#95], https://github.com/AY1920S1-CS2103-F09-4/main/pull/70[#70]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=inputvalidation]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=merging]
+
+include::../DeveloperGuide.adoc[tag=mergingusecase]
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
