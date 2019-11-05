@@ -346,7 +346,7 @@ public class ModelManager implements Model {
      * @return ArrayList of {@Code Schedule}
      * @throws ParseException when timings are not of HH:mm format
      */
-    private ArrayList<Schedule> generateEmptyScheduleList() throws ParseException {
+    public ArrayList<Schedule> generateEmptyScheduleList() throws ParseException {
         ArrayList<Schedule> emptyScheduleList = new ArrayList<>();
         HashSet<String> dates = new HashSet<>();
         String startTime = userPrefs.getStartTime();
@@ -360,7 +360,6 @@ public class ModelManager implements Model {
                 dates.add(date);
             }
         }
-
         ArrayList<String> headers = new ArrayList<>();
         for (Interviewer interviewer: listOfInterviewers) {
             Name name = interviewer.getName();
@@ -368,7 +367,6 @@ public class ModelManager implements Model {
             headers.add(stringifyHeadersForTable(name, department));
         }
         ArrayList<String> datesList = new ArrayList<>(dates);
-
         for (String date: datesList) {
             LinkedList<LinkedList<String>> table = new LinkedList<>();
             LinkedList<String> fullHeader = new LinkedList<>();
@@ -406,7 +404,7 @@ public class ModelManager implements Model {
      * @return String result after addition
      * @throws ParseException when String currentTime is not of HH:mm format
      */
-    private static String addTime(int duration, String currentTime) throws ParseException {
+    public static String addTime(int duration, String currentTime) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = dateFormat.parse(currentTime);
         Calendar cal = Calendar.getInstance();
@@ -423,7 +421,7 @@ public class ModelManager implements Model {
      * @return True if currentTime is greater or equals to endTime
      * @throws ParseException
      */
-    private static boolean isGreaterThanOrEqual(String currentTime, String endTime) throws ParseException {
+    public static boolean isGreaterThanOrEqual(String currentTime, String endTime) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date currentTimeAsDate = dateFormat.parse(currentTime);
         Date endTimeAsDate = dateFormat.parse(endTime);
@@ -436,7 +434,7 @@ public class ModelManager implements Model {
      * @param department
      * @return Header as String
      */
-    private static String stringifyHeadersForTable(Name name, Department department) {
+    public static String stringifyHeadersForTable(Name name, Department department) {
         return department.toString() + " - " + name.toString();
     }
 
@@ -457,7 +455,7 @@ public class ModelManager implements Model {
     /**
      * Updates schedule list with an empty schedule list.
      */
-    private void updateScheduleList() {
+    public void updateScheduleList() {
         try {
             this.setEmptyScheduleList();
             List<Schedule> schedules = this.getEmptyScheduleList();

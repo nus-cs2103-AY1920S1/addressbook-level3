@@ -1,10 +1,16 @@
 package seedu.scheduler.testutil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import seedu.scheduler.model.person.DefaultValues;
 import seedu.scheduler.model.person.Department;
+import seedu.scheduler.model.person.Email;
+import seedu.scheduler.model.person.Emails;
+import seedu.scheduler.model.person.Faculty;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.Phone;
@@ -14,6 +20,8 @@ import seedu.scheduler.model.person.Slot;
  * Provides sample interviewees.
  */
 public class SampleInterviewee {
+    private static final String[] ALPHABETS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+
     /**
      * Returns sample interviewees for the graph 1 in the sample graph data.
      */
@@ -62,5 +70,37 @@ public class SampleInterviewee {
         interviewees.add(interviewee5);
 
         return interviewees;
+    }
+
+    /**
+     * Generates a sample interviewee list.
+     * @return a sample interviewee list.
+     */
+    public static ArrayList<Interviewee> getSampleIntervieweeList() {
+        ArrayList<Interviewee> expectedInterviewees = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Name name = new Name("John " + ALPHABETS[i]);
+            Emails emails = new Emails(new HashMap<>());
+            emails.addNusEmail(new Email("john" + ALPHABETS[i] + "@u.nus.edu"));
+            emails.addPersonalEmail(new Email("john" + ALPHABETS[i] + "@hotmail.com"));
+            Phone phone = new Phone("9999999" + i);
+            Faculty faculty = new Faculty("NUS");
+            Integer yearOfStudy = 1;
+            ArrayList<Department> choiceOfDepartments = new ArrayList<>();
+            choiceOfDepartments.add(new Department("publicity"));
+            List<Slot> availableTimeSlots = new ArrayList<>();
+            availableTimeSlots.add(Slot.fromString("09/10/2019 18:30-19:00"));
+            availableTimeSlots.add(Slot.fromString("10/10/2019 19:00-19:30"));
+            availableTimeSlots.add(Slot.fromString("11/10/2019 20:00-20:30"));
+            Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, DefaultValues.DEFAULT_TAGS)
+                    .availableTimeslots(availableTimeSlots)
+                    .departmentChoices(choiceOfDepartments)
+                    .emails(emails)
+                    .yearOfStudy(yearOfStudy)
+                    .faculty(faculty)
+                    .build();
+            expectedInterviewees.add(interviewee);
+        }
+        return expectedInterviewees;
     }
 }

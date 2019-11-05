@@ -9,6 +9,8 @@ import static seedu.scheduler.testutil.TypicalPersons.BENSON_INTERVIEWER;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.scheduler.commons.core.GuiSettings;
 import seedu.scheduler.testutil.IntervieweeListBuilder;
 import seedu.scheduler.testutil.InterviewerListBuilder;
+import seedu.scheduler.testutil.SampleInterviewer;
 import seedu.scheduler.testutil.SampleSchedules;
 
 public class ModelManagerTest {
@@ -99,6 +102,15 @@ public class ModelManagerTest {
         Path path = Paths.get("interviewer/list/file/path");
         modelManager.setInterviewerListFilePath(path);
         assertEquals(path, modelManager.getInterviewerListFilePath());
+    }
+
+    @Test
+    public void generateEmptyScheduleList_success() throws ParseException {
+        ArrayList<Schedule> expectedList = new ArrayList<>();
+        expectedList.add(SampleSchedules.getSampleAvailabilityTable2());
+        modelManager.setInterviewerList(SampleInterviewer.getSampleListOfInterviewers());
+        ArrayList<Schedule> testOutput = modelManager.generateEmptyScheduleList();
+        assertEquals(expectedList, testOutput);
     }
 
     @Test

@@ -15,6 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DEPARTMENT = new Prefix("d/");
     public static final Prefix PREFIX_SLOT = new Prefix("s/");
     public static final Prefix PREFIX_COMMAND_TYPE = new Prefix("ct/");
+    public static final Prefix PREFIX_FILE_PATH = new Prefix("fp/");
     public static final Prefix PREFIX_PERSONAL_EMAIL = new Prefix("ep/");
     public static final Prefix PREFIX_NUS_WORK_EMAIL = new Prefix("ew/");
 }

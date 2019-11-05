@@ -126,7 +126,7 @@ Imports interviewers’ availability from a comma separated values (CSV) file.
 [Note]
 The schedule displayed will only show timeslots from 10:00 to 21:00 daily.
 
-Format: `import interviewer PATH_TO_FILE` +
+Format: `import interviewer fp/PATH_TO_FILE` +
     - PATH_TO_FILE is the absolute path to the file. +
     - E.g C:\\Users\Bob\file.csv
 
@@ -134,7 +134,7 @@ Format: `import interviewer PATH_TO_FILE` +
 
 Example:
 
- import interviewer C:\Users\johndoe\Interviewers.csv
+ import interviewer fp/C:\Users\johndoe\Interviewers.csv
 
 ==== Importing interviewees’ availability
 Imports interviewees’ availability from a comma separated values (CSV) file.
@@ -142,13 +142,13 @@ Imports interviewees’ availability from a comma separated values (CSV) file.
 * Emails: Adding more than 1 personal or work email is allowed. Use whitespaces to separate each email.
 * Timeslots: Each timeslot should be in the format `HH:mm - HH:mm`. Use commas to separate the timeslots if there are more than 1.
 
-Format: `import interviewee PATH_TO_FILE` +
+Format: `import interviewee fp/PATH_TO_FILE` +
     - PATH_TO_FILE is the absolute path to the file. +
     - E.g C:\\Users\Bob\file.csv
 
 Example:
 
- import interviewer C:\Users\johndoe\Interviewees.csv
+ import interviewer fp/C:\Users\johndoe\Interviewees.csv
 
 === Add interviewees/interviewers `add`
 Manually add a new entity to the database.
@@ -302,11 +302,20 @@ their choice of department. As of V1.3, the scheduling result is reflected on th
 be updated such that the result is reflected in the displayed interview timetable at v1.4. +
 Format: `schedule` +
 
-=== Exporting of interview schedule `export` [Coming soon in v1.4]
-Exports the allocated interview schedule timetable to a comma separated values (CSV) file. +
-Format: `export` +
+=== Exporting of interview schedule `export`
+Exports the allocated interview schedule timetable to the indicated comma separated values (CSV) file. +
+Format: `export fp/FILE_PATH` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
 
-Note: This command requires the interview schedule to be generated first!
+Example:
+
+ export fp/C:\Users\johndoe\schedules.csv
+
+Note:
+
+* This command requires the interview schedule to be generated first!
+* If 'FILE_PATH' is a valid .csv file but does not exist, it will be created.
 
 === Sending of email `email`
 ==== Sending of interview time slot to interviewee

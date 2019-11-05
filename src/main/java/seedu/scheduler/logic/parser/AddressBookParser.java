@@ -13,6 +13,7 @@ import seedu.scheduler.logic.commands.DeleteCommand;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EmailCommand;
 import seedu.scheduler.logic.commands.ExitCommand;
+import seedu.scheduler.logic.commands.ExportCommand;
 import seedu.scheduler.logic.commands.FindCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.ImportCommand;
@@ -79,6 +80,9 @@ public class AddressBookParser {
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
+
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
