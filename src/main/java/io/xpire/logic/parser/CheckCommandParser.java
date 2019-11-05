@@ -35,7 +35,7 @@ public class CheckCommandParser implements Parser<CheckCommand> {
         if (StringUtil.isExceedingMaxValue(trimmedArgs, MAX_VALUE)) {
             throw new ParseException(CheckCommand.MESSAGE_EXCEEDED_MAX);
         }
-
-        return new CheckCommand(new ExpiringSoonPredicate(Integer.parseInt(trimmedArgs)));
+        int days = Integer.parseInt(trimmedArgs);
+        return new CheckCommand(new ExpiringSoonPredicate(days), days);
     }
 }

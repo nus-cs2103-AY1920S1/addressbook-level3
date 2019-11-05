@@ -3,8 +3,9 @@ package io.xpire.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.model.Model;
-import io.xpire.model.StackManager;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
+import io.xpire.model.state.FilteredState;
+import io.xpire.model.state.StateManager;
 
 //@@author febee99
 /**
@@ -31,11 +32,12 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, StackManager stackManager) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
-        //stackManager.saveState(new State(model, true));
+        stateManager.saveState(new FilteredState(model));
         model.sortItemList(this.method);
         model.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
+        setShowInHistory(true);
         return new CommandResult(MESSAGE_SUCCESS + " by " + method);
     }
 
@@ -58,6 +60,6 @@ public class SortCommand extends Command {
 
     @Override
     public String toString() {
-        return "Sort Command";
+        return "Sort by " + this.method;
     }
 }

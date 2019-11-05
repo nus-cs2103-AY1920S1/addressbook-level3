@@ -10,12 +10,12 @@ import java.util.TreeSet;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
-import io.xpire.model.StackManager;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.exceptions.ItemNotFoundException;
-import io.xpire.model.state.State;
+import io.xpire.model.state.ModifiedState;
+import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -38,16 +38,17 @@ public class ShiftToReplenishCommand extends Command {
 
     private Item replenishItem;
     private final Index targetIndex;
+    private String result = "";
 
     public ShiftToReplenishCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model, StackManager stackManager) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
 
         requireNonNull(model);
-        stackManager.saveState(new State(model));
+        stateManager.saveState(new ModifiedState(model));
         List<XpireItem> lastShownList = model.getFilteredXpireItemList();
 
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -67,7 +68,9 @@ public class ShiftToReplenishCommand extends Command {
             model.addReplenishItem(this.replenishItem);
             model.deleteItem(targetItem);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, replenishItem.getName()));
+        this.result = String.format(MESSAGE_SUCCESS, replenishItem.getName());
+        setShowInHistory(true);
+        return new CommandResult(this.result);
     }
 
     /**
@@ -85,5 +88,10 @@ public class ShiftToReplenishCommand extends Command {
             }
         }
         return new Item(itemName, newTags);
+    }
+
+    @Override
+    public String toString() {
+        return "the following Shift command:\n" + this.result;
     }
 }

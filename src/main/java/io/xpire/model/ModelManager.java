@@ -4,6 +4,7 @@ import static io.xpire.model.tag.Tag.EXPIRED_TAG;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -51,7 +52,7 @@ public class ModelManager implements Model {
         super();
         CollectionUtil.requireAllNonNull(lists, userPrefs);
 
-        logger.fine("Initializing with xpire: " + lists + " and user prefs " + userPrefs);
+        logger.fine("Initializing with xpire: " + Arrays.toString(lists) + " and user prefs " + userPrefs);
 
         this.xpire = new Xpire(lists[0]);
         this.replenishList = new ReplenishList(lists[1]);
@@ -117,7 +118,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyListView<XpireItem> getXpire() {
+    public Xpire getXpire() {
         return this.xpire;
     }
 
@@ -171,7 +172,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyListView<Item> getReplenishList() {
+    public ReplenishList getReplenishList() {
         return this.replenishList;
     }
 
@@ -248,8 +249,8 @@ public class ModelManager implements Model {
     @Override
     public void sortItemList(XpireMethodOfSorting method) {
         requireNonNull(method);
-        update(this.listToView);
         this.xpire.setMethodOfSorting(method);
+        update(this.listToView);
     }
 
     //@@author liawsy
@@ -341,11 +342,6 @@ public class ModelManager implements Model {
     // =========== Tag XpireItem List Accessors =============================================================
 
     @Override
-    public List<XpireItem> getAllItemList() {
-        return this.xpire.getItemList();
-    }
-
-    @Override
     public List<Item> getReplenishItemList() {
         return this.replenishList.getItemList();
     }
@@ -385,6 +381,7 @@ public class ModelManager implements Model {
         CloneModel clone = state.getCloneModel();
         this.setUserPrefs(clone.getUserPrefs());
         this.setXpire(clone.getXpire());
+        this.xpire.setMethodOfSorting(state.getMethod());
         this.setReplenishList(clone.getReplenishList());
         this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
         this.setFilteredXpireItems(clone.getFilteredXpireItemList());

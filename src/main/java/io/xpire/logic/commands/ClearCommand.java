@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import io.xpire.model.Model;
 import io.xpire.model.ReplenishList;
-import io.xpire.model.StackManager;
 import io.xpire.model.Xpire;
-import io.xpire.model.state.State;
+import io.xpire.model.state.ModifiedState;
+import io.xpire.model.state.StateManager;
 import javafx.collections.transformation.FilteredList;
 
 /**
@@ -26,9 +26,9 @@ public class ClearCommand extends Command {
 
     //@@author febee99
     @Override
-    public CommandResult execute(Model model, StackManager stackManager) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
-        stackManager.saveState(new State(model));
+        stateManager.saveState(new ModifiedState(model));
         switch (list) {
         case "main" :
             model.setXpire(new Xpire());
@@ -43,12 +43,13 @@ public class ClearCommand extends Command {
         default:
             break;
         }
+        setShowInHistory(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
     public String toString() {
-        return "Clear Command";
+        return "Clear command";
     }
 
     public String getList() {

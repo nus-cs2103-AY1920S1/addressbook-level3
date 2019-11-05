@@ -45,7 +45,7 @@ public class CheckCommandTest {
     public void execute_checkDays_success() {
         String expectedMessage = MESSAGE_SUCCESS;
         ExpiringSoonPredicate predicate = new ExpiringSoonPredicate(5);
-        CheckCommand command = new CheckCommand(predicate);
+        CheckCommand command = new CheckCommand(predicate, 5);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRED_MILK, EXPIRED_ORANGE), model.getFilteredXpireItemList());
@@ -54,13 +54,13 @@ public class CheckCommandTest {
     @Test
     public void equals() {
         CheckCommand checkReminderCommand = new CheckCommand(new ReminderThresholdExceededPredicate());
-        CheckCommand checkDaysCommand = new CheckCommand(new ExpiringSoonPredicate(5));
+        CheckCommand checkDaysCommand = new CheckCommand(new ExpiringSoonPredicate(5), 5);
 
         // same object -> returns true
         assertTrue(checkReminderCommand.equals(checkReminderCommand));
 
         // same values -> returns true
-        CheckCommand checkDaysCommandCopy = new CheckCommand(new ExpiringSoonPredicate(5));
+        CheckCommand checkDaysCommandCopy = new CheckCommand(new ExpiringSoonPredicate(5), 5);
         assertTrue(checkDaysCommand.equals(checkDaysCommandCopy));
 
         // different types -> returns false

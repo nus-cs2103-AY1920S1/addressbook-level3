@@ -16,7 +16,7 @@ public class CheckCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsCheckCommand() {
-        assertEqualsParseSuccess(parser, " 1", new CheckCommand(new ExpiringSoonPredicate(1)));
+        assertEqualsParseSuccess(parser, " 1", new CheckCommand(new ExpiringSoonPredicate(1), 1));
         assertEqualsParseSuccess(parser, "", new CheckCommand(new ReminderThresholdExceededPredicate()));
         assertEqualsParseSuccess(parser, " ", new CheckCommand(new ReminderThresholdExceededPredicate()));
     }

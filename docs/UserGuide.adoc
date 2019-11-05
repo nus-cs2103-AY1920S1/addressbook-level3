@@ -120,7 +120,7 @@ This is where you can type your command. The maximum you can type is 60 characte
 
 * Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
 * Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
-* Optional parameters with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|[<tag>]...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit`.
+* Optional parameters with `…`​ after them can be used multiple times including zero times. For example, for [<other tags>]..., the following format for Tag Command: `tag|<index>|<tag>[<other tags>]...` can be used as `tag|1|#Fruit #Frozen #Cold` or `tag|1|#Fruit`.
 * Trailing `|` (s) are allowed. e.g. `add|banana|2/2/2020|||` or `sort|name|`.
 ====
 
@@ -486,13 +486,15 @@ Undo the previous command that you have entered in. +
 Format: `undo`
 
 [TIP]
-`undo` only works on commands that alter your items. Thus, commands such as `help` and `sort` are not undoable.
+`undo` only works on commands that alter your items or the current view list. +
+Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view list. +
+Also, `undo` only works for the last 10 commands. Therefore, use the application wisely!
 
 ==== Redo an earlier command : `redo`
 Redo an earlier command that you have entered in. +
 Format: `redo`
 
-This command works in the opposite direction as `undo`, it will redo any command that you have undid so you are able to see the changes.
+This command works in the opposite direction as `undo`, it will redo any command that you have undid so that you are able to see the changes.
 
 == FAQ
 
@@ -611,5 +613,7 @@ Below is a list of commands and their corresponding command shorthands:
 * `delete` : `d`
 * `tag` : `t`
 * `clear` : `cl`
+* `undo` : `u`
+* `redo` : `r`
 * `export` : `ex`
 * `exit` : `x`

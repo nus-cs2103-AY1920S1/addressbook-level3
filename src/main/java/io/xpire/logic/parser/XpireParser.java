@@ -113,9 +113,13 @@ public class XpireParser implements Parser {
             return new TagCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
+            //fallthrough
+        case UndoCommand.COMMAND_SHORTHAND:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+            //fallthrough
+        case RedoCommand.COMMAND_SHORTHAND:
             return new RedoCommand();
 
         case ShiftToReplenishCommand.COMMAND_WORD:

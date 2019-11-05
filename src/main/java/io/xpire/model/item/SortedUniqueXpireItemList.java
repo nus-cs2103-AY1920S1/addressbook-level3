@@ -57,6 +57,15 @@ public class SortedUniqueXpireItemList implements Iterable<XpireItem> {
     }
 
     /**
+     * Retrieves method of sorting for Xpire.
+     *
+     * @return Xpire method of sorting.
+     */
+    public XpireMethodOfSorting getXpireMethodOfSorting() {
+        return xpireMethodOfSorting;
+    }
+
+    /**
      * Replaces the xpireItem { @code target} in the list with {@code editedXpireItem}.
      * {@code target} must exist in the list.
      * The xpireItem identity of {@code editedXpireItem} must not be the same as another existing xpireItem in the list.
@@ -109,7 +118,7 @@ public class SortedUniqueXpireItemList implements Iterable<XpireItem> {
      */
     public void setXpireMethodOfSorting(XpireMethodOfSorting method) {
         this.xpireMethodOfSorting = method;
-        this.sortedInternalList.setComparator(xpireMethodOfSorting.getComparator());
+        this.sortedInternalList.setComparator(this.xpireMethodOfSorting.getComparator());
     }
 
     /**

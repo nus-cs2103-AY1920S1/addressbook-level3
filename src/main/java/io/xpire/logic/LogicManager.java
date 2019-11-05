@@ -8,6 +8,8 @@ import io.xpire.commons.core.GuiSettings;
 import io.xpire.commons.core.LogsCenter;
 import io.xpire.logic.commands.Command;
 import io.xpire.logic.commands.CommandResult;
+import io.xpire.logic.commands.RedoCommand;
+import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.Parser;
 import io.xpire.logic.parser.ReplenishParser;
@@ -15,9 +17,10 @@ import io.xpire.logic.parser.XpireParser;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
-import io.xpire.model.StackManager;
+import io.xpire.model.history.CommandHistory;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.StateManager;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -34,7 +37,8 @@ public class LogicManager implements Logic {
     private Parser parser;
     private final XpireParser xpireParser = new XpireParser();
     private final ReplenishParser replenishParser = new ReplenishParser();
-    private final StackManager stackManager = new StackManager();
+    private final StateManager stateManager = new StateManager();
+    private final CommandHistory commandHistory = new CommandHistory();
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -54,16 +58,7 @@ public class LogicManager implements Logic {
             this.parser = replenishParser;
         }
         Command command = this.parser.parse(commandText);
-        commandResult = command.execute(this.model, this.stackManager);
-
-        //System.out.println("ALLITEMS");
-        //this.model.getXpire().getItemList().forEach(System.out::println);
-        //System.out.println("Xpireitem");
-        //this.model.getFilteredXpireItemList().forEach(System.out::println);
-        //System.out.println("currentitem");
-        //this.model.getCurrentFilteredItemList().forEach(System.out::println);
-        //System.out.println("replenishitem");
-        //this.model.getFilteredReplenishItemList().forEach(System.out::println);
+        commandResult = command.execute(this.model, this.stateManager);
 
         try {
             this.storage.saveList(this.model.getLists());
@@ -71,6 +66,15 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        if (command instanceof UndoCommand) {
+            Command previousCommand = commandHistory.retrievePreviousCommand();
+            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(), previousCommand));
+        } else if (command instanceof RedoCommand) {
+            Command nextCommand = commandHistory.retrieveNextCommand();
+            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(), nextCommand));
+        } else if (command.isShowInHistory()) {
+            commandHistory.addCommand(command);
+        }
         return commandResult;
     }
 
