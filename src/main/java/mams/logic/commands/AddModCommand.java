@@ -58,6 +58,8 @@ public class AddModCommand extends ModCommand {
          */
         boolean checkIfModuleIndex(String moduleIdentifier) {
             assert moduleIdentifier != null;
+            requireNonNull(moduleIdentifier);
+
             boolean result = true;
             if (moduleIdentifier.substring(0, 1).contains("C")
                     || moduleIdentifier.substring(0, 1).contains("c")) {
@@ -74,6 +76,8 @@ public class AddModCommand extends ModCommand {
          */
         boolean checkIfStudentIndex(String studentIdentifier) {
             assert studentIdentifier != null;
+            requireNonNull(studentIdentifier);
+
             boolean result = true;
             if (studentIdentifier.substring(0, 1).contains("A")
                     || studentIdentifier.substring(0, 1).contains("a")) {
@@ -120,7 +124,6 @@ public class AddModCommand extends ModCommand {
         checkIfStudentCompletedModule(studentToEdit, moduleToEdit.getModuleCode());
         checkQuotaLimit(moduleToEdit);
         checkStudentWorkloadLimit(studentToEdit);
-        checkIfStudentCompletedModule(studentToEdit, moduleToEdit.getModuleCode());
         checkIfModuleClash(studentToEdit, model.getFullModuleList(), moduleToEdit.getModuleCode());
 
         //add module to student
@@ -144,6 +147,7 @@ public class AddModCommand extends ModCommand {
      * @throws CommandException if module is not found
      */
     Module returnModuleIfExist(List<Module> moduleList) throws CommandException {
+        requireNonNull(moduleList);
 
         if (moduleUsingIndex) {
             int tempIndex = Integer.parseInt(moduleIdentifier);
@@ -172,6 +176,7 @@ public class AddModCommand extends ModCommand {
      * @throws CommandException if student is not found
      */
     Student returnStudentIfExist(List<Student> studentList) throws CommandException {
+        requireNonNull(studentList);
 
         if (studentUsingIndex) {
             int tempIndex = Integer.parseInt(studentIdentifier);
@@ -201,6 +206,9 @@ public class AddModCommand extends ModCommand {
      * @throws CommandException if the student already has the module
      */
     void checkIfStudentHasModule(Student studentToEdit, String moduleCode) throws CommandException {
+        requireNonNull(studentToEdit);
+        requireNonNull(moduleCode);
+
         Set<Tag> studentModules = studentToEdit.getCurrentModules();
         for (Tag tag: studentModules) {
             if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
@@ -216,6 +224,8 @@ public class AddModCommand extends ModCommand {
      * @throws CommandException if the student has previously completed the module
      */
     void checkIfStudentCompletedModule(Student studentToEdit, String moduleCode) throws CommandException {
+        requireNonNull(studentToEdit, moduleCode);
+
         String prevMods = studentToEdit.getPrevMods().toString();
         if (prevMods.contains(moduleCode)) {
             throw new CommandException(MESSAGE_STUDENT_COMPLETED_MODULE);
@@ -228,6 +238,8 @@ public class AddModCommand extends ModCommand {
      * @throws CommandException if the quota is reached. (and the student should not be added)
      */
     void checkQuotaLimit(Module moduleToEdit) throws CommandException {
+        requireNonNull(moduleToEdit);
+
         if (moduleToEdit.getCurrentEnrolment() == moduleToEdit.getQuotaInt()) {
             throw new CommandException(Module.MESSAGE_CONSTRAINTS_QUOTA_REACHED);
         }
@@ -240,6 +252,8 @@ public class AddModCommand extends ModCommand {
      * @throws CommandException if the student has insufficient credits
      */
     void checkStudentWorkloadLimit(Student studentToEdit) throws CommandException {
+        requireNonNull(studentToEdit);
+
         int currWorkload = studentToEdit.getNumberOfMods() * 4;
         int maxWorkload = studentToEdit.getCredits().getIntVal();
         if ((maxWorkload - currWorkload) < 4) {
@@ -257,7 +271,6 @@ public class AddModCommand extends ModCommand {
     //@@author chensu2436 and AaronLuk
     private void checkIfModuleClash(Student studentToEdit, ObservableList<Module> fullModuleList,
                                     String moduleCode) throws CommandException {
-
         //get module object
         List<Module> moduleToCheckList = fullModuleList.stream()
                 .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());

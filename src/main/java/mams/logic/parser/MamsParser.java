@@ -7,7 +7,6 @@ import mams.commons.core.Messages;
 import mams.logic.commands.AddModCommand;
 import mams.logic.commands.ClashCommand;
 import mams.logic.commands.Command;
-//import mams.logic.commands.EditCommand;
 import mams.logic.commands.ExitCommand;
 import mams.logic.commands.FindCommand;
 import mams.logic.commands.HelpCommand;
@@ -52,9 +51,6 @@ public class MamsParser {
 
         case ClashCommand.COMMAND_WORD:
             return new ClashCommandParser().parse(arguments);
-
-        //case EditCommand.COMMAND_WORD:
-        //    return new EditCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
