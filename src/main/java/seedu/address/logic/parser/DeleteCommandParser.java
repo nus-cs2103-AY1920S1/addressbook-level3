@@ -16,7 +16,6 @@ import seedu.address.model.performance.Event;
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
-    public static final String MESSAGE_INVALID_FLAG = "%1$s is not a valid flag.\n";
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
@@ -30,9 +29,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
         DeleteCommand deleteCommand;
         String flag = getFlag(trimmedArgs);
-        if (flag.equals(FLAG_PERSON.toString())) {
+        if (flag.equals(FLAG_PERSON.getFlag())) {
             deleteCommand = parsePerson(trimmedArgs);
-        } else if (flag.equals(FLAG_EVENT.toString())) {
+        } else if (flag.equals(FLAG_EVENT.getFlag())) {
             deleteCommand = parseEvent(trimmedArgs);
         } else {
             throw new ParseException(
@@ -51,10 +50,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         if (!Flag.isValidFlag(flag)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                String.format(MESSAGE_INVALID_FLAG, flag) + Flag.MESSAGE_INVALID_FLAG));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        assert(Flag.isValidFlag(flag));
         return flag;
     }
 

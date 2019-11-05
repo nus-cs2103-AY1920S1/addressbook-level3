@@ -9,26 +9,22 @@ import static seedu.address.logic.parser.CliSyntax.FLAG_PERSON;
  */
 public class Flag {
 
-    public static final String MESSAGE_INVALID_FLAG = "The valid flags are "
-        + FLAG_PERSON + " and " + FLAG_EVENT + ".";
-
     private final String flag;
 
     public Flag(String flag) {
         this.flag = flag;
     }
 
+    public static boolean isValidFlag(String args) {
+        return args.equals(FLAG_PERSON.toString()) || args.equals(FLAG_EVENT.toString());
+    }
+
     public String getFlag() {
         return flag;
     }
 
-    public static boolean isValidFlag(String args) {
-        return args.equals(FLAG_PERSON) || args.equals(FLAG_EVENT);
-    }
-
-    @Override
     public String toString() {
-        return flag;
+        return getFlag();
     }
 
     @Override
@@ -46,6 +42,6 @@ public class Flag {
         }
 
         Flag otherFlag = (Flag) obj;
-        return otherFlag.getFlag().equals(getFlag());
+        return otherFlag.getFlag().equals(flag);
     }
 }
