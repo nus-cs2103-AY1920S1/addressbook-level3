@@ -76,8 +76,9 @@ import seedu.scheduler.model.tag.Tag;
 
 public class EditCommandParserTest {
 
-    // TODO: Fix this piping hot mess
-    //private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String DEPARTMENT_EMPTY = " " + PREFIX_DEPARTMENT;
+    private static final String SLOT_EMPTY = " " + PREFIX_SLOT;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -221,7 +222,6 @@ public class EditCommandParserTest {
 
         // parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Interviewer} being edited,
         // parsing it together with a valid tag results in error
-        String TAG_EMPTY = " " + PREFIX_TAG;
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
@@ -231,7 +231,6 @@ public class EditCommandParserTest {
 
         // parsing {@code PREFIX_DEPARTMENT} alone will result in department parse error,
         // parsing it together with a valid department results in department parse error
-        String DEPARTMENT_EMPTY = " " + PREFIX_DEPARTMENT;
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
                 + DEPARTMENT_EMPTY, Department.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
@@ -241,7 +240,6 @@ public class EditCommandParserTest {
 
         // parsing an empty {@code PREFIX_SLOT} alone will result in slot parse error.
         // Parsing it together with a valid slot will result in slot parse error.
-        String SLOT_EMPTY = " " + PREFIX_SLOT;
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
                 + SLOT_EMPTY, Slot.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
@@ -294,7 +292,6 @@ public class EditCommandParserTest {
 
         // parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Interviewer} being edited,
         // parsing it together with a valid tag results in error
-        String TAG_EMPTY = " " + PREFIX_TAG;
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
@@ -304,7 +301,6 @@ public class EditCommandParserTest {
 
         // parsing an empty {@code PREFIX_SLOT} alone will result in slot parse error.
         // Parsing it together with a valid slot will result in slot parse error.
-        String SLOT_EMPTY = " " + PREFIX_SLOT;
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
                 + SLOT_EMPTY, Slot.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
@@ -597,7 +593,6 @@ public class EditCommandParserTest {
     @Test
     public void parse_intervieweeResetTags_success() {
         // passing an empty tag prefix should reset all tags of an interviewee
-        String TAG_EMPTY = " " + PREFIX_TAG;
         String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + TAG_EMPTY;
 
         Name targetName = new Name(VALID_NAME_BOB);
@@ -612,7 +607,6 @@ public class EditCommandParserTest {
     @Test
     public void parse_interviewerResetTags_success() {
         // passing an empty tag prefix should reset all tags of an interviewer
-        String TAG_EMPTY = " " + PREFIX_TAG;
         String userInput = VALID_NAME_AMY + ROLE_DESC_AMY_INTVR + TAG_EMPTY;
 
         Name targetName = new Name(VALID_NAME_AMY);
@@ -627,7 +621,6 @@ public class EditCommandParserTest {
     @Test
     public void parse_intervieweeResetDepartments_failure() {
         // when editing an interviewee, empty departments cannot be passed (I.e Departments can never be empty).
-        String DEPARTMENT_EMPTY = " " + PREFIX_DEPARTMENT;
         String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + DEPARTMENT_EMPTY;
 
         assertParseFailure(parser, userInput, Department.MESSAGE_CONSTRAINTS);
@@ -636,7 +629,6 @@ public class EditCommandParserTest {
     @Test
     public void parse_intervieweeResetSlots_failure() {
         // when editing an interviewee, slots must also never be empty.
-        String SLOT_EMPTY = " " + PREFIX_SLOT;
         String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + SLOT_EMPTY;
 
         assertParseFailure(parser, userInput, Slot.MESSAGE_CONSTRAINTS);
@@ -645,7 +637,6 @@ public class EditCommandParserTest {
     @Test
     public void parse_interviewerResetSlots_failure() {
         // when editing an interviewer, slots can also never be empty.
-        String SLOT_EMPTY = " " + PREFIX_SLOT;
         String userInput = VALID_NAME_AMY + ROLE_DESC_AMY_INTVR + SLOT_EMPTY;
 
         assertParseFailure(parser, userInput, Slot.MESSAGE_CONSTRAINTS);
