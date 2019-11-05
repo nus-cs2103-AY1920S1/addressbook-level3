@@ -34,7 +34,6 @@ public class DeleteAnnotationNoteCommand extends DeleteAnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
-        //TODO: refactor to prevent repetition
         OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
         OfflineDocument doc = docOriginal.copy();
         Paragraph p;
