@@ -14,7 +14,7 @@ public class Messages {
     public static final String MESSAGE_ACCOUNTS_LISTED_OVERVIEW = "%1$d account(s) listed!";
     public static final String MESSAGE_ACCOUNT_SEARCH_RESULTS_EMPTY = "There are no results matching your search,"
             + " listing all %1$d account(s)   ";
-    public static final String MESSAGE_ACTIVE_ACCOUNT_NOT_FOUND = "The active account could not be found";
+    public static final String MESSAGE_ACCOUNT_NOT_FOUND = "The account \"%1$s\" could not be found";
     public static final String MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL = "The last account cannot be deleted!";
 
     public static final String MESSAGE_NO_SUCH_SCRIPT = "Could not find a script named \"%1$s\".";

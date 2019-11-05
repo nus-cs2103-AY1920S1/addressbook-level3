@@ -1,6 +1,6 @@
 package budgetbuddy.logic.commands.transactioncommands;
 
-import static budgetbuddy.commons.core.Messages.MESSAGE_ACTIVE_ACCOUNT_NOT_FOUND;
+import static budgetbuddy.commons.core.Messages.MESSAGE_ACCOUNT_NOT_FOUND;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.DATE_EXAMPLE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACCOUNT;
@@ -76,7 +76,7 @@ public class TransactionAddCommand extends ScriptCommand {
         }
 
         if (realToAccount == null) {
-            throw new CommandException(MESSAGE_ACTIVE_ACCOUNT_NOT_FOUND);
+            throw new CommandException(String.format(MESSAGE_ACCOUNT_NOT_FOUND, toAccount.getName()));
         }
 
         try {
