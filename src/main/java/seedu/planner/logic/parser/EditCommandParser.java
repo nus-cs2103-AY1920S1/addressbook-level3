@@ -19,6 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.planner.commons.core.index.Index;
+
+import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.commands.editcommand.EditAccommodationCommand;
 import seedu.planner.logic.commands.editcommand.EditAccommodationCommand.EditAccommodationDescriptor;
 import seedu.planner.logic.commands.editcommand.EditActivityCommand;
@@ -26,7 +28,7 @@ import seedu.planner.logic.commands.editcommand.EditActivityCommand.EditActivity
 import seedu.planner.logic.commands.editcommand.EditCommand;
 import seedu.planner.logic.commands.editcommand.EditContactCommand;
 import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
-import seedu.planner.logic.commands.HelpCommand;
+
 import seedu.planner.logic.parser.exceptions.ParseException;
 import seedu.planner.model.tag.Tag;
 
