@@ -17,7 +17,6 @@ import seedu.address.model.itinerary.event.EventList;
  * Can be used to construct {@link Day} without optional fields.
  */
 public class DayBuilder {
-    private Name name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Description description;
@@ -43,21 +42,16 @@ public class DayBuilder {
      * @return new DayBuilder instance.
      */
     public static DayBuilder of(Day day) {
-        requireAllNonNull(day.getStartDate(), day.getEndDate(), day.getDestination());
+        requireAllNonNull(day.getStartDate(), day.getEndDate(), day.getDestination(), day.getEventList());
         return DayBuilder.newInstance()
                 .setStartDate(day.getStartDate())
                 .setEndDate(day.getEndDate())
                 .setLocation(day.getDestination())
-                .setTotalBudget(day.getTotalBudget().get())
-                .setDescription(day.getDescription().get())
+                .setTotalBudget(day.getTotalBudget().orElse(null))
+                .setDescription(day.getDescription().orElse(null))
                 .setEventList(day.getEventList());
     }
 
-
-    public DayBuilder setName(Name name) {
-        this.name = name;
-        return this;
-    }
 
     public DayBuilder setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
