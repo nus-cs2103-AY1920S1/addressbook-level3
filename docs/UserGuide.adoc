@@ -164,7 +164,7 @@ Format: `clear`
 
 ==== Mark as watched : `watch`
 
-Marks an unwatched show in the watchlist as watched. +
+Marks an unwatched show in the watchlist as watched. Also marks a watched show as unwatched. +
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
 ****
