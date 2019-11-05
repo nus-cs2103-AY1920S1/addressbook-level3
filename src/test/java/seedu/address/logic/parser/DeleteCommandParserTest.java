@@ -1,17 +1,21 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_PERSON;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.performance.Event;
 
 /**
@@ -57,5 +61,37 @@ public class DeleteCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 
+    @Test
+    public void parsePerson_invalidArgs_throwsParseException() {
+        // no argument
+        assertThrows(ParseException.class, () -> parser.parsePerson(FLAG_PERSON.getFlag()));
+        // non-numeric argument
+        assertThrows(ParseException.class, () -> parser.parsePerson(FLAG_PERSON.getFlag() + " John"));
+        // invalid index
+        assertThrows(ParseException.class, () -> parser.parsePerson(FLAG_PERSON.getFlag() + " 0"));
+        assertThrows(ParseException.class, () -> parser.parsePerson(FLAG_PERSON.getFlag() + " -1"));
+    }
 
+    @Test
+    public void parsePerson_validPersonArgs_returnsDeletePersonCommand() throws ParseException {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = Integer.toString(targetIndex.getOneBased());
+        DeletePersonCommand expectedCommand = new DeletePersonCommand(targetIndex);
+        assertEquals(expectedCommand, parser.parsePerson(userInput));
+    }
+
+    @Test
+    public void parseEvent_invalidArgs_throwsParseException() {
+        // no argument
+        assertThrows(ParseException.class, () -> parser.parseEvent(FLAG_EVENT.getFlag()));
+    }
+
+    @Test
+    public void parseEvent_validEventArgs_returnsDeleteEventCommand() throws ParseException {
+        Event targetEvent = new Event(eventName);
+        String userInput = eventName;
+        DeleteEventCommand expectedCommand = new DeleteEventCommand(targetEvent);
+        assertEquals(expectedCommand, parser.parseEvent(userInput));
+
+    }
 }
