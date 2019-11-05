@@ -224,8 +224,8 @@ Feature by
 === Where did all my money go?
 Introducing the **Finance Tracker** feature of Jarvis, which is responsible for keeping track of all your purchases,
 monthly subscriptions and debts owed. Upon switching to the Finance tab, you will be able to see a list of purchases on
-the left and a list of your monthly subscriptions on the right. The circle in the middle indicates how much you have
-spent in relation to the spending limit set and you can see your "monthly expenses" right below that. How neat!
+the left and a list of your monthly subscriptions on the right. At the bottom left, Jarvis shows the total amount you
+have spent this month and how much you are left (if you have set a spending limit). How neat!
 
 //todo: add a ui ss
 
@@ -242,6 +242,9 @@ Jarvis will then also update your monthly expenses accordingly.
 
 Format: `add-paid d/PURCHASE-DESCRIPTION a/AMOUNT`
 
+NOTE: Jarvis will show the latest purchase at the top of the list so you can easily see your last purchase without
+scrolling!
+
 ===== Example
 ----
 add-paid d/GongCha a/2.8
@@ -257,12 +260,12 @@ Jarvis will also update your monthly expenses accordingly, which also means you 
 
 Format: `delete-paid INDEX`
 
-NOTE: `INDEX` corresponds to index shown on the list "What I bought this month..." under the Finance tab. This also
+NOTE: `INDEX` corresponds to index shown on the list __What I bought this month...__ under the Finance tab. This also
 means that the index must exist within this list!
 
 
 ==== Searching for a purchase: `find-paid`
-Ever wondered how many cups of GongCha you bought over the past month? Brace yourself for the truth.
+Ever wondered how many cups of Gongcha you bought over the past month? Brace yourself for the truth.
 
 Jarvis can help you search for your purchases that match whatever keyword you give it!
 
@@ -270,7 +273,7 @@ Format: `find-paid KEYWORD`
 
 ===== Example
 ----
-find-paid GongCha
+find-paid Gongcha
 ----
 
 
@@ -299,14 +302,14 @@ Finance tab. Jarvis will also update your monthly expenses accordingly.
 
 Format: `delete-install INDEX`
 
-NOTE: `INDEX` corresponds to index shown on the list "What I spend on monthly..." under the Finance tab. This also
+NOTE: `INDEX` corresponds to index shown on the list __What I spend on monthly...__ under the Finance tab. This also
 means that the index must exist within this list!
 
 
 ==== Edit an installment: `edit-install`
 Spotify just released a new student plan? Great, that means a lower subscription fee every month!
 
-Let's inform Jarvis of the changes using the index of the installment on the list "What I spend on monthly..." under
+Let's inform Jarvis of the changes using the index of the installment on the list __What I spend on monthly...__ under
 the Finance tab. You can either change the description or the amount or both.
 
 Format: `edit-install INDEX {d/INSTALLMENT-DESCRIPTION | a/AMOUNT}`
