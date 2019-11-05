@@ -646,7 +646,6 @@ _{More to be added}_
 
 [appendix]
 == Use Cases
-
 (For all use cases below, the *System* is  `Insurelytics` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
