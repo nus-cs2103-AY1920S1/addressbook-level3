@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
@@ -93,11 +94,6 @@ public class LogicManagerTest {
         //assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEmployeeList().remove(0));
-    }
-
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
@@ -106,10 +102,15 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEmployeeList().remove(0));
     }
 
     /**

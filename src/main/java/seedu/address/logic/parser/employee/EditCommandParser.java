@@ -7,8 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POSITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -40,7 +40,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
-                        PREFIX_GENDER, PREFIX_JOIN_DATE, PREFIX_POSITION);
+                        PREFIX_GENDER, PREFIX_JOIN_DATE, PREFIX_PAY);
 
         Index index;
 
@@ -54,9 +54,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
             editEmployeeDescriptor.setEmployeeGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
-        if (argMultimap.getValue(PREFIX_POSITION).isPresent()) {
-            editEmployeeDescriptor.setEmployeePosition(ParserUtil.parsePosition(
-                    argMultimap.getValue(PREFIX_POSITION).get()));
+
+        if (argMultimap.getValue(PREFIX_PAY).isPresent()) {
+            editEmployeeDescriptor.setEmployeeSalaryPaid(
+                    ParserUtil.parseSalaryPaid(argMultimap.getValue(PREFIX_PAY).get()));
         }
         if (argMultimap.getValue(PREFIX_JOIN_DATE).isPresent()) {
             editEmployeeDescriptor.setEmployeeJoinDate(ParserUtil.parseJoinDate(
