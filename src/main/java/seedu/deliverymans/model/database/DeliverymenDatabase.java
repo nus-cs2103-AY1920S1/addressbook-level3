@@ -146,8 +146,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Updates the deliveryman status after he has completed an order.
      */
-    public void updateDeliverymanStatusAfterCompletingOrder(Name deliveryman) {
-        statusManager.updateDeliverymanStatusAfterCompletingOrder(deliveryman);
+    public void updateDeliverymanStatusAfterChangesToOrder(Name deliveryman) {
+        statusManager.updateDeliverymanStatusAfterChangesToOrder(deliveryman);
     }
 
     /**

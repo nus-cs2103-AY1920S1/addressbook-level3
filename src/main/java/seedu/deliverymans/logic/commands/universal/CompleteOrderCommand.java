@@ -58,7 +58,7 @@ public class CompleteOrderCommand extends Command {
                 .setRestaurant(orderToComplete.getRestaurant())
                 .setFood(orderToComplete.getFoodList()).setCompleted(true).completeOrder();
         model.setOrder(orderToComplete, order);
-        model.updateDeliverymanStatusAfterCompletingOrder(order.getDeliveryman());
+        model.updateDeliverymanStatusAfterChangesToOrder(order.getDeliveryman());
 
         List<Restaurant> restaurants = model.getFilteredRestaurantList();
         for (Restaurant r : restaurants) {

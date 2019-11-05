@@ -50,7 +50,7 @@ public class DeleteRestaurantCommand extends Command {
         for (Order order : allOrders) {
             if (order.getRestaurant().equals(restaurantToDelete.getName())) {
                 model.deleteOrder(order);
-                model.updateDeliverymanStatusAfterCompletingOrder(order.getDeliveryman());
+                model.updateDeliverymanStatusAfterChangesToOrder(order.getDeliveryman());
             }
         }
 

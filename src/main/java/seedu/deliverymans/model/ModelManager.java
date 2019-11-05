@@ -24,6 +24,7 @@ import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsRecordCard;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.order.Order;
@@ -290,8 +291,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDeliverymanStatusAfterCompletingOrder(Name deliverymanName) {
-        deliverymenDatabase.updateDeliverymanStatusAfterCompletingOrder(deliverymanName);
+    public void updateDeliverymanStatusAfterChangesToOrder(Name deliverymanName) {
+        deliverymenDatabase.updateDeliverymanStatusAfterChangesToOrder(deliverymanName);
+    }
+
+    @Override
+    public StatisticsRecordCard getDeliverymenStatusStats() {
+        return deliverymenDatabase.analyzeDeliverymenStatus();
     }
 
     //=========== Order Methods =============================================================
