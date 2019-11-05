@@ -15,7 +15,8 @@ import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.RecurrenceType;
 
 /**
- * A utility class containing a list of {@code Events} objects to be used in tests.
+ * A utility class containing  {@code VEvent} objects to be used in tests. Note that these VEvents correspond to those
+ * in typicalEvents. I.e. VEVENT1 is the VEvent form of EVENT1 in typicalEvents.
  */
 public class TypicalVEvents {
 
@@ -32,12 +33,14 @@ public class TypicalVEvents {
             .withRecurrenceRule(DAILY_RECUR_RULE_STRING)
             .withCategories("group02")
             .withUniqueIdentifier("typicalevent2test");
+
     public static final VEvent VEVENT3 = new VEvent().withSummary("Third Event")
             .withDateTimeStart(LocalDateTime.parse("2019-10-12T03:00"))
             .withDateTimeEnd(LocalDateTime.parse("2019-10-12T04:00"))
             .withRecurrenceRule(WEEKLY_RECUR_RULE_STRING)
             .withCategories("group03")
             .withUniqueIdentifier("typicalevent3test");
+
     public static final VEvent VEVENT4 = new VEvent().withSummary("Fourth Event")
             .withDateTimeStart(LocalDateTime.parse("2019-10-13T03:00"))
             .withDateTimeEnd(LocalDateTime.parse("2019-10-13T04:00"))
@@ -54,16 +57,4 @@ public class TypicalVEvents {
 
 
     private TypicalVEvents() {}
-//
-//    /**
-//     * Returns an {@code EventRecord} with all the typical events.
-//     */
-//    public static EventRecord getTypicalEventsRecord() {
-//        EventRecord ab = new EventRecord(getTypicalEvents());
-//        return ab;
-//    }
-//
-//    public static List<VEvent> getTypicalEvents() {
-//        return new ArrayList<>(Arrays.asList(VEVENT1, VEVENT2, VEVENT3, VEVENT4));
-//    }
 }

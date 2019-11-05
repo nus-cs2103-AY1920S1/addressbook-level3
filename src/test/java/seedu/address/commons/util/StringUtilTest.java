@@ -139,18 +139,4 @@ public class StringUtilTest {
     public void getDetails_nullGiven_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
-
-    //---------------- Tests for isSimilarWord --------------------------------------
-
-
-    @Test
-    public void isSimilarWord_exactSameWord() {
-        assertTrue(StringUtil.isSimilarWord("testString", "testString", 1.0));
-    }
-
-    @Test
-    public void isSimilarWord_differentWord() {
-        assertFalse(StringUtil.isSimilarWord("a", "b", 0.1));
-    }
-
 }

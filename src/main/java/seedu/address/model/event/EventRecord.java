@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.EventUtil.eventToVEventMapper;
+import static seedu.address.commons.util.StringUtil.calculateStringSimilarity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -134,56 +135,33 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
      * @return VEvent object.
      */
     public VEvent deleteVEvent(Index index) {
+        requireNonNull(index);
         return vEvents.remove(index.getZeroBased());
     }
 
     /**
-     * Deletes the vEvent object from the list.
-     *
-     * @param vEvent object.
-     */
-    public void deleteVEvent(VEvent vEvent) {
-        requireNonNull(vEvent);
-        if (!vEvents.remove(vEvent)) {
-            throw new VEventNotFoundException();
-        }
-    }
-
-    /**
-     * Returns the question object.
+     * Returns the VEvent object.
      *
      * @param index of the question in the list.
-     * @return Question object.
+     * @return VEvent object.
      */
     public VEvent getVEvent(Index index) {
+        requireNonNull(index);
         return vEvents.get(index.getZeroBased());
     }
 
     /**
-     * Sets the vEvent object at the specified index in the list.
-     *
+     * Sets the vEvent object at the specified index in the list. This should not result in a duplicate
+     * VEvent
      * @param index    of the vEvent in the list.
      * @param vEvent object.
      */
     public void setVEvent(Index index, VEvent vEvent) {
-        vEvents.set(index.getZeroBased(), vEvent);
-    }
-
-    /**
-     * Sets the vEvent object in the list using a specified question object.
-     *
-     * @param target         of the vEvent in the list.
-     * @param editedVEvent to replace target.
-     */
-    public void setVEvent(VEvent target, VEvent editedVEvent) {
-        requireAllNonNull(target, editedVEvent);
-
-        int index = vEvents.indexOf(target);
-        if (index == -1) {
-            throw new VEventNotFoundException();
+        VEvent targetVEvent = vEvents.get(index.getZeroBased());
+        if (!isSameVEvent(targetVEvent, vEvent) && contains(vEvent)) {
+            throw new DuplicateVEventException();
         }
-
-        vEvents.set(index, editedVEvent);
+        vEvents.set(index.getZeroBased(), vEvent);
     }
 
     /**
@@ -215,31 +193,13 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     }
 
     /**
-     * Printing out the list of VEvents and how many are there.
-     *
-     * @return Summary of VEvents.
-     */
-    public String getVEventSummary() {
-        String summary = "There are currently " + vEvents.size() + " vEvents saved.\n"
-                + "Here is the list of vEVents:\n";
-
-        for (int i = 0; i < vEvents.size(); i++) {
-            summary += (i + 1) + ". " + "\"" + vEvents.get(i) + "\"";
-
-            if ((i + 1) != vEvents.size()) {
-                summary += "\n";
-            }
-        }
-
-        return summary;
-    }
-
-    /**
      * Gets a list of pair of Index and VEvent which eventNames are equal to the desiredEventName
      *
      * @return List of pair of Indexs and VEvents which equal to desiredEventName
      */
-    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
+    public List<Pair<Index, VEvent>> findVEvents(String desiredEventName) {
+        requireNonNull(desiredEventName);
+
         List<Pair<Index, VEvent>> resultIndexList = new ArrayList<>();
         for (int i = 0; i < vEvents.size(); i++) {
             VEvent currentVEvent = vEvents.get(i);
@@ -257,18 +217,20 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
      * @throws VEventNotFoundException if there are no VEvents at all.
      */
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) throws VEventNotFoundException {
+        requireNonNull(desiredEventName);
+
         if (vEvents.isEmpty()) {
             throw new VEventNotFoundException();
         }
         VEvent mostSimilarVEvent = vEvents.get(0);
         Integer mostSimilarIndex = 0;
         double highestSimilarityPercentage =
-                StringUtil.calculateStringSimilarity(mostSimilarVEvent.getSummary().getValue(), desiredEventName);
+                calculateStringSimilarity(mostSimilarVEvent.getSummary().getValue(), desiredEventName);
 
         for (int i = 1; i < vEvents.size(); i++) {
             VEvent currentEvent = vEvents.get(i);
             double eventNameSimilarity =
-                    StringUtil.calculateStringSimilarity(currentEvent.getSummary().getValue(), desiredEventName);
+                    calculateStringSimilarity(currentEvent.getSummary().getValue(), desiredEventName);
             if (eventNameSimilarity > highestSimilarityPercentage) {
                 mostSimilarIndex = i;
                 mostSimilarVEvent = currentEvent;

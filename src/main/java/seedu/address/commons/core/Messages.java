@@ -40,4 +40,7 @@ public class Messages {
     public static final String EXCEL_FILE_ILLEGAL_FORMAT = "File has illegal format. Please refer to user guide.";
     public static final String EXCEL_ILLEGAL_HEADER = "Cell A1 should be 'Students'";
 
+    public static final String MESSAGE_INVALID_EVENT_DATETIME_RANGE = "Invalid event date time range."
+            + " Start date time should be earlier than end date time.";
+    public static final String MESSAGE_MISSING_EVENT_NAME = "Event name cannot be empty or blank.";
 }

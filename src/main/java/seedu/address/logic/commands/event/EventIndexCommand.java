@@ -38,7 +38,7 @@ public class EventIndexCommand extends EventCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Pair<Index, VEvent>> resultVEventIndexList = model.findVEventsIndex(desiredEventName);
+        List<Pair<Index, VEvent>> resultVEventIndexList = model.findVEvents(desiredEventName);
         if (resultVEventIndexList.isEmpty()) {
             try {
                 Pair<Index, VEvent> suggestedEventPair = model.findMostSimilarVEvent(desiredEventName);

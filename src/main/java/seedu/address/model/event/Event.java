@@ -1,5 +1,11 @@
 package seedu.address.model.event;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DATETIME_RANGE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_EVENT_NAME;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -15,17 +21,56 @@ public class Event {
     private String uniqueIdentifier;
     private RecurrenceType recurrenceType;
 
+    public static final String INVALID_COLOR_CATEGORY = "Invalid color category."
+            + " Should be of form groupXX where XX is a within range 00 - 23";
+    public static final String COLOR_CATEGORY_VALIDATION_REGEX = "group[0-2][0-9]";
+
     public Event() {
     }
 
     public Event(String eventName, LocalDateTime startDateTime, LocalDateTime endDateTime,
                  String colorCategory, String uniqueIdentifier, RecurrenceType recurrenceType) {
+        requireAllNonNull(eventName, startDateTime, endDateTime, colorCategory, uniqueIdentifier, recurrenceType);
+        checkArgument(validateStartEndDateTime(startDateTime, endDateTime), MESSAGE_INVALID_EVENT_DATETIME_RANGE);
+        checkArgument(isValidColorCategory(colorCategory), INVALID_COLOR_CATEGORY);
+        checkArgument(isValidEventName(eventName), MESSAGE_MISSING_EVENT_NAME);
         this.eventName = eventName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.colorCategory = colorCategory;
         this.uniqueIdentifier = uniqueIdentifier;
         this.recurrenceType = recurrenceType;
+    }
+
+    /**
+     * Validates that the event name is not blank
+     * @param eventName event name string to be validated
+     * @return true if event name is not blank
+     */
+    public boolean isValidEventName(String eventName) {
+        if (eventName.isBlank()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Method to validate color category
+     * @param colorCategory color category to be validated
+     * @return true if colorCategory is valid
+     */
+    private boolean isValidColorCategory(String colorCategory) {
+        if (!colorCategory.matches(COLOR_CATEGORY_VALIDATION_REGEX)) {
+            return false;
+        } else {
+            // might be values from 24 - 29
+            Integer colorNumber = Integer.parseInt(colorCategory.substring(5));
+            if (colorNumber > 23 || colorNumber < 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getEventName() {

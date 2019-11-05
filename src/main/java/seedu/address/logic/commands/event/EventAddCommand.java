@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DATETIME_RANGE;
 import static seedu.address.commons.util.EventUtil.convertNumberToColorCategoryList;
 import static seedu.address.commons.util.EventUtil.generateUniqueIdentifier;
 import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
@@ -37,7 +38,6 @@ public class EventAddCommand extends EventCommand {
             + "Please follow the format: yyyy-MM-ddTHH:mm, "
             + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
     private static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
-    private static final String INVALID_EVENT_RANGE = "Invalid date range between start and end dateTime";
     private static final String DEFAULT_COLOR_STRING = "group00";
 
     private final String eventName;
@@ -108,7 +108,7 @@ public class EventAddCommand extends EventCommand {
             throw new CommandException(BAD_DATE_FORMAT, dtpEx);
         }
         if (!validateStartEndDateTime(startDateTime, endDateTime)) {
-            throw new CommandException(INVALID_EVENT_RANGE);
+            throw new CommandException(MESSAGE_INVALID_EVENT_DATETIME_RANGE);
         }
         vEvent.setDateTimeStart(startDateTime);
         vEvent.setDateTimeEnd(endDateTime);

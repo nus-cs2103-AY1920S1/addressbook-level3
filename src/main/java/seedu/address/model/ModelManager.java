@@ -739,10 +739,6 @@ public class ModelManager implements Model {
         eventSchedulePrefs.setViewMode(viewMode);
     }
 
-    @Override
-    public String getEventScheduleData() {
-        return eventSchedulePrefs.toString();
-    };
     //endregion
 
     //region Events
@@ -758,11 +754,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteVEvent(VEvent vEvent) {
-        eventRecord.deleteVEvent(vEvent);
-    }
-
-    @Override
     public void deleteVEvent(Index index) {
         eventRecord.deleteVEvent(index);
     }
@@ -773,20 +764,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setVEvent(VEvent target, VEvent editedVEvent) {
-        requireAllNonNull(target, editedVEvent);
-        eventRecord.setVEvent(target, editedVEvent);
-    }
-
-    @Override
     public void setVEvent(Index index, VEvent editedVEvent) {
         requireAllNonNull(index, editedVEvent);
         eventRecord.setVEvent(index, editedVEvent);
-    }
-
-    @Override
-    public String getVEventSummary() {
-        return eventRecord.getVEventSummary();
     }
 
     @Override
@@ -795,8 +775,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
-        return eventRecord.findVEventsIndex(desiredEventName);
+    public List<Pair<Index, VEvent>> findVEvents(String desiredEventName) {
+        return eventRecord.findVEvents(desiredEventName);
     }
 
     @Override

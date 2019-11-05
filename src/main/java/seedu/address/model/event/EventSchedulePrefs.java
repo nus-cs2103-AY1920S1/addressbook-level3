@@ -1,15 +1,20 @@
 package seedu.address.model.event;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDateTime;
 
 /**
- * Encapsualtes the preferences and settings for the schedule panel
+ * Encapsulates the preferences and settings for the schedule panel
  */
 public class  EventSchedulePrefs {
     private EventScheduleViewMode viewMode;
     private LocalDateTime targetViewDateTime;
 
     public EventSchedulePrefs(EventScheduleViewMode viewMode, LocalDateTime targetViewDateTime) {
+        requireAllNonNull(viewMode, targetViewDateTime);
+
         this.viewMode = viewMode;
         this.targetViewDateTime = targetViewDateTime;
     }
@@ -19,6 +24,7 @@ public class  EventSchedulePrefs {
     }
 
     public void setViewMode(EventScheduleViewMode viewMode) {
+        requireNonNull(viewMode);
         this.viewMode = viewMode;
     }
 
@@ -27,16 +33,26 @@ public class  EventSchedulePrefs {
     }
 
     public void setTargetViewDateTime(LocalDateTime targetViewDateTime) {
+        requireNonNull(targetViewDateTime);
         this.targetViewDateTime = targetViewDateTime;
     }
 
     /**
-     * A string representation of the event schedule preferences
-     * @return a string representing Event Schedule Preferences using the targetViewDateTime and viewMode.
+     * Returns true if both EventSchedulePrefs have the same identity and data fields.
+     * This defines a stronger notion of equality between two EventSchedulePrefs.
      */
     @Override
-    public String toString() {
-        return targetViewDateTime.toLocalDate().toString() + "_" + viewMode.name();
-    }
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
+        if (!(other instanceof EventSchedulePrefs)) {
+            return false;
+        }
+
+        EventSchedulePrefs otherPrefs = (EventSchedulePrefs) other;
+        return otherPrefs.getTargetViewDateTime().equals(getTargetViewDateTime())
+                && otherPrefs.getViewMode().equals(getViewMode());
+    }
 }

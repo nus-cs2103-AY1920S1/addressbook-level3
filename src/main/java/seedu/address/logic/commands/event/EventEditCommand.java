@@ -75,7 +75,6 @@ public class EventEditCommand extends EventCommand {
             throw new CommandException(NO_FIELDS_CHANGED);
         }
 
-        //map vEvent to event type for ease of referencing and DRY principle
         VEvent vEventObject = model.getVEvent(index);
 
         //event name
