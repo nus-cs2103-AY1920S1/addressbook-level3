@@ -2,7 +2,6 @@ package seedu.revision.model.answerable;
 
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import seedu.revision.model.category.Category;
 
