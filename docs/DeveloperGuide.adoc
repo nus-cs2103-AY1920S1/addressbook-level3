@@ -254,9 +254,11 @@ Simpler implementation and better performance outweighs the cost of using an ext
 
 // tag::suggest[]
 === Suggest feature
+The suggest feature displays the suggested automatically to the user accordingly to the remaining calorie budget.
+
 ==== Implementation
 
-The suggest mechanism is implemented through a `SuggestCommand` that extends from the abstract `Command` class. It interacts with the object that implements the `Model` interface by updating it with dishes that are within the calories budget. The calories budget is obtained from `Model#getRemainingCalories()`.
+The suggest mechanism is toggled when the application starts up. It will always display the suggested meals for the user in the right pane. The feature can be can be toggled back by typing the "suggest" command. Through a `SuggestCommand` that extends from the abstract `Command` class. It interacts with the object that implements the `Model` interface by updating it with dishes that are within the calories budget. The calories budget is obtained from `Model#getRemainingCalories()`.
 
 Additionally, it implements the following operation:
 
