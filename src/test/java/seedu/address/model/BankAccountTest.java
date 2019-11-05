@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -126,12 +127,22 @@ public class BankAccountTest {
         }
 
         @Override
+        public ObservableList<Projection> getProjectionHistory() {
+            return null;
+        }
+
+        @Override
         public boolean has(BankAccountOperation transaction) {
             return false;
         }
 
         @Override
         public boolean has(Budget budget) {
+            return false;
+        }
+
+        @Override
+        public boolean has(Projection projection) {
             return false;
         }
     }

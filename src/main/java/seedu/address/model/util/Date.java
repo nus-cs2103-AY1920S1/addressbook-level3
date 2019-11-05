@@ -66,7 +66,7 @@ public class Date implements Comparable<Date> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && date.equals(((Date) other).date)); // state check
+                && date.isEqual(((Date) other).date)); // state check
     }
 
     @Override

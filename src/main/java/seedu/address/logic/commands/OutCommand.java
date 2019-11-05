@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.ui.tab.Tab;
 
@@ -57,6 +58,14 @@ public class OutCommand extends Command {
                 String.format(MESSAGE_DUPLICATE, transaction), false, false, Tab.TRANSACTION);
         } else {
             model.add(transaction);
+            model.getFilteredProjectionsList().forEach(x -> {
+                model.deleteProjection(x);
+                if (x.getBudget().isPresent()) {
+                    model.add(new Projection(model.getFilteredTransactionList(), x.getDate(), x.getBudget().get()));
+                } else {
+                    model.add(new Projection(model.getFilteredTransactionList(), x.getDate()));
+                }
+            });
             model.commitUserState();
             return new CommandResult(
                 String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.TRANSACTION);

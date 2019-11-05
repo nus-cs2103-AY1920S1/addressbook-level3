@@ -9,6 +9,8 @@ import java.util.Set;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.model.category.Category;
+import seedu.address.model.projection.Projection;
+import seedu.address.model.projection.UniqueProjectionList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -23,11 +25,13 @@ public class BankAccount implements ReadOnlyBankAccount {
     private Amount balance;
     private UniqueBudgetList budgets;
     private UniqueTransactionList transactions;
+    private UniqueProjectionList projections;
 
     public BankAccount() {
         balance = Amount.zero();
         budgets = new UniqueBudgetList();
         transactions = new UniqueTransactionList();
+        projections = new UniqueProjectionList();
     }
 
     public BankAccount(ReadOnlyBankAccount bankAccount) {
@@ -43,6 +47,7 @@ public class BankAccount implements ReadOnlyBankAccount {
         setBalance(newData.getBalance());
         setTransactions(newData.getTransactionHistory());
         setBudgets(newData.getBudgetHistory());
+        setProjections(newData.getProjectionHistory());
     }
 
     public void setBalance(Amount balance) {
@@ -55,6 +60,10 @@ public class BankAccount implements ReadOnlyBankAccount {
 
     public void setBudgets(List<Budget> budgetHistory) {
         this.budgets.setBudgets(budgetHistory);
+    }
+
+    public void setProjections(List<Projection> projectionHistory) {
+        this.projections.setProjections(projectionHistory);
     }
 
     /**
@@ -105,12 +114,30 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Adds a transaction to the bank account.
+     * Updates {@code projections}.
+     *
+     * @param projection Projection to be added to bank account.
+     */
+    public void add(Projection projection) {
+        projections.add(projection);
+    }
+
+    /**
      * Removes {@code key} from this {@code BankAccount}.
      * {@code key} must exist in the bank account.
      */
     public void remove(BankAccountOperation key) {
         transactions.remove(key);
         this.balance = this.balance.subtractAmount(key.getAmount());
+    }
+
+    /**
+     * Removes {@code key} from this {@code BankAccount}.
+     * {@code key} must exist in the bank account.
+     */
+    public void remove(Projection key) {
+        projections.remove(key);
     }
 
     /**
@@ -141,9 +168,17 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Checks if projection exists in bank account.
+     */
+    public boolean has(Projection projection) {
+        requireNonNull(projection);
+        return projections.contains(projection);
+    }
+
+    /**
      * Updates each budget in {@code budgets} when OutTransaction is made.
      *
-     * @payram txn Transaction can be either InTransaction or OutTransaction.
+     * @param txn Transaction can be either InTransaction or OutTransaction.
      */
     private void updateBudgets(BankAccountOperation txn) {
         if (txn instanceof OutTransaction) {
@@ -164,6 +199,11 @@ public class BankAccount implements ReadOnlyBankAccount {
     @Override
     public ObservableList<Budget> getBudgetHistory() {
         return budgets.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Projection> getProjectionHistory() {
+        return projections.asUnmodifiableObservableList();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.projection;
 
 import java.util.Optional;
 
@@ -25,6 +25,7 @@ public class Projection {
     private Amount projection;
     private Amount budgetProjection;
     private GradientDescent projector;
+    private boolean onTrackToMeetBudget;
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date) {
         this.transactionHistory = transactionHistory;
@@ -40,6 +41,23 @@ public class Projection {
         this.project();
     }
 
+    public Projection(ObservableList<BankAccountOperation> transactionHistory,
+                      Amount amount, Date date, Budget budget) {
+        this.transactionHistory = transactionHistory;
+        this.projection = amount;
+        this.date = date;
+        this.budget = budget;
+        this.budgetProjection = new Amount(this.budget.getBudget().getIntegerValue()
+                - this.projection.getIntegerValue());
+    }
+
+    public Projection(ObservableList<BankAccountOperation> transactionHistory,
+                      Amount amount, Date date) {
+        this.transactionHistory = transactionHistory;
+        this.projection = amount;
+        this.date = date;
+    }
+
     /**
      * Computes projection for specified date based on transactionHistory
      */
@@ -53,16 +71,32 @@ public class Projection {
             int daysToBudgetDeadline = Date.daysBetween(Date.now(), this.budget.getDeadline());
             this.budgetProjection = new Amount(this.budget.getBudget().getIntegerValue()
                     - (int) Math.round(projector.predict(daysToBudgetDeadline)));
+            this.onTrackToMeetBudget = budgetProjection.getActualValue() > 0;
         }
-        displayAsStage();
     }
 
     GradientDescent getProjector() {
         return this.projector;
     }
 
-    Optional<Budget> getBudget() {
+    public Optional<Budget> getBudget() {
         return Optional.ofNullable(this.budget);
+    }
+
+    public Amount getProjection() {
+        return this.projection;
+    }
+
+    public Date getDate() {
+        return this.date;
+    }
+
+    public boolean isOnTrackToMeetBudget() {
+        return this.onTrackToMeetBudget;
+    }
+
+    public ObservableList<BankAccountOperation> getTransactionHistory() {
+        return this.transactionHistory;
     }
 
     /**
@@ -92,6 +126,15 @@ public class Projection {
                 this.budget.toString(), this.budgetProjection.toString());
     }
 
+    public String getBudgetForecastAbbreviatedText() {
+        if (this.getBudget().isEmpty()) {
+            return "";
+        }
+        return this.budgetProjection.getIntegerValue() > 0
+                ? String.format("SURPLUS: %s", this.budgetProjection.toString())
+                : String.format("DEFICIT: %S", this.budgetProjection.toString());
+    }
+
     /**
      * Populates an array with the cumulative balance values
      * at the point of each transaction in {@code transactionHistory}
@@ -109,12 +152,35 @@ public class Projection {
     /**
      * Renders a graphical representation of this {@code Projection} in a separate JavaFX stage
      */
-    private void displayAsStage() {
+    public void displayAsStage() {
+        this.project();
         Stage projectionWindow = new Stage();
         projectionWindow.setTitle("Projection Graph");
         projectionWindow.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/PalPay_32_1.png")));
         Scene scene = new Scene(new ProjectionGraph(this), 800, 600);
         projectionWindow.setScene(scene);
         projectionWindow.show();
+    }
+
+    /**
+     * Checks if the given projection projects the same date as this Projection
+     */
+    public boolean isSameProjection(Projection other) {
+        if (other == this) {
+            return true;
+        }
+        return other != null
+                && other.getDate().equals(getDate());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Projection) {
+            return this.isSameProjection((Projection) obj);
+        }
+        return false;
     }
 }
