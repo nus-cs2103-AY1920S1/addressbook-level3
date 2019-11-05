@@ -196,8 +196,9 @@ image::SetImage.png[width="790"]
 Image Path refers to the folder path of the image stored in your computer, and should end with .png
 
 [IMPORTANT]
-If you shift the image's location in your computer, +Work will be unable to find the image to display. It
-is recommended that you store all the images in a central folder to prevent this from happening.
+If you shift the image's location in your computer, +Work will be unable to find the image to display, and will
+display a warning message, before displaying the default profile picture.
+It is recommended that you store all the images in a central folder to prevent this from happening.
 
 
 ==== Editing a member : `edit-member`

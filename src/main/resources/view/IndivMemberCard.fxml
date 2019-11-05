@@ -14,6 +14,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ScrollPane?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -45,15 +46,15 @@
             </FlowPane>
             <HBox maxHeight="50.0" HBox.hgrow="ALWAYS">
                 <SplitPane  styleClass="indiv-split">
-                        <ImageView fx:id="imageView" layoutX="20" layoutY="20" />
+                    <ImageView fx:id="imageView" layoutX="20" layoutY="20" />
                 </SplitPane>
-                <VBox>
+                <ScrollPane fitToWidth="true" styleClass="memberScrollPane">
                     <padding>
                         <Insets bottom="5" right="5" top="5" left="10" />
                     </padding>
                     <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Tasks Assigned" />
-                    <Text fx:id="listTasks" styleClass="tasks_text"/>
-                </VBox>
+                    <Label fx:id="listTasks" styleClass="tasks_text"/>
+                </ScrollPane>
             </HBox>
         </VBox>
         <rowConstraints>
