@@ -52,10 +52,10 @@ public class TrainingCommandParser implements Parser<TrainingCommand> {
 
         indexList = ParserUtil.parseIndexes(argMultimap.getValue(PREFIX_INDEXES).get());
         if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
-            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+            date = ParserUtil.parseDateTypeOne(argMultimap.getValue(PREFIX_DATE).get());
         } else {
             DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
-            date = ParserUtil.parseDate(dateFormat.format(new Date()));
+            date = ParserUtil.parseDateTypeOne(dateFormat.format(new Date()));
         }
         if (byAbsent) {
             return new TrainingCommandAbsent(date, indexList);

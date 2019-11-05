@@ -55,7 +55,8 @@ public class PerformanceCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid date
         assertParseFailure(parser,
-            VALID_INDEX + EVENT_DESC + INVALID_DATE_DESC + TIMING_DESC, AthletickDate.MESSAGE_CONSTRAINTS);
+            VALID_INDEX + EVENT_DESC + INVALID_DATE_DESC + TIMING_DESC, String.format(AthletickDate.ERROR_MESSAGE,
+                        AthletickDate.DATE_FORMAT_TYPE_ONE));
 
         // non-empty preamble
         assertParseFailure(parser,

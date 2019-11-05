@@ -17,7 +17,7 @@
    </Label>
    <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
       <content>
-         <VBox fx:id="eventList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+         <VBox fx:id="eventList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" />
       </content>
    </ScrollPane>
 </VBox>

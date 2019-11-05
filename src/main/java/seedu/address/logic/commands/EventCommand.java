@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.feature.Feature;
 import seedu.address.model.performance.Event;
 
 /**
@@ -36,7 +37,8 @@ public class EventCommand extends Command {
 
         model.addEvent(toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()),
+            new Feature("performance"), model);
     }
 
     @Override
