@@ -2,7 +2,14 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import static mams.commons.util.CollectionUtil.requireAllNonNull;
 import static mams.logic.parser.Option.isValidOption;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Simple utility class for tokenize-ing an input String to check for presence
@@ -16,7 +23,7 @@ public class OptionsTokenizer {
     private OptionsTokenizer() {}
 
     /**
-     * Tokenizes the supplied {@code arg} and returns an {@code OptionsSet}
+     * Tokenizes the supplied {@code args} and returns an {@code OptionsSet}
      * object representing all the parsed options contained in {@code args}
      * @param args argument to be parsed
      * @return {@code OptionsSet} object containing all parsed options
@@ -25,6 +32,29 @@ public class OptionsTokenizer {
         requireNonNull(args);
         String[] splitAndTrimmedStr = getTokenizedBySpaceAndTrimmed(args);
         return constructOptionsSet(splitAndTrimmedStr);
+    }
+
+    /**
+     * Parses through the supplied {@code args}, split them by whitespace, and
+     * returns all arguments that are not in recognizedArguments. Note that trailing and leading
+     * whitespace in {@code recognizedArguments} will be ignored during comparison.
+     * @param args String to be parsed
+     * @param recognizedArguments array or variable length parameters of recognized arguments
+     * @return List of all white-space delimited arguments in {@code args} not matching
+     * those in {@code recognizedArguments}
+     */
+    public static List<String> getUnrecognizedArguments(String args, String... recognizedArguments) {
+        requireAllNonNull(args, recognizedArguments);
+        Set<String> recognizedSet = Stream.of(recognizedArguments).map(String::trim)
+                .collect(Collectors.toSet());
+        List<String> unrecognizedList = new ArrayList<>();
+        String[] tokenizedArgs = getTokenizedBySpaceAndTrimmed(args);
+        for (String arg: tokenizedArgs) {
+            if (!recognizedSet.contains(arg)) {
+                unrecognizedList.add(arg);
+            }
+        }
+        return unrecognizedList;
     }
 
     /**

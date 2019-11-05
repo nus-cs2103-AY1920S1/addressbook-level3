@@ -17,7 +17,7 @@ public class HistoryCommandParser implements Parser<HistoryCommand> {
     public static final Option OPTION_HIDE_OUTPUT = new Option("o");
     public static final Option OPTION_HIDE_UNSUCCESSFUL = new Option("s");
 
-    public static final String OPTIONS_NOT_RECOGNIZED = "Invalid options: %1$s";
+    public static final String MESSAGE_OPTIONS_NOT_RECOGNIZED = "Invalid options: %1$s";
 
     /**
      * Parses the given {@code String} of arguments in the context of the HistoryCommand
@@ -53,7 +53,7 @@ public class HistoryCommandParser implements Parser<HistoryCommand> {
         if (!unrecognizedOptions.isEmpty()) {
             String unrecognizedOptionsAsString = unrecognizedOptions.stream().map(Option::toString)
                     .collect(Collectors.joining(" "));
-            throw new ParseException(String.format(OPTIONS_NOT_RECOGNIZED, unrecognizedOptionsAsString)
+            throw new ParseException(String.format(MESSAGE_OPTIONS_NOT_RECOGNIZED, unrecognizedOptionsAsString)
                     + " \n" + HistoryCommand.MESSAGE_USAGE);
         }
     }

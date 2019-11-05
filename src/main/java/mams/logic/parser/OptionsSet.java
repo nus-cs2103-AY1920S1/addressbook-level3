@@ -71,7 +71,7 @@ public class OptionsSet {
      * @param options variable length argument or array of options to check against
      * @return true if all options in {@code options} is present, else false.
      */
-    public boolean areAllOptionsPresent(Option... options) {
+    public boolean areAllTheseOptionsPresent(Option... options) {
         List<Option> optionsList = Arrays.asList(options);
         return optionsSet.containsAll(optionsList);
     }

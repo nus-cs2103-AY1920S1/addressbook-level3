@@ -100,6 +100,26 @@ public class CommandTestUtil {
     }
 
     /**
+     * Same as {@link #assertCommandSuccess(Command, Model, String, Model)}, but takes in
+     * {@code actualCommandHistory} and {@code expectedCommandHistory} for comparison as well.
+     */
+    public static void assertCommandSuccessWithHistory(Command command,
+                                                       Model actualModel,
+                                                       CommandResult expectedCommandResult,
+                                                       Model expectedModel,
+                                                       CommandHistory actualCommandHistory,
+                                                       CommandHistory expectedCommandHistory) {
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>

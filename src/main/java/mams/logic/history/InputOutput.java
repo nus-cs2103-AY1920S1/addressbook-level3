@@ -86,7 +86,7 @@ public class InputOutput {
         return timeStamp.toString() + "\n"
                 + ((checkSuccessful())
                 ? "SUCCESSFUL"
-                : "UNSUCCESSFUL")
+                : "UNSUCCESSFUL") + "\n"
                 + input + "\n" + output;
     }
 }

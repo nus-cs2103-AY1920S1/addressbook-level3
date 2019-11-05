@@ -95,7 +95,8 @@ public class CommandHistory implements ReadOnlyCommandHistory, FilterOnlyCommand
 
         // state check
         CommandHistory other = (CommandHistory) obj;
-        return inputOutputHistory.equals(other.inputOutputHistory);
+        return inputOutputHistory.equals(other.inputOutputHistory)
+                && filteredCommandHistory.equals(other.filteredCommandHistory);
     }
 
     @Override
