@@ -15,7 +15,8 @@ import java.time.format.DateTimeFormatter;
 public class DateOfBirth {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date of births should only contain numbers and \".\", and it should not be blank";
+            "Date of birth should only contain numbers and \".\","
+            + "and it should not be blank. It should also be a valid date.";
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d LLLL Y");
