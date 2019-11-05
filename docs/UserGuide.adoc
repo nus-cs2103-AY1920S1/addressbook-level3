@@ -1037,10 +1037,8 @@ This command enables you to set a financial goal.
 ** To set sales goal: [blue]`set s/500`
 
 [NOTE]
-The amount should be non-negative.
-
-[NOTE]
-The maximum amount you may set for a goal is 10,000,000 (10 million).
+The amount should be non-negative, and the maximum amount you may set is 10,000,000
+(10 million).
 
 * Steps:
 . Type the command with the corresponding target and amount.
