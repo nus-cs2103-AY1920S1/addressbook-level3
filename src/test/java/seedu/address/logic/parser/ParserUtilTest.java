@@ -63,6 +63,21 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseType_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseType((String) null));
+    }
+
+    @Test
+    public void parseType_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseType(""));
+    }
+
+    @Test
+    public void parseType_validValue_success() throws Exception {
+        assertEquals("b", ParserUtil.parseType("b1"));
+    }
+
+    @Test
     public void parseName_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
     }
