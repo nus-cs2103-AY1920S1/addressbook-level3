@@ -811,7 +811,6 @@ Use case resumes at step 2.
 [discrete]
 
 // tag::mergingusecase[]
-
 === Use case: Merging a duplicate person with different fields
 
 *MSS*
