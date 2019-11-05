@@ -13,11 +13,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import seedu.address.logic.commands.CommandMasterList;
 
+//@@author SebastianLie
+/**
+ * AutoComplete added to textfield.
+ * listens to user input and populates
+ * drop down menu with existing commands
+ * solution adopted from https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
+ */
 public class AutoCompleteTextField extends TextField {
 
     private final SortedSet<String> entries;
     private ContextMenu entriesPopup;
 
+    /**
+     * initialises all commands and their usages,
+     * popup-menu as well as listener
+     */
     public AutoCompleteTextField() {
         super();
         this.entries = new TreeSet<>();
@@ -27,7 +38,7 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * "Suggestion" specific listeners
+     * "Suggestion" specific listener
      */
     private void setListener() {
         textProperty().addListener((observable, oldValue, newValue) -> {
@@ -57,22 +68,22 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     *
+     * populates contextmenu with suggestions
+     * of command to be entered
      * if any suggestion is selected,
      * set the textfield to suggestion
      * @param searchResult
      * @param searchRequest
      */
     private void populatePopup(List<String> searchResult, String searchRequest) {
-        //List of "suggestions"
         List<CustomMenuItem> menuItems = new LinkedList<>();
-        //List size - 10 or founded suggestions count
+
         int maxEntries = 10;
         int count = Math.min(searchResult.size(), maxEntries);
-        //Build list as set of labels
+
         for (int i = 0; i < count; i++) {
             final String result = searchResult.get(i);
-            //label with graphic (text flow) to highlight founded subtext in suggestions
+
             Label entryLabel = new Label();
             entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
             entryLabel.setPrefHeight(10);
