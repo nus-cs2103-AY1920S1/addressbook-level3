@@ -27,11 +27,11 @@
                 </Label>
                 <Label fx:id="taskDes" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="taskType" styleClass="cell_small_label" text="\$taskType" />
+            <Label fx:id="taskType" styleClass="cell_small_label" text="\$taskType" style="-fx-text-fill: indianred"/>
             <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
-            <FlowPane fx:id="tags" />
-            <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
-            <Label fx:id="frequency" styleClass="cell_small_label" text="\$frequency" />
+            <FlowPane fx:id="tags" style="-fx-text-fill: black"/>
+            <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" style="-fx-text-fill: cornflowerblue" />
+            <Label fx:id="frequency" styleClass="cell_small_label" text="\$frequency" style="-fx-text-fill: goldenrod"/>
             <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
         </VBox>
     </GridPane>
