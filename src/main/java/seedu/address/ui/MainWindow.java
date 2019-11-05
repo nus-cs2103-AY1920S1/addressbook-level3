@@ -68,7 +68,6 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             mode.setText(NORMAL_MODE);
         }
-        resultDisplayPlaceholder.setStyle("-fx-background-color: #2b2b2b#2b2b2b");
     }
 
     public Stage getPrimaryStage() {
@@ -171,8 +170,11 @@ public class MainWindow extends UiPart<Stage> {
         borrowerPanel.reset();
     }
 
-    public BookListPanel getBookListPanel() {
-        return bookListPanel;
+    /**
+     * Observer method invoked when changes happen.
+     */
+    public void update() {
+        updateBorrowerPanel();
     }
 
     /**

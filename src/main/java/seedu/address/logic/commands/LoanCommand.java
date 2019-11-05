@@ -73,7 +73,7 @@ public class LoanCommand extends ReversibleCommand {
         Loan loan = new Loan(LoanIdGenerator.generateLoanId(), toLoan, servingBorrower.getBorrowerId(),
                 DateUtil.getTodayDate(), dueDate);
         Book loanedOutBook = bookToBeLoaned.loanOut(loan);
-        Book updatedLoanedOutBook = loanedOutBook.updateLoanHistory(loan);
+        Book updatedLoanedOutBook = loanedOutBook.addToLoanHistory(loan);
 
         // replace the previous Book object with a new Book object that has a Loan
         model.setBook(bookToBeLoaned, updatedLoanedOutBook);
