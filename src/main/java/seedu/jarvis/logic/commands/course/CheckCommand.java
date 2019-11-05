@@ -14,6 +14,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Checks if the user can take a certain course in Jarvis.
@@ -35,10 +38,10 @@ public class CheckCommand extends Command {
     /** To print to user */
     public static final String MESSAGE_NO_PREREQS = "%1$s has no prerequisites!";
     public static final String MESSAGE_CAN_TAKE_COURSE =
-        "%s: You are able to take this course!\n These are the prerequisites you have satisfied: %s";
+        "%s: You are able to take this course!\n\nThese are the prerequisites you have satisfied:\n\n%s";
 
     public static final String MESSAGE_CANNOT_TAKE_COURSE =
-        "%s: You are not able to take this course!\n These are the prerequisites for this course: %s";
+        "%s: You are not able to take this course!\n\nThese are the prerequisites for this course:\n\n%s";
 
     public static final boolean HAS_INVERSE = false;
 
@@ -86,7 +89,8 @@ public class CheckCommand extends Command {
         } else {
             handleWithPrereqs(model);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toCheck));
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toCheck), true);
     }
 
     /**
@@ -115,6 +119,17 @@ public class CheckCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        throw new InvalidCommandToJsonException();
     }
 
     @Override

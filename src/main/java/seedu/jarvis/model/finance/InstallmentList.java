@@ -79,6 +79,7 @@ public class InstallmentList {
      */
     private boolean contains(Installment toCheck) {
         requireNonNull(toCheck);
+
         return internalInstallmentList.stream().anyMatch(toCheck::isSameInstallment);
     }
 
@@ -90,6 +91,18 @@ public class InstallmentList {
      */
     public boolean hasInstallment(Installment installment) {
         return this.contains(installment);
+    }
+
+    /**
+     * Checks for the existence of a similar installment that already exists in the list.
+     *
+     * @param installment that is to be newly added
+     * @return boolean checking the existence of a similar installment
+     */
+    public boolean hasSimilarInstallment(Installment installment) {
+        requireNonNull(installment);
+
+        return internalInstallmentList.stream().anyMatch(installment::isSimilarInstallment);
     }
 
     public int getNumInstallments() {

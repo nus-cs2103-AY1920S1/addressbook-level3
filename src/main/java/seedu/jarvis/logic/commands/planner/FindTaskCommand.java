@@ -6,7 +6,10 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Finds and lists all tasks in the planner whose description contains any of the argument
@@ -68,8 +71,10 @@ public class FindTaskCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredTaskList(predicate);
+        model.setViewStatus(ViewType.LIST_PLANNER_FIND);
 
-        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()));
+        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),
+                    true);
     }
 
     /**
@@ -81,6 +86,17 @@ public class FindTaskCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        throw new InvalidCommandToJsonException();
     }
 
     @Override

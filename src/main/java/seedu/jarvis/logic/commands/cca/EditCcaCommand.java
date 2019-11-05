@@ -5,6 +5,8 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import java.util.Optional;
 
@@ -20,6 +22,9 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Edits the details of an existing cca in the address book.
@@ -51,7 +56,7 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA =
             "There is a conflict in reverting edits made to cca as there is an existing cca with similar details";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private final Index targetIndex;
     private final EditCcaDescriptor editCcaDescriptor;
@@ -136,7 +141,7 @@ public class EditCcaCommand extends Command {
      */
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     /**
@@ -168,8 +173,10 @@ public class EditCcaCommand extends Command {
         editedCca = createdEditedCca;
 
         model.updateCca(originalCca, createdEditedCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_CCA_SUCCESS, editedCca));
+        return new CommandResult(String.format(MESSAGE_EDIT_CCA_SUCCESS, editedCca), true);
     }
 
     /**
@@ -184,7 +191,33 @@ public class EditCcaCommand extends Command {
      */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        // checks if cca to be reverted is in Cca Tracker.
+        if (!model.containsCca(editedCca)) {
+            throw new CommandException(MESSAGE_INVERSE_CCA_NOT_FOUND);
+        }
+
+        // checks if reverting the Cca will be in conflict with another existing Cca in the CcaTracker.
+        if (!originalCca.isSameCca(editedCca) && model.containsCca(originalCca)) {
+            throw new CommandException(MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA);
+        }
+
+        model.updateCca(editedCca, originalCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+
+        return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedEditCcaCommand(this);
     }
 
     /**

@@ -1,13 +1,13 @@
 package seedu.jarvis.logic.commands.history;
 
-import static seedu.jarvis.logic.parser.CliSyntax.UndoRedoSyntax.PREFIX_UNDO_REDO;
-
 import java.util.stream.IntStream;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Redo the user actions that was undone to the application.
@@ -17,15 +17,15 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": redo actions. "
-            + "Parameters: " + PREFIX_UNDO_REDO + "REDO (Must be a Positive Number or \"all\" [case insensitive], "
+            + "Parameters: " + "REDO_NUMBER (Must be a Positive Number or \"all\" [case insensitive], "
             + "invalid numbers will set REDO to default value of 1) "
             + "Example: " + COMMAND_WORD
-            + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all"
-            + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5";
+            + ", " + COMMAND_WORD + " " + "5";
 
-    public static final String MESSAGE_SUCCESS = "Redone %1$d commands";
+    public static final String MESSAGE_SUCCESS = "Redone %1$d command(s)";
     public static final String MESSAGE_NOTHING_TO_REDO = "Nothing available to redo.";
-    public static final String MESSAGE_TOO_MANY_REDO = "There are only %1$d commands available to be redone";
+    public static final String MESSAGE_TOO_MANY_REDO = "There is a maximum of %d commands that can be redone\n"
+            + "There are only %d command(s) available to be redone";
     public static final String MESSAGE_UNABLE_TO_REDO =
             "Unable to redo %d command(s), there was a problem with redoing command %d";
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be redone";
@@ -92,7 +92,7 @@ public class RedoCommand extends Command {
         }
 
         if (numberOfTimes > model.getAvailableNumberOfInverselyExecutedCommands()) {
-            throw new CommandException(String.format(MESSAGE_TOO_MANY_REDO,
+            throw new CommandException(String.format(MESSAGE_TOO_MANY_REDO, model.getHistoryRange(),
                     model.getAvailableNumberOfInverselyExecutedCommands()));
         }
 
@@ -144,6 +144,17 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        throw new InvalidCommandToJsonException();
     }
 
     /**

@@ -156,6 +156,57 @@ public class CcaList {
         cca.increaseProgress();
     }
 
+    /**
+     * Checks if {@code} Cca contains progress already.
+     */
+    public boolean ccaContainsProgress(Index targetIndex) {
+        Cca targetCca = getCca(targetIndex);
+        if (targetCca.containsProgress()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the progress in {@code Cca} at {@code targetIndex} can be incremented any further.
+     */
+    public boolean ccaAtMaxIncrement(Index targetIndex) {
+        Cca targetCca = getCca(targetIndex);
+        if (targetCca.progressAtMaxIncrement()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Removes {@code toRemoveCcaMilestoneList} from the {@code targetCca}.
+     */
+    public void removeCcaMilestoneList(Cca targetCca, CcaMilestoneList toRemoveCcaMilestoneList) {
+        requireAllNonNull(targetCca, toRemoveCcaMilestoneList);
+
+        targetCca.removeCcaMilestoneList(toRemoveCcaMilestoneList);
+    }
+
+    /**
+     * Returns true if the progress in {@code Cca} at {@code targetIndex} is at its minimum.
+     */
+    public boolean ccaProgressAtMinLevel(Index targetIndex) {
+        requireNonNull(targetIndex);
+        Cca targetCca = getCca(targetIndex);
+        return targetCca.ccaProgressAtMinLevel();
+    }
+
+    /**
+     * Decreases the progress at the {@code targetIndex}.
+     */
+    public void decreaseProgress(Index targetIndex) {
+        requireNonNull(targetIndex);
+        Cca targetCca = getCca(targetIndex);
+        targetCca.decreaseProgress();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -173,6 +224,4 @@ public class CcaList {
         }
         return sb.toString();
     }
-
-
 }

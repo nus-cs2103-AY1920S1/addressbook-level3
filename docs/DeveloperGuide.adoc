@@ -248,7 +248,214 @@ implemented.
 
 === Undo / Redo Feature
 
-==== Overview
+This section covers in detail the undo/redo feature of JARVIS.
+
+We will cover these main points:
+
+* Design Considerations
+* Feature Details
+* Implementations
+* User Scenario demonstrating undo/redo
+
+Let's explore how we decided to implement the undo/redo feature in the Design
+Considerations section below.
+
+==== Design Considerations
+There were several available behavioral design patterns that we were
+considering to adopt to implement our undo/redo feature in the application.
+
+* Command Pattern
+* Memento Pattern
+
+These patterns are common useful patterns to enable undo/redo functions.
+These are also viable options as our application design allows both of these
+approaches to be integrated easily.
+
+Let’s see how these adopting each of these approaches will span out in the
+development of the application.
+
+===== Command Pattern Approach
+
+The application already makes use of the command pattern to decouple the
+internal state of the application and the user action. Therefore implementing
+undo/redo function with the command pattern would require us to achieve the
+following things:
+
+1.  Implement a class, `HistoryManager` to manage and store commands that
+have been done/undone in chronological sequence to facilitate undo and redo
+functions. This should be facilitated with the use of two `Deque`/`Stack`
+like structures. One will be fore storing the commands that have been done,
+while the other will be storing the commands that have been undone.
+2. Implement ways to discern amongst commands that should be added to
+`HistoryManager`, whereby undoable commands should be added, while
+non-undoable commands should not be added.
+3. Implement the inverse operation of commands that can be undone.
+4. Integrate `HistoryManager` into `Model` by Implementing undo and redo
+operations in `HistoryManager` to execute on the `Model` it is associated
+with and expose these operations to the `Model`. An undo operation will
+remove the latest done command and execute its inverse operation onto the
+`Model` before it is added as the latest undone command. A redo operation
+will remove the latest undone command and execute its normal execution on
+the `Model` before it is added as the latest done command.
+5. Implement commands, `UndoCommand` and `RedoCommand`, along with their
+respective parsers, `UndoCommandParser` and `RedoCommandParser`.
+6. Integrate commands and parsers into `JarvisParser`.
+7. Integrate logic in `LogicManager` to add undoable commands to
+`HistoryManager`.
+8. Implement storage for `HistoryManager` by implementing a `JSON`
+serializable `HistoryManager` along with the `JSON` adapted commands it
+stores so it can be written to a `JSON` file in local storage.
+9. Integrate the logic to save `HistoryManager` to local storage in
+`LogicManager` after the successful execution of commands.
+
+===== Characteristics
+* Space efficient due to storing commands instead of states of the entire
+application. Efficient usage of RAM and local storage for the application.
+* Commands logic will be more complex as they must know how to undo its
+execution. Commands contain more data to retain information needed to undo
+its execution.
+* Complex inverse executions may be unnecessarily convoluted compared other
+approaches (such as the memento pattern). This involves more planning and
+support on the classes that commands execute on.
+* Requires implementation and testing of each command (and future commands)
+to enable undo/redo function with respect to that command. Development of the
+application will involve more overhead when integrating new commands to the
+application as there are more behaviour to test.
+* Development of `HistoryManager` scales along with commands that are added
+to the application. Even after `HistoryManager` is developed and integrated
+into the application, additional work is required with each command, such as
+supporting inverse execution and serializing the command (for local storage).
+This can affect development schedule and add time constraints when working
+with tight deadlines.
+
+===== Memento Pattern Approach
+
+The application follows a structural facade pattern, storing the data in
+`ModelManager` which implements the `Model`, which is an interface for
+commands to interact with. `ModelManager` manages classes that wrap their
+respective data. Therefore implementing undo/redo function with the command
+pattern would require us to achieve the following things:
+
+1. Implement a `Version` class. This class wraps the state of another class
+as an immutable “snapshot”.
+2. Define the interface `VersionedModel` that extends `Model` with additional
+methods to save its current state and to change its state. `VersionedModel`
+could be viewed as a _originator_ class that can produce “snapshots” of its
+own state and update its state from “snapshots”. These “snapshots” are in
+wrapped in the above `Version` class.
+3. Let `ModelManager` implement `VersionedModel` along with its methods to
+allow `ModelManager` to produce `Version` objects containing its current state
+and to update `ModelManager` to a state provided by a given `Version`.
+4. Implement a `HistoryManager` class to facilitate as a _caretaker_ class.
+`HistoryManager` will store a series of `Version` objects containing states of
+the `VersionedModel` in two `Deque`/`Stack` like structures. One will be to
+store the previous versions, while the other is to store the future versions
+that were undone from.
+5. Implement commands, `UndoCommand` and `RedoCommand`, along with their
+respective parsers, `UndoCommandParser` and `RedoCommandParser`.
+6. Update commands to take in both `VersionedModel` and `HistoryManager`
+as arguments in their execute methods so that undo/redo commands can get
+`Version` objects containing previous or subsequent states of
+`VersionedModel` from `HistoryManager` for `VersionedModel` to update to.
+7. Integrate commands and parsers into `JarvisParser`.
+8. Implement storage for `HistoryManager` by implementing a `JSON`
+serializable `HistoryManager` along with the `JSON` adapted `Version` so
+that it can be written to a `JSON` file in local storage.
+9. Integrate the logic to save `HistoryManager` to local storage in
+`LogicManager` after the successful executions of commands.
+
+===== Characteristics
+* Expensive on space due to storing multiple copies of the application
+state. This increases the usage of RAM and local storage for the
+application.
+* Simple robust implementation that can be developed quickly, which can be
+useful for tight schedules in the development process.
+* Protects the encapsulation of private data of the application state
+(provided local storage data is also encrypted). This prevents violation of
+encapsulation of classes.
+* Development of `HistoryManager` scales with how the information to be
+remembered changes. Whenever the nature of the information to be remembered
+changes, the memento class `Version` needs to be updated along with how
+`VersionedModel` updates and saves its state. Adding new commands also do not
+require any changed to `HistoryManager` unless there are changes to the data
+fields to be saved in `Model`.
+
+===== Our Thoughts
+These are the following questions we asked ourselves when deciding between
+these two approaches
+
+* RAM and storage
+* Development process
+* Software design principles
+
+===== RAM and storage
+
+Since storing commands is more space efficient than storing states of the
+`Model`, the command pattern will occupy less space than the memento pattern.
+
+Being space efficient will allow us to increase the range of undo/redo
+function of the application.
+
+Considering the target user group being students, we also want to develop an
+application that would not consume too much RAM or local storage given
+students budgets and varying tiers of laptops.
+
+Therefore regarding this aspect, we favor command pattern over the memento
+pattern.
+
+===== Development process
+
+The memento pattern will require us to update `HistoryManager` whenever the
+`Model` changes, while the command pattern will require us to implement
+inverse executions for each additional command.
+
+Therefore the memento pattern would require more overhead when changing the
+`Model` of the application while the command pattern require more overhead
+when adding undoable commands.
+
+Our application are subject to both of these changes such as changes to the
+`Model` and adding new commands. Therefore both patterns are similar in
+overhead and depends on the frequency of changes made to `Model` or adding
+new commands. We feel that both options are viable and would be feasible for
+our team in the development of this application.
+
+===== Software Design Principles
+
+Both patterns would involve introducing dependency between `Model` and
+`HistoryManager`.
+
+The memento pattern would involve `HistoryManager` having a unidirectional
+dependency to `VersionedModel` while introducing `HistoryManager` as a
+dependency to `Command`.
+
+The command pattern would involve `HistoryManager` having dependency with
+`Model`. We can choose to nest `HistoryManager` into `Model` which would
+increase coupling between the two classes by introducing bidirectional
+dependency. We may choose to introduce this coupling to prevent increasing
+the dependency between `Command` as command will just be associated with
+`Model`.
+
+Both patterns involve `HistoryManager` with the responsibility of keeping
+track of commands/states. Single Responsibility Principle is not violated
+in both approaches.
+
+===== Design Choice
+
+We determined that going along with the command pattern. We want to cater
+this application to students whose laptops may not have generous amounts of
+RAM. On top of the fact that students typically use their browsers
+_extensively_, we felt that we should be mindful of RAM usage.
+
+Comparisons between command pattern and memento pattern with respect to the
+development process were trivial since the `Model` and command sets are
+already planned, and future changes to `Model` and commands would not have
+any serious drawback regardless of the approach.
+
+The section below will discuss feature details and characteristics we have
+considered that would influence the logic of how we implement undo/redo.
+
+==== Feature Details
+
 The application should be able to undo and redo changes made by commands to
 give the user more flexibility in their inputs. Undo and redo operations
 should also be undo or redo multiple commands in a command. In the event that
@@ -282,6 +489,8 @@ user types in a command:
 
 .Activity Diagram for how commands are remembered after their successful execution
 image::CommandActivityDiagram.png[]
+
+The section below will discuss in more detail how undo/redo is implemented.
 
 ==== Implementation
 The undo/redo feature mechanism is facilitated by `HistoryManager`.
@@ -368,6 +577,8 @@ image::UndoCommandSequenceDiagram.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
+==== User Scenario demonstrating undo/redo
+
 Step 1. The user launches the application for the first time. The
 `HistoryManager` is initialized. `HistoryManager#executedCommands` and
 `HistoryManager#inverselyExecutedCommands` are empty.
@@ -437,36 +648,6 @@ Whenever a new invertible command is executed that is not currently in
 `HistoryManager`, it will clear all the commands that are stored in
 `HistoryManager#inverselyExecutedCommands`. This means that all potential
 redo actions are cleared.
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-* *Alternative 1:* Saves the entire `Model`.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-
-* *Alternative 2:* Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being
-   deleted).
-** Cons: We must ensure that the implementation of each individual command
-   are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-* *Alternative 1:* Use a `List` to store the history of `Model` states.
-Maintain a pointer to point to the current version of `Model`, and shift the
-pointer along the list to facilitate undo/redo operations.
-
-** Pros: Simple implementation.
-** Cons: Expensive on storage as multiple copies of `Model` is stored.
-
-* *Alternative 2:* Implement invertible commands whereby they support their
-  inverse execution. Use two `Deque` data structures to store the history of
-  commands, to represent executed commands and inversely executed commands.
-  Move commands from one deque to another and executing/inversely executing
-  them to facilitate undo/redo operations.
-** Pros: Storage efficient, as application only needs to keep track of
-   invertible commands, and do not need to store multiple copies of `Model`.
-** Cons: Implementation is more complex.
 
 === Course Planner feature
 

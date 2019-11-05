@@ -26,5 +26,4 @@ public class JsonSerializableFinanceTrackerTest {
         FinanceTracker typicalFinanceTracker = TypicalFinances.getTypicalFinanceTracker();
         assertEquals(financeTrackerFromFile, typicalFinanceTracker);
     }
-
 }

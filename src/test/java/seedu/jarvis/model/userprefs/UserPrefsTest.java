@@ -13,9 +13,33 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setHistoryManagerPath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        assertThrows(NullPointerException.class, () -> userPrefs.setAddressBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> userPrefs.setHistoryManagerFilePath(null));
+    }
+
+    @Test
+    public void setCcaTrackerPath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setCcaTrackerFilePath(null));
+    }
+
+    @Test
+    public void setCoursePlannerPath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setCoursePlannerFilePath(null));
+    }
+
+    @Test
+    public void setPlannerPath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setPlannerFilePath(null));
+    }
+
+    @Test
+    public void setFinanceTrackerPath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setFinanceTrackerFilePath(null));
     }
 
 }

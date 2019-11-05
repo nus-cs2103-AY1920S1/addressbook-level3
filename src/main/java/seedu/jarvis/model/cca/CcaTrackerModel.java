@@ -4,9 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
-
 
 /**
  * The API of the CcaTrackerModel component
@@ -58,7 +56,7 @@ public interface CcaTrackerModel {
      *
      * @return the {@code Cca} based on its index.
      */
-    public Cca getCca(Index index) throws CommandException;
+    public Cca getCca(Index index);
 
     public void updateFilteredCcaList(Predicate<Cca> predicate);
 
@@ -67,4 +65,14 @@ public interface CcaTrackerModel {
     public void addProgress(Cca targetCca, CcaMilestoneList toAddCcaMilestoneList);
 
     public void increaseProgress(Index index);
+
+    public boolean ccaContainsProgress(Index targetIndex);
+
+    public boolean ccaAtMaxIncrement(Index targetIndex);
+
+    public void removeProgress(Cca targetCca, CcaMilestoneList toAddCcaMilestoneList);
+
+    public boolean ccaProgressAtMinLevel(Index targetIndex);
+
+    public void decreaseProgress(Index targetIndex);
 }

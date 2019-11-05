@@ -1,6 +1,8 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -12,7 +14,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.Cca;
-
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.cca.JsonAdaptedDeleteCcaCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Deletes a cca from Jarvis.
@@ -84,7 +88,7 @@ public class DeleteCcaCommand extends Command {
 
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     @Override
@@ -99,13 +103,36 @@ public class DeleteCcaCommand extends Command {
 
         deletedCca = model.getCca(targetIndex);
         model.removeCca(deletedCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_CCA_SUCCESS, deletedCca));
+        return new CommandResult(String.format(MESSAGE_DELETE_CCA_SUCCESS, deletedCca), true);
     }
 
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (model.containsCca(deletedCca)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_CCA_TO_ADD_ALREADY_EXIST, deletedCca));
+        }
+
+        model.addCca(deletedCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedCca));
+
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedDeleteCcaCommand(this);
     }
 
     @Override

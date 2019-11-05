@@ -303,6 +303,17 @@ public class FinanceTracker {
         return installmentList.hasInstallment(installment);
     }
 
+    /**
+     * Checks for the existence of an installment with the same description in the finance tracker.
+     *
+     * @param installment to be checked
+     */
+    public boolean hasSimilarInstallment(Installment installment) {
+        requireNonNull(installment);
+
+        return installmentList.hasSimilarInstallment(installment);
+    }
+
     //=========== General Finance Tracker =============================================================
 
     /**
@@ -310,7 +321,7 @@ public class FinanceTracker {
      * @return Optional that contains the monthly limit if it exists
      */
     public Optional<MonthlyLimit> getMonthlyLimit() {
-        return Optional.of(monthlyLimit);
+        return Optional.ofNullable(monthlyLimit);
     }
 
     /**
@@ -328,10 +339,31 @@ public class FinanceTracker {
     }
 
     /**
+     * Calculates total expenditure by user for this month.
+     */
+    public double calculateTotalSpending() {
+        double totalAmount = purchaseList.getTotalSpending()
+                + installmentList.getTotalMoneySpentOnInstallments();
+        return totalAmount;
+    }
+
+    /**
+     * Calculates remaining available amount by user.
+     */
+    public double calculateRemainingAmount() {
+        totalSpending = calculateTotalSpending();
+        double remainingAmount = -1;
+        if (getMonthlyLimit().isPresent()) {
+            remainingAmount = monthlyLimit.getMonthlyLimit() - totalSpending;
+        }
+        return remainingAmount;
+    }
+
+    /**
      * Lists all purchases and payments from this month.
      */
     public void listSpending() {
-        totalSpending = purchaseList.totalSpending() + installmentList.getTotalMoneySpentOnInstallments();
+        totalSpending = purchaseList.getTotalSpending() + installmentList.getTotalMoneySpentOnInstallments();
         System.out.println("Here are your expenditures this month! Your current expenses are at: $" + totalSpending);
         installmentList.toString();
         purchaseList.toString();

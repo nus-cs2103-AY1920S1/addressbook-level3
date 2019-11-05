@@ -121,7 +121,7 @@ public class Course {
         if (!isNull(getFulfillRequirements())) {
             toRender.add(String.format(DISPLAYABLE_FULFILLREQ_FORMAT, getFulfillRequirements()));
         }
-        toRender.add("\n" + StringUtil.asLimitedCharactersPerLine(getDescription().toString(), limit));
+        toRender.add("\n" + getDescription().toString());
         return StringUtil.listToString(toRender);
     }
 

@@ -162,7 +162,7 @@ public class PurchaseList {
      *
      * @return double value containing total expenditure
      */
-    public double totalSpending() {
+    public double getTotalSpending() {
         double total = 0;
         for (Purchase purchase : internalPurchaseList) {
             total += purchase.getMoneySpent().getPurchaseAmount();

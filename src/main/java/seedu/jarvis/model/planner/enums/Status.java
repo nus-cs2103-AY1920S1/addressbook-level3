@@ -9,5 +9,14 @@ public enum Status {
      * Values that the status of a {@code Task} can take
      */
     DONE,
-    NOT_DONE
+    NOT_DONE;
+
+    /**
+     * An icon representation of the status of a {@code Task}
+     * @return [✓] if the {@code Task} is done and
+     *         [✗] if it is not.
+     */
+    public String getIcon() {
+        return this == DONE ? "[✓]" : "[✗]";
+    }
 }

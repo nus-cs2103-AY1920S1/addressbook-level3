@@ -13,6 +13,10 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.planner.JsonAdaptedAddTaskCommand;
 
 /**
  * Adds a task to JARVIS
@@ -21,25 +25,58 @@ public class AddTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "add-task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the planner. "
+    public static final String MESSAGE_USAGE_TODO = COMMAND_WORD + " t/todo"
+            + ": Adds a Todo task to the planner. "
             + "Parameters: "
-            + PREFIX_TASK_TYPE + "TASK TYPE "
             + PREFIX_TASK_DES + "TASK DES "
-            + PREFIX_DATE + "[DATE] "
             + PREFIX_PRIORITY + "[PRIORITY LEVEL] "
             + PREFIX_FREQ + "[FREQUENCY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_TYPE + "todo "
             + PREFIX_TASK_DES + "borrow book "
-            + PREFIX_DATE + "3/10/2019 "
-            + PREFIX_PRIORITY + "MED "
+            + PREFIX_PRIORITY + "medium "
             + PREFIX_FREQ + "weekly "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
+    public static final String MESSAGE_USAGE_EVENT = COMMAND_WORD + " t/event"
+            + ": Adds an Event task to the planner. "
+            + "Parameters: "
+            + PREFIX_TASK_DES + "TASK DES "
+            + PREFIX_DATE + "START DATE//END DATE "
+            + PREFIX_PRIORITY + "[PRIORITY LEVEL] "
+            + PREFIX_FREQ + "[FREQUENCY] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TASK_TYPE + "event "
+            + PREFIX_TASK_DES + "workshop "
+            + PREFIX_DATE + "20/12/2019//20/12/2019 "
+            + PREFIX_PRIORITY + "medium "
+            + PREFIX_FREQ + "weekly "
+            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "school";
+
+    public static final String MESSAGE_USAGE_DEADLINE = COMMAND_WORD + " t/deadline"
+            + ": Adds a Deadline task to the planner. "
+            + "Parameters: "
+            + PREFIX_TASK_TYPE + "TASK TYPE "
+            + PREFIX_TASK_DES + "TASK DES "
+            + PREFIX_DATE + "DUE DATE "
+            + PREFIX_PRIORITY + "[PRIORITY LEVEL] "
+            + PREFIX_FREQ + "[FREQUENCY] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TASK_TYPE + "deadline "
+            + PREFIX_TASK_DES + "assignment "
+            + PREFIX_DATE + "20/12/2019 "
+            + PREFIX_PRIORITY + "medium "
+            + PREFIX_FREQ + "weekly "
+            + PREFIX_TAG + "cs "
+            + PREFIX_TAG + "school";
+
     public static final String MESSAGE_SUCCESS = "New task added:\n%1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the planner";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted task: %1$s";
     public static final String MESSAGE_INVERSE_TASK_NOT_FOUND = "Task already deleted: %1$s";
@@ -88,12 +125,12 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * Adds {@code Task} to the planner, if task is not already inside address book.
+     * Adds {@code Task} to the planner, if task is not already inside planner.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return {@code CommandResult} that person was added successfully.
-     * @throws CommandException If there already is a {@code Person} matching the person
-     * to be added in the address book.
+     * @return {@code CommandResult} that task was added successfully.
+     * @throws CommandException If there already is a {@code Task} matching the task
+     * to be added in the planner.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -104,7 +141,9 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.updateSchedule();
+        model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**
@@ -127,6 +166,17 @@ public class AddTaskCommand extends Command {
         model.deleteTask(toAdd);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedAddTaskCommand(this);
     }
 
     @Override

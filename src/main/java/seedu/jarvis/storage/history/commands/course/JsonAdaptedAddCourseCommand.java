@@ -50,7 +50,7 @@ public class JsonAdaptedAddCourseCommand extends JsonAdaptedCommand implements J
      * object.
      *
      * @return {@code Command} of the Jackson-friendly adapted {@code AddCourseCommand}.
-     * @throws IllegalValueException if there were any data constraints violated in the adapted
+     * @throws IllegalValueException If there were any data constraints violated in the adapted
      * {@code AddCourseCommand}.
      */
     @Override

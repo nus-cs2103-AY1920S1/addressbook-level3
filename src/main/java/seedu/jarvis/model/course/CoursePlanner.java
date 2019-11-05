@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -30,7 +31,7 @@ public class CoursePlanner {
     public void resetData(CoursePlanner newData) {
         requireNonNull(newData);
         setUniqueCourseList(newData.getCourseList());
-        setCourseDisplayText(newData.getText());
+        setCourseDisplayText(newData.getAsString());
     }
 
     public UniqueCourseList getUniqueCourseList() {
@@ -45,12 +46,12 @@ public class CoursePlanner {
         return courseDisplayText;
     }
 
-    public String getText() {
+    public ObservableStringValue getText() {
         return courseDisplayText.get();
     }
 
-    public String getText(int lineCharacterLimit) {
-        return courseDisplayText.get(lineCharacterLimit);
+    private String getAsString() {
+        return courseDisplayText.getAsString();
     }
 
     public void setUniqueCourseList(List<Course> courses) {

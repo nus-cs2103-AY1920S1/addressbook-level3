@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +20,7 @@ import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 import seedu.jarvis.model.userprefs.UserPrefs;
@@ -50,26 +50,24 @@ class FindTaskCommandTest {
     @Test
     void execute_zeroKeywords_noTaskFound() {
         Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
 
         String expected = String.format(FindTaskCommand.MESSAGE_TASKS_LISTED_OVERVIEW, 0);
         TaskDesContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindTaskCommand command = new FindTaskCommand(predicate);
-        //expectedModel.updateFilteredTaskList(predicate);
-        //assertCommandSuccess(command, model, expected, expectedModel);
-        //assertEquals(Collections.emptyList(), model.getFilteredTaskList());
+        expectedModel.updateFilteredTaskList(predicate);
+        assertCommandSuccess(command, model, expected, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredTaskList());
     }
 
     @Test
-    void execute_multipleKeywords_multiplePersonsFound() {
+    void execute_multipleKeywords_multiplePersonsFound() throws CommandException {
         Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), new Planner(), model.getCoursePlanner());
 
         String expectedMessage = String.format(FindTaskCommand.MESSAGE_TASKS_LISTED_OVERVIEW, 1);
         TaskDesContainsKeywordsPredicate predicate = preparePredicate("book");
@@ -78,10 +76,15 @@ class FindTaskCommandTest {
         model.addTask(t);
         expectedModel.addTask(t);
 
+        Task tt = new Todo("hello");
+        model.addTask(tt);
+        expectedModel.addTask(tt);
+
         FindTaskCommand command = new FindTaskCommand(predicate);
-        //expectedModel.updateFilteredTaskList(predicate);
-        //assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        //assertEquals(Arrays.asList(t), model.getFilteredTaskList());
+        command.execute(model);
+        expectedModel.updateFilteredTaskList(predicate);
+        assertEquals(model, expectedModel);
+        assertEquals(1, model.getFilteredTaskList().size());
     }
 
     /**

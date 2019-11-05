@@ -38,14 +38,23 @@ public class SetPaidCommandParser implements Parser<SetPaidCommand> {
                     SetPaidCommand.MESSAGE_USAGE));
         }
 
-        PurchaseDescription description = FinanceParserUtil
-                .parsePurchaseDescription(argMultimap
-                        .getValue(PREFIX_DESCRIPTION)
-                        .get());
-        PurchaseMoneySpent moneySpent = FinanceParserUtil
-                .parsePurchaseAmount(argMultimap
-                        .getValue(PREFIX_MONEY)
-                        .get());
+        PurchaseDescription description = null;
+        PurchaseMoneySpent moneySpent = null;
+
+        try {
+            description = FinanceParserUtil.parsePurchaseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        } catch (IllegalArgumentException descriptionException) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetPaidCommand.MESSAGE_DESCRIPTION_ERROR));
+        }
+
+        try {
+            moneySpent = FinanceParserUtil.parsePurchaseAmount(argMultimap.getValue(PREFIX_MONEY).get());
+        } catch (IllegalArgumentException amountException) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetPaidCommand.MESSAGE_AMOUNT_ERROR));
+        }
+
         LocalDate dateOfPurchase = LocalDate.now();
 
         Purchase purchase = new Purchase(description, moneySpent, dateOfPurchase);

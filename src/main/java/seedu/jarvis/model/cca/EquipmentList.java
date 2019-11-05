@@ -3,8 +3,8 @@ package seedu.jarvis.model.cca;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
 import seedu.jarvis.model.cca.exceptions.EquipmentNotFoundException;
 
@@ -13,24 +13,33 @@ import seedu.jarvis.model.cca.exceptions.EquipmentNotFoundException;
  */
 public class EquipmentList {
 
-    private final ArrayList <Equipment> internalEquipmentList;
+    private ObservableList<Equipment> internalEquipmentList = FXCollections.observableArrayList();
+    private final ObservableList<Equipment> internalUnmodifiableEquipmentList =
+            FXCollections.unmodifiableObservableList(internalEquipmentList);
 
     /**
      * Default constructor to be added to a CCA when Jarvis is started.
      */
     public EquipmentList() {
-        internalEquipmentList = new ArrayList<>();
     }
 
-    public EquipmentList(EquipmentList toBeCopied) {
-        internalEquipmentList = toBeCopied.getInternalEquipmentList();
+    public EquipmentList(ObservableList<Equipment> toBeCopied) {
+        requireNonNull(toBeCopied);
+        this.internalEquipmentList = toBeCopied;
     }
 
     /**
      * Returns the internal equipment list {@code internalEquipmentList} of the {@code EquipmentList} object.
      */
-    public ArrayList<Equipment> getInternalEquipmentList() {
+    public ObservableList<Equipment> getInternalEquipmentList() {
         return internalEquipmentList;
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Equipment> asUnmodifiableObservableList() {
+        return internalUnmodifiableEquipmentList;
     }
 
     /**

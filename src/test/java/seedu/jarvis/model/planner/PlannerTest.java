@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
@@ -137,9 +140,9 @@ class PlannerTest {
         TaskDesContainsKeywordsPredicate predicate = new TaskDesContainsKeywordsPredicate(
                                                             Arrays.asList("borrow"));
 
-        //planner.updateFilteredTaskList(predicate);
+        planner.updateFilteredTaskList(predicate);
 
-        //assertEquals(1, planner.getFilteredTaskList().size());
+        assertEquals(1, planner.getFilteredTaskList().size());
     }
 
     @Test
@@ -153,5 +156,29 @@ class PlannerTest {
 
         assertEquals("borrow book", check.getTaskDes());
         assertEquals(Status.DONE, check.getStatus());
+    }
+
+    @Test
+    void getTasksToday() {
+        Planner planner = new Planner();
+        planner.addTask(new Deadline("d", LocalDate.now()));
+        planner.addTask(new Deadline("dd", LocalDate.parse("10/10/2010", Task.getDateFormat())));
+
+        planner.updateSchedule();
+
+        assertEquals(1, planner.getTasksToday().size());
+    }
+
+    @Test
+    void getTasksThisWeek() {
+        Planner planner = new Planner();
+        LocalDate date = LocalDate.now();
+        planner.addTask(new Deadline("d", date));
+        planner.addTask(new Deadline("dd", LocalDate.parse("10/10/2010", Task.getDateFormat())));
+        planner.addTask(new Deadline("ddd", date.plusDays(6)));
+
+        planner.updateSchedule();
+
+        assertEquals(2, planner.getTasksThisWeek().size());
     }
 }

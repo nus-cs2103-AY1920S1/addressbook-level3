@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.course.TypicalCourses;
 
@@ -42,7 +43,8 @@ public class AddCourseCommandTest {
         CommandResult commandResult = new AddCourseCommand(courses)
             .execute(modelStubAcceptingCourse);
 
-        assertEquals(String.format(AddCourseCommand.MESSAGE_SUCCESS, courses),
+        assertEquals(
+            String.format(AddCourseCommand.MESSAGE_SUCCESS, courses),
             commandResult.getFeedbackToUser());
         assertEquals(courses, modelStubAcceptingCourse.coursesAdded);
     }
@@ -57,7 +59,10 @@ public class AddCourseCommandTest {
         // should add CS3230
         CommandResult commandResult = addCourseCommand.execute(modelStub);
 
-        assertEquals(String.format(AddCourseCommand.MESSAGE_SUCCESS, List.of(CS3230)),
+        assertEquals(
+            String.format(AddCourseCommand.MESSAGE_SUCCESS, List.of(CS3230))
+                + "\n"
+                + String.format(AddCourseCommand.MESSAGE_SOME_DUPLICATE_COURSES, List.of(MA1521)),
             commandResult.getFeedbackToUser());
     }
 
@@ -131,6 +136,11 @@ public class AddCourseCommandTest {
                 courses.remove(course);
             }
         }
+
+        @Override
+        public void setViewStatus(ViewType vt) {
+            return;
+        }
     }
 
     /**
@@ -149,6 +159,11 @@ public class AddCourseCommandTest {
         public void addCourse(Course course) {
             requireNonNull(course);
             coursesAdded.add(course);
+        }
+
+        @Override
+        public void setViewStatus(ViewType vt) {
+            return;
         }
     }
 }

@@ -51,7 +51,8 @@ class AddTaskCommandParserTest {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/deadline des/borrow book d/20/10/2019";
 
-        Task expectedTask = new Deadline("borrow book", LocalDate.parse("20/10/2019", Task.getDateFormat()));
+        Task expectedTask = new Deadline("borrow book", LocalDate.parse("20/10/2019",
+                                            Task.getDateFormat()));
 
         Command expectedCommand = new AddTaskCommand(expectedTask);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -84,7 +85,7 @@ class AddTaskCommandParserTest {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/deadline des/homework";
 
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE_DEADLINE);
 
         assertParseFailure(parser, userInput, expectedMessage);
 
@@ -95,7 +96,7 @@ class AddTaskCommandParserTest {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/event des/homework d/18/10/2019";
 
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE_EVENT);
 
         assertParseFailure(parser, userInput, expectedMessage);
     }

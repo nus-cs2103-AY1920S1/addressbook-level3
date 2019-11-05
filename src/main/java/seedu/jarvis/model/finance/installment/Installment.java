@@ -50,10 +50,14 @@ public class Installment {
 
     //=========== Common Methods ==================================================================================
 
+    /**
+     * Prints the fields of the installment object to be displayed in the result box.
+     * @return String
+     */
     @Override
     public String toString() {
-        return description.getInstallmentDescription()
-                + ", $" + df2.format(moneySpentOnInstallment.getInstallmentMoneyPaid());
+        return "Description: " + description.getInstallmentDescription() + "\n"
+                + "Monthly payment: $" + df2.format(moneySpentOnInstallment.getInstallmentMoneyPaid());
     }
 
     @Override
@@ -66,5 +70,9 @@ public class Installment {
 
     public boolean isSameInstallment(Installment installment) {
         return this.equals(installment);
+    }
+
+    public boolean isSimilarInstallment(Installment installment) {
+        return this.description.equals(installment.description);
     }
 }

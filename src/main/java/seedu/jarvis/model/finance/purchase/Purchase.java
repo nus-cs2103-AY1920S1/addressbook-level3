@@ -70,11 +70,15 @@ public class Purchase {
 
     //=========== Common Methods ==================================================================================
 
+    /**
+     * Prints the fields of the purchase object to be displayed in the result box.
+     * @return String
+     */
     @Override
     public String toString() {
-        return description.getPurchaseDescription()
-                + " ($" + df2.format(moneySpent.getPurchaseAmount())
-                + ") on: " + dateOfPurchase;
+        return "Description: " + description.getPurchaseDescription() + "\n"
+                + "Price: $" + df2.format(moneySpent.getPurchaseAmount()) + "\n"
+                + "Date of Purchase: " + dateOfPurchase;
     }
 
     @Override

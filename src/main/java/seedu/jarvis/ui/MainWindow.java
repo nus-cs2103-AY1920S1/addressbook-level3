@@ -3,15 +3,18 @@ package seedu.jarvis.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
@@ -21,8 +24,11 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
-import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
+import seedu.jarvis.ui.course.CoursePlannerView;
+import seedu.jarvis.ui.finance.FinanceListView;
+import seedu.jarvis.ui.planner.PlannerUiType;
+import seedu.jarvis.ui.planner.PlannerView;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -30,7 +36,6 @@ import seedu.jarvis.ui.template.View;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
     private static final String FXML = "MainWindow.fxml";
     private static final int PLANNER_INDEX = 0;
     private static final int MODULES_INDEX = 1;
@@ -48,6 +53,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private VBox parentVBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -75,9 +83,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane financeContentPlaceholder;
-
-    @FXML
-    private StackPane historyDisplayPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic, Model model) {
         super(FXML, primaryStage);
@@ -110,25 +115,16 @@ public class MainWindow extends UiPart<Stage> {
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
 
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
+        // Press TAB to switch tabs
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
+            if (event.getCode() == KeyCode.TAB) {
                 event.consume();
+                SingleSelectionModel<Tab> selectionModel = tabPanePlaceHolder.getSelectionModel();
+                if (selectionModel.isSelected(FINANCES_INDEX)) {
+                    selectionModel.selectFirst();
+                } else {
+                    selectionModel.selectNext();
+                }
             }
         });
     }
@@ -137,14 +133,47 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        tabPanePlaceHolder.setMinWidth(785);
+        tabPanePlaceHolder.setMinHeight(345);
+
+        tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
+            tabPanePlaceHolder.setTabMinWidth(tabPanePlaceHolder.getWidth() / 4 - (5));
+            tabPanePlaceHolder.setTabMaxWidth(tabPanePlaceHolder.getWidth() / 4 - (5));
+        });
+
+        parentVBox.setVgrow(tabPanePlaceHolder, Priority.ALWAYS);
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Press "Enter" to auto-focus to CommandBox
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                commandBox.addEnterHandler();
+            }
+        });
+
+        // filling individual tabs
+        CoursePlannerView cpv = new CoursePlannerView(this, logic, model);
+        PlannerView pw = new PlannerView(this, logic, model, PlannerUiType.SCHEDULE);
+        CcaListView clv = new CcaListView(this, logic, model);
+        FinanceListView flv = new FinanceListView(this, logic, model);
+
+        model.updateSchedule();
+        pw.fillPage();
+        plannerContentPlaceholder.getChildren().add(pw.getRoot());
+
+        cpv.fillPage();
+        moduleContentPlaceholder.getChildren().add(cpv.getRoot());
+
+        clv.fillPage();
+        ccaContentPlaceholder.getChildren().add(clv.getRoot());
+
+        flv.fillPage();
+        financeContentPlaceholder.getChildren().add(flv.getRoot());
     }
 
     /**
@@ -181,7 +210,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -229,19 +258,34 @@ public class MainWindow extends UiPart<Stage> {
 
         switch (currentViewType) {
 
-        case LIST_ADDRESS:
-            newView = new PersonListView(this, logic, model);
-            toUpdatePlaceHolder = ccaContentPlaceholder;
-            break;
-
         case LIST_CCA:
             newView = new CcaListView(this, logic, model);
             toUpdatePlaceHolder = ccaContentPlaceholder;
             break;
 
+        case LIST_PLANNER_SCHEDULE:
+            newView = new PlannerView(this, logic, model, PlannerUiType.SCHEDULE);
+            toUpdatePlaceHolder = plannerContentPlaceholder;
+            break;
+
+        case LIST_PLANNER_FIND:
+            newView = new PlannerView(this, logic, model, PlannerUiType.FIND);
+            toUpdatePlaceHolder = plannerContentPlaceholder;
+            break;
+
+        case LIST_FINANCE:
+            newView = new FinanceListView(this, logic, model);
+            toUpdatePlaceHolder = financeContentPlaceholder;
+            break;
+
+        case LIST_COURSE:
+            newView = new CoursePlannerView(this, logic, model);
+            toUpdatePlaceHolder = moduleContentPlaceholder;
+            break;
+
         default:
             resultDisplay.setFeedbackToUser(
-                    String.format(MESSAGE_VIEW_NOT_IMPLEMENTED, currentViewType.toString()));
+                String.format(MESSAGE_VIEW_NOT_IMPLEMENTED, currentViewType.toString()));
             return;
         }
 
@@ -264,7 +308,6 @@ public class MainWindow extends UiPart<Stage> {
      * @param view The {@code Page} to switch to.
      */
     private void switchContent(View<? extends Node> view, StackPane toUpdatePlaceHolder) {
-        setWindowDefaultSize(model.getGuiSettings());
         Node pageNode = view.getRoot();
 
         List<Node> currentChildren = toUpdatePlaceHolder.getChildren();
@@ -292,16 +335,16 @@ public class MainWindow extends UiPart<Stage> {
             tabPanePlaceHolder.getSelectionModel().select(PLANNER_INDEX);
             break;
 
+        case "financeContentPlaceholder" :
+            tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
+            break;
+
         case "moduleContentPlaceholder":
             tabPanePlaceHolder.getSelectionModel().select(MODULES_INDEX);
             break;
 
         case "ccaContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(CCAS_INDEX);
-            break;
-
-        case "financeContentPlaceholder" :
-            tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
             break;
 
         default:

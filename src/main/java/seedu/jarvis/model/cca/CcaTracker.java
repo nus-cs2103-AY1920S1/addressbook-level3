@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 
 /**
@@ -87,7 +86,7 @@ public class CcaTracker {
         return ccaList.asUnmodifiableObservableList();
     }
 
-    public Cca getCca(Index index) throws CommandException {
+    public Cca getCca(Index index) {
         requireNonNull(index);
 
         return ccaList.getCca(index);
@@ -161,6 +160,22 @@ public class CcaTracker {
     }
 
     /**
+     * Checks if the Cca at {@code TargetIndex} contains a {@CcaProgress} already.
+     *
+     * @return true if the Cca at {@code TargetIndex} contains a {@CcaProgress} already.
+     */
+    public boolean ccaContainsProgress(Index targetIndex) {
+        return ccaList.ccaContainsProgress(targetIndex);
+    }
+
+    /**
+     * Checks if cca progress at {@code s} is already max.
+     */
+    public boolean ccaAtMaxIncrement(Index index) {
+        return ccaList.ccaAtMaxIncrement(index);
+    }
+
+    /**
      * Updates {@code filtered} according to the give {@code Predicate}.
      *
      * @param predicate {@code Predicate} to be applied to filter {@code filteredCcas}.
@@ -168,6 +183,30 @@ public class CcaTracker {
     public void updateFilteredCcaList(Predicate<Cca> predicate) {
         requireNonNull(predicate);
         filteredCcas.setPredicate(predicate);
+    }
+
+    /**
+     * Removes the {@code toRemoveCcaMilestoneList} from {@code targetCca}.
+     */
+    public void removeCcaMilestoneList(Cca targetCca, CcaMilestoneList toRemoveCcaMilestoneList) {
+        requireAllNonNull(targetCca, toRemoveCcaMilestoneList);
+        ccaList.removeCcaMilestoneList(targetCca, toRemoveCcaMilestoneList);
+    }
+
+    /**
+     * Checks if the {@code CcaProgress} at the {@code targetIndex} {@code Cca} is at the minimum level.
+     */
+    public boolean ccaProgressAtMinLevel(Index targetIndex) {
+        requireNonNull(targetIndex);
+        return ccaList.ccaProgressAtMinLevel(targetIndex);
+    }
+
+    /**
+     * Decreases the progress at the {@code targetIndex}.
+     */
+    public void decreaseProgress(Index targetIndex) {
+        requireNonNull(targetIndex);
+        ccaList.decreaseProgress(targetIndex);
     }
 
     /**
@@ -188,5 +227,4 @@ public class CcaTracker {
     public int hashCode() {
         return ccaList.hashCode();
     }
-
 }

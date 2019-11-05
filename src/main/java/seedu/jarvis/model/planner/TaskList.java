@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
 import seedu.jarvis.model.planner.tasks.Task;
 
 /**

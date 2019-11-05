@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
-import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 import seedu.jarvis.testutil.finance.EditInstallmentDescriptorBuilder;
 
 public class EditInstallmentCommandParserTest {
@@ -54,20 +53,6 @@ public class EditInstallmentCommandParserTest {
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
-    }
-
-    @Test
-    public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_INSTAL_MONEY,
-                InstallmentMoneyPaid.MONEY_CONSTRAINTS); // invalid money paid for installment
-
-        // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_INSTAL_MONEY + INSTAL_DESC_NETFLIX,
-                InstallmentMoneyPaid.MONEY_CONSTRAINTS);
-
-        // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_INSTAL_MONEY + INSTAL_DESC_NETFLIX,
-                InstallmentMoneyPaid.MONEY_CONSTRAINTS);
     }
 
     @Test

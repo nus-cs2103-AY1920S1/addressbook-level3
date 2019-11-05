@@ -3,6 +3,8 @@ package seedu.jarvis.model.finance.purchase;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
+import java.text.DecimalFormat;
+
 /**
  * Represents the description of a purchase in the finance tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
@@ -10,15 +12,14 @@ import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 public class PurchaseMoneySpent {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Money spent on installments should be taken as doubles, "
-                    + "and it should not be blank";
+            "Money spent on a purchase must have a maximum of 2 decimal places, be a positive value "
+                    + "and it should not be blank.";
 
-    public static final String MONEY_CONSTRAINTS =
-            "Money spent cannot be equal to or less than 0.";
+    public static final String VALIDATION_REGEX = "^\\s*(?=.*[1-9])\\d*(?:\\.\\d{1,2})?";
 
-    public static final String VALIDATION_REGEX = "[0-9]{1,13}(\\.[0-9]*)?";
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
 
-    public final double purchaseAmount;
+    private final double purchaseAmount;
 
     /**
      * Constructs a {@code PurchaseMoneySpent}.
@@ -44,7 +45,7 @@ public class PurchaseMoneySpent {
 
     @Override
     public String toString() {
-        return Double.toString(purchaseAmount);
+        return df2.format(purchaseAmount);
     }
 
     @Override

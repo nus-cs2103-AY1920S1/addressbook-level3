@@ -7,15 +7,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.storage.JsonAdapter;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedAddAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedDeleteAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedEditAddressCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedAddCcaCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedAddProgressCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedDeleteCcaCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
+import seedu.jarvis.storage.history.commands.cca.JsonAdaptedIncreaseProgressCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedAddCourseCommand;
+import seedu.jarvis.storage.history.commands.course.JsonAdaptedClearCourseCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedDeleteCourseCommand;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedEditInstallmentCommand;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedRemoveInstallmentCommand;
@@ -36,14 +34,10 @@ import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDoneTaskCommand;
         property = "type"
 )
 @JsonSubTypes({
-        // addressbook
-        @Type(value = JsonAdaptedAddAddressCommand.class, name = "JsonAdaptedAddAddressCommand"),
-        @Type(value = JsonAdaptedClearAddressCommand.class, name = "JsonAdaptedClearAddressCommand"),
-        @Type(value = JsonAdaptedDeleteAddressCommand.class, name = "JsonAdaptedDeleteAddressCommand"),
-        @Type(value = JsonAdaptedEditAddressCommand.class, name = "JsonAdaptedEditAddressCommand"),
         // courseplanner
         @Type(value = JsonAdaptedAddCourseCommand.class, name = "JsonAdaptedAddCourseCommand"),
         @Type(value = JsonAdaptedDeleteCourseCommand.class, name = "JsonAdaptedDeleteCourseCommand"),
+        @Type(value = JsonAdaptedClearCourseCommand.class, name = "JsonAdaptedClearCourseCommand"),
         // financetracker
         @Type(value = JsonAdaptedEditInstallmentCommand.class, name = "JsonAdaptedEditInstallmentCommand"),
         @Type(value = JsonAdaptedSetPaidCommand.class, name = "JsonAdaptedSetPaidCommand"),
@@ -60,7 +54,8 @@ import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDoneTaskCommand;
         @Type(value = JsonAdaptedAddCcaCommand.class, name = "JsonAdaptedAddCcaCommand"),
         @Type(value = JsonAdaptedAddProgressCommand.class, name = "JsonAdaptedAddProgressCommand"),
         @Type(value = JsonAdaptedDeleteCcaCommand.class, name = "JsonAdaptedDeleteCcaCommand"),
-        @Type(value = JsonAdaptedEditCcaCommand.class, name = "JsonAdaptedEditCcaCommand")
+        @Type(value = JsonAdaptedEditCcaCommand.class, name = "JsonAdaptedEditCcaCommand"),
+        @Type(value = JsonAdaptedIncreaseProgressCommand.class, name = "JsonAdaptedIncreaseProgressCommand")
 })
 public abstract class JsonAdaptedCommand implements JsonAdapter<Command> {
     /**

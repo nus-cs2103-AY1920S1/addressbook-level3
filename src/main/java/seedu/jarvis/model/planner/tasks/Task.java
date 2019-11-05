@@ -8,6 +8,7 @@ import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.enums.TaskType;
 import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
@@ -19,7 +20,7 @@ public abstract class Task {
     public static final String EVENT = "event";
     public static final String DEADLINE = "deadline";
     public static final String TODO = "todo";
-    protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
 
     protected String taskDes;
     protected Priority priority;
@@ -74,6 +75,12 @@ public abstract class Task {
     public abstract JsonAdaptedTask adaptToJsonAdaptedTask();
 
     public abstract String toString();
+
+    /**
+     * Retrieves the {@code TaskType} of the task
+     * @return {@TaskType} of the task
+     */
+    public abstract TaskType getTaskType();
 
     /**
      * Checks if this task is equal to another task
@@ -165,4 +172,5 @@ public abstract class Task {
     public Status getStatus() {
         return status;
     }
+
 }

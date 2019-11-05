@@ -1,13 +1,13 @@
 package seedu.jarvis.logic.commands.history;
 
-import static seedu.jarvis.logic.parser.CliSyntax.UndoRedoSyntax.PREFIX_UNDO_REDO;
-
 import java.util.stream.IntStream;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Undo user actions done to the application.
@@ -17,16 +17,16 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": undo actions. "
-            + "Parameters: " + PREFIX_UNDO_REDO + "UNDO (Must be a Positive Number or \"all\" [case insensitive], "
+            + "Parameters: " + "UNDO_NUMBER (Must be a Positive Number or \"all\" [case insensitive], "
             + "invalid numbers will set UNDO to default value of 1) "
             + "Example: " + COMMAND_WORD
-            + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all"
-            + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5";
+            + ", " + COMMAND_WORD + " " + "5";
 
 
-    public static final String MESSAGE_SUCCESS = "Undone %1$d commands";
+    public static final String MESSAGE_SUCCESS = "Undone %1$d command(s)";
     public static final String MESSAGE_NOTHING_TO_UNDO = "Nothing available to undo.";
-    public static final String MESSAGE_TOO_MANY_UNDO = "There are only %1$d commands available to be undone";
+    public static final String MESSAGE_TOO_MANY_UNDO = "There is a maximum of %d commands that can be undone\n"
+            + "There are only %d command(s) available to be undone";
     public static final String MESSAGE_UNABLE_TO_UNDO =
             "Unable to undo %d command(s), there was a problem with undoing command %d";
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be undone";
@@ -93,7 +93,7 @@ public class UndoCommand extends Command {
         }
 
         if (numberOfTimes > model.getAvailableNumberOfExecutedCommands()) {
-            throw new CommandException(String.format(MESSAGE_TOO_MANY_UNDO,
+            throw new CommandException(String.format(MESSAGE_TOO_MANY_UNDO, model.getHistoryRange(),
                     model.getAvailableNumberOfExecutedCommands()));
         }
 
@@ -145,6 +145,17 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        throw new InvalidCommandToJsonException();
     }
 
     /**

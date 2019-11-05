@@ -13,6 +13,10 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.finance.purchase.Purchase;
+import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.finance.JsonAdaptedRemovePaidCommand;
 
 /**
  * Deletes an existing purchase identified using its displayed index in the finance tracker.
@@ -22,14 +26,15 @@ public class RemovePaidCommand extends Command {
     public static final String COMMAND_WORD = "delete-paid";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the purchase identified by the index number used in the displayed list of purchases.\n"
+            + ": Jarvis will remove the purchase identified by the index number used in the displayed list of "
+            + "purchases.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PURCHASE_SUCCESS = "Deleted Purchase: %1$s";
+    public static final String MESSAGE_DELETE_PURCHASE_SUCCESS = "Jarvis has deleted this purchase! \n%1$s";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New purchase added: %1$s";
-    public static final String MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
+    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "Jarvis has added this purchase back: %1$s";
+    public static final String MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST = "Purchase was already added: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -99,7 +104,7 @@ public class RemovePaidCommand extends Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful delete.
-     * @throws CommandException If targetIndex is >= the number of persons in address book.
+     * @throws CommandException If targetIndex is >= the number of installments in finance tracker.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -107,7 +112,9 @@ public class RemovePaidCommand extends Command {
         try {
             deletedPurchase = model.getPurchase(targetIndex.getOneBased());
             model.deletePurchase(targetIndex.getOneBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, deletedPurchase));
+            model.setViewStatus(ViewType.LIST_FINANCE);
+
+            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, deletedPurchase), true);
         } catch (PurchaseNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_PURCHASE_DISPLAYED_INDEX);
         }
@@ -126,9 +133,25 @@ public class RemovePaidCommand extends Command {
     public CommandResult executeInverse(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (model.hasPurchase(deletedPurchase)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST,
+                    deletedPurchase));
+        }
+
         model.addPurchase(targetIndex.getZeroBased(), deletedPurchase);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedPurchase));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedRemovePaidCommand(this);
     }
 
     @Override

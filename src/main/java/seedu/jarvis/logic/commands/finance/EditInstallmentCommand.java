@@ -18,6 +18,10 @@ import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.installment.InstallmentDescription;
 import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.finance.JsonAdaptedEditInstallmentCommand;
 
 /**
  * Edits an existing installment using its displayed index in the finance tracker.
@@ -26,21 +30,32 @@ public class EditInstallmentCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-install";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Jarvis will edit an installment in the finance "
+            + "tracker by the index number used in the displayed installment list. \n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-            + "[" + PREFIX_MONEY + "MONEY] "
+            + "[" + PREFIX_MONEY + "MONEY] " + "\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "Netflix subscription "
             + PREFIX_MONEY + "13.50";
 
-    public static final String MESSAGE_EDIT_INSTALLMENT_SUCCESS = "Edited installment: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_COMMAND_SYNTAX = "Command format: " + COMMAND_WORD + " "
+            + "INDEX (must be a positive integer) "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_MONEY + "MONEY] ";
+    public static final String MESSAGE_DESCRIPTION_ERROR = MESSAGE_COMMAND_SYNTAX + "\n"
+            + InstallmentDescription.MESSAGE_CONSTRAINTS;
+    public static final String MESSAGE_MONEY_ERROR = MESSAGE_COMMAND_SYNTAX + "\n"
+            + InstallmentMoneyPaid.MESSAGE_CONSTRAINTS;
+
+    public static final String MESSAGE_EDIT_INSTALLMENT_SUCCESS = "Jarvis has edited your installment! \n%1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided. \n"
+            + MESSAGE_COMMAND_SYNTAX;
     public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This installment already exists in your list.";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_REVERSE = "Reversed editing on installment: %1$s";
+    public static final String MESSAGE_INVERSE_SUCCESS_REVERSE = "Jarvis has reversed the editing of this installment"
+            + ": %1$s";
     public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment already deleted: %1$s";
 
     public static final boolean HAS_INVERSE = true;
@@ -105,7 +120,7 @@ public class EditInstallmentCommand extends Command {
      * Gets the original {@code Installment} wrapped in an {@code Optional} before the edit, which is empty if the edit
      * has not been made.
      *
-     * @return {@code Optional} of {@code Installment} before the edit, or empty if the person has not been edited.
+     * @return {@code Optional} of {@code Installment} before the edit, or empty if the installment has not been edited.
      */
     public Optional<Installment> getOriginalInstallment() {
         return Optional.ofNullable(originalInstallment);
@@ -157,8 +172,10 @@ public class EditInstallmentCommand extends Command {
             editedInstallment = createdEditedInstallment;
 
             model.setInstallment(originalInstallment, createdEditedInstallment);
+            model.setViewStatus(ViewType.LIST_FINANCE);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_INSTALLMENT_SUCCESS, editedInstallment));
+            return new CommandResult(String.format(MESSAGE_EDIT_INSTALLMENT_SUCCESS, editedInstallment),
+                    true);
 
         } catch (InstallmentNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);
@@ -203,6 +220,17 @@ public class EditInstallmentCommand extends Command {
         model.setInstallment(editedInstallment, originalInstallment);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_REVERSE, originalInstallment));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedEditInstallmentCommand(this);
     }
 
     @Override

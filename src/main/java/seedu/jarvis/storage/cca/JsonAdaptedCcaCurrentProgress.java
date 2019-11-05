@@ -11,19 +11,15 @@ import seedu.jarvis.storage.JsonAdapter;
  * Jackson-friendly version of {@link CcaCurrentProgress}.
  */
 public class JsonAdaptedCcaCurrentProgress implements JsonAdapter<CcaCurrentProgress> {
-    private final int maxProgress;
     private final int currentProgress;
 
     /**
      * Constructs a {@code JsonAdaptedCcaCurrentProgress} with the given cca current progress details.
      *
-     * @param maxProgress Max progress.
      * @param currentProgress Current progress.
      */
     @JsonCreator
-    public JsonAdaptedCcaCurrentProgress(@JsonProperty("maxProgress") int maxProgress,
-                                         @JsonProperty("currentProgress") int currentProgress) {
-        this.maxProgress = maxProgress;
+    public JsonAdaptedCcaCurrentProgress(@JsonProperty("currentProgress") int currentProgress) {
         this.currentProgress = currentProgress;
     }
 
@@ -34,7 +30,6 @@ public class JsonAdaptedCcaCurrentProgress implements JsonAdapter<CcaCurrentProg
      * {@code JsonAdaptedCcaCurrentProgress}.
      */
     public JsonAdaptedCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
-        maxProgress = ccaCurrentProgress.getMaxProgress();
         currentProgress = ccaCurrentProgress.getCurrentProgress();
     }
 
@@ -49,7 +44,6 @@ public class JsonAdaptedCcaCurrentProgress implements JsonAdapter<CcaCurrentProg
     @Override
     public CcaCurrentProgress toModelType() throws IllegalValueException {
         CcaCurrentProgress ccaCurrentProgress = new CcaCurrentProgress();
-        ccaCurrentProgress.setMaxProgress(maxProgress);
         ccaCurrentProgress.setCurrentProgress(currentProgress);
         return ccaCurrentProgress;
     }

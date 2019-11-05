@@ -1,14 +1,10 @@
 package seedu.jarvis.logic.parser.history;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.UndoRedoSyntax.PREFIX_UNDO_REDO;
-
-import java.util.Optional;
 
 import seedu.jarvis.logic.commands.history.RedoCommand;
-import seedu.jarvis.logic.parser.ArgumentMultimap;
-import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
+import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 
 /**
@@ -23,29 +19,12 @@ public class RedoCommandParser implements Parser<RedoCommand> {
      */
     @Override
     public RedoCommand parse(String args) throws ParseException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_UNDO_REDO);
-        Optional<String> optionalArgument = argumentMultimap.getValue(PREFIX_UNDO_REDO);
-
-        // If no argument is given, create a redo command for one action.
-        if (optionalArgument.isEmpty()) {
-            return new RedoCommand();
-        }
-
-        String argument = optionalArgument.get();
         int numberOfTimes;
         try {
-            numberOfTimes = Integer.parseInt(argument);
-        } catch (NumberFormatException nfe) {
-            // If argument is not an integer.
+            numberOfTimes = ParserUtil.parseNonZeroUnsignedInteger(args);
+        } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
         }
-
-        // If argument is an integer that is less than 1.
-        if (numberOfTimes < 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
-        }
-
-        // If argument is a valid integer, create a redo command to redo the given number of actions.
         return new RedoCommand(numberOfTimes);
     }
 }
