@@ -406,6 +406,14 @@ Deletes the 12th repeater in the current list. Also deletes the associated trans
 
 ==== Finding repeater: `find` [Coming in v2.0]
 
+Finds repeaters whose description matches all the (case-insensitive) given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+Examples:
+
+* `find phone john` +
+Finds all repeaters whose description contains all of the keywords "phone" and "john".
+
 === Budgets
 
 After taking the effort to record your expenditures, you want to ensure that you are spending within your limit.
@@ -657,7 +665,7 @@ Displays expenditure ranking chart for July 2019.
 * *Repeater Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 * *Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 * *Repeater Delete* : `delete INDEX`
-* *Repeater Filter* : (Coming in v2.0)
+* *Repeater Filter* : `find KEYWORD [MORE_KEYWORDS]`
 * *Loan Add new* : `add a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
 * *Loan Payment* : `paid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
 * *Loan Categorical Search* : `find [s/KEYWORD]`  (Coming in v2.0)
