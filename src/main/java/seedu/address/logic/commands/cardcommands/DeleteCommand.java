@@ -30,6 +30,7 @@ public class DeleteCommand extends CardCommand {
      * Creates a DeleteCommand to delete the specified {@code Index}.
      */
     public DeleteCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

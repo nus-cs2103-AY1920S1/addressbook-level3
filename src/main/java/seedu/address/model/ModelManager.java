@@ -35,7 +35,7 @@ public class ModelManager implements Model {
 
     private boolean hasBank = false;
 
-    private WordBank currentWordBank = SampleDataUtil.getSampleWordBank();
+    WordBank currentWordBank = SampleDataUtil.getSampleWordBank();
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;

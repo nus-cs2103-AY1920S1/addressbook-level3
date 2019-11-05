@@ -19,9 +19,9 @@ import static seedu.address.logic.commands.CommandTestUtil.WORD_DESC_BUTTERFREE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
 
 import org.junit.jupiter.api.Test;
 
@@ -93,7 +93,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_CARD;
         String userInput = targetIndex.getOneBased() + MEANING_DESC_ABRA
                 + WORD_DESC_ABRA + TAG_DESC_PSYCHIC;
 
@@ -107,7 +107,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // word
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_CARD;
         String userInput = targetIndex.getOneBased() + WORD_DESC_ABRA;
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withWord(VALID_WORD_ABRA).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -128,7 +128,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_CARD;
         String userInput = targetIndex.getOneBased() + MEANING_DESC_ABRA
                 + TAG_DESC_BUG + MEANING_DESC_ABRA + TAG_DESC_BUG
                 + MEANING_DESC_BUTTERFREE + TAG_DESC_PSYCHIC;
@@ -145,7 +145,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_CARD;
         String userInput = targetIndex.getOneBased() + INVALID_MEANING_DESC + MEANING_DESC_BUTTERFREE;
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
                 .withMeaning(VALID_MEANING_BUTTERFREE).build();
@@ -163,7 +163,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_CARD;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withTags().build();

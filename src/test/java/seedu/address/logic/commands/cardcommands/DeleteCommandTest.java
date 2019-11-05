@@ -1,26 +1,24 @@
-package seedu.address.logic.cardcommands;
+package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.cardcommands.AddCommand;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.appsettings.DifficultyEnum;
@@ -36,55 +34,89 @@ import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.testutil.CardBuilder;
 
-class AddCommandTest {
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
+/**
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * {@code DeleteCommand}.
+ */
+class DeleteCommandTest {
+
+    private Model model = new ModelManager();
+
+    @Test
+    void execute_invalidIndex_throwsCommandException() {
+        Card abra = new CardBuilder().withWord("Abra").build();
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_THIRD_CARD);
+        ModelStubAcceptingCardDeleted modelStub = new ModelStubAcceptingCardDeleted(abra);
+
+        assertCommandFailure(deleteCommand, modelStub, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX, () -> deleteCommand.execute(modelStub));
+    }
+
+    @Test
+    void execute_validIndexUnfilteredList_success() {
+        Card abra = new CardBuilder().withWord("Abra").build();
+        ModelStubAcceptingCardDeleted modelStub = new ModelStubAcceptingCardDeleted(abra);
+
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
+        Card cardToDelete = modelStub.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
+
+        ModelStubAcceptingCardDeleted expectedModel = new ModelStubAcceptingCardDeleted();
+
+        assertCommandSuccess(deleteCommand, modelStub, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_CARD);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_CARD);
+
+        // same object -> returns true
+        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+
+        // same values -> returns true
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_CARD);
+        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(deleteFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(deleteFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+    }
 
     @Test
     void constructor_nullCard_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new DeleteCommand(null));
     }
 
     @Test
-    void execute_cardAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
-        Card validCard = new CardBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validCard).execute(modelStub);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
-    }
-
-    @Test
-    void execute_duplicateCard_throwsCommandException() {
-        Card validCard = new CardBuilder().build();
-        AddCommand addCommand = new AddCommand(validCard);
-        ModelStub modelStub = new ModelStubWithCard(validCard);
-
-        assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_CARD, () -> addCommand.execute(modelStub));
-    }
-
-    @Test
-    void equals() {
+    void execute_cardAcceptedByModel_deleteSuccessful() throws Exception {
         Card abra = new CardBuilder().withWord("Abra").build();
-        Card butterFree = new CardBuilder().withWord("Butterfree").build();
-        AddCommand addAbraCommand = new AddCommand(abra);
-        AddCommand addButterFreeCommand = new AddCommand(butterFree);
+        ModelStubAcceptingCardDeleted modelStub = new ModelStubAcceptingCardDeleted(abra);
 
-        // same object -> returns true
-        assertEquals(addAbraCommand, addAbraCommand);
+        CommandResult commandResult = new DeleteCommand(INDEX_FIRST_CARD).execute(modelStub);
 
-        // same values -> returns true
-        AddCommand anotherAddAbraCommand = new AddCommand(abra);
-        assertEquals(addAbraCommand, anotherAddAbraCommand);
+        assertEquals(String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, abra), commandResult.getFeedbackToUser());
 
-        // different types -> returns false
-        assertNotEquals(1, addAbraCommand);
+        showNoPerson(modelStub);
 
-        // null -> returns false
-        assertNotEquals(null, addAbraCommand);
+        ObservableList<Card> cardList = FXCollections.observableArrayList();
+        assertEquals(cardList, modelStub.cardList);
+    }
 
-        // different Card -> returns false
-        assertNotEquals(addAbraCommand, addButterFreeCommand);
+    /**
+     * Updates {@code model}'s filtered list to show no one.
+     */
+    private void showNoPerson(Model model) {
+        assertTrue(model.getFilteredCardList().isEmpty());
     }
 
     /**
@@ -299,6 +331,7 @@ class AddCommandTest {
         public GlobalStatistics getGlobalStatistics() {
             throw new AssertionError("This method should not be called.");
         }
+
     }
 
     /**
@@ -320,26 +353,53 @@ class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the card being added.
+     * A Model stub that always delete the card being deleted.
      */
-    private class ModelStubAcceptingCardAdded extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+    private class ModelStubAcceptingCardDeleted extends ModelStub {
+        private Card card;
+        ObservableList<Card> cardList = FXCollections.observableArrayList();
+
+        ModelStubAcceptingCardDeleted(Card card) {
+            requireNonNull(card);
+            this.card = card;
+            cardList.add(card);
+        }
+
+        ModelStubAcceptingCardDeleted() {
+        }
 
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameMeaning);
+            return cardList.stream().anyMatch(card::isSameMeaning);
         }
 
         @Override
-        public void addCard(Card card) {
+        public void deleteCard(Card card) {
             requireNonNull(card);
-            cardsAdded.add(card);
+            cardList.remove(card);
         }
 
         @Override
-        public ReadOnlyWordBank getCurrentWordBank() {
-            return new WordBank("abc");
+        public ObservableList<Card> getFilteredCardList() {
+            return cardList;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            // short circuit if same object
+            if (obj == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(obj instanceof ModelStubAcceptingCardDeleted)) {
+                return false;
+            }
+
+            // state check
+            ModelStubAcceptingCardDeleted other = (ModelStubAcceptingCardDeleted) obj;
+            return cardList.equals(other.cardList);
         }
     }
 }

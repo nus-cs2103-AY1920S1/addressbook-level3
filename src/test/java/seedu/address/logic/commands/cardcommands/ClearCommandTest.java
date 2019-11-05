@@ -1,4 +1,4 @@
-package seedu.address.logic.cardcommands;
+package seedu.address.logic.commands.cardcommands;
 
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
