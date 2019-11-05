@@ -2,7 +2,8 @@ package budgetbuddy.logic.commands;
 
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.function.Function;
+
+import budgetbuddy.logic.commands.exceptions.CommandException;
 
 /**
  * Represents a command continuation, requiring some further input from the user to complete the command.
@@ -17,14 +18,22 @@ public class CommandContinuation<T> {
         SHOW_FILE_PICKER;
     }
 
+    /**
+     * Represents a callback to continue command execution.
+     */
+    @FunctionalInterface
+    public interface Callback<T> {
+        public CommandResult callback(T value) throws CommandException;
+    }
+
     private final Type type;
-    private final Function<T, CommandResult> callback;
+    private final Callback<T> callback;
 
     private CommandContinuation(Type type) {
         this(type, null);
     }
 
-    private CommandContinuation(Type type, Function<T, CommandResult> callback) {
+    private CommandContinuation(Type type, Callback<T> callback) {
         this.type = type;
         this.callback = callback;
     }
@@ -36,11 +45,11 @@ public class CommandContinuation<T> {
     /**
      * Continues the command with the given result.
      */
-    public CommandResult continueCommand(T value) {
+    public CommandResult continueCommand(T value) throws CommandException {
         if (callback == null) {
             return null;
         }
-        return callback.apply(value);
+        return callback.callback(value);
     }
 
     /**
@@ -66,7 +75,7 @@ public class CommandContinuation<T> {
         return new CommandContinuation<>(Type.EXIT);
     }
 
-    public static CommandContinuation<Path> showFilePicker(Function<Path, CommandResult> callback) {
+    public static CommandContinuation<Path> showFilePicker(Callback<Path> callback) {
         return new CommandContinuation<>(Type.SHOW_FILE_PICKER, callback);
     }
 
