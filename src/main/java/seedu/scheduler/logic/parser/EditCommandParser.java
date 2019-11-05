@@ -91,7 +91,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Fills the given interviewee descriptor with necessary values from the argumentMultiMap.
      */
-    private void fillIntervieweeDescriptor(EditIntervieweeDescriptor descriptor, ArgumentMultimap argMultimap) throws ParseException {
+    private void fillIntervieweeDescriptor(EditIntervieweeDescriptor descriptor, ArgumentMultimap argMultimap)
+            throws ParseException {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             descriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
