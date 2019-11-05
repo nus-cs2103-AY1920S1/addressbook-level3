@@ -39,7 +39,7 @@ public enum DayOfWeek {
     /**
      * Returns an instance of {@code DayOfWeek}.
      *
-     * @param numericalVal the associated {@code int} value of {@code this}.
+     * @param numericalVal The associated {@code int} value of {@code this}.
      */
     DayOfWeek(int numericalVal) {
         this.numericalVal = numericalVal;
@@ -58,7 +58,7 @@ public enum DayOfWeek {
      * Returns a capitalised string representation of {@code this} such that it is represented with the first three
      * letter of the day of month.
      *
-     * @return capitalised string representation of {@code this} such that it is represented with the first three
+     * @return Capitalised string representation of {@code this} such that it is represented with the first three
      *         letter of the day of month.
      */
     @Override

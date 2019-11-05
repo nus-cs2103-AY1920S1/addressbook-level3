@@ -14,7 +14,6 @@ public enum MonthOfYear {
     NOVEMBER(11, 30),
     DECEMBER(12, 31);
 
-    private static int NUM_MONTHS_IN_YEAR = 12;
     private static int DAYS_IN_FEB_LEAP = 29;
     private int numericalVal;
     private int numDaysInMonth;
@@ -29,16 +28,6 @@ public enum MonthOfYear {
     }
 
     public int getNumDaysInMonth(Year year) {
-        if (numericalVal == 2) {
-            // if it is February
-            return isLeapYear(year.getNumericalValue()) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
-        }
-        return numDaysInMonth;
-    }
-
-    public int getNumDaysInMonth(MonthOfYear monthOfYear, Year year) {
-        int numericalVal = monthOfYear.getNumericalVal();
-        int numDaysInMonth = monthOfYear.getNumDaysInMonth(year);
         if (numericalVal == 2) {
             // if it is February
             return isLeapYear(year.getNumericalValue()) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
