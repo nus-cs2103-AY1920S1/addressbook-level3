@@ -63,6 +63,10 @@ public interface Logic {
      * Returns a list of Group's names that starts with prefix.
      */
     ArrayList<String> groupSuggester(String prefix);
+    /**
+     * Returns a list of valid locations that starts with prefix.
+     */
+    ArrayList<String> validLocationSuggester(String prefix);
 
     //=========== Legacy =============================================================
 

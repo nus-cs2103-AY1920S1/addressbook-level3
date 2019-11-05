@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,6 +13,8 @@ public class Exam {
     private final int examDuration;
 
     public Exam(LocalDateTime examDate, int examDuration) {
+        requireNonNull(examDate);
+        requireNonNull(examDuration);
         this.examDate = examDate;
         this.examDuration = examDuration;
     }
@@ -25,7 +29,7 @@ public class Exam {
 
     @Override
     public String toString() {
-        return "Exam Date: " + examDate.toString() + " " + Integer.toString(examDuration);
+        return "Exam Date: " + examDate.toString() + " " + examDuration;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class Exam {
         if (exam == this) {
             return true;
         } else if (exam.examDate.equals(this.examDate)
-                && exam.examDate.equals(this.examDuration)) {
+                && exam.examDuration == this.examDuration) {
             return true;
         } else {
             return false;

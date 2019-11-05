@@ -39,9 +39,13 @@ class UiUtilTest {
      */
     @BeforeAll
     static void setup() {
-        // TODO: find a better way to test JavaFX-related things without invoking JavaFX
-        Platform.startup(() -> {
-        });
+        try {
+            // TODO: find a better way to test JavaFX-related things without invoking JavaFX
+            Platform.startup(() -> {
+            });
+        } catch (IllegalStateException exc) {
+            assert exc.getMessage().equals("Toolkit already initialized");
+        }
 
         final var primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         originPoint = new Point2D(primaryScreenBounds.getMinX(), primaryScreenBounds.getMinY());

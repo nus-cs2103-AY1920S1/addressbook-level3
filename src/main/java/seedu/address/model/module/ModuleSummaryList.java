@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
 /**
- * List of Modules.
+ * List of Modules Summaries.
  */
 public class ModuleSummaryList {
     private List<ModuleSummary> moduleSummaries;

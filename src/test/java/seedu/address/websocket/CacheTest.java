@@ -55,7 +55,7 @@ class CacheTest {
 
     @Test
     void loadModule() {
-        Module module = Cache.loadModule(new ModuleId("AY2019/2020", "CS2103T")).get();
+        Module module = Cache.loadModule(new ModuleId("2019/2020", "CS2103T")).get();
         assertEquals(module.toString(), "AY2019/2020 CS2103T Software Engineering");
     }
 

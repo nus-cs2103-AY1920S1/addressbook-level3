@@ -230,10 +230,7 @@ public class ParserUtil {
     public static NusModsShareLink parseNusModsLink(String nusModsLink) throws ParseException {
         requireNonNull(nusModsLink);
         String trimmedNusModsLink = nusModsLink.trim();
-        if (!NusModsShareLink.isValidUrl(trimmedNusModsLink)) {
-            throw new ParseException(NusModsShareLink.MESSAGE_CONSTRAINTS);
-        }
-        return new NusModsShareLink(nusModsLink);
+        return NusModsShareLink.parseLink(trimmedNusModsLink);
     }
 
     /**
@@ -323,7 +320,7 @@ public class ParserUtil {
      */
     public static Timeslot parseTimeslot(String timeslot) throws ParseException {
         try {
-            String[] tokens = timeslot.split("-");
+            String[] tokens = timeslot.split("-", 4);
 
             if (tokens.length != 3 && tokens.length != 4) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
