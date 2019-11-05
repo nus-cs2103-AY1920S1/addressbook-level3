@@ -44,14 +44,15 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Logic,*`UiLogic`*>>: The UI action handler.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the five components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -68,6 +69,11 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user switches tabs in the GUI.
+
+.Component interactions for Switching Tab UI Action
+image::ArchitectureSequenceDiagram1.png[]
 
 The sections below give more details of each component.
 
@@ -115,6 +121,30 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 //@@author
 
+//@@author tiuweehan
+[[Design-UiLogic]]
+=== UiLogic Component
+
+.Structure of the UiLogic Component
+image::UiLogicClassDiagram.png[width="65%"]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/algobase/ui/action/UiLogic.java[`UiLogic.java`]
+
+.  Performing an action (e.g. switching tabs) triggers the creation of a `UiActionDetails` object.
+.  `UiLogic` uses the `AlgoBaseUiActionParser` class to parse the `UiActionDetails` object.
+.  This results in a `UiAction` object which is executed by the `UiLogicManager`.
+.  The command execution can affect the `Model` (e.g. deleting a problem).
+.  The result of the command execution is encapsulated as a `UiActionResult` object which is passed back to the `Ui`.
+.  In addition, the `UiActionResult` object can also instruct the `Ui` to perform certain actions, such as displaying the results as feedback to the user.
+
+.Interactions Inside the UiLogic Component for a `UiActionDetails` with a `UiActionType` of `editPlanUiAction`. This `UiActionDetails` also contains the ID of the problem to be deleted, in this case `11b`.
+image::EditSequenceDiagram.png[]
+
+NOTE: The lifeline for `EditProblemUiActionParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+//@@author
+
 //@@author le0tan
 [[Design-Model]]
 === Model component
@@ -150,6 +180,9 @@ image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
 .Structure of the PlanSearchRule Package
 image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
+
+.Structure of the GUI Package
+image::design/model/GuiPackageDiagram.png[width='60%']
 //@@author
 
 //@@author jiayushe

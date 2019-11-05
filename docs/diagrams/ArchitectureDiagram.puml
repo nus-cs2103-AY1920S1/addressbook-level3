@@ -7,6 +7,7 @@
 Package " "<<Rectangle>>{
     Class UI UI_COLOR
     Class Logic LOGIC_COLOR
+    Class UILogic UI_LOGIC_COLOR
     Class Storage STORAGE_COLOR
     Class Model MODEL_COLOR
     Class Main MODEL_COLOR_T1
@@ -27,8 +28,11 @@ HiddenModel -left[hidden]-> Model
 Main -up-> HiddenUI
 Main -left-> HiddenModel
 UI -> Logic
+UI -> UILogic
 UI -right-> Model
+UILogic -> Model
 Logic -> Storage
+UILogic -> Storage
 Logic -down-> Model
 
 Logs -right- Commons
