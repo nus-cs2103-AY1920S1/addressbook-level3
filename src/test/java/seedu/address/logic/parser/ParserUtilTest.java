@@ -86,6 +86,27 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseNames_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseNames(null));
+    }
+
+    @Test
+    public void parseNames_collectionWithInvalidNames_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNames(Arrays.asList("John", "Doe!")));
+    }
+
+    @Test
+    public void parseNames_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseNames(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseNames_collectionWithValidNames_throwsParseException() throws Exception {
+        List<Name> validNames = ParserUtil.parseNames(Arrays.asList("John", "Doe"));
+        assertEquals(validNames, ParserUtil.parseNames(Arrays.asList("John", "Doe")));
+    }
+
+    @Test
     public void parsePhone_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
     }
