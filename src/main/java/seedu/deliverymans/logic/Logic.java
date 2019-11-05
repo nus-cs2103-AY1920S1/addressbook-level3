@@ -138,7 +138,4 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    //=====Context===================================================
-    void setContext(Context context);
-
 }

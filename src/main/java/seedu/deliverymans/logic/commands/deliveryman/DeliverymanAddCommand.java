@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
 
-import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -42,7 +41,7 @@ public class DeliverymanAddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Logic logic) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasDeliveryman(toAdd)) {

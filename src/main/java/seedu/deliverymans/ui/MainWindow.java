@@ -207,8 +207,6 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
         case EDITING:
-            logic.setContext(Context.EDITING);
-
             Restaurant editing = logic.getEditingRestaurantList().get(0);
             editingRestaurantPlaceholder.setPrefHeight(145.0);
             editingRestaurantPlaceholder.setMinHeight(145.0);
@@ -271,17 +269,17 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Class commandName = commandResult.getCommandName();
-
-            Context nextContext = LogicManager.getContext();
-            boolean isNewContext = (nextContext != null);
+            Context nextContext = commandResult.getContext();
 
             if (commandName != null) {
                 changeUi(commandName);
-            } else if (isNewContext) {
-                changeContext(nextContext);
+            } else if (nextContext != null) {
+                LogicManager.setContext(nextContext);
+                changeContext(LogicManager.getContext());
             } else {
-
+                changeContext(LogicManager.getContext());
             }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

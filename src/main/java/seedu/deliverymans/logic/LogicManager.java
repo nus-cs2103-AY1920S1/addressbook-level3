@@ -69,7 +69,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = universalParser.parseCommand(commandText, currentContext);
-        commandResult = command.execute(model, this);
+        commandResult = command.execute(model);
 
         model.notifyChange(commandText);
         try {
@@ -267,8 +267,7 @@ public class LogicManager implements Logic {
     }
 
     //=============Context======================
-    @Override
-    public void setContext(Context context) {
+    public static void setContext(Context context) {
         currentContext = context;
     }
 

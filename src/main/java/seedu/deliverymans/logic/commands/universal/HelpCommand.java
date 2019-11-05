@@ -1,6 +1,5 @@
 package seedu.deliverymans.logic.commands.universal;
 
-import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.model.Model;
@@ -23,7 +22,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Logic logic) {
+    public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }
