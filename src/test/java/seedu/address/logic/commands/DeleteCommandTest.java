@@ -30,7 +30,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(
             getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
     private Model model2 = new ModelManager(
-            getTypicalAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
+            getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook(getTypicalActivityBook()));
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
