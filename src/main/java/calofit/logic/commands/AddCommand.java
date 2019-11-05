@@ -81,7 +81,7 @@ public class AddCommand extends Command {
 
         if (isList) {
             String addedDishesToString = "";
-            LinkedList<Meal> listOfMealToAdd = new LinkedList<Meal>();
+            LinkedList<Meal> toBeAddedMealList = new LinkedList<Meal>();
             for (int i = 0; i < dishIntList.size(); i++) {
                 int dishInt = dishIntList.get(i);
                 if (dishInt <= 0 || dishInt > model.getFilteredDishList().size()) {
@@ -89,14 +89,14 @@ public class AddCommand extends Command {
                 } else {
                     Dish wantToAdd = model.getFilteredDishList().get(dishInt - 1);
                     Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
-                    listOfMealToAdd.add(toAddMeal);
+                    toBeAddedMealList.add(toAddMeal);
                     //mealLog.addMeal(toAddMeal);
                     addedDishesToString = addedDishesToString + "\n" + (i + 1) + ". " + wantToAdd.toString();
 
                 }
             }
 
-            mealLog.addListOfMeals(listOfMealToAdd);
+            mealLog.addListOfMeals(toBeAddedMealList);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, addedDishesToString));
 

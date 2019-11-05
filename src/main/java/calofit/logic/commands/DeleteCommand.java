@@ -53,7 +53,7 @@ public class DeleteCommand extends Command {
                 throw new CommandException(String.format(Messages.MESSAGE_INVALID_MEAL_INDEX, lastIndex + 1));
             }
             Meal mealToDelete = lastShownList.get(lastIndex);
-            model.getMealLog().removeMeal(mealToDelete);
+            model.removeMeal(mealToDelete);
 
             listOfMealToDeleteToString = listOfMealToDeleteToString + "\n"
                     + indexCounter + ". " + mealToDelete.getDish();
