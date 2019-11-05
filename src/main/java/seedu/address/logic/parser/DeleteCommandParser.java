@@ -59,6 +59,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
     }
 
+    /**
+     * Creates a DeleteEventCommand object if the flag given is for an event.
+     */
     public DeleteEventCommand parseEvent(String args) throws ParseException {
         args = args.replaceAll(FLAG_EVENT.toString(), "");
         if (args.isEmpty()) {

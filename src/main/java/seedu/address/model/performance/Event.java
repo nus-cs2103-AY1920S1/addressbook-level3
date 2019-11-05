@@ -112,8 +112,7 @@ public class Event {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both events have the same names.
      */
     @Override
     public boolean equals(Object other) {
