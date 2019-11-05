@@ -375,23 +375,27 @@ For example, `a` to add a piece of text, arrow keys to adjust the position of th
 // end::templates[]
 
 // tag::stats[]
-=== Statistics feature 1: Like Meme
+=== Statistics feature 1: Like/Dislike Meme
 
-It is important to include a like meme feature such that the user gets to indicate their preference of certain memes.
+It is important to include a like and meme feature such that
+the user gets to indicate their preference of certain memes.
 This is part of the statistics feature and isolated from the main Weme.
-The like data can be used for other statistical analysis.
+The like and dislike data can be used for other statistical analysis.
 
 ==== Current Implementation
 
-Like data of the memes are stored inside `LikeData` class. It is built upon the infrastructure of statistics.
-Statistics infrastructure is parallel to `Weme` structure from the runtime storage to logic to hard disk storage.
+Like and dislike data of the memes are stored inside `LikeData` and `DislikeData` classes.
+It is built upon the infrastructure of statistics.
+Statistics infrastructure is under `Weme` structure.
 
 image::ModelClassDiagram.png[]
 
 An interface for statistics `Stats` is set up for access to statistics components.
-`StatsManager` implements it and manages and carries LikeManager, which manages LikeData access.
-`Stats` exposes the `LikeData` as an unmodifiable `ObservableMap<String, Integer>` that the UI can subscribe to.
-Updates to the like count of any memes inside the currently displayed memes will be reflected on the UI.
+`StatsManager` implements it and manages and carries `LikeManager`, which manages `LikeData` and `DislikeData` access.
+`Stats` exposes the `LikeData` and `DislikeData` as an unmodifiable `ObservableMap<String, SimpleIntegerProperty>`,
+where both the change in the Mapping (e.g. addition of memes and like/dislike data) and in existing like data can be
+observed by the UI.
+Updates to the like and dislike count of any memes inside the currently displayed memes will be reflected on the UI.
 
 image::StorageClassDiagram.png[]
 
@@ -404,6 +408,14 @@ image::MemeLikeActivityDiagram.png[]
 The following sequence diagram shows how `MemeLikeCommand` communicates with `Stats` and update the like count.
 
 image::LikeMemeSequenceDiagram.png[]
+
+In the `CommandBox`, `UP` and `DOWN` keys are used for easy execution of `LikeCommand` and `DislikeCommand`.
+This allows the user to like a meme conveniently as he/she can press the key until he/she feels like stopping.
+`LEFT` and `RIGHT` keys are used for toggling the index in the complete command.
+For example, when command `Like 2` is inside the command text box, where 2 is a valid index of a meme displayed,
+the user can use `LEFT` arrow key to toggle it to 1, and `RIGHT` arrow key to toggle up to the maximum index.
+In the case of large number of existing memes, it might be more efficient to key in the index. But for a small range,
+using arrow keys to toggle between the indices will enhance the User Experience.
 
 ==== Design Considerations
 
@@ -419,6 +431,15 @@ and allows `Stats` features in the future to use the data easily without looking
 (After a long while, when the number of memes pile up, like statistics has a O(n) growth in running time)
 ** Cons: Harder to implement as it involves constructing a new infrastructure.
 Also, it looks somewhat out of place in `Model` as alternative 1 seems to be able to solve the problem (for now).
+
+===== Aspect: Implementation of DislikeData.
+* **Alternative 1:** Merge dislike with like and store the data as a map from String (meme url) to Observable duple.
+** Pros: As dislike is just another form of like, doing this will make good use of the existing like data structure
+and reduce code. It fulfils Don't Repeat Yourself principle.
+** Cons: Hard to implement in v1.4 as limited time is given. Will be a refactoring point for future version (v2.0).
+* **Alternative 2:** Mirror dislike from like and store it in a similar fashion.
+** Pros: Simple to implement. Duplicating the existing LikeData structure and change names will guarantee to be working.
+** Cons: A lot of duplicate code. Fail to fulfil DRY principle.
 
 // end::stats[]
 
