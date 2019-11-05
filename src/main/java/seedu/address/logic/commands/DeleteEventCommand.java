@@ -18,7 +18,6 @@ public class DeleteEventCommand extends DeleteCommand {
         + "Parameters: EVENT_NAME (must exist in performance)\n"
         + "Example: " + COMMAND_WORD + " " + FLAG_EVENT + " freestyle 50m";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted event: %1$s";
-    public static final String MESSAGE_NO_EVENT_GIVEN = "Please provide the name of the event to be deleted.";
 
     private final Event targetEvent;
 

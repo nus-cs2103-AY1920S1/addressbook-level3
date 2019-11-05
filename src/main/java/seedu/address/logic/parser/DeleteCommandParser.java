@@ -53,7 +53,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         args = args.replaceAll(FLAG_PERSON.toString(), "");
         if (args.isEmpty()) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_NO_PERSON_GIVEN));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE));
         }
         try {
             Index index = ParserUtil.parseIndex(args);
@@ -71,7 +71,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         args = args.replaceAll(FLAG_EVENT.toString(), "");
         if (args.isEmpty()) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_NO_EVENT_GIVEN));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
         }
         try {
             String eventName = ParserUtil.parseEvent(args);
