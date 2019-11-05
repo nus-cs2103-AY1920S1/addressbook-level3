@@ -89,6 +89,11 @@ public class MainApp extends Application {
         //create statistic manager;
         statistic = new StatisticManager();
         model = initModelManager(storage, userPrefs);
+        storage.saveCustomerBook(model.getCustomerBook());
+        storage.savePhoneBook(model.getPhoneBook());
+        storage.saveScheduleBook(model.getScheduleBook());
+        storage.saveOrderBook(model.getOrderBook());
+        storage.saveArchivedOrderBook(model.getArchivedOrderBook());
         logic = new LogicManager(model, storage, statistic);
         ui = new UiManager(logic);
     }
