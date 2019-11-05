@@ -797,7 +797,7 @@ The following activity diagram shows the steps after the user input a set cashie
 image::SetCashierCommandActivity.png[]
 
 ==== Checkout Feature
-This feature confirms all the sales items in the table as one sales transaction under the `Sales` category.
+This feature records all the sales items in the table as one sales transaction under the `Sales` category.
 
 The `Home Tab` will be updated with the new transaction labelled as `Items sold`. The remaining stock of the sales items
 will also be updated on the `Inventory Tab`.
