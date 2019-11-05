@@ -47,15 +47,15 @@ respectively.
 **Command Format**
 
 * Command words for universal commands are prepended with "-"
-** Example Usage: `help`.
-* Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`,
+** Example Usage: `-help`.
+* Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `-add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`,
 `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be supplied.
-** Example Usage: `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
+** Example Usage: `-add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 
 * Items with `…` after them can be used multiple times e.g. `f/FOOD...` can be used 1 or more:
 ** Example Usage: `f/3 Piece Chicken Meal` or `f/Pepperoni Pizza f/Char Kway Teow`
 
-* Items with `[]` are optional and can be ommitted e.g. `[t/TAG]...`
+* Items with `[]` are optional and can be omitted e.g. `[t/TAG]...`
 // end::features[]
 
 // tag::universalCommand[]
@@ -110,6 +110,21 @@ Format: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
 
 Example:  `-add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. If you are successful, the result box displays the message: "".
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. The order list shows the newly added order.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
 [NOTE]
 ====
 
@@ -129,6 +144,21 @@ This command allows you to complete an order in the database by its index.
 Format: `-complete_order INDEX`
 
 Example:  `-complete_order 3`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. If you are successful, the result box displays the message: "".
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. The order list shows the delivery status of the order as completed.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
 
 [NOTE]
 ====
@@ -157,6 +187,21 @@ Format: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY
 
 Example: `-edit_order i/1337 c/John Doe`
 
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. If you are successful, the result box displays the message: "".
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. The order list shows the updated order.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
 [NOTE]
 ====
 
@@ -178,6 +223,21 @@ Format: `-delete_order INDEX`
 
 Example: `-delete_order 3`
 
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. If you are successful, the result box displays the message: "".
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. The order list shows that the order has been deleted.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
 [NOTE]
 ====
 
@@ -193,6 +253,21 @@ This command enables you to view all orders currently in the database.
 Format: `-list_orders`
 
 Example: `-list_orders`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. If you are successful, the result box displays the message: "".
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
+
+. The order list shows all orders currently in the database.
+*insert image here*
+//image::userguide\EditMode.png[width="790"]
 
 {nbsp} +
 
