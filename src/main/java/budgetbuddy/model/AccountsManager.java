@@ -17,6 +17,7 @@ import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+
 /**
  * Manages the accounts in a list of accounts.
  */
@@ -78,6 +79,7 @@ public class AccountsManager {
      * Reset the filteredAccountList so that it contains all the accounts.
      */
     public void resetFilteredAccountList() {
+        filteredAccounts.setPredicate(s -> false);
         filteredAccounts.setPredicate(s -> true);
         //activeAccountIndex is reset to the first account
         activeAccountIndex = Index.fromZeroBased(0);

@@ -71,6 +71,7 @@ public class LogicManager implements Logic {
     public ObservableList<Transaction> getTransactionList() {
         return model.getFilteredTransactions();
     }
+
     @Override
     public ObservableList<Loan> getFilteredLoanList() {
         return model.getLoansManager().getFilteredLoans();
