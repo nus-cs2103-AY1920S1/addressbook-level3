@@ -23,7 +23,7 @@ import seedu.algobase.model.searchrule.problemsearchrule.FindProblemDescriptor;
  */
 public class FindCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "findprob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds a problem by name, author, and/or "

@@ -36,6 +36,9 @@ public class SourceMatchesKeywordPredicate implements Predicate<Problem> {
 
     @Override
     public boolean test(Problem problem) {
+        if (!Source.isValidSource(keyword.toString())) {
+            return false;
+        }
         return problem.getSource().equals(new Source(keyword.toString()));
     }
 

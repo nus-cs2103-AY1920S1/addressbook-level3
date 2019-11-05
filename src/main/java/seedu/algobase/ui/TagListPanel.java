@@ -30,7 +30,7 @@ public class TagListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Tag} using a {@code TagCard}.
      */
-    class TagListViewCell extends ListCell<Tag> {
+    static class TagListViewCell extends ListCell<Tag> {
         @Override
         protected void updateItem(Tag tag, boolean empty) {
             super.updateItem(tag, empty);

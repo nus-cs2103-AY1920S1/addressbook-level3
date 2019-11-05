@@ -15,8 +15,8 @@ import seedu.algobase.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    private static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html";
+    private static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -62,7 +62,7 @@ public class HelpWindow extends UiPart<Stage> {
      *     </li>
      * </ul>
      */
-    public void show() {
+    void show() {
         logger.fine("Showing help page about the application.");
         getRoot().show();
         getRoot().centerOnScreen();
@@ -71,21 +71,21 @@ public class HelpWindow extends UiPart<Stage> {
     /**
      * Returns true if the help window is currently being shown.
      */
-    public boolean isShowing() {
+    boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
      * Hides the help window.
      */
-    public void hide() {
+    void hide() {
         getRoot().hide();
     }
 
     /**
      * Focuses on the help window.
      */
-    public void focus() {
+    void focus() {
         getRoot().requestFocus();
     }
 

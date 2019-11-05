@@ -24,10 +24,10 @@ import seedu.algobase.ui.action.UiActionType;
 public class PlanCard extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(PlanCard.class);
-
     private static final String FXML = "PlanListCard.fxml";
 
     public final Plan plan;
+    private final int planIndex;
 
     @FXML
     private HBox cardPane;
@@ -44,6 +44,7 @@ public class PlanCard extends UiPart<Region> {
 
     public PlanCard(Plan plan, int displayedIndex, UiActionExecutor uiActionExecutor) {
         super(FXML);
+        this.planIndex = displayedIndex - 1;
         this.plan = plan;
         id.setText(displayedIndex + ". ");
         id.setWrapText(true);

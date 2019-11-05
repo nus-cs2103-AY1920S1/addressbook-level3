@@ -27,19 +27,19 @@ AlgoBase (AB) is for those who prefer to use a desktop app for managing algorith
 .  Copy the file to the folder you want to use as the home folder for your AlgoBase application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="80%"]
+image::Ui.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in the result window and open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all problems
-* **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Halim'
-* **`edit`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
+* *`listprob`* : lists all problems
+* **`addprob`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Halim'
+* **`editprob`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
 * **`switchtab`**`tt/display i/2` : switches to tag tab
 * **`switchtab`**`tt/display i/3` : switches to plan tab
 +
-image::UiStartPlan.png[width="60%"]
+image::UiStartPlan.png[]
 +
 * **`findplan`**`n/CS2040` : finds plans that with name 'CS2040'
 * **`clear`** : resets Algobase
@@ -53,7 +53,7 @@ image::UiStartPlan.png[width="60%"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Two Sequences`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addprob n/NAME`, `NAME` is a parameter which can be used as `add n/Two Sequences`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/factorial t/recursion` or as `n/factorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/recursion`, `t/recursion t/dynamic-programming` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
@@ -61,27 +61,27 @@ image::UiStartPlan.png[width="60%"]
 
 === Problems
 
-==== Adding a problem: `add`
+==== Adding a problem: `addprob`
 
 Generates a new problem. +
-Format: `add n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...`
+Format: `addprob n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...`
 
 * `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (left open right close range)
 
 [NOTE]
-Don't provide extreme values like `5.00000...01` as difficulty range as computers can't store decimals exactly and some round-off error is unavoidable.
+Don't provide extreme values like `5.00000...01` as difficulty as computers can't store decimals exactly and some round-off error is unavoidable.
 
 [TIP]
 A problem can have any number of tags (including 0)
 
 Examples:
 
-* `add n/Sequences a/Tung Kam Chuen w/https://open.kattis.com/problems/sequences d/Find the sum of the number of inversions of the 2k sequences, modulo 1000000007 (109+7). diff/3.0 src/Kattis t/recursion`
+* `addprob n/Sequences a/Tung Kam Chuen w/https://open.kattis.com/problems/sequences d/Find the sum of the number of inversions of the 2k sequences, modulo 1000000007 (109+7). diff/3.0 src/Kattis t/recursion`
 
-==== Deleting a problem : `delete`
+==== Deleting a problem : `deleteprob`
 
 Deletes an existing problem. +
-Format: `delete INDEX [f/]`
+Format: `deleteprob INDEX [f/]`
 
 * Deletes the problem at the specified `INDEX`.
 * The index refers to the index number shown in the displayed problem list.
@@ -91,17 +91,17 @@ Add `f/` to force AlgoBase to delete all tasks associated with the problem.
 
 Examples:
 
-* `list` +
-`delete 2` +
+* `listprob` +
+`deleteprob 2` +
 Deletes the 2nd problem in the displayed list.
-* `find n/factorial` +
-`delete 1` +
-Deletes the 1st problem in the results of the `find` command.
+* `findprob n/factorial` +
+`deleteprob 1` +
+Deletes the 1st problem in the results of the `findprob` command.
 
-==== Editing a problem : `edit`
+==== Editing a problem : `editprob`
 
 Edits an existing problem. +
-Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
+Format: `editprob INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
 
 * Edits the problem at the specified `INDEX`. The index refers to the index number shown in the displayed problem list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -111,43 +111,43 @@ Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
 
 Examples:
 
-* `edit 1 a/John Doe` +
+* `editprob 1 a/John Doe` +
 Edits the author of the 1st problem to be `John Doe` respectively.
-* `edit 2 n/permutations t/` +
+* `editprob 2 n/permutations t/` +
 Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
 
-==== Listing all problems : `list`
+==== Listing all problems : `listprob`
 
 Displays a list of all existing problems. +
-Format: `list`
+Format: `listprob`
 
-==== Sorting problems: `sort`
+==== Sorting problems: `sortprob`
 
 Sorts the current list of results by a specified order and direction. +
-Format: `sort m/METHOD [ord/ORDER]`
+Format: `sortprob m/METHOD [ord/ORDER]`
 
-* Method can be `name`, `author`, `weblink`, `difficulty` or `source`.
-* ORDER can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
+* `METHOD` can be `name`, `author`, `weblink`, `difficulty` or `source`.
+* `ORDER` can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
 * String-based values (i.e. `name`, `author`, etc.) are sorted alphabetically.
 
 [NOTE]
-If sorted by ascending order (i.e. the default order), empty fields will have the highest priority, which means if you execute `sort m/weblink`, the first few results would be (if any) without web links.
+If sorted by ascending order (i.e. the default order), empty fields will have the highest priority, which means if you execute `sortprob m/weblink`, the first few results would be (if any) without web links.
 
 Examples:
 
-* `sort m/name`
+* `sortprob m/name`
 Sorts the current list of problems in ascending order of names.
-* `sort m/author ord/descend`
+* `sortprob m/author ord/descend`
 Sorts the current list of problems in descending order of author names.
-* `sort m/difficulty ord/ascend`
+* `sortprob m/difficulty ord/ascend`
 Sorts the current list of problems from lowest to highest difficulty.
 
 === Searching Problems
 
-==== Locating problems: `find`
+==== Locating problems: `findprob`
 
 Finds problems fulfilling all provided constraints. +
-Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
+Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
 
 * Name
 ** is case-insensitive. e.g. `henz` will match `Henz`
@@ -160,28 +160,29 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND
 ** is considered as a match only when the problem's description includes all words in the constraint. e.g. `wordA wordB` matches `wordC wordB wordA` not `wordD wordA`
 * Source requires an exact match.
 * Tag
-** Constraints are separated by spaces. (e.g. `find t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
-** Constraint tag set is a subset of matching problems. (e.g. `find t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
-** Tags are considered equal only when the tag strings are exactly matched.
+** Constraints are separated by spaces. (e.g. `findprob t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
+** Constraint tag set is a subset of matching problems. (e.g. `findprob t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
+** Two tags are considered equal only when their tag strings are exactly matched.
 * Difficulty
 ** matches problems with `LOWER_BOUND \<= difficulty \<= UPPER_BOUND`
 
 [TIP]
-If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
+If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`. +
+If you want to match problems with with difficulty no lower than `1.5`, please use `diff/1.5-5.0` because `5.0` is the upper limit of difficulty.
 
 [NOTE]
-When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `add` command). Also at least one search restriction should be provided.
+When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
 
 [NOTE]
 Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
 
 Examples:
 
-* `find n/Sequence` +
+* `findprob n/Sequence` +
 Returns any problem with word `sequence` (case-insensitive) in its name.
-* `find t/algorithm diff/2.0-4.0` +
+* `findprob t/algorithm diff/2.0-4.0` +
 Returns any problem with `algorithm` as one of its tags AND with a difficulty between 2.0 and 4.0 (inclusive).
-* `find a/Hentin Marz src/Kattis` +
+* `findprob a/Hentin Marz src/Kattis` +
 Returns any problem from `Kattis` that's authored by `Hentin Marz`.
 
 ==== Storing a problem-finding rule: `addfindrule`
@@ -218,7 +219,7 @@ You can find problem-finding rules that you can `apply` with in the "Find Rules"
 image::apply_tip_find_rule_tab.png[]
 
 [NOTE]
-`apply` a problem-finding rule is essentially the same as executing a pre-filled `find` command.
+`apply` a problem-finding rule is essentially the same as executing a pre-filled `findprob` command.
 
 Examples:
 
@@ -569,73 +570,78 @@ There is no need to save manually.
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AlgoBase folder.
 
 == Command Summary
-
-* *Add Problem* `add n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
-e.g. `add  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
-* *List Problems* : `list` +
-* *Edit Problems* : `edit INDEX [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
-e.g. `edit 2 n/permutations t/`
-* *Delete Problem* : `delete INDEX` +
-e.g. `delete 3`
-
-* *Sort Problems* : `sort m/METHOD [ord/ORDER]` +
-e.g. `sort m/difficulty ord/ascend`
-* *Find Problems* : `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
-e.g. `find t/algorithm diff/2.0-4.0`
-* *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+* Problems
+** *Add Problem* `addprob n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+e.g. `addprob  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
+** *List Problems* : `listprob` +
+** *Edit Problems* : `editprob INDEX [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+e.g. `editprob 2 n/permutations t/`
+** *Delete Problem* : `deleteprob INDEX` +
+e.g. `deleteprob 3`
+** *Sort Problems* : `sortprob m/METHOD [ord/ORDER]` +
+e.g. `sortprob m/difficulty ord/ascend`
+** *Find Problems* : `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+e.g. `findprob t/algorithm diff/2.0-4.0`
+** *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
 e.g. `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0`
-* *Apply Find Rule*: `apply INDEX` +
+** *Apply Find Rule*: `apply INDEX` +
 e.g. `apply 2`
-* *Delete Find Rule*: `deletefindrule INDEX` +
+** *Delete Find Rule*: `deletefindrule INDEX` +
 e.g. `deletefindrule 2`
 
-* *New Tag* : `addtag t/NAME` +
+* Tags
+** *New Tag* : `addtag t/NAME` +
 e.g. `addtag t/sssp`
-* *List Tags* : `listtag`
-* *Delete Tag* : `deletetag INDEX` +
+** *List Tags* : `listtag`
+** *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
-* *Edit tag* : `edittag INDEX t/TAGNAME` +
+** *Edit tag* : `edittag INDEX t/TAGNAME` +
 e.g. `edittag 1 t/sort`
 
-* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
+* Plans
+** *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
-* *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
+** *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `editplan 1 n/training start/2020-02-02`
-* *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]` +
+** *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]` +
 e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
-* *List Training Plans* : `listplan`
-* *Delete Training Plan* : `deleteplan INDEX` +
+** *List Training Plans* : `listplan`
+** *Delete Training Plan* : `deleteplan INDEX` +
 e.g. `deleteplan 2`
 
-* *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
+* Tasks
+** *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
 e.g. `addtask plan/1 prob/2`
-* *Copy Tasks among Plans* : `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
+** *Copy Tasks among Plans* : `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
 e.g. `copytask task/1 from/1 to/2`
-* *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
+** *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `deletetask plan/1 task/2`
-* *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
+** *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
 e.g. `edittask plan/1 task/2 due/2019-12-12`
-* *Mark Task as done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
+** *Mark Task as done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `donetask plan/1 task/2`
-* *Mark Task as undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
+** *Mark Task as undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `undonetask plan/1 task/2`
-* *Move Tasks among Plans* : `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
+** *Move Tasks among Plans* : `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
 e.g. `movetask task/1 from/1 to/2`
-* *Set Current Plan* : `setplan PLAN_TASK` +
+** *Set Current Plan* : `setplan PLAN_TASK` +
 e.g. `setplan 10`
 
-* *Switch Tab* : `switchtab tt/TAB_TYPE i/TAB_INDEX` +
+* Tabs
+** *Switch Tab* : `switchtab tt/TAB_TYPE i/TAB_INDEX` +
 e.g. `switchtab tt/display i/3`
-* *Open Tab* : `opentab m/MODEL_TYPE i/TAB_INDEX` +
+** *Open Tab* : `opentab m/MODEL_TYPE i/TAB_INDEX` +
 e.g. `opentab m/problem i/2`
-* *Close Tab* : `closetab i/DETAILS_TAB_INDEX` +
+** *Close Tab* : `closetab i/DETAILS_TAB_INDEX` +
 e.g. `closetab i/3`
 
-* *Exporting data* : `export format/FORMAT path/DIRECTORY_PATH` +
+* Storage
+** *Exporting data* : `export format/FORMAT path/DIRECTORY_PATH` +
 e.g. `export format/json path/.`
-* *Importing data* : `import format/FORMAT path/FILE_PATH` +
+** *Importing data* : `import format/FORMAT path/FILE_PATH` +
 e.g. `import format/json path/./steven_halim_secret.json`
 
-* *Help* : `help`
-* *Clear* : `clear`
-* *Exit* : `exit`
+* Miscellaneous
+** *Help* : `help`
+** *Clear* : `clear`
+** *Exit* : `exit`

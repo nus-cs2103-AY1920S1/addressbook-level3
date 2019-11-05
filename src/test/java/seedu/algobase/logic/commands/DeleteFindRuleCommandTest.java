@@ -34,7 +34,7 @@ class DeleteFindRuleCommandTest {
         ProblemSearchRule ruleToDelete = model.getFilteredFindRuleList().get(INDEX_FIRST.getZeroBased());
         DeleteFindRuleCommand command = new DeleteFindRuleCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteFindRuleCommand.MESSAGE_SUCCESS, ruleToDelete);
+        String expectedMessage = String.format(DeleteFindRuleCommand.MESSAGE_SUCCESS, ruleToDelete.getName());
 
         ModelManager expectedModel = new ModelManager(model.getAlgoBase(), new UserPrefs());
         expectedModel.deleteFindRule(ruleToDelete);

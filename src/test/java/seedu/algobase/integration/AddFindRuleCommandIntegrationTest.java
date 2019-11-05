@@ -20,9 +20,6 @@ import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
 public class AddFindRuleCommandIntegrationTest {
-
-    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @TempDir
     public Path testFolder;
 
@@ -39,9 +36,6 @@ public class AddFindRuleCommandIntegrationTest {
         modelManager = new ModelManager(sampleAlgoBase, new UserPrefs());
         logicManager = new LogicManager(modelManager, storageManager);
     }
-
-    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @Test
     public void addfindrule_allConstraints() throws CommandException, ParseException {
         logicManager.execute("addfindrule rule1 n/name a/author d/des src/s diff/2.0-3.0 t/tag1 tag2");

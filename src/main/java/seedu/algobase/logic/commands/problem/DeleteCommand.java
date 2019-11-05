@@ -19,7 +19,7 @@ import seedu.algobase.model.problem.Problem;
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteprob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the Problem identified by the index number used in the displayed Problem list.\n"
