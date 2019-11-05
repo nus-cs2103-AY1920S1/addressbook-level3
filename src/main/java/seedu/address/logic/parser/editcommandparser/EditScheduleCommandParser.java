@@ -2,8 +2,10 @@ package seedu.address.logic.parser.editcommandparser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLOW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.Collection;
@@ -16,6 +18,7 @@ import seedu.address.logic.commands.editcommand.EditScheduleCommand;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand.EditScheduleDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
@@ -23,7 +26,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new EditScheduleCommand object
  */
-public class EditScheduleCommandParser {
+public class EditScheduleCommandParser implements Parser<EditScheduleCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditScheduleCommand
@@ -33,7 +36,7 @@ public class EditScheduleCommandParser {
     public EditScheduleCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CALENDAR, PREFIX_VENUE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME, PREFIX_VENUE, PREFIX_TAG, PREFIX_ALLOW);
 
         Index index;
 
@@ -45,9 +48,13 @@ public class EditScheduleCommandParser {
         }
 
         EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
-        if (argMultimap.getValue(PREFIX_CALENDAR).isPresent()) {
-            editScheduleDescriptor.setCalendar(
-                    ParserUtil.parseCalendar(argMultimap.getValue(PREFIX_CALENDAR).get()));
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            editScheduleDescriptor.setDate(
+                    ParserUtil.parseDateCalendar(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            editScheduleDescriptor.setTime(
+                    ParserUtil.parseTimeCalendar(argMultimap.getValue(PREFIX_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_VENUE).isPresent()) {
             editScheduleDescriptor.setVenue(ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE).get()));
@@ -59,7 +66,12 @@ public class EditScheduleCommandParser {
             throw new ParseException(EditScheduleCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditScheduleCommand(index, editScheduleDescriptor);
+        boolean canClash = false;
+        if (argMultimap.getValue(PREFIX_ALLOW).isPresent()) {
+            canClash = true;
+        }
+
+        return new EditScheduleCommand(index, editScheduleDescriptor, canClash);
     }
 
     /**

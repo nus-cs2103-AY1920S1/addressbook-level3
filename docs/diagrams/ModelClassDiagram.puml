@@ -12,6 +12,7 @@ Interface Identifiable <<Interface>>
 Class Model
 Class ModelManager
 Class UserPrefs
+Class CalendarDate
 Class ReadOnlyUserPrefs
 Class "DataBook<Phone>"
 Class "UniqueList<Phone>"
@@ -56,60 +57,61 @@ Class Tag
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
+HiddenOutside .> Model
 
 "DataBook<Phone>" .up.|> ReadOnlyDataBook
 "DataBook<Order>" .up.|> ReadOnlyDataBook
 "DataBook<Customer>" .up.|> ReadOnlyDataBook
-"DataBook<Schedule>" .up.|> ReadOnlyDataBook
+"DataBook<Schedule>" .up|> ReadOnlyDataBook
 
 ModelManager .up.|> Model
-Model .right.> ObservableList
+Model .right> ObservableList
 ModelManager o--> "1" "DataBook<Phone>"
 ModelManager o--> "1" "DataBook<Order>"
 ModelManager o--> "1" "DataBook<Customer>"
 ModelManager o--> "1" "DataBook<Schedule>"
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o-right-> "1" UserPrefs
+UserPrefs .right|> ReadOnlyUserPrefs
+ModelManager *-up> "1" CalendarDate
 
-Phone .up.|> Identifiable
-Order .up.|> Identifiable
-Customer .up.|> Identifiable
-Schedule .up.|> Identifiable
+Phone ..|> Identifiable
+Order ..|> Identifiable
+Customer ..|> Identifiable
+Schedule ..|> Identifiable
 
 "DataBook<Phone>" *--> "1" "UniqueList<Phone>"
 "UniqueList<Phone>" o--> "*" Phone
-Phone *--> PhoneName
-Phone *--> IdentityNumber
-Phone *--> SerialNumber
-Phone *--> Capacity
-Phone *--> Colour
-Phone *--> Brand
-Phone *--> Tag
+Phone *-> PhoneName
+Phone *-down-> IdentityNumber
+Phone *-down-> SerialNumber
+Phone *-down-> Capacity
+Phone *-down-> Colour
+Phone *-left> Brand
+Phone *---> Tag
 
 "DataBook<Order>" *--> "1" "UniqueList<Order>"
 "UniqueList<Order>" o--> "*" Order
-Order *--> "1" Phone
-Order *--> "1" Customer
-Order *--> "1" Schedule
-Order *--> Price
-Order *--> Status
-Order *--> Tag
+Order o---> "1" Phone
+Order o---> "1" Customer
+Order *---> "1" Schedule
+Order *-right> Price
+Order *-left> Status
+Order *---> Tag
 
 "DataBook<Customer>" *--> "1" "UniqueList<Customer>"
 "UniqueList<Customer>" o--> "*" Customer
-Customer *--> ContactNumber
+Customer *-> ContactNumber
 Customer *--> CustomerName
-Customer *--> Email
-Customer *--> Tag
+Customer *-left-> Email
+Customer *---> Tag
 
 "DataBook<Schedule>" *--> "1" "UniqueList<Schedule>"
 "UniqueList<Schedule>" o--> "*" Schedule
-Schedule *--> Venue
-Schedule *--> Tag
+Schedule *-> Venue
+Schedule *---> Tag
 
-ModelManager --> "1" Phone : filtered list
-ModelManager --> "1" Customer : filtered list
-ModelManager --> "1" Order : filtered list
-ModelManager --> "1" Schedule : filtered list
+ModelManager ---> "1" Phone : filtered list
+ModelManager ---> "1" Customer : filtered list
+ModelManager ---> "1" Order : filtered list
+ModelManager ---> "1" Schedule : filtered list
 @enduml

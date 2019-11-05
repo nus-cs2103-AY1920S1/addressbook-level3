@@ -30,18 +30,15 @@ class CustomerTest {
         assertFalse(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withContactNumber(VALID_CONTACTNUMBER)
                 .withEmail(VALID_EMAIL).build()));
 
-        // different name -> returns false
-        assertFalse(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withName(VALID_NAME).build()));
-
-        // same name, same phone, different attributes -> returns true
+        // different email, same contact number -> returns true
         assertTrue(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withEmail(VALID_EMAIL)
-                .withTags(VALID_TAG).build()));
+                .build()));
 
-        // same name, same email, different attributes -> returns true
+        // different contact number, same email -> returns true
         assertTrue(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withContactNumber(VALID_CONTACTNUMBER)
-                .withTags(VALID_TAG).build()));
+                .build()));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // different attributes -> returns true
         assertTrue(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withTags(VALID_TAG).build()));
     }
 

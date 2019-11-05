@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<fx:root minHeight="600" minWidth="750" resizable="true" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@SMLTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+            <HBox alignment="CENTER" minHeight="100" minWidth="100">
+                <children>
+                    <VBox alignment="CENTER" minHeight="100" minWidth="100">
+                        <Label fx:id="statsLabel" styleClass="label" />
+                        <Label fx:id="defaultValue" styleClass="label" />
+                    </VBox>
+                </children>
+                <padding>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </padding>
+            </HBox>
+        </Scene>
+    </scene>
+</fx:root>

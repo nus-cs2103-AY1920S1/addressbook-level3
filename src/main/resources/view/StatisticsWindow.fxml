@@ -1,30 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<?import javafx.scene.layout.VBox?>
-<?import java.net.URL?>
-<fx:root minWidth="450" minHeight="300" resizable="false" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="750" resizable="true" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css" />
+                <URL value="@SMLTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" minHeight="500" minWidth="650">
                 <children>
-                    <VBox alignment="CENTER">
-                        <Label fx:id="statsLabel"  styleClass="label"></Label>
-                        <Label fx:id="testLabel" styleClass="label" ></Label>
+                    <VBox alignment="CENTER" minHeight="500" minWidth="650" styleClass="cell_big_label">
+                        <LineChart fx:id="testChart"  styleClass="pane-with-border">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxis" side="LEFT" />
+                            </yAxis>
+                        </LineChart>
+                  <HBox alignment="CENTER" prefHeight="200.0" prefWidth="550">
+                     <children>
+                         <VBox>
+                             <children>
+                                 <VBox alignment="CENTER">
+                                    <Label fx:id="valueLabel" />
+                                     <padding>
+                                         <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                                     </padding>
+                                </VBox>
+                                 <HBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0">
+                                     <VBox>
+                                         <Label fx:id="startingDateLabel"/>
+                                         <padding>
+                                             <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                                         </padding>
+                                     </VBox>
+                                     <VBox>
+                                         <Label fx:id="endingDateLabel" />
+                                         <padding>
+                                             <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                                         </padding>
+                                     </VBox>
+                                 </HBox>
+                             </children>
+                         </VBox>
+                     </children>
+                  </HBox>
                     </VBox>
                 </children>
-                <opaqueInsets>
-                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-                </opaqueInsets>
                 <padding>
                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                 </padding>

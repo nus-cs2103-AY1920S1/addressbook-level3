@@ -2,6 +2,11 @@ language: java
 matrix:
   include:
     - jdk: openjdk11
+services:
+  - xvfb
+
+before_script:
+  - export DISPLAY=:99.0
 
 script: >-
     ./config/travis/run-checks.sh &&

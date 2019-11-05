@@ -11,10 +11,10 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.util.StatsParseUtil;
 import seedu.address.logic.commands.statisticcommand.StatisticType;
 import seedu.address.logic.commands.statisticcommand.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.statistic.StatsParseUtil;
 
 /**
  * Parses input arguments and creates a new StatsCommand object
@@ -67,7 +67,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             default:
                 throw new ParseException("Wrong Statistic type for normal calculation mode, "
                         + "types here only include:\n"
-                        + "PROFIT, COST, REVENUE");
+                        + "profit, cost, revenue");
             }
         } else {
             switch (type) {
@@ -80,7 +80,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             default:
                 throw new ParseException("Wrong Statistic type for no date calculation mode, "
                         + "default types here only include:\n"
-                        + "PROFIT, COST, REVENUE");
+                        + "profit, cost, revenue");
             }
         }
     }

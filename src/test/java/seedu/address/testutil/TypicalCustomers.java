@@ -35,8 +35,8 @@ public class TypicalCustomers {
     public static final Customer CUSTOMERTHREE = new CustomerBuilder().withName(DEFAULT_NAME_3)
             .withContactNumber(DEFAULT_CONTACTNUMBER_3).withEmail(DEFAULT_EMAIL_3).withTags(DEFAULT_TAG_3).build();
 
-    public static final Customer ALICE = new CustomerBuilder().withName("Alice Pauline")
-            .withContactNumber("94351253")
+    public static final Customer ALICE = new CustomerBuilder().withName("Alice Lim")
+            .withContactNumber("98123459")
             .withEmail("alice@example.com")
             .withTags("regular").build();
     public static final Customer BENSON = new CustomerBuilder().withName("Benson Meier")

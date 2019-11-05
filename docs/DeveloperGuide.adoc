@@ -44,14 +44,15 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Statistics,*`Statistics`*>>: Generate statistics and charts.
 
-Each of the four components
+Each of the five components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -66,7 +67,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete-c 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -79,7 +80,11 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts
+e.g.`CommandBox`, `ResultDisplay`, `TabPanel` , `StatusBarFooter` etc.
+`TabPanel` consists of `CustomerListPanel` , `OrderListPanel`, `PhoneListPanel` , `CalendarListPanel`
+and `ArchivedOrderListPanel`
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +92,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Different changes in each tab or panel is controlled via the enum `UiChange`
 
 [[Design-Logic]]
 === Logic component
@@ -98,18 +104,18 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SellerManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  The command execution can affect the `Model` (e.g. adding a customer/phone/order/schedule).
+.  The result of the command execution, a `String` message and `UiChange` enum is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `UiChange` enum in the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying the respective panels or help/statistics window.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete-c 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete-c 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteCustomerCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -122,12 +128,18 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores a `CalendarDate` object that stores date shown on the calendar panel.
+* stores `Customer`, `Phone`, `Order` and `Schedule` data in a `DataBook` each.
+* a `DataBook` is backed by an underlying `UniqueList` which stores subclasses of `Identifiable`
+* the `Identifiable` interfaces exposes an `isSameAs` method which is used to determine if two objects have the same identity
+* exposes 4 unmodifiable `ObservableList<Identifiable>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other four components.
+
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `UniqueList<Tag>` in `Seller Manager`, which `Customer` / `Phone` / `Order` / `Schedule`  can reference.
+This would allow `Seller Manager` to only require one `Tag` object per unique `Tag`, instead of each object needing their own `Tag`.
+An example of how such `UniqueList<Tag>` and `UniqueList<Customer>` interacts is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -142,7 +154,8 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Customer Book data, Phone Book data, Order Book data and Schedule Book data in json format and read them
+ back.
 
 [[Design-Commons]]
 === Common classes
@@ -153,7 +166,325 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== Statistics Calculation and Chart generation feature
+==== Implementation
+
+This statistic calculation and chart generation feature extends `Seller Manager Lite` which allows seller to quickly
+generate total statistics from their `DataBooks`, through the use of a `statistic`
+module that handles this calculation.
+
+There is three type of statistic to be calculated and only on `completed orders`:
+
+* `Profit`
+* `Cost`
+* `Revenue`
+
+It implements the following mode of operations:
+
+* default mode with no date input: generates on all completed order total `profit` , `cost` or `revenue`
+** The command enter by the user will be e.g for profit type `generate-s s/PROFIT`
+
+* mode with date input from user: The statistic command takes in 2 `dates`, `starting date` and `ending date`
+and generates the `profit`, `cost` or `revenue`  each `month` between this 2 dates.
+** command entered by user will be e.g for profit type`generate-s s/PROFIT s1/YYYY.MM.DD s2/YYYY.MM.DD`
+
+Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
+
+image::StatisticsCalculationAcitvityDiagram.png[]
+
+===== Statistic Module
+The statistic module exposes the calculation operations in the `Statistics` interface.
+analogous to the output mode, there are 2 types of methods in this module, one that returns a
+`String` and the other and `XYChart.Series<String,Number>`
+
+* Methods that return a `String`:
+
+** `calculateTotalProfitOnCompleted()`
+** `calculateTotalRevenueOnCompleted()`
+** `calculateTotalCostOnCompleted()`
+
+* Methods that return a `XYChart.Series<String,Number>`:
+
+** `calculateTotalProfitOnCompletedGraph()`
+** `calculateTotalRevenueOnCompletedGraph()`
+** `calculateTotalCostOnCompletedGraph()`
+
+All methods were written using java8 Stream() feature. This is such that there are no loops in the code to make it
+more readable and maintainable.
+
+`org.apache.commons.math3.stat.StatUtils` library is used to calculate the raw data inside a `double[]` .
+While the current `v1.4` only use `sum` to calculate the exact `profit` , `revenue` and `cost` , `v2.0` implementation
+will make use of the `linear regression` / `average` methods inside the library to generate more advanced statistics.
+
+===== Design Considerations / Alternative designs considered
+
+Given that the number of orders in a seller database might be scaled to be very large in the future
+the main focus of this feature was to *calculate statistics only when needed*.
+
+One way that was initially considered was actually to maintain a running statistic
+counter upon loading of the main app, update this counter when calculation is needed ,
+and then display it. This implementation would be much easier to implement within the existing AB3 code
+since it meant extending the `Model` class with a statistic model, than having the `UI` class to read from
+this value *However, we dropped this due to the consideration
+mentioned in the previous paragraph*
+
+====== Decision 1:
+
+Given that consideration, we decided that it will be the `UI` to trigger this call to `Logic` for calculation
+and then display the result of that call. Thus when Statistics need to be shown, the `UI` module will query the
+`Logic` for the respective data
+
+One of the motivation for this approach was to maintain the architecture that is already in place in AB3.
+
+Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
+the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
+with the actual changes on data done with a call to model during `execute(model)`.
+
+
+====== Decision 2:
+
+We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
+queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class to the
+`UI` to use in its query to logic. When the Ui executes the command to logic, the `CommandResult` is returned with
+this object, which the `UI` will then use to communicate to `Logic`.
+
+The resulting change is that the `commandResult` type will have a slightly different behaviour. *All `commands` that
+are not `statsCommand` will call the default constructor of the `commandResult` class, where there is  an
+`Optional.empty()` in place of the `StatsPayload` * .
+
+All `statsCommand` type will have call the constructor of `commandResult` class and pass the `StatsPayload` object in.
+
+The key motivation behind this idea of a payload was to be able to encapsulate details about the calculation inside a
+single object, passed it to the appropriate place to be "unwrapped" when needed. This unwrapping is done by the
+`mainWindow` class in SMLJ and subsequently the data is passed to the  `statistic` module.
+
+
+A high level view of the packages working together:
+
+image::statsOverallClassDiagram.png[]
+
+====== Step-by-step breakdown
+
+Below is a more in-depth explanation at each step:
+
+
+step 1: User inputs a stats command e.g `generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13`.
+
+The commandBox executes it and the `MainWindow` runs its `executeCommand(commandText)` method.
+
+Referring to the sequence diagram below,this results in `logic.execute(commandText)` being called and
+the `statsCommandParser` parses the input from the user, returning a
+`Command` object
+
+step 2: the logic then calls `command.execute(command)` (refer to the second set of arrow coming out of `LogicManager`)
+
+When this happens, the `StatsCommand` execute triggering a call to create the new `StatsPayload`. Then this is used to
+create a new `CommandResult` object and returns that to `Logic` , completing the execution of the user input command.
+
+Shown below is a quick summary of step 1-2:
+
+image::StatsCommandSequenceDiagram.png[]
+
+step 3: After the logic component completes it execution and return a `CommandResult`, the `UI` will call
+`performUiChanges` that handles the specific `UI` change.
+
+This then results in the `statsPayload` class being passed to `Logic` class and subsequently the `statistics` module,
+where the appropriate calculation will take place.
+
+
+step 4: `Statistic Manager` calculates the date
+
+Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
+a `String` or a `XYChart.Series<String, Number>`
+
+step 5: with this output from logic, `Statistic Window` will then handle the diplaying of the statistic, be it in chart
+form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
+
+image::StatisticsCalculationUI.png[]
+
+Limitations:
+
+Below are some limitations that we have put in place for `v1.4` of SMLJ:
+
+*Date range starts from 1970 onwards
+** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
+
+
+
+=== Autocomplete feature
+==== Current Implementation
+
+This feature is visible in the UI as a dropdown menu when the user enters input into the command box.
+
+===== How the UI works
+
+The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's `TextField`, which adds an additional listener for changes in the input text.
+This listener reads the entire input text on each character change and performs comparisons with a predefined set of strings.
+For all predefined strings that matches the input text, they are sorted according to their "closeness", and a maximum of 5 is displayed.
+
+===== The underlying data structures
+
+This feature was designed to display values that are currently in the `Model`.
+
+For example, the input text `add-c n/` would display a list of `CustomerName` that already exists in the `Customer` `DataBook`.
+
+In order to achieve this, the underlying data structure used is a directed `Graph` with every `Node` storing a reference to a set of values,
+and a `Map<String, Node>` to represent outgoing edges. The keys of this map represent the possible prefixes for the next argument of the input text, such as `c/` or `e/`.
+
+===== Design Considerations
+
+* Dynamically updated: By storing references to a set of values that can be backed by `ObservableList` in the `Model`, whenever the user alters any data, it will be reflected in the displayed values.
+
+* Supports optional arguments: By storing the possible prefixes as "edge weights", it is possible to represent an optional argument by having an edge to the `Node` containing its values, as well as an edge to the next `Node`.
+
+* Infinite structure: By having a `TagNode` store a reference to itself, it is possible to endlessly display `t/` as a possible argument at the end of the input text,
+which is consistent with the unlimited number of `Tag` a `Customer` can hold.
+
+=== Calendar / Schedule feature
+==== Implementation
+
+We decided to incorporate a third party library, `JFXtras's Agenda`, to represent our schedules on a calendar for easy viewing by our users.
+
+`CalendarPanel` keeps `UniqueList<Schedule>` and `UniqueList<Order>` objects as class variables. On instantiation, all the schedules in `UniqueList<Schedule>` will be converted to `Appointments` and then added to `Agenda`.
+To set the display information of the `Schedule` object, we will find its `Order` in the `UniqueList<Order>` and retrieve its index.
+`CalendarPanel` also keeps `CalendarDate` as a variable to set the date shown by `Agenda`.
+
+Schedule supports a few basic commands:
+
+* Add -- adds a new schedule into SML, command will be in this format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAGS] [-allow]`
+* Edit -- edits an existing schedule in SML, command will be in this format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAGS] [-allow]`
+* Delete -- delete an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
+* Schedule -- switches the week on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
+
+The schedules and date the calendar panel shows is automatically updated depending on the commands executed by the users.
+For example:
+
+* If the user adds/edits/deletes a schedule -- calendar panel will display the week with the date of the schedule.
+* If the user uses the switch-s command -- calendar panel will display the week with today's date.
+* If the user uses the schedule command -- calendar will display the week with the date resquested by the user.
+
+Changes to the schedules are made in the model by editing the `UniqueList<Schedule>` object.
+`CalendarPanel` adds a listener to its `UniqueList<Schedule>` variable.
+`CalendarPanel` listen to the changes and generates the updated list of `Schedules` into `Appointments` to add to `Agenda`.
+
+The current date shown on the calendar panel is encapsulated in a `CalendarDate` object.
+The `CalendarDate` class uses `SimpleObjectProperty` to keep track of the Calendar (date).
+When any of the schedule commands are executed, the model will edit the `CalendarDate` object with the updated Calendar (date).
+`CalendarPanel` adds a listener to its `CalendarDate` variable.
+`CalendarPanel` listen to the changes and sets the agenda view to the new `Calendar` in `CalendarDate`.
+
+Here is a sample of what happens when a schedule command is entered by the user:
+
+image::ScheduleCommandSequenceDiagram.png[]
+
+Basically, after the setCalendarDate(calendar) method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its setAgendaView(calendar) method.
+
+===== Design Considerations / Alternative designs considered
+
+We do not keep a list of `Appointment` in `CalendarPanel` as `Appointment` is only used for `Agenda` while the rest of our system uses `Schedule`.
+Instead, we have decided to only convert `Schedule` into `Appointment` when needed - during the instantiation of `CalendarPanel` or when there are changes made to the `UniqueList<Schedule>`.
+Not keeping a list of `Appointment` ensures that we do not keep duplicate information.
+
+The changes to `CalendarDate` was initially done in the `CalendarPanel` itself.
+So, `CommandResult` was made to have one more variable `Optional<Calendar>`.
+In that case, every time a schedule command was executed, a specific `Calendar` (if any) will be placed inside the constructor while creating the `CommandResult` object.
+Else, Optional.Empty() will be placed inside.
+
+When the `MainWindow` executes the method performUiChanges(CommandResult), it will call the handleSchedule method with Calendar (from CommandResult) as an argument.
+If `Optional<Calendar>` in `CommandResult` is empty, today's date and time will be used instead.
+Then, `CalendarPanel` will be called in the handleSchedule method to set the agenda view.
+
+This implementation was however changed because we thought that the date shown on the panel should be changed automatically.
+Hence, we decided to use a listener instead.
+`CalendarDate` is then placed in `Model` so that it can be edited right away when `Model` executes any schedule related commands.
+Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
+
+=== Find Customer/Phone/Order feature
+The find feature allows the user to find the customer/phone/order according to its data field(e.g. CustomerName, ContactNumber)
+or without any data field. We wanted to implement an OR search and so long as the customer/phone/order contained the keyword
+in its data, it would be shown to the user.
+For simplicity's sake, we will only focus on Customer in this section.
+
+
+The commands that we wanted to implement are:
+
+* e.g. `find-c n/Alice` -- allows the user to find the customer with customer name "Alice".
+* e.g. `find-c Alice` -- would allow the user to find the customer with any data field that matches "Alice".
+
+==== Current Implementation
+
+In order to implement the find function, we decided to create multiple predicates for each data field of Customer.
+By doing this, we could do chaining of predicates by using the static `or()` provided in `java.util.Predicate` package.
+Thus, we would be able to find the customer easily with the keywords given in the input.
+
+image::CustomerPredicateClassDiagram.png[]
+
+Below is a diagram to show you how `find-c n/Alice` runs in the program.
+
+image::FindCustomerCommandSequenceDiagram1.png[]
+
+Below is another diagram to show you how `find-c n/Alice e/alex` runs in the program.
+
+image::FindCustomerCommandSequenceDiagram2.png[]
+
+Notice that chaining takes place by creating new instances of XYZContainsKeywordsPredicates.
+
+
+==== Design Considerations / Alternative designs considered
+
+Alternative 2: The other alternative that we considered in implementing the find feature was using a single predicate.
+First, we create a `FindCustomerDescriptor` that would store all the strings that were to be searched under the various data fields.
+The `FindCustomerCommandParser` would store the relevant keywords in the FindCustomerDescriptor and generate a predicate,
+`CustomerContainsKeywordsPredicate`, using the FindCustomerDescriptor and pass it to `FindCustomerCommand`. `FindCustomerCommand` would then be executed.
+
+The predicate `CustomerContainsKeywordsPredicate` would do the heavy lifting by doing further parsing of the keywords
+and test whether Customer contains the relevant keywords.
+
+However, we did not do this as `CustomerContainsKeywordsPredicate` violated the Single-Responsibility Principle.
+It had to do further parsing of the keywords instead of simply testing whether the Customer contains the keywords.
+Also, if there was a change to the `Customer` class, it would be less intuitive to modify `CustomerContainsKeywordsPredicate`
+as one would need to understand the parsing.
+
+
+
+* **Alternative 1 (current choice):** Multiple predicates.
+** Pros: Easy to implement.
+** Cons: Duplicated code due to multiple predicates.
+* **Alternative 2:** Single predicate.
+** Pros: Less code written in total.
+** Cons: Harder to maintain.
+
+=== Export feature
+==== Implementation
+
+The export mechanism is allows user to export current saved Json files into csv files available for import into MSExcel.
+We made use of `FileReader` to read the Json saved data files. The data is used to create `JsonObjects` and stored into `JsonArray` and then CSV formatted string using comma delimiters.
+
+Additionally, it implements the following operations:
+
+* `ExportCommand#getCSVString()` -- Returns CSV formatted string containing the customer data, phone data, order data and schedule data.
+
+===== How it works.
+Given below is an example usage scenario and how the export mechanism behaves at each step.
+
+The user executes `export filename` command to export current data into a CSV file.
+`UserPrefs` is created and used to get the file path of the data files (i.e. customerbook.json).
+The method getCSVString is executed to create `FileReader` and `BufferedReader` to read the data files from each of the path.
+The string is then used to create `JsonObject` and then converted to CSV formatted string data representation.
+At the end, the strings are appended to get the full CSV file containing the various data.
+
+
+==== Design Considerations
+
+* **Alternative 1 (current choice):** Converting Json formatted string into CSV formatted string.
+** Pros: Easy to implement.
+** Cons: Customisation to design CSV layout requires re-formatting of the string.
+* **Alternative 2:** Creating CSV formatted string straight from the Model.
+** Pros: Easier to implement on the fly the decided layout of created CSV file.
+** Cons: Harder to maintain. Had to code for the various cases in different data.
+
+// end::export[]
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
@@ -228,7 +559,7 @@ image::CommitActivityDiagram.png[]
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Pros: Easy to implement.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.

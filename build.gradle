@@ -71,9 +71,11 @@ dependencies {
 
     implementation 'org.apache.commons:commons-math3:3.6.1'
 
-    implementation group: 'org.jfxtras', name: 'jfxtras-icalendarfx', version: '9.0-r1-SNAPSHOT'
     implementation group: 'org.jfxtras', name: 'jfxtras-agenda', version: '9.0-r1-SNAPSHOT'
-    implementation group: 'org.jfxtras', name: 'jfxtras-icalendaragenda', version: '9.0-r1-SNAPSHOT'
+
+    implementation 'commons-io:commons-io:2.4'
+
+    compile 'org.json:json:20171018'
 
 }
 
@@ -108,7 +110,36 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
+
+task(guiTests)
+task(nonGuiTests)
+
+// Run `test` task if `guiTests` or `nonGuiTests` is specified
+guiTests.dependsOn test
+nonGuiTests.dependsOn test
+
+task(allTests)
+
+// `allTests` implies both `guiTests` and `nonGuiTests`
+allTests.dependsOn guiTests
+allTests.dependsOn nonGuiTests
+
+
 test {
+
+    testLogging {
+        events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+
+        // Prints the currently running test's name in the CI's build log,
+        // so that we can check if tests are being silently skipped or
+        // stalling the build.
+        if (System.env.'CI') {
+            events << TestLogEvent.STARTED
+        }
+    }
+
+    systemProperty 'testfx.setup.timeout', '60000'
+
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
 
@@ -123,7 +154,47 @@ test {
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
+
+    doFirst {
+        boolean runGuiTests = gradle.taskGraph.hasTask(guiTests)
+        boolean runNonGuiTests = gradle.taskGraph.hasTask(nonGuiTests)
+
+        if (!runGuiTests && !runNonGuiTests) {
+            runGuiTests = true
+            runNonGuiTests = true
+        }
+
+        if (runNonGuiTests) {
+            test.include 'seedu/address/**'
+        }
+
+        if (runGuiTests) {
+            //test.include 'systemtests/**'
+            test.include 'seedu/address/ui/**'
+        }
+
+        if (!runGuiTests) {
+            test.exclude 'seedu/address/ui/**'
+        }
+    }
 }
+
+task headless {
+    doLast {
+        println 'Setting headless mode properties.'
+        test {
+            systemProperties = [
+                    'testfx.robot': 'glass',
+                    'testfx.headless': 'true',
+                    'prism.order': 'sw',
+                    'prism.text': 't2k',
+            ]
+        }
+    }
+}
+
+// Makes sure that headless properties are set before running tests
+test.mustRunAfter headless
 
 asciidoctor {
     backends 'html5'
@@ -163,4 +234,21 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
-defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+task deployOfflineDocs(type: Copy) {
+    into('src/main/resources/docs')
+
+    from ("${asciidoctor.outputDir}/html5") {
+        include 'stylesheets/*'
+        include 'images/*'
+        include 'HelpWindow.html'
+    }
+}
+
+
+deployOfflineDocs.dependsOn asciidoctor
+processResources.dependsOn deployOfflineDocs
+
+defaultTasks 'clean', 'test', 'coverage'
+
+
+

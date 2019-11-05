@@ -5,6 +5,7 @@ package seedu.address.logic.commands;
  * so to enable the manager to switch to the correct tab
  */
 public enum UiChange {
+    ARCHIVED_ORDER,
     DEFAULT,
     CUSTOMER,
     PHONE,

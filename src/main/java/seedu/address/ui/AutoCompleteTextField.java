@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
@@ -28,44 +29,12 @@ import javafx.scene.text.TextFlow;
  */
 public class AutoCompleteTextField extends TextField {
     private final SortedSet<String> entries;
-    private ContextMenu entriesPopup;
+    private final ContextMenu entriesPopup;
 
     public AutoCompleteTextField() {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
-
-        setListener();
-    }
-
-    private void setListener() {
-        textProperty().addListener((observable, oldValue, newValue) -> {
-            // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-            setStyleToDefault();
-            String enteredText = getText();
-            // hide suggestions if no input
-            if (enteredText == null || enteredText.isEmpty()) {
-                entriesPopup.hide();
-            } else {
-                // filter
-                List<String> filteredEntries = entries.stream()
-                        .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
-                        .sorted((e1, e2) -> compareEntries(e1, e2, enteredText))
-                        .collect(Collectors.toList());
-                if (!filteredEntries.isEmpty()) {
-                    populatePopup(filteredEntries, enteredText);
-                    if (!entriesPopup.isShowing()) {
-                        entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
-                    }
-                } else {
-                    entriesPopup.hide();
-                }
-            }
-        });
-
-        focusedProperty().addListener(((observable, oldValue, newValue) -> {
-            entriesPopup.hide();
-        }));
     }
 
     /**
@@ -73,9 +42,9 @@ public class AutoCompleteTextField extends TextField {
      * @param searchResults A list of strings that match {@code searchWord}.
      * @param searchWord The word being matched against.
      */
-    private void populatePopup(List<String> searchResults, String searchWord) {
+    public void populatePopup(List<String> searchResults, String searchWord) {
         List<CustomMenuItem> menuItems = new ArrayList<>();
-        int maxEntries = 5;
+        int maxEntries = 7;
         int count = Math.min(searchResults.size(), maxEntries);
 
         for (int i = 0; i < count; i++) {
@@ -83,13 +52,13 @@ public class AutoCompleteTextField extends TextField {
             Label entryLabel = new Label();
             entryLabel.setGraphic(buildTextFlow(result, searchWord));
             entryLabel.setPrefHeight(10);
-            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            CustomMenuItem item = new CustomMenuItem(entryLabel, false);
             menuItems.add(item);
 
             item.setOnAction(actionEvent -> {
-                setText(result);
-                positionCaret(result.length());
-                entriesPopup.hide();
+                setText(getText().substring(0, getText().lastIndexOf(searchWord)) + result);
+                positionCaret(getText().length());
+                fireEvent(new Event(EventType.ROOT));
             });
         }
 
@@ -101,33 +70,59 @@ public class AutoCompleteTextField extends TextField {
         return entries;
     }
 
+    public ContextMenu getEntriesPopup() {
+        return entriesPopup;
+    }
+
     /**
      * Returns a {@code TextFlow} that highlights the filtered word in a matching word.
      * @param text A word containing {@code filter}.
      * @param filter A word to highlight.
      * @return A highlighted TextFlow.
      */
-    private static TextFlow buildTextFlow(String text, String filter) {
-        int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
-        Text textBefore = new Text(text.substring(0, filterIndex));
-        Text textAfter = new Text(text.substring(filterIndex + filter.length()));
-        Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
-        textFilter.setFill(Color.YELLOW);
-        textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
-        return new TextFlow(textBefore, textFilter, textAfter);
+    public static TextFlow buildTextFlow(String text, String filter) {
+        if (filter.equals("")) {
+            Text wholeText = new Text(text);
+            wholeText.setFill(Color.CYAN);
+            wholeText.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
+            return new TextFlow(wholeText);
+        } else {
+            int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
+            Text textBefore = new Text(text.substring(0, filterIndex));
+            Text textAfter = new Text(text.substring(filterIndex + filter.length()));
+            Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
+            textFilter.setFill(Color.YELLOW);
+            textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
+            return new TextFlow(textBefore, textFilter, textAfter);
+        }
     }
 
     /**
      * Sets the command box style to use the default style.
      */
-    private void setStyleToDefault() {
+    public void setStyleToDefault() {
         this.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
-    private int compareEntries(String firstMatch, String secondMatch, String text) {
+    /**
+     * Compares {@code firstMatch} and {@code secondMatch} with {@code text} to determine which is more similar.
+     * @param firstMatch A string containing {@code text}.
+     * @param secondMatch A string containing {@code text}.
+     * @param text A string.
+     * @return 0 if equally similar, negative int if firstMatch more similar, positive int if secondMatch more similar.
+     */
+    public int compareEntries(String firstMatch, String secondMatch, String text) {
         int firstIndex = firstMatch.indexOf(text);
         int secondIndex = secondMatch.indexOf(text);
         return firstIndex - secondIndex;
+    }
+
+    /**
+     * Hides and shows the dropdown.
+     */
+    public void refreshDropdown() {
+        entriesPopup.hide();
+        entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
     }
 
 }

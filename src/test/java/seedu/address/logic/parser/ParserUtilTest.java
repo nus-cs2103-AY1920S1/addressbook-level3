@@ -53,6 +53,16 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseEmail_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    }
+
+    @Test
+    public void parseEmail_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+    }
+
+    @Test
     public void parseTag_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
     }

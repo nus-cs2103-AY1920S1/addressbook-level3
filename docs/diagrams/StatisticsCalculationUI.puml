@@ -1,0 +1,37 @@
+@startuml
+!include style.puml
+
+Participant ":MainWindow" as mw LOGIC_COLOR
+Participant ":LogicManager" as logic LOGIC_COLOR
+Participant ":StatisticManager" as sm LOGIC_COLOR
+Participant ":StatsWindow" as sw LOGIC_COLOR
+
+[-> mw : executeCommand
+activate mw
+
+mw -> logic ++: (covered here in previous section)
+logic -> mw --: CommandResult
+mw -> mw ++: performUiChanges(commandResult)
+mw -> mw ++: handleStats(statsPayload)
+
+
+mw -> logic ++: statsPayload
+
+logic -> sm ++: statsPayload
+sm -> sm : calculate
+sm -> logic --: result
+
+logic -> mw --:result
+
+mw -> sw ++: result
+sw -> sw ++: buildChart()
+sw -> mw --: statsWindow/ defaultStatsWindow
+<- mw : CommandResult
+
+
+
+
+
+
+
+@enduml

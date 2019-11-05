@@ -25,16 +25,19 @@ public class StorageManager implements Storage {
     private PhoneBookStorage phoneBookStorage;
     private ScheduleBookStorage scheduleBookStorage;
     private OrderBookStorage orderBookStorage;
+    private OrderBookStorage archivedOrderBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
     public StorageManager(CustomerBookStorage customerBookStorage,
                           PhoneBookStorage phoneBookStorage, ScheduleBookStorage scheduleBookStorage,
-                          OrderBookStorage orderBookStorage, UserPrefsStorage userPrefsStorage) {
+                          OrderBookStorage orderBookStorage, OrderBookStorage archivedOrderBookStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.customerBookStorage = customerBookStorage;
         this.phoneBookStorage = phoneBookStorage;
         this.scheduleBookStorage = scheduleBookStorage;
         this.orderBookStorage = orderBookStorage;
+        this.archivedOrderBookStorage = archivedOrderBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -173,5 +176,35 @@ public class StorageManager implements Storage {
     public void saveOrderBook(ReadOnlyDataBook<Order> orderBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         orderBookStorage.saveOrderBook(orderBook, filePath);
+    }
+
+    // ================ Archived Order DataBook methods ==============================
+
+    @Override
+    public Path getArchivedOrderBookFilePath() {
+        return archivedOrderBookStorage.getOrderBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyDataBook<Order>> readArchivedOrderBook() throws DataConversionException, IOException {
+        return readOrderBook(archivedOrderBookStorage.getOrderBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyDataBook<Order>> readArchivedOrderBook(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return archivedOrderBookStorage.readOrderBook(filePath);
+    }
+
+    @Override
+    public void saveArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook) throws IOException {
+        saveArchivedOrderBook(archivedOrderBook, archivedOrderBookStorage.getOrderBookFilePath());
+    }
+
+    @Override
+    public void saveArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        archivedOrderBookStorage.saveOrderBook(archivedOrderBook, filePath);
     }
 }

@@ -33,6 +33,15 @@ public class TypicalPhones {
             .withSerialNumber("182n8x81").withName("iPhone XR").withBrand("Apple")
             .withCapacity(Capacity.SIZE_128GB).withColour("Black").withCost("$1000").withTags("Used").build();
 
+    public static final Phone IPHONEPRO11 = new PhoneBuilder().withIdentityNumber("013373005371667")
+            .withSerialNumber("1d27s9az").withName("iPhone Pro 11").withBrand("Apple")
+            .withCapacity(Capacity.SIZE_128GB).withColour("Purple").withCost("$1649").withTags("New")
+            .withTags("Bestseller").build();
+
+    public static final Phone IPHONE_JSON_TEST = new PhoneBuilder().withIdentityNumber("111111111111111")
+            .withSerialNumber("A342432").withName("iPhone 11").withBrand("iPhone")
+            .withCapacity(Capacity.SIZE_32GB).withColour("White").withCost("$5000").withTags("used").build();
+
     /**
      * Returns a {@code DataBook} with all the typical phones.
      */

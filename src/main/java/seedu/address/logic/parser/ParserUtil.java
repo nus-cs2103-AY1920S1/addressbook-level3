@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,7 +12,6 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StatsParseUtil;
 import seedu.address.commons.util.StringUtil;
 
 import seedu.address.logic.commands.statisticcommand.StatisticType;
@@ -29,6 +29,7 @@ import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
+import seedu.address.statistic.StatsParseUtil;
 
 
 /**
@@ -37,7 +38,10 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_CALENDAR = "Calendar is not in the correct format.";
+
+    public static final String MESSAGE_INVALID_DATE = "Date is not in the correct format.";
+    public static final String MESSAGE_INVALID_TIME = "Time is not in the correct format.";
+    public static final String MESSAGE_INVALID_CALENDAR = "Date and Time are not in the correct format.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -248,20 +252,26 @@ public class ParserUtil {
      */
     public static StatisticType parseStatsType(String statsInput) throws ParseException {
         requireNonNull(statsInput);
+        System.out.println(statsInput);
+
         String trimmedStatsType = statsInput.trim();
+        String[] checkInvalidChara = trimmedStatsType.split(" ");
+        if (checkInvalidChara.length > 1) {
+            throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS_NO_INVALID_CHAR);
+        }
         if (!StatsParseUtil.isValidStatType(trimmedStatsType)) {
             throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS);
         }
         switch (trimmedStatsType) {
-        case "PROFIT":
+        case "profit":
             return StatisticType.PROFIT;
-        case "COST":
+        case "cost":
             return StatisticType.COST;
-        case "REVENUE":
+        case "revenue":
             return StatisticType.REVENUE;
         default:
             throw new ParseException("Invalid type of Statistics. Only possible ones include:\n"
-                    + "PROFIT, COST, REVENUE");
+                    + "profit, cost , revenue");
         }
     }
 
@@ -283,8 +293,15 @@ public class ParserUtil {
         try {
             for (int index = 0; index < 3; index++) {
                 input[index] = Integer.parseInt(stringCalendar[index]);
+                if (input[index] <= 0) {
+                    throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS_LESS_THAN_0);
+                }
                 //offset for month
             }
+            if (input[0] < 1970) {
+                throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS_LESS_THAN_DEFAULT);
+            }
+
             localDateTime = LocalDateTime.of(input[0], input[1], input[2], 0, 0);
         } catch (NumberFormatException | DateTimeException e) {
             throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
@@ -309,37 +326,55 @@ public class ParserUtil {
         }
         return new Price(trimmedPrice);
     }
+
     /**
-     * Parses a {@code String calendar} into a {@code Calendar}.
+     * Parses a {@code String date, time} into a {@code Calendar}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code calendar} is invalid.
      */
-    public static Calendar parseCalendar(String calendar) throws ParseException {
-        requireNonNull(calendar);
-        String trimmedCalendar = calendar.trim();
+    public static Calendar parseCalendar(String date, String time) throws ParseException {
+        requireNonNull(date);
+        requireNonNull(time);
 
-        String[] stringCalendar = trimmedCalendar.split("\\.");
-        if (stringCalendar.length != 5) {
-            throw new ParseException(MESSAGE_INVALID_CALENDAR);
+        Calendar calendarDate = parseDateCalendar(date);
+        Calendar calendarTime = parseTimeCalendar(time);
+
+        int newYear = calendarDate.get(Calendar.YEAR);
+        int newMonth = calendarDate.get(Calendar.MONTH);
+        int newDate = calendarDate.get(Calendar.DAY_OF_MONTH);
+        int newHour = calendarTime.get(Calendar.HOUR_OF_DAY);
+        int newMinute = calendarTime.get(Calendar.MINUTE);
+
+        return new Calendar.Builder().setDate(newYear, newMonth, newDate)
+                .setTimeOfDay(newHour, newMinute, 0).build();
+    }
+
+    /**
+     *Parse a {@Code String time} into a {@Code calendar}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Calendar parseTimeCalendar(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+
+        String[] timeArr = time.split("\\.");
+        if (timeArr.length != 2) {
+            throw new ParseException(Messages.TIME_MESSAGE_CONSTRAINTS);
         }
+        int[] input = new int[3];
 
-        int[] input = new int[5];
-        LocalDateTime localDateTime;
+        LocalTime localTime;
         try {
-            for (int index = 0; index < 5; index++) {
-                input[index] = Integer.parseInt(stringCalendar[index]);
+            for (int index = 0; index < 2; index++) {
+                input[index] = Integer.parseInt(timeArr[index]);
             }
-            localDateTime = LocalDateTime.of(input[0], input[1], input[2], input[3], input[4]);
+            localTime = LocalTime.of(input[0], input[1]);
         } catch (NumberFormatException | DateTimeException e) {
-            throw new ParseException(MESSAGE_INVALID_CALENDAR);
+            throw new ParseException(Messages.TIME_MESSAGE_CONSTRAINTS);
         }
 
-        // change month to 0-based
-        input[1] -= 1;
-
-        return new Calendar.Builder().setDate(input[0], input[1], input[2])
-                .setTimeOfDay(input[3], input[4], 0).build();
+        return new Calendar.Builder().setTimeOfDay(input[0], input[1], 0).build();
     }
 
     /**
@@ -370,5 +405,16 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+     /** Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static String parseFileName(String fileName) throws ParseException {
+        requireNonNull(fileName);
+        String trimmedName = fileName.trim();
+        return trimmedName;
     }
 }

@@ -6,9 +6,11 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -16,7 +18,7 @@ import seedu.address.model.customer.Customer;
 /**
  * Deletes a customer identified using it's displayed index from the seller manager.
  */
-public class DeleteCustomerCommand extends Command {
+public class DeleteCustomerCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete-c";
 
@@ -34,7 +36,8 @@ public class DeleteCustomerCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         List<Customer> lastShownList = model.getFilteredCustomerList();
 
