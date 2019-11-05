@@ -72,7 +72,7 @@ public abstract class TrainingCommand extends Command {
     @Override
     public String toString() {
         return "Add Training Command";
-
+    }
     /**
      * Checks with the model if person indexes are valid.
      */
