@@ -14,7 +14,7 @@ import seedu.ifridge.model.food.ShoppingItem;
  */
 public class JsonAdaptedShoppingItem {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Shopping Item's %s field is missing!";
 
     private final String name;
     private final String amount;
@@ -22,7 +22,7 @@ public class JsonAdaptedShoppingItem {
     private final boolean bought;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedShoppingItem} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedShoppingItem(
@@ -55,6 +55,9 @@ public class JsonAdaptedShoppingItem {
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        if (amount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
