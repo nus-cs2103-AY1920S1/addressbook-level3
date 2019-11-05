@@ -16,6 +16,7 @@ import seedu.address.model.performance.Event;
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
+    public static final String MESSAGE_INVALID_FLAG = "%1$s is not a valid flag.\n";
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
@@ -27,14 +28,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        DeleteCommand deleteCommand = null;
-        String flag;
-        try {
-            flag = trimmedArgs.substring(0, 2);
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
+        DeleteCommand deleteCommand;
+        String flag = getFlag(trimmedArgs);
         if (flag.equals(FLAG_PERSON.toString())) {
             deleteCommand = parsePerson(trimmedArgs);
         } else if (flag.equals(FLAG_EVENT.toString())) {
@@ -43,8 +38,24 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
         return deleteCommand;
+    }
+
+    /**
+     * Extracts the valid flag from the argument string.
+     */
+    private String getFlag(String args) throws ParseException {
+        String[] stringArray = args.split("\\s+", 2);
+        String flag = stringArray[0].trim();
+        if (flag.length() < 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        if (!Flag.isValidFlag(flag)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(MESSAGE_INVALID_FLAG, flag) + Flag.MESSAGE_INVALID_FLAG));
+        }
+        assert(Flag.isValidFlag(flag));
+        return flag;
     }
 
     /**

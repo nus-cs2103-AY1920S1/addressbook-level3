@@ -13,7 +13,7 @@ import seedu.address.model.performance.Event;
  */
 public class DeleteEventCommand extends DeleteCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + FLAG_EVENT
         + ": Deletes the event identified by the event name as seen in the performance view.\n"
         + "Parameters: EVENT_NAME (must exist in performance)\n"
         + "Example: " + COMMAND_WORD + " " + FLAG_EVENT + " freestyle 50m";
