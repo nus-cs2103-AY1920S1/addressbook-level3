@@ -10,7 +10,7 @@
    <content>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;">
          <children>
-            <Label maxWidth="1.7976931348623157E308" style="-fx-background-color: #30336B;" text="Attendance" textFill="#ff7979">
+            <Label maxWidth="1.7976931348623157E308" style="-fx-background-color: #30336B;" text="Attendance" textFill="#badc58">
                <font>
                   <Font size="18.0" />
                </font>

@@ -123,4 +123,20 @@ class TrainingTest {
 
         assertTrue(absentees.containsAll(selfCreatedAbsentees));
     }
+
+    @Test
+    public void test_getTrainingAttendanceList() {
+        Training training = FIRST_TRAINING;
+        List<AttendanceEntry> attendanceEntries = new ArrayList<>();
+        attendanceEntries.add(new AttendanceEntry(ALICE, true));
+        attendanceEntries.add(new AttendanceEntry(BENSON, true));
+        attendanceEntries.add(new AttendanceEntry(CARL, false));
+        attendanceEntries.add(new AttendanceEntry(DANIEL, false));
+        attendanceEntries.add(new AttendanceEntry(ELLE, true));
+        attendanceEntries.add(new AttendanceEntry(FIONA, false));
+        attendanceEntries.add(new AttendanceEntry(GEORGE, false));
+        assertTrue(training.getTrainingAttendanceList().containsAll(attendanceEntries));
+    }
+
+
 }

@@ -42,7 +42,7 @@ public class CalendarPanel extends UiPart<Region> {
     private Image leftIcon = new Image(this.getClass().getResourceAsStream("/images/left_arrow.png"));
     private Image rightIcon = new Image(this.getClass().getResourceAsStream("/images/right_arrow.png"));
     private Image trainingIcon = new Image(this.getClass().getResourceAsStream("/images"
-            + "/pink_dot.png"));
+            + "/green_dot.png"));
     private Image performanceIcon = new Image(this.getClass().getResourceAsStream("/images"
             + "/purple_dot.png"));
 
@@ -410,7 +410,7 @@ public class CalendarPanel extends UiPart<Region> {
         int m = c.get(Calendar.MONTH);
         AthletickDate ad = new AthletickDate(Integer.parseInt(day), m + 1, y, 1,
                 MONTHS[m]);
-        return model.hasTraining(ad);
+        return model.hasTrainingOnDate(ad);
     }
 
     /**

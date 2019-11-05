@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Attendance;
+import seedu.address.model.AttendanceRateEntry;
 import seedu.address.model.Model;
 import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -30,6 +31,7 @@ import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 public class EventCommandTest {
@@ -221,12 +223,17 @@ public class EventCommandTest {
         }
 
         @Override
-        public Training getTrainingOnDate(AthletickDate date) {
+        public void deleteTrainingOnDate(AthletickDate date) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date) {
+        public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<AttendanceRateEntry> getAttendanceRateOfAll() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -246,8 +253,19 @@ public class EventCommandTest {
         public Attendance getAttendance() {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
-        public boolean hasTraining(AthletickDate training) {
+        public void resetAttendance() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTrainingOnDate(AthletickDate training) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerformance(ReadOnlyPerformance performance) {
             throw new AssertionError("This method should not be called.");
         }
 

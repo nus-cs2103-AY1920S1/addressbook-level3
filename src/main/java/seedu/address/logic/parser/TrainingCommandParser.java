@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ABSENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEXES;
 
@@ -33,13 +34,17 @@ public class TrainingCommandParser implements Parser<TrainingCommand> {
         List<Index> indexList;
         AthletickDate date;
         boolean byAbsent = false;
+        String parsed;
 
-        if (args.contains("-a")) {
+        if (args.contains(FLAG_ABSENT.toString())) {
             byAbsent = true;
-            args = args.replaceAll("-a", "");
+            parsed = args.replaceAll("-a", "");
+        } else {
+            parsed = args;
         }
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_INDEXES);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(parsed, PREFIX_DATE, PREFIX_INDEXES);
+
         if (!arePrefixesPresent(argMultimap, PREFIX_INDEXES) || !argMultimap.getPreamble().isEmpty()) {
             if (byAbsent) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -52,10 +57,10 @@ public class TrainingCommandParser implements Parser<TrainingCommand> {
 
         indexList = ParserUtil.parseIndexes(argMultimap.getValue(PREFIX_INDEXES).get());
         if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
-            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+            date = ParserUtil.parseDateTypeOne(argMultimap.getValue(PREFIX_DATE).get());
         } else {
             DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
-            date = ParserUtil.parseDate(dateFormat.format(new Date()));
+            date = ParserUtil.parseDateTypeOne(dateFormat.format(new Date()));
         }
         if (byAbsent) {
             return new TrainingCommandAbsent(date, indexList);
@@ -69,6 +74,7 @@ public class TrainingCommandParser implements Parser<TrainingCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        Stream<Prefix> stream = Stream.of(prefixes);
+        return stream.allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

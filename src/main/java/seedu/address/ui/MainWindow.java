@@ -185,19 +185,13 @@ public class MainWindow extends UiPart<Stage> {
             if (!(commandResult.getFeature() == null)) {
                 switch (commandResult.getFeature().toString()) {
                 case "calendar":
-                    CalendarPanel calendarPanel = new CalendarPanel(commandResult.getModel());
-                    featureBoxPlaceholder.getChildren().clear();
-                    featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
+                    showCalendar(commandResult.getModel());
                     break;
                 case "attendance":
-                    AttendancePanel attendance = new AttendancePanel();
-                    featureBoxPlaceholder.getChildren().clear();
-                    featureBoxPlaceholder.getChildren().add(attendance.getRoot());
+                    showAttendancePanel(commandResult.getModel());
                     break;
                 case "performance":
-                    PerformancePanel performance = new PerformancePanel(commandResult.getModel());
-                    featureBoxPlaceholder.getChildren().clear();
-                    featureBoxPlaceholder.getChildren().add(performance.getRoot());
+                    showPerformancePanel(commandResult.getModel());
                     break;
                 default:
                     break;
@@ -231,6 +225,10 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
 
+            if (commandResult.isClear()) {
+                showCalendar(commandResult.getModel());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -245,5 +243,23 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void showCalendar(Model model) {
+        CalendarPanel calendarPanel = new CalendarPanel(model);
+        featureBoxPlaceholder.getChildren().clear();
+        featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
+    }
+
+    private void showAttendancePanel(Model model) {
+        AttendancePanel attendance = new AttendancePanel(model);
+        featureBoxPlaceholder.getChildren().clear();
+        featureBoxPlaceholder.getChildren().add(attendance.getRoot());
+    }
+
+    private void showPerformancePanel(Model model) {
+        PerformancePanel performance = new PerformancePanel(model);
+        featureBoxPlaceholder.getChildren().clear();
+        featureBoxPlaceholder.getChildren().add(performance.getRoot());
     }
 }

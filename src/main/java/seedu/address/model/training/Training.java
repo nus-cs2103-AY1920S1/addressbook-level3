@@ -29,6 +29,17 @@ public class Training {
         return this.trainingAttendance;
     }
 
+    public List<AttendanceEntry> getTrainingAttendanceList() {
+        List<AttendanceEntry> trainingAttendanceList = new ArrayList<>();
+        trainingAttendance.forEach((person, isPresent) -> {
+            trainingAttendanceList.add(new AttendanceEntry(person, isPresent));
+        });
+        trainingAttendanceList.sort((firstEntry, secondEntry) -> {
+            return firstEntry.getPerson().getName().toString().compareTo(secondEntry.getPerson().getName().toString());
+        });
+        return trainingAttendanceList;
+    }
+
     public boolean hasPerson(Person person) {
         return this.trainingAttendance.containsKey(person);
     }
