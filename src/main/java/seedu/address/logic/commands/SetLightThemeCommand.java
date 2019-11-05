@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.ui.util.Theme;
 
 /**
- * Sets the theme to light theme.
+ * Sets the theme to the light theme.
  */
 public class SetLightThemeCommand extends Command {
 

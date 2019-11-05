@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.ui.util.Theme;
 
 /**
- * Sets the theme to dark theme.
+ * Sets the theme to the dark theme.
  */
 public class SetDarkThemeCommand extends Command {
 
