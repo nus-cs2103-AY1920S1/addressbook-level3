@@ -103,7 +103,7 @@
           </padding>
 
           <!-- Edit Button -->
-          <Button fx:id="submitButton" text="Edit Problem" />
+          <Button fx:id="editButton" text="Edit Problem" />
         </HBox>
       </VBox>
   </ScrollPane>

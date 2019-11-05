@@ -30,17 +30,35 @@ public class PlanDetails extends UiPart<Region> {
     @FXML
     private TextArea planDescription;
     @FXML
-    private Button submitButton;
+    private Button editButton;
 
     public PlanDetails(Plan plan, UiActionExecutor uiActionExecutor) {
         super(FXML);
         this.plan = plan;
-        planName.setText(plan.getPlanName().fullName);
-        startDate.setValue(plan.getStartDate());
-        endDate.setValue(plan.getEndDate());
-        planDescription.setText(plan.getPlanDescription().value);
 
-        submitButton.setOnMouseClicked((e) -> {
+        editButton.setDisable(true);
+
+        planName.setText(plan.getPlanName().fullName);
+        planName.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        startDate.setValue(plan.getStartDate());
+        startDate.valueProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        endDate.setValue(plan.getEndDate());
+        endDate.valueProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        planDescription.setText(plan.getPlanDescription().value);
+        planDescription.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        editButton.setOnMouseClicked((e) -> {
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.EDIT_PLAN,
                 plan.getId(),
@@ -49,6 +67,7 @@ public class PlanDetails extends UiPart<Region> {
                 startDate.getValue(),
                 endDate.getValue()
             ));
+            editButton.setDisable(true);
             e.consume();
         });
     }

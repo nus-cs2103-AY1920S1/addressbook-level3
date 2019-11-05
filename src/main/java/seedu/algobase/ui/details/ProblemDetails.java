@@ -35,20 +35,50 @@ public class ProblemDetails extends UiPart<Region> {
     @FXML
     private TextArea description;
     @FXML
-    private Button submitButton;
+    private Button editButton;
 
     public ProblemDetails(Problem problem, UiActionExecutor uiActionExecutor) {
         super(FXML);
         this.problem = problem;
-        name.setText(problem.getName().fullName);
-        author.setText(problem.getAuthor().value);
-        weblink.setText(problem.getWebLink().value);
-        description.setText(problem.getDescription().value);
-        difficulty.setText(problem.getDifficulty().toString());
-        remark.setText(problem.getRemark().value);
-        source.setText(problem.getSource().value);
 
-        submitButton.setOnMouseClicked((e) -> {
+        editButton.setDisable(true);
+
+        name.setText(problem.getName().fullName);
+        name.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        author.setText(problem.getAuthor().value);
+        author.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        weblink.setText(problem.getWebLink().value);
+        weblink.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        description.setText(problem.getDescription().value);
+        description.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        difficulty.setText(problem.getDifficulty().toString());
+        difficulty.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        remark.setText(problem.getRemark().value);
+        remark.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        source.setText(problem.getSource().value);
+        source.textProperty().addListener((e) -> {
+            editButton.setDisable(false);
+        });
+
+        editButton.setOnMouseClicked((e) -> {
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.EDIT_PROBLEM,
                 problem.getId(),
@@ -60,6 +90,7 @@ public class ProblemDetails extends UiPart<Region> {
                 remark.getText(),
                 source.getText()
             ));
+            editButton.setDisable(true);
             e.consume();
         });
     }
