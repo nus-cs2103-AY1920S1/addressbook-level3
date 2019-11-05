@@ -3,6 +3,7 @@ package budgetbuddy;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.Config;
@@ -35,7 +36,6 @@ import budgetbuddy.storage.rules.JsonRuleStorage;
 import budgetbuddy.storage.rules.RuleStorage;
 import budgetbuddy.storage.scripts.FlatfileScriptsStorage;
 import budgetbuddy.storage.scripts.ScriptsStorage;
-import budgetbuddy.storage.scripts.exceptions.ScriptsStorageException;
 import budgetbuddy.ui.Ui;
 import budgetbuddy.ui.UiManager;
 import javafx.application.Application;
@@ -107,13 +107,11 @@ public class MainApp extends Application {
                 logger.info("Loans file not found. Will be starting with a sample LoansManager.");
             }
             return loansManagerOptional.orElseGet(SampleDataUtil::getSampleLoansManager);
-        } catch (DataConversionException e) {
-            logger.warning("Loans file not in the correct format. Will be starting with an empty LoansManager.");
-            return new LoansManager();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from loans file. Will be starting with an empty LoansManager.");
-            return new LoansManager();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error reading loans; starting with a sample LoansManager", e);
         }
+
+        return SampleDataUtil.getSampleLoansManager();
     }
 
     /**
@@ -129,13 +127,11 @@ public class MainApp extends Application {
                 logger.info("Rule file not found. Will be starting with an empty RuleManager.");
             }
             return ruleManagerOptional.orElseGet(RuleManager::new);
-        } catch (DataConversionException e) {
-            logger.warning("Rule file not in the correct format. Will be starting with an empty RuleManager.");
-            return new RuleManager();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from rule file. Will be starting with an empty RuleManager.");
-            return new RuleManager();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error reading rules; starting with empty RuleManager", e);
         }
+
+        return new RuleManager();
     }
 
     /**
@@ -149,10 +145,11 @@ public class MainApp extends Application {
     private ScriptLibrary initScriptLibrary(Storage storage) {
         try {
             return storage.readScripts();
-        } catch (IOException | ScriptsStorageException e) {
-            logger.warning("Problem while reading scripts. Starting with empty script library.");
-            return new ScriptLibraryManager();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error reading scripts; starting with empty script library", e);
         }
+
+        return new ScriptLibraryManager();
     }
 
     /**
@@ -168,13 +165,11 @@ public class MainApp extends Application {
                 logger.info("Accounts file not found. Will be starting with an empty AccountsManager.");
             }
             return accountsManagerOptional.orElseGet(AccountsManager::new);
-        } catch (DataConversionException e) {
-            logger.warning("Accounts file not in the correct format. Will be starting with an empty AccountsManager.");
-            return new AccountsManager();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from accounts file. Will be starting with an empty AccountsManager.");
-            return new AccountsManager();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error reading accounts; starting with empty AccountsManager", e);
         }
+
+        return new AccountsManager();
     }
 
     private void initLogging(Config config) {
