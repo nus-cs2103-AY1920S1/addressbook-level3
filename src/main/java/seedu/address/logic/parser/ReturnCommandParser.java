@@ -30,8 +30,8 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
      */
     @Override
     public ReturnCommand parse(String userInput) throws ParseException {
-        if (onlyAllFlagPresent(userInput)) { // -all present
-            return new ReturnCommand(true);
+        if (onlyAllFlagPresent(userInput)) { // -all present, return all valid books
+            return new ReturnCommand();
         }
 
         try { // parse by index instead

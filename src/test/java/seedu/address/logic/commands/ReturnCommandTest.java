@@ -35,11 +35,6 @@ class ReturnCommandTest {
     }
 
     @Test
-    public void constructor_isAllFalse_assertionError() {
-        assertThrows(AssertionError.class, () -> new ReturnCommand(false));
-    }
-
-    @Test
     public void execute_validLoanedBook_returnSuccessful() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         borrowerRecords.addBorrower(IDA);
@@ -86,7 +81,7 @@ class ReturnCommandTest {
 
         Model model = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
 
-        ReturnCommand returnCommand = new ReturnCommand(INDEX_FIRST_BOOK);
+        ReturnCommand returnCommand = new ReturnCommand();
 
         String actualMessage;
         try {

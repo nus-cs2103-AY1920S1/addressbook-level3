@@ -34,7 +34,7 @@ public class ReturnCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s\n\n";
 
     private final Index index;
-    private final boolean returnAllValidBooks;
+    private final boolean isReturnAll;
 
     /**
      * Creates a ReturnCommand to return the currently served Borrower's {@code Book}.
@@ -44,18 +44,15 @@ public class ReturnCommand extends ReversibleCommand {
     public ReturnCommand(Index index) {
         requireNonNull(index);
         this.index = index;
-        this.returnAllValidBooks = false;
+        this.isReturnAll = false;
     }
 
     /**
      * Creates a RenewCommand to return all of the currently served Borrower's {@code Book}s.
      *
-     * @param isAll True.
      */
-    public ReturnCommand(boolean isAll) {
-        assert isAll : "Wrong constructor used!";
-
-        this.returnAllValidBooks = isAll;
+    public ReturnCommand() {
+        this.isReturnAll = true;
         this.index = null;
     }
 
@@ -73,19 +70,7 @@ public class ReturnCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
 
-        List<Book> lastShownBorrowerBooksList = model.getBorrowerBooks();
-
-        ArrayList<Book> returningBooks = new ArrayList<>();
-        if (returnAllValidBooks) { // return all valid books
-            returningBooks.addAll(lastShownBorrowerBooksList);
-        } else { // return book corresponding to index
-            if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
-                throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
-            }
-
-            Book bookToBeReturned = lastShownBorrowerBooksList.get(index.getZeroBased());
-            returningBooks.add(bookToBeReturned);
-        }
+        ArrayList<Book> returningBooks = getReturningBooks(model, isReturnAll);
 
         String feedbackMessage = "";
         ArrayList<Book> returnedBookList = new ArrayList<>();
@@ -131,6 +116,31 @@ public class ReturnCommand extends ReversibleCommand {
         return commandResult;
     }
 
+    /**
+     * Retrieves the books that we are returning in an ArrayList.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @param isReturnAll Whether this command is returning all valid books or not.
+     * @return ArrayList of returningBooks.
+     * @throws CommandException If an error occurs during command execution.
+     */
+    private ArrayList<Book> getReturningBooks(Model model, boolean isReturnAll) throws CommandException {
+        List<Book> lastShownBorrowerBooksList = model.getBorrowerBooks();
+
+        if (isReturnAll) { // return all valid books
+            return new ArrayList<>(lastShownBorrowerBooksList);
+        } else { // return book corresponding to index
+            if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
+                throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
+            }
+
+            Book bookToBeReturned = lastShownBorrowerBooksList.get(index.getZeroBased());
+            ArrayList<Book> returningBooks = new ArrayList<>();
+            returningBooks.add(bookToBeReturned);
+            return returningBooks;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -142,6 +152,7 @@ public class ReturnCommand extends ReversibleCommand {
         }
 
         ReturnCommand otherReturnCommand = (ReturnCommand) o;
-        return this.index.equals(otherReturnCommand.index);
+        return ((this.index == null) || (this.index.equals(otherReturnCommand.index)))
+                && this.isReturnAll == otherReturnCommand.isReturnAll;
     }
 }
