@@ -11,7 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.card.Meaning;
+import seedu.address.model.card.meaning.Meaning;
 import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 

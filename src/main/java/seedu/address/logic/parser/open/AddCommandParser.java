@@ -16,7 +16,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.Meaning;
+import seedu.address.model.card.meaning.Meaning;
 import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 

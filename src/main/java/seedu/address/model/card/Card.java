@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.UidGenerator;
+import seedu.address.model.card.meaning.Meaning;
 import seedu.address.model.tag.Tag;
 
 /**
