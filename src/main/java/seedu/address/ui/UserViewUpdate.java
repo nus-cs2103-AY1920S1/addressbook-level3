@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.scene.layout.Pane;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Communicates with {@code UserViewManager} to update the view based on user's command.
@@ -26,15 +27,16 @@ public class UserViewUpdate {
      *
      * @param commandText raw command of user
      */
-    public void parseUserCommand(String commandText) {
-        String preamble = commandText.split(" ")[0];
+    public void parseUserCommand(String commandText) throws ParseException {
+        String trimmedCommand = commandText.trim();
+        String[] split = trimmedCommand.split(" ");
 
+        String preamble = split[0];
         assert !(preamble.isEmpty());
-        String command = preamble.trim();
 
         paneToRender.getChildren().clear();
 
-        switch(command) {
+        switch(preamble) {
 
         case "add-task":
 
@@ -71,6 +73,8 @@ public class UserViewUpdate {
             break;
 
         case "fire":
+            paneToRender.getChildren().add(userViewMain.loadTasks());
+            break;
 
         case "edit-member":
 
