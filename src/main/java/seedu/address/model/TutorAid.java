@@ -22,7 +22,7 @@ import seedu.address.model.task.TaskList;
 /**
  * Wraps all data at the address-book level
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class TutorAid implements ReadOnlyTutorAid {
 
     private final UniquePersonList persons;
     private final UniqueEarningsList earning;
@@ -48,12 +48,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     }
 
-    public AddressBook() {}
+    public TutorAid() {}
 
     /**
-     * Creates an AddressBook using the Persons, Earnings and Commands in the {@code toBeCopied}
+     * Creates an TutorAid using the Persons, Earnings and Commands in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public TutorAid(ReadOnlyTutorAid toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -124,7 +124,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TutorAid}.
      * {@code key} must exist in the address book.
      */
     public void removeTask(Task key) {
@@ -154,9 +154,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code TutorAid} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTutorAid newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -196,7 +196,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TutorAid}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -220,7 +220,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TutorAid}.
      * {@code key} must exist in the address book.
      */
     public void removeCommand(CommandObject key) {
@@ -244,7 +244,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TutorAid}.
      * {@code key} must exist in the address book.
      */
     public void removeEarnings(Earnings key) {
@@ -261,7 +261,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TutorAid}.
      * {@code key} must exist in the address book.
      */
     public void removeReminder(Reminder key) {
@@ -313,7 +313,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TutorAid}.
      * {@code key} must exist in the address book.
      */
     public void removeNotes(Notes key) {
@@ -377,9 +377,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && (persons.equals(((AddressBook) other).persons))
-                && (tasks.equals(((AddressBook) other).tasks)));
+                || (other instanceof TutorAid // instanceof handles nulls
+                && (persons.equals(((TutorAid) other).persons))
+                && (tasks.equals(((TutorAid) other).tasks)));
     }
 
     @Override

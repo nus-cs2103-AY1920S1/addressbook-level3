@@ -1,7 +1,7 @@
 {
   "persons" : [ {
     "name" : "caesar",
-    "picture" : "caesar.jspg",
+    "picture" : "invalid.jrpg",
     "classId" : "No Class Assigned Yet!",
     "attendance" : "0",
     "result" : "0",
@@ -9,5 +9,7 @@
   } ],
   "earning" : [ ],
   "commands" : [ ],
-  "tasks" : [ ]
+  "tasks" : [ ],
+  "reminders" : [ ],
+  "notes" : [ ]
 }

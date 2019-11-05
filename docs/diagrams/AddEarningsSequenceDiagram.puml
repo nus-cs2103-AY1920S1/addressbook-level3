@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":TutorAidParser" as TutorAidParser LOGIC_COLOR
 participant ":AddEarningsCommandParser" as AddEarningsCommandParser LOGIC_COLOR
 participant "ae:AddEarningsCommand" as AddEarningsCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("add_earnings d/....")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("add_earnings d/....")
-activate AddressBookParser
+LogicManager -> TutorAidParser : parseCommand("add_earnings d/....")
+activate TutorAidParser
 
 create AddEarningsCommandParser
-AddressBookParser -> AddEarningsCommandParser
+TutorAidParser -> AddEarningsCommandParser
 activate AddEarningsCommandParser
 
-AddEarningsCommandParser --> AddressBookParser
+AddEarningsCommandParser --> TutorAidParser
 deactivate AddEarningsCommandParser
 
-AddressBookParser -> AddEarningsCommandParser : parse("d/...")
+TutorAidParser -> AddEarningsCommandParser : parse("d/...")
 activate AddEarningsCommandParser
 
 create AddEarningsCommand
@@ -36,14 +36,14 @@ activate AddEarningsCommand
 AddEarningsCommand --> AddEarningsCommandParser : ae
 deactivate AddEarningsCommand
 
-AddEarningsCommandParser --> AddressBookParser : ae
+AddEarningsCommandParser --> TutorAidParser : ae
 deactivate AddEarningsCommand
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddEarningsCommandParser -[hidden]-> AddressBookParser
+AddEarningsCommandParser -[hidden]-> TutorAidParser
 destroy AddEarningsCommandParser
 
-AddressBookParser --> LogicManager : ae
-deactivate AddressBookParser
+TutorAidParser --> LogicManager : ae
+deactivate TutorAidParser
 
 LogicManager -> AddEarningsCommand : execute()
 activate AddEarningsCommand

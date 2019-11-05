@@ -19,6 +19,8 @@ public class ListNotesCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS,
+                false, false, false, false, false,
+                false, true, false);
     }
 }

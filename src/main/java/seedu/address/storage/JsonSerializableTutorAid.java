@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTutorAid;
+import seedu.address.model.TutorAid;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.note.Notes;
@@ -24,10 +24,10 @@ import seedu.address.storage.earnings.JsonAdaptedEarnings;
 
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable TutorAid that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "tutoraid")
+class JsonSerializableTutorAid {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_COMMAND = "Commands list contains duplicate command(s).";
@@ -43,15 +43,15 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableTutorAid} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                       @JsonProperty("earning") List<JsonAdaptedEarnings> earning,
-                                       @JsonProperty("commands") List<JsonAdaptedCommand> commands,
-                                       @JsonProperty("tasks") List<JsonAdaptedTask> tasks,
-                                       @JsonProperty("reminders") List<JsonAdaptedReminder> reminders,
-                                       @JsonProperty("notes") List<JsonAdaptedNote> notes) {
+    public JsonSerializableTutorAid(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                    @JsonProperty("earning") List<JsonAdaptedEarnings> earning,
+                                    @JsonProperty("commands") List<JsonAdaptedCommand> commands,
+                                    @JsonProperty("tasks") List<JsonAdaptedTask> tasks,
+                                    @JsonProperty("reminders") List<JsonAdaptedReminder> reminders,
+                                    @JsonProperty("notes") List<JsonAdaptedNote> notes) {
 
         this.persons.addAll(persons);
         this.earning.addAll(earning);
@@ -62,11 +62,11 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyTutorAid} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableTutorAid}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableTutorAid(ReadOnlyTutorAid source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         earning.addAll(source.getEarningsList().stream().map(JsonAdaptedEarnings::new).collect(Collectors.toList()));
         commands.addAll(source.getCommandsList().stream().map(JsonAdaptedCommand::new).collect(Collectors.toList()));
@@ -76,59 +76,59 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code TutorAid} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public TutorAid toModelType() throws IllegalValueException {
+        TutorAid tutorAid = new TutorAid();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (tutorAid.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            tutorAid.addPerson(person);
         }
         for (JsonAdaptedEarnings jsonAdaptedEarnings : earning) {
             Earnings earnings = jsonAdaptedEarnings.toModelType();
-            if (addressBook.hasEarnings(earnings)) {
+            if (tutorAid.hasEarnings(earnings)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EARNINGS);
             }
-            addressBook.addEarnings(earnings);
+            tutorAid.addEarnings(earnings);
         }
 
         for (JsonAdaptedCommand jsonAdaptedCommand : commands) {
             CommandObject command = jsonAdaptedCommand.toModelType();
-            if (addressBook.hasCommand(command)) {
+            if (tutorAid.hasCommand(command)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_COMMAND);
             }
-            addressBook.addCommand(command);
+            tutorAid.addCommand(command);
         }
 
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
             Task task = jsonAdaptedTask.toModelType();
-            if (addressBook.hasTask(task)) {
+            if (tutorAid.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
-            addressBook.addTask(task);
+            tutorAid.addTask(task);
         }
 
         for (JsonAdaptedReminder jsonAdaptedReminder : reminders) {
             Reminder reminder = jsonAdaptedReminder.toModelType();
-            if (addressBook.hasReminder(reminder)) {
+            if (tutorAid.hasReminder(reminder)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_REMINDER);
             }
-            addressBook.addReminder(reminder);
+            tutorAid.addReminder(reminder);
         }
 
         for (JsonAdaptedNote jsonAdaptedNotes : notes) {
             Notes notes = jsonAdaptedNotes.toModelType();
-            if (addressBook.hasNotes(notes)) {
+            if (tutorAid.hasNotes(notes)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
-            addressBook.addNotes(notes);
+            tutorAid.addNotes(notes);
         }
-        return addressBook;
+        return tutorAid;
     }
 
 }

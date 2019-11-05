@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EARNINGS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEarnings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEarnings.getTypicalTutorAid;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +19,8 @@ import seedu.address.model.earnings.ClassIdContainKeywordPredicate;
 
 public class FindEarningsCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTutorAid(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalTutorAid(), new UserPrefs());
 
     @Test
     public void equals() {

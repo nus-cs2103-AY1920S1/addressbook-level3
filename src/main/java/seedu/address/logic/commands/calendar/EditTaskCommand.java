@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.calendar;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MARKING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
@@ -31,6 +32,7 @@ public class EditTaskCommand extends Command {
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_CLASSID + "Y] "
             + "[" + PREFIX_MARKING + "Y] "
             + "[" + PREFIX_TASK_TIME + "19/10/2019 12:00, 19/10/2019 14:00] "
             + "Example: " + COMMAND_WORD + " 1 "
@@ -73,7 +75,9 @@ public class EditTaskCommand extends Command {
 
         model.setTask(taskToEdit, editedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask),
+                false, false, false, false, true,
+                false, false, false);
     }
 
     /**

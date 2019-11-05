@@ -60,7 +60,7 @@ public class ParserUtil {
      */
     public static CommandObject parseCommand(String commandToCheck) throws ParseException {
         String trimmedCommand = commandToCheck.trim();
-        TreeMap<String, String> commandList = AddressBookParser.getCommandList();
+        TreeMap<String, String> commandList = TutorAidParser.getCommandList();
         if (!commandList.containsKey(trimmedCommand)) {
             throw new ParseException((MESSAGE_INVALID_COMMAND));
         } else {
