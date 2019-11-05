@@ -61,11 +61,13 @@ public class InCommandTest {
     @Test
     public void equals() {
         BankAccountOperation firstTransaction = new BankOperationBuilder()
+            .withDescription("Milk")
             .withCategories("Food")
             .withAmount("100")
             .withDate("10102019")
             .build();
         BankAccountOperation secondTransaction = new BankOperationBuilder()
+            .withDescription("Coke")
             .withCategories("Drinks")
             .withAmount("80")
             .withDate("10102019")
