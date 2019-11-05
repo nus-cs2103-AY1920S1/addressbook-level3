@@ -17,12 +17,6 @@ public class ViewTest {
     }
 
     @Test
-    public void constructor_invalidView_throwsIllegalArgumentException() {
-        String invalidView = "asdasd";
-        assertThrows(IllegalArgumentException.class, () -> new View(invalidView, 1));
-    }
-
-    @Test
     public void invalidView_ifBlank() {
 
         //blank View

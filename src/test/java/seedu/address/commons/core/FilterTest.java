@@ -7,7 +7,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.model.SortFilter;
 
 //@@author {lawncegoh}
 public class FilterTest {
@@ -15,12 +14,6 @@ public class FilterTest {
     @Test
     public void filterCheck_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.checkFilter(null));
-    }
-
-    @Test
-    public void constructor_invalidFilter_throwsIllegalArgumentException() {
-        String invalidFilter = "asdasd";
-        assertThrows(IllegalArgumentException.class, () -> new SortFilter(invalidFilter, 1));
     }
 
     @Test
