@@ -230,6 +230,8 @@ public class ItemModelManager implements ItemModel {
 
         if (wrapper.getFrem() != -1) {
             futureReminders.add(wrapper.getFrem(), wrapper.getItem());
+        } else {
+            activeReminders.addDontFire(wrapper.getArem(), wrapper.getItem());
         }
     }
 
