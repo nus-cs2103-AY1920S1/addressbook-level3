@@ -195,7 +195,7 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");;
+        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
         validFormat.setLenient(false); // date has to exist in calendar (i.e. not 31 Feb)
         try {
             Date parsedDate = validFormat.parse(trimmedDate);

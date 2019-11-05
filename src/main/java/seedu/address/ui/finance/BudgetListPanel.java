@@ -38,7 +38,14 @@ public class BudgetListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BudgetCard(budgetData).getRoot());
+                if (budgetData.isActive()) {
+                    setGraphic(new ActiveBudgetCard(budgetData).getRoot());
+                } else if (budgetData.hasEnded()) {
+                    setGraphic(new EndedBudgetCard(budgetData).getRoot());
+                } else {
+                    // Budgets yet to start
+                    setGraphic(new InactiveBudgetCard(budgetData).getRoot());
+                }
             }
         }
     }
