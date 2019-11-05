@@ -16,7 +16,7 @@ import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -75,7 +75,7 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
     }
 
     private void updateToPatientList(ReferenceId referenceId) {
-        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(referenceId));
+        model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(referenceId));
         filterEventList = model.getFilteredAppointmentList();
     }
 }

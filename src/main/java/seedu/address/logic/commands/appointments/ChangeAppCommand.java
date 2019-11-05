@@ -11,7 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 /**
  * Chnageing the timing of the appointment.
@@ -61,7 +61,7 @@ public class ChangeAppCommand extends ReversibleCommand {
             throw new CommandException(ex.getMessage());
         }
 
-        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
+        model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(editedEvent.getPersonId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }
 

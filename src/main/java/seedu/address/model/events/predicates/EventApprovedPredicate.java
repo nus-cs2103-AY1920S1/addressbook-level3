@@ -15,4 +15,9 @@ public class EventApprovedPredicate implements Predicate<Event> {
     public boolean test(Event event) {
         return event.getStatus().isApproved();
     }
+
+    @Override
+    public String toString() {
+        return String.format("Displaying all upcoming event(s)");
+    }
 }

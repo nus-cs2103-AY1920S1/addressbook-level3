@@ -14,8 +14,8 @@ public class Messages {
     public static final String MESSAGE_INVAILD_REFERENCE_ID =
             "The reference ID '%1$s' does not belong to any registered person!";
     public static final String MESSAGE_INVALID_APPOINTMENT_DATE_TIME = "The appointment dateTime provided is invalid!";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-    public static final String MESSAGE_ALL_EVENTS_LISTED_OVERVIEW = "%1$d appointments listed!";
+    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d person(s) listed!\n%2$s";
+    public static final String MESSAGE_ALL_EVENTS_LISTED_OVERVIEW = "%1$d appointment(s) listed!\n%2$s";
     public static final String MESSAGE_MISSED_EVENT_LISTED_OVERVIEW = "%1$d missing appointment need to settle!";
     public static final String MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW = "%1$d missing appointments need to settle!";
     public static final String MESSAGE_INVALID_INDEX = "The appointment index provided is not correct";

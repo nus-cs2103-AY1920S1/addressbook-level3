@@ -39,7 +39,7 @@ public class AppointmentsCommand extends NonActionableCommand {
         if (trimmedArgs.isEmpty()) {
             this.predicate = PREDICATE_SHOW_ALL_EVENTS;
         } else {
-            this.predicate = new EventContainsKeywordPredicate(trimmedArgs.toUpperCase());
+            this.predicate = new EventContainsKeywordPredicate(trimmedArgs);
         }
     }
 
@@ -49,7 +49,9 @@ public class AppointmentsCommand extends NonActionableCommand {
         model.setTabListing(OmniPanelTab.APPOINTMENTS_TAB);
         model.updateFilteredAppointmentList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, model.getFilteredAppointmentList().size()));
+                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
+                        model.getFilteredAppointmentList().size(),
+                        predicate.toString()));
     }
 
     @Override
