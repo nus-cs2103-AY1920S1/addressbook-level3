@@ -109,7 +109,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
 
-        Optional<ReadOnlySavingsHistory> savingsAccountOptional;
+        Optional<ReadOnlySavingsHistory> savingsHistoryOptional;
         ReadOnlySavingsHistory initialSavingsHistory;
 
         Optional<ReadOnlyPurchaseHistory> purchaseHistoryOptional;
@@ -133,11 +133,11 @@ public class MainApp extends Application {
             }
             initialData = menuOptional.orElseGet(SampleDataUtil::getSampleMenu);
 
-            savingsAccountOptional = storage.readSavingsHistory();
-            if (!savingsAccountOptional.isPresent()) {
-                logger.info("Savings Account file is not found. Will be starting with an empty Savings Account");
+            savingsHistoryOptional = storage.readSavingsHistory();
+            if (!savingsHistoryOptional.isPresent()) {
+                logger.info("Savings History file is not found. Will be starting with an empty Savings History");
             }
-            initialSavingsHistory = savingsAccountOptional.orElse(new SavingsHistory());
+            initialSavingsHistory = savingsHistoryOptional.orElse(new SavingsHistory());
 
             recsOptional = userRecs.readRecs();
             if (!recsOptional.isPresent()) {
