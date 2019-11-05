@@ -25,7 +25,6 @@ import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
-import seedu.address.ui.StatusBarFooter;
 import seedu.address.ui.UiPart;
 
 /**
@@ -67,9 +66,6 @@ public class AddressBookPage extends UiPart<Region> implements Page {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
 
 
     public AddressBookPage(Stage primaryStage, AddressBookLogic addressBookLogic) {
@@ -132,9 +128,6 @@ public class AddressBookPage extends UiPart<Region> implements Page {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(addressBookLogic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
