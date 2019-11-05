@@ -525,7 +525,7 @@ Examples:
 adds `John` into group `CS2103`
 ****
 
-* `addtogroup n/Bobby g/CS3203 r/Leader`
+* `addtogroup n/Bobby g/CS3203 role/Leader`
 
 ****
 adds `Bobby` into group `CS3203` with a role `Leader`
