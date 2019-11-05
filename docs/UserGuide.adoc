@@ -56,12 +56,14 @@ Manage your questions using a single interface. Saving questions is easy, simply
 and an answer and you are all set!
 
 image::questions/ListQuestionResult.png[]
+_Questions management interface_
 
 === Slideshow
 Engage your students in the classroom with our slideshow feature. Easily display existing questions
 without the need to recreate them.
 
 image::questions/SlideshowExample.png[]
+_Slideshow feature_
 
 ==== Control
 Controlling Slideshow is simple. With just your arrow and space keys, you are in control of your questions.
@@ -563,10 +565,10 @@ The following controls are used for polling mcq type questions:
 |==============================
 | Control | Description
 
-| `1` | Plus one to option A.
-| `2` | Plus one to option B.
-| `3` | Plus one to option C.
-| `4` | Plus one to option D.
+| `1` | Add one response to option A.
+| `2` | Add one response to option B.
+| `3` | Add one response to option C.
+| `4` | Add one response to option D.
 |==============================
 
 {empty} +
