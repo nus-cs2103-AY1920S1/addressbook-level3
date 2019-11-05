@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -219,7 +220,7 @@ public interface Model {
     /**
      * Undoes the most recent committed {@code ReversibleCommand}.
      */
-    CommandResult undoCommand() throws CommandException;
+    Pair<CommandResult, CommandResult> undoCommand() throws CommandException;
 
     /**
      * Redoes the most recent undone {@code ReversibleCommand}.

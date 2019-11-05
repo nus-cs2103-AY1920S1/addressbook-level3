@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import javafx.util.Pair;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
@@ -645,7 +646,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public CommandResult undoCommand() throws CommandException {
+    public Pair<CommandResult, CommandResult> undoCommand() throws CommandException {
         return commandHistory.undo(this);
     }
 

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import javafx.util.Pair;
 import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_UNDO_COMMAND;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,22 +28,25 @@ public class UndoCommand extends Command {
         if (!model.canUndoCommand()) {
             throw new CommandException(MESSAGE_CANNOT_UNDO_COMMAND);
         }
-        CommandResult commandResult = model.undoCommand();
-        String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
+        Pair<CommandResult, CommandResult> commandResults = model.undoCommand();
+        CommandResult actualResult = commandResults.getKey();
+        CommandResult resultOfUndoneCommand = commandResults.getValue();
 
-        if (commandResult.isDone()) {
+        String msgSuccess = MESSAGE_SUCCESS + resultOfUndoneCommand.getFeedbackToUser();
+
+        if (actualResult.isDone()) {
             return CommandResult.commandResultDone(msgSuccess);
         }
 
-        if (commandResult.isShowHelp()) {
+        if (actualResult.isShowHelp()) {
             return CommandResult.commandResultHelp(msgSuccess);
         }
 
-        if (commandResult.isExit()) {
+        if (actualResult.isExit()) {
             return CommandResult.commandResultExit(msgSuccess);
         }
 
-        if (commandResult.isServe()) {
+        if (actualResult.isServe()) {
             return CommandResult.commandResultServe(msgSuccess);
         }
 
