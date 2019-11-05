@@ -29,6 +29,18 @@ This project was undertaken by a team of four Year 2 computer science undergradu
 
 We have thus developed this software that is mostly CLI, save the option for clicking navigation menu and entries, and to be targeted for mortuary managers.
 
+=== About My Role
+
+My role was to design the `find`, `filter`, and `stats` feature. The following section elaborates on my work in greater detail. Other than engineering these features, I also contributed to the project documentation (user and developer guides). I will be including excerpts of these contributions in the next section.
+
+Before we move there, I would like to highlight the symbols and text formatting that will be used in this document, which are as follows:
+
+This symbol indicates important information.
+
+A grey highlight (called mark-up) indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
+
+Blue text indicates a component, class or object in the architecture of the application.
+
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
