@@ -31,4 +31,5 @@ public class Messages {
 
     public static final String MESSAGE_NOTHING_SETTLE = "No missed appointment needs to settle";
     public static final String MESSAGE_EVENT_NOT_FOUND = "The appointment '%1$s' is not registered";
+    public static final String DUPLICATED_FIELD_MESSAGE_FORMAT = "Duplicate %s fields are not allowed!";
 }

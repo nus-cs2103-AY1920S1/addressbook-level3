@@ -1,14 +1,17 @@
 package seedu.address.logic.parser;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ArgumentTokenizerTest {
 
@@ -37,14 +40,30 @@ public class ArgumentTokenizerTest {
     }
 
     /**
+     * Asserts all the argument in {@code argMultimap} with {@code prefix} match the {@code expectedValue}
+     * returned upon calling {@code ArgumentMultimap#getValue(Prefix)}.
+     */
+    private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String expectedValue) {
+
+        // Verify the last value is returned
+        Optional<String> result = assertDoesNotThrow(() -> argMultimap.getValue(prefix));
+        assertEquals(expectedValue, result.get());
+
+        // Verify the number of values returned is as expected
+        assertEquals(1, argMultimap.getAllValues(prefix).size());
+
+        // Verify only 1 value is returned and equal to the expected value
+        assertEquals(expectedValue, argMultimap.getAllValues(prefix).get(0));
+    }
+
+    /**
      * Asserts all the arguments in {@code argMultimap} with {@code prefix} match the {@code expectedValues}
-     * and only the last value is returned upon calling {@code ArgumentMultimap#getValue(Prefix)}.
+     * returned upon calling {@code ArgumentMultimap#getAllValues(Prefix)}.
      */
     private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) {
 
         // Verify the last value is returned
-        Optional<String> result = assertDoesNotThrow(() -> argMultimap.getValue(prefix));
-        assertEquals(expectedValues[expectedValues.length - 1], result.get());
+        assertThrows(ParseException.class, () -> argMultimap.getValue(prefix));
 
         // Verify the number of values returned is as expected
         assertEquals(expectedValues.length, argMultimap.getAllValues(prefix).size());

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -17,8 +18,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * can be inserted multiple times for the same prefix.
  */
 public class ArgumentMultimap {
-
-    public static final String DUPLICATED_FIELD_MESSAGE_FORMAT = "Duplicate %s fields are not allowed!";
 
     /**
      * Prefixes mapped to their respective arguments
@@ -60,7 +59,8 @@ public class ArgumentMultimap {
         List<String> values = getAllValues(prefix);
 
         if (values.size() > 1) {
-            throw new ParseException(String.format(DUPLICATED_FIELD_MESSAGE_FORMAT, prefix.toString().trim()));
+            throw new ParseException(
+                    String.format(Messages.DUPLICATED_FIELD_MESSAGE_FORMAT, prefix.toString().trim()));
         }
 
         return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
