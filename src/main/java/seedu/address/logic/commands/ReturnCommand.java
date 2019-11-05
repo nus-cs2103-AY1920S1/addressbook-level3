@@ -22,7 +22,7 @@ import seedu.address.model.loan.Loan;
 /**
  * Returns a Book with the given Index.
  */
-public class ReturnCommand extends Command {
+public class ReturnCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "return";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a book borrowed by a borrower.\n"
@@ -95,8 +95,12 @@ public class ReturnCommand extends Command {
         // unmount this book in LoanSlipUtil if it is mounted
         LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToBeReturned);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
+        undoCommand = new UnreturnCommand(returnedBook, bookToBeReturned, returnedLoan, loanToBeReturned);
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
                 FineUtil.centsToDollarString(fineAmount)));
+
+        return commandResult;
     }
 
     @Override

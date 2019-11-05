@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -16,6 +17,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.commons.util.DateUtil;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
@@ -38,6 +43,7 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
+    private final CommandHistory commandHistory;
 
     private Optional<Borrower> servingBorrower;
 
@@ -63,6 +69,8 @@ public class ModelManager implements Model {
         // testing
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
+
+        this.commandHistory = new CommandHistory();
 
         this.servingBorrower = Optional.empty();
     }
@@ -155,6 +163,16 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Removes a <code>Loan</code> object from the loan records.
+     *
+     * @param loan <code>Loan</code> object to be removed.
+     */
+    public void removeLoan(Loan loan) {
+        requireNonNull(loan);
+        loanRecords.removeLoan(loan);
+    }
+
+    /**
      * Replaces an existing {@code Loan} object in LoanRecords with an edited one.
      *
      * @param existingLoan Existing {@code Loan} object to be replaced.
@@ -238,7 +256,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasBook(SerialNumber bookSn) {
         requireNonNull(bookSn);
-        return catalog.checkIfSerialNumberExists(bookSn);
+        return catalog.serialNumberExists(bookSn);
     }
 
     @Override
@@ -258,6 +276,7 @@ public class ModelManager implements Model {
 
     @Override
     public Book getBook(SerialNumber bookSn) {
+        assert hasBook(bookSn) : "Book does not exist in catalog";
         return catalog.getBook(bookSn);
     }
 
@@ -276,6 +295,43 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Book> getOverdueBooks() {
         return catalog.getOverdueBooks();
+    }
+
+    @Override
+    public String getLoanHistoryOfBookAsString(Book target) {
+        ArrayList<Loan> loanStream = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Loan History:\n");
+        if (target.getLoanHistory().isEmpty()) {
+            sb.append("No loan history!");
+        } else {
+            target.getLoanHistory().forEach(loan -> loanStream.add(loan));
+            Collections.reverse(loanStream); // To make latest loan go on top
+            loanStream.stream()
+                    .map(loan -> singleLoanHistoryString(
+                            loan, target.isCurrentlyLoanedOut() && target.getLoan().get().equals(loan)))
+                    .forEach(history -> sb.append(history + "\n"));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Helper method to generate a loan history as a string.
+     *
+     * @param loan loan history to be generated.
+     * @param isCurrent if this loan is currently the loan associated with the book at the moment.
+     * @return String representation of loan history.
+     */
+    private String singleLoanHistoryString(Loan loan, boolean isCurrent) {
+        String startString = DateUtil.formatDate(loan.getStartDate());
+        String endString = DateUtil.formatDate(loan.getDueDate());
+        String nameString = getBorrowerFromId(loan.getBorrowerId()).getName().toString();
+        String borrowerIdString = "[" + loan.getBorrowerId().toString() + "]";
+        if (isCurrent) {
+            return startString + " - " + endString + " by " + borrowerIdString + " " + nameString + " (Current loan)";
+        } else {
+            return startString + " - " + endString + " by " + borrowerIdString + " " + nameString;
+        }
     }
 
     /**
@@ -392,6 +448,26 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Removes a {@code Loan} object from a new copy of servingBorrower and its currentLoanList.
+     * This method is called only when in Serve mode.
+     *
+     * @param removeLoan {@code Loan} object to be removed.
+     */
+    @Override
+    public void servingBorrowerRemoveLoan(Loan removeLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+        Borrower loanRemovedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(removeLoan), serving.getReturnedLoanList());
+        borrowerRecords.setBorrower(serving, loanRemovedBorrower);
+
+        setServingBorrower(loanRemovedBorrower);
+    }
+
+    /**
      * Removes {@code loanToBeReturned} from {@code servingBorrower}'s currentLoanList and
      * adds {@code returnedLoan} to its returnedLoanList.
      * This method is called only when in Serve mode.
@@ -419,6 +495,33 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Adds {@code loanToBeUnreturned} to {@code servingBorrower}'s currentLoanList and
+     * removes {@code unreturnedLoan} to its returnedLoanList.
+     * This method is called only when in Serve mode.
+     * {@code servingBorrower} should have the {@code loanToBeUnreturned} object in its currentLoanList.
+     *
+     * @param loanToBeUnreturned {@code Loan} object in servingBorrower's currentLoanList.
+     * @param unreturnedLoan Updated {@code Loan} object to be removed to servingBorrower's returnedLoanList.
+     */
+    @Override
+    public void servingBorrowerUnreturnLoan(Loan loanToBeUnreturned, Loan unreturnedLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+
+        assert !serving.hasCurrentLoan(unreturnedLoan) : "Borrower has the loan to be unreturned.";
+
+        Borrower loanUnreturnedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getAddedCurrentLoanList(unreturnedLoan),
+                serving.getRemovedReturnedLoanList(loanToBeUnreturned));
+        borrowerRecords.setBorrower(serving, loanUnreturnedBorrower);
+
+        setServingBorrower(loanUnreturnedBorrower);
+    }
+
+    /**
      * Replaces the {@code loanToBeRenewed} in {@code servingBorrower}'s currentLoanList
      * with {@code renewedLoan}.
      * This method is called only when in Serve mode.
@@ -439,6 +542,33 @@ public class ModelManager implements Model {
 
         Borrower loanRenewedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
                 serving.getBorrowerId(), serving.getReplacedCurrentLoanList(loanToBeRenewed, renewedLoan),
+                serving.getReturnedLoanList());
+        borrowerRecords.setBorrower(serving, loanRenewedBorrower);
+
+        setServingBorrower(loanRenewedBorrower);
+    }
+
+    /**
+     * Replaces the {@code loanToBeUnrenewed} in {@code servingBorrower}'s currentLoanList
+     * with {@code unrenewedLoan}.
+     * This method is called only when in Serve mode.
+     * {@code servingBorrower} should have the {@code loanToBeUnrenewed} object in its currentLoanList.
+     *
+     * @param loanToBeUnrenewed {@code Loan} object in servingBorrower's currentLoanList.
+     * @param unrenewedLoan updated {@code Loan} object with dueDate returned to previous state.
+     */
+    @Override
+    public void servingBorrowerUnrenewLoan(Loan loanToBeUnrenewed, Loan unrenewedLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+
+        assert serving.hasCurrentLoan(loanToBeUnrenewed) : "Borrower does not have the loan to be returned.";
+
+        Borrower loanRenewedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getReplacedCurrentLoanList(loanToBeUnrenewed, unrenewedLoan),
                 serving.getReturnedLoanList());
         borrowerRecords.setBorrower(serving, loanRenewedBorrower);
 
@@ -494,6 +624,34 @@ public class ModelManager implements Model {
     @Override
     public void unregisterBorrower(Borrower toUnregister) {
         borrowerRecords.removeBorrower(toUnregister);
+    }
+
+
+    //=========== CommandHistory ===============================================================================
+
+    @Override
+    public boolean canUndoCommand() {
+        return commandHistory.canUndo();
+    }
+
+    @Override
+    public boolean canRedoCommand() {
+        return commandHistory.canRedo();
+    }
+
+    @Override
+    public void commitCommand(ReversibleCommand command) {
+        commandHistory.commit(command);
+    }
+
+    @Override
+    public CommandResult undoCommand() throws CommandException {
+        return commandHistory.undo(this);
+    }
+
+    @Override
+    public CommandResult redoCommand() throws CommandException {
+        return commandHistory.redo(this);
     }
 
 }

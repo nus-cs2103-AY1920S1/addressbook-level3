@@ -58,7 +58,7 @@ class LoanCommandTest {
         Loan loan = new Loan(new LoanId("L000001"), toLoan, servingBorrowerId,
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
         Book loanedOutBook = BOOK_1.loanOut(loan);
-        Book updatedLoanedOutBook = loanedOutBook.updateLoanHistory(loan);
+        Book updatedLoanedOutBook = loanedOutBook.addToLoanHistory(loan);
 
         String actualMessage;
         try {
@@ -132,7 +132,7 @@ class LoanCommandTest {
         borrowerRecords.addBorrower(HOON);
         BorrowerId servingBorrowerId = HOON.getBorrowerId();
         Catalog catalog = new Catalog();
-        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
+        Book onLoan = new BookBuilder(BOOK_7).build().loanOut(LOAN_7);
         catalog.addBook(onLoan);
 
         Model model = new ModelManager(catalog, new LoanRecords(),

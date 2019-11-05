@@ -3,10 +3,9 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -19,7 +18,7 @@ public class ResultDisplay extends UiPart<Region> {
     private ScrollPane resultDisplayPlaceholder;
 
     @FXML
-    private Label resultDisplay;
+    private TextArea resultDisplay;
 
     public ResultDisplay() {
         super(FXML);
@@ -27,7 +26,6 @@ public class ResultDisplay extends UiPart<Region> {
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
-        resultDisplay.setTextFill(Color.web("#FFFFFF"));
         resultDisplay.setWrapText(true);
         resultDisplay.setText(feedbackToUser);
     }

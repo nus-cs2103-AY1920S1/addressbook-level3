@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
 
+
 /**
  * A Serializable class that contains the GUI settings.
  * Guarantees: immutable.
@@ -17,28 +18,41 @@ public class GuiSettings implements Serializable {
     private final double windowHeight;
     private final Point windowCoordinates;
 
+    private boolean isDefault;
+
+    /**
+     * Default constructor for GuiSettings.
+     */
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
+        isDefault = true;
     }
 
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
+        isDefault = false;
     }
 
     public double getWindowWidth() {
+        assert !isDefault : "Should return default width from fxml file";
         return windowWidth;
     }
 
     public double getWindowHeight() {
+        assert !isDefault : "Should return default height from fxml file";
         return windowHeight;
     }
 
     public Point getWindowCoordinates() {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
     }
 
     @Override

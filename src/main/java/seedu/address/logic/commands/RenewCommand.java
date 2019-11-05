@@ -12,7 +12,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -22,7 +24,7 @@ import seedu.address.model.loan.Loan;
 /**
  * Renews a Book with the given Index.
  */
-public class RenewCommand extends Command {
+public class RenewCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "renew";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Renews a book borrowed by a borrower.\n"
@@ -99,8 +101,20 @@ public class RenewCommand extends Command {
         // update Loan in LoanRecords with extended due date
         model.updateLoan(loanToBeRenewed, renewedLoan);
 
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, renewedBook, servingBorrower, extendedDueDate));
+
+        undoCommand = new UnrenewCommand(renewedBook, bookToBeRenewed, renewedLoan, loanToBeRenewed);
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, renewedBook,
+                servingBorrower, DateUtil.formatDate(extendedDueDate)));
+
+        // mount renewed loan
+        try {
+            LoanSlipUtil.mountLoan(renewedLoan, renewedBook, servingBorrower);
+        } catch (LoanSlipException e) {
+            e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
+        }
+
+        return commandResult;
     }
 
     @Override

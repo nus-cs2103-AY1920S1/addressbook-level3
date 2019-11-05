@@ -7,7 +7,7 @@
 
 ---
 
-== About the Project
+== Overview
 This portfolio aims to highlight my contributions to our team project, 'LiBerry'.
 
 With a common belief to improve literacy in the world, my team decided to create a library management system called

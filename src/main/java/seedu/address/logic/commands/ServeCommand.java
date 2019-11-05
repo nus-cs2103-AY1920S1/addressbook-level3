@@ -12,7 +12,7 @@ import seedu.address.model.borrower.BorrowerId;
 /**
  * Opens a serving session for a borrower and allows the borrower to start borrower book
  */
-public class ServeCommand extends Command {
+public class ServeCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "serve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the Serve Mode. "
@@ -22,13 +22,21 @@ public class ServeCommand extends Command {
             + PREFIX_BORROWER_ID + "K0001 ";
 
     public static final String MESSAGE_SUCCESS = "Currently serving Borrower: %1$s\n";
+    public static final String MESSAGE_ALREADY_IN_SERVE_MODE = "Still serving %1$s! Please enter "
+            + "\"done\" to exit serve mode before serving another borrower.";
 
-    private BorrowerId borrowerId;
+    private final BorrowerId borrowerId;
 
+    /**
+     * Creates a ServeCommand to serve a {@code Borrower}.
+     *
+     * @param borrowerId id of {@code Borrower} we are serving.
+     */
     public ServeCommand (BorrowerId borrowerId) {
         requireNonNull(borrowerId);
         this.borrowerId = borrowerId;
     }
+
     /**
      * Executes the command and returns the result message.
      *
@@ -40,6 +48,11 @@ public class ServeCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (model.isServeMode()) {
+            throw new CommandException(
+                    String.format(MESSAGE_ALREADY_IN_SERVE_MODE, model.getServingBorrower().getName().toString()));
+        }
+
         if (!model.hasBorrowerId(borrowerId)) {
             throw new CommandException(MESSAGE_NO_SUCH_BORROWER_ID);
         }
@@ -47,7 +60,11 @@ public class ServeCommand extends Command {
         model.setServingBorrower(borrowerId);
         Borrower borrower = model.getServingBorrower();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, borrower), false, false, true, false);
+        undoCommand = new DoneCommand();
+        redoCommand = this;
+        commandResult = CommandResult.commandResultServe(String.format(MESSAGE_SUCCESS, borrower));
+
+        return commandResult;
     }
 
     @Override

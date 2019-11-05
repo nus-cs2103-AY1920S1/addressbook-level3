@@ -22,7 +22,7 @@ import seedu.address.model.loan.LoanIdGenerator;
 /**
  * Loans a Book with the given Serial Number to a Borrower.
  */
-public class LoanCommand extends Command {
+public class LoanCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "loan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loans a book to a borrower.\n"
@@ -73,12 +73,16 @@ public class LoanCommand extends Command {
         Loan loan = new Loan(LoanIdGenerator.generateLoanId(), toLoan, servingBorrower.getBorrowerId(),
                 DateUtil.getTodayDate(), dueDate);
         Book loanedOutBook = bookToBeLoaned.loanOut(loan);
-        Book updatedLoanedOutBook = loanedOutBook.updateLoanHistory(loan);
+        Book updatedLoanedOutBook = loanedOutBook.addToLoanHistory(loan);
 
         // replace the previous Book object with a new Book object that has a Loan
         model.setBook(bookToBeLoaned, updatedLoanedOutBook);
         model.addLoan(loan); // add Loan object to LoanRecords in model
         model.servingBorrowerNewLoan(loan); // add Loan object to Borrower's currentLoanList
+
+        undoCommand = new UnloanCommand(updatedLoanedOutBook, bookToBeLoaned, loan);
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, updatedLoanedOutBook, servingBorrower));
 
         try {
             LoanSlipUtil.mountLoan(loan, updatedLoanedOutBook, servingBorrower);
@@ -86,7 +90,7 @@ public class LoanCommand extends Command {
             e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedLoanedOutBook, servingBorrower));
+        return commandResult;
     }
 
     @Override
@@ -100,6 +104,7 @@ public class LoanCommand extends Command {
         }
 
         LoanCommand otherLoanCommand = (LoanCommand) o;
+
         return this.toLoan.equals(otherLoanCommand.toLoan);
     }
 }

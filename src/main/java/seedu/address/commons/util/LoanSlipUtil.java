@@ -6,6 +6,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -13,7 +14,9 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Table;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.LoanSlipException;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.book.Book;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.loan.Loan;
@@ -41,6 +44,7 @@ public class LoanSlipUtil {
     private static boolean isMounted = false;
     private static boolean isGenerated = false;
 
+    private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     /**
      * Mounts a Loan slip in preparation for creating a pdf version of it.
@@ -113,7 +117,7 @@ public class LoanSlipUtil {
             requireNonNull(currentBooks);
             requireNonNull(currentBorrower);
             Document document = createDocument(createFileNameFromLoan());
-            float [] pointColumnWidths = {FIRST_ROW_WIDTH, SECOND_ROW_WIDTH, THIRD_ROW_WIDTH};
+            float[] pointColumnWidths = {FIRST_ROW_WIDTH, SECOND_ROW_WIDTH, THIRD_ROW_WIDTH};
             Table table = new Table(pointColumnWidths);
             LoanSlipDocument doc = new LoanSlipDocument(document, table);
             generateLiberryLoanSlip(doc);
@@ -187,6 +191,7 @@ public class LoanSlipUtil {
     private static void writeHeaderToDoc(LoanSlipDocument doc) {
         doc.writeHeader(currentBorrower.getName().toString());
         doc.writeLeftParagraph(currentBorrower.getBorrowerId().toString());
+        doc.writeLeftParagraph(DateUtil.getTodayFormattedDate());
         doc.writeLine();
         doc.writeMidHeader("Books borrowed");
     }
@@ -263,7 +268,7 @@ public class LoanSlipUtil {
         try {
             Desktop.getDesktop().open(currentFile);
         } catch (IOException e) {
-            throw new LoanSlipException("Error in opening loan slip");
+            logger.info("Error in opening loan slip");
         }
     }
 }

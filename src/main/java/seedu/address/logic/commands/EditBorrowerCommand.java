@@ -22,11 +22,11 @@ import seedu.address.model.loan.LoanList;
 /**
  * Edits the details of an existing Borrower in the borrower record.
  */
-public class EditBorrowerCommand extends Command {
+public class EditBorrowerCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the serving borrower. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the serving borrower. \n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
@@ -40,7 +40,6 @@ public class EditBorrowerCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided."
             + "\n"
             + MESSAGE_USAGE;
-
 
     private final EditBorrowerDescriptor editBorrowerDescriptor;
 
@@ -77,7 +76,26 @@ public class EditBorrowerCommand extends Command {
 
         model.setBorrower(borrowerToEdit, editedBorrower);
         model.setServingBorrower(editedBorrower);
-        return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower));
+
+        undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit));
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower));
+
+        return commandResult;
+    }
+
+    /**
+     * Returns a {@code EditBorrowerDescriptor} from {@code Borrower}.
+     *
+     */
+    private EditBorrowerDescriptor getBorrowerDescriptor(Borrower borrower) {
+        EditBorrowerDescriptor borrowerDescriptor = new EditBorrowerDescriptor();
+        borrowerDescriptor.setId(borrower.getBorrowerId());
+        borrowerDescriptor.setName(borrower.getName());
+        borrowerDescriptor.setEmail(borrower.getEmail());
+        borrowerDescriptor.setPhone(borrower.getPhone());
+
+        return borrowerDescriptor;
     }
 
     /**

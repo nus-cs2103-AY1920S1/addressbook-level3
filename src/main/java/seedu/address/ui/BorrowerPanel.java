@@ -25,10 +25,12 @@ public class BorrowerPanel extends UiPart<Region> {
 
     @FXML
     private Label name;
-
     @FXML
     private Label id;
-
+    @FXML
+    private Label phone;
+    @FXML
+    private Label email;
     @FXML
     private Label fines;
 
@@ -40,6 +42,8 @@ public class BorrowerPanel extends UiPart<Region> {
         super(FXML);
         name.setText("");
         id.setText("");
+        phone.setText("");
+        email.setText("");
         fines.setText("");
         VBox.setVgrow(bookListView, Priority.ALWAYS);
     }
@@ -54,6 +58,8 @@ public class BorrowerPanel extends UiPart<Region> {
         requireNonNull(borrower);
         name.setText("Borrower: " + borrower.getName().toString());
         id.setText("ID: " + borrower.getBorrowerId().toString());
+        phone.setText("Phone: " + borrower.getPhone().toString());
+        email.setText("Email: " + borrower.getEmail().toString());
         fines.setText("Fines: " + FineUtil.centsToDollarString(borrower.getOutstandingFineAmount()));
         bookListView.setItems(observableBookList);
         bookListView.setCellFactory(listView -> new BorrowerPanel.BookListViewCell());
@@ -65,6 +71,8 @@ public class BorrowerPanel extends UiPart<Region> {
     public void reset() {
         name.setText("");
         id.setText("");
+        phone.setText("");
+        email.setText("");
         fines.setText("");
         ObservableList<Book> nullList = FXCollections.observableArrayList(new ArrayList<>());
         bookListView.setItems(nullList);
@@ -93,7 +101,7 @@ public class BorrowerPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BookCard(book, getIndex() + 1).getRoot());
+                setGraphic(BookCard.bookCardWithIndex(book, getIndex() + 1).getRoot());
             }
         }
     }

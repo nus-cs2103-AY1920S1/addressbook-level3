@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CatalogParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -46,21 +47,28 @@ public class LogicManager implements Logic {
         Command command = catalogParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
+        if (command instanceof ReversibleCommand) {
+            model.commitCommand((ReversibleCommand) command);
+        }
+
         try {
             storage.saveLoanRecords(model.getLoanRecords());
             storage.saveCatalog(model.getCatalog());
             storage.saveBorrowerRecords(model.getBorrowerRecords());
             if (commandResult.isDone()) {
                 if (LoanSlipUtil.isMounted()) {
+                    logger.info("making new loan slip");
                     storage.storeNewLoanSlip();
                     LoanSlipUtil.openGeneratedLoanSlip();
                     LoanSlipUtil.unmountLoans();
                 }
             }
         } catch (IOException ioe) {
+            logger.info("IOException");
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } catch (LoanSlipException lse) {
             logger.info("Error in generating loan slip");
+            return commandResult;
         }
 
         return commandResult;
@@ -76,6 +84,12 @@ public class LogicManager implements Logic {
     public ObservableList<Book> getServingBorrowerBookList() {
         return FXCollections.observableList(model.getBorrowerBooks());
     }
+
+    @Override
+    public String getLoanHistoryOfBookAsString(Book target) {
+        return model.getLoanHistoryOfBookAsString(target);
+    }
+
 
     @Override
     public boolean isServeMode() {

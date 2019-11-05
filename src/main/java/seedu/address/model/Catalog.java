@@ -66,7 +66,7 @@ public class Catalog implements ReadOnlyCatalog {
      */
     public boolean hasBook(Book book) {
         requireNonNull(book);
-        return checkIfSerialNumberExists(book.getSerialNumber());
+        return serialNumberExists(book.getSerialNumber());
     }
 
     /**
@@ -88,7 +88,7 @@ public class Catalog implements ReadOnlyCatalog {
         books.setBook(target, editedBook);
     }
 
-    public boolean checkIfSerialNumberExists(SerialNumber sn) {
+    public boolean serialNumberExists(SerialNumber sn) {
         return books.containsSerialNumber(sn);
     }
 

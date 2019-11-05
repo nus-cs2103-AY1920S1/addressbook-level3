@@ -14,16 +14,16 @@ import seedu.address.model.book.Book;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalog. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalog. \n\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_AUTHOR + "AUTHOR  \n"
             + "[ " + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER] "
-            + "[" + PREFIX_GENRE + "GENRE]...\n"
+            + "[" + PREFIX_GENRE + "GENRE]...\n\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Harry Potter "
             + PREFIX_SERIAL_NUMBER + "B0001 "
@@ -37,6 +37,8 @@ public class AddCommand extends Command {
 
     /**
      * Creates an AddCommand to add the specified {@code Book}
+     *
+     * @param book to be added into the catalog.
      */
     public AddCommand(Book book) {
         requireNonNull(book);
@@ -52,8 +54,12 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_BOOK);
         }
 
+        undoCommand = new DeleteBySerialNumberCommand(toAdd.getSerialNumber());
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+
         model.addBook(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return commandResult;
     }
 
     @Override

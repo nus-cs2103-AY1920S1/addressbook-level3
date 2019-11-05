@@ -91,6 +91,7 @@ class LoanSlipUtilTest {
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan3, BOOK_2, borrower));
     }
 
+
     @Test
     public void createLoanSlipInDirectory_multipleLoanSlipMounted_success() {
         File file = new File("./data/loan_slips/L999999.pdf");
@@ -100,6 +101,8 @@ class LoanSlipUtilTest {
         assertFalse(file.exists());
         assertDoesNotThrow(() -> LoanSlipUtil.createLoanSlipInDirectory());
         assertTrue(file.exists());
+        //assertDoesNotThrow(() -> LoanSlipUtil.openGeneratedLoanSlip());
+
         file.delete();
         assertFalse(file.exists());
     }

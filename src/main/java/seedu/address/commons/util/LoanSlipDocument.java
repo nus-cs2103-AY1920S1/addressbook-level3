@@ -1,8 +1,13 @@
 package seedu.address.commons.util;
 
+import java.awt.Color;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageData;
@@ -18,6 +23,9 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.LogicManager;
+
 /**
  * Instance class to handle a single pdf document.
  */
@@ -26,11 +34,14 @@ public class LoanSlipDocument {
     private static final int HEADER_FONT_SIZE = 32;
     private static final int MID_HEADER_FONT_SIZE = 28;
     private static final int PARAGRAPH_FONT_SIZE = 20;
+    private static final int ROW_SIZE = 14;
     private static final double SCALE_RATIO = 0.1;
 
-    private static final String FONT = "src/main/resources/font/Lato-Black.ttf";
-    private static final String LOGO_PATH = "src/main/resources/images/LiBerryLogo.png";
+    private static final String FONT = "/font/Lato-Black.ttf";
+    private static final String LOGO_PATH = "/images/LiBerryLogo.png";
+
     private static final String LINE_DIVIDER = "_______________________________________________________";
+    private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private Document doc;
     private Table table;
@@ -45,20 +56,21 @@ public class LoanSlipDocument {
         this.table = table;
     }
 
+
     /**
      * Appends the logo to the pdf document.
      */
     public void writeLogo() {
         try {
-            Image pdfImg = createImage(LOGO_PATH);
+            Image pdfImg = createImage();
             double newWidth = pdfImg.getImageWidth() * SCALE_RATIO;
             double newHeight = pdfImg.getImageHeight() * SCALE_RATIO;
             pdfImg.scaleToFit((float) newWidth, (float) newHeight);
             pdfImg.setHorizontalAlignment(HorizontalAlignment.LEFT);
             doc.add(pdfImg);
-        } catch (MalformedURLException e) {
-            assert false; // path is provided by us and should not throw this error
-            e.printStackTrace();
+        } catch (IOException ioe) {
+            assert false;
+            ioe.printStackTrace();
         }
     }
 
@@ -114,7 +126,7 @@ public class LoanSlipDocument {
     public void addCell(String text) {
         Cell cell = new Cell();
         cell.setBorder(Border.NO_BORDER);
-        cell.add(customLeftParagraph(text, 18));
+        cell.add(customLeftParagraph(text, ROW_SIZE));
         table.addCell(cell);
     }
 
@@ -184,9 +196,11 @@ public class LoanSlipDocument {
     private Paragraph alignParagraph(TextAlignment textAlignment) {
         Paragraph p = new Paragraph();
         try {
-            PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.WINANSI, true);
+            PdfFont font = PdfFontFactory.createFont(
+                    getClass().getResource(FONT).toString(), PdfEncodings.WINANSI, true);
             p.setFont(font);
         } catch (IOException e) {
+            logger.info("Error in loading Font");
             // error occur while loading font, use default font
             e.printStackTrace();
         }
@@ -197,12 +211,15 @@ public class LoanSlipDocument {
     /**
      * Creates an image to be appended to the document.
      *
-     * @param path path of the image in local directory.
      * @return an {@code Image} Object.
-     * @throws MalformedURLException if path given is corrupted/does not exist.
      */
-    private Image createImage(String path) throws MalformedURLException {
-        ImageData imageData = ImageDataFactory.create(path);
+    private Image createImage() throws IOException {
+        logger.info("Creating logo");
+        URL url = getClass().getResource(LOGO_PATH);
+        InputStream is = url.openStream();
+        java.awt.Image image = ImageIO.read(is);
+        ImageData imageData = ImageDataFactory.create(image, Color.WHITE);
+        logger.info("success");
         return new Image(imageData);
     }
 

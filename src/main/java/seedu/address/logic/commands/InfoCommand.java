@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -10,8 +9,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.BookPredicate;
-import seedu.address.model.loan.Loan;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -27,11 +24,9 @@ public class InfoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     private final Index index;
-    private final BookPredicate predicate;
 
     public InfoCommand(Index index) {
         this.index = index;
-        predicate = new BookPredicate();
     }
 
     @Override
@@ -42,29 +37,10 @@ public class InfoCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
         Book target = lastShownList.get(index.getZeroBased());
-        String loanHistory = getLoanHistoryOfBookAsString(target, model); // display string once ui is completed
-        predicate.setSerialNumber(getSerialNumberAsString(target));
-        model.updateFilteredBookList(predicate);
-        return new CommandResult(
-                String.format(MESSAGE_BOOK_INFO, getTitleFromBook(target)));
+        return CommandResult.commandResultInfo(
+                String.format(MESSAGE_BOOK_INFO, getTitleFromBook(target)), target);
     }
 
-    private String getLoanHistoryOfBookAsString(Book target, Model model) {
-        ArrayList<Loan> loanStream = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        sb.append("Borrowed by:\n");
-        target.getLoanHistory().forEach(loan -> loanStream.add(loan));
-        loanStream.stream()
-                .map(loan -> loan.getBorrowerId())
-                .map(id -> model.getBorrowerFromId(id))
-                .map(borrower -> borrower.getName())
-                .forEach(name -> sb.append(name + "\n"));
-        return sb.toString();
-    }
-
-    private String getSerialNumberAsString(Book target) {
-        return target.getSerialNumber().toString();
-    }
 
     private String getTitleFromBook(Book target) {
         return target.getTitle().toString();

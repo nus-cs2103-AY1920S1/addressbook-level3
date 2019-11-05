@@ -94,7 +94,8 @@ Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdu
 
 ****
 * The search is case insensitive. e.g `harry` will match `Harry`
-* Only full words will be matched e.g. `Har` will not match `Harry`
+// * Only full words will be matched e.g. `Har` will not match `Harry`
+* Partial words will also be matched e.g. `Har` will match `Harry`
 * Books matching at least one keyword will be returned (i.e. `OR` search). e.g. `harry` will return both `Harry Potter` and `Harry Botter`
 * `[NUMBER]` will list this `NUMBER` of books instead
 * `[t/TITLE]` will be used to search through book titles
@@ -138,7 +139,7 @@ Adds a new book to library records. +
 Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
 
 [TIP]
-A book can have any number of genres (including 0).
+A book can have up to 5 genres (but can have no genres as well).
 
 [TIP]
 You do not need to specify the serial number if you wish so. +
@@ -288,7 +289,7 @@ Loans the book with serial number B00041 to the currently served borrower.
 * `loan sn/B00201 sn/B02929 sn/B00203` - Coming in v2.0 +
 Loans the books with serial numbers B00201, B02929 and B00203 to the currently served borrower.
 
-Upon loaning a book, a printable loan slip in PDF format will be generated.
+After loaning all books, upon the `DONE` command, a printable loan slip in pdf format will be generated. The loan slip will be opened in your computer's pdf viewer and also saved in the `loan_slips` folder.
 
 ****
 .Printable loan slip generated.
