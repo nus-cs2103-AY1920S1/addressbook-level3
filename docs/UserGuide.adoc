@@ -66,6 +66,7 @@ image::questions/SlideshowExample.png[]
 ==== Control
 Controlling Slideshow is simple. With just your arrow and space keys, you are in control of your questions.
 
+[[Features-Slideshow-Polling]]
 ==== Polling _(MCQ only)_
 Get your students participating in the discussion with the polling feature included in slideshow. Gather
 responses before revealing the answer to test your students' understanding.
@@ -364,8 +365,8 @@ Shows all the students that belong to group with groupID `G01`
 
 === Questions ​-​ `question`
 
-The questions feature is the starting point for creating quizzes and starting a slideshow. With questions, you are able to manage
-your existing questions, and add new ones which will be automatically saved.
+The questions feature is the starting point for creating quizzes and starting a slideshow.
+With questions, you are able to manage your existing questions, and add new ones which will be automatically saved.
 
 [[Feature-Question-Add]]
 ==== Creating a question
@@ -376,6 +377,7 @@ Create and store questions according to the type specified. +
 [NOTE]
 Note that for mcq question type, it is necessary to input keywords `a/`, `b/`, `c/`, `d/`.
 
+{empty} +
 The keywords supported by this feature includes:
 
 |==============================
@@ -394,6 +396,7 @@ The keywords supported by this feature includes:
 Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
 Therefore, for mcq questions, ensure that the answer entered reflects the correct option.
 
+{empty} +
 Examples:
 
 * *Open ended question*: `question question/Which year did Singapore gain independence? answer/1965 type/open` +
@@ -405,7 +408,7 @@ choices _'1965', '1963', '1968', '1970'_.
 image::questions/AddQuestion.png[]
 _Creating an open ended question._
 
-{nbsp}
+{nbsp} +
 
 ==== Editing a question
 
@@ -415,6 +418,7 @@ Edit a question currently stored. All keywords are *optional*. +
 [NOTE]
 Note that when changing question type from open ended to mcq, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
 
+{empty} +
 The keywords supported by this feature includes:
 
 |==============================
@@ -434,6 +438,7 @@ The keywords supported by this feature includes:
 Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
 Therefore, for mcq questions, ensure that the answer entered reflects the correct option.
 
+{empty} +
 Examples:
 
 * `question 1 question/What is 1+1? answer/2` +
@@ -444,7 +449,7 @@ Edits the type of the first question in the list from open ended question to mcq
 image::questions/EditQuestion.png[]
 _Editing the first question._
 
-{nbsp}
+{nbsp} +
 
 ==== Deleting a question
 
@@ -452,6 +457,7 @@ Delete a question from the question list. +
 
 [big]*Format:* `question delete [INDEX]`
 
+{empty} +
 The keywords supported by this feature includes:
 |==============================
 | Keyword | Description
@@ -459,6 +465,7 @@ The keywords supported by this feature includes:
 | `[INDEX]` | The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
 |==============================
 
+{empty} +
 Example:
 
 * `question delete 1` +
@@ -467,7 +474,7 @@ Deletes the first question in the list.
 image::questions/DeleteQuestion.png[]
 _Deleting the first question._
 
-{nbsp}
+{nbsp} +
 
 [[Feature-Question-List]]
 ==== Listing your saved questions
@@ -476,9 +483,11 @@ Display the stored questions and list them in ascending order according to the t
 
 [big]*Format:* `question list`
 
+{empty} +
 The keywords supported by this feature includes: +
 *_-This command does not require any additional keywords-_*
 
+{empty} +
 Example:
 
 * `question list` +
@@ -487,7 +496,7 @@ Lists the question list.
 image::questions/ListQuestionResult.png[]
 _Listing saved questions._
 
-{nbsp}
+{nbsp} +
 
 [[Feature-Question-Find]]
 ==== Searching for a question
@@ -499,6 +508,7 @@ to your search term will be at the top.
 
 [big]*Format:* `question find/...`
 
+{empty} +
 The keywords supported by this feature includes:
 
 |==============================
@@ -507,6 +517,7 @@ The keywords supported by this feature includes:
 | `find` | Search term to find in the list of questions.
 |==============================
 
+{empty} +
 Example:
 
 * `question find/What is 1+1?` +
@@ -515,7 +526,7 @@ Searches through the question list to find questions close to the search term _'
 image::questions/FindQuestion.png[]
 _Finding questions that matches search term._
 
-{nbsp}
+{nbsp} +
 
 ==== Starting a Slideshow
 
@@ -523,6 +534,7 @@ Start a slideshow based on the questions selected. The sequence of the questions
 
 [big]*Format:* `question slideshow [QUESTIONS INDEX]`
 
+{empty} +
 The keywords supported by this feature includes:
 
 |==============================
@@ -532,6 +544,7 @@ The keywords supported by this feature includes:
 Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
 |==============================
 
+{empty} +
 The following controls are used to navigate through the slideshow:
 
 |==============================
@@ -543,6 +556,7 @@ The following controls are used to navigate through the slideshow:
 | `Space` | Show or hide the answer to the question.
 |==============================
 
+{empty} +
 The following controls are used for polling mcq type questions:
 
 |==============================
@@ -554,6 +568,7 @@ The following controls are used for polling mcq type questions:
 | `4` | Plus one to option D.
 |==============================
 
+{empty} +
 Example:
 
 * `question slideshow 1 2 3` +
@@ -562,7 +577,8 @@ Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 image::questions/StartSlideshow.png[]
 _Starting a slideshow._
 
-Below is an example of how to navigate through the slideshow and utilise the polling feature:
+{empty} +
+Below is an example of how to navigate through the slideshow and utilise the <<Features-Slideshow-Polling, polling>> feature:
 
 *Step 1.* When the slideshow window appears, scroll between the questions using the `Left arrow(←)` and `Right arrow(→)` keys.
 
@@ -576,12 +592,13 @@ _Answer shown with polling results._
 
 *Step 3.* When you want to end the slideshow, use the `Esc` key to exit or navigate beyond the last question of the slideshow and it will automatically exit.
 
+{empty} +
 Here is a summary of the various components of the slideshow feature:
 
 image::questions/SlideshowFeatureDescription.png[]
 _Description of the various components._
 
-{nbsp}
+{nbsp} +
 
 === Quizzes ​-​ `quiz`
 
