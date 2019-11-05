@@ -376,9 +376,15 @@ public class ItemModelManager implements ItemModel {
         if ((index = eventList.indexOf(item)) >= 0) {
             if (newItem.hasEvent()) {
                 eventList.setItem(index, newItem);
-                calendarList.setItem(index, newItem);
             } else {
                 eventList.remove(index);
+            }
+        }
+
+        if ((index = calendarList.indexOf(item)) >= 0) {
+            if (newItem.hasEvent()) {
+                calendarList.setItem(index, newItem);
+            } else {
                 calendarList.remove(index);
             }
         }
