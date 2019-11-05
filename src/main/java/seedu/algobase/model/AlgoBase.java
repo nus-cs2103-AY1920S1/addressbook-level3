@@ -273,7 +273,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     /**
-     Clear the list of plans
+     * Clear the list of plans
      */
     public void clearPlans() {
         plans.clear();

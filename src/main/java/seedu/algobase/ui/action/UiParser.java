@@ -3,7 +3,7 @@ package seedu.algobase.ui.action;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
- * Represents a Parser that is able to parse user input into a {@code Command} of type {@code T}.
+ * Represents a Parser that is able to parse user input into a {@code UiAction} of type {@code T}.
  */
 public interface UiParser<T extends UiAction> {
 
