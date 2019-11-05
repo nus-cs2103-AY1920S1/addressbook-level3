@@ -59,10 +59,13 @@ public class DeleteFoodCommand extends Command {
             Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
                     .setRestaurant(order.getRestaurant())
                     .setDeliveryman(order.getDeliveryman())
-                    .setFood(newFoodList).completeOrder();
+                    .setFood(newFoodList)
+                    .setCompleted(order.isCompleted())
+                    .completeOrder();
             model.setOrder(order, newOrder);
         }
 
+        restaurant.updateQuantity(foodToDelete.getQuantityOrdered() * -1);
         return new CommandResult(String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, foodToDelete));
     }
 

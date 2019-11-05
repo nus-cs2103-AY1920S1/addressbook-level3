@@ -82,7 +82,9 @@ public class EditDetailsCommand extends Command {
             Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
                     .setRestaurant(editedRestaurant.getName())
                     .setDeliveryman(order.getDeliveryman())
-                    .setFood(order.getFoodList()).completeOrder();
+                    .setFood(order.getFoodList())
+                    .setCompleted(order.isCompleted())
+                    .completeOrder();
             model.setOrder(order, newOrder);
         }
 

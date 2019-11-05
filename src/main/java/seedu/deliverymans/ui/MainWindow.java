@@ -210,8 +210,8 @@ public class MainWindow extends UiPart<Stage> {
             logic.setContext(Context.EDITING);
 
             Restaurant editing = logic.getEditingRestaurantList().get(0);
-            editingRestaurantPlaceholder.setPrefHeight(125.0);
-            editingRestaurantPlaceholder.setMinHeight(125.0);
+            editingRestaurantPlaceholder.setPrefHeight(145.0);
+            editingRestaurantPlaceholder.setMinHeight(145.0);
 
             restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
             editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());

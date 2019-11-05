@@ -67,6 +67,7 @@ public class AddFoodCommand extends Command {
         }
 
         restaurant.addFood(toAdd);
+        restaurant.updateQuantity(0);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
