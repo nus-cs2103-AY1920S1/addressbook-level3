@@ -29,7 +29,7 @@ Moreover, the information used to create a duplicate profile/policy has to be st
 
 * *Minor enhancement*: added a command to turn suggestions on and off.
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chowyiyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiyin&tabRepo=AY1920S1-CS2103-F09-4%2Fmain%5Bmaster%5D
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chowyiyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiyin&tabRepo=AY1920S1-CS2103-F09-4%2Fmain%5Bmaster%5D[function and test code]
 
 * *Other contributions*:
 
