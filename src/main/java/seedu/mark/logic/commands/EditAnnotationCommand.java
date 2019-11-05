@@ -132,7 +132,16 @@ public class EditAnnotationCommand extends AnnotationCommand {
         return newAnnotation;
     }
 
-    private void moveAnnotation(Paragraph oldP, Paragraph newP, Annotation newAnnotation, OfflineDocument doc) throws CommandException {
+    /**
+     * Moves a specified annotation from paragraph to another paragraph if possible.
+     * @param oldP The original paragraph that had the annotation attached to it
+     * @param newP The new paragraph to shift annotation to
+     * @param newAnnotation The specified annotation
+     * @param doc The document containing these paragraphs
+     * @throws CommandException if given old phantom paragraph id, if any, is invalid.
+     */
+    private void moveAnnotation(Paragraph oldP, Paragraph newP, Annotation newAnnotation, OfflineDocument doc)
+            throws CommandException {
         if (newP != null) {
             newP.addAnnotation(newAnnotation);
             if (oldP.isTrueParagraph()) {

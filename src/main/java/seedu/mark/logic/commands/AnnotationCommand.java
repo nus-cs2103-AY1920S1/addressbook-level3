@@ -68,6 +68,14 @@ public abstract class AnnotationCommand extends Command {
     }
 
 
+    /**
+     * Saves that current state of Mark after annotation.
+     * @param model The model of Mark
+     * @param oldBkmark The bookmark to replace before this annotation
+     * @param newBkmark The bookmark to use after this annotation
+     * @param doc The current offline document involved
+     * @param savedMsg The message to show user
+     */
     public void saveState(Model model, Bookmark oldBkmark, Bookmark newBkmark, OfflineDocument doc, String savedMsg) {
         model.updateDocument(doc);
         model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);

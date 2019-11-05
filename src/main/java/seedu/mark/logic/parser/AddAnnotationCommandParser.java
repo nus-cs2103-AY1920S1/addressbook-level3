@@ -43,6 +43,12 @@ public class AddAnnotationCommandParser implements Parser<AddAnnotationCommand> 
         return new AddAnnotationCommand(index, pid, note, highlight);
     }
 
+    /**
+     * Parses an index from input arguments and handles any exceptions.
+     * @param preamble Input argument that is not flagged
+     * @return An index
+     * @throws ParseException if index argument is of an invalid format.
+     */
     private Index parseIndex_handleException(String preamble) throws ParseException {
         try {
             return ParserUtil.parseIndex(preamble);
@@ -58,6 +64,13 @@ public class AddAnnotationCommandParser implements Parser<AddAnnotationCommand> 
         }
     }
 
+    /**
+     * Parses a highlight from input arguments.
+     *
+     * @param argMultimap The argument map that stores all input arguments
+     * @return A highlight that is yellow or has the user-specified colour if any.
+     * @throws ParseException if highlight colour input is invalid.
+     */
     private Highlight parseHighlight(ArgumentMultimap argMultimap) throws ParseException {
         Highlight highlight = Highlight.YELLOW;
         if (argMultimap.getValue(PREFIX_HIGHLIGHT).isPresent()) {
@@ -66,6 +79,12 @@ public class AddAnnotationCommandParser implements Parser<AddAnnotationCommand> 
         return highlight;
     }
 
+    /**
+     * Parses an annotation note from input arguments.
+     * @param argMultimap The argument map that stores all input arguments
+     * @return An annotation note if any
+     * @throws ParseException if note content is invalid.
+     */
     private AnnotationNote parseAnnotationNote(ArgumentMultimap argMultimap) throws ParseException {
         if (!argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             return null;
