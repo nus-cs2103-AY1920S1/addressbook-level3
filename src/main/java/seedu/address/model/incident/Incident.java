@@ -204,7 +204,7 @@ public class Incident {
      * Returns true if both Incidents have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two Incidents.
      */
-    boolean isSameIncident(Incident otherIncident) {
+    public boolean isSameIncident(Incident otherIncident) {
         if (otherIncident == this) {
             return true;
         }

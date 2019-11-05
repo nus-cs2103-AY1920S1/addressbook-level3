@@ -244,6 +244,11 @@ public class RegisterCommandTest {
         }
 
         @Override
+        public boolean canLoggedInPersonModifyIncidentStatus(Incident toSubmit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Vehicle> getFilteredVehicleList() {
             throw new AssertionError("This method should not be called.");
         }
