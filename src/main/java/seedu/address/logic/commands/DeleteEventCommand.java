@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.feature.Feature;
 import seedu.address.model.performance.Event;
 
 /**
@@ -33,7 +34,8 @@ public class DeleteEventCommand extends DeleteCommand {
             throw new CommandException(String.format(Event.MESSAGE_NO_SUCH_EVENT, targetEvent.getName()));
         }
         model.deleteEvent(targetEvent);
-        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, targetEvent.getName()));
+        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, targetEvent.getName()),
+            new Feature("performance"), model);
     }
 
     @Override
