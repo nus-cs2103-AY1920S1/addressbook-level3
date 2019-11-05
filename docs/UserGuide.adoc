@@ -199,8 +199,9 @@ Format: `redo`
 Examples:
 
 * `delete 1` +
-`undo` +
-`redo` +
+`undo` (reverts the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
 Redoes the previous undo command, i.e. the appointment deleted before `undo` will be removed again from the appointment manager.
 
 [.clearfix]
@@ -318,6 +319,8 @@ image::pdf_delete.png[width="800"]
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
 image::pdf_delete_after.png[width="800"]
+
+NOTE: PDF generation and deletion operations cannot be undone via `undo` command.
 
 === Exiting the program : `exit`
 
