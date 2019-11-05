@@ -1,6 +1,7 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.NoSuchElementException;
 
@@ -22,8 +23,12 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by his/her name and role.\n"
-            + "Parameters: NAME (case-sensitive), ROLE (interviewee/interviewer)\n"
+            + ": Deletes an entity identified by the entity's name. "
+            + "An entity can either be an interviewee or interviewer.\n"
+            + "Parameters to delete interviewees:\n"
+            + "NAME " + PREFIX_ROLE + "interviewee\n"
+            + "Parameters to delete interviewees:\n"
+            + "NAME " + PREFIX_ROLE + "interviewer\n"
             + "Example: " + COMMAND_WORD + " John Doe" + "r/interviewee";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
