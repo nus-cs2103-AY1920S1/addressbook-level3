@@ -104,6 +104,7 @@ public class Transaction {
         final StringBuilder builder = new StringBuilder();
         builder.append("Amount: ")
                 .append(getAmount())
+                .append(" ")
                 .append(direction.toString())
                 .append(" on ")
                 .append(getDate())
