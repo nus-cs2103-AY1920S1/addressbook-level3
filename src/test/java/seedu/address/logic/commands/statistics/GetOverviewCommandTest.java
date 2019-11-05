@@ -2,7 +2,9 @@ package seedu.address.logic.commands.statistics;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.statistics.GetOverviewCommand.MESSAGE_NO_STATISTICS;
 import static seedu.address.logic.commands.statistics.GetOverviewCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
@@ -31,24 +33,24 @@ class GetOverviewCommandTest {
         QuizResultFilter quizResultFilter = null;
         try {
             quizResultFilter = new QuizResultFilterBuilder()
-                    .withStartDate("09/10/2019")
-                    .withEndDate("10/11/2019")
+                    .withStartDate("10/10/2019")
+                    .withEndDate("20/10/2019")
                     .buildWithDates();
         } catch (ParseException e) {
             fail(MESSAGE_INVALID_DATE_FORMAT);
         }
         GetOverviewCommand overviewCommand = new GetOverviewCommand(quizResultFilter,
-                "\n(09/10/2019 to 10/11/2019)");
+                "\n(10/10/2019 to 20/10/2019)");
 
         Model expectedModel = new ModelManager(model.getAppData(), new UserPrefs());
         expectedModel.updateQuizResultFilter(quizResultFilter);
 
         assertCommandSuccess(overviewCommand, model, String.format(MESSAGE_SUCCESS,
-                "\n(09/10/2019 to 10/11/2019)"), expectedModel);
+                "\n(10/10/2019 to 20/10/2019)"), expectedModel);
     }
 
-    /*@Test
-    public void execute_emptyQuizResultList_throwsCommandException() {
+    @Test
+    void execute_emptyQuizResultList_throwsCommandException() {
         QuizResultFilter quizResultFilter = null;
         try {
             quizResultFilter = new QuizResultFilterBuilder()
@@ -58,7 +60,9 @@ class GetOverviewCommandTest {
         } catch (ParseException e) {
             fail(MESSAGE_INVALID_DATE_FORMAT);
         }
-        GetOverviewCommand overviewCommand = new GetOverviewCommand(quizResultFilter);
+        GetOverviewCommand overviewCommand = new GetOverviewCommand(quizResultFilter,
+                "\n(12/12/1920 to 13/12/1920");
+
         assertCommandFailure(overviewCommand, model, MESSAGE_NO_STATISTICS);
-    }*/
+    }
 }

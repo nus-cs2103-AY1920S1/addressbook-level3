@@ -43,7 +43,8 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
         Optional<String> d = argMultimap.getValue(PREFIX_DIFFICULTY);
 
         if (argMultimap.getAllValues(PREFIX_DIFFICULTY).size() > 1) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    GetStatisticsCommand.MESSAGE_USAGE));
         }
 
         if (d.isPresent()) {

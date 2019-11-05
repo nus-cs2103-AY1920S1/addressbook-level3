@@ -73,6 +73,11 @@
     "answer" : "Haibara Ai",
     "subject" : "Anime",
     "difficulty" : "easy"
+  }, {
+    "questionBody" : "The camera is positioned in the ()",
+    "answer" : "world coordinates",
+    "subject" : "CS3241",
+    "difficulty" : "easy"
   } ],
   "quizResults" : [ {
     "answer" : "Model View Controller",

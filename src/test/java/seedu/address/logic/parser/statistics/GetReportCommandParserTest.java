@@ -2,12 +2,14 @@ package seedu.address.logic.parser.statistics;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.statistics.GetReportCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 class GetReportCommandParserTest {
 
@@ -27,10 +29,8 @@ class GetReportCommandParserTest {
         assertParseSuccess(parser, " 1", expectedCommand);
     }
 
-    /* Will edit later
     @Test
-    public void parse_invalidIndex_failure() {
-        assertThrows(IndexOutOfBoundsException.class, () -> new GetReportCommandParser().parse("-2"));
-    }*/
-
+    void parse_invalidIndex_failure() {
+        assertThrows(ParseException.class, () -> new GetReportCommandParser().parse("-2"));
+    }
 }

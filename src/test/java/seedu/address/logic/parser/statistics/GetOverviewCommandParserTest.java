@@ -52,7 +52,7 @@ class GetOverviewCommandParserTest {
     }
 
     @Test
-    void parse_quizResultFilterWithoutDate_succcess() {
+    void parse_quizResultFilterWithoutDate_success() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .build();
         GetOverviewCommand expectedCommand = new GetOverviewCommand(quizResultFilter, "");
