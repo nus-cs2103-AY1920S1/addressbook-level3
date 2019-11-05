@@ -609,7 +609,7 @@
 
 #timeslotMinorLine {
     -fx-border-color: derive(#393E46, 20%);
-    -fx-border-style: dotted none none dotted;
+    -fx-border-style: dotted none dotted none;
 }
 
 #scheduleContainer {
