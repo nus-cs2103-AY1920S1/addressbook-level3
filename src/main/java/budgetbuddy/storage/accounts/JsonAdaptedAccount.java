@@ -105,13 +105,13 @@ public class JsonAdaptedAccount {
 
     /**
      * Checks that adapted balance can be converted into model's {@code balance}
-     * @throws NumberFormatException If adapted object cannot be converted.
+     * @throws IllegalValueException If adapted object cannot be converted.
      */
-    private long checkBalance() throws NumberFormatException {
+    private long checkBalance() throws IllegalValueException {
         try {
             return Long.parseLong(balance);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("It is not a valid balance");
+            throw new IllegalValueException("Invalid balance", e);
         }
     }
 }
