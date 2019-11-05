@@ -17,10 +17,7 @@ public class View {
      * @param string
      * @param viewIndex tagged to the string, just tells the app what view the user chose
      */
-    public View(String string, int viewIndex) throws IllegalArgumentException {
-        if (!(ParserUtil.checkView(string))) {
-            throw new IllegalArgumentException();
-        }
+    public View(String string, int viewIndex) {
         togo = string;
         index = viewIndex;
     }

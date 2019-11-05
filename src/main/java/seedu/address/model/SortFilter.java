@@ -12,9 +12,6 @@ public class SortFilter {
     private String filter;
 
     public SortFilter(String string, int filterIndex) {
-        if (!(ParserUtil.checkFilter(string))) {
-            throw new IllegalArgumentException();
-        }
         filter = string;
         index = filterIndex;
     }
