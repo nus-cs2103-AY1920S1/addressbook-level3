@@ -154,6 +154,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleSaveTodo(String pendingCommand) {
         String[] resTokens = pendingCommand.split(":");
         commandBox = new CommandBox(this::executeCommand, resTokens[1]);
+        commandBoxPlaceholder.getChildren().clear();
         commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
     }
 
