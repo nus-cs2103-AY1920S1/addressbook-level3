@@ -408,7 +408,7 @@ choices _'1965', '1963', '1968', '1970'_.
 image::questions/AddQuestion.png[]
 _Creating an open ended question._
 
-{nbsp} +
+'''
 
 ==== Editing a question
 
@@ -449,7 +449,7 @@ Edits the type of the first question in the list from open ended question to mcq
 image::questions/EditQuestion.png[]
 _Editing the first question._
 
-{nbsp} +
+'''
 
 ==== Deleting a question
 
@@ -474,7 +474,7 @@ Deletes the first question in the list.
 image::questions/DeleteQuestion.png[]
 _Deleting the first question._
 
-{nbsp} +
+'''
 
 [[Feature-Question-List]]
 ==== Listing your saved questions
@@ -496,7 +496,7 @@ Lists the question list.
 image::questions/ListQuestionResult.png[]
 _Listing saved questions._
 
-{nbsp} +
+'''
 
 [[Feature-Question-Find]]
 ==== Searching for a question
@@ -526,7 +526,7 @@ Searches through the question list to find questions close to the search term _'
 image::questions/FindQuestion.png[]
 _Finding questions that matches search term._
 
-{nbsp} +
+'''
 
 ==== Starting a Slideshow
 
@@ -598,7 +598,7 @@ Here is a summary of the various components of the slideshow feature:
 image::questions/SlideshowFeatureDescription.png[]
 _Description of the various components._
 
-{nbsp} +
+'''
 
 === Quizzes ​-​ `quiz`
 
