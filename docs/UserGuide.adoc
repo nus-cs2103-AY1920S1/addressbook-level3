@@ -218,97 +218,202 @@ for accounting purposes.
 
 Archiving expenses allows you to de-clutter your current list of expenses after a long period of time.
 This feature offers greater flexibility in terms of expense organisation as it allows you to create *multiple archives* with
-the archive name of your choice so that you would be able to group your archived expenses into an appropriate archive.
+the archive name of your choice so that you would be able to appropriately group your archived expenses.
+
+For example, if you still have the expense records of your weekly grocery shopping trips since several months ago in your main
+list of expenses, you could archive them as "Groceries". This way, you would get rid of them from your main list of
+expenses and at the end of the year, you would still be able to retrieve them if you want to account for your total annual grocery expenditure.
 
 [NOTE]
-Do note that you would be *unable to edit archived expenses* as they are not considered current and "active" expenses. +
-To edit an archived expense, you would need to *unarchive it first*.
+*Archived expenses cannot be edited.* +
+Archived expenses are not considered current and "active" expenses so you are unable to edit them. +
+You would need to unarchive an expense first before you would be able to perform expense editing commands on it such as
+`edit`, `tag add` and `tag remove` commands.
+
+Although this section of the user guide provides comprehensive information on the usage of `archive` commands,
+you could also view the list of all supported archive commands within the application by typing the command word `archive`
+into the command box and pressing `Enter`:
+
+.The result box will display the list of supported `archive` commands. You can scroll down to view the full list.
+image::archiveCommandMessage.png[]
 
 The following are all the archive commands, descriptions of how they work and their usage.
-You could view a list of all supported archive commands by typing `archive` and pressing enter.
 
-. _Adding a record to an archive: archive add_ +
+==== _Adding an expense to an archive: ``archive add``_ +
 This command allows you to transfer the expense at the specified index to your specified archive. +
 If the archive you entered does not exist, then a new archive is created before the expense is added. +
-{nbsp} +
+ +
 Usage:
 
- archive add [INDEX] [OPTIONS]
-+
-Options:
+ archive add [INDEX] arc/[ARCHIVE NAME]
 
-* `arc/`: Specifies the name of the archive to add the expense to. (REQUIRED) +
+Parameters:
+
+* [INDEX]: The main list index of the expense you want to archive.
+* `arc/`: Prefix to indicate that the text appended to it is the specified archive name.
+* [ARCHIVE NAME]: Specified name of archive to add expense into. Archive name is case-sensitive and must be non-empty.
+Names with symbols and multiple words are accepted as well.
+
+Example:
+
+Suppose you want to archive the expense called "_joker movie tickets_" to an archive called "_movies_". +
+To archive the expense:
+
+1. Type `archive add 7 arc/movies` into the command box, and press `Enter` to execute the command:
++
+.The expense "_joker movie tickets_" is at index 7 in the list.
+image:archiveAddEnterCommand.png[]
+
+2. The next step can be split into 2 scenarios:
+
+* 2a. *There is no existing archive called "_movies_"* +
+A new archive called "_movies_" is created before "_joker movie tickets_" is added to it. +
+The result will display the message to indicate the archive creation and transfer of the expense:
++
+image::archiveAddArchiveCreatedMessage.png[]
+
+* 2b. *There is an existing archive called "_movies_"* +
+"_joker movie tickets_" is simply added to the existing "_movies_" archive. +
+The result will display the message to indicate the transfer of the expense:
++
+image::archiveAddExistentArchiveMessage.png[]
+
 {nbsp} +
 
-+
-Example: +
-`archive add 3 arc/MBS casino winnings` +
-Archives the expense at the 3rd index into an archive named “MBS casino winnings” +
-{nbsp} +
-
-. _Listing out all archives: archive listall_ +
+==== _Listing out all archives: ``archive listall``_ +
 This command informs you of all the existing archives by displaying a list of all existing archive names. +
 {nbsp} +
 Usage:
 
  archive listall
 
-+
+Example:
+
+In the event that you cannot remember what archives you have, you could use this command to view all existing archives. +
+Type `archive listall` into the command box and press `Enter`, and the archive name list will be displayed in the result box as shown:
+
+.List of existing archive names.
+image::archiveListallMessage.png[]
+
 {nbsp} +
-. _Listing records in a particular archive: archive list_ +
-This command allows you to view the expense list of a specified archive by
-displaying the list of expenses in your specified archive. +
+
+==== _Listing expenses in a particular archive: ``archive list``_ +
+This command allows you to view the list of expenses of your specified archive. +
 {nbsp} +
 Usage:
 
- archive list [NAME]
-+
+ archive list [ARCHIVE NAME]
+
+Parameter:
+
+* [ARCHIVE NAME]: Specified name of archive to display. Archive name is case-sensitive and must be non-empty.
+Names with symbols and multiple words are accepted as well.
+
 [NOTE]
-Do not that you do not need to prepend the archive prefix `arc/` to the archive name as there are no other
-arguments (like index) to be entered for this command.
+You do not need to prepend the archive prefix `arc/` to the archive name as there are no other
+arguments (like [INDEX]) to be entered for this command.
+
+Example:
+
+Suppose you want to view all the expenses you have spend on movies this year. As you have kept all movie expenses in an archive called
+"_movies_", you can execute this command to bring up the expense list in "_movies_":
+
+1. Type `archive list movies` into the command box, and press `Enter` to execute it:
 +
-Example: +
-`archive list 2018 expenses` +
-Lists out all the expenses in the “2018 expenses” archive +
+image::archiveListEnterCommand.png[]
+
+2. The displayed list will change to show the expenses in the "_movies_" archive and the result box will display the message
+"Listed all expenses from the [movies] archive":
++
+image::archiveListDisplayed.png[]
+
 {nbsp} +
 
-. _Deleting an archived record: archive delete_ +
+==== _Deleting an archived expense: ``archive delete``_ +
 This command allows you to delete the expense at the specified index from your specified archive. +
 If the archived expense you delete was the last expense in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
 
- archive delete [INDEX] [OPTIONS]
-+
-Options:
+ archive delete [INDEX] arc/[ARCHIVE NAME]
 
-* `arc/`: Specifies the name of the archive to delete the expense from. (REQUIRED) +
+Parameters:
+
+* [INDEX]: The archive list index of the archived expense you want to delete.
+* `arc/`: Prefix to indicate that the text appended to it is the specified archive name.
+* [ARCHIVE NAME]: Specified name of archive to delete the expense from. Archive name is case-sensitive and must be non-empty.
+Names with symbols and multiple words are accepted as well.
+
+Example:
+
+Suppose you want to delete the expense "_Avengers Endgame_" from the "_movies_" archive as you know you will never need to retrieve again for future reference. +
+To delete "_Avengers Endgame_" from its archive:
+
+1. Enter the `archive list movies` command to display the expense list of the "_movies_" archive. Refer to the `archive list` section above for the diagram to execute this step.
+2. With the expense list of "_movies_" displayed, type `archive delete 1 arc/movies` and press `Enter`:
++
+."Avengers Endgame" expense has an index of 1 in its archive list.
+image::archiveDeleteEnterCommand.png[]
+
+3. The next step can be split into two scenarios:
+* 3a. *"_Avengers Endgame_" is the only expense in the "_movies_" archive.* +
+After the command is executed, "_Avengers Endgame_" is deleted so the "_movies_" archive is now empty, and will thus be deleted. +
+The result box will display the message that indicates the deletion of "_Avengers Endgame_" and "_movies_", and the list displayed will switch back to the main expense list:
++
+.Since the archive is deleted, the list displayed switches back to the main expense list.
+image::archiveDeleteEmptyArchive.png[]
+
+* 3b. *"_Avengers Endgame_" is not the only expense in the "_movies_" archive.* +
+After the command is executed, "_Avengers Endgame_" is deleted. As there are other expenses still in the "_movies_" archive, the archive is not deleted. +
+The result box will display the message that indicates the deletion of "_Avengers Endgame_", and the archive list displayed updates with the removal of "_Avengers Endgame_":
++
+."_Avengers Endgame_" is deleted and this change is immediately reflected in the archive list displayed.
+image::archiveDeleteNonEmptyArchive.png[]
+
 {nbsp} +
 
-+
-Example: +
-`archive delete 5 arc/2018 expenses` +
-Deletes the expense at the 5th index in the “2018 expenses” archive +
-{nbsp} +
-
-. _Revert/unarchive an archived record: archive revert_ +
-This command allows you to unarchive the expense at the specified index from your specified archive, transferring it back to your current list of expenses. +
+==== _Reverting an archived expense: archive revert_ +
+This command allows you to revert/unarchive the expense at the specified index from your specified archive, transferring it back to your current list of expenses. +
 If the archive expense you reverted was the last expense in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
 
- archive revert [INDEX] [OPTIONS]
-+
-Options:
+ archive revert [INDEX] arc/[ARCHIVE NAME]
 
-* `arc/`: Specifies the name of the archive to revert the expense from. (REQUIRED) +
-{nbsp} +
+Parameters:
 
-+
+* [INDEX]: The archive list index of the expense you want to unarchive.
+* `arc/`: Prefix to indicate that the text appended after it is the specified archive name.
+* [ARCHIVE NAME]: Specified name of archive to unarchive the expense from. Archive name is case-sensitive and must be non-empty.
+Names with symbols and multiple words are accepted as well.
+
 Example: +
-`archive revert 5 arc/2018 expenses` +
-Unarchives the expense at the 5th index in the “2018 expenses” archive +
+Suppose you have an expense "_Airpod Pro_" archived into "_gadgets_", but you changed your mind and decided that it should not be archived yet. +
+To unarchive/revert the "_Airpod Pro_" expense:
+
+1. Enter the `archive list gadgets` command to display the expense list of the "_gadgets_" archive. Refer to the `archive list` section above for the diagram to execute this step.
+2. With the expense list of "_gadgets_" displayed, type `archive revert 2 arc/gadgets` and press `Enter`:
++
+."Airpod Pro" expense has an index of 2 in its archive list.
+image::archiveRevertEnterCommand.png[]
+
+3. The next step can be split into two scenarios:
+* 3a. *"_Airpod Pro_" is the only expense in the "_gadgets_" archive.* +
+After the command is executed, "_Airpod Pro_" is removed from the "_gadgets_" archive, so the archive is now empty, and will thus be deleted. +
+The result box will display the message that indicates the transfer of "_Airpod Pro_" and the deletion of "_gadgets_", and the list displayed will switch back to the main expense list:
++
+.Since the archive is deleted, the list displayed switches back to the main expense list and "_Airpod Pro_" can be observed to be back in the main expense list.
+image::archiveRevertEmptyArchive.png[]
+
+* 3b. *"_Airpod Pro_" is not the only expense in the "_gadgets_" archive.* +
+After the command is executed, "_Airpod Pro_" is removed from the "_gadgets_" archive. As there are other expenses still in the "_gadgets_" archive, the archive is not deleted. +
+The result box will display the message that indicates the transfer of "_Airpod Pro_", and the archive list displayed updates with the removal of "_Airpod Pro_":
++
+."_Airpod Pro_" is unarchived and this change is immediately reflected in the archive list displayed.
+image::archiveRevertNonEmptyArchive.png[]
+
 {nbsp} +
+
 // end::archive[]
 
 === Displaying of statistics: `display-stats`

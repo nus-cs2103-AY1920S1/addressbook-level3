@@ -38,24 +38,27 @@ This symbol indicates important information.
 
 `ArchiveWrapper` - Blue text with grey highlight indicates a component, class or object in the architecture of the application.
 
+"_movie tickets_" - Italicised text with quotation marks indicates the name of an expense or archive used for demonstration purposes.
+
 
 == Summary of contributions
 This section provides a quick summary of my coding, documentation, and other meaningful contributions to _Billboard_.
 
 * *Major enhancement*: I added all archive related functions.
 
-** What it does: My enhancement allows the user to create archives, add an expense to an archive, revert/"unarchive" an archived expense and permanently delete expenses in an archive.
+** *What it does*: My enhancement allows the user to create archives, add an expense to an archive, revert/"unarchive" an archived expense and permanently delete expenses in an archive.
 
-** Justification: Suppose users have old or outdated expenses but they do not want to permanently delete them as they may refer to these expenses again in the future for accounting purposes.
+** *Justification*: Suppose users have old or outdated expenses but they do not want to permanently delete them as they may refer to these expenses again in the future for accounting purposes.
 Users can simply archive these expenses, which *de-clutters their list of current expenses.* Furthermore, as users are able to group expenses into different archives, they are able to *better
 organise past expenses.* Therefore, this feature contributes great value to the application, as it provides users with a method of organising and tracking their expenses in the long run.
 
-** Highlights:
+** *Highlights*:
 *** This enhancement works well with most existing features and features to be added in future. This is because expenses that are archived cannot be edited (e.g. adding a tag) as they
 are considered as "non active" expenses and are being kept as records only. Therefore the archive enhancement, in a sense, is isolated from the other expense modifying enhancements which
 reduces the possibility of archive bugs due to integration with other features.
 *** A thorough analysis of other design alternatives was required as the archive feature involved storing and maintaining separate lists of expenses, and different designs to implement
-this would yield varying effects on the application's overall speed performance. Ultimately, the design of the current implementation was chosen as it is relatively easy to implement and
+this would yield varying effects on the application's overall speed performance. +
+Ultimately, the design of the current implementation was chosen as it is relatively easy to implement and
 maintained the application's performance above the acceptable benchmark. This benchmark is the non functional requirement of being able to hold up to 1000 expenses without a noticeable
 sluggishness in performance for typical usage.
 
@@ -68,7 +71,7 @@ sluggishness in performance for typical usage.
 
 ** Enhancements to existing features:
 *** I designed and implemented the default Billboard color scheme, called the "Inertia theme", to give the application its unique aesthetic identity and make it more user-friendly.
-Additionally, I added an extra Pastel color theme for users who prefer brighter themes (Pull request https://github.com/AY1920S1-CS2103T-F12-4/main/pull/104[#104])
+Additionally, I added an extra Pastel color theme for users who prefer a brighter interface (Pull request https://github.com/AY1920S1-CS2103T-F12-4/main/pull/104[#104])
 
 ** Documentation:
 *** Wrote the team's About Us document, which consisted of information about our team members: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/7[#7]
@@ -100,9 +103,12 @@ https://github.com/AY1920S1-CS2103T-F12-4/main/pull/185[#185]
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+| As the original addressbook application does not have features similar to the major enhancements I made, I had to add new content to the User Guide regarding these changes.
+
+Given below is an excerpt from the _**Billboard User Guide**_ showcasing instructions on how to use the new `archive` feature I added.
+This excerpt reflects my ability to write documentation meant for students, the targeted user group of the application, in a clear and concise manner so that they will be able to easily
+understand what each `archive` operation does and how to use them.
 |===
 
 include::../UserGuide.adoc[tag=archive]
