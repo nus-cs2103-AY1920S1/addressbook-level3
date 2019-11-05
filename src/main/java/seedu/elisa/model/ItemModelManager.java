@@ -226,6 +226,9 @@ public class ItemModelManager implements ItemModel {
 
         if (wrapper.getRem() != -1) {
             reminderList.addToIndex(wrapper.getRem(), wrapper.getItem());
+        }
+
+        if (wrapper.getFrem() != -1) {
             futureReminders.add(wrapper.getFrem(), wrapper.getItem());
         }
     }
@@ -305,7 +308,8 @@ public class ItemModelManager implements ItemModel {
     public ItemIndexWrapper getIndices(int index) {
         Item item = visualList.get(index);
         return new ItemIndexWrapper(item, index, itemStorage.indexOf(item), taskList.indexOf(item),
-                eventList.indexOf(item), reminderList.indexOf(item), futureReminders.indexOf(item));
+                eventList.indexOf(item), reminderList.indexOf(item),
+                futureReminders.indexOf(item), activeReminders.indexOf(item));
     }
 
     public VisualizeList getVisualList() {

@@ -14,9 +14,10 @@ public class ItemIndexWrapper {
     private int eve; //index in EventList
     private int rem; //index in ReminderList
     private int frem; //index in FutureReminders
+    private int arem; //index in ActiveReminders
     //All indices are -1 if not in the respective list.
 
-    public ItemIndexWrapper(Item item, int visual, int storage, int task, int eve, int rem, int frem) {
+    public ItemIndexWrapper(Item item, int visual, int storage, int task, int eve, int rem, int frem, int arem) {
         this.item = item;
         this.storage = storage;
         this.visual = visual;
@@ -24,6 +25,7 @@ public class ItemIndexWrapper {
         this.eve = eve;
         this.rem = rem;
         this.frem = frem;
+        this.arem = arem;
     }
 
     public int getVisual() {
@@ -52,5 +54,9 @@ public class ItemIndexWrapper {
 
     public Item getItem() {
         return item;
+    }
+
+    public int getArem() {
+        return arem;
     }
 }
