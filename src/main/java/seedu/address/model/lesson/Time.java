@@ -15,7 +15,7 @@ public class Time {
     public static final String MESSAGE_CONSTRAINTS =
             "There is no such date / time! Input should be in dd/MM/yyyy HHmm format.";
     public static final String MESSAGE_TIME_CONSTRAINT =
-            "Time stated should not be before current time.";
+            "Time inputted should not be before the current system time.";
     public static final String VALIDATION_REGEX = "[\\d]{1,2}" + "/" + "[\\d]{1,2}" + "/" + "[\\d]{2,4}"
             + " " + "[\\d]{4}";
 

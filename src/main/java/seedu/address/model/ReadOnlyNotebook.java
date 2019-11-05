@@ -8,11 +8,17 @@ import seedu.address.model.lesson.UniqueLessonList;
  * Unmodifiable view of a notebook.
  */
 public interface ReadOnlyNotebook {
+
     /**
      * Returns an unmodifiable view of the classrooms list.
      * This list will not contain any duplicate classrooms.
      */
     ObservableList<Classroom> getClassroomList();
+
+    /**
+     * Returns the current classroom in the notebook.
+     */
+    Classroom getCurrentClassroom();
 
     /**
      * Returns an unmodifiable view of the lessons list.

@@ -13,12 +13,14 @@ import seedu.address.logic.commands.AddStudentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
+import seedu.address.logic.commands.DeleteClassroomCommand;
 import seedu.address.logic.commands.DeleteLessonCommand;
 import seedu.address.logic.commands.DeleteStudentCommand;
 import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.logic.commands.EditLessonCommand;
 import seedu.address.logic.commands.EditStudentCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindAssignmentCommand;
 import seedu.address.logic.commands.FindStudentCommand;
 import seedu.address.logic.commands.GetStudentGradesCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -44,6 +46,8 @@ public class ClassroomParser {
 
     /**
      * Parses user input into command for execution.
+     *
+     * Please add any new command to the command masterlist as well.
      *
      * @param userInput full user input string
      * @return the command based on the user input
@@ -95,6 +99,9 @@ public class ClassroomParser {
         case FindStudentCommand.COMMAND_WORD:
             return new FindStudentCommandParser().parse(arguments);
 
+        case FindAssignmentCommand.COMMAND_WORD:
+            return new FindAssignmentCommandParser().parse(arguments);
+
         case ListStudentCommand.COMMAND_WORD:
             return new ListStudentCommand();
 
@@ -109,6 +116,9 @@ public class ClassroomParser {
 
         case DeleteLessonCommand.COMMAND_WORD:
             return new DeleteLessonCommandParser().parse(arguments);
+
+        case DeleteClassroomCommand.COMMAND_WORD:
+            return new DeleteClassroomCommandParser().parse(arguments);
 
         case EditLessonCommand.COMMAND_WORD:
             return new EditLessonCommandParser().parse(arguments);

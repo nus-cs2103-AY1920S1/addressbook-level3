@@ -61,7 +61,9 @@ public interface Model {
     void setClassroom(ReadOnlyClassroom classroom);
 
     /** Returns the Classroom */
-    ReadOnlyClassroom getCurrentClassroom();
+    Classroom getCurrentClassroom();
+
+    Classroom getClassroom(Classroom classroom);
 
     /**
      * Replaces notebook data with the data in {@code notebook}.
@@ -167,6 +169,12 @@ public interface Model {
     void deleteLesson(Lesson target);
 
     /**
+     * Deletes the given classroom.
+     * The classroom must exist in the notebook.
+     */
+    void deleteClassroom(Classroom target);
+
+    /**
      * Replaces the given lesson {@code target} with {@code editedLesson}.
      * {@code target} must exist in the classroom.
      * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
@@ -176,6 +184,8 @@ public interface Model {
 
 
     void addClassroom(Classroom classroom);
+
     void setCurrentClassroom(Classroom classroom);
+
     ObservableList<Classroom> getClassroomList();
 }

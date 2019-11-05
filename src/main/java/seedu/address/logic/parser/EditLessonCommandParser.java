@@ -8,9 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditLessonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 
 /**
  * Parses input arguments and creates a new EditLessonCommand object
@@ -27,15 +30,19 @@ public class EditLessonCommandParser implements Parser<EditLessonCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME);
 
         Index index;
+        Index day;
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_DAY) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditLessonCommand.MESSAGE_USAGE));
+        }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            day = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditLessonCommand.MESSAGE_USAGE), pe);
         }
-
-        Index day = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
 
         EditLessonDescriptor editLessonDescriptor = new EditLessonDescriptor();
         if (argMultimap.getValue(PREFIX_LESSONNAME).isPresent()) {
@@ -52,6 +59,14 @@ public class EditLessonCommandParser implements Parser<EditLessonCommand> {
         }
 
         return new EditLessonCommand(index, editLessonDescriptor, day);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
