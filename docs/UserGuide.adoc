@@ -70,98 +70,15 @@ These are just a few of the commands you can execute on EatMe. Refer to <<Featur
 
 Format: `help`
 
-==== Exit the app: `exit`
-
-Format: `exit`
-
-=== Working with eateries
-==== Adding an eatery: `add`
-
-Adds an eatery to the app. +
-Format: `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`
-
-Examples:
-
-* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese`
-* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups \t non-aircon`
-
-==== Finding an eatery: `find`
-
-*Coming in v1.4*
-
-Finds an eatery based on name or tag. +
-Format: `find \n [name of eatery]` or `find \t [tag]`
-
-Examples:
-
-* `find \n Two Chefs Eating Place`
-* `find \t Chinese`
-
-==== Marking an eatery as closed: `close`
-
-Closes an eatery if the eatery is no longer there. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
-Format: `close [id]`
-
-Examples:
-
-* `close 2`
-
-==== Reopening a closed eatery: `reopen`
-
-Reopens a previously closed eatery. +
-Format: `reopen [id]`
-
-Examples:
-
-* `reopen 2`
-
-==== Reviewing an eatery: `review`
-
-Leaves a review for an eatery. +
-Format: `review [id] \d [description] \p [price per person] \r [rating] \w [date in DD/MM/YYYY format]`
-
-Examples:
-
-* `review 2 \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019`
-
-==== Tagging an eatery: `addtag`
-
-Adds tags to an eatery. +
-Format: `addtag [id] \t [tags]...`
-
-Examples:
-
-* `addtag 2 \t hawker \t good-for-sharing`
-
-==== Removing tags from an eatery: `removetag`
-
-Removes tags from an eatery. +
-Format: `removetag [id] \t [tags]...`
-
-Examples:
-
-* `removetag 2 \t hawker`
-
 ==== Listing all eateries: `list`
 
-Shows a list of all eateries in the app. +
+Shows a list of all eateries in the app.  +
 Format: `list`
 
-==== Getting a random eatery: `random`
+==== Clearing all entries: `clear`
 
-Shows a completely random restaurant - Useful in case you cannot decide what to eat! +
-Format: `random`
+Format: `clear`
 
-==== Viewing an eatery: `show`
-
-Shows an eatery with all its details - Address, category, tags, reviews, external reviews and a map of its location. +
-Format: `show [id]`
-
-Examples:
-
-* `show 2`
-
-=== Import/Export
 ==== Importing eateries: `import`
 
 *Coming in v1.4*
@@ -184,19 +101,138 @@ Examples:
 
 * `export \f /home/user/eatme-backup-john.txt`
 
-=== Visualisation
-==== Showing overall statistics: `stats`
+==== Exit the app: `exit`
+
+Format: `exit`
+
+=== Main Mode
+
+In Main mode, users will be able to manipulate eateries which users have visited. +
+
+==== Working with Eateries
+===== Adding an eatery: `add`
+
+Adds an eatery to the app. +
+Format: `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`
+
+Examples:
+
+* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese`
+* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups \t non-aircon`
+
+===== Finding an eatery: `find`
+
+*Coming in v1.4*
+
+Finds an eatery based on name or tag. +
+Format: `find \n [name of eatery]` or `find \t [tag]`
+
+Examples:
+
+* `find \n Two Chefs Eating Place`
+* `find \t Chinese`
+
+===== Changing address of an eatery: `changeaddress`
+
+*Coming in v1.4*
+
+Changes the address of an eatery. +
+Format: `changeaddress [id] \a [new address]`
+
+Examples:
+
+* `changeaddress 2 \a 116 Commonwealth Cres, #01-130`
+
+===== Marking an eatery as closed: `close`
+
+Closes an eatery if the eatery is no longer there. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
+Format: `close [id]`
+
+Examples:
+
+* `close 2`
+
+===== Reopening a closed eatery: `reopen`
+
+Reopens a previously closed eatery. +
+Format: `reopen [id]`
+
+Examples:
+
+* `reopen 2`
+
+===== Reviewing an eatery: `review`
+
+Leaves a review for an eatery. +
+Format: `review [id] \d [description] \p [price per person] \r [rating] \w [date in DD/MM/YYYY format]`
+
+Examples:
+
+* `review 2 \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019`
+
+===== Tagging an eatery: `addtag`
+
+Adds tags to an eatery. +
+Format: `addtag [id] \t [tags]...`
+
+Examples:
+
+* `addtag 2 \t hawker \t good-for-sharing`
+
+===== Removing tags from an eatery: `removetag`
+
+Removes tags from an eatery. +
+Format: `removetag [id] \t [tags]...`
+
+Examples:
+
+* `removetag 2 \t hawker`
+
+===== Getting a random eatery: `random`
+
+Shows a completely random restaurant -- Useful in case you cannot decide what to eat! +
+Format: `random`
+
+===== Viewing an eatery: `show`
+
+Shows an eatery with all its details i.e. address, category, tags, reviews, external reviews (from Google), and a map of its location.Format: `show [id]`
+
+Examples:
+
+* `show 2`
+
+===== Deleting an eatery: `delete`
+
+Delete an eatery in the application. +
+Format: `delete 1`
+
+==== Visualisation
+===== Showing overall statistics: `stats`
 
 *Coming in v1.4*
 
 Presents a visual overview of the user’s eateries and reviews. +
 Format: `stats`
 
-=== Todo
+
+=== Todo Mode
+
+In Todo mode, users will be able to manipulate eateries which they have yet to visit. +
+
 ==== Toggling between main and todo modes: `mode`
 
 Toggles between main and todo modes. +
 Format: `mode`
+
+==== Adding an eatery: `add`
+
+Adds an eatery to the todo list. +
+Format: `add \n [name of eatery] \a [address] {\t [tags, space-delimited]}`
+
+Examples:
+
+* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129`
+* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \t good-for-groups non-aircon`
 
 ==== Saving a todo eatery to the main eatery list : `save`
 
@@ -206,6 +242,79 @@ Format: `save [id]` (saves the eatery to the main list)
 Examples:
 
 * `save 2`
+
+==== Finding an eatery: `find`
+
+*Coming in v1.4*
+
+Finds an eatery based on name or tag. +
+Format: `find \n [name of eatery]` or `find \t [tag]`
+
+Examples:
+
+* `find \n Two Chefs Eating Place`
+* `find \t Chinese`
+
+==== Changing address of an eatery: `changeaddress`
+
+*Coming in v1.4*
+
+Changes the address of an eatery. +
+Format: `changeaddress [id] \a [new address]`
+
+Examples:
+
+* `changeaddress 2 \a 116 Commonwealth Cres, #01-130`
+
+==== Marking an eatery as closed: `close`
+
+Closes an eatery if the eatery is no longer there. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
+Format: `close [id]`
+
+Examples:
+
+* `close 2`
+
+==== Reopening a closed eatery: `reopen`
+
+Reopens a previously closed eatery. +
+Format: `reopen [id]`
+
+Examples:
+
+* `reopen 2`
+
+==== Tagging an eatery: `addtag`
+
+Adds tags to an eatery. +
+Format: `addtag [id] \t [tags, space-delimited]`
+
+Examples:
+
+* `addtag 2 \t hawker good-for-sharing`
+
+==== Removing tags from an eatery: `removetag`
+
+Removes tags from an eatery. +
+Format: `removetag [id] \t [tags, space-delimited]`
+
+Examples:
+
+* `removetag 2 \t hawker`
+
+==== Viewing an eatery: `show`
+
+Shows an eatery with all its details i.e. address, category, tags, reviews, external reviews (from Google), and a map of its location.
+Format: `show [id]`
+
+Examples:
+
+* `show 2`
+
+==== Deleting an eatery: `delete`
+
+Delete an eatery in the application. +
+Format: `delete 1`
 
 === News Feed
 ==== Adding a feed : `addfeed`
@@ -234,6 +343,7 @@ Examples:
 |`help`|Viewing help
 |`exit`|Exiting the app
 |`add`|Adding an eatery
+|`delete`|Deleting an eatery
 |`find`|Finding an eatery
 |`changeaddress`|Changing address of an eatery
 |`close`|Marking an eatery as closed
