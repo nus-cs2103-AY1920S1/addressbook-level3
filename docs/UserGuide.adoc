@@ -114,16 +114,13 @@ Example:  `-add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\AddOrder1.png[width="790"]
 
 . If you are successful, the result box displays the message: "".
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\AddOrder2.png[width="790"]
 
 . The order list shows the newly added order.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\AddOrder3.png[width="790"]
 
 [NOTE]
 ====
@@ -149,16 +146,13 @@ Example:  `-complete_order 3`
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\CompleteOrder1.png[width="790"]
 
 . If you are successful, the result box displays the message: "".
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\CompleteOrder2.png[width="790"]
 
 . The order list shows the delivery status of the order as completed.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\CompleteOrder3.png[width="790"]
 
 [NOTE]
 ====
@@ -191,16 +185,13 @@ Example: `-edit_order i/1337 c/John Doe`
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\EditOrder1.png[width="790"]
 
 . If you are successful, the result box displays the message: "".
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\EditOrder2.png[width="790"]
 
 . The order list shows the updated order.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\EditOrder3.png[width="790"]
 
 [NOTE]
 ====
@@ -227,16 +218,13 @@ Example: `-delete_order 3`
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\DeleteOrder1.png[width="790"]
 
 . If you are successful, the result box displays the message: "".
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\DeleteOrder2.png[width="790"]
 
 . The order list shows that the order has been deleted.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\DeleteOrder3.png[width="790"]
 
 [NOTE]
 ====
@@ -258,16 +246,13 @@ Example: `-list_orders`
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\ListOrder1.png[width="790"]
 
 . If you are successful, the result box displays the message: "".
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\ListOrder2.png[width="790"]
 
 . The order list shows all orders currently in the database.
-*insert image here*
-//image::userguide\EditMode.png[width="790"]
+image::userguide\ListOrder3.png[width="790"]
 
 {nbsp} +
 
