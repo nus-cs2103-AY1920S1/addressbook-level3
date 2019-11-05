@@ -88,4 +88,8 @@ public class LikeManager {
         data.deleteLikesByMemeRef(memeRef);
     }
 
+    public Map<String, SimpleIntegerProperty> getCopyLikeData() {
+        return data.getCopy();
+    }
+
 }
