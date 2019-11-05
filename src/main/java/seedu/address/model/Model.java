@@ -226,4 +226,9 @@ public interface Model {
      * Redoes the most recent undone {@code ReversibleCommand}.
      */
     CommandResult redoCommand() throws CommandException;
+
+    /**
+     * Resets the command history.
+     */
+    void resetCommandHistory();
 }

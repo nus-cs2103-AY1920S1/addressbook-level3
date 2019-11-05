@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Exits the serve mode.
  */
-public class DoneCommand extends ReversibleCommand {
+public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns to List Mode. \n"
             + "Example: " + COMMAND_WORD;
@@ -39,18 +39,15 @@ public class DoneCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
 
-        undoCommand = new ServeCommand(model.getServingBorrower().getBorrowerId());
-        redoCommand = this;
+        model.resetCommandHistory();
+        model.exitsServeMode();
 
         if (unusedArguments != null) {
-            commandResult = CommandResult.commandResultDone(String.format(MESSAGE_SUCCESS
+            return CommandResult.commandResultDone(String.format(MESSAGE_SUCCESS
                     + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD));
-        } else {
-            commandResult = CommandResult.commandResultDone(MESSAGE_SUCCESS);
         }
 
-        model.exitsServeMode();
-        return commandResult;
+        return CommandResult.commandResultDone(MESSAGE_SUCCESS);
     }
 
     @Override

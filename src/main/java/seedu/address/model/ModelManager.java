@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import javafx.util.Pair;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
@@ -15,6 +14,8 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.util.Pair;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
@@ -653,6 +654,11 @@ public class ModelManager implements Model {
     @Override
     public CommandResult redoCommand() throws CommandException {
         return commandHistory.redo(this);
+    }
+
+    @Override
+    public void resetCommandHistory() {
+        commandHistory.reset();
     }
 
 }

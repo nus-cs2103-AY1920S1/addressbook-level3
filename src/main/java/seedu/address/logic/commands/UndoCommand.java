@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
-import javafx.util.Pair;
 import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_UNDO_COMMAND;
+
+import javafx.util.Pair;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

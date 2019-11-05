@@ -88,6 +88,14 @@ public class CommandHistory {
         return currentCommandPointer < commandHistoryList.size() - 1;
     }
 
+    /**
+     * Resets the entire command history.
+     */
+    public void reset() {
+        commandHistoryList.clear();
+        currentCommandPointer = -1;
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
