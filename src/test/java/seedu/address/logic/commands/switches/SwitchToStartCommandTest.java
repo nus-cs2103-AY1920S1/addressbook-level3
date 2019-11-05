@@ -170,8 +170,6 @@ class SwitchToStartCommandTest {
         assertThrows(NullPointerException.class, () -> new SwitchToStartCommand(null));
     }
 
-
-
     private class ModelStub implements Model {
 
         private ReadOnlyWordBank wordBank;

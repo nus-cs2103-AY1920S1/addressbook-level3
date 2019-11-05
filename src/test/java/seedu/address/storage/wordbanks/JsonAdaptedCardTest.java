@@ -15,7 +15,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;
 
-public class JsonAdaptedCardTest {
+class JsonAdaptedCardTest {
     private static final String INVALID_WORD = "  "; // Empty spaces
     private static final String INVALID_MEANING = "   "; // Empty spaces
     private static final String INVALID_TAG = "#teg";
@@ -28,13 +28,13 @@ public class JsonAdaptedCardTest {
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validCardDetails_returnsPerson() throws Exception {
+    void toModelType_validCardDetails_returnsCard() throws Exception {
         JsonAdaptedCard card = new JsonAdaptedCard(ABRA);
         assertEquals(ABRA, card.toModelType());
     }
 
     @Test
-    public void toModelType_nullId_throwsIllegalValueException() {
+    void toModelType_nullId_throwsIllegalValueException() {
         JsonAdaptedCard card =
                 new JsonAdaptedCard(null, VALID_WORD, VALID_MEANING, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName());
@@ -42,7 +42,7 @@ public class JsonAdaptedCardTest {
     }
 
     @Test
-    public void toModelType_invalidWord_throwsIllegalValueException() {
+    void toModelType_invalidWord_throwsIllegalValueException() {
         JsonAdaptedCard card =
                 new JsonAdaptedCard(VALID_ID, INVALID_WORD, VALID_MEANING, VALID_TAGS);
         String expectedMessage = Word.MESSAGE_CONSTRAINTS;
@@ -50,7 +50,7 @@ public class JsonAdaptedCardTest {
     }
 
     @Test
-    public void toModelType_nullName_throwsIllegalValueException() {
+    void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedCard card =
                 new JsonAdaptedCard(VALID_ID, null, VALID_MEANING, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Word.class.getSimpleName());
@@ -58,7 +58,7 @@ public class JsonAdaptedCardTest {
     }
 
     @Test
-    public void toModelType_invalidMeaning_throwsIllegalValueException() {
+    void toModelType_invalidMeaning_throwsIllegalValueException() {
         JsonAdaptedCard person =
                 new JsonAdaptedCard(VALID_ID, VALID_WORD, INVALID_MEANING, VALID_TAGS);
         String expectedMessage = Meaning.MESSAGE_CONSTRAINTS;
@@ -66,7 +66,7 @@ public class JsonAdaptedCardTest {
     }
 
     @Test
-    public void toModelType_nullMeaning_throwsIllegalValueException() {
+    void toModelType_nullMeaning_throwsIllegalValueException() {
         JsonAdaptedCard person =
                 new JsonAdaptedCard(VALID_ID, VALID_WORD, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Meaning.class.getSimpleName());
@@ -74,7 +74,7 @@ public class JsonAdaptedCardTest {
     }
 
     @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
+    void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedCard person =

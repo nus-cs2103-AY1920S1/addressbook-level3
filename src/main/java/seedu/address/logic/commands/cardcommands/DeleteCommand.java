@@ -22,7 +22,7 @@ public class DeleteCommand extends CardCommand {
             + "where index is a positive integer within the list\n"
             + "Eg: " + COMMAND_WORD + " 1";
 
-    private static final String MESSAGE_DELETE_CARD_SUCCESS = "Deleted card: %1$s";
+    public static final String MESSAGE_DELETE_CARD_SUCCESS = "Deleted card: %1$s";
 
     private final Index targetIndex;
 
@@ -30,6 +30,7 @@ public class DeleteCommand extends CardCommand {
      * Creates a DeleteCommand to delete the specified {@code Index}.
      */
     public DeleteCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

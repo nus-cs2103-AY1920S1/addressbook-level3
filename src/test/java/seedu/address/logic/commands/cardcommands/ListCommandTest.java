@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.cardcommands;
 
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //

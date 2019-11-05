@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ABRA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BUTTERFREE;
 
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 
 import org.junit.jupiter.api.Test;
 
@@ -137,11 +137,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_ABRA);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_CARD, DESC_ABRA);
 
         // same values -> returns true
         EditCommand.EditCardDescriptor copyDescriptor = new EditCommand.EditCardDescriptor(DESC_ABRA);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_CARD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -154,10 +154,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_ABRA)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_CARD, DESC_ABRA)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BUTTERFREE)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_CARD, DESC_BUTTERFREE)));
     }
 
 }

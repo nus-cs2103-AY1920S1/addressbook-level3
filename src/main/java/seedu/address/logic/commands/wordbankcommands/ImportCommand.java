@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.wordbankcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
@@ -24,13 +25,14 @@ public class ImportCommand extends WordBankCommand {
             + PREFIX_WORD + "sample "
             + PREFIX_FILEPATH + "~/downloads";
 
-    private static final String MESSAGE_IMPORT_CARD_SUCCESS = "Imported word bank: %1$s\n"
+    public static final String MESSAGE_IMPORT_CARD_SUCCESS = "Imported word bank: %1$s\n"
         + "Location : %2$s";
 
     private String wordBankName;
     private File directory;
 
     public ImportCommand(String wordBankName, File directory) {
+        requireAllNonNull(wordBankName, directory);
         this.wordBankName = wordBankName;
         this.directory = directory;
     }
@@ -49,7 +51,16 @@ public class ImportCommand extends WordBankCommand {
                 // instanceof handles nulls
                 || (other instanceof seedu.address.logic.commands.wordbankcommands.ImportCommand
                 && wordBankName
-                .equals(((seedu.address.logic.commands.wordbankcommands.ImportCommand) other).wordBankName));
+                .equals(((ImportCommand) other).getWordBankName())
+                && directory
+                .equals((((ImportCommand) other).getDirectory())));
     }
 
+    public String getWordBankName() {
+        return wordBankName;
+    }
+
+    public File getDirectory() {
+        return directory;
+    }
 }
