@@ -145,6 +145,72 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some important details on how the features are implemented
 
+=== Help feature
+The `help` command allows for users to generate a `HelpCommand` object in FinSec. It then provides one of various types of help dependant on the request of the user.
+
+The format for the `help` command is as follows:
+
+ help cmd/<COMMAND> type/<TYPE>
+
+==== Overview
+
+The `Help` mechanism is facilitated by `HelpCommand` and `HelpCommandParser`, taking in the following inputs from the user: `SecondaryCommand` and `Type`.
+After the parameters have been parsed, the relevant `CommandResult` object will be instantiated based on the input `Type` and pertaining to the input `SecondaryCommand`.
+
+==== Current Implementation
+
+The activity diagram below shows how it would look like from a user's point of view during the creation of a `HelpCommand` object.
+
+<<helpActDiagram>> describes the workflow of the `help` command
+command is entered.
+[[helpActDiagram]]
+[reftext="Figure 2.1.2.1"]
+[caption="Figure 2.1.2.1: "]
+.Activity diagram of the `help` command
+image::DG-HelpActivityDiagram.PNG[width="800"]
+
+The series of steps below explain the process and current implementation of the `help` command.
+
+*Step 1 :* The user requests for help.
+
+*Step 2 :* The `HelpParser` then calls the execute function of the `HelpCommand`.
+
+*Step 3 :* The `HelpCommand` then returns a `CommandResult` based on what parameters the user enters.
+
+* If no parameters are entered, the `HelpCommand` class returns with a `CommandResult` requesting to show a basic `helpWindow`
+* If the incorrect parameters are entered, an error message will be sent as feedback to the user in the `CommandResult`
+
+*Step 4 :* If the correct parameters are entered, the appropriate type of help is given.
+
+* If the user chooses `Type` brief, a brief description will be returned as feedback to the user in the `CommandResult`
+* If the user chooses `Type` guide, the `HelpCommand` class accesses the `WebLinks` class to get the String value of the respective command. It then utilises your default web browser to open up the FinSec User Guide and centers on the requested command.
+* If the user chooses `Type` api, the `HelpCommand` class accesses the `ApiLinks` class to get the String value of the respective command. It then generates an API.html file of the requested command on the local system and accesses it.
+
+*Step 5 :* The `help` command resolves
+
+==== Why was it implemented this way?
+With regards to help, the current implementation was sorely lacking. The only way the user could get useful help was to access the User Guide which requires an internet connection.
+This meant that there was basically no offline help available with regards to command lists or what commands do.
+With the multi-faceted approach, the user can control the depth of help and have more options available to them in general.
+
+==== Alternatives Considered
+
+We have considered between two differing help philosophies.
+
+.Help philosophies
+[options="header,footer"]
+|=======================
+| Methods of Help 				|	Pros and Cons
+| Simplistic Help		  		|	*Pros* : Use as-is. No additional coding required.
+
+                                        	 	*Cons* : Requires an online connection to be able to get help.
+
+| Multi-faceted help				|	*Pros* : Provides multiple types of help .
+							*Cons* : There is a risk of over-complicating the `help` function, which would prompt the user to be confused on how to even use the help command.
+|=======================
+We have settled on adopting the multi-faceted help philosophy as the current implementation of help simply does not cut it. Measures have been taken such as allowing the user to type in `help` with no additional
+parameters to display the command list and explain the deeper features of the help command; thus retaining its simplicity.
+
 === Claim feature
 
 The `add_claim` command allows for admins to register Claims into FinSec.
@@ -319,6 +385,7 @@ During the design of our delete function, we considered between two alternatives
                                         *Cons* : User will have to scroll the income list for the income entry and look for its index which can be inconvenient.
 
 | Deletion by Income description     | *Pros* : It may be more intuitive for users to delete an income through the description of the income.
+
                                         *Cons* : Incomes of different entries can have similar description. The user would eventually still have to look through the income list.
 |=======================
 
@@ -383,7 +450,20 @@ Given below is an example usage scenario of how the shortcut feature mechanism b
 *Step 4 :* Since now the boolean value of `MainWindow#unknownEntry` is true, the next input would use a different execute command. Instead of the usual method `LogicManager#execute(String command)`, the next input would be executed by `LogicManager#executeUnknownInput(String command)`. Hence, if the subsequent input by the user is `n`, a `NoShortCutCommand` would be executed
 and it would return a `CommandResult` with a false value of `createShortCut` which would reinstate back the normal state of FinSec.
 
-*Step 5 :* If the user enters a value other than `n`, the `LogicManager#executeUnknownInput(String command)` would call `FinSecParser#checkCommand(String currentInput, String prevInput)` to check if the command is existing or not. If the command is existing, it would return another `ShortCutRequestCommand` object with the same input. However, if a valid defaul command is entered, a new `CreateShortCutCommand` object is returned.
+*Step 5 :* If the user enters a value other than `n`, the `LogicManager#executeUnknownInput(String command)` would call `FinSecParser#checkCommand(String currentInput, String prevInput)` to check if the command is existing or not. If the command is existing, it would return another `ShortCutRequestCommand` object with the same input. However, if a valid default command is entered, a new `CreateShortCutCommand` object is returned (go back to *Step 3*).
+
+* The code snippet below shows the `FinSecParser#checkCommand(String currentInput, String prevInput)` method +
+
+[source, java]
+
+XYSeries public Command checkCommand(String currentInput, String prevInput) {
+        if (FinSecParser.commandList.containsValue(currentInput)) {
+            FinSecParser.commandList.put(prevInput, FinSecParser.commandList.get(currentInput));
+            return new CreateShortCutCommand(FinSecParser.commandList.get(currentInput), prevInput);
+        } else {
+            return new ShortCutRequestCommand(currentInput);
+        }
+    }
 
 *Step 6 :* When a `CreateShortCutCommand` object is returned, it is executed in `LogicManager` and `LogicManager` would use `CreateShortCutCommand#execute()` to add the `CommandItem` into the `Model` which is handled by the `ModelManager`.
 
@@ -391,51 +471,141 @@ and it would return a `CommandResult` with a false value of `createShortCut` whi
 
 The following activity diagram summarises what happens when a user executes an unknown command:
 
+<<ShortcutDiagram>> is the activity diagram when a user inputs an unkown command
+[[ShortcutDiagram]]
+[reftext="Figure 2.3.2.2"]
+[caption="Figure 2.3.2.2: "]
+.ActivityDiagram
+image::ShortcutActivityDiagram.png[width="800"]
+
+==== Why was it implemented this way?
+
+In order for us to create new Command Words that gives the same functionality of a default command, it was imperative for us to create a CommandItem class that creates an object for every command with the String attributes of `CommandWord` and `CommandTask`. This way, it was possible to
+create more commands as the user uses the application.
+
+Now with creation of new commands being made possible, we have to decide how we were going to store the list of commands for frequent reference to ensure a bug-free implementation of this feature.
+
+We considered between two alternatives.
+
+.Data structure to store commandWord and commandTask alternatives
+[options="header,footer"]
+|=======================
+| Data Structure Consideration | Pros and Cons
+| TreeMap (Current Choice)   | *Pros* : Since each commandWord has 2 attributes, `commandWord` and `commandTask`, this data structure was perfect for storing commands and newly created shortcuts.
+                                        Furthermore, since we have to look up this TreeMap frequently, a TreeMap would improve the performance of the application since the retrieval speed of a TreeMap is extremely fast.
+
+                                        *Cons* : A TreeMap is not as intuitive to implement compared to an ArrayList or List.
+
+| ArrayList     | *Pros* : It may be more intuitive to implement an ArrayList.
+
+*Cons* : Since we have to look up the list of commands frequently, the use of an ArrayList would significantly lower the performance of FinSec. This might negatively affect user experience.
+|=======================
+
+We have decided to opt for the first option primarily because it significantly improves the performance of the application.
+
+
+=== Autocorrect feature
+
+This feature gives the user a dropdown list of suggestions when he is typing his entry.
+
+*Overview*
+
+In order for an easy implementation of this feature, we have created a new class `AutocorrectTextField` that extends `TextField` that would be loaded into the MainWindow when the user starts the application.
+
+The `AutocorrectTextField` has 2 attributes, `suggestionCommands` and `addSuggestions` which are Sets of String values to be displayed to the user upon entering their commands. `suggestionCommands` would give the list of suggestions and `addSuggestions` would give the list of additional suggestions such as `n/John Doe` for ease of use for the users.
+
+The list of commands can be easily retrieved using the method `FinSecParser#getCommandList().keySet()` while the list of additional suggestions can be retrieved from `SuggestionsStorage#getSuggestions()`.
+
+Currently, when the user adds a `Contact`, a new `AutocorrectSuggestion` would be created and added to the `Model` by the `ModelManager`. The `AutocorrectSuggestion` that would be created will be in the `String` "add_claim n/<Contact.fullname()>". This would ease the addition of claims into FinSec since that a user is not able to add a claim if the contact does not exist.
+
+*Example*
+
+Given below is an example usage scenario of how the AutoCorrect feature mechanism behaves at each step.
+
+*Step 1 :* The user starts typing add_contact into FinSec. Since that add_contact is a default command, it would already be in the Set of Strings in `AutocorrectTextField#suggestionCommands` and it would trigger the method `AutocorrectTextField#changed()` and the suggestions would be loaded into the UI in the `MainWindow`.
+
+*Step 2 :* The user adds a contact into FinSec and the method `AddContactCommand#execute()` is executed.
+
+* The code snippet below shows the `AddContactCommand#execute()` method +
+
+[source, java]
+
+XYSeries  public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        if (model.hasContact(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+        model.addContact(toAdd);
+        //adding the contact's name into the suggestion list.
+        AutocorrectSuggestion addName = new AutocorrectSuggestion("add_claim n/" + toAdd.getName().fullName);
+        model.addAutocorrectSuggestion(addName);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+
+*Step 3 :* An `AutocorrectSuggestion` object is created with the parameter "add_claim n/contact.getName().fullName".
+
+*Step 4 :* The newly created `AutocorrectSuggestion` object is added into `Model` and handled by the `ModelManager`.
+
+*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded and ready to display for the next user input.
+
+
 
 
 === Budget feature
 
-The `budget` command allows for users to Generate a `Budget` object in FinSec. It also creates `Budget Graph` object and displays it via the User Interface.
+The `budget` command allows for users to Generate a `Budget` object in FinSec. It also creates a `Budget Graph` object and displays it via the User Interface.
 
 ==== Overview
 The `Budget` feature relies primarily on the `Claim` and `Income` features, and serves as an extension to calculate their difference.
-The `Budget` object calculates the cash `amount` values all existing `Income` objects and all cash `amount` values of `Claims` that have a `status` of `approved`.
+The `Budget` object calculates the cash `amount` values of all existing `Income` objects and all cash `amount` values of `Claims` that have a `status` of `approved`.
 It then returns the difference in values as the `budget` value and creates a graph detailing the statistics for the month.
 
 ==== Current Implementation
 <<budgetSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `budget`
 command is entered.
 [[budgetSeqDiagram]]
-[reftext="Figure 2.3.2.1"]
-[caption="Figure 2.3.2.1: "]
+[reftext="Figure 2.6.2.1"]
+[caption="Figure 2.6.2.1: "]
 .Execution sequence of the `budget` command
 image::BudgetSequenceDiagram.png[width="800"]
 
-1) The `budget` command is passed on to the `LogicManager` as `commandText` +
+*Step 1 :* The `budget` command is passed on to the `LogicManager` as `commandText` +
 
-2) The LogicManager::execute method then calls FinSecParser::parseCommand which receives the user input (`budget`) as a parameter. +
+*Step 2 :* The LogicManager::execute method then calls FinSecParser::parseCommand which receives the user input (`budget`) as a parameter. +
 
-3) FinSecParser then references the various command words and identifies the command to be a `budget` command.
+*Step 3 :* FinSecParser then references the various command words and identifies the command to be a `budget` command. It then calls the `BudgetCommand` method.
 
-4) FinSecParser then calls the `BudgetCommand` method.
+*Step 4 :* This newly created `BudgetCommand` object is returned to the LogicManager class, which then calls the BudgetCommand::execute method.
 
-5) This newly created `BudgetCommand` object is returned to the LogicManager instance through the GotoCommandParser and FinSecParser objects.
+*Step 5 :* The `BudgetCommand` then interacts with the model component of our software architecture to create a filteredList of all `Income` and `Claim` objects using the `model.getFilteredClaimList()` and `model.getFilteredIncomeList()` commands.
 
-5) In the LogicManager object, it then calls the BudgetCommand::execute method
+*Step 6 :* It instantiates a `Budget` object which contains classes such as `calculateTotalExpenses()` and `calculateBudget()` to calculate the `Amount` values of all the `Claims`, `Incomes` and thus use them to find the budget amount. +
+A `BudgetGraph` object is also created in parallel (Details expanded upon below)
 
-6) The `BudgetCommand` then interacts with the model component of our software architecture to create a filteredList of all `Income` and `Claim` objects using the `model.getFilteredClaimList()` and `model.getFilteredIncomeList()` commands
+*Step 7:* The `BudgetCommand::execute` finally completes by constructing a message string containing all these values and returning a new `CommandResult` with the specific message string to its calling method which is `LogicManager::execute`.
 
-7) It then parses the lists into to instantiate a `Budget` object and a `BudgetGraph` object
+*Step 8 :* `LogicManager::execute` method returns a `CommandResult` to the calling method which is `MainWindow::executeCommand`
 
-8) The `Budget` object contains classes such as `calculateTotalExpenses()` and `calculateBudget()` to calculate the `Amount` values of all the `Claims`, `Incomes` and thus use them to find the budget amount.
+*Step 9 :* The specific feedback is then retrieved through `CommandResult::getFeedbackToUser` and set in the result display of the MainWindow. +
 
-9) The `BudgetCommand` class then calls these methods and constructs a message string containing all these values
+While creating the `Budget` object, a `BudgetGraph` object is also created in parallel. The activity diagram below shows how it would look like from a user's point of view.
 
-10) At the same time, the `BudgetGraph` object is instantiated, which is basically an XY-graph.
+<<budgetActDiagram>> describes the workflow of the budget command
+command is entered.
+[[budgetActDiagram]]
+[reftext="Figure 2.5.2.2"]
+[caption="Figure 2.5.2.2: "]
+.Activity diagram of the `budget` command
+image::DG-BudgetActivityDiagram.PNG[width="800"]
 
-11) The `BudgetGraph` object creates a dataset by taking in the list of `Claims` and `Incomes` and parsing them to the `ClaimPlotter`, `IncomePlotter` and `BudgetPlotter` classes.
+The series of steps below demonstrates what the `BudgetGraph` object does in parallel to Step 6 above.
 
-12) The 3 plotter classes then filter their respective lists to create new lists for the current month and start adding the points to the series.
+*Step 6a :* At the same time the `Budget` object is created, the `BudgetGraph` object is also instantiated, which is basically an XY-graph.
+
+*Step 6b :* The `BudgetGraph` object creates a dataset by taking in the list of `Claims` and `Incomes` and parsing them to the `ClaimPlotter`, `IncomePlotter` and `BudgetPlotter` classes.
+
+*Step 6c :* The 3 plotter classes then filter their respective lists to create new lists for the current month and start adding the points to the series.
 
 * The code snippet below shows the `ClaimPlotter::plotClaims` method +
 
@@ -457,15 +627,10 @@ XYSeries plotClaims() {
         return claimSeries;
     }
 
-13) Once the 3 series have been returned, the BudgetGraph then returns the completed dataset to the `BudgetGraph` class which then renders the image.
+*Step 6d :* Once the 3 series have been returned, the BudgetGraph then returns the completed dataset to the `BudgetGraph` class which then renders the image.
 
-14) The `BudgetCommand::execute` method then calls the `BudgetGraph::displayBudgetGraph` method to display the graph image.
+*Step 6e :* The `BudgetCommand::execute` method then calls the `BudgetGraph::displayBudgetGraph` method to display the graph image.
 
-15) The `BudgetCommand::execute` finally completes by returning a new `CommandResult` with the specific message string to its calling method which is `LogicManager::execute`.
-
-16) `LogicManager::execute` method returns a `CommandResult` to the calling method which is `MainWindow::executeCommand`
-
-17) The specific feedback is then retrieved through `CommandResult::getFeedbackToUser` and set in the result display of the MainWindow.
 
 
 ==== Why was it implemented this way?
@@ -476,7 +641,22 @@ With so many claims and incomes, all having differing dates, it can be hard to k
 * We also wanted to keep track of the history of said `Claims` and `Incomes` and doing it over a 1 month period ensures there will not be too visual data cluttering the screen.
 
 ==== Alternatives Considered
-* We had intended on including separate graphs based on organisation tags so instead of having budget-time graphs, we would have a budget graph for every organisation. The idea was scrapped due to it being too convoluted.
+
+We have considered between two differing graph designs.
+
+.Graph Designs
+[options="header,footer"]
+|=======================
+| Graph Design Considerations 			|	Pros and Cons
+| Single Graph (Current Choice)  		|	*Pros* : Clean and clutter-free display.
+
+                                        	 	*Cons* : It does not display as much data
+
+| Separate Graphs based on Organisation Tags    |	*Pros* : Displays all relevant data that the user can possibly ask for
+
+							*Cons* : Opening a multitude of graphs will visually clutter the screen with data unless more parsing is done to sort out which graphs are required
+|=======================
+We have settled on adopting a single-graph approach as having multiple graphs open can lead to the user being overwhelmed by unnecessary data, and the code needed to achieve this result satisfactorily would be too convoluted.
 
 === Goto feature
 This section describes the different Views that Goto can bring a user to. It includes an overview of the goto details and how users can interact

@@ -78,7 +78,10 @@ Refer to <<Command Summary>> for all available commands
 Types include: +
 `brief` (gives a brief description) +
 `guide` (opens a web browser and bring you to our user guide) +
-`api` (for advanced users who want to know the inner workings of the command) +
+`api` (for advanced users who want to know the inner workings of the command)
+
+A friendly tip :bulb: +
+If you type `help` without any other parameters, a window will appear and display a command list with similar instructions to this page!
 
 Examples: +
 ....
@@ -350,9 +353,8 @@ delete_income 2 (removes second income in the income list)
 
 Result:
 
-* Deletes the income at the specified `INDEX`.
-* The index refers to the index number shown in the displayed income list.
-* The index *must be a positive integer* 1, 2, 3, ...
+Deletes the income at the specified `INDEX`.
+
 
 <<UG-DeleteIncomeExample>> and <<UG-DeleteIncomeResult>> shows what you can expect to see after typing in the example: `delete_income 2`.
 [[UG-DeleteIncomeExample]]
@@ -366,6 +368,16 @@ image::UG-Delete_income1.png[width="800"]
 .The result after entering the command. The second income is now deleted off the incomes list.
 image::UG-Delete_income2.png[width="800"]
 
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The index refers to the index number shown in the displayed income list.
+* The index *must be a positive integer* 1, 2, 3, ...
+
+====
 
 === Creating a shortcut
 
@@ -449,6 +461,17 @@ image::UG-createShortcut2.png[width="800"]
 .After creating the shortcut.
 image::UG-createShortcut3.png[width="800"]
 
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The shortcut you want to add has to be to a default FinSec command.
+
+====
+
+
 <<UG-shortcutExample>>, <<UG-shortcutResult>> shows what you can expect after creating a shortcut of your own!
 [[UG-shortcutExample]]
 [reftext="Figure 3.11.2.4"]
@@ -461,6 +484,7 @@ image::UG-createShortcut4.png[width="800"]
 [caption="Figure 3.11.2.5: "]
 .The newly created shortcut 'ai' creating an income.
 image::UG-createShortcut5.png[width="800"]
+
 
 
 === Deleting a shortcut : `delete_shortcut`
@@ -481,6 +505,17 @@ delete_shortcut ai (removes shortcut 'ai' )
 Result:
 
 The shortcut is now no longer available for use.
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The shortcut you want to delete has to be an existing shortcut.
+* This will not work for default commands.
+
+====
 
 //@@author {lawncegoh}
 ---

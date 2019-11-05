@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,14 +24,12 @@ public class AddClaimCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_CASH + "CASH AMOUNT "
             + PREFIX_DATE + "DATE (dd-MM-yyyy) "
-            + PREFIX_PHONE + "PHONE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_DESCRIPTION + "Logistics for Hackathon "
             + PREFIX_CASH + "102.50 "
             + PREFIX_DATE + "25-11-2019 "
-            + PREFIX_PHONE + "98765432 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
