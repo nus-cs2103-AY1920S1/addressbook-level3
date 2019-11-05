@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import seedu.address.ui.util.PanelName;
 import seedu.address.ui.util.FontName;
+import seedu.address.ui.util.PanelName;
 import seedu.address.ui.util.Theme;
 
 /**

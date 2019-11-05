@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.addcommands.AddIncomeCommand;
 import seedu.address.logic.commands.addcommands.AddWishCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -21,7 +20,6 @@ import seedu.address.model.entry.Amount;
 import seedu.address.model.entry.Category;
 import seedu.address.model.entry.Date;
 import seedu.address.model.entry.Description;
-import seedu.address.model.entry.Income;
 import seedu.address.model.entry.Wish;
 import seedu.address.model.tag.Tag;
 

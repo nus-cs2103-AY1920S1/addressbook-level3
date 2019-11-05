@@ -22,11 +22,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.util.PanelName;
 import seedu.address.ui.stats.StatisticsBarChart;
 import seedu.address.ui.stats.StatisticsPieChartHolder;
 import seedu.address.ui.stats.StatisticsWindow;
 import seedu.address.ui.util.FontManager;
+import seedu.address.ui.util.PanelName;
 import seedu.address.ui.util.Theme;
 
 /**
@@ -173,9 +173,6 @@ public class MainWindow extends UiPart<Stage> {
         statsListPanel = new StatisticsWindow(logic.getListOfStatsForExpense(), logic.getListOfStatsForIncome(),
                 logic.getTotalExpenseForPeriod(), logic.getTotalIncomeForPeriod());
         statsBar = new StatisticsBarChart(logic.getListOfStatsForBarChart());
-
-//        entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
-//        entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
 
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
         incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
