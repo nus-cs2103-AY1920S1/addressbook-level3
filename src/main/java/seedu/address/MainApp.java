@@ -146,37 +146,6 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
-//    /**
-//     * Returns a {@code UserSettings} using the file at {@code storage}'s user settings file path,
-//     * or a new {@code UserSettings} with default configuration if errors occur when
-//     * reading from the file.
-//     */
-//    protected UserSettings initPrefs(UserSettingsStorage storage) {
-//        Path settingsFilePath = storage.getUserSettingsFilePath();
-//        logger.info("Using settings file : " + settingsFilePath);
-//
-//        UserSettings initialisedSettings;
-//        try {
-//            Optional<UserSettings> settingsOptional = storage.readUserSettings();
-//            initialisedSettings = settingsOptional.orElse(new UserSettings());
-//        } catch (DataConversionException e) {
-//            logger.warning("UserSettings file at " + settingsFilePath + " is not in the correct format. "
-//                    + "Using default user settings");
-//            initialisedSettings = new UserSettings();
-//        } catch (IOException e) {
-//            logger.warning("Problem while reading from the file. Will be starting with an empty Project");
-//            initialisedSettings = new UserSettings();
-//        }
-//
-//        //Update prefs file in case it was missing to begin with or there are new/unused fields
-//        try {
-//            storage.saveUserSettings(initialisedSettings);
-//        } catch (IOException e) {
-//            logger.warning("Failed to save settings file : " + StringUtil.getDetails(e));
-//        }
-//
-//        return initialisedSettings;
-//    }
 
     /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
