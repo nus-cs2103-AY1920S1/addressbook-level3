@@ -184,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::suggestCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         WishListPanel wishListPanel = new WishListPanel(logic.getFilteredWishList());
@@ -561,6 +561,19 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Parse the user input and display the suggestions in ResultDisplay.
+     *
+     * @param userInput text input from CommandBox
+     */
+    private void suggestCommand(String userInput) {
+        if (userInput.equals("oo")) {
+            resultDisplay.setFeedbackToUser("uwu");
+        } else {
+            resultDisplay.setFeedbackToUser("hahaha");
         }
     }
 }
