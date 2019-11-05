@@ -58,8 +58,8 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
      */
     private static void addIndividualEdits(List<String> stringList, Prefix prefix,
                                            EditUserDescriptor editUserDescriptor) throws ParseException {
-        for (String phoneString : stringList) {
-            HashMap<Index, String> indexMap = getValidatedIndexValueMap(phoneString, prefix);
+        for (String itemString : stringList) {
+            HashMap<Index, String> indexMap = getValidatedIndexValueMap(itemString, prefix);
             Index index = indexMap.keySet().iterator().next();
             if (PREFIX_CONTACT_NUMBER.equals(prefix)) {
                 Phone contactNumber = ParserUtil.parsePhone(indexMap.get(index));

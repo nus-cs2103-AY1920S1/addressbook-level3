@@ -585,4 +585,5 @@ public class EditBioCommand extends Command {
                     && getOtherBioInfo().equals(e.getOtherBioInfo());
         }
     }
+
 }

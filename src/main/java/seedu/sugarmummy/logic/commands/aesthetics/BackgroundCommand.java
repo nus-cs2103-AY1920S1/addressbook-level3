@@ -3,6 +3,8 @@ package seedu.sugarmummy.logic.commands.aesthetics;
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT;
 
+import java.util.Objects;
+
 import seedu.sugarmummy.logic.commands.Command;
 import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
@@ -152,4 +154,60 @@ public class BackgroundCommand extends Command {
     public DisplayPaneType getDisplayPaneType() {
         return fontColourCommand != null ? DisplayPaneType.COLOUR_AND_BACKGROUND : DisplayPaneType.BACKGROUND;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else {
+            if (other instanceof BackgroundCommand) {
+                if ((this.background == null && ((BackgroundCommand) other).background == null)
+                        && (this.fontColourCommand == null && ((BackgroundCommand) other).fontColourCommand == null)) {
+                    return true;
+                }
+
+                if ((this.background != null && ((BackgroundCommand) other).background == null)
+                        || (this.background == null && ((BackgroundCommand) other).background != null)
+                        || (this.fontColourCommand != null && ((BackgroundCommand) other).fontColourCommand == null)
+                        || (this.fontColourCommand == null && ((BackgroundCommand) other).fontColourCommand != null) ) {
+                    return false;
+                }
+
+                if ((this.background != null && ((BackgroundCommand) other).background != null)
+                        && this.fontColourCommand == null &&  ((BackgroundCommand) other).fontColourCommand == null) {
+                    return this.background.equals(((BackgroundCommand) other).background);
+                } else if ((this.background == null && ((BackgroundCommand) other).background == null)
+                        && this.fontColourCommand != null &&  ((BackgroundCommand) other).fontColourCommand != null) {
+                    return this.fontColourCommand.equals(((BackgroundCommand) other).fontColourCommand);
+                }
+
+                assert this.background != null;
+                assert this.fontColourCommand != null;
+
+                return this.background.equals(((BackgroundCommand) other).background)
+                        && this.fontColourCommand.equals(((BackgroundCommand) other).fontColourCommand);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return background == null && fontColourCommand == null
+                ? 0
+                : background == null
+                        ? fontColourCommand.hashCode()
+                        : fontColourCommand == null
+                                ? background.hashCode()
+                                : Objects.hash(background, fontColourCommand);
+    }
+
+    @Override
+    public String toString() {
+        return "BackgroundCommnand with attributes:\n"
+                + "background: " + background + "\n"
+                + "fontColourCommand: " + fontColourCommand;
+    }
+
 }

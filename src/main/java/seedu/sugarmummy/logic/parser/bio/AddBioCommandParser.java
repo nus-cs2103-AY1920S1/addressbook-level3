@@ -59,6 +59,8 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddBioCommand parse(String args) throws ParseException {
+        System.out.println(args);
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DP_PATH, PREFIX_PROFILE_DESC, PREFIX_NRIC,
                         PREFIX_GENDER, PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT,
@@ -77,7 +79,7 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
         if (!nonUniquePrefixes.isEmpty()) {
             throw new ParseException((nonUniquePrefixes.size() == 1
                     ? MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR
-                    : MESSAGE_ENSURE_ONLY_ONE_PREFIX_PLURAL) + " " + nonUniquePrefixes);
+                    : MESSAGE_ENSURE_ONLY_ONE_PREFIX_PLURAL) + nonUniquePrefixes);
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

@@ -13,7 +13,7 @@ public class Goal implements ListableField {
     public static final String MESSAGE_DUPLICATE_INPUTS = "Duplicate inputs have been found. Please check to ensure "
             + "that there are no duplicates in goals entered.";
 
-    public static final String VALIDATION_REGEX = "^$|[^\\\\s].*";
+    public static final String VALIDATION_REGEX = "^$|[^\\s].*";
 
     public final String goal;
 

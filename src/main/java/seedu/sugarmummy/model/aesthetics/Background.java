@@ -54,14 +54,14 @@ public class Background {
      * Returns true if given string is a valid background size argument.
      */
     public static boolean isValidBackgroundSize(String test) {
-        return test == null || !BackgroundImageArgs.BACKGROUND_SIZE_VALUES.contains(test.toLowerCase());
+        return test == null || BackgroundImageArgs.BACKGROUND_SIZE_VALUES.contains(test.toLowerCase());
     }
 
     /**
      * Returns true if a given string is a valid background repeat argument.
      */
     public static boolean isValidBackgroundRepeat(String test) {
-        return test == null || !BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.contains(test.toLowerCase());
+        return test == null || BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.contains(test.toLowerCase());
     }
 
     /**

@@ -115,4 +115,8 @@ public class AddBioCommand extends Command {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "AddBioCommand with user: " + toAdd;
+    }
 }
