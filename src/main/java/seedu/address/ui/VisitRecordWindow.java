@@ -93,11 +93,10 @@ public class VisitRecordWindow extends UiPart<Stage> {
         getRoot().show();
         getRoot().centerOnScreen();
         getRoot().addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
-                    if (KeyCode.ESCAPE == event.getCode()) {
-                        this.hide();
-                    }
-                }
-        );
+            if (KeyCode.ESCAPE == event.getCode()) {
+                this.hide();
+            }
+        });
     }
 
     /**
@@ -114,6 +113,9 @@ public class VisitRecordWindow extends UiPart<Stage> {
         getRoot().hide();
     }
 
+    /**
+     * Clears all text in textareas.
+     */
     public void clearFields() {
         medicine.clear();
         diagnosis.clear();

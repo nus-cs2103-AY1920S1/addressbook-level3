@@ -22,9 +22,9 @@ import seedu.address.testutil.TypicalVisits;
 
 public class DeleteVisitCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private static final int VALID_REPORT_INDEX = 3;
     private static final int INVALID_REPORT_INDEX = 0;
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_deleteVisitCommand_success() {
@@ -53,7 +53,7 @@ public class DeleteVisitCommandTest {
     }
 
     @Test
-    public void execute_InvalidReportIndex_failure() {
+    public void execute_invalidReportIndex_failure() {
 
         DeleteVisitCommand deleteVisitCommand = new DeleteVisitCommand(INDEX_SECOND_PERSON,
                 INVALID_REPORT_INDEX);

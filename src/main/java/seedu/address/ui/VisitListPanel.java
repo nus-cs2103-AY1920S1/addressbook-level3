@@ -83,11 +83,10 @@ public class VisitListPanel extends UiPart<Stage> {
         getRoot().setAlwaysOnTop(true);
         getRoot().centerOnScreen();
         getRoot().addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
-                    if (KeyCode.ESCAPE == event.getCode()) {
-                        this.hide();
-                    }
-                }
-        );
+            if (KeyCode.ESCAPE == event.getCode()) {
+                this.hide();
+            }
+        });
 
     }
 

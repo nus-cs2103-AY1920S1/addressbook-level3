@@ -52,7 +52,7 @@ public class EditVisitCommandTest {
     }
 
     @Test
-    public void execute_InvalidReportIndex_failure() {
+    public void execute_invalidReportIndex_failure() {
 
         EditVisitCommand editVisitCommand = new EditVisitCommand(INDEX_SECOND_PERSON,
                 INVALID_REPORT_INDEX);
