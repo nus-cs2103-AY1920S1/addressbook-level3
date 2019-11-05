@@ -1,9 +1,12 @@
 package budgetbuddy.logic.script;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.script.Bindings;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngineManager;
 
+import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.logic.script.exceptions.ScriptException;
 import budgetbuddy.model.script.Script;
 
@@ -11,6 +14,8 @@ import budgetbuddy.model.script.Script;
  * Evaluates scripts.
  */
 public class ScriptEngine {
+    private final Logger logger = LogsCenter.getLogger(ScriptEngine.class);
+
     private final Object scriptEngineLock;
     private final ScriptEnvironmentInitialiser initialiser;
     private final javax.script.ScriptEngine scriptEngine;
@@ -46,7 +51,10 @@ public class ScriptEngine {
                 setVariable("argv", argv);
                 return scriptEngine.eval(script);
             } catch (Exception ex) {
-                throw new ScriptException(String.format("Exception while evaluating script: %1$s", ex.toString()), ex);
+                Throwable cause = unwrapNashornExceptions(ex);
+                logger.log(Level.WARNING, "Exception while evaluating script", cause);
+                throw new ScriptException(
+                        String.format("Exception while evaluating script: %1$s", cause.toString()), cause);
             }
         }
     }
@@ -87,5 +95,38 @@ public class ScriptEngine {
         synchronized (scriptEngineLock) {
             scriptEngine.put(name, value);
         }
+    }
+
+    /**
+     * Fixes silly exception wrapping in Nashorn.
+     */
+    private static Throwable unwrapNashornExceptions(Throwable t) {
+        // Fixes silliness in jdk.nashorn.internal.runtime.ScriptRuntime#apply
+        if (t.getCause() != null && t.getClass().equals(RuntimeException.class)) {
+            StackTraceElement[] st = t.getStackTrace();
+            if (st == null || st.length < 1) {
+                return t;
+            }
+
+            if (st[0].getClassName().contains("nashorn")) {
+                return t.getCause();
+            }
+        }
+
+        if (t instanceof NullPointerException) {
+            StackTraceElement[] st = t.getStackTrace();
+            if (st == null || st.length < 1) {
+                return t;
+            }
+
+            StackTraceElement source = st[0];
+
+            if (source.getClassName().equals("jdk.nashorn.internal.runtime.linker.NashornBeansLinker")
+                    && source.getMethodName().equals("getGuardedInvocation")) {
+                return new ScriptException("Incorrect number of arguments passed to function call");
+            }
+        }
+
+        return t;
     }
 }
