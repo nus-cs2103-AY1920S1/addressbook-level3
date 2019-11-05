@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.quiz.QuizCommand.BLANK_QUIZ_ID;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,65 +23,58 @@ import seedu.address.testutil.question.TypicalQuestions;
 import seedu.address.testutil.quiz.QuizBuilder;
 
 /**
- * Test for QuizDeleteQuestionCommand.
+ * Tests QuizShowQuestionsCommand.
  */
-public class QuizDeleteQuestionCommandTest {
+public class QuizShowQuestionsCommandTest {
 
     /**
-     * Tests if two QuizDeleteQuestionCommands are equal.
+     * Tests if two QuizShowQuestionsCommands are equal.
      */
     @Test
     public void equals() {
         String quizId = QuizBuilder.DEFAULT_QUIZ_ID;
-        String otherQuizId = "Other Quiz";
-        QuizDeleteQuestionCommand deleteQuestionCommand =
-                new QuizDeleteQuestionCommand(quizId, 1);
-        QuizDeleteQuestionCommand otherDeleteQuestionCommand =
-                new QuizDeleteQuestionCommand(otherQuizId, 1);
+        String otherQuizId = "Other Group";
+        QuizShowQuestionsCommand getQuestionsCommand = new QuizShowQuestionsCommand(quizId);
+        QuizShowQuestionsCommand otherGetQuestionsCommand = new QuizShowQuestionsCommand(otherQuizId);
         // same object -> returns true
-        assertTrue(deleteQuestionCommand.equals(deleteQuestionCommand));
+        assertTrue(getQuestionsCommand.equals(getQuestionsCommand));
 
         // same values -> returns true
-        QuizDeleteQuestionCommand deleteQuestionCommandCopy = new QuizDeleteQuestionCommand(quizId, 1);
-        assertTrue(deleteQuestionCommand.equals(deleteQuestionCommandCopy));
+        QuizShowQuestionsCommand getQuestionsCommandCopy = new QuizShowQuestionsCommand(quizId);
+        assertTrue(getQuestionsCommand.equals(getQuestionsCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteQuestionCommand.equals(1));
+        assertFalse(getQuestionsCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteQuestionCommand.equals(null));
+        assertFalse(getQuestionsCommand.equals(null));
 
         // different quiz -> returns false
-        assertFalse(deleteQuestionCommand.equals(otherDeleteQuestionCommand));
+        assertFalse(getQuestionsCommand.equals(otherGetQuestionsCommand));
     }
 
     /**
-     * Test for deleting a question from a quiz successfully.
+     * Test for getting a quiz successfully.
      */
     @Test
-    public void execute_deleteExistingQuestionFromQuiz_success() throws Exception {
-        QuizDeleteQuestionCommand quizDeleteQuestionCommand =
-                new QuizDeleteQuestionCommand("Remove", 1);
-        Question question = new QuestionBuilder().withQuestion("RemoveTest?").withAnswer("Remove").build();
+    public void execute_getQuiz_success() throws Exception {
+        QuizShowQuestionsCommand quizShowQuestionsCommand = new QuizShowQuestionsCommand("Get");
+        Question question = new QuestionBuilder().build();
+        ModelStub modelStub = new QuizShowQuestionsCommandTest.ModelStubWithQuizWithQuestion("Get", question);
+        CommandResult commandResult = quizShowQuestionsCommand.execute(modelStub);
+        assertEquals("Showing questions for " + "Get" + ".", commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Test for getting a quiz unsuccessfully, as quiz ID is empty.
+     */
+    @Test
+    public void execute_getQuizEmptyQuizId_throwsCommandException() throws Exception {
+        QuizShowQuestionsCommand quizShowQuestionsCommand = new QuizShowQuestionsCommand("");
+        Question question = new QuestionBuilder().build();
         ModelStub modelStub =
-                new QuizDeleteQuestionCommandTest.ModelStubWithQuizWithQuestion("Remove", question);
-        CommandResult commandResult = quizDeleteQuestionCommand.execute(modelStub);
-        String expectedMessage = "Removed question: " + 1 + " from quiz: " + "Remove";
-        assertEquals(expectedMessage,
-                commandResult.getFeedbackToUser());
-    }
-
-    /**
-     * Test for deleting from quiz unsuccessfully, due to quiz ID not present.
-     */
-    @Test
-    public void execute_deleteQuestionFromQuizWithMissingQuizId_throwsCommandException() {
-        QuizDeleteQuestionCommand quizDeleteQuestionCommand =
-                new QuizDeleteQuestionCommand("", 1);
-        Question question = new QuestionBuilder().withQuestion("").withAnswer("").build();
-        ModelStub modelStub = new ModelStubWithQuizWithQuestion("NormalThree", question);
-        assertThrows(CommandException.class, () -> quizDeleteQuestionCommand.execute(modelStub),
-                BLANK_QUIZ_ID);
+                new QuizShowQuestionsCommandTest.ModelStubWithQuizWithQuestion("GetThree", question);
+        assertThrows(CommandException.class, () -> quizShowQuestionsCommand.execute(modelStub), BLANK_QUIZ_ID);
     }
 
     /**
@@ -129,9 +123,8 @@ public class QuizDeleteQuestionCommandTest {
         }
 
         @Override
-        public boolean deleteQuizQuestion(String quizId, int questionNumber) {
-            return savedQuizzes.deleteQuizQuestion(quizId, questionNumber);
+        public ObservableList<Question> getObservableListQuestionsFromQuiz() {
+            return savedQuizzes.getObservableListQuestionsFromQuiz();
         }
     }
-
 }

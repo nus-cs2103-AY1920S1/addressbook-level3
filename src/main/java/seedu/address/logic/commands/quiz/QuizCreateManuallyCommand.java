@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,9 +40,11 @@ public class QuizCreateManuallyCommand extends QuizCommand {
 
         ArrayList<Integer> questionNumbers = new ArrayList<>();
         for (String s : splitQuestionNumbers) {
-            int convertedInt = Integer.parseInt(s);
-            if (!questionNumbers.contains(convertedInt)) {
-                questionNumbers.add(convertedInt);
+            if (isNumeric(s)) {
+                int convertedInt = Integer.parseInt(s);
+                if (!questionNumbers.contains(convertedInt)) {
+                    questionNumbers.add(convertedInt);
+                }
             }
         }
 
@@ -58,8 +61,15 @@ public class QuizCreateManuallyCommand extends QuizCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (quizId.equals("") || quizId == null) {
+            throw new CommandException(BLANK_QUIZ_ID);
+        }
+        if (questionNumbers.size() == 0) {
+            throw new CommandException(INVALID_QUESTION_NUMBERS);
+        }
+
         if (model.checkQuizExists(quizId)) {
-            return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
+            throw new CommandException(String.format(QUIZ_ALREADY_EXISTS, quizId));
         }
 
         boolean isSuccess = model.createQuizManually(quizId, questionNumbers);
@@ -67,7 +77,7 @@ public class QuizCreateManuallyCommand extends QuizCommand {
             QuizBank.setCurrentlyQueriedQuiz(quizId);
             return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
         } else {
-            return new CommandResult(generateFailureMessage());
+            throw new CommandException(NOT_ENOUGH_QUESTIONS_IN_STORAGE);
         }
     }
 

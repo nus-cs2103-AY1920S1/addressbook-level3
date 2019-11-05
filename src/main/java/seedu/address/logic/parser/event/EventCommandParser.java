@@ -2,9 +2,11 @@ package seedu.address.logic.parser.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DATETIME_RANGE;
+import static seedu.address.commons.util.EventUtil.generateUniqueIdentifier;
+import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
@@ -15,15 +17,24 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW_MODE;
+import static seedu.address.logic.parser.ParserUtil.parseColorNumber;
+import static seedu.address.logic.parser.ParserUtil.parseLocalDateTime;
+import static seedu.address.logic.parser.ParserUtil.parseRecurrenceType;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Stream;
 
+import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.event.EventAddCommand;
 import seedu.address.logic.commands.event.EventCommand;
 import seedu.address.logic.commands.event.EventDeleteCommand;
 import seedu.address.logic.commands.event.EventEditCommand;
+import seedu.address.logic.commands.event.EventEditCommand.EditVEventDescriptor;
 import seedu.address.logic.commands.event.EventExportCommand;
 import seedu.address.logic.commands.event.EventIndexCommand;
 import seedu.address.logic.commands.event.EventScreenshotCommand;
@@ -151,26 +162,27 @@ public class EventCommandParser implements Parser<EventCommand> {
      * @throws ParseException
      */
     private EventEditCommand editCommand(Index index, ArgumentMultimap argMultimap) throws ParseException{
-        HashMap<String, String> fields = new HashMap<>();
-
-        String eventName = argMultimap.getValue(PREFIX_EVENT_NAME).orElse("");
-        String startDateTime = argMultimap.getValue(PREFIX_START_DATETIME).orElse("");
-        String endDateTime = argMultimap.getValue(PREFIX_END_DATETIME).orElse("");
-        String recurType = argMultimap.getValue(PREFIX_RECUR).orElse("");
-        String colorString = argMultimap.getValue(PREFIX_COLOR).orElse("");
-
-        if ((eventName.isBlank() && startDateTime.isBlank() && endDateTime.isBlank() && recurType.isBlank() &&
-                recurType.isBlank() && colorString.isBlank())) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventEditCommand.MESSAGE_USAGE));
+        EditVEventDescriptor editVEventDescriptor = new EditVEventDescriptor();
+        if (argMultimap.getValue(PREFIX_COLOR).isPresent()) {
+            editVEventDescriptor.setColorCategory(parseColorNumber(argMultimap.getValue(PREFIX_COLOR).get()));
+        }
+        if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
+            editVEventDescriptor.setEventName(argMultimap.getValue(PREFIX_EVENT_NAME).get());
+        }
+        if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
+            editVEventDescriptor.setStartDateTime(ParserUtil.parseLocalDateTime(
+                    argMultimap.getValue(PREFIX_START_DATETIME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
+            editVEventDescriptor.setEndDateTime(ParserUtil.parseLocalDateTime(
+                    argMultimap.getValue(PREFIX_END_DATETIME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
+            editVEventDescriptor.setRecurrenceRule(ParserUtil.parseRecurrenceType(
+                    argMultimap.getValue(PREFIX_RECUR).get()));
         }
 
-        fields.put("eventName", eventName);
-        fields.put("startDateTime", startDateTime);
-        fields.put("endDateTime", endDateTime);
-        fields.put("recurType", recurType);
-        fields.put("colorString", colorString);
-
-        return new EventEditCommand(index, fields);
+        return new EventEditCommand(index, editVEventDescriptor);
     }
 
     /**
@@ -206,7 +218,7 @@ public class EventCommandParser implements Parser<EventCommand> {
      *
      * @param argMultimap for tokenized input.
      * @return EventAddCommand object.
-     * @throws ParseException
+     * @throws ParseException for invalid user inputs
      */
     private EventAddCommand addCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
@@ -217,17 +229,32 @@ public class EventCommandParser implements Parser<EventCommand> {
         }
 
         String eventName = argMultimap.getValue(PREFIX_EVENT_NAME).orElse("").trim();
-        String startDateTime = argMultimap.getValue(PREFIX_START_DATETIME).orElse("").trim();
-        String endDateTime = argMultimap.getValue(PREFIX_END_DATETIME).orElse("").trim();
+        String startDateTimeString = argMultimap.getValue(PREFIX_START_DATETIME).orElse("").trim();
+        String endDateTimeString = argMultimap.getValue(PREFIX_END_DATETIME).orElse("").trim();
         String recurType = argMultimap.getValue(PREFIX_RECUR).orElse("").trim();
         String colorNumber = argMultimap.getValue(PREFIX_COLOR).orElse("").trim();
 
-        if (eventName.isBlank() || startDateTime.isBlank() || endDateTime.isBlank() || recurType.isBlank()
+        if (eventName.isBlank() || startDateTimeString.isBlank() || endDateTimeString.isBlank() || recurType.isBlank()
             || colorNumber.isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventAddCommand.MESSAGE_USAGE));
         }
 
-        return new EventAddCommand(eventName, startDateTime, endDateTime, recurType, colorNumber);
+        // parse inputs into necessary types
+        List<Categories> colorCategory = parseColorNumber(colorNumber);
+        LocalDateTime startDateTime = parseLocalDateTime(startDateTimeString);
+        LocalDateTime endDateTime = parseLocalDateTime(endDateTimeString);
+        RecurrenceRule recurrenceRule = parseRecurrenceType(recurType);
+        String uniqueIdentifier = generateUniqueIdentifier(eventName, startDateTimeString, endDateTimeString);
+
+        if (!validateStartEndDateTime(startDateTime, endDateTime)) {
+            throw new ParseException(MESSAGE_INVALID_EVENT_DATETIME_RANGE);
+        }
+
+        VEvent toAdd = new VEvent().withSummary(eventName).withDateTimeStart(startDateTime)
+                .withDateTimeEnd(endDateTime).withRecurrenceRule(recurrenceRule).withCategories(colorCategory)
+                .withUniqueIdentifier(uniqueIdentifier);
+
+        return new EventAddCommand(toAdd);
     }
 
     /**

@@ -2,123 +2,99 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_EVENT;
 import static seedu.address.commons.util.EventUtil.isSameVEvent;
-import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import jfxtras.icalendarfx.components.VEvent;
-import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.ReadOnlyVEvents;
-import seedu.address.model.note.Note;
-import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.testutil.model.ModelStub;
 
 public class EventAddCommandTest {
 
     private static final String VALID_EVENT_NAME  = "my event";
-    private static final String VALID_START_DATE_TIME_STRING = "2019-01-01T03:00";
-    private static final String VALID_END_DATE_TIME_STRING = "2019-01-01T04:00";
-    private static final String COLOR_NUMBER_STRING = "1";
-    private static final String VALID_RECUR_TYPE_STRING = "daily";
-
+    private static final String VALID_OTHER_EVENT_NAME  = "my other event";
+    private static final LocalDateTime VALID_DATE_TIME_START = LocalDateTime.parse("2019-01-01T03:00");
+    private static final LocalDateTime VALID_DATE_TIME_END = LocalDateTime.parse("2019-01-01T04:00");
 
     @Test
-    public void constructor_nullEventName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EventAddCommand(null, VALID_START_DATE_TIME_STRING,
-                VALID_END_DATE_TIME_STRING, VALID_RECUR_TYPE_STRING, COLOR_NUMBER_STRING));
+    public void constructor_nullVEvent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new EventAddCommand(null));
     }
 
     @Test
-    public void constructor_nullStartDateTimeString_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EventAddCommand(VALID_EVENT_NAME, null,
-                VALID_END_DATE_TIME_STRING, VALID_RECUR_TYPE_STRING, COLOR_NUMBER_STRING));
-    }
-
-    @Test
-    public void constructor_nullEndDateTimeString_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EventAddCommand(VALID_EVENT_NAME, VALID_START_DATE_TIME_STRING,
-                null, VALID_RECUR_TYPE_STRING, COLOR_NUMBER_STRING));
-    }
-
-    @Test
-    public void constructor_nullColorNumberString_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EventAddCommand(VALID_EVENT_NAME, VALID_START_DATE_TIME_STRING,
-                VALID_END_DATE_TIME_STRING, VALID_RECUR_TYPE_STRING, null));
-    }
-
-    @Test
-    public void constructor_nullRecurTypeString_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EventAddCommand(VALID_EVENT_NAME, VALID_START_DATE_TIME_STRING,
-                VALID_END_DATE_TIME_STRING, null, COLOR_NUMBER_STRING));
-    }
-
-    @Test
-    public void execute_vEventAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingVEventAdded modelStub = new ModelStubAcceptingVEventAdded();
+        VEvent validVEvent = new VEvent().withSummary(VALID_EVENT_NAME);
 
-        CommandResult commandResult = new EventAddCommand(VALID_EVENT_NAME, VALID_START_DATE_TIME_STRING,
-                VALID_END_DATE_TIME_STRING, VALID_RECUR_TYPE_STRING, COLOR_NUMBER_STRING).execute(modelStub);
-        VEvent expectedAddedVEvent = new VEvent()
+        CommandResult commandResult = new EventAddCommand(validVEvent).execute(modelStub);
 
-        assertEquals(String.format(EventAddCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
+        assertEquals(String.format(EventAddCommand.MESSAGE_SUCCESS, validVEvent.getSummary().getValue()),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validVEvent), modelStub.vEventsAdded);
     }
-//
-//    @Test
-//    public void execute_duplicateNote_throwsCommandException() {
-//        Note validNote = new NoteBuilder().build();
-//        NoteAddCommand addCommand = new NoteAddCommand(validNote);
-//        ModelStub modelStub = new ModelStubWithNote(validNote);
-//        assertThrows(CommandException.class, () -> addCommand.execute(modelStub), MESSAGE_DUPLICATE_NOTE);
-//    }
-//
-//    @Test
-//    public void equals() {
-//        Note note = new NoteBuilder().withNote("Note").build();
-//        Note otherNote = new NoteBuilder().withNote("Other Note").build();
-//        NoteAddCommand addNoteCommand = new NoteAddCommand(note);
-//        NoteAddCommand addOtherNoteCommand = new NoteAddCommand(otherNote);
-//
-//        // same object -> returns true
-//        assertTrue(addNoteCommand.equals(addNoteCommand));
-//
-//        // same values -> returns true
-//        NoteAddCommand addNoteCommandCopy = new NoteAddCommand(note);
-//        assertTrue(addNoteCommand.equals(addNoteCommandCopy));
-//
-//        // different types -> returns false
-//        assertFalse(addNoteCommand.equals(1));
-//
-//        // null -> returns false
-//        assertFalse(addNoteCommand.equals(null));
-//
-//        // different note -> returns false
-//        assertFalse(addNoteCommand.equals(addOtherNoteCommand));
-//    }
 
-//    /**
-//     * A Model stub that contains a single note.
-//     */
-//    private class ModelStubWithNote extends ModelStub {
-//        private final Note note;
-//
-//        ModelStubWithNote(Note note) {
-//            requireNonNull(note);
-//            this.note = note;
-//        }
-//
-//        @Override
-//        public boolean hasNote(Note note) {
-//            requireNonNull(note);
-//            return this.note.isSameNote(note);
-//        }
-//    }
+    @Test
+    public void execute_duplicateVEvent_throwsCommandException() {
+        VEvent validVEvent = new VEvent().withSummary(VALID_EVENT_NAME).withDateTimeStart(VALID_DATE_TIME_START)
+                .withDateTimeEnd(VALID_DATE_TIME_END);
+        EventAddCommand addCommand = new EventAddCommand(validVEvent);
+        ModelStub modelStub = new ModelStubWithNote(validVEvent);
+        assertThrows(CommandException.class, () -> addCommand.execute(modelStub), MESSAGE_DUPLICATE_EVENT);
+    }
+
+    @Test
+    public void equals() {
+        VEvent vEvent = new VEvent().withSummary(VALID_EVENT_NAME);
+        VEvent otherVEvent = new VEvent().withSummary(VALID_OTHER_EVENT_NAME);
+        EventAddCommand addEventCommand = new EventAddCommand(vEvent);
+        EventAddCommand addOtherEventCommand = new EventAddCommand(otherVEvent);
+
+        // same object -> returns true
+        assertTrue(addEventCommand.equals(addEventCommand));
+
+        // same values -> returns true
+        EventAddCommand addVEventCommandCopy = new EventAddCommand(vEvent);
+        assertTrue(addEventCommand.equals(addVEventCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addEventCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addEventCommand.equals(null));
+
+        // different note -> returns false
+        assertFalse(addEventCommand.equals(addOtherEventCommand));
+    }
+
+    /**
+     * A Model stub that contains a single vEvent.
+     */
+    private class ModelStubWithNote extends ModelStub {
+        private final VEvent vEvent;
+
+        ModelStubWithNote(VEvent vEvent) {
+            requireNonNull(vEvent);
+            this.vEvent = vEvent;
+        }
+
+        @Override
+        public boolean hasVEvent(VEvent otherVEvent) {
+            requireNonNull(otherVEvent);
+            return isSameVEvent(this.vEvent, otherVEvent);
+        }
+    }
 
     /**
      * A Model stub that always accept the VEvent being added.

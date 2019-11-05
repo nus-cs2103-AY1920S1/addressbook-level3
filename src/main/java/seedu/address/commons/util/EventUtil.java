@@ -1,8 +1,12 @@
 package seedu.address.commons.util;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DATETIME_RANGE;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 
@@ -27,6 +31,11 @@ public class EventUtil {
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                 .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
                 .toFormatter();
+
+    public static final String BAD_DATE_FORMAT = "Invalid DateTime Format. "
+            + "Please follow the format: yyyy-MM-ddTHH:mm, "
+            + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
+    public static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
 
     /**
      * Maps a event to VEvent
@@ -81,24 +90,6 @@ public class EventUtil {
     }
 
     /**
-     * Converts a recurrenceString to a RecurrenceRule object.
-     * @param recurrenceString
-     * @return returns a RecurrenceRule object which is used to configure VEVents
-     * @throws IllegalValueException for invalid recurrenceString.
-     */
-    public static RecurrenceRule stringToRecurrenceRule(String recurrenceString) throws IllegalValueException {
-        if (recurrenceString.equalsIgnoreCase("weekly")) {
-            return RecurrenceRule.parse(WEEKLY_RECUR_RULE_STRING);
-        } else if (recurrenceString.equalsIgnoreCase("daily")) {
-            return RecurrenceRule.parse(DAILY_RECUR_RULE_STRING);
-        } else if (recurrenceString.equalsIgnoreCase("none")) {
-            return RecurrenceRule.parse(NONE_RECUR_RULE_STRING);
-        } else {
-            throw new IllegalValueException("recurrence string type is not valid. value passed: " + recurrenceString);
-        }
-    }
-
-    /**
      * Generates a unique identifier for VEvents using current dateTime and the following parameters
      * @param eventName name of event
      * @param startDateTime startDateTime string representation of event
@@ -116,15 +107,6 @@ public class EventUtil {
         sb.append(endDateTime);
         sb.append(".njoyAssistant");
         return sb.toString();
-    }
-
-    /**
-     * Converts a string number to format that ICalendarAgenda accepts.
-     * @param number String representation of number
-     * @return String representation of colorNumber as required by ICalendarAgenda
-     */
-    public static String convertNumberToColorNumber(String number) throws NumberFormatException {
-        return "group" + (Integer.parseInt(number) < 10 ? "0" : "") + number;
     }
 
     /**
@@ -149,74 +131,6 @@ public class EventUtil {
         } else {
             throw new IllegalValueException("view mode string type is not valid. value passed: " + viewMode);
         }
-    }
-
-    /**
-     * Validates if a color number string is valid, must be a integer from 0 -23.
-     * @param colorNumberString numberString to be checked
-     * @return true if colorNumberString is valid
-     * @throws NumberFormatException when colorNumberString cannot be cast to Integer,
-     * representing invalid string format
-     */
-    public static boolean validateColorNumberString(String colorNumberString) {
-        //validate number is in range
-        try {
-            Integer colorNumberInteger = Integer.parseInt(colorNumberString);
-            boolean result = numberInRange(colorNumberInteger, 0, 23);
-            return result;
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-    }
-
-    /**
-     * Method to check if an Integer is in range specified. Includes start and end range as valid values
-     * @param number Integer to be checked
-     * @param startRange smallest number allowed
-     * @param endRange largest number allowed
-     * @return true if number is within specified range
-     */
-    private static boolean numberInRange(Integer number, Integer startRange, Integer endRange) {
-        if (number > endRange || number < startRange) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Validates if recurTypeString is valid based on RecurrenceType enumeration
-     * @param recurTypeString String to be evaluated
-     * @return true if recurTypeString is valid
-     */
-    public static boolean validateRecurTypeString(String recurTypeString) {
-        if (recurTypeString.equalsIgnoreCase(RecurrenceType.WEEKLY.name())) {
-            return true;
-        } else if (recurTypeString.equalsIgnoreCase(RecurrenceType.DAILY.name())) {
-            return true;
-        } else if (recurTypeString.equalsIgnoreCase(RecurrenceType.NONE.name())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * validates and converts a colorNumberString into an ArrayList of Categories
-     * to be set into VEvents categories attribute.s
-     * @param colorNumberString input to be converted
-     * @return an array list of categories.
-     */
-    public static ArrayList<Categories> convertNumberToColorCategoryList(String colorNumberString)
-            throws IllegalValueException {
-        if (!validateColorNumberString(colorNumberString)) {
-            throw new IllegalValueException("invalid color string passed.");
-        }
-        String colorCategoryString = convertNumberToColorNumber(colorNumberString);
-        Categories colorCategory = new Categories(colorCategoryString);
-        ArrayList<Categories> colorCategoryList = new ArrayList<>();
-        colorCategoryList.add(colorCategory);
-        return colorCategoryList;
     }
 
     /**
@@ -253,4 +167,5 @@ public class EventUtil {
                 && vEvent1.getDateTimeStart().equals(vEvent2.getDateTimeStart())
                 && vEvent1.getDateTimeEnd().equals(vEvent2.getDateTimeEnd());
     }
+
 }

@@ -1,19 +1,9 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DATETIME_RANGE;
-import static seedu.address.commons.util.EventUtil.convertNumberToColorCategoryList;
-import static seedu.address.commons.util.EventUtil.generateUniqueIdentifier;
-import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_EVENT;
 
 import jfxtras.icalendarfx.components.VEvent;
-import jfxtras.icalendarfx.properties.component.descriptive.Categories;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,7 +13,6 @@ import seedu.address.model.Model;
  * Creates a new event to be added to the event list.
  */
 public class EventAddCommand extends EventCommand {
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new event\n"
             + "Parameters:\n"
             + "eventName/ [EVENTNAME]\n"
@@ -33,92 +22,28 @@ public class EventAddCommand extends EventCommand {
             + "color/ [0 - 23]\n"
             + "Example: event eventName/cs2100 lecture startDateTime/2019-11-02T08:00 "
             + "endDateTime/2019-11-02T09:00 recur/none color/1";
+    public static final String MESSAGE_SUCCESS = "Added Event: %1$s";
 
-    private static final String BAD_DATE_FORMAT = "Invalid DateTime Format. "
-            + "Please follow the format: yyyy-MM-ddTHH:mm, "
-            + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
-    private static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
-
-    private final String eventName;
-    private final String startDateTimeString;
-    private final String endDateTimeString;
-    private final String recurTypeString;
-    private final String colorNumberString;
+    private final VEvent toAdd;
 
     /**
-     * Overloaded constructor to create a EventAddCommand object with color type
-     *
-     * @param eventName to set.
-     * @param startDateTimeString   string representation of eventStartDateTime.
-     * @param endDateTimeString   string representation of eventEndDateTime.
-     * @param recurTypeString     of event e.g weekly, daily, or none.
+     * Constructor for event add command
+     * @param toAdd VEvent to be added.
      */
-    public EventAddCommand(String eventName, String startDateTimeString, String endDateTimeString,
-                           String recurTypeString, String colorNumberString) {
-        requireNonNull(eventName);
-        requireNonNull(startDateTimeString);
-        requireNonNull(endDateTimeString);
-        requireNonNull(recurTypeString);
-        requireNonNull(colorNumberString);
+    public EventAddCommand(VEvent toAdd) {
+        requireNonNull(toAdd);
 
-        this.eventName = eventName;
-        this.startDateTimeString = startDateTimeString;
-        this.endDateTimeString = endDateTimeString;
-        this.recurTypeString = recurTypeString.toLowerCase();
-        this.colorNumberString = colorNumberString;
+        this.toAdd = toAdd;
     }
 
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        VEvent vEvent = new VEvent();
-
-        //event name
-        vEvent.setSummary(eventName);
-
-        //event start and end datetime
-        LocalDateTime startDateTime;
-        LocalDateTime endDateTime;
-        try {
-            startDateTime = LocalDateTime.parse(startDateTimeString);
-            endDateTime = LocalDateTime.parse(endDateTimeString);
-        } catch (DateTimeParseException dtpEx) {
-            throw new CommandException(BAD_DATE_FORMAT, dtpEx);
-        }
-        if (!validateStartEndDateTime(startDateTime, endDateTime)) {
-            throw new CommandException(MESSAGE_INVALID_EVENT_DATETIME_RANGE);
-        }
-        vEvent.setDateTimeStart(startDateTime);
-        vEvent.setDateTimeEnd(endDateTime);
-
-        //event unique identifier
-        String uniqueIdentifier = generateUniqueIdentifier(eventName,
-                startDateTimeString, endDateTimeString);
-        vEvent.setUniqueIdentifier(uniqueIdentifier);
-
-        //event recurType
-        if (!EventUtil.validateRecurTypeString(recurTypeString)) {
-            throw new CommandException(INVALID_RECURRENCE_TYPE);
-        }
-        try {
-            vEvent.setRecurrenceRule(EventUtil.stringToRecurrenceRule(recurTypeString));
-        } catch (IllegalValueException ex) {
-            throw new CommandException(ex.getMessage(), ex);
-        }
-
-        //event category
-        try {
-            ArrayList<Categories> categoriesToBeSet = convertNumberToColorCategoryList(colorNumberString);
-            vEvent.setCategories(categoriesToBeSet);
-        } catch (IllegalValueException ex) {
-            throw new CommandException(ex.getMessage(), ex);
-        }
-
-        if (model.hasVEvent(vEvent)) {
-            return new CommandResult("Will result in duplicate Event being created");
+        if (model.hasVEvent(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         } else {
-            model.addVEvent(vEvent);
-            return new CommandResult(generateSuccessMessage(vEvent), CommandResultType.SHOW_SCHEDULE);
+            model.addVEvent(toAdd);
+            return new CommandResult(generateSuccessMessage(toAdd), CommandResultType.SHOW_SCHEDULE);
         }
     }
 
@@ -128,7 +53,7 @@ public class EventAddCommand extends EventCommand {
      * @param vEvent that has been added.
      */
     private String generateSuccessMessage(VEvent vEvent) {
-        return "Added event: " + vEvent.getSummary().getValue();
+        return String.format(MESSAGE_SUCCESS, vEvent.getSummary().getValue());
     }
 
     @Override
@@ -145,10 +70,6 @@ public class EventAddCommand extends EventCommand {
 
         // state check
         EventAddCommand e = (EventAddCommand) other;
-        return eventName.equals(e.eventName)
-                && startDateTimeString.equals(e.startDateTimeString)
-                && endDateTimeString.equals(e.endDateTimeString)
-                && colorNumberString.equals(e.colorNumberString)
-                && recurTypeString.equals(e.recurTypeString);
+        return toAdd.equals(e.toAdd);
     }
 }

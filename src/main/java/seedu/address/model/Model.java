@@ -156,12 +156,6 @@ public interface Model {
 
     //endregion
 
-
-    //region Mark
-    void markStudent(Student student);
-
-    void unmarkStudent(Student student);
-
     boolean getIsMarked(Student student);
     //region Students
 

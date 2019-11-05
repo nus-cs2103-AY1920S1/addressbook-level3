@@ -45,4 +45,8 @@ public class Messages {
     public static final String MESSAGE_MISSING_EVENT_NAME = "Event name cannot be empty or blank.";
     public static final String MESSAGE_SCREENSHOT_SCHEDULE_FILE_ERROR = "Event Screenshot Command Error. "
             + "Printable file name field cannot be empty or have any special characters \\ / : * ? \" < > |";
+    public static final String MESSAGE_DUPLICATE_EVENT = "Will result in duplicate event being created. Events cannot"
+            + " have the same event name, start date time and end date time.";
+    public static final String MESSAGE_INVALID_SCHEDULE_VIEW_MODE = "Invalid schedule view mode."
+            + " Please input weekly or daily only";
 }

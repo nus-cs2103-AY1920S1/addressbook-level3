@@ -76,8 +76,8 @@ public class StringUtil {
         requireNonNull(string1);
         requireNonNull(string2);
 
-        checkArgument(string1.isBlank(), "string1 cannot be blank");
-        checkArgument(string2.isBlank(), "string2 cannot be blank");
+        checkArgument(!string1.isBlank(), "string1 cannot be blank");
+        checkArgument(!string2.isBlank(), "string2 cannot be blank");
 
         Integer longerStringLength = Math.max(string1.length(), string2.length());
         Integer levenshteinDistance = LevenshteinDistance.getDefaultInstance().apply(string1, string2);

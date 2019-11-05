@@ -26,7 +26,6 @@ public class StudentEditCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing student\n"
             + "Full example : student 1 name/newname --> changes student in index 1 to new student with newname\n\n"
             + "Note: index has to be more than 0";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student storage.";
     public static final String MESSAGE_SUCCESS = "Edited student %1$s to %1$s";
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;
