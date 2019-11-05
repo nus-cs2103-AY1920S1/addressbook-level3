@@ -24,12 +24,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
 
 /**
@@ -42,45 +44,9 @@ public class AddCommand extends UndoableCommand {
     public static final TimeUnit NOTIF_TIME_UNIT = TimeUnit.SECONDS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entity to Mortago.\n"
-            + "Adding a worker:\n"
-            + "Compulsory Fields: "
-            + PREFIX_FLAG + "w "
-            + PREFIX_NAME + " NAME "
-            + PREFIX_SEX + " SEX "
-            + PREFIX_DATE_JOINED + " DATE JOINED\n"
-            + "Optional Fields: "
-            + PREFIX_PHONE_NUMBER + " PHONE "
-            + PREFIX_DATE_OF_BIRTH + " DATE OF BIRTH "
-            + PREFIX_DESIGNATION + " DESIGNATION "
-            + PREFIX_EMPLOYMENT_STATUS + " EMPLOYMENT STATUS\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe"
-            + PREFIX_PHONE_NUMBER + " 91234567 "
-            + PREFIX_SEX + " Male "
-            + PREFIX_DATE_OF_BIRTH + " 12/12/1997 "
-            + PREFIX_DATE_JOINED + " 1/1/2019 "
-            + PREFIX_DESIGNATION + " Technician "
-            + PREFIX_EMPLOYMENT_STATUS + " Cleaning\n"
-            + "Adding a body:\n"
-            + "Compulsory Fields: "
-            + PREFIX_FLAG + "b "
-            + PREFIX_NAME + " NAME "
-            + PREFIX_SEX + " SEX "
-            + PREFIX_DATE_OF_ADMISSION + " DATE OF ADMISSION\n"
-            + "Optional Fields: "
-            + PREFIX_DATE_OF_DEATH + " DATE OF DEATH "
-            + PREFIX_DATE_OF_BIRTH + " DATE OF BIRTH "
-            + PREFIX_NRIC + " NRIC "
-            + PREFIX_RELIGION + " RELIGION "
-            + PREFIX_NAME_NOK + " NAME OF NEXT OF KIN "
-            + PREFIX_RELATIONSHIP + " RELATIONSHIP OF NEXT OF KIN"
-            + PREFIX_PHONE_NOK + " PHONE OF NEXT OF KIN "
-            + PREFIX_ORGANS_FOR_DONATION + " ORGANS FOR DONATION"
-            + PREFIX_STATUS + " BODY STATUS "
-            + PREFIX_FRIDGE_ID + " FRIDGE ID\n"
-            + "Adding a fridge: add -f";
+            + "Please refer to the User Guide for more details on how to add an entity";
 
-    public static final String MESSAGE_SUCCESS = "New entity added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New %1$s added.";
     public static final String MESSAGE_DUPLICATE_ENTITY = "This entity already exists in Mortago";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid adding this entity: %1$s";
 
@@ -138,7 +104,9 @@ public class AddCommand extends UndoableCommand {
         }
         setUndoable();
         model.addExecutedCommand(this);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        Platform.runLater(() -> model.updateFilteredFridgeList(fridge -> true));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                toAdd instanceof Body ? "body" : (toAdd instanceof Worker ? "worker" : "fridge")));
     }
 
     //@@author ambervoong
