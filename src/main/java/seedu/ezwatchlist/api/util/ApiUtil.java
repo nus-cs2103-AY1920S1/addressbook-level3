@@ -100,9 +100,13 @@ public class ApiUtil {
      */
     private static void addImage(String posterPath, Name name, Show toAdd, TmdbApi apiCall)
             throws OnlineConnectionException {
-        ImageRetrieval instance = new ImageRetrieval(apiCall, posterPath, name.showName);
-        String imagePath = instance.retrieveImage();
-        toAdd.setPoster(new Poster(imagePath));
+        try {
+            ImageRetrieval instance = new ImageRetrieval(apiCall, posterPath, name.showName);
+            String imagePath = instance.retrieveImage();
+            toAdd.setPoster(new Poster(imagePath));
+        } catch (IllegalArgumentException e) {
+
+        }
     }
 
     /**
@@ -179,7 +183,7 @@ public class ApiUtil {
                                        ArrayList<seedu.ezwatchlist.model.show.TvSeason> seasonsList) {
         for (int seasonNo = 1; seasonNo <= numberOfSeasons; seasonNo++) {
             TvSeason tvSeason = tvSeasons.getSeason(tvId, seasonNo,
-                    null, TmdbTvSeasons.SeasonMethod.values());
+                    null);
 
             seedu.ezwatchlist.model.show.TvSeason season = extractEpisodes(tvSeason);
 
