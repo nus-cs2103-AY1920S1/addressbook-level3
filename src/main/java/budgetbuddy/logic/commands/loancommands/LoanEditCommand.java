@@ -59,6 +59,10 @@ public class LoanEditCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getLoansManager());
 
+        if (!loanEditDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(MESSAGE_UNEDITED);
+        }
+
         LoansManager loansManager = model.getLoansManager();
 
         Loan editedLoan;
