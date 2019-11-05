@@ -23,19 +23,19 @@ public class CommandMasterList {
         commandHashSet.add(AddClassroomCommand.COMMAND_WORD + "cn/CLASS");
         commandHashSet.add(UpdateGradesCommand.COMMAND_WORD);
         commandHashSet.add(EditAssignmentCommand.COMMAND_WORD + " ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/DEADLINE]");
-        commandHashSet.add(AddStudentCommand.COMMAND_WORD +
-                " n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS " +
-                "pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG]");
-        commandHashSet.add(EditStudentCommand.COMMAND_WORD + "STUDENT_INDEX [n/NAME] [p/PHONE] " +
-                "[e/EMAIL] [a/ADDRESS] [m/MEDICAL_CONDITIONS] [t/TAG]");
+        commandHashSet.add(AddStudentCommand.COMMAND_WORD
+                + " n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS "
+                + "pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG]");
+        commandHashSet.add(EditStudentCommand.COMMAND_WORD + "STUDENT_INDEX [n/NAME] [p/PHONE] "
+                + "[e/EMAIL] [a/ADDRESS] [m/MEDICAL_CONDITIONS] [t/TAG]");
         commandHashSet.add(DeleteStudentCommand.COMMAND_WORD + " STUDENT_INDEX");
         commandHashSet.add(DeleteAssignmentCommand.COMMAND_WORD + " ASSIGNMENT_INDEX");
         commandHashSet.add(FindStudentCommand.COMMAND_WORD + " STUDENT_NAME");
         commandHashSet.add(AddAssignmentCommand.COMMAND_WORD + " as/ASSIGNMENT d/DEADLINE:dd/MM/yy");
         commandHashSet.add(AddLessonCommand.COMMAND_WORD + "l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy");
         commandHashSet.add(DeleteLessonCommand.COMMAND_WORD + " LESSON_INDEX");
-        commandHashSet.add(EditLessonCommand.COMMAND_WORD + "LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] " +
-                "[st/START_TIME] [et/END_TIME]");
+        commandHashSet.add(EditLessonCommand.COMMAND_WORD + "LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] "
+                + "[st/START_TIME] [et/END_TIME]");
         commandHashSet.add(GetStudentGradesCommand.COMMAND_WORD + " s/STUDENT_INDEX");
         commandHashSet.add(UploadPictureCommand.COMMAND_WORD + " STUDENT_INDEX");
         commandHashSet.add(ListAssignmentCommand.COMMAND_WORD);
