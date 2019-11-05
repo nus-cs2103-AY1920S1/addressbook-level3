@@ -139,7 +139,7 @@ public class DeleteByIndexCommandTest {
         Book updatedLoanedOutBook = loanedOutBook.addToLoanHistory(loan);
 
         try {
-            LoanSlipUtil.unmountLoans();
+            LoanSlipUtil.clearSession();
             loanCommand.execute(model).getFeedbackToUser();
         } catch (CommandException e) {
             assert false : "Command should not fail here";
