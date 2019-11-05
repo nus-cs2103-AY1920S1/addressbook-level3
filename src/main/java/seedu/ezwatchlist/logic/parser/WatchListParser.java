@@ -88,9 +88,13 @@ public class WatchListParser {
      * @return check if is short cut key
      */
     private boolean shortCutKey(String userInput) {
-        int shortCutKey = Integer.parseInt(userInput);
-        boolean isShortCutKey = shortCutKey == 1 || shortCutKey == 2 || shortCutKey == 3 || shortCutKey == 4;
-        return isShortCutKey;
+        try {
+            int shortCutKey = Integer.parseInt(userInput);
+            boolean isShortCutKey = shortCutKey == 1 || shortCutKey == 2 || shortCutKey == 3 || shortCutKey == 4;
+            return isShortCutKey;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }

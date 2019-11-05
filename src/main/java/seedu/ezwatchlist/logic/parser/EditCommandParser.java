@@ -48,9 +48,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editShowDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
+
         if (argMultimap.getValue(PREFIX_DATE_OF_RELEASE).isPresent()) {
-            editShowDescriptor.setDateOfRelease(
-                    ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get()));
+            String getDateFromUserInput = argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get();
+            editShowDescriptor.setDateOfRelease(ParserUtil.parseDateAddEditCommand(getDateFromUserInput));
         }
         if (argMultimap.getValue(PREFIX_IS_WATCHED).isPresent()) {
             editShowDescriptor.setIsWatched(ParserUtil.parseIsWatched(argMultimap.getValue(PREFIX_IS_WATCHED).get()));
