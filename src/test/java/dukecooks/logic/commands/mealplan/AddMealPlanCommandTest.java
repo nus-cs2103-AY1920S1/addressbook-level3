@@ -1,5 +1,6 @@
 package dukecooks.logic.commands.mealplan;
 
+import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,6 +18,8 @@ import dukecooks.model.ModelStub;
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.mealplan.components.MealPlan;
+import dukecooks.model.recipe.ReadOnlyRecipeBook;
+import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
@@ -32,10 +35,8 @@ public class AddMealPlanCommandTest {
     @Test
     public void execute_mealPlanAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingMealPlanAdded modelStub = new ModelStubAcceptingMealPlanAdded();
+        modelStub.addRecipe(new RecipeBuilder().build());
         MealPlan validMealPlan = new MealPlanBuilder().build();
-        Recipe validRecipe = new RecipeBuilder().build();
-
-        CommandResult recipeCommandResult = new AddRecipeCommand(validRecipe).execute(modelStub);
         CommandResult commandResult = new AddMealPlanCommand(validMealPlan).execute(modelStub);
 
         assertEquals(String.format(AddMealPlanCommand.MESSAGE_SUCCESS, validMealPlan),
@@ -129,6 +130,13 @@ public class AddMealPlanCommandTest {
         public void addRecipe(Recipe recipe) {
             requireNonNull(recipe);
             recipesAdded.add(recipe);
+        }
+
+        @Override
+        public ReadOnlyRecipeBook getRecipeBook() {
+            RecipeBook recipeBook = new RecipeBook();
+            recipeBook.setRecipes(recipesAdded);
+            return recipeBook;
         }
     }
 
