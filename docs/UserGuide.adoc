@@ -80,12 +80,6 @@ Types include: +
 `guide` (opens a web browser and bring you to our user guide) +
 `api` (for advanced users who want to know the inner workings of the command)
 
-
-:bulb: A friendly tip:
-....
-If you type `help` without any other parameters, a window will appear and display a command list with similar instructions to this page!
-....
-
 Examples: +
 ....
 help cmd/add_contact type/brief
@@ -99,6 +93,11 @@ This opens up a page in your browser and displays our API for the `goto` command
 help cmd/help type/guide
 ....
 This opens up a page in your browser and brings you right here! :smiley:
+
+:bulb:
+....
+If you type `help` without any other parameters, a window will appear and display a command list with similar instructions to this page!
+....
 
 <<UG-HelpExample>> shows what you can expect to see when typing in the first example: `help cmd/add_contact type/brief`.
 [[UG-HelpExample]]
