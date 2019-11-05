@@ -1,4 +1,4 @@
-= Larry Law - Project Portfolio
+= Chow Yi Yin - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

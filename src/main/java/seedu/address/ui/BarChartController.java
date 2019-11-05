@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import seedu.address.logic.Logic;
@@ -17,6 +19,8 @@ public class BarChartController extends AxisController {
 
     public BarChartController(Logic logic, DisplayIndicator displayIndicator) throws ParseException {
         super(FXML);
+        requireNonNull(logic);
+        requireNonNull(displayIndicator);
         initAttributes(logic, displayIndicator);
         setChart();
     }

@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
@@ -84,4 +86,11 @@ public abstract class AxisController extends DisplayController {
     @Override
     protected abstract void setChart();
 
+    @Override
+    protected void requireNonNullAttributes() {
+        requireNonNull(title);
+        requireNonNull(xAxisLabel);
+        requireNonNull(yAxisLabel);
+        requireNonNull(series);
+    }
 }

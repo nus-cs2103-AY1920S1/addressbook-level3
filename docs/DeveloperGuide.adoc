@@ -648,6 +648,8 @@ _{More to be added}_
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+
+//tag::addperson[]
 [discrete]
 === Use case: Add person
 Guarantees: +
@@ -675,8 +677,9 @@ Use case ends.
 [none]
 ** 1b1. AddressBook shows an error message and will attempt to merge the profile.
 +
+//end::addperson[]
 
-
+//tag::editperson[]
 [discrete]
 === Use case: Edit person
 Guarantees: +
@@ -715,6 +718,7 @@ Use case resumes at step 1.
 ** *a1. Address books requests to confirm the cancellation.
 ** *a1. User confirms the cancellation.
 Use case ends.
+// end::editperson[]
 
 [discrete]
 === Use case: Delete contact
@@ -803,6 +807,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
 === Use case: Merging a duplicate person with different fields
 
 *MSS*

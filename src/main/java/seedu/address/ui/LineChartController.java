@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import seedu.address.logic.Logic;
@@ -18,7 +20,12 @@ public class LineChartController extends AxisController {
 
     public LineChartController(Logic logic, DisplayIndicator displayIndicator) throws ParseException {
         super(FXML);
+        requireNonNull(logic);
+        requireNonNull(displayIndicator);
+
         initAttributes(logic, displayIndicator);
+        requireNonNullAttributes();
+
         setChart();
     }
 
