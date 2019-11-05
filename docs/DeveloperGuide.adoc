@@ -256,7 +256,7 @@ current week.
 
 The class diagram of the Statistics component is shown below:
 
-.Statistics class diagram TO BE UPDATED.
+.Statistics class diagram.
 image::StatisticsClassDiagram.png[]
 
 // end::jasonstats[]
