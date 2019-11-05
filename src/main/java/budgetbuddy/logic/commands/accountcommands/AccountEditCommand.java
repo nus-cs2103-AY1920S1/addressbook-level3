@@ -54,13 +54,13 @@ public class AccountEditCommand extends Command {
         requireAllNonNull(model, model.getAccountsManager());
 
         AccountsManager accountsManager = model.getAccountsManager();
-        accountsManager.resetFilteredAccountList();
 
         Account editedAccount;
         try {
             Account targetAccount = accountsManager.getAccount(targetAccountIndex);
             editedAccount = createEditedAccount(targetAccount, accountEditDescriptor);
             accountsManager.editAccount(targetAccountIndex, editedAccount);
+
         } catch (AccountNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
         } catch (DuplicateAccountException e) {
