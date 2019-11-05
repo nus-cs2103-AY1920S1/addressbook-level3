@@ -80,7 +80,7 @@ public class Statistics {
     }
 
     public ObservableList<Movie> getMovieRecommendations() {
-        List<Movie> movieList = ApiUtil.splitToMovieFromShow(model.getWatchList().getShowList());
+        List<Movie> movieList = ApiUtil.filterToMovieFromShow(model.getWatchList().getShowList());
         if (movieList.isEmpty()) {
             System.out.println("movie split is empty");
         }
@@ -98,7 +98,7 @@ public class Statistics {
     }
 
     public ObservableList<TvShow> getTvShowRecommendations() {
-        List<TvShow> tvList = ApiUtil.splitToTvShowsFromShow(model.getWatchList().getShowList());
+        List<TvShow> tvList = ApiUtil.filterToTvShowsFromShow(model.getWatchList().getShowList());
         List<TvShow> recommendations = null;
         try {
             recommendations = apiManager.getTvShowRecommendations(tvList, 3);
