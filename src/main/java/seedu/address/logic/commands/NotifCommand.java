@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.io.IOException;
@@ -104,8 +103,8 @@ public class NotifCommand extends Command {
         Runnable changeUi = () -> Platform.runLater(() -> {
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                 UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
-                // This is so that when undone, the status goes back to ARRIVED.
-                body.setBodyStatus(ARRIVED);
+                up.setUpdateFromNotif(true);
+                //body.setBodyStatus(ARRIVED);
                 try {
                     up.execute(model);
                     NotifWindow notifWindow = new NotifWindow();

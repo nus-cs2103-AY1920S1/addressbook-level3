@@ -98,6 +98,7 @@ public class UpdateCommand extends UndoableCommand {
     private Fridge originalFridge;
     private Fridge updatedFridge;
     private List<Notif> toDeleteNotif;
+    private boolean isUpdatedFromNotif = false;
 
 
     /**
@@ -183,8 +184,10 @@ public class UpdateCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
 
-        setUndoable();
-        model.addExecutedCommand(this);
+        if (!isUpdatedFromNotif) {
+            setUndoable();
+            model.addExecutedCommand(this);
+        }
 
         return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
     }
@@ -304,6 +307,10 @@ public class UpdateCommand extends UndoableCommand {
         setRedoable();
         model.addUndoneCommand(this);
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entity));
+    }
+
+    public void setUpdateFromNotif(boolean isUpdatedFromNotif) {
+        this.isUpdatedFromNotif = isUpdatedFromNotif;
     }
 
     /**
