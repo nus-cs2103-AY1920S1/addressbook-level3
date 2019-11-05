@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.model.template.exceptions.MemeTextNotFoundException;
 import seedu.weme.model.util.ImageUtil;
 
@@ -51,13 +50,9 @@ public class MemeCreation {
      * Adds text to the meme currently being generated.
      *
      * @param text specified the text to be added
-     * @throws IllegalValueException if the text added will exceed image boundary
      */
-    public void addText(MemeText text) throws IllegalValueException {
+    public void addText(MemeText text) {
         requireNonNull(text);
-        if (!isWithinImageBoundary(getTextBoundary(text))) {
-            throw new IllegalValueException("Text exceeds image boundary");
-        }
         textList.add(text);
     }
 
@@ -66,17 +61,12 @@ public class MemeCreation {
      *
      * @param target      the {@code MemeText} to replace
      * @param replacement the {@code MemeText} to use as replacement
-     * @throws IllegalValueException if the new text will exceed image boundary
      */
-    public void setText(MemeText target, MemeText replacement) throws IllegalValueException {
+    public void setText(MemeText target, MemeText replacement) {
         requireAllNonNull(target, replacement);
         int index = textList.indexOf(target);
         if (index == -1) {
             throw new MemeTextNotFoundException();
-        }
-
-        if (!isWithinImageBoundary(getTextBoundary(replacement))) {
-            throw new IllegalValueException("Text exceeds image boundary");
         }
         textList.set(index, replacement);
     }
@@ -94,11 +84,6 @@ public class MemeCreation {
 
     public ObservableList<MemeText> getMemeTextList() {
         return unmodifiableObservableTextList;
-    }
-
-    private boolean isWithinImageBoundary(TextBoundaries boundaries) {
-        return boundaries.getX1() >= 0 && boundaries.getX2() <= initialImage.getWidth()
-            && boundaries.getY1() >= 0 && boundaries.getY2() <= initialImage.getHeight();
     }
 
     /**

@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import seedu.weme.commons.core.Messages;
 import seedu.weme.commons.core.index.Index;
-import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.commons.util.CollectionUtil;
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
@@ -96,11 +95,7 @@ public class TextEditCommand extends Command {
         MemeText textToEdit = textList.get(index.getZeroBased());
         MemeText editedText = createEditedMemeText(textToEdit, editMemeTextDescriptor);
 
-        try {
-            session.setText(textToEdit, editedText);
-        } catch (IllegalValueException ive) {
-            throw new CommandException(ive.getMessage(), ive);
-        }
+        session.setText(textToEdit, editedText);
 
         CommandResult result = new CommandResult(
                 String.format(MESSAGE_EDIT_MEME_TEXT_SUCCESS, editedText.toString()));
