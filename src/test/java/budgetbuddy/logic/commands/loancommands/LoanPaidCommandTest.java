@@ -19,11 +19,11 @@ import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.TypicalIndexes;
+import budgetbuddy.testutil.loanutil.LoanBuilder;
 import budgetbuddy.testutil.loanutil.TypicalLoans;
 import budgetbuddy.testutil.loanutil.TypicalPersons;
 
-public class LoanDeleteCommandTest {
-
+public class LoanPaidCommandTest {
     private Model model;
     private Model expectedModel;
 
@@ -33,83 +33,85 @@ public class LoanDeleteCommandTest {
         expectedModel = new ModelManager();
 
         model.getLoansManager().addLoan(TypicalLoans.JOHN_OUT_UNPAID);
+        expectedModel.getLoansManager().addLoan(
+                new LoanBuilder(TypicalLoans.JOHN_OUT_UNPAID).withStatus("PAID").build());
     }
 
     @Test
     public void constructor_nullArguments_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new LoanDeleteCommand(null, null));
-        assertThrows(NullPointerException.class, () -> new LoanDeleteCommand(null, new ArrayList<>()));
-        assertThrows(NullPointerException.class, () -> new LoanDeleteCommand(new ArrayList<>(), null));
+        assertThrows(NullPointerException.class, () -> new LoanPaidCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new LoanPaidCommand(null, new ArrayList<>()));
+        assertThrows(NullPointerException.class, () -> new LoanPaidCommand(new ArrayList<>(), null));
     }
 
     @Test
     public void execute_invalidTargetIndex_throwsCommandException() throws CommandException {
         Index targetIndex = TypicalIndexes.INDEX_SECOND_ITEM;
-        LoanDeleteCommand loanDeleteCommand = new LoanDeleteCommand(
+        LoanPaidCommand loanPaidCommand = new LoanPaidCommand(
                 Collections.singletonList(targetIndex), new ArrayList<Person>());
 
-        assertThrows(CommandException.class, () -> loanDeleteCommand.execute(model));
+        assertThrows(CommandException.class, () -> loanPaidCommand.execute(model));
     }
 
     @Test
-    public void execute_validTargetIndex_deleteSuccess() throws CommandException {
+    public void execute_validTargetIndex_paidSuccess() throws CommandException {
         Index targetIndex = TypicalIndexes.INDEX_FIRST_ITEM;
-        LoanDeleteCommand loanDeleteCommand = new LoanDeleteCommand(
+        LoanPaidCommand loanPaidCommand = new LoanPaidCommand(
                 Collections.singletonList(targetIndex), new ArrayList<Person>());
 
         String expectedMessage = String.format(
-                LoanDeleteCommand.MESSAGE_SUCCESS, String.format("%d", targetIndex.getOneBased()));
+                LoanPaidCommand.MESSAGE_SUCCESS, String.format("%d", targetIndex.getOneBased()));
         CommandResult expectedCommandResult =
                 new CommandResult(expectedMessage, CommandCategory.LOAN);
 
-        assertCommandSuccess(loanDeleteCommand, model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(loanPaidCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_invalidTargetPerson_throwsCommandException() throws CommandException {
         Person targetPerson = TypicalPersons.ALICE;
-        LoanDeleteCommand loanDeleteCommand = new LoanDeleteCommand(
+        LoanPaidCommand loanPaidCommand = new LoanPaidCommand(
                 new ArrayList<Index>(), Collections.singletonList(targetPerson));
 
-        assertThrows(CommandException.class, () -> loanDeleteCommand.execute(model));
+        assertThrows(CommandException.class, () -> loanPaidCommand.execute(model));
     }
 
     @Test
-    public void execute_validTargetPerson_deleteSuccess() throws CommandException {
+    public void execute_validTargetPerson_paidSuccess() throws CommandException {
         Person targetPerson = TypicalLoans.JOHN_OUT_UNPAID.getPerson();
-        LoanDeleteCommand loanDeleteCommand = new LoanDeleteCommand(
+        LoanPaidCommand loanPaidCommand = new LoanPaidCommand(
                 new ArrayList<Index>(), Collections.singletonList(targetPerson));
 
         String expectedMessage = String.format(
-                LoanDeleteCommand.MESSAGE_SUCCESS, String.format("%d", TypicalIndexes.INDEX_FIRST_ITEM.getOneBased()));
+                LoanPaidCommand.MESSAGE_SUCCESS, String.format("%d", TypicalIndexes.INDEX_FIRST_ITEM.getOneBased()));
         CommandResult expectedCommandResult =
                 new CommandResult(expectedMessage, CommandCategory.LOAN);
 
-        assertCommandSuccess(loanDeleteCommand, model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(loanPaidCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void equals() throws CommandException {
-        LoanDeleteCommand firstLoanDeleteCommand = new LoanDeleteCommand(
+        LoanPaidCommand firstLoanPaidCommand = new LoanPaidCommand(
                 Collections.singletonList(TypicalIndexes.INDEX_FIRST_ITEM), new ArrayList<Person>());
-        LoanDeleteCommand secondLoanDeleteCommand = new LoanDeleteCommand(
+        LoanPaidCommand secondLoanPaidCommand = new LoanPaidCommand(
                 Collections.singletonList(TypicalIndexes.INDEX_SECOND_ITEM), new ArrayList<Person>());
 
         // same object -> returns true
-        assertEquals(firstLoanDeleteCommand, firstLoanDeleteCommand);
+        assertEquals(firstLoanPaidCommand, firstLoanPaidCommand);
 
         // same values -> returns true
-        LoanDeleteCommand firstLoanDeleteCommandCopy = new LoanDeleteCommand(
+        LoanPaidCommand firstLoanPaidCommandCopy = new LoanPaidCommand(
                 Collections.singletonList(TypicalIndexes.INDEX_FIRST_ITEM), new ArrayList<Person>());
-        assertEquals(firstLoanDeleteCommand, firstLoanDeleteCommandCopy);
+        assertEquals(firstLoanPaidCommand, firstLoanPaidCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(firstLoanDeleteCommand, 5);
+        assertNotEquals(firstLoanPaidCommand, 5);
 
         // null -> returns false
-        assertNotEquals(firstLoanDeleteCommand, null);
+        assertNotEquals(firstLoanPaidCommand, null);
 
         // different targets -> returns false
-        assertNotEquals(firstLoanDeleteCommand, secondLoanDeleteCommand);
+        assertNotEquals(firstLoanPaidCommand, secondLoanPaidCommand);
     }
 }
