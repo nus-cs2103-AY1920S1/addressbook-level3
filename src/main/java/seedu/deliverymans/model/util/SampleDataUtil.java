@@ -134,18 +134,17 @@ public class SampleDataUtil {
                     getTagSet("inactive", "giveCharlieAplus"), new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Donald Trump"), new Phone("91234567"),
                     getTagSet("buff", "powerful", "bestDeliveryman2019", "notFat", "cuteHairstyle"),
-                    new StatusTag("DELIVERING")),
+                    new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"),
                 getTagSet("active", "AisEnough")),
-            new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive"),
-                new StatusTag("DELIVERING")),
+            new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive")),
             new Deliveryman(new Name("Yuen Jun Rong"), new Phone("92345678"), getTagSet("veryactive")),
             new Deliveryman(new Name("Jynn Shen "), new Phone("82632181"), getTagSet("veryactive"),
                 new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Gloria Tan"), new Phone("83123111"), getTagSet()),
             new Deliveryman(new Name("Ethan Lim"), new Phone("83123875"), getTagSet("loyal")),
             new Deliveryman(new Name("Lee Hsien Kun"), new Phone("88887777"), getTagSet(),
-                new StatusTag("DELIVERING"))
+                new StatusTag("AVAILABLE"))
         };
     }
 

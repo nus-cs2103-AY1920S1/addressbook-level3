@@ -44,7 +44,7 @@ public class DeleteOrderCommand extends Command {
 
         Order orderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteOrder(orderToDelete);
-        model.updateDeliverymanStatusAfterCompletingOrder(orderToDelete.getDeliveryman());
+        model.updateDeliverymanStatusAfterChangesToOrder(orderToDelete.getDeliveryman());
         model.deleteOrderInCustomer(orderToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, orderToDelete));
     }

@@ -5,12 +5,13 @@ package seedu.deliverymans.model.deliveryman.deliverymanstatistics;
  * Each variable represent a statistic.
  */
 public class StatisticsRecordCard {
-
+    private static final String UTILIZATION_MESSAGE = "(Utilisation level signals the level of \nidle deliverymen.)";
+    private static final String ACTIVITY_MESSAGE = "(Activity level signals the level of \nactive deliverymen.)";
     // empty data fields
-    private int numAvailableMen;
-    private int numUnavailableMen;
-    private int numDeliveringMen;
-    private int numTotalMen;
+    private Integer numAvailableMen;
+    private Integer numUnavailableMen;
+    private Integer numDeliveringMen;
+    private Integer numTotalMen;
     private double utilisationLevel;
     private double activityLevel;
 
@@ -46,10 +47,12 @@ public class StatisticsRecordCard {
      *
      */
     public String resultMessage() {
-        String resultMessage = "=============================================\n" + "TOTAL DELIVERYMEN  :  "
-                + numTotalMen + "  " + "AVAILABLE      :  " + numAvailableMen + "  " + "UNAVAILABLE    :  "
-                + numUnavailableMen + "  " + "DELIVERING     :  " + numDeliveringMen + "  "
-                + "=============================================\n";
+        String resultMessage = "=========================================\n" + "TOTAL DELIVERYMEN  :  "
+                + numTotalMen + "\n" + "AVAILABLE      :  " + numAvailableMen + "\n" + "UNAVAILABLE    :  "
+                + numUnavailableMen + "\n" + "DELIVERING     :  " + numDeliveringMen + "\n"
+                + "=========================================\n\n" + "UTILIZATION LEVEL  :  "
+                + String.format("%.2f%%", utilisationLevel) + "\n" + UTILIZATION_MESSAGE + "\n\n"
+                + "ACTIVITY LEVEL  :  " + String.format("%.2f%%", activityLevel) + "\n" + ACTIVITY_MESSAGE + "\n\n";
         return resultMessage;
     }
 
@@ -57,28 +60,65 @@ public class StatisticsRecordCard {
      *
      */
     public String adviceMessage() {
-        String advice;
+        StringBuilder sb = new StringBuilder();
         switch (utilisationState) {
         case LOW:
-            return "You have too much manpower\nthat is not utilized! ";
-        case MODERATE:
-            return "All is well. Your deliverymen are balanced. ";
+            sb.append("You have too much manpower\nthat is not utilized!\n");
+            break;
         case HIGH:
-            return "Watch out!\nYou are running out of \navailable deliverymen! ";
+            sb.append("Watch out!\nYou are running out of \navailable deliverymen!\n");
+            break;
+        case MODERATE:
+            sb.append("All is well. Your deliverymen are balanced.\n");
+            break;
         default:
-            advice = "";
+            sb.append("***DeliveryMANS***\n");
         }
         switch (activityState) {
         case LOW:
-            return "";
+            sb.append("You have too many deliverymen who are off.\n");
+            break;
         case MODERATE:
-            return "";
+            sb.append("You have a fair number of active deliverymen.\n");
+            break;
         case HIGH:
-            return "";
+            sb.append("Great! Your deliverymen are mostly active.\n");
+            break;
+        case MAX:
+            sb.append("Amazing! All your deliveryMANS are working hard to serve your restaurant\n");
+            break;
         default:
-            advice = "";
+            sb.append("***DeliveryMANS***\n");
         }
-        return "advice";
+        return sb.toString();
+    }
+
+    /**
+     *
+     */
+    public Object retrieveRecordCardField(int fieldIndex) {
+        assert (fieldIndex >= 1 && fieldIndex < 9);
+
+        switch (fieldIndex) {
+        case 1:
+            return numAvailableMen;
+        case 2:
+            return numUnavailableMen;
+        case 3:
+            return numDeliveringMen;
+        case 4:
+            return numTotalMen;
+        case 5:
+            return utilisationLevel;
+        case 6:
+            return activityLevel;
+        case 7:
+            return utilisationState;
+        case 8:
+            return activityState;
+        default:
+            return null;
+        }
     }
 
     // Record report that will be displayed on the UI.
