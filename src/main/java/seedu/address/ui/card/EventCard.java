@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import javafx.scene.layout.StackPane;
@@ -97,19 +96,25 @@ public class EventCard extends Card {
         eventName.setMinHeight(Region.USE_PREF_SIZE);
     }
 
+    /**
+     * Adds CardTagline to the EventCard with the given tags.
+     *
+     * @param event The given event.
+     * @see CardTagline
+     */
     private void addTags(EventSource event) {
         Set<String> tags = event.getTags();
         CardTagline cardTagline = new CardTagline();
         for (String tag : tags) {
             CardTag cardTag = new CardTag(tag);
-            if(cardTag.getWidth() >= CardTagline.MAX_WIDTH) {
+            if (cardTag.getWidth() >= CardTagline.MAX_WIDTH) {
                 CardTagline cardTagline1 = new CardTagline();
                 cardTagline1.addSingleTag(cardTag);
                 eventTagList.getChildren().add(cardTagline1.getRoot());
                 continue;
             }
             boolean isAdded = cardTagline.isTagAdded(cardTag);
-            if(!isAdded) {
+            if (!isAdded) {
                 eventTagList.getChildren().add(cardTagline.getRoot());
                 cardTagline = new CardTagline();
                 cardTagline.isTagAdded(cardTag);

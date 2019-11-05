@@ -31,7 +31,7 @@ public class CardTagline extends UiPart<Region> {
      * @return Returns true if CardTag successfully added, and false otherwise.
      */
     public boolean isTagAdded(CardTag cardTag) {
-        if(taglineWidth + cardTag.getWidth() < MAX_WIDTH) {
+        if (taglineWidth + cardTag.getWidth() < MAX_WIDTH) {
             tagline.getChildren().add(cardTag.getRoot());
             taglineWidth += cardTag.getWidth();
             return true;

@@ -14,8 +14,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_INDEX = "Invalid index! Please enter an integer.";
     public static final String MESSAGE_INVALID_EVENT_INDEX = "Invalid index! Event with index '%s' does not exist.";
     public static final String MESSAGE_INVALID_TASK_INDEX = "Invalid index! Task with index '%s' does not exist.";
-    public static final String MESSAGE_INVALID_MONTH_YEAR = "Invalid given date! Please ensure the month is within " +
-            "1 - 12, and year is within this millennium.";
+    public static final String MESSAGE_INVALID_MONTH_YEAR = "Invalid given date! Please ensure the month is within "
+            + "1 - 12, and year is within this millennium.";
 
     public static final String MESSAGE_NOTHING_TO_UNDO = "There is nothing to undo!";
     public static final String MESSAGE_NOTHING_TO_REDO = "There is nothing to redo!";

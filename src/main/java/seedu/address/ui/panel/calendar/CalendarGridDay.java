@@ -49,6 +49,9 @@ public class CalendarGridDay extends UiPart<Region> {
         }
     }
 
+    /**
+     * Resets the color of the day.
+     */
     public void resetColor() {
         this.totalEvents = 0;
         colorChange();

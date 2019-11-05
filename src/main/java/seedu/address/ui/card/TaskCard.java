@@ -91,6 +91,12 @@ public class TaskCard extends Card {
 
     }
 
+    /**
+     * Adds CardTagline to the TaskCard with the given tags.
+     *
+     * @param task The given task.
+     * @see CardTagline
+     */
     private void addTags(TaskSource task) {
         Set<String> tags = task.getTags();
         CardTagline cardTagline = new CardTagline();
@@ -101,14 +107,14 @@ public class TaskCard extends Card {
             } else {
                 cardTag.changeColor("-taskTagColor");
             }
-            if(cardTag.getWidth() >= CardTagline.MAX_WIDTH) {
+            if (cardTag.getWidth() >= CardTagline.MAX_WIDTH) {
                 CardTagline cardTagline1 = new CardTagline();
                 cardTagline1.addSingleTag(cardTag);
                 taskTagList.getChildren().add(cardTagline1.getRoot());
                 continue;
             }
             boolean isAdded = cardTagline.isTagAdded(cardTag);
-            if(!isAdded) {
+            if (!isAdded) {
                 taskTagList.getChildren().add(cardTagline.getRoot());
                 cardTagline = new CardTagline();
                 cardTagline.isTagAdded(cardTag);
