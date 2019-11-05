@@ -15,7 +15,12 @@ import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
-class ShoppingItemTest {
+public class ShoppingItemTest {
+
+    public static boolean areExactlySameShoppingItems(ShoppingItem si1, ShoppingItem si2) {
+        return si1.isSameName(si2) && (si1.getAmount().toString().equals(si2.getAmount().toString()))
+                && (si1.isBought() == si2.isBought()) && (si1.isUrgent() == si2.isUrgent());
+    }
 
     @Test
     void isBought() {
