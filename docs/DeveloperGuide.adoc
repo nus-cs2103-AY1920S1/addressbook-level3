@@ -301,6 +301,8 @@ image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 
 ===== Aspect: How tag predicates are implemented
 
+
+
 image::kaibindiagrams/tagPredicateCodeSnippet.png[]
 Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`
 
@@ -351,8 +353,6 @@ The syntax used here is slightly different. The user need not specify the `tag/`
 *** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
 *** As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
 
-** Supporting statistics for Tags
-*** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
 tag::cheatsheetAutomation[]
 
