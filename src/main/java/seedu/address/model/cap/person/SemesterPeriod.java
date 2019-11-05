@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * It encapsulates the Semester period, either semester 1 or 2, of a typical school term.
+ * It encapsulates the Semester period, either semester 1 or 2, of a typical school terms or 3 and 4 for special terms.
  */
 public class SemesterPeriod {
 
@@ -14,9 +14,9 @@ public class SemesterPeriod {
 
     private final int semesterPeriod;
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code SemesterPeriod}.
      *
-     * @param semesterPeriod A valid phone number.
+     * @param semesterPeriod A valid semester period.
      */
     public SemesterPeriod(int semesterPeriod) {
         requireNonNull(semesterPeriod);
@@ -41,15 +41,15 @@ public class SemesterPeriod {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid semester period.
      */
     public static boolean isValidSemesterPeriod(int test) {
         try {
             switch (test) {
             case 1:
             case 2:
-            case 3:
-            case 4:
+            case 3: //special term 1
+            case 4: //special term 2
                 return true;
             default:
                 return false;

@@ -46,21 +46,25 @@ public class AcademicYear {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid Academic Year.
      */
     public static boolean isValidAcademicYear(String academicYear) {
-        DateFormat df = new SimpleDateFormat("yy");
-        int formattedDate = Integer.parseInt(df.format(Calendar.getInstance().getTime()));
+        try {
+            DateFormat df = new SimpleDateFormat("yy");
+            int formattedDate = Integer.parseInt(df.format(Calendar.getInstance().getTime()));
 
-        int firstYear = Integer.valueOf(academicYear.substring(0, 2));
-        int secondYear = Integer.valueOf(academicYear.substring(2, 4));
+            int firstYear = Integer.parseInt(academicYear.substring(0, 2));
+            int secondYear = Integer.parseInt(academicYear.substring(2, 4));
 
-        if (secondYear > (formattedDate + 6) || firstYear > (formattedDate + 5)) {
+            if (secondYear > (formattedDate + 6) || firstYear > (formattedDate + 5)) {
+                return false;
+            } else if (secondYear < (formattedDate - 4) || firstYear < (formattedDate - 5)) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (NumberFormatException e) {
             return false;
-        } else if (secondYear < (formattedDate - 4) || firstYear < (formattedDate - 5)) {
-            return false;
-        } else {
-            return true;
         }
     }
 }

@@ -12,7 +12,6 @@ import seedu.address.model.common.Module;
  */
 public class NameContainsKeywordsPredicate implements Predicate<Module> {
     private final List<String> keywords;
-    private ArrayList<Module> matchedModules;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
@@ -21,18 +20,18 @@ public class NameContainsKeywordsPredicate implements Predicate<Module> {
     @Override
     public boolean test(Module module) {
         boolean isModuleCodeMatch = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleCode().getModuleCode(),
-                        keyword));
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleCode().getModuleCode(),
+                  keyword));
         boolean isTitleMatch = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getTitle().getTitle(),
-                        keyword));
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getTitle().getTitle(),
+                  keyword));
         return isModuleCodeMatch || isTitleMatch;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
+            || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
     }
 

@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Credit {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Credit cannot be out of the range of NUS permissible modular credit and it cannot be a negative number.";
+        "Credit cannot be out of the range of NUS permissible "
+            + "modular credit of 2 and 23 and it cannot be a negative number.";
 
     private final int credit;
     /**
@@ -31,7 +32,7 @@ public class Credit {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Credit // instanceof handles nulls
+            || (other instanceof Credit // instanceof handles nulls
                 && this.credit == credit); // state check
     }
 
@@ -41,11 +42,11 @@ public class Credit {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid credit.
      */
     public static boolean isValidCredit(int credit) {
         int value = credit;
-        if (value < 25 && value >= 2) {
+        if (value < 23 && value >= 2) {
             return true;
         } else {
             return false;

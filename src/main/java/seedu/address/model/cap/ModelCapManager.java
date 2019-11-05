@@ -199,6 +199,8 @@ public class ModelCapManager implements Model {
 
     @Override
     public double getFilteredCapInformation() {
+        logger.info("Calculating CAP information...");
+
         double result = 0.0;
         String letterGrade;
         GradeHash gradeConverter = new GradeHash();
@@ -222,6 +224,8 @@ public class ModelCapManager implements Model {
 
     @Override
     public double getFilteredMcInformation() {
+        logger.fine("Calculating total number of modular credit done...");
+
         double result = 0.0;
         if (getModuleCount() != 0) {
             for (Module module : getFilteredModuleList()) {
@@ -235,6 +239,8 @@ public class ModelCapManager implements Model {
     //=========== PieChart =============================================================
 
     public ObservableList<PieChart.Data> getFilteredGradeCounts() {
+        logger.info("Generating pie chart for the grades...");
+
         ObservableList<PieChart.Data> result = FXCollections.observableArrayList();
         ObservableList<Module> filteredModules = getFilteredModuleList();
 

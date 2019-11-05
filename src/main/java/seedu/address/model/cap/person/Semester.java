@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import seedu.address.model.common.Module;
 
 /**
- * Represents a Semester and the academic year.
+ * Represents a Semester in a specific academic year and semesterPeriod.
  */
 public class Semester {
 
@@ -15,9 +15,10 @@ public class Semester {
     private final AcademicYear academicYear;
     private final ArrayList<Module> modules;
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code Semester}.
      *
      * @param semesterPeriod A valid semester period.
+     * @param academicYear A valid academic year.
      */
     public Semester(SemesterPeriod semesterPeriod, AcademicYear academicYear) {
         requireNonNull(semesterPeriod);
@@ -38,7 +39,7 @@ public class Semester {
     /**
      * Compares if two modules are the same.
      * @param otherSemester module of comparison
-     * @return
+     * @return boolean value on whether the modules are identical
      */
     public boolean isSameSemester(Semester otherSemester) {
         if (otherSemester == this) {
@@ -46,8 +47,8 @@ public class Semester {
         }
 
         return otherSemester != null
-                && otherSemester.getSemesterPeriod().equals(getSemesterPeriod())
-                && (otherSemester.getAcademicYear().equals(getAcademicYear()));
+            && otherSemester.getSemesterPeriod().equals(getSemesterPeriod())
+            && (otherSemester.getAcademicYear().equals(getAcademicYear()));
     }
 
     /**
@@ -63,9 +64,9 @@ public class Semester {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Semester // instanceof handles nulls
-                && semesterPeriod == semesterPeriod
-                && academicYear.equals(((Semester) other).academicYear)); // state check
+            || (other instanceof Semester // instanceof handles nulls
+            && semesterPeriod == semesterPeriod  // check for same semester period
+            && academicYear.equals(((Semester) other).academicYear)); // state check
     }
 
     @Override
