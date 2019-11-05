@@ -84,11 +84,6 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/136[#136], https://github.co
 
 include::../UserGuide.adoc[tag=statisticsCommandUG]
 
-//include::../UserGuide.adoc[tag=delete]
-
-//include::../UserGuide.adoc[tag=dataencryption]
-
-//include::../UserGuide.adoc[tag=statisticsCommand]
 
 == Contributions to the Developer Guide
 
@@ -96,10 +91,6 @@ include::../UserGuide.adoc[tag=statisticsCommandUG]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=statisticsCommand]
-//include::../DeveloperGuide.adoc[tag=undoredo]
-
-//include::../DeveloperGuide.adoc[tag=dataencryption]
 
 ** Created the architecture diagram
 
