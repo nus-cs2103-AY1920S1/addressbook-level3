@@ -14,6 +14,7 @@ import com.typee.logic.commands.DeleteCommand;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.RedoCommand;
+import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.state.EndState;
@@ -26,6 +27,7 @@ import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
 import com.typee.logic.interactive.parser.state.redomachine.RedoState;
+import com.typee.logic.interactive.parser.state.tabmachine.TabState;
 import com.typee.logic.interactive.parser.state.undomachine.UndoState;
 import com.typee.logic.parser.exceptions.ParseException;
 
@@ -74,8 +76,23 @@ public class Parser implements InteractiveParser {
             return;
         }
 
+        if (isTabCommand(commandText)) {
+            initializeTab();
+            //return;
+        }
+
         Prefix[] arrayOfPrefixes = extractPrefixes(commandText);
         initializeAndParse(commandText, arrayOfPrefixes);
+    }
+
+    private void initializeTab() {
+        temporaryState = currentState;
+        currentState = null;
+    }
+
+    private boolean isTabCommand(String commandText) {
+        String[] tokens = commandText.split("\\s+");
+        return tokens[0].equalsIgnoreCase(TabCommand.COMMAND_WORD);
     }
 
     private void initializeCurrent() {
@@ -136,6 +153,9 @@ public class Parser implements InteractiveParser {
                 currentState = temporaryState;
                 temporaryState = null;
             } else if (command instanceof CurrentCommand) {
+                currentState = temporaryState;
+                temporaryState = null;
+            } else if (command instanceof TabCommand) {
                 currentState = temporaryState;
                 temporaryState = null;
             } else {
@@ -207,6 +227,10 @@ public class Parser implements InteractiveParser {
 
         case RedoCommand.COMMAND_WORD:
             currentState = new RedoState(new ArgumentMultimap());
+            break;
+
+        case TabCommand.COMMAND_WORD:
+            currentState = new TabState(new ArgumentMultimap());
             break;
 
         default:

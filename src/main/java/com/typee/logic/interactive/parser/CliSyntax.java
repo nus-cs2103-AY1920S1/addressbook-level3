@@ -14,6 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PRIORITY = new Prefix("p/");
     public static final Prefix PREFIX_ATTENDEES = new Prefix("a/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
+    public static final Prefix PREFIX_TAB = new Prefix("b/");
     //Report Generation 23/10/19 Ko Gi Hun
     public static final Prefix PREFIX_LIST_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_TO = new Prefix("to/");
