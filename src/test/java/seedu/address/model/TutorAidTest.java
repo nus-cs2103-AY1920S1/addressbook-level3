@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalTutorAid;
 import static seedu.address.testutil.TypicalTasks.CS2103T;
+import static seedu.address.testutil.TypicalTutorAid.ALICE;
+import static seedu.address.testutil.TypicalTutorAid.getTypicalTutorAid;
 
 import java.util.Arrays;
 import java.util.Collection;

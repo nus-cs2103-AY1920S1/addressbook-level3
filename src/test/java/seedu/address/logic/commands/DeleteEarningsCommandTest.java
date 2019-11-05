@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showEarningsAtIndex;
 import static seedu.address.testutil.TypicalEarnings.getTypicalTutorAid;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,8 +29,8 @@ public class DeleteEarningsCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Earnings earningsToDelete = model.getFilteredEarningsList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteEarningsCommand deleteEarningsCommand = new DeleteEarningsCommand(INDEX_FIRST_PERSON);
+        Earnings earningsToDelete = model.getFilteredEarningsList().get(INDEX_FIRST.getZeroBased());
+        DeleteEarningsCommand deleteEarningsCommand = new DeleteEarningsCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteEarningsCommand.MESSAGE_DELETE_EARNINGS_SUCCESS, earningsToDelete);
 
@@ -50,10 +50,10 @@ public class DeleteEarningsCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showEarningsAtIndex(model, INDEX_FIRST_PERSON);
+        showEarningsAtIndex(model, INDEX_FIRST);
 
-        Earnings earningsToDelete = model.getFilteredEarningsList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteEarningsCommand deleteEarningsCommand = new DeleteEarningsCommand(INDEX_FIRST_PERSON);
+        Earnings earningsToDelete = model.getFilteredEarningsList().get(INDEX_FIRST.getZeroBased());
+        DeleteEarningsCommand deleteEarningsCommand = new DeleteEarningsCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteEarningsCommand.MESSAGE_DELETE_EARNINGS_SUCCESS, earningsToDelete);
 
@@ -66,9 +66,9 @@ public class DeleteEarningsCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showEarningsAtIndex(model, INDEX_FIRST_PERSON);
+        showEarningsAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTutorAid().getEarningsList().size());
 
@@ -79,14 +79,14 @@ public class DeleteEarningsCommandTest {
 
     @Test
     public void equals() {
-        DeleteEarningsCommand deleteEarningsFirstCommand = new DeleteEarningsCommand(INDEX_FIRST_PERSON);
-        DeleteEarningsCommand deleteEarningsSecondCommand = new DeleteEarningsCommand(INDEX_SECOND_PERSON);
+        DeleteEarningsCommand deleteEarningsFirstCommand = new DeleteEarningsCommand(INDEX_FIRST);
+        DeleteEarningsCommand deleteEarningsSecondCommand = new DeleteEarningsCommand(INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteEarningsFirstCommand.equals(deleteEarningsFirstCommand));
 
         // same values -> returns true
-        DeleteEarningsCommand deleteEarningsFirstCommandCopy = new DeleteEarningsCommand(INDEX_FIRST_PERSON);
+        DeleteEarningsCommand deleteEarningsFirstCommandCopy = new DeleteEarningsCommand(INDEX_FIRST);
         assertTrue(deleteEarningsFirstCommand.equals(deleteEarningsFirstCommandCopy));
 
         // different types -> returns false
