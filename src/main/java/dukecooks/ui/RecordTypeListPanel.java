@@ -64,7 +64,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
         recordType = TypeUtil.TYPE_CALORIES;
         recordUnit = TypeUtil.UNIT_CALORIES;
 
-        sideView.setItems(recordList.sorted(new TimestampComparator()));
+        sideView.setItems(recordList);
         sideView.setCellFactory(listView -> new RecordListViewCell());
 
         initializeLineGraph(recordList);
