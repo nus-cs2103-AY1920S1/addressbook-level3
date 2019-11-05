@@ -65,6 +65,10 @@ public class CustomPropertiesWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    public void hide() {
+        getRoot().hide();
+    }
+
     /**
      * Helps to populate the table with the data for users to view.
      */

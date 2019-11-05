@@ -25,7 +25,7 @@ image::kwekke.png[width="150", align="left"]
 {empty}[https://github.com/kwekke[github]] [<<kwekke#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Quality of various project documents
+Responsibilities: Testing
 
 '''
 
@@ -52,6 +52,6 @@ image::weihaw08.png[width="150", align="left"]
 {empty}[https://github.com/weihaw08[github]] [<<weihaw08#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Testing
+Responsibilities: Quality of various project documents
 
 '''

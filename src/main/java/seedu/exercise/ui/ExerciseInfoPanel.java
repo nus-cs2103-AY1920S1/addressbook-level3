@@ -18,7 +18,6 @@ import seedu.exercise.model.resource.Exercise;
 public class ExerciseInfoPanel extends UiPart<Region> {
 
     private static final String FXML = "ExerciseInfoPanel.fxml";
-    private static final String emptyField = "";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

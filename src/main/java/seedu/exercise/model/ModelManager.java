@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -27,9 +28,10 @@ import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.commands.statistic.StatsFactory;
+import seedu.exercise.logic.parser.ParserUtil;
+import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Name;
-import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
@@ -70,12 +72,12 @@ public class ModelManager implements Model {
         this.scheduleBook = new ReadOnlyResourceBook<>(scheduleBook, DEFAULT_SCHEDULE_COMPARATOR);
         this.userPrefs = new UserPrefs(userPrefs);
         sortedExercises = new SortedList<>(this.exerciseBook.getSortedResourceList(),
-                DEFAULT_EXERCISE_COMPARATOR);
+            DEFAULT_EXERCISE_COMPARATOR);
         removeInvalidCustomProperties();
         sortedRegimes = new SortedList<>(this.regimeBook.getSortedResourceList(),
-                DEFAULT_REGIME_COMPARATOR);
+            DEFAULT_REGIME_COMPARATOR);
         sortedSchedules = new SortedList<>(this.scheduleBook.getSortedResourceList(),
-                DEFAULT_SCHEDULE_COMPARATOR);
+            DEFAULT_SCHEDULE_COMPARATOR);
         StatsFactory statsFactory = new StatsFactory(exerciseBook, "linechart", "calories", null, null);
         this.statistic = statsFactory.getDefaultStatistic();
         conflict = null;
@@ -83,9 +85,9 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -428,7 +430,7 @@ public class ModelManager implements Model {
             .getAllResourcesIndex(indexFromConflict);
         List<Exercise> resolvedExercises = append(exercisesToAddFromScheduled, exercisesToAddFromConflicted);
         SortedUniqueResourceList<Exercise> uniqueResolveList =
-                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
+            new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         uniqueResolveList.setAll(resolvedExercises);
         return uniqueResolveList;
     }
@@ -439,9 +441,9 @@ public class ModelManager implements Model {
     private boolean isIndexesForRegimeDuplicate(List<Index> scheduledIndex, List<Index> conflictingIndex) {
         SortedUniqueResourceList<Exercise> listToAdd = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         List<Exercise> scheduledExercises = conflict
-                .getScheduledRegime().getRegimeExercises().getAllResourcesIndex(scheduledIndex);
+            .getScheduledRegime().getRegimeExercises().getAllResourcesIndex(scheduledIndex);
         List<Exercise> conflictExercises = conflict
-                .getConflictingRegime().getRegimeExercises().getAllResourcesIndex(conflictingIndex);
+            .getConflictingRegime().getRegimeExercises().getAllResourcesIndex(conflictingIndex);
         listToAdd.setAll(scheduledExercises);
         for (Exercise conflicted : conflictExercises) {
             if (listToAdd.contains(conflicted)) {
@@ -470,13 +472,18 @@ public class ModelManager implements Model {
     }
 
     /**
-     * @see PropertyBook#removeInvalidCustomProperties(Map)
+     * Removes invalid custom properties that are present in the exercises.
+     * This ensures that undefined custom properties and custom properties of invalid values do not exist.
      */
     private void removeInvalidCustomProperties() {
-        PropertyBook propertyBook = PropertyBook.getInstance();
         for (Exercise exercise : sortedExercises) {
             Map<String, String> toCheck = exercise.getCustomPropertiesMap();
-            Map<String, String> newMap = propertyBook.removeInvalidCustomProperties(toCheck);
+            Map<String, String> newMap;
+            try {
+                newMap = ParserUtil.parseCustomProperties(toCheck);
+            } catch (ParseException e) {
+                newMap = new TreeMap<>();
+            }
             EditExerciseBuilder editor = new EditExerciseBuilder(exercise);
             editor.setCustomProperties(newMap);
             setExercise(exercise, editor.buildEditedExercise());

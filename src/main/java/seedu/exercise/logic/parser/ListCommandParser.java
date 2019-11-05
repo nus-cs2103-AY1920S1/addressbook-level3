@@ -12,11 +12,6 @@ import seedu.exercise.ui.ListResourceType;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
-    public static final String LIST_TYPE_EXERCISE = "exercise";
-    public static final String LIST_TYPE_REGIME = "regime";
-    public static final String LIST_TYPE_SCHEDULE = "schedule";
-    public static final String LIST_TYPE_SUGGEST = "suggest";
-
     /**
      * Parses the given {@code String} of arguments in the context of the SuggestCommand
      * and returns a SuggestCommand object for execution.

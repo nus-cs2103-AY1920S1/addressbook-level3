@@ -5,56 +5,88 @@
 
 == PROJECT: ExerHealth
 
----
-
 == Overview
 
-ExerHealth is a desktop application used for tracking and scheduling the user's exercises.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 10 kLoC.
+ExerHealth is a desktop application that is created by me and another 4 Computer Science students. It
+enables users to track important information about their exercises and also provides other functionality such as
+the ability to create their own fitness regimes and the ability to provide statistical analysis of their activities.
+Users can also define their own properties which they wish to track for their exercises.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement 1*: Provided a feature that *allows user to define their own custom properties*.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** What it does: Users can simply add in their own custom properties should they wish to keep track of extra properties
+for each exercise.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Justification: This feature was introduced after a quick conversation with our friends who provided us with lots of
+properties which they wish to keep track of for their exercises. However, more likely than not, most properties which
+they suggest are unique to themselves. As such, we have decided to provide a set of default properties (such as calories, date etc)
+which appear frequently among the suggestions while introducing custom properties to provide greater flexibility among
+the various users if they wish to include more information which they wish to track. This customisation can help users to
+tailor suit the app for their personal use.
+
+** Highlights: This feature complements well with another feature that was implemented by my team mate, Kee En. By having
+custom properties, users can now produce exercise suggestions based on the custom properties they had created. This enhances
+the utility of both the suggestion and the custom property feature. Furthermore, the implementation of this feature is
+quite challenging as there are a few aspects to take note of:
+
+*** Display of custom properties which requires UI considerations
+*** Representation of custom properties in each exercise
+*** Tracking of custom properties that have been created
+*** Interaction between the add / edit command parsers and the custom properties
+*** Storage of custom properties so that they will not be a one-off thing
+*** Ensure that invalid custom properties do not sneak in into the storage files
+
+** Credits: We will like to thank our friends who gave us the inspiration for this feature.
+
+* *Major enhancement 2*: Provided a feature that *allows user to remove unwanted custom properties*
+
+** What it does: Users can choose to remove a previously defined custom property should they no longer require them.
+
+** Justification: Similar to undo and redo feature, if the user is able to add in a custom property, they should also be
+able to remove them as well. This ensures that the custom property feature is more complete and once again, provides
+the user with greater flexibility in the way they wish to use the exercise tracker.
+
+** Highlights: Users can choose to either remove a custom property from a single exercise or remove a custom property
+completely from the app. So, extra considerations have to be taken care of to ensure that the correct result is obtained
+depending on the user's input.
+
+* *Minor enhancement 1*: Added a `viewcustom` command that allows user to view the custom properties that they have defined.
+
+** Justification: This provides a way for user to check the names and prefixes that have been used for each of the custom
+properties. Furthermore, users can use it to remind themselves what kind of custom properties which they have defined. This
+ensures that the custom property feature is more complete and provides greater utility for the users.
+
+* *Minor enhancement 2*: Designed the centre panel UI for exercises. This design helps to display both the default and custom
+properties of each exercise to the user.
+
+* *Minor enhancement 3*: Added a `select` command that allows user to select a specific exercise/regime/schedule/suggestion
+which they wish to view.
+
+** Justification: As our intended target audience are also fast typists, providing them with a keyboard method to select an item which
+they wish to view is very appropriate.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weihaw08&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Contribution]]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Updated the UI  (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/129[#129], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/133[#133])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/140[#140], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/194[#194])
+*** Involved in the morphing of AddressBook to suit ExerHealth (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/13[#13])
 
-_{you can add/remove categories in the list above}_
+** Community:
+*** PRs reviewed (with non-trivial review comments):  https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/103[#103]
+*** Reviewed and provided suggestions for individuals in the class: https://github.com/nus-cs2103-AY1920S1/duke/pull/86[#86], https://github.com/nus-cs2103-AY1920S1/duke/pull/229[#229]
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=customfeature]
 
 == Contributions to the Developer Guide
 
@@ -62,13 +94,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=customfeature]
 
 
-== PROJECT: PowerPointLabs
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_

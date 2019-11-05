@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_EXERCISE;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
@@ -20,6 +19,7 @@ import static seedu.exercise.testutil.CommonTestData.UNIT_DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_EXERCISE;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_CARDIO;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.AEROBICS;
+import static seedu.exercise.ui.ListResourceType.LIST_TYPE_EXERCISE;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -229,10 +229,10 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getExerciseBookData(),
-                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
-                new UserPrefs());
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
+            new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

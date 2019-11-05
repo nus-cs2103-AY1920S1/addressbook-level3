@@ -121,14 +121,16 @@ Adds the 1st, 2nd and 3rd exercise in the list to the regime named `power sets`.
 
 Adds the 4th exercise in the list to the regime named `cardio`.
 
-=== Listing all exercises : `list`
+=== Listing information : `list`
 
-Retrieves all categories of information - Exercise, Regime or Scheduled Regime - from ExerHealth.
+Retrieves a list of information - Exercise, Regime, Scheduled Regime or Suggestion - from ExerHealth.
 
-Type of information shown when will be specified by the category type specified. For example,
-if you wish to see your current list of regimes, you may specify the `CAT_NAME` as `regime`.
+Format: `list t/LIST_TYPE`
 
-Format: `list t/CAT_NAME`
+****
+* There are 4 types of list in ExerHealth: `exercise`, `regime`, `schedule` and `suggest`.
+* The `suggest` list will only be displayed if you have used the <<suggestion, suggestion>> feature before.
+****
 
 Example:
 
@@ -149,6 +151,17 @@ image::ListRegimeResult.png[]
 Expected result:
 
 image::ListScheduleResult.png[]
+
+=== Selecting an item: `select`
+
+Selects the item at the given index of the chosen category list.
+
+Format: `select t/LIST_TYPE i/INDEX`
+
+[TIP]
+ `LIST_TYPE` can only be one of the following: `exercise`, `regime`, `schedule`, `suggest`.
+
+Example: `select t/exercise i/1`
 
 === Edit exercise information: `edit`
 
@@ -282,98 +295,6 @@ If there is no command has been undone after the latest undoable command, redo c
 
 Format: `redo`
 
-// tag::custom[]
-[[customproperty]]
-=== Custom properties
-
-==== Adding custom properties: `custom`
-
-Adds in a custom property which you can define for the exercises.
-
-Once a new custom property is created, you can simply use the prefix name which you defined for the
-property to the `add` and `edit` command to include information for the new property.
-
-****
-* The prefix name can only contain alphabets and should not contain spaces.
-* You must choose exactly one of the following as the parameter type for your custom property:
-`Text`, `Number`, `Date`.
-* Every word in the full name of each custom property will be changed to Start Case style, where the first letter of each
-word is capitalised with the other letters in lower case e.g. `enD DaTe` will be changed to `End Date`.
-* The date entered for the custom properties must follow the same requirements as that of `add` command.
-* You need not include the custom properties when adding a new exercise to the app.
-****
-
-Format: `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
-
-Example:
-
-* `custom s/a f/Ratings p/Number`
-
-Creates a `Ratings` property for each exercise.
-Information for this property can be updated for each exercise by using `a/NUMBER` in the relevant command where `NUMBER` refers to
-a number.
-
-* `custom s/b f/rEmaRk p/Text`
-
-Creates a `Remark` property for each exercise.
-Information for this property can be updated for each exercise by using `b/TEXT` in the relevant command where
-`TEXT` refers to a text sentence.
-
-* `custom s/c f/End Date p/Date`
-
-Creates a `End Date` property for each exercise.
-Information for this property can be updated for each exercise by using `s/DATE` in the relevant command where
-`DATE` refers to a date.
-
-Using `Ratings` as an example, you can now perform the following actions after adding it:
-
-* `add t/exercise n/Run d/01/10/2019 a/5`
-
-Adds an exercise with the name `Run`, date `01/10/2019` and ratings `5` into the app.
-
-* `edit t/exercise i/4 a/3`
-
-Edits the ratings of the 4th exercise in the list to `3`.
-
-==== Removing custom properties: `custom`
-
-Removes a custom property which you have previously defined either from a single exercise
-or from Exerhealth.
-
-In the second case, you will still be able to add back the deleted custom property if you
-wish to.
-
-****
-* `FULL_NAME` denotes the name of the previously defined custom property.
-* The index, if provided, must be a positive integer 1, 2, 3, …​
-****
-
-Format: `custom rm/FULL_NAME [i/INDEX]`
-
-Example:
-
-* `custom rm/Ratings`
-
-Removes the custom property `Ratings` from all of the exercises and from ExerHealth.
-
-* `custom rm/Ratings i/1`
-
-Removes the custom property `Ratings` from the 1st exercise in the list.
-
-==== Viewing custom properties: `viewcustom`
-
-Opens up a window for you to view the custom properties you have defined.
-The name, prefix and parameter type of all existing custom properties will be shown.
-
-Format: `viewcustom`
-
-Example:
-
-* `viewcustom`
-
-Opens up a window containing information of all existing custom properties.
-// end::custom[]
-
 // tag::scheduleresolve[]
 
 === Scheduling exercises: `schedule`
@@ -444,7 +365,10 @@ Takes exercise 1, 2, 3 from scheduled regime and exercise 2, 4 from conflicting 
 // end::scheduleresolve[]
 
 // tag::suggest[]
+
+[[suggestion]]
 === Suggesting ideas: `suggest`
+
 ==== Suggest basic exercises
 Recommends exercises from ExerHealth's inbuilt database for beginners.
 
@@ -495,6 +419,113 @@ Then, the following input will display a list of exercises which are tagged with
 Thus the command will display only the exercise named "Bench Press".
 // end::suggest[]
 
+// tag::customfeature[]
+[[customproperty]]
+=== Custom properties
+
+==== Adding custom properties: `custom`
+
+Adds in a custom property which you can define for the exercises.
+
+Once a new custom property is created, you can simply use the prefix name which you defined for the
+property to the `add` and `edit` command to include information for the new property.
+
+****
+* The prefix name can only contain alphabets and should not contain spaces.
+* You must choose exactly one of the following as the parameter type for your custom property:
+`Text`, `Number`, `Date`.
+* Every word in the full name of each custom property will be changed to Start Case style, where the first letter of each
+word is capitalised with the other letters in lower case e.g. `enD DaTe` will be changed to `End Date`.
+* The date entered for the custom properties must follow the same requirements as that of `add` command.
+* You need not include the custom properties when adding a new exercise to the app.
+****
+
+Format: `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
+
+[TIP]
+The following names and prefix names have been used for existing add / edit command parameters and properties and so,
+cannot be used.
+|===========
+|Names used | Prefix names used
+|Name       |  n
+|Date       |  d
+|Calories   |  c
+|Quantity   |  q
+|Unit       |  u
+|Muscle     |  m
+|-          |  t
+|-          |  i
+|===========
+
+Example:
+
+* `custom s/a f/Rating p/Number`
+
+Creates a `Rating` property for each exercise.
+Information for this property can be updated for each exercise by using `a/NUMBER` in the relevant command where `NUMBER` refers to
+a number.
+
+* `custom s/b f/rEmaRk p/Text`
+
+Creates a `Remark` property for each exercise.
+Information for this property can be updated for each exercise by using `b/TEXT` in the relevant command where
+`TEXT` refers to a text sentence.
+
+* `custom s/ed f/End Date p/Date`
+
+Creates a `End Date` property for each exercise.
+Information for this property can be updated for each exercise by using `ed/DATE` in the relevant command where
+`DATE` refers to a date.
+
+Using `Rating` as an example, you can now perform the following actions after adding it:
+
+* `add t/exercise n/Run d/01/10/2019 a/5`
+
+Adds an exercise with the name `Run`, date `01/10/2019` and rating `5` into the app.
+
+* `edit t/exercise i/4 a/3`
+
+Edits the rating of the 4th exercise in the list to `3`.
+
+==== Removing custom properties: `custom`
+
+Removes a custom property which you have previously defined either from a single exercise
+or from ExerHealth.
+
+In the second case, you will still be able to add back the deleted custom property if you
+wish to.
+
+****
+* `FULL_NAME` denotes the name of the previously defined custom property.
+* The index, if provided, must be a positive integer 1, 2, 3, …​
+****
+
+Format: `custom rm/FULL_NAME [i/INDEX]`
+
+Example:
+
+* `custom rm/Rating`
+
+Removes the custom property `Rating` from all of the exercises and from ExerHealth.
+
+* `custom rm/Rating i/1`
+
+Removes the custom property `Rating` from the 1st exercise in the list.
+
+==== Viewing custom properties: `viewcustom`
+
+Opens up a window for you to view the custom properties you have defined.
+The name, prefix and parameter type of all existing custom properties will be shown.
+
+Format: `viewcustom`
+
+Example:
+
+* `viewcustom`
+
+Opens up a window containing information of all existing custom properties.
+// end::customfeature[]
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -536,8 +567,10 @@ _{explain how the user can enable/disable data encryption}_
 e.g. `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
 * *Add regimes* : `add t/regime n/REGIME_NAME [i/INDEX_OF_EXERCISE]...`
 e.g. `add t/regime n/Cardio i/1 i/2 i/3`
-* *List* : `list t/CAT_NAME`
+* *List* : `list t/LIST_TYPE`
 e.g. `list t/exercise`
+* *Select* : `select t/LIST_TYPE i/INDEX`
+e.g. `select t/exercise i/1`
 * *Edit exercise* : `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... `
 e.g. `edit i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
 * *Delete exercise* : `delete t/exercise i/INDEX`
@@ -562,7 +595,8 @@ e.g. `resolve n/new cardio i/1 i/3 r/2`
 * *Suggest possible* : `suggest s/possible [o/OPERATION_TYPE] [m/MUSCLE]... [CUSTOM_PROPERTY_PREFIX/VALUE]...`
 e.g. `suggest s/possible m/Legs`, `suggest s/possible o/and m/Chest m/Leg`
 * *Add custom property* : `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
-e.g. `custom s/c f/End Date p/Date`
+e.g. `custom s/ed f/End Date p/Date`
 * *Remove custom property* : `custom rm/FULL_NAME [i/INDEX]`
+e.g. `custom s/End Date i/1`
 * *View custom property* : `viewcustom`
 * *Exit* : `exit`

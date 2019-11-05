@@ -5,8 +5,6 @@
 
 == PROJECT: ExerHealth
 
----
-
 == Overview
 
 My team of 4 computer science students were tasked with changing a basic command line application. Our team

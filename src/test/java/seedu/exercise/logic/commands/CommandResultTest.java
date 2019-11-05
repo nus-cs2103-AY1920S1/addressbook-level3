@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.ui.ListResourceType;
@@ -59,16 +61,20 @@ public class CommandResultTest {
         //undefined list resource type -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback", ListResourceType.NULL)));
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false,
-            false, ListResourceType.NULL)));
+            false, ListResourceType.NULL, Optional.empty())));
 
         assertFalse(commandResult.equals(
-            new CommandResult("feedback", false, false, false, false, ListResourceType.EXERCISE)));
+            new CommandResult("feedback", false, false, false, false, ListResourceType.EXERCISE,
+                Optional.empty())));
         assertFalse(commandResult.equals(
-            new CommandResult("feedback", false, false, false, false, ListResourceType.REGIME)));
+            new CommandResult("feedback", false, false, false, false, ListResourceType.REGIME,
+                Optional.empty())));
         assertFalse(commandResult.equals(
-            new CommandResult("feedback", false, false, false, false, ListResourceType.SCHEDULE)));
+            new CommandResult("feedback", false, false, false, false, ListResourceType.SCHEDULE,
+                Optional.empty())));
         assertFalse(commandResult.equals(
-            new CommandResult("feedback", false, false, false, false, ListResourceType.SUGGEST)));
+            new CommandResult("feedback", false, false, false, false,
+                ListResourceType.SUGGESTION, Optional.empty())));
 
         //different list resource type -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", ListResourceType.EXERCISE)));
@@ -104,11 +110,12 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", ListResourceType.EXERCISE));
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", ListResourceType.REGIME));
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", ListResourceType.SCHEDULE));
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", ListResourceType.SUGGEST));
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", ListResourceType.SUGGESTION));
 
         //multiple different field values -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-            new CommandResult("feedback", false, false, true, true, ListResourceType.SCHEDULE).hashCode());
+            new CommandResult("feedback", false, false, true, true, ListResourceType.SCHEDULE,
+                Optional.empty()).hashCode());
 
     }
 }

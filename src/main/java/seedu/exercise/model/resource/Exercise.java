@@ -53,18 +53,6 @@ public class Exercise extends Resource {
         this.customProperties.putAll(customProperties);
     }
 
-    // A placeholder constructor to pass the text cases. Will remove it when the necessary test cases have been
-    // updated.
-    public Exercise(Name name, Date date, Calories calories, Quantity quantity, Unit unit, Set<Muscle> muscles) {
-        requireAllNonNull(name, date, calories, quantity, unit, muscles);
-        this.name = name;
-        this.date = date;
-        this.calories = calories;
-        this.quantity = quantity;
-        this.unit = unit;
-        this.muscles.addAll(muscles);
-    }
-
     public Name getName() {
         return name;
     }

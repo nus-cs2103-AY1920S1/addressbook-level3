@@ -24,6 +24,7 @@ public class ListCommand extends Command {
     private ListResourceType listResourceType;
 
     public ListCommand(ListResourceType listResourceType) {
+        requireNonNull(listResourceType);
         this.listResourceType = listResourceType;
     }
 

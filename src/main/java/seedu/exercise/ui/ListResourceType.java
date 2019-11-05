@@ -8,9 +8,12 @@ public enum ListResourceType {
     EXERCISE,
     REGIME,
     SCHEDULE,
-    SUGGEST;
+    SUGGESTION;
 
+    public static final String LIST_TYPE_EXERCISE = "exercise";
+    public static final String LIST_TYPE_REGIME = "regime";
+    public static final String LIST_TYPE_SCHEDULE = "schedule";
+    public static final String LIST_TYPE_SUGGESTION = "suggestion";
     public static final String LIST_RESOURCE_TYPE_CONSTRAINTS =
-            "List resource type should be one of the following: exercise, regime, schedule or suggestion";
-
+            "List type should be one of the following: exercise, regime, schedule or suggestion";
 }

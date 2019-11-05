@@ -25,7 +25,8 @@ public class DateChangerUtil {
                 exercise.getCalories(),
                 exercise.getQuantity(),
                 exercise.getUnit(),
-                exercise.getMuscles()))
+                exercise.getMuscles(),
+                exercise.getCustomPropertiesMap()))
             .collect(Collectors.toList());
     }
 }

@@ -9,7 +9,7 @@ import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.CATEGORY_DESC_EXERCISE;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_INDEX;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_EXERCISE;
-import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_SUGGEST;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_SUGGESTION;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 
 import org.junit.jupiter.api.Test;
@@ -83,7 +83,7 @@ public class ExerciseBookParserTest {
                 + VALID_PREFIX_LIST_TYPE_EXERCISE) instanceof ListCommand);
         assertTrue(parser
             .parseCommand(ListCommand.COMMAND_WORD
-                + VALID_PREFIX_LIST_TYPE_SUGGEST) instanceof ListCommand);
+                + VALID_PREFIX_LIST_TYPE_SUGGESTION) instanceof ListCommand);
     }
 
     @Test

@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.Logic;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
@@ -110,7 +111,6 @@ public class MainWindow extends UiPart<Stage> {
         customPropertiesWindow = new CustomPropertiesWindow();
 
         exerciseListPanel = new ExerciseListPanel(logic.getSortedExerciseList());
-
         exerciseListTabPlaceholder = new Tab();
         exerciseListTabPlaceholder.setContent((exerciseListPanel).getExerciseListView());
 
@@ -165,7 +165,7 @@ public class MainWindow extends UiPart<Stage> {
     private String getTotalAndAverage() {
         Statistic statistic = logic.getStatistic();
         return ChartTextUtil.totalFormatter(statistic.getCategory(), statistic.getTotal()) + "\n"
-                + ChartTextUtil.averageFormatter(statistic.getCategory(), statistic.getAverage());
+            + ChartTextUtil.averageFormatter(statistic.getCategory(), statistic.getAverage());
     }
 
     private void setStats() {
@@ -225,7 +225,7 @@ public class MainWindow extends UiPart<Stage> {
 
             shouldShowWindowsBasedOnCommandResult(commandResult);
             shouldExitAppBasedOnCommandResult(commandResult);
-            updateResourceListTab(commandResult);
+            updateResourceListTab(commandResult, -1); // Negative index means nothing is selected.
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -250,6 +250,10 @@ public class MainWindow extends UiPart<Stage> {
 
         if (commandResult.isShowCustomProperties()) {
             handleViewCustom();
+        }
+
+        if (commandResult.isSelectResource()) {
+            handleSelectResource(commandResult);
         }
     }
 
@@ -297,6 +301,16 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Selects the resource at the given index of the desired resource list.
+     */
+    @FXML
+    private void handleSelectResource(CommandResult commandResult) {
+        Index selectedIndex = commandResult.getSelectedIndex().get();
+        updateResourceListTab(commandResult, selectedIndex.getZeroBased());
+
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -307,32 +321,37 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         resolveWindow.hideAndClearPanels();
+        customPropertiesWindow.hide();
         primaryStage.hide();
     }
 
     /**
      * Checks if a the resource list has to change based on the {@code CommandResult}
      */
-    private void updateResourceListTab(CommandResult commandResult) {
+    private void updateResourceListTab(CommandResult commandResult, int index) {
         switch (commandResult.getShowListResourceType()) {
         case NULL:
             //no change to GUI
             return;
         case EXERCISE:
             handleShowExerciseList();
+            exerciseListPanel.selectGivenIndex(index);
             return;
         case REGIME:
             handleShowRegimeList();
+            regimeListPanel.selectGivenIndex(index);
             return;
         case SCHEDULE:
             handleShowScheduleList();
+            scheduleListPanel.selectGivenIndex(index);
             return;
-        case SUGGEST:
+        case SUGGESTION:
             handleShowSuggestionList();
+            suggestionListPanel.selectGivenIndex(index);
             return;
         default:
             throw new AssertionError(ListResourceType.LIST_RESOURCE_TYPE_CONSTRAINTS);

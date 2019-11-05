@@ -29,7 +29,7 @@ public class SuggestBasicCommand extends SuggestCommand {
         requireNonNull(model);
         List<Exercise> basicExercises = Arrays.asList(getBasicExercises());
         model.setSuggestions(basicExercises);
-        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGEST);
+        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGESTION);
     }
 
     @Override

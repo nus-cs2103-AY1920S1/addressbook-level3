@@ -77,6 +77,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
 
         if (!editExerciseBuilder.isAnyFieldEdited()) {
+            logger.info("None of the exercise filed is edited.");
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 

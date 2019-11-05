@@ -7,10 +7,8 @@ import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPrefix
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -67,21 +65,6 @@ public class PropertyBook {
         customProperties.clear();
         customPrefixes.clear();
         customFullNames.clear();
-    }
-
-    /**
-     * Returns a new {@code Map<String, String>} containing valid custom properties that are present in the
-     * PropertyBook. This ensures that if the user did not define a custom property in the storage and yet
-     * edits the exercises' custom properties in the storage, the undefined custom properties will not show up.
-     */
-    public Map<String, String> removeInvalidCustomProperties(Map<String, String> customPropertiesMap) {
-        Map<String, String> newMap = new TreeMap<>();
-        for (String validProperty : customFullNames) {
-            if (customPropertiesMap.containsKey(validProperty)) {
-                newMap.put(validProperty, customPropertiesMap.get(validProperty));
-            }
-        }
-        return newMap;
     }
 
     /**

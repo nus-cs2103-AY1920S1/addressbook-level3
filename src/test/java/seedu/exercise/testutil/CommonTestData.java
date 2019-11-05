@@ -302,6 +302,10 @@ public class CommonTestData {
     public static final String VALID_PREFIX_LIST_TYPE_REGIME = " " + PREFIX_CATEGORY + VALID_LIST_TYPE_REGIME;
     public static final String VALID_LIST_TYPE_SCHEDULE = "schedule";
     public static final String VALID_PREFIX_LIST_TYPE_SCHEDULE = " " + PREFIX_CATEGORY + VALID_LIST_TYPE_SCHEDULE;
-    public static final String VALID_LIST_TYPE_SUGGEST = "suggest";
-    public static final String VALID_PREFIX_LIST_TYPE_SUGGEST = " " + PREFIX_CATEGORY + VALID_LIST_TYPE_SUGGEST;
+    public static final String VALID_LIST_TYPE_SUGGESTION = "suggestion";
+    public static final String VALID_PREFIX_LIST_TYPE_SUGGESTION = " " + PREFIX_CATEGORY + VALID_LIST_TYPE_SUGGESTION;
+
+    //=====================For invalid list type=========================================================
+    public static final String INVALID_LIST_TYPE_ADDRESS = "address";
+    public static final String INVALID_PREFIX_LIST_TYPE_ADDRESS = " " + PREFIX_CATEGORY + INVALID_LIST_TYPE_ADDRESS;
 }

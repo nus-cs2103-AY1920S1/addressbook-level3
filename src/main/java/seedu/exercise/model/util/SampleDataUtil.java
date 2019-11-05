@@ -6,6 +6,7 @@ import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import seedu.exercise.model.ReadOnlyResourceBook;
@@ -28,22 +29,22 @@ public class SampleDataUtil {
         return new Exercise[]{
             new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
                 new Quantity("10"), new Unit("counts"),
-                getMuscleSet("Legs")),
+                getMuscleSet("Legs"), new TreeMap<>()),
             new Exercise(new Name("Cycling"), new Date("12/12/2019"), new Calories("284"),
                 new Quantity("5"), new Unit("km"),
-                getMuscleSet("Legs")),
+                getMuscleSet("Legs"), new TreeMap<>()),
             new Exercise(new Name("Strength Training"), new Date("12/12/2019"), new Calories("341"),
                 new Quantity("20"), new Unit("counts"),
-                getMuscleSet("Chest")),
+                getMuscleSet("Chest"), new TreeMap<>()),
             new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
                 new Quantity("10"), new Unit("laps"),
-                getMuscleSet("Calves")),
+                getMuscleSet("Calves"), new TreeMap<>()),
             new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
                 new Quantity("30"), new Unit("counts"),
-                getMuscleSet("Triceps")),
+                getMuscleSet("Triceps"), new TreeMap<>()),
             new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999"),
                 new Quantity("2.4"), new Unit("km"),
-                getMuscleSet("Legs"))
+                getMuscleSet("Legs"), new TreeMap<>())
         };
     }
 
@@ -51,39 +52,39 @@ public class SampleDataUtil {
         SortedUniqueResourceList<Exercise> list1 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         list1.add(new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
             new Quantity("10"), new Unit("counts"),
-            getMuscleSet("Legs")));
+            getMuscleSet("Legs"), new TreeMap<>()));
         list1.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
-            getMuscleSet("Triceps")));
+            getMuscleSet("Triceps"), new TreeMap<>()));
 
 
         SortedUniqueResourceList<Exercise> list2 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         list2.add(new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999"),
             new Quantity("2.4"), new Unit("km"),
-            getMuscleSet("Legs")));
+            getMuscleSet("Legs"), new TreeMap<>()));
         list2.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
-            getMuscleSet("Triceps")));
+            getMuscleSet("Triceps"), new TreeMap<>()));
         list2.add(new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
             new Quantity("10"), new Unit("laps"),
-            getMuscleSet("Calves")));
+            getMuscleSet("Calves"), new TreeMap<>()));
 
         SortedUniqueResourceList<Exercise> list3 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         list3.add(new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
             new Quantity("10"), new Unit("counts"),
-            getMuscleSet("Legs")));
+            getMuscleSet("Legs"), new TreeMap<>()));
         list3.add(new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
             new Quantity("10"), new Unit("laps"),
-            getMuscleSet("Calves")));
+            getMuscleSet("Calves"), new TreeMap<>()));
         list3.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
-            getMuscleSet("Triceps")));
+            getMuscleSet("Triceps"), new TreeMap<>()));
         list3.add(new Exercise(new Name("Cycling"), new Date("12/12/2019"), new Calories("284"),
             new Quantity("5"), new Unit("km"),
-            getMuscleSet("Legs")));
+            getMuscleSet("Legs"), new TreeMap<>()));
         list3.add(new Exercise(new Name("Strength Training"), new Date("12/12/2019"), new Calories("341"),
             new Quantity("20"), new Unit("counts"),
-            getMuscleSet("Chest")));
+            getMuscleSet("Chest"), new TreeMap<>()));
 
         return new Regime[]{
             new Regime(new Name("Level 1"), list1),
@@ -105,13 +106,13 @@ public class SampleDataUtil {
         return new Exercise[]{
             new Exercise(new Name("Running"), new Date("26/09/2019"), new Calories("333"),
                 new Quantity("2.4"), new Unit("km"),
-                getMuscleSet("Legs", "Cardio")),
+                getMuscleSet("Legs", "Cardio"), new TreeMap<>()),
             new Exercise(new Name("Push ups"), new Date("26/09/2019"), new Calories("50"),
                 new Quantity("60"), new Unit("counts"),
-                getMuscleSet("Chest", "Triceps")),
+                getMuscleSet("Chest", "Triceps"), new TreeMap<>()),
             new Exercise(new Name("Sit ups"), new Date("26/09/2019"), new Calories("50"),
                 new Quantity("60"), new Unit("counts"),
-                getMuscleSet("Abs", "Core"))
+                getMuscleSet("Abs", "Core"), new TreeMap<>())
         };
     }
 

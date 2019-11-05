@@ -501,7 +501,7 @@ Choice 2 seems like an ideal selection at the start as coupling is reduced and i
 of untestable code. However, certain issues arise:
 
 1. `AddCommandParser` and `EditCommandParser` have to gain access to the `CustomProperty` in order to ensure that the values entered
-for the custom properties in the add/edit commands are valid. However, as the `ExerciseBookParser` in the original https://xxx[code] base only takes in a
+for the custom properties in the add/edit commands are valid. However, as the `ExerciseBookParser` in the original code base only takes in a
 `String` as a parameter, there has to be another way of retrieving the custom properties. While we can change the
 `ExerciseBookParser` to take in a data structure containing `CustomProperty` objects, this does not seem good as its responsibility
 is just to ensure that a predefined command is entered and is passed to the correct command parser.

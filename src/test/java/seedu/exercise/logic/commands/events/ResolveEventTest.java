@@ -62,6 +62,7 @@ public class ResolveEventTest {
     }
 
     @Test
+
     public void redo_modelAfterUndoingResolveByTakingExistingRegime_modelWithConflictResolved() {
         resolveEvent = new ResolveEvent(RESOLVE_LEVEL_ONE_AND_LEVEL_TWO_CONFLICT_AND_TAKE_LEVEL_TWO_PAYLOAD);
         expectedModel.addSchedule(LEVEL_TWO_REGIME_DATE_1_SCHEDULE);

@@ -41,7 +41,7 @@ public class SuggestBasicCommandTest {
     public void execute_suggestBasic_success() {
         String expectedMessage = SuggestBasicCommand.MESSAGE_SUCCESS;
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGEST);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
         assertCommandSuccess(new SuggestBasicCommand(), model, expectedCommandResult, expectedModel);
     }
 

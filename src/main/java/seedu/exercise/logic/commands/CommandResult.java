@@ -3,7 +3,9 @@ package seedu.exercise.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.ui.ListResourceType;
 
 /**
@@ -39,17 +41,23 @@ public class CommandResult {
     private ListResourceType showListResourceType;
 
     /**
+     * The index of the resource to be selected
+     */
+    private Optional<Index> index;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp,
                          boolean isExit, boolean showResolve, boolean showCustomProperties,
-                         ListResourceType listResourceType) {
+                         ListResourceType listResourceType, Optional<Index> index) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = isExit;
         this.showResolve = showResolve;
         this.showCustomProperties = showCustomProperties;
         this.showListResourceType = listResourceType;
+        this.index = index;
     }
 
     /**
@@ -57,12 +65,24 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showResolve,
                          boolean showCustomProperties) {
-        this(feedbackToUser, showHelp, exit, showResolve, showCustomProperties, ListResourceType.NULL);
+        this(feedbackToUser, showHelp, exit, showResolve, showCustomProperties, ListResourceType.NULL,
+            Optional.empty());
     }
+
 
     public CommandResult(String feedbackToUser, ListResourceType listResourceType) {
         this(feedbackToUser);
         this.showListResourceType = listResourceType;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code index} and other
+     * fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, ListResourceType listResourceType, Optional<Index> index) {
+        this(feedbackToUser);
+        this.showListResourceType = listResourceType;
+        this.index = index;
     }
 
     /**
@@ -71,7 +91,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false, false,
-            ListResourceType.NULL);
+            ListResourceType.NULL, Optional.empty());
     }
 
     public String getFeedbackToUser() {
@@ -94,8 +114,16 @@ public class CommandResult {
         return showCustomProperties;
     }
 
+    public boolean isSelectResource() {
+        return index.isPresent();
+    }
+
     public ListResourceType getShowListResourceType() {
         return showListResourceType;
+    }
+
+    public Optional<Index> getSelectedIndex() {
+        return index;
     }
 
     @Override
@@ -115,13 +143,14 @@ public class CommandResult {
             && exit == otherCommandResult.exit
             && showResolve == otherCommandResult.showResolve
             && showCustomProperties == otherCommandResult.showCustomProperties
-            && showListResourceType.equals(otherCommandResult.showListResourceType);
+            && showListResourceType.equals(otherCommandResult.showListResourceType)
+            && index.equals(otherCommandResult.index);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit, showResolve,
-            showCustomProperties, showListResourceType);
+            showCustomProperties, showListResourceType, index);
     }
 
 }

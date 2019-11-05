@@ -82,7 +82,7 @@ public class SuggestPossibleCommandTest {
         expectedModel.updateSuggestedExerciseList(predicateMuscleAnd);
         String expectedMessage = SuggestPossibleCommand.MESSAGE_SUCCESS;
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGEST);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
         assertCommandSuccess(new SuggestPossibleCommand(predicateMuscleAnd),
             model, expectedCommandResult, expectedModel);
     }
@@ -96,7 +96,7 @@ public class SuggestPossibleCommandTest {
         expectedModel.updateSuggestedExerciseList(predicateCustomPropertyAnd);
         String expectedMessage = SuggestPossibleCommand.MESSAGE_SUCCESS;
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGEST);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
         assertCommandSuccess(new SuggestPossibleCommand(predicateCustomPropertyAnd),
             model, expectedCommandResult, expectedModel);
     }
