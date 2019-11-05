@@ -12,6 +12,7 @@ import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
 import seedu.address.model.loan.Loan;
 
 /**
@@ -36,6 +37,8 @@ public class DeleteByIndexCommand extends DeleteCommand {
         }
         Book bookToDelete = lastShownList.get(targetIndex.getZeroBased());
         if (bookToDelete.isCurrentlyLoanedOut()) {
+            Borrower borrower = model.getBorrowerFromId(bookToDelete.getLoan().get().getBorrowerId());
+            model.setServingBorrower(borrower);
             Loan loanToBeReturned = bookToDelete.getLoan().get();
             LocalDate returnDate = DateUtil.getTodayDate();
             Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, FINE_AMOUNT_ZERO);
@@ -45,6 +48,7 @@ public class DeleteByIndexCommand extends DeleteCommand {
 
             // mark book as returned
             super.markBookAsReturned(model, bookToDelete, returnedBook, loanToBeReturned, returnedLoan);
+            model.exitsServeMode();
             undoCommand = new UndeleteCommand(returnedBook, bookToDelete, returnedLoan, loanToBeReturned);
         } else {
             undoCommand = new AddCommand(bookToDelete);
