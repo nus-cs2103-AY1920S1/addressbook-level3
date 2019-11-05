@@ -44,14 +44,14 @@ public class CommandResult {
         if (warnings != null) {
             StringBuilder sb = new StringBuilder();
             for (String warning : warnings) {
-                sb.append(warning + '\n');
+                sb.append(warning).append('\n');
             }
             this.warnings = sb.deleteCharAt(sb.length() - 1).toString(); // remove trailing newline
         }
     }
 
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Tab switchTab) {
-        this(feedbackToUser, showHelp, exit, switchTab, null);
+        this(feedbackToUser, showHelp, exit, switchTab, new String[0]);
     }
 
     /**
@@ -67,7 +67,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, null, null);
+        this(feedbackToUser, false, false, null);
     }
 
     public String getFeedbackToUser() {
