@@ -230,14 +230,21 @@ The `delete` command allows for removal of multiple dishes with a single command
 The `delete` command takes in a `listOfIndex` passed to it by the `DeleteCommandParser`. The checking of valid integers
 is done by the `DeleteCommandParser`. Once the listOfIndex is passed to the `DeleteCommand`, it sorts the list from largest index
 to smallest index using the `Collections.sort(listOfIndex, Comparator.reverseOrder())`. The `DeleteCommand` then loops through
-the sorted list and remove the respective meals from the meal log.
+the sorted list and checks if the index is within the size of the meal log. If the index is valid, `DeleteCommand` will
+remove the respective meal from the meal log.
 
-The removal of meals is done through the `Model#removeMeal()` which would remove the meal from the meal log list.
+The removal of meals is done through the `Model#removeMeal(meal)` which would remove the meal from the meal log list.
+
+The following sequence diagram shows how the `delete` operation works when index 1 is deleted:
 
 image::DeleteSequenceDiagram.png[]
 
+Below is the activity diagram that summarises the scenario when "delete 1" is called by the user.
+
+image::DeleteActivityDiagram.png[]
+
 ==== Design Consideration
-==== Aspect: How is the meal removed
+===== Aspect: How is the meal removed
 
 * **Alternative 1 (Current Choice):** Removed after the listOfIndex is sorted.
 ** Pros: Prevent the reordering of the meal log causing the larger indexes to correspond to a different meal or
