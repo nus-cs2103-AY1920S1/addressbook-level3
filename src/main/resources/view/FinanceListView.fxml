@@ -1,52 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.SplitPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <Pane prefHeight="25.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="26.0" fitWidth="1240.0" pickOnBounds="true" preserveRatio="true" />
-         </children></Pane>
-   </top>
-   <bottom>
-      <Pane prefHeight="100.0" prefWidth="1240.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="96.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" />
-         </children></Pane>
-   </bottom>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <ProgressIndicator maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" progress="0.0" VBox.vgrow="ALWAYS" />
-            <Label />
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="500.0" fx:id="statisticHeader" textAlignment="CENTER" />
-            <Label fx:id="spentAmount" prefHeight="40.0" prefWidth="460.0" textAlignment="CENTER" wrapText="true" alignment="CENTER" />
-            <Label fx:id="remainingAmount" prefHeight="40.0" prefWidth="482.0" wrapText="true" textAlignment="CENTER" alignment="CENTER"/>
-         </children></VBox>
-   </center>
-   <right>
-      <VBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="500.0" fx:id="installmentListHeader" textAlignment="CENTER" />
-            <Label />
-            <ListView fx:id="installmentListView" prefWidth="200.0" />
-         </children>
-      </VBox>
-   </right>
-   <left>
-      <VBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="500.0" fx:id="purchaseListHeader" textAlignment="CENTER" />
-            <Label />
-            <ListView fx:id="purchaseListView" prefWidth="200.0" />
-         </children>
-      </VBox>
-   </left>
-</BorderPane>
+<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@cssfiles/FinanceTheme.css" />
+    </stylesheets>
+   <items>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+        <items>
+            <Label fx:id="purchaseListHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" styleClass="financeHeader_big_label" text="Label" textAlignment="CENTER">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <ListView fx:id="purchaseListView" />
+        </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.86" orientation="VERTICAL">
+        <items>
+            <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL" prefWidth="248.0" >
+              <items>
+                  <Label fx:id="installmentListHeader" alignment="CENTER" prefHeight="50.0" styleClass="financeHeader_big_label" text="Label" textAlignment="CENTER">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <ListView fx:id="installmentListView" depthTest="ENABLE" editable="true" pickOnBounds="false" />
+                  <Label fx:id="statisticHeader" alignment="CENTER" contentDisplay="CENTER" styleClass="financeHeader_big_label" text="Label" textAlignment="CENTER">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+              </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.5">
+              <items>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                    <items>
+                        <Label fx:id="spentAmountHeader" alignment="CENTER" styleClass="financeHeader_small_label" text="spent" textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="spentAmount" alignment="CENTER" styleClass="financeHeader_small_label" text="spentlabel" textAlignment="CENTER" wrapText="true" />
+                    </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                    <items>
+                        <Label fx:id="remainingAmountHeader" alignment="CENTER" contentDisplay="CENTER" styleClass="financeHeader_small_label" text="remain" textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="remainingAmount" alignment="CENTER" styleClass="financeHeader_small_label" text="remainlabel" textAlignment="CENTER" wrapText="true" />
+                    </items>
+                  </SplitPane>
+              </items>
+            </SplitPane>
+        </items>
+      </SplitPane>
+   </items>
+</SplitPane>
