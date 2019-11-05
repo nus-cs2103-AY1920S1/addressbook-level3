@@ -36,11 +36,7 @@ public class Option {
      * @return true if it is a valid option, false otherwise.
      */
     public static boolean isValidOption(String arg) {
-        if (arg.startsWith(DASH) && arg.length() > 1 && !arg.substring(1, 2).isBlank()) {
-            return true;
-        } else {
-            return false;
-        }
+        return arg.startsWith(DASH) && arg.length() > 1 && !arg.substring(1, 2).isBlank();
     }
 
     public String getOptionNameOnly() {
