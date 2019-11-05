@@ -104,19 +104,26 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (a.getValue(PREFIX_YEAR_OF_STUDY).isPresent()) {
             d.setYearOfStudy(ParserUtil.parseYearOfStudy(a.getValue(PREFIX_YEAR_OF_STUDY).get()));
         }
-        Emails emails = new Emails();
-        if (a.getValue(PREFIX_PERSONAL_EMAIL).isPresent()) {
-            emails.addPersonalEmail(ParserUtil.parseEmail(a.getValue(PREFIX_PERSONAL_EMAIL).get()));
+
+        if (a.getValue(PREFIX_PERSONAL_EMAIL).isPresent() || a.getValue(PREFIX_NUS_WORK_EMAIL).isPresent()) {
+            Emails emails = new Emails();
+            if (a.getValue(PREFIX_PERSONAL_EMAIL).isPresent()) {
+                emails.addPersonalEmail(ParserUtil.parseEmail(a.getValue(PREFIX_PERSONAL_EMAIL).get()));
+            }
+            if (a.getValue(PREFIX_NUS_WORK_EMAIL).isPresent()) {
+                emails.addNusEmail(ParserUtil.parseEmail(a.getValue(PREFIX_NUS_WORK_EMAIL).get()));
+            }
+            d.setEmails(emails);
         }
-        if (a.getValue(PREFIX_NUS_WORK_EMAIL).isPresent()) {
-            emails.addNusEmail(ParserUtil.parseEmail(a.getValue(PREFIX_NUS_WORK_EMAIL).get()));
-        }
-        d.setEmails(emails);
 
         // parse collections for edit
         parseTagsForEdit(a.getAllValues(PREFIX_TAG)).ifPresent(d::setTags);
-        parseDepartmentsForEdit(a.getAllValues(PREFIX_DEPARTMENT)).ifPresent(d::setDepartmentChoices);
-        parseSlotsForEdit(a.getAllValues(PREFIX_SLOT)).ifPresent(d::setAvailableTimeslots);
+        if (a.getValue(PREFIX_DEPARTMENT).isPresent()) {
+            parseDepartmentsForEdit(a.getAllValues(PREFIX_DEPARTMENT)).ifPresent(d::setDepartmentChoices);
+        }
+        if (a.getValue(PREFIX_SLOT).isPresent()) {
+            parseSlotsForEdit(a.getAllValues(PREFIX_SLOT)).ifPresent(d::setAvailableTimeslots);
+        }
     }
 
     /**
@@ -138,7 +145,9 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         // parse collections for edit
         parseTagsForEdit(a.getAllValues(PREFIX_TAG)).ifPresent(d::setTags);
-        parseSlotsForEdit(a.getAllValues(PREFIX_SLOT)).ifPresent(d::setAvailabilities);
+        if (a.getValue(PREFIX_SLOT).isPresent()) {
+            parseSlotsForEdit(a.getAllValues(PREFIX_SLOT)).ifPresent(d::setAvailabilities);
+        }
     }
 
     /**
@@ -163,12 +172,11 @@ public class EditCommandParser implements Parser<EditCommand> {
     private Optional<List<Department>> parseDepartmentsForEdit(Collection<String> departments) throws ParseException {
         assert departments != null;
 
-        if (departments.size() < 1) {
+        if (departments.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-        Collection<String> departmentSet = departments.size() == 1 && departments.contains("")
-                ? Collections.emptyList() : departments;
-        return Optional.of(ParserUtil.parseDepartments(departmentSet));
+
+        return Optional.of(ParserUtil.parseDepartments(departments));
     }
 
     /**
@@ -177,12 +185,11 @@ public class EditCommandParser implements Parser<EditCommand> {
     private Optional<List<Slot>> parseSlotsForEdit(Collection<String> slots) throws ParseException {
         assert slots != null;
 
-        if (slots.size() < 1) {
+        if (slots.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-        Collection<String> slotSet = slots.size() == 1 && slots.contains("")
-                ? Collections.emptyList() : slots;
-        return Optional.of(ParserUtil.parseSlots(slotSet));
+
+        return Optional.of(ParserUtil.parseSlots(slots));
     }
 
     /**

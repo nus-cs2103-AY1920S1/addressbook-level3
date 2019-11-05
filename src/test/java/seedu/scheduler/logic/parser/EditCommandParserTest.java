@@ -43,9 +43,9 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_SLOT_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_SLOT_BOB;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_YEAR_OF_STUDY_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.YEAR_OF_STUDY_DESC_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.YEAR_OF_STUDY_DESC_BOB;
-import static seedu.scheduler.logic.commands.EditCommand.MESSAGE_USAGE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_SLOT;
@@ -131,7 +131,8 @@ public class EditCommandParserTest {
 
         // invalid arguments being passed as preamble
         assertParseFailure(parser, "" + ROLE_DESC_BOB_INTVE, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, null + ROLE_DESC_BOB_INTVE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, " " + ROLE_DESC_BOB_INTVE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "    " + ROLE_DESC_BOB_INTVE, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -148,7 +149,8 @@ public class EditCommandParserTest {
 
         // invalid arguments being passed as preamble
         assertParseFailure(parser, "" + ROLE_DESC_AMY_INTVR, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, null + ROLE_DESC_AMY_INTVR, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, " " + ROLE_DESC_AMY_INTVR, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "    " + ROLE_DESC_AMY_INTVR, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -175,11 +177,11 @@ public class EditCommandParserTest {
 
         // invalid faculty - empty faculty
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
-                + INVALID_FACULTY_DESC, Name.MESSAGE_CONSTRAINTS);
+                + INVALID_FACULTY_DESC, Faculty.MESSAGE_CONSTRAINTS);
 
         // invalid faculty - blank spaces
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
-                + (" " + PREFIX_FACULTY + "    "), Name.MESSAGE_CONSTRAINTS);
+                + (" " + PREFIX_FACULTY + "    "), Faculty.MESSAGE_CONSTRAINTS);
 
         // invalid year of study - alphabets
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
@@ -227,21 +229,21 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
                 + TAG_DESC_HUSBAND + TAG_EMPTY + TAG_DESC_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
-        // parsing {@code PREFIX_DEPARTMENT} alone will result in parse command error,
+        // parsing {@code PREFIX_DEPARTMENT} alone will result in department parse error,
         // parsing it together with a valid department results in department parse error
         String DEPARTMENT_EMPTY = " " + PREFIX_DEPARTMENT;
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
-                + DEPARTMENT_EMPTY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+                + DEPARTMENT_EMPTY, Department.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
                 + DEPARTMENT_DESC_BOB + DEPARTMENT_EMPTY, Department.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
                 + DEPARTMENT_EMPTY + DEPARTMENT_DESC_BOB, Department.MESSAGE_CONSTRAINTS);
 
-        // parsing an empty {@code PREFIX_SLOT} alone will result in parse command error.
+        // parsing an empty {@code PREFIX_SLOT} alone will result in slot parse error.
         // Parsing it together with a valid slot will result in slot parse error.
         String SLOT_EMPTY = " " + PREFIX_SLOT;
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
-                + SLOT_EMPTY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+                + SLOT_EMPTY, Slot.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
                 + SLOT_DESC_BOB + SLOT_EMPTY, Slot.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
@@ -300,11 +302,11 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
                 + TAG_DESC_HUSBAND + TAG_EMPTY + TAG_DESC_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
-        // parsing an empty {@code PREFIX_SLOT} alone will result in parse command error.
+        // parsing an empty {@code PREFIX_SLOT} alone will result in slot parse error.
         // Parsing it together with a valid slot will result in slot parse error.
         String SLOT_EMPTY = " " + PREFIX_SLOT;
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
-                + SLOT_EMPTY, MESSAGE_INVALID_FORMAT);
+                + SLOT_EMPTY, Slot.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
                 + SLOT_DESC_AMY + SLOT_EMPTY, Slot.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
@@ -329,6 +331,8 @@ public class EditCommandParserTest {
         Email workEmail = new Email(VALID_NUS_WORK_EMAIL_AMY);
         Email personalEmail = new Email(VALID_PERSONAL_EMAIL_AMY);
         Emails emails = new Emails().addNusEmail(workEmail).addPersonalEmail(personalEmail);
+        Faculty faculty = new Faculty(VALID_FACULTY_AMY);
+        Integer yearOfStudy = Integer.valueOf(VALID_YEAR_OF_STUDY_AMY);
         List<Department> departmentList = List.of(new Department(VALID_DEPARTMENT_AMY));
         List<Slot> slotList = List.of(Slot.fromString(VALID_SLOT_AMY));
 
@@ -337,6 +341,8 @@ public class EditCommandParserTest {
         descriptor.setPhone(phone);
         descriptor.setTags(tagSet);
         descriptor.setEmails(emails);
+        descriptor.setFaculty(faculty);
+        descriptor.setYearOfStudy(yearOfStudy);
         descriptor.setDepartmentChoices(departmentList);
         descriptor.setAvailableTimeslots(slotList);
 
@@ -624,16 +630,16 @@ public class EditCommandParserTest {
         String DEPARTMENT_EMPTY = " " + PREFIX_DEPARTMENT;
         String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + DEPARTMENT_EMPTY;
 
-        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, userInput, Department.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_intervieweeResetSlots_failure() {
-        // when editing an interviewee, slots can also never be empty.
+        // when editing an interviewee, slots must also never be empty.
         String SLOT_EMPTY = " " + PREFIX_SLOT;
         String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + SLOT_EMPTY;
 
-        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, userInput, Slot.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -642,6 +648,6 @@ public class EditCommandParserTest {
         String SLOT_EMPTY = " " + PREFIX_SLOT;
         String userInput = VALID_NAME_AMY + ROLE_DESC_AMY_INTVR + SLOT_EMPTY;
 
-        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, userInput, Slot.MESSAGE_CONSTRAINTS);
     }
 }
