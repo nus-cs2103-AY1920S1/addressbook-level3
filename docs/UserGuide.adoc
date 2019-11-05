@@ -112,7 +112,8 @@ A account can have any number of tags (including 0). Only logged-in admins can a
 Examples:
 
 * `register n/John Doe p/98765432 e/johnd@example.com u/op1 w/password`
-* `register n/Betsy Crowe e/betsycrowe@example.com u/oc1 w/password p/1234567 t/Team-1-OC`
+* If logged in with an admin account: +
+`register n/Betsy Crowe e/betsycrowe@example.com u/oc1 w/password p/1234567 t/Team-1-OC`
 
 === Updating an account : `update`
 
@@ -161,6 +162,7 @@ Examples:
 Displays the entire list of accounts
 * `list-a team-1 admin` +
 Returns a list of all accounts that have both the `admin` and `team-1` tag
+// end::account[]
 
 === Locating accounts by name or username: `find-a`
 
@@ -180,9 +182,8 @@ Examples:
 
 * `find-a John` +
 Returns `john` and `John Doe`
-* `find-a Betsy agent` +
-Returns any account having names or usernames `Betsy` or `agent`
 
+// tag::AccountDelete[]
 === Deleting an account : `delete-a`
 
 Deletes the specified account from the incident Manager. +
@@ -201,7 +202,7 @@ Examples:
 
 * `list-a` +
 `delete-a 2` +
-Deletes the 2nd account in the incident Manager.
+Deletes the 2nd account in the Incident Manager.
 * `find-a Agent01` +
 `delete-a 1` +
 Deletes the 1st account in the results of the `find` command.
@@ -209,8 +210,7 @@ Deletes the 1st account in the results of the `find` command.
 ==== Incident Auto Update `[coming in v2.0]`
 
 Deleting a user will search for all incidents created by the user and place a `deleted` flag next to the account details.
-
-// end::account[]
+// end::AccountDelete[]
 
 // tag::incident[]
 

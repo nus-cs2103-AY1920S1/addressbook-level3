@@ -45,6 +45,11 @@ include::../UserGuide.adoc[tag=access]
 
 include::../UserGuide.adoc[tag=account]
 
+include::../UserGuide.adoc[tag=AccountDelete]
+
+[NOTE]
+Omitted from this portfolio for page requirement constraints is the `find-a` command from the user guide.
+
 == Contributions to the Developer Guide
 
 |===
