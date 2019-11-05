@@ -189,6 +189,8 @@ public class LoansManager {
 
         LoansManager otherLoansManager = (LoansManager) other;
         return getLoans().equals(otherLoansManager.getLoans())
-                && getDebtors().equals(otherLoansManager.getDebtors());
+                && getDebtors().equals(otherLoansManager.getDebtors())
+                && getFilteredLoans().equals(otherLoansManager.getFilteredLoans())
+                && sorter.equals(otherLoansManager.sorter);
     }
 }
