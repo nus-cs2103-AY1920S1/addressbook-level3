@@ -21,6 +21,7 @@ import budgetbuddy.logic.rules.RuleEngine;
 import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
@@ -52,42 +53,42 @@ public class TransactionAddCommand extends ScriptCommand {
     public static final String MESSAGE_FAILURE = "Error adding transaction.";
 
     private final Transaction toAdd;
-    private final Account toAccount;
+    private final Name toAccountName;
+    private Account toAccount;
 
     /**
      * Creates an AddTransactionCommand to add the specified {@code Transaction}
      */
-    public TransactionAddCommand(Transaction toAdd, Account toAccount) {
+    public TransactionAddCommand(Transaction toAdd, Name toAccountName) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
-        this.toAccount = toAccount;
+        this.toAccountName = toAccountName;
     }
 
     @Override
     public CommandResult execute(Model model, ScriptEngine scriptEngine) throws CommandException {
         requireAllNonNull(model, model.getAccountsManager(), scriptEngine);
 
-        Account realToAccount;
 
-        if (toAccount != null) {
-            realToAccount = model.getAccountsManager().getAccount(toAccount.getName());
+        if (toAccountName != null) {
+            toAccount = model.getAccountsManager().getAccount(toAccountName);
         } else {
-            realToAccount = model.getAccountsManager().getActiveAccount();
+            toAccount = model.getAccountsManager().getActiveAccount();
         }
 
-        if (realToAccount == null) {
-            throw new CommandException(String.format(MESSAGE_ACCOUNT_NOT_FOUND, toAccount.getName()));
+        if (toAccount == null) {
+            throw new CommandException(String.format(MESSAGE_ACCOUNT_NOT_FOUND, toAccountName));
         }
 
         try {
-            realToAccount.addTransaction(toAdd);
+            toAccount.addTransaction(toAdd);
         } catch (Exception e) {
             return new CommandResult(MESSAGE_FAILURE, CommandCategory.TRANSACTION);
         }
-        Index txnIndex = Index.fromOneBased(realToAccount.getTransactionList().getTransactionsCount());
-        RuleEngine.executeRules(model, scriptEngine, txnIndex, realToAccount);
+        Index txnIndex = Index.fromOneBased(toAccount.getTransactionList().getTransactionsCount());
+        RuleEngine.executeRules(model, scriptEngine, txnIndex, toAccount);
 
-        model.getAccountsManager().transactionListSwitchSource(realToAccount);
+        model.getAccountsManager().transactionListSwitchSource(toAccount);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.TRANSACTION);
     }
 }

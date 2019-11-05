@@ -29,6 +29,7 @@ import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
@@ -68,15 +69,16 @@ public class TransactionEditCommand extends ScriptCommand {
 
     private final Index targetTransactionIndex;
     private final TransactionEditDescriptor updatedTransactionDescriptor;
+    private Name targetAccountName;
     private Account targetAccount;
 
     public TransactionEditCommand(Index targetTransactionIndex,
                                   TransactionEditDescriptor updatedTransactionDescriptor,
-                                  Account targetAccount) {
+                                  Name targetAccountName) {
         requireAllNonNull(targetTransactionIndex, updatedTransactionDescriptor);
         this.targetTransactionIndex = targetTransactionIndex;
         this.updatedTransactionDescriptor = new TransactionEditDescriptor(updatedTransactionDescriptor);
-        this.targetAccount = targetAccount;
+        this.targetAccountName = targetAccountName;
     }
 
     @Override
@@ -94,8 +96,10 @@ public class TransactionEditCommand extends ScriptCommand {
             accountsManager.getActiveAccount().deleteTransaction(targetTransaction);
 
             //target account is set to the active account if not provided.
-            if (targetAccount == null) {
+            if (targetAccountName == null) {
                 targetAccount = model.getAccountsManager().getActiveAccount();
+            } else {
+                targetAccount = model.getAccountsManager().getAccount(targetAccountName);
             }
 
             Transaction updatedTransaction = updateTransaction(targetTransaction, updatedTransactionDescriptor,
@@ -139,7 +143,7 @@ public class TransactionEditCommand extends ScriptCommand {
      */
     private Transaction updateTransaction(Transaction targetTransaction,
                                           TransactionEditDescriptor transactionEditDescriptor,
-                                          Account targetAccount,
+                                          Account prevAccount,
                                           Account updatedAccount) throws CommandException {
 
         LocalDate updatedDate = transactionEditDescriptor.getDate().isPresent()
@@ -165,7 +169,7 @@ public class TransactionEditCommand extends ScriptCommand {
         Transaction updatedTransaction = new Transaction(updatedDate, updatedAmount, updatedDirection,
                 updatedDescription, updatedCategories);
 
-        if (targetTransaction.equals(updatedTransaction) && targetAccount.equals(updatedAccount)) {
+        if (targetTransaction.equals(updatedTransaction) && prevAccount.equals(updatedAccount)) {
             //no updates were made
             throw new CommandException(MESSAGE_UNEDITED);
         }

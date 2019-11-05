@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
@@ -26,7 +25,6 @@ import budgetbuddy.model.rule.script.ActionScript;
 import budgetbuddy.model.rule.script.PredicateScript;
 import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Amount;
-import budgetbuddy.model.transaction.TransactionList;
 
 /**
  * Contains utility methods used for parsing strings in the various *CommandParser classes.
@@ -65,15 +63,19 @@ public class CommandParserUtil {
     }
 
     /**
-     * Parses a {@code String account} into an {@code Amount}.
+     * Parses a {@code String account} into an {@code Name} of an Account.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code account} is invalid.
+     * @throws ParseException if the given {@code accountName} is invalid.
      */
-    public static Account parseAccount(String account) {
-        requireNonNull(account);
-        String trimmedAccount = account.trim();
-        return new Account(new Name(trimmedAccount), new Description("null"), new TransactionList(), 0);
+    public static Name parseAccountName(String accountName) throws ParseException {
+        requireNonNull(accountName);
+        String trimmedAccount = accountName.trim();
+        try {
+            return new Name(trimmedAccount);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException("Name is invalid");
+        }
     }
 
     /**

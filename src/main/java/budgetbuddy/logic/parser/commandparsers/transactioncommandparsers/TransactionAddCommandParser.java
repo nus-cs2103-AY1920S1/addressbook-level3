@@ -22,10 +22,10 @@ import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 
@@ -63,9 +63,9 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
                 ? CommandParserUtil.parseDescription(optionalDescription.get())
                 : null;
 
-        Optional<String> optionalAccount = argMultiMap.getValue(PREFIX_ACCOUNT);
-        Account account = optionalAccount.isPresent()
-                ? CommandParserUtil.parseAccount(optionalAccount.get())
+        Optional<String> optionalAccountName = argMultiMap.getValue(PREFIX_ACCOUNT);
+        Name accountName = optionalAccountName.isPresent()
+                ? CommandParserUtil.parseAccountName(optionalAccountName.get())
                 : null;
 
         List<String> categoriesList = argMultiMap.getAllValues(PREFIX_CATEGORY);
@@ -84,7 +84,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
 
         Transaction transaction = new Transaction(date, amount, direction, description, categoriesSet);
 
-        return new TransactionAddCommand(transaction, account);
+        return new TransactionAddCommand(transaction, accountName);
     }
 
     /**

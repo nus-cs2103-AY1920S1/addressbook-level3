@@ -20,8 +20,8 @@ import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
+import budgetbuddy.model.attributes.Name;
 
 /**
  * Parses input and creates a new TransactionAddCommand
@@ -83,10 +83,10 @@ public class TransactionEditCommandParser implements CommandParser {
             transactionEditDescriptor.setCategories(newCategories);
         }
 
-        Account updatedAccount = argMultiMap.getValue(PREFIX_ACCOUNT).isPresent()
-                ? CommandParserUtil.parseAccount(argMultiMap.getValue(PREFIX_ACCOUNT).get())
+        Name updatedAccountName = argMultiMap.getValue(PREFIX_ACCOUNT).isPresent()
+                ? CommandParserUtil.parseAccountName(argMultiMap.getValue(PREFIX_ACCOUNT).get())
                 : null;
 
-        return new TransactionEditCommand(transactionIndex, transactionEditDescriptor, updatedAccount);
+        return new TransactionEditCommand(transactionIndex, transactionEditDescriptor, updatedAccountName);
     }
 }
