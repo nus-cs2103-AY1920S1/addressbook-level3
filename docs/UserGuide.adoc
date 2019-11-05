@@ -139,8 +139,7 @@ Format: `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_
 * `SHOW_TYPE` can only be 'movie' or 'tv'
 * `WATCHED` can only be 'true' or 'false'
 * `RUNNING_TIME` can be any number above 0
-
-[TIPS]
+[TIP]
 A show can have any number of actors (including 0)
 
 Examples:
