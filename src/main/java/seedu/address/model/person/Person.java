@@ -187,24 +187,27 @@ public class Person implements Binnable {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-            .append(" NRIC: ")
+            .append("\n")
+            .append("NRIC: ")
             .append(getNric())
-            .append(" Phone: ")
+            .append("; Phone: ")
             .append(getPhone())
-            .append(" Email: ")
+            .append("; Email: ")
             .append(getEmail())
-            .append(" Address: ")
+            .append("; Address: ")
             .append(getAddress())
-            .append(" Date of birth: ")
+            .append("; Date of Birth: ")
             .append(getDateOfBirth())
-            .append(" Gender: ")
+            .append("; Gender: ")
             .append(getGender());
         if (getPolicies().size() != 0) {
-            builder.append(" Policies: ");
-            getPolicies().forEach(policy -> builder.append(policy.getName().policyName));
+            builder.append("\n");
+            builder.append("Policies: ");
+            getPolicies().forEach(policy -> builder.append("[" + policy.getName().policyName + "]"));
         }
         if (getTags().size() != 0) {
-            builder.append(" Tags: ");
+            builder.append("\n");
+            builder.append("Tags: ");
             getTags().forEach(builder::append);
         }
         return builder.toString();

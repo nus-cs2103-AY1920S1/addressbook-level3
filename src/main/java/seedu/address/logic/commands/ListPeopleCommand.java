@@ -12,7 +12,7 @@ public class ListPeopleCommand extends Command {
 
     public static final String COMMAND_WORD = "listpeople";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all people.";
 
 
     @Override

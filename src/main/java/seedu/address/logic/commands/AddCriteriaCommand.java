@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CRITERIA;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_POLICIES;
 
 import java.util.ArrayList;
@@ -25,9 +26,10 @@ public class AddCriteriaCommand extends Command {
     public static final String COMMAND_WORD = "addcriteria";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds criteria to the policy identified "
-            + "by the index number used in the last policy listing. "
+            + "by the index number used in the last policy listing.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "t/ CRITERIA [MORE_CRITERIA] (will be converted to lowercase)\n"
+            + PREFIX_CRITERIA
+            + "CRITERIA [MORE_CRITERIA] (will be converted to lowercase)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "cr/life cr/accident";
 
