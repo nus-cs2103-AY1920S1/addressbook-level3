@@ -1,5 +1,7 @@
 package dukecooks.ui;
 
+import java.time.format.DateTimeFormatter;
+
 import dukecooks.model.workout.Workout;
 
 import javafx.fxml.FXML;
@@ -33,7 +35,9 @@ public class WorkoutCard extends UiPart<Region> {
         workoutName.setText(displayedIndex + ". " + workout.getName().workoutName);
         noExercises.setText("No. Exercises: " + workout.getExercises().size());
         if (!workout.getHistory().getPreviousRuns().isEmpty()) {
-            lastDone.setText("Last Done: " + workout.getHistory().getMostRecentRun().getTimeEnded());
+            lastDone.setText("Last Done: " + workout.getHistory().getMostRecentRun()
+                    .getTimeEnded()
+                    .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
         }
     }
 

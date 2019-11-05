@@ -145,7 +145,7 @@ public class DiaryListPanel extends UiPart<Region> {
      * Switch view within Diary Panel.
      */
     @FXML
-    void handleSwitch(String type) {
+    public void handleSwitch(String type) {
         String[] typeArr = type.split("-", 2);
         switch (typeArr[0]) {
         case "all":

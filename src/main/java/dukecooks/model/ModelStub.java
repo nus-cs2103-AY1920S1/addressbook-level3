@@ -21,6 +21,7 @@ import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
 import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.model.workout.exercise.components.ExerciseName;
 import javafx.collections.ObservableList;
 
 /**
@@ -276,6 +277,11 @@ public class ModelStub implements Model {
 
     @Override
     public ReadOnlyExerciseCatalogue getExerciseCatalogue() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Exercise findExercise(ExerciseName name) {
         throw new AssertionError("This method should not be called.");
     }
 

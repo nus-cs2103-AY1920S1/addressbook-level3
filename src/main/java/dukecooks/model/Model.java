@@ -21,6 +21,7 @@ import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
 import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.model.workout.exercise.components.ExerciseName;
 import javafx.collections.ObservableList;
 
 /**
@@ -325,6 +326,11 @@ public interface Model {
      * The exercise must exist in Duke Cooks.
      */
     void deleteExercise(Exercise target);
+
+    /**
+     * Returns exercise in WorkoutPlanner with the ExerciseName.
+     */
+    Exercise findExercise(ExerciseName name);
 
     /**
      * Replaces the given exercise {@code target} with {@code editedExercise}.
