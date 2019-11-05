@@ -17,23 +17,20 @@ The Incident Management System is a desktop application used for managing incide
 ** Highlights: This enhancement affects existing commands and can be easily applied to any commands added in future. It required an in-depth analysis of the product architecture and design alternatives. The implementation too was challenging as it required thorough assessment of loopholes and potential security vulnerabilities.
 
 * *Minor Enhancement*: Implemented *Account Management*
-** What it does: Allows users the ability to manage their own account or other accounts if granted privileged access.
-** Justification: This feature is necessary for the effective application of access control.
+** Summary: Allows users the ability to manage their own account or other accounts if granted privileged access. This feature is necessary for the effective application of access control.
 ** Highlights: This enhancement required extensive overhauls of existing code, along with in-depth analysis of the GUI design for its implementation.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=madanalogy[View on RepoSense]]
 
 * *Other contributions*:
 
-** Project management:
+** Project Management & Team Tasks:
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-** Team tasks:
 *** Implemented the Session API for all developers to access account features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/66[#66]]
 *** Morphed Person Model to deal with new Account Features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/48[#48]]
 *** Refactored Address Book references to Incident Manager [https://github.com/AY1920S1-CS2103-T11-1/main/pull/111[#111]]
-** Enhancements to existing features:
+** Tools & Enhancements to existing features:
 *** Improved the GUI to function in varying screen resolutions [https://github.com/AY1920S1-CS2103-T11-1/main/pull/69[#69]]
-** Tools:
 *** Integrated new Github plugins (Coveralls & Codacy) to the team repo
 
 
