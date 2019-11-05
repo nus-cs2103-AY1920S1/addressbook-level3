@@ -37,6 +37,9 @@ public class Attendance {
      * @param training Training to add.
      */
     public void addTraining(Training training) {
+        if (this.hasTrainingOnDate(training.getDate())) {
+            this.deleteTrainingOnDate(training.getDate());
+        }
         this.trainings.add(training);
         this.trainings.sort(new Comparator<Training>() {
             @Override

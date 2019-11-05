@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.person.Person;
 
 /**
  * Adds a training session of players specified by the indexes on the specified date.
@@ -16,8 +18,8 @@ import seedu.address.model.date.AthletickDate;
 public abstract class TrainingCommand extends Command {
 
     public static final String COMMAND_WORD = "training";
-    public static final String TRAINING_ADD_SUCCESS = "Training successfully added.";
-    public static final String DUPLICATE_TRAINING = "Training already exists on this date.";
+    public static final String TRAINING_ADD_SUCCESS = "Training successfully added on %s.";
+    public static final String TRAINING_REPLACE_SUCCESS = "Training successfully replaced on %s.";
 
     private AthletickDate date;
     private List<Index> indexList;
@@ -66,5 +68,17 @@ public abstract class TrainingCommand extends Command {
     @Override
     public boolean isUndoable() {
         return true;
+    }
+
+    /**
+     * Checks with the model if person indexes are valid.
+     */
+    protected static void checkIndexesValid(List<Index> indexes, Model model) throws CommandException {
+        List<Person> lastShownList = model.getFilteredPersonList();
+        for (Index index : indexes) {
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+        }
     }
 }
