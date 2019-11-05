@@ -146,7 +146,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some important details on how the features are implemented
 
 === Help feature
-The `help` command allows for users to Generate a `Help` object in FinSec. It then provides one of various types of help dependant on the request of the user.
+The `help` command allows for users to generate a `HelpCommand` object in FinSec. It then provides one of various types of help dependant on the request of the user.
 
 The format for the `help` command is as follows:
 
@@ -159,7 +159,7 @@ After the parameters have been parsed, the relevant `CommandResult` object will 
 
 ==== Current Implementation
 
-The activity diagram below shows how it would look like from a user's point of view during the creation of a `Help` object.
+The activity diagram below shows how it would look like from a user's point of view during the creation of a `HelpCommand` object.
 
 <<helpActDiagram>> describes the workflow of the `help` command
 command is entered.
@@ -167,7 +167,7 @@ command is entered.
 [reftext="Figure 2.1.2.1"]
 [caption="Figure 2.1.2.1: "]
 .Activity diagram of the `help` command
-image::DG-HelpActivityDiagram.png[width="800"]
+image::DG-HelpActivityDiagram.PNGFD[width="800"]
 
 The series of steps below explain the process and current implementation of the `help` command.
 
@@ -597,7 +597,7 @@ command is entered.
 [reftext="Figure 2.5.2.2"]
 [caption="Figure 2.5.2.2: "]
 .Activity diagram of the `budget` command
-image::DG-BudgetActivityDiagram.png[width="800"]
+image::DG-BudgetActivityDiagram.PNG[width="800"]
 
 The series of steps below demonstrates what the `BudgetGraph` object does in parallel to Step 6 above.
 
