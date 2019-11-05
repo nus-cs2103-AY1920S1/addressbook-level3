@@ -1,15 +1,25 @@
 = Koh Yi Da image:kohyida1997.png[icon, 70, 70] - Project Portfolio
 :site-section: AboutUs
+:toc:
+:toc-title: Table of Contents
+:toc-placement: preamble
+:sectnums:
 :imagesDir: ../images/
 :stylesDir: ../stylesheets/
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
 
-== _Project: Dukemon_ image:address_book_32.png[icon, 39, 36]
+Project: `Dukemon` image:address_book_32.png[icon, 30, 36]
+
+image:github-mark.png[width=30] _Github Repo:_ https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]
 
 ---
 
-_Github Repo:_ https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]
-
-== *Overview of Dukemon* image:address_book_32.png[icon, 39, 36]
+== image:address_book_32.png[icon, 39, 36] Overview of _Dukemon_
 
 .The Home Page of Dukemon upon initial start-up.
 image::Ui.png[width="790"]
@@ -31,9 +41,9 @@ and so much more. +
 Below are some *highlights* of the important contributions that I have made to the
 development of *_Dukemon_*.
 
-== Contributions - Summary image:work-icon.png[width=50]
+== image:work-icon.png[width=50] Contributions - Summary
 
-=== Primary Enhancements - Timer and Hints image:game_timer_icon.png[width="25"]
+=== image:game_timer_icon.png[width="22"] Primary Enhancements - Timer and Hints
 
 .UI Display of Dukemon in Game Mode, showing the different features I implemented.
 image::UserGuideGameSessionDiagram1.png[width="650"]
@@ -83,7 +93,7 @@ the _Timer_ effectively.
 
 
 
-=== Other Enhancements - Game image:game_mode_icon.png[width=50]
+=== image:game_mode_icon.png[width=35] Other Enhancements - Game
 
 * *Implemented and designed the _Game_ logic, UI and Difficulty.*
 
@@ -98,7 +108,7 @@ are also automatically generated and shown to the user (region in blue box above
 [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/model/game[Test code (Game)]] +
 
 
-=== Other contributions image:documents_icon.png[width=30]
+=== image:documents_icon.png[width=30] Other contributions
 
 ** [underline]#_Project management_#:
 *** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
@@ -123,7 +133,7 @@ https://github.com/AY1920S1-CS2103T-T11-2/main/commit/d88513c8c11c6e10b0852c078d
 *** Integrated a 3rd-party testing library (https://github.com/TestFX/TestFX[TestFX]) to the project (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/79[#79])
 *** Integrated https://github.com/TestFX/TestFX[TestFX] with team repo's automatic Travis CI builds. (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/113[#113])
 
-== Contributions - User Guide image:user-manual-icon.png[width=45]
+== image:user-manual-icon.png[width=45] Contributions - User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -135,7 +145,7 @@ include::../UserGuide.adoc[tag=yida-quickstart]
 
 include::../UserGuide.adoc[tag=yida-game]
 
-== Contributions - Developer Guide image:source-code-icon.png[width=40]
+== image:source-code-icon.png[width=40] Contributions - Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
@@ -149,7 +159,7 @@ include::../DeveloperGuide.adoc[tag=yida-game]
 
 include::../DeveloperGuide.adoc[tag=yida-timer]
 
-== More information about my Works:
+== image:bag-icon.png[width=35] Other Works
 
 ---
 

@@ -103,6 +103,9 @@ public class ParserManager {
 
     }
 
+    /**
+     * Checks if {@code text} specifies a valid command.
+     */
     private boolean checkIfCommandIsValid(String text) {
         List<ModeEnum> allModes = new ArrayList<>();
         allModes.add(ModeEnum.OPEN);
@@ -118,7 +121,7 @@ public class ParserManager {
                     return true;
                 }
             } catch (ParseException e) {
-
+                e.printStackTrace();
             }
         }
         return false;
