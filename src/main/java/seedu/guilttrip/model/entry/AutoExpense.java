@@ -110,9 +110,9 @@ public class AutoExpense extends Entry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(ENTRY_TYPE + ": ").append(getDesc()).append(" Amount: ").append(getAmount()).append(" Tags: ");
+        builder.append(getDesc()).append(" Amount: ").append(getAmount()).append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("( every " + freq + ", last updated:" + getLastTime() + ")");
+        builder.append("(every " + freq + ", last updated: " + getLastTime() + ")");
         return builder.toString();
     }
 

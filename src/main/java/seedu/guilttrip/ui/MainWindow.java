@@ -73,9 +73,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    /*@FXML
-    private StackPane entryListPanelPlaceholder;*/
-
     @FXML
     private VBox entryList;
 
