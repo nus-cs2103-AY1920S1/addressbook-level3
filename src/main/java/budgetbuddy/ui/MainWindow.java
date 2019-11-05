@@ -265,6 +265,10 @@ public class MainWindow extends UiPart<Stage> {
                 case SHOW_FILE_PICKER:
                     // TODO
                     break;
+                default:
+                    assert false : "Unhandled command continuation type";
+                    logger.warning("Unhandled command continuation type");
+                    break;
                 }
             }
 
