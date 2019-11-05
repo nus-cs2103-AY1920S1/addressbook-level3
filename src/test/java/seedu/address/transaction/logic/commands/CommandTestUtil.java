@@ -15,6 +15,7 @@ import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.util.Arrays;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
@@ -61,7 +62,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model transactionModel,
                                             CommandResult expectedCommandResult,
                                             Model expectedModel,
-                                            seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+                                            CheckAndGetPersonByNameModel personModel) {
         try {
             CommandResult result = command.execute(transactionModel, personModel);
             System.out.println("inside test util:" + expectedCommandResult.getFeedbackToUser());
@@ -78,13 +79,13 @@ public class CommandTestUtil {
     /**
      * Convenience wrapper to
      * {@link #assertCommandSuccess(Command, Model, CommandResult, Model,
-     * seedu.address.person.model.GetPersonByNameOnlyModel)}
+     * CheckAndGetPersonByNameModel)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model transactionModel,
                                             String expectedMessage,
                                             Model expectedModel,
-                                            seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+                                            CheckAndGetPersonByNameModel personModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, transactionModel, expectedCommandResult, expectedModel, personModel);
     }
@@ -96,7 +97,7 @@ public class CommandTestUtil {
      * - the transaction list, filtered transaction list in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
-                                            seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+                                            CheckAndGetPersonByNameModel personModel) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         TransactionList transactionList = actualModel.getTransactionList();

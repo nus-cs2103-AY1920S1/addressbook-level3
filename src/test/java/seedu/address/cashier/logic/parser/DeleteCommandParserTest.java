@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.DeleteCommand;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
@@ -27,23 +28,26 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgsWithinBounds_returnsDeleteCommand() {
         DeleteCommand deleteCommand = new DeleteCommand(1);
-        assertCommandParserSuccess(parser, " 1", deleteCommand, model, personModel);
+        assertCommandParserSuccess(parser, " 1", deleteCommand, model,
+                (CheckAndGetPersonByNameModel) personModel);
     }
 
     @Test
     public void parse_invalidArgs_notANumberPrefix() {
-        assertCommandParserFailure(parser, " abc", CashierMessages.INDEX_NOT_A_NUMBER, model, personModel);
+        assertCommandParserFailure(parser, " abc", CashierMessages.INDEX_NOT_A_NUMBER, model,
+                (CheckAndGetPersonByNameModel) personModel);
     }
 
     @Test
     public void parse_invalidArgs_negativePrefix() {
-        assertCommandParserFailure(parser, " -5", NO_SUCH_INDEX_CASHIER, model, personModel);
+        assertCommandParserFailure(parser, " -5", NO_SUCH_INDEX_CASHIER, model,
+                (CheckAndGetPersonByNameModel) personModel);
     }
 
     @Test
     public void parse_validArgsWithOtherPrefix_returnsDeleteCommand() {
         DeleteCommand deleteCommand = new DeleteCommand(1);
         assertCommandParserSuccess(parser, " 1" + DESC_DESCRIPTION_FISH_BURGER,
-                deleteCommand, model, personModel);
+                deleteCommand, model, (CheckAndGetPersonByNameModel) personModel);
     }
 }

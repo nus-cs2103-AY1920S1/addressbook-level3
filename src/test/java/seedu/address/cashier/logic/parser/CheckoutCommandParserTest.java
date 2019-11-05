@@ -18,8 +18,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.CheckoutCommand;
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.inventory.util.InventoryList;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
@@ -28,10 +29,11 @@ import seedu.address.testutil.TypicalTransactions;
 public class CheckoutCommandParserTest {
 
     private CheckoutCommandParser parser = new CheckoutCommandParser();
-    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
     private seedu.address.person.model.Model personModel =
-            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+            new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     public void setInventoryList() {
         InventoryList inventoryList = new InventoryList();
@@ -47,14 +49,16 @@ public class CheckoutCommandParserTest {
 
         // with no sales item
         assertCommandParserSuccess(parser, DESC_PRICE_PAID,
-                new CheckoutCommand(0, VALID_PRICE_PAID), model, personModel);
+                new CheckoutCommand(0, VALID_PRICE_PAID), model,
+                (CheckAndGetPersonByNameModel) personModel);
 
         // with sales item added
         model.addItem(FISH_BURGER);
         model.addItem(STORYBOOK);
         double totalAmount = FISH_BURGER.getSubtotal() + STORYBOOK.getSubtotal();
         assertCommandParserSuccess(parser, DESC_PRICE_PAID,
-                new CheckoutCommand(totalAmount, VALID_PRICE_PAID - totalAmount), model, personModel);
+                new CheckoutCommand(totalAmount, VALID_PRICE_PAID - totalAmount), model,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
@@ -63,7 +67,8 @@ public class CheckoutCommandParserTest {
         model.clearSalesList();
         model.setCashier(new PersonBuilder().build());
         model.addItem(STORYBOOK);
-        assertCommandParserFailure(parser, INVALID_PRICE_PAID_3, AMOUNT_NOT_A_NUMBER, model, personModel);
+        assertCommandParserFailure(parser, INVALID_PRICE_PAID_3, AMOUNT_NOT_A_NUMBER, model,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
@@ -75,20 +80,23 @@ public class CheckoutCommandParserTest {
         model.addItem(CHIPS);
         double totalAmount = CHIPS.getSubtotal();
         String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
-        assertCommandParserFailure(parser, INVALID_PRICE_PAID_2, message, model, personModel);
+        assertCommandParserFailure(parser, INVALID_PRICE_PAID_2, message, model,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
     @Test
     public void parse_cashierNotSet_failure() {
-        assertCommandParserFailure(parser, DESC_PRICE_PAID, NO_CASHIER, model, personModel);
+        assertCommandParserFailure(parser, DESC_PRICE_PAID, NO_CASHIER, model,
+                (CheckAndGetPersonByNameModel) personModel);
     }
 
     @Test
     public void parse_extraPrefix_success() {
         model.setCashier(new PersonBuilder().build());
         assertCommandParserSuccess(parser, DESC_PRICE_PAID + DESC_DESCRIPTION_FISH_BURGER,
-                new CheckoutCommand(0, VALID_PRICE_PAID), model, personModel);
+                new CheckoutCommand(0, VALID_PRICE_PAID), model,
+                (CheckAndGetPersonByNameModel) personModel);
     }
 
 }

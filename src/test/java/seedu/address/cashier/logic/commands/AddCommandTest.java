@@ -13,10 +13,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.stubs.CashierModelStubAcceptingItemAdded;
 import seedu.address.stubs.InventoryModelStubAcceptingItemAdded;
@@ -26,11 +27,12 @@ import seedu.address.testutil.TypicalTransactions;
 public class AddCommandTest {
 
 
-    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
 
     private seedu.address.person.model.Model personModel =
-            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+            new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullDescription_throwAssertionException() {
@@ -54,7 +56,7 @@ public class AddCommandTest {
         Item anotherItem = TypicalItem.CHIPS;
         AddCommand addCommand = new AddCommand(anotherItem.getDescription(),
                 anotherItem.getQuantity());
-        CommandResult commandResult = addCommand.execute(modelStubWithItem, personModel);
+        CommandResult commandResult = addCommand.execute(modelStubWithItem, (CheckAndGetPersonByNameModel) personModel);
 
         assertEquals(String.format(MESSAGE_ADDED_ITEM, anotherItem.getQuantity(), anotherItem.getDescription()),
                 commandResult.getFeedbackToUser());
@@ -75,7 +77,8 @@ public class AddCommandTest {
                 anotherItem.getQuantity());
 
         String expectedMessage = CashierMessages.NO_SUCH_ITEM_CASHIER;
-        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, personModel);
+        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
@@ -91,7 +94,7 @@ public class AddCommandTest {
 
         String message = String.format(MESSAGE_INSUFFICIENT_STOCK,
                 anotherItem.getQuantity(), anotherItem.getDescription());
-        assertCommandFailure(addCommand, model, message, personModel);
+        assertCommandFailure(addCommand, model, message, (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
@@ -108,7 +111,8 @@ public class AddCommandTest {
                 anotherItem.getQuantity());
         String expectedMessage = NO_SUCH_ITEM_FOR_SALE_CASHIER;
 
-        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, personModel);
+        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage,
+                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 

@@ -9,7 +9,6 @@ import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.model.Model;
 
 /**
  * Deletes an item identified using its displayed index from the sales list.
@@ -32,7 +31,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel)
+    public CommandResult execute(seedu.address.cashier.model.Model modelManager,
+                                 seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
             throws NoSuchIndexException, ParseException {
         Item item;
         try {

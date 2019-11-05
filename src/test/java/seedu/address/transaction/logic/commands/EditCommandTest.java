@@ -12,7 +12,8 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_POSITIVE_
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
@@ -20,13 +21,13 @@ import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.transaction.Transaction;
 
 class EditCommandTest {
-    private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private GetPersonByNameOnlyModel personModel =
-            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private seedu.address.transaction.model.ModelManager model =
+            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+    private CheckAndGetPersonByNameModel personModel =
+            new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -39,7 +40,8 @@ class EditCommandTest {
 
         String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
-        ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.setTransaction(model.getFilteredList().get(0), editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, personModel);
@@ -58,7 +60,8 @@ class EditCommandTest {
 
         String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
-        ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.setTransaction(lastTransaction, editedTransaction);;
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, personModel);
@@ -71,20 +74,24 @@ class EditCommandTest {
 
         String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
-        ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, personModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredListNegativeTransaction_success() {
-        Model model = new ModelManager(new TypicalTransactions().getTransactionListWithReimbursementNeeded());
+        Model model =
+                new seedu.address.transaction.model.ModelManager(
+                        new TypicalTransactions().getTransactionListWithReimbursementNeeded());
         EditCommand editCommand = new EditCommand(1, new EditCommand.EditTransactionDescriptor());
         Transaction editedTransaction = model.getFilteredList().get(0);
 
         String expectedMessage = String.format(MESSAGE_NEGATIVE_TRANSACTION_EDITED, editedTransaction);
 
-        ModelManager expectedModel = new ModelManager(new TypicalTransactions()
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(new TypicalTransactions()
                 .getTransactionListWithReimbursementNeeded());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, personModel);
@@ -102,7 +109,8 @@ class EditCommandTest {
 
         String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
-        ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.BENSON.getName().toString());
         expectedModel.setTransaction(transactionInFilteredList, editedTransaction);
 
@@ -121,7 +129,8 @@ class EditCommandTest {
 
         String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
-        ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.BENSON.getName().toString());
         expectedModel.setTransaction(transactionInFilteredList, editedTransaction);
 
@@ -138,7 +147,8 @@ class EditCommandTest {
 
         String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
-        ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        seedu.address.transaction.model.ModelManager expectedModel =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.BENSON.getName().toString());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, personModel);

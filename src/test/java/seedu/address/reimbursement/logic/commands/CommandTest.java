@@ -17,8 +17,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.person.model.ModelManager;
 import seedu.address.reimbursement.model.Model;
-import seedu.address.reimbursement.model.ModelManager;
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.TransactionBuilder;
@@ -35,8 +35,8 @@ public class CommandTest {
 
     @Test
     public void execute_backCommand_success() {
-        Model reimbursementModel = new ModelManager(new ReimbursementList());
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        Model reimbursementModel = new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
+        seedu.address.person.model.Model personModel = new ModelManager();
 
         Command backCommand = new BackCommand();
 
@@ -51,8 +51,8 @@ public class CommandTest {
 
     @Test
     public void execute_exitCommand_success() {
-        Model reimbursementModel = new ModelManager(new ReimbursementList());
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        Model reimbursementModel = new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
+        seedu.address.person.model.Model personModel = new ModelManager();
 
         Command exitCommand = new ExitCommand();
 
@@ -67,8 +67,8 @@ public class CommandTest {
 
     @Test
     public void execute_sortAmountCommand_success() {
-        Model reimbursementModel = new ModelManager(new ReimbursementList());
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        Model reimbursementModel = new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
+        seedu.address.person.model.Model personModel = new ModelManager();
 
         Command sortAmountCommand = new SortAmountCommand();
 
@@ -83,8 +83,8 @@ public class CommandTest {
 
     @Test
     public void execute_sortDeadlineCommand_success() {
-        Model reimbursementModel = new ModelManager(new ReimbursementList());
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        Model reimbursementModel = new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
+        seedu.address.person.model.Model personModel = new ModelManager();
 
         Command sortDeadlineCommand = new SortDeadlineCommand();
 
@@ -99,8 +99,8 @@ public class CommandTest {
 
     @Test
     public void execute_sortNameCommand_success() {
-        Model reimbursementModel = new ModelManager(new ReimbursementList());
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        Model reimbursementModel = new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
+        seedu.address.person.model.Model personModel = new ModelManager();
 
         Command sortNameCommand = new SortNameCommand();
 
@@ -120,8 +120,8 @@ public class CommandTest {
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
         ArrayList<Reimbursement> arrList = new ArrayList<>(Arrays.asList(reimbursementAlice));
 
-        Model reimbursementModel = new ModelManager(new ReimbursementList(arrList));
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        Model reimbursementModel = new seedu.address.reimbursement.model.ModelManager(new ReimbursementList(arrList));
+        seedu.address.person.model.Model personModel = new ModelManager();
 
         Command deadlineCommand = new DeadlineCommand(TypicalPersons.ALICE, "03-Jan-2020");
 
@@ -145,8 +145,8 @@ public class CommandTest {
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
         ArrayList<Reimbursement> arrList = new ArrayList<>(Arrays.asList(reimbursementAlice));
 
-        Model reimbursementModel = new ModelManager(new ReimbursementList(arrList));
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        Model reimbursementModel = new seedu.address.reimbursement.model.ModelManager(new ReimbursementList(arrList));
+        seedu.address.person.model.Model personModel = new ModelManager();
 
         Command doneCommand = new DoneCommand(TypicalPersons.ALICE);
 
@@ -168,8 +168,8 @@ public class CommandTest {
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
         ArrayList<Reimbursement> arrList = new ArrayList<>(Arrays.asList(reimbursementAlice));
 
-        Model reimbursementModel = new ModelManager(new ReimbursementList(arrList));
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        Model reimbursementModel = new seedu.address.reimbursement.model.ModelManager(new ReimbursementList(arrList));
+        seedu.address.person.model.Model personModel = new ModelManager();
 
         Command findCommand = new FindCommand(TypicalPersons.ALICE);
 

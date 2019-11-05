@@ -10,7 +10,6 @@ import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.model.Model;
 
 /**
  * Edits the details of an existing item in the sales list.
@@ -39,7 +38,9 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel) throws Exception {
+    public CommandResult execute(seedu.address.cashier.model.Model model,
+                                 seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
+            throws Exception {
         Item i;
         try {
             i = model.findItemByIndex(index);

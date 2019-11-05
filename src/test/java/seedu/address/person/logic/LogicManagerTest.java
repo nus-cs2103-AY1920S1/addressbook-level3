@@ -24,7 +24,7 @@ import seedu.address.person.logic.commands.CommandResult;
 import seedu.address.person.logic.commands.ListCommand;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.logic.parser.exceptions.ParseException;
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.ReadOnlyAddressBook;
@@ -63,7 +63,7 @@ public class LogicManagerTest {
         seedu.address.cashier.util.InventoryList cashierInventoryList = new seedu.address.cashier.util.InventoryList();
 
         //For Person Storage and Manager
-        seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+        seedu.address.person.model.Model personModel = new ModelManager();
         seedu.address.person.storage.StorageManager personManager =
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
 
@@ -72,7 +72,7 @@ public class LogicManagerTest {
                 new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         seedu.address.transaction.storage.StorageManager transactionManager =
                 new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION),
-                        (GetPersonByNameOnlyModel) personModel);
+                        (CheckAndGetPersonByNameModel) personModel);
 
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.model.Model reimbursementModel =
@@ -89,7 +89,7 @@ public class LogicManagerTest {
 
         seedu.address.transaction.logic.Logic transactionLogic =
                 new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager,
-                        (GetPersonByNameOnlyModel) personModel);
+                        (CheckAndGetPersonByNameModel) personModel);
         seedu.address.inventory.logic.Logic inventoryLogic =
                 new seedu.address.inventory.logic.LogicManager(
                         (seedu.address.inventory.model.ModelManager) inventoryModel,
@@ -103,7 +103,7 @@ public class LogicManagerTest {
 
         //All related logics
         transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,
-                transactionManager, (GetPersonByNameOnlyModel) personModel);
+                transactionManager, (CheckAndGetPersonByNameModel) personModel);
         reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                         personModel);

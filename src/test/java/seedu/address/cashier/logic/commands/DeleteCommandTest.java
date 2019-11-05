@@ -7,34 +7,37 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
 public class DeleteCommandTest {
 
-    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+    private seedu.address.cashier.model.ModelManager model =
+            new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
 
     private seedu.address.person.model.Model personModel =
-            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+            new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndex_successful() throws NoSuchIndexException {
         DeleteCommand deleteCommand = new DeleteCommand(1);
         String message = String.format(CashierMessages.MESSAGE_DELETED_ITEM, TypicalItem.FISH_BURGER.getDescription());
 
-        ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList(),
+        seedu.address.cashier.model.ModelManager expectedModel =
+                new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                 TypicalTransactions.getTypicalTransactionList());
         expectedModel.addItem(TypicalItem.FISH_BURGER);
         expectedModel.deleteItem(1);
 
         model.addItem(TypicalItem.FISH_BURGER);
 
-        assertCommandSuccess(deleteCommand, model, message, expectedModel, personModel);
+        assertCommandSuccess(deleteCommand, model, message, expectedModel, (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 
@@ -42,7 +45,7 @@ public class DeleteCommandTest {
     public void execute_outOfBoundIndex_failure() {
         DeleteCommand deleteCommand = new DeleteCommand(30);
         String message = CashierMessages.NO_SUCH_INDEX_CASHIER;
-        assertCommandFailure(deleteCommand, model, message, personModel);
+        assertCommandFailure(deleteCommand, model, message, (CheckAndGetPersonByNameModel) personModel);
     }
 
     @Test
