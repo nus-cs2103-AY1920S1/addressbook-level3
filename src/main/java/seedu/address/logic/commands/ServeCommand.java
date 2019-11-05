@@ -22,7 +22,7 @@ public class ServeCommand extends ReversibleCommand {
             + PREFIX_BORROWER_ID + "K0001 ";
 
     public static final String MESSAGE_SUCCESS = "Currently serving Borrower: %1$s\n";
-    public static final String MESSAGE_ALREADY_IN_SERVE_MODE = "Still serving %1$s! Please enter "
+    public static final String MESSAGE_ALREADY_IN_SERVE_MODE = "Still serving %1$s!\nPlease enter "
             + "\"done\" to exit serve mode before serving another borrower.";
 
     private final BorrowerId borrowerId;

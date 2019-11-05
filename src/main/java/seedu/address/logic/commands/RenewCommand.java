@@ -30,7 +30,7 @@ public class RenewCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Renews a book borrowed by a borrower.\n"
             + "Command can only be used in Serve mode.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nrenewed by\nBorrower: %2$s\nDue date: %3$s";
 

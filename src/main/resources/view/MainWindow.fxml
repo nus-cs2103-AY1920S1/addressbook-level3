@@ -23,7 +23,7 @@
                 <URL value="@Extensions.css" />
             </stylesheets>
 
-            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
                 <right>
                     <VBox maxWidth="500.0" minWidth="500.0" prefWidth="500.0" BorderPane.alignment="CENTER">
                         <children>
