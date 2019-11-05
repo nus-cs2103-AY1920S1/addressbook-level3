@@ -100,12 +100,12 @@ image::cards_class_diagram.png[]
 * `MultipleChoiceCard` inherits from `FrontBackCard`.
 * The interface class `FlashCard` also implements `JsonInterface` class to allow loading and saving to Json format.
 
-For the `MultipleChoiceCard`, the choices provided by the user must be unique, i.e. there cannot be any duplicate in the choices provided.
-If a duplicate choice is detected, then the creation of the `MultipleChoiceCard` will not be successful.
-
 Refer to the activity diagram below to see the process of creating a `MultipleChoiceCard`:
 
+image::MultipleChoiceCardCreation.png[]
 
+For the `MultipleChoiceCard`, the choices provided by the user must be unique, i.e. there cannot be any duplicate in the choices provided.
+If a duplicate choice is detected, then the creation of the `MultipleChoiceCard` will not be successful.
 
 .FlashCard Priority
 Each FlashCard has an associated priority level, which the user can indicate his/her value of the importance of the card.
