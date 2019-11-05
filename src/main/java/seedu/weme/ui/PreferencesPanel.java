@@ -17,11 +17,11 @@ import seedu.weme.commons.core.LogsCenter;
 /**
  * Panel containing the list of memes.
  */
-public class PreferencesGridPanel extends UiPart<Region> {
+public class PreferencesPanel extends UiPart<Region> {
 
     private static final String NO_PREFERENCES_SPECIFIED = "No preferences specified";
-    private static final String FXML = "PreferencesGridPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PreferencesGridPanel.class);
+    private static final String FXML = "PreferencesPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(PreferencesPanel.class);
 
     @FXML
     private Label exportPath;
@@ -32,7 +32,7 @@ public class PreferencesGridPanel extends UiPart<Region> {
     @FXML
     private Label templateImagePath;
 
-    public PreferencesGridPanel(ObservableMap<String, String> observableUserPreferences) {
+    public PreferencesPanel(ObservableMap<String, String> observableUserPreferences) {
         super(FXML);
         exportPath.setText("Export Path: "
                 + observableUserPreferences.getOrDefault(EXPORT_PATH_KEY, NO_PREFERENCES_SPECIFIED));

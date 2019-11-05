@@ -12,7 +12,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.logic.Logic;
@@ -37,19 +36,18 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    // App content for different tabs
+    private MemeGridPanel memeGridPanel;
+    private TemplateGridPanel templateGridPanel;
+    private CreatePanel createPanel;
+    private StatsPanel statsPanel;
+    private MemeGridPanel exportGridPanel;
+    private ImportGridPanel importGridPanel;
+    private PreferencesPanel preferencesPanel;
+
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
-    // App content for different tabs
-    private StackPane memesPanel;
-    private StackPane templatesPanel;
-    private StackPane createPanel;
-    private CreateImageDisplay createImageDisplay;
-    private StackPane statisticsPanel;
-    private StackPane exportPanel;
-    private StackPane importPanel;
-    private StackPane preferencesPanel;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -159,46 +157,24 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up main app content.
      */
     private void fillAppContent() {
-        memesPanel = new StackPane();
-        templatesPanel = new StackPane();
-        createPanel = new StackPane();
-        statisticsPanel = new StackPane();
-        exportPanel = new StackPane();
-        importPanel = new StackPane();
-        preferencesPanel = new StackPane();
-
-        MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(),
+        memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(),
                 logic.getObservableLikeData(),
                 logic.getObservableDislikeData());
-        memesPanel.getChildren().add(memeGridPanel.getRoot());
-
-        TemplateGridPanel templateGridPanel = new TemplateGridPanel(logic.getFilteredTemplateList());
-        templatesPanel.getChildren().add(templateGridPanel.getRoot());
-
-        createImageDisplay = new CreateImageDisplay(logic.getMemeCreation());
-        createPanel.getChildren().add(createImageDisplay.getRoot());
-
-        StatsPanel statsPanel = new StatsPanel(logic.getWeme());
-        statisticsPanel.getChildren().add(statsPanel.getRoot());
-
-        MemeGridPanel exportGridPanel = new MemeGridPanel(
+        templateGridPanel = new TemplateGridPanel(logic.getFilteredTemplateList());
+        createPanel = new CreatePanel(logic.getMemeCreation());
+        statsPanel = new StatsPanel(logic.getWeme());
+        exportGridPanel = new MemeGridPanel(
                 logic.getFilteredStagedMemeList(), logic.getObservableLikeData(), logic.getObservableDislikeData());
+        importGridPanel = new ImportGridPanel(logic.getFilteredImportList());
+        preferencesPanel = new PreferencesPanel(logic.getObservableUserPreferences());
 
-        ImportGridPanel importGridPanel = new ImportGridPanel(
-                logic.getFilteredImportList());
-        PreferencesGridPanel preferencesGridPanel = new PreferencesGridPanel(logic.getObservableUserPreferences());
-
-        preferencesPanel.getChildren().add(preferencesGridPanel.getRoot());
-        exportPanel.getChildren().add(exportGridPanel.getRoot());
-        importPanel.getChildren().add(importGridPanel.getRoot());
-
+        setAppContent(logic.getContext().getValue());
     }
 
     /**
      * Attaches listener on ModelContext that changes app content accordingly.
      */
     private void listenToContextChange() {
-        setAppContent(logic.getContext().getValue()); // Set initial content
         logic.getContext().addListener((observable, oldValue, newValue) -> setAppContent(newValue));
     }
 
@@ -211,25 +187,25 @@ public class MainWindow extends UiPart<Stage> {
         appContentPlaceholder.getChildren().clear();
         switch (context) {
         case CONTEXT_MEMES:
-            appContentPlaceholder.getChildren().add(memesPanel);
+            appContentPlaceholder.getChildren().add(memeGridPanel.getRoot());
             break;
         case CONTEXT_TEMPLATES:
-            appContentPlaceholder.getChildren().add(templatesPanel);
-            break;
-        case CONTEXT_PREFERENCES:
-            appContentPlaceholder.getChildren().add(preferencesPanel);
+            appContentPlaceholder.getChildren().add(templateGridPanel.getRoot());
             break;
         case CONTEXT_CREATE:
-            appContentPlaceholder.getChildren().add(createPanel);
+            appContentPlaceholder.getChildren().add(createPanel.getRoot());
             break;
         case CONTEXT_STATISTICS:
-            appContentPlaceholder.getChildren().add(statisticsPanel);
+            appContentPlaceholder.getChildren().add(statsPanel.getRoot());
             break;
         case CONTEXT_EXPORT:
-            appContentPlaceholder.getChildren().add(exportPanel);
+            appContentPlaceholder.getChildren().add(exportGridPanel.getRoot());
             break;
         case CONTEXT_IMPORT:
-            appContentPlaceholder.getChildren().add(importPanel);
+            appContentPlaceholder.getChildren().add(importGridPanel.getRoot());
+            break;
+        case CONTEXT_PREFERENCES:
+            appContentPlaceholder.getChildren().add(preferencesPanel.getRoot());
             break;
         default:
             throw new IllegalArgumentException(MESSAGE_INVALID_TAB);
@@ -290,7 +266,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (logic.getContext().getValue() == ModelContext.CONTEXT_CREATE) {
                 MemeCreation memeCreation = logic.getMemeCreation();
-                createImageDisplay.updateImage(memeCreation);
+                createPanel.updateImage(memeCreation);
             }
 
             if (commandResult.isShowHelp()) {
