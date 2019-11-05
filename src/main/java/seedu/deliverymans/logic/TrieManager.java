@@ -1,7 +1,6 @@
 package seedu.deliverymans.logic;
 
 import java.util.LinkedList;
-import java.util.stream.Stream;
 
 import seedu.deliverymans.logic.commands.customer.CustomerAddCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerDeleteCommand;
@@ -33,7 +32,6 @@ import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.commands.universal.ListOrderCommand;
 import seedu.deliverymans.logic.commands.universal.RedoCommand;
 import seedu.deliverymans.logic.commands.universal.UndoCommand;
-import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.customer.CustomerParser;
 import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
