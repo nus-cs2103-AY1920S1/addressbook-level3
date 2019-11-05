@@ -50,7 +50,6 @@ import seedu.address.model.person.Name;
 
 
 //@@author ambervoong
-
 /**
  * Updates the details of an existing body or worker in Mortago.
  */
@@ -312,7 +311,7 @@ public class UpdateCommand extends UndoableCommand {
                 }
 
                 if (isUpdatedFromNotif) {
-                    findNotifAndDelete(model, (UpdateBodyDescriptor) originalEntityDescriptor);
+                    findNotifAndDelete(model, body);
                 }
             }
         } catch (NullPointerException e) {
@@ -326,15 +325,15 @@ public class UpdateCommand extends UndoableCommand {
     /**
      * Finds and deletes Notifs of a Body. Only called when undoing a NotifCommand-triggered UpdateCommand.
      *
-     * @param model
-     * @param originalDesc
+     * @param model model of Mortago
+     * @param body the body being updated
      */
-    public void findNotifAndDelete(Model model, UpdateBodyDescriptor originalDesc) {
+    public void findNotifAndDelete(Model model, Body body) {
         List<Notif> notifList = model.getFilteredNotifList();
         this.autoNotif = new ArrayList<>();
-        Name bodyName = originalDesc.getName().get();
+        IdentificationNumber id = body.getIdNum();
         for (Notif notif : notifList) {
-            if (notif.getBody().getName().equals(bodyName)) {
+            if (notif.getBody().getIdNum().equals(id)) {
                 autoNotif.add(notif);
             }
         }
