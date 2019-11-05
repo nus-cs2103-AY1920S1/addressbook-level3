@@ -89,7 +89,7 @@ public class StartQuizWindow extends Window {
         StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand, false);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         int nextLevel = Integer.parseInt(quizList.get(0).getDifficulty().value);

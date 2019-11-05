@@ -17,7 +17,8 @@ import seedu.revision.model.answerable.Answerable;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-    public static final String COMPLETE_COMMAND = "list diff/(optional) cat/(optional)";
+    public static final String COMPLETE_COMMAND_DIFF = "list diff/";
+    public static final String COMPLETE_COMMAND_CAT = "list cat/";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all questions which belong to the "
             + "specified category and difficulty (case-insensitive, optional) "
             + "and displays them as a list with index numbers.\n"
