@@ -14,6 +14,6 @@ awk '
         print "ERROR", $1, $2, " prohibited \\r\\n line ending, use \\n instead."
     }
     END {
-        isExit ret
+        exit ret
     }
 '

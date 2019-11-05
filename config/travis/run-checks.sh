@@ -1,5 +1,5 @@
 #!/bin/sh
-# Runs all check-* scripts, and returns a non-zero isExit code if any of them fail.
+# Runs all check-* scripts, and returns a non-zero exit code if any of them fail.
 
 dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd) &&
 ret=0 &&
@@ -8,4 +8,4 @@ for checkscript in "$dir"/check-*; do
         ret=1
     fi
 done
-isExit $ret
+exit $ret

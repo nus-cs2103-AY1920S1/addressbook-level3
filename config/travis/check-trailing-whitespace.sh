@@ -21,6 +21,6 @@ awk '
         print severity, $1, $2, " trailing whitespace."
     }
     END {
-        isExit ret
+        exit ret
     }
 '

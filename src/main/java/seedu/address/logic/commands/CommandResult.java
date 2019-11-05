@@ -43,7 +43,7 @@ public class CommandResult {
     private final boolean isProfile;
 
     /** The application should Exit. */
-    private final boolean isExit;
+    private final boolean exit;
 
     /** Display reminders and follow-up motd */
     private final boolean isShowMotd;
@@ -55,7 +55,7 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean isShowHelp, boolean isAddVisit, boolean isShowVisitList,
-                         boolean isEditVisit, boolean isProfile, boolean isExit,
+                         boolean isEditVisit, boolean isProfile, boolean exit,
                          boolean isShowMotd, boolean isShowAliasList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.isShowHelp = isShowHelp;
@@ -63,7 +63,7 @@ public class CommandResult {
         this.isShowVisitList = isShowVisitList;
         this.isEditVisit = isEditVisit;
         this.isProfile = isProfile;
-        this.isExit = isExit;
+        this.exit = exit;
         this.isShowMotd = isShowMotd;
         this.isShowAliasList = isShowAliasList;
     }
@@ -72,9 +72,9 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean isShowHelp, boolean isAddVisit, boolean isShowVisitList,
-                         boolean isEditVisit, boolean isProfile, boolean isExit, boolean isShowMotd) {
+                         boolean isEditVisit, boolean isProfile, boolean exit, boolean isShowMotd) {
         this(feedbackToUser, isShowHelp, isAddVisit, isShowVisitList, isEditVisit,
-                isProfile, isExit, isShowMotd, false);
+                isProfile, exit, isShowMotd, false);
     }
 
     public CommandResult(String feedbackToUser, int idx) {
@@ -151,7 +151,7 @@ public class CommandResult {
     }
 
     public boolean isExit() {
-        return isExit;
+        return exit;
     }
 
     public boolean isAddVisit() {
@@ -196,14 +196,14 @@ public class CommandResult {
                 && isEditVisit == otherCommandResult.isEditVisit
                 && isShowVisitList == otherCommandResult.isShowVisitList
                 && isProfile == otherCommandResult.isProfile
-                && isExit == otherCommandResult.isExit
+                && exit == otherCommandResult.exit
                 && isShowMotd == otherCommandResult.isShowMotd
                 && isShowAliasList == otherCommandResult.isShowAliasList;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, isShowHelp, isAddVisit, isProfile, isExit);
+        return Objects.hash(feedbackToUser, isShowHelp, isAddVisit, isProfile, exit);
     }
 
 
