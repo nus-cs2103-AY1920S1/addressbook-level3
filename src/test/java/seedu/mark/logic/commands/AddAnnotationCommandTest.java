@@ -173,6 +173,11 @@ class AddAnnotationCommandTest {
         }
 
         @Override
+        public void addPhantom(Annotation an) {
+            //adding general notes
+        }
+
+        @Override
         public void loadAnnotations(HashMap annotations) {
             assert false : "this method should not be called.";
         }
@@ -216,9 +221,5 @@ class AddAnnotationCommandTest {
             assert false : "this method should not be called.";
         }
 
-        @Override
-        public void addPhantom(Annotation an) {
-            assert false : "this method should not be called.";
-        }
     }
 }
