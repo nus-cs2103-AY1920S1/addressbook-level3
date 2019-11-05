@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.model.KeyboardFlashCards;
@@ -105,6 +106,16 @@ public class TypicalFlashCards {
         return new ArrayList<>(
                 Arrays.asList(STORE_AND_FORWARD, DELAY, SOURCE_DELAY,
                         PROP_DELAY, TRANS_DELAY, THROUGHPUT, PROTOCOL));
+    }
+
+    public static List<FlashCard> getEmptyFlashCardList() {
+        return Collections.emptyList();
+    }
+
+    public static List<FlashCard> getSingletonFlashCardList() {
+        return Collections.singletonList(
+                GREETING
+        );
     }
 
     public static List<Deadline> getTypicalDeadlines() {
