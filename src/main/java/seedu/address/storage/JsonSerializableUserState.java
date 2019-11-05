@@ -23,6 +23,7 @@ import seedu.address.model.transaction.LedgerOperation;
 class JsonSerializableUserState {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
+    public static final String MESSAGE_DUPLICATE_LEDGER = "Ledger list contains duplicate ledger(s).";
     public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
     public static final String MESSAGE_DUPLICATE_PROJECTION = "Projections list contains duplicate projection(s).";
 
