@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.Performance;
 
 /**
  * Clears the address book and attendance.
@@ -17,7 +18,8 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
         model.resetAttendance();
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.setPerformance(new Performance());
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true, model);
     }
     @Override
     public boolean isUndoable() {

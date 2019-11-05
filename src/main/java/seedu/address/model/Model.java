@@ -143,6 +143,11 @@ public interface Model {
      */
     boolean hasTrainingOnDate(AthletickDate date);
 
+    /**
+     * Replaces performance data with the data in {@code performance}.
+     */
+    void setPerformance(ReadOnlyPerformance performance);
+
     void addEvent(Event event);
 
     boolean hasEvent(Event event);
