@@ -697,10 +697,6 @@ Upon every successful checkout, all the sales items sold will recorded as one tr
 appended to the list of transactions on the `Home tab`. In addition, the stock remaining in the inventory will be updated
 accordingly in the `Inventory tab`.
 
-[NOTE]
-If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
-
-
 ==== Add Sales Item Feature
 This feature allows the addition of sales items to the cart.
 
@@ -736,15 +732,16 @@ The following are two code snippets from `getRecommendedItems(description)`:
             .toCollection(ArrayList::new));
             return newList;
 
-The `getCombination(arr, arr.length)` method in line 3 of the above snippet returns an ArrayList of all subsets of
-descriptions that are of at least length 3. As shown in the first code snippet above, while iterating through the `InventoryList`,
-these subsets are compared with the actual descriptions of all items in the inventory to check if either contains the other.
+The `getCombination(arr, arr.length)` method in line 3 of the first snippet returns an ArrayList of all subsets of
+descriptions that are of at least length 3. While iterating through the `InventoryList`, these subsets are compared with the actual descriptions of all items in the inventory to check if either contains the other.
 
-After adding all the suggested words into the `recommendedItems` list, the list is passed into a stream to remove duplicates
-as shown in the second code snippet.
+As shown in the second code snippet, after adding all the suggested words into the `recommendedItems` list, the list
+is passed into a stream to remove duplicates.
 
-The following sequence diagram shows how the `AddCommand` works and is the reference
-from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
+[NOTE]
+If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works and is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 
@@ -775,7 +772,8 @@ This means that SetCommandParser requires access to the `Model` of the person pa
 If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
 informing the user that there is no such person.
 
-The following sequence diagram shows how the SetCashierCommandParser checks for an existing person:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows
+how the SetCashierCommandParser checks for an existing person:
 
 .Sequence Diagram of SetCashierCommandParser (cashier package)
 
@@ -783,8 +781,8 @@ image::SetCashierCommandSeq1.png[]
 
 If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
 
-The following sequence diagram shows how the set cashier command works and is the reference
-from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
+shows how the set cashier command works:
 
 .Sequence Diagram of Set Cashier Command (cashier package)
 
@@ -813,8 +811,8 @@ transaction of the sales made.
 [NOTE]
 After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
 
-The following sequence diagram shows how the checkout command is executed and is the reference
-from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
+shows how the checkout command is executed:
 
 .Sequence Diagram of Checkout Command (cashier package)
 
