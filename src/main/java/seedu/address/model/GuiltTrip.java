@@ -253,7 +253,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     }
 
     /**
-     * Adds a specified Expense to the finance app.
+     * Adds a specified Expense to the finance app. Checks whether the category of the to be added Expense is valid.
      *
      * * @param expense the specified Expense to be added.
      */
@@ -267,6 +267,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
 
     /**
      * Adds the specified Income to the finance app. Additional check for starting stage loading from data file.
+     * Checks whether the category of the to be added Income is valid.
      *
      * @param income the specified Income to be added.
      */
@@ -279,7 +280,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     }
 
     /**
-     * Adds the specified Income to the finance app.
+     * Adds the specified Income to the finance app. Checks whether the category of the to be added budget is valid.
      * @param budget the specified Income to be added.
      */
     public void addBudget(Budget budget) {
@@ -291,7 +292,8 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
 
     /**
      * Adds the specified Wish to the finance app.
-     * carries out check if category is valid here.
+     * Checks if the category of the to be added wish is valid.
+     *
      *
      * @param wish the specified Wish to be added.
      */

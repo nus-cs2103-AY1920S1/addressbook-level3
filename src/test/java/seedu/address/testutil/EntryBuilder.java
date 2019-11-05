@@ -41,6 +41,8 @@ public class EntryBuilder {
     public EntryBuilder(Entry entryToCopy) {
         desc = entryToCopy.getDesc();
         amt = entryToCopy.getAmount();
+        date = entryToCopy.getDate();
+        cat = entryToCopy.getCategory();
         tags = new HashSet<>(entryToCopy.getTags());
     }
 

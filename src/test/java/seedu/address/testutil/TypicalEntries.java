@@ -25,7 +25,7 @@ public class TypicalEntries {
     /**
      * Returns an {@code GuiltTrip} with all the typical persons.
      */
-    public static GuiltTrip getTypicalAddressBook() {
+    public static GuiltTrip getTypicalGuiltTrip() {
         GuiltTrip ab = new GuiltTrip(true);
         for (Entry entry : getTypicalEntries()) {
             ab.addEntry(entry);

@@ -15,8 +15,8 @@
 //
 //    @Test
 //    public void constructor_invalidName_throwsIllegalArgumentException() {
-//        String invalidName = "";
-//        assertThrows(IllegalArgumentException.class, () -> new Description(invalidName));
+//        String invalidEntryDescription = "";
+//        assertThrows(IllegalArgumentException.class, () -> new Description(invalidEntryDescription));
 //    }
 //
 //    @Test

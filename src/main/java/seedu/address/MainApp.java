@@ -86,6 +86,10 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty GuiltTrip");
             initialData = new GuiltTrip(true);
+        } catch (IllegalArgumentException e) {
+            logger.warning("Problem while reading from the file. There is a duplicate category and "
+                    + "will be starting with an empty GuiltTrip");
+            initialData = new GuiltTrip(true);
         }
 
         return new ModelManager(initialData, userPrefs);
