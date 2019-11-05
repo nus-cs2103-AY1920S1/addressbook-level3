@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
@@ -18,10 +19,10 @@ import seedu.address.ui.tab.Tab;
 public class DisplayCommand extends Command {
 
     public static final String COMMAND_WORD = "display";
-    public static final String MESSAGE_USAGE = seedu.address.logic.commands.ViewCommand.COMMAND_WORD
-            + ": Displays a specified facet of the user's state.\n"
-            + "Parameter: SIMI\n"
-            + "Example: " + seedu.address.logic.commands.ViewCommand.COMMAND_WORD + " projection";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Displays a specified instance of the user's state.\n"
+            + "Parameter: USER_STATE_INSTANCE_ID (p -> Projection, b -> Budget)\n"
+            + "Example: " + seedu.address.logic.commands.DisplayCommand.COMMAND_WORD + " p1";
 
     public static final String MESSAGE_SUCCESS = "Display %s success! Enter \"close\" to terminate display window\n";
 
@@ -55,13 +56,10 @@ public class DisplayCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
             }
 
-            Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteBudget(budgetToDelete);
-            model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, budgetToDelete),
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "stub"),
                     false, false, Tab.BUDGET);
         } else {
-            throw new CommandException("Unknown command error");
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
         }
     }
 

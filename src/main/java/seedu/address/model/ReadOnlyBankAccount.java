@@ -34,4 +34,6 @@ public interface ReadOnlyBankAccount {
     boolean has(BankAccountOperation transaction);
 
     boolean has(Budget budget);
+
+    boolean has(Projection projection);
 }

@@ -73,7 +73,6 @@ public class Projection {
                     - (int) Math.round(projector.predict(daysToBudgetDeadline)));
             this.onTrackToMeetBudget = budgetProjection.getActualValue() > 0;
         }
-        displayAsStage();
     }
 
     GradientDescent getProjector() {
@@ -150,6 +149,7 @@ public class Projection {
      * Renders a graphical representation of this {@code Projection} in a separate JavaFX stage
      */
     public void displayAsStage() {
+        this.project();
         Stage projectionWindow = new Stage();
         projectionWindow.setTitle("Projection Graph");
         projectionWindow.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/PalPay_32_1.png")));
@@ -159,18 +159,24 @@ public class Projection {
     }
 
     /**
-     * Checks if the given projection is the same Projection object as this projection.
-     *
-     * @param other
-     * @return
+     * Checks if the given projection projects the same date as this Projection
      */
     public boolean isSameProjection(Projection other) {
         if (other == this) {
             return true;
         }
         return other != null
-                && other.getBudget().equals(getBudget())
-                && other.getDate().equals(getDate())
-                && other.getTransactionHistory().equals(getTransactionHistory());
+                && other.getDate().equals(getDate());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Projection) {
+            return this.isSameProjection((Projection) obj);
+        }
+        return false;
     }
 }

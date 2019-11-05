@@ -15,7 +15,7 @@ import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.util.Date;
-
+import seedu.address.ui.tab.Tab;
 
 
 /**
@@ -45,6 +45,7 @@ public class ProjectCommand extends Command {
 
     private static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 15;
     private static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
+    private static final String MESSAGE_DUPLICATE = "A projection to %s already exists.";
 
     public final Date date;
     private Index budgetIdx;
@@ -86,6 +87,10 @@ public class ProjectCommand extends Command {
             this.projection = new Projection(transactionHistory, date);
         }
 
+        if (model.has(this.projection)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, this.projection.getDate().toString()),
+                    false, false, Tab.BUDGET);
+        }
         model.add(this.projection);
         model.commitUserState();
 

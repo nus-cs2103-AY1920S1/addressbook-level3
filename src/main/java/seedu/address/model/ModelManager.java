@@ -122,6 +122,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean has(Projection projection) {
+        return versionedUserState.getBankAccount().has(projection);
+    }
+
+    @Override
     public void deleteTransaction(BankAccountOperation transaction) {
         versionedUserState.remove(transaction);
     }
@@ -129,6 +134,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteBudget(Budget budget) {
         versionedUserState.remove(budget);
+    }
+
+    @Override
+    public void deleteProjection(Projection projectionToDelete) {
+        versionedUserState.remove(projectionToDelete);
     }
 
     @Override
