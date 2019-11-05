@@ -16,7 +16,7 @@ public class JsonAdaptedCategory {
     private final String category;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedCategory} with the given category string.
      */
     @JsonCreator
     public JsonAdaptedCategory(@JsonProperty("category") String category) {
@@ -24,7 +24,7 @@ public class JsonAdaptedCategory {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Category} into this class for Jackson use.
      */
     public JsonAdaptedCategory(Category source) {
         this.category = source.getCategory();
@@ -33,7 +33,7 @@ public class JsonAdaptedCategory {
     /**
      * Converts this Jackson-friendly adapted category object into the model's {@code Category} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted category.
      */
     public Category toModelType() throws IllegalValueException {
         if (category == null) {

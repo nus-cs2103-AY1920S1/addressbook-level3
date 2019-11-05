@@ -33,7 +33,7 @@ public class JsonAdaptedTransaction {
     private final Long amount;
     private final String description;
     private final List<JsonAdaptedCategory> categories = new ArrayList<>();
-    private final String localDate;
+    private final String date;
 
     /**
      * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
@@ -42,13 +42,13 @@ public class JsonAdaptedTransaction {
                               @JsonProperty("amount") Long amount,
                               @JsonProperty("description") String description,
                               @JsonProperty("categories") List<JsonAdaptedCategory> categories,
-                              @JsonProperty("date") String localDate) {
-        requireAllNonNull(localDate, amount, direction, categories, description);
+                              @JsonProperty("date") String date) {
+        requireAllNonNull(date, amount, direction, categories, description);
         this.direction = direction;
         this.amount = amount;
         this.description = description;
         this.categories.addAll(categories);
-        this.localDate = localDate;
+        this.date = date;
     }
 
     /**
@@ -60,7 +60,7 @@ public class JsonAdaptedTransaction {
         amount = source.getAmount().toLong();
         description = source.getDescription().toString();
         categories.addAll(source.getCategories().stream().map(JsonAdaptedCategory::new).collect(Collectors.toList()));
-        localDate = source.getLocalDate().format(getDateFormatter());
+        date = source.getLocalDate().format(getDateFormatter());
     }
 
     /**
@@ -140,7 +140,7 @@ public class JsonAdaptedTransaction {
      */
     private LocalDate getValidatedLocalDate() throws IllegalValueException {
         try {
-            return LocalDate.parse(localDate, getDateFormatter());
+            return LocalDate.parse(date, getDateFormatter());
         } catch (DateTimeParseException e) {
             throw new IllegalValueException("Error reading stored date.");
         }
