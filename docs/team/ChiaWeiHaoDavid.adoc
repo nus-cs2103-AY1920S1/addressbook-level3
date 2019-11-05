@@ -6,22 +6,22 @@
 == Introduction
 
 === Purpose of portfolio
-The purpose of this portfolio is to document my overall contributions to the Software Engineering project, *Billboard*.
+The purpose of this portfolio is to document my overall contributions to the Software Engineering project, _Billboard_.
 
 === About the project
 In the Software Engineering Module _CS2103T_, My team of 5 students were tasked with enhancing an existing addressbook desktop application for our project.
-We decided to transform the base code of the aforementioned addressbook application into a personal financial management system called *Billboard*, targeted at students.
+We decided to transform the base code of the aforementioned addressbook application into a personal financial management system called _Billboard_, targeted at students.
 
 This enhanced application enables students to record their daily expenses and has advanced expense tracking and management features.
 The advanced features for *tracking* expenses are generating graphs from expense data, and filtering capabilities; while
 the advanced features for *managing* expenses are tagging and archiving expenses.
 
-Since *Billboard* has a Command Line Interface (CLI), meaning that all interactions between user and the application is done through typing only, it is meant for students who
-type fast. Furthermore, *Billboard* also has a fully functioning Graphical User Interface (GUI), making it user friendly.
+Since _Billboard_ has a Command Line Interface (CLI), meaning that all interactions between user and the application is done through typing only, it is meant for students who
+type fast. Furthermore, _Billboard_ also has a fully functioning Graphical User Interface (GUI), making it user friendly.
 
 This is what our project looks like:
 
-.The graphical user interface for *Billboard*
+.The graphical user interface for _Billboard_
 image::Ui.png[]
 
 The role I played in this project was to design and implement the code for the `archive` feature. Additionally, I was
@@ -40,7 +40,7 @@ This symbol indicates important information.
 
 
 == Summary of contributions
-This section provides a quick summary of my coding, documentation, and other meaningful contributions to *Billboard*.
+This section provides a quick summary of my coding, documentation, and other meaningful contributions to _Billboard_.
 
 * *Major enhancement*: I added all archive related functions.
 
@@ -51,37 +51,52 @@ Users can simply archive these expenses, which *de-clutters their list of curren
 organise past expenses.* Therefore, this feature contributes great value to the application, as it provides users with a method of organising and tracking their expenses in the long run.
 
 ** Highlights:
-*** This enhancement works well with existing features and features to be added in future. This is because expenses that are archived cannot be edited (e.g. adding a tag) as they
+*** This enhancement works well with most existing features and features to be added in future. This is because expenses that are archived cannot be edited (e.g. adding a tag) as they
 are considered as "non active" expenses and are being kept as records only. Therefore the archive enhancement, in a sense, is isolated from the other expense modifying enhancements which
-reduces the possibility of archive bugs.
-*** A thorough analysis of any design alternatives was done to...
-*** 
+reduces the possibility of archive bugs due to integration with other features.
+*** A thorough analysis of other design alternatives was required as the archive feature involved storing and maintaining separate lists of expenses, and different designs to implement
+this would yield varying effects on the application's overall speed performance. Ultimately, the design of the current implementation was chosen as it is relatively easy to implement and
+maintained the application's performance above the acceptable benchmark. This benchmark is the non functional requirement of being able to hold up to 1000 expenses without a noticeable
+sluggishness in performance for typical usage.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://tinyurl.com/y4qp9alm[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** There are 5 releases of _Billboard_ in total, consisting of versions 1.1, 1.2, 1.2.1, 1.3 and 1.4. I managed and released versions 1.1 and 1.2 on Github.
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** I designed and implemented the default Billboard color scheme, called the "Inertia theme", to give the application its unique aesthetic identity and make it more user-friendly.
+Additionally, I added an extra Pastel color theme for users who prefer brighter themes (Pull request https://github.com/AY1920S1-CS2103T-F12-4/main/pull/104[#104])
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote the team's About Us document, which consisted of information about our team members: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/7[#7]
+*** Added our project's user stories, use cases and non functional requirements to the Developer Guide: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/19[#19]
+*** Renamed all instances of placeholder name "_Financial Tracker_" to "_Billboard_" in User Guide, Developer Guide and Readme documents: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/26[26]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed and approved:
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/12[#12],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/25[#25],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/39[#39],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/50[#50],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/52[#52],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/57[#57],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/58[#58],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/63[#63],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/70[#70],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/73[#73],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/90[#90],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/97[#97],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/105[#105],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/107[#107],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/109[#109],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/112[#112],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/113[#113],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/185[#185]
 
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -99,4 +114,3 @@ include::../UserGuide.adoc[tag=archive]
 |===
 
 include::../DeveloperGuide.adoc[tag=archive]
-
