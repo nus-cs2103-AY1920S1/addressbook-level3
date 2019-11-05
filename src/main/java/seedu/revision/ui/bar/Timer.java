@@ -70,7 +70,7 @@ public class Timer {
             }
         });
 
-        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setCycleCount(startTime);
         timeline.getKeyFrames().add(frame);
         timeline.play();
     }

@@ -41,8 +41,6 @@ public class MainLogicManager implements MainLogic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        //Logging, safe to ignore
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         //Parse user input from String to a Command
@@ -73,14 +71,10 @@ public class MainLogicManager implements MainLogic {
     @Override
     public CommandResult execute(String commandText, Answerable currentAnswerable)
             throws ParseException, CommandException {
-        //Logging, safe to ignore
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         //Parse user input from String to a Command
-        QuizCommandParser quizCommandParser = new QuizCommandParser();
-        Command command = quizCommandParser.parseCommand(commandText, currentAnswerable);
-        commandResult = command.execute(model);
+        Command command = QuizCommandParser.parseCommand(commandText, currentAnswerable);
+        CommandResult commandResult = command.execute(model);
 
         //If user exits the quiz, restore the filtered list to original state.
         if (commandResult.isExit()) {

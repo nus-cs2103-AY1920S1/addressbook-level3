@@ -28,11 +28,6 @@ public class Saq extends Answerable {
     public boolean isCorrect(Answer selectedAnswer) {
         boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(),
                 getCorrectAnswerList().get(0).toString());
-        if (answerIsCorrect) {
-            logger.info("answer is CORRECT");
-        } else {
-            logger.info("answer is WRONG");
-        }
         return answerIsCorrect;
     }
 

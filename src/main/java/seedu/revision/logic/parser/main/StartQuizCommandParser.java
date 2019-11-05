@@ -21,6 +21,7 @@ import seedu.revision.model.answerable.predicates.CategoryPredicate;
 import seedu.revision.model.answerable.predicates.DifficultyPredicate;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.ArcadeMode;
+import seedu.revision.model.quiz.CustomMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 
@@ -45,7 +46,6 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
         }
 
-
         boolean optionalTimerPrefixIsPresent = argMultimap.getValue(PREFIX_TIMER).isPresent();
         boolean optionalDifficultyPrefixIsPresent = argMultimap.getValue(PREFIX_DIFFICULTY).isPresent();
         boolean optionalCategoryPrefixIsPresent = argMultimap.getValue(PREFIX_CATEGORY).isPresent();
@@ -53,27 +53,25 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 || optionalDifficultyPrefixIsPresent;
 
         Mode mode;
-        Difficulty difficulty;
-        Category category;
         int time;
 
         if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
             mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
         } else {
-            throw new ParseException(StartQuizCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
         }
 
         switch (mode.toString().toLowerCase()) {
         case "normal":
             if (optionalPrefixesArePresent) {
-                throw new ParseException(StartQuizCommand.MESSAGE_USAGE);
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
             } else {
                 mode = new NormalMode();
                 return new StartQuizCommand(mode);
             }
         case "arcade":
             if (optionalPrefixesArePresent) {
-                throw new ParseException(StartQuizCommand.MESSAGE_USAGE);
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
             } else {
                 mode = new ArcadeMode();
                 return new StartQuizCommand(mode);
@@ -93,13 +91,13 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 combinedPredicate = combinedPredicate.and(difficultyPredicate);
             }
 
-            mode = mode.withCombinedPredicate(combinedPredicate);
+            mode = ((CustomMode) mode).withCombinedPredicate(combinedPredicate);
 
             if (optionalTimerPrefixIsPresent) {
                 time = ParserUtil.parseTimer(argMultimap.getValue(PREFIX_TIMER).get());
-                mode = mode.withTime(time);
+                mode = ((CustomMode) mode).withTime(time);
             }
-            mode = mode.build();
+            mode = ((CustomMode) mode).build();
             return new StartQuizCommand(mode);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
