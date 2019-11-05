@@ -23,7 +23,7 @@ import seedu.ifridge.storage.JsonTemplateListStorage;
 import seedu.ifridge.storage.JsonUserPrefsStorage;
 import seedu.ifridge.storage.StorageManager;
 import seedu.ifridge.storage.shoppinglist.JsonBoughtItemStorage;
-import seedu.ifridge.storage.shoppinglist.JsonShoppingItemStorage;
+import seedu.ifridge.storage.shoppinglist.JsonShoppingListStorage;
 import seedu.ifridge.storage.unitdictionary.JsonUnitDictionaryStorage;
 import seedu.ifridge.storage.wastelist.JsonWasteListStorage;
 
@@ -45,8 +45,8 @@ public class LogicManagerTest {
                 new JsonTemplateListStorage(temporaryFolder.resolve("templateList.json"));
         JsonWasteListStorage wasteListStorage =
                 new JsonWasteListStorage(temporaryFolder.resolve("wastelist.json"));
-        JsonShoppingItemStorage shoppingListStorage =
-                new JsonShoppingItemStorage(temporaryFolder.resolve("shoppingList.json"));
+        JsonShoppingListStorage shoppingListStorage =
+                new JsonShoppingListStorage(temporaryFolder.resolve("shoppingList.json"));
         JsonBoughtItemStorage boughtListStorage =
                 new JsonBoughtItemStorage(temporaryFolder.resolve("boughtList.json"));
         JsonUnitDictionaryStorage unitDictionaryStorage =

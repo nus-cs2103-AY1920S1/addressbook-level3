@@ -20,7 +20,7 @@ import seedu.ifridge.model.ReadOnlyShoppingList;
  */
 public class JsonBoughtItemStorage implements BoughtListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonShoppingItemStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonShoppingListStorage.class);
 
     private Path filePath;
 
