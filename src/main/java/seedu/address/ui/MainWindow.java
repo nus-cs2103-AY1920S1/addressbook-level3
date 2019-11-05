@@ -27,8 +27,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.duties.DutyShiftCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.patients.ListPatientCommand;
+import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.autocomplete.AutoCompleter;
 import seedu.address.ui.commandboxhistory.CommandBoxHistory;
@@ -49,6 +53,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private final AutoCompleter autoCompleter;
     private final CommandBoxHistory commandBoxHistory;
     private OmniPanelTab currentOmniPanelTab;
+    private boolean requiresReset;
 
     private final HashSet<Runnable> deferredDropSelectors;
 
@@ -104,6 +109,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         this.logic = logic;
         this.autoCompleter = new AutoCompleter();
         this.commandBoxHistory = new CommandBoxHistory();
+        this.requiresReset = false;
 
         this.deferredDropSelectors = new HashSet<>();
         // Configure the UI
@@ -261,6 +267,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private void executeCommand(String commandText) {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            requiresReset = true;
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -283,6 +290,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     public void updateCommandAutoComplete(String commandText) {
         if (!commandText.isBlank()) {
             logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
+            requiresReset = true;
         }
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
@@ -331,8 +339,30 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     @Override
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
-        currentOmniPanelTab = omniPanelTab;
+        if (omniPanelTab.equals(currentOmniPanelTab)) {
+            return;
+        }
+        if (requiresReset) {
+            switch (currentOmniPanelTab) {
+            case PATIENTS_TAB:
+                executeCommand(ListPatientCommand.COMMAND_WORD);
+                break;
+            case APPOINTMENTS_TAB:
+                executeCommand(AppointmentsCommand.COMMAND_WORD);
+                break;
+            case DOCTORS_TAB:
+                executeCommand(ListStaffCommand.COMMAND_WORD);
+                break;
+            case DUTY_SHIFT_TAB:
+                executeCommand(DutyShiftCommand.COMMAND_WORD);
+                break;
+            default:
+            }
+            requiresReset = false;
+        }
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
+        currentOmniPanelTab = omniPanelTab;
+        resultDisplay.setFeedbackToUser("");
         Region region;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
@@ -350,8 +380,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         default:
             return;
         }
-        Region finalRegion = region;
-        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(finalRegion));
+        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));
     }
 
     @Override

@@ -30,6 +30,8 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label refId;
     @FXML
+    private Label name;
+    @FXML
     private Label timing;
     @FXML
     private Label status;
@@ -39,10 +41,13 @@ public class EventCard extends UiPart<Region> {
         this.event = event;
         id.setText(displayedIndex + ". ");
         refId.setText(String.format("[%s] ", event.getPersonId().toString()));
+        name.setText(event.getPersonName().toString());
         timing.setText(event.getEventTiming().toString());
         if (displayStatus) {
+            status.setVisible(true);
             status.setText("Status: " + event.getStatus().getStatusMess());
         } else {
+            status.setVisible(false);
             status.setText("");
         }
     }

@@ -15,10 +15,11 @@
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="id" styleClass="cell_big_label"/>
-                <Label fx:id="refId" text="\$first" styleClass="cell_big_label"/>
-                <Label fx:id="timing" text="\$second" styleClass="cell_big_label"/>
+                <Label fx:id="refId" styleClass="cell_big_label" text="\$first" />
+                <Label fx:id="name" styleClass="cell_big_label" text="\$second" />
             </HBox>
-            <Label fx:id="status" text="\$third" styleClass="cell_big_label"/>
+            <Label fx:id="timing" text="\$second" styleClass="cell_big_label"/>
+            <Label fx:id="status" text="\$third" styleClass="cell_small_label"/>
         </VBox>
     </GridPane>
 </HBox>

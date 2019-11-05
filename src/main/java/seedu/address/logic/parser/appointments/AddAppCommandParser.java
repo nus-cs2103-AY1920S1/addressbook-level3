@@ -36,6 +36,8 @@ import seedu.address.model.events.parameters.Timing;
  */
 public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any patient";
+    public static final String MESSAGE_REFERENCEID_BELONGS_TO_STAFF =
+            "Appointments should only be scheduled for patients.";
 
     private Model model;
 
@@ -59,7 +61,8 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
                     AddAppCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.issuePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
+        ReferenceId referenceId = ParserUtil.lookupPatientReferenceId(
+                argMultimap.getValue(PREFIX_ID).get(), MESSAGE_REFERENCEID_BELONGS_TO_STAFF);
         if (!model.hasPatient(referenceId)) {
             throw new ParseException(String.format(MESSAGE_INVALID_REFERENCEID, AddAppCommand.MESSAGE_USAGE));
         }
@@ -88,7 +91,8 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
             Index rescursiveTimes = ParserUtil.parseTimes(recursiveStringTimesOptional.get());
             int times = rescursiveTimes.getZeroBased() + 1;
-            Appointment event = new Appointment(referenceId, timing, new Status());
+            Appointment event = new Appointment(referenceId,
+                    model.resolvePatient(referenceId).getName(), timing, new Status());
             List<Event> eventList = getRecEvents(event, recursiveString, times);
             return new ReversibleActionPairCommand(new AddAppCommand(eventList),
                     new CancelAppCommand(eventList));
@@ -98,7 +102,8 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddAppCommand.MESSAGE_USAGE));
             }
-            Appointment event = new Appointment(referenceId, timing, new Status());
+            Appointment event = new Appointment(referenceId,
+                    model.resolvePatient(referenceId).getName(), timing, new Status());
             return new ReversibleActionPairCommand(new AddAppCommand(event),
                     new CancelAppCommand(event));
         }
@@ -126,7 +131,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
         }
 
         for (int i = 0; i < times; i++) {
-            eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
+            eventList.add(new Appointment(event.getPersonId(), event.getPersonName(), timing, new Status()));
             timing = func.apply(timing);
         }
 

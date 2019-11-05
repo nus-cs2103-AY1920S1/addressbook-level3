@@ -35,6 +35,8 @@ import seedu.address.model.events.parameters.Timing;
  */
 public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any doctor";
+    public static final String MESSAGE_REFERENCEID_BELONGS_TO_PATIENT =
+            "Patients cannot be scheduled for duty shifts.";
 
     private Model model;
 
@@ -58,7 +60,9 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
                     AddDutyShiftCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.issueStaffReferenceId(argMultimap.getValue(PREFIX_ID).get());
+        ReferenceId referenceId = ParserUtil.lookupStaffReferenceId(
+                argMultimap.getValue(PREFIX_ID).get(),
+                MESSAGE_REFERENCEID_BELONGS_TO_PATIENT);
         if (!model.hasStaff(referenceId)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_REFERENCEID, AddDutyShiftCommand.MESSAGE_USAGE));
@@ -86,7 +90,8 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
 
             Index recursiveTimes = ParserUtil.parseTimes(recursiveStringTimesOptional.get());
             int times = recursiveTimes.getZeroBased() + 1;
-            Event event = new Event(referenceId, timing, new Status());
+
+            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
             List<Event> eventList = getRecEvents(event, recursiveString, times);
             return new ReversibleActionPairCommand(new AddDutyShiftCommand(eventList),
                     new CancelDutyShiftCommand(eventList));
@@ -96,7 +101,8 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddDutyShiftCommand.MESSAGE_USAGE));
             }
-            Event event = new Event(referenceId, timing, new Status());
+
+            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
             return new ReversibleActionPairCommand(
                     new AddDutyShiftCommand(event),
                     new CancelDutyShiftCommand(event));
@@ -124,7 +130,7 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
         }
 
         for (int i = 0; i < times; i++) {
-            eventList.add(new Event(event.getPersonId(), timing, new Status()));
+            eventList.add(new Event(event.getPersonId(), event.getPersonName(), timing, new Status()));
             timing = func.apply(timing);
         }
 
