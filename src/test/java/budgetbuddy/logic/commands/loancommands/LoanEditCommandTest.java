@@ -49,7 +49,7 @@ public class LoanEditCommandTest {
         String expectedMessage = String.format(
                 LoanEditCommand.MESSAGE_SUCCESS, TypicalIndexes.INDEX_FIRST_ITEM.getOneBased());
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, CommandCategory.LOAN, false, false);
+                new CommandResult(expectedMessage, CommandCategory.LOAN);
         Model expectedModel = new ModelManager();
         expectedModel.getLoansManager().addLoan(editedLoan);
 
@@ -65,7 +65,7 @@ public class LoanEditCommandTest {
         String expectedMessage = String.format(
                 LoanEditCommand.MESSAGE_SUCCESS, TypicalIndexes.INDEX_FIRST_ITEM.getOneBased());
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, CommandCategory.LOAN, false, false);
+                new CommandResult(expectedMessage, CommandCategory.LOAN);
         Model expectedModel = new ModelManager();
         expectedModel.getLoansManager().addLoan(new LoanBuilder(editedLoan).build());
 

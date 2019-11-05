@@ -56,7 +56,7 @@ public class LoanDeleteCommandTest {
         String expectedMessage = String.format(
                 LoanDeleteCommand.MESSAGE_SUCCESS, String.format("%d", targetIndex.getOneBased()));
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, CommandCategory.LOAN, false, false);
+                new CommandResult(expectedMessage, CommandCategory.LOAN);
         Model expectedModel = new ModelManager();
 
         assertCommandSuccess(loanDeleteCommand, model, expectedCommandResult, expectedModel);
@@ -80,7 +80,7 @@ public class LoanDeleteCommandTest {
         String expectedMessage = String.format(
                 LoanDeleteCommand.MESSAGE_SUCCESS, String.format("%d", TypicalIndexes.INDEX_FIRST_ITEM.getOneBased()));
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, CommandCategory.LOAN, false, false);
+                new CommandResult(expectedMessage, CommandCategory.LOAN);
         Model expectedModel = new ModelManager();
 
         assertCommandSuccess(loanDeleteCommand, model, expectedCommandResult, expectedModel);
