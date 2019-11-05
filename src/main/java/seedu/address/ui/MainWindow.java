@@ -22,10 +22,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.entry.PanelName;
+import seedu.address.ui.util.PanelName;
 import seedu.address.ui.stats.StatisticsBarChart;
 import seedu.address.ui.stats.StatisticsPieChartHolder;
 import seedu.address.ui.stats.StatisticsWindow;
+import seedu.address.ui.util.FontManager;
 import seedu.address.ui.util.Theme;
 
 /**

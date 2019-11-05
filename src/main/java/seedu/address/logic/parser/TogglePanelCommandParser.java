@@ -3,9 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.TogglePanelCommand;
+import seedu.address.logic.commands.uicommands.TogglePanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.entry.PanelName;
+import seedu.address.ui.util.PanelName;
 
 /**
  * Parses input arguments and creates a new TogglePanelCommand object.
