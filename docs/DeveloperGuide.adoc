@@ -737,10 +737,11 @@ The following are two code snippets from `getRecommendedItems(description)`:
             return newList;
 
 The `getCombination(arr, arr.length)` method in line 3 of the above snippet returns an ArrayList of all subsets of
-descriptions that are of at least length 3. While iterating through the `InventoryList`, these subsets are compared with the
-actual descriptions of all items in the inventory to check if either contains the other.
+descriptions that are of at least length 3. As shown in the first code snippet above, while iterating through the `InventoryList`,
+these subsets are compared with the actual descriptions of all items in the inventory to check if either contains the other.
 
-After adding all the suggested words into the `recommendedItems` list, the list is passed into a stream to remove duplicates.
+After adding all the suggested words into the `recommendedItems` list, the list is passed into a stream to remove duplicates
+as shown in the second code snippet.
 
 The following sequence diagram shows how the `AddCommand` works and is the reference
 from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
