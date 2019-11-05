@@ -508,10 +508,16 @@ Example: `rate 4`
 
 {nbsp} +
 
-==== Exiting EditMode: 'exitedit'
+==== Exiting EditMode: `exitedit`
 This command exits EditMode for the specific restaurant and returns to the list of restaurants
 
 Format: `exitedit`
+
+{nbsp} +
+
+==== Auto-tagging of food item as "Popular"
+Food items with quantity ordered more than 1.5 times the average quantity ordered of food items in the restaurant
+will be auto-tagged as "Popular". Food items quantity ordered will only be updated upon completion of an order.
 
 {nbsp} +
 
