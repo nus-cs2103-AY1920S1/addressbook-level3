@@ -14,13 +14,10 @@ import cs.f10.t1.nursetraverse.model.UserPrefs;
 import cs.f10.t1.nursetraverse.testutil.TypicalCsv;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
-public class ImportMergeCommandTest {
-
+public class ImportReplaceCommandTest {
     private static final String testFileName = "testFileName";
-    private static final String mergeFileName = "mergeFileName";
     private static final String emptyFileName = "emptyFileName";
     private static final String nonExistentFileName = "nonExistentFileNameAvoidClash";
-    private static File mergeFile;
     private static File tempFile;
     private static File emptyFile;
 
@@ -32,10 +29,6 @@ public class ImportMergeCommandTest {
         FileUtil.writeToFile(tempFile.toPath(), TypicalCsv.TYPICAL_CSV_STRING);
         tempFile.deleteOnExit();
 
-        mergeFile = File.createTempFile(mergeFileName, ".csv", new File("imports"));
-        FileUtil.writeToFile(mergeFile.toPath(), TypicalCsv.CSV_STRING_TO_MERGE);
-        mergeFile.deleteOnExit();
-
         emptyFile = File.createTempFile(emptyFileName, ".csv", new File("imports"));
         emptyFile.deleteOnExit();
     }
@@ -43,44 +36,31 @@ public class ImportMergeCommandTest {
     @Test
     public void execute_nonExistentFile_failure() {
         CommandTestUtil.assertCommandFailure(
-                new ImportMergeCommand(nonExistentFileName), model,
-                String.format(ImportMergeCommand.MESSAGE_FILE_DOES_NOT_EXIST, nonExistentFileName)
-        );
+                new ImportReplaceCommand(nonExistentFileName), model,
+                String.format(ImportReplaceCommand.MESSAGE_FILE_DOES_NOT_EXIST, nonExistentFileName));
     }
 
     @Test
     public void execute_emptyFile_failure() {
         CommandTestUtil.assertCommandFailure(
-                new ImportMergeCommand(
+                new ImportReplaceCommand(
                         emptyFile.getName().replace(".csv", "")),
-                model, ImportMergeCommand.MESSAGE_FILE_EMPTY
-        );
-    }
-
-    @Test
-    public void execute_duplicatePatients_failure() {
-        CommandTestUtil.assertCommandFailure(
-                new ImportMergeCommand(
-                        tempFile.getName().replace(".csv", "")),
-                model, ImportMergeCommand.MESSAGE_DUPLICATE_CSV_PATIENTS
+                model, ImportReplaceCommand.MESSAGE_FILE_EMPTY
         );
     }
 
     @Test
     public void execute_validCsv_success() {
-        PatientBook testPatientBook = new PatientBook();
-        testPatientBook.setPatients(TypicalPatients.getTypicalPatientsWithoutVisit());
-        Model testModel = new ModelManager(testPatientBook, new UserPrefs());
+        Model testModel = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
 
         PatientBook expectedPatientBook = new PatientBook();
         expectedPatientBook.setPatients(TypicalPatients.getTypicalPatientsWithoutVisit());
-        expectedPatientBook.addPatient(TypicalPatients.HOON);
         Model expectedModel = new ModelManager(expectedPatientBook, new UserPrefs());
 
         CommandTestUtil.assertCommandSuccess(
-                new ImportMergeCommand(
-                        mergeFile.getName().replace(".csv", "")),
-                testModel, ImportMergeCommand.MESSAGE_SUCCESS, expectedModel
+                new ImportReplaceCommand(
+                        tempFile.getName().replace(".csv", "")),
+                testModel, ImportReplaceCommand.MESSAGE_SUCCESS, expectedModel
         );
     }
 }

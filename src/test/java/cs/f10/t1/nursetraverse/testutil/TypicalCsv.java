@@ -20,4 +20,7 @@ public class TypicalCsv {
             + "\"Benson Meier\",98765432,empty address ->,\"\",\"owesMoney\n"
             + "friends\",\n"
             + ",\"<- empty name\",heinz@example.com,\"wall street\",,\n";
+
+    public static final String CSV_STRING_TO_MERGE = "name,phone,email,address,tagged,visitTodos\n"
+            + "\"Hoon Meier\",8482424,stefan@example.com,\"little india\",,\n";
 }
