@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.guilttrip.logic.commands.EditCommand.EditEntryDescriptor;
+import seedu.guilttrip.logic.commands.editcommands.EditCommand.EditEntryDescriptor;
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Entry;

@@ -12,6 +12,8 @@ import seedu.guilttrip.model.ReadOnlyGuiltTrip;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
@@ -50,6 +52,10 @@ public interface Logic {
     ObservableList<CategoryStatistics> getListOfStatsForIncome();
 
     ObservableList<Entry> getFilteredExpenseAndIncomeList();
+
+    ObservableList<Expense> getFilteredExpenseList();
+
+    ObservableList<Income> getFilteredIncomeList();
 
     ObservableList<AutoExpense> getFilteredAutoExpenseList();
 

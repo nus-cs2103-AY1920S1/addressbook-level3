@@ -34,8 +34,8 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.guilttrip.commons.core.index.Index;
-//import seedu.guilttrip.logic.commands.EditCommand;
-//import seedu.guilttrip.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.guilttrip.logic.commands.editcommands.EditCommand;
+//import seedu.guilttrip.logic.commands.editcommands.EditCommand.EditPersonDescriptor;
 //import seedu.guilttrip.model.entry.Address;
 //import seedu.guilttrip.model.entry.Email;
 //import seedu.guilttrip.model.entry.Description;

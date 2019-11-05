@@ -22,10 +22,11 @@ import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
-import seedu.guilttrip.model.entry.PanelName;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
 import seedu.guilttrip.ui.stats.StatisticsPieChartHolder;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
+import seedu.guilttrip.ui.util.FontManager;
+import seedu.guilttrip.ui.util.PanelName;
 import seedu.guilttrip.ui.util.Theme;
 
 /**
@@ -48,6 +49,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private EntryListPanel entryListPanel;
+    private ExpenseListPanel expenseListPanel;
+    private IncomeListPanel incomeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statsListPanel;
@@ -71,7 +74,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane entryListPanelPlaceholder;
+    private VBox entryList;
+
+    @FXML
+    private StackPane expenseListPanelPlaceholder;
+
+    @FXML
+    private StackPane incomeListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -162,8 +171,12 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getTotalExpenseForPeriod(), logic.getTotalIncomeForPeriod());
         statsBar = new StatisticsBarChart(logic.getListOfStatsForBarChart());
 
-        entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
-        entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
+        /*entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
+        entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());*/
+
+        expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
+        incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
+        entryList.getChildren().addAll(expenseListPanel.getRoot(), incomeListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -389,8 +402,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills the entryListPanel with the type of Panel passed in.
      */
     private void fillEntryListPanel(UiPart typeOfPanel) {
-        entryListPanelPlaceholder.getChildren().clear();
-        entryListPanelPlaceholder.getChildren().add((Node) typeOfPanel.getRoot());
+        entryList.getChildren().clear();
+        entryList.getChildren().add((Node) typeOfPanel.getRoot());
     }
 
     /**
@@ -398,11 +411,11 @@ public class MainWindow extends UiPart<Stage> {
      * entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
      */
     private void toggleStatsPanel() {
-        entryListPanelPlaceholder.getChildren().clear();
+        entryList.getChildren().clear();
         if (isStatsGraphicsWindow) {
-            entryListPanelPlaceholder.getChildren().add(statsGraphics.getRoot());
+            entryList.getChildren().add(statsGraphics.getRoot());
         } else {
-            entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+            entryList.getChildren().add(statsListPanel.getRoot());
         }
     }
 

@@ -13,11 +13,11 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.guilttrip.logic.commands.AddCommand;
+//import seedu.guilttrip.logic.commands.addcommands.AddCommand;
 //import seedu.guilttrip.logic.commands.ClearCommand;
-//import seedu.guilttrip.logic.commands.DeleteCommand;
-//import seedu.guilttrip.logic.commands.EditCommand;
-//import seedu.guilttrip.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.guilttrip.logic.commands.deletecommands.DeleteCommand;
+//import seedu.guilttrip.logic.commands.editcommands.EditCommand;
+//import seedu.guilttrip.logic.commands.editcommands.EditCommand.EditPersonDescriptor;
 //import seedu.guilttrip.logic.commands.ExitCommand;
 //import seedu.guilttrip.logic.commands.FindCommand;
 //import seedu.guilttrip.logic.commands.HelpCommand;

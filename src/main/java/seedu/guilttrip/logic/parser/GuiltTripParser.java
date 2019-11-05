@@ -6,23 +6,8 @@ import static seedu.guilttrip.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.guilttrip.logic.commands.AddAutoExpenseCommand;
-import seedu.guilttrip.logic.commands.AddBudgetCommand;
-import seedu.guilttrip.logic.commands.AddCategoryCommand;
-import seedu.guilttrip.logic.commands.AddCommand;
-import seedu.guilttrip.logic.commands.ChangeFontCommand;
 import seedu.guilttrip.logic.commands.ClearCommand;
 import seedu.guilttrip.logic.commands.Command;
-import seedu.guilttrip.logic.commands.DeleteAutoExpenseCommand;
-import seedu.guilttrip.logic.commands.DeleteBudgetCommand;
-import seedu.guilttrip.logic.commands.DeleteCategoryCommand;
-import seedu.guilttrip.logic.commands.DeleteCommand;
-import seedu.guilttrip.logic.commands.DeleteWishCommand;
-import seedu.guilttrip.logic.commands.EditAutoExpenseCommand;
-import seedu.guilttrip.logic.commands.EditBudgetCommand;
-import seedu.guilttrip.logic.commands.EditCategoryCommand;
-import seedu.guilttrip.logic.commands.EditCommand;
-import seedu.guilttrip.logic.commands.EditWishCommand;
 import seedu.guilttrip.logic.commands.ExitCommand;
 import seedu.guilttrip.logic.commands.FindBudgetCommand;
 import seedu.guilttrip.logic.commands.FindCommand;
@@ -32,14 +17,15 @@ import seedu.guilttrip.logic.commands.HistoryCommand;
 import seedu.guilttrip.logic.commands.ListBudgetCommand;
 import seedu.guilttrip.logic.commands.ListCategoriesCommand;
 import seedu.guilttrip.logic.commands.ListCommand;
-import seedu.guilttrip.logic.commands.ListFontCommand;
 import seedu.guilttrip.logic.commands.RedoCommand;
-import seedu.guilttrip.logic.commands.SetDarkThemeCommand;
-import seedu.guilttrip.logic.commands.SetLightThemeCommand;
 import seedu.guilttrip.logic.commands.SortCommand;
-import seedu.guilttrip.logic.commands.TogglePanelCommand;
 import seedu.guilttrip.logic.commands.UndoCommand;
 import seedu.guilttrip.logic.commands.WishListCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddAutoExpenseCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddClassConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddDateConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddHasKeyWordConditionCommand;
@@ -48,6 +34,18 @@ import seedu.guilttrip.logic.commands.conditioncommands.AddTagsConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.DeleteConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.ReplaceConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.ShowConditionListCommand;
+import seedu.guilttrip.logic.commands.deletecommands.DeleteAutoExpenseCommand;
+import seedu.guilttrip.logic.commands.deletecommands.DeleteBudgetCommand;
+import seedu.guilttrip.logic.commands.deletecommands.DeleteCategoryCommand;
+import seedu.guilttrip.logic.commands.deletecommands.DeleteExpenseCommand;
+import seedu.guilttrip.logic.commands.deletecommands.DeleteIncomeCommand;
+import seedu.guilttrip.logic.commands.deletecommands.DeleteWishCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditAutoExpenseCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditBudgetCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditExpenseCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditIncomeCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditWishCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddConditionToReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
@@ -59,6 +57,16 @@ import seedu.guilttrip.logic.commands.statisticscommands.ViewBarChartCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewEntryCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewPieChartCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewTableCommand;
+import seedu.guilttrip.logic.commands.uicommands.ChangeFontCommand;
+import seedu.guilttrip.logic.commands.uicommands.ListFontCommand;
+import seedu.guilttrip.logic.commands.uicommands.SetDarkThemeCommand;
+import seedu.guilttrip.logic.commands.uicommands.SetLightThemeCommand;
+import seedu.guilttrip.logic.commands.uicommands.TogglePanelCommand;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddAutoExpenseCommandParser;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddBudgetCommandParser;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddCategoryCommandParser;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddExpenseCommandParser;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddIncomeCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
@@ -66,12 +74,29 @@ import seedu.guilttrip.logic.parser.conditioncommandparsers.AddHasTagConditionCo
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddQuotaConditionCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.DeleteConditionCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.ReplaceConditionCommandParser;
+import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteAutoExpenseCommandParser;
+import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteBudgetCommandParser;
+import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteCategoryCommandParser;
+import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteExpenseCommandParser;
+import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteIncomeCommandParser;
+import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteWishCommandParser;
+import seedu.guilttrip.logic.parser.editcommandparsers.EditAutoExpenseCommandParser;
+import seedu.guilttrip.logic.parser.editcommandparsers.EditBudgetCommandParser;
+import seedu.guilttrip.logic.parser.editcommandparsers.EditCategoryCommandParser;
+import seedu.guilttrip.logic.parser.editcommandparsers.EditExpenseCommandParser;
+import seedu.guilttrip.logic.parser.editcommandparsers.EditIncomeCommandParser;
+import seedu.guilttrip.logic.parser.editcommandparsers.EditWishCommandParser;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddConditionToReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.DeleteReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.EditReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.RemoveConditionFromReminderCommandParser;
+import seedu.guilttrip.logic.parser.statscommandparsers.ViewBarChartCommandParser;
+import seedu.guilttrip.logic.parser.statscommandparsers.ViewPieChartCommandParser;
+import seedu.guilttrip.logic.parser.statscommandparsers.ViewTableCommandParser;
+import seedu.guilttrip.logic.parser.uicommandparsers.ChangeFontCommandParser;
+import seedu.guilttrip.logic.parser.uicommandparsers.TogglePanelCommandParser;
 
 /**
  * Parses user input.
@@ -85,13 +110,9 @@ public class GuiltTripParser {
 
     /**
      * Parses user input into command for execution.
-     *
-     * @param userInput
-     *                      full user input string
+     * @param userInput full user input string
      * @return the command based on the user input
-     * @throws ParseException
-     *                            if the user input does not conform the expected
-     *                            format
+     * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException, IllegalArgumentException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -103,8 +124,13 @@ public class GuiltTripParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case AddExpenseCommand.COMMAND_WORD_SHORT:
+            return new AddExpenseCommandParser().parse(arguments);
+
+        case AddIncomeCommand.COMMAND_WORD:
+            return new AddIncomeCommandParser().parse(arguments);
 
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);
@@ -112,8 +138,13 @@ public class GuiltTripParser {
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case EditExpenseCommand.COMMAND_WORD_SHORT:
+            return new EditExpenseCommandParser().parse(arguments);
+
+        case EditIncomeCommand.COMMAND_WORD:
+            return new EditIncomeCommandParser().parse(arguments);
 
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);
@@ -124,8 +155,13 @@ public class GuiltTripParser {
         case EditBudgetCommand.COMMAND_WORD:
             return new EditBudgetCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case DeleteExpenseCommand.COMMAND_WORD_SHORT:
+            return new DeleteExpenseCommandParser().parse(arguments);
+
+        case DeleteIncomeCommand.COMMAND_WORD:
+            return new DeleteIncomeCommandParser().parse(arguments);
 
         case DeleteCategoryCommand.COMMAND_WORD:
             return new DeleteCategoryCommandParser().parse(arguments);

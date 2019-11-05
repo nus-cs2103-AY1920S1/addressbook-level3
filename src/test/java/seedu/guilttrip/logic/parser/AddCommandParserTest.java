@@ -32,7 +32,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.guilttrip.logic.commands.AddCommand;
+//import seedu.guilttrip.logic.commands.addcommands.AddCommand;
 //import seedu.guilttrip.model.entry.Description;
 //import seedu.guilttrip.model.entry.Entry;
 //import seedu.guilttrip.model.tag.Tag;

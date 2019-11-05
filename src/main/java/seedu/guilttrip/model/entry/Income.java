@@ -16,7 +16,7 @@ public class Income extends Entry {
     }
 
     public String getType() {
-        return this.ENTRY_TYPE;
+        return ENTRY_TYPE;
     }
 
     /**
@@ -39,8 +39,6 @@ public class Income extends Entry {
 
         if (!(other instanceof Income)) {
             return false;
-        } else if (!(other instanceof Wish)) {
-            return false;
         }
 
         Income otherIncome = (Income) other;
@@ -54,16 +52,15 @@ public class Income extends Entry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(ENTRY_TYPE + ": ")
-                .append(" | Category: ")
+        builder.append("Category: ")
                 .append(getCategory())
-                .append(" Description: ")
+                .append(" | Description: ")
                 .append(getDesc())
-                .append(" Amount: ")
+                .append(" | Amount: ")
                 .append(getAmount())
-                .append(" Tags: ");
+                .append(" | Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + getDate() + ")");
+        builder.append(" (" + getDate() + ")");
         return builder.toString();
     }
 
