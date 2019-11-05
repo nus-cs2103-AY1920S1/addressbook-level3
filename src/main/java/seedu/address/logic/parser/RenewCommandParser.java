@@ -21,7 +21,11 @@ public class RenewCommandParser implements Parser<RenewCommand> {
      */
     @Override
     public RenewCommand parse(String userInput) throws ParseException {
-        try {
+        if (ParserUtil.onlyAllFlagPresent(userInput, RenewCommand.COMMAND_WORD)) {
+            return new RenewCommand(); // -all flag present, renew all valid books
+        }
+
+        try { // parse by index instead
             Index index = ParserUtil.parseIndex(userInput);
             return new RenewCommand(index);
         } catch (ParseException pe) {

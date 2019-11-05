@@ -26,6 +26,7 @@ public class SetCommand extends ReversibleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets custom user settings of the application. \n"
             + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: "
             + "[" + PREFIX_LOAN_PERIOD + "LOAN_PERIOD] "
             + "[" + PREFIX_RENEW_PERIOD + "RENEW_PERIOD] "
             + "[" + PREFIX_FINE_INCREMENT + "FINE_INCREMENT] "
