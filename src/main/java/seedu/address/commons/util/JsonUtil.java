@@ -45,7 +45,7 @@ public class JsonUtil {
 
     static <T> T deserializeObjectFromJsonFile(Path jsonFile, Class<T> classOfObjectToDeserialize)
             throws IOException {
-        return  fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+        return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
     }
 
     /**
