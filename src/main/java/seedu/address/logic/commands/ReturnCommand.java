@@ -28,11 +28,14 @@ public class ReturnCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a book borrowed by a borrower.\n"
             + "Command can only be used in Serve mode.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "or\n"
+            + "-all\n"
+            + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " -all";
 
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s";
 
     private final Index index;
+    private final boolean returnAllValidBooks;
 
     /**
      * Creates an ReturnCommand to return the currently served Borrower's {@code Book}.
@@ -42,6 +45,12 @@ public class ReturnCommand extends ReversibleCommand {
     public ReturnCommand(Index index) {
         requireNonNull(index);
         this.index = index;
+        this.returnAllValidBooks = false;
+    }
+
+    public ReturnCommand(boolean isAll) {
+        this.returnAllValidBooks = isAll;
+        this.index = null;
     }
 
     /**

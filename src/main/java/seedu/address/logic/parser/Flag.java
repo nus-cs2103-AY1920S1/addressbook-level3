@@ -12,12 +12,12 @@ public enum Flag {
             + "-overdue\n"
             + "-all";
 
-    public static final String FIND_FLAGS_MESSAGE_CONSTRAINTS = "The only available flags for this command are\n"
+    public static final String FIND_FLAGS_MESSAGE_CONSTRAINTS = "The only available flags for find command are\n"
             + "-available\n"
             + "-loaned\n"
             + "-overdue";
 
     public static final String RETURN_AND_RENEW_FLAG_MESSAGE_CONSTRAINTS =
-            "The only available flag for this command is\n"
+            "The only available flag for %1$s command is\n"
             + "-all";
 }

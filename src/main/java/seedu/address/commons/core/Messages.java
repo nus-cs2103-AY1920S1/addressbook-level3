@@ -10,6 +10,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_LOAN_STATE_CONSTRAINTS = "Only 1 of -available / -loaned / -overdue flags can "
             + "be used at any time";
+    public static final String MESSAGE_ALL_FLAG_CONSTRAINTS =
+            "There should not be any arguments before the -all flags!";
     public static final String MESSAGE_INVALID_DISPLAY_LIMIT = "Display limit must be a positive integer!";
     public static final String MESSAGE_BOOK_TITLE_TOO_LONG = "Title of book should not be more than %1$s characters!";
     public static final String MESSAGE_AUTHOR_NAME_TOO_LONG = "Name of author should not be more than 30 characters!";

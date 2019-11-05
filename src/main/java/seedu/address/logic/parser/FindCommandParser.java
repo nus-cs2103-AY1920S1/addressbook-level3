@@ -125,7 +125,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(FIND_FLAGS_MESSAGE_CONSTRAINTS);
         }
 
-        if (flagSet.contains(Flag.ALL)) {
+        if (flagSet.isEmpty() || flagSet.contains(Flag.ALL)) {
             throw new ParseException(FIND_FLAGS_MESSAGE_CONSTRAINTS);
         }
 
