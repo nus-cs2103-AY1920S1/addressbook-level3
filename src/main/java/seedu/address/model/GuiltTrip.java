@@ -84,7 +84,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param shouldReloadCategories the boolean whether the categories should be reloaded.
      */
     public GuiltTrip(boolean shouldReloadCategories) {
-        if (shouldReloadCategories == true) {
+        if (shouldReloadCategories) {
             Category[] listOfCategories = SampleDataUtil.getSampleCategories();
             for (Category sampleCategory : listOfCategories) {
                 this.addCategory(sampleCategory);

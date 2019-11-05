@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import seedu.address.model.entry.PanelName;
 import seedu.address.ui.FontName;
+import seedu.address.ui.util.Theme;
 
 /**
  * Represents the result of a command execution.
@@ -34,6 +35,10 @@ public class CommandResult {
     private final boolean listFonts;
     private final boolean changeFont;
 
+    /** For changing the theme */
+    private final boolean changeTheme;
+    private final Theme newTheme;
+
     private boolean toShowConditionPanel = false;
 
 
@@ -53,6 +58,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
     /**
@@ -76,6 +83,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
 
@@ -95,6 +104,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.changeTheme = false;
+        this.newTheme = null;
     }
 
     /**
@@ -110,6 +121,28 @@ public class CommandResult {
         this.listFonts = listFonts;
         this.changeFont = changeFont;
         this.toggleStats = false;
+        this.changeTheme = false;
+        this.newTheme = null;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean changeTheme, Theme theme) {
+        this.feedbackToUser = feedbackToUser;
+        this.changeTheme = changeTheme;
+        this.newTheme = theme;
+        this.showHelp = false;
+        this.exit = false;
+        this.panelName = null;
+        this.togglePanel = false;
+        this.toggleStats = false;
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
         this.togglePieChart = false;
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
@@ -125,6 +158,18 @@ public class CommandResult {
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public PanelName getPanelName() {
+        return this.panelName;
+    }
+
+    public FontName getFontName() {
+        return fontName;
+    }
+
+    public Theme getNewTheme() {
+        return newTheme;
     }
 
     public boolean isShowHelp() {
@@ -155,10 +200,6 @@ public class CommandResult {
         return toggleBarChart;
     }
 
-    public PanelName getPanelName() {
-        return this.panelName;
-    }
-
     public boolean isChangeFont() {
         return changeFont;
     }
@@ -167,9 +208,10 @@ public class CommandResult {
         return listFonts;
     }
 
-    public FontName getFontName() {
-        return fontName;
+    public boolean isChangeTheme() {
+        return changeTheme;
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -190,12 +232,15 @@ public class CommandResult {
                 && togglePanel == otherCommandResult.togglePanel
                 && fontName == otherCommandResult.fontName
                 && listFonts == otherCommandResult.listFonts
-                && changeFont == otherCommandResult.changeFont;
+                && changeFont == otherCommandResult.changeFont
+                && changeTheme == otherCommandResult.changeTheme
+                && newTheme.equals(otherCommandResult.newTheme);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont,
+                newTheme, changeTheme);
     }
 
 }

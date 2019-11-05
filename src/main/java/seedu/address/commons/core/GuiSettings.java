@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
 
+import seedu.address.ui.util.Theme;
+
 /**
  * A Serializable class that contains the GUI settings.
  * Guarantees: immutable.
@@ -12,22 +14,30 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 800;
     private static final double DEFAULT_WIDTH = 1100;
+    private static final String DEFAULT_FONT = "segoe UI";
+    private static final Theme DEFAULT_THEME = Theme.DARK;
 
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
-    private final String font = "Segoe UI";
+    private final String font;
+    private final Theme theme;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
+        font = DEFAULT_FONT;
+        theme = DEFAULT_THEME;
     }
 
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String font,
+                       Theme theme) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
+        this.font = font;
+        this.theme = theme;
     }
 
     public double getWindowWidth() {
@@ -42,6 +52,14 @@ public class GuiSettings implements Serializable {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
     }
 
+    public String getFont() {
+        return font;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -53,14 +71,16 @@ public class GuiSettings implements Serializable {
 
         GuiSettings o = (GuiSettings) other;
 
+        assert font != null;
         return windowWidth == o.windowWidth
                 && windowHeight == o.windowHeight
-                && Objects.equals(windowCoordinates, o.windowCoordinates);
+                && Objects.equals(windowCoordinates, o.windowCoordinates)
+                && font.equals(o.font);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, font);
     }
 
     @Override
@@ -68,7 +88,8 @@ public class GuiSettings implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Width : " + windowWidth + "\n");
         sb.append("Height : " + windowHeight + "\n");
-        sb.append("Position : " + windowCoordinates);
+        sb.append("Position : " + windowCoordinates + "\n");
+        sb.append("Font: " + font);
         return sb.toString();
     }
 }
