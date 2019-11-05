@@ -2,8 +2,8 @@
 
 <?import javafx.scene.layout.StackPane?>
 <?import seedu.address.ui.AutoCompleteTextField?>
-<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
+<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <AutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandEntered" onKeyPressed="#handleKeyPress" promptText="Enter command here..."/>
 </StackPane>
 

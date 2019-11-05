@@ -11,6 +11,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import seedu.address.logic.commands.CommandMasterList;
 
 public class AutoCompleteTextField extends TextField {
 
@@ -21,8 +22,7 @@ public class AutoCompleteTextField extends TextField {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
-        this.entries.add("add");
-        this.entries.add("edit");
+        entries.addAll(CommandMasterList.getCommandWords());
         setListener();
     }
 
@@ -46,18 +46,23 @@ public class AutoCompleteTextField extends TextField {
                     if (!entriesPopup.isShowing()) { //optional
                         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0); //position of popup
                     }
-                    //no suggestions -> hide
                 } else {
                     entriesPopup.hide();
                 }
             }
         });
-        //Hide always by focus-in (optional) and out
         focusedProperty().addListener((observableValue, oldValue, newValue) -> {
             entriesPopup.hide();
         });
     }
 
+    /**
+     *
+     * if any suggestion is selected,
+     * set the textfield to suggestion
+     * @param searchResult
+     * @param searchRequest
+     */
     private void populatePopup(List<String> searchResult, String searchRequest) {
         //List of "suggestions"
         List<CustomMenuItem> menuItems = new LinkedList<>();
@@ -70,20 +75,20 @@ public class AutoCompleteTextField extends TextField {
             //label with graphic (text flow) to highlight founded subtext in suggestions
             Label entryLabel = new Label();
             entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
-            entryLabel.setPrefHeight(10);  //don't sure why it's changed with "graphic"
+            entryLabel.setPrefHeight(10);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             menuItems.add(item);
 
-            //if any suggestion is select set it into text and close popup
             item.setOnAction(actionEvent -> {
                 setText(result);
                 positionCaret(result.length());
                 entriesPopup.hide();
             });
         }
-
-        //"Refresh" context menu
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
+    }
+    public void addEntry(String toAdd) {
+        entries.add(toAdd);
     }
 }
