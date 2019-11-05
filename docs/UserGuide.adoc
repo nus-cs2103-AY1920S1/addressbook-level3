@@ -161,15 +161,21 @@ Displays a full list of all tags currently in StudyBuddyPro.
     Expected output:
     Here are all the tags in StudyBuddyPro.
     Listing all tags :
-    [cs2100]
-    [cs2101]
-    [cs2104]
-    [math]
-    [pipelining]
+    [cs2100] |  flashcards : 0 notes : 3 cheatsheets : 1
+    [cs2101] |  flashcards : 6 notes : 2 cheatsheets : 1
+    [cs2104] |  flashcards : 20 notes : 8 cheatsheets : 3
+    [math] |  flashcards : 10 notes : 2 cheatsheets : 1
+    [pipelining] |  flashcards : 1 notes : 5 cheatsheets : 2
 
 * The user can make use of taglist, to quickly see which tag they would like to view.
 
+* The user is able to view how many flashcards, notes and cheatsheets respectively there are in each tag.
+
 * The list of tags is also automatically sorted alphabetically.
+
+* If there are no longer any items with the specified tag, the tag will be removed from this list.
+
+
 
 === Listing all StudyBuddyPro items by their tag : `filterall`
 
