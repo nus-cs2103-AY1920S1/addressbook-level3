@@ -119,6 +119,12 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
+    /**
+     * Deletes the given event.
+     * The event must exist in performance.
+     */
+    void deleteEvent(Event target);
+
     ReadOnlyPerformance getPerformance();
 
     void addRecord(String eventName, Person person, Record record);
