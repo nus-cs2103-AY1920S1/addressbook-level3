@@ -31,7 +31,7 @@ We have thus developed this software that is mostly CLI, save the option for cli
 
 === About My Role
 
-My role was to design the `find`, `filter`, and `stats` feature. The following section elaborates on my work in greater detail. Other than engineering these features, I also contributed to the project documentation (user and developer guides). I will be including excerpts of these contributions in the next section.
+My role was to design the `stats`, `filter`, and `find` features. The following section elaborates on my work in greater detail. Other than engineering these features, I also contributed to the project documentation (user and developer guides). I will be including excerpts of these contributions in the next section.
 
 Before we move there, I would like to highlight the symbols and text formatting that will be used in this document, which are as follows:
 
@@ -43,35 +43,32 @@ Blue text indicates a component, class or object in the architecture of the appl
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
+
+* *Major enhancement 1*: I added the line chart display which shows admissions statistics.
+** What it does: The line chart displays the number of bodies admitted to the mortuary daily over the last ten days. This is the default view. With the `stats` command, users can toggle between a ten-day, weekly, monthly, or yearly display. Furthermore, any particular week, month, or year can be specified. 
+** Justification: It is important for users to know how many bodies are admitted daily as well as the trends for admission. As managers of the mortuary, they can make staffing decisions on various times of the year depending on the trends.
+** Highlights: This feature can be further enhanced by adding more data to the display, for example, another line for bodies claimed daily which can show the average lag time between admission and claim dates.
+** Credits: Support for rendering the line chart was provided by JavaFX.
+
+* *Major enhancement 1*: I added the ability to filter entries.
+** What it does: The `filter` command allows users to filter body or worker entries by any attributes,
+** Justification: This is a necessary feature for a system that intends to manage a lot of data. Sometimes, mortuary managers just need to view entries of a specific kind. They can filter entries by sex, status, cause of death, etc.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: I added the ability to find workers or bodies by their name.
+** Justification: Although the previous command can serve the same purpose, the `find` command is useful for when the user has a specific entry in mind that they want to view as it is a shorter and more efficient command.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features: I wrote additional tests for existing features to increase coverage from __% to __%. (Pull request: https://github.com[#36])
+** Documentation: I made cosmetic tweaks to existing contents of the User Guide to make it more reader-friendly.(Pull request: https://github.com[#36])
+** Community: 
+*** I reviewed PRs, offering non-trivial review comments. (Exampless: https://github.com[#36])
+*** I reported bugs and suggestions for other teams in the class (Examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 == Contributions to the User Guide
 
