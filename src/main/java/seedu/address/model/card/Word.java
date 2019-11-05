@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Word {
 
-    /** Maximum length of Word's string is set at 150 characters to ensure Hints showing properly. */
-    private static final int MAX_LEN = 150;
+    /** Maximum length of Word's string is set at 80 characters to ensure Hints showing properly. */
+    private static final int MAX_LEN = 80;
 
     public static final String MESSAGE_CONSTRAINTS =
             "Words should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
