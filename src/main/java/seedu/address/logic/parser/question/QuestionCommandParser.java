@@ -69,16 +69,13 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
                 PREFIX_DELETE, PREFIX_FIND, PREFIX_SLIDESHOW);
 
         if (argMultimap.getValue(PREFIX_LIST).isPresent()) { // List command
-            return new QuestionListCommand();
+            return listCommand();
         } else if (argMultimap.getValue(PREFIX_SLIDESHOW).isPresent()) { // Slideshow command
             return slideshowCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_FIND).isPresent()) { // Find command
-            if (argMultimap.getValue(PREFIX_FIND).orElse("").isEmpty()) {
-                throw new ParseException(MESSAGE_MISSING_TEXT_SEARCH);
-            }
-            return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));
+            return findCommand(argMultimap);
         } else if (!argMultimap.getPreamble().isBlank()) { // Edit command
             return editCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) { // Create command
@@ -229,6 +226,29 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         }
 
         return new QuestionSlideshowCommand(slideshowPrefix);
+    }
+
+    /**
+     * Performs validation and return the QuestionListCommand object.
+     *
+     * @return QuestionListCommand object.
+     */
+    private QuestionListCommand listCommand() {
+        return new QuestionListCommand();
+    }
+
+    /**
+     * Performs validation and return the QuestionFindCommand object.
+     *
+     * @param argMultimap for tokenized input.
+     * @return QuestionFindCommand object.
+     * @throws ParseException
+     */
+    private QuestionFindCommand findCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(PREFIX_FIND).orElse("").isEmpty()) {
+            throw new ParseException(MESSAGE_MISSING_TEXT_SEARCH);
+        }
+        return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));
     }
 
     /**
