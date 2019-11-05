@@ -11,8 +11,8 @@ import seedu.jarvis.ui.template.View;
 /**
  * Contains the Planner in JARVIS
  */
-public class PlannerWindow extends View<AnchorPane> {
-    private static final String FXML = "PlannerWindow.fxml";
+public class PlannerView extends View<AnchorPane> {
+    private static final String FXML = "PlannerView.fxml";
 
     private TaskListView taskListView;
     private SortedTasksDisplay sortedTasksDisplay;
@@ -22,7 +22,7 @@ public class PlannerWindow extends View<AnchorPane> {
     @FXML
     private SplitPane taskSplitPane;
 
-    public PlannerWindow(MainWindow mainWindow, Logic logic, Model model, PlannerUiType type) {
+    public PlannerView(MainWindow mainWindow, Logic logic, Model model, PlannerUiType type) {
         super(FXML, mainWindow, logic, model);
         this.type = type;
     }
