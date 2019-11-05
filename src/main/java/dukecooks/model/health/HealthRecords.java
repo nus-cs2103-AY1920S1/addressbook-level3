@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.model.health.components.Record;
 import dukecooks.model.health.components.UniqueRecord;
 import javafx.collections.ObservableList;

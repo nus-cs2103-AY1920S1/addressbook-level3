@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.commons.util.CollectionUtil;
-import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.model.dashboard.DashboardRecords;
 import dukecooks.model.dashboard.ReadOnlyDashboard;
 import dukecooks.model.dashboard.components.Dashboard;

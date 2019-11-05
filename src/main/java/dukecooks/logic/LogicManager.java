@@ -11,7 +11,6 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.parser.DukeCooksParser;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.model.Model;
 import dukecooks.model.dashboard.ReadOnlyDashboard;
 import dukecooks.model.dashboard.components.Dashboard;

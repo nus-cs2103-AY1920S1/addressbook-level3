@@ -3,7 +3,6 @@ package dukecooks.ui;
 import java.util.logging.Logger;
 
 import dukecooks.commons.core.LogsCenter;
-import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.logic.ui.CustomRecordList;
 import dukecooks.model.health.components.Record;
 import dukecooks.model.health.components.util.TypeUtil;
