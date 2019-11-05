@@ -16,8 +16,17 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.LendMoney;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.util.Date;
+import seedu.address.testutil.BankOperationBuilder;
 import seedu.address.testutil.UserStateBuilder;
 
 
@@ -30,7 +39,31 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new VersionedUserState(new UserState()), modelManager.getUserState());
         assertEquals(new BankAccount(), new BankAccount(modelManager.getBankAccount()));
+    }
+
+    @Test
+    public void setUserState() {
+        UserState userState = new UserState();
+        VersionedUserState versionedUserState = new VersionedUserState(userState);
+
+        BankAccountOperation op = new BankOperationBuilder()
+            .withDescription("milk")
+            .withAmount("69")
+            .withDate("19112019")
+            .withCategories("Uncategorised")
+            .build();
+
+        versionedUserState.add(op);
+
+        modelManager.setUserState(versionedUserState);
+
+        VersionedUserState expectedVersionedUserState = new VersionedUserState(new UserState());
+        expectedVersionedUserState.add(op);
+
+        VersionedUserState actualVersionedUserState = (VersionedUserState) modelManager.getUserState();
+        assertEquals(expectedVersionedUserState, actualVersionedUserState);
     }
 
     @Test
@@ -90,6 +123,46 @@ public class ModelManagerTest {
     public void hasTransaction_transactionInBankAccount_returnsTrue() {
         modelManager.add(ALICE);
         assertTrue(modelManager.has(ALICE));
+    }
+
+    @Test
+    public void hasBudget_nullBudget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.has((Budget) null));
+    }
+
+    @Test
+    public void hasBudget_budgetNotInBankAccount_returnsFalse() {
+        Budget falseBudget = new Budget(new Amount(700), new Date("19112019"));
+        assertFalse(modelManager.has(falseBudget));
+    }
+
+    @Test
+    public void hasBudget_budgetInBankAccount_returnsTrue() {
+        Budget budget = new Budget(new Amount(700), new Date("19112019"));
+        modelManager.add(budget);
+        assertTrue(modelManager.has(budget));
+    }
+
+    @Test
+    public void hasLedgerOperation_nullLedgerOperation_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.has((LedgerOperation) null));
+    }
+
+    @Test
+    public void hasLedgerOperation_ledgerOperationNotInBankAccount_returnsFalse() {
+        LedgerOperation falseLedger = new LendMoney(
+            new Person(new Name("John")), new Amount(700),
+            new Date("19112019"), new Description("loanshark"));
+        assertFalse(modelManager.has(falseLedger));
+    }
+
+    @Test
+    public void hasLedgerOperation_ledgerOperationInBankAccount_returnsTrue() {
+        LedgerOperation ledger = new LendMoney(
+            new Person(new Name("John")), new Amount(700),
+            new Date("19112019"), new Description("loanshark"));
+        modelManager.add(ledger);
+        assertTrue(modelManager.has(ledger));
     }
 
     @Test
