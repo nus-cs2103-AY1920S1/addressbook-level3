@@ -139,8 +139,10 @@ public class DeleteTaskCommand extends Command {
         }
 
         model.addTask(targetIndex.getZeroBased(), deletedTask);
+        model.updateSchedule();
+        model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
 
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedTask));
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedTask), true);
     }
 
     /**
