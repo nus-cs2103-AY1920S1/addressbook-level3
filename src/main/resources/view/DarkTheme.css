@@ -111,14 +111,9 @@
     -fx-background-color: #3c3e3f;
 }
 
-.list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
-}
-
 .list-cell:filled:odd {
     -fx-background-color: #515658;
 }
-
 
 
 .list-cell:filled:selected {
@@ -161,8 +156,14 @@
 }
 
 .tasks_text {
-    -fx-fill: white;
-    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: lighter;
+}
+
+.memberScrollPane {
+    -fx-background: #3c3e3f
+    -fx-background-color: #3c3e3f
 }
 
 .stack-pane {
