@@ -3,6 +3,8 @@ package budgetbuddy.testutil.loanutil;
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
+import java.util.List;
+
 import budgetbuddy.model.person.Person;
 
 /**
@@ -27,6 +29,8 @@ public class TypicalPersons {
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
+    public static final List<Person> PERSON_LIST = List.of(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE);
 
     private TypicalPersons() {} // prevents instantiation
 }

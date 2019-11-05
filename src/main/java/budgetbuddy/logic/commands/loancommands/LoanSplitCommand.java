@@ -64,7 +64,6 @@ public class LoanSplitCommand extends Command {
     public static final String MESSAGE_PERSON_AMOUNT_NUMBERS_MISMATCH =
             "The number of persons does not match the number of payments.";
 
-    public static final String MESSAGE_INVALID_TOTAL = "Total amount must be more than zero.";
     public static final String MESSAGE_MAX_SHARES_EXCEED_TOTAL_AMOUNT =
             "The sum of all limits cannot exceed the total amount paid by all persons.";
     public static final String MESSAGE_ALREADY_SPLIT_EQUALLY = "The amounts have already been split equally.";
@@ -119,8 +118,7 @@ public class LoanSplitCommand extends Command {
 
         long totalAmount = amounts.stream()
                 .map(Amount::toLong)
-                .reduce(Long::sum)
-                .orElseThrow(() -> new CommandException(MESSAGE_INVALID_TOTAL));
+                .reduce(0L, Long::sum);
 
         if (maxShares.stream().reduce(0L, Long::sum) > totalAmount) {
             throw new CommandException(MESSAGE_MAX_SHARES_EXCEED_TOTAL_AMOUNT);

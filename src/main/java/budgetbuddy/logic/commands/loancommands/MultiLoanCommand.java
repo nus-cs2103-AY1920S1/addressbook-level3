@@ -23,12 +23,17 @@ public abstract class MultiLoanCommand extends Command {
     protected static final String MULTI_LOAN_SYNTAX = "<loan number... > [p/<person> ...]";
     protected static final String MULTI_LOAN_SYNTAX_EXAMPLE = "1 3 4 p/Peter p/Mary";
 
-    private static final String MESSAGE_NO_TARGETS =
+    protected static final String MESSAGE_NO_TARGETS =
             "No loan indices or persons given as targets.";
-    private static final String MESSAGE_DUPLICATE_TARGETS =
+    protected static final String MESSAGE_DUPLICATE_TARGETS =
             "Duplicate loan targets detected.";
-    private static final String MESSAGE_NO_TARGETS_HIT =
+    protected static final String MESSAGE_NO_TARGETS_HIT =
             "None of the targeted loans could be found.";
+
+    protected static final String MESSAGE_MISSING_LOAN_INDICES =
+            "\nThe following loans were not found: %s.";
+    protected static final String MESSAGE_MISSING_PERSONS =
+            "\nThe following persons were not found: %s.";
 
     protected List<Index> hitLoanIndices;
     protected List<Index> missingLoanIndices;
@@ -134,14 +139,14 @@ public abstract class MultiLoanCommand extends Command {
         }
 
         if (!missingLoanIndices.isEmpty()) {
-            successMessage += String.format("\nThe following loans were not found: %s.",
+            successMessage += String.format(MESSAGE_MISSING_LOAN_INDICES,
                     missingLoanIndices.stream()
                             .map(index -> String.format("%d", index.getOneBased()))
                             .collect(Collectors.joining(", ")));
         }
 
         if (!missingPersons.isEmpty()) {
-            successMessage += String.format("\nThe following persons were not found: %s.",
+            successMessage += String.format(MESSAGE_MISSING_PERSONS,
                     missingPersons.stream()
                             .map(person -> person.getName().toString())
                             .collect(Collectors.joining(", ")));
