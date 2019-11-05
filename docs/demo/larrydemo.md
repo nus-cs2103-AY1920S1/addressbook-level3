@@ -20,7 +20,7 @@
    1. `display i/policy-popularity-breakdown f/piechart`
    1. `SeniorCare` has very low take up rate
    1. `display i/age-group-breakdown f/piechart`
-   1. Low no. of elderly contacts
+   1. Low takeup rate amongst elderly contacts
 2. Explain the different visual representation
    2. `display i/age-group-breakdown f/barchart`
    1. `display i/age-group-breakdown f/linechart`
