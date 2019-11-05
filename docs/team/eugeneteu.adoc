@@ -88,7 +88,7 @@ include::../UserGuide.adoc[tag=statisticsCommand]
 
 //include::../UserGuide.adoc[tag=dataencryption]
 
-include::../UserGuide.adoc[tag=statisticsCommand]
+//include::../UserGuide.adoc[tag=statisticsCommand]
 
 == Contributions to the Developer Guide
 
