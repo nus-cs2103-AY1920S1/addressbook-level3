@@ -167,7 +167,7 @@ command is entered.
 [reftext="Figure 2.1.2.1"]
 [caption="Figure 2.1.2.1: "]
 .Activity diagram of the `help` command
-image::DG-HelpActivityDiagram.PNGFD[width="800"]
+image::DG-HelpActivityDiagram.PNG[width="800"]
 
 The series of steps below explain the process and current implementation of the `help` command.
 
