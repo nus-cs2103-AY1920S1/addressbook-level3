@@ -5,7 +5,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
-import seedu.algobase.logic.commands.AddTagCommand;
+import seedu.algobase.logic.commands.tag.AddTagCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.tag.Tag;
 
