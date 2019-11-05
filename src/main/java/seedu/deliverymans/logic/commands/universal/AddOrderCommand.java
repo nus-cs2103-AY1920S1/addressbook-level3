@@ -92,7 +92,7 @@ public class AddOrderCommand extends Command {
 
         // Customer validity check
         for (Customer customer : model.getFilteredCustomerList()) {
-            if (customer.getName().equals(toAdd.getCustomer())) {
+            if (customer.getUserName().equals(toAdd.getCustomer())) {
                 customerToAdd = customer;
                 break;
             }

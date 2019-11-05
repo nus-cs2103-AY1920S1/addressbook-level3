@@ -36,11 +36,16 @@ public class SampleDataUtil {
 
     public static Customer[] getSampleCustomers() {
         return new Customer[]{
-            new Customer(new Name("Alex Yeoh"), new Phone("87438807"), getTagSet("FastFood", "Western")),
-            new Customer(new Name("Bernice Yu"), new Phone("99272758"), getTagSet("Indian")),
-            new Customer(new Name("Charlotte Oliveiro"), new Phone("93210283"), getTagSet("Bar")),
-            new Customer(new Name("David Li"), new Phone("91031282"), getTagSet("Japanese")),
-            new Customer(new Name("Ifran Ibrahim"), new Phone("92492021"), getTagSet("Barbeque"))
+            new Customer(new Name("AlexYeoh"), new Name("Alex Yeoh"), new Phone("87438807"),
+                    getTagSet("FastFood", "Western")),
+            new Customer(new Name("BerniceYu"), new Name("Bernice Yu"), new Phone("99272758"),
+                    getTagSet("Indian")),
+            new Customer(new Name("CharlotteOliveiro"), new Name("Charlotte Oliveiro"), new Phone("93210283"),
+                    getTagSet("Bar")),
+            new Customer(new Name("DavidLi"), new Name("David Li"), new Phone("91031282"),
+                    getTagSet("Japanese")),
+            new Customer(new Name("IfranIbrahim"), new Name("Ifran Ibrahim"), new Phone("92492021"),
+                    getTagSet("Barbeque"))
         };
     }
 

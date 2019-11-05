@@ -22,6 +22,8 @@ public class CustomerCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label userName;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -36,6 +38,7 @@ public class CustomerCard extends UiPart<Region> {
         super(FXML);
         this.customer = customer;
         id.setText(displayedIndex + ". ");
+        userName.setText(customer.getUserName().fullName);
         name.setText(customer.getName().fullName);
         phone.setText(customer.getPhone().value);
         orderSize.setText("No. of Orders: " + String.valueOf(customer.getOrderSize()));

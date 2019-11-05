@@ -90,9 +90,10 @@ public class CustomerEditCommand extends Command {
                                                  EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
+        Name updatedUserName = editCustomerDescriptor.getUserName().orElse(customerToEdit.getUserName());
         Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
         Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
-        return new Customer(updatedName, updatedPhone);
+        return new Customer(updatedUserName, updatedName, updatedPhone);
     }
 
     @Override
@@ -118,6 +119,7 @@ public class CustomerEditCommand extends Command {
      * value of the customer.
      */
     public static class EditCustomerDescriptor {
+        private Name userName;
         private Name name;
         private Phone phone;
         private Set<Tag> tags;
@@ -130,6 +132,7 @@ public class CustomerEditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditCustomerDescriptor(EditCustomerDescriptor toCopy) {
+            setUserName(toCopy.userName);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setTags(toCopy.tags);
@@ -140,6 +143,14 @@ public class CustomerEditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, tags);
+        }
+
+        public void setUserName(Name userName) {
+            this.userName = userName;
+        }
+
+        public Optional<Name> getUserName() {
+            return Optional.ofNullable((userName));
         }
 
         public void setName(Name name) {
@@ -190,7 +201,8 @@ public class CustomerEditCommand extends Command {
             // state check
             EditCustomerDescriptor e = (EditCustomerDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getUserName().equals(e.getUserName())
+                    && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getTags().equals(e.getTags());
         }

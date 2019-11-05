@@ -87,7 +87,7 @@ public class LogicManager implements Logic {
     private LinkedList<String> getRelevantList(String input) {
         switch(input) {
         case "c/":
-            return getFilteredCustomerList().stream().map(x -> x.getName().fullName)
+            return getFilteredCustomerList().stream().map(x -> x.getUserName().fullName)
                     .collect(Collectors.toCollection(LinkedList::new));
         case "r/":
             return getFilteredRestaurantList().stream().map(x -> x.getName().fullName)

@@ -3,6 +3,7 @@ package seedu.deliverymans.logic.commands.customer;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
@@ -20,10 +21,13 @@ public class CustomerAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the customer database. "
             + "Parameters: "
+            + PREFIX_USERNAME + "USERNAME "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe ";
+            + PREFIX_USERNAME + "JohnDoe "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_PHONE + "91234567";
 
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
     public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the customer database";

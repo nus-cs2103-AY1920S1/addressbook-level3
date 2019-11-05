@@ -5,6 +5,7 @@ import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class EditCommandParser implements Parser<CustomerEditCommand> {
     public CustomerEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG);
 
         Index index;
 
@@ -47,6 +48,9 @@ public class EditCommandParser implements Parser<CustomerEditCommand> {
         }
 
         EditCustomerDescriptor editCustomerDescriptor = new EditCustomerDescriptor();
+        if (argMultimap.getValue(PREFIX_USERNAME).isPresent()) {
+            editCustomerDescriptor.setUserName(ParserUtil.parseName(argMultimap.getValue(PREFIX_USERNAME).get()));
+        }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editCustomerDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }

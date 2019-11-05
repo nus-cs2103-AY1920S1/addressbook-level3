@@ -350,7 +350,7 @@ public class ModelManager implements Model {
     public void deleteOrderInCustomer(Order order) {
         Customer customer = null;
         for (Customer cust : getFilteredCustomerList()) {
-            if (cust.getName().equals(order.getCustomer())) {
+            if (cust.getUserName().equals(order.getCustomer())) {
                 customer = cust;
                 break;
             }

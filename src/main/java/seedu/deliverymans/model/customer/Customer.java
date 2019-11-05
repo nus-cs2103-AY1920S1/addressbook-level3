@@ -24,6 +24,7 @@ import seedu.deliverymans.model.order.Order;
 public class Customer {
 
     // Identity fields
+    private final Name userName;
     private final Name name;
     private final Phone phone;
 
@@ -35,8 +36,9 @@ public class Customer {
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, Phone phone) {
-        requireAllNonNull(name, phone, tags);
+    public Customer(Name userName, Name name, Phone phone) {
+        requireAllNonNull(userName, phone, tags);
+        this.userName = userName;
         this.name = name;
         this.phone = phone;
     }
@@ -44,8 +46,9 @@ public class Customer {
     /**
      * Constructor for SampleDataUtil.
      */
-    public Customer(Name name, Phone phone, Set<Tag> tags) {
-        requireAllNonNull(name, phone, tags);
+    public Customer(Name userName, Name name, Phone phone, Set<Tag> tags) {
+        requireAllNonNull(userName, phone, tags);
+        this.userName = userName;
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
@@ -57,14 +60,19 @@ public class Customer {
     /**
      * Constructor for saving to storage
      */
-    public Customer(Name name, Phone phone, Set<Tag> tags, ObservableMap<Tag, Integer> totalTags,
+    public Customer(Name userName, Name name, Phone phone, Set<Tag> tags, ObservableMap<Tag, Integer> totalTags,
                     ObservableList<Order> orders) {
-        requireAllNonNull(name, phone, tags, orders);
+        requireAllNonNull(userName, phone, tags, orders);
+        this.userName = userName;
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
         this.totalTags.putAll(totalTags);
         this.orders.addAll(orders);
+    }
+
+    public Name getUserName() {
+        return userName;
     }
 
     public Name getName() {
@@ -182,7 +190,7 @@ public class Customer {
         }
 
         return otherCustomer != null
-                && otherCustomer.getName().equals(getName());
+                && otherCustomer.getUserName().equals(getUserName());
     }
 
     /**
@@ -200,7 +208,8 @@ public class Customer {
         }
 
         Customer otherCustomer = (Customer) other;
-        return otherCustomer.getName().equals(getName())
+        return otherCustomer.getUserName().equals(getUserName())
+                && otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
                 && otherCustomer.getTags().equals(getTags());
     }
@@ -208,13 +217,15 @@ public class Customer {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, tags, orders);
+        return Objects.hash(userName, name, phone, tags, orders);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getUserName())
+                .append(" Name: ")
+                .append(getName().toString())
                 .append(" Phone: ")
                 .append(getPhone().toString())
                 .append(" Favourite cuisine: ");
