@@ -128,14 +128,15 @@ public class TutorAidParser {
      * Returns a {@code NewCommand} if the command exists or an {@code UnknownCommand} if it does not.
      */
     public Command checkCommand(String userInput, String prevUnknownCommand) {
-        if (userInput.equals("cancel")) {
+        String trimmedInput = userInput.trim();
+        if (trimmedInput.equals(CancelCommand.COMMAND_WORD)) {
             return new CancelCommand();
         } else {
-            if (TutorAidParser.commandList.containsKey(userInput)) {
-                TutorAidParser.commandList.put(prevUnknownCommand, TutorAidParser.commandList.get(userInput));
-                return new NewCommand(TutorAidParser.commandList.get(userInput), prevUnknownCommand);
+            if (TutorAidParser.commandList.containsKey(trimmedInput)) {
+                TutorAidParser.commandList.put(prevUnknownCommand, TutorAidParser.commandList.get(trimmedInput));
+                return new NewCommand(TutorAidParser.commandList.get(trimmedInput), prevUnknownCommand);
             } else {
-                return new UnknownCommand(userInput);
+                return new UnknownCommand(trimmedInput);
             }
         }
     }

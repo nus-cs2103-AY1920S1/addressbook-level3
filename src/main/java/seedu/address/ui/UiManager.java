@@ -24,7 +24,7 @@ public class UiManager implements Ui {
     private static boolean loggedInSuccessful = false;
 
     private static MainWindow mainWindow;
-
+    private Stage pStage;
     private Logic logic;
 
     public UiManager(Logic logic) {
@@ -66,8 +66,10 @@ public class UiManager implements Ui {
         logger.info("Changing to Student Profile...");
 
         try {
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillStudents();
+            if (mainWindow != null) {
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillStudents();
+            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -81,8 +83,10 @@ public class UiManager implements Ui {
         logger.info("Changing to Earning...");
 
         try {
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillEarnings();
+            if (mainWindow != null) {
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillEarnings();
+            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

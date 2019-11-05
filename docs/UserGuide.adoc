@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F14-2/main
 
 By: `Team CS2103-F14-2`      Since: `Sept 2019`      Licence: `MIT`
 
@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 
-* *`help`* : gives you a list of commands that are available.
+* *`help`* : Links you to the User Guide so you can view how to use all the available commands.
 * **`add_task c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
@@ -60,12 +60,16 @@ Format: `help`
 === Change tab : `tab`
 
 Change tab to any of the available ones. +
-Format: `tab TAB_DESTINATION`
+Format: `change_tab tab/DESTINATION`
 
-Examples:
+Examples (All available destinations listed):
 
-* `tab calendar`
-* `tab student profile`
+* `change_tab tab/earnings`
+* `change_tab tab/calendar`
+* `change_tab tab/student_profile`
+* `change_tab tab/reminders`
+* `change_tab tab/notepad`
+* `change_tab tab/task`
 
 === Calender
 
@@ -146,7 +150,7 @@ Examples:
 ==== Listing all tasks : `list_task`
 
 List all tasks. +
-Format: `list_tasks`
+Format: `list_task`
 
 
 ==== Setting Reminder Details  : `addReminder`
@@ -290,6 +294,11 @@ Format: `add n/NAME c/CLASSID`
 
 [NOTE]
 You can add multiple students at a time by separating their names with a single ','.
+
+[NOTE]
+Please also note that you can't add students with the exact same name in the same class.
+e.g. You can add "Tom" in CS2030 and CS2040 but not 2 "Tom"s in CS2030. If there are students with the same
+first name in the class, please add their last name as well.
 
 Examples:
 
@@ -463,7 +472,7 @@ _{explain how the user can enable/disable data encryption}_
 `delete_task 1` +
 `find_task_by_module MODULE ...` +
 `find_task_by_date DATE ...` +
-`list_tasks`
+`list_task`
 * *Reminder* : `reminder INDEX STATUS`
 * *Earnings* : +
 `add_earnings d/DATE c/CLASSID amt/AMOUNT` +

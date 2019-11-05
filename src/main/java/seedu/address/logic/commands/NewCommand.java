@@ -10,7 +10,7 @@ import seedu.address.model.commands.CommandWord;
  */
 public class NewCommand extends Command {
 
-    public static final String SHOWING_NEW_COMMAND_MESSAGE = "Got it! We've now mapped ";
+    public static final String SHOWING_NEW_COMMAND_MESSAGE = "Got it! You can now use ";
     private final String userInput;
     private final String prevUnknownCommand;
 
@@ -27,7 +27,8 @@ public class NewCommand extends Command {
         model.addCommand(newCommand);
 
         return new CommandResult(SHOWING_NEW_COMMAND_MESSAGE
-                + this.prevUnknownCommand + " to " + this.userInput);
+                + this.prevUnknownCommand + " as " + this.userInput);
+
     }
 
 }
