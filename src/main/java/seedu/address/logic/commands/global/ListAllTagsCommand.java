@@ -42,7 +42,9 @@ public class ListAllTagsCommand extends Command {
 
         for (int i = 0; i < sortedTagListInStringForm.size(); i++) {
             if (studyBuddyCounters.get(i).isTagExisting()) {
+                outputString.append("[");
                 outputString.append(sortedTagListInStringForm.get(i));
+                outputString.append("]");
                 outputString.append(" | ");
                 outputString.append(studyBuddyCounters.get(i).toString());
                 outputString.append("\n");

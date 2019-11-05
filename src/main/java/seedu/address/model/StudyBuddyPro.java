@@ -325,6 +325,13 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
     }
 
     //====================Tagged related methods===========================
+
+    /**
+     * Collects all studybuddyitems that matches the specified tags according to a predicate
+     * @param predicate
+     * @return
+     */
+
     public ArrayList<String> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
         ArrayList<String> taggedItems = new ArrayList<>();
         int flashcardIndex = 0;
@@ -357,6 +364,11 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
         return taggedItems;
     }
 
+    /**
+     * Collects tag cheatsheets which matches the predicates in a toString() form.
+     * @param predicate
+     * @return ArrayList<String> of collected cheatsheets</String>
+     */
     public ArrayList<String> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
         ArrayList<String> taggedItems = new ArrayList<>();
         int cheatSheetIndex = 0;
@@ -369,6 +381,11 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
         return taggedItems;
     }
 
+    /**
+     * Collects tag flashcards which matches the predicates in a toString() form.
+     * @param predicate
+     * @return ArrayList<String> of collected flashcards</String>
+     */
     public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
         ArrayList<String> taggedItems = new ArrayList<>();
         int flashcardIndex = 0;
@@ -391,6 +408,11 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
         return taggedFlashcards;
     }
 
+    /**
+     * Collects tag notes which matches the predicates in a toString() form.
+     * @param predicate
+     * @return ArrayList<String> of collected notes</String>
+     */
     public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
         ArrayList<String> taggedItems = new ArrayList<>();
         int noteIndex = 0;

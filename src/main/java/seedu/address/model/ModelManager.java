@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,11 +16,8 @@ import seedu.address.commons.core.LogsCenter;
 
 import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
-import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.NoteContainsTagPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 

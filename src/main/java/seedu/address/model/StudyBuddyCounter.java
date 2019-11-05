@@ -27,6 +27,9 @@ public class StudyBuddyCounter {
         this.cheatSheetCount++;
     }
 
+    /**
+     * Resets the counter
+     */
     public void resetCounts() {
         this.flashcardCount = 0;
         this.notesCount = 0;
@@ -47,6 +50,10 @@ public class StudyBuddyCounter {
         return cheatSheetCount;
     }
 
+    /**
+     * Check if the tag still exists
+     * @return true or false depending
+     */
     public boolean isTagExisting() {
         int sum = this.flashcardCount + this.cheatSheetCount + this.notesCount;
         boolean exists;
@@ -60,8 +67,8 @@ public class StudyBuddyCounter {
 
     @Override
     public String toString() {
-        return " flashcards : " + this.flashcardCount +
-                " notes : " + this.notesCount +
-                " cheatsheets : " + this.cheatSheetCount;
+        return " flashcards : " + this.flashcardCount
+                + " notes : " + this.notesCount
+                + " cheatsheets : " + this.cheatSheetCount;
     }
 }
