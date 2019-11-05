@@ -105,7 +105,7 @@ public class ParserUtil {
     public static View parseView(String view) throws ParseException {
         String trimmedView = view.trim();
         if (checkView(trimmedView)) {
-            return new View(view, viewIndex);
+            return new View(trimmedView, viewIndex);
         } else {
             throw new ParseException(MESSAGE_INVALID_VIEW);
         }
