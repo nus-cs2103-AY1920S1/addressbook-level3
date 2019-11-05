@@ -22,7 +22,7 @@ In Charge of: Storage
 
 === Eugene Teu
 image::eugeneteu.png[width="150", align="left"]
-{empty}[https://github.com/EugeneTeu[github]] [https://eugeneteu.github.io/myWebsite/[Portfolio]]
+{empty}[https://github.com/EugeneTeu[github]] [<<eugeneteu#, portfolio>>]
 
 Role:  DevOps, deliverables and deadlines
 
