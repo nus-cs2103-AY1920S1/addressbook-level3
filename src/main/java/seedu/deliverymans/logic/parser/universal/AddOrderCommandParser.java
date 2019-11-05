@@ -37,7 +37,8 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
                 PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()
+                || ParserUtil.hasRepeatedPrefix(args, PREFIX_CUSTOMER, PREFIX_RESTAURANT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));
         }
 

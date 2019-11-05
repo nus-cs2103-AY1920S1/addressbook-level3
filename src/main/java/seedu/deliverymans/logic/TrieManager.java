@@ -32,6 +32,7 @@ import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.commands.universal.ListOrderCommand;
 import seedu.deliverymans.logic.commands.universal.RedoCommand;
 import seedu.deliverymans.logic.commands.universal.UndoCommand;
+import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.customer.CustomerParser;
 import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
 import seedu.deliverymans.logic.parser.restaurant.RestaurantParser;
@@ -128,7 +129,7 @@ class TrieManager {
     /**
      * TO fill
      */
-    private void insertCommandToAllTries(String command, String[] prefixes) {
+    private void insertCommandToAllTries(String command, LinkedList<Prefix> prefixes) {
         universalTrie.insertCommand(command, prefixes);
         customerTrie.insertCommand(command, prefixes);
         deliverymanTrie.insertCommand(command, prefixes);
@@ -139,15 +140,17 @@ class TrieManager {
      * TO fill
      */
     LinkedList<String> getAutoCompleteResults(String input, Context context) {
+        /*
         int firstSpace = input.indexOf(" ");
         if (firstSpace == -1) { // no space present - user is still typing in the command word
-            return autocompleteCommandWord(input, context);
         }
         // user is typing in prefixes
         String commandWord = input.substring(0, firstSpace);
         int lastSpace = input.lastIndexOf(" ");
         String prefixes = input.substring(lastSpace + 1);
         return autoCompletePrefix(commandWord, prefixes, context);
+         */
+        return autocompleteCommandWord(input, context);
     }
 
     /**
@@ -166,9 +169,7 @@ class TrieManager {
         }
     }
 
-    /**
-     * TO fill
-     */
+    /*
     private LinkedList<String> autoCompletePrefix(String commandWord, String prefixes, Context context) {
         switch (context) {
         case CUSTOMER:
@@ -180,5 +181,17 @@ class TrieManager {
         default:
             return universalTrie.autoCompletePrefix(commandWord, prefixes);
         }
+    }
+     */
+
+    /**
+     * TO fill
+     */
+    boolean hasPrefixes(String input) {
+        LinkedList<Prefix> prefixList = universalTrie.getPrefixes(input);
+        if (prefixList.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }

@@ -229,4 +229,17 @@ public class ParserUtil {
         }
         return quantitySet;
     }
+
+    /**
+     * to fill
+     */
+    public static boolean hasRepeatedPrefix(String input, Prefix... prefixes) {
+        for (Prefix prefix : prefixes) {
+            final String s = prefix.getPrefix();
+            if (input.indexOf(s) != input.lastIndexOf(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
