@@ -9,10 +9,11 @@ import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
  */
 public class RunningTime {
     // For now the running time will be an integer, since that is what the API returns it as.
+
     public static final String MESSAGE_CONSTRAINTS =
-            "Running time can take any integer values, and it should not be blank";
-    public static final String MESSAGE_CONSTRAINTS2 =
-            "Running time can take only positive values or zero.";
+            "Running time cannot be blank and can take only non-negative integers.";
+    public static final String MESSAGE_CONSTRAINTS2 = MESSAGE_CONSTRAINTS +
+            "It cannot be more than JAVA max integer value";
 
     public final int value;
 
@@ -27,7 +28,7 @@ public class RunningTime {
      */
     public RunningTime(int runningTime) {
         requireNonNull(runningTime);
-        checkArgument(isValidRunningTime(runningTime), MESSAGE_CONSTRAINTS2);
+        checkArgument(isValidRunningTime(runningTime), MESSAGE_CONSTRAINTS);
         value = runningTime;
     }
 
@@ -35,7 +36,7 @@ public class RunningTime {
      * Returns true if a given integer is a valid running time.
      */
     public static boolean isValidRunningTime(int test) {
-        return test >= 0;
+        return test >= 0 && test < Integer.MAX_VALUE;
     }
 
     @Override
