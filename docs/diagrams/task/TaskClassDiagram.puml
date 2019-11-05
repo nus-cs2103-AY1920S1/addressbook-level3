@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class Task
+class TaskForNote
+class TaskForQuestion
+
+class LocalDate
+class LocalTime
+class Heading
+class Status
+class Note
+class Question
+
+TaskForNote -|> Task
+TaskForQuestion -up|> Task
+
+Task *--> "1" Heading
+Task *--> "1" LocalDate
+Task *--> "1" LocalTime
+Task *--> "1" Status
+
+TaskForNote --> "1" Note
+TaskForQuestion --> "1" Question
+
+
+@enduml

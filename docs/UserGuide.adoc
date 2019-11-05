@@ -97,7 +97,7 @@ Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/[none]]`
 
 ==== Viewing lecture notes: `findnote`
 Of course, what use are virtual lecture notes if you can't search through them? This command
-displays those notes whose titles contain every word (space-separated, ignoring case) you provide
+displays those notes whose titles contain any one of the words (space-separated, ignoring case) you provide
 as arguments. +
 Format: `findnote WORD [WORD]…`
 
@@ -524,39 +524,63 @@ This command displays the list of revision tasks that you have not completed. +
 Format: `unfinished`
 
 ==== View overdue revision tasks: `overdue`
-This GUI displays the revision tasks which you have not done but having passed the start time. +
+This command displays the revision tasks which you have not done but having passed the start time. +
 Format: `overdue`
 
 ==== Find tasks with specified details: `rfind`
+You may use this command to search for tasks with specified details. You may key in keyword(s) of the heading, or the date, or the time,
+with prefix `h/` `dt/` `tm/` respectively.
+The GUI will display a task list of all tasks with field (heading or date or time) that matches your input. +
+Format:
+`rfind h/WORD [WORD]...` or `rfind dt/DATE` or `rfind tm/TIME`
 
+Example: +
+`rfind h/hello world` - This command gives you all tasks with headings containing "hello" or "world" or "hello world". +
+`rfind dt/01/11/2019` - This command gives you all tasks on 1 November 2019. +
+`rfind tm/1200` - This command gives you all tasks at 12:00 (12pm), regardless of date.
+
+NOTE: When searching according to keywords in the heading, NUStudy will return tasks with headings containing any one of
+the words (*not characters*). For example, if you search by "hello world", tasks whose headings contain "hello", "world", "hello world", "world hello",
+or "hello world blablabla..." will all appear in the GUI. Our rationale is to provide you with as many matching tasks as
+possible in case you cannot remember every word of the headings. Please note that the minimum matching unit is a word in
+the heading. For instance, if you key in "he" or "word" while the full task list has tasks with headings "hello", "hello world",
+no task will be retrieved because "he" and "word" are not complete words contained in the headings.
 
 ==== Clear current revision plan: `rclear`
 You can remove all revision tasks with this command. +
 Format: `rclear`
 
-==== Enable push notification: `notify -e` `[coming in v2.0]`
+// tag::v2.0[]
+=== Other features coming in v2.0
+==== Auto-complete for command
+NUStudy will automatically complete the command as you type, just like how it behaves in most IDEs.
+
+// tag::quizFuture[]
+==== Set a timer for quiz mode
+You can set a time limit before you start a quiz to train yourself under exam conditions. NUStudy will automatically end the quiz when time is up. +
+Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT tl/TIME_LIMIT`
+// end::quizFuture[]
+
+==== Enable push notification: `notify -e`
 You can enable the push notification feature to send a desktop reminder when the task is about to start. +
 Format: `notify -e [-A]`
 
-==== Disable push notification: `notify -d` `[coming in v2.0]`
+==== Disable push notification: `notify -d`
 You can disable the push notification with this command. +
 Format: `notify -d [-A]`
 
-// tag::v2.0[]
-=== Other features coming in v2.0
-==== Auto-complete feature
-Returns suggestions when you are typing commands.
-
-// tag::quizFuture[]
-==== Set a timer for test mode
-The student sets a time limit for the test mode. The app will exit test mode once the time ends.
-// end::quizFuture[]
+==== Sort revision tasks: `sort`
+You can sort the revision tasks based on certain fields with ascending/descending order. +
+Format: `sort o/ORDER f/FIELD` +
+Example: +
+`sort o/a f/dt` - You can sort the tasks according to date in ascending order. +
+`sort o/d f/h` - You can sort the tasks according to heading in descending alphabetical order.
 
 ==== Share notes and questions with other users
-The student shares notes and questions with other students with Internet connection.
+You can share your notes and questions with other NUStudy users with Internet connection.
 
 ==== Login using email and password
-The student can register and login to the application using their email and password.
+You can create an account in the application and login with your email and password. This allows you to access to NUStudy on other platforms.
 // end::v2.0[]
 
 // tag::lngroup[]
