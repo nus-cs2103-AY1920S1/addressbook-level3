@@ -166,6 +166,11 @@
     -fx-text-fill: #000000 /*!important */;
 }
 
+.scroll-pane {
+    -fx-background: derive(#e2e2e2, 30%);
+    -fx-border-top-width: 1px;
+}
+
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: #000000;
