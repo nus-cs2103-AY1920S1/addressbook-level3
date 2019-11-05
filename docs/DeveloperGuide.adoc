@@ -818,7 +818,6 @@ Use case ends
 * Use case resumes at step 2
 // end::usecasew[]
 
-// tag::quizUseCase[]
 [discrete]
 === Use case: Delete an existing question (Dongjun)
 
@@ -839,6 +838,7 @@ Use case ends
 ** 1a2. Student enters the valid index
 * Use case resumes from step 1
 
+// tag::quizUseCase[]
 [discrete]
 === Use case: Take a test (Dongjun)
 
