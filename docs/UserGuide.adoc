@@ -35,7 +35,7 @@ Teacher’s Notebook is for teachers who prefer to make use of an application to
 
 ====
 *Command Format* +
-* Words in UPPER_CASE are the parameters supplied by the user e.g. in addclass cn/CLASS, CLASS is a parameter which can be used as addclass cn/4C. +
+* Words in UPPER_CASE are the parameters supplied by the user e.g. in addclass c/CLASS, CLASS is a parameter which can be used as addclass c/4C. +
 * Items in square brackets are optional e.g. n/NAME [m/MEDICAL_CONDITION] can be used as n/John Doe m/Sinus or n/John Doe. +
 * Items with … after them can be used multiple times including zero times e.g. [m/MEDICAL_CONDITIONS]... can be used as   (i.e. 0 times), m/Sinus, m/Sinus m/Asthma etc. +
 * Parameters can be in any order e.g. if the command specifies n/NAME i/INDEX, n/NAME, i/INDEX is also acceptable
@@ -60,11 +60,11 @@ Examples:
 ==== Classes
 
 Adds a class to the class list. +
-Format: addclass cn/CLASS
+Format: addclass c/CLASS
 
 Examples: +
-* addclass cn/4C +
-* addclass cn/3E5
+* addclass c/4C +
+* addclass c/3E5
 
 ==== Students
 
@@ -261,7 +261,7 @@ Coming up soon!
 
 == Command Summary
 * Add Student: addstudent n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG] … +
-e.g. addstudent n/John Doe p/91234567 e/john_doe@gmail.com pp/98765432
+e.g. addstudent n/John Doe p/91234567 e/john_doe@gmail.com a/National University of Singapore Science Office 117546 pp/98765432
 * Add Assignment: addassignment as/ASSIGNMENT_NAME d/DEADLINE +
 e.g. addassignment as/Math Homework 3 d/31/10/2019 2359
 * Add Lesson: addlesson l/LESSON_NAME st/START_TIME et/END_TIME +
