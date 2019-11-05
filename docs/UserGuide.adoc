@@ -450,22 +450,22 @@ E.g. `find <type>lend`
 
 ==== Show statistical summaries of finances: `stats`
 
-Shows an overview of the state of expenses and incomes. Log entries can be grouped by a specified attribute (`<gb>`) with either the frequency or total amount of each group summarised (`<sum>`) in a graphical summary. These attributes include log entries of the same month, type, transaction method, category or place.
+Shows an overview of the state of expenses and incomes. Log entries can be grouped by (`<gb>`) a specified attribute with either the frequency or total amount of each group summarised (`<sum>`) in a graphical display. These attributes include log entries of the same month, type, transaction method, category or place.
 
-Both `<gb>` and `<sum>` have to be present. Any combination of `ATTRIBUTE` and `STAT` should work.
+Both `<gb>` and `<sum>` have to be present, with combination of `ATTRIBUTE` and `STAT` specified.
 
 Format: `*stats* <gb>ATTRIBUTE <sum>STAT` +
-Possible `ATTRIBUTE` values for `<gb>` are: `month`, `entrytype`, `met`, `cat`, `place` (only shows `Spend` entries) +
-Possible `STAT` values for `<sum>` are: `freq` and `amt` +
-E.g. `stats <sum> freq <gb> entrytype`
+* Possible `ATTRIBUTE` values for `<gb>` are: `month`, `entrytype`, `met`, `cat`, `place` (only shows `Spend` entries) +
+* Possible `STAT` values for `<sum>` are: `freq` and `amt` +
+E.g. `stats <gb> entrytype <sum> freq`
 
 ==== Add a budget: `budget`
 
 Specify a budget. Budgets will only take into account the amount spent (i.e. `Spend` entries) and are generally characterised by a starting date, an ending date and a limit (maximum threshold). When total amount associated with spending crosses this limit, the budget is considered to be exceeded.
 
-Budgets for a specific place, category or transaction method can also be set (optional). Only at most one field out of these 3 `<met>`, `<cat>`, `<place>` can be included to make the budget more specific. If a spend entry matches the specified field and fall within the budget duration, they will be included in the budget. If none of these fields are indicated, the budget will sum up the amounts of *all* `Spend` entries which fall between the budget duration.
+Budgets for a specific place, category or transaction method can also be set (optional). Only at most one field out of these 3 optional fields - `<met>`, `<cat>`, `<place>` - can be included to make the budget more specific. If a spend entry matches the specified field and also falls within the budget duration, it will be included in the budget tabulation. If none of these fields are indicated, the budget will sum up the amounts of *all* `Spend` entries which fall between the budget duration.
 
-In essence, there are 3 optional fields (only at one can be used at a time):
+In essence, there are 3 optional fields (only at most one can be used at any time):
 
 1. `[<met>TRANSACTION_METHOD]`
 2. `[<cat>CATEGORY_NAME]`
@@ -482,13 +482,9 @@ Example Format 2: `*budget* <amt>AMOUNT <start>START_DATE <dur>DURATION_IN_DAYS 
 Example Format 3: `*budget* <amt>AMOUNT <month>MM-YYYY [<place>PLACE_OF_SPENDING]` +
 e.g. `budget <amt> 300 <month>11-2019 <met>cash`
 
-
-Format: `*budget* INDEX [<day> TRANSACTION_DATE]` +
-e.g. `budget 3`
-
 ==== List out all budgets: `listb`
 
-List out all budgets in recorded down. Budgets will
+List out all budgets in recorded down.
 
 Format: `*listb*`
 
