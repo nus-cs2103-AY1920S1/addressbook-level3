@@ -18,7 +18,6 @@ public class TaskSource {
 
     // Optional
     private final DateTime due;
-    // private final Duration expectedDuration;
     private final Set<String> tags;
     private final boolean isDone;
 
