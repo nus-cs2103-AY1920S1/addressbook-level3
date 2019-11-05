@@ -35,7 +35,7 @@ Teacher’s Notebook is for teachers who prefer to make use of an application to
 
 ====
 *Command Format* +
-* Words in UPPER_CASE are the parameters supplied by the user e.g. in addclass cn/CLASS, CLASS is a parameter which can be used as addclass cn/4C. +
+* Words in UPPER_CASE are the parameters supplied by the user e.g. in addclass c/CLASS, CLASS is a parameter which can be used as addclass c/4C. +
 * Items in square brackets are optional e.g. n/NAME [m/MEDICAL_CONDITION] can be used as n/John Doe m/Sinus or n/John Doe. +
 * Items with … after them can be used multiple times including zero times e.g. [m/MEDICAL_CONDITIONS]... can be used as   (i.e. 0 times), m/Sinus, m/Sinus m/Asthma etc. +
 * Parameters can be in any order e.g. if the command specifies n/NAME i/INDEX, n/NAME, i/INDEX is also acceptable
@@ -60,11 +60,11 @@ Examples:
 ==== Classes
 
 Adds a class to the class list. +
-Format: addclass cn/CLASS
+Format: addclass c/CLASS
 
 Examples: +
-* addclass cn/4C +
-* addclass cn/3E5
+* addclass c/4C +
+* addclass c/3E5
 
 ==== Students
 
@@ -190,6 +190,15 @@ Examples: +
 * findstudent John Doe +
 * findstudent Jane Doe
 
+==== Assignments by assignment name
+
+Find assignments whose assignment name matches a given keyword in current classroom. +
+Format: findassignment ASSIGNMENT_NAME +
+
+Examples: +
+* findassignment Math Homework +
+* findassignment English Assignment
+
 //end::find[]
 
 //tag::get[]
@@ -260,6 +269,10 @@ Format: exit
 Coming up soon!
 
 == Command Summary
+* Set Class: setclass n/CLASS +
+e.g. setclass c/4C
+* Add Class: addclass n/CLASS +
+e.g. addclass c/4C
 * Add Student: addstudent n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG] … +
 e.g. addstudent n/John Doe p/91234567 e/john_doe@gmail.com pp/98765432
 * Add Assignment: addassignment as/ASSIGNMENT_NAME d/DEADLINE +
