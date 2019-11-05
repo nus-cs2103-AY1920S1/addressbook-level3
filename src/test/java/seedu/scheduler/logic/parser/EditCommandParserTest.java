@@ -304,7 +304,7 @@ public class EditCommandParserTest {
         // Parsing it together with a valid slot will result in slot parse error.
         String SLOT_EMPTY = " " + PREFIX_SLOT;
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
-                + SLOT_EMPTY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+                + SLOT_EMPTY, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
                 + SLOT_DESC_AMY + SLOT_EMPTY, Slot.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, VALID_NAME_AMY + ROLE_DESC_AMY_INTVR
@@ -531,49 +531,6 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_intervieweeInvalidValueFollowedByValidValue_success() {
-
-    }
-
-    @Test
-    public void parse_interviewerInvalidValueFollowedByValidValue_success() {
-
-    }
-
-    @Test
-    public void parse_intervieweeResetTags_success() {
-
-    }
-
-    @Test
-    public void parse_interviewerResetTags_success() {
-        /*
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
-
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-        */
-    }
-
-    @Test
-    public void parse_intervieweeResetDepartments_failure() {
-        // when editing an interviewee, empty departments cannot be passed (I.e Departments can never be empty).
-    }
-
-    @Test
-    public void parse_intervieweeResetSlots_failure() {
-        // when editing an interviewee, slots can also never be empty.
-    }
-
-    @Test
-    public void parse_interviewerResetSlots_failure() {
-        // when editing an interviewer, slots can also never be empty.
-    }
-
-    @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
         /*
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
@@ -588,18 +545,103 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
         */
+        // no other valid values specified
+        String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + INVALID_PHONE_DESC + PHONE_DESC_AMY;
+        Name targetname = new Name(VALID_NAME_BOB);
+
+        EditIntervieweeDescriptor descriptor = new EditIntervieweeDescriptor();
+        descriptor.setPhone(new Phone(VALID_PHONE_AMY));
+        EditIntervieweeCommand expectedCommand = new EditIntervieweeCommand(targetname, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // other valid values specified
+        userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE
+                + FACULTY_DESC_AMY + INVALID_PHONE_DESC + PHONE_DESC_AMY;
+        descriptor = new EditIntervieweeDescriptor();
+        descriptor.setPhone(new Phone(VALID_PHONE_AMY));
+        descriptor.setFaculty(new Faculty(VALID_FACULTY_AMY));
+        expectedCommand = new EditIntervieweeCommand(targetname, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_resetTags_success() {
-        /*
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+    public void parse_interviewerInvalidValueFollowedByValidValue_success() {
+        // no other valid values specified
+        String userInput = VALID_NAME_AMY + ROLE_DESC_AMY_INTVR + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        Name targetname = new Name(VALID_NAME_AMY);
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditInterviewerDescriptor descriptor = new EditInterviewerDescriptor();
+        descriptor.setPhone(new Phone(VALID_PHONE_BOB));
+        EditInterviewerCommand expectedCommand = new EditInterviewerCommand(targetname, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
-        */
+
+        // other valid values specified
+        userInput = VALID_NAME_AMY + ROLE_DESC_AMY_INTVR + DEPARTMENT_DESC_BOB + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        descriptor = new EditInterviewerDescriptor();
+        descriptor.setPhone(new Phone(VALID_PHONE_BOB));
+        descriptor.setDepartment(new Department(VALID_DEPARTMENT_BOB));
+        expectedCommand = new EditInterviewerCommand(targetname, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_intervieweeResetTags_success() {
+        // passing an empty tag prefix should reset all tags of an interviewee
+        String TAG_EMPTY = " " + PREFIX_TAG;
+        String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + TAG_EMPTY;
+
+        Name targetName = new Name(VALID_NAME_BOB);
+        EditIntervieweeDescriptor descriptor = new EditIntervieweeDescriptor();
+        descriptor.setTags(new HashSet<>());
+
+        EditIntervieweeCommand expectedCommand = new EditIntervieweeCommand(targetName, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_interviewerResetTags_success() {
+        // passing an empty tag prefix should reset all tags of an interviewer
+        String TAG_EMPTY = " " + PREFIX_TAG;
+        String userInput = VALID_NAME_AMY + ROLE_DESC_AMY_INTVR + TAG_EMPTY;
+
+        Name targetName = new Name(VALID_NAME_AMY);
+        EditInterviewerDescriptor descriptor = new EditInterviewerDescriptor();
+        descriptor.setTags(new HashSet<>());
+
+        EditInterviewerCommand expectedCommand = new EditInterviewerCommand(targetName, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_intervieweeResetDepartments_failure() {
+        // when editing an interviewee, empty departments cannot be passed (I.e Departments can never be empty).
+        String DEPARTMENT_EMPTY = " " + PREFIX_DEPARTMENT;
+        String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + DEPARTMENT_EMPTY;
+
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_intervieweeResetSlots_failure() {
+        // when editing an interviewee, slots can also never be empty.
+        String SLOT_EMPTY = " " + PREFIX_SLOT;
+        String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + SLOT_EMPTY;
+
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_interviewerResetSlots_failure() {
+        // when editing an interviewer, slots can also never be empty.
+        String SLOT_EMPTY = " " + PREFIX_SLOT;
+        String userInput = VALID_NAME_AMY + ROLE_DESC_AMY_INTVR + SLOT_EMPTY;
+
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
     }
 }
