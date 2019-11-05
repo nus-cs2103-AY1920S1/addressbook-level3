@@ -381,12 +381,27 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateSchedule() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Task> getFilteredTaskList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ObservableList<Task> getUnfilteredTaskList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Task> getTasksToday() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Task> getTasksThisWeek() {
         throw new AssertionError("This method should not be called.");
     }
 

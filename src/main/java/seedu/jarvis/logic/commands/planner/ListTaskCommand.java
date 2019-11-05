@@ -55,7 +55,7 @@ public class ListTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setViewStatus(ViewType.LIST_PLANNER);
+        model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
         model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
 
         return new CommandResult(MESSAGE_SUCCESS, true);

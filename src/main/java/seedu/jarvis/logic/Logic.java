@@ -55,6 +55,21 @@ public interface Logic {
      */
     ObservableList<Task> getUnfilteredTaskList();
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} that coincide with the given day,
+     * backed by the internal list of {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    ObservableList<Task> getTasksToday();
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} that coincide with the given week,
+     * backed by the internal list of {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    ObservableList<Task> getTasksThisWeek();
+
+
     // Course Planner ====================================================================
 
     /**

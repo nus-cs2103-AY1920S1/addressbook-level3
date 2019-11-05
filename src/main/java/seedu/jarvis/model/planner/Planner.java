@@ -18,6 +18,8 @@ import seedu.jarvis.model.planner.tasks.Task;
 public class Planner {
     private TaskList taskList;
     private FilteredList<Task> filteredTaskList;
+    private FilteredList<Task> tasksToday;
+    private FilteredList<Task> tasksThisWeek;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +32,10 @@ public class Planner {
         this.taskList = new TaskList();
         filteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
             PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        tasksToday = new FilteredList<>(FXCollections.observableList(getTasks()),
+                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        tasksThisWeek = new FilteredList<>(FXCollections.observableList(getTasks()),
+                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
     }
 
     /**
@@ -170,8 +176,22 @@ public class Planner {
         requireNonNull(predicate);
         filteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
                 PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+
         filteredTaskList.setPredicate(predicate);
 
+    }
+
+    /**
+     * Updates the list of tasks according to the day and week
+     */
+    public void updateSchedule() {
+        tasksToday = new FilteredList<>(FXCollections.observableList(getTasks()),
+                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        tasksThisWeek = new FilteredList<>(FXCollections.observableList(getTasks()),
+                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+
+        tasksToday.setPredicate(PlannerModel.PREDICATE_TASKS_TODAY);
+        tasksThisWeek.setPredicate(PlannerModel.PREDICATE_TASKS_THIS_WEEK);
     }
 
     /**
@@ -189,6 +209,24 @@ public class Planner {
      */
     public ObservableList<Task> getUnfilteredTaskList() {
         return FXCollections.observableList(getTasks());
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} that coincide with the given day,
+     * backed by the internal list of {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    public ObservableList<Task> getTasksToday() {
+        return tasksToday;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} that coincide with the given week,
+     * backed by the internal list of {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    public ObservableList<Task> getTasksThisWeek() {
+        return tasksThisWeek;
     }
 
     /**

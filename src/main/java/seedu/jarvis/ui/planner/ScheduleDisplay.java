@@ -10,32 +10,44 @@ import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.ui.UiPart;
 
 /**
- * Represents the wrapper panel for the task list.
+ * Represents the schedule component of the Planner - shows the tasks in the planner
+ * that coincides with the given day and week
  */
-public class TaskListView extends UiPart<Region> {
-    private static final String FXML = "TaskListView.fxml";
+public class ScheduleDisplay extends UiPart<Region> {
+    public static final String FXML = "ScheduleDisplay.fxml";
 
     @FXML
-    private ListView<Task> taskListView;
+    private ListView<Task> day;
     @FXML
-    private Label header;
+    private Label headerDay;
+    @FXML
+    private Label headerWeek;
+    @FXML
+    private ListView<Task> week;
 
-    public TaskListView(ObservableList<Task> taskList) {
+    public ScheduleDisplay(ObservableList<Task> day, ObservableList<Task> week) {
         super(FXML);
-        header.setText("    All Tasks:");
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
+        this.day.setItems(day);
+        this.week.setItems(week);
+
+        headerDay.setText("   Tasks for today:");
+        headerWeek.setText("   Tasks for the week:");
+
+        this.day.setCellFactory(listView -> new ScheduleListViewCell());
+        this.week.setCellFactory(listView -> new ScheduleListViewCell());
+
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Task} using a
      * {@code TaskCard}
      */
-    class TaskListViewCell extends ListCell<Task> {
+    class ScheduleListViewCell extends ListCell<Task> {
 
         @Override
         public void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
+
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
@@ -44,4 +56,5 @@ public class TaskListView extends UiPart<Region> {
             }
         }
     }
+
 }
