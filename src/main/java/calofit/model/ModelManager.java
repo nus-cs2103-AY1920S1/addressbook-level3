@@ -3,6 +3,7 @@ package calofit.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -60,7 +61,9 @@ public class ModelManager implements Model {
             remain -> dish -> dish.getCalories().getValue() <= remain);
         filteredDishes.predicateProperty().bind(suggestedDishFilter);
 
-        this.mealLog.todayProperty().bind(ObservableUtil.map(nowProperty, LocalDateTime::toLocalDate));
+        ObjectExpression<LocalDate> todayExp = ObservableUtil.cachingMap(nowProperty, LocalDateTime::toLocalDate);
+        this.mealLog.todayProperty().bind(todayExp);
+        this.budget.todayProperty().bind(todayExp);
     }
 
     public ModelManager() {
