@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-StudyBuddy was developed by the https://github.com/AY1920S1-CS2103T-W13-3[W13-3] team. +
+StudyBuddyPro was developed by the https://github.com/AY1920S1-CS2103T-W13-3[W13-3] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -14,7 +14,7 @@ image::sam-limyr.png[width="150", align="left"]
 {empty}[http://github.com/Sam-limyr[github]] [<<samuel#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: FiveNotes
+Responsibilities: Notes feature
 
 '''
 
@@ -23,7 +23,7 @@ image::ckb055.png[width="150", align="left"]
 {empty}[http://github.com/ckb055[github]] [<<kaibin#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Tagging Implementation
+Responsibilities: Tagging and Cheatsheet feature
 
 '''
 
@@ -32,7 +32,7 @@ image::jaesimin.png[width="150", align="left"]
 {empty}[http://github.com/jaesimin[github]] [<<jasmine#, portfolio>>]
 
 Role: Developer +
-Responsibilities: FiveCheat
+Responsibilities: Cheatsheet feature
 
 '''
 
@@ -41,7 +41,7 @@ image::chanjunren.png[width="150", align="left"]
 {empty}[http://github.com/chanjunren[github]] [<<junren#, portfolio>>]
 
 Role: Developer +
-Responsibilities: FiveFlash question modes
+Responsibilities: Flashcard feature and Graphic User Interface (GUI)
 
 '''
 
@@ -50,6 +50,6 @@ image::sahilgat.png[width="150", align="left"]
 {empty}[http://github.com/Sahilgat[github]] [<<sahil#, portfolio>>]
 
 Role: Developer +
-Responsibilities: FiveFlash tagging and editing
+Responsibilities: Flashcard feature
 
 '''
