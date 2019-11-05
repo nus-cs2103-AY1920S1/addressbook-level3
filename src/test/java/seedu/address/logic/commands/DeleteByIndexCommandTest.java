@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBookAtIndex;
-import static seedu.address.logic.commands.DeleteCommand.FINE_AMOUNT_ZERO;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.HOON;
@@ -14,8 +14,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BOOK;
 import static seedu.address.testutil.TypicalLoans.LOAN_1;
 import static seedu.address.testutil.UserSettingsBuilder.DEFAULT_LOAN_PERIOD;
-
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 

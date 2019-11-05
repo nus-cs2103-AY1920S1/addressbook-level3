@@ -2,16 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
-
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.util.DateUtil;
-import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
-import seedu.address.model.loan.Loan;
 
 /**
  * Deletes a book identified using it's serial number from the catalog.
