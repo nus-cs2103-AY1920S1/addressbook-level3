@@ -43,7 +43,8 @@ public class DirectoryPathTest {
             "../",
             "..\\",
             "/",
-            "\\"
+            "\\",
+            "GitHub\\main\\.git"
         };
 
         for (String validDirectoryPathString : validDirectoryPathStrings) {
