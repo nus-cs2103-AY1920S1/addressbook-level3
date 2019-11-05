@@ -17,7 +17,7 @@ public class ListCategoryCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all flashcards which contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all FlashCard(s) which contain any of "
             + "the specified category keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " math science";

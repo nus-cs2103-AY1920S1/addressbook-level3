@@ -293,40 +293,49 @@ exporting to document files.
 
 === Get the full list of commands: `help`
 
-This command allow to you to view all the commands available in the application. +
+This command allows you to view all the commands available in the application. +
 `help`
 
 . Type `help` and press **Enter** to execute it.
 +
-image::HelpCommand.png[width="600"]
+image::HelpCommand1.png[width="600"]
 
 . The result box will display the message:
 +
 Opened help window.
++
+image::HelpCommandBox1.png[width="600"]
++
 
 . A help window with all the commands will also be displayed:
 +
-image::HelpWindow.png[width="600"]
+image::HelpWindow1.png[width="600"]
 
 === View overall statistics: `stats`
 
-This command allow to you to view the number of good, hard and easy flashcards completed during test mode and in the application. +
+This command allows you to view three different type of statistics. +
 `stats`
 
 To view statistics:
 
 . Type `stats` and press **Enter**.
 +
-image::StatsCommand.png[width="600"]
+image::StatsCommand1.png[width="600"]
 
 . The result box will display the message:
 +
-Displays the number of GOOD, HARD & EASY FlashCards
-
-. A bar chart will also be displayed:
+Statistics displayed
 +
-image::BarChart.png[width="600"]
+image::StatsCommandBox1.png[width="600"]
 
+. A window will appear, displaying 3 charts:
++
+image::StatsWindow1.png[width="850", height="250"]
++
+
+Starting from the left, the first chart displays the total number of FlashCards rated as good, hard and easy. The second chart displays the total number of FlashCards rated as good, hard and easy that are completed during test mode. The last chart displays your performance (in percentage) for all tests completed. Performance is determined by the ratio of FlashCards rated as good and easy to FlashCards rated as hard.
++
+Note that the second and third chart will be empty if the `stats` command is executed before running at least one test, since both of these charts are dependent on the test mode. Furthermore, the statistics displayed on these two charts will reset when the application is closed.
 
 //tag::theme[]
 === Change color themes: `theme [THEMENAME]`

@@ -232,13 +232,28 @@ public class AddCommandTest {
         public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-
+        //@@author LeonardTay748
         @Override
         public int[] getTestStats() {
             throw new AssertionError("This method should not be called.");
         }
 
         public void editStats(int type) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<Integer> getPerformance() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePerformance(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetPerformance(Model model) {
             throw new AssertionError("This method should not be called.");
         }
 

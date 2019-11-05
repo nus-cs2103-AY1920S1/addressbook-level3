@@ -21,11 +21,11 @@ public class StartCommand extends Command {
     public static final String COMMAND_WORD = "start";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Starts the flashcard test by going through the cards in the specified deck.\n"
+            + ": Starts the FlashCard test by going through the cards in the specified deck.\n"
             + "Parameters: DECK NAME. If no argument is supplied, a random deck will be chosen.\n"
             + "Example: " + COMMAND_WORD + " physics";
 
-    public static final String MESSAGE_NO_FLASHCARDS = "No flashcards to test!";
+    public static final String MESSAGE_NO_FLASHCARDS = "No FlashCard to test!";
 
     public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...\n%s";
 

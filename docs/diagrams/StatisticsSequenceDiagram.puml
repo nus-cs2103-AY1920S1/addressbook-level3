@@ -1,3 +1,4 @@
+//@@author LeonardTay748
 @startuml
 !include style.puml
 
@@ -18,6 +19,7 @@ end box
 
 box JavaFx EXTERNAL_LIBRARY_COLOR_T1
 participant ":Scene" as Scene EXTERNAL_LIBRARY_COLOR
+participant ":FlowPane" as FlowPane EXTERNAL_LIBRARY_COLOR
 participant ":Stage" as Stage EXTERNAL_LIBRARY_COLOR
 end box
 
@@ -36,7 +38,7 @@ deactivate LogicManager
 [-> MainWindow : executeCommand(stats)
 activate MainWindow
 
-       alt commandResult.isShowStats()
+
        MainWindow -> MainWindow : handleStats()
            activate MainWindow
 
@@ -56,47 +58,8 @@ activate MainWindow
                 deactivate Logic
 
                 MainWindow -> StatsWindow : show(model)
-
-                loop for each rating
-                activate StatsWindow
-                StatsWindow -> Model : updateFilteredFlashCardList(rating)
-                activate Model
-                StatsWindow <-- Model : ObservableList<FlashCard>
-                deactivate Model
-                StatsWindow -> Model : size()
-                activate Model
-                StatsWindow <-- Model : number
-                deactivate Model
-                end
-
-                StatsWindow -> Model : getTestStats()
-                activate Model
-                StatsWindow <-- Model : stats[]
-                deactivate Model
-
-                StatsWindow -> Scene : Scene(bar chart)
-                activate Scene
-                StatsWindow <-- Scene : scene
-                deactivate Scene
-
-                StatsWindow -> Stage : setScene(scene)
-                activate Stage
-                StatsWindow <-- Stage :
-                deactivate Stage
-
-                StatsWindow -> Stage : getRoot()
-                activate Stage
-                StatsWindow <-- Stage : root
-                deactivate Stage
-
-
-                StatsWindow -> Stage : show()
-                activate Stage
-                StatsWindow <-- Stage :
-                deactivate Stage
-
+                ref over StatsWindow, Model, Scene, Stage : show statistics
                 MainWindow <-- StatsWindow :
-                deactivate StatsWindow
                 MainWindow <-- MainWindow :
 
            deactivate MainWindow

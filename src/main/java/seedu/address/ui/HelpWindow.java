@@ -57,7 +57,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
-        Image image = new Image("file:Commands.png", 550, 762, true, false);
+        Image image = new Image("file:Commands.png", 637, 886, true, false);
         imageView.setImage(image);
 
         getRoot().show();

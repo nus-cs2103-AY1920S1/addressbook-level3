@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -101,6 +102,22 @@ public interface Model {
      * type 0,1 & 2 to edit number of Good, Hard & Easy qns completed during the test.
      */
     int[] getTestStats();
+
+    /**
+     * returns an int[] of performance values.
+     */
+    ArrayList<Integer> getPerformance();
+
+    /**
+     * updates the int[] that holds all performance values from test mode.
+     * adds a new performance value to the existing int[] that holds all performance values from test mode.
+     */
+    void updatePerformance(Model model);
+
+    /**
+     * clears the int[] that holds all performance values from test mode.
+     */
+    void resetPerformance(Model model);
 
     /**
      * Adds the given flashCard.
