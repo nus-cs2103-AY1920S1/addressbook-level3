@@ -14,7 +14,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.TutorAidParser;
 
 /**
  * Replaces original TextField. SuggestionsField instead displays available commands for the user based on their input.
@@ -26,7 +26,7 @@ public class SuggestionsField extends TextField {
 
     public SuggestionsField() {
         super();
-        commandList = AddressBookParser.getCommandList();
+        commandList = TutorAidParser.getCommandList();
         resultBox = new ContextMenu();
         resultBox.setOpacity(0.7);
         resultBox.hide();

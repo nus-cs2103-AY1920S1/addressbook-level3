@@ -40,7 +40,9 @@ public class DeleteEarningsCommand extends Command {
 
         Earnings earningsToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEarnings(earningsToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_EARNINGS_SUCCESS, earningsToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_EARNINGS_SUCCESS, earningsToDelete),
+                false, false, true, false, false,
+                false, false, false);
     }
 
     @Override

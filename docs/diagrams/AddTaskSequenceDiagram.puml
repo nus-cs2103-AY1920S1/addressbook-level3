@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":TutorAidParser" as TutorAidParser LOGIC_COLOR
 participant ":AddTaskCommandParser" as AddTaskCommandParser LOGIC_COLOR
 participant "at:AddTaskCommand" as AddTaskCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("add_task c/....")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("add_task c/....")
-activate AddressBookParser
+LogicManager -> TutorAidParser : parseCommand("add_task c/....")
+activate TutorAidParser
 
 create AddTaskCommandParser
-AddressBookParser -> AddTaskCommandParser
+TutorAidParser -> AddTaskCommandParser
 activate AddTaskCommandParser
 
-AddTaskCommandParser --> AddressBookParser
+AddTaskCommandParser --> TutorAidParser
 deactivate AddTaskCommandParser
 
-AddressBookParser -> AddTaskCommandParser : parse("c/...")
+TutorAidParser -> AddTaskCommandParser : parse("c/...")
 activate AddTaskCommandParser
 
 create AddTaskCommand
@@ -36,14 +36,14 @@ activate AddTaskCommand
 AddTaskCommand --> AddTaskCommandParser : at
 deactivate AddTaskCommand
 
-AddTaskCommandParser --> AddressBookParser : at
+AddTaskCommandParser --> TutorAidParser : at
 deactivate AddTaskCommand
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddTaskCommandParser -[hidden]-> AddressBookParser
+AddTaskCommandParser -[hidden]-> TutorAidParser
 destroy AddTaskCommandParser
 
-AddressBookParser --> LogicManager : at
-deactivate AddressBookParser
+TutorAidParser --> LogicManager : at
+deactivate TutorAidParser
 
 LogicManager -> AddTaskCommand : execute()
 activate AddTaskCommand

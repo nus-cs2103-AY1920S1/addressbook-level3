@@ -51,7 +51,7 @@ public class TaskTime implements Comparable<TaskTime> {
                     || !endingTime.equals(simpleDateFormat.format(dateEnd))) {
                 dateStart = null;
             }
-        } catch(IndexOutOfBoundsException | ParseException ex) {
+        } catch (IndexOutOfBoundsException | ParseException ex) {
             throw new IllegalArgumentException();
         }
         return dateStart != null;

@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalTasks.CS2100;
 import static seedu.address.testutil.TypicalTasks.CS2103T;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.TaskBuilder;
 
 public class TaskTest {
@@ -28,8 +29,8 @@ public class TaskTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Task CS2103TCopy = new TaskBuilder(CS2103T).build();
-        assertTrue(CS2103T.equals(CS2103TCopy));
+        Task cs2103TCopy = new TaskBuilder(CS2103T).build();
+        assertTrue(CS2103T.equals(cs2103TCopy));
 
         // same object -> returns true
         assertTrue(CS2103T.equals(CS2103T));

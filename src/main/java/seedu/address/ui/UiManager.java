@@ -63,7 +63,7 @@ public class UiManager implements Ui {
      * To change tab to earnings tab.
      */
     public static void startStudentProfile() {
-        logger.info("Changing to Earning...");
+        logger.info("Changing to Student Profile...");
 
         try {
             mainWindow.show(); //This should be called before creating other UI parts
@@ -170,7 +170,8 @@ public class UiManager implements Ui {
     }
 
     static void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+        Stage stage = mainWindow.getPrimaryStage();
+        showAlertDialogAndWait(stage, type, title, headerText, contentText);
     }
 
     /**

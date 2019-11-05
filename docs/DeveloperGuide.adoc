@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F14-2/main
 
 By: `Team F14-2`      Since: `Sept 2019`      Licence: `NUS`
 
@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TutorAidParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -200,9 +200,9 @@ image::AddEarningsActivityDiagram.png[]
 This adds an `Earnings` object that the user has earned by teaching a CS1231 class on 4th August 2019. The user has
 earned $50.00.
 
-* Step 2: `LogicManager` would use `AddressBookParser#parse()` to parse input from the user.
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
-* Step 3: `AddressBookParser` would match the command word given by the user with the correct command. In this example,
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
 the given command is `add_earnings`, thus, `AddEarningsCommandParser` object would be created with the user's input.
 
 * Step 4: `AddEarningsCommandParser` performs a validation check on each of the respective objects through
@@ -241,7 +241,7 @@ The `AddTaskCommand` implements `Parser` with the following operation:
 individual objects based on the prefixes `c/`, `mark/` and `tt/`. The `String` value after the respective prefixes
 will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
-enter the correct format of the respectives objects.
+enter the correct format of the respective objects.
 
 ** `classId` would use `ParserUtil#parseClassId()` to ensure that the class id typed in by the user is in the correct format.
 
@@ -265,9 +265,9 @@ image::AddTaskActivityDiagram.png[]
 This adds an `Earnings` object that the user has earned by teaching a CS1231 class on 4th August 2019. The user has
 earned $50.00.
 
-* Step 2: `LogicManager` would use `AddressBookParser#parse()` to parse input from the user.
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
-* Step 3: `AddressBookParser` would match the command word given by the user with the correct command. In this example,
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
 the given command is `add_earnings`, thus, `AddEarningsCommandParser` object would be created with the user's input.
 
 * Step 4: `AddEarningsCommandParser` performs a validation check on each of the respective objects through
@@ -307,7 +307,7 @@ The `AddTaskCommand` implements `Parser` with the following operation:
 individual objects based on the prefixes `c/`, `mark/` and `tt/`. The `String` value after the respective prefixes
 will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
-enter the correct format of the respectives objects.
+enter the correct format of the respective objects.
 
 ** `classId` would use `ParserUtil#parseClassId()` to ensure that the class id typed in by the user is in the correct format.
 
@@ -332,9 +332,9 @@ to add an task into the calendar.
 This adds an `Task` object, which is a module CS2103T that the user need to attempt at 1pm of 20th and 21st September 2019.
 The task is marked so that it would be reminded.
 
-* Step 2: `LogicManager` would use `AddressBookParser#parse()` to parse input from the user.
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
-* Step 3: `AddressBookParser` would match the command word given by the user with the correct command. In this example,
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
 the given command is `add_task`, thus, `AddTaskCommandParser` object would be created with the user's input.
 
 * Step 4: `AddTaskCommandParser` performs a validation check on each of the respective objects through
@@ -390,9 +390,9 @@ The following activity diagram summarizes what happens when a user executes a ne
 * Step 1: The user enters `addnote mod/CS2103T c/Update Project` to add a note for teaching classes.
 This adds a `Notes` object that the user has added to record what needs to be done for the class.
 
-* Step 2: `LogicManager` would use `AddressBookParser#parse()` to parse input from the user.
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
-* Step 3: `AddressBookParser` would match the command word given by the user with the correct command. In this example,
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
 the given command is `addnote`, thus, `AddNotesCommandParser` object would be created with the user's input.
 
 * Step 4: `AddNotesCommandParser` performs a validation check on each of the respective objects through
@@ -447,9 +447,9 @@ The following activity diagram summarizes what happens when a user executes a ne
 * Step 1: The user enters `addReminder rd/teach rt/23/01/2019` to add a reminder for teaching classes.
 This adds an `Notes` object that the user has added to record what needs to be done for the class.
 
-* Step 2: `LogicManager` would use `AddressBookParser#parse()` to parse input from the user.
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
-* Step 3: `AddressBookParser` would match the command word given by the user with the correct command. In this example,
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
 the given command is `addReminder`, thus, `AddReminderParser` object would be created with the user's input.
 
 * Step 4: `AddReminderParser` performs a validation check on each of the respective objects through
@@ -473,27 +473,27 @@ built in commands.
 The sequence of events is triggered when a user accidentally inputs a wrong command. TutorAid will then prompt
 the user on whether or not they wish to add this command to the library as a custom command mapped to the action of a built in command.
 
-Custom command keywords and their mappings are stored locally in addressbook.json with
+Custom command keywords and their mappings are stored locally in TutorAid.json with
 the help of `JsonAdaptedCommand`.
 
-The whole mechanism is mainly facilitated by `AddressBookParser` which has been modified to suit our needs. A TreeMap
+The whole mechanism is mainly facilitated by `TutorAidParser` which has been modified to suit our needs. A TreeMap
 is now being used in the process of parsing commands.
 
 A `CommandResult` object now also has an added boolean "unknown" instance variable to indicate if the command entered is
 an unknown command. New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
 
-* `AddressBookParser#checkCommand()` -- Separate "parser" functions for unknown command operations.
+* `TutorAidParser#checkCommand()` -- Separate "parser" functions for unknown command operations.
 Checks if the command a user wants to map his unknown command to is valid and exists or if the user wishes
 to exit the operation.
-* `AddressBookParser#initialiseBasicCommands()` -- Initialises the functionality of the `AddressBookParser` by adding
+* `TutorAidParser#initialiseBasicCommands()` -- Initialises the functionality of the `TutorAidParser` by adding
 the basic command mappings to its TreeMap.
 
 Given below is an example usage scenario and how the learn custom command mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `AddressBookParser` will be initialized and all basic
+Step 1. The user launches the application for the first time. The `TutorAidParser` will be initialized and all basic
 commands and previous existing custom commands will be added to its TreeMap.
 
-Step 2. The user enters "plus" instead of "add". `AddressBookParser` does a lookup in its TreeMap and in the `AddressBookParser#parseCommand(String userInput)` function and returns a new `UnknownCommand` since
+Step 2. The user enters "plus" instead of "add". `TutorAidParser` does a lookup in its TreeMap and in the `TutorAidParser#parseCommand(String userInput)` function and returns a new `UnknownCommand` since
 the TreeMap does not contain the keyword "plus".
 
 Step 3. The `UnknownCommand` is executed in `LogicManger` and "plus" is saved on a Stack in `ModelManager`. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. The `CommandResult` triggers `CommandResult#isUnknown()` and sets the "unknown" variable in `MainWindow`
@@ -502,14 +502,14 @@ to true.
 [NOTE]
 `Logic#execute(String userInput)` has been changed to `Logic#execute(String userInput, boolean isUnknown)` to account for different execution pathways of unknown and known commands.
 
-Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". `LogicManager#execute(String userInput, boolean isUnknown)` now calls `AddressBookParser#checkCommand(String userInput, String prevUnknownCommand)` as `MainWindow` passed in a value of "true" to the execute command.
+Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". `LogicManager#execute(String userInput, boolean isUnknown)` now calls `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` as `MainWindow` passed in a value of "true" to the execute command.
 
-Step 5. In `AddressBookParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned.
+Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned.
 Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in "cancel".
 
-Step 7. The user inputs a valid command. `AddressBookParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest "prevUnknownCommand" retrieved from the stack, it adds the unknown command and action of the valid command as a key-value pair to the TreeMap and as a new CommandObject to the `AddressBook` for storage via execution of `NewCommand` object.
+Step 7. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest "prevUnknownCommand" retrieved from the stack, it adds the unknown command and action of the valid command as a key-value pair to the TreeMap and as a new CommandObject to the `TutorAid` for storage via execution of `NewCommand` object.
 
-Step 8. `NewCommand` has a `CommandResult` with an "unknown" value of false. This will trigger `MainWindow#setUnknownFalse()` and set the unknown variable in `MainWindow` to false. Normal commands can then be performed as `AddressBookParser#parseCommand(String userInput)` will now be called again instead of `AddressBookParser#checkCommand(String userInput, String prevUnknownCommand)`.
+Step 8. `NewCommand` has a `CommandResult` with an "unknown" value of false. This will trigger `MainWindow#setUnknownFalse()` and set the unknown variable in `MainWindow` to false. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
 
 The following sequence diagrams shows how the learn custom command operation works:
 
@@ -524,7 +524,7 @@ After which, a known command is supplied,
 image::NewCommandDiagram.png[]
 
 [NOTE]
-`AddressBookParser#checkCommand(String userInput, String prevUnknownCommand)` is called instead of the normal `AddressBookParser#parseCommand(String userInput)` function because the boolean input "isUnknown" in `Logic#execute(String userInput, boolean isUnknown)` is set to true.
+`TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is called instead of the normal `TutorAidParser#parseCommand(String userInput)` function because the boolean input "isUnknown" in `Logic#execute(String userInput, boolean isUnknown)` is set to true.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 

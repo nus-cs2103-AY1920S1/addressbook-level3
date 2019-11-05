@@ -83,7 +83,7 @@ If there are multiple task times, they will be automatically sorted based on the
 
 Examples:
 
-* `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 13:00, 20/9/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
+* `add_task c/CS2103T Lecture  mark/Y tt/20/09/2019 13:00, 20/09/2019 16:00 tt/21/09/2019 13:00, 21/09/2019 15:00`
 * `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
 ==== Editing task: `edit_task`

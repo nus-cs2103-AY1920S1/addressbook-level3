@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":TutorAidParser" as TutorAidParser LOGIC_COLOR
 participant "n:NewCommand" as DeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 participant "c:CommandObject" as CommandObject LOGIC_COLOR
@@ -22,18 +22,18 @@ activate Model
 Model --> LogicManager: savedCommand
 deactivate Model
 
-LogicManager -> AddressBookParser : checkCommand(validCommand, savedCommand)
-activate AddressBookParser
+LogicManager -> TutorAidParser : checkCommand(validCommand, savedCommand)
+activate TutorAidParser
 
 create DeleteCommand
-AddressBookParser -> DeleteCommand
+TutorAidParser -> DeleteCommand
 activate DeleteCommand
 
-DeleteCommand --> AddressBookParser : n
+DeleteCommand --> TutorAidParser : n
 deactivate DeleteCommand
 
-AddressBookParser --> LogicManager : n
-deactivate AddressBookParser
+TutorAidParser --> LogicManager : n
+deactivate TutorAidParser
 
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand

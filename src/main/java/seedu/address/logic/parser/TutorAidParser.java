@@ -54,7 +54,7 @@ import seedu.address.model.commands.CommandObject;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class TutorAidParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -63,64 +63,64 @@ public class AddressBookParser {
 
     private static TreeMap<String, String> commandList;
 
-    public AddressBookParser(ObservableList<CommandObject> commands) {
-        AddressBookParser.commandList = new TreeMap<>();
+    public TutorAidParser(ObservableList<CommandObject> commands) {
+        TutorAidParser.commandList = new TreeMap<>();
         initialiseBasicCommands();
         for (int i = 0; i < commands.size(); i++) {
-            AddressBookParser.commandList.put(commands.get(i).getCommandWord().word,
+            TutorAidParser.commandList.put(commands.get(i).getCommandWord().word,
                     commands.get(i).getCommandAction().action);
         }
     }
 
-    public AddressBookParser() {
-        AddressBookParser.commandList = new TreeMap<>();
+    public TutorAidParser() {
+        TutorAidParser.commandList = new TreeMap<>();
         initialiseBasicCommands();
     }
 
     public static TreeMap<String, String> getCommandList() {
-        return AddressBookParser.commandList;
+        return TutorAidParser.commandList;
     }
 
     /**
-     * Used to map basic commands to {@code TreeMap} when the AddressBookParser object is initialised.
+     * Used to map basic commands to {@code TreeMap} when the TutorAidParser object is initialised.
      */
     private void initialiseBasicCommands() {
-        AddressBookParser.commandList.put(AddCommand.COMMAND_WORD, AddCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(DeleteCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ListCommand.COMMAND_WORD, ListCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(AddEarningsCommand.COMMAND_WORD, AddEarningsCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(DeleteCustomCommand.COMMAND_WORD, DeleteCustomCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(AddTaskCommand.COMMAND_WORD, AddTaskCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(DeleteEarningsCommand.COMMAND_WORD, DeleteEarningsCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(UpdateEarningsCommand.COMMAND_WORD, UpdateEarningsCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(FindEarningsCommand.COMMAND_WORD, FindEarningsCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(DeleteTaskCommand.COMMAND_WORD, DeleteTaskCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ListTasksBasedOnDateCommand.COMMAND_WORD,
+        TutorAidParser.commandList.put(AddCommand.COMMAND_WORD, AddCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(DeleteCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(ListCommand.COMMAND_WORD, ListCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(AddEarningsCommand.COMMAND_WORD, AddEarningsCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(DeleteCustomCommand.COMMAND_WORD, DeleteCustomCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(AddTaskCommand.COMMAND_WORD, AddTaskCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(DeleteEarningsCommand.COMMAND_WORD, DeleteEarningsCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(UpdateEarningsCommand.COMMAND_WORD, UpdateEarningsCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(FindEarningsCommand.COMMAND_WORD, FindEarningsCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(DeleteTaskCommand.COMMAND_WORD, DeleteTaskCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(ListTasksBasedOnDateCommand.COMMAND_WORD,
                 ListTasksBasedOnDateCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(DeleteNotesCommand.COMMAND_WORD, DeleteNotesCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(FindNotesCommand.COMMAND_WORD, FindNotesCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ListNotesCommand.COMMAND_WORD, ListNotesCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(LoginCommand.COMMAND_WORD, LoginCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(TotalEarningsCommand.COMMAND_WORD, TotalEarningsCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ListClassCommand.COMMAND_WORD, ListClassCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(MarkAttendanceCommand.COMMAND_WORD, MarkAttendanceCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(MarkParticipationCommand.COMMAND_WORD, MarkParticipationCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(SetPictureCommand.COMMAND_WORD, SetPictureCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(DeleteNotesCommand.COMMAND_WORD, DeleteNotesCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(FindNotesCommand.COMMAND_WORD, FindNotesCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(ListNotesCommand.COMMAND_WORD, ListNotesCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(LoginCommand.COMMAND_WORD, LoginCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(TotalEarningsCommand.COMMAND_WORD, TotalEarningsCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(ListClassCommand.COMMAND_WORD, ListClassCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(MarkAttendanceCommand.COMMAND_WORD, MarkAttendanceCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(MarkParticipationCommand.COMMAND_WORD, MarkParticipationCommand.COMMAND_WORD);
+        TutorAidParser.commandList.put(SetPictureCommand.COMMAND_WORD, SetPictureCommand.COMMAND_WORD);
     }
 
     /**
@@ -131,9 +131,9 @@ public class AddressBookParser {
         if (userInput.equals("cancel")) {
             return new CancelCommand();
         } else {
-            if (AddressBookParser.commandList.containsKey(userInput)) {
-                AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
-                return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
+            if (TutorAidParser.commandList.containsKey(userInput)) {
+                TutorAidParser.commandList.put(prevUnknownCommand, TutorAidParser.commandList.get(userInput));
+                return new NewCommand(TutorAidParser.commandList.get(userInput), prevUnknownCommand);
             } else {
                 return new UnknownCommand(userInput);
             }
@@ -168,7 +168,7 @@ public class AddressBookParser {
                 return new DeleteCommandParser().parse(arguments);
 
             case ClearCommand.COMMAND_WORD:
-                AddressBookParser.commandList.clear();
+                TutorAidParser.commandList.clear();
                 initialiseBasicCommands();
                 return new ClearCommand();
 
@@ -176,9 +176,9 @@ public class AddressBookParser {
                 return new FindCommandParser().parse(arguments);
 
             case ListCommand.COMMAND_WORD:
-                if(arguments.isEmpty()) {
-                    return new ListCommand();}
-                else {
+                if (arguments.isEmpty()) {
+                    return new ListCommand();
+                } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
                 }
 
@@ -204,9 +204,9 @@ public class AddressBookParser {
                 return new DeleteTaskCommandParser().parse(arguments);
 
             case ListTasksCommand.COMMAND_WORD:
-                if(arguments.isEmpty()) {
-                    return new ListTasksCommand();}
-                else {
+                if (arguments.isEmpty()) {
+                    return new ListTasksCommand();
+                } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
                 }
             case UpdateEarningsCommand.COMMAND_WORD:
@@ -255,16 +255,16 @@ public class AddressBookParser {
                 return new FindNotesCommandParser().parse(arguments);
 
             case ListNotesCommand.COMMAND_WORD:
-                if(arguments.isEmpty()) {
-                    return new ListNotesCommand();}
-                else {
+                if (arguments.isEmpty()) {
+                    return new ListNotesCommand();
+                } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
                 }
 
             case TotalEarningsCommand.COMMAND_WORD:
-                if(arguments.isEmpty()) {
-                    return new TotalEarningsCommand();}
-                else {
+                if (arguments.isEmpty()) {
+                    return new TotalEarningsCommand();
+                } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
                 }
 
