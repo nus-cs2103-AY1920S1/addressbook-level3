@@ -11,31 +11,28 @@ import seedu.address.model.display.detailwindow.PersonTimeslot;
  * A class that concatenates 4 week schedules together.
  */
 public class MonthSchedule {
-    private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekZero;
-    private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekOne;
-    private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekTwo;
-    private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekThree;
+    private WeekSchedule weekZero;
+    private WeekSchedule weekOne;
+    private WeekSchedule weekTwo;
+    private WeekSchedule weekThree;
 
-    public MonthSchedule(HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekZero,
-                         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekOne,
-                         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekTwo,
-                         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekThree) {
+    public MonthSchedule(WeekSchedule weekZero, WeekSchedule weekOne, WeekSchedule weekTwo, WeekSchedule weekThree) {
         this.weekZero = weekZero;
         this.weekOne = weekOne;
         this.weekTwo = weekTwo;
         this.weekThree = weekThree;
     }
 
-    public static List<HashMap<DayOfWeek, ArrayList<PersonTimeslot>>> getWeekSchedulesOf(
+    public static List<WeekSchedule> getWeekSchedulesOf(
             List<MonthSchedule> monthSchedules, int weekNumber) {
-        List<HashMap<DayOfWeek, ArrayList<PersonTimeslot>>> weekSchedule = new ArrayList<>();
+        List<WeekSchedule> weekSchedules = new ArrayList<>();
         for (MonthSchedule monthSchedule : monthSchedules) {
-            weekSchedule.add(monthSchedule.getScheduleForWeek(weekNumber));
+            weekSchedules.add(monthSchedule.getScheduleForWeek(weekNumber));
         }
-        return weekSchedule;
+        return weekSchedules;
     }
 
-    public HashMap<DayOfWeek, ArrayList<PersonTimeslot>> getScheduleForWeek(int i) {
+    public WeekSchedule getScheduleForWeek(int i) {
         if (i == 0) {
             return weekZero;
         } else if (i == 1) {

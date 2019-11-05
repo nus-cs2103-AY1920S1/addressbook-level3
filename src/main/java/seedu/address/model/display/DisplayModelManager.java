@@ -15,11 +15,7 @@ import seedu.address.model.TimeBook;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.FreeSchedule;
-import seedu.address.model.display.schedulewindow.FreeTimeslot;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.schedulewindow.*;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -246,10 +242,10 @@ public class DisplayModelManager {
      * @return PersonSchedule
      */
     private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {
-        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekZeroSchedule = getWeekScheduleOf(now, person);
-        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekOneSchedule = getWeekScheduleOf(now.plusDays(7), person);
-        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekTwoSchedule = getWeekScheduleOf(now.plusDays(14), person);
-        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekThreeSchedule = getWeekScheduleOf(now.plusDays(21), person);
+        WeekSchedule weekZeroSchedule = new WeekSchedule(getWeekScheduleOf(now, person));
+        WeekSchedule weekOneSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(7), person));
+        WeekSchedule weekTwoSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(14), person));
+        WeekSchedule weekThreeSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(21), person));
         return new PersonSchedule(scheduleName, new PersonDisplay(person, role), new MonthSchedule(weekZeroSchedule,
                 weekOneSchedule, weekTwoSchedule, weekThreeSchedule));
     }
@@ -307,7 +303,7 @@ public class DisplayModelManager {
      * @param personSchedules to generate the free schedule from
      * @return FreeSchedule
      */
-    private FreeSchedule generateFreeSchedule(ArrayList<HashMap<DayOfWeek, ArrayList<PersonTimeslot>>> personSchedules,
+    private FreeSchedule generateFreeSchedule(ArrayList<WeekSchedule> personSchedules,
                                               LocalDateTime now) {
 
         HashMap<DayOfWeek, ArrayList<FreeTimeslot>> freeSchedule = new HashMap<>();

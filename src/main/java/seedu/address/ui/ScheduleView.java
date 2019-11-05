@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
 
@@ -54,7 +55,7 @@ public class ScheduleView extends UiPart<Region> {
     private int currentDay;
     private LocalDate currentDate;
 
-    public ScheduleView(List<HashMap<DayOfWeek, ArrayList<PersonTimeslot>>> weekSchedules,
+    public ScheduleView(List<WeekSchedule> weekSchedules,
                         List<String> colors, String title, LocalDate date) {
         super(FXML);
         this.currentDay = date.getDayOfWeek().getValue();
@@ -72,9 +73,8 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Method to initialise the FXML components of ScheduleView.
-     * @return This object.
      */
-    private ScheduleView initialise() {
+    private void initialise() {
         scheduleView = new GridPane();
         scheduleView.setStyle("-fx-border-width: 2; -fx-pref-width: 950;");
         scheduleHeader = new GridPane();
@@ -85,7 +85,6 @@ public class ScheduleView extends UiPart<Region> {
         scheduleContents.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scheduleContents.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
-        return this;
     }
 
     /**
@@ -258,7 +257,7 @@ public class ScheduleView extends UiPart<Region> {
      * @param schedules An array list of schedule maps obtained from calling getScheduleMap on a Schedule Object.
      * @return  GridPane table view of schedules.
      */
-    public GridPane showSchedule(List<HashMap<DayOfWeek, ArrayList<PersonTimeslot>>> schedules) {
+    public GridPane showSchedule(List<WeekSchedule> schedules) {
         //Assign colors to each schedule.
         //Draw VBox of each individual's schedule.
         //Put VBoxes of all individuals' timeslot for the day into HBox.
@@ -269,7 +268,7 @@ public class ScheduleView extends UiPart<Region> {
             StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));
             HBox groupTimeslot = new HBox();
             for (int j = 0; j < schedules.size(); j++) {
-                HashMap<DayOfWeek, ArrayList<PersonTimeslot>> personSchedule = schedules.get(j);
+                WeekSchedule personSchedule = schedules.get(j);
                 VBox dayScheduleVBox = getDayVBoxOfIndividualSchedule(personSchedule.get(DayOfWeek.of(i)),
                         colors.get(j));
                 HBox.setHgrow(dayScheduleVBox, Priority.ALWAYS);
