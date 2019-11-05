@@ -33,6 +33,7 @@ import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
+import dukecooks.model.recipe.exceptions.IngredientNotFoundException;
 
 /**
  * Edits the details of an existing recipe in Duke Cooks.
@@ -85,7 +86,12 @@ public class EditRecipeCommand extends EditCommand {
         }
 
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
-        Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
+        Recipe editedRecipe = null;
+        try {
+            editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
+        } catch (IngredientNotFoundException e) {
+            throw new CommandException(String.format(Messages.MESSAGE_INGREDIENT_DOES_NOT_EXIST, e.getMessage()));
+        }
 
         if (!recipeToEdit.isSameRecipe(editedRecipe) && model.hasRecipe(editedRecipe)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
@@ -134,6 +140,18 @@ public class EditRecipeCommand extends EditCommand {
             }
 
             if (editRecipeDescriptor.getIngredientsToRemove().isPresent()) {
+                for (Ingredient ingredient : editRecipeDescriptor.getIngredientsToRemove().get()) {
+                    boolean exists = false;
+                    for (Ingredient currIngredient : updatedIngredients) {
+                        if (ingredient.equals(currIngredient)) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists) {
+                        throw new IngredientNotFoundException(ingredient.ingredientName);
+                    }
+                }
                 updatedIngredients.removeAll(editRecipeDescriptor.getIngredientsToRemove().get());
             }
 
