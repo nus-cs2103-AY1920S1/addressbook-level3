@@ -27,6 +27,8 @@ The Incident Management System (IMS) is a desktop app made for emergency call op
 .  Download the latest `ims.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Incident Manager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  You will first need to `register` an account, or `login` with one of the pre-made accounts.
+.  Logging in with an account that has the `Admin` tag gives you admin access to the system.
 +
 image::Ui.png[width="790"]
 +
@@ -48,7 +50,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Some commands have admin restrictions. Admins accounts are identified by the `Admin` tag.
 ====
+
+[NOTE]
+An account with admin privileges is included in the sample data with `Username` *Agent01* and `Password` *password*
 
 === Viewing help : `help`
 Format: `help`
@@ -57,10 +63,14 @@ Format: `help`
 === Logging in: `login`
 
 Logs the user into the IMS and registers the active session. +
-Format: `login u/USERNAME p/PASSWORD`
+Format: `login u/USERNAME w/PASSWORD`
 
 [NOTE]
-The only commands available prior to login are `Add`, `Login`, `Help`, and `Exit`.
+The only commands available prior to login are `Register`, `Login`, `Help`, and `Exit`.
+
+Example:
+
+* `login u/Agent01 w/password`
 
 === Logging out: `logout`
 
@@ -75,26 +85,40 @@ Format: `swap`
 [TIP]
 A user cannot access commands affecting entities not displayed in their current interface view.
 
+Account Management Interface:
+
+image::account.png[width="400"]
+
 // end::access[]
 
 // tag::account[]
-=== Adding a user: `add`
+=== Registering an account: `register`
 
-Adds an account to the IMS as a registered user +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...`
+Registers an account into the Incident Management System +
+Format: `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME w/PASSWORD [t/TAG]...`
 
 [TIP]
 A account can have any number of tags (including 0). Only logged-in admins can add tags.
 
+****
+* Usernames must be at least 3 characters in length.
+* Usernames can only consist of alphanumeric characters and the following special characters, excluding the parentheses, (.-)
+* Usernames cannot begin or end with a non alphanumeric character.
+* Usernames and Passwords cannot be blank or contain a whitespace.
+* Passwords must be at least 6 characters in length.
+* Passwords can only contain alphanumeric characters and/or these special characters, excluding the parentheses, (!#$%&'*+/=?`{|}~^.-)
+****
+
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com u/op1`
-* `add n/Betsy Crowe e/betsycrowe@example.com u/oc1 p/1234567 t/Team-1-OC`
+* `register n/John Doe p/98765432 e/johnd@example.com u/op1 w/password`
+* If logged in with an admin account: +
+`register n/Betsy Crowe e/betsycrowe@example.com u/oc1 w/password p/1234567 t/Team-1-OC`
 
 === Updating an account : `update`
 
 Updates an existing account in the incident Manager or the own account of the user logged in if the index is left empty. +
-Format: `update [INDEX] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `update [INDEX] [n/NAME] [p/PHONE] [e/EMAIL] [u/USERNAME] [w/PASSWORD] [t/TAG]...`
 
 [NOTE]
 Only admins can update other user accounts. Non-admins cannot specify an index when executing the update command.
@@ -116,42 +140,54 @@ updates the phone number and email address of the logged in account to be `91234
 * `update 2 n/Betsy Crower t/` +
 updates the name of the 2nd account to be `Betsy Crower` and clears all existing tags.
 
-=== Listing accounts : `list-p`
+==== Incident Auto Update `[coming in v2.0]`
+
+Any updates to user account details will search for all incidents created by the account and update those references as well.
+
+=== Listing accounts : `list-a`
 
 Shows a list of all accounts registered in the incident Manager or those whose tags match any of the keywords if a keyword is specified. +
-Format: `list-p [KEYWORD] [MORE_KEYWORDS]`
+Format: `list-a [KEYWORD] [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `admin` will match `Admin`
 * Only the account tags are searched.
 * Only full words will be matched e.g. `ad` will not match `admin`
-* accounts matching at least one keyword will be returned (i.e. `OR` search). e.g. `admin team-1` will return all accounts with the `admin` tag and those with the `team-1` tag.
+* Accounts matching all keywords will be returned (i.e. `AND` search).
 ****
 
-=== Locating accounts by name or username: `find-p`
+Examples:
+
+* `list-a` +
+Displays the entire list of accounts
+* `list-a team-1 admin` +
+Returns a list of all accounts that have both the `admin` and `team-1` tag
+// end::account[]
+
+=== Locating accounts by name or username: `find-a`
 
 Finds accounts whose name or username contains any of the given keywords. +
-Format: `find-p KEYWORD [MORE_KEYWORDS]`
+Format: `find-a KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name and username is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched for Names e.g. `Han` will not match `Hans`
+* Partial words will be matched for Usernames e.g. `Agent` will match `Agent01`
 * Accounts matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find-p John` +
+* `find-a John` +
 Returns `john` and `John Doe`
-* `find-p Betsy Tim John` +
-Returns any account having names or usernames `Betsy`, `Tim`, or `John`
 
-=== Deleting an account : `delete`
+// tag::AccountDelete[]
+=== Deleting an account : `delete-a`
 
 Deletes the specified account from the incident Manager. +
-Format: `delete INDEX`
+Format: `delete-a INDEX`
 
 ****
 * Deletes the account at the specified `INDEX`.
@@ -160,41 +196,39 @@ Format: `delete INDEX`
 ****
 
 [NOTE]
-Only admins can access the delete command.
+Only admins can access the delete command. You cannot delete your own account.
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd account in the incident Manager.
-* `find Betsy` +
-`delete 1` +
+* `list-a` +
+`delete-a 2` +
+Deletes the 2nd account in the Incident Manager.
+* `find-a Agent01` +
+`delete-a 1` +
 Deletes the 1st account in the results of the `find` command.
 
-// end::account[]
+==== Incident Auto Update `[coming in v2.0]`
+
+Deleting a user will search for all incidents created by the user and place a `deleted` flag next to the account details.
+// end::AccountDelete[]
 
 // tag::incident[]
 
 === Create New Incident: `new`
-
-==== Assumptions
-* User has logged in
-
-==== Description
-* Unique ID automatically generated for report.
-* Takes in district number of accident site and dispatches vehicle near to it.
-* Once operator picks up the call, they will key in the district number of accident site to dispatch vehicles.
-
-==== Usage
 
 This command works in two ways:
 
 *1. auto/y* +
 Format: `new l/DISTRICT_NUM auto/y`
 
+****
 * An available vehicle in the given district will be automatically dispatched to the incident site.
-* The vehicle pane will show all available vehicles in the district.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+* After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
+****
+
+[IMPORTANT]
+Valid district numbers are from 1 to 28!
 
 * Example usage:
 
@@ -207,9 +241,12 @@ image::newCommandAutoYAfterSS.png[]
 *2. auto/n* +
 Format: `new l/DISTRICT_NUM auto/n`
 
+****
 * A list of available vehicles in the given district will be shown.
 * A message will also appear to prompt user to also include the index of the chosen vehicle.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+* After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
+****
 
 * Example usage:
 
@@ -221,6 +258,11 @@ image::newCommandAutoNAfterPromptSS.png[]
 
 image::newCommandAutoNAfterSS.png[]
 
+[NOTE]
+If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
+For example `new l/1 l/2 l/3 auto/y auto/n` is equivalent to `new l/3 auto/n`. +
+Rationale: user need not waste time backspacing if an input was keyed in wrongly.
+
 === Filling a draft incident report: `fill`
 Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
 
@@ -230,8 +272,11 @@ This command works in two modes:
 Format: `fill` +
 Lists all draft incident reports ready to be filled.
 
+****
 * This command lists both incomplete and complete drafts.
 ** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+****
+
 * Example usage:
 
 image::fillCommandNoParamsBeforeScreenshot.png[FillExample1]
@@ -246,12 +291,15 @@ image::fillCommandNoParamsAfterScreenshot.png[]
 Format: `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` +
 Fills the draft incident report corresponding to the specified index with the phone number of the caller who reported the incident and the description of the incident.
 
+****
 * Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
 * Both incomplete and complete drafts can be filled.
 ** Fields of complete drafts will be overwritten.
 ** Executing this command changes incident `status` to `COMPLETE_DRAFT`.
 * Both `CALLER_NUMBER` and `DESCRIPTION` fields must be specified while executing this command.
 * The newly filled draft will now appear at the top of the list of incidents in the GUI incident panel view.
+****
+
 * Example usage:
 
 image::fillCommandWithParamsBeforeScreenshot.png[]
@@ -273,8 +321,11 @@ Similar to `fill`, this command also works in two modes:
 Format: `submit` +
 Lists all completed draft incident reports ready for submission.
 
+****
 * This command only lists complete drafts.
 ** If no complete drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+****
+
 * Expected outcome of `submit`:
 
 image::submitCommandNoParamsAfterScreenshot.png[]
@@ -284,10 +335,13 @@ image::submitCommandNoParamsAfterScreenshot.png[]
 Format: `submit [INDEX]` +
 Submits the completed draft incident report corresponding to the specified index.
 
+****
 * Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
 * Only complete drafts can be submitted.
 ** Executing this command changes incident `status` to `SUBMITTED_REPORT`.
 * The newly submitted draft will now appear at the top of the list of incidents in the GUI incident panel view.
+****
+
 * Expected outcome of `submit 2`:
 
 image::submitCommandWithParamsAfterScreenshot.png[]
@@ -296,19 +350,13 @@ image::submitCommandWithParamsAfterScreenshot.png[]
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::incident[]
 
-// tag::common[]
-//=== Clearing all entries : `clear`
-//
-//Clears all entries from the incident Manager. +
-//Format: `clear`
-
 === Listing all incidents: `list-i`
 Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
 
 ****
 * The listing returns all incidents, inclusive of all drafts and submitted incident reports
-* All keywords and parameters used are ignored
+* Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
 ****
 
 Example usage and expected outcome:
@@ -317,83 +365,93 @@ image::listIncidentsCommand.png[]
 
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
-Possible Parameters: `id`/`op`/`desc`
+Possible Parameters: `id/`, `op/`, `desc/`, `self`
 
 *Different Parameters*
 
 **By Operator Name** +
-Format: `find-i op/KEYWORD` +
-Lists all incidents whereby the operator name contains the given keyword
+Format: `find-i op/<OPERATOR KEYWORD [MORE_KEYWORDS]>` +
+Lists all incidents whereby the operator name contains any of the given keywords
 
-* Example of Successful Usage and Expected Outcome:
+* Accepts multiple search terms for the parameter, searching for any match with any search term
+
+* Example of Successful Single Operator Search and Expected Outcome:
 
 image::findIncidentsCommandWithOperatorParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
+* Example of Successful Multiple Operator Search and Expected Outcome:
 
-image::findIncidentsCommandWithOperatorParameterFailed.png[]
+image::findIncidentsCommandWithOperatorsParameter.png[]
 
 **By Description** +
-Format: `find-i desc/KEYWORD` +
-Lists all incidents whereby the incident description contains the given keyword
+Format: `find-i desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...>` +
+Lists all incidents whereby the incident description contains any the given keywords
 
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithDescriptionParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
-
-image::findIncidentsCommandWithDescriptionParameterFailed.png[]
-
-**By ID**
+**By ID** +
 Format: `find-i id/KEYWORD` +
 Lists all incidents whereby the incident ID is an exact match with the given keyword
+
+* Requires an exact ID match, only accepts one ID
 
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithIdParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
+**Self-Search** +
+Format: `find-i self` +
+Lists all incidents whereby the operator name matches the logged-in user's name.
 
-image::findIncidentsCommandWithIdParameterFailed.png[]
+* Requires an exact name match
 
-* Requires an exact ID match
-* Example of Failed Usage:
-** The ID does not match the given keyword exactly
-* Example of Successful Usage:
-** ID matches the given keyword exactly
+* Example of Successful Usage and Expected Outcome:
+
+image::findIncidentsCommandWithSelfParameter.png[]
 
 ****
 * The search is case insensitive. e.g `dave` will match `Dave`
-* Only the specified parameter is searched, and only one parameter can be searched each time
+* Multiple words can be taken for the operator and description parameter
+* Multiple parameters can be searched, returning incidents whereby all parameters match
 * Only full words will be matched e.g. `Fir` will not match `Fire`
 ****
 
 Examples:
 
-* `find-i id/0920160001` +
+* ID Match: `find-i id/0920160001` +
 Returns Incident #0920160001
-* `find-i op/Dave` +
-Returns any incidents whereby the operator's name contains 'Dave'
-* `find-i desc/fire` +
-Returns any incidents whereby the description contains 'fire'
+* Multiple Parameters: `find-i op/Dave desc/fire` +
+Returns any incidents whereby the operator's name contains 'Dave' and the description contains 'fire'
+* Multi-word Parameter Search: `find-i op/Alex Bernice` +
+Returns any incidents whereby the operator's name contains either 'Alex' or 'Bernice'
+* Self-Search: `find-i self` +
+Returns any incidents whereby the operator's name matches the logged-in operator's name
 
 === Editing an Incident: `edit-i`
 
-Edits an existing vehicle in the Incident Manager as identified by the index in the display.
+Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
+****
 ** If an index is not provided, system will prompt for index. Does not make any edits.
+[NOTE]
+Use `edit-i` to list all submitted reports
 
+** Only admins can edit all reports, other users are only allowed to edit the reports they created.
 ** Number of fields provided for update is optional and can vary.
 [NOTE]
 If no fields are provided, incident will remain unchanged.
 
 ** Existing values will be updated to input values provided.
 ** Edits that result in duplicate incidents are not allowed
+** Can only edit submitted reports. Edit command should not be used on
+reports in draft state, instead, the fill command should be used.
 
 [NOTE]
-Incidents with all the same fields (`DateTime`, `District`, `Description`, `Caller Number`) are considered duplicates.
+Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Caller Number`) are considered duplicates.
+****
 
 Example of input:
 
@@ -408,15 +466,16 @@ image::editIncident2.png[]
 
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
-Format: `add-v [l/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
+Format: `add-v [l/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
 
 [NOTE]
 All fields must be provided in order to make a valid addition to the Incident Management System. If any of the fields are missing,
 vehicle will not be added.
 
+****
 ** Vehicles that have the same vehicle number and vehicle type are considered to duplicate vehicles
-
 ** Duplicate vehicles cannot be added into the Incident Management System.
+****
 
 Examples:
 
@@ -436,9 +495,11 @@ Format: `edit-v [INDEX] [l/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AV
 [NOTE]
 Number of fields provided for edit may vary. If no fields are provided, the vehicle will not be edited.
 
+****
 ** Edit inputs that result in duplicate vehicles in the list will not be allowed.
 ** Only vehicles displayed on the interface are valid of edit.
 ** Existing values will be updated to the input values given.
+****
 
 Example:
 
@@ -455,17 +516,89 @@ Edit Vehicle that results in duplicates:
 image::editDuplicateVeh1.png[]
 image::editDuplicateVeh2.png[]
 
+// tag::list-v[]
+=== Listing vehicles
+Shows a list of all vehicles registered in the incident Manager.
+Format: `list-v`
+
+****
+* The listing returns all vehicles and their relevant details.
+* All keywords and parameters used are ignored.
+****
+
+Example usage and expected outcome:
+
+image::listVSS.png[]
+// end::list-v[]
+
+// tag::find-v[]
+=== Finding a Vehicle: `find-v`
+Finds a vehicle by its district number, vehicle number or vehicle type.
+
+The command works in three ways:
+
+*1. Find by district*
+Format: `find-v ds/DISTRICT [MORE DISTRICTS]`
+
+****
+** User can input multiple districts to search for vehicles in.
+****
+
+Example usage:
+
+image::findVDsBeforeSS.png[]
+image::findVDsAfterSS.png[]
+.Fig X finding vehicle by district number.
+
+*2. Find by vehicle number*
+Format: `find-v vnum/NUMBER`
+
+****
+* The number need not be an exact match of any vehicle number; any vehicle with input number in its vehicle number will be returned. +
+****
+
+Example usage:
+
+image::findVVnumBeforeSS.png[]
+image::findVVnumAfterSS.png[]
+.Fig X finding vehicke by vehicle number.
+//end::find-v[]
+
+*3. Find by vehicle type*
+Format: `find-v vtype/VEHICLE TYPE`
+
+****
+** The vehicle type keyword must match the actual vehicle type exactly.
+****
+
+Example usage:
+
+image::findVVtypeBeforeSS.png[]
+image::findVVtypeAfterSS.png[]
+
 === Deleting a Vehicle: `delete-v`
 Deletes a vehicle in the list as identified by the index.
 
 Format: `delete-v [INDEX]`
 
+****
+** Only an admin account can delete vehicles.
 ** A valid index has to be provided
 [NOTE]
 A valid index is a positive integer and points to a vehicle displayed in the vehicles list.
 
+** Vehicles that are currently dispatched or indicated as `BUSY` will not be able to be deleted.
+****
+
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
+image::deleteVehicleNonAdmin.png[]
+
+// tag::common[]
+//=== Clearing all entries : `clear`
+//
+//Clears all entries from the incident Manager. +
+//Format: `clear`
 
 === Exiting the program : `exit`
 
@@ -508,17 +641,17 @@ Data files will be encrypted by default. Users can decrypt the file with the com
 * *Login* : `login u/USERNAME p/PASSWORD`
 * *Logout* : `logout`
 * *Swap* : `swap`
-* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com u/Agent-3 w/password t/Admin t/Team-01`
+* *Register* : `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...` +
+e.g. `register n/James Ho p/22224444 e/jamesho@example.com u/Agent-3 w/password t/Admin t/Team-01`
 * *Update* : `update [INDEX] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [u/USERNAME] [p/PASSWORD] [t/TAG]...` +
 e.g. `update 2 n/James Lee e/jameslee@example.com`
-* *List Accounts* : `list-p [KEYWORD] [MORE_KEYWORDS]` +
-e.g. `list-p Admin`
-* *Find Accounts* : `find-p KEYWORD [MORE_KEYWORDS]` +
-e.g. `find-p James Jake`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *New* `new DISTRICT_NUMBER`
+* *List Accounts* : `list-a [KEYWORD] [MORE_KEYWORDS]` +
+e.g. `list-a Admin`
+* *Find Account* : `find-a KEYWORD [MORE_KEYWORDS]` +
+e.g. `find-a James Jake`
+* *Delete Account* : `delete-a INDEX` +
+e.g. `delete-a 3`
+* *New* `new l/DISTRICT auto/y`
 * *Fill*
 1. `fill` (to list all draft incidents ready for filling)
 2. `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` (to fill specified incident report) +
@@ -528,8 +661,8 @@ e.g. `fill 1 c/98984932 d/This is a sample description for incident 1 in distric
 2. `submit` [INDEX] (to submit specified incident report) +
 e.g. `submit 4`
 * *List Incidents* : `list-i`
-* *Find Incidents* : `find-i [op/KEYWORD] [desc/KEYWORD] [id/KEYWORD]` +
-e.g. `find-i op/alex`
+* *Find Incidents* : `find-i [op/KEYWORD(s)] [desc/KEYWORD(s)] [id/KEYWORD] [self]` +
+e.g. `find-i op/alex yeoh desc/6 self`
 * *List Vehicles* : `list-v`
 * *Find Vehicles* : `find-v [ds/KEYWORDS] [vtype/KEYWORD] [vnum/KEYWORD]` +
 e.g. `find-v ds/1 2 3`

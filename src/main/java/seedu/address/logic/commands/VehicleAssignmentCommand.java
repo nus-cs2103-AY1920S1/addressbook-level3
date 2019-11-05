@@ -1,16 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_AVAILABLE_VEHICLE;
+import static seedu.address.commons.core.Messages.MESSAGE_SINGLE_VEHICLE_LISTED;
+import static seedu.address.commons.core.Messages.MESSAGE_VEHICLES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_ASSIGNMENT_PROMPT;
 import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_BUSY;
 import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_OOB;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
@@ -20,7 +20,6 @@ import seedu.address.model.vehicle.Vehicle;
 /**
  * Assigns vehicles to newly created incidents.
  * Cannot be changed once assigned.
- * TODO: consider vtype for auto assign.
  */
 public class VehicleAssignmentCommand extends Command {
 
@@ -40,37 +39,22 @@ public class VehicleAssignmentCommand extends Command {
 
     /**
      * Automatic assignment of vehicle to newly created incident reports.
-     * @param model
+     * Assumes instance of no available vehicle is alr taken care of.
+     * Assumes predicate of available in district works.
+     * @param nearbyVehicles
      */
-    public void autoAssign(Model model) throws CommandException {
-        ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList();
-        List<Vehicle> toAdd = new ArrayList<>();
-
-        if (nearbyVehicles.size() > 0) {
-            for (Vehicle v: nearbyVehicles) {
-                if (v.isAvailable() && v.getDistrict().equals(draft.getDistrict())) {
-                    toAdd.add(v);
-                }
-            }
-            if (!toAdd.isEmpty()) {
-                draft.addVehicle(toAdd.get(0));
-            } else {
-                throw new CommandException(MESSAGE_VEHICLE_BUSY);
-            }
-        } // 0 vehicles taken care of in execute
+    public void autoAssign(ObservableList<Vehicle> nearbyVehicles) {
+        assert(nearbyVehicles.size() > 0);
+        draft.addVehicle(nearbyVehicles.get(0));
     }
 
     /**
      * Manual assignment of vehicle to newly created incident reports.
-     * @param model
+     * @param  nearbyVehicles
      * @param indexOfV
      */
-    public void manualAssign(Model model, int indexOfV) throws CommandException {
-        requireNonNull(model);
-
+    public void manualAssign(ObservableList<Vehicle> nearbyVehicles, int indexOfV) throws CommandException {
         if (indexOfV > 0) {
-            ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList();
-
             if (indexOfV <= nearbyVehicles.size()) {
                 Vehicle vehicle = nearbyVehicles.get(indexOfV - 1);
 
@@ -97,20 +81,23 @@ public class VehicleAssignmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredVehicleList(predicate);
+        ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList();
 
-        if (isAuto) {
-            autoAssign(model);
-        } else {
-            manualAssign(model, indexOfV);
+        if (nearbyVehicles.size() == 0) {
+            throw new CommandException(MESSAGE_NO_AVAILABLE_VEHICLE);
         }
 
-        if (model.getFilteredVehicleList().size() == 0) {
-            throw new CommandException(Messages.MESSAGE_NO_AVAILABLE_VEHICLE);
-        } else if (model.getFilteredVehicleList().size() == 1) {
-            return new CommandResult(Messages.MESSAGE_SINGLE_VEHICLE_LISTED);
+        // should only reach here if there is at least 1 nearby vehicle.
+        if (isAuto) {
+            autoAssign(nearbyVehicles);
         } else {
-            return new CommandResult(
-                    String.format(Messages.MESSAGE_VEHICLES_LISTED_OVERVIEW, model.getFilteredVehicleList().size()));
+            manualAssign(nearbyVehicles, indexOfV);
+        }
+
+        if (nearbyVehicles.size() == 1) {
+            return new CommandResult(MESSAGE_SINGLE_VEHICLE_LISTED);
+        } else {
+            return new CommandResult(String.format(MESSAGE_VEHICLES_LISTED_OVERVIEW, nearbyVehicles.size()));
         }
     }
 
@@ -118,6 +105,7 @@ public class VehicleAssignmentCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof VehicleAssignmentCommand // instanceof handles nulls
-                && predicate == ((VehicleAssignmentCommand) other).predicate); // state check
+                && draft.equals(((VehicleAssignmentCommand) other).draft)
+                && predicate.equals(((VehicleAssignmentCommand) other).predicate)); // state check
     }
 }

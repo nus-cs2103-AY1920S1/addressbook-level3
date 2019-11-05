@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.Objects;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.TagContainsKeywordsPredicate;
+import seedu.address.model.tag.TagContainsKeywordsPredicate;
 
 //@@author madanalogy
 /**
@@ -14,12 +14,12 @@ import seedu.address.model.person.TagContainsKeywordsPredicate;
  */
 public class ListPersonsCommand extends Command {
 
-    public static final String COMMAND_WORD = "list-p";
+    public static final String COMMAND_WORD = "list-a";
 
-    public static final String MESSAGE_SUCCESS = "Listed all matching persons!";
+    public static final String MESSAGE_SUCCESS = "Listed all matching accounts!";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all persons or those whose tags match "
-            + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all accounts or those whose tags match "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: [KEYWORD] [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " admin";
 

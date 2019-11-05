@@ -1,9 +1,8 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.address.logic.commands.EditIncidentCommand;
 
@@ -20,8 +19,7 @@ public class IncidentUtil {
         editor.getDistrict().ifPresent(district ->
                 sb.append(PREFIX_DISTRICT).append(district.getDistrictNum()).append(" "));
         editor.getDesc().ifPresent(desc -> sb.append(PREFIX_DESCRIPTION).append(desc.toString()).append(" "));
-        editor.getDateTime().ifPresent(dateTime -> sb.append(PREFIX_DATETIME).append(dateTime.toString()).append(" "));
-        editor.getCaller().ifPresent(caller -> sb.append(PREFIX_CALLER_NUMBER).append(caller.value).append(" "));
+        editor.getCaller().ifPresent(caller -> sb.append(PREFIX_PHONE).append(caller.value).append(" "));
         return sb.toString();
     }
 }

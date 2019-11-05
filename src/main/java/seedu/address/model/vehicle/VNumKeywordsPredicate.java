@@ -10,6 +10,15 @@ import java.util.function.Predicate;
 public class VNumKeywordsPredicate implements Predicate<Vehicle> {
     private final List<String> keywords = new ArrayList<>();
 
+    /**
+     * Only used for Vehicle Search.
+     * Takes in string to support substring search in vtype.
+     * @param vNumKeywords
+     */
+    public VNumKeywordsPredicate(String vNumKeywords) {
+        this.keywords.add(vNumKeywords);
+    }
+
     public VNumKeywordsPredicate(VehicleNumber vNumKeywords) {
         this.keywords.add(vNumKeywords.toString());
     }

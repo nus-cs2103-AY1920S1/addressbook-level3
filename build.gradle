@@ -20,6 +20,10 @@ mainClassName = 'seedu.address.Main'
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
+run {
+    enableAssertions = true
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
@@ -67,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'ims-1.2.1.jar'
+    archiveName = 'ims-1.3.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -111,6 +115,14 @@ test {
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
+}
+
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
     }
 }
 

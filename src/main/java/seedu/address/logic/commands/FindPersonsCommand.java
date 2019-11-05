@@ -12,9 +12,9 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
  */
 public class FindPersonsCommand extends Command {
 
-    public static final String COMMAND_WORD = "find-p";
+    public static final String COMMAND_WORD = "find-a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names or usernames contain "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all accounts whose names or usernames contain "
             + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob agent01";

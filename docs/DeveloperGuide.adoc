@@ -120,12 +120,12 @@ image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Incident Manager data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Incident Manager data.
+* Exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* Does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `IncidentManager`, which `Person` can reference. This would allow `IncidentManager` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -137,9 +137,9 @@ image:BetterModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Person.java[`Person.java`]
 
-The `Person`,
+The `Person`:
 
-* represents a user account on the incident manager.
+* Represents a user account on the incident manager.
 * Contains the account `Username`, `Password`, `Name`, `Phone`, `Email`
 
 [[Design-Incident]]
@@ -147,24 +147,27 @@ The `Person`,
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Incident.java[`Incident.java`]
 
-The `Incident`,
+The `Incident`:
 
 image::IncidentClassDiagram.png[]
 
-* represents an incident report in the incident manager.
-* contains the attributes `CallerNumber`, `Description`, `IncidentDateTime` and IncidentId`.
+* Represents an incident report in the incident manager.
+* Contains the attributes `CallerNumber`, `Description`, `IncidentDateTime` and IncidentId`.
 * Also contains a `Person` object representing the 'Operator' who filed the incident, a `District` which represents the location of the incident, and a `Vehicle` representing the vehicle dispatched to investigate this incident.
 * Has three states encapsulated by a `Status` enum - `INCOMPLETE_DRAFT` (report not completely filled and not submitted), `COMPLETE_DRAFT` (report completely filled but not submitted), and `SUBMITTED_REPORT` (report completely filled and submitted).
 
 [[Design-Vehicle]]
-==== Incident component
+==== Vehicle component
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Vehicle.java[`Vehicle.java`]
 
-The `Vehicle`,
+The `Vehicle`:
 
-* represents a vehicle that can be dispatched to incident sites.
+image::VehicleClassDiagram.png[]
+
+* Represents a vehicle that can be dispatched to incident sites.
 * Contains the attributes `VehicleNumber`, `VehicleType`, `district` and `availability`.
+* Is assigned to an incident in the same district.
 
 [[Design-Storage]]
 === Storage component
@@ -174,10 +177,10 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Incident Manager data in json format and read it back.
+* Can save `UserPref` objects in json format and read it back.
+* Can save the Incident Manager data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -200,14 +203,14 @@ The access control feature is centered around three core concepts:
 
 ===== Command Restrictions
 
-Prior to login, the user is only granted access to the `Login`, `Add`, `Help`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
+Prior to login, the user is only granted access to the `Login`, `Register`, `Help`, and `Exit` commands. This is achieved via a guard statement in the `IncidentManagerParser` checking whether the user is logged in or the command created is an approved command that doesn't require login.
 
 [NOTE]
 The guard statement throws a command exception and informs the user of the available commands prior to login.
 
 Activity Diagram for illustration:
 
-image::AccessActivityDiagram.png[]
+image::AccessActivityDiagram.png[width="400"]
 
 ===== Identity Verification
 
@@ -216,18 +219,22 @@ Users are required to login via the `Login` command with a `Username` and `Passw
 [NOTE]
 Session details are displayed on the status bar in the GUI to reflect whether a user is logged in, and the username as well as time logged in if a user is logged in.
 
-Uniqueness of a username is ensured by preventing duplicates during the account creation [`AddCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
+Class Diagram for illustration:
+
+image::SessionClassDiagram.png[width="400"]
+
+Uniqueness of a username is ensured by preventing duplicates during the account creation [`RegisterCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
 
 ===== Account Management Restrictions
 
 To prevent abuse (e.g. adding a dummy account and editing/deleting other accounts), all new accounts are differentiated from `Admin` accounts. This restriction based on access level is implemented via account `Tags`:
 
 * Only a `Person` with an admin `Tag` can access account management features. Such a person will henceforth be referred to as an Admin.
-* Users who are not admins are not allowed to add tags (via both AddCommand and UpdateCommand).
-* Only Admins are allowed to edit or add tags (via both AddCommand and UpdateCommand).
+* Users who are not admins are not allowed to add tags (via both `RegisterCommand` and `UpdateCommand`).
+* Only Admins are allowed to edit or add tags (via both `RegisterCommand` and `UpdateCommand`).
 
 [NOTE]
-Non-admins can still edit their own account details via the `Update` command. Refer to user guide for more info.
+Non-admins can still edit their own account details via the `UpdateCommand`. Refer to user guide for more info.
 
 Additional access restrictions:
 
@@ -236,22 +243,24 @@ Additional access restrictions:
 * Admins cannot delete their own account.
 * Admins cannot 'downgrade' themselves by removing their own admin tag.
 
-The checks described above all function in the command execution stage. The `AddCommand`, `UpdateCommand`, and `DeleteCommand` retrieves the logged in `Person` from the `Model` via utilisation of the `Session` object.
+The checks described above all function in the command execution stage. The `RegisterCommand`, `UpdateCommand`, and `DeleteCommand` retrieves the logged in `Person` from the `Model` via utilisation of the `Session`.
 
-Sequence Diagram for illustration:
+Simplified Sequence Diagram for illustration:
 
-image::AccessSequenceDiagram.png[]
+image::AccessSequenceDiagram.png[width="600"]
+
+NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
 
 ==== Design Considerations
 
 ===== Aspect: How Command Restrictions are Managed
 
-* **Current Choice:** Guard statement in LogicManager prior to Command Execution.
-** Pros: Single control point, easy to maintain and debug.
-** Cons: Command still gets instantiated, memory allocated to command creation.
-* **Alternative:** Guard statement in IncidentManagerParser
-** Pros: Early catching of restriction, command doesn't get instantiated unnecessarily.
-** Cons: Need to expose model to parser, increasing coupling.
+* **Current Choice:** Guard statement in IncidentManagerParser prior to Command Creation.
+** Pros: Early catching of restriction, command doesn't get instantiated unnecessarily. Better user experience as error message is displayed early.
+** Cons: Need to expose model to parser as session is managed by model, increasing coupling.
+* **Alternative:** Guard statement in LogicManager prior to Command Execution.
+** Pros: Model does not need to be exposed to parser as it is already managed by command execution, decreasing coupling.
+** Cons: Command still gets instantiated, memory allocated to command creation. Decreases user experience as user still has to type a proper command before the access error is thrown.
 
 ===== Aspect: How Identity Verification is Managed
 
@@ -260,20 +269,21 @@ image::AccessSequenceDiagram.png[]
 ** Cons: Sufficiently advanced users can access the data file directly to retrieve user passwords.
 * **Alternative:** Physical security USB dongle.
 ** Pros: Secure individually identifiable token.
-** Cons: Prone to loss and potential duplication.
+** Cons: Prone to loss and potential duplication. Hard to implement.
 
 ===== Aspect: How Account Management Restrictions are Managed
 
 * **Current Choice:** Utilisation of Account Tags
 ** Pros: Easy to implement.
-** Cons: Users cannot add tags to themselves.
+** Cons: Easy to exploit, requires additional restrictions (e.g. users cannot add tags unless they are an admin).
 * **Alternative:** Addition of an Admin account attribute.
 ** Pros: Distinct object class, improves cohesiveness.
 ** Cons: Hard to implement.
 
 ==== Known Issues
 
-A sufficiently advanced user can access the data file directly to manipulate account details. Data file encryption will resolve this issue, but has yet to be implemented.
+A sufficiently advanced user can access the data file directly to manipulate account details. Data file encryption (to be implemented in v2.0) will resolve this issue.
+
 // end::accessControl[]
 
 // tag::accountManagement[]
@@ -282,7 +292,7 @@ A sufficiently advanced user can access the data file directly to manipulate acc
 
 The account management feature functions as a suite of commands available to the user. The commands available as part of this suite:
 
-* Add Command - Creates a new user account.
+* Register Command - Creates a new user account.
 * Update Command - Edits a user account. Not including an index updates your own account.
 * Delete Command - Deletes a a user account. Not allowed to delete your own account.
 * List Persons Command - Lists all user accounts or those whose tags match the user input.
@@ -290,14 +300,22 @@ The account management feature functions as a suite of commands available to the
 * Swap Command - Swaps GUI interface between account management and incident management.
 
 [NOTE]
-Only `Admin` accounts can access the full suite of account management features. See access control feature for more information. Non-Admins only have access to `Add`, `List`, `Find`, and `Swap` commands, as well as `Update` for their own account.
+Users are restricted from accessing commands affecting objects not on display. They need to invoke `Swap` to access the different command suites.
+
+Only `Admin` accounts can access the full suite of account management features. See access control feature for more information. Non-Admins only have access to `Register`, `List`, `Find`, and `Swap` commands, as well as `Update` for their own account.
 
 In the code base, Persons represent user accounts. See person model for more information.
 
-[NOTE]
-The swap command also restricts users from accessing commands affecting objects not on display.
-
 ==== Design Considerations
+===== Aspect: Interface Implementation
+
+* **Current Choice:** Utilising a swap command that transitions between two distinct interfaces.
+** Pros: Distinct difference in command suite utilisation (account vs incidents), giving users a much cleaner distinction of what's being managed, improves user experience.
+** Cons: Hard to implement.
+* **Alternative:** Having account information display alongside incidents and vehicles in a separate pane.
+** Pros: Easy to implement.
+** Cons: User might be overloaded with information in one screen, and text might get truncate in lower resolutions, decreases user experience.
+
 ===== Aspect: How Update executes
 
 * **Current Choice:** No index indicates own account update
@@ -310,11 +328,12 @@ The swap command also restricts users from accessing commands affecting objects 
 ===== Aspect: How Tag searching executes
 
 * **Current Choice:** Adding keywords after the list command performs a search
-** Pros: Easy to implement.
-** Cons: User might get confused between list and find command usage.
+** Pros: Does not require argument prefixes, improves user experience.
+** Cons: Decreases system cohesiveness as searching is performed in two separate commands.
 * **Alternative:** Utilising find command to search for tags
-** Pros: Centralise all account search operations in one command.
-** Cons: Requires the addition of argument prefixes, hard to implement.
+** Pros: Centralise all account search operations in one command, improves system cohesiveness.
+** Cons: Requires the addition of argument prefixes, decreases user experience.
+
 // end::accountManagement[]
 
 // tag::incidentdraftcreation[]
@@ -335,12 +354,14 @@ image::NewDraftSequenceDiagramManual.png[]
 
 ===== Aspect: How incident draft creation executes
 
-* **Alternative 1:** Auto assignment of vehicles
-** Pros: Reduces number of steps of execution.
-** Cons: User does not get to choose vehicle to dispatch.
-* **Alternative 2:** Manual assignment of vehicles
-** Pros: User is able to choose vehicle to dispatch.
-** Cons: More number of steps.
+* **Current Choice:** Auto assignment of vehicles
+** Pros:
+*** Reduces number of steps of execution.
+*** User need not waste time on decision making; an available vehicle will be dispatched directly, and if no vehicles are available, user will be notified as well.
+** Cons: User does not get to choose vehicle to dispatch, especially if vehicle of a specific type is wanted.
+* **Alternative:** Manual assignment of vehicles
+** Pros: User is able to choose vehicle to dispatch, especially if a specific vehicle type is wanted.
+** Cons: More number of steps, potentially a waste of time.
 // end::incidentdraftcreation[]
 
 // tag::incidentfillandsubmit[]
@@ -477,28 +498,28 @@ The key difference is the utility of the `SearchIncidentsCommandParser` to parse
 
 ===== Aspect: How incident search keyword is inputted
 
-* **Alternative 1 (current choice):** Parse user input after flag (eg. `op\` or `desc\`)
+* **Current choice:** Parse user input after flag (eg. `op\` or `desc\`)
 ** Pros: Easy to implement.
 ** Cons: Have to parse keyword from command and flag, user has to follow style of flag for successful search.
-* **Alternative 2:** Prompt user for search input
+* **Alternative:** Prompt user for search input
 ** Pros: Separates command from keyword for ease of reading and parsing.
 ** Cons: Difficult to implement multi-command execution.
 
 ===== Aspect: How listing all incidents is called
 
-* **Alternative 1 (current choice):** Utilise separate command `incidents`
+* **Current choice:** Utilise separate command `incidents`
 ** Pros: Intuitive to use.
 ** Cons: Similar code under different command.
-* **Alternative 2:** Utilise `search` command (eg. `search unfiltered`)
+* **Alternative:** Utilise `search` command (eg. `search unfiltered`)
 ** Pros: Less overlap in code.
 ** Cons: Unintuitive to the user as no search is being made, even more keywords to remember.
 
 ===== Aspect: How predicate is added to `SearchIncidentsCommand`
 
-* **Alternative 1 (current choice):** `SearchIncidentsCommandParser` class calls `Model` to create a new Predicate based on search string.
+* **Current choice:** `SearchIncidentsCommandParser` class calls `Model` to create a new Predicate based on search string.
 ** Pros: Abstracts the creation and management of predicates to the `Model`.
 ** Cons: Requires greater level of coupling between classes.
-* **Alternative 2:** `SearchIncidentsCommand` or `SearchIncidentsCommandParser` directly create Predicate based on search string.
+* **Alternative:** `SearchIncidentsCommand` or `SearchIncidentsCommandParser` directly create Predicate based on search string.
 ** Pros: Less dependencies within the parser class.
 ** Cons: Breaks abstraction flow.
 // end::incidentsearch[]
@@ -529,10 +550,10 @@ image::EditCommandSequence.png[]
 
 ===== Aspect: How incident edit executes
 
-* **Alternative 1 (current choice):** Create a new incident object and replace the old copy in the list
+* **Current choice:** Create a new incident object and replace the old copy in the list
 ** Pros: able to control access to attributes in incident objects
 ** Cons: more tedious implementation and more objects created
-* **Alternative 2:** Directly access the attributes of the incident and change it
+* **Alternative:** Directly access the attributes of the incident and change it
 ** Pros: less objects created, do not need to worry much about `IncidentId` of instance.
 ** Cons: More prone to errors since attributes can be directly access and changed outside the class.
 // end::incidentedit[]
@@ -543,10 +564,10 @@ image::EditCommandSequence.png[]
 
 The vehicle search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
 
-* Unfiltered - Displays all vehicles in `Model`
-* District - Displays all vehicles with exact matches in `District district` in `Vehicle vehicle`
-* Vehicle Number - Displays all vehicles with exact matches in `VehicleNumber vehicleNumber` in `Vehicle vehicle`
-* Vehicle Type - Displays all vehicles with exact matches in `VehicleType vehicleType` in `Vehicle vehicle`
+* Unfiltered - Displays all vehicles in `Model`.
+* District - Displays all vehicles with `District district` in list of specified districts.
+* Vehicle Number - Displays all vehicles with `VehicleNumber vehicleNumberKeyword` in `Vehicle vehicle`. Need not be exact matches.
+* Vehicle Type - Displays all vehicles with exact matches in `VehicleType vehicleType` in `Vehicle vehicle`.
 
 The vehicle search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Vehicle> filteredVehicles`, which internally stores the list of displayed vehicles in the GUI. Additionally, it implements the following key method:
 
@@ -556,26 +577,33 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 
 ===== Aspect: How vehicle search keyword is inputted
 
-* **Current choice:** Parse user input after flag (eg. `ds\` or `vnum\`)
+* **Current choice:** Parse user input after flag (eg. `ds/` or `vnum/`)
 ** Pros:
 *** Easy to implement.
 *** Reduce number of steps of input, more efficient.
 ** Cons:
 *** Have to parse keyword from command and flag, user has to follow style of flag for successful search.
-* **Alternative 2:** Prompt user for search input
-** Pros: Separates command from keyword for ease of reading and parsing.
+*** User might confuse relevant flags, eg ds/ and l/, as they both pertain to districts.
+*** User might have to remember too many flags.
+* **Alternative:** Prompt user for search input
+** Pros:
+*** Separates command from keyword for ease of reading and parsing.
+*** User need not remember flags and will not confuse flags, just key in information as prompted.
 ** Cons:
 *** Difficult to implement multi-command execution.
 *** Requires multiple steps of input, slower and less efficient.
 
-===== Aspect: How listing all incidents is called
+===== Aspect: How listing all vehicles is called
 
-* **Current choice:** Utilise separate command `vehicles`
-** Pros: Easy to implement.
-** Cons: Might not be very intuitive; user might prefer action words like `list vehicles"
-* **Alternative 2:** Utilise `list` command (eg. `list vehicles`)
-** Pros: Intuitive and clear.
-** Cons: More keywords to parse.
+* **Current choice:** Utilise separate command `list-v`
+** Pros:
+*** Intuitive to user, as it contains clear action word.
+*** Consistent with other list commands.
+** Cons:
+*** Some users might find it more intuitive to simply call `vehicles`.
+* **Alternative:** Utilise separate command `vehicles`
+** Pros: Intuitive for some.
+** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
 
 === Logging
 

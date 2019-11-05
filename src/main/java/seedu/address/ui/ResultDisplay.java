@@ -22,6 +22,7 @@ public class ResultDisplay extends UiPart<Region> {
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
+        resultDisplay.setWrapText(true);
         resultDisplay.setText(feedbackToUser);
     }
 

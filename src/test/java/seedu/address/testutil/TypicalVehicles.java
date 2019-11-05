@@ -22,11 +22,14 @@ public class TypicalVehicles {
     public static final Vehicle V2 = new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
                 new District(6), new Availability("BUSY"));
 
-    public static final Vehicle V3 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKTH1221P"),
+    public static final Vehicle V3 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKH1221P"),
                 new District(20), new Availability("AVAILABLE"));
 
     public static final Vehicle V4 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
                 new District(2), new Availability("BUSY"));
+
+    public static final Vehicle V5 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GER4389F"),
+            new District(4), new Availability("AVAILABLE"));
 
     private TypicalVehicles() {} // prevents instantiation
 
@@ -42,6 +45,6 @@ public class TypicalVehicles {
     }
 
     public static List<Vehicle> getTypicalVehicles() {
-        return new ArrayList<>(Arrays.asList(V1, V2, V3, V4));
+        return new ArrayList<>(Arrays.asList(V1, V2, V3, V4, V5));
     }
 }

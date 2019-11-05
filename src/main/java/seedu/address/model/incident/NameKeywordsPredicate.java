@@ -1,27 +1,33 @@
 package seedu.address.model.incident;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.person.Name;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
 public class NameKeywordsPredicate implements Predicate<Incident> {
-    private final List<String> keywords = new ArrayList<>();
+    private final List<String> keywords;
+    private final boolean isFullMatch;
 
-    public NameKeywordsPredicate(Name nameKeywords) {
-        this.keywords.add(nameKeywords.fullName);
+    public NameKeywordsPredicate(List<String> nameKeywords, boolean isFullMatch) {
+        this.keywords = nameKeywords;
+        this.isFullMatch = isFullMatch;
     }
 
     @Override
     public boolean test(Incident incident) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getOperator().getName().fullName,
-                        keyword));
+        if (isFullMatch) {
+            return keywords.stream()
+                    .allMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getOperator().getName().fullName,
+                            keyword));
+        } else {
+            return keywords.stream()
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getOperator().getName().fullName,
+                            keyword));
+        }
     }
 
     @Override

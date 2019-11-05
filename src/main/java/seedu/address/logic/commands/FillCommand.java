@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class FillCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Fills incident report drafts.\n"
             + "Use " + COMMAND_WORD + " without parameters to list all drafts.\n"
             + "Use " + COMMAND_WORD + " with parameters: "
-            + COMMAND_WORD + " INDEX (must be a positive integer) " + PREFIX_CALLER_NUMBER + "CALLER NUMBER "
+            + COMMAND_WORD + " INDEX (must be a positive integer) " + PREFIX_PHONE + "CALLER NUMBER "
             + PREFIX_DESCRIPTION + "DESCRIPTION " + "to fill a given draft.\n"
             + "Existing completed reports will be overwritten. Submitted reports can be edited using 'edit' command.";
 

@@ -36,11 +36,7 @@ public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates your account with new values.\n"
-            + "Admins can update the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (if Admin) "
+    public static final String UPDATE_PARAMS = "Parameters: INDEX (if Admin) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -51,9 +47,14 @@ public class UpdateCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_UPDATE_PERSON_SUCCESS = "Updated Person: %1$s";
-    public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates your account with new values.\n"
+            + "Only admins can update the details of the person identified "
+            + "by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n" + UPDATE_PARAMS;
+
+    public static final String MESSAGE_UPDATE_PERSON_SUCCESS = "Updated Account: %1$s";
+    public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.\n" + UPDATE_PARAMS;
+    public static final String MESSAGE_DUPLICATE_PERSON = "This account already exists in the incident manager.";
     public static final String MESSAGE_ADMIN_REVOKE = "You cannot remove yourself as an admin.\n"
             + "Please include t/admin in your update.";
 

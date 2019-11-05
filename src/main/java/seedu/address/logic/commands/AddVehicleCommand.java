@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VTYPE;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.vehicle.Availability;
@@ -20,14 +21,14 @@ public class AddVehicleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " Adds a vehicle to the Incident Managment System.\n"
             + "Parameters: "
-            + "[ " + PREFIX_DISTRICT + "DISTRICT] "
-            + "[ " + PREFIX_VNUM + "[VEHICLE NUMBER] "
-            + "[ " + PREFIX_VTYPE + "[VEHICLE TYPE] "
-            + "[ " + PREFIX_AVAIL + "[AVAILABILITY( " + Availability.MESSAGE_CONSTRAINTS + ")] "
+            + "[ " + PREFIX_DISTRICT + "DISTRICT] & "
+            + "[ " + PREFIX_VNUM + "[VEHICLE NUMBER] & "
+            + "[ " + PREFIX_VTYPE + "[VEHICLE TYPE] & "
+            + "[ " + PREFIX_AVAIL + "[AVAILABILITY( " + Availability.MESSAGE_CONSTRAINTS + ")] \n"
             + "Example: " + COMMAND_WORD
-            + PREFIX_DISTRICT + "2"
-            + PREFIX_VTYPE + "Ambulance"
-            + PREFIX_VNUM + "5903S";
+            + " " + PREFIX_DISTRICT + "2 "
+            + " " + PREFIX_VTYPE + "Ambulance "
+            + " " + PREFIX_VNUM + "5903S";
 
     public static final String MESSAGE_ADD_VEHICLE_SUCCESS = "New vehicle added: %1$s";
     public static final String MESSAGE_DUPLICATE_VEHICLE = "This vehicle already exists in the system.";
@@ -44,6 +45,9 @@ public class AddVehicleCommand extends Command {
         requireNonNull(model);
         if (model.hasVehicle(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_VEHICLE);
+        }
+        if (model.hasVNum(toAdd.getVehicleNumber().toString())) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_VEHICLE_NUMBER);
         }
 
         model.addVehicle(toAdd);

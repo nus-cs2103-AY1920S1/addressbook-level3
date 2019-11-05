@@ -30,7 +30,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_PHONE = "12345678";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_USERNAME = "BigDaddy";
     private static final String VALID_PASSWORD = "pa55word!";

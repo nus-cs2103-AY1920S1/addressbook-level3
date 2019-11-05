@@ -3,15 +3,17 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VEHICLES;
 import static seedu.address.model.Model.PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_INCIDENT_LISTING_ERROR;
+import static seedu.address.model.Model.PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-// import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.AddVehicleCommand;
+// import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteVehicleCommand;
@@ -29,6 +31,7 @@ import seedu.address.logic.commands.ListVehiclesCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.NewCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.SubmitCommand;
 import seedu.address.logic.commands.SwapCommand;
 import seedu.address.logic.commands.UpdateCommand;
@@ -39,10 +42,68 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class IncidentManagerParser {
 
+    public static final String GUI_SWAP_MESSAGE = "Please swap the interface to access the command from this suite.\n"
+            + "See help page for more information.";
+
+    public static final String ACCESS_CONTROL_MESSAGE = "Only Register, Login, Exit, and Help commands are available.\n"
+            + "Please login to access other commands. See help page for more information.";
+
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private boolean isPersonView;
+    private boolean isLoggedIn;
+
+    public IncidentManagerParser(boolean isPersonView, boolean isLoggedIn) {
+        this.isPersonView = isPersonView;
+        this.isLoggedIn = isLoggedIn;
+    }
+
+    //@@author madanalogy
+    /**
+     * Checks if the user is logged in to give access.
+     * @param commandWord String representing the command.
+     * @throws ParseException if command not accessible.
+     */
+    private void checkAccess(String commandWord) throws ParseException {
+        // Guard Statement for available commands prior to login.
+        if (!isLoggedIn && !(commandWord.equals(LoginCommand.COMMAND_WORD)
+                || commandWord.equals(RegisterCommand.COMMAND_WORD)
+                || commandWord.equals(ExitCommand.COMMAND_WORD)
+                || commandWord.equals(HelpCommand.COMMAND_WORD))) {
+            throw new ParseException(ACCESS_CONTROL_MESSAGE);
+        }
+    }
+
+    /**
+     * Checks if the correct interface is showing for the given command.
+     * @param commandWord String representing the command.
+     * @throws ParseException if in the wrong interface for command.
+     */
+    private void checkInterface(String commandWord) throws ParseException {
+        // Guard Statement for command suite corresponding to interface swaps.
+        if (!isPersonView && (commandWord.equals(RegisterCommand.COMMAND_WORD)
+                || commandWord.equals(UpdateCommand.COMMAND_WORD)
+                || commandWord.equals(DeleteCommand.COMMAND_WORD)
+                || commandWord.equals(ListPersonsCommand.COMMAND_WORD)
+                || commandWord.equals(FindPersonsCommand.COMMAND_WORD))) {
+            throw new ParseException(GUI_SWAP_MESSAGE);
+        } else if (isPersonView && (commandWord.equals(AddVehicleCommand.COMMAND_WORD)
+                || commandWord.equals(EditIncidentCommand.COMMAND_WORD)
+                || commandWord.equals(EditVehicleCommand.COMMAND_WORD)
+                || commandWord.equals(DeleteVehicleCommand.COMMAND_WORD)
+                || commandWord.equals(FindIncidentsCommand.COMMAND_WORD)
+                || commandWord.equals(FindVehiclesCommand.COMMAND_WORD)
+                || commandWord.equals(ListIncidentsCommand.COMMAND_WORD)
+                || commandWord.equals(ListVehiclesCommand.COMMAND_WORD)
+                || commandWord.equals(NewCommand.COMMAND_WORD)
+                || commandWord.equals(SubmitCommand.COMMAND_WORD)
+                || commandWord.equals(FillCommand.COMMAND_WORD))) {
+            throw new ParseException(GUI_SWAP_MESSAGE);
+        }
+    }
 
     /**
      * Parses user input into command for execution.
@@ -59,16 +120,24 @@ public class IncidentManagerParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        checkAccess(commandWord);
+        checkInterface(commandWord);
+
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case RegisterCommand.COMMAND_WORD:
+            return new RegisterCommandParser().parse(arguments);
 
         case AddVehicleCommand.COMMAND_WORD:
             return new AddVehicleCommandParser().parse(arguments);
 
         case EditIncidentCommand.COMMAND_WORD:
-            return new EditIncidentCommandParser().parse(arguments);
+            if (arguments.isEmpty()) {
+                return new ListIncidentsCommand(PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS);
+            } else {
+                return new EditIncidentCommandParser().parse(arguments);
+            }
 
         case EditVehicleCommand.COMMAND_WORD:
             return new EditVehicleCommandParser().parse(arguments);
@@ -99,10 +168,14 @@ public class IncidentManagerParser {
             }
 
         case ListIncidentsCommand.COMMAND_WORD:
-            return new ListIncidentsCommand(PREDICATE_SHOW_ALL_INCIDENTS);
+            if (arguments.isEmpty()) {
+                return new ListIncidentsCommand(PREDICATE_SHOW_ALL_INCIDENTS);
+            } else {
+                return new ListIncidentsCommand(PREDICATE_SHOW_INCIDENT_LISTING_ERROR);
+            }
 
         case ListVehiclesCommand.COMMAND_WORD:
-            return new ListVehiclesCommand();
+            return new ListVehiclesCommand(PREDICATE_SHOW_ALL_VEHICLES);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -144,4 +217,15 @@ public class IncidentManagerParser {
         }
     }
 
+    public boolean isPersonView() {
+        return isPersonView;
+    }
+
+    public void setPersonView(boolean personView) {
+        isPersonView = personView;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
+    }
 }

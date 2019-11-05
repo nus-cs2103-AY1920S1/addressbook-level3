@@ -6,12 +6,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.District;
@@ -89,20 +84,6 @@ public class Incident {
         // set to null as they will be filled in later
         this.description = null;
         this.callerNumber = null;
-    }
-
-    // constructor used by edit command.
-    // TODO this constructor is redundant, update it to use the constructor below.
-    public Incident(IncidentId id, District district, IncidentDateTime incidentDateTime,
-                    CallerNumber callerNumber, Description desc) {
-
-        this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends"), new Username("user1"), new Password("pass123"));
-        this.incidentDateTime = incidentDateTime;
-        this.district = district;
-        this.callerNumber = callerNumber;
-        this.description = desc;
-        this.id = id;
     }
 
     /**
@@ -245,11 +226,10 @@ public class Incident {
 
         return otherIncident.getDateTime().equals(getDateTime())
                 && otherIncident.getCallerNumber().equals(getCallerNumber())
-                && otherIncident.getDesc().equals(getDesc())
-                && otherIncident.getDistrict().equals(getDistrict());
+                && otherIncident.getDistrict().equals(getDistrict())
+                && otherIncident.getIncidentId().equals(getIncidentId());
     }
 
-    // TODO: more refined toString method
     @Override
     public String toString() {
         return "Incident #" + id.getId();

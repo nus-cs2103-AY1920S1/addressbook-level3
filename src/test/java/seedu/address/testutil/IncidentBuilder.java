@@ -55,7 +55,7 @@ public class IncidentBuilder {
         caller = new CallerNumber(DEFAULT_CALLER);
         id = new IncidentId(DEFAULT_ID);
         operator = DEFAULT_PERSON;
-        status = Status.COMPLETE_DRAFT;
+        status = Status.SUBMITTED_REPORT;
         vehicle = DEFAULT_VEHICLE;
     }
 

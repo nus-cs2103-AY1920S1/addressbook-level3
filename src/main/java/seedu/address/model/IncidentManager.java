@@ -169,6 +169,15 @@ public class IncidentManager implements ReadOnlyIncidentManager {
     }
 
     /**
+     * Returns true if a vehicle with the same vehicle number exists in the IMS.
+     * @param vNum the vehicle number to be compared.
+     */
+    public boolean hasVehicleNumber(String vNum) {
+        requireNonNull(vNum);
+        return vehicles.containsVNum(vNum);
+    }
+
+    /**
      * Adds a vehicle to the address book.
      * The vehicle must not already exist in the address book.
      */

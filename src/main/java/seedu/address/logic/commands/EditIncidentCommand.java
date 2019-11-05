@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
 
 import java.util.List;
@@ -32,20 +32,23 @@ public class EditIncidentCommand extends Command {
     public static final String COMMAND_WORD = "edit-i";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the incident identified "
-            + "by the index number used in the displayed incidents list. "
+            + "by the index number used in the displayed incidents list. Or use "
+            + COMMAND_WORD + " to list all submitted reports for edit. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DISTRICT + "DISTRICT] "
-            + "[" + PREFIX_CALLER_NUMBER + "CALLER NUMBER] "
+            + "[" + PREFIX_PHONE + "CALLER NUMBER] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CALLER_NUMBER + "91302402 "
+            + PREFIX_PHONE + "91302402 "
             + PREFIX_DESCRIPTION + "This is a incident description.";
 
     public static final String MESSAGE_DUPLICATE_INCIDENT = "This incident already exists in the address book.";
     public static final String MESSAGE_EDIT_INCIDENT_SUCCESS = "Edited Incident: %1$s";
     public static final String MESSAGE_INCIDENT_NOT_EDITED = "No fields were provided, incident is not edited.";
-
+    public static final String MESSAGE_EDIT_DRAFT = "You cannot edit a draft, please use fill command instead.";
+    public static final String MESSAGE_UNAUTHORIZED_EDIT = "Only the admin and the operator who filled this report "
+            + "can edit the report.";
     private final Index index;
     private final EditIncident editIncident;
 
@@ -74,9 +77,18 @@ public class EditIncidentCommand extends Command {
 
         Incident incidentToEdit = listOfIncidents.get(index.getZeroBased());
         Incident editedIncident = createEditedIncident(incidentToEdit, editIncident, model);
-
+        if (!incidentToEdit.getStatus().equals(Status.SUBMITTED_REPORT)) {
+            throw new CommandException(MESSAGE_EDIT_DRAFT);
+        }
+        if ((!incidentToEdit.getOperator().equals(model.getLoggedInPerson()))
+                && Person.isNotAdmin(model.getLoggedInPerson())) {
+            throw new CommandException(MESSAGE_UNAUTHORIZED_EDIT);
+        }
         if (!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)) {
             throw new CommandException(MESSAGE_DUPLICATE_INCIDENT);
+        }
+        if (editedIncident.equals(incidentToEdit) && incidentToEdit.getDesc().equals(editedIncident.getDesc())) {
+            throw new CommandException(MESSAGE_INCIDENT_NOT_EDITED);
         }
 
         model.setIncident(incidentToEdit, editedIncident);
@@ -94,12 +106,13 @@ public class EditIncidentCommand extends Command {
         Person operator = model.getLoggedInPerson();
         District updateDistrict = editIncident.getDistrict().orElse(incidentToEdit.getDistrict());
         CallerNumber updateCaller = editIncident.getCaller().orElse(incidentToEdit.getCallerNumber());
-        IncidentDateTime updateDateTime = editIncident.getDateTime().orElse(incidentToEdit.getDateTime());
+        IncidentDateTime dateTime = incidentToEdit.getDateTime();
         Description updateDesc = editIncident.getDesc().orElse(incidentToEdit.getDesc());
+        IncidentId incidentId = incidentToEdit.getIncidentId();
         Status status = incidentToEdit.getStatus();
         Vehicle vehicle = incidentToEdit.getVehicle();
 
-        return new Incident(operator, updateDistrict, updateDateTime, incidentToEdit.getIncidentId(), updateCaller,
+        return new Incident(operator, updateDistrict, dateTime, incidentId, updateCaller,
                 updateDesc, status, vehicle);
     }
 
@@ -127,22 +140,19 @@ public class EditIncidentCommand extends Command {
      */
     public static class EditIncident {
         private District district;
-        private IncidentDateTime dateTime;
         private CallerNumber caller;
         private Description desc;
-        private IncidentId id;
 
         public EditIncident() {}
 
         public EditIncident(EditIncident toCopy) {
             setDistrict(toCopy.district);
-            setDateTime(toCopy.dateTime);
             setCaller(toCopy.caller);
             setDesc(toCopy.desc);
         }
 
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(district, dateTime, caller, desc);
+            return CollectionUtil.isAnyNonNull(district, caller, desc);
         }
 
         public void setDistrict(District district) {
@@ -159,18 +169,6 @@ public class EditIncidentCommand extends Command {
 
         public Optional<CallerNumber> getCaller() {
             return Optional.ofNullable(this.caller);
-        }
-
-        public void setDateTime(IncidentDateTime dateTime) {
-            this.dateTime = dateTime;
-        }
-
-        public void setId(IncidentId id) {
-            this.id = id;
-        }
-
-        public Optional<IncidentDateTime> getDateTime() {
-            return Optional.ofNullable(this.dateTime);
         }
 
         public void setDesc(Description desc) {
@@ -198,7 +196,6 @@ public class EditIncidentCommand extends Command {
 
             return getDistrict().equals(e.getDistrict())
                     && getCaller().equals(e.getCaller())
-                    && getDateTime().equals(e.getDateTime())
                     && getDesc().equals(e.getDesc());
         }
 

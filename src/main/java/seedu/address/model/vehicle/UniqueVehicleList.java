@@ -39,6 +39,22 @@ public class UniqueVehicleList implements Iterable<Vehicle> {
     }
 
     /**
+     * Checks if a vehicle of the same vehicle number exists in the unique vehicle list.
+     * @param vNum is the vehicle number to be compared.
+     */
+    public boolean containsVNum(String vNum) {
+        requireNonNull(vNum);
+        boolean result = false;
+        for (Vehicle v: internalList) {
+            if (v.getVehicleNumber().toString().equalsIgnoreCase((vNum))) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
      * Adds a Vehicle to the list.
      * The Vehicle must not already exist in the list.
      */

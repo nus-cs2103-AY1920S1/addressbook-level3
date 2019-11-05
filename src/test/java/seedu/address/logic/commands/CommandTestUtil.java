@@ -146,7 +146,7 @@ public class CommandTestUtil {
         Incident incident = model.getFilteredIncidentList().get(targetIndex.getZeroBased());
         String[] descriptionArr = incident.getDesc().toString().split(" ", 2);
         final Description description = new Description(descriptionArr[0]);
-        model.updateFilteredIncidentList(new DescriptionKeywordsPredicate(description));
+        model.updateFilteredIncidentList(new DescriptionKeywordsPredicate(Arrays.asList(descriptionArr)));
 
         assertEquals(2, model.getFilteredIncidentList().size());
     }

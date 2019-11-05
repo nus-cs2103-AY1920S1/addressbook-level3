@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_VEHICLE_NUMBER;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_VTYPE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +44,9 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+        if (trimmedIndex.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -132,6 +137,9 @@ public class ParserUtil {
     public static CallerNumber parseCallerNumber(String caller) throws ParseException {
         requireNonNull(caller);
         String trimmedCaller = caller.trim();
+        if (trimmedCaller.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         if (!CallerNumber.isValidCaller(trimmedCaller)) {
             throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
         }
@@ -148,6 +156,9 @@ public class ParserUtil {
     public static District parseDistrict(String district) throws ParseException {
         requireNonNull(district);
         String trimmedDistrict = district.trim();
+        if (trimmedDistrict.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         try {
             int dist = Integer.parseInt(trimmedDistrict);
             if (!District.isValidDistrict(dist)) {
@@ -168,6 +179,9 @@ public class ParserUtil {
      */
     public static List<District> parseDistricts(String district) throws ParseException {
         requireNonNull(district);
+        if (district.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         try {
             List<String> splittedD = Arrays.asList(district.trim().split("\\s"));
             List<District> districts = new ArrayList<>();
@@ -186,28 +200,42 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String vType} into a {@code VehicleType}.
-     * Assumes no invalid vehicle type as of now.
      * @param vType
      * @return VehicleType
-     * @throws ParseException
+     * @throws ParseException when vType entered is not in static list in VehicleType class.
      */
     public static VehicleType parseVType(String vType) throws ParseException {
         requireNonNull(vType);
-        String trimmedVType = vType.trim();
-        return new VehicleType(trimmedVType);
+        String parsedVType = vType.trim().toLowerCase();
+
+        if (parsedVType.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
+        String[] vehicleTypes = VehicleType.VEHICLE_TYPES;
+        for (String type: vehicleTypes) {
+            if (parsedVType.equals(type.toLowerCase())) {
+                return new VehicleType(type);
+            }
+        }
+        throw new ParseException(MESSAGE_NO_SUCH_VTYPE);
     }
 
     /**
      * Parses a {@code String vNum} into a {@code VehicleNumber}.
-     * Assumes no invalid vehicle number as of now.
      * @param vNum
      * @return VehicleNumber
-     * @throws ParseException
+     * @throws ParseException if VNum does not follow the format ABC1234D
      */
     public static VehicleNumber parseVNum(String vNum) throws ParseException {
         requireNonNull(vNum);
-        String trimmedVNum = vNum.trim();
-        return new VehicleNumber(trimmedVNum);
+        String parsedVNum = vNum.trim().toUpperCase();
+
+        if (parsedVNum.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        } else if (!VehicleNumber.isValidVehicleNumber(parsedVNum)) {
+            throw new ParseException(MESSAGE_INVALID_VEHICLE_NUMBER);
+        }
+        return new VehicleNumber(parsedVNum);
     }
 
     /**
@@ -218,6 +246,9 @@ public class ParserUtil {
     public static Availability parseAvailability(String avail) throws ParseException {
         requireNonNull(avail);
         String trimmedAvail = avail.trim();
+        if (trimmedAvail.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         if (!trimmedAvail.equalsIgnoreCase("available") && !trimmedAvail.equalsIgnoreCase("busy")) {
             throw new ParseException(Availability.MESSAGE_CONSTRAINTS);
         }
@@ -301,12 +332,15 @@ public class ParserUtil {
     public static boolean parseAuto(String auto) throws ParseException {
         boolean isAuto;
         requireNonNull(auto);
-        if (auto.equals("y")) {
+        String parsedAuto = auto.toLowerCase();
+        if (parsedAuto.equals("y")) {
             isAuto = true;
-        } else if (auto.equals("n")) {
+        } else if (parsedAuto.equals("n")) {
             isAuto = false;
+        } else if (parsedAuto.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
         } else {
-            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(Messages.MESSAGE_AUTO_ONLY_Y_N);
         }
 
         return isAuto;

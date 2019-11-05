@@ -36,7 +36,6 @@ public class NewCommandParser implements Parser<NewCommand> {
 
         List<District> districts = ParserUtil.parseDistricts(argMultimap.getValue(PREFIX_DISTRICT).get());
 
-
         if (districts.size() != 1) {
             throw new ParseException(MESSAGE_NOT_ONE_DISTRICT);
         }
@@ -48,8 +47,7 @@ public class NewCommandParser implements Parser<NewCommand> {
             // I'm guessing it needs all prefixes tokenised
             ArgumentMultimap vArgMap = ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT,
                     PREFIX_AUTO, PREFIX_VEHICLE);
-            if (!arePrefixesPresent(vArgMap, PREFIX_VEHICLE)
-                    || !vArgMap.getPreamble().isEmpty()) {
+            if (!arePrefixesPresent(vArgMap, PREFIX_VEHICLE)) {
                 return new NewCommand(districts.get(0), false, -1);
             }
 

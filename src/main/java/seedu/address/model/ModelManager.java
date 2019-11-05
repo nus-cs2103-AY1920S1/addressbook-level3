@@ -51,6 +51,11 @@ public class ModelManager implements Model {
 
     @Override
     public void setSession(Person person) {
+        if (person != null) {
+            logger.info("Session started by " + person.getUsername());
+        } else {
+            logger.info("Session Reset");
+        }
         session = new Session(person);
     }
 
@@ -215,6 +220,12 @@ public class ModelManager implements Model {
     public boolean hasVehicle(Vehicle vehicle) {
         requireNonNull(vehicle);
         return incidentManager.hasVehicle(vehicle);
+    }
+
+    @Override
+    public boolean hasVNum(String vNum) {
+        requireNonNull(vNum);
+        return incidentManager.hasVehicleNumber(vNum);
     }
 
     @Override

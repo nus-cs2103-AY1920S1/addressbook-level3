@@ -38,28 +38,34 @@ public class TypicalEntities {
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com").withPhone("94351253")
             .withUsername("Opr1").withPassword("password")
-            .withTags("friends").build();
+            .withTags(VALID_TAG_ADMIN).build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withUsername("Opr2").withPassword("password")
-            .withTags("owesMoney", "friends").build();
+            .withTags(VALID_TAG_ADMIN, "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withUsername("Opr3").withPassword("password").build();
+            .withEmail("heinz@example.com").withUsername("Opr3").withPassword("password")
+            .withTags(VALID_TAG_ADMIN).build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withUsername("Opr4").withPassword("password")
-            .withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withUsername("Opr5").withPassword("password").build();
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withUsername("Opr6").withPassword("password").build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withUsername("Opr7").withPassword("password").build();
+            .withTags(VALID_TAG_ADMIN).build();
+    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("94822224")
+            .withEmail("werner@example.com").withUsername("Opr5").withPassword("password")
+            .withTags(VALID_TAG_ADMIN).build();
+    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("94824271")
+            .withEmail("lydia@example.com").withUsername("Opr6").withPassword("password")
+            .withTags(VALID_TAG_ADMIN).build();
+    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("94824421")
+            .withEmail("anna@example.com").withUsername("Opr7").withPassword("password")
+            .withTags(VALID_TAG_ADMIN).build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withUsername("Opr8").withPassword("password").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withUsername("Opr9").withPassword("password").build();
+    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("84824243")
+            .withEmail("stefan@example.com").withUsername("Opr8").withPassword("password")
+            .withTags(VALID_TAG_ADMIN).build();
+    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("84821315")
+            .withEmail("hans@example.com").withUsername("Opr9").withPassword("password")
+            .withTags(VALID_TAG_ADMIN).build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -81,6 +87,7 @@ public class TypicalEntities {
      */
     public static IncidentManager getTypicalIncidentManager() {
         IncidentManager im = new IncidentManager();
+
         for (Person person : getTypicalPersons()) {
             im.addPerson(person);
         }
@@ -89,7 +96,7 @@ public class TypicalEntities {
                 commonIncidentId,
                 new CallerNumber("84738293"),
                 new Description("Pickpocket reported along the walkway in District 2"),
-                Incident.Status.INCOMPLETE_DRAFT,
+                Incident.Status.SUBMITTED_REPORT,
                 new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("ABC1234D"),
                         new District(9), new Availability("BUSY")));
         im.addIncident(firstIncident);
@@ -97,11 +104,11 @@ public class TypicalEntities {
         im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
 
-        Incident secondIncident = new Incident(BOB, new District(3), validDateTime,
+        Incident secondIncident = new Incident(ALICE, new District(3), validDateTime,
                 commonIncidentId,
                 new CallerNumber("90878965"),
                 new Description("Pickpocket spotted at the pasar malam in District 3"),
-                Incident.Status.INCOMPLETE_DRAFT,
+                Incident.Status.SUBMITTED_REPORT,
                 new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GBC1434D"),
                         new District(4), new Availability("BUSY")));
 

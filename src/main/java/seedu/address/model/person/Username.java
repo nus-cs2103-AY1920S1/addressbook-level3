@@ -10,16 +10,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Username {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Usernames should only consist of alphanumeric characters, "
-                    + "with a period or a hyphen for the characters in between if any, "
-                    + "and it should not be blank or contain a whitespace";
+    public static final String MESSAGE_CONSTRAINTS = "Usernames must adhere to the following requirements: \n"
+            + "1. Usernames must be at least 3 characters in length\n"
+            + "2. Usernames can only consist of alphanumeric characters and the following special characters,"
+            + "excluding the parentheses, (.-).\n"
+            + "3. Usernames cannot begin or end with a non alphanumeric character"
+            + "4. Usernames cannot be blank or contain a whitespace";
 
     /*
      * The first character of the username must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[a-zA-Z0-9.-]+";
+    public static final String VALIDATION_REGEX = "[a-zA-Z0-9][a-zA-Z0-9.-]+[a-zA-Z0-9]";
 
     public final String value;
 
