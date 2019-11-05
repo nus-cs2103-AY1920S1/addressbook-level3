@@ -1,12 +1,15 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PROBLEMS;
 
 import java.util.List;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.tag.Tag;
@@ -45,6 +48,9 @@ public class DeleteTagCommand extends Command {
         Tag tagToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTags(tagToDelete);
         model.deleteTag(tagToDelete);
+        model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
+        model.updateFilteredPlanList(Model.PREDICATE_SHOW_ALL_PLANS);
+        model.updateFilteredTagList(Model.PREDICATE_SHOW_ALL_TAGS);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tagToDelete.getName()));
     }
 
