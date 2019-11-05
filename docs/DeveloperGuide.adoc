@@ -269,7 +269,7 @@ is also created to store similar questions.
 *Step 4*. The `QuestionBank#questions` list is iterated once and the search is performed on the user's search term using 2 levels of searching.
 Firstly, the question is tested to see if it matches the search term using the `StringUtils.containsIgnoreCase(...)` method.
 Next, if the search term is not found, we test the question to see if it is similar to the user's search term using the `LevenshteinDistance` method
-that implements the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula] with a threshold of +++<u>40 percent</u>+++ (See <<Feature-Question-Design-Similarity>>).
+that implements the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula] with a threshold of 40 percent (See <<Feature-Question-Design-Similarity>>).
 
 *Step 5*. The questions are then duplicated with their index appended to the question in order to keep a separate reference from the main `QuestionBank#questions` list.
 Questions that matches the search term will be added to the `QuestionBank#questionsFiltered` list whereas for similar questions,
@@ -279,7 +279,7 @@ they will be added to the temporary `similarAl` list instead.
 
 *Step 7*. The `similarAl` list is then appended to the `QuestionBank#questionsFiltered` list.
 
-*Step *. A new `CommandResult` will be returned with a message stating the search term and the number of results returned.
+*Step 8*. A new `CommandResult` will be returned with a message stating the search term and the number of results returned.
 
 image::QuestionsSearchActivityDiagram.png[]
 _Figure 6. Activity diagram of questions search_
