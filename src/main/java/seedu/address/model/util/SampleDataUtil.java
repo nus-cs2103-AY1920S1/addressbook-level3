@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -42,8 +42,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyStudyBuddyPro getSampleAddressBook() {
+        StudyBuddyPro sampleAb = new StudyBuddyPro();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

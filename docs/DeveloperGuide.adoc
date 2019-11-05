@@ -1,4 +1,4 @@
-= StudyBuddyPro Level 3 - Developer Guide
+= StudyBuddyPro - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -27,7 +28,8 @@ StudyBuddyPro aims to lessen target users' revision time consumption without com
 
 This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddyPro's information for set-ups, its architectures and its key features.
 
-If you wish to know more details about StudyBuddyPro, please do not hesitate to contact us!
+If you wish to know more details about StudyBuddyPro, please do not hesitate to
+https://ay1920s1-cs2103t-w13-3.github.io/main/ContactUs.html[contact us]!
 
 === Callouts Signs
 
@@ -88,7 +90,7 @@ The following sections will show how StudyBuddyPro is being constructed in detai
 [[Design-Architecture]]
 === Architecture
 
-The _figure 1_ below displays the high-level design of our StudyBuddyPro.
+The _figure_ below displays the high-level design of our StudyBuddy Pro.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -139,7 +141,7 @@ In each mode, the users will interact with only the modes' commands, unless it i
 - `switch cs` - switches to cheatsheet mode
 - `switch notes` - switches to notes mode
 
-The following _figure 3_ is an activity diagram that describes the execution of the `switch` command.
+The following _figure_ is an activity diagram that describes the execution of the `switch` command.
 
 .Activity Diagram of `Switch` command execution
 image::jasmineDiagrams/SwitchActivityDiagram.png[]
@@ -149,7 +151,7 @@ From the activity diagram above, it shows the logic flow of the actions taken wh
 [discrete]
 ==== How the architecture components interact with each other
 
-The _figure 4_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _figure_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 [IMPORTANT]
 ====
@@ -165,7 +167,7 @@ The above sequence diagram illustrates the relationships between each components
 === User Interface (UI) component
 
 This section describes the behaviour of the `UI` component in details.
-The _figure 5_ below portrays the internal structures of the `UI` components and their interactions.
+The _figure_ below portrays the internal structures of the `UI` components and their interactions.
 
 .Class diagram of the structure of the `UI` Component
 image::UiClassDiagram.png[]
@@ -188,7 +190,7 @@ The `UI` component,
 === Logic component
 
 This section describes the behaviour of the `logic` component in details.
-The _figure 6_ below portrays the internal structures of the `logic` components and their interactions.
+The _figure_ below portrays the internal structures of the `logic` components and their interactions.
 
 [[fig-LogicClassDiagram]]
 .Class diagram of the structure of the `logic` Component
@@ -206,7 +208,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-The _figure 7_ below is the sequence diagram for the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The _figure_ below is the sequence diagram for the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 [IMPORTANT]
 ====
@@ -239,7 +241,7 @@ The `Model`,
 === Storage component
 
 This section describes the behaviour of the `storage` component in details.
-The _figure 8_ below portrays the internal structures of the `storage` components and their interactions.
+The _figure_ below portrays the internal structures of the `storage` components and their interactions.
 
 .Class diagram of the structure of the `Storage` Component
 image::StorageClassDiagram.png[]
@@ -353,6 +355,8 @@ The syntax used here is slightly different. The user need not specify the `tag/`
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
+tag::cheatsheetAutomation[]
+
 === Customizable Auto-generated Cheatsheet Feature
 
 [IMPORTANT]
@@ -376,12 +380,12 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following _figure 9_ shows a high-level view of how the auto-generation operation works.
+The following _figure_ shows a high-level view of how the auto-generation operation works.
 
 .Sequence diagram to illustrate auto-generation operation
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
 
-Through the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure 10_ below further explains the details within the sequence diagram.
+From the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure_ below explains the details within the sequence diagram.
 
 .Detailed sequence diagram for retrieval of tagged contents
 image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[]
@@ -399,9 +403,7 @@ Different _cheatsheet_ objects are created to ensure that the _cheatsheet_ objec
 
 ===== Step 2: Customizing contents
 
-The customization is based on the contents that the user wants to remove.
-
-The customization feature is used in the `EditCheatSheetCommand` during the editing of the cheatsheet. After the customization, the cheatsheet is then stored in the `studyBuddyBook`.
+The customization is based on the contents that the user wants to remove. The customization feature is used in the `EditCheatSheetCommand` during the editing of the cheatsheet. After the customization, the cheatsheet is then stored in the `studyBuddyBook`.
 
 It is involved in the following operations:
 
@@ -411,7 +413,7 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following _figure 11_ shows the activity flow how the customization feature works using an example command called `edit 1 c/1 c/3 c/7`.
+The following _figure_ shows the activity flow how the customization feature works using an example command called `edit 1 c/1 c/3 c/7`.
 
 [IMPORTANT]
 ====
@@ -419,13 +421,11 @@ The index provided after `c/` indicates the content to be _removed_, not to be _
 ====
 
 .Activity diagram of the `edit` command for the removal of contents
-image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[]
+image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[pdfwidth=50%,scaledwidth=50%]
 
 The activity diagram above shows the general flow of customization of cheatsheet feature. The changes for _contents_ have to come first before the changes for _tags_. This is to ensure that the _contents_ are still relevant to the _tags_ specified. An example is provided below.
 
-Example cheatsheet of _title_, "An Example Title" with corresponding _table 2_ of _tags_ and _contents_.
-
-.Example of tags and contents in the cheatsheet
+.Example of tags and contents in a cheatsheet titled "An Example"
 
 |===
 |Tag | Content
@@ -440,7 +440,7 @@ Example cheatsheet of _title_, "An Example Title" with corresponding _table 2_ o
 |content3
 |===
 
-According to the above table, if the order of removal is not followed, the system will be able to remove _tag2_ first before _content2_. This may result in *potential errors* in the system as _content2_ may not be found or the position of it is being replaced with another content.
+According to the above table, the system will be able to remove _tag2_ first before _content2_ if the order of removal is not followed. This may result in *potential errors* in the system as _content2_ may not be found or the position of it is being replaced with another content.
 
 ==== Design Considerations
 ===== Aspect: How auto-generation is implemented
@@ -461,6 +461,8 @@ According to the above table, if the order of removal is not followed, the syste
 ** Pros: Codes may be cleaner and easier to understand.
 ** Cons: Harder to implement. More abstraction and modifications have to be done.
 
+end::cheatsheetAutomation[]
+
 ==== [Proposed] Future improvements
 
 - Alerts users of possible duplications of contents
@@ -477,15 +479,26 @@ The following commands assume that the user is in the _flashcard_ mode.
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
 
-image:: To be added
+The following _figure_ shows a class diagram of the relevant classes of the time trial feature.
+
+image::jrImages/TimeTrialClassDiagram.png[]
+
+The following _figure_ is an activity diagram of the flow of events when a user attempts to start a time trial.
+
+image::jrImages/TimeTrialActivityDiagram.png[]
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
-c. Upon initialization of the StudyBuddyPro and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
-d.	The user executes (timetrial cs2100), and the StartTimeTrialCommand retrieves a List of flashcards with the associated tag through the Model#getTaggedFlashcards, which is then passed into the FlashcardTabWindowController.
-e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#startTimeTrial, which in turns construct a timeline with the following added for 3 flashcards:
-1.	A KeyFrame to call the FlashcardTabWindowController #loadTimeTrial method, which displays the question of the flashcard on the window, with a KeyValue that starts the timer on the screen.
-2.	A KeyFrame to call the FlashcardTabWindowController#showFlashcardAns method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
-3.	A KeyFrame is then added to the timeline to call the FlashcardTabWindowController#resetViews method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
+d.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
+e.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowController#startTimeTrial`, which in turns construct a `Timeline` with the following added for 3 flashcards:
+1.	A `KeyFrame` to call the `FlashcardTabWindowController#loadTimeTrial` method, which displays the question of the flashcard on the window, with a `KeyValue` that starts the timer on the screen.
+2.	A `KeyFrame` to call the `FlashcardTabWindowController#showFlashcardAns` method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
+3.	A `KeyFrame` is then added to the timeline to call the `FlashcardTabWindowController#resetViews` method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+
+
+The following _figure_ shows the sequence diagram of when the command `timetrial cs2103t` is executed.
+
+image::jrImages/TimeTrialSequenceDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: How the timetrial is implemented
@@ -494,7 +507,7 @@ e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#
 object.
 ** Pros: Tidier and easier to understand.
 ** Cons: Have to read up on the API and learn about the relevant classes such as `KeyFrame` and `KeyValue`
-* **Alternative 2:** Looping Thread.sleep() to set the timer
+* **Alternative 2:** Looping `Thread.sleep()` to set the timer
 ** Pros: Easier to implement
 ** Cons: Code will be messier and harder to read
 
@@ -513,14 +526,33 @@ object.
 ** Allowing users to decide when to move on to the next flashcard
 *** Question will still be shown for a fixed period of time, but a command will be required to move on to the next flashcard instead of just flashing the answer for a set amount of time
 
-=== Remind Flashcard Feature
+=== Remind Feature
+
+[NOTE]
+====
+For this section, a _due flashcard_ refers to a flashcard that is due for revision today.
+In other words, the current date (according to the user's system date) matches the date the
+flashcard was next supposed to be viewed for optimum revision. Similarly, an _overdue flashcard_
+refers to a flashcard whose view date for optimum revision was _before_ the current date. Further
+details on how the optimum revision date is calculated is provided in this section!
+====
+
+This feature aims to help the user stay on track with the user's revision schedule through two
+other sub-features. The first sub-feature is the `remind` command which helps the user
+keep track of which flashcards are due (or overdue) for revision. The second sub-feature is
+integrated with the `exit` command, and automatically asks the user for confirmation if they
+wish to exit StudyBuddyPro if the user still has due or overdue flashcards left for revision.
+An activity diagram summarizing how the remind feature works can be found below.
+
+{To be completed soon}
+
+image:: to be added + caption
+
+==== Implementation of `remind` command
 
 [IMPORTANT]
 The following commands assume that the user is in the _flashcard_ mode.
 
-{To be completed soon}
-
-==== Implementation
 The  remind feature is facilitated by ``
 
 image::remindDiagrams/RemindFeatureRelevantClassDiagram.png[]
@@ -562,6 +594,8 @@ close the application.
 ** More statistics for motivation
 *** Tracks how often user viewed flashcards on time and how many flashcards users missed viewing on the relevant
 deadline.
+
+==== Implementation of `exit` command
 // end::remind[]
 
 === Add Tags Within Notes feature
@@ -1221,6 +1255,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
+    {To be edited}
+
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
@@ -1235,5 +1271,234 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Remind feature
 
+[TIP]
+====
+Refer to the note at the start of the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#46-remind-feature[Remind feature]
+section for an explanation of the terms "due flashcards" and "overdue flashcards" used in
+this section.
+====
+
+Testing this section may require the user to switch their system date. A quick guide on how this
+can be done for the Windows 10 operating system can be found
+https://kb.wisc.edu/helpdesk/79027[here] while one for Mac can be found
+https://www.lifewire.com/manually-change-the-date-and-time-on-mac-2378143[here]. The process
+should be similar for different versions of the operating systems.
+
+. Testing `remind` command
+
+* Test case 1
+
+.. Prerequisites
+
+... Currently in flashcard mode with Flashcard icon highlighted.
+
+... There are no due or overdue flashcards.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Well done - No due or overdue flashcards!
+
+* Test case 2
+
+.. Prerequisites
+
+... Currently in notes or cheatsheet mode with the respective icon highlighted.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Unknown command
+
+* Test case 3
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are due flashcards. This can be simulated by adding a flashcard with the `add`
+command and then changing the system date to the next day.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]"
+
+* Test case 4
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are overdue flashcards. This can be simulated by adding a flashcard with the `add`
+command and then changing the system date to 2 days later.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on YYYY-MM-DD)"
+
+* Test case 5
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are overdue flashcards but no due flashcards. This can be simulated by the following
+steps:
+
+.... Add a flashcard (Called flashcard A) with the `add` command.
+
+.... Add a flashcard (Called flashcard B) with the `add` command.
+
+.... Switch the system date to 2 days later. Both flashcards A and B are now overdue. This
+can be verified by using the `remind` command at this stage.
+
+.... View flashcard A using the `view 1` command and then show its answer with the `show` command.
+This means flahscard A is no longer overdue. Now there are no due flashcards today and one
+overdue flashcard (flashcard B).
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Note how only the overdue flashcard B was shown while no explicit output was provided
+to indicate there were no other flashcards due today. This is an intended behaviour to
+avoid clutter.
+
+* Test case 6
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are both due and overdue flashcards. This can be simulated by the following
+steps:
+
+.... Add a flashcard (Called flashcard A) with the `add` command.
+
+.... Switch the system date to 1 day later. Flashcard A is now due. This
+can be verified by using the `remind` command at this stage.
+
+.... Add a flashcard (Called flashcard B) with the `add` command.
+
+.... Switch the system date to 1 day later. Flashcard A is now overdue while flashcard B
+is due.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Note how flashcard B is listed under due today while flashcard A is listed under overdue
+flashcards.
+
+. Testing `exit` command
+
+* Test case 1
+
+.. Prerequisites
+
+... StudyBuddyPro just launched with no mode selected. GUI does not show any icon highlighted.
+
+... There are due flashcards. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 3, for how this can be simulated.
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Type 'exit' again to exit the application!
+
+.. Pressing kbd:[Enter] exits StudyBuddyPro. This also highlights how the this sub-feature
+of the remind feature works regardless of which mode the user is in since `exit` is a global
+command.
+
+.. Alternatively, the user can switch back to flashcard mode using `switch fc`, view the
+added flashcard and its answer using `view 1` and `show`, before using `exit` again. This time
+StudyBuddyPro exits immediately since now there are no due or overdue flashcards.
+
+* Test case 2
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There 1 due and 1 overdue flashcard. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 6, for how this can be simulated.
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+    Type 'exit' again to exit the application!
+
+.. Enter another generic command e.g. `switch notes`. Now, entering the test command `exit`
+will prompt the same feedback as shown above in part c. This highlights how entering another
+valid command will refresh the "state" of the exit command which again requires a
+double-confirmation before the user can exit StudyBuddyPro.
+
+. Combination testing: `remind` and `exit` command with `timetrial`
+
+* Test case 1
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There 1 due and 1 overdue flashcard. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 6, for how this can be simulated. Ensure the flashcard
+due today is tagged with the tag "pop". For example, the flashcard could be added with the command:
+`add q/What is 1+1? a/2 t/Math Question 1 tag/pop`.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Start a timetrial with the flashcard that is due today i.e. tagged with "pop" using the
+command  `timetrial pop`
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Type 'exit' again to exit the application!
+
+.. This highlights how the flashcard that was due today (tagged with "pop") was updated
+when it was viewed during the timetrial and was no longer considered due. Thus, when the user
+tried to exit, only the one overdue flashcard which was still not viewed was flagged.

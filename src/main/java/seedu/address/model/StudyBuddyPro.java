@@ -2,15 +2,21 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
 import seedu.address.model.cheatsheet.UniqueCheatSheetList;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 import seedu.address.model.flashcard.UniqueFlashcardList;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteContainsTagPredicate;
 import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -21,7 +27,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
 
     private final UniquePersonList persons;
 
@@ -52,12 +58,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    public StudyBuddyPro() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public StudyBuddyPro(ReadOnlyStudyBuddyPro toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -65,20 +71,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyStudyBuddyPro newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
         setNotes(newData.getNoteList());
         setFlashcards(newData.getFlashcardList());
         setCheatSheets(newData.getCheatSheetList());
+        setTags(newData.getTagList());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof StudyBuddyPro // instanceof handles nulls
+                && persons.equals(((StudyBuddyPro) other).persons));
     }
 
     @Override
@@ -173,6 +180,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addFlashcard(Flashcard f) {
         flashcards.add(f);
+        for (Tag t : f.getTags()) {
+            tags.add(t);
+        }
     }
 
     public ObservableList<Flashcard> getFlashcardList() {
@@ -215,6 +225,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addNote(Note note) {
         notes.add(note);
+        for (Tag t : note.getTags()) {
+            tags.add(t);
+        }
     }
 
     /**
@@ -259,6 +272,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addCheatSheet(CheatSheet cs) {
         cheatSheets.add(cs);
+        for (Tag t : cs.getTags()) {
+            tags.add(t);
+        }
     }
 
     /**
@@ -287,6 +303,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.cheatSheets.setCheatSheets(cheatsheets);
     }
 
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
+    }
+
     /**
      * Replaces the given cheatsheet {@code target} in the list with {@code editedCheatSheet}.
      * {@code target} must exist in the StudyBuddy application.
@@ -302,5 +322,149 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<CheatSheet> getCheatSheetList() {
         return cheatSheets.asUnmodifiableObservableList();
+    }
+
+    //====================Tagged related methods===========================
+
+    /**
+     * Collects all studybuddyitems that matches the specified tags according to a predicate
+     * @param predicate
+     * @return
+     */
+
+    public ArrayList<String> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+        ArrayList<String> taggedItems = new ArrayList<>();
+        int flashcardIndex = 0;
+        int cheatSheetIndex = 0;
+        int noteIndex = 0;
+        int noteFragmentIndex = 0;
+        for (Flashcard fc : this.getFlashcardList()) {
+            flashcardIndex++;
+            if (predicate.test(fc)) {
+                taggedItems.add("Flashcard: " + flashcardIndex + ". " + fc.toString());
+            }
+        }
+        for (CheatSheet cs : this.getCheatSheetList()) {
+            cheatSheetIndex++;
+            if (predicate.test(cs)) {
+                taggedItems.add("CheatSheet: " + cheatSheetIndex + ". " + cs.toString());
+            }
+        }
+        for (Note n : this.getNoteList()) {
+            noteIndex++;
+            if (predicate.test(n)) {
+                taggedItems.add("Note: " + noteIndex + ". " + n.toString());
+            }
+            for (Note noteFrag : n.getFilteredNoteFragments(predicate)) {
+                noteFragmentIndex++;
+                taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
+            }
+            noteFragmentIndex = 0;
+        }
+        return taggedItems;
+    }
+
+    /**
+     * Collects tag cheatsheets which matches the predicates in a toString() form.
+     * @param predicate
+     * @return ArrayList<String> of collected cheatsheets</String>
+     */
+    public ArrayList<String> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
+        ArrayList<String> taggedItems = new ArrayList<>();
+        int cheatSheetIndex = 0;
+        for (CheatSheet cs : this.getCheatSheetList()) {
+            cheatSheetIndex++;
+            if (predicate.test(cs)) {
+                taggedItems.add(cheatSheetIndex + ". " + cs.toString());
+            }
+        }
+        return taggedItems;
+    }
+
+    /**
+     * Collects tag flashcards which matches the predicates in a toString() form.
+     * @param predicate
+     * @return ArrayList<String> of collected flashcards</String>
+     */
+    public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
+        ArrayList<String> taggedItems = new ArrayList<>();
+        int flashcardIndex = 0;
+        for (Flashcard fc : this.getFlashcardList()) {
+            flashcardIndex++;
+            if (predicate.test(fc)) {
+                taggedItems.add(flashcardIndex + ". " + fc.toString());
+            }
+        }
+        return taggedItems;
+    }
+
+    public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate) {
+        ArrayList<Flashcard> taggedFlashcards = new ArrayList<>();
+        for (Flashcard fc : this.getFlashcardList()) {
+            if (predicate.test(fc)) {
+                taggedFlashcards.add(fc);
+            }
+        }
+        return taggedFlashcards;
+    }
+
+    /**
+     * Collects tag notes which matches the predicates in a toString() form.
+     * @param predicate
+     * @return ArrayList<String> of collected notes</String>
+     */
+    public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
+        ArrayList<String> taggedItems = new ArrayList<>();
+        int noteIndex = 0;
+        int noteFragmentIndex = 0;
+        for (Note n : this.getNoteList()) {
+            noteIndex++;
+            if (predicate.test(n)) {
+                taggedItems.add(noteIndex + ". " + n.toString());
+            }
+            for (Note noteFrag : n.getFilteredNoteFragments(predicate)) {
+                noteFragmentIndex++;
+                taggedItems.add(noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
+            }
+            noteFragmentIndex = 0;
+        }
+        return taggedItems;
+    }
+
+    public ArrayList<String> getListOfTags() {
+        ArrayList<String> listOfTags = new ArrayList<>();
+        for (Tag t : this.getTagList()) {
+            listOfTags.add(t.getTagName());
+        }
+        return listOfTags;
+    }
+
+    public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
+        ArrayList<StudyBuddyCounter> counterList = new ArrayList<>();
+        for (Tag t : tagList) {
+            StudyBuddyCounter studyBuddyCounter = new StudyBuddyCounter();
+            HashSet<Tag> temp = new HashSet<>();
+            temp.add(t);
+            FlashcardContainsTagPredicate fcp = new FlashcardContainsTagPredicate(temp);
+            NoteContainsTagPredicate np = new NoteContainsTagPredicate(temp);
+            CheatSheetContainsTagPredicate cp = new CheatSheetContainsTagPredicate(temp);
+            for (Flashcard fc : this.getFlashcardList()) {
+                if (fcp.test(fc)) {
+                    studyBuddyCounter.increaseFlashcardCount();
+                }
+            }
+            for (Note n : this.getNoteList()) {
+                if (np.test(n)) {
+                    studyBuddyCounter.increaseNotesCount();
+                }
+            }
+            for (CheatSheet cs : this.getCheatSheetList()) {
+                if (cp.test(cs)) {
+                    studyBuddyCounter.increaseCheatSheetCount();
+                }
+            }
+            counterList.add(studyBuddyCounter);
+        }
+        return counterList;
     }
 }

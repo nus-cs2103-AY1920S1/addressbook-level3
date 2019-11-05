@@ -32,7 +32,7 @@ public class AddCheatSheetCommand extends Command {
     public static final String COMMAND_WORD = ADD;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a cheatsheet. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_TITLE + "TITLE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
@@ -93,7 +93,11 @@ public class AddCheatSheetCommand extends Command {
         ObservableList<Note> noteList = model.getFilteredNoteList();
 
         for (Note note: noteList) {
-            contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
+            try {
+                contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
+            } catch (IllegalArgumentException ignored) {
+                // ignore invalid content
+            }
         }
 
         // get all note fragments
@@ -102,7 +106,11 @@ public class AddCheatSheetCommand extends Command {
 
         for (Note note : noteList) {
             for (Note noteFrag : note.getFilteredNoteFragments(noteTagPredicate)) {
-                contentList.add(new Content(noteFrag.getContent().toString(), noteFrag.getTags()));
+                try {
+                    contentList.add(new Content(noteFrag.getContent().toString(), noteFrag.getTags()));
+                } catch (IllegalArgumentException ignored) {
+                    // ignore invalid content
+                }
             }
         }
 
