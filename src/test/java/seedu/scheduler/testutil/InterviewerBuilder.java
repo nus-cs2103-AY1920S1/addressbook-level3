@@ -49,6 +49,22 @@ public class InterviewerBuilder extends PersonBuilder {
     }
 
     /**
+     * Sets the {@code Name} of the {@code Interviewer} that we are building.
+     */
+    public InterviewerBuilder withName(String name) {
+        super.withName(name);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Phone} of the {@code Interviewer} that we are building.
+     */
+    public InterviewerBuilder withPhone(String phone) {
+        super.withPhone(phone);
+        return this;
+    }
+
+    /**
      * Sets the {@code Department} of the {@code Interviewer} that we are building.
      */
     public InterviewerBuilder withDepartment(String department) {
