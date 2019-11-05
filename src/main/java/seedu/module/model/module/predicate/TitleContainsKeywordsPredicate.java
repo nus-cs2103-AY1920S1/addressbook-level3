@@ -9,14 +9,15 @@ import seedu.module.model.module.Module;
  */
 public class TitleContainsKeywordsPredicate implements Predicate<Module> {
     private final String keyword;
+    private final LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(2);
 
     public TitleContainsKeywordsPredicate(String keyword) {
-        this.keyword = keyword.toLowerCase();
+        this.keyword = keyword.toLowerCase().trim();
     }
 
     @Override
     public boolean test(Module module) {
-        return module.getTitle().toLowerCase().contains(keyword);
+        return checker.fuzzyContains(module.getTitle().toLowerCase(), keyword);
     }
 
     @Override

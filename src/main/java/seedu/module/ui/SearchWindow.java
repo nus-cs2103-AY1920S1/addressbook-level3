@@ -124,24 +124,32 @@ public class SearchWindow extends UiPart<Stage> {
      * Creates the command string from user UI input.
      */
     private String createCommand() {
+        boolean isEmptyFields = true;
+
         StringBuilder command = new StringBuilder();
         command.append("find ");
         if (!moduleCodesBox.getText().isEmpty()) {
+            isEmptyFields = false;
             command.append("mod\\ ").append(moduleCodesBox.getText()).append(" ");
         }
         if (!moduleTitleBox.getText().isEmpty()) {
+            isEmptyFields = false;
             command.append("title\\ ").append(moduleTitleBox.getText()).append(" ");
         }
         if (!descriptionBox.getText().isEmpty()) {
+            isEmptyFields = false;
             command.append("desc\\ ").append(descriptionBox.getText()).append(" ");
         }
         if (!prerequisitesBox.getText().isEmpty()) {
+            isEmptyFields = false;
             command.append("prereq\\ ").append(prerequisitesBox.getText()).append(" ");
         }
         if (!preclusionsBox.getText().isEmpty()) {
+            isEmptyFields = false;
             command.append("preclu\\ ").append(preclusionsBox.getText()).append(" ");
         }
         if (semOneBox.isSelected() || semTwoBox.isSelected() || semThreeBox.isSelected() || semFourBox.isSelected()) {
+            isEmptyFields = false;
             command.append("sem\\ ");
             if (semOneBox.isSelected()) {
                 command.append("1 ");
@@ -155,6 +163,10 @@ public class SearchWindow extends UiPart<Stage> {
             if (semFourBox.isSelected()) {
                 command.append("4 ");
             }
+        }
+
+        if (isEmptyFields) {
+            command.append("all\\");
         }
 
         return command.toString();

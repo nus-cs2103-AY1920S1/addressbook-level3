@@ -94,6 +94,8 @@ It is possible to use any number or combination of filters. Prefixes not present
 
 ****
 * Prefixes: (case sensitive)
+** `all\` : List all the modules. *Overrides* all other prefixes.
+*** Example: `find mod\ cs all\` all\ will override mod\ and list all the modules.
 ** `mod\` : Find all modules with *module code* that contains the given *keyword(s)*.
 *** Example: `find mod\ cs ma st` will list all modules with module code containing `cs` or `ma` or `st`.
 ** `title\` : Find all modules with *title* that contains the given *sentence*.
@@ -110,10 +112,14 @@ It is possible to use any number or combination of filters. Prefixes not present
 ** Example: `find mod\ cs2 cs3 desc\ software engineering sem\ 1` will show all modules with module code containing `cs2`
 or `cs3` with description containing `"software engineering"` offered in semester 1.
 * The keywords are case insensitive. e.g `cs2103t` will match `CS2103T`.
+* Sentences used in title\ and desc\ are tolerant of minor spelling mistakes.
+** Example: `find desc\ enginering` will display results similar to `find desc\ engineering`.
+* Search is performed using string matching, which can result results being shown by searching random keywords.
+* Invalid prefixes and keywords before a valid prefix will be ignored.
+** Eg: `find INVALID\ invalidKeyword mod\ cs` the `INVALID\ invalidKeyword` will be ignored.
 ****
 [NOTE]
-title\ and desc\ will seach a single sentence while mod\, prereq\, preclu\ and sem\ will search for all modules with any of the keywords.
-
+title\ and desc\ will seach a single sentence. mod\, prereq\, preclu\ and sem\ will search for all modules with any of the keywords without checking for spelling errors.
 
 [TIP]
 Modules are imported from NUSMods database.

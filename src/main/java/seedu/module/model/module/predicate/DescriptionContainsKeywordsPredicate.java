@@ -8,15 +8,16 @@ import seedu.module.model.module.Module;
  * Tests that a {@code Module}'s description contains the keywords given.
  */
 public class DescriptionContainsKeywordsPredicate implements Predicate<Module> {
+    private final LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(2);
     private final String keyword;
 
     public DescriptionContainsKeywordsPredicate(String keyword) {
-        this.keyword = keyword.toLowerCase();
+        this.keyword = keyword.toLowerCase().trim();
     }
 
     @Override
     public boolean test(Module module) {
-        return module.getDescription().toLowerCase().contains(keyword);
+        return checker.fuzzyContains(module.getDescription().toLowerCase(), keyword);
     }
 
     @Override
