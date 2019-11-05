@@ -41,7 +41,7 @@ public class BudgetCommand extends Command {
             + PREFIX_AMOUNT + "300 "
             + PREFIX_START + "03-11-2019 "
             + PREFIX_END + "11-11-2019 "
-            + "[" + PREFIX_TRANSACTION_METHOD + "TRANSACTION_METHOD]\n";
+            + PREFIX_TRANSACTION_METHOD + " cash\n";
 
     public static final String MESSAGE_SUCCESS = "New budget added: %1$s \n";
 
