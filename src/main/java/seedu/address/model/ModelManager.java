@@ -394,6 +394,10 @@ public class ModelManager implements Model {
     //@@ shaoyi1997-reused
 
     //@@ author shaoyi1997
+
+    /**
+     * Updates all FilteredLists in Mortago to display all entities.
+     */
     private void updateAllFilteredLists() {
         updateFilteredActiveNotifList(PREDICATE_SHOW_ACTIVE_NOTIFS);
         updateFilteredNotifList(PREDICATE_SHOW_ALL_NOTIFS);
