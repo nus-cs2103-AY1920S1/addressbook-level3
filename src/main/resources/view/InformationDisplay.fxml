@@ -63,8 +63,9 @@
                     <rowConstraints>
                       <RowConstraints maxHeight="242.10434981982522" minHeight="0.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="242.10434981982522" minHeight="0.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="242.10434981982522" minHeight="0.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -79,56 +80,62 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Phone:" wrapText="true" GridPane.rowIndex="1">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Phone:" wrapText="true" GridPane.rowIndex="2">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="phone" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$phone" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="phone" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$phone" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Email:" wrapText="true" GridPane.rowIndex="3">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Email:" wrapText="true" GridPane.rowIndex="4">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="email" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$email" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="email" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$email" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Address:" wrapText="true" GridPane.rowIndex="2">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Address:" wrapText="true" GridPane.rowIndex="3">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="address" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$address" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <Label fx:id="address" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$address" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Attendance Rate" wrapText="true" GridPane.rowIndex="4">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Attendance Rate" wrapText="true" GridPane.rowIndex="5">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="attendanceRate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$attendanceRate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <Label fx:id="attendanceRate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$attendanceRate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Performance" wrapText="true" GridPane.rowIndex="5">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Performance" wrapText="true" GridPane.rowIndex="6">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="performance" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$performance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <Label fx:id="performance" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$performance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
+                        <Label text="Gender:" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="gender" text="\$gender" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                      <VBox.margin>
                         <Insets left="8.0" right="8.0" top="8.0" />
