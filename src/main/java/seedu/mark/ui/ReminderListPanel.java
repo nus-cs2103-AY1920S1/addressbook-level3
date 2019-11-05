@@ -1,5 +1,10 @@
 package seedu.mark.ui;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -32,12 +37,15 @@ public class ReminderListPanel extends UiPart<Region> {
     private VBox reminderList;
     private ObservableList<Reminder> reminders;
     private ObservableList<Node> reminderItems;
+    private ScheduledExecutorService executor = Executors.newScheduledThreadPool (1);
+    Runnable r = () -> showDueReminder();
 
     public ReminderListPanel(ObservableList<Reminder> reminders) {
         super(FXML);
         reminderList.setBackground(new Background(
                 new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         this.reminders = reminders;
+        executor.scheduleAtFixedRate( r , 0L , 5L , TimeUnit.SECONDS);
         this.reminderItems = FXCollections.observableArrayList();
         setReminderListItems();
 
@@ -50,6 +58,7 @@ public class ReminderListPanel extends UiPart<Region> {
         });
 
         reminderList.getChildren().addAll(reminderItems);
+
     }
 
     public void setReminderListItems() {
@@ -60,5 +69,28 @@ public class ReminderListPanel extends UiPart<Region> {
             reminderItems.add(reminder);
         }
         logger.info("run setting of reminderListItems");
+    }
+
+    private long compareTime(LocalDateTime before, LocalDateTime after) {
+        return Duration.between(before, after).toHours();
+    }
+
+    private void showDueReminder() {
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("running show");
+
+        for (int i = 0; i < reminders.size(); i++) {
+            Reminder reminder = reminders.get(i);
+            LocalDateTime remindTime = reminder.getRemindTime();
+            System.out.println(compareTime(now, remindTime));
+            System.out.println(now.isAfter(remindTime) && compareTime(now, remindTime) < 5);
+            if (now.isAfter(remindTime) && compareTime(now, remindTime) < 5) {
+                System.out.println(true);
+                ReminderWindow window = new ReminderWindow(reminder.getUrl(), reminder.getNote());
+                window.show();
+            } else {
+                break;
+            }
+        }
     }
 }
