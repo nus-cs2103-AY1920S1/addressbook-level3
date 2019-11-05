@@ -18,15 +18,26 @@ public class PriorityCommandParser implements Parser<PriorityCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public PriorityCommand parse(String args, String flags) throws ParseException {
-        // flags should be empty in this case, focus on args only
         String time = args.trim();
+        flags = flags.trim();
+
+        boolean focusMode = false;
+        if (!flags.isEmpty()) {
+            if (flags.equalsIgnoreCase("-f") || flags.equalsIgnoreCase("-focus")) {
+                focusMode = true;
+            } else {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, PriorityCommand.MESSAGE_USAGE));
+            }
+        }
 
         if (time.isEmpty()) {
-            return new PriorityCommand();
+            return new PriorityCommand(focusMode);
         }
+
         try {
             LocalDateTime ldt = ParserUtil.getFormattedDateTime(time);
-            return new ScheduledPriorityCommand(ldt);
+            return new ScheduledPriorityCommand(ldt, focusMode);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PriorityCommand.MESSAGE_USAGE), pe);

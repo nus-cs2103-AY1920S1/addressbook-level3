@@ -45,7 +45,9 @@ public class ItemModelManager implements ItemModel {
     private final JokeList jokeList;
     private SimpleBooleanProperty priorityMode = new SimpleBooleanProperty(false);
     private boolean systemToggle = false;
+    private PriorityExitStatus priorityExitStatus = null;
     private PriorityQueue<Item> sortedTask = null;
+    private boolean focusMode = false;
 
     //Bryan Reminder
     //These three lists must be synchronized
@@ -498,6 +500,7 @@ public class ItemModelManager implements ItemModel {
             @Override
             public void run() {
                 systemToggle = true;
+                priorityExitStatus = PriorityExitStatus.PRIORITY_TIMEOUT;
                 toggleOffPriorityMode();
             }
         }, date);
@@ -508,6 +511,7 @@ public class ItemModelManager implements ItemModel {
 
         if (sortedTask.peek().getTask().get().isComplete()) {
             systemToggle = true;
+            priorityExitStatus = PriorityExitStatus.ALL_TASK_COMPLETED;
             toggleOffPriorityMode();
             return visualList;
         }
@@ -532,9 +536,9 @@ public class ItemModelManager implements ItemModel {
     private void toggleOffPriorityMode() {
         offPriorityMode();
 
-        this.sortedTask = null;
+        sortedTask = null;
+        focusMode = false;
         if (visualList instanceof TaskList) {
-            System.out.println(taskList.size());
             this.visualList = taskList;
         }
         priorityMode.setValue(false);
@@ -545,7 +549,8 @@ public class ItemModelManager implements ItemModel {
      */
     private void toggleOnPriorityMode() {
         systemToggle = false;
-        this.priorityMode.setValue(true);
+        priorityExitStatus = null;
+        priorityMode.setValue(true);
 
         sortedTask = new PriorityQueue<Item>((item1, item2) -> {
             int result;
@@ -565,6 +570,7 @@ public class ItemModelManager implements ItemModel {
             }
         }
         if (sortedTask.size() == 0) {
+            priorityExitStatus = PriorityExitStatus.ALL_TASK_COMPLETED;
             priorityMode.setValue(false);
         } else {
             this.visualList = getNextTask();
@@ -630,5 +636,17 @@ public class ItemModelManager implements ItemModel {
 
     public boolean isSystemToggle() {
         return systemToggle;
+    }
+
+    public PriorityExitStatus getExitStatus() {
+        return priorityExitStatus;
+    }
+
+    public void toggleOnFocusMode() {
+        focusMode = true;
+    }
+
+    public boolean isFocusMode() {
+        return focusMode;
     }
 }
