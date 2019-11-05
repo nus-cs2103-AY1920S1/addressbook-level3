@@ -61,7 +61,7 @@ public class RemoveTagCommand extends TagCommand {
         Set<Tag> tagsToRemove = getExisting(currentTags, tagNames);
 
         if (tagsToRemove.isEmpty()) {
-            return new CommandResult(MESSAGE_RM_TAG_FAILURE);
+            throw new CommandException(MESSAGE_RM_TAG_FAILURE);
         }
 
         Set<Tag> editedTags = getEditedTags(currentTags, tagsToRemove);

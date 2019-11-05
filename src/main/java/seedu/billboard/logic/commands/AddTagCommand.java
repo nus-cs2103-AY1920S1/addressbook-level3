@@ -63,7 +63,7 @@ public class AddTagCommand extends TagCommand {
         Set<Tag> tagsToIncrementCount = getTagsToIncrement(existingTags, inputTags);
 
         if (tagsToIncrementCount.isEmpty()) {
-            return new CommandResult(MESSAGE_ADD_TAG_FAILURE);
+            throw new CommandException(MESSAGE_ADD_TAG_FAILURE);
         }
 
         Set<Tag> editedTags = getEditedTags(existingTags, tagsToIncrementCount);
