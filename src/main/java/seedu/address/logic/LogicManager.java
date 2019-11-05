@@ -18,6 +18,8 @@ import seedu.address.model.ReadOnlyGuiltTrip;
 import seedu.address.model.entry.AutoExpense;
 import seedu.address.model.entry.Budget;
 import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
 import seedu.address.model.entry.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
@@ -105,6 +107,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Entry> getFilteredExpenseAndIncomeList() {
         return model.getFilteredExpensesAndIncomes();
+    }
+
+    @Override
+    public ObservableList<Expense> getFilteredExpenseList() {
+        return model.getFilteredExpenses();
+    }
+
+    @Override
+    public ObservableList<Income> getFilteredIncomeList() {
+        return model.getFilteredIncomes();
     }
 
     @Override

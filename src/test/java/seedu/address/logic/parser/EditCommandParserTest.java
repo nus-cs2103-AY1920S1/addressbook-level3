@@ -34,8 +34,8 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.EditCommand;
-//import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.address.logic.commands.editcommands.EditCommand;
+//import seedu.address.logic.commands.editcommands.EditCommand.EditPersonDescriptor;
 //import seedu.address.model.entry.Address;
 //import seedu.address.model.entry.Email;
 //import seedu.address.model.entry.Description;

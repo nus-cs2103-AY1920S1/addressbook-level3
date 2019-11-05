@@ -13,7 +13,7 @@ import java.time.temporal.TemporalUnit;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.addcommands.AddCommand;
 import seedu.address.logic.commands.remindercommands.SetEntryReminderCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;

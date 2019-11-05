@@ -6,40 +6,24 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddAutoExpenseCommand;
-import seedu.address.logic.commands.AddBudgetCommand;
-import seedu.address.logic.commands.AddCategoryCommand;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteAutoExpenseCommand;
-import seedu.address.logic.commands.DeleteBudgetCommand;
-import seedu.address.logic.commands.DeleteCategoryCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteWishCommand;
-import seedu.address.logic.commands.EditAutoExpenseCommand;
-import seedu.address.logic.commands.EditBudgetCommand;
-import seedu.address.logic.commands.EditCategoryCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditWishCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindBudgetCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindWishCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListBudgetCommand;
 import seedu.address.logic.commands.ListCategoriesCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListFontCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SetDarkThemeCommand;
-import seedu.address.logic.commands.SetLightThemeCommand;
 import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.commands.TogglePanelCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.WishListCommand;
+import seedu.address.logic.commands.addcommands.AddAutoExpenseCommand;
+import seedu.address.logic.commands.addcommands.AddBudgetCommand;
+import seedu.address.logic.commands.addcommands.AddCategoryCommand;
+import seedu.address.logic.commands.addcommands.AddExpenseCommand;
+import seedu.address.logic.commands.addcommands.AddIncomeCommand;
+import seedu.address.logic.commands.addcommands.AddWishCommand;
 import seedu.address.logic.commands.conditioncommands.AddClassConditionCommand;
 import seedu.address.logic.commands.conditioncommands.AddDateConditionCommand;
 import seedu.address.logic.commands.conditioncommands.AddHasKeyWordConditionCommand;
@@ -48,6 +32,21 @@ import seedu.address.logic.commands.conditioncommands.AddTagsConditionCommand;
 import seedu.address.logic.commands.conditioncommands.DeleteConditionCommand;
 import seedu.address.logic.commands.conditioncommands.ReplaceConditionCommand;
 import seedu.address.logic.commands.conditioncommands.ShowConditionListCommand;
+import seedu.address.logic.commands.deletecommands.DeleteAutoExpenseCommand;
+import seedu.address.logic.commands.deletecommands.DeleteBudgetCommand;
+import seedu.address.logic.commands.deletecommands.DeleteCategoryCommand;
+import seedu.address.logic.commands.deletecommands.DeleteExpenseCommand;
+import seedu.address.logic.commands.deletecommands.DeleteIncomeCommand;
+import seedu.address.logic.commands.deletecommands.DeleteWishCommand;
+import seedu.address.logic.commands.editcommands.EditAutoExpenseCommand;
+import seedu.address.logic.commands.editcommands.EditBudgetCommand;
+import seedu.address.logic.commands.editcommands.EditCategoryCommand;
+import seedu.address.logic.commands.editcommands.EditExpenseCommand;
+import seedu.address.logic.commands.editcommands.EditIncomeCommand;
+import seedu.address.logic.commands.editcommands.EditWishCommand;
+import seedu.address.logic.commands.findcommands.FindBudgetCommand;
+import seedu.address.logic.commands.findcommands.FindCommand;
+import seedu.address.logic.commands.findcommands.FindWishCommand;
 import seedu.address.logic.commands.remindercommands.AddConditionToReminderCommand;
 import seedu.address.logic.commands.remindercommands.AddReminderCommand;
 import seedu.address.logic.commands.remindercommands.DeleteReminderCommand;
@@ -59,6 +58,17 @@ import seedu.address.logic.commands.statisticscommands.ViewBarChartCommand;
 import seedu.address.logic.commands.statisticscommands.ViewEntryCommand;
 import seedu.address.logic.commands.statisticscommands.ViewPieChartCommand;
 import seedu.address.logic.commands.statisticscommands.ViewTableCommand;
+import seedu.address.logic.commands.uicommands.ChangeFontCommand;
+import seedu.address.logic.commands.uicommands.ListFontCommand;
+import seedu.address.logic.commands.uicommands.SetDarkThemeCommand;
+import seedu.address.logic.commands.uicommands.SetLightThemeCommand;
+import seedu.address.logic.commands.uicommands.TogglePanelCommand;
+import seedu.address.logic.parser.addcommandparsers.AddAutoExpenseCommandParser;
+import seedu.address.logic.parser.addcommandparsers.AddBudgetCommandParser;
+import seedu.address.logic.parser.addcommandparsers.AddCategoryCommandParser;
+import seedu.address.logic.parser.addcommandparsers.AddExpenseCommandParser;
+import seedu.address.logic.parser.addcommandparsers.AddIncomeCommandParser;
+import seedu.address.logic.parser.addcommandparsers.AddWishCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
@@ -66,12 +76,30 @@ import seedu.address.logic.parser.conditioncommandparsers.AddHasTagConditionComm
 import seedu.address.logic.parser.conditioncommandparsers.AddQuotaConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.DeleteConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.ReplaceConditionCommandParser;
+import seedu.address.logic.parser.deletecommandparsers.DeleteAutoExpenseCommandParser;
+import seedu.address.logic.parser.deletecommandparsers.DeleteBudgetCommandParser;
+import seedu.address.logic.parser.deletecommandparsers.DeleteCategoryCommandParser;
+import seedu.address.logic.parser.deletecommandparsers.DeleteExpenseCommandParser;
+import seedu.address.logic.parser.deletecommandparsers.DeleteIncomeCommandParser;
+import seedu.address.logic.parser.deletecommandparsers.DeleteWishCommandParser;
+import seedu.address.logic.parser.editcommandparsers.EditAutoExpenseCommandParser;
+import seedu.address.logic.parser.editcommandparsers.EditBudgetCommandParser;
+import seedu.address.logic.parser.editcommandparsers.EditCategoryCommandParser;
+import seedu.address.logic.parser.editcommandparsers.EditExpenseCommandParser;
+import seedu.address.logic.parser.editcommandparsers.EditIncomeCommandParser;
+import seedu.address.logic.parser.editcommandparsers.EditWishCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.findcommandparsers.FindBudgetCommandParser;
+import seedu.address.logic.parser.findcommandparsers.FindCommandParser;
+import seedu.address.logic.parser.findcommandparsers.FindWishCommandParser;
 import seedu.address.logic.parser.remindercommandparsers.AddConditionToReminderCommandParser;
 import seedu.address.logic.parser.remindercommandparsers.AddReminderCommandParser;
 import seedu.address.logic.parser.remindercommandparsers.DeleteReminderCommandParser;
 import seedu.address.logic.parser.remindercommandparsers.EditReminderCommandParser;
 import seedu.address.logic.parser.remindercommandparsers.RemoveConditionFromReminderCommandParser;
+import seedu.address.logic.parser.statisticscommandparsers.ViewBarChartCommandParser;
+import seedu.address.logic.parser.statisticscommandparsers.ViewPieChartCommandParser;
+import seedu.address.logic.parser.statisticscommandparsers.ViewTableCommandParser;
 
 /**
  * Parses user input.
@@ -86,12 +114,9 @@ public class GuiltTripParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput
-     *                      full user input string
+     * @param userInput full user input string
      * @return the command based on the user input
-     * @throws ParseException
-     *                            if the user input does not conform the expected
-     *                            format
+     * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException, IllegalArgumentException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -103,20 +128,33 @@ public class GuiltTripParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);
+
+        case AddExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case AddExpenseCommand.COMMAND_WORD_SHORT:
+            return new AddExpenseCommandParser().parse(arguments);
 
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case AddIncomeCommand.COMMAND_WORD:
+            return new AddIncomeCommandParser().parse(arguments);
+
+        case AddWishCommand.COMMAND_WORD:
+            return new AddWishCommandParser().parse(arguments);
 
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);
+
+        case EditExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case EditExpenseCommand.COMMAND_WORD_SHORT:
+            return new EditExpenseCommandParser().parse(arguments);
+
+        case EditIncomeCommand.COMMAND_WORD:
+            return new EditIncomeCommandParser().parse(arguments);
 
         case EditWishCommand.COMMAND_WORD:
             return new EditWishCommandParser().parse(arguments);
@@ -124,8 +162,13 @@ public class GuiltTripParser {
         case EditBudgetCommand.COMMAND_WORD:
             return new EditBudgetCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteExpenseCommand.COMMAND_WORD:
+            // Fallthrough
+        case DeleteExpenseCommand.COMMAND_WORD_SHORT:
+            return new DeleteExpenseCommandParser().parse(arguments);
+
+        case DeleteIncomeCommand.COMMAND_WORD:
+            return new DeleteIncomeCommandParser().parse(arguments);
 
         case DeleteCategoryCommand.COMMAND_WORD:
             return new DeleteCategoryCommandParser().parse(arguments);

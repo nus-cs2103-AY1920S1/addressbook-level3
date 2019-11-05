@@ -8,7 +8,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.logic.commands.FindCommand;
+//import seedu.address.logic.commands.findcommands.FindCommand;
 //import seedu.address.model.entry.predicates.entries.DescriptionContainsKeywordsPredicate;
 //
 //public class FindCommandParserTest {

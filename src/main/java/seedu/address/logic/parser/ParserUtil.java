@@ -19,15 +19,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entry.Amount;
 import seedu.address.model.entry.Date;
 import seedu.address.model.entry.Description;
-import seedu.address.model.entry.PanelName;
 import seedu.address.model.entry.Period;
 import seedu.address.model.entry.SortSequence;
 import seedu.address.model.entry.SortType;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Frequency;
-import seedu.address.ui.FontManager;
-import seedu.address.ui.FontName;
+import seedu.address.ui.util.FontManager;
+import seedu.address.ui.util.FontName;
+import seedu.address.ui.util.PanelName;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser
