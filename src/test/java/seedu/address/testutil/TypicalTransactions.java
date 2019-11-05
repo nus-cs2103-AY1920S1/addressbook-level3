@@ -73,7 +73,7 @@ public class TypicalTransactions {
     } // prevents instantiation
 
     /**
-     * Returns a {@code BankAccount} with all the typical persons.
+     * Returns a {@code UserState} with all the typical bank account operations.
      */
     public static UserState getTypicalUserState() {
         UserState ba = new UserState();
@@ -106,6 +106,7 @@ public class TypicalTransactions {
     public static List<LedgerOperation> getTypicalLedgerOperations() {
         return null;
     }
+
     //TODO: implement:
     public static List<Budget> getTypicalBudget() {
         return null;
