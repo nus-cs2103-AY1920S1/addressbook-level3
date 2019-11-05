@@ -63,4 +63,8 @@ public abstract class TrainingCommand extends Command {
     public boolean isUndoable() {
         return true;
     }
+    @Override
+    public String toString() {
+        return "Add Training Command";
+    }
 }

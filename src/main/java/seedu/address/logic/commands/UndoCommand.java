@@ -9,7 +9,7 @@ import seedu.address.model.history.HistoryManager;
  */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_SUCCESS = "Undo Command Success";
+    public static final String MESSAGE_SUCCESS = "Undo ";
     public static final String MESSAGE_FAILURE = "Undo Command Failure:"
         + " No available commands to be undone. "
         + " Commands that can be undone is as follows: add, delete, edit, clear and training.";
@@ -33,13 +33,18 @@ public class UndoCommand extends Command {
         }
         Command undoneCommand = model.undo();
         if (undoneCommand instanceof TrainingCommand) {
-            return new CommandResult(MESSAGE_SUCCESS, ((TrainingCommand) undoneCommand).getDate(), model);
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand + " Success!",
+                ((TrainingCommand) undoneCommand).getDate(), model);
         } else {
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand + " Success!");
         }
     }
     @Override
     public boolean isUndoable() {
         return false;
+    }
+    @Override
+    public String toString() {
+        return "Undo Command";
     }
 }

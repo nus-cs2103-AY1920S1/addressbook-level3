@@ -52,4 +52,8 @@ public class EventCommand extends Command {
             || (other instanceof EventCommand // instanceof handles nulls
             && toAdd.equals(((EventCommand) other).toAdd));
     }
+    @Override
+    public String toString() {
+        return "Add Event Command";
+    }
 }

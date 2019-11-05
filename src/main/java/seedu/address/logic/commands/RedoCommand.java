@@ -9,7 +9,7 @@ import seedu.address.model.history.HistoryManager;
  */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "Redo Command Success";
+    public static final String MESSAGE_SUCCESS = "Redo ";
     public static final String MESSAGE_FAILURE_EMPTY_STACK = "Redo Command Failure: No available "
         + "commands to be redone.";
     public static final String MESSAGE_FAILURE = "Redo Command Failure:"
@@ -24,14 +24,19 @@ public class RedoCommand extends Command {
         } else {
             Command redoneCommand = model.redo();
             if (redoneCommand instanceof TrainingCommand) {
-                return new CommandResult(MESSAGE_SUCCESS, ((TrainingCommand) redoneCommand).getDate(), model);
+                return new CommandResult(MESSAGE_SUCCESS + redoneCommand + " Success!",
+                    ((TrainingCommand) redoneCommand).getDate(), model);
             } else {
-                return new CommandResult(MESSAGE_SUCCESS);
+                return new CommandResult(MESSAGE_SUCCESS + redoneCommand + " Success!");
             }
         }
     }
     @Override
     public boolean isUndoable() {
         return false;
+    }
+    @Override
+    public String toString() {
+        return "Redo Command";
     }
 }

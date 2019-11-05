@@ -63,4 +63,8 @@ public class FilterCommand extends Command {
                 || (other instanceof FilterCommand // instanceof handles nulls
                 && predicate.equals(((FilterCommand) other).predicate)); // state check
     }
+    @Override
+    public String toString() {
+        return "Filter Command";
+    }
 }

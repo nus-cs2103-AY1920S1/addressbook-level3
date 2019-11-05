@@ -49,4 +49,8 @@ public class DeletePersonCommand extends DeleteCommand {
                 || (other instanceof DeletePersonCommand // instanceof handles nulls
                 && targetIndex.equals(((DeletePersonCommand) other).targetIndex)); // state check
     }
+    @Override
+    public String toString() {
+        return "Delete Person Command";
+    }
 }

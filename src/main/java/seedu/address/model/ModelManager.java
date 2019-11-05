@@ -121,11 +121,13 @@ public class ModelManager implements Model {
         ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
         HistoryManager.getUndoneCommands().push(undoneCommand);
         HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
+        //undo add training command
         if (undoneCommand instanceof TrainingCommand) {
             AthletickDate dateOfTraining = ((TrainingCommand) undoneCommand).getDate();
             Training undoneTraining = this.attendance.getTrainingOnDate(dateOfTraining);
             this.attendance.getTrainings().remove(undoneTraining);
             HistoryManager.getUndoneTrainingLists().push(undoneTraining);
+        //undo normal commands
         } else {
             ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
             addressBook.resetData(afterUndoneState);
