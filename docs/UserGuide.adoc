@@ -182,6 +182,8 @@ Examples:
 
 * `find-a John` +
 Returns `john` and `John Doe`
+* `find-a Agent01 Betty`
+Returns all accounts with username or name matching either `agent01` or `betty`
 
 // tag::AccountDelete[]
 === Deleting an account : `delete-a`
