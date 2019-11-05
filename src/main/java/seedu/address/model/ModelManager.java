@@ -365,129 +365,36 @@ public class ModelManager implements Model {
     //========================COLLECT TAGGED ITEMS TO DISPLAY======================================
     @Override
     public ArrayList<String> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
-        ArrayList<String> taggedItems = new ArrayList<>();
-        int flashcardIndex = 0;
-        int cheatSheetIndex = 0;
-        int noteIndex = 0;
-        int noteFragmentIndex = 0;
-        for (Flashcard fc : studyBuddyPro.getFlashcardList()) {
-            flashcardIndex++;
-            if (predicate.test(fc)) {
-                taggedItems.add("Flashcard: " + flashcardIndex + ". " + fc.toString());
-            }
-        }
-        for (CheatSheet cs : studyBuddyPro.getCheatSheetList()) {
-            cheatSheetIndex++;
-            if (predicate.test(cs)) {
-                taggedItems.add("CheatSheet: " + cheatSheetIndex + ". " + cs.toString());
-            }
-        }
-        for (Note n : studyBuddyPro.getNoteList()) {
-            noteIndex++;
-            if (predicate.test(n)) {
-                taggedItems.add("Note: " + noteIndex + ". " + n.toString());
-            }
-            for (Note noteFrag : n.getFilteredNoteFragments(predicate)) {
-                noteFragmentIndex++;
-                taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
-            }
-            noteFragmentIndex = 0;
-        }
-        return taggedItems;
+        return studyBuddyPro.collectTaggedItems(predicate);
     }
 
     @Override
     public ArrayList<String> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
-        ArrayList<String> taggedItems = new ArrayList<>();
-        int cheatSheetIndex = 0;
-        for (CheatSheet cs : studyBuddyPro.getCheatSheetList()) {
-            cheatSheetIndex++;
-            if (predicate.test(cs)) {
-                taggedItems.add(cheatSheetIndex + ". " + cs.toString());
-            }
-        }
-        return taggedItems;
+        return studyBuddyPro.collectTaggedCheatSheets(predicate);
     }
 
     @Override
     public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
-        ArrayList<String> taggedItems = new ArrayList<>();
-        int flashcardIndex = 0;
-        for (Flashcard fc : studyBuddyPro.getFlashcardList()) {
-            flashcardIndex++;
-            if (predicate.test(fc)) {
-                taggedItems.add(flashcardIndex + ". " + fc.toString());
-            }
-        }
-        return taggedItems;
+        return studyBuddyPro.collectTaggedFlashcards(predicate);
     }
 
     @Override
     public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate) {
-        ArrayList<Flashcard> taggedFlashcards = new ArrayList<>();
-        for (Flashcard fc : studyBuddyPro.getFlashcardList()) {
-            if (predicate.test(fc)) {
-                taggedFlashcards.add(fc);
-            }
-        }
-        return taggedFlashcards;
+        return studyBuddyPro.getTaggedFlashcards(predicate);
     }
 
     @Override
     public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
-        ArrayList<String> taggedItems = new ArrayList<>();
-        int noteIndex = 0;
-        int noteFragmentIndex = 0;
-        for (Note n : studyBuddyPro.getNoteList()) {
-            noteIndex++;
-            if (predicate.test(n)) {
-                taggedItems.add(noteIndex + ". " + n.toString());
-            }
-            for (Note noteFrag : n.getFilteredNoteFragments(predicate)) {
-                noteFragmentIndex++;
-                taggedItems.add(noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
-            }
-            noteFragmentIndex = 0;
-        }
-        return taggedItems;
+        return studyBuddyPro.collectTaggedNotes(predicate);
     }
 
     @Override
     public ArrayList<String> getListOfTags() {
-        ArrayList<String> listOfTags = new ArrayList<>();
-        for (Tag t : studyBuddyPro.getTagList()) {
-            listOfTags.add(t.getTagName());
-        }
-        return listOfTags;
+        return studyBuddyPro.getListOfTags();
     }
 
     @Override
     public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
-        ArrayList<StudyBuddyCounter> counterList = new ArrayList<>();
-        for (Tag t : tagList) {
-            StudyBuddyCounter studyBuddyCounter = new StudyBuddyCounter();
-            HashSet<Tag> temp = new HashSet<>();
-            temp.add(t);
-            FlashcardContainsTagPredicate fcp = new FlashcardContainsTagPredicate(temp);
-            NoteContainsTagPredicate np = new NoteContainsTagPredicate(temp);
-            CheatSheetContainsTagPredicate cp = new CheatSheetContainsTagPredicate(temp);
-            for (Flashcard fc : filteredFlashcards) {
-                if (fcp.test(fc)) {
-                    studyBuddyCounter.increaseFlashcardCount();
-                }
-            }
-            for (Note n : filteredNotes) {
-                if (np.test(n)) {
-                    studyBuddyCounter.increaseNotesCount();
-                }
-            }
-            for (CheatSheet cs : filteredCheatSheets) {
-                if (cp.test(cs)) {
-                    studyBuddyCounter.increaseCheatSheetCount();
-                }
-            }
-            counterList.add(studyBuddyCounter);
-        }
-        return counterList;
+        return studyBuddyPro.getStatistics(tagList);
     }
 }
