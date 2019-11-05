@@ -108,30 +108,39 @@ Displays below expenses (for example) in the GUI: +
 {nbsp} +
 
 === Tagging expenses: `tag`
-This feature allows you to assign tags to your expenses. Expenses with the same tag will be grouped together which allows you to search for related expenses easily.
-
-[IMPORTANT]
-Tag names should be *alphanumeric*. This means that they should not contain spaces and special characters.
+This feature allows you to assign tags to your expenses. Expenses with the same tag will be grouped together, allowing you to search for related expenses easily.
 
 [NOTE]
-You are not able to use this feature on archived expenses.
+Tag names should be *alphanumeric*. This means that they should not contain spaces and special characters. +
+Tag names are *case sensitive.* +
+You are *not* able to use this feature on *archived expenses*.
 
-To view a list of supported tag commands, you could type `tag` in the command box and press `enter`
-. _Adding a tag: tag add_ +
-Adds your input tag/s to the expense at the index you have specified. +
+To view a list of supported tag commands, you could type `tag` in the command box and press `enter`. +
+Similarly, to view parameters for supported tag commands, you could type `tag` followed by the supported tag command and press `enter`. +
+Example: `tag rm`
+
+. _Adding a tag: `tag add_` +
+This command adds your input tag/s to the expense at the index you have specified. +
 {nbsp} +
 Usage:
 
- tag add [INDEX] [TAG] [TAG…]
-
-+
-Options: +
-
-* t/ : Specifies the name of the tag/s you want to add to the expense.(REQUIRED) +
-{nbsp} +
+ tag add [INDEX] t/[TAG] t/[TAG…]
 
 +
 Example: +
+Lets say that you want to add the tags `holiday` and `hangout` to the expense at index `2`. +
+{nbsp} +
+To add the tags: +
+1. Type `tag add 2 t/holiday t/hangout` and press `enter` to execute it. +
+image:tagging/AddTagOne.png[]
+2. The result box will display the message "Added tag(s) to Expense: +
+Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: [[hangout], [holiday]]"
+image:tagging/AddTagTwo.png[]
+3. You could see the tags `holiday` and `hangout` in the expense.
+image:tagging/AddTagThree.png[]
+
+
+
 `tag add 2 t/monthlybills t/electricity` +
 Adds the tags “monthly bills” and "electricity" to the expense at index 2. +
 {nbsp} +
