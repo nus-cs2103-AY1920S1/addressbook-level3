@@ -15,7 +15,7 @@ import mams.logic.commands.FindCommand;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.appeal.AppealContainsKeywordsPredicate;
 import mams.model.module.ModuleContainsKeywordsPredicate;
-import mams.model.student.NameContainsKeywordsPredicate;
+import mams.model.student.StudentContainsKeywordsPredicate;
 
 
 /**
@@ -41,33 +41,29 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE, PREFIX_APPEAL);
 
-        boolean hasValidInput = false;
-
-        if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
-            NameContainsKeywordsPredicate studentPred = new NameContainsKeywordsPredicate(
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && !argMultimap.getValue(PREFIX_STUDENT).get().isEmpty()) {
+            StudentContainsKeywordsPredicate studentPred = new StudentContainsKeywordsPredicate(
                     Arrays.asList(argMultimap.getValue(PREFIX_STUDENT).get().split("\\s+")));
             predicates.add(studentPred);
-            hasValidInput = true;
         }
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent() && !argMultimap.getValue(PREFIX_MODULE).get().isEmpty()) {
             ModuleContainsKeywordsPredicate modulePred = new ModuleContainsKeywordsPredicate(
                     Arrays.asList(argMultimap.getValue(PREFIX_MODULE).get().split("\\s+")));
             predicates.add(modulePred);
-            hasValidInput = true;
         }
 
-        if (argMultimap.getValue(PREFIX_APPEAL).isPresent()) {
+        if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && !argMultimap.getValue(PREFIX_APPEAL).get().isEmpty()) {
             AppealContainsKeywordsPredicate appealPred = new AppealContainsKeywordsPredicate(
                     Arrays.asList(argMultimap.getValue(PREFIX_APPEAL).get().split("\\s+")));
             predicates.add(appealPred);
-            hasValidInput = true;
         }
 
-        if (hasValidInput) {
+        if (!predicates.isEmpty()) {
             return new FindCommand(predicates);
         } else {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
     }
 
