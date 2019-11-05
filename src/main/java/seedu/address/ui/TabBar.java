@@ -21,7 +21,7 @@ public class TabBar extends UiPart<Region> {
     @FXML
     private TilePane tabBar;
 
-    public TabBar(OmniPanel omniPanel) {
+    public TabBar(OmniPanelManager omniPanel) {
         super("TabBar.fxml");
 
         Platform.runLater(() -> omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex)));
