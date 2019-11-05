@@ -381,8 +381,26 @@ image::rep.png[]
 
 ==== Creating repeater: `add`
 
-You can use the `add` command to create a repeater. This also creates the transactions associated with the created repeater. +
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
+
+You can use the `add` command to create a repeater. This also creates the transactions associated with the created repeater.
+
+The optional arguments take the following default values if left unspecified.
+
+|==============================
+| Argument | Default values
+
+| Category | "Uncategorised"
+| Type | "exp" 
+| Month Start Offset | "-1" (Offset ignored)
+| Month End Offset | "-1" (Offset ignored)
+|==============================
+
+Constraints:
+
+* Repeater end must not occur before repeater start.
+* Repeater start and end can span at most 60 months (5 years).
+* At least one of month start offset or month end offset must not be ignored.
 
 Examples:
 
@@ -391,8 +409,15 @@ This creates a repeater titled "Phone bills" as an expenditure for utilities of 
 
 ==== Editing repeater `edit`
 
-You can use the `edit` command to edit a repeater. This also edits the transactions associated with the edited repeater. +
 Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
+
+You can use the `edit` command to edit a repeater. This also edits the transactions associated with the edited repeater.
+
+Constraints:
+
+* Repeater end must not occur before repeater start.
+* Repeater start and end can span at most 60 months (5 years).
+* At least one of month start offset or month end offset must not be ignored.
 
 Examples:
 
@@ -401,8 +426,9 @@ This edits the first repeater in the current list into a $31.34 expenditure for 
 
 ==== Deleting repeater: `delete`
 
-You can use the `delete` command to delete a repeater. This also deletes all transactions associated with the deleted repeater. +
 Format: `delete INDEX`
+
+You can use the `delete` command to delete a repeater. This also deletes all transactions associated with the deleted repeater.
 
 Examples:
 
