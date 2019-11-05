@@ -20,8 +20,8 @@ public class DeletePersonCommand extends DeleteCommand {
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " " + FLAG_PERSON + " 1";
-
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_NO_PERSON_GIVEN = "Please provide the index of the person to be deleted.";
 
     private final Index targetIndex;
 

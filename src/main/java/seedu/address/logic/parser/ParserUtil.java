@@ -16,6 +16,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.feature.Feature;
+import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -254,9 +255,12 @@ public class ParserUtil {
     /**
      * Parses {@code String event} into a {@code Event}
      */
-    public static String parseEvent(String event) {
+    public static String parseEvent(String event) throws ParseException {
         requireNonNull(event);
         String trimmedEvent = event.trim().toLowerCase();
+        if (!Event.isValidName(trimmedEvent)) {
+            throw new ParseException(Event.MESSAGE_CONSTRAINTS);
+        }
         return trimmedEvent;
     }
 
