@@ -7,6 +7,7 @@ import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.logic.Logic;
 import budgetbuddy.logic.commands.CommandCategory;
+import budgetbuddy.logic.commands.CommandContinuation;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
@@ -253,12 +254,18 @@ public class MainWindow extends UiPart<Stage> {
                     : tabMap.get(category);
             updateView(tabToView, category);
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
+            for (CommandContinuation<?> cont : commandResult.getContinuations()) {
+                switch (cont.getType()) {
+                case EXIT:
+                    handleExit();
+                    break;
+                case SHOW_HELP:
+                    handleHelp();
+                    break;
+                case SHOW_FILE_PICKER:
+                    // TODO
+                    break;
+                }
             }
 
             return commandResult;

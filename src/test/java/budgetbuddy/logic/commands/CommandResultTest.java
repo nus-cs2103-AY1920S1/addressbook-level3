@@ -12,7 +12,7 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertEquals(commandResult, new CommandResult("feedback", CommandCategory.MISC));
-        assertEquals(commandResult, new CommandResult("feedback", CommandCategory.MISC, false, false));
+        assertEquals(commandResult, new CommandResult("feedback", CommandCategory.MISC));
 
         // same object -> returns true
         assertEquals(commandResult, commandResult);
@@ -26,11 +26,9 @@ public class CommandResultTest {
         // different feedbackToUser value -> returns false
         assertNotEquals(commandResult, new CommandResult("different", CommandCategory.MISC));
 
-        // different showHelp value -> returns false
-        assertNotEquals(commandResult, new CommandResult("feedback", CommandCategory.MISC, true, false));
-
-        // different exit value -> returns false
-        assertNotEquals(commandResult, new CommandResult("feedback", CommandCategory.MISC, false, true));
+        // different continuation -> returns false
+        assertNotEquals(commandResult, new CommandResult("feedback", CommandCategory.MISC,
+                CommandContinuation.showHelp()));
     }
 
     @Test
@@ -43,12 +41,8 @@ public class CommandResultTest {
         // different feedbackToUser value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("different", CommandCategory.MISC).hashCode());
 
-        // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", CommandCategory.MISC, true, false).hashCode());
-
-        // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", CommandCategory.MISC, false, true).hashCode());
+        // different continuation -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandCategory.MISC,
+                        CommandContinuation.showHelp()).hashCode());
     }
 }

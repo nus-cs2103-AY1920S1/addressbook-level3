@@ -2,7 +2,10 @@ package budgetbuddy.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Represents the result of a command execution.
@@ -13,29 +16,17 @@ public class CommandResult {
 
     private final CommandCategory commandCategory;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
-    /** The application should exit. */
-    private final boolean exit;
+    private final List<CommandContinuation<?>> continuations;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser,
-                         CommandCategory commandCategory, boolean showHelp, boolean exit) {
+                         CommandCategory commandCategory, CommandContinuation<?>... continuations) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.commandCategory = requireNonNull(commandCategory);
-        this.showHelp = showHelp;
-        this.exit = exit;
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code commandCategory},
-     * and other fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser, CommandCategory commandCategory) {
-        this(feedbackToUser, commandCategory, false, false);
+        this.continuations = Arrays.stream(requireNonNull(continuations))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public String getFeedbackToUser() {
@@ -46,12 +37,8 @@ public class CommandResult {
         return commandCategory;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
-    }
-
-    public boolean isExit() {
-        return exit;
+    public List<CommandContinuation<?>> getContinuations() {
+        return continuations;
     }
 
     @Override
@@ -67,13 +54,12 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && continuations.equals(otherCommandResult.continuations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, continuations);
     }
 
 }
