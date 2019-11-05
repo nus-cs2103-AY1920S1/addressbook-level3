@@ -18,7 +18,6 @@ public class JsonAdaptedShoppingItem {
 
     private final String name;
     private final String amount;
-    //private final String expiryDate;
     private final boolean urgent;
     private final boolean bought;
 
@@ -29,12 +28,10 @@ public class JsonAdaptedShoppingItem {
     public JsonAdaptedShoppingItem(
             @JsonProperty("name") String name,
             @JsonProperty("amount") String amount,
-            //@JsonProperty("expiryDate") String expiryDate,
             @JsonProperty("bought") boolean bought,
             @JsonProperty("urgent") boolean urgent) {
         this.name = name;
         this.amount = amount;
-        //this.expiryDate = expiryDate;
         this.bought = bought;
         this.urgent = urgent;
     }
@@ -45,7 +42,6 @@ public class JsonAdaptedShoppingItem {
     public JsonAdaptedShoppingItem(ShoppingItem source) {
         name = source.getName().fullName;
         amount = source.getAmount().fullAmt;
-        //expiryDate = source.getExpiryDate().expiryDate;
         bought = source.isBought();
         urgent = source.isUrgent();
     }
@@ -65,10 +61,6 @@ public class JsonAdaptedShoppingItem {
         }
         final Name modelName = new Name(name);
         final Amount modelAmount = new Amount(amount);
-        //if (bought) {
-        //    final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
-        //    return new ShoppingItem(modelName, modelAmount, modelExpiryDate);
-        //}
         ShoppingItem result = new ShoppingItem(modelName, modelAmount);
         result = result.setBought(bought);
         result = result.setUrgent(urgent);
