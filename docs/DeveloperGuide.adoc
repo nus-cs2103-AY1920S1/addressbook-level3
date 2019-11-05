@@ -315,7 +315,7 @@ for medium sized strings. It is based on the observation that a user is more lik
 using a longer search term as compared to a shorter one. Long search terms are also rare.
 
 * ** Alternatives Considered: **
-** Using a calibration percentage of above 70 percent. This is not optimal for our use case as words with similar spelling but
+** Using a calibration percentage above 70 percent. This is not optimal for our use case as words with similar spelling but
 different meanings e.g 'moon' and 'noon', will be more often included in the search results.
 
 [[Feature-Slideshow]]
