@@ -53,7 +53,8 @@ public class CommandHistoryManager implements CommandHistory {
             return "";
         }
 
-        if (this.currIndex >= (this.history.size() - 1)) {
+        if ((this.currIndex + 1) >= this.history.size()) {
+            this.currIndex = this.history.size();
             return "";
         }
 

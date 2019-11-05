@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -152,15 +153,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the handlers for the events generated whenever the up and down arrow keys are pressed.
+     * Sets the handlers for the events generated whenever the alt modifier key, as well
+     * as the up/down arrow keys are pressed.
      */
     private void setCommandNavigationHandler() {
         this.commandBoxPlaceholder.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.UP) {
+            KeyCombination upCombo = new KeyCodeCombination(KeyCode.UP, KeyCombination.ALT_DOWN);
+            KeyCombination downCombo = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.ALT_DOWN);
+
+            if (upCombo.match(event)) {
                 commandBox.setTextField(logic.getPrevCommandString());
             }
 
-            if (event.getCode() == KeyCode.DOWN) {
+            if (downCombo.match(event)) {
                 commandBox.setTextField(logic.getNextCommandString());
             }
         });
