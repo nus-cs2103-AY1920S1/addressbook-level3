@@ -30,10 +30,10 @@ import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ReadAndWriteList;
 import seedu.scheduler.model.ReadOnlyUserPrefs;
 import seedu.scheduler.model.Schedule;
-import seedu.scheduler.model.person.InterviewSlot;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
+import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 import seedu.scheduler.ui.RefreshListener;
 
@@ -301,12 +301,17 @@ class AddInterviewerCommandTest {
         }
 
         @Override
+        public void updateSchedulesAfterScheduling() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void emailInterviewee(Interviewee interviewee) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Optional<InterviewSlot> getInterviewSlot(String intervieweeName) {
+        public Optional<Slot> getAllocatedSlot(String intervieweeName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -331,16 +336,6 @@ class AddInterviewerCommandTest {
         }
 
         @Override
-        public void addInterviewerToSchedule(Interviewer interviewer) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String scheduleHasInterviewer(Interviewer interviewer) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addInterviewer(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");
         }
@@ -351,7 +346,7 @@ class AddInterviewerCommandTest {
         }
 
         @Override
-        public void clearAllAllocatedSlot() {
+        public void resetDataBeforeScheduling() {
             throw new AssertionError("This method should not be called.");
         }
     }

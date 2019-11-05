@@ -1,8 +1,10 @@
 package seedu.scheduler.model;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
@@ -13,22 +15,16 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import seedu.scheduler.commons.exceptions.ScheduleException;
+import seedu.scheduler.model.person.Interviewee;
+import seedu.scheduler.model.person.IntervieweeSlot;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Slot;
+import seedu.scheduler.testutil.SampleInterviewee;
 import seedu.scheduler.testutil.SampleInterviewer;
 import seedu.scheduler.testutil.SampleSchedules;
 
 public class ScheduleTest {
-    private static String[][] sampleFilledTable =
-            new String[][]{
-                    {"10/9/2019(Thur)", "Welfare-Hazel", "Technical-Johnathan", "Publicity-Lucia"},
-                    {"6:00pm-6:30pm", "John", "Steven", "NA"},
-                    {"6:30pm-7:00pm", "Alex", "Clark", "Alice"},
-                    {"7:00pm-7:30pm", "Alicia", "NA", "Charlie"},
-                    {"7:30pm-8:00pm", "Bruce", "NA", "Selina"},
-                    {"8:00pm-8:30pm", "Barry", "NA", "NA"},
-                    {"8:30pm-9:00pm", "Natal", "NA", "NA"}};
-
     @Test
     public void getInterviewsSlot_existingInterviewee_success() {
         Schedule schedule = SampleSchedules.getSampleFilledSchedule();
@@ -52,6 +48,65 @@ public class ScheduleTest {
     }
 
     @Test
+    public void addAllocatedInterviewees_validAllocatedSlots_success() {
+        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
+        expectedSchedule.getObservableList().get(1).set(2, "Bernard");
+        expectedSchedule.getObservableList().get(2).set(2, "Jessie");
+
+        Schedule subjectSchedule = SampleSchedules.getSampleAvailabilityTable();
+        Interviewer johnathan = SampleInterviewer.getInterviewer("Johnathan", "Technical");
+        Interviewee interviewee1 = SampleInterviewee.getSampleIntervieweesForGraph1().get(0);
+        Interviewee interviewee2 = SampleInterviewee.getSampleIntervieweesForGraph1().get(1);
+
+        // The slots and the interviewer falls in the schedule, and the slot is available for interview,
+        // i.e. the slot is "1".
+        johnathan.addAllocatedSlot(new IntervieweeSlot(interviewee1, Slot.fromString("10/09/2019 18:30-19:00")));
+        johnathan.addAllocatedSlot(new IntervieweeSlot(interviewee2, Slot.fromString("10/09/2019 19:00-19:30")));
+
+        assertDoesNotThrow(() -> subjectSchedule.addAllocatedInterviewees(johnathan, johnathan.getAllocatedSlots()));
+        assertEquals(subjectSchedule, expectedSchedule);
+    }
+
+    @Test
+    public void addAllocatedSlot_slotNotInSchedule_notAdded() {
+        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
+        Schedule subjectSchedule = SampleSchedules.getSampleAvailabilityTable();
+        List<Interviewee> interviewees = SampleInterviewee.getSampleIntervieweesForGraph1();
+
+        // Interviewer not in schedule
+        Interviewer ben = SampleInterviewer.getInterviewer("Ben", "Presidential");
+        ben.addAllocatedSlot(new IntervieweeSlot(interviewees.get(0), Slot.fromString("10/09/2019 18:30-19:00")));
+        assertDoesNotThrow(() -> subjectSchedule.addAllocatedInterviewees(ben, ben.getAllocatedSlots()));
+        assertEquals(subjectSchedule, expectedSchedule);
+
+        // Slot's date is not the same as schedule
+        Interviewer johnathan = SampleInterviewer.getInterviewer("Johnathan", "Technical");
+        johnathan.addAllocatedSlot(new IntervieweeSlot(interviewees.get(0),
+                Slot.fromString("25/10/2019 18:30-19:00")));
+        assertDoesNotThrow(() -> subjectSchedule.addAllocatedInterviewees(johnathan, johnathan.getAllocatedSlots()));
+        assertEquals(subjectSchedule, expectedSchedule);
+
+        // Slot's timing is not in the schedule
+        Interviewer james = SampleInterviewer.getInterviewer("James", "Logistics");
+        james.addAllocatedSlot(new IntervieweeSlot(interviewees.get(0),
+                Slot.fromString("10/09/2019 01:00-02:00")));
+        assertDoesNotThrow(() -> subjectSchedule.addAllocatedInterviewees(james, james.getAllocatedSlots()));
+        assertEquals(subjectSchedule, expectedSchedule);
+    }
+
+    @Test
+    public void addAllocatedSlot_invalidAllocatedSlots_throwScheduleException() {
+        Schedule subjectSchedule = SampleSchedules.getSampleAvailabilityTable();
+        Interviewer johnathan = SampleInterviewer.getInterviewer("Johnathan", "Technical");
+        Interviewee interviewee1 = SampleInterviewee.getSampleIntervieweesForGraph1().get(0);
+
+        // The slot in which the interviewee to be added is not available for interview, i.e. is "0" instead of "1".
+        johnathan.addAllocatedSlot(new IntervieweeSlot(interviewee1, Slot.fromString("10/09/2019 20:30-21:00")));
+        assertThrows(ScheduleException.class, () ->
+                subjectSchedule.addAllocatedInterviewees(johnathan, johnathan.getAllocatedSlots()));
+    }
+
+    @Test
     public void hasInterviewer_existingInterviewer_true() {
         Schedule schedule = SampleSchedules.getSampleAvailabilityTable();
         Interviewer hazel = SampleInterviewer.getHazel();
@@ -63,76 +118,6 @@ public class ScheduleTest {
         Schedule schedule = SampleSchedules.getSampleAvailabilityTable();
         Interviewer bernard = SampleInterviewer.getBernard();
         assertFalse(schedule.hasInterviewer(bernard));
-    }
-
-    @Test
-    public void addInterviewer_oneValidAvailability_true() {
-        Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer interviewer = SampleInterviewer.getInterviewerOneValidAvailability();
-
-        // Generate the expected Schedule
-        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
-        String newTitle = "Technical - Alice Pauline";
-        String[] newColumn = new String[]{"1", "0", "0", "0", "0", "0"};
-        addColumn(expectedSchedule, newTitle, newColumn);
-
-        assertTrue(scheduleTest.addInterviewer(interviewer));
-        assertEquals(expectedSchedule, scheduleTest);
-    }
-
-    @Test
-    public void addInterviewer_multipleValidAvailabilities_true() {
-        Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer interviewer = SampleInterviewer.getInterviewerMultipleValidAvailabilities();
-
-        // Generate the expected Schedule
-        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
-        String newTitle = "Technical - Alice Pauline";
-        String[] newColumn = new String[]{"0", "1", "1", "0", "1", "0"};
-        addColumn(expectedSchedule, newTitle, newColumn);
-
-        assertTrue(scheduleTest.addInterviewer(interviewer));
-        assertEquals(expectedSchedule, scheduleTest);
-    }
-
-    @Test
-    public void addInterviewer_multipleInvalidAvailabilities_false() {
-        Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer interviewer = SampleInterviewer.getInterviewerMultipleInvalidAvailabilities();
-        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
-
-        assertFalse(scheduleTest.addInterviewer(interviewer));
-        assertEquals(expectedSchedule, scheduleTest);
-    }
-
-    @Test
-    public void addInterviewer_multipleAvailabilitiesSomeInvalid_true() {
-        Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer interviewer = SampleInterviewer.getInterviewerMultipleAvailabilitiesSomeInvalid();
-
-        // Generate the expected Schedule
-        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
-        String newTitle = "Technical - Alice Pauline";
-        String[] newColumn = new String[]{ "0", "0", "1", "0", "1", "0"};
-        addColumn(expectedSchedule, newTitle, newColumn);
-
-        assertTrue(scheduleTest.addInterviewer(interviewer));
-        assertEquals(expectedSchedule, scheduleTest);
-    }
-
-    /**
-     * Add a column into the schedule.
-     */
-    private void addColumn(Schedule schedule, String newTitle, String[] newColumn) {
-        ObservableList<String> titles = schedule.getTitles();
-        titles.add(newTitle);
-
-        ObservableList<ObservableList<String>> data = schedule.getObservableList();
-        int numRows = data.size();
-        IntStream.range(0, numRows).forEach(i -> {
-            ObservableList<String> row = data.get(i);
-            row.add(newColumn[i]);
-        });
     }
 
     @Test
@@ -159,6 +144,23 @@ public class ScheduleTest {
         addColumn(schedule, newTitle, newColumn);
 
         assertNotEquals(schedule, cloneSchedule);
+        assertNotEquals(schedule.getObservableList(), cloneSchedule.getObservableList());
+        assertNotEquals(schedule.getTitles(), cloneSchedule.getTitles());
+    }
+
+    /**
+     * Add a column into the schedule.
+     */
+    private void addColumn(Schedule schedule, String newTitle, String[] newColumn) {
+        ObservableList<String> titles = schedule.getTitles();
+        titles.add(newTitle);
+
+        ObservableList<ObservableList<String>> data = schedule.getObservableList();
+        int numRows = data.size();
+        IntStream.range(0, numRows).forEach(i -> {
+            ObservableList<String> row = data.get(i);
+            row.add(newColumn[i]);
+        });
     }
 
     @Test

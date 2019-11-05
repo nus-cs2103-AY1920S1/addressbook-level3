@@ -82,7 +82,7 @@ public class SampleInterviewer {
         return bernard;
     }
 
-    private static Interviewer getInterviewer(String nameString, String departmentString) {
+    public static Interviewer getInterviewer(String nameString, String departmentString) {
         Person alice = TypicalPersons.ALICE;
         Department department = new Department(departmentString);
         Name name = new Name(nameString);
@@ -107,11 +107,11 @@ public class SampleInterviewer {
         slots1.add(slots.get(1));
 
         List<Slot> slots2 = new LinkedList<>();
-        slots1.add(slots.get(2));
-        slots1.add(slots.get(3));
+        slots2.add(slots.get(2));
+        slots2.add(slots.get(3));
 
         List<Slot> slots3 = new LinkedList<>();
-        slots1.add(slots.get(4));
+        slots3.add(slots.get(4));
 
         Interviewer interviewer1 = new Interviewer.InterviewerBuilder(new Name("Chris"), new Phone("12345678"),
                 new HashSet<>()).department(new Department("Technical")).availabilities(slots1).build();

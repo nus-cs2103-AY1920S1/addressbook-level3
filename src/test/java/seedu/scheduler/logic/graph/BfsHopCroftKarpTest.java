@@ -19,12 +19,12 @@ public class BfsHopCroftKarpTest {
         int numInterviewees = subjectGraph.getNumInterviewees();
         int numSlots = subjectGraph.getNumInterviewSlots();
 
-        List<InterviewSlotVertex> intervieweePredecessor = Arrays.asList(new InterviewSlotVertex[numInterviewees]);
+        List<InterviewerSlotVertex> intervieweePredecessor = Arrays.asList(new InterviewerSlotVertex[numInterviewees]);
         List<List<IntervieweeVertex>> interviewSlotPredecessors = new ArrayList<>(numSlots);
         TestUtil.fillWithSubLists(interviewSlotPredecessors, numSlots);
 
-        List<InterviewSlotVertex> expectedVertices = SampleInterviewSlotVertex.getSampleInterviewSlotVerticesGraph1();
-        List<InterviewSlotVertex> resultVertices = new BfsHopCroftKarp(subjectGraph).execute(intervieweePredecessor,
+        List<InterviewerSlotVertex> expectedVertices = SampleInterviewSlotVertex.getSampleInterviewSlotVerticesGraph1();
+        List<InterviewerSlotVertex> resultVertices = new BfsHopCroftKarp(subjectGraph).execute(intervieweePredecessor,
             interviewSlotPredecessors);
 
         // resultVertices.forEach(System.out::println);

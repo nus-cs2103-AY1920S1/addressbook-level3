@@ -18,7 +18,7 @@ public class Interviewee extends Person {
     private final List<Department> departmentChoices; // choice of departments
     private final List<Slot> availableTimeslots;
     private final Emails emails; // personal, NUS emails etc
-    private InterviewSlot allocatedSlot;
+    private Slot allocatedSlot;
     private boolean emailSent;
 
     /**
@@ -134,7 +134,7 @@ public class Interviewee extends Person {
     /**
      * Returns the allocated slot of the interviewee if any, otherwise returns an empty Optional.
      */
-    public Optional<InterviewSlot> getAllocatedSlot() {
+    public Optional<Slot> getAllocatedSlot() {
         if (allocatedSlot != null) {
             return Optional.of(allocatedSlot);
         } else {
@@ -142,7 +142,7 @@ public class Interviewee extends Person {
         }
     }
 
-    public void setAllocatedSlot(InterviewSlot slot) {
+    public void setAllocatedSlot(Slot slot) {
         this.allocatedSlot = slot;
     }
 

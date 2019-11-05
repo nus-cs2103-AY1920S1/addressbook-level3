@@ -1,22 +1,23 @@
 package seedu.scheduler.logic.commands;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import seedu.scheduler.commons.core.LogsCenter;
-import seedu.scheduler.commons.util.Pair;
+import seedu.scheduler.commons.exceptions.ScheduleException;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.logic.graph.BipartiteGraph;
 import seedu.scheduler.logic.graph.BipartiteGraphGenerator;
 import seedu.scheduler.logic.graph.HopCroftKarp;
-import seedu.scheduler.logic.graph.InterviewSlotVertex;
 import seedu.scheduler.logic.graph.IntervieweeVertex;
+import seedu.scheduler.logic.graph.InterviewerSlot;
 import seedu.scheduler.model.Model;
-import seedu.scheduler.model.person.InterviewSlot;
 import seedu.scheduler.model.person.Interviewee;
+import seedu.scheduler.model.person.IntervieweeSlot;
 import seedu.scheduler.model.person.Interviewer;
+import seedu.scheduler.model.person.Slot;
 
 /**
  * Schedules the interviews using the interviewer's availability data and interviewee's selected slots.
@@ -29,37 +30,31 @@ public class ScheduleCommand extends Command {
         + "Example: " + COMMAND_WORD + " (no other word should follow after it)";
     private static final Logger logger = LogsCenter.getLogger(ScheduleCommand.class);
 
-    private List<Pair<IntervieweeVertex, List<InterviewSlotVertex>>> graph;
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         logger.info("Starting to schedule interviews");
-        model.clearAllAllocatedSlot();
+
+        if (model.isScheduled()) {
+            model.resetDataBeforeScheduling();
+        }
 
         List<Interviewer> interviewers = model.getUnfilteredInterviewerList();
         List<Interviewee> interviewees = model.getUnfilteredIntervieweeList();
 
         BipartiteGraph graph = new BipartiteGraphGenerator(interviewers, interviewees).generate();
+        HopCroftKarp algorithm = new HopCroftKarp(graph);
+        algorithm.execute();
+        assignSlots(graph);
 
-        String message = "Successfully scheduled!";
-        String result = "Result:\nNo matching is found";
-
-        if (!graph.isEmpty()) {
-            HopCroftKarp algorithm = new HopCroftKarp(graph);
-            algorithm.execute();
-
-            List<Interviewee> intervieweesWithSlots = assignSlotToInterviewees(graph);
-            String allocationResult = generateResultMessage(intervieweesWithSlots);
-
-            if (!allocationResult.isEmpty()) {
-                result = String.format("Result:\n %s", allocationResult);
-            }
+        try {
+            model.updateSchedulesAfterScheduling();
+        } catch (ScheduleException e) {
+            throw new CommandException("Error occurs!", e);
         }
 
         logger.info("Finish scheduling interviews");
         model.setScheduled(true);
-        String finalMessage = String.format("%s\n%s", message, result);
-        return new CommandResult(finalMessage);
+        return new CommandResult(generateResultMessage(graph));
     }
 
     @Override
@@ -69,41 +64,68 @@ public class ScheduleCommand extends Command {
     }
 
     /**
-     * Attaches the interview slot that the interviewee is allocated to(after running the HopCroftKarp algorithm)
-     * to it and returns a list of interviewee which are successfully allocated an interview slot.
+     * Attaches the allocated interview slot the corresponding interviewee and also to the interviewer (after running
+     * the HopCroftKarp algorithm). Returns true if at least one interviewee is allocated with a slot.
      */
-    private List<Interviewee> assignSlotToInterviewees(BipartiteGraph graph) {
-        List<Interviewee> intervieweesWithSlot = new LinkedList<>();
+    private void assignSlots(BipartiteGraph graph) {
         int numInterviewees = graph.getNumInterviewees();
 
-        IntStream.range(0, numInterviewees).forEach(i -> {
-            IntervieweeVertex vertex = graph.getIntervieweePair(i).getHead();
+        for (int i = 0; i < numInterviewees; i++) {
+            IntervieweeVertex intervieweeVertex = graph.getIntervieweePair(i).getHead();
 
-            if (vertex.isMatched()) {
-                Interviewee interviewee = vertex.getItem();
-                InterviewSlot slot = vertex.getPartner().getItem();
+            if (intervieweeVertex.isMatched()) {
+                Interviewee interviewee = intervieweeVertex.getItem();
+                InterviewerSlot interviewerSlot = intervieweeVertex.getPartner().getItem();
+                Interviewer interviewer = interviewerSlot.getInterviewer();
+                Slot slot = interviewerSlot.getSlot();
+
                 interviewee.setAllocatedSlot(slot);
-                intervieweesWithSlot.add(interviewee);
+                interviewer.addAllocatedSlot(new IntervieweeSlot(interviewee, slot));
             }
-        });
-
-        return intervieweesWithSlot;
+        }
     }
 
     /**
-     * Returns the result of the scheduling as a string message.
-     * The given list of interviewees are all allocated with an interview slot.
+     * Generates the result of message of the scheduling.
      */
-    private String generateResultMessage(List<Interviewee> interviewees) {
-        StringBuilder builder = new StringBuilder(300);
+    private String generateResultMessage(BipartiteGraph graph) {
+        List<Interviewee> notAllocatedInterviewees = getNotAllocatedInterviewees(graph);
+        String message = "Successfully scheduled!\n";
 
-        String resultMessage = "Name: %s, allocated slot: %s, interviewer: %s, department: %s\n";
-        interviewees.stream().map(interviewee -> {
-            InterviewSlot slot = interviewee.getAllocatedSlot().get();
-            return String.format(resultMessage, interviewee.getName(), slot.getDateTime(), slot.getInterviewerName(),
-                slot.getDepartment());
-        }).forEach(builder::append);
+        if (notAllocatedInterviewees.isEmpty()) {
+            message = message + "All interviewees are allocated with a slot!";
+        } else if (notAllocatedInterviewees.size() == graph.getNumInterviewees()) {
+            message = message + "No matching is found :(";
+        } else {
+            message = message + getNotAllocatedResult(notAllocatedInterviewees);
+        }
 
-        return builder.toString();
+        return message;
+    }
+
+    /**
+     * Returns the list of interviewees that are not allocated with any slot.
+     */
+    private List<Interviewee> getNotAllocatedInterviewees(BipartiteGraph graph) {
+        int numInterviewees = graph.getNumInterviewees();
+
+        return IntStream.range(0, numInterviewees)
+                .mapToObj(i -> graph.getIntervieweePair(i).getHead())
+                .filter(intervieweeVertex -> !intervieweeVertex.isMatched())
+                .map(IntervieweeVertex::getItem)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the message showing the number of interviewees that are not allocated with a slot and their name
+     * , each separated with a new line character.
+     */
+    private String getNotAllocatedResult(List<Interviewee> notAllocatedInterviewees) {
+        String prefix = "Number of interviewees that are not allocated a slot: "
+                + notAllocatedInterviewees.size() + "\nInterviewees that are not allocated a slot:\n";
+
+        return notAllocatedInterviewees.stream()
+                .map(interviewee -> interviewee.getName().toString())
+                .collect(Collectors.joining("\n", prefix, "\n"));
     }
 }

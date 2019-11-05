@@ -24,11 +24,11 @@ public class BfsHopCroftKarp {
      * @param interviewSlotPredecessors a list used to keep track of predecessor(s) of an interview slot, which is
      *                                  interviewee(s) that can match the interview slot.
      */
-    public List<InterviewSlotVertex> execute(List<InterviewSlotVertex> intervieweePredecessor,
-            List<List<IntervieweeVertex>> interviewSlotPredecessors) {
+    public List<InterviewerSlotVertex> execute(List<InterviewerSlotVertex> intervieweePredecessor,
+                                               List<List<IntervieweeVertex>> interviewSlotPredecessors) {
         Queue<Vertex> currentLayer = initialiseBfs();
         Queue<Vertex> nextLayer = new LinkedList<>();
-        List<InterviewSlotVertex> unmatchedSlotVertices = new LinkedList<>();
+        List<InterviewerSlotVertex> unmatchedSlotVertices = new LinkedList<>();
 
         // Perform BFS and build the layered graph
         do {
@@ -39,7 +39,7 @@ public class BfsHopCroftKarp {
 
                 if (u instanceof IntervieweeVertex) {
                     nextLayer.addAll(findUnmatchedVertices(u, nextLayer, interviewSlotPredecessors));
-                } else if (u instanceof InterviewSlotVertex && u.isMatched()) {
+                } else if (u instanceof InterviewerSlotVertex && u.isMatched()) {
                     Vertex v = findMatchedVertex(u, nextLayer, intervieweePredecessor);
                     if (v != null) {
                         nextLayer.add(v);
@@ -83,10 +83,10 @@ public class BfsHopCroftKarp {
      */
     private List<Vertex> findUnmatchedVertices(Vertex u, Queue<Vertex> nextLayer,
             List<List<IntervieweeVertex>> interviewSlotPredecessors) {
-        List<InterviewSlotVertex> associatedSlotVertices = graph.getInterviewSlotVertices(u.getIndex());
+        List<InterviewerSlotVertex> associatedSlotVertices = graph.getInterviewSlotVertices(u.getIndex());
         List<Vertex> unmatchedVertices = new LinkedList<>();
 
-        for (InterviewSlotVertex v : associatedSlotVertices) {
+        for (InterviewerSlotVertex v : associatedSlotVertices) {
             if (v.isMatched()) {
                 continue;
             }
@@ -107,9 +107,9 @@ public class BfsHopCroftKarp {
      * returns null.
      */
     private Vertex findMatchedVertex(Vertex u, Queue<Vertex> nextLayer,
-            List<InterviewSlotVertex> intervieweePredecessor) {
+            List<InterviewerSlotVertex> intervieweePredecessor) {
         IntervieweeVertex v = (IntervieweeVertex) u.getPartner();
-        intervieweePredecessor.add(v.getIndex(), (InterviewSlotVertex) u);
+        intervieweePredecessor.add(v.getIndex(), (InterviewerSlotVertex) u);
 
         if (!nextLayer.contains(v)) {
             return v;
@@ -142,12 +142,12 @@ public class BfsHopCroftKarp {
     /**
      * Returns the list of unmatched interview slot vertices in the given queue of vertices.
      */
-    private List<InterviewSlotVertex> getUnmatchedSlotVertices(Queue<Vertex> vertices) {
-        List<InterviewSlotVertex> unmatchedSlotVertices = new LinkedList<>();
+    private List<InterviewerSlotVertex> getUnmatchedSlotVertices(Queue<Vertex> vertices) {
+        List<InterviewerSlotVertex> unmatchedSlotVertices = new LinkedList<>();
 
         for (Vertex v : vertices) {
-            if (v instanceof InterviewSlotVertex && !v.isMatched()) {
-                unmatchedSlotVertices.add((InterviewSlotVertex) v);
+            if (v instanceof InterviewerSlotVertex && !v.isMatched()) {
+                unmatchedSlotVertices.add((InterviewerSlotVertex) v);
             }
         }
 

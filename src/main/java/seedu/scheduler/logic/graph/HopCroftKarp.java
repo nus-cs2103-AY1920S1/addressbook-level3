@@ -27,7 +27,7 @@ public class HopCroftKarp {
      *               to augment the number of matching.
      */
     private BipartiteGraph graph;
-    private List<InterviewSlotVertex> intervieweePredecessor;
+    private List<InterviewerSlotVertex> intervieweePredecessor;
     private List<List<IntervieweeVertex>> interviewSlotPredecessors;
     private boolean[] usedInterviewees;
     private boolean[] usedSlots;
@@ -43,8 +43,12 @@ public class HopCroftKarp {
      */
     public void execute() {
         logger.info("Hopcroft Karp algorithm starting...");
+
+        if (graph.isEmpty()) {
+            return;
+        }
         initialiseHopCroftKarp();
-        List<InterviewSlotVertex> lastLayer = new LinkedList<>();
+        List<InterviewerSlotVertex> lastLayer = new LinkedList<>();
 
         do {
             lastLayer = new BfsHopCroftKarp(graph).execute(intervieweePredecessor, interviewSlotPredecessors);
@@ -66,7 +70,7 @@ public class HopCroftKarp {
         int numInterviewees = graph.getNumInterviewees();
         int numSlots = graph.getNumInterviewSlots();
 
-        intervieweePredecessor = Arrays.asList(new InterviewSlotVertex[numInterviewees]);
+        intervieweePredecessor = Arrays.asList(new InterviewerSlotVertex[numInterviewees]);
         interviewSlotPredecessors = new ArrayList<>(numSlots);
         usedInterviewees = new boolean[numInterviewees];
         usedSlots = new boolean[numSlots];

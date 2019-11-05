@@ -29,8 +29,8 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.scheduler.commons.core.GuiSettings;
 import seedu.scheduler.commons.core.LogsCenter;
+import seedu.scheduler.commons.exceptions.ScheduleException;
 import seedu.scheduler.model.person.Department;
-import seedu.scheduler.model.person.InterviewSlot;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
@@ -342,7 +342,9 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Generates an empty schedule list from the current interviewer list. Used to generate GUI after user imports data.
+     * Generates an empty schedule list from the current interviewer list. Used to generate GUI after user imports data
+     * and also before the user runs a schedule command.
+     *
      * @return ArrayList of {@Code Schedule}
      * @throws ParseException when timings are not of HH:mm format
      */
@@ -465,34 +467,12 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
-    public void addInterviewerToSchedule(Interviewer interviewer) {
-        interviewerList.addEntity(interviewer);
-        for (Schedule schedule : schedulesList) {
-            schedule.addInterviewer(interviewer);
-        }
-    }
-
-    /**
-     * Returns the date of the first schedule in which the interviewer exists in, otherwise return empty string.
-     */
-    @Override
-    public String scheduleHasInterviewer(Interviewer interviewer) {
-        String date = "";
-        for (Schedule schedule : schedulesList) {
-            if (schedule.hasInterviewer(interviewer)) {
-                date = schedule.getDate();
-                break;
-            }
-        }
-        return date;
-    }
-
     /**
      * Returns the interview slot allocated to the interviewee with the {@code intervieweeName}.
+     * @return
      */
     @Override
-    public Optional<InterviewSlot> getInterviewSlot(String intervieweeName) {
+    public Optional<Slot> getAllocatedSlot(String intervieweeName) {
         return intervieweeList.getEntity(new Name(intervieweeName)).getAllocatedSlot();
     }
 
@@ -518,7 +498,6 @@ public class ModelManager implements Model {
         return schedulesList;
     }
 
-    /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
     @Override
     public List<List<String>> getTitlesLists() {
         List<List<String>> titlesLists = new LinkedList<>();
@@ -526,6 +505,20 @@ public class ModelManager implements Model {
             titlesLists.add(schedule.getTitles());
         }
         return titlesLists;
+    }
+
+    @Override
+    public void updateSchedulesAfterScheduling() throws ScheduleException {
+        List<Interviewer> interviewers = interviewerList.getEntityList();
+        for (Interviewer interviewer : interviewers) {
+            for (Schedule schedule : schedulesList) {
+                schedule.addAllocatedInterviewees(interviewer, interviewer.getAllocatedSlots());
+            }
+        }
+
+        if (refreshListener != null) {
+            refreshListener.scheduleDataUpdated();
+        }
     }
 
     /**
@@ -538,20 +531,6 @@ public class ModelManager implements Model {
         List<Schedule> listClone = new LinkedList<>();
         for (Schedule schedule : list) {
             listClone.add(Schedule.cloneSchedule(schedule));
-        }
-        return listClone;
-    }
-
-    /**
-     * Returns the deep copy of the interviewee's list given.
-     *
-     * @param list the list of interviewees to be copied.
-     * @return a deep copy of interviewee's list.
-     */
-    private static List<Interviewee> cloneIntervieweesList(List<Interviewee> list) {
-        List<Interviewee> listClone = new LinkedList<>();
-        for (Interviewee interviewee : list) {
-            listClone.add(interviewee);
         }
         return listClone;
     }
@@ -583,8 +562,17 @@ public class ModelManager implements Model {
     // ===========================================================================================================
 
     @Override
-    public void clearAllAllocatedSlot() {
+    public void resetDataBeforeScheduling() {
+        // Clear all allocated slots
         this.intervieweeList.clearAllAllocatedSlots();
+        this.interviewerList.clearAllAllocatedSlots();
+
+        // Clear the interviewees from the schedule
+        for (Schedule schedule : schedulesList) {
+            schedule.clearAllocatedInterviewees();
+        }
+
+        logger.info("Clear all allocated slots");
     }
 
     @Override

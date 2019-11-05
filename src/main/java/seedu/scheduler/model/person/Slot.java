@@ -22,6 +22,7 @@ import seedu.scheduler.logic.parser.exceptions.ParseException;
  */
 public class Slot implements Comparable<Slot> {
     public static final String STRING_FORMAT = "%s %s-%s";
+    public static final String TIMING_FORMAT = "%s-%s";
     public static final String MESSAGE_CONSTRAINTS =
             "A slot must follow this format: " + String.format(STRING_FORMAT, "dd/mm/yyyy", "hh:mm", "hh:mm") + ".\n"
             + "Constraints:\n"
@@ -95,6 +96,10 @@ public class Slot implements Comparable<Slot> {
             return false;
         }
         return true;
+    }
+
+    public String getTiming() {
+        return String.format(TIMING_FORMAT, start, end);
     }
 
     @Override

@@ -108,7 +108,7 @@ public class EmailCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_PERSON_NAME);
         }
 
-        if (model.getInterviewSlot(toEmail.getName().toString()).isEmpty()) {
+        if (model.getAllocatedSlot(toEmail.getName().toString()).isEmpty()) {
             throw new CommandException(MESSAGE_NO_SLOTS_ALLOCATED);
         }
 
@@ -137,7 +137,7 @@ public class EmailCommand extends Command {
         int sent = 0;
 
         for (Interviewee interviewee : intervieweeList) {
-            if (model.getInterviewSlot(interviewee.getName().toString()).isEmpty()) {
+            if (model.getAllocatedSlot(interviewee.getName().toString()).isEmpty()) {
                 // No slots are currently allocated to this interviewee
                 noSlots++;
                 continue;

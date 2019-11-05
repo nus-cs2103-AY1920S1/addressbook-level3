@@ -21,13 +21,13 @@ class DfsHopCroftKarpTest {
         int numInterviewees = subjectGraph.getNumInterviewees();
         int numSlots = subjectGraph.getNumInterviewSlots();
 
-        List<InterviewSlotVertex> intervieweePredecessor = Arrays.asList(new InterviewSlotVertex[numInterviewees]);
+        List<InterviewerSlotVertex> intervieweePredecessor = Arrays.asList(new InterviewerSlotVertex[numInterviewees]);
         List<List<IntervieweeVertex>> interviewSlotPredecessors = new ArrayList<>(numSlots);
         boolean[] isUsedInterviewee = new boolean[numInterviewees];
         boolean[] isUsedSlot = new boolean[numSlots];
         TestUtil.fillWithSubLists(interviewSlotPredecessors, numSlots);
 
-        List<InterviewSlotVertex> lastLayer = new BfsHopCroftKarp(subjectGraph).execute(intervieweePredecessor,
+        List<InterviewerSlotVertex> lastLayer = new BfsHopCroftKarp(subjectGraph).execute(intervieweePredecessor,
                 interviewSlotPredecessors);
         DfsHopCroftKarp dfs = new DfsHopCroftKarp(subjectGraph);
         dfs.execute(lastLayer, intervieweePredecessor, interviewSlotPredecessors, isUsedInterviewee, isUsedSlot);
