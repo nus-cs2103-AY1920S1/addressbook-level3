@@ -1,5 +1,6 @@
 package seedu.ichifund.logic.parser.budget;
 
+import static seedu.ichifund.commons.core.Messages.MESSAGE_INCOMPLETE_BUDGET_DATE;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -41,6 +42,11 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBudgetCommand.MESSAGE_USAGE));
+        }
+
+        if ((argMultimap.getValue(PREFIX_MONTH).isPresent() && argMultimap.getValue(PREFIX_YEAR).isEmpty())
+                || (argMultimap.getValue(PREFIX_MONTH).isEmpty() && argMultimap.getValue(PREFIX_YEAR).isPresent())) {
+            throw new ParseException(String.format(MESSAGE_INCOMPLETE_BUDGET_DATE, AddBudgetCommand.MESSAGE_USAGE));
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
