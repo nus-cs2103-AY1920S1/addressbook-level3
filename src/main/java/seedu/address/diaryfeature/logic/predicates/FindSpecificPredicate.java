@@ -9,12 +9,14 @@ public class FindSpecificPredicate implements Predicate<DiaryEntry> {
     private final String userIsLookingFor;
 
     public FindSpecificPredicate(String[] input) {
-
         DiaryParametersEnum type = DiaryParametersEnum.of(input[0]);
         this.category = type;
         this.userIsLookingFor = input[1];
     }
 
+    private boolean checkStrings(String diary, String userInput) {
+        return diary.toLowerCase().contains(userInput.toLowerCase());
+    }
 
     @Override
     public boolean test(DiaryEntry diaryEntry) {
@@ -22,16 +24,16 @@ public class FindSpecificPredicate implements Predicate<DiaryEntry> {
 
         switch (this.category) {
             case TITLE:
-                answer =  diaryEntry.getTitle().toString().contains(userIsLookingFor);
+                answer =  checkStrings(diaryEntry.getTitle().toString(),userIsLookingFor);
                  break;
             case DATE:
-                answer =  diaryEntry.getDateAsStringtoStore().contains(userIsLookingFor);
+                answer =  checkStrings(diaryEntry.getDateAsStringtoStore(),userIsLookingFor);
                 break;
             case PLACE:
-                answer =  diaryEntry.getPlace().toString().contains(userIsLookingFor);
+                answer =  checkStrings(diaryEntry.getPlace().toString(),userIsLookingFor);
                 break;
             case MEMORY:
-                answer =  diaryEntry.getMemory().toString().contains(userIsLookingFor);
+                answer =  checkStrings(diaryEntry.getMemory().toString(),userIsLookingFor);
                 break;
         }
             return answer;

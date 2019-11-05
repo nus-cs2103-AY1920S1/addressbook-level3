@@ -39,8 +39,8 @@ public class ExpenseList {
      */
     private void sort() {
         if (currentComparator == null) {
-            expenses.sort(byDate);
             expenses.sort(byTime);
+            expenses.sort(byDate);
         } else {
             expenses.sort(currentComparator);
         }

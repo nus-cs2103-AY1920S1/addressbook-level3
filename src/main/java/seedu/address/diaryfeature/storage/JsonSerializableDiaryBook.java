@@ -1,6 +1,5 @@
 package seedu.address.diaryfeature.storage;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 
@@ -19,13 +18,17 @@ public class JsonSerializableDiaryBook {
 
 
     private final List<JsonAdaptedDiaryEntry> entries = new ArrayList<>();
+    private final JsonAdaptedDetails detail;
 
     /**
      * Constructs a {@code JsonSerializableDiaryBook} with the given entries.
      */
     @JsonCreator
-    public JsonSerializableDiaryBook(@JsonProperty("entries") List<JsonAdaptedDiaryEntry> entries) {
+    public JsonSerializableDiaryBook(@JsonProperty("entries") List<JsonAdaptedDiaryEntry> entries,
+    @JsonProperty("details") JsonAdaptedDetails detail) {
         this.entries.addAll(entries);
+        this.detail = detail;
+
     }
 
     /**
@@ -35,6 +38,7 @@ public class JsonSerializableDiaryBook {
      */
     public JsonSerializableDiaryBook(DiaryBook source) {
         entries.addAll(source.getDiaryEntryList().stream().map(JsonAdaptedDiaryEntry::new).collect(Collectors.toList()));
+        detail = new JsonAdaptedDetails(source.getDetails());
     }
 
     /**
@@ -48,6 +52,7 @@ public class JsonSerializableDiaryBook {
             DiaryEntry diaryEntry = jsonAdaptedDiaryEntry.toModelType();
             diaryBook.addDiaryEntry(diaryEntry);
         }
+        diaryBook.setinnerDetails(detail.toModelType());
         return diaryBook;
     }
 

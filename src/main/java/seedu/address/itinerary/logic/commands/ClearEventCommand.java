@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import seedu.address.address.logic.commands.ClearCommand;
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.ui.ClearCommandWindow;
@@ -25,8 +26,16 @@ public class ClearEventCommand extends Command<Model> {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears all event entries in the itinerary list\n";
     public static final String MESSAGE_WARNING = "Currently viewing clear window warning.";
 
+    private ClearCommandWindow clearCommandWindow;
 
-    private ClearCommandWindow clearCommandWindow = new ClearCommandWindow();
+    public ClearEventCommand() {
+        clearCommandWindow = new ClearCommandWindow();
+    }
+
+    // For testing purposes
+    ClearEventCommand(ClearCommandWindow clearCommandWindow) {
+        this.clearCommandWindow = clearCommandWindow;
+    }
 
     /**
      * Opens the clear window or focuses on it if it's already opened.

@@ -1,7 +1,4 @@
 = Hon Hao Chen - Project Portfolio
-:site-section: AboutUs
-:imagesDir: ../images
-:stylesDir: ../stylesheets
 
 == PROJECT: TravEzy
 
@@ -9,44 +6,62 @@
 
 == About the project
 
-My team of 4 software engineering students and I were tasked with enhancing a basic CLI desktop addressbook application for our Software Engineering project. We choose to morph it into an travelling companion application which synthesis various kinds of features including financial tracker, diary, itinerary planner, contacts and much more. This enhanced application allows users who'd love to travel to plan their trip beforehand, record down their expenses and write down their precious memories during travel.
+My team of 4 software engineering students and I were tasked with enhancing a basic https://searchwindowsserver.techtarget.com/definition/command-line-interface-CLI[Command Line Interface (CLI)] desktop addressbook application for our Software Engineering project. Our constraint is that we have to target users who are able to type fast and prefer typing over other means of input.
+
+With the stated constraint in mind, we choose to morph the given addressbook application into an travelling companion application which synthesis various kinds of features including financial tracker, diary, itinerary planner, contacts and much more. This enhanced application allows users who love to travel to plan their trip beforehand, record down their expenses and write down their precious memories during travel. We ensured that the users have to type commands and instructions for all of the added features.
 
 This is what our project looks like: +
-(Include Main page)
 
+image::../images/Ui.png[]
+
+
+=== My Role
 My role was to design and write the codes for the Financial Tracker feature. The following sections illustrate my contributions in detail, as well as the relevant documentation I have added to the user and developer guides in relation to these contributions.
 
 == Summary of contributions
 
-This section shows a summary of my contributed feature, documentation, design consideration and other relevant contributions to the team project.
+This section shows a summary of my contributed feature and other relevant contributions to the team project.
 
-* *Contribution*: added the *Financial Tracker* feature
-** What it does: allows the user to keep track of their expenses.
-** Justification: This feature improves the product significantly and is considered crucial for the application to work.
-** Highlights: This feature affects a lot.
+*Major contributions*
 
-* *Code contributed*: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/76[76],
+Financial Tracker:
+
+* What is it?
+
+    The Financial Tracker is an expense recorder whereby users can keep track of the records of their spending during their trips to different countries.
+
+* Justification
+
+    Our target users which we have chosen are NUS students who love to travel. During our users analysis, we realised that students nowadays are very likely to overspend their budget during
+    travelling. Therefore, this financial tracker feature allows our target users to keep a record of their spending in order to remind them of their budget.
+
+* More to it
+
+    Users could also generate an overview of their expenses in an easy-to-look pie chart form!
+
+Code contributed: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/76[76],
  https://github.com/AY1920S1-CS2103T-T17-2/main/pull/47[47]
 
-* *Other contributions*:
+*Minor contributions*
 
-** Project management:
+Project management:
 
-** Enhancements to existing features:
-*** Updated the GUI color scheme: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/85[85]
-*** Wrote additional tests for existing feature: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96]
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide:
-** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Reported bugs and suggestions for other teams in the class:
-*** Some parts of the history feature I added was adopted by several other class mates:
+* Started implementing Ui components and link them to FXML. This provides skeletal codes for the rest of my teammates to adapt.
+* Modify Command Class to be generic so that the class can take in various Model classes.
+
+Enhancements to existing features:
+
+* Updated the Main page's Ui:
+
+Community:
+
+* PRs reviewed (with non-trivial review comments):
+* Reported bugs and suggestions for other teams in the class:
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections which I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I shall focus on 3 relevant commands here which are the ``help``, ``sort`` and ``summary`` commands.
 |===
 
 include::../UserGuide.adoc[tag=financialtracker]

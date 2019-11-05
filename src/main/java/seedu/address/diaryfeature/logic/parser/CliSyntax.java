@@ -12,6 +12,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_PLACE = new Prefix("p/");
     public static final Prefix PREFIX_MEMORY = new Prefix("m/");
+    public static final Prefix PREFIX_USERNAME = new Prefix("user/");
+    public static final Prefix PREFIX_PASSWORD = new Prefix("password/");
+
 
 
 

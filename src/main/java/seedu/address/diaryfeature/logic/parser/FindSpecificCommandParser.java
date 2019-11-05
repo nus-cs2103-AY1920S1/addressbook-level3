@@ -17,31 +17,39 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 
 
 /**
- * Parses input arguments and creates a new AddCommand object
-*/
-
+ * Parses input arguments and creates a new FindSpecificCommand object
+ */
 public class FindSpecificCommandParser {
-    ArgumentMultimap argMultimap;
+    private static final String FIND_SPECIFIC_USAGE = "In particular, input your findSpecific command like this: \n" +
+            "findSpecific prefix/{target} Eg: findSpecific t/birthday. " +
+            "\n Note that the input cant be empty, and has " +
+            "to be at least 1 character \n" +
+            "The parameters that you can use are t for title, d for date, p for place and m for memory";
+
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
-     *
+     * Parses the given {@code String} of arguments in the context of the FindSpecificCommand
+     * and returns an FindSpecificCommand object for execution.
+     * @throws EmptyArgumentException if the user input does not conform the expected format
      */
-
     public Command parse(String args) throws EmptyArgumentException {
-        String trimmed = ParserUtil.parseArgs(args,FindSpecificCommand.COMMAND_WORD);
-        argMultimap = ArgumentTokenizer.tokenize(trimmed, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
-        return new FindSpecificCommand(new FindSpecificPredicate(getPresentValue()));
+        try {
+            ArgumentMultimap multimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
+            return new FindSpecificCommand(new FindSpecificPredicate(getPresentValue(multimap)));
+        } catch (EmptyArgumentException error) {
+            throw new EmptyArgumentException(FindSpecificCommand.COMMAND_WORD, FIND_SPECIFIC_USAGE);
+        }
     }
 
-
-    private String[] getPresentValue() {
-        Optional<String> title = argMultimap.getValue(PREFIX_TITLE);
-        Optional<String> date = argMultimap.getValue(PREFIX_DATE);
-        Optional<String> place = argMultimap.getValue(PREFIX_PLACE);
-        Optional<String> memory = argMultimap.getValue(PREFIX_MEMORY);
-
+    /**
+     * Get the value (from the prefixes) which is present
+     * @return a String[] of the component and the corresponding value
+     */
+    private String[] getPresentValue(ArgumentMultimap multimap) throws EmptyArgumentException {
+        Optional<String> title = multimap.getValue(PREFIX_TITLE);
+        Optional<String> date = multimap.getValue(PREFIX_DATE);
+        Optional<String> place = multimap.getValue(PREFIX_PLACE);
+        Optional<String> memory = multimap.getValue(PREFIX_MEMORY);
         String[] myAnswer = new String[2];
         if (title.isPresent()) {
             myAnswer[0] = "title";
@@ -55,13 +63,20 @@ public class FindSpecificCommandParser {
         } else if (memory.isPresent()) {
             myAnswer[0] = "memory";
             setValues(myAnswer, memory);
+        } else {
+            throw new EmptyArgumentException(FindSpecificCommand.COMMAND_WORD, FIND_SPECIFIC_USAGE);
         }
         return myAnswer;
     }
 
+    /**
+     * Set the corresponding value of the component
+     * @param input String[] to add values
+     * @param myValue Optional value to check
+     */
+    private void setValues(String[] input, Optional<String> myValue) throws EmptyArgumentException {
+        input[1] = ParserUtil.parseStringArgs(myValue.get(),FindSpecificCommand.COMMAND_WORD);
 
-    private void setValues(String[] input, Optional<String> myValue) {
-        input[1] = myValue.get();
     }
 }
 
