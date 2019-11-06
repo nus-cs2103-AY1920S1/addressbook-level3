@@ -1,19 +1,22 @@
 //@@author nattanyz
-package dream.fcard.util;
+package dream.fcard.util.stats;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
 /**
- * Utilities related to LocalDateTime objects.
+ * Utilities related to LocalDateTime and Duration objects.
  */
 public class DateTimeUtil {
 
@@ -29,7 +32,7 @@ public class DateTimeUtil {
 
     /**
      * Returns the String representation of the given Duration object.
-     * Format: "X hours, Y minutes, Z seconds"
+     * Format: "X hours Y minutes Z seconds"
      * @param duration The duration to be represented as a String.
      * @return The String representation of the given Duration object.
      */
@@ -58,7 +61,7 @@ public class DateTimeUtil {
 
     /**
      * Returns the String representation of the given LocalDateTime object.
-     * Format: similar to "8/23/16 1:12 PM".
+     * Format: "M/D/Y, HH:MM AM/PM", similar to "23/8/16, 1:12 PM".
      * @param localDateTime The LocalDateTime object to be represented as a String.
      * @return The String representation of the given LocalDateTime object.
      */
@@ -67,6 +70,7 @@ public class DateTimeUtil {
         return localDateTime.format(formatter);
     }
 
+    //@@author AHaliq
     /**
      * Returns a JsonValue of a LocalDateTime object.
      * @param localDateTime object to convert to json
@@ -84,7 +88,8 @@ public class DateTimeUtil {
         return new JsonValue(obj);
     }
 
-    public static LocalDateTime getDateTimeFromJson(JsonObject obj) throws JsonWrongValueException {
+    public static LocalDateTime getDateTimeFromJson(JsonObject obj) throws
+            JsonWrongValueException, NullPointerException {
         return LocalDateTime.of(
                 obj.get(Schema.DATE_TIME_YEAR).getInt(),
                 obj.get(Schema.DATE_TIME_MONTH).getInt(),
@@ -94,6 +99,20 @@ public class DateTimeUtil {
                 obj.get(Schema.DATE_TIME_SECOND).getInt(),
                 obj.get(Schema.DATE_TIME_NANO).getInt());
     }
+    //@@author
 
+    //@@author nattanyz
+    public static Duration getAverageDuration(SessionList sessionList) {
+        Duration totalDuration = Duration.ZERO;
+        ArrayList<Session> sessionsArrayList = sessionList.getSessionArrayList();
+        for (Session session : sessionsArrayList) {
+            totalDuration = totalDuration.plus(session.getDuration());
+        }
+
+        int numberOfSessions = sessionList.getNumberOfSessions();
+
+        Duration averageDuration = totalDuration.dividedBy(numberOfSessions);
+        return averageDuration;
+    }
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
 }

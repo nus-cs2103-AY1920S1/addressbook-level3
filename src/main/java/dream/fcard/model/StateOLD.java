@@ -136,7 +136,7 @@
 //    private int getDeckIndex(String name) {
 //        for (int i = 0; i < decks.size(); i++) {
 //            Deck currentDeck = decks.get(i);
-//            boolean isUserInputMatchDeckName = currentDeck.getName().equals(name);
+//            boolean isUserInputMatchDeckName = currentDeck.getDeckName().equals(name);
 //
 //            if (isUserInputMatchDeckName) {
 //                return i;
