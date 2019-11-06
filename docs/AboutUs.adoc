@@ -32,7 +32,7 @@ In Charge of: Statistics generation, User Interface (UI)
 
 === Yeo Dong Han
 image::yeodonghan.png[width="150", align="left"]
-{empty}[https://github.com/yeodonghan[github]]
+{empty}[https://github.com/yeodonghan[github]][<<yeodonghan#, portfolio>>]
 
 Role: Developer , Scheduling and tracking
 
