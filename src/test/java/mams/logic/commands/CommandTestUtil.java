@@ -15,6 +15,7 @@ import java.util.List;
 
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.CommandHistory;
 import mams.model.Mams;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
@@ -54,7 +55,7 @@ public class CommandTestUtil {
     public static final String INVALID_CREDITS_DESC = " " + PREFIX_CREDITS + "6"; // too low
     public static final String INVALID_PREVMODS_DESC = " " + PREFIX_PREVMODS + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_MATRICID_DESC = " " + PREFIX_STUDENT; // empty string not allowed for matricId
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "CS1010*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -67,11 +68,12 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
+     * - does not check for commandHistory match.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, new CommandHistory());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -90,6 +92,26 @@ public class CommandTestUtil {
     }
 
     /**
+     * Same as {@link #assertCommandSuccess(Command, Model, String, Model)}, but takes in
+     * {@code actualCommandHistory} and {@code expectedCommandHistory} for comparison as well.
+     */
+    public static void assertCommandSuccessWithHistory(Command command,
+                                                       Model actualModel,
+                                                       CommandResult expectedCommandResult,
+                                                       Model expectedModel,
+                                                       CommandHistory actualCommandHistory,
+                                                       CommandHistory expectedCommandHistory) {
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
@@ -101,7 +123,7 @@ public class CommandTestUtil {
         Mams expectedMams = new Mams(actualModel.getMams());
         List<Student> expectedFilteredList = new ArrayList<>(actualModel.getFilteredStudentList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, new CommandHistory()));
         assertEquals(expectedMams, actualModel.getMams());
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }

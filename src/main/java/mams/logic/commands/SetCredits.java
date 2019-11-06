@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 
 import mams.model.student.Credits;
@@ -46,11 +47,12 @@ public class SetCredits extends StudentCommand {
      * Checks for logical errors, such as non-existant modules and students etc.
      * Create a new student with the added module and replaces the old student in mams.
      * @param model {@code Model} which the command should operate on.
+     * @param commandHistory
      * @return {@code CommandResult}
      * @throws CommandException for non-existant modules/student or if the student
      * already has the module.
      */
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
         List<Student> lastShownStudentList = model.getFilteredStudentList();
 

@@ -25,18 +25,22 @@ The Module Appeal Management System (MAMS) is a desktop app that aims to combine
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MAMS.jar` link:https://github.com/AY1920S1-CS2103-T11-2/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for The Module Appeal Management System (MAMS).
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. **Important**: Unzip `data.zip`. Inside, there should be a folder containing `mams.json`, ie. `data/mams.json`.
+Copy the `data` folder containing `mams.json` to the same directory as `mams.jar`. Due to the special nature of
+app, users are specifically restricted from deleting/adding data entries.
+.  Double-click the file to start the app. The GUI should appear in a few seconds..
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Refer to <<Features>> for details of each command.
+. Note that the application is developed primarily for Windows or MacOS. If you use a different OS,
+you may face unexpected issues.
 
 [[Features]]
 == Features
 
-Broadly speaking, the MAMS handles three main types of items: *Students, Appeals, and Modules*. Each of these items may be further grouped into sub-lists.
-eg. Students may be organized by matriculation year, course of study etc.
+Broadly speaking, the MAMS handles three main types of items: *Students, Appeals, and Modules*.
 
 A student is uniquely identified by his/her 8-character Matriculation Number starting with a letter, eg. `A0132243`
 
@@ -48,10 +52,11 @@ A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Scienc
 *Command Format*
 
 * Each command must begin with a command word. See each command below for the list of associated command words.
-* Words in `UPPER_CASE` are the parameters to be supplied by the user eg. `DESCRIPTION_OF_TASK` denotes that you should provide a short description of the task.
-* Items enclosed by square brackets are optional parameters that can be passed in eg. `view OBJECT_ID [l/]` can be used as `view A0122432Z l/` or `view 230293`.
-* Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[m/PARAMETER]...` can be used as, `m/CS2103` , `m/210` etc.
-* Parameters within square brackets can be supplied in any order.
+* Words in `UPPER_CASE` are the arguments to be supplied by the user eg. `INDEX` denotes that you should provide a numeric index in the command-specified format.
+* Items enclosed by square brackets are optional, eg. `list [-a] [-m] [-s]` can be used as `list` or `list -s`.
+* Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[m/PARAMETER]...` can be supplied as `m/PARAMETER` or `m/PARAMETER1 m/PARAMETER2`
+* Arguments within square brackets can be supplied in any order.
+* There
 * Tags will often be used in the command to specify the targeted list for the command. Certain commands allow operations on multiple lists.
 ** `a/` : prefix for the `Appeal List`
 ** `m/` : prefix for the `Module List`
@@ -90,13 +95,19 @@ image::ViewCommandDemoAfter.png[width="790"]
 
 Format: `list [-a] [-m] [-s]`
 
-Tags:
+Options:
 
 * `-a`: lists out all appeals in MAMS
 * `-m`: lists out all modules in MAMS
 * `-s`: lists out all students in MAMS
-* if no tags are specified, `list` command will behave as though all three tags have be applied. ie. it will
+* if no options are specified, `list` command will behave as
+though all three tags have be applied. ie. it will
 list out all appeals, modules, and students.
+* if an invalid option has been supplied, eg.`-hs` or `-invalid`, an error message will be shown,
+and the command will fail.
+* invalid or unnecessary parameters will be ignored. This is by design, since
+the `list` command does not take in a parameter input.
+** eg. for `history -o hello`, `hello` will be ignored.
 
 *Examples:*
 
@@ -131,13 +142,29 @@ image::HistoryCommandArrowDemoAfter.png[width="790"]
 Opens a separate window displaying the command history in MAMS. The display of the command feedback can be turned
 off.
 
-Format: `history [-h]`
+Format: `history [-o] [-s]`
 
-Tags:
+Options:
 
-* `-h`: hide the command feedback in the history window
-* if no tags are supplied, the `history` command will show both command input and command feedback history in the
-history window.
+* `-o`: hide the command feedback in the history window
+* `-s`: show only successful commands in the history window
+* all options for this command must be space-delimited
+* if no options are supplied, the `history` command will default to show
+both command input and command feedback history in the
+history window, as well as all executed commands (regardless of success status).
+* if an invalid option has been supplied, eg.`-hs` or `-invalid`, an error message will be shown,
+and the command will fail.
+* invalid or unnecessary parameters will be ignored. This is by design, since
+the `history` command does not take in a parameter input.
+** eg. for `history -o hello`, `hello` will be ignored.
+
+Hotkey Usage:
+When the history window is focused, you may use several hotkeys to navigate around the window.
+They are as follows:
+
+* kbd:[&uarr;] kbd:[&darr;] Navigate up and down the history entries.
+* kbd:[q] Copy the command of the currently selected history entry to the system clipboard.
+* kbd:[esc] Close the history window.
 
 *Examples:*
 
@@ -151,8 +178,13 @@ Sample Output: Opens a window displaying command history
 
 image::HistoryWindowDemo.png[width="790"]
 
-TIP: (Still experimental) By pressing kbd:[q], the currently selected command
-in the history window can be copied to the clipboard.
+After pressing kbd:[&uarr;] two times,
+
+image::HistoryWindowUpArrowDemo.png[width="790"]
+
+Now, after pressing kbd:[q], the command text of the selected cell will be copied,
+
+image:HistoryWindowCopyDemo.png[width="790"]
 
 ==== Sync Command History to disk
 

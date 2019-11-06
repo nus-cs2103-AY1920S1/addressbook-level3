@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.ReadOnlyMams;
 import mams.storage.JsonMamsStorage;
@@ -25,7 +26,7 @@ public class SaveCommand extends StoreCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         if (this.tag.equals("")) {
             this.tag = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         }

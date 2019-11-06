@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import mams.commons.core.index.Index;
 import mams.commons.util.CollectionUtil;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
@@ -58,7 +59,7 @@ public class ClashCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
         List<Appeal> lastShownAppealList = model.getFilteredAppealList();
         List<Module> lastShownModuleList = model.getFilteredModuleList();
