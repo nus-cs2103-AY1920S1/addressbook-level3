@@ -31,13 +31,13 @@ public class TypicalFlashcard {
      */
     public static FlashcardList getTypicalFlashcardList() {
         FlashcardList fl = new FlashcardList();
-        for (Flashcard flashcard : getTYpicalFlashcards()) {
+        for (Flashcard flashcard : getTypicalFlashcards()) {
             fl.addFlashcard(flashcard);
         }
         return fl;
     }
 
-    public static List<Flashcard> getTYpicalFlashcards() {
+    public static List<Flashcard> getTypicalFlashcards() {
         return new ArrayList<>(Arrays.asList(MOUNT_BLANC, DAXING_AIRPORT, CHANGI_AIRPORT, TOKYO_AIRPORT));
     }
 }

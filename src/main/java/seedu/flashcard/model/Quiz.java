@@ -66,4 +66,16 @@ public class Quiz {
         return quizableFlashcards.isEmpty();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Quiz)) {
+            return false;
+        }
+       Quiz obj = (Quiz) other;
+        return quizableFlashcards.equals(obj.quizableFlashcards);
+    }
+
 }

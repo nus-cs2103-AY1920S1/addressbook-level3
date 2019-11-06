@@ -1,16 +1,27 @@
 package seedu.flashcard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.flashcard.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.EditCommand.EditFlashcardDescriptor;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
+import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.Model;
+import seedu.flashcard.model.VersionedFlashcardList;
+import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.FlashcardContainsKeywordsPredicate;
 import seedu.flashcard.testutil.EditFlashcardDescriptorBuilder;
 
 /**
@@ -78,5 +89,37 @@ public class CommandTestUtil {
         } catch (CommandException ce) {
             throw new AssertionError("Execution of the command should not fail.", ce);
         }
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the flashcard list, filtered flashcard list and selected flashcard in {@code actualModel} remain unchanged
+     */
+    public static void assertCommandFailure(Command command, Model actualModel,
+                                            String expectedMessage, CommandHistory commandHistory) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        VersionedFlashcardList expectedFlashcardList = new VersionedFlashcardList(actualModel.getFlashcardList());
+        List<Flashcard> expectedFilteredList = new ArrayList<>(actualModel.getFilteredFlashcardList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));
+        assertEquals(expectedFlashcardList, actualModel.getFlashcardList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredFlashcardList());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showFlashcardAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredFlashcardList().size());
+
+        Flashcard flashcard = model.getFilteredFlashcardList().get(targetIndex.getZeroBased());
+        final String[] splitQuestion = new String[] {flashcard.getQuestion().toString()};
+        model.updateFilteredFlashcardList(new FlashcardContainsKeywordsPredicate(Arrays.asList(splitQuestion)));
+
+        assertEquals(1, model.getFilteredFlashcardList().size());
     }
 }
