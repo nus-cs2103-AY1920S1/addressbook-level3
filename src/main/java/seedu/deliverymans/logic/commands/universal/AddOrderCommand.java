@@ -36,7 +36,7 @@ public class AddOrderCommand extends Command {
             + "[" + PREFIX_FOOD + "FOOD]\n"
             + "[" + PREFIX_QUANTITY + "QUANTITY]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_CUSTOMER + "Alex Yeoh "
+            + PREFIX_CUSTOMER + "AlexYeoh "
             + PREFIX_RESTAURANT + "KFC "
             + PREFIX_FOOD + "3 Piece Chicken "
             + PREFIX_QUANTITY + "3 "
@@ -72,8 +72,10 @@ public class AddOrderCommand extends Command {
             deliverymanToAdd = toAdd.getDeliveryman();
         }
 
+        Name orderName = model.getFreeOrderName();
+
         // Instantiating the order
-        Order order = new Order.OrderBuilder().setCustomer(toAdd.getCustomer())
+        Order order = new Order.OrderBuilder().setOrderName(orderName).setCustomer(toAdd.getCustomer())
                 .setRestaurant(toAdd.getRestaurant()).setDeliveryman(deliverymanToAdd)
                 .setFood(toAdd.getFoodList()).setCompleted(toAdd.isCompleted()).completeOrder();
 

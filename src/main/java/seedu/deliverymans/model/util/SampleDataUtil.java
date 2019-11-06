@@ -113,24 +113,24 @@ public class SampleDataUtil {
 
     public static Order[] getSampleOrders() {
         return new Order[]{
-            new Order.OrderBuilder().setCustomer(new Name("AlexYeoh"))
+            new Order.OrderBuilder().setOrderName(new Name("Order 1")).setCustomer(new Name("AlexYeoh"))
                     .setRestaurant(new Name("KFC"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("3 Piece Chicken"), 1)))
                     .completeOrder(),
-            new Order.OrderBuilder().setCustomer(new Name("BerniceYu"))
+            new Order.OrderBuilder().setOrderName(new Name("Order 2")).setCustomer(new Name("BerniceYu"))
                     .setRestaurant(new Name("Prata House"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Curry Fountain"), 1)))
                     .completeOrder(),
-            new Order.OrderBuilder().setCustomer(new Name("CharlotteOliveiro"))
+            new Order.OrderBuilder().setOrderName(new Name("Order 3")).setCustomer(new Name("CharlotteOliveiro"))
                     .setRestaurant(new Name("SkyBar Bar and Restaurant"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Buffalo Wings"), 5)))
                     .completeOrder(),
-            new Order.OrderBuilder().setCustomer(new Name("DavidLi"))
+            new Order.OrderBuilder().setOrderName(new Name("Order 4")).setCustomer(new Name("DavidLi"))
                     .setRestaurant(new Name("IchiNiSan Ramen"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1),
                             new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen E"), 3)))
                     .completeOrder(),
-            new Order.OrderBuilder().setCustomer(new Name("IrfanIbrahim"))
+            new Order.OrderBuilder().setOrderName(new Name("Order 5")).setCustomer(new Name("IrfanIbrahim"))
                     .setRestaurant(new Name("Piggys Self Barbeque"))
                     .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Trotter"), 7),
                                 new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Shank"), 7),

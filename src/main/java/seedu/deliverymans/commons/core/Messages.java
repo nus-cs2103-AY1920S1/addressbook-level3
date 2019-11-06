@@ -20,4 +20,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid!";
     public static final String MESSAGE_INVALID_ORDER_TO_ASSIGN =
             "Cant you see that the order has already been assigned or completed?";
+    public static final String MESSAGE_INVALID_ORDER_DISPLAYED_NAME = "The order name provided is invalid!";
 }

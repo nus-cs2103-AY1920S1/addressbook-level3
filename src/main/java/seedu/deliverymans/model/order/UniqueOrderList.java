@@ -52,7 +52,6 @@ public class UniqueOrderList implements Iterable<Order> {
         if (index == -1) {
             throw new OrderNotFoundException();
         }
-
         if (!target.isSameOrder(editedOrder) && contains(editedOrder)) {
             throw new DuplicateOrderException();
         }
