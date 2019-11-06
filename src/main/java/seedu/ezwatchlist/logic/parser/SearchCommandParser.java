@@ -7,14 +7,14 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import seedu.ezwatchlist.commons.core.messages.SearchMessages;
-import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.logic.commands.SearchCommand;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import seedu.ezwatchlist.commons.core.messages.SearchMessages;
+import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.logic.commands.SearchCommand;
 
 /**
  * Parses input arguments and creates a new SearchCommand object
@@ -32,6 +32,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_NAME, PREFIX_TYPE, PREFIX_ACTOR, PREFIX_GENRE, PREFIX_IS_WATCHED, PREFIX_FROM_ONLINE);
+
         List<String> nameList = argMultimap.getAllValues(PREFIX_NAME);
         Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE);
         List<String> actorList = argMultimap.getAllValues(PREFIX_ACTOR);
@@ -45,6 +46,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         parseGenreToBeSearched(genreList);
         parseIsWatchedToBeSearched(isWatchedOptional);
         parseIsInternalToBeSearched(fromOnlineOptional);
+
         return new SearchCommand(searchShowsHashMap);
     }
 
@@ -58,8 +60,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         int length = keywordsArray.length;
         for (int i = 1; i < length; i++) {
             String s = keywordsArray[i];
-            if (!s.isEmpty() && (s.substring(0,1) != "n" || s.substring(0,1) != "a" || s.substring(0,1) != "g"
-                    || s.substring(0,1) != "t" || s.substring(0,1) != "w" || s.substring(0,1) != "o")) {
+            if (!s.isEmpty() && (s.substring(0, 1) != "n" || s.substring(0, 1) != "a" || s.substring(0, 1) != "g"
+                    || s.substring(0, 1) != "t" || s.substring(0, 1) != "w" || s.substring(0, 1) != "o")) {
                 throw new ParseException("Invalid syntax.\n" + SearchMessages.MESSAGE_USAGE);
             }
         }
@@ -70,7 +72,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @param nameList List of names to be searched.
      */
     private void parseNameToBeSearched(List<String> nameList) {
-        searchShowsHashMap.put(SearchKey.KEY_NAME,nameList);
+        searchShowsHashMap.put(SearchKey.KEY_NAME, nameList);
     }
 
     /**
@@ -83,7 +85,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             String type = typeOptional.get().trim().toLowerCase();
             listOfType.add(type);
         }
-        searchShowsHashMap.put(SearchKey.KEY_TYPE,listOfType);
+        searchShowsHashMap.put(SearchKey.KEY_TYPE, listOfType);
     }
 
     /**
@@ -91,7 +93,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @param actorList List of actors to be searched.
      */
     private void parseActorToBeSearched(List<String> actorList) {
-        searchShowsHashMap.put(SearchKey.KEY_ACTOR,actorList);
+        searchShowsHashMap.put(SearchKey.KEY_ACTOR, actorList);
     }
 
     /**
@@ -99,7 +101,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @param genreList List of genres to be searched.
      */
     private void parseGenreToBeSearched(List<String> genreList) {
-        searchShowsHashMap.put(SearchKey.KEY_GENRE,genreList);
+        searchShowsHashMap.put(SearchKey.KEY_GENRE, genreList);
     }
 
     /**
