@@ -1,6 +1,5 @@
 package seedu.guilttrip.logic.parser.addcommandparsers;
 
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
@@ -9,14 +8,12 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_FREQ;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.guilttrip.logic.commands.addcommands.AddAutoExpenseCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
-import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.AutoExpense;
@@ -44,11 +41,8 @@ public class AddAutoExpenseCommandParser implements Parser<AddAutoExpenseCommand
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_FREQ, PREFIX_AMOUNT,
                 PREFIX_DATE, PREFIX_TAG, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_CATEGORY)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAutoExpenseCommand.MESSAGE_USAGE));
-        }
+        ParserUtil.errorIfCompulsoryPrefixMissing(AddAutoExpenseCommand.MESSAGE_USAGE, argMultimap, false,
+                PREFIX_DESC, PREFIX_AMOUNT, PREFIX_CATEGORY, PREFIX_FREQ);
 
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         Frequency freq = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get());
@@ -61,14 +55,6 @@ public class AddAutoExpenseCommandParser implements Parser<AddAutoExpenseCommand
         AutoExpense autoExpense = new AutoExpense(new Category(categoryName, "Expense"), desc, amt, tagList, freq,
                 date);
         return new AddAutoExpenseCommand(autoExpense);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values
-     * in the given {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

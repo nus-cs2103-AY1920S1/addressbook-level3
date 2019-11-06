@@ -34,7 +34,7 @@ import seedu.guilttrip.model.statistics.StatisticsManager;
 import seedu.guilttrip.model.util.EntryComparator;
 
 /**
- * Represents the in-memory model of the guilttrip book data.
+ * Represents the in-memory model of the guiltTrip data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -44,13 +44,16 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final ObservableList<Category> incomeCategoryList;
     private final ObservableList<Category> expenseCategoryList;
-    private final FilteredList<Entry> filteredEntries;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Income> filteredIncomes;
     private final FilteredList<Wish> filteredWishes;
     private final FilteredList<Budget> filteredBudgets;
     private final FilteredList<AutoExpense> filteredAutoExpenses;
-    private final SortedList<Entry> sortedEntryList;
+    private final SortedList<Expense> sortedExpenseList;
+    private final SortedList<Income> sortedIncomeList;
+    private final SortedList<Budget> sortedBudgetList;
+    private final SortedList<AutoExpense> sortedAutoExpenseList;
+    private final SortedList<Wish> sortedWishList;
     private final FilteredList<Reminder> filteredReminders;
     private final FilteredList<Condition> filteredConditions;
     private final VersionedGuiltTrip versionedAddressBook;
@@ -68,14 +71,28 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
         expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
-        filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
-        filteredIncomes = new FilteredList<>(versionedAddressBook.getIncomeList());
-        filteredWishes = new FilteredList<>(versionedAddressBook.getWishList());
-        filteredBudgets = new FilteredList<>(versionedAddressBook.getBudgetList());
-        filteredAutoExpenses = new FilteredList<>(versionedAddressBook.getAutoExpenseList());
-        sortedEntryList = new SortedList<>(versionedAddressBook.getEntryList());
-        sortedEntryList.setComparator(new EntryComparator(sortByTime, sortByAsc));
-        filteredEntries = new FilteredList<>(sortedEntryList);
+        //ExpenseList
+        sortedExpenseList = new SortedList<>(versionedAddressBook.getExpenseList());
+        sortedExpenseList.setComparator(new EntryComparator(sortByTime, sortByAsc));
+        filteredExpenses = new FilteredList<>(sortedExpenseList);
+        //IncomeList
+        sortedIncomeList = new SortedList<>(versionedAddressBook.getIncomeList());
+        sortedIncomeList.setComparator(new EntryComparator(sortByTime, sortByAsc));
+        filteredIncomes = new FilteredList<>(sortedIncomeList);
+        //BudgetList
+        sortedBudgetList = new SortedList<>(versionedAddressBook.getBudgetList());
+        sortedBudgetList.setComparator(new EntryComparator(sortByTime, sortByAsc));
+        filteredBudgets = new FilteredList<>(sortedBudgetList);
+
+        sortedWishList = new SortedList<>(versionedAddressBook.getWishList());
+        sortedWishList.setComparator(new EntryComparator(sortByTime, sortByAsc));
+        filteredWishes = new FilteredList<>(sortedWishList);
+
+        //AutoExpense
+        sortedAutoExpenseList = new SortedList<>(versionedAddressBook.getAutoExpenseList());
+        sortedAutoExpenseList.setComparator(new EntryComparator(sortByTime, sortByAsc));
+        filteredAutoExpenses = new FilteredList<>(sortedAutoExpenseList);
+
         filteredReminders = new FilteredList<>(versionedAddressBook.getReminderList());
         filteredConditions = new FilteredList<>(versionedAddressBook.getConditionList());
         createExpensesfromAutoExpenses();
@@ -141,21 +158,33 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasEntry(Entry entry) {
-        requireNonNull(entry);
-        return versionedAddressBook.hasEntry(entry);
-    }
-
-    @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
         return versionedAddressBook.hasBudget(budget);
     }
 
     @Override
+    public boolean hasExpense(Expense expense) {
+        requireNonNull(expense);
+        return versionedAddressBook.hasExpense(expense);
+    }
+
+    @Override
+    public boolean hasIncome(Income income) {
+        requireNonNull(income);
+        return versionedAddressBook.hasIncome(income);
+    }
+
+    @Override
     public boolean hasWish(Wish wish) {
         requireNonNull(wish);
         return versionedAddressBook.hasWish(wish);
+    }
+
+    @Override
+    public boolean hasAutoExpense(AutoExpense autoExpense) {
+        requireNonNull(autoExpense);
+        return versionedAddressBook.hasAutoExpense(autoExpense);
     }
 
     @Override
@@ -176,29 +205,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteEntry(Entry target) {
-        versionedAddressBook.removeEntry(target);
-        if (target instanceof Expense) {
-            versionedAddressBook.removeExpense((Expense) target);
-            versionedAddressBook.updateBudgets(filteredExpenses);
-            updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
-        } else if (target instanceof Income) {
-            versionedAddressBook.removeIncome((Income) target);
-        } else if (target instanceof Wish) {
-            versionedAddressBook.removeWish((Wish) target);
-        } else if (target instanceof Budget) {
-            versionedAddressBook.removeBudget((Budget) target);
-        }
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
-    }
-
-    @Override
     public void deleteExpense(Expense target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeExpense(target);
         versionedAddressBook.updateBudgets(filteredExpenses);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        updateFilteredExpenses(PREDICATE_SHOW_ALL_ENTRIES);
+        sortFilteredExpense(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -207,6 +219,8 @@ public class ModelManager implements Model {
     public void deleteIncome(Income target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeIncome(target);
+        updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
+        sortFilteredIncome(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -216,11 +230,15 @@ public class ModelManager implements Model {
         versionedAddressBook.removeWish(target);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
+        updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
+        sortFilteredWishes(sortByTime, sortByAsc);
     }
 
     @Override
     public void deleteBudget(Budget target) {
         versionedAddressBook.removeBudget(target);
+        updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
+        sortFilteredBudget(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -229,6 +247,8 @@ public class ModelManager implements Model {
     public void deleteAutoExpense(AutoExpense target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeAutoExpense(target);
+        updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_AUTOEXPENSES);
+        sortFilteredAutoExpense(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -244,25 +264,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addEntry(Entry entry) {
-        versionedAddressBook.addEntry(entry);
-        if (entry instanceof Expense) {
-            versionedAddressBook.addExpense((Expense) entry);
-            versionedAddressBook.updateBudgets(filteredExpenses);
-            updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
-        } else if (entry instanceof Income) {
-            versionedAddressBook.addIncome((Income) entry);
-        } else if (entry instanceof Wish) {
-            versionedAddressBook.addWish((Wish) entry);
-        } else if (entry instanceof Budget) {
-            versionedAddressBook.addBudget((Budget) entry);
-        } else if (entry instanceof AutoExpense) {
-            versionedAddressBook.addAutoExpense((AutoExpense) entry);
-        }
-        sortFilteredEntry(sortByTime, sortByAsc);
-    }
-
-    @Override
     public void addCategory(Category category) {
         versionedAddressBook.addCategory(category);
     }
@@ -271,15 +272,15 @@ public class ModelManager implements Model {
     public void addExpense(Expense expense) {
         versionedAddressBook.addExpense(expense);
         versionedAddressBook.updateBudgets(filteredExpenses);
-        sortFilteredEntry(sortByTime, sortByAsc);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        sortFilteredExpense(sortByTime, sortByAsc);
+        updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
     }
 
     @Override
     public void addIncome(Income income) {
         versionedAddressBook.addIncome(income);
-        sortFilteredEntry(sortByTime, sortByAsc);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
+        sortFilteredIncome(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -287,8 +288,8 @@ public class ModelManager implements Model {
     @Override
     public void addWish(Wish wish) {
         versionedAddressBook.addWish(wish);
-        sortFilteredEntry(sortByTime, sortByAsc);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
+        sortFilteredWishes(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -296,7 +297,8 @@ public class ModelManager implements Model {
     @Override
     public void addAutoExpense(AutoExpense autoExpense) {
         versionedAddressBook.addAutoExpense(autoExpense);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_AUTOEXPENSES);
+        sortFilteredAutoExpense(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -306,7 +308,8 @@ public class ModelManager implements Model {
         budget.setSpent(filteredExpenses);
         versionedAddressBook.addBudget(budget);
         versionedAddressBook.updateBudgets(filteredExpenses);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
+        sortFilteredBudget(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -328,32 +331,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setEntry(Entry target, Entry editedEntry) {
-        requireAllNonNull(target, editedEntry);
-        if (target instanceof Expense) {
-            //TODO
-            Expense toEditEntry = new Expense(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
-                    editedEntry.getAmount(), editedEntry.getTags());
-            Entry entryToEdit = versionedAddressBook.getEntryList().get(versionedAddressBook.getEntryList()
-                    .indexOf(target));
-            Expense expenseToEdit = versionedAddressBook.getExpenseList().get(versionedAddressBook.getExpenseList()
-                    .indexOf(target));
-            versionedAddressBook.setEntry(entryToEdit, toEditEntry);
-            versionedAddressBook.setExpense(expenseToEdit, toEditEntry);
-            versionedAddressBook.updateBudgets(filteredExpenses);
-            updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
-        } else {
-            Income incomeToEdit = versionedAddressBook.getIncomeList().filtered(t -> t == target).get(0);
-            Income toEditEntry = new Income(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
-                    editedEntry.getAmount(), editedEntry.getTags());
-            versionedAddressBook.setEntry(incomeToEdit, toEditEntry);
-            versionedAddressBook.setIncome(incomeToEdit, toEditEntry);
-        }
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
-    }
-
-    @Override
     public void setReminder(Reminder target, Reminder editedReminder) {
         requireAllNonNull(target, editedReminder);
         versionedAddressBook.setReminder(target, editedReminder);
@@ -365,31 +342,45 @@ public class ModelManager implements Model {
         versionedAddressBook.setCondition(target, editedCondition);
     }
 
+    @Override
     public void setExpense(Expense target, Expense editedEntry) {
         requireAllNonNull(target, editedEntry);
-        versionedAddressBook.setEntry(target, editedEntry);
         versionedAddressBook.setExpense(target, editedEntry);
         versionedAddressBook.updateBudgets(filteredExpenses);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
+        sortFilteredExpense(sortByTime, sortByAsc);
+    }
+
+    @Override
+    public void setAutoExpense(AutoExpense target, AutoExpense editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        versionedAddressBook.setAutoExpense(target, editedEntry);
+        updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_AUTOEXPENSES);
+        sortFilteredAutoExpense(sortByTime, sortByAsc);
     }
 
     @Override
     public void setIncome(Income target, Income editedEntry) {
         requireAllNonNull(target, editedEntry);
-        versionedAddressBook.setEntry(target, editedEntry);
         versionedAddressBook.setIncome(target, editedEntry);
+        updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
+        sortFilteredIncome(sortByTime, sortByAsc);
     }
 
     @Override
     public void setWish(Wish target, Wish editedWish) {
         requireAllNonNull(target, editedWish);
         versionedAddressBook.setWish(target, editedWish);
+        updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
+        sortFilteredWishes(sortByTime, sortByAsc);
     }
 
     @Override
     public void setBudget(Budget target, Budget editedBudget) {
         requireAllNonNull(target, editedBudget);
         versionedAddressBook.setBudget(target, editedBudget);
+        updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
+        sortFilteredBudget(sortByTime, sortByAsc);
     }
 
     @Override
@@ -459,11 +450,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Entry> getFilteredEntryList() {
-        return filteredEntries;
-    }
-
-    @Override
     public ObservableList<Expense> getFilteredExpenses() {
         return filteredExpenses;
     }
@@ -471,11 +457,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Income> getFilteredIncomes() {
         return filteredIncomes;
-    }
-
-    @Override
-    public ObservableList<Entry> getFilteredExpensesAndIncomes() {
-        return new FilteredList<>(filteredEntries, entry -> entry instanceof Expense || entry instanceof Income);
     }
 
     @Override
@@ -503,20 +484,43 @@ public class ModelManager implements Model {
         return filteredConditions;
     }
 
-    /**
-     * return List of Entries matching condition.
-     * @param predicate predicate to filter
-     */
-    public void updateFilteredEntryList(Predicate<Entry> predicate) {
-        requireNonNull(predicate);
-        filteredEntries.setPredicate(predicate);
-        versionedAddressBook.updateBudgets(filteredExpenses);
+    // =================== Sorting =============================================================
+
+    @Override
+    public void sortFilteredExpense(SortType c, SortSequence sequence) {
+        sortedExpenseList.setComparator(new EntryComparator(c, sequence));
     }
 
     @Override
-    public void sortFilteredEntry(SortType c, SortSequence sequence) {
-        sortedEntryList.setComparator(new EntryComparator(c, sequence));
+    public void sortFilteredIncome(SortType c, SortSequence sequence) {
+        sortedIncomeList.setComparator(new EntryComparator(c, sequence));
     }
+
+    @Override
+    public void sortFilteredBudget(SortType c, SortSequence sequence) {
+        sortedBudgetList.setComparator(new EntryComparator(c, sequence));
+    }
+
+    @Override
+    public void sortFilteredWishes(SortType c, SortSequence sequence) {
+        sortedWishList.setComparator(new EntryComparator(c, sequence));
+    }
+
+    @Override
+    public void sortFilteredAutoExpense(SortType c, SortSequence sequence) {
+        sortedAutoExpenseList.setComparator(new EntryComparator(c, sequence));
+    }
+
+    // =================== Filtering =============================================================
+    /*Override
+    public void updateAllLists(Predicate<Entry> predicate) {
+        requireNonNull(predicate);
+        updateFilteredAutoExpenses(predicate);
+        updateFilteredWishes(predicate);
+        updateFilteredExpenses(predicate);
+        updateFilteredIncomes(predicate);
+        updateFilteredBudgets(predicate);
+    }*/
 
     @Override
     public void updateFilteredExpenses(Predicate<Expense> predicate) {
@@ -531,13 +535,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredWishes(Predicate<Entry> predicate) {
+    public void updateFilteredWishes(Predicate<Wish> predicate) {
         requireNonNull(predicate);
         filteredWishes.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredBudgets(Predicate<Entry> predicate) {
+    public void updateFilteredBudgets(Predicate<Budget> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
         for (Budget budget : filteredBudgets) {
@@ -582,14 +586,12 @@ public class ModelManager implements Model {
     public void undoAddressBook() {
         versionedAddressBook.undo();
         versionedAddressBook.updateBudgets(filteredExpenses);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void redoAddressBook() {
         versionedAddressBook.redo();
         versionedAddressBook.updateBudgets(filteredExpenses);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
@@ -604,7 +606,6 @@ public class ModelManager implements Model {
     }
 
     // =========== TrackTime =============================================================
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -620,6 +621,6 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook) && userPrefs.equals(other.userPrefs)
-                && filteredEntries.equals(other.filteredEntries);
+                && filteredExpenses.equals(other.filteredExpenses) && filteredIncomes.equals(other.filteredIncomes);
     }
 }

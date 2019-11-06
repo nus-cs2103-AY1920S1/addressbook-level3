@@ -7,7 +7,6 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -81,15 +80,12 @@ public class EditExpenseCommand extends Command {
         Expense entryToEdit = lastShownList.get(index.getZeroBased());
         Expense editedEntry = createEditedExpense(entryToEdit, editEntryDescriptor);
 
-        System.out.println(entryToEdit.isSameEntry(editedEntry));
-
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (!entryToEdit.isSameEntry(editedEntry) && model.hasExpense(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
-        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
-        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.setExpense(entryToEdit, editedEntry);
+        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }

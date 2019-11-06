@@ -54,7 +54,7 @@ public class Category {
     }
 
     public static boolean isNotEmptyCategoryName(String categoryName) {
-        return !categoryName.isEmpty();
+        return !categoryName.trim().isEmpty();
     }
 
     /**

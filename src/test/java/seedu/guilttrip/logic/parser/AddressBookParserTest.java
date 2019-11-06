@@ -19,7 +19,7 @@
 //import seedu.guilttrip.logic.commands.editcommands.EditCommand;
 //import seedu.guilttrip.logic.commands.editcommands.EditCommand.EditPersonDescriptor;
 //import seedu.guilttrip.logic.commands.ExitCommand;
-//import seedu.guilttrip.logic.commands.FindCommand;
+//import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
 //import seedu.guilttrip.logic.commands.HelpCommand;
 //import seedu.guilttrip.logic.commands.ListCommand;
 //import seedu.guilttrip.logic.parser.exceptions.ParseException;
@@ -71,9 +71,9 @@
 //    @Test
 //    public void parseCommand_find() throws Exception {
 //        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-//        FindCommand command = (FindCommand) parser.parseCommand(
-//                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-//        assertEquals(new FindCommand(new DescriptionContainsKeywordsPredicate(keywords)), command);
+//        FindExpenseCommand command = (FindExpenseCommand) parser.parseCommand(
+//                FindExpenseCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+//        assertEquals(new FindExpenseCommand(new DescriptionContainsKeywordsPredicate(keywords)), command);
 //    }
 //
 //    @Test

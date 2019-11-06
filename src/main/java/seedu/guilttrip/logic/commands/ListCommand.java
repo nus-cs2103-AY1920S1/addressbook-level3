@@ -1,7 +1,6 @@
 package seedu.guilttrip.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_INCOMES;
 

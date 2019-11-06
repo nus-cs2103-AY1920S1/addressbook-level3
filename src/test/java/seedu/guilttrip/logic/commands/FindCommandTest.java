@@ -21,7 +21,7 @@
 //import seedu.guilttrip.model.entry.predicates.entries.DescriptionContainsKeywordsPredicate;
 //
 ///**
-// * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+// * Contains integration tests (interaction with the Model) for {@code FindExpenseCommand}.
 // */
 //public class FindCommandTest {
 //    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -34,14 +34,14 @@
 //        DescriptionContainsKeywordsPredicate secondPredicate =
 //                new DescriptionContainsKeywordsPredicate(Collections.singletonList("second"));
 //
-//        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-//        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+//        FindExpenseCommand findFirstCommand = new FindExpenseCommand(firstPredicate);
+//        FindExpenseCommand findSecondCommand = new FindExpenseCommand(secondPredicate);
 //
 //        // same object -> returns true
 //        assertTrue(findFirstCommand.equals(findFirstCommand));
 //
 //        // same values -> returns true
-//        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+//        FindExpenseCommand findFirstCommandCopy = new FindExpenseCommand(firstPredicate);
 //        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 //
 //        // different types -> returns false
@@ -58,7 +58,7 @@
 //    public void execute_zeroKeywords_noPersonFound() {
 //        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
 //        DescriptionContainsKeywordsPredicate predicate = preparePredicate(" ");
-//        FindCommand command = new FindCommand(predicate);
+//        FindExpenseCommand command = new FindExpenseCommand(predicate);
 //        expectedModel.updateFilteredPersonList(predicate);
 //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
 //        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
@@ -68,7 +68,7 @@
 //    public void execute_multipleKeywords_multiplePersonsFound() {
 //        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
 //        DescriptionContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-//        FindCommand command = new FindCommand(predicate);
+//        FindExpenseCommand command = new FindExpenseCommand(predicate);
 //        expectedModel.updateFilteredPersonList(predicate);
 //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
 //        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
