@@ -942,6 +942,8 @@ Need to share your records with your doctor or others? With SugarMummy export fu
 you can save any graphs and plots generated in a pdf file.
 // end::average[]
 
+//tag::recmf[]
+
 === Food Recommendation
 
 ==== Recommending food: `recmf`
@@ -1068,6 +1070,8 @@ Format: `resetf`
 
 Example: `resetf`
 
+//tag::recmf[]
+
 === Other Common Features
 
 ==== Exiting the program : `exit`
@@ -1174,12 +1178,13 @@ E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
 
+//tag::FAQ[]
 == FAQ
 
-[qanda]
-How should I save my data?::
+. *How should I save my data?*
 SugarMummy data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-[qanda]
-How should I reset all the data?::
+
+. *How should I reset all the data?*
 You can simply delete the data file within the same directory that you place SugarMummy.jar. All the data will be set to default sample data.
+//tag::FAQ[]
