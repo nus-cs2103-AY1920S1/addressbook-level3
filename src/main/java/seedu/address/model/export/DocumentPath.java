@@ -8,7 +8,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,13 +62,12 @@ public class DocumentPath extends ExportPath {
      * @return DocumentFilePath representing the path of the document, relative to its immediate parent directory
      */
     private static DocumentFilePath extractDocumentFilePath(String documentFilePathString) {
-        Path fullPath = Paths.get(documentFilePathString);
-        int nameCount = fullPath.getNameCount();
+        requireNonNull(documentFilePathString);
 
         return new DocumentFilePath(
-                fullPath
-                .subpath(nameCount - 1, nameCount)
-                .toString()
+                ExportPath.extractFilePathNoDirectoryString(
+                        documentFilePathString
+                )
         );
     }
 

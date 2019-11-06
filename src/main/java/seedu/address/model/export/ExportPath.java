@@ -57,4 +57,23 @@ public abstract class ExportPath {
                 .normalize()
                 .toString();
     }
+
+    /**
+     * Given a String representing a file path, extract the portion of the String that corresponds to the path
+     * to the file from its immediate parent directory.
+     * e.g. {@code extractFilePathNoDirectoryString("folder/directory/file.ext")} will return {@code "file.ext"}.
+     *
+     * @param fullPathString String representing the full file path
+     * @return String representing path to the file from its immediate parent directory
+     */
+    static String extractFilePathNoDirectoryString(String fullPathString) {
+        requireNonNull(fullPathString);
+
+        Path fullPath = Paths.get(fullPathString);
+        int nameCount = fullPath.getNameCount();
+
+        return fullPath
+                .subpath(nameCount - 1, nameCount)
+                .toString();
+    }
 }
