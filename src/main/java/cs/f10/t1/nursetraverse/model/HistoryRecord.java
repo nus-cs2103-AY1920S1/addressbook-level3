@@ -48,4 +48,22 @@ public class HistoryRecord {
         return command.getClass().getSimpleName() + ", " + patientBook.toString()
                 + " " + patientBook.hashCode();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof HistoryRecord)) {
+            return false;
+        }
+
+        // state check
+        HistoryRecord other = (HistoryRecord) obj;
+        return command.equals(other.command)
+                && patientBook.equals(other.patientBook);
+    }
 }
