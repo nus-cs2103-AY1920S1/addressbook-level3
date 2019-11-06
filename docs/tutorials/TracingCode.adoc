@@ -80,7 +80,7 @@ what happens inside the component and where the execution transfers to another c
 ====
 
 . To start the debugging session, simply `Run` > `Debug Main`
-. Enter `edit 1 n/Alice Yeoh` into the command box and press `Enter`.
+. Enter `edit 1 n/Alice Yeoh` into the Command Box and press `Enter`.
 . The Debugger tool window should show up and look something like this:
 +
 image:DebuggerStep1.png[]

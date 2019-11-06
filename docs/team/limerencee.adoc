@@ -105,11 +105,11 @@ You wish to set your budget for the month _October 2019_ as $_2000_:
 +
 image::../images/add-budget/Step1.png[,550]
 
-. You type: **budget v/2000 d/10/2019** in the command box and press kbd:[Enter].
+. You type: **budget v/2000 d/10/2019** in the Command Box and press kbd:[Enter].
 +
 image::../images/add-budget/Step2.png[,550]
 
-. You should see in the result box that your budget for _October 2019_ has been set to $_2000_.
+. You should see in the Result Box that your budget for _October 2019_ has been set to $_2000_.
 +
 NOTE: If you are changing your budget for the current displayed month, you should see the changes on the GUI immediately.
 +

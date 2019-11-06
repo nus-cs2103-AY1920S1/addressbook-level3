@@ -27,12 +27,12 @@ This is how THRIFT looks like:
 .The graphical user interface for THRIFT
 image::UGUI.png[]
 
-== Quick Start
+== Quick start
 1. Ensure that you have Java `11` or above installed in your Computer.
 2. Download the latest THRIFT.jar https://github.com/AY1920S1-CS2103T-W12-2/main/releases[here].
 3. Copy the file to the folder you want to use as the home folder for your THRIFT application.
 4. Double-click the file to start the app, the GUI should appear in a few seconds.
-5. Type the command in the command box and press `Enter` to execute it. e.g. typing `help` and pressing `Enter` will open the help window.
+5. Type the command in the Command Box and press `Enter` to execute it. e.g. typing `help` and pressing `Enter` will open the help window.
 6. Some example commands you can try:
 *   `add_expense n/Apple Airpods v/200`: adds an expense called `Apple Airpods` which cost $`200`.
 *   `add_income n/Bursary Award v/350`: adds an income called `Bursary Award` which incremented your budget by $`350`.
@@ -65,7 +65,10 @@ You are able to set a budget for each month in THRIFT. This allows THRIFT to dis
 
 NOTE: It is not compulsory to set a budget for each month and you can use THRIFT normally without setting budgets.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `budget` command, you have to use the following syntax:
+
 `budget v/VALUE d/MONTH/YEAR`
 
 ****
@@ -75,7 +78,7 @@ NOTE: It is not compulsory to set a budget for each month and you can use THRIFT
 * `YEAR` is in `YYYY` where it is between `0001-9999` inclusive.
 ****
 
-==== Example usage:
+==== Example usage
 
 You wish to set your budget for the month _October 2019_ as $_2000_:
 
@@ -83,11 +86,11 @@ You wish to set your budget for the month _October 2019_ as $_2000_:
 +
 image::add-budget/Step1.png[,550]
 
-. You type: **budget v/2000 d/10/2019** in the command box and press kbd:[Enter].
+. You type: **budget v/2000 d/10/2019** in the Command Box and press kbd:[Enter].
 +
 image::add-budget/Step2.png[,550]
 
-. You should see in the result box that your budget for _October 2019_ has been set to $_2000_.
+. You should see in the Result Box that your budget for _October 2019_ has been set to $_2000_.
 +
 NOTE: If you are changing your budget for the current displayed month, you should see the changes on the GUI immediately.
 +
@@ -98,7 +101,10 @@ image::add-budget/Step3.png[,550]
 
 One of the most important features of THRIFT is to allow you to track your expenses by adding them into THRIFT.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `add_expense` command, you have to use the following syntax:
+
 `add_expense n/EXPENSE_NAME v/VALUE [r/REMARK] [t/TAG]...`
 
 ****
@@ -114,14 +120,14 @@ One of the most important features of THRIFT is to allow you to track your expen
 
 TIP: The default currency is in Singapore Dollars (SGD). You are recommended to `convert` foreign currencies to SGD before adding the value as the `VALUE`.
 
-==== Example usage:
+==== Example usage
 You had the famous Laksa from "The Deck" for lunch which cost $10.50 and you wish to track it in THRIFT:
 
 . You have a remaining balance of $2000 at the beginning.
 +
 image::add-transaction/expense/Step1.png[,550]
 
-. You type: **add_expense n/Laksa v/10.50 r/Delicious! From "The Deck" t/Lunch** into the command box and press kbd:[Enter].
+. You type: **add_expense n/Laksa v/10.50 r/Delicious! From "The Deck" t/Lunch** into the Command Box and press kbd:[Enter].
 +
 NOTE: The transaction date is automatically populated based on your system time.
 +
@@ -135,7 +141,10 @@ image::add-transaction/expense/Step3.png[,550]
 === Adding an income: `add_income`
 Being able to add an income transaction is just as important as tracking your expenses. THRIFT is able to track all of your incoming transactions as well.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `add_income` command, you have to use the following syntax:
+
 `add_income n/INCOME_NAME v/VALUE [r/REMARK] [t/TAG]...`
 
 ****
@@ -148,14 +157,14 @@ Being able to add an income transaction is just as important as tracking your ex
 * `TAG` does not have spaces nor special characters.
 ****
 
-==== Example usage:
+==== Example usage
 You studied extremely hard during the year and you were awarded a bursary incentive of $500. You wish to add it to THRIFT to update your remaining balance with this reward:
 
 . You have a balance of $2000 at the beginning.
 +
 image::add-transaction/income/Step1.png[,550]
 
-. You type: **add_income n/Bursary v/500 r/For studying hard in the year t/Award** into the command box and press kbd:[Enter].
+. You type: **add_income n/Bursary v/500 r/For studying hard in the year t/Award** into the Command Box and press kbd:[Enter].
 +
 NOTE: The transaction date is automatically populated based on your system time.
 +
@@ -170,7 +179,10 @@ image::add-transaction/income/Step3.png[,550]
 === Deleting a transaction: `delete`
 If you find that a transaction is no longer relevant to you, you may delete it from THRIFT.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `delete` command, you have to use the following syntax:
+
 `delete i/INDEX`
 
 ****
@@ -178,7 +190,7 @@ If you find that a transaction is no longer relevant to you, you may delete it f
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
 
-==== Example usage:
+==== Example usage
 Assume that you wish to delete a bursary income transaction from your transaction list because the bursary was mistakenly awarded to you.
 
 . This transaction is currently the first transaction in your transaction list.
@@ -198,7 +210,9 @@ image::delete/Step3.png[,550]
 === Updating a transaction’s details: `update`
 Made a mistake when creating a transaction? Have new details for an existing transaction? Simply utilize THRIFT's `update` feature to make changes.
 
-==== Command Syntax:
+==== Command syntax
+To execute the `update` command, you have to use the following syntax:
+
 `update i/INDEX [n/NEW_NAME] [v/NEW_VALUE] [r/NEW_REMARK] [t/NEW_TAG] ...`
 
 Here is an explanation for the `update` command:
@@ -214,7 +228,7 @@ Here is an explanation for the `update` command:
 * You can update multiple fields at once.
 ****
 
-==== Example Usage:
+==== Example usage
 You order a bowl of delicious Laksa and key in the details of this food expense into THRIFT. However, after your meal you realize you recorded some incorrect details - the Laksa was _Asam Laksa_, not Curry Laksa as you thought, and you paid more than the menu price (which you recorded) due to taxes. You also want to add a remark and tag.
 
 Fortunately, you can easily update such details in THRIFT. Here is what you do from beginning to end:
@@ -223,7 +237,7 @@ Fortunately, you can easily update such details in THRIFT. Here is what you do f
 +
 image::update/updateUG/UpdateStep1.png[,550]
 +
-. When you realize the Laksa is not Curry Laksa and want to change the transaction's name, you type **update i/2 n/Laksa** into the command box and press kbd:[Enter].
+. When you realize the Laksa is not Curry Laksa and want to change the transaction's name, you type **update i/2 n/Laksa** into the Command Box and press kbd:[Enter].
 +
 image::update/updateUG/UpdateStep2.png[,550]
 +
@@ -246,55 +260,90 @@ image::update/updateUG/UpdateStep5.png[,550]
 [[TagTag]]
 === Tagging a transaction: `tag`
 
-The `tag` command allows you to tag a `Transaction` entry.
+If you want to categorise your incomes and expenses, you can associate them with a custom meaningful tag using the `tag` command.
 
-==== Command Syntax:
+==== Command syntax
+
+To execute the `tag` command, you have to use the following syntax:
 
 `tag i/INDEX t/TAG_NAME...`
 
-* Tags the transaction at the specified `INDEX` with `TAG_NAME` (can be more than one).
-* `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
+****
+* Tags the transaction at the specified `INDEX` with `TAG_NAME` (can be more than one)
+* `INDEX` refers to the index number currently shown in the UI (after filtering, if any)
+* `INDEX` must be a positive integer 1, 2, 3, ...
+* `TAG_NAME` must be alphanumeric and cannot contain spaces
+* The tag will be coloured accordingly if `TAG_NAME` is a <<TagColours, keyword>>, else it will be in the default colour
+* If a tag with `TAG_NAME` in the same case already exists in the entry, it will be ignored
+****
 
+==== Example usage
+Assume you have a few transaction entries already inside THRIFT, and one of them is not categorised yet.
+You want to tag that entry with a meaningful tag.
 
-==== Example:
+Here's how you can do that:
 
-1. You want to tag "Credit Card" (the entry displayed at index 2) with the tag _Debt_.
+. You want to tag "Uniqlo Jeans" (the entry displayed at index 2) with the tag _Shopping_ since it's part of your shopping.
++
+image::tag-untag/tag/TagStep1.png[,550]
++
 
+. You type **tag i/2 t/Shopping** into the Command Box and press kbd:[Enter].
++
+image::tag-untag/tag/TagStep2.png[,550]
++
 
-2. You type `tag i/2 t/Debt` into the command input and press **Enter**..
-
-
-3. You now see that the entry has been tagged.
-
-
+. You will now see that a text representation of both the updated and original entry is displayed in the Result Box and
+that the tag has appeared at the entry indicating that it has been successfully tagged.
++
+image::tag-untag/tag/TagStep3.png[,550]
++
 // end::tag[]
 
 // tag::untag[]
 [[UntagTag]]
 === Untagging a transaction: `untag`
 
-The `untag` command allows you to un-tag a `Transaction` entry.
+An entry can be associated with an incorrect tag due to various reasons.
+Perhaps you made a mistake tagging the entry or perhaps the tag became invalid as it lost its meaning over time,
+you can fix that by dissociating the tag from the entry using the `untag` command.
 
-==== Command Syntax:
+==== Command syntax
+
+To execute the `untag` command, you have to use the following syntax:
 
 `untag i/INDEX t/TAG_NAME...`
 
+****
+* Untags the transaction at the specified `INDEX` with `TAG_NAME` (can be more than one)
+* `INDEX` refers to the index number currently shown in the UI (after filtering, if any)
+* `INDEX` must be a positive integer 1, 2, 3, ...
+* `TAG_NAME` must be alphanumeric and cannot contain spaces
+* If no tag with `TAG_NAME` in the same case already exists in the entry, it will be ignored
+****
 
-* Untags `TAG_NAME` (can be more than one) from the transaction at the specified `INDEX`.
-* `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
+==== Example usage
+Assume you have a few transaction entries already inside THRIFT, and one of them has an incorrect tag.
+You want to dissociate the incorrect tag from that entry.
 
+Here's how you can do that:
 
-==== Example:
+. You want to dissociate the tag _Important_ from "Humble Bundle" (the entry displayed at index 3)
+since it is not very important.
++
+image::tag-untag/untag/UntagStep1.png[,550]
++
 
-1. You want to untag the tag _Important_ from "Humble Bundle" (the entry displayed at index 3).
+. You type **untag i/3 t/Important** into the Command Box and press kbd:[Enter].
++
+image::tag-untag/untag/UntagStep2.png[,550]
++
 
-
-2. You type `untag i/3 t/Important` into the command input and press **Enter**.
-
-
-3. You see that the entry has been been un-tagged.
+. You will now see that a text representation of both the updated and original entry is displayed in the Result Box and
+that the tag has disappeared from the entry indicating that it has been successfully removed.
++
+image::tag-untag/untag/UntagStep3.png[,550]
++
 
 // end::untag[]
 
@@ -302,27 +351,42 @@ The `untag` command allows you to un-tag a `Transaction` entry.
 [[ConvertTag]]
 === Converting currency: `convert`
 
-The convert command allows you to convert money from one currency to another.
+If you want to travel overseas or go on exchange, you will definitely need foreign currencies.
+To see how much foreign currency you can get with your local currency, you can use the `convert` command to get an estimate.
 
-====  Command Syntax
+====  Command syntax
+
+To execute the `convert` command, you have to use the following syntax:
 
 `convert [v/VALUE] c/CURRENCY...`
 
-* Converts the `VALUE` to `CURRENCY` if one of each is specified.
-* If no `VALUE` is specified, the value of 1.00 with be used.
+****
+* Converts the `VALUE` in SGD to `CURRENCY` if one of each is specified.
+* If no `VALUE` is specified, the value of 1.00 will be used.
 * If more than one `CURRENCY` is present, the first one will be used as a base and the rest as target currencies
 * `VALUE` must be positive.
+* `CURRENCY` must be a <<SupportedCurrencies, supported currency>>.
+****
 
-==== Example
+==== Example usage
 
-1. You want to convert SGD1000 to USD.
+Assume you want an estimate of how much foreign currency you can get with your local currency and
+you want to do so without leaving THRIFT.
 
+Here's how you can do that:
 
-2. You type `convert v/1000 c/USD` into the command input and press **Enter**.
+. You want an estimate on how much _USD_ you can get with SGD1000.
++
 
+. You type **convert v/1000 c/SGD c/USD** into the Command Box and press kbd:[Enter].
++
+image::convert/convert/ConvertStep2.png[,550]
++
 
-3. The conversion message is displayed on the GUI.
-
+. You will now see the result of the conversion displayed in the Result Box.
++
+image::convert/convert/ConvertStep3.png[,550]
++
 
 // end::convert[]
 
@@ -331,7 +395,10 @@ The convert command allows you to convert money from one currency to another.
 === Cloning a transaction: `clone`
 Occasionally, you may want to copy a transaction, or create multiple copies of a transaction for recurring incomes or expenses such as a yearly donation or monthly bills. Simply use the `clone` feature to achieve this.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `clone` command, you have to use the following syntax:
+
 `clone i/INDEX [o/FREQUENCY:NUMBER_OF_OCCURRENCES]`
 
 The following is an explanation for the `clone` command:
@@ -360,7 +427,7 @@ The following is an explanation for the `clone` command:
 - For example, **clone i/1 o/monthly:5** on transaction at index 1 dated 31 October 2019 creates clones on 30 November 2019, 31 December 2019, 31 January 2020 and 29 February 2020 (2020 is a leap year).
 ****
 
-==== Example usage: +
+==== Example usage
 You receive your fixed salary on the 30th of every month. You don't want to tediously add your salary to THRIFT every month, so you add clones of your salary income for the next year at one go.
 
 You do the following on 30 November 2019:
@@ -401,21 +468,24 @@ List of undoable commands[[Undoable]]:
 * `<<UntagTag, untag>>`
 * `<<BudgetTag, budget>>`
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `undo` command, you have to use the following syntax:
+
 `undo`
 
-==== Example usage:
+==== Example usage
 Suppose you want to delete the second transaction (Bursary) in THRIFT, but you remove the third transaction (Chicken Rice) instead!
 One possible solution is that you add the transaction manually back into THRIFT, but this is too troublesome! You can
 retrieve the deleted transaction by performing `undo`.
 
 To `undo` the `delete` command:
 
-. Type *undo* into the command box and press kbd:[Enter]:
+. Type *undo* into the Command Box and press kbd:[Enter]:
 +
 image::UndoAndRedo/undocommand.png[, 550]
 
-. You will see a success message displays in the result box, and the transaction (Chicken Rice)
+. You will see a success message displays in the Result Box, and the transaction (Chicken Rice)
 adds back to its original position in the list:
 +
 image::UndoAndRedo/undocommandresult.png[, 550]
@@ -429,21 +499,24 @@ NOTE: `Redo` command is only applicable to <<Undoable, undoable command>>.
 
 WARNING: You cannot redo undone commands once the application exits or new undoable command is executed after `undo`.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `redo` command, you have to use the following syntax:
+
 `redo`
 
-==== Example usage:
+==== Example usage
 Suppose you had undone the addition of the transaction (Chicken Rice) (See: <<UndoTag, Undoing the previous undoable command>>),
 but you decide to track the transaction using THRIFT. Instead of adding the transaction manually, you can add back
 the transaction by executing `redo`.
 
 To `redo` undone `add_expense` command:
 
-. Type *redo* into the command box and press kbd:[Enter]:
+. Type *redo* into the Command Box and press kbd:[Enter]:
 +
 image::UndoAndRedo/redocommand.png[, 550]
 
-. You will see a success message displays in the result box and the transaction (Chicken Rice) adds back to the list:
+. You will see a success message displays in the Result Box and the transaction (Chicken Rice) adds back to the list:
 +
 image::UndoAndRedo/redocommandresult.png[, 550]
 
@@ -453,14 +526,17 @@ image::UndoAndRedo/redocommandresult.png[, 550]
 THRIFT lets you find and list all transactions whose `REMARK` or `DESCRIPTION` contain your specified search term. `DESCRIPTION` is
 the name of the transaction which you enter as `n/DESCRIPTION`.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `find` command, you have to use the following syntax:
+
 `find SEARCH_WORD [SEARCH_WORD]`
 
 ****
 * Multiple `SEARCH_WORD` can be defined, and transactions that matches any of a `SEARCH_WORD` will be listed.
 ****
 
-==== Example usage:
+==== Example usage
 Imagine that you wish to find all of your transactions that contain the words _The Deck_ because you would like to see
 how often you visit there.
 
@@ -481,7 +557,10 @@ image::find/Step3.png[,550]
 === Listing transactions with the use of filters: `list`
 THRIFT allows you to list out all the transactions, and filter by month if you wish to as well.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `list` command, you have to use the following syntax:
+
 `list [m/MONTH]`
 
 ****
@@ -492,7 +571,7 @@ THRIFT allows you to list out all the transactions, and filter by month if you w
 * If `m/MONTH` is left out then all transactions will be shown.
 ****
 
-==== Example usage:
+==== Example usage
 Imagine that you wanted to take a look at how much you spent and saved the previous month! For example, Oct 2019.
 
 To `list` the transactions of Oct 2019:
@@ -514,15 +593,18 @@ image::list/Step3.png[,550]
 New to THRIFT? Or forget about some of the commands used in THRIFT? You can run *help* to obtain the link to this
 comprehensive user guide. It saves the trouble of saving the URL of this user guide.
 
-==== Command syntax:
+==== Command syntax
+
+To execute the `help` command, you have to use the following syntax:
+
 `help [COMMAND]`
 
-==== Example usage:
+==== Example usage
 Suppose you want to add a transaction to THRIFT, but you had forgotten about the command to perform this function.
 
 To get the URL of this user guide:
 
-1. Type *help* in the command box and press kbd:[Enter]:
+1. Type *help* in the Command Box and press kbd:[Enter]:
 +
 image::Help-exit/helpcommand.PNG[]
 
@@ -535,30 +617,33 @@ TIP: Alternative methods: press kbd:[F1] or click on *Help* in the menu bar, and
 However, if you just want to view the usage syntax of the `add_expense` command because you had forgotten the exact format,
 you can enter *help add_expense* instead of *help*.
 
-You will see a simplified help version of the `add_expense` command displays in the result box:
+You will see a simplified help version of the `add_expense` command displays in the Result Box:
 
 image::Help-exit/specifichelpcommand.PNG[]
 
 [[ExitTag]]
-=== Exiting THRIFT application: `exit`
+=== Exiting THRIFT: `exit`
 Think about exiting THRIFT after you have added the transaction? You can enter *exit* in the
-command box or click on the close button at the top-right corner of the application.
+Command Box or click on the close button at the top-right corner of the application.
+
+image::exit/Exit.png[,550]
+
 
 === Generating an external report `[coming in v2.0]`
 
 With this feature, you will be able to save your monthly budget report into an external file for your record purposes. The report will clearly state your expenditure, income and remaining budget for the month.
 
 
-=== Recommending dining options based on budget `[coming in v2.0]`
+=== Recommending dining options based on budget using Artificial Intelligence `[coming in v2.0]`
 
-Depending on your remaining budget and the remaining days to the end of the month, THRIFT will recommend you dining places in NUS which will suit your budget. For example, if you are running low on funds, you might get recommended to travel to the Arts canteen to eat since there are really cheap options there.
+Depending on your transactions, remaining budget and the remaining days to the end of the month, THRIFT will recommend you dining places in NUS which will suit your budget. For example, if you spent too much and are running low on funds, you might get recommended to travel to the Arts canteen to eat since there are cheap options there.
 
 
 === Encrypting THRIFT data `[coming in v2.0]`
 
 If you are especially conscious about having your data spied on, this function will definitely ease your worries. With encryption enabled, your data will not be known to the intruder should they steal your THRIFT application data.
 
-== FAQ
+== Frequently asked questions
 
 *Q*: How do I transfer my data to another Computer?
 
@@ -566,7 +651,11 @@ If you are especially conscious about having your data spied on, this function w
 
 *Q*: How do I maximise the size of application's window?
 
-*A*: No, you cannot modify the size of the application's window. It is intended to be fixed.
+*A*: No, you cannot modify the size of the application's window. It is intentionally fixed.
+
+*Q*: Can I modify the data files outside of THRIFT?
+
+*A*: You should not modify any THRIFT data files with any external tools outside of THRIFT, doing so might result in you losing your data.
 
 == Command summary
 * <<BudgetTag, *Budget*>>: `budget v/VALUE d/MONTH/YEAR` +
@@ -583,23 +672,81 @@ Example: `update i/1 n/Curry Laksa v/5 t/Lunch t/Dinner`
 Example: `clone i/1 o/monthly:12`
 * <<ListTag, *List*>>: `list [m/MONTH]` +
 Example: `list m/01/2019`
-* <<TagTag,*Tag*>>: `tag i/INDEX t/TAG_NAME` +
+* <<TagTag,*Tag*>>: `tag i/INDEX t/TAG_NAME...` +
 Example: `tag i/8 t/Debt`
-* <<UntagTag, *Untag*>>: `untag i/INDEX t/TAG_NAME` +
+* <<UntagTag, *Untag*>>: `untag i/INDEX t/TAG_NAME...` +
 Example: `untag i/7 t/Important`
-* <<ConvertTag, *Convert*>>: `convert to/TARGET_CURRENCY (v/VALUE|i/INDEX)` +
+* <<ConvertTag, *Convert*>>: `convert [v/VALUE] c/CURRENCY…` +
 Examples: +
- `convert v/USD v/1000` +
- `convert v/JPY i/8`
+ `convert c/USD` +
+ `convert v/1000 c/SGD c/JPY`
 * <<UndoTag, *Undo*>>: `undo`
 * <<RedoTag, *Redo*>>: `redo`
 * <<HelpTag, *Help*>>: `help [COMMAND]` +
 Example: `help delete`
 * <<ExitTag, *Exit*>>: `exit`
 
-== Glossary
+== Appendix
+
+=== Glossary
 [horizontal]
 [[thrift]]THRIFT:: Stands for "Terminal-input Human Readable Interactive Finance Tracker". It is the application this user guide is for.
 
 [[url]] URL:: Stands for "Uniform Resource Locator" which is used to access a particular website.
+
+[[TagColours]]
+=== Tag keyword colours
+The following table lists the tag keywords that correspond to each colour, if the tag name is not on this table, it will be **Purple** in colour.
+[%header,cols=4*]
+|===
+| Green     | Red     | Blue      | Orange
+
+| Allowance | Debt    | Shopping  | Breakfast
+| Award     | Fees    | Travel    | Brunch
+| Salary    | Gamble  | Transport | Dinner
+| -         | -       | -         | Groceries
+| -         | -       | -         | Lunch
+| -         | -       | -         | Snack
+| -         | -       | -         | Supper
+
+|===
+
+[[SupportedCurrencies]]
+=== Supported currencies
+
+THRIFT supports the following currencies by default:
+
+* SGD
+* AUD
+* BGN
+* BRL
+* CAD
+* CHF
+* CNY
+* DKK
+* EUR
+* GBP
+* HKD
+* HRK
+* HUF
+* IDR
+* ILS
+* ISK
+* INR
+* JPY
+* KRW
+* MXN
+* MYR
+* NOK
+* NZD
+* PHP
+* PLN
+* RON
+* RUB
+* SEK
+* THB
+* TRY
+* USD
+* ZAR
+
 
