@@ -240,6 +240,7 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::optimise[]
 === Schedule optimisation
 ==== Implementation
 
@@ -277,6 +278,7 @@ Aspect: Execution
 
 ** Cons:
 *** Less flexible optimisation.
+// end::optimise[]
 
 === [Proposed] Schedule Activity feature
 
@@ -398,6 +400,7 @@ Refer to the guide <<DevOps#, here>>.
 trip planning. These students would benefit from having a template as a way to organise the information they have for
 their trip. Plan²travel can organise information faster than a typical mouse/GUI driven app.
 
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -449,8 +452,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |inexperienced planner |receive planning recommendations |I can improve my planner
 
 |=======================================================================
-
-_{More to be added}_
+// end::userstories[]
 
 [appendix]
 == Use Cases

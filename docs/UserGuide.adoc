@@ -357,6 +357,7 @@ Examples:
 * `autoschedule t/Breakfast t/Sightseeing t/Dinner a/Kyoto d/1`
 * `autoschedule t/Breakfast 1000 n/DisneyLand t/Dinner a/Kyoto d/1 2 3 4`
 
+// tag::optimise[]
 === Optimising by budget: `optimise`
 
 Optimises a day's schedule by finding all possible combinations of activities. The resulting combination would have the lowest total cost. If there are multiple combinations with the same cost,
@@ -370,6 +371,7 @@ Examples:
 
 [WARNING]
 This command would not work if there are no activities scheduled in the day.
+// end::optimise[]
 
 === Undo: `undo`
 
