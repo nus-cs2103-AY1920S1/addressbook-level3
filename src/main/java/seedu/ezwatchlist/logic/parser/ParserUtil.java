@@ -2,6 +2,7 @@ package seedu.ezwatchlist.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +27,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_NUM_OF_EPISODES = "Number of episodes is an unsigned integer.";
     public static final String MESSAGE_INVALID_NUM_OF_SEASONS = "Number of seasons is a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX2 = "Index cannot be equal or less than 0, or larger than Java Max Value";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Must be 'dd/MM/yyyy'.";
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -84,6 +87,26 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDateAddEditCommand(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.setLenient(false);
+            java.util.Date date1 = dateFormat.parse(trimmedDate);
+            String output = dateFormat.format(date1);
+            return parseDate(output);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
+        }
     }
 
     /**

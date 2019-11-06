@@ -65,8 +65,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Actor> actorList = new HashSet<>();
 
         if (argMultimap.getValue(PREFIX_DATE_OF_RELEASE).isPresent()) {
-            dateOfRelease = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get());
-        } else {
+            String getDateFromUserInput = argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get();
+            dateOfRelease = ParserUtil.parseDateAddEditCommand(getDateFromUserInput);
+            } else {
             dateOfRelease = new Date(null);
         }
 
