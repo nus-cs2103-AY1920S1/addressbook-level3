@@ -39,4 +39,11 @@ public class DeletePasswordCommand extends Command {
         model.deletePassword(passwordToDelete);
         return new CommandResult(String.format(MESSAGE_SUCCESS, passwordToDelete));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeletePasswordCommand // instanceof handles nulls
+                && targetIndex.equals(((DeletePasswordCommand) other).targetIndex)); // state check
+    }
 }
