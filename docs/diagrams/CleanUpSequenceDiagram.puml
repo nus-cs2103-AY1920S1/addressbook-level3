@@ -1,5 +1,4 @@
 @startuml
-scale 1.5
 !include style.puml
 
 box UI UI_COLOR_T1
@@ -65,6 +64,5 @@ deactivate MainWindow
 [<-- MainWindow
 deactivate MainWindow
 end
-
 
 @enduml

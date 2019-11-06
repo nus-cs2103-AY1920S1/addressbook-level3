@@ -52,6 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `p/PATH [t/TAG]` can be used as `p//Users/Me/Downloads/meme.jpg t/cs2103` or as `p//Users/Me/Downloads/meme.jpg`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/cs2103`, `t/soc t/funny` etc.
 * Parameters can be in any order e.g. if the command specifies `p/PATH d/DESCRIPTION`, `d/DESCRIPTION p/PATH` is also acceptable.
+* Commands that do not require parameters will ignore additional parameters provided. e.g. `list 1` is the same as `list`.
 * Whenever `INDEX` is encountered, it refers to the index in the currently displayed list and *must be a positive integer*.
 ====
 
@@ -61,6 +62,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::undoredo[]
 ==== Undoing previous commands : `undo`
 
 Undoes commands and tells you the command you just undid. +
@@ -78,6 +80,7 @@ Example: `redo`
 include::./DeveloperGuide.adoc[tag=undoable]
 
 ****
+// end::undoredo[]
 
 ==== Switching tabs : `tab`
 
