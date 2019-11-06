@@ -44,10 +44,10 @@ public class AddPageCommand extends AddCommand {
     /**
      * Creates an AddPageCommand to add the specified {@code Page} to specified Diary
      */
-    public AddPageCommand(Page pageToAdd, DiaryName specifiedDiaryDiaryName) {
-        requireAllNonNull(pageToAdd, specifiedDiaryDiaryName);
+    public AddPageCommand(Page pageToAdd, DiaryName specifiedDiaryName) {
+        requireAllNonNull(pageToAdd, specifiedDiaryName);
         this.pageToAdd = pageToAdd;
-        this.specifiedDiaryName = specifiedDiaryDiaryName;
+        this.specifiedDiaryName = specifiedDiaryName;
     }
 
     @Override

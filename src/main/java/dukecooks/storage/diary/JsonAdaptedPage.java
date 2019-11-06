@@ -25,8 +25,8 @@ class JsonAdaptedPage {
      */
     @JsonCreator
     public JsonAdaptedPage(@JsonProperty("pageTitle") String pageTitle,
-                           @JsonProperty("pageDescription") String pageDescription,
                            @JsonProperty("pageType") String pageType,
+                           @JsonProperty("pageDescription") String pageDescription,
                            @JsonProperty("imagePath") String imagePath) {
         this.pageTitle = pageTitle;
         this.pageDescription = pageDescription;

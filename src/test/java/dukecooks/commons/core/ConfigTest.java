@@ -23,5 +23,13 @@ public class ConfigTest {
         assertTrue(defaultConfig.equals(defaultConfig));
     }
 
+    @Test
+    public void testHashCode() {
+        Config firstDefaultConfig = new Config();
+        Config secondDefaultConfig = new Config();
+
+        assertEquals(firstDefaultConfig.hashCode(), secondDefaultConfig.hashCode());
+    }
+
 
 }
