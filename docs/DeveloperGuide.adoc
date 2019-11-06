@@ -413,27 +413,7 @@ amount to indicate a spending that needs to be reimbursed, the reimbursement tab
 This section explains the implementation of the Delete Command in Home Tab.
 This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
-that person to be deleted.
-
-The following sequence diagram shows how the delete by name command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
-
-.Sequence Diagram of Delete Command in Home Tab (transaction package)
-
-image::HomeDeleteNameCommand.png[]
-
-In addition, the `ModelManager#resetPredicate()` method is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
-filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
-a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
-To view the full transaction list, the user would be required to input the
-Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
-following section <<BackCommandSD, 3.1.3 BackCommand>>
-
-After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
-and <<update-reimbursement, 3.1.1. Add Command feature: Figure 14>>
-respectively.
-The delete by index implementation would be similar but does not require interaction with the `Model` from the
-`AddressBook` in the person package.
-The following activity diagram shows the steps needed to delete a new transaction:
+that person to be deleted.The following activity diagram shows the steps needed to delete a new transaction:
 
 .Activity Diagram of Delete Command in Home Tab (transaction package)
 
@@ -442,6 +422,25 @@ image::HomeTabActivityDiagramDeleteCommand.png[]
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
 be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
 when a successful deletion is done.
+
+The following sequence diagram shows how the delete by name command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+
+.Sequence Diagram of Delete Command in Home Tab (transaction package)
+
+image::HomeDeleteNameCommand.png[]
+
+In addition, the `ModelManager#resetPredicate()` method is not called in the `DeleteNameCommand`. If the prior input is a
+Find Command and the list at the start of the activity diagram shows
+a filtered list by the Find Command's keywords, the table in the UI will continue to show the filtered list at the end of the current Delete Command.
+To view the full transaction list, the user would be required to enter the
+Back Command where `BackCommand` calls `ModelManager#resetPredicate()` which sets the predicate to evaluate all `Transaction` objects to the boolean true.. The sequence diagram for the `BackCommand` is shown in the
+following section <<BackCommandSD, 3.1.3 BackCommand>>
+
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
+and <<update-reimbursement, 3.1.1. Add Command feature: Figure 14>>
+respectively.
+The delete by index implementation would be similar but does not require interaction with the `Model` from the
+`AddressBook` in the person package.
 
 ==== Back Command Feature
 [[BackCommandSD]]
@@ -469,7 +468,8 @@ image::HomeTabSortSD.png[]
 When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
 the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
-Similar to the Delete Command, since the `resetPredicate()` method is not called.
+Similar to the Delete Command, the `ModelManager#resetPredicate()` method is not called. If the UI table is showing a filtered
+list of transactions, the Back Command has to be entered to call that method from `BackCommand` to reset the predicate.
 
 ==== Overall Design Considerations
 This section's table explains the design considerations for some implementations in the Home Tab.
@@ -478,7 +478,7 @@ This section's table explains the design considerations for some implementations
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
 
 |`ModelManager` contains 2 variables that point to a `TransactionList` object in original order and a `TransactionList`
-object for viewing that can be sorted such that when [blue]`sort reset` is called, the shown `TransactionList` can be set to be equals to the original one.
+object for viewing that can be sorted such that when [blue]`sort reset` is called, the `TransactionList` for viewing can be set to be equals to the original one.
 |`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
 the `TransactionList` object in original order when [blue]`sort reset` is called.
 |Alternative 1 was implemented. Alternative 1 allowed exporting of the data file in the desired order anytime while treasurerPro was running while
