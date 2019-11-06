@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.application.Platform;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -139,10 +140,12 @@ public class DeleteCommand extends UndoableCommand {
             }
         }
         this.notifList = new ArrayList<>(notifsToRemove);
-
         for (Notif notif : notifsToRemove) {
             model.deleteNotif(notif);
         }
+
+        Platform.runLater(() -> model.updateFilteredFridgeList(fridge -> true));
+
     }
 
     //@@author ambervoong

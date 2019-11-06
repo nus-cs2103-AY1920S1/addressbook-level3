@@ -205,7 +205,6 @@ public class UpdateCommandParserTest {
         UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor();
         descriptor.setDateJoined(ParserUtil.parseDate("01/02/1313"));
 
-        System.out.println(worker.getIdNum());
         // Update command only requires one field to be specified at minimum
         assertParseSuccess(parser, " " + PREFIX_FLAG + "w " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_DATE_JOINED + " 01/02/1313",
