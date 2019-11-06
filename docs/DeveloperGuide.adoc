@@ -988,7 +988,7 @@ list. The following is the activity diagram of general overview of the process
 when the user types a `check` command.
 
 .Check Command Activity Diagram
-image::todo.png[TODO]
+image::CheckActivityDiagram.png[TODO]
 
 Additionally, the following below shows the sequence diagram of how the
 program checks if the user satisfies the course's prerequisites.
