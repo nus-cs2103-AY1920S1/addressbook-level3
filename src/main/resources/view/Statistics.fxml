@@ -48,10 +48,10 @@
                   </AnchorPane>
                   <HBox VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="statisticsListView" HBox.hgrow="ALWAYS" />
-                        <PieChart fx:id="eventTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" prefHeight="400.0" prefWidth="500.0" title="Event Tags" />
+                        <ListView fx:id="statisticsListView" prefHeight="400.0" prefWidth="477.0" HBox.hgrow="ALWAYS" />
+                        <PieChart fx:id="eventTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" title="Event Tags" />
                         <Label fx:id="eventLabel" text="Label" />
-                        <PieChart fx:id="employeeTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" prefHeight="400.0" prefWidth="500.0" title="Employee Tags" />
+                        <PieChart fx:id="employeeTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" title="Employee Tags" />
                         <Label fx:id="employeeLabel" text="Label" />
                      </children>
                   </HBox>
