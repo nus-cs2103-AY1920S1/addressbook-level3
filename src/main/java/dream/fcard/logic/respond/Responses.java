@@ -142,49 +142,49 @@ public enum Responses {
     ADD_CARD(
             RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "back/"}),
             new ResponseGroup[] {ResponseGroup.DEFAULT},
-            i -> {
-                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
                         new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
                         i);
-                LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD");
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD");
 
-                // Checks if "deck/", "front/"  and "back/" are supplied.
-                boolean hasOnlyOneDeck = res.get(0).size() == 1;
-                boolean hasOnlyOnePriority = res.get(1).size() == 1;
-                boolean hasOnlyOneFront = res.get(2).size() == 1;
-                boolean hasOnlyOneBack = res.get(3).size() == 1;
-                boolean hasValidChoice = res.get(4).size() > 1;
+                    // Checks if "deck/", "front/"  and "back/" are supplied.
+                    boolean hasOnlyOneDeck = res.get(0).size() == 1;
+                    boolean hasOnlyOnePriority = res.get(1).size() == 1;
+                    boolean hasOnlyOneFront = res.get(2).size() == 1;
+                    boolean hasOnlyOneBack = res.get(3).size() == 1;
+                    boolean hasValidChoice = res.get(4).size() > 1;
 
-                // Perform command validation
+                    // Perform command validation
 
-                if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront || !hasOnlyOneBack
-                        || !hasValidChoice){
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
-                    return true;
+                    if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront || !hasOnlyOneBack
+                            || !hasValidChoice) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
+                        return true;
+                    }
+
+
+
+
+                    try {
+                        return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                    } catch (DuplicateInChoicesException dicExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
+                        return true;
+                    } catch (NumberFormatException n){
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
+                        return true;
+                    }
                 }
-
-
-
-
-                try {
-                    return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
-                } catch (DuplicateInChoicesException dicExc) {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
-                    return true;
-                } catch (NumberFormatException n){
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
-                    return true;
-                }
-            }
     ),
     ADD_CARD_ERROR(
             "^((?i)(add)).*",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
-            i -> {
-                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
-                        + "format of the Add command, type 'help command/add'");
-                return true;
-            }
+                i -> {
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
+                            + "format of the Add command, type 'help command/add'");
+                    return true;
+                }
     ),
     EDIT_CARD(
             RegexUtil.commandFormatRegex("edit", new String[]{
