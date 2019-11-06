@@ -12,7 +12,8 @@ public class Feature {
     public static final String MESSAGE_CONSTRAINTS = "You have provided an invalid feature. "
             + "Please indicate one of the following features to view: 1) calendar, 2) attendance, "
             + "3) performance, 4) records.";
-    public static final String MESSAGE_NO_EVENT = "Please provide an event name to view the records for.";
+    public static final String MESSAGE_NO_EVENT = "Please provide an event name to view the records for.\n"
+        + "Example: view records freestyle 50m";
 
     private final String name;
     private String eventName;
