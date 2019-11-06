@@ -18,9 +18,9 @@ import seedu.sugarmummy.model.biography.User;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.calendar.Reminder;
-import seedu.sugarmummy.model.foodrecommendations.Food;
-import seedu.sugarmummy.model.foodrecommendations.FoodComparator;
-import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.recmf.Food;
+import seedu.sugarmummy.model.recmf.FoodComparator;
+import seedu.sugarmummy.model.recmf.UniqueFoodList;
 import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.records.UniqueRecordList;
@@ -215,13 +215,8 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
-        throw new AssertionError("This method should not be called.");
-    }
-
     @Override
-    public void sortFoodListInDescendingOrder(FoodComparator foodComparator) {
-        throw new AssertionError("This method should not be called.");
+    public void sortFoodList(FoodComparator foodComparator) {
     }
 
     @Override

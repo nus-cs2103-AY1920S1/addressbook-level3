@@ -11,7 +11,7 @@ import seedu.sugarmummy.model.ReadOnlyUserPrefs;
 import seedu.sugarmummy.model.UserPrefs;
 import seedu.sugarmummy.model.biography.ReadOnlyUserList;
 import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
-import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.recmf.UniqueFoodList;
 import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.storage.biography.UserListStorage;
 import seedu.sugarmummy.storage.calendar.CalendarStorage;

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.sugarmummy.model.foodrecommendations.Food;
+import seedu.sugarmummy.model.recmf.Food;
 
 /**
  * This is a utility class containing a list of {@code Food} objects to be used in tests.

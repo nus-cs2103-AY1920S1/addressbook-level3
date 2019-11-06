@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.model.biography.UserList;
 import seedu.sugarmummy.model.calendar.Calendar;
-import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.recmf.UniqueFoodList;
 import seedu.sugarmummy.model.records.UniqueRecordList;
 
 public class ModelManagerTest {

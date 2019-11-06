@@ -1,13 +1,13 @@
 package seedu.sugarmummy.testutil.foodrecommendations;
 
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
-import seedu.sugarmummy.model.foodrecommendations.Calorie;
-import seedu.sugarmummy.model.foodrecommendations.Fat;
-import seedu.sugarmummy.model.foodrecommendations.Food;
-import seedu.sugarmummy.model.foodrecommendations.FoodName;
-import seedu.sugarmummy.model.foodrecommendations.FoodType;
-import seedu.sugarmummy.model.foodrecommendations.Gi;
-import seedu.sugarmummy.model.foodrecommendations.Sugar;
+import seedu.sugarmummy.model.recmf.Calorie;
+import seedu.sugarmummy.model.recmf.Fat;
+import seedu.sugarmummy.model.recmf.Food;
+import seedu.sugarmummy.model.recmf.FoodName;
+import seedu.sugarmummy.model.recmf.FoodType;
+import seedu.sugarmummy.model.recmf.Gi;
+import seedu.sugarmummy.model.recmf.Sugar;
 
 /**
  * This is a utility class to help with building Food objects.

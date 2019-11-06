@@ -25,7 +25,7 @@ import seedu.sugarmummy.model.biography.ReadOnlyUserList;
 import seedu.sugarmummy.model.biography.User;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
-import seedu.sugarmummy.model.foodrecommendations.Food;
+import seedu.sugarmummy.model.recmf.Food;
 import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.storage.Storage;
