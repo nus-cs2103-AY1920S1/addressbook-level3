@@ -259,8 +259,10 @@ public class JsonUtil {
                                                   String studentModuleCodeString, String studentTutorialNameString) {
 
         // Populates the fields needed to create a Student object.
+        studentNameString = studentNameString.replace("[", "").replace("]", "");
         Name studentName = new Name(studentNameString);
 
+        studentEmailString = studentEmailString.replace("[", "").replace("]", "");
         Email studentEmail = new Email(studentEmailString);
 
         Optional<MatricNum> studentMatricNumber = Optional.empty();
@@ -268,6 +270,7 @@ public class JsonUtil {
             studentMatricNumber = Optional.empty();
         } else {
             studentMatricNumberString = studentMatricNumberString.replace("Optional", "");
+            studentMatricNumberString = studentMatricNumberString.replace("[", "").replace("]", "");
             studentMatricNumber = Optional.of(new MatricNum(studentMatricNumberString));
         }
 
@@ -276,11 +279,14 @@ public class JsonUtil {
             studentNusnetId = Optional.empty();
         } else {
             studentNusnetIdString = studentNusnetIdString.replace("Optional", "");
+            studentNusnetIdString = studentNusnetIdString.replace("[", "").replace("]", "");
             studentNusnetId = Optional.of(new NusnetId(studentNusnetIdString));
         }
 
+        studentModuleCodeString = studentModuleCodeString.replace("[", "").replace("]", "");
         ModCode studentModuleCode = new ModCode(studentModuleCodeString);
 
+        studentTutorialNameString = studentTutorialNameString.replace("[", "").replace("[", "");
         TutName studentTutorialName = new TutName(studentTutorialNameString);
 
         return new Student(studentName, studentEmail, studentMatricNumber, studentNusnetId,
@@ -572,8 +578,14 @@ public class JsonUtil {
             Map<Assignment, Map<Student, Integer>> listOfAssignments =
                     tutorialAssignmentStringToAssignment(tutorialAssignmentString);
 
+            // With assignment construction
             Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList,
-                    modCode, attendance, listOfAssignments);
+                   modCode, attendance, listOfAssignments);
+
+            //Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList,
+            //                modCode, attendance);
+
+            //Tutorial t = SampleDataUtil.getSampleTutorial();
             return t;
 
         } catch (ParseException | IllegalArgumentException e) {
@@ -598,7 +610,7 @@ public class JsonUtil {
      */
     public static Map<Assignment, Map<Student, Integer>> tutorialAssignmentStringToAssignment(
             String tutorialAssignmentString) throws IllegalValueException {
-        Map<Assignment, Map<Student, Integer>> assignmentMap = new HashMap<>();
+        Map<Assignment, Map<Student, Integer>> assignmentMap = new TreeMap<>();
         int numOfAssignmentsToParse = getTotalNumberOfAssignments(tutorialAssignmentString);
 
         if (numOfAssignmentsToParse == 0) {
@@ -635,8 +647,6 @@ public class JsonUtil {
         Map <Student, Integer> studentIntegerMap = studentAssignmentStringToMap(studentAssignmentString);
 
         assignmentMap.put(assignmentFromString, studentIntegerMap);
-
-
 
         return assignmentMap;
     }

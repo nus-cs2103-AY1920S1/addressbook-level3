@@ -1,0 +1,84 @@
+= Ahmad Hatziq - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103-T14-2/main
+:prURL: {repoURL}/pull
+
+== PROJECT: T.A.rence
+
+Hi there, I'm _Hatziq_. I am currently pursuing a major in Industrial & Systems Engineering, with minors
+in Computer Science and Statistics.
+at National University of Singapore (NUS). +
+
+I aim to build useful applications that aims to leverage
+on the large amount of data we have at our disposal today.
+
+Data-driven decision making is the main principle that I abide by.
+
+== Overview
+
+T.A.rence is a class management system for teaching assistants in NUS. +
+
+Given that many students in NUS serve as TAs and take up multiple +
+classes in a single semester, this application will allow for a smoother
+personal management process. +
+
+T.A.rence is designed to be a simple and intuitive
+application that allows users to interact by typing the commands using the
+Command Line Interface (CLI). +
+
+In addition, T.A.rence also comes with a
+clean Graphical User Interface (GUI) that presents information in an organized manner.
+
+== Summary of contributions
+
+=== *Major Enhancement*: added *Storage*
+
+==== All Storage functionality (serializing and de-serializing of Application & Json files)
+
+* Summary of the features:
+** Allows the user to save the application data and read off from the data after the application is closed. such as students, tutorials, modules, attendance and assignments to be displayed in a easy-to-understand form.
+
+* Justification:
+** Allows the user to efficiently carry out their work without having to memorise
+their previous commands.
+
+* Highlights:
+** This enhancement affects existing commands and commands to be added in the future. +
+Given the storage is dependant on the underlying structure of the model,
++ collaboration with other components of the application was highly needed.
+n-depth analysis of display formats and design alternatives were
+considered in the process.
+** The implementation too was challenging as it required to work with a variety of data structures, so as to maintain the efficiency and effectiveness of data processing.
+** Given the many layers of information contained within T.A.rence, information had to carefully extracted without compromising other related systems.
+
+* Credits:
+** Code on changing a hash-map to a tree-map is obtained from here {https://www.geeksforgeeks.org/program-to-convert-hashmap-to-treemap-in-java/}
+
+
+=== *Major Enhancement*: added *Undo command*
+
+* Summary of the features:
+** Allows the user to undo the previous command.
+
+* Justification:
+** Allows the user to undo any command if they had erroneously added a command.
+
+* Highlights:
+** This enhancement is different from the one suggested in AB3.
++ During the operation of the application, temporary state files will be stored on the hard
+disk. This modification allows for multiple states to be stored, without affecting
+valuable RAM.
+
+** Once an undo command is executed, the previous state is then loaded into the system memory
+from the saved json state file.
+
+** The implementation too was challenging as it involves proper serializing and de-serializing
+of the json file.
+
+=== *Minor Enhancement*: added commands for "addModule" and "addTutorial".
+
+
+* *Code contributed*:
+* [link:{repoURL}/commits?author=AhmadHatziq[Commits]] [link:{repoURL}/pulls?q=is%3Apr+author%3AAhmadHatziq+is%3Aclosed[Pull Requests]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Hatziq&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense Code Contribution Dashboard]]
