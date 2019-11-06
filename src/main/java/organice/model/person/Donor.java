@@ -39,8 +39,6 @@ public class Donor extends Person {
         this.processingTodoList = processingTodoList;
         this.status = status;
         successRateMap = new HashMap<>();
-
-
     }
 
     public Age getAge() {

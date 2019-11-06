@@ -31,7 +31,6 @@ public class Task {
     }
 
     public String getDate() {
-        //Date date = new Date(2019,12,9,12,05);
         return date;
     }
 

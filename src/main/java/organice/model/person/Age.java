@@ -8,10 +8,8 @@ import static organice.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidAge(String)}
  */
 public class Age {
-
-
     public static final String MESSAGE_CONSTRAINTS =
-            "Age should only be an integer more than 0 and less than 150.";
+            "Age should only be an integer from 0 (inclusive) to 150 (inclusive).";
     public static final Integer AGE_MAX = 150;
     public static final Integer AGE_MIN = 0;
     public final String value;
@@ -33,7 +31,7 @@ public class Age {
     public static boolean isValidAge(String test) {
         try {
             Integer age = Integer.parseInt(test);
-            if (age > AGE_MIN && age < AGE_MAX) {
+            if (age >= AGE_MIN && age <= AGE_MAX) {
                 return true;
             } else {
                 return false;

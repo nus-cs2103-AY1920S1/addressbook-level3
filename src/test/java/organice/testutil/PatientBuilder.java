@@ -19,7 +19,7 @@ import organice.model.person.Type;
 public class PatientBuilder extends PersonBuilder {
     public static final String DEFAULT_AGE = "20";
     public static final String DEFAULT_PRIORITY = "high";
-    public static final String DEFAULT_BLOOD_TYPE = "A";
+    public static final String DEFAULT_BLOOD_TYPE = "A+";
     public static final String DEFAULT_TISSUE_TYPE = "1,2,3,4,5,6";
     public static final String DEFAULT_ORGAN = "kidney";
     public static final String DEFAULT_DOCTOR_IN_CHARGE = "S1111111A";

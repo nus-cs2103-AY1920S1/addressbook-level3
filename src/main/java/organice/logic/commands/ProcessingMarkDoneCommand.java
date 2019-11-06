@@ -1,13 +1,14 @@
 package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.logic.commands.MatchCommand.match;
 
+import organice.logic.parser.exceptions.ParseException;
 import organice.model.Model;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
-import organice.model.person.TaskList;
 import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -24,11 +25,8 @@ public class ProcessingMarkDoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " ic/s4512345A ic/s7711123C 1";
 
     public static final String MESSAGE_NOT_PROCESSED = "Donor and Patient NRIC must be "
-            + "valid and task number must exist";
+            + "valid and a valid task number must exist";
 
-    private String firstNricString;
-    private String secondNricString;
-    private String taskNumberString;
 
     private Nric firstNric;
     private Nric secondNric;
@@ -40,23 +38,32 @@ public class ProcessingMarkDoneCommand extends Command {
     private Nric patientNric;
     private Nric donorNric;
 
-    private TaskList processingList;
-
-    public ProcessingMarkDoneCommand(String firstNricString, String secondNricString, String taskNumberString) {
+    public ProcessingMarkDoneCommand(
+            String firstNricString, String secondNricString, String taskNumberString) throws ParseException {
         requireNonNull(firstNricString, secondNricString);
-        firstNric = new Nric(firstNricString);
-        secondNric = new Nric(secondNricString);
-        taskNumber = Integer.parseInt(taskNumberString);
+        try {
+            firstNric = new Nric(firstNricString);
+            secondNric = new Nric(secondNricString);
+            taskNumber = Integer.parseInt(taskNumberString);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
+        }
     }
 
     /**
-     * To check if the Nrics given contains a patient and a donor from the database
-     * @param firstNric
-     * @param secondNric
+     * Method to check if the two Nrics given are valid.
+     * It needs to contain one patient and one donor.
+     * Both of them must be matched and their status must be processing already.
+     * The method will first convert the Nrics given in String to an actual Nric type,
+     * then it will create the donor and patient with the respective Nric in ORAGANice.
+     * @param firstNric the first Nric given by the user in String.
+     * @param secondNric the second Nric given by the user in String.
      * @param model
-     * @return boolean, to see whether the given Nrics are valid
+     * @return a boolean true false stating whether the inputs are valid.
      */
     public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
+
         if (model.hasDonor(firstNric)) {
             donorNric = firstNric;
             donor = model.getDonor(donorNric);
@@ -70,15 +77,22 @@ public class ProcessingMarkDoneCommand extends Command {
             donorNric = secondNric;
             donor = model.getDonor(donorNric);
         }
+
         if (model.hasPatient(patientNric) && model.hasDonor(donorNric)
+                && patient.getStatus().isProcessing() && donor.getStatus().isProcessing()
                 && match(donor, patient)) {
             return true;
         } else {
             return false;
         }
-
     }
 
+    /**
+     * Mark a particular task on the donor's tasklist as done.
+     * The tasklist will show a tick beside the task number and description.
+     * @param model {@code Model} which the command should operate on.
+     * @return CommandResult object.
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
@@ -87,18 +101,19 @@ public class ProcessingMarkDoneCommand extends Command {
                 && taskNumber < donor.getProcessingList(patientNric).size()) {
                 model.getFilteredPersonList();
                 donor.markTaskAsDone(taskNumber);
+                return new CommandResult(donor.getProcessingList(patientNric).display());
+            } else {
+                return new CommandResult(MESSAGE_NOT_PROCESSED);
             }
-            return new CommandResult(donor.getProcessingList(patientNric).display());
-        } catch (PersonNotFoundException pne) {
+        } catch (PersonNotFoundException | NullPointerException | IllegalArgumentException e) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }
-
     }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ProcessingMarkDoneCommand // instanceof handles nulls
-                && (firstNricString.equals(((ProcessingMarkDoneCommand) other).firstNricString))
+                && (firstNric.equals(((ProcessingMarkDoneCommand) other).firstNric))
                 || (secondNric.equals(((ProcessingMarkDoneCommand) other).secondNric))); // state check
     }
 }
