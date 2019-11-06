@@ -453,7 +453,7 @@ and reduce code. It fulfils Don't Repeat Yourself principle.
 
 // end::stats[]
 
-// tag::stats2
+// tag::stats2[]
 
 === Statistics feature 2: Graphic display
 

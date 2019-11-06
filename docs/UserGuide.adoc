@@ -190,6 +190,8 @@ Format: `clear`
 Stages the meme at the specified index into the export staging area. +
 Format: `stage INDEX`
 
+// tag::like[]
+
 ==== Liking a meme: `like`
 
 Likes a meme at the specified index. +
@@ -207,6 +209,8 @@ Format: `dislike INDEX`
 
 [TIP]
 Same as like, dislike also allows arrow key operations.
+
+// end::like[]
 
 ==== Listing archived memes: `archives`
 
