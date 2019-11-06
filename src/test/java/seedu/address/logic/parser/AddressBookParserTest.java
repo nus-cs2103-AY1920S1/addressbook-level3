@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NULL_ARGUMENTS_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFF;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
@@ -26,9 +27,13 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListBinCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
+import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -60,7 +65,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_clearWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, ClearCommand.COMMAND_WORD),
+            () -> parser.parseCommand(ClearCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
@@ -82,7 +92,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_exitWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, ExitCommand.COMMAND_WORD),
+            () -> parser.parseCommand(ExitCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
@@ -96,13 +111,35 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
+    public void parseCommand_helpWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, HelpCommand.COMMAND_WORD),
+            () -> parser.parseCommand(HelpCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_listPeople() throws Exception {
         assertTrue(parser.parseCommand(ListPeopleCommand.COMMAND_WORD) instanceof ListPeopleCommand);
-        assertTrue(parser.parseCommand(ListPeopleCommand.COMMAND_WORD + " 3") instanceof ListPeopleCommand);
+    }
+
+    @Test
+    public void parseCommand_listPeopleWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
+            ListPeopleCommand.COMMAND_WORD), () -> parser.parseCommand(ListPeopleCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_undoWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
+            UndoCommand.COMMAND_WORD), () -> parser.parseCommand(UndoCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_redoWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
+            RedoCommand.COMMAND_WORD), () -> parser.parseCommand(RedoCommand.COMMAND_WORD + " 3"));
     }
 
     /**
