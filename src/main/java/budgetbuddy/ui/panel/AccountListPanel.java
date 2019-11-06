@@ -47,7 +47,6 @@ public class AccountListPanel extends DisplayPanel {
                 } else {
                     accountCard.getRoot().setStyle("-fx-background-color: null");
                 }
-                System.out.println("UPDATE ITEM CALLED on" + account.getName());
             }
 
 
