@@ -135,7 +135,7 @@ class AddBioCommandParserTest {
                 new DateOfBirth(""),
                 List.of(new Phone("12345"), new Phone("54321")), List.of(new Phone("23456"), new Phone("65432")),
                 List.of(new MedicalCondition(
-                "Type II Diabetes"), new MedicalCondition("High Blood Pressure")), new Address(""),
+                        "Type II Diabetes"), new MedicalCondition("High Blood Pressure")), new Address(""),
                 List.of(new Goal("firstGoal"), new Goal("secondGoal")), new OtherBioInfo(""));
         assertParseSuccess(parser, " m/Type II Diabetes e/23456 n/Bob e/65432 m/High Blood Pressure p/12345 "
                         + "p/54321 goal/firstGoal goal/secondGoal",

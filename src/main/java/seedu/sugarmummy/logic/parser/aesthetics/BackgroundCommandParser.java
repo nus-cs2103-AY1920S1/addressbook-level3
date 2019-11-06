@@ -69,7 +69,7 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         if (background.isBackgroundColour() && !argMultimap.isEmpty()) {
             if (!argMultimap.containsOnlyPrefixes(PREFIX_FONT_COLOR, PREFIX_FONT_COLOUR)) {
                 throw new ParseException(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT,
-                    BackgroundCommand.MESSAGE_USAGE));
+                        BackgroundCommand.MESSAGE_USAGE));
             }
         }
 
