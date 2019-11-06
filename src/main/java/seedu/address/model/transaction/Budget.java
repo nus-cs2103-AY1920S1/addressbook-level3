@@ -170,6 +170,9 @@ public class Budget {
      */
     public String displayPercentage() {
         double percentage = this.amount.divideAmount(this.initialAmount) * 100;
+        if (percentage < 0.00) {
+            percentage = 0.0;
+        }
         return String.format("%.2f%% remaining", percentage);
     }
 

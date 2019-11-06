@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.model.transaction.Budget;
 
 /**
@@ -22,6 +23,8 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private Label amount;
     @FXML
+    private Label minus;
+    @FXML
     private Label id;
     @FXML
     private Label date;
@@ -34,13 +37,24 @@ public class BudgetCard extends UiPart<Region> {
         super(FXML);
         this.budget = budget;
         id.setText(displayedIndex + ". ");
-        amount.setText(budget.displayBudget());
+        //amount.setText(budget.displayBudget());
+        displayBudget(budget);
         date.setText(budget.getDeadline().toString());
         budgetDetails.getChildren().add(new Label(budget.getBetween()));
         budgetDetails.getChildren().add(new Label(budget.displayPercentage()));
         budget.getCategories().stream()
             .sorted(Comparator.comparing(category -> category.categoryName))
             .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
+    }
+
+    private void displayBudget(Budget budget) {
+        if (budget.getBudget().isNegative()) {
+            amount.setText("");
+            minus.setText(budget.displayBudget());
+        } else {
+            amount.setText(budget.displayBudget());
+            minus.setText("");
+        }
     }
 
     @Override
