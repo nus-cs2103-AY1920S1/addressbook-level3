@@ -6,7 +6,6 @@ import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_INDEXES;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
