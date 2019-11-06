@@ -2,11 +2,13 @@ package seedu.planner.logic.events.edit;
 
 import java.util.List;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.editcommand.EditAccommodationCommand;
 import seedu.planner.logic.commands.editcommand.EditAccommodationCommand.EditAccommodationDescriptor;
 import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 
@@ -18,14 +20,14 @@ public class EditAccommodationEvent implements Event {
     private final EditAccommodationDescriptor editInfo;
     private final EditAccommodationDescriptor reverseEditInfo;
 
-    public EditAccommodationEvent(Index index, EditAccommodationDescriptor editInfo, Model model) {
+    public EditAccommodationEvent(Index index, EditAccommodationDescriptor editInfo, Model model) throws EventException {
         this.index = index;
         this.editInfo = editInfo;
         this.reverseEditInfo = generateReverseEditInfo(model);
     }
 
     public UndoableCommand undo() {
-        return new EditAccommodationCommand(index, reverseEditInfo);
+        return new EditAccommodationCommand(index, reverseEditInfo, true);
     }
 
     public UndoableCommand redo() {
@@ -41,7 +43,7 @@ public class EditAccommodationEvent implements Event {
         EditAccommodationDescriptor result = new EditAccommodationDescriptor();
 
         List<Accommodation> lastShownList = model.getFilteredAccommodationList();
-        assert(index.getZeroBased() < lastShownList.size());
+
 
         Accommodation originalAccommodation = lastShownList.get(index.getZeroBased());
 

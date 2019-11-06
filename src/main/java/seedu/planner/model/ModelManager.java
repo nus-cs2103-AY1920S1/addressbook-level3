@@ -332,6 +332,10 @@ public class ModelManager implements Model {
                 contactAccommodationMap.put(oldContact, oldList);
             }
         } else if (newAcc.getContact().isPresent()) {
+            Contact newContact = newAcc.getContact().get();
+            if (contacts.hasContact(newContact)) {
+                deleteContact(newContact);
+            }
             addContact(newAcc.getContact().get());
             addAccommodationMapping(newAcc);
         }

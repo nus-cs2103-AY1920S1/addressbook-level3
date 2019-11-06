@@ -1,6 +1,7 @@
 package seedu.planner.logic.commands.editcommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.planner.logic.commands.util.CommandUtil.findIndexOfAccommodation;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
@@ -57,15 +58,22 @@ public class EditAccommodationCommand extends EditCommand {
 
     private final Index index;
     private final EditAccommodationDescriptor editAccommodationDescriptor;
-
+    private final boolean isUndo;
     /**
      * @param index of the accommodation in the filtered accommodation list to edit
      */
     public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editAccommodationDescriptor);
+        requireAllNonNull(index, editAccommodationDescriptor);
         this.index = index;
         this.editAccommodationDescriptor = editAccommodationDescriptor;
+        isUndo = false;
+    }
+
+    public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor, boolean isUndo) {
+        requireAllNonNull(index, editAccommodationDescriptor);
+        this.index = index;
+        this.editAccommodationDescriptor = editAccommodationDescriptor;
+        this.isUndo = isUndo;
     }
 
     public Index getIndex() {
@@ -92,7 +100,9 @@ public class EditAccommodationCommand extends EditCommand {
 
         Accommodation accommodationToEdit = lastShownList.get(index.getZeroBased());
         Index accommodationToEditIndex = findIndexOfAccommodation(model, accommodationToEdit);
-        Accommodation editedAccommodation = createEditedAccommodation(accommodationToEdit, editAccommodationDescriptor);
+
+        Accommodation editedAccommodation = createEditedAccommodation(accommodationToEdit,
+                editAccommodationDescriptor, isUndo);
 
         if (!accommodationToEdit.isSameAccommodation(editedAccommodation)
                 && model.hasAccommodation(editedAccommodation)) {
@@ -124,12 +134,15 @@ public class EditAccommodationCommand extends EditCommand {
      * edited with {@code editAccommodationDescriptor}.
      */
     private static Accommodation createEditedAccommodation(Accommodation accommodationToEdit,
-                                                           EditAccommodationDescriptor editAccommodationDescriptor) {
+                                                           EditAccommodationDescriptor editAccommodationDescriptor,
+                                                           boolean isUndo) {
         assert accommodationToEdit != null;
 
         Name updatedName = editAccommodationDescriptor.getName().orElse(accommodationToEdit.getName());
         Address updatedAddress = editAccommodationDescriptor.getAddress().orElse(accommodationToEdit.getAddress());
-        Contact updatedContact = editAccommodationDescriptor.getPhone().isPresent()
+        Contact updatedContact = !editAccommodationDescriptor.getPhone().isPresent() && isUndo
+                ? null
+                : editAccommodationDescriptor.getPhone().isPresent()
                 ? new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>())
                 : accommodationToEdit.getContact().isPresent()
                 ? accommodationToEdit.getContact().get()
