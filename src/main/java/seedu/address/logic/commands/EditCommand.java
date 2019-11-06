@@ -31,7 +31,7 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the flashCard identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the FlashCard identified "
             + "by the index number used in the displayed flashCard list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -44,7 +44,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_FLASHCARD_SUCCESS = "Edited FlashCard: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashCard already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_FLASHCARD = "This FlashCard already exists in the application.";
 
     private final Index index;
     private final EditFlashCardDescriptor editFlashCardDescriptor;

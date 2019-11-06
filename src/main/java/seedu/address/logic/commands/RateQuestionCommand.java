@@ -17,7 +17,7 @@ public class RateQuestionCommand extends NextQuestionCommand {
     public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:\n%s";
     public static final String ERROR_MESSAGE = "You can only rate after answering the question!\n"
             + "Next available command: ans, skip, end";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rates a flashcard and gets the next question.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rates a FlashCard and gets the next question.\n"
             + "Parameter: rate easy/good/hard";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;

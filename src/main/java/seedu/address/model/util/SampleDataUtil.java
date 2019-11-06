@@ -21,11 +21,11 @@ import seedu.address.model.flashcard.Rating;
 public class SampleDataUtil {
     public static FlashCard[] getSampleFlashcards() {
         return new FlashCard[] {
-            new FlashCard(new Question("What is pointer in C ?"),
+            new FlashCard(new Question("What is pointer in C"),
                     new Answer("A pointer variable stores the address of a memory location"),
                 new Rating("easy"),
                 getCategorySet("CS2100", "C", "POINTER")),
-            new FlashCard(new Question("How to declare a pointer in C ?"),
+            new FlashCard(new Question("How to declare a pointer in C"),
                     new Answer("& + variable name"),
                     new Rating("easy"),
                 getCategorySet("CS2100")),
@@ -33,11 +33,11 @@ public class SampleDataUtil {
                     new Answer("The Internet is a network of connected computing devices"),
                     new Rating("easy"),
                 getCategorySet("CS2105")),
-            new FlashCard(new Question("How is data transmitted through net?"),
+            new FlashCard(new Question("How is data transmitted through net"),
                     new Answer("Circuit switching / Packet switching"),
                 new Rating("good"),
                 getCategorySet()),
-            new FlashCard(new Question("What is link transmission rate?"),
+            new FlashCard(new Question("What is link transmission rate"),
                     new Answer("It is aka link capacity or link bandwidth"),
                 new Rating("easy"),
                 getCategorySet())
