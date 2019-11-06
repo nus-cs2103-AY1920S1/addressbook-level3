@@ -362,7 +362,7 @@ image::submitCommandWithParamsAfterScreenshot.png[]
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::submit[]
 
-
+// tag::listi[]
 === Listing all incidents: `list-i`
 Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
@@ -374,7 +374,9 @@ image::listIncidentsCommand.png[]
 
 * The listing returns all incidents, inclusive of all incomplete drafts and complete drafts and submitted incident reports
 * Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
+// end::listi[]
 
+// tag::findi[]
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
 Possible Parameters: `id/`, `op/`, `desc/`, `self`
@@ -447,7 +449,9 @@ Returns any incidents whereby the operator's name contains 'Dave' and the descri
 Returns any incidents whereby the operator's name contains either 'Alex' or 'Bernice'
 * Self-Search: `find-i self` +
 Returns any incidents whereby the operator's name matches the logged-in operator's name
+// end::findi[]
 
+// tag::edit-i[]
 === Editing an Incident: `edit-i`
 
 Edits an existing incident in the Incident Manager as identified by the index in the display.
@@ -483,6 +487,8 @@ Example of input:
 image::editIncident1.png[]
 image::editIncident2.png[]
 
+// end::edit-i[]
+
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
 Format: `add-v [dist/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
@@ -507,6 +513,7 @@ Examples:
 image::addVehicle1.png[]
 image::addVehicle2.png[]
 
+//tag::edit-v[]
 === Editing a Vehicle: `edit-v`
 Edits a vehicle identified by the index displayed in the Incident Management System.
 Format: `edit-v [INDEX] [dist/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
@@ -534,7 +541,7 @@ Edit Vehicle that results in duplicates:
 
 image::editDuplicateVeh1.png[]
 image::editDuplicateVeh2.png[]
-
+//end::edit-v[]
 // tag::list-v[]
 === Listing vehicles
 Shows a list of all vehicles registered in the incident Manager.

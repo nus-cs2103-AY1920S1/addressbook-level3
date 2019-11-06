@@ -64,10 +64,13 @@ public class IncidentBuilder {
      */
     public IncidentBuilder(Incident incidentToCopy) {
         district = incidentToCopy.getDistrict();
-        dateTime = incidentToCopy.getDateTime();
         desc = incidentToCopy.getDesc();
         caller = incidentToCopy.getCallerNumber();
-
+        dateTime = new IncidentDateTime(DEFAULT_DATETIME);
+        id = new IncidentId(DEFAULT_ID);
+        operator = DEFAULT_PERSON;
+        status = Status.SUBMITTED_REPORT;
+        vehicle = DEFAULT_VEHICLE;
     }
 
     /**
@@ -94,13 +97,6 @@ public class IncidentBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code IncidentDateTime} of the {@code Incident} that we are building.
-     */
-    public IncidentBuilder withDateTime(String dateTime) {
-        this.dateTime = new IncidentDateTime(dateTime);
-        return this;
-    }
 
     /**
      * Sets the {@code CallerNumber} of the {@code Incident} that we are building.
