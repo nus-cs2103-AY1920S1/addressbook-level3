@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.ezwatchlist.commons.core.messages.SearchMessages;
-import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
+import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new SearchCommand object
