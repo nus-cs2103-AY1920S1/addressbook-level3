@@ -37,14 +37,19 @@ public class IncomeCommandParser implements Parser<IncomeCommand> {
                         PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY, PREFIX_FROM);
 
         // If compulsory fields are empty
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION,
                 PREFIX_TRANSACTION_METHOD, PREFIX_FROM)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, IncomeCommand.MESSAGE_USAGE));
         }
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        TransactionDate tDate = ParserUtil.parseTransactionDate(argMultimap.getValue(PREFIX_DAY).get());
+        TransactionDate tDate;
+        if (!argMultimap.getValue(PREFIX_DAY).isPresent()) {
+            tDate = new TransactionDate();
+        } else {
+            tDate = ParserUtil.parseTransactionDate(argMultimap.getValue(PREFIX_DAY).get());
+        }
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         TransactionMethod tMethod = ParserUtil.parseTransactionMethod(
                 argMultimap.getValue(PREFIX_TRANSACTION_METHOD).get());

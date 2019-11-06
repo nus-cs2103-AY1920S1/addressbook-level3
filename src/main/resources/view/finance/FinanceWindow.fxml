@@ -24,16 +24,39 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" style="-fx-background-color: #61ad58;" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
+        <MenuBar fx:id="menuBar" style="-fx-background-color: #61ad58;" VBox.vgrow="NEVER" >
+          <Menu text="Finance" visible="true" mnemonicParsing="false">
+          </Menu>
+          <Menu mnemonicParsing="false" text="File" visible="false">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Help" visible="false">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+          </Menu>
+          <Menu mnemonicParsing="false" visible="true" style="-fx-padding: 3 3 3 800;">
+          </Menu>
+          <Menu fx:id="closeToExceedBudgetMenu" visible="false" mnemonicParsing="false" text="CLOSE TO EXCEEDING BUDGET" style="-fx-background-color: rgba(235,136,23,0.74)">
+            <MenuItem mnemonicParsing="false" onAction="#handleBudgetBar" text="Show budgets" />
+          </Menu>
+          <Menu fx:id="exceedBudgetMenu" visible="false" mnemonicParsing="false" text="BUDGET EXCEEDED" style="-fx-background-color: rgba(235,47,23,0.74);">
+            <MenuItem mnemonicParsing="false" onAction="#handleBudgetBar" text="Show budgets" />
           </Menu>
         </MenuBar>
 
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5" />
+          </padding>
+        </StackPane>
+
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5" />
+          </padding>
+        </StackPane>
+
         <StackPane minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+
           <VBox fx:id="logEntryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
@@ -46,18 +69,14 @@
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
           </StackPane>
-        </StackPane>
 
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+          <VBox fx:id="budgetList" visible="false" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <StackPane fx:id="budgetListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+          </VBox>
 
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
         </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

@@ -3,8 +3,11 @@ package seedu.address.model.finance;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.logentry.BudgetList;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.model.finance.logentry.LogEntryList;
 
@@ -15,6 +18,7 @@ import seedu.address.model.finance.logentry.LogEntryList;
 public class FinanceLog implements ReadOnlyFinanceLog {
 
     private final LogEntryList logEntries;
+    private final BudgetList budgets;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +29,7 @@ public class FinanceLog implements ReadOnlyFinanceLog {
      */
     {
         logEntries = new LogEntryList();
+        budgets = new BudgetList();
     }
 
     public FinanceLog() {}
@@ -47,11 +52,19 @@ public class FinanceLog implements ReadOnlyFinanceLog {
     }
 
     /**
+     * Replaces the contents of the list of budgets with {@code Budgets}.
+     */
+    public void setBudgets(List<Budget> logEntries) {
+        this.budgets.setBudgets(logEntries);
+    }
+
+    /**
      * Resets the existing data of this {@code FinanceLog} with {@code newData}.
      */
     public void resetData(ReadOnlyFinanceLog newData) {
         requireNonNull(newData);
         setLogEntries(newData.getLogEntryList());
+        setBudgets(newData.getBudgetList());
     }
 
     //// log entry-level operations
@@ -96,6 +109,31 @@ public class FinanceLog implements ReadOnlyFinanceLog {
         logEntries.markAsRepaid(logEntry);
     }
 
+    //// budget entry-level operations
+
+    /**
+     * Returns true if a budget with the same information as {@code Budget} exists in the finance log.
+     */
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return budgets.contains(budget);
+    }
+
+    /**
+     * Adds a budget to the finance log.
+     */
+    public void addBudget(Budget b) {
+        budgets.add(b);
+    }
+
+    /**
+     * Removes {@code key} from this {@code FinanceLog}.
+     * {@code key} must exist in the finance log.
+     */
+    public void removeBudget(Budget key) {
+        budgets.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -110,14 +148,20 @@ public class FinanceLog implements ReadOnlyFinanceLog {
     }
 
     @Override
+    public ObservableList<Budget> getBudgetList() {
+        return budgets.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FinanceLog // instanceof handles nulls
-                && logEntries.equals(((FinanceLog) other).logEntries));
+                && logEntries.equals(((FinanceLog) other).logEntries)
+                && budgets.equals(((FinanceLog) other).budgets));
     }
 
     @Override
     public int hashCode() {
-        return logEntries.hashCode();
+        return Objects.hash(logEntries, budgets);
     }
 }

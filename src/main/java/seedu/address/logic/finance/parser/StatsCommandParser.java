@@ -1,11 +1,9 @@
 package seedu.address.logic.finance.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_BETWEEN;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_GROUP_BY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_SUMMARISE;
 
-import java.util.Date;
 import java.util.stream.Stream;
 
 import seedu.address.logic.finance.commands.StatsCommand;
@@ -25,7 +23,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
     public StatsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
-                        PREFIX_GROUP_BY, PREFIX_SUMMARISE, PREFIX_BETWEEN);
+                        PREFIX_GROUP_BY, PREFIX_SUMMARISE);
 
         // If compulsory fields are empty
         if (!arePrefixesPresent(argMultimap,
@@ -39,13 +37,8 @@ public class StatsCommandParser implements Parser<StatsCommand> {
 
         GroupByAttr groupByAttr = ParserUtil.parseGroupByAttr(argMultimap.getValue(PREFIX_GROUP_BY).get());
         String summariseAttr = ParserUtil.parseSummariseAttr(argMultimap.getValue(PREFIX_SUMMARISE).get());
-        Date[] betweenDates = null;
-        if (argMultimap.getValue(PREFIX_BETWEEN).isPresent()) {
-            betweenDates = ParserUtil.parseBetweenDates(
-                    argMultimap.getValue(PREFIX_BETWEEN).get().trim().split("\\s+"));
-        }
 
-        return new StatsCommand(groupByAttr, summariseAttr, betweenDates);
+        return new StatsCommand(groupByAttr, summariseAttr);
     }
 
     /**
