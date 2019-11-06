@@ -1,5 +1,6 @@
 package calofit.commons.util;
 
+import java.util.Objects;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleFunction;
 import java.util.function.DoubleUnaryOperator;
@@ -25,10 +26,44 @@ public class ObservableUtil {
      * @param <T> Target type
      * @return Observable result value
      */
-    public static <S, T> ObjectBinding<T> map(ObservableValue<S> source, Function<S, T> op) {
+    public static <S, T> ObjectBinding<T> map(ObservableValue<S> source, Function<? super S, ? extends T> op) {
         return Bindings.createObjectBinding(() -> op.apply(source.getValue()), source);
     }
 
+    /**
+     * Given an observable value, compute an observable result using the function.
+     * Unlike {@link ObservableUtil#map(ObservableValue, Function)},
+     * this does not update the mapped expression if the source value remains equals.
+     * @param source Source value
+     * @param op Mapper function
+     * @param <S> Source type
+     * @param <T> Target type
+     * @return Observable result value
+     */
+    public static <S, T> ObjectBinding<T> cachingMap(ObservableValue<S> source, Function<? super S, ? extends T> op) {
+        return new ObjectBinding<T>() {
+            private T value;
+            private boolean evaluated = false;
+            {
+                source.addListener((observable, oldSource, newSource) -> {
+                    T nextValue = op.apply(newSource);
+                    if (!evaluated || !Objects.equals(value, nextValue)) {
+                        value = nextValue;
+                        invalidate();
+                    }
+                });
+            }
+
+            @Override
+            protected T computeValue() {
+                if (!evaluated) {
+                    value = op.apply(source.getValue());
+                    evaluated = true;
+                }
+                return value;
+            }
+        };
+    }
     /**
      * Given an observable double value, compute an observable double result.
      * @param expression Source value

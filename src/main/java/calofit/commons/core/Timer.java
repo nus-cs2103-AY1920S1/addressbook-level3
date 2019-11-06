@@ -1,15 +1,17 @@
 package calofit.commons.core;
 
 import java.time.Duration;
-import java.util.TimerTask;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Wraps a {@link java.util.Timer}, to run tasks on an arbitrary {@link Executor}.
+ * This is based off a monotonic clock, and so is not affected by system time changes.
  */
 public class Timer {
 
-    private java.util.Timer bgTimer = new java.util.Timer("bgTimer", true);
+    private ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
     private final Executor threadExecutor;
 
     public Timer(Executor threadExecutor) {
@@ -22,11 +24,7 @@ public class Timer {
      * @param task Task function
      */
     public void registerPeriodic(Duration period, Runnable task) {
-        bgTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                threadExecutor.execute(task);
-            }
-        }, period.toMillis(), period.toMillis());
+        exec.scheduleAtFixedRate(() -> threadExecutor.execute(task),
+            period.toMillis(), period.toMillis(), TimeUnit.MILLISECONDS);
     }
 }
