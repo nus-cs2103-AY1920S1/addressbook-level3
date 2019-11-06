@@ -12,14 +12,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.DataConversionException;
+import seedu.elisa.commons.exceptions.DuplicateItemException;
 import seedu.elisa.commons.util.JsonUtil;
-import seedu.elisa.model.person.exceptions.DuplicateItemException;
 
 /**
  * The central storage of all the items in the program.
  */
 public class ItemStorage {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ItemModelManager.class);
 
     private ArrayList<Item> items = new ArrayList<>();
 

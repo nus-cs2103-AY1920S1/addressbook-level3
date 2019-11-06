@@ -32,12 +32,9 @@ public class ActiveRemindersList extends ListPropertyBase<Item> {
      * @param reminders Collection of reminders to be added to the list.
      */
     public synchronized void addReminders(Collection<Item> reminders) {
-        System.out.println("Starting to add.");
         for (Item item:reminders) {
-            add(size(), item);
+            add(item);
         }
-        System.out.println("Finished adding.");
-        return;
     }
 
     public Item getLatestOccurredReminder() throws NoSuchElementException {
