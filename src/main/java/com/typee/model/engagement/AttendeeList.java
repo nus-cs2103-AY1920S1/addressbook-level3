@@ -13,7 +13,7 @@ import com.typee.model.person.Person;
 public class AttendeeList {
 
     public static final String MESSAGE_CONSTRAINTS = "The List of attendees should be a list of persons separated"
-            + " by commas.";
+            + " by vertical lines.";
 
     private final List<Person> attendees;
 

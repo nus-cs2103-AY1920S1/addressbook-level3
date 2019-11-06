@@ -13,9 +13,9 @@ import com.typee.logic.interactive.parser.state.StateTransitionException;
 public class PropertyState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Sort command initiated. Please enter the property you would"
-            + " like to sort by, prefixed by \"py/\". The sortable properties are start date, end date, description"
+            + " like to sort by, prefixed by \"p/\". The sortable properties are start date, end date, description"
             + " and priority, to be specified as \"start\", \"end\", \"description\" and \"priority\" respectively.";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid property after \"py\".";
+    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid property after \"p\".";
     private static final String MESSAGE_INVALID_INPUT = "Invalid input! Accepted properties are"
             + " \"start\", \"end\", \"description\" and \"priority\".";
     public static final String KEYWORD_START_PROPERTY = "start";
