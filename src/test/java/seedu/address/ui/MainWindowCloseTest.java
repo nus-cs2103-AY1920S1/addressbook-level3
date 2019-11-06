@@ -13,6 +13,7 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
 import guitests.guihandles.StageHandle;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
@@ -52,7 +53,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
     public void close_menuBarExitButton_allWindowsClosed() {
         mainWindowHandle.clickOnMenuExitButton();
         // The application will exit when all windows are closed.
-        assertEquals(Collections.emptyList(), guiRobot.listWindows());
+        Platform.runLater(() -> assertEquals(Collections.emptyList(), guiRobot.listWindows()));
     }
 
     @Test
