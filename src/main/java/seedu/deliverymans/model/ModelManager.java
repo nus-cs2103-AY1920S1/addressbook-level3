@@ -362,13 +362,12 @@ public class ModelManager implements Model {
     public Name getFreeOrderName() {
         int n = 1;
         for (Order order : getFilteredOrderList()) {
-            String[] s = order.getOrderName().fullName.split("\\s");
-            if (Integer.parseInt(s[1]) == n) {
-                n++;
-            } else {
-                break;
+            String orderNumber = order.getOrderName().fullName.split("\\s")[1];
+            if (Integer.parseInt(orderNumber) >= n) {
+                n = Integer.parseInt(orderNumber);
             }
         }
+        n++;
         StringBuilder builder = new StringBuilder();
         builder.append("Order ")
                 .append(n);

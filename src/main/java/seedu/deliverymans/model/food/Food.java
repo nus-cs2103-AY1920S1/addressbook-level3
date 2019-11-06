@@ -77,7 +77,7 @@ public class Food {
      */
     public void updateTag(int totalQuantity, int menuSize) {
         this.tags.remove(new Tag("Popular"));
-        if (this.quantityOrdered >= 1.5 * totalQuantity / menuSize) {
+        if (this.quantityOrdered != 0 && this.quantityOrdered >= 1.5 * totalQuantity / menuSize) {
             this.tags.add(new Tag("Popular"));
         }
     }
