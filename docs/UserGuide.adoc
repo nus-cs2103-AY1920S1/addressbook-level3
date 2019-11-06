@@ -19,87 +19,113 @@ endif::[]
 
 By: `Team T10-1`      Since: `Sep 2019`      Licence: `MIT`
 
-== Introduction
+== About `Jarvis`
 
-Ensure you have https://www.java.com/en/download/[Java 11] or above installed
-on your PC.
+`Jarvis` is a one-stop solution to juggling all aspects of your hectic school life by helping you manage your
+schoolwork, finances and CCAs. Offering four main features to bolster your
+productivity, you can now always be on top of your:
 
-Jarvis is your personal student assistant. She is able to manage your
-schoolwork and finances. Jarvis offers four main features to bolster your
-productivity, he is able to track your:
-
+[[link-main-features]]
 1. **Tasks**
-2. **CCA Life**
-3. **Finances**
-4. **Courses Taken**
+2. **NUS Courses**
+3. **Co-Curricular Activities (CCA)**
+4. **Finances**
 
-Jarvis also supports undo and redo functionality, allowing you easily
-undo and redo any mistakes that you may make in your application.
+all in one handy, nifty application. Our aim is to build an intuitive, user-friendly student life organiser
+to, as far as possible, alleviate the stress of NUS life.
+//Jarvis also supports undo and redo functionality, allowing you easily
+//undo and redo any mistakes that you may make in your application.
 
-== Quick Start
+== Let's get started
 
-Ensure you have https://www.java.com/en/download/[Java 11] or above installed
+Please ensure you have https://www.java.com/en/download/[Java 11] or above installed
 on your PC.
 
-Download the latest `Jarvis` https://www.google.com/[here].
+1. You can download the latest version of `Jarvis` https://www.google.com/[here].
 
-Copy the downloaded file to the folder that you would like to use as the
-home folder for `Jarvis`.
+2. Move `Jarvis` to the directory you would like to use as the
+home folder for the application.
 
-Double-click `jarvis.jar` to start the app. The GUI will appear in a few
-seconds.
+3. Run `jarvis.jar` to start the app. You should see the following on starting the application up:
+
+.Jarvis' Graphical User Interface (GUI)
+image::StartUpGUI.png[]
+
+Jarvis' <<link-main-features, four main features>> have been split into four distinct tabs. You can
+toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using the
+features' `list` commands.
+
+You can learn more about the individual GUIs and commands in the coming sections.
+
 
 == Features
 
+Before delving straight into each feature, here are some things to note - in order to get the most
+out of this user guide:
+
+:sectnums!:
 === Command Format
 
-1. Words in `UPPER CASE` are the parameters supplied by the user, while those
-in `lower case` are **key-words** used by the program.
+* Words in `UPPER CASE` are parameters supplied by the user, while those
+in `lower case` are **commands** used `Jarvis`.
 +
 For example:
 +
 `add-task t/TASK-TYPE des/TASK-DESCRIPTION`
 +
-In this case, `TASK-TYPE` and `TASK-DESCRIPTION` are parameters supplied by
-the user, and `add-task` is a key-word.
+In the above example, `TASK-TYPE` and `TASK-DESCRIPTION` are the parameters supplied by
+the user, while `add-task` and the prefixes, `t/` and `des/`, are parts of a command.
 
-2. Items in square brackets `[]` are optional fields with the command.
+* Items in square brackets `[]` are optional.
 +
-For example:
+For example, the command:
 +
 `add-task t/TASK-TYPE des/TASK-DESCRIPTION [p/PRIORITY]`
 +
-Can be used
+Can be used:
 +
 With a priority level:: `add-task t/todo des/assignment p/high`
++
+or
++
 Without a priority level:: `add-task t/todo des/assignment`
 
-3. Parameters with `...` can be used 0, or any number of items
+* Parameters with `...` can be used once or more.
 +
 For example:
 +
-`[#TAG]...` is an optional parameter that can be used 0 or any number of times.
+`[#TAG]...` is an optional parameter that can either not be used, used once,
+or used multiple times.
 +
 Without optional parameter:: `add-task t/todo des/assignment`
++
+or
++
 With optional parameter:: `add-task t/todo des/assignment #cs2103t #urgent`
 
-4. Jarvis can parse parameters to commands in *any order*.
+* Jarvis can parse parameters to commands in *any order*.
 
-5. Commands that can take different parameters are represented with a pipe `|`,
+* Some commands can take in different parameters. These parameters are represented with a pipe, `|` ,
 surrounded by curly braces, e.g `{param1 | param2}`.
 +
-For example:
+For example, the command:
 +
 `export {csv | txt | xlsx} f/FILENAME`
 +
-As a .csv file:: `export csv f/MyFile`
-With a.txt file:: `export txt f/MyFile`
 
-6. Dates `d/DATE` follow the following format: `d/m/yyyy`.
+can be used
++
+With a csv parameter:: `export csv f/MyFile`
++
+or
++
+With a txt parameter:: `export txt f/MyFile`
+
+* Dates follow the following format: `d/m/yyyy`.
 +
 For example:
 +
-`add-task t/todo des/assignment d/1/1/1970`
+`add-task t/deadline des/assignment d/1/1/1970`
 
 ////
 Task Scheduler
@@ -107,27 +133,31 @@ Task Scheduler
 Feature by
 -> Anisha Nicole Joseph
 ////
-=== Task Scheduler
+:sectnums:
+=== Task Planner
 
-==== List all tasks: `list-tasks`
-Lists all the tasks in the planner.
-
-Format: `list-tasks`
+A digital planner to help you stay organized; `Jarvis` can help you cope with your interminable lists of deadlines,
+events, errands and more. Tagging and prioritizing tasks are just two of the many ways `Jarvis` will
+enable you to stay on top of everything you need to do!
 
 ==== Adding a task: `add-task`
-Adds a task to the planner.
+The most fundamental command for the Planner - `add-task` adds a task to the Planner.
 
-A task must have a:
+[[link-attributes]]
+A task *must* have a:
 
 * `TASK-TYPE`: `todo`, `event` or `deadline`
 * `TASK-DESCRIPTION`: a short description of the task
+* `DATE` (for `Event` and `Deadline` tasks only)
 
-A task *can* have the following *attributes*:
+A task *may* have the following *attributes*:
 
-* `DATE`
 * `TAG`: any number of tags, such as `#school` or `#cca`
 * `PRIORITY` level: `high`, `medium` or `low`
 * `FREQ` frequency: `daily`, `weekly`, `monthly` or `yearly`
+
+You can refer to the table below for a brief overview of the different command formats for the
+different types of tasks.
 
 |===
 | Task Type | Format
@@ -147,11 +177,14 @@ NOTE: Duplicate tasks are not allowed in the Planner!
 ===== Example
 ----
 add-task t/event des/workshop f/weekly d/25/12/2019//26/12/2019
-add-task t/deadline des/cs2101 assignment d/20/09/2019 p/high
+add-task t/deadline des/cs2101 assignment d/20/9/2019 p/high
 ----
 
+And as simple as that, `Jarvis` can begin to keep track of
+your tasks for you!
+
 ==== Deleting a task: `delete-task`
-Deletes a task from the planner.
+If you want to keep your list of tasks updated and current, you can easily delete tasks from the planner.
 
 Format: `delete-task INDEX`
 
@@ -163,9 +196,12 @@ delete-task 3
 ----
 
 ==== Finding a task: `find-task`
-Locates a task by task description from a given `KEYWORD`
+Too many tasks to comb through? Ask `Jarvis` to find a task for you based on one or more keywords that match the
+descriptions of your tasks.
 
 Format: `find-task KEYWORD...`
+
+NOTE: There must be at least one keyword & this command is case-insensitive.
 
 ===== Example
 ----
@@ -173,12 +209,28 @@ find-task assignment
 find-task homework cs ma1101r
 ----
 
-==== Editing a task: `edit-task` [v1.4]
-Edits the task at the specified index.
+==== Updating a task's status: `done-task`
+Once you have completed a task (hooray!), you can let `Jarvis` know. By default on
+`add-task`, all tasks are marked as undone, represented by a `[✗]`. Upon marking the task as done, the task will be
+represented with a `[✓]`.
+
+Format: `done-task INDEX`
+
+where `INDEX` is the **one-based** index of the task list.
+
+==== Listing all tasks: `list-task`
+Lists all the tasks in the Planner. Using `list-task` while on another page of Jarvis will
+pull up the Planner tab.
+
+Format: `list-task`
+
+==== Editing a task: `edit-task` [v2.0]
+As you approach the deadlines for certain tasks, you might want to increase their priority levels. Soon, you will be able
+to edit existing tasks instead of deleting and adding them back in again.
 
 Format: `edit-task INDEX//NEW-DESCRIPTION...`
 
-`NEW-DESCRIPTION` can be a new task description or any of the other attributes (refer to 3.2.2 Adding a Task)
+`NEW-DESCRIPTION` can be a new task description or any of the other <<link-attributes, attributes>>
 used to create a task. You can also edit any number of attributes at the same time, each separated with a space.
 However, only one instance of each attribute is allowed per command.
 
@@ -192,18 +244,9 @@ edit-task 2//des/project part 2 d/18/09/2019
 edit-task 3//f/weekly
 ----
 
-==== Updating a task's status: `done-task`
-Updates the status of a task. By default on `add-task`, all tasks are marked
-as undone, represented by a `[✗]`. Upon finishing the task, the task will be
-represented with a `[✓]`.
-
-Format: `done-task INDEX`
-
-where `INDEX` is the **one-based** index of the task list.
-
-
-==== Clearing entries: `clear-task` [v1.4]
-Clears tasks from the planner. Tasks can be cleared by `#TAG` or `d/DATE`.
+==== Clearing entries: `clear-task` [v2.0]
+Soon you will also be able to delete multiple entries at one go. Tasks can be cleared by `#TAG` or `d/DATE` - where
+tasks with the specified tag or date will be cleared.
 The command `clear-task` with no parameters succeeding it will result in all tasks
 being cleared.
 
@@ -216,29 +259,199 @@ clear-task d/12/09/2019
 ----
 
 ////
-Finance Tracker
+Course Planner
+
+Feature by
+-> Ryan Tan Yu
+////
+
+=== Course Planner
+As an all-encompassing application, we thought it natural to incorporate NusMods into `Jarvis`. `Jarvis` is a student
+life organiser for NUS students by NUS students. We understand how big a role NUSMods plays in all our lives. Through
+the Course Planner section of `Jarvis`, you will be able to consolidate all the courses you have taken in NUS to date,
+as well as figure out what courses you could take in the future.
+
+==== Adding a course: `add-course`
+To get started, you can add specific course(s) to your list. You may add one or more courses at one go.
+
+Format: `add-course c/COURSE-CODE...`
+
+where `COURSE-CODE` is the course code of the {nusmods-modules}[NUS course] you
+want to add.
+
+===== Example
+----
+add-course c/CS1010
+add-course c/CS1010 c/CS2030 c/CS2040
+----
+
+==== Deleting a course: `delete-course`
+You can easily delete a course from your list - either by the index of the course in the list,
+or by its course code.
+
+Format: `delete-course {c/COURSECODE | INDEX}`
+
+===== Example
+----
+delete-course c/CS1010
+delete-course 2
+----
+
+==== Looking up a course's information: `lookup`
+You can also retrieve information about a specific course - such as name, course code,
+number of credits and its prerequisites.
+
+Format: `lookup c/COURSECODE`
+
+===== Example
+----
+lookup c/CS1010
+----
+
+==== Checking a course: `check`
+If you are not sure if you can take a certain course next semester, this command would come in handy. Simply `check`
+the course in question.The result is dependent on the courses you have added to your list. `Jarvis` will
+display a very helpful tree to show you what requirements you need for each course.
+
+Format: `check c/COURSECODE`
+
+===== Example
+----
+check c/CS1010
+----
+
+////
+CCA tracker
+
+Feature by
+-> Tan Ye Kai
+////
+
+=== CCA tracker
+The CCA tracker is a feature unique to `Jarvis`. Entirely customizable based on individual interest,
+`Jarvis` can support milestone tracking, equipment management and so much more! Never has being in multiple
+CCAs been so easy.
+
+==== Adding a CCA: `add-cca`
+To start, we can add some CCAs to the CCA Tracker. You will need to to specify
+the name of the cca and the type of CCA.
+
+Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]...`
+
+The `types` of the CCA are:
+
+* `performingArt`
+* `sport`
+* `club`
+* `uniformedGroup`
+
+===== Example
+----
+add-cca n/Swimming t/sport e/swimming trunks e/goggles
+add-cca n/Canoeing t/sport
+add-cca n/Guitar Ensemble t/performingArt e/guitar
+----
+
+==== Deleting a CCA: `delete-cca`
+New semester, new CCAs - deleting outdated ones is a breeze.
+
+Format: `delete-cca INDEX`
+
+where `INDEX` is the *one-based* of a CCA.
+
+===== Example
+----
+delete-cca 1
+----
+
+==== Editing a CCA: `edit-cca`
+If you have bought some new running shoes, or the latest tuner for your violin, let `Jarvis`
+know so that your changes to your CCAs can be updated!
+
+Format: `edit-cca INDEX { n/NAME | t/TYPE | e/EQUIPMENT...}`
+
+===== Example
+----
+edit-cca 1 t/sport e/tennis racket
+edit-cca 1 t/performingArt
+edit-cca 1 n/Running e/shoes e/water bottle
+----
+
+[NOTE]
+`Jarvis` will soon also be able to edit the milestones of your CCAs in v2.0!
+
+==== Listing a CCA: `list-cca`
+Lists all your CCAs in the CCA Tracker. Using `list-cca` while on another page of Jarvis will
+pull up the CCA Tracker tab.
+
+Format: `list-cca`
+
+
+==== Finding a CCA: `find-cca`
+For a quick view of CCAs matching one or more keywords, `find-cca` will come in useful.
+
+Format: `find-cca KEYWORD...`
+
+===== Example
+----
+find-cca swimming
+find-cca canoeing guitar
+----
+
+==== Adding progress levels for a CCA: `add-progress`
+Often, we strive to reach certain milestones in our CCAs. For example, in swimming, you might be aiming to
+progress through the various grade levels (shown in the example below) available. With `add-progress`,
+`Jarvis` can help you set and keep track of your progress towards each milestone in each of your CCAs.
+
+Format: `add-progress INDEX p/MILESTONE... `
+
+===== Example
+----
+add-progress 1 p/bronze p/silver p/gold p/gold star
+add-progress 2 p/Beginner boat p/Intermediate boat p/Racing boat
+add-progress n/Guitar Ensemble l/8
+----
+
+==== Incrementing progress level: `increment-progress`
+Each time you have made progress towards any of your milestones, let `Jarvis` know! The progress bar for each CCA
+provides a clear view of how much closer you are to their respective milestones.
+
+Format: `increment-progress INDEX`
+
+[NOTE]
+Note that progress can only be incremented if `add-progress` has previously been executed on that particular CCA.
+
+===== Example
+----
+increment-progress 1
+----
+
+////
+Finance Tracker Lookup
 
 Feature by
 -> Goh Si Ning
 ////
-=== Where did all my money go?
-Introducing the **Finance Tracker** feature of Jarvis, which is responsible for keeping track of all your purchases,
-monthly subscriptions and debts owed. Upon switching to the Finance tab, you will be able to see a list of purchases on
-the left and a list of your monthly subscriptions on the right. At the bottom left, Jarvis shows the total amount you
-have spent this month and how much you are left (if you have set a spending limit). How neat!
+
+=== Finance Tracker
+Introducing the Finance Tracker feature of Jarvis - responsible for keeping track of all your purchases,
+monthly subscriptions and debts owed.
 
 //todo: add a ui ss
 
-As students, we often forget what we have spent on so far, which makes it hard for us to save since we do not know how
-much we are spending. But do not worry, as here's what the Finance Tracker can
-do for you:
+On switching to the Finance tab, you will be able to see a list of purchases on
+the left and a list of your monthly subscriptions on the right. On the bottom left, Jarvis will show the accumulative
+spending for that month, as well as how much you are left with (if you have set a spending limit).
+
+As students, we often fail to keep our spending habits in check. But do not worry, as with `Jarvis`, you will never
+have to worry about not saving enough for that new laptop or yet another trip with your friends.
 
 ==== Add a single-use purchase: `add-paid`
-So you bought another cup of GongCha at UTown? Let's put that in.
 
-This command adds a single purchase (with a description and a price) to the finance tracker.
-Don't worry about remembering __when__ you made your purchase, as Jarvis will automatically store it to today's date!
-Jarvis will then also update your monthly expenses accordingly.
+Bought another cup of GongCha at UTown? Let `Jarvis` know.
+
+Don't worry about remembering __when__ you made your purchase, as each purchase entered will automatically be set
+to its date of entry! Jarvis will then update your monthly expenses accordingly, as well.
 
 Format: `add-paid d/PURCHASE-DESCRIPTION a/AMOUNT`
 
@@ -251,23 +464,20 @@ add-paid d/GongCha a/2.8
 add-paid d/GongCha a/2.89
 ----
 
-
 ==== Delete a single-use purchase: `delete-paid`
-Did you return something you bought on Zalora recently? Welp, I guess that's one less purchase you made this month.
 
-This command tells Jarvis to remove the purchase at the given index on the list of purchases shown on the Finance tab.
-Jarvis will also update your monthly expenses accordingly, which also means you have more remaining budget left!
+If you have just returned something that you had bought online, `delete-paid` will remove the purchase at the specified
+*one based* index on the list of purchases shown on the Finance tab. Jarvis will update your monthly expenses accordingly - meaning you have more to spend for the
+rest of the month without exceeding your budget!
 
 Format: `delete-paid INDEX`
 
-NOTE: `INDEX` corresponds to index shown on the list __What I bought this month...__ under the Finance tab. This also
-means that the index must exist within this list!
-
+NOTE: `INDEX` corresponds to *one based* index shown on the list __What I bought this month...__ under the Finance tab.
+This also means that the index must exist within this list!
 
 ==== Searching for a purchase: `find-paid`
-Ever wondered how many cups of Gongcha you bought over the past month? Brace yourself for the truth.
-
-Jarvis can help you search for your purchases that match whatever keyword you give it!
+To have a quick view of the number of cups of Gongcha you have bought over the last month, you can used `find-paid`
+to pull up purchases with descriptions matching `KEYWORD` provided.
 
 Format: `find-paid KEYWORD`
 
@@ -276,43 +486,35 @@ Format: `find-paid KEYWORD`
 find-paid Gongcha
 ----
 
-
 ==== Add a monthly subscription: `add-install`
-Who can resist the plethora of shows to watch on Netflix? So you decided to jump on the bandwagon and subscribe to it
-as well.
-
-Let's tell Jarvis to store this new installment. Don't forget to key in the description and the amount you
-have to pay monthly so Jarvis can automatically keep track of this every month from now on!
+`Jarvis` also supports installments so that you do not need to key in your Netflix subscription fees each month.
+Purchases entered with `add-install` will automatically be deducted from your budget at the same time every month.
 
 Format: `add-install d/INSTALLMENT-DESCRIPTION a/AMOUNT`
 
 ===== Example
 ----
-add-install n/Netflix a/13.0
+add-install n/Phone bill a/43.0
 add-install n/Spotify a/9.50
 ----
 
-
 ==== Delete a monthly subscription: `delete-install`
-But alas, finals are approaching, and you decided to remove all distractions to help you better study. Unfortunately,
-this means deleting your Netflix account.
-
-This command will tell Jarvis to remove the installment at the given index on the list of installments shown on the
-Finance tab. Jarvis will also update your monthly expenses accordingly.
+With finals approaching, you might have decided to remove all distractions to help you study better. Unfortunately,
+this would also include your Netflix account.
 
 Format: `delete-install INDEX`
 
-NOTE: `INDEX` corresponds to index shown on the list __What I spend on monthly...__ under the Finance tab. This also
+Removing installments will also result in your monthly expenses being updated accordingly.
+
+NOTE: `INDEX` corresponds to *one based* index shown on the list __What I spend on monthly...__ under the Finance tab. This also
 means that the index must exist within this list!
 
 
 ==== Edit an installment: `edit-install`
-Spotify just released a new student plan? Great, that means a lower subscription fee every month!
+If you have just changed your contract for your phone, let `Jarvis` know! You can easily reflect any changes
+to your installments on the Finance Tracker through `edit-install`.
 
-Let's inform Jarvis of the changes using the index of the installment on the list __What I spend on monthly...__ under
-the Finance tab. You can either change the description or the amount or both.
-
-Format: `edit-install INDEX {d/INSTALLMENT-DESCRIPTION | a/AMOUNT}`
+Format: `edit-install INDEX { d/INSTALLMENT-DESCRIPTION | a/AMOUNT | d/INSTALLMENT-DESCRIPTION a/AMOUNT }`
 
 ===== Example
 ----
@@ -321,12 +523,9 @@ edit-install 2 d/Spotify student plan
 edit-install 2 d/Spotify student plan a/7.50
 ----
 
-
 ==== Setting a monthly spending limit: `set-limit`
-It's the season to stop spending so much!
-
-Let Jarvis keep track of how much you have limited yourself to spend this month. Simply set the limit to the
-Finance Tracker.
+Taking control of your spending might mean asking `Jarvis` to set a cap on your monthly budget.
+//todo what happens when you exceed your budget
 
 Format: `set-limit a/AMOUNT`
 
@@ -336,29 +535,25 @@ set-limit a/300
 set-limit a/500.90
 ----
 
-
 ==== Listing finances: `list-finances`
-Jarvis will switch you onto the Finance tab if you are not already there. If you have previously searched through your
-purchases for something, then Jarvis returns you to the original list of purchases.
+Lists all the purchases in the Finance Tracker. Using `list-task` while on another page of Jarvis will
+pull up the Finance tab. If you have previously searched through your purchases for something, `list-finances`
+will return the original list of purchases.
 
 Format: `list-finances`
 
-
 ==== Export to File: `export` - coming to you in v2.0!
-Want to keep a record of your finances for this month?
-
-Simple export your current expenditures to a file, either
-as a `.txt`, `.csv` or `xlsx` format.
+Conveniently export your expenditures to either a txt, csv, or xlsx file..
 
 Format: `export {csv | txt | xlsx} f/FILENAME`
 
 ===== Example
 ----
 export csv f/expenditures
+export txt f/MyFile
 ----
 
-NOTE: Jarvis will create a file called `expenditures.csv` in the current directory, containing all expenditures.
-
+NOTE: Jarvis will export the file containing all expenditures to its current directory.
 
 ==== Adding owed amounts: `owe` & `debt` - coming to you in v2.0!
 A night out with friends usually ends with someone paying and splitting the tab with his friends. But how do you
@@ -413,174 +608,6 @@ means that the index must exist within this list!
 ----
 done-owe INDEX 1
 done-debt INDEX 2
-----
-
-////
-Module Lookup
-
-Feature by
--> Ryan Tan Yu
-////
-=== Course Planner
-
-==== Add a course: `add-course`
-Adds the specified course(s) to your list.
-
-Format: `add-course c/COURSE-CODE [c/COURSE-CODE]...`
-
-`COURSE-CODE` may be the code of any {nusmods-modules}[NUS course] and you
-are able to specify multiple courses to add.
-
-===== Example
-----
-add-course c/CS1010
-add-course c/CS1010 c/CS2030 c/CS2040
-----
-
-==== Delete a course: `delete-course`
-Deletes the specified course from your list. You may also delete a course
-by its **id** within the list.
-
-Format: `delete-course {c/COURSECODE | INDEX}`
-
-===== Example
-----
-delete-course c/CS1010
-delete-course 2
-----
-
-==== Lookup a course's information: `lookup`
-Retrieves information about the specified course - such as name, course code,
-number of credits and its prerequisites - and displays it on the screen.
-
-Format: `lookup c/COURSECODE`
-
-===== Example
-----
-lookup c/CS1010
-----
-
-==== Check a course: `check`
-Checks if you can take the specified course. The result is dependent on the
-courses you have added to your list. Jarvis will display a very helpful
-tree to show you what requirements you need for each course.
-
-Format: `check c/COURSECODE`
-
-===== Example
-----
-check c/CS1010
-----
-
-////
-CCA tracker
-
-Feature by
--> Tan Ye Kai
-////
-=== CCA tracker
-Oh no, you have recently enrolled into NUS and are enthralled by the plethora of Ccas available. Before you know it,
-you are competing for your faculty's basketball team, singing for your hall band , planning an overseas service-learning
-project and handing out welfare packs for NUSSU. Thankfully, the **Cca Tracker** feature is here to help you keep track
-of each Cca.
-
-==== Add a CCA: `add-cca`
-Firstly, lets add some Ccas to the Cca Tracker. The `add-cca` command adds a CCA to your list. You need to to specify
-the name of the cca and the type of CCA. The types of the CCA will be limited to the following:
-
-. `performingArt`
-. `sport`
-. `club`
-. `uniformedGroup`
-
-[NOTE]
-Note that the equipment for each `Cca` is not compulsory.
-
-Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]`
-
-===== Example
-----
-add-cca n/Swimming t/sport e/swimming trunks e/goggles
-add-cca n/Canoeing t/sport
-add-cca n/Guitar Ensemble t/performingArt e/guitar
-----
-
-==== Delete a CCA: `delete-cca`
-What if you over-commit and end up quitting the Cca? Don't worry, you can delete the Cca from the tracker too!. The
-`delete-cca` command deletes the specified CCA by index from the tracker.
-
-Format: `delete-cca INDEX`
-
-===== Example
-----
-delete-cca 1
-----
-
-
-==== Edit a CCA: `edit-cca`
-Oh no, a slip of the finger and you have accidentally classified the Canoeing as a 'club' instead of a 'cca'. Not to
-worry, the `edit-cca` command allows you to edit the details of your CCA. Note that the keywords in square brackets are
-optional.
-
-Format: `edit-cca INDEX [n/NAME] [t/TYPE] [e/EQUIPMENT]`
-
-===== Example
-----
-edit-cca 1 t/sport e/tennis racket
-edit-cca 1 t/performingArt
-edit-cca 1 n/Running e/shoes e/water bottle
-----
-
-[NOTE]
-Note that you cannot edit your milestones for the Cca! This feature is coming in v2.0!
-
-==== List a CCA: `list-cca`
-This command lists the CCAs that you are participating in. If you do not participate in any CCAs, an empty list will be
-shown.
-
-Format: `list-cca`
-
-
-==== Find a CCA: `find-cca`
-This command finds a CCA based on keyword. If no such CCA can be found, an empty list will be shown. Note that you can
-use any number of keywords.
-
-Format: `find-cca KEYWORD`
-
-===== Example
-----
-find-cca swimming
-find-cca canoeing guitar
-----
-
-
-==== Add progress levels for a CCA: `add-progress`
-Very often, Ccas tend to have certain milestones to achieve. For example, swimming might require you to achieve the
-different grade levels (example show below). The `add-progress` command adds the progress milestones for each chosen
-CCA.
-
-Format: `add-progress INDEX p/MILESTONE `
-
-===== Example
-----
-add-progress 1 p/bronze p/silver p/gold p/gold star
-add-progress 2 p/Beginner boat p/Intermediate boat p/Racing boat
-add-progress n/Guitar Ensemble l/8
-----
-
-==== Increment progress level: `increment-progress`
-This command increments the progress for a CCA at the specified index.
-
-[NOTE]
-Note that progress can only be incremented if a progress has been added to that Cca.
-
-Note that progress can only be incremented if a progress has been added to that Cca.
-
-Format: `increment-progress INDEX`
-
-===== Example
-----
-increment-progress 1
 ----
 
 ////
