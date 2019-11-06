@@ -367,15 +367,13 @@ Using `submit` in both modes right after using `fill` thus enables convenient su
 Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
 
-****
-* The listing returns all incidents, inclusive of all incomplete drafts and complete drafts and submitted incident reports
-* Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
-****
-
 Example usage and expected outcome:
 
 image::listIncidentsCommand.png[]
 .Fig X. The `list-i` command returns all incidents within the system.
+
+* The listing returns all incidents, inclusive of all incomplete drafts and complete drafts and submitted incident reports
+* Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
 
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
@@ -423,12 +421,12 @@ image::findIncidentsCommandWithIdParameter.png[]
 Format: `find-i self` +
 Lists all incidents whereby the operator name matches the logged-in user's name.
 
-* Requires an exact name match with the logged-in user's name
-
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithSelfParameter.png[]
 .Fig X. Executing `find-i self` lists all completed drafts ready for submission
+
+* Requires an exact name match with the logged-in user's name
 
 ****
 * The search is case insensitive. e.g `dave` will match `Dave`
