@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="5" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+    <Label text="Favorites" styleClass="label-bright" alignment="TOP_LEFT" />
+    <FlowPane fx:id="favoriteBookmarkList" alignment="TOP_CENTER" >
+        <padding>
+            <Insets bottom="5" left="10" right="10" top="5" />
+        </padding>
+    </FlowPane>
+</VBox>

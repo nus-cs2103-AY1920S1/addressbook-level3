@@ -398,12 +398,12 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 14px;
-    -fx-text-fill: black;
-    -fx-background-color: #e0e0e0;
+     -fx-text-fill: black;
+     -fx-background-color: orange;
     -fx-cursor: hand;
 }
 
 #favoriteBookmarkList .label:hover {
-        -fx-background-color: #ccc;
+    -fx-background-color: #e0e0e0;
 }
 
