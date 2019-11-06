@@ -9,22 +9,47 @@
 
 == Overview
 
-Plan²travel is a desktop travel planning application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface) and it has a GUI created with JavaFX. It is a Java sample application intended for students who students who are infrequent travelers while using Java as the main programming language.
+*_Plan²travel_* is a desktop travel planning application for student who are planning for an overseas trip.
+It has a GUI created with JavaFX and user would interacts with it through a CLI (Command Line Interface). The application is written in Java.
+*_Plan²travel_* allows students to better organise their trip information by providing them with a template with these three main list: accommodation, contact and activity list.
+Also, *_Plan²travel_* is able to generate a best suited schedule based on the student's requirement and optimise their budget spending for a trip.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to generate a suitable schedule based on user's requirement*
+** What it does: Generate a schedule for specified day(s) based on the type of activities users want for those day(s). Activities scheduled for those day(s) depends on the level on importance they indicated for each activity and whether it has been scheduled.
+** Justification: This feature improves the product significantly because it is able to generate a schedule that are non-overlapping and is to the best interest of the user.
+** Highlights:
+. Current implementation of using Hashmap to store prefix and their arguments does not maintain the order of the prefixes that are being added. As the new enhancement require information of the order of activities to schedule as specified by the user, I have to implement a new way to store those prefixes to maintain their insertion order.
+. This enhancement can easily be extended to schedule multiple activities at one time.
+. There were many cases to consider to ensure that there were no overlap of activity but still provide a schedule that best suit the requirement of the user.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: added *the ability to schedule an activity to a day*.
+** What it does: Schedule the specified activity from the activity list to the specified day.
+** Justification:
+*_Plan²travel_* is designed for students to organise their trip information and plan their itinerary.
+Therefore, this command is crucial in allowing user to input activity into a particular day so that they can plan their itinerary.
+** Highlights:
+. This enhancement requires an understanding of how the activity list and the days list are stored and I would need to understand how the parser works so that I could retrieve the relevant information and schedule the activity for specified day.
+
+* *Minor enhancement*: added the model for *Activity*.
+** What it does: Forms the backbone of most commands which require activity.
+** Justification: Our application is designed for students to plan their activities, and therefore this enhancement would later be involved in most of any other enhancements that take place in future.
+** Highlights:
+. This enhancement requires an understanding of how a typical activity should consist of so that it does not violate the law of demeter.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=oscarsu97[RepoSense Report]]
+
+////
+[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+////
+
 
 * *Other contributions*:
 
+
+////
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
@@ -40,19 +65,20 @@ Plan²travel is a desktop travel planning application. It has a GUI but most of 
 ** Tools:
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
+////
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=schedule]
 
-include::../UserGuide.adoc[tag=dataencryption]
+---
+
+include::../UserGuide.adoc[tag=autoschedule]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +86,10 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=uicomponent]
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=scheduleactivity]
+
+---

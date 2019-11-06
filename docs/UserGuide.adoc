@@ -162,6 +162,8 @@ Examples:
 * `add activity n/Ski a/Mount Sinai du/120`
 
 // end::addactivity[]
+
+// tag::editactivity[]
 === Editing an activity: `edit activity`
 
 Edits an activity +
@@ -176,6 +178,7 @@ Examples:
 * `edit activity 1 n/Dinner a/Hotel t/Western`
 
 Edits the name, address and tag of the 1st activity to be Dinner, Hotel and Western respectively.
+// end::editactivity[]
 
 // tag::deleteactivity[]
 === Deleting an activity: `delete activity`
@@ -279,7 +282,7 @@ Examples :
 
 Views the 3rd contact in the contact list.
 
-//end::viewaccommodation[]
+//end::viewcontact[]
 
 === Adds days to the schedule: `add days`
 
@@ -303,6 +306,7 @@ Examples:
 
 Deletes day 2 from the itinerary.
 
+// tag::schedule[]
 === Scheduling an activity to a day: `schedule`
 
 Schedules an activity to a day +
@@ -313,6 +317,7 @@ Examples:
 * `schedule 2 st/1000 d/2`
 
 Schedules the second activity in the activity list under day 2.
+// end::schedule[]
 
 === Unscheduling activities from a day: `unschedule activity`
 
@@ -325,6 +330,7 @@ Examples:
 
 This remove the 5th activity from the activity list from day 2.
 
+// tag::autoschedule[]
 === Auto Schedule: `autoschedule`
 Generates a list of activities for the specified days based on the `highest priority` and the `least number of times it
 appears on the timetable.` +
@@ -356,6 +362,7 @@ Examples:
 * `autoschedule t/Breakfast t/Sightseeing t/Dinner`
 * `autoschedule t/Breakfast t/Sightseeing t/Dinner a/Kyoto d/1`
 * `autoschedule t/Breakfast 1000 n/DisneyLand t/Dinner a/Kyoto d/1 2 3 4`
+// end::autoschedule[]
 
 // tag::optimise[]
 === Optimising by budget: `optimise`
