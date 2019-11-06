@@ -64,7 +64,7 @@
                         <DropShadow blurType="GAUSSIAN" height="28.91" offsetY="2.0" radius="11.9775" spread="0.23" />
                     </effect>
                 </AnchorPane>
-                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="30.0" prefHeight="30.0" prefWidth="1220.0" styleClass="stack-pane" VBox.vgrow="ALWAYS">
+                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="80.0" prefHeight="80.0" prefWidth="1220.0" styleClass="stack-pane" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="15.0" right="15.0" top="15.0" />
                     </VBox.margin>
