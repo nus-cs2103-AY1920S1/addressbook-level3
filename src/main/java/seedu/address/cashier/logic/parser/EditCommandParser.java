@@ -2,6 +2,7 @@ package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.logic.parser.AddCommandParser.arePrefixesPresent;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_TOTAL_AMOUNT_EXCEEDED;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_TO_EDIT_CASHIER;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
@@ -16,6 +17,7 @@ import seedu.address.cashier.logic.commands.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.commands.exception.NotANumberException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.Model;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
@@ -38,7 +40,7 @@ public class EditCommandParser implements Parser {
     public EditCommand parse(String args, Model modelManager,
                              seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
             throws NotANumberException, ParseException, NoSuchItemException,
-            InsufficientAmountException, NegativeQuantityException, NoSuchIndexException {
+            InsufficientAmountException, NegativeQuantityException, NoSuchIndexException, AmountExceededException {
         int index;
         int quantity;
         ArgumentMultimap argMultimap;
@@ -82,7 +84,6 @@ public class EditCommandParser implements Parser {
         }
 
 
-
         String quantityString = argMultimap.getValue(PREFIX_QUANTITY).get();
         try {
             quantity = Integer.parseInt(quantityString);
@@ -97,6 +98,11 @@ public class EditCommandParser implements Parser {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
+
+        if (!modelManager.isValidAmount(index, quantity)) {
+            throw new AmountExceededException(MESSAGE_TOTAL_AMOUNT_EXCEEDED);
+        }
+
         return new EditCommand(index, quantity);
     }
 

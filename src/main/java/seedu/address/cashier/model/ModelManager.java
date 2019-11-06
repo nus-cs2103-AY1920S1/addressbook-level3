@@ -518,6 +518,30 @@ public class ModelManager implements Model {
         return result;
     }
 
+    @Override
+    public boolean isValidAmount(String description, int qty) throws NoSuchItemException, AmountExceededException {
+        double price = inventoryList.getOriginalItem(description).getPrice();
+        double itemPrice = price * qty;
+        if (itemPrice > 999999.99) {
+            return false;
+        } else {
+            double total = 0;
+            for (Item i : salesList) {
+                total += (i.getPrice() * i.getQuantity());
+            }
+            if ((total + itemPrice) > 999999.99) {
+                throw new AmountExceededException(MESSAGE_TOTAL_AMOUNT_EXCEEDED);
+            }
+            return true;
+        }
+    }
+
+    @Override
+    public boolean isValidAmount(int index, int qty) throws NoSuchItemException, AmountExceededException {
+        String description = salesList.get(index - 1).getDescription();
+        return isValidAmount(description, qty);
+    }
+
     public static boolean onCashierMode() {
         return onCashierMode;
     }

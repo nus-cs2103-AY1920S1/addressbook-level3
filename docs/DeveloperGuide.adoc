@@ -413,27 +413,7 @@ amount to indicate a spending that needs to be reimbursed, the reimbursement tab
 This section explains the implementation of the Delete Command in Home Tab.
 This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
-that person to be deleted.
-
-The following sequence diagram shows how the delete by name command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
-
-.Sequence Diagram of Delete Command in Home Tab (transaction package)
-
-image::HomeDeleteNameCommand.png[]
-
-In addition, the `ModelManager#resetPredicate()` method is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
-filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
-a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
-To view the full transaction list, the user would be required to input the
-Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
-following section <<BackCommandSD, 3.1.3 BackCommand>>
-
-After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
-and <<update-reimbursement, 3.1.1. Add Command feature: Figure 14>>
-respectively.
-The delete by index implementation would be similar but does not require interaction with the `Model` from the
-`AddressBook` in the person package.
-The following activity diagram shows the steps needed to delete a new transaction:
+that person to be deleted.The following activity diagram shows the steps needed to delete a new transaction:
 
 .Activity Diagram of Delete Command in Home Tab (transaction package)
 
@@ -442,6 +422,25 @@ image::HomeTabActivityDiagramDeleteCommand.png[]
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
 be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
 when a successful deletion is done.
+
+The following sequence diagram shows how the delete by name command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+
+.Sequence Diagram of Delete Command in Home Tab (transaction package)
+
+image::HomeDeleteNameCommand.png[]
+
+In addition, the `ModelManager#resetPredicate()` method is not called in the `DeleteNameCommand`. If the prior input is a
+Find Command and the list at the start of the activity diagram shows
+a filtered list by the Find Command's keywords, the table in the UI will continue to show the filtered list at the end of the current Delete Command.
+To view the full transaction list, the user would be required to enter the
+Back Command where `BackCommand` calls `ModelManager#resetPredicate()` which sets the predicate to evaluate all `Transaction` objects to the boolean true.. The sequence diagram for the `BackCommand` is shown in the
+following section <<BackCommandSD, 3.1.3 BackCommand>>
+
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
+and <<update-reimbursement, 3.1.1. Add Command feature: Figure 14>>
+respectively.
+The delete by index implementation would be similar but does not require interaction with the `Model` from the
+`AddressBook` in the person package.
 
 ==== Back Command Feature
 [[BackCommandSD]]
@@ -469,7 +468,8 @@ image::HomeTabSortSD.png[]
 When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
 the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
-Similar to the Delete Command, since the `resetPredicate()` method is not called.
+Similar to the Delete Command, the `ModelManager#resetPredicate()` method is not called. If the UI table is showing a filtered
+list of transactions, the Back Command has to be entered to call that method from `BackCommand` to reset the predicate.
 
 ==== Overall Design Considerations
 This section's table explains the design considerations for some implementations in the Home Tab.
@@ -478,7 +478,7 @@ This section's table explains the design considerations for some implementations
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
 
 |`ModelManager` contains 2 variables that point to a `TransactionList` object in original order and a `TransactionList`
-object for viewing that can be sorted such that when [blue]`sort reset` is called, the shown `TransactionList` can be set to be equals to the original one.
+object for viewing that can be sorted such that when [blue]`sort reset` is called, the `TransactionList` for viewing can be set to be equals to the original one.
 |`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
 the `TransactionList` object in original order when [blue]`sort reset` is called.
 |Alternative 1 was implemented. Alternative 1 allowed exporting of the data file in the desired order anytime while treasurerPro was running while
@@ -697,10 +697,6 @@ Upon every successful checkout, all the sales items sold will recorded as one tr
 appended to the list of transactions on the `Home tab`. In addition, the stock remaining in the inventory will be updated
 accordingly in the `Inventory tab`.
 
-[NOTE]
-If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
-
-
 ==== Add Sales Item Feature
 This feature allows the addition of sales items to the cart.
 
@@ -736,15 +732,16 @@ The following are two code snippets from `getRecommendedItems(description)`:
             .toCollection(ArrayList::new));
             return newList;
 
-The `getCombination(arr, arr.length)` method in line 3 of the above snippet returns an ArrayList of all subsets of
-descriptions that are of at least length 3. As shown in the first code snippet above, while iterating through the `InventoryList`,
-these subsets are compared with the actual descriptions of all items in the inventory to check if either contains the other.
+The `getCombination(arr, arr.length)` method in line 3 of the first snippet returns an ArrayList of all subsets of
+descriptions that are of at least length 3. While iterating through the `InventoryList`, these subsets are compared with the actual descriptions of all items in the inventory to check if either contains the other.
 
-After adding all the suggested words into the `recommendedItems` list, the list is passed into a stream to remove duplicates
-as shown in the second code snippet.
+As shown in the second code snippet, after adding all the suggested words into the `recommendedItems` list, the list
+is passed into a stream to remove duplicates.
 
-The following sequence diagram shows how the `AddCommand` works and is the reference
-from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
+[NOTE]
+If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works and is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 
@@ -775,7 +772,8 @@ This means that SetCommandParser requires access to the `Model` of the person pa
 If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
 informing the user that there is no such person.
 
-The following sequence diagram shows how the SetCashierCommandParser checks for an existing person:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows
+how the SetCashierCommandParser checks for an existing person:
 
 .Sequence Diagram of SetCashierCommandParser (cashier package)
 
@@ -783,8 +781,8 @@ image::SetCashierCommandSeq1.png[]
 
 If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
 
-The following sequence diagram shows how the set cashier command works and is the reference
-from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
+shows how the set cashier command works:
 
 .Sequence Diagram of Set Cashier Command (cashier package)
 
@@ -799,7 +797,7 @@ The following activity diagram shows the steps after the user input a set cashie
 image::SetCashierCommandActivity.png[]
 
 ==== Checkout Feature
-This feature confirms all the sales items in the table as one sales transaction under the `Sales` category.
+This feature records all the sales items in the table as one sales transaction under the `Sales` category.
 
 The `Home Tab` will be updated with the new transaction labelled as `Items sold`. The remaining stock of the sales items
 will also be updated on the `Inventory Tab`.
@@ -813,8 +811,8 @@ transaction of the sales made.
 [NOTE]
 After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
 
-The following sequence diagram shows how the checkout command is executed and is the reference
-from <<GeneralLogicSD,  2.3. Logic component: Figure 5>>:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
+shows how the checkout command is executed:
 
 .Sequence Diagram of Checkout Command (cashier package)
 
@@ -838,6 +836,63 @@ The following activity diagram shows the steps after the user input a checkout c
 .Activity Diagram of Checkout Command (cashier package)
 
 image::CheckoutCommandCashierActivityDiag.png[]
+
+==== Overall Design Considerations
+
+This section explains the design considerations for some crucial implementations in the Cashier Tab.
+
+|===
+|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+|An ArrayList is used to store the list of sales item shown on the `Cashier Tab`.
+
+*Pros*: Elements are be accessed directly more efficiently.
+
+*Cons*: Adding and removing from the head of the list is less time-efficient for ArrayList.
+
+|A LinkedList is used to store the list of sales item.
+
+*Pros*: Time performance is better when elements are accessed from the head of the list.
+
+*Cons*: Performance is poor when accessing directly via the index.
+
+|Alternative 1 is selected. An ArrayList has better performance with respect to time when accessing each elements directly. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.
+
+|The Transaction, Inventory and Person `Model` interfaces are passed as parameters into Cashier's `Logic`
+to call relevant methods to update the inventory and transactions.
+
+*Pros*: Cashier's Logic can access all public methods in the respective `Model`.
+
+*Cons*: It might result in unintended modification to some of the data in the Models.
+
+|Interfaces that only contains required methods are created. The methods are called via these interfaces
+to update the data.
+
+*Pros*: Prevents any unwanted changes through other methods. This follows the Facade Pattern.
+
+*Cons*: If more methods are needed, they need to be added to these interfaces.
+
+|Alternative 2 was implemented as only a few methods are required from each `Model`, so the new interfaces can act as facades
+and restrict access to all public methods in the models. This prevents in Cashier’s `Logic` from causing any
+unintended modification to any of the data in the Models.
+
+|The Cashier Storage directly writes to and from the data file of the inventory and transaction.
+
+*Pros*: It can access the data file directly without any dependencies.
+
+*Cons*: The data files can be modified from 2 sources, introducing more chances of bugs.
+
+|The Cashier Storage accesses the methods from the Transaction and Inventory storage via their `Logic`
+to update the data.
+
+*Pros*: The data files are only modified from 1 source, ensuring cohesiveness in the format of data stored.
+
+*Cons*: It introduces more dependencies on the storage of other packages.
+
+|Alternative 2 is implemented to enforce defensive programming, so that the data files are not modified via 2 different
+methods and eliminate any chances of uncoordinated data in the data files.
+
+|===
 
 === Overview Tab
 

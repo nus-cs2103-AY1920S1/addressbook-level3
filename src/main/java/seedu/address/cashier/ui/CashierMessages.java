@@ -75,7 +75,7 @@ public class CashierMessages {
 
     public static final String MESSAGE_DELETED_ITEM = "Deleted item: %s\nDeleted successfully.\n";
 
-    public static final String MESSAGE_TOTAL_AMOUNT_EXCEEDED = "The total amount cannot exceed $9999. Please"
+    public static final String MESSAGE_TOTAL_AMOUNT_EXCEEDED = "The total amount cannot exceed $999999.99. Please"
             + " reduce the quantity or checkout this item in a separate cart.\n";
 
     /**
