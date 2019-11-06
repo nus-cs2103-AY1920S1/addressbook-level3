@@ -26,8 +26,13 @@ Label, TextField {
 }
 
 .hyperlink {
-    -fx-text-fill: orange;
+    -fx-text-fill: #ffca28;
     -fx-font: normal 13 sans-serif;
+}
+
+.hyperlink:hover,
+.hyperlink:visited {
+    -fx-underline: false;
 }
 
 .rating-active {
