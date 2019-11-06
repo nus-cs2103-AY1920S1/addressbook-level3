@@ -37,7 +37,7 @@ public class MainApp extends Application {
             stage.setOnCloseRequest(e -> {
                 userStats.endCurrentSession();
                 StorageManager.saveAll(State.getState().getDecks());
-                StorageManager.saveStats();
+                //StorageManager.saveStats(State.getUserStats());
             });
             // start a session
             userStats.startCurrentSession();

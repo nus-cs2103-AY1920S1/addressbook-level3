@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.UserStats;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
@@ -241,9 +242,9 @@ public class StorageManager {
     /**
      * Save stats data.
      */
-    public static void saveStats() {
+    public static void saveStats(UserStats userStats) {
         resolveRoot();
-        //FileReadWrite.write(statsFileFullPath, Stats.getLoginSessions().toJson().toString());
+        FileReadWrite.write(statsFileFullPath, userStats.getSessionList().toJson().toString());
     }
 
     /**

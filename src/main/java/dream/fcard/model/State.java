@@ -63,12 +63,12 @@ public class State {
 
     /** Gets the UserStats object. */
     public UserStats getUserStats() {
-        return this.userStats;
+        return userStats;
     }
 
     /** Sets the UserStats object. */
     public void setUserStats(UserStats stats) {
-        this.userStats = stats;
+        userStats = stats;
     }
 
     /**

@@ -50,7 +50,7 @@ public class StatsDisplayUtil {
     /** Creates the TableView object from the given State object, representing the list of decks. */
     public static TableView<Deck> getDeckTableView(State state) {
         // for each deck in list of decks in state, get the DeckStats object
-        ArrayList<Deck> decks = state.decks;
+        ArrayList<Deck> decks = state.getDecks();
 
         TableView<Deck> deckTableView = new TableView<>();
         deckTableView.setItems(FXCollections.observableArrayList(decks));
