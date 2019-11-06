@@ -1,4 +1,4 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.income;
 
 import java.util.Comparator;
 
@@ -7,14 +7,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.entry.AutoExpense;
+import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class AutoExpensesCard extends UiPart<Region> {
+public class IncomeCard extends UiPart<Region> {
 
-    private static final String FXML = "AutoExpenseListCard.fxml";
+    private static final String FXML = "/income/IncomeCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +25,7 @@ public class AutoExpensesCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on GuiltTrip level 4</a>
      */
 
-    public final AutoExpense autoExpense;
+    public final Income income;
 
     @FXML
     private HBox cardPane;
@@ -33,9 +34,7 @@ public class AutoExpensesCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label freq;
-    @FXML
-    private Label nextTime;
+    private Label date;
     @FXML
     private Label amt;
     @FXML
@@ -43,20 +42,18 @@ public class AutoExpensesCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public AutoExpensesCard(AutoExpense autoExpense, int displayedIndex) {
+    public IncomeCard(Income income, int displayedIndex) {
         super(FXML);
-        this.autoExpense = autoExpense;
+        this.income = income;
         id.setText(displayedIndex + ". ");
 
-        String fullDesc = autoExpense.getDesc().fullDesc;
-        desc.setText(fullDesc);
-        freq.setText("[" + autoExpense.getFrequency().toString() + "] ");
-        //lastTime.setText(autoExpense.getLastTime().toString());
-        nextTime.setText("Next: " + autoExpense.getNextTime().toString());
-        amt.setText("$" + autoExpense.getAmount().toString());
-        category.setText(autoExpense.getCategory().toString());
+        String descWithType = income.getDesc().fullDesc;
+        desc.setText(descWithType);
+        date.setText(income.getDate().toString());
+        amt.setText("$" + income.getAmount().value);
+        category.setText(income.getCategory().categoryName);
 
-        autoExpense.getTags().stream()
+        income.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -69,14 +66,13 @@ public class AutoExpensesCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AutoExpensesCard)) {
+        if (!(other instanceof IncomeCard)) {
             return false;
         }
 
         // state check
-        AutoExpensesCard card = (AutoExpensesCard) other;
+        IncomeCard card = (IncomeCard) other;
         return id.getText().equals(card.id.getText())
-                && autoExpense.equals(card.autoExpense);
+                && income.equals(card.income);
     }
 }
-

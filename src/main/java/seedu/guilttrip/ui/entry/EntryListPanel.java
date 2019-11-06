@@ -1,4 +1,4 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.entry;
 
 import java.util.logging.Logger;
 
@@ -11,12 +11,15 @@ import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.ui.expense.ExpenseCard;
+import seedu.guilttrip.ui.income.IncomeCard;
+import seedu.guilttrip.ui.UiPart;
 
 /**
  * Panel containing the list of entries.
  */
 public class EntryListPanel extends UiPart<Region> {
-    private static final String FXML = "EntryListPanel.fxml";
+    private static final String FXML = "/entry/EntryListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EntryListPanel.class);
 
     @FXML

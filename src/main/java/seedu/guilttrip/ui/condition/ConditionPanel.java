@@ -1,4 +1,4 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.condition;
 
 import java.util.logging.Logger;
 
@@ -8,12 +8,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.ui.UiPart;
 
 /**
  * Side Pannel for Conditions
  */
 public class ConditionPanel extends UiPart<Region> {
-    private static final String FXML = "ConditionListPanel.fxml";
+    private static final String FXML = "/condition/ConditionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ConditionPanel.class);
 
     @javafx.fxml.FXML

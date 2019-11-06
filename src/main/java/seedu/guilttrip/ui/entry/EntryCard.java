@@ -1,4 +1,4 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.entry;
 
 import java.util.Comparator;
 
@@ -7,14 +7,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.entry.Wish;
+import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class WishListCard extends UiPart<Region> {
+public class EntryCard extends UiPart<Region> {
 
-    private static final String FXML = "WishListCard.fxml";
+    private static final String FXML = "/entry/EntryListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +25,7 @@ public class WishListCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on GuiltTrip level 4</a>
      */
 
-    public final Wish wish;
+    public final Entry entry;
 
     @FXML
     private HBox cardPane;
@@ -41,18 +42,18 @@ public class WishListCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public WishListCard(Wish wish, int displayedIndex) {
+    public EntryCard(Entry entry, int displayedIndex) {
         super(FXML);
-        this.wish = wish;
+        this.entry = entry;
         id.setText(displayedIndex + ". ");
 
-        String descWithType = wish.getDesc().fullDesc;
+        String descWithType = entry.getDesc().fullDesc;
         desc.setText(descWithType);
-        date.setText(wish.getDate().toString());
-        amt.setText("$" + wish.getAmount().value);
-        category.setText(wish.getCategory().toString());
+        date.setText(entry.getDate().toString());
+        amt.setText("$" + entry.getAmount().value);
+        category.setText(entry.getCategory().categoryName);
 
-        wish.getTags().stream()
+        entry.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -70,9 +71,8 @@ public class WishListCard extends UiPart<Region> {
         }
 
         // state check
-        WishListCard card = (WishListCard) other;
+        EntryCard card = (EntryCard) other;
         return id.getText().equals(card.id.getText())
-                && wish.equals(card.wish);
+                && entry.equals(card.entry);
     }
 }
-

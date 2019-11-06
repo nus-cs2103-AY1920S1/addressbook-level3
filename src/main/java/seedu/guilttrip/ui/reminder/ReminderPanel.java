@@ -1,4 +1,4 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.reminder;
 
 import java.util.logging.Logger;
 
@@ -9,13 +9,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.ui.UiPart;
 
 
 /**
  * Side panel for reminders.
  */
 public class ReminderPanel extends UiPart<Region> {
-    private static final String FXML = "ReminderListPanel.fxml";
+    private static final String FXML = "/reminder/ReminderListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ReminderPanel.class);
 
     @FXML

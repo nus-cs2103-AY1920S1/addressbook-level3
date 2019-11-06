@@ -1,20 +1,22 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.budget;
 
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.entry.Budget;
+import seedu.guilttrip.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class ExpenseCard extends UiPart<Region> {
+public class BudgetCard extends UiPart<Region> {
 
-    private static final String FXML = "ExpenseCard.fxml";
+    private static final String FXML = "/budget/BudgetListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +26,7 @@ public class ExpenseCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on GuiltTrip level 4</a>
      */
 
-    public final Expense expense;
+    public final Budget budget;
 
     @FXML
     private HBox cardPane;
@@ -35,24 +37,35 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label amt;
+    private Label left;
+    @FXML
+    private ProgressBar progressBar;
+    @FXML
+    private Label total;
     @FXML
     private Label category;
     @FXML
     private FlowPane tags;
 
-    public ExpenseCard(Expense expense, int displayedIndex) {
+    public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
-        this.expense = expense;
+        this.budget = budget;
         id.setText(displayedIndex + ". ");
 
-        String descWithType = expense.getDesc().fullDesc;
-        desc.setText(descWithType);
-        date.setText(expense.getDate().toString());
-        amt.setText("$" + expense.getAmount().value);
-        category.setText(expense.getCategory().categoryName);
+        String fullDesc = budget.getDesc().fullDesc;
+        desc.setText(fullDesc);
+        date.setText(budget.getDate().toString() + " - " + budget.getEndDate().toString());
+        double leftAmount = budget.getAmount().value - budget.getSpent().value;
+        double totalAmount = budget.getAmount().value;
+        //left.setText("left: $" + leftAmount + " out of: $" + budget.getAmount().value);
+        left.setText("$" + leftAmount);
+        total.setText("$" + totalAmount);
 
-        expense.getTags().stream()
+        progressBar.setProgress(leftAmount / totalAmount);
+
+        category.setText(budget.getCategory().toString());
+
+        budget.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -65,13 +78,14 @@ public class ExpenseCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ExpenseCard)) {
+        if (!(other instanceof BudgetCard)) {
             return false;
         }
 
         // state check
-        ExpenseCard card = (ExpenseCard) other;
+        BudgetCard card = (BudgetCard) other;
         return id.getText().equals(card.id.getText())
-                && expense.equals(card.expense);
+                && budget.equals(card.budget);
     }
 }
+

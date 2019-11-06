@@ -1,4 +1,4 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.wishlist;
 
 import java.util.logging.Logger;
 
@@ -9,12 +9,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.entry.Wish;
+import seedu.guilttrip.ui.UiPart;
 
 /**
  * Side panel for wishes in wishlist.
  */
 public class WishListPanel extends UiPart<Region> {
-    private static final String FXML = "WishListPanel.fxml";
+    private static final String FXML = "/wishlist/WishListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(WishListPanel.class);
 
     @FXML

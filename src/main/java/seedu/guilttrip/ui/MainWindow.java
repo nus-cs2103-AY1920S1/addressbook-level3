@@ -22,12 +22,20 @@ import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.ui.autoexpense.AutoExpensesPanel;
+import seedu.guilttrip.ui.budget.BudgetPanel;
+import seedu.guilttrip.ui.condition.ConditionPanel;
+import seedu.guilttrip.ui.entry.EntryListPanel;
+import seedu.guilttrip.ui.expense.ExpenseListPanel;
+import seedu.guilttrip.ui.income.IncomeListPanel;
+import seedu.guilttrip.ui.reminder.ReminderPanel;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
 import seedu.guilttrip.ui.stats.StatisticsPieChartHolder;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
 import seedu.guilttrip.ui.util.FontManager;
 import seedu.guilttrip.ui.util.PanelName;
 import seedu.guilttrip.ui.util.Theme;
+import seedu.guilttrip.ui.wishlist.WishListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing

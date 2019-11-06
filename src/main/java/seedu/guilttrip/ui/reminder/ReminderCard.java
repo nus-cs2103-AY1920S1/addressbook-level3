@@ -1,4 +1,4 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.reminder;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -8,12 +8,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Reminder}.
  */
 public class ReminderCard extends UiPart<Region> implements PropertyChangeListener {
-    private static final String FXML = "ReminderListCard.fxml";
+    private static final String FXML = "/reminder/ReminderListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

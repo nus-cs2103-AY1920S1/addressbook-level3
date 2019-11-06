@@ -1,4 +1,4 @@
-package seedu.guilttrip.ui;
+package seedu.guilttrip.ui.condition;
 
 import java.util.Comparator;
 
@@ -13,12 +13,14 @@ import seedu.guilttrip.model.reminders.conditions.DateCondition;
 import seedu.guilttrip.model.reminders.conditions.KeyWordsCondition;
 import seedu.guilttrip.model.reminders.conditions.QuotaCondition;
 import seedu.guilttrip.model.reminders.conditions.TagsCondition;
+import seedu.guilttrip.ui.UiPart;
+
 /**
  * An UI component that displays information of a {@code Condition}.
  */
 public class ConditionCard extends UiPart<Region> {
 
-    private static final String FXML = "ConditionListCard.fxml";
+    private static final String FXML = "/condition/ConditionListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
