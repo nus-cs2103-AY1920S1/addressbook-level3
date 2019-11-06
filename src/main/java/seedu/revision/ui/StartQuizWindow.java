@@ -1,7 +1,5 @@
 package seedu.revision.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -14,7 +12,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -83,8 +81,8 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
-    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
-        super(FXML, primaryStage, mainLogic);
+    public StartQuizWindow(Stage primaryStage, Logic logic, Mode mode) {
+        super(FXML, primaryStage, logic);
         this.mode = mode;
     }
 
@@ -96,7 +94,7 @@ public class StartQuizWindow extends Window {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.quizList = mainLogic.getFilteredSortedAnswerableList();
+        this.quizList = logic.getFilteredSortedAnswerableList();
         answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
@@ -106,13 +104,13 @@ public class StartQuizWindow extends Window {
         questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         commandBox = new CommandBox(this::executeCommand, false);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        int nextLevel = Integer.parseInt(quizList.get(0).getDifficulty().value);
+        int nextLevel = Integer.parseInt(quizList.get(0).getDifficulty().difficulty);
         this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
 
         levelLabel = new LevelLabel(nextLevel);
@@ -128,7 +126,7 @@ public class StartQuizWindow extends Window {
 
     private int getSizeOfCurrentLevel(Answerable answerable) {
         ObservableList<Answerable> sectionList = quizList.filtered(a ->
-                a.getDifficulty().value.equals(answerable.getDifficulty().value));
+                a.getDifficulty().difficulty.equals(answerable.getDifficulty().difficulty));
         return sectionList.size();
     }
 
@@ -146,12 +144,12 @@ public class StartQuizWindow extends Window {
     /**
      * Executes the command and returns the result.
      *
-     * @see MainLogic#execute(String, Answerable)
+     * @see Logic#execute(String, Answerable)
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
+            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
                 totalScore++;
                 score++;
@@ -204,12 +202,12 @@ public class StartQuizWindow extends Window {
      * @param nextAnswerable next answerable that will be displayed.
      */
     private void handleNextLevel(Answerable currentAnswerable, Answerable nextAnswerable) {
-        int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().value);
+        int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().difficulty);
 
         accumulatedSize = accumulatedSize + getSizeOfCurrentLevel(currentAnswerable);
         AlertDialog nextLevelDialog = AlertDialog.getNextLevelAlert(nextLevel, totalScore, accumulatedSize);
 
-        switch (currentAnswerable.getDifficulty().value) {
+        switch (currentAnswerable.getDifficulty().difficulty) {
         case "1":
             score1 = score;
             total1 = getSizeOfCurrentLevel(currentAnswerable);
@@ -219,7 +217,7 @@ public class StartQuizWindow extends Window {
             total2 = getSizeOfCurrentLevel(currentAnswerable);
             break;
         default:
-            assert false : currentAnswerable.getDifficulty().value;
+            assert false : currentAnswerable.getDifficulty().difficulty;
         }
 
         score = 0;
@@ -265,6 +263,7 @@ public class StartQuizWindow extends Window {
         accumulatedSize = accumulatedSize + getSizeOfCurrentLevel(currentAnswerable);
         currentProgressIndex.set(currentProgressIndex.get() + 1);
         boolean isFailure = mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext();
+
         AlertDialog endAlert = AlertDialog.getEndAlert(totalScore, accumulatedSize, isFailure);
 
         Task<Void> task = new Task<>() {
@@ -286,7 +285,7 @@ public class StartQuizWindow extends Window {
 
         Statistics newResult = new Statistics(totalScore, accumulatedSize, score1, total1, score2, total2, score3,
                 total3);
-        updateHistory(mainLogic, newResult);
+        logic.updateHistory(newResult);
 
         //Start the event on a new thread so that showAndWait event is not conflicted with timer animation.
         new Thread(task).start();
@@ -318,16 +317,12 @@ public class StartQuizWindow extends Window {
     @FXML
     protected void handleExit() {
         timer.stopTimer();
-        mainLogic.removeFiltersFromAnswerableList();
-        mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
+        logic.removeFiltersFromAnswerableList();
+        mainWindow = new MainWindow(getPrimaryStage(), logic);
         mainWindow.show();
         mainWindow.fillInnerParts();
         mainWindow.resultDisplay.setFeedbackToUser("Great attempt! Type 'start mode/MODE' "
                 + "(normal / arcade / custom) to try another quiz!");
     }
 
-    private void updateHistory(MainLogic mainLogic, Statistics newResult) {
-        requireNonNull(mainLogic.getModel());
-        mainLogic.getModel().addStatistics(newResult);
-    }
 }

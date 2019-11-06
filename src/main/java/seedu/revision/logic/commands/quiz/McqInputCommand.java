@@ -48,7 +48,7 @@ public class McqInputCommand extends Command {
             break;
         case "n":
             result = "wrong";
-            return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
+            return new CommandResult().withFeedBack(result).build();
         default:
             selectedAnswer = null;
         }

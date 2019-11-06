@@ -21,8 +21,8 @@ public class CategoryPredicate implements Predicate<Answerable> {
     public boolean test(Answerable answerable) {
         return answerable.getCategories()
                          .stream()
-                         .map(category -> category.categoryName)
-                         .anyMatch(categoryName -> categoryName.equalsIgnoreCase(this.category.categoryName));
+                         .map(category -> category.category)
+                         .anyMatch(categoryName -> categoryName.equalsIgnoreCase(this.category.category));
     }
 
     @Override

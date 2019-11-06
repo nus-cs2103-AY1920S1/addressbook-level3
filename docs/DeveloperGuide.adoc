@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `TestBankParser` class to parse the user command.
+.  `Logic` uses the `RevisionToolParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a question).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -121,15 +121,31 @@ image::ModelClassDiagram.png[]
 
 The `Model`,
 
-* stores a `Question Bank` object that represents the Question Bank.
-* stores the Test Bank data.
-* exposes an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `QuestionBank` object that represents the Question Bank.
+* stores the Question Bank data.
+* exposes an unmodifiable `ObservableList<Answerable>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+The `Answerable` Class
+
+.Class Diagram of the Answerable Class
+image::AnswerableClassDiagram.png[]
+The main class that the Revision Tool operates on is the `Answerable` class.
+
+Each `Answerable` class must have 1 `Question`, 1 `Difficulty` and can have any amount of categories associated with it.
+The amount of answers that an `Answerable` can have depends on its type.
+
+There are 3 subclasses of the `Answerable` Class which are: `Mcq`, `TrueFalse` and `Saq`. Each class defines it's
+own rules on the validity of `Answer` s provided to it.
+
+The following are the rules of validity for each subclass:
+
+* Mcq: 4 answers in total. 1 correct answer, 3 wrong answers.
+* TrueFalse: Either 'true' or 'false' as its answer.
+* Saq: Any amount of answers.
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Test Bank`, which `Question` can reference. This would allow `Test Bank` to only require one `Tag` object per unique `Tag`, instead of each `Question` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+For all subclasses, there cannot be any duplicates of answers. For example, if an Mcq class has "option1" as one of its
+wrong answers, it cannot have "option1" as its correct answer or another wrong answer.
 
 [[Design-Storage]]
 === Storage component
@@ -206,6 +222,41 @@ NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but du
 ** Pros: User do not have to memorize the correct format and less chance for an invalid command input.
 ** Cons: Slow to add questions, requiring multiple steps to fully complete a question.
 // end::undoredo[]
+
+=== Quiz Mode
+After the user has `start` ed the quiz, the application enters quiz mode. The following is the flow of events after a quiz
+session has started.
+
+.Activity Diagram of a Quiz Session in `NormalMode`
+image::QuizSessionActivityDiagram.png[]
+
+. After the user has started either a normal / custom mode quiz. He/she will be prompted to key in their answer.
+. If the input is valid, the revision tool will display the subsequent question until the level / entire quiz has ended.
+. If the input is invalid, the revision tool will prompt the user to key in their input again with guidance provided on
+the commands accepted.
+. If the time limit is exceeded (e.g. 30 seconds in Normal Mode), the revision tool will mark the question as wrong and
+move on to the next question.
+. Once a level has ended, the user will be given the choice to move on to the next level or exit the quiz.
+. Once the entire quiz has ended, the user will be given the choice to restart or exit the quiz.
+
+=== Quiz Commands
+During a quiz session the `QuizCommandParser` instead of `RevisionToolParser` is used.
+
+.Interactions Inside the Logic Component during a quiz session
+image::QuizSequenceDiagram.png[]
+
+
+Sequence of steps after a user keys in their input.
+
+. `Answerable#isCorrect(answer)` is called from the `McqInputCommand` to check whether the user's answer is correct.
+. After which, the result is used to construct a `CommandResult` will be passed back to the `LogicManager`
+. Lastly, the `Model` is accessed to update the user's score history.
+
+[NOTE]
+`CommandResult` is built using a factory design to allow flexibility of values returned to the `LogicManager`.
+To guard against null values, default values are provided to every field in the `CommandResult` class upon construction.
+Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

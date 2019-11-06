@@ -9,7 +9,7 @@ import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.function.Predicate;
 
-import seedu.revision.logic.commands.main.StartQuizCommand;
+import seedu.revision.logic.commands.main.StartCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
 import seedu.revision.logic.parser.Parser;
@@ -26,24 +26,24 @@ import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 
 /**
- * Parses input arguments and creates a new StartQuizCommand object
+ * Parses input arguments and creates a new StartCommand object
  */
-public class StartQuizCommandParser implements Parser<StartQuizCommand> {
+public class StartCommandParser implements Parser<StartCommand> {
 
     private Predicate<Answerable> combinedPredicate = PREDICATE_SHOW_ALL_ANSWERABLE;
 
     /**
-     * Parses the given {@code String} of arguments in the context of the StartQuizCommand
-     * and returns a StartQuizCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the StartCommand
+     * and returns a StartCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public StartQuizCommand parse(String args) throws ParseException {
+    public StartCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODE, PREFIX_TIMER, PREFIX_DIFFICULTY, PREFIX_CATEGORY);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
         }
 
         boolean optionalTimerPrefixIsPresent = argMultimap.getValue(PREFIX_TIMER).isPresent();
@@ -58,23 +58,23 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
         if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
             mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
         } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
         }
 
         switch (mode.toString().toLowerCase()) {
         case "normal":
             if (optionalPrefixesArePresent) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
             } else {
                 mode = new NormalMode();
-                return new StartQuizCommand(mode);
+                return new StartCommand(mode);
             }
         case "arcade":
             if (optionalPrefixesArePresent) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
             } else {
                 mode = new ArcadeMode();
-                return new StartQuizCommand(mode);
+                return new StartCommand(mode);
             }
         case "custom":
 
@@ -98,9 +98,9 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 mode = ((CustomMode) mode).withTime(time);
             }
             mode = ((CustomMode) mode).build();
-            return new StartQuizCommand(mode);
+            return new StartCommand(mode);
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
         }
 
 

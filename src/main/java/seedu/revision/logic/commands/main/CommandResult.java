@@ -113,7 +113,7 @@ public class CommandResult {
     }
 
     /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code StartQuizCommand}.
+     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code StartCommand}.
      * @param isStart input boolean to determine result.
      * @return {@code CommandResult} with the withStart boolean updated according to the input.
      */

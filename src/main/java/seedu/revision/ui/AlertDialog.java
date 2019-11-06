@@ -21,7 +21,7 @@ public class AlertDialog {
      */
     private AlertDialog() {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/OrangeTheme.css");
         alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
         tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);

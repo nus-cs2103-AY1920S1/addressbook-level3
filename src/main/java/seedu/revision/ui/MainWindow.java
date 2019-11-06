@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -33,21 +33,21 @@ public class MainWindow extends Window {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public MainWindow(Stage primaryStage, MainLogic mainLogic) {
-        super(FXML, primaryStage, mainLogic);
+    public MainWindow(Stage primaryStage, Logic logic) {
+        super(FXML, primaryStage, logic);
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        answerableListPanel = new AnswerableListPanel(mainLogic.getFilteredAnswerableList());
+        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
         answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, true);
@@ -61,8 +61,8 @@ public class MainWindow extends Window {
      */
     @FXML
     public void handleStart(Mode mode) throws CommandException {
-        if (this.mainLogic.getFilteredAnswerableList().size() > 0) {
-            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), mode);
+        if (this.logic.getFilteredAnswerableList().size() > 0) {
+            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getLogic(), mode);
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {
@@ -77,7 +77,7 @@ public class MainWindow extends Window {
      */
     @FXML
     public void handleHistory() throws CommandException {
-        if (this.mainLogic.getStatisticsList().size() > 0) {
+        if (this.logic.getStatisticsList().size() > 0) {
 
         } else {
             throw new CommandException("No past results were found.");
@@ -90,7 +90,7 @@ public class MainWindow extends Window {
      */
     @FXML
     public void handleStats() throws CommandException {
-        if (this.mainLogic.getStatisticsList().size() > 0) {
+        if (this.logic.getStatisticsList().size() > 0) {
 
         } else {
             throw new CommandException("You have not attempted any quiz yet.");
@@ -104,7 +104,7 @@ public class MainWindow extends Window {
     protected void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        mainLogic.setGuiSettings(guiSettings);
+        logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -147,12 +147,12 @@ public class MainWindow extends Window {
     /**
      * Executes the command and returns the result.
      *
-     * @see MainLogic#execute(String)
+     * @see Logic#execute(String)
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = mainLogic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
