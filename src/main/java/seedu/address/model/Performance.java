@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,6 +69,11 @@ public class Performance implements ReadOnlyPerformance {
     public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
         requireNonNull(date);
         return events.getCalendarCompatiblePerformance(date);
+    }
+
+    public ArrayList<Event> getAthleteEvent(Person athlete) {
+        requireNonNull(athlete);
+        return events.getAthleteEvent(athlete);
     }
 
     /**

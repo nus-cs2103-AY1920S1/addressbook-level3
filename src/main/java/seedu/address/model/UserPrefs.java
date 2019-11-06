@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path eventListFilePath = Paths.get("data", "events.json");
     private Path attendanceFilePath = Paths.get("data", "attendance.json");
+    private Path imageFilePath = Paths.get("images", "text.txt");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -69,6 +70,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getAttendanceFilePath() {
         return attendanceFilePath;
+    }
+
+    public Path getImageFilePath() {
+        return imageFilePath;
     }
 
     public void setAttendanceFilePath(Path attendanceFilePath) {

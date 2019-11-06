@@ -307,5 +307,10 @@ public class EventCommandTest {
         public boolean hasPerformanceOn(AthletickDate date) {
             return false;
         }
+
+        @Override
+        public ArrayList<Event> getAthleteEvents(Person person) {
+            return null;
+        }
     }
 }

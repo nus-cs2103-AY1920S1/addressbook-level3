@@ -3,6 +3,7 @@ package seedu.address.model.performance;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.exceptions.DuplicateEventException;
 import seedu.address.model.performance.exceptions.NoEventException;
+import seedu.address.model.person.Person;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -66,6 +68,16 @@ public class UniqueEventList implements Iterable<Event> {
             }
         }
         return null;
+    }
+
+    public ArrayList<Event> getAthleteEvent(Person person) {
+        ArrayList<Event> athleteEventList = new ArrayList<>();
+        for (Event event : internalList) {
+            if (event.getRecords().containsKey(person)) {
+                athleteEventList.add(event);
+            }
+        }
+        return athleteEventList;
     }
 
     /**

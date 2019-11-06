@@ -28,6 +28,7 @@ import seedu.address.model.history.HistoryManager;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.AttendanceStorage;
+import seedu.address.storage.ImageStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonAttendanceStorage;
 import seedu.address.storage.JsonPerformanceStorage;
@@ -67,7 +68,10 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         PerformanceStorage performanceStorage = new JsonPerformanceStorage(userPrefs.getEventListFilePath());
         AttendanceStorage attendanceStorage = new JsonAttendanceStorage(userPrefs.getAttendanceFilePath());
+        ImageStorage imageStorage = new ImageStorage(userPrefs.getImageFilePath());
         storage = new StorageManager(addressBookStorage, performanceStorage, attendanceStorage, userPrefsStorage);
+
+        imageStorage.createImageFile();
 
         initLogging(config);
 
@@ -77,6 +81,8 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic, model);
         HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
+
+
     }
 
     /**
