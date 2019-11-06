@@ -20,7 +20,7 @@ import seedu.address.model.gmaps.Location;
  */
 public class UrlUtil {
 
-    private static String gmapsApiKey = "AIzaSyC1TnXgIaRhQbssFTlL740K3FyOo-nikXo";
+    private static String gmapsApiKey = "";
 
     private static final Logger logger = LogsCenter.getLogger(UrlUtil.class);
 
