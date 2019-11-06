@@ -28,9 +28,6 @@
             </stylesheets>
 
             <HBox fx:id="window" minHeight="1180" prefHeight="1180" maxHeight="1180" >
-                <!--<padding>
-                    <Insets bottom="5" left="5" right="5" top="5"/>
-                </padding>-->
                 <VBox HBox.hgrow="ALWAYS" >
                     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                         <Menu mnemonicParsing="false" text="File">

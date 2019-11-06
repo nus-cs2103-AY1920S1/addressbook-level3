@@ -235,6 +235,7 @@
     -fx-text-fill: black;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
+    -fx-font-size: 10px;
 }
 
 .result-display {

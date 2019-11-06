@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -37,6 +38,12 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private Label left;
     @FXML
+    private ProgressBar progressBar;
+    @FXML
+    private Label total;
+    @FXML
+    private Label category;
+    @FXML
     private FlowPane tags;
 
     public BudgetCard(Budget budget, int displayedIndex) {
@@ -48,7 +55,14 @@ public class BudgetCard extends UiPart<Region> {
         desc.setText(fullDesc);
         date.setText(budget.getDate().toString() + " - " + budget.getEndDate().toString());
         double leftAmount = budget.getAmount().value - budget.getSpent().value;
-        left.setText("left: $" + leftAmount + " out of: $" + budget.getAmount().value);
+        double totalAmount = budget.getAmount().value;
+        //left.setText("left: $" + leftAmount + " out of: $" + budget.getAmount().value);
+        left.setText("$" + leftAmount);
+        total.setText("$" + totalAmount);
+
+        progressBar.setProgress(leftAmount / totalAmount);
+
+        category.setText(budget.getCategory().toString());
 
         budget.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
