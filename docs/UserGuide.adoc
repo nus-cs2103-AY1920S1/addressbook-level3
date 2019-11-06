@@ -239,6 +239,7 @@ Format: `glist undo`
 Redo the grocery list and the corresponding waste list (if applicable). +
 Format: `glist redo`
 
+//tag::wastelistfeatures[]
 === Waste List Management
 
 ==== Moving an item into waste list
@@ -313,7 +314,7 @@ shown below:
 image::WasteReportTimeFrame.png[]
 
 iFridge will generate the report using all available data within the time period, which will be
-Jun 2018 to Jun 2019, highlighted in the yellow box.
+Oct 2018 to Jun 2019, highlighted in the yellow box.
 ****
 
 
@@ -349,6 +350,8 @@ we take a weighted average of your waste statistics across the past couple of mo
 a more reliable prediction.
 
 As with any other application, our prediction algorithm will be more accurate with more frequent usage.
+
+//end::wastelistfeatures[]
 
 === Templates List Management
 
@@ -631,11 +634,13 @@ There is no need to save manually.
 
 == Features v2.0
 
+//tag::wastelistfuture[]
 === Waste List
 
 ==== View most commonly wasted food items
 
 Generates a word cloud based on user's most commonly wasted food.
+//end::wastelistfuture[]
 
 === Shopping list
 
@@ -646,6 +651,7 @@ Generates a word cloud based on user's most commonly wasted food.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+//tag::commandsummary[]
 == Command Summary
 [width="100%",cols="5, 10",options="header"]
 |==========================
@@ -682,3 +688,4 @@ Generates a word cloud based on user's most commonly wasted food.
 |`exit`| Exits the program
 |`help` | Displays help
 |==========================
+//end::commandsummary[]

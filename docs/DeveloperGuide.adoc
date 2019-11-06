@@ -251,6 +251,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `remDefault r/3` Command
 image::RemDefault.png[]
 
+//tag::reportwastefeature[]
 === Waste Report Feature
 
 ==== Implementation
@@ -284,6 +285,7 @@ upon launch of the application, instead of calculating every time the waste repo
 ** Pros: Will improve the runtime of the application.
 ** Cons: Will take up more storage space.
 
+//end::reportwastefeature[]
 
 
 === Logging
