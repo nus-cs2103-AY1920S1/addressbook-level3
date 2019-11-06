@@ -30,7 +30,7 @@ public class AddRecipeCommand extends AddCommand {
             + PREFIX_CARBS + "CARBS "
             + PREFIX_FATS + "FATS "
             + PREFIX_PROTEIN + "PROTEIN\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " "
             + PREFIX_NAME + "Cheese Omelette "
             + PREFIX_INGREDIENT + "eggs "
             + PREFIX_INGREDIENT + "cheese "

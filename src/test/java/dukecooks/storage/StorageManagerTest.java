@@ -63,7 +63,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void prefsReadSave() throws Exception {
+    public void userPrefsReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonUserPrefsStorage} class.
@@ -111,13 +111,48 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getDukeCooksFilePath() {
+    public void getUserProfileFilePath() {
         assertNotNull(storageManager.getUserProfileFilePath());
+    }
+
+    @Test
+    public void getUserPrefsFilePath() {
+        assertNotNull(storageManager.getUserPrefsFilePath());
     }
 
     @Test
     public void getRecipesFilePath() {
         assertNotNull(storageManager.getRecipesFilePath());
+    }
+
+    @Test
+    public void getHealthRecordsFilePath() {
+        assertNotNull(storageManager.getHealthRecordsFilePath());
+    }
+
+    @Test
+    public void getMealPlansFilePath() {
+        assertNotNull(storageManager.getMealPlansFilePath());
+    }
+
+    @Test
+    public void getExerciseFilePath() {
+        assertNotNull(storageManager.getExerciseFilePath());
+    }
+
+    @Test
+    public void getWorkoutFilePath() {
+        assertNotNull(storageManager.getWorkoutFilePath());
+    }
+
+    @Test
+    public void getDiaryFilePath() {
+        assertNotNull(storageManager.getDiaryFilePath());
+    }
+
+    @Test
+    public void getDashboardFilePath() {
+        assertNotNull(storageManager.getDashboardFilePath());
     }
 
 }

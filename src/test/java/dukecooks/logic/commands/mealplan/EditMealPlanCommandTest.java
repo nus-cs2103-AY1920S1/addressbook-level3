@@ -2,6 +2,7 @@ package dukecooks.logic.commands.mealplan;
 
 import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlanBook;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
+import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -87,6 +88,7 @@ public class EditMealPlanCommandTest {
 
     @Test
     public void execute_duplicateMealPlanUnfilteredList_failure() {
+        model.addRecipe(MILO);
         MealPlan firstMealPlan = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_MEALPLAN
                 .getZeroBased());
         EditMealPlanCommand.EditMealPlanDescriptor descriptor = new EditMealPlanDescriptorBuilder(firstMealPlan)
@@ -96,10 +98,12 @@ public class EditMealPlanCommandTest {
 
         CommandTestUtil.assertMealPlanCommandFailure(editMealPlanCommand, model,
                 EditMealPlanCommand.MESSAGE_DUPLICATE_MEALPLAN);
+        model.deleteRecipe(MILO);
     }
 
     @Test
     public void execute_duplicateMealPlanFilteredList_failure() {
+        model.addRecipe(OMELETTE);
         CommandTestUtil.showMealPlanAtIndex(model, TypicalIndexes.INDEX_FIRST_MEALPLAN);
 
         // edit mealPlan in filtered list into a duplicate in MealPlanBook
@@ -110,6 +114,7 @@ public class EditMealPlanCommandTest {
 
         CommandTestUtil.assertMealPlanCommandFailure(editMealPlanCommand, model,
                 EditMealPlanCommand.MESSAGE_DUPLICATE_MEALPLAN);
+        model.deleteRecipe(OMELETTE);
     }
 
     @Test

@@ -80,8 +80,11 @@ public class EditDiaryCommand extends EditCommand {
         assert diaryToEdit != null;
 
         DiaryName updatedDiaryName = editDiaryDescriptor.getDiaryName().orElse(diaryToEdit.getDiaryName());
-
-        return new Diary(updatedDiaryName);
+        if (diaryToEdit.getPages().isEmpty()) {
+            return new Diary(updatedDiaryName);
+        } else {
+            return new Diary(updatedDiaryName, diaryToEdit.getPages());
+        }
     }
 
     @Override

@@ -73,8 +73,10 @@ public class DiaryListPanel extends UiPart<Region> {
         diaryListView.setCellFactory(listView -> new DiaryListViewCell());
 
         // Sets the name of the diary
-        diaryHeader.setText(diaryList.get(targetIndex).getDiaryName().fullName);
-        initializePageListView(targetIndex);
+        if (!diaryList.isEmpty()) {
+            diaryHeader.setText(diaryList.get(targetIndex).getDiaryName().fullName);
+            initializePageListView(targetIndex);
+        }
     }
 
     /**
@@ -177,7 +179,6 @@ public class DiaryListPanel extends UiPart<Region> {
         String imageInput = " i/ " + pageImageTextField.getText();
         mainWindow.executeGuiCommand(command + diaryInput + titleInput
                 + pageTypeInput + imageInput + descInput);
-        clearAllInputFields();
     }
 
     @FXML

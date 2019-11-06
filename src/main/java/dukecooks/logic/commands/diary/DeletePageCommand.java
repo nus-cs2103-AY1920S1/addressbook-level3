@@ -36,9 +36,9 @@ public class DeletePageCommand extends DeleteCommand {
     private final Index targetIndex;
     private final DiaryName targetDiaryName;
 
-    public DeletePageCommand(Index targetIndex, DiaryName targetDiaryDiaryName) {
+    public DeletePageCommand(Index targetIndex, DiaryName targetDiaryName) {
         this.targetIndex = targetIndex;
-        this.targetDiaryName = targetDiaryDiaryName;
+        this.targetDiaryName = targetDiaryName;
     }
 
     @Override
