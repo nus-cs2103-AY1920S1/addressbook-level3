@@ -1,49 +1,57 @@
 package seedu.mark.ui;
 
 import java.util.function.Consumer;
-import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 
+/**
+ * Panel containing the list of favorite bookmarks
+ */
 public class FavoriteListPanel extends UiPart<Region> {
 
     private static final String FXML = "FavoriteListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
-    @javafx.fxml.FXML
+    @FXML
     private FlowPane favoriteBookmarkList;
 
     private Consumer<Url> currentUrlChangeHandler;
+    private ObservableList<Bookmark> favoriteBookmarks;
+    private ObservableList<Node> bookmarkItems;
 
     public FavoriteListPanel(ObservableList<Bookmark> favoriteBookmarks,
                              Consumer<Url> currentUrlChangeHandler) {
         super(FXML);
 
         this.currentUrlChangeHandler = currentUrlChangeHandler;
+        this.favoriteBookmarks = favoriteBookmarks;
+        this.bookmarkItems = FXCollections.observableArrayList();
 
-        favoriteBookmarks.forEach(this::setBookmarkLabel);
+        setBookmarkItems();
+        favoriteBookmarkList.getChildren().setAll(bookmarkItems);
 
-//        favoriteBookmarks.addListener((observable, oldValue, newValue) -> {
-//            favoriteBookmarks.forEach(this::setBookmarkLabel);
-//        });
-    }
-
-    private void setBookmarkLabel(Bookmark bookmark) {
-        Label bookmarkLabel = new Label(bookmark.getName().value);
-        bookmarkLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent arg0) {
-                currentUrlChangeHandler.accept(bookmark.getUrl());
+        favoriteBookmarks.addListener((ListChangeListener<? super Bookmark>) change -> {
+            while (change.next()) {
+                setBookmarkItems();
+                favoriteBookmarkList.getChildren().setAll(bookmarkItems);
             }
         });
-        favoriteBookmarkList.getChildren().add(bookmarkLabel);
+    }
+
+    private void setBookmarkItems() {
+        bookmarkItems.clear();
+        for (Bookmark bookmark : favoriteBookmarks) {
+            Label bookmarkLabel = new Label(bookmark.getName().value);
+            bookmarkLabel.setOnMouseClicked(unused -> currentUrlChangeHandler.accept(bookmark.getUrl()));
+            bookmarkItems.add(bookmarkLabel);
+        }
     }
 }
