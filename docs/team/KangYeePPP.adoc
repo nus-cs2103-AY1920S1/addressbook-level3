@@ -16,12 +16,12 @@ endif::[]
 This project portfolio briefly introduces the project, treasurerPro and outlines my contributions to the project
 and showcases the key features I implemented.
 
-=== About the team
+=== About the Team
 
 My team of 5 members consists of 4 year 2 Computer Science Undergraduate students, including me, and another
 year 4 Computer Engineering Undergraduate student.
 
-=== About the project
+=== About the Project
 
 This project is part of the module 'Software Engineering Project CS2103T' where we were tasked to develop a basic
 command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
@@ -29,7 +29,7 @@ Our team decided to incorporate and morph the AddressBook application as part of
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
 reimbursements, inventory and member’s contact details easily. The duration of our project was 13 weeks.
 
-===  Key to the icons and formatting used in the document
+===  Key to the Icons and Formatting Used in the Document
 
 [NOTE]
 This symbol indicates extra information or definition.
@@ -45,7 +45,7 @@ Text with this blue font indicates a command that can be inputted by the user.
 
 This desktop application consists of 6 tabs, a command box for users to input their commands and a response box
 for Leo, our lion mascot. Each tab serves a different purpose that helps treasurers and members better manage their club
-or Society's finances.
+or society's finances.
 
 The home tab keeps track of individual transactions. The members tab keep track of all contact
 details of members. The reimbursement tab keeps track of reimbursement records for members that have spent money for the club activities.
@@ -57,7 +57,7 @@ This is what our application looks like when it is first opened. (graphical user
 .Graphical User Interface of treasurerPro
 image::AnnotatedUi.png[width="700"]
 
-== Summary of contributions
+== Summary of Contributions
 My role was to design and write the code for the features of the Home Tab. The following sections shows a summary of these
 features, as well as the relevant documentation I have added to the user and developer guides in
 relation to these features.
@@ -135,13 +135,13 @@ as well.
 * Justification: This ensures the application is a command-line interface application which requires no clicking
 at all.
 ////
-*Code contributed*
+*Code Contributed*
 
 Please click these links to view the code I have contributed for Home Tab:
 https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/transaction[Functional Code]
 , https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/transaction/[Test Code]
 
-*Other contributions*
+*Other Contributions*
 
 * Community
 ** Reviewed Pull Requests (With Non-trivial Review Comments):
@@ -176,7 +176,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/197[(PR #197)]
 == Contributions to the User Guide
 The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features.
 
-=== Current enhancement
+=== Current Enhancement
 {Start of First Extract from User Guide}
 
 [big red]*5.1.2 To Delete Transaction(s) in the Home Tab*
