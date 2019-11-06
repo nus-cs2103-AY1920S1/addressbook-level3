@@ -9,7 +9,7 @@ import seedu.address.ui.feature.Feature;
 /**
  * Parses input arguments and creates a new ViewCommand object
  */
-public class  ViewCommandParser implements Parser<ViewCommand> {
+public class ViewCommandParser implements Parser<ViewCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ViewCommand
