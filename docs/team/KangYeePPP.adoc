@@ -52,7 +52,7 @@ details of members. The reimbursement tab keeps track of reimbursement records f
 The inventory tab keeps track of items for sale. The cashier tab is a convenient way for the club to do
 cashiering duties which helps to directly input sales into the system. The overview tab allows treasurers to plan the
 club's finances.
-This is what our application looks like when it is first opened. (graphical user interface for treasurerPro):
+This is what our application looks like when it is first opened (graphical user interface for treasurerPro):
 
 .Graphical User Interface of treasurerPro
 image::AnnotatedUi.png[width="700"]
