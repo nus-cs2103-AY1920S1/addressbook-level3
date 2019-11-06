@@ -46,7 +46,7 @@ y/ (as in "yes") marking the correct answers. Difficulty: 1, Category: Introduct
 * **`delete`**`3` : deletes the 3rd question shown in the current list.
 * *`exit`* : exits the app.
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<ConfigurationMode>> for details of each command.
 
 . To enter Quiz Mode, type `start mode/normal` other modes such as arcade and custom are also available and are elaborated
 in <<Quiz Mode>> .
@@ -55,8 +55,8 @@ image::Ui2.png[width="790"]
 +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
-[[Features]]
-== Features
+[[ConfigurationMode]]
+== Configuration Mode
 
 ====
 *Command Format*
@@ -73,7 +73,7 @@ Format: `help`
 
 === Starting the quiz: `start`.
 
-User can start by choosing the mode of the quiz. (normal / arcade / custom). See Section 4 (Quiz Mode) for in-quiz commands.
+User can start by choosing the mode of the quiz. (normal / arcade / custom). See <<Quiz Mode>> for in-quiz commands.
 
 Format: `start mode/MODE`
 
@@ -85,15 +85,6 @@ Examples:
 
 * `start mode/normal`
 * `start mode/custom cat/uml /diff/1 timer/20`
-
-=== Exiting the quiz / application: `exit`
-
-User can end the quiz and go back into configuration mode to perform commands such as `add`, `list`, and `status`
-.
-
-If user is in configuration mode, `exit` will close the application.
-
-Format: `exit`
 
 === Check your progress: `status` [Coming in v1.4]
 
@@ -139,12 +130,13 @@ Adds a question to the test bank
 
 Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER... `
 
-[TIP]
+****
 [%hardbreaks]
 The following are the valid answer formats for each question type:
 *MCQ*: 1 Correct answer and 3 Wrong answers.
 *True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
 *SAQ*: Multiple correct answers, wrong answers omitted.
+****
 
 Examples:
 
@@ -211,7 +203,6 @@ Examples:
 === Locating questions: `find`
 
 Finds questions whose descriptions contain any of the given keywords. +
-
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -250,6 +241,11 @@ There is no need to save manually.
 _{explain how the user can import / export test banks}_
 // end::import/export[]
 
+=== Exiting the application: `exit`
+
+Exits the application. +
+Format: `exit`
+
 == Quiz Mode
 
 === Normal Mode
@@ -270,6 +266,13 @@ Answers can only be True (T) / False (F) (Case insensitive)
 
 ==== SAQ
 Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+
+=== Exiting the quiz
+
+User can end the quiz and go back into configuration mode (see <<ConfigurationMode>>) to perform commands such as `add`, `list`, and `status`
+.
+
+Format: `exit`
 
 == FAQ
 
