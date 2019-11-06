@@ -106,4 +106,23 @@ public class ActivityTest {
         editedActivity = new ActivityBuilder(ACTIVITYONE).withPriority(VALID_PRIORITY_TWENTY).build();
         assertFalse(ACTIVITYONE.equals(editedActivity));
     }
+
+    @Test
+    public void compareTo(){
+        //activity having same priority
+        assertTrue(ACTIVITYONE.compareTo(ACTIVITYONE) == 0);
+
+        //activity having higher priority
+        assertTrue(ACTIVITYONE.compareTo(ACTIVITYTWO) == -1);
+
+        //activity having lower priority
+        assertTrue(ACTIVITYTWO.compareTo(ACTIVITYONE) == 1);
+
+        //activity having lowest priority
+        assertTrue(new ActivityBuilder().withPriority("0").build().compareTo(ACTIVITYONE) == 1);
+
+        //other activity that are comparing to has lowest priority
+        assertTrue(ACTIVITYONE.compareTo(new ActivityBuilder().withPriority("0").build()) == -1);
+
+    }
 }

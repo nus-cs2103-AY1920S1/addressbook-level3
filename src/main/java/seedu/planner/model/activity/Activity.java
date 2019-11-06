@@ -131,7 +131,7 @@ public class Activity implements Comparable<Activity> {
                 if (thisPriority - thatPriority > 0) {
                     return 1;
                 }
-                if (thatPriority - thatPriority < 0) {
+                if (thisPriority - thatPriority < 0) {
                     return -1;
                 } else {
                     return 0;
