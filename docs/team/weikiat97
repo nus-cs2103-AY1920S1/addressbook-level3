@@ -66,6 +66,9 @@ include::../UserGuide.adoc[tag=delete]
 
 include::../UserGuide.adoc[tag=find]
 
+include::../UserGuide.adoc[tag=reminders_for_assignments]
+
+include::../UserGuide.adoc[tag=statistics]
 
 
 
