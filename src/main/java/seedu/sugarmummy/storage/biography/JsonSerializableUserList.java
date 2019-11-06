@@ -20,7 +20,7 @@ import seedu.sugarmummy.model.biography.UserList;
 @JsonRootName(value = "userList")
 class JsonSerializableUserList {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Users list contains duplicate user(s).";
+    public static final String MESSAGE_DUPLICATE_USER = "Users list contains duplicate user(s).";
     private static List<Map<String, String>> listOfFieldsContainingInvalidReferences = new ArrayList<>();
 
     private final List<JsonAdaptedUser> users = new ArrayList<>();
@@ -62,7 +62,7 @@ class JsonSerializableUserList {
             User user = jsonAdaptedUser.toModelType();
 
             if (userList.hasUser(user)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_USER);
             }
 
             Map<String, String> fieldsContainingInvalidReferences = JsonAdaptedUser

@@ -22,7 +22,7 @@ import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.aesthetics.Background;
 
 /**
- * Parses input arguments and creates a new FontColourCommand object
+ * Parses input arguments and creates a new BackgroundCommand object
  */
 public class BackgroundCommandParser implements Parser<BackgroundCommand> {
 

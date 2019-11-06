@@ -1123,7 +1123,7 @@ responsibility of my own health by not missing my appointments.
 |`* * *` |task-oriented diabetic patient |have a goal to work towards or a challenge to work on everyday |have a
 sense of direction in what I can do to improve my health
 
-|`* *` |caretaker of an elderly patient with diabetes whose family members are busy working |reliable app to keep
+|`* *` |caretaker of an elderly patient with diabetes whose family members are busy working |have a reliable app to keep
 track of all the patients' activities |can answer to the family members who have entrusted unto me this responsibility
 of care
 
@@ -1642,3 +1642,72 @@ Expected: Feedback message indicates that there is nothing to change.
 .. Prerequisites: NIL
 ... Test action: Restart the application +
 Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.
+
+[appendix]
+== References
+
+=== Code References
+* http://tutorials.jenkov.com/javafx/tableview.html
+* https://stackoverflow.com/questions/11184117/transparent-css-background-color
+* https://stackoverflow.com/questions/12933918/tableview-has-more-columns-than-specified
+* https://stackoverflow.com/questions/37027298/set-constrained-resize-policy-for-columns-without-first-for-number-of-row-in-t
+* https://stackoverflow.com/questions/43776047/javafx-tablecolumn-setpreferredwidth-on-a-resizable-column
+* https://stackoverflow.com/questions/49882605/javafx-italic-font-w-css
+* https://stackoverflow.com/questions/22952531/scrollpanes-in-javafx-8-always-have-gray-background
+* https://amyfowlersblog.wordpress.com/2010/05/26/javafx-1-3-growing-shrinking-and-filling/
+* https://stackoverflow.com/questions/22202782/how-to-prevent-tableview-from-doing-tablecolumn-re-order-in-javafx-8
+* https://stackoverflow.com/questions/14116792/how-to-disable-the-reordering-of-table-columns-in-tableview
+* https://medium.com/@keeptoo/adding-data-to-javafx-tableview-stepwise-df582acbae4f
+* https://self-learning-java-tutorial.blogspot.com/2018/06/javafx-tableview-adding-new-rows-to.html
+* https://stackoverflow.com/questions/39366828/add-a-simple-row-to-javafx-tableview
+* https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
+* https://stackoverflow.com/questions/3342298/what-is-the-pattern-for-empty-string
+* https://www.geeksforgeeks.org/supplier-interface-in-java-with-examples/
+* https://howtodoinjava.com/regex/java-regex-date-format-validation/
+* https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html
+* https://stackoverflow.com/questions/4343202/difference-between-super-t-and-extends-t-in-java
+* https://stackoverflow.com/questions/29004893/transparent-node-background
+* https://stackoverflow.com/questions/9851200/setting-background-image-by-javafx-code-not-css
+* https://jutge.org/doc/java/docs/api/javafx/scene/doc-files/cssref.html
+* https://www.w3.org/TR/css-backgrounds-3/#the-background-repeat
+* https://stackoverflow.com/questions/6998551/setting-font-color-of-javafx-tableview-cells
+* https://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
+* https://htmlcolorcodes.com/color-names/
+* https://stackoverflow.com/questions/1636350/how-to-identify-a-given-string-is-hex-color-format
+* https://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java
+* https://stackoverflow.com/questions/7830951/how-can-i-load-computer-directory-images-in-javafx
+* https://stackoverflow.com/questions/48814467/how-do-i-bind-the-tablecell-style-classes-to-the-tablerow-style-classes-javafx
+* https://www.inf.unibz.it/~calvanese/teaching/06-07-ip/lecture-notes/uni09/node12.html
+* https://stackoverflow.com/questions/924394/how-to-get-the-filename-without-the-extension-in-java
+* https://stackoverflow.com/questions/32639882/conditionally-color-background-javafx-linechart
+* http://java-buddy.blogspot.com/2012/05/create-borderpane-using-fxml.html
+* https://stackoverflow.com/questions/19512850/java-putting-hashmap-into-treemap
+* https://stackoverflow.com/questions/46170807/gridpane-change-grid-line-color
+* https://stackoverflow.com/questions/25168445/how-to-determine-if-color-is-close-to-other-color
+* https://stackoverflow.com/questions/4129666/how-to-convert-hex-to-rgb-using-java
+* https://stackoverflow.com/questions/3607858/convert-a-rgb-color-value-to-a-hexadecimal-string
+* https://stackoverflow.com/questions/10530426/how-can-i-find-dominant-color-of-an-image
+
+=== Reference on Healthy Blood Sugar Level Ranges for Diabetic Patients
+https://www.diabetes.co.uk/diabetes_care/blood-sugar-level-ranges.html
+
+=== Sources of Motivational Quotes
+* http://www.wiseoldsayings.com/healthy-eating-quotes/
+* https://www.centralofsuccess.com/diabetes-slogans-quotes-funny-inspiring/
+* https://shortstatusquotes.com/inspirational-diabetes-status-quotes/
+* https://inspiringtips.com/healthy-diet-inspirational-quotes-weight-loss/
+* https://www.lifefitness.com.au/20-fitness-motivation-quotes/
+* https://www.inc.com/jayson-demers/51-quotes-to-inspire-success-in-your-life-and-business.html
+* https://www.stylecraze.com/articles/awesome-motivational-quotes-on-weight-loss/#gref
+* https://themighty.com/2016/12/chronic-illness-uplifting-quotes/
+* http://www.caringvoice.org/15-encouraging-quotes-chronic-illness-journey/
+* https://everydaypower.com/chronic-illness-quotes/
+* https://www.mindovermenieres.com/quotes-inspire-chronic-illness/
+* https://wisdomquotes.com/health-quotes/
+
+=== Credits for Images
+* Default User Profile Display Picture: Icon made by Smashicons (https://www.flaticon.com/authors/smashicons)
+from https://www.flaticon.com/free-icon/user_149068
+* Doge Profile Picture in User Guide Screenshot: https://pdxmonthly.com/articles/2015/1/5/who-let-the-doge-out-january-2015
+* Mountains Background Image in User Guide Screenshot: https://www.pexels.com/photo/landscape-photography-of-mountains-covered-in-snow-691668/
+* Space Background Image in User Guide Screenshot: Andy Holmes via https://unsplash.com/photos/LUpDjlJv4_c (with minor edits)

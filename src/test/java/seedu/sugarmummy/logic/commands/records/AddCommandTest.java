@@ -42,7 +42,6 @@ public class AddCommandTest {
     public void execute_recordAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingRecordAdded modelStub = new ModelStubAcceptingRecordAdded();
 
-        //        Person validPerson = new PersonBuilder().build();
         CommandResult commandResult = new AddCommand(bs).execute(modelStub);
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, bs), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(bs), modelStub.recordsAdded);

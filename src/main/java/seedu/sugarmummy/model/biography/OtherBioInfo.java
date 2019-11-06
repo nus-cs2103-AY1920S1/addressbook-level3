@@ -3,7 +3,9 @@ package seedu.sugarmummy.model.biography;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a OtherBioInfo in the user's biography data. Guarantees: immutable; name is valid as declared in {@link
+ * Represents the user's additional biography information in his / her biography. Guarantees: immutable; name
+ * is valid as
+ * declared in {@link
  * #isValidOtherBioInfo(String)}
  */
 public class OtherBioInfo {

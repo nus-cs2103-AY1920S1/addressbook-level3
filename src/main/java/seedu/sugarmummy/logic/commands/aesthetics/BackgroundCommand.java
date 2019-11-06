@@ -14,7 +14,7 @@ import seedu.sugarmummy.model.aesthetics.Colour;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
- * Edits the details of an existing user in the address book.
+ * Modifies the user's background in the application.
  */
 public class BackgroundCommand extends Command {
 

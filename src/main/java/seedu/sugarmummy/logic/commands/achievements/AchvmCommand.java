@@ -11,7 +11,7 @@ import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
- * Displays information on user's biography.
+ * Displays information on user's achievements.
  */
 public class AchvmCommand extends Command {
 

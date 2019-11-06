@@ -4,7 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's background in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * Represents a user's chosen background. Guarantees: immutable; is valid as declared in
+ * {@link
  * #isValidBackgroundPicPath(String)}
  */
 public class Background {
