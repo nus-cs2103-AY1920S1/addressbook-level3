@@ -26,8 +26,9 @@ The Admin+ Team understands the struggles that start-ups faces on a daily basis,
 *AddMin+* is specially designed to ease the workload of the admin and allow him/her to effectively handle the administrative tasks of the company by providing the following functions: event creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events and providing an overview of all the data via statistics.
 The purpose of this user guide is show the user how they can use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using our app.
 
-== Quick Start
+== Getting Started
 
+=== Installation
 . Ensure you have Java `11` or above installed in your Computer.
 . Download the latest `AddMin+.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for AddMin+
@@ -36,8 +37,13 @@ The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-. Click on the specific tab you want.
-For now, we have `Main` and `Schedule`.
+
+
+=== Using AddMin+
+
+AddMin+ is an app that is mainly used through the Command Line Interface (CLI), complemented with a GUI display.
+
+. Click on the specific tab you to navigate across. Currently, we have the `Main`, `Schedule`, `Finance` and `Statistics` Tab.
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 * e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
@@ -49,22 +55,91 @@ For now, we have `Main` and `Schedule`.
 
 . Refer to <<Features>> for details of each command.
 
+=== Understanding the GUI Components
+**To be filled**
+
+=== CLI Usage & Command Formatting
+*Command Format*
+
+As a CLI application, most commands are executed by typing your commands on the Command Box. We will discuss the exact commands that you may execute under the <<Features>> section, but it is important to first understand the format of the command.
+
+Commands start with a single string (which may include underscores) such as `add_em` or `free`. Subsequently, you supply the prefix, for example `n/` and then the necessary parameter. It is alright if there is spacing within your parameter. The prefixes and parameters will be stated for each command.
+
+* Words in `UPPER_CASE` are the *compulsory* parameters to be supplied by the user e.g. in `add_em n/NAME`, `NAME` is a parameter which can be used as `add_em n/John Doe`. 
+* Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME no/PHONE_NUMBER`, `no/PHONE_NUMBER n/NAME` is also acceptable.
+* Previous commands can be accessed by using the *up-arrow keys*.
+* Not following the specific format will trigger an _Invalid Command Format_ erorr message on the result display box.
+
+*Parameter Constraints*
+
+Our application requires the strict adhering of parameters to certain constraints to prevent feature flaws and functionality bugs. Listed below are category of parameter, the prefixes utilizing them and their constraints.
+
+[cols="20%,20%,60%"]
+|===
+| *Type & Format* | *Utilizing Prefixes* | *Constraints*
+| *Index*
+| _No Prefix_
+a| 
+* The index refer to the index number of an employee/event in the displayed employee/event list.
+* It *must be a positive integer*
+| *Date* + 
+`DD/MM/YYYY` + 
+`MM/yyyy` 
+| `on/` `till/` `for/` +
+`/start` `/end`
+a| 
+* It must be a valid calendar date. E.g. `31/02/2019` is not allowed
+* Dates cannot be more than 10 years ago.
+| *Time Period* +
+`HHMM-HHMM`
+| `time/` +
+a|
+* Two different time must be stated to represent a time period
+* The stated first time must be *earlier/lower in value* than the second.
+* Time is in 24HR (HHMM) format. The minimum value is _0000_ and maximum value is _2359_.
+* _2400_ is not an accepted time value.
+| *Name*
+| `n/` +
+a|
+* Names should only contain alphanumeric characters and spaces, and it should not be blank
+| *Gender* +
+`Male` `Female`
+| `g/` +
+a|
+* Gender is either `Male` or `Female` (case-insensitive). No other parameter is accepted.
+| *Email* +
+`email@gmail.com` +
+| `e/` +
+a|
+* Email must be a valid email that adheres to the https://www.ietf.org/rfc/rfc5322.txt[RFC 5322 Standard]
+| *Phone Number* + 
+`65162727`
+| `no/` +
+a| 
+* Between 7 - 15 digits long
+* Adhere to the https://en.wikipedia.org/wiki/E.164[E.164 ITU-T Recommendation Standard]
+| *Integer*
+| `m/` `n/`
+a|
+* Must be a positive integer. Floating Numbers/Decimals are strictly not accepted 
+| *Money* 
+| `s/` `p/` +
+a|
+* Must be a postive number. Floating Numbers/Decimals are acceptable.
+* _Special_: Only for EmployeePay used in `p/`, is must be a value between 0 and 100.0
+
+|===
+
 [[Features]]
 == Features
 
 ====
-The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General.
+The features of AddMin+ can be grouped into 4 main categories, General, Entity Management, Finance, Schedule, and Statistics.
 The commands that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands.
 For new users, do refer to the subsections under Section 3 for the specific command and how to use them.
 For more advanced users, you could refer to <<Command Summary>>.
-
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME no/PHONE_NUMBER`, `no/PHONE_NUMBER n/NAME` is also acceptable.
-* Previous commands can be accessed by using the *up-arrow keys*.
 ====
 
 === General Commands
@@ -256,7 +331,7 @@ Fetches an employee by displaying a pop-up window that shows the full list of ev
 Format: `fetch_em EMPLOYEE_INDEX`
 
 ****
-* The `EMPLOYEE_INDEX` refers to the index number shown in the displayed event list.
+* The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
 * The `EMPLOYEE_INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
 
