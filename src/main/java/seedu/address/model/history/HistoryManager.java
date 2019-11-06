@@ -1,5 +1,6 @@
 package seedu.address.model.history;
 
+import java.util.List;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
@@ -14,7 +15,8 @@ public class HistoryManager {
     private static Stack<ReadOnlyAthletick> addressBooks = new Stack<>();
     private static Stack<Command> undoneCommands = new Stack<>();
     private static Stack<ReadOnlyAthletick> undoneAddressBooks = new Stack<>();
-    private static Stack<Training> undoneTrainingLists = new Stack<>();
+    private static Stack<List<Training>> trainingLists = new Stack<>();
+    private static Stack<List<Training>> undoneTrainingLists = new Stack<>();
     public HistoryManager() {}
     public Command getLatestCommand() {
         return commands.peek();
@@ -31,7 +33,10 @@ public class HistoryManager {
     public static Stack<ReadOnlyAthletick> getUndoneAddressBooks() {
         return undoneAddressBooks;
     }
-    public static Stack<Training> getUndoneTrainingLists() {
+    public static Stack<List<Training>> getTrainingLists() {
+        return trainingLists;
+    }
+    public static Stack<List<Training>> getUndoneTrainingLists() {
         return undoneTrainingLists;
     }
     public boolean isUndoneEmpty() {

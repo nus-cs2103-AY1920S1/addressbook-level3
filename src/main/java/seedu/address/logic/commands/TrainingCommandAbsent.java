@@ -29,6 +29,7 @@ public class TrainingCommandAbsent extends TrainingCommand {
             + "Date must be in the format: " + DATE_FORMAT_TYPE_ONE + "\nIndex must be a positive integer\nExample: "
             + COMMAND_WORD + " " + ABSENT_FLAG + " " + PREFIX_DATE + "20102019 " + PREFIX_INDEXES + " 1 5 7";
 
+    private Training trainingToAdd;
     /**
      * Creates a TrainingCommandAbsent to add a training session on {@code date}
      * using the {@code indexList}.
@@ -39,7 +40,9 @@ public class TrainingCommandAbsent extends TrainingCommand {
     public TrainingCommandAbsent(AthletickDate date, List<Index> indexList) {
         super(date, indexList);
     }
-
+    public Training getTrainingToAdd() {
+        return this.trainingToAdd;
+    }
     /**
      * Executes the TrainingCommandAbsent which adds a training to the Attendance in
      * model. People in indexList are marked as absent while everyone else is marked
@@ -60,6 +63,7 @@ public class TrainingCommandAbsent extends TrainingCommand {
 
         // Create training
         Training training = createTrainingByAbsent(date, model, indexes);
+        this.trainingToAdd = training;
 
         CommandResult result;
         if (model.hasTrainingOnDate(super.getDate())) {
@@ -98,5 +102,9 @@ public class TrainingCommandAbsent extends TrainingCommand {
             trainingAttendance.put(person, false);
         }
         return new Training(date, trainingAttendance);
+    }
+    @Override
+    public String toString() {
+        return "Add '" + trainingToAdd + "' Command";
     }
 }

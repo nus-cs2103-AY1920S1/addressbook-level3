@@ -10,6 +10,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteTrainingCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AthletickParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -44,9 +47,12 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = athletickParser.parseCommand(commandText);
         commandResult = command.execute(model);
+        if (command instanceof DeleteTrainingCommand || command instanceof TrainingCommand
+            || command instanceof EditCommand) {
+            HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+        }
         HistoryManager.getCommands().push(command);
         HistoryManager.getAddressBooks().push(model.getAthletickDeepCopy());
-
         try {
             storage.saveAthletick(model.getAthletick());
             storage.saveEvents(model.getPerformance());

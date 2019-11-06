@@ -27,4 +27,8 @@ public class ClearCommand extends Command {
     public boolean isUndoable() {
         return true;
     }
+    @Override
+    public String toString() {
+        return "Clear Command";
+    }
 }

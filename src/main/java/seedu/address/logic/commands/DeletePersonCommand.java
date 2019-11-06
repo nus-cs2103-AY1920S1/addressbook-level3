@@ -23,7 +23,7 @@ public class DeletePersonCommand extends DeleteCommand {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
     private final Index targetIndex;
-
+    private Person personToDelete;
     public DeletePersonCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -38,6 +38,7 @@ public class DeletePersonCommand extends DeleteCommand {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        this.personToDelete = personToDelete;
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
@@ -47,5 +48,9 @@ public class DeletePersonCommand extends DeleteCommand {
         return other == this // short circuit if same object
                 || (other instanceof DeletePersonCommand // instanceof handles nulls
                 && targetIndex.equals(((DeletePersonCommand) other).targetIndex)); // state check
+    }
+    @Override
+    public String toString() {
+        return "Delete '" + personToDelete + "' Command";
     }
 }
