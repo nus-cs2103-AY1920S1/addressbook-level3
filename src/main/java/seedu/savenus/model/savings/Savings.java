@@ -23,11 +23,13 @@ public class Savings {
     private final Money savingsAmount; // the amount to be saved.
     private final TimeStamp timeStamp;
 
-    // Default starting savings amount.
-    public Savings() {
-        savingsAmount = new Money("0.00");
-        timeStamp = new TimeStamp(TimeStamp.generateCurrentTimeStamp());
-    }
+    // Default starting savings amount is a deposit.
+    // Constructor should never be called
+    //    public Savings() {
+    ////        savingsAmount = new Money("0.00");
+    ////        timeStamp = new TimeStamp(TimeStamp.generateCurrentTimeStamp());
+    ////        isWithdraw = false;
+    ////    }
 
     public Savings(String savings, String time) {
         requireNonNull(savings);
@@ -41,6 +43,11 @@ public class Savings {
 
     public TimeStamp getTimeStamp() {
         return timeStamp;
+    }
+
+    public void withdrawalAmount() {
+        // if it is a withdrawal, the saving should be a negative value.
+        savingsAmount.negate();
     }
 
     @Override
