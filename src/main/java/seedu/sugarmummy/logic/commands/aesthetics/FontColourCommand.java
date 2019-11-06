@@ -65,6 +65,10 @@ public class FontColourCommand extends Command {
             return new CommandResult(MESSAGE_CURRENT_FONT_COLOUR + previousColour.toString());
         }
 
+        if (backgroundCommand != null) {
+            backgroundCommand.getBackground().merge(model.getBackground());
+        }
+
         Colour bgColourToCompare = backgroundCommand == null || (backgroundCommand.getBackground().isEmpty())
                 ? model.getBackground().getDominantColour()
                 : backgroundCommand.getBackground().getDominantColour();
