@@ -23,7 +23,8 @@ public class Main {
 
     /**
      * Main method.
-     * @param args  arguments
+     *
+     * @param args arguments
      */
     public static void main(String[] args) {
         //Application.launch(CliEditor.class, args);
