@@ -34,9 +34,9 @@ public class EditCategoryCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Category: %1$s";
     public static final String MESSAGE_NOT_EDITED = "Field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CATEGORY = "This category already exists in guilttrip.";
+    public static final String MESSAGE_DUPLICATE_CATEGORY = "This category already exists in GuiltTrip.";
     public static final String MESSAGE_NONEXISTENT_CATEGORY = "This category does not exists in the %1$s List "
-                                                                + "of guilttrip.";
+            + "of GuiltTrip.";
     private final Category toEditCategory;
     private final EditCategoryDescriptor editCategoryDescriptor;
 

@@ -1,17 +1,32 @@
 package seedu.guilttrip.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.guilttrip.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
 import seedu.guilttrip.logic.commands.editcommands.EditExpenseCommand;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
+import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.Model;
+import seedu.guilttrip.model.entry.AutoExpense;
+import seedu.guilttrip.model.entry.Budget;
+import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.model.entry.Wish;
+import seedu.guilttrip.model.entry.predicates.EntryContainsDescriptionPredicate;
+import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.testutil.EditCategoryDescriptorBuilder;
 import seedu.guilttrip.testutil.EditExpenseDescriptorBuilder;
 
@@ -105,7 +120,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model, CommandHistory)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
@@ -114,22 +129,48 @@ public class CommandTestUtil {
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel, commandHistory);
     }
 
-    //    /**
-    //     * Executes the given {@code command}, confirms that <br>
-    //     * - a {@code CommandException} is thrown <br>
-    //     * - the CommandException message matches {@code expectedMessage} <br>
-    //     * - the guilttrip book, filtered entry list and selected entry in {@code actualModel} remain unchanged
-    //     */
-    //    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
-    //            CommandHistory commandHistory) {
-    //        // we are unable to defensively copy the model for comparison later, so we can
-    //        // only do so by copying its components.
-    //        GuiltTrip expectedGuiltTrip = new GuiltTrip(actualModel.getAddressBook());
-    //        List<Entry> expectedFilteredList = new ArrayList<>(actualModel.getFilteredEntryList());
-    //
-    //        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));
-    //        assertEquals(expectedGuiltTrip, actualModel.getAddressBook());
-    //        assertEquals(expectedFilteredList, actualModel.getFilteredEntryList());
-    //    }
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - GuiltTrip, filtered entry list and selected entry in {@code actualModel} remain unchanged
+     */
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
+                                            CommandHistory actualCommandHistory) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        GuiltTrip expectedGuiltTrip = new GuiltTrip(actualModel.getGuiltTrip());
+        List<Expense> expectedFilteredExpenses = new ArrayList<>(actualModel.getFilteredExpenses());
+        List<Income> expectedFilteredIncomes = new ArrayList<>(actualModel.getFilteredIncomes());
+        List<AutoExpense> expectedFilteredAutoExpenses = new ArrayList<>(actualModel.getFilteredAutoExpenses());
+        List<Wish> expectedFilteredWishes = new ArrayList<>(actualModel.getFilteredWishes());
+        List<Budget> expectedFilteredBudgets = new ArrayList<>(actualModel.getFilteredBudgets());
+        List<Reminder> expectedFilteredReminders = new ArrayList<>(actualModel.getFilteredReminders());
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, actualCommandHistory));
+        assertEquals(expectedGuiltTrip, actualModel.getGuiltTrip());
+        assertEquals(expectedFilteredExpenses, actualModel.getFilteredExpenses());
+        assertEquals(expectedFilteredIncomes, actualModel.getFilteredIncomes());
+        assertEquals(expectedFilteredAutoExpenses, actualModel.getFilteredAutoExpenses());
+        assertEquals(expectedFilteredWishes, actualModel.getFilteredWishes());
+        assertEquals(expectedFilteredBudgets, actualModel.getFilteredBudgets());
+        assertEquals(expectedFilteredReminders, actualModel.getFilteredReminders());
+        assertEquals(expectedCommandHistory, actualCommandHistory);
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showIncomeAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredIncomes().size());
+
+        Income income = model.getFilteredIncomes().get(targetIndex.getZeroBased());
+        final String[] splitName = income.getDesc().fullDesc.split("\\s+");
+        model.updateFilteredIncomes(new EntryContainsDescriptionPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredIncomes().size());
+    }
 
 }
