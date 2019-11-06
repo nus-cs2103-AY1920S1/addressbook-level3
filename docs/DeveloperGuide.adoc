@@ -782,6 +782,11 @@ image::BorrowerObjectDiagram.png[width=300]
 {nbsp} +
 
 ==== Design Considerations
+
+===== Aspect: Purpose of generating a borrower ID
+Borrowers are issued with physical card by the library which they present to the librarian to borrower books.
+The library card includes the borrower's ID which librarian will use to serve the borrowers.
+
 ===== Aspect: Generating a unique borrower ID
 Every time a new borrower is being registered, the system will automatically generate a borrower ID for the borrower
 which the borrower will have to use every time the borrower borrows books from the library.
