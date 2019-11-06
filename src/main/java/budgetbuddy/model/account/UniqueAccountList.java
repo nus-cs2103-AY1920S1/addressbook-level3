@@ -20,7 +20,8 @@ import javafx.collections.ObservableList;
  */
 public class UniqueAccountList implements Iterable<Account> {
 
-    private final ObservableList<Account> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Account> internalList = FXCollections.observableArrayList(Account.extractor());
+
     private final ObservableList<Account> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
