@@ -24,6 +24,7 @@ intuitive than searching through multiple menus for a command.
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
+* https://github.com/AY1920S1-CS2103-T14-3/main[View on Github]
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -31,7 +32,7 @@ intuitive than searching through multiple menus for a command.
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Original source code from AddressBook-Level3 project created by https://se-education.org[SE-EDU] initiative
+* This product is based on the source code from AddressBook-Level3 project created by https://se-education.org[SE-EDU] initiative
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
