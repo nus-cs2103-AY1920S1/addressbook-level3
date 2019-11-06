@@ -8,7 +8,7 @@ Class JsonSerializableFinanceTracker
 Class JsonAdaptedInstallment
 Class JsonAdaptedPurchase
 
-JsonSerializableFinanceTracker o-down-> JsonAdaptedInstallment
-JsonSerializableFinanceTracker o-down-> JsonAdaptedPurchase
+JsonSerializableFinanceTracker o-down-> "*" JsonAdaptedInstallment
+JsonSerializableFinanceTracker o-down-> "*" JsonAdaptedPurchase
 
 @enduml

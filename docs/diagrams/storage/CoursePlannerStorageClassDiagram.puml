@@ -7,6 +7,6 @@ skinparam classBackgroundColor STORAGE_COLOR
 Class JsonSerializableCoursePlanner
 Class JsonAdaptedCourse
 
-JsonSerializableCoursePlanner o-down-> JsonAdaptedCourse
+JsonSerializableCoursePlanner o-down-> "*" JsonAdaptedCourse
 
 @enduml

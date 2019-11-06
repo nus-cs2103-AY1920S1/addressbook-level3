@@ -11,8 +11,9 @@ Class JsonAdaptedTodo
 Class JsonAdaptedDeadline
 Class JsonAdaptedEvent
 
-JsonSerializablePlanner o-down-> "{abstract}\nJsonAdaptedTask"
-"{abstract}\nJsonAdaptedTask" o-right-> JsonAdaptedTag
+JsonSerializablePlanner o-down-> "*" "{abstract}\nJsonAdaptedTask"
+"{abstract}\nJsonAdaptedTask" o-right-> "*" JsonAdaptedTag
+
 JsonAdaptedTodo -up-|> "{abstract}\nJsonAdaptedTask"
 JsonAdaptedDeadline -up-|> "{abstract}\nJsonAdaptedTask"
 JsonAdaptedEvent -up-|> "{abstract}\nJsonAdaptedTask"
