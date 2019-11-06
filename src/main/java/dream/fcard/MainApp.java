@@ -36,6 +36,7 @@ public class MainApp extends Application {
 
             // when the 'X' button is clicked.
             stage.setOnCloseRequest(e -> {
+                System.out.println("Terminating the application...");
                 UserStatsHolder.getUserStats().endCurrentSession();
                 StorageManager.saveAll(StateHolder.getState().getDecks());
                 StorageManager.saveStats(UserStatsHolder.getUserStats());
