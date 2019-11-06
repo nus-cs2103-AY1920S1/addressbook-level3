@@ -17,6 +17,7 @@ import javafx.util.Duration;
 
 /**
  * JavaFX Application experimenting CLIEditor for user inputs.
+ * TODO constructor takes in textarea
  */
 public class CliEditor extends Application {
 
@@ -28,6 +29,10 @@ public class CliEditor extends Application {
      * Prompt when in multiline is false.
      */
     private final String promptChar = "»";
+    /**
+     * Message display at beginning of multiline input mode.
+     */
+    private final String multilineMessage = "(ctrl+d to submit)";
     /**
      * How fast the cursor blinks.
      */
@@ -154,14 +159,10 @@ public class CliEditor extends Application {
      * @param str   string
      */
     public void printMultiEdit(String str) {
+        printNewLine(multilineMessage, true, true);
         if (str.isEmpty()) {
             return;
         }
-        multiline = true;
-        gotoEnd();
-        newLine();
-        editableLine = line;
-        editableCaret = linecaret;
         for (String s : str.split("\n")) {
             characterInput(s);
             newLine();
