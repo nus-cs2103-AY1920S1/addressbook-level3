@@ -49,14 +49,12 @@ public class MainWindowCloseTest extends GuiUnitTest {
         FxToolkit.showStage();
     }
 
-    /*
     @Test
     public void close_menuBarExitButton_allWindowsClosed() {
         mainWindowHandle.clickOnMenuExitButton();
         // The application will exit when all windows are closed.
         Platform.runLater(() -> assertEquals(Collections.emptyList(), guiRobot.listWindows()));
     }
-     */
 
     @Test
     public void close_externalRequest_exitAppRequestEventPosted() {
