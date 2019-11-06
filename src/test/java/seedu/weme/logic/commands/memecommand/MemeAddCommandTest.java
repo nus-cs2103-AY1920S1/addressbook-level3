@@ -111,6 +111,17 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public boolean isMemeStaged(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public boolean isStagingAreaEmpty() {
+            throw new AssertionError("This method should not be called");
+        }
+
+
+        @Override
         public void clearExportList() {
             throw new AssertionError("This method should not be called");
         }
@@ -256,12 +267,12 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public ObservableList<Meme> getFilteredStagedMemeList() {
+        public ObservableList<Meme> getStagedMemeList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Meme> getFilteredImportList() {
+        public ObservableList<Meme> getImportList() {
             throw new AssertionError("This method should not be called.");
         }
 

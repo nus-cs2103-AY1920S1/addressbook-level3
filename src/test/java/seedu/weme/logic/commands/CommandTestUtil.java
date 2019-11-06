@@ -130,6 +130,7 @@ public class CommandTestUtil {
         assertEquals(expectedWeme, actualModel.getWeme());
         assertEquals(expectedFilteredList, actualModel.getFilteredMemeList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the meme at the given {@code targetIndex} in the
      * {@code model}'s Weme.

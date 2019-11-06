@@ -40,7 +40,7 @@ public class UnstageCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Meme> stagedMemeList = model.getFilteredStagedMemeList();
+        List<Meme> stagedMemeList = model.getStagedMemeList();
 
         if (targetIndex.getZeroBased() >= stagedMemeList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);

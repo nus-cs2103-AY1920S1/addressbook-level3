@@ -92,6 +92,13 @@ public class UniqueMemeList implements Iterable<Meme> {
     }
 
     /**
+     * Returns true if the internal list is empty.
+     */
+    public boolean isEmpty() {
+        return internalList.isEmpty();
+    }
+
+    /**
      * Clears all the memes in the import list after successful import
      */
     public void clear() {

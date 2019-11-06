@@ -52,10 +52,10 @@ public interface Logic {
     ObservableList<Meme> getFilteredMemeList();
 
     /** Returns an unmodifiable view of the filtered list of imported memes */
-    ObservableList<Meme> getFilteredImportList();
+    ObservableList<Meme> getImportMemeList();
 
     /** Returns an unmodifiable view of the filtered staged list of memes */
-    ObservableList<Meme> getFilteredStagedMemeList();
+    ObservableList<Meme> getStagedMemeList();
 
     /** Returns an unmodifiable view of the filtered list of templates */
     ObservableList<Template> getFilteredTemplateList();

@@ -44,6 +44,8 @@ public class MemeEditCommand extends Command {
     public static final String MESSAGE_EDIT_MEME_SUCCESS = "Edited Meme: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in Weme.";
+    public static final String MESSAGE_STAGED_MEME = "Meme to be edited is currently being staged. "
+            + "Please unstage it first.";
 
     private final Index index;
     private final EditMemeDescriptor editMemeDescriptor;
@@ -70,6 +72,9 @@ public class MemeEditCommand extends Command {
         }
 
         Meme memeToEdit = lastShownList.get(index.getZeroBased());
+        if (model.isMemeStaged(memeToEdit)) {
+            throw new CommandException(MESSAGE_STAGED_MEME);
+        }
         Meme editedMeme = createEditedMeme(memeToEdit, editMemeDescriptor);
 
         if (!memeToEdit.isSameMeme(editedMeme) && model.hasMeme(editedMeme)) {

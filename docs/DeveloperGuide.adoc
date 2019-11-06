@@ -537,6 +537,26 @@ import and export using subcontext.
 ** Cons: Easily confuses the user due to extra complexity involved (subcontext). This will also cause
 navigating between import and export mode to be less subtle.
 
+===== Aspect: Ensure consistency in staging area
+The memes that are being staged should be the same meme as that in the meme list at all times.
+The issue comes when the user tries to clear the meme list, delete or edit a meme while the meme
+is being staged.
+
+* **Alternative 1 (current choice):** User should receive a validation error message when an attempt
+to edit or delete the meme is being made while it is being staged,
+followed by a prompter to unstage the meme first.
+** Pros: It makes the user aware of the fact that the meme that is going to be exported/imported
+is going to be deleted/edited, or that the meme list is going to be cleared. This also
+acts as a safety measure in case the user forgets to export before doing any modifications to the meme.
+** Cons: More steps required for the user. The user has to unstage the meme first before making any amendments.
+
+* **Alternative 2:** Changes in the memes tab automatically updates the export tab.
+** Pros: User types in less command since everything is done automatically (i.e. updating the meme
+will also update it in the staging area).
+** Cons: The user may not be aware that a staged meme is being edited and deleted. The user could
+possibly be confused that a staged meme is missing because it is deleted in the meme list, or that it
+has been edited.
+
 // end::export/import[]
 
 // tag::command suggestions[]

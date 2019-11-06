@@ -41,8 +41,8 @@ public class ModelManager implements Model {
     private final VersionedWeme versionedWeme;
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
-    private final FilteredList<Meme> filteredStagedMemeList;
-    private final FilteredList<Meme> filteredImportMemeList;
+    private final ObservableList<Meme> stagedMemeList;
+    private final ObservableList<Meme> importMemeList;
     private final FilteredList<Template> filteredTemplates;
 
     // ModelContext determines which parser to use at any point of time.
@@ -60,8 +60,8 @@ public class ModelManager implements Model {
         versionedWeme = new VersionedWeme(weme);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(versionedWeme.getMemeList(), PREDICATE_SHOW_ALL_UNARCHIVED_MEMES);
-        filteredStagedMemeList = new FilteredList<>(versionedWeme.getStagedMemeList());
-        filteredImportMemeList = new FilteredList<>(versionedWeme.getImportList());
+        stagedMemeList = versionedWeme.getStagedMemeList();
+        importMemeList = versionedWeme.getImportList();
         filteredTemplates = new FilteredList<>(versionedWeme.getTemplateList(),
                 PREDICATE_SHOW_ALL_UNARCHIVED_TEMPLATES);
     }
@@ -212,6 +212,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isMemeStaged(Meme meme) {
+        return versionedWeme.isMemeStaged(meme);
+    }
+
+    @Override
+    public boolean isStagingAreaEmpty() {
+        return versionedWeme.isStagingAreaEmpty();
+    }
+
+    @Override
     public void setImportedMeme(Meme target, Meme editedMeme) {
         requireAllNonNull(target, editedMeme);
 
@@ -263,13 +273,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Meme> getFilteredStagedMemeList() {
-        return filteredStagedMemeList;
+    public ObservableList<Meme> getStagedMemeList() {
+        return stagedMemeList;
     }
 
     @Override
-    public ObservableList<Meme> getFilteredImportList() {
-        return filteredImportMemeList;
+    public ObservableList<Meme> getImportList() {
+        return importMemeList;
     }
 
     @Override

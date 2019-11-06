@@ -45,7 +45,7 @@ public class MemeStageCommand extends Command {
         requireNonNull(model);
 
         List<Meme> lastShownList = model.getFilteredMemeList();
-        List<Meme> stageList = model.getFilteredStagedMemeList();
+        List<Meme> stageList = model.getStagedMemeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_MEME_DISPLAYED_INDEX);

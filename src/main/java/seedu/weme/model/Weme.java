@@ -203,6 +203,21 @@ public class Weme implements ReadOnlyWeme {
     }
 
     /**
+     * Returns true if the meme exists in the export list.
+     */
+    public boolean isMemeStaged(Meme meme) {
+        requireNonNull(meme);
+        return exportList.contains(meme);
+    }
+
+    /**
+     * Returns true if the export list is empty.
+     */
+    public boolean isStagingAreaEmpty() {
+        return exportList.isEmpty();
+    }
+
+    /**
      * Adds a meme to Weme.
      * The meme must not already exist in Weme.
      */

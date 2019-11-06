@@ -63,7 +63,6 @@ public class ExportCommand extends Command {
         try {
             List<Path> pathList = model.getExportPathList();
             FileUtil.copyFiles(pathList, getExportPath(model));
-            model.clearExportList();
         } catch (IOException ioe) {
             throw new CommandException(ioe.toString());
         }

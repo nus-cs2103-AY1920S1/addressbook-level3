@@ -27,6 +27,8 @@ public class MemeDeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_MEME_SUCCESS = "Deleted Meme: %1$s";
+    public static final String MESSAGE_STAGED_MEME = "Meme to be deleted is currently being staged. "
+            + "Please unstage it first.";
 
     private final Index targetIndex;
 
@@ -44,6 +46,9 @@ public class MemeDeleteCommand extends Command {
         }
 
         Meme memeToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (model.isMemeStaged(memeToDelete)) {
+            throw new CommandException(MESSAGE_STAGED_MEME);
+        }
         model.deleteMeme(memeToDelete);
         model.clearMemeStats(memeToDelete);
 

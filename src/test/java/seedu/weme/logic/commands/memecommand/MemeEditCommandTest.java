@@ -153,6 +153,16 @@ public class MemeEditCommandTest {
     }
 
     @Test
+    public void execute_editStagedMeme_failure() {
+        Meme memeInList = model.getWeme().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
+        model.stageMeme(memeInList);
+        MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_SECOND_MEME,
+                new EditMemeDescriptorBuilder(memeInList).build());
+
+        assertCommandFailure(memeEditCommand, model, MemeEditCommand.MESSAGE_STAGED_MEME);
+    }
+
+    @Test
     public void equals() {
         final MemeEditCommand standardCommand = new MemeEditCommand(INDEX_FIRST_MEME, DESC_CHARMANDER);
 

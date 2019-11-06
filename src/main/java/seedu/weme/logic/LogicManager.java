@@ -105,13 +105,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Meme> getFilteredStagedMemeList() {
-        return model.getFilteredStagedMemeList();
+    public ObservableList<Meme> getStagedMemeList() {
+        return model.getStagedMemeList();
     }
 
     @Override
-    public ObservableList<Meme> getFilteredImportList() {
-        return model.getFilteredImportList();
+    public ObservableList<Meme> getImportMemeList() {
+        return model.getImportList();
     }
 
     public ObservableList<Template> getFilteredTemplateList() {

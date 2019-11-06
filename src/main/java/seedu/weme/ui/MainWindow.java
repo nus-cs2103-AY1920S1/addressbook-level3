@@ -163,8 +163,8 @@ public class MainWindow extends UiPart<Stage> {
         createPanel = new CreatePanel(logic.getMemeTextList(), logic.getMemeCreationImage().orElse(null));
         statsPanel = new StatsPanel(logic.getWeme());
         exportGridPanel = new MemeGridPanel(
-                logic.getFilteredStagedMemeList(), logic.getObservableLikeData(), logic.getObservableDislikeData());
-        importGridPanel = new ImportGridPanel(logic.getFilteredImportList());
+                logic.getStagedMemeList(), logic.getObservableLikeData(), logic.getObservableDislikeData());
+        importGridPanel = new ImportGridPanel(logic.getImportMemeList());
         preferencesPanel = new PreferencesPanel(logic.getObservableUserPreferences());
 
         setAppContent(logic.getContext().getValue());

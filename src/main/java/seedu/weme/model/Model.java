@@ -169,11 +169,21 @@ public interface Model {
     void setMeme(Meme target, Meme editedMeme);
 
     /**
+     * Returns true if the meme is in the export staging area.
+     */
+    boolean isMemeStaged(Meme meme);
+
+    /**
      * Replaces the given meme {@code target} with {@code editedMeme}.
      * {@code target} must exist in Weme.
      * The meme identity of {@code editedMeme} must not be the same as another existing meme in Weme.
      */
     void setImportedMeme(Meme target, Meme editedMeme);
+
+    /**
+     * Returns true if the export staging area is empty.
+     */
+    boolean isStagingAreaEmpty();
 
     /**
      * Returns true if a template with the same identity as {@code template} exists in Weme.
@@ -205,12 +215,12 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the staged meme list.
      */
-    ObservableList<Meme> getFilteredStagedMemeList();
+    ObservableList<Meme> getStagedMemeList();
 
     /**
      * Returns an unmodifiable view of the import meme list.
      */
-    ObservableList<Meme> getFilteredImportList();
+    ObservableList<Meme> getImportList();
 
     /**
      * Updates the filter of the filtered meme list to filter by the given {@code predicate}.

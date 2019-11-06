@@ -37,7 +37,7 @@ public class ImportDeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Meme> lastShownList = model.getFilteredImportList();
+        List<Meme> lastShownList = model.getImportList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
