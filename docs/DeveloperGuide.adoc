@@ -220,13 +220,14 @@ The `Model`,
 === Storage component
 
 The `Storage` API is responsible for reading and writing data in
-json format. This allows the application is remeber information in
+json format. This allows the application is remember information in
 json format when the user closes the application.
 
-Below is a class diagram involving `Storage`.
+Below is a class diagram involving the `Storage` interface, which
+inherits from feature specific storage interfaces.
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+.Storage Interface
+image::storage/StorageInterfaceClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -235,6 +236,36 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save `HistoryManager`, `FinanceTracker`, `CcaTracker`,
 `CoursePlanner` and `Planner` data in json format and read it back.
+
+The concrete class `StorageManager` implements `Storage` and manages
+the storage for `UserPrefs`, `FinanceTracker`, `CcaTracker`,
+`CoursePlanner`, `Planner` and `HistoryManager`.
+
+Below is a class diagram of `StorageManager`.
+
+.`StorageManager` class
+image::storage/UpdatedStorageClassDiagram.png[]
+
+Each feature of JARVIS is able to save its information to local storage
+in `JSON` format, by adapting each feature component into
+`JsonSerializable{Component Name}` class.
+
+Below are the class diagrams for these adapted classes.
+
+.`JsonSerializableHistoryManager`
+image::storage/HistoryManagerStorageClassDiagram.png[]
+
+.`JsonSerializableCcaTracker`
+image::storage/CcaTrackerStorageClassDiagram.png[]
+
+.`JsonSerializableCoursePlanner`
+image::storage/CoursePlannerStorageClassDiagram.png[]
+
+.`JsonSerializableFinanceTracker`
+image::storage/FinanceTrackerStorageClassDiagram.png[]
+
+.`JsonSerializablePlanner`
+image::storage/PlannerStorageClassDiagram.png[]
 
 [[Design-Commons]]
 === Common classes
