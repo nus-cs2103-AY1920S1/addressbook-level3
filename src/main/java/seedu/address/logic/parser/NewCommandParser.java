@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX_OF_V;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_ONE_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VEHICLE;
