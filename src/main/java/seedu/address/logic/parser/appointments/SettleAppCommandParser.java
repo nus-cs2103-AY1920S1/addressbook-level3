@@ -66,7 +66,9 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
             }
 
             Event eventToEdit = lastShownList.get(idx);
-            Event editedEvent = new Appointment(eventToEdit.getPersonId(), eventToEdit.getEventTiming(),
+            Event editedEvent = new Appointment(eventToEdit.getPersonId(),
+                    eventToEdit.getPersonName(),
+                    eventToEdit.getEventTiming(),
                     new Status(Status.AppointmentStatuses.SETTLED));
 
             return new ReversibleActionPairCommand(new SettleAppCommand(eventToEdit, editedEvent),

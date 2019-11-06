@@ -3,6 +3,7 @@ package seedu.address.logic.parser.patients;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_FIELD;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -27,6 +28,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -72,7 +74,7 @@ public class EditPatientDetailsCommandParserTest {
         assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, ENTRY_ID_EMPTY + "1", EditPatientDetailsCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, ENTRY_ID_EMPTY + "1", MESSAGE_NO_FIELD);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -106,7 +108,9 @@ public class EditPatientDetailsCommandParserTest {
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, entryId + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, entryId + PHONE_DESC_BOB + INVALID_PHONE_DESC,
+                String.format(Messages.DUPLICATED_FIELD_MESSAGE_FORMAT, PREFIX_PHONE.toString().trim()));
+        assertParseFailure(parser, entryId + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
@@ -224,18 +228,52 @@ public class EditPatientDetailsCommandParserTest {
                                                   .withAddress(VALID_ADDRESS_BOB)
                                                   .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                                                   .build();
+        assertParseFailure(parser, userInput,
+                String.format(Messages.DUPLICATED_FIELD_MESSAGE_FORMAT, PREFIX_PHONE.toString().trim()));
+
+
+        userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased()
+                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB
+                + TAG_DESC_FRIEND
+                + TAG_DESC_HUSBAND;
+
         assertParseSuccess(parser, userInput,
-            new ReversibleActionPairCommand(
-                new EditPatientDetailsCommand(ALICE, editedPerson),
-                new EditPatientDetailsCommand(editedPerson, ALICE)
-            ));
+                new ReversibleActionPairCommand(
+                        new EditPatientDetailsCommand(ALICE, editedPerson),
+                        new EditPatientDetailsCommand(editedPerson, ALICE)
+                ));
+
+        userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased()
+                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB
+                + TAG_DESC_FRIEND
+                + TAG_DESC_FRIEND
+                + TAG_DESC_HUSBAND;
+
+        assertParseSuccess(parser, userInput,
+                new ReversibleActionPairCommand(
+                        new EditPatientDetailsCommand(ALICE, editedPerson),
+                        new EditPatientDetailsCommand(editedPerson, ALICE)
+                ));
+
     }
 
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
-        // no other valid values specified
+        // no other valid values specified and duplicated non-repeating field
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        assertParseFailure(parser, userInput,
+                String.format(Messages.DUPLICATED_FIELD_MESSAGE_FORMAT, PREFIX_PHONE.toString().trim()));
+
+        // other valid values specified and duplicated non-repeating field
+        userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
+                + PHONE_DESC_BOB;
+        assertParseFailure(parser, userInput,
+                String.format(Messages.DUPLICATED_FIELD_MESSAGE_FORMAT, PREFIX_PHONE.toString().trim()));
+
+
+        // valid value and a single non-repeating field
+        userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased() + PHONE_DESC_BOB;
         Person editedPerson = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
@@ -243,8 +281,8 @@ public class EditPatientDetailsCommandParserTest {
                 new EditPatientDetailsCommand(editedPerson, ALICE)
             ));
 
-        // other valid values specified
-        userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
+        // other valid values specified and a single non-repeating field
+        userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased() + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                             + PHONE_DESC_BOB;
         editedPerson = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                              .withAddress(VALID_ADDRESS_BOB).build();

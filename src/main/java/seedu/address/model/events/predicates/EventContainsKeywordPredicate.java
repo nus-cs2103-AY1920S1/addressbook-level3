@@ -14,7 +14,7 @@ public class EventContainsKeywordPredicate implements Predicate<Event> {
     private final String keyword;
 
     public EventContainsKeywordPredicate(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toUpperCase();
     }
 
     @Override
@@ -31,5 +31,10 @@ public class EventContainsKeywordPredicate implements Predicate<Event> {
         return other == this // short circuit if same object
             || (other instanceof EventContainsKeywordPredicate // instanceof handles nulls
                 && StringUtil.containsIgnoreCase(keyword, ((EventContainsKeywordPredicate) other).keyword));
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Suggesting event(s) which involves a ref id containing\n'%1$s'", keyword);
     }
 }

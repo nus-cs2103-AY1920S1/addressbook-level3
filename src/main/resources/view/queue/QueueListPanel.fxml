@@ -12,12 +12,12 @@
       <Insets bottom="5" left="10" right="10" top="5" />
     </padding>
   </Label>
-  <ListView fx:id="roomListView" minHeight="10" VBox.vgrow="SOMETIMES" />
+  <ListView fx:id="roomListView" minHeight="10" VBox.vgrow="SOMETIMES"/>
 
   <Label fx:id="inQueue" styleClass="cell_big_label_white_font" text="0 in Queue">
     <padding>
       <Insets bottom="5" left="10" right="10" top="5" />
     </padding>
   </Label>
-  <ListView fx:id="queueListView" VBox.vgrow="ALWAYS" />
+  <ListView fx:id="queueListView" VBox.vgrow="ALWAYS"/>
 </VBox>

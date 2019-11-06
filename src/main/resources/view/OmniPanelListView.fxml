@@ -4,4 +4,4 @@
 <?import javafx.scene.control.ListView?>
 
 
-<ListView fx:id="personListView" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" />
+<ListView fx:id="omniPanelListView" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"/>

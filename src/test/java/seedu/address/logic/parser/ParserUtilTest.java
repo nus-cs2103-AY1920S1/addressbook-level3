@@ -212,6 +212,14 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseTags_collectionWithRepeatedValidTags_returnsTagSet() throws Exception {
+        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_1, VALID_TAG_2));
+        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(Tag.issueTag(VALID_TAG_1), Tag.issueTag(VALID_TAG_2)));
+
+        assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
     public void parsePatientReferenceId_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
             ParserUtil.issuePatientReferenceId(INVALID_ID1);

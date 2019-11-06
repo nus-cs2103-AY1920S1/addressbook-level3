@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
@@ -22,7 +21,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
@@ -55,7 +53,7 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
                 ArgumentTokenizer.tokenize(args, PREFIX_ID,
                         PREFIX_START, PREFIX_END, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START, PREFIX_END)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_ID, PREFIX_START, PREFIX_END)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddDutyShiftCommand.MESSAGE_USAGE));
         }
@@ -70,7 +68,7 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
 
         String startString = argMultimap.getValue(PREFIX_START).get();
         Timing timing;
-        if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
             timing = ParserUtil.parseTiming(startString, null);
         } else {
             String endString = argMultimap.getValue(PREFIX_END).get();
@@ -90,7 +88,8 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
 
             Index recursiveTimes = ParserUtil.parseTimes(recursiveStringTimesOptional.get());
             int times = recursiveTimes.getZeroBased() + 1;
-            Event event = new Event(referenceId, timing, new Status());
+
+            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
             List<Event> eventList = getRecEvents(event, recursiveString, times);
             return new ReversibleActionPairCommand(new AddDutyShiftCommand(eventList),
                     new CancelDutyShiftCommand(eventList));
@@ -100,7 +99,8 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddDutyShiftCommand.MESSAGE_USAGE));
             }
-            Event event = new Event(referenceId, timing, new Status());
+
+            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
             return new ReversibleActionPairCommand(
                     new AddDutyShiftCommand(event),
                     new CancelDutyShiftCommand(event));
@@ -128,19 +128,10 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
         }
 
         for (int i = 0; i < times; i++) {
-            eventList.add(new Event(event.getPersonId(), timing, new Status()));
+            eventList.add(new Event(event.getPersonId(), event.getPersonName(), timing, new Status()));
             timing = func.apply(timing);
         }
 
         return eventList;
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }

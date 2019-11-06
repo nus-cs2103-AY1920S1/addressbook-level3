@@ -11,7 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 
 /**
@@ -31,8 +31,7 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
             + PREFIX_START + "02/12/19 0900 "
             + PREFIX_END + "02/12/19 2100";
 
-    public static final String MESSAGE_SUCCESS = "Duty shift changed to %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the duty roster";
+    public static final String MESSAGE_SUCCESS = "The duty shift has changed to %1$s";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -50,18 +49,13 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (model.hasExactDutyShift(editedEvent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
-        }
-
         try {
             model.setDutyShift(eventToEdit, editedEvent);
         } catch (InvalidEventScheduleChangeException ex) {
             throw new CommandException(ex.getMessage());
         }
 
-        model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
+        model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(editedEvent.getPersonId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }
 
