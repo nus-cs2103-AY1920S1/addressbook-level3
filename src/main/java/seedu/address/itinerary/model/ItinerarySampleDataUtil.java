@@ -69,8 +69,8 @@ public class ItinerarySampleDataUtil {
                         new Description("Friendly match with Lakers"), new Time("1200"),
                         new Tag("Priority: Medium")),
 
-                new Event(new Title("Buy a sponge"), new Date("15092999"), new Location("-"),
-                        new Description("-"), new Time("0913"),
+                new Event(new Title("Buy a sponge"), new Date("15092999"), new Location("Bikini Bottom"),
+                        new Description("Get some squid and crab too"), new Time("0913"),
                         new Tag("Priority: None")),
 
                 new Event(new Title("Do ST2334 Tutorial 10"), new Date("01112019"), new Location("-"),
@@ -93,7 +93,7 @@ public class ItinerarySampleDataUtil {
                         new Description("-"), new Time("1110"),
                         new Tag("Priority: Critical")),
 
-                new Event(new Title("Get a hot grill"), new Date("20102999"), new Location("-"),
+                new Event(new Title("Get a hot grill"), new Date("20102969"), new Location("-"),
                         new Description("-"), new Time("1418"),
                         new Tag("Priority: Medium")),
 
