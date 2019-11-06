@@ -1,0 +1,49 @@
+= Jiang Yuxin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SugarMummy
+
+---
+
+== Overview
+
+SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI,
+and it has a GUI created with JavaFx. It is written in Java and has about 24 kLOC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *a calendar system*
+** What it does: allows the user to add calendar entries(reminder and event) and view calendar and generates reminders.
+** Justification: This feature improves the product significantly because a user can add important events to their calendar and be reminded at the time set.
+** Highlights: This enhancement creates a calendar system that provides both static and dynamic viewing of calendar entries. Calendar entries can be viewed by day, which requires recurring
+reminders to be filtered by their date and repetition. Also when the app is running, reminders are automatically shown according to the time set.
+* *Minor enhancement*:
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jyx11011&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[View RepoSense]]
+
+* *Other contributions*:
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=calendar]
+
+== Contributions to the Developer Guide
+
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=calendar]
+
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
