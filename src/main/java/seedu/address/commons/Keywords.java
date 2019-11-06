@@ -126,7 +126,7 @@ public class Keywords {
 
             case ListMemberByTaskCommand.COMMAND_WORD:
                 return commandWord + " " + ListMemberByTaskCommand.PREFIX_USAGE;
-            
+
             case UndoCommand.COMMAND_WORD:
                 return commandWord + " " + FindCommand.PREFIX_USAGE;
 

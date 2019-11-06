@@ -29,8 +29,8 @@ import seedu.address.model.task.Task;
 
 public class AddInventoryCommand extends Command {
     public static final String COMMAND_WORD = "add-inv";
-    public static final String PREFIX_USAGE = PREFIX_INVENTORY_NAME + 
-                                                " " + PREFIX_INVENTORY_PRICE + 
+    public static final String PREFIX_USAGE = PREFIX_INVENTORY_NAME +
+                                                " " + PREFIX_INVENTORY_PRICE +
                                                 " " + PREFIX_TASK_INDEX +
                                                 " " + PREFIX_MEMBER_ID;
 
