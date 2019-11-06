@@ -160,6 +160,7 @@ This enables the user to search for a list of expired items by searching for the
 With this, the user is able to view the list of expired items and decide which items to add to the replenish list.
 On the other hand, when an item has run out, the user is prompted to replenish the item using the replenish command.
 
+.Item Manager Class Diagram
 image::ItemManagerClassDiagram.png[]
 
 //Given below is an example usage scenario and how the mechanism behaves at each step.
@@ -180,9 +181,18 @@ the user is prompted to shift the item to the replenish list by typing the reple
 * **Alternative 2: Once an item expires or runs out, item is transferred to the replenish list.**
 ** Pros: User need not manually key in item details to transfer it to the replenish list.
 ** Cons: User may not want the item in the list and as such would expect a delete functionality for the to-replenish list.
-//
+
+===== Aspect: How commands are executed in the list
+* **Alternative 1 (current choice): Create two separate parses, one for the main tracking list and another for the replenish list.**
+** Pros: This allows us to reuse existing commands that are currently functional for the main tracking list in the replenish list as well, without extensive repetition of code.
+** Cons: This would require us to check which parser is to be used every time a command is executed.
+
+* **Alternative 2: Create two versions of each command, one for each list.**
+** Pros: This allows us to greatly customise the command for each list.
+** Cons: This however would lead to unnecessary repetition of code across the code base.
+
 //===== Aspect: Data structure to store the items
-//* **Alternative 1 (current choice):**
+//* **Alternative 1 (current choice): **
 //** Pros:
 //** Cons:
 //
@@ -204,11 +214,13 @@ In `SortedUniqueItemList`, items are stored in a `SortedList<Item>` and sorted b
 
 The following sequence diagram shows how the items added are auto-sorted:
 
+.Sequence Diagram modelling how items added are auto-sorted
 image::AutoSortAddSequenceDiagram.png[]
 
 [NOTE]
 Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
 
+.Sequence Diagram: set method of sorting as default
 image::AutoSortAddPartSequenceDiagram.png[]
 
 `this.methodOfSorting = new MethodOfSorting("name");`
@@ -218,11 +230,13 @@ the items by name then date.
 
 The following sequence diagram shows how the sort command changes the default order of how items are displayed:
 
+.Sequence Diagram showing how sort command changes order of items
 image::SortSequenceDiagram.png[]
 
 [NOTE]
 When sort is called, the method of sorting is redefined by the user.
 
+.Sequence Diagram : set method of sorting to date
 image::SortParserPartSequenceDiagram.png[]
 
 In the above example, the user has specified to sort items by their expiry date, thus a dateComparator is returned.
@@ -232,15 +246,18 @@ In the above example, the user has specified to sort items by their expiry date,
 [NOTE]
 The SortedList changes accordingly based on the method of sorting specified.
 
+.Activity Diagram showing the control flow of a sort command executed by the user
 image::SortActivityDiagram.png[]
 
 The following sequence diagram shows how the view operation works to display items that are auto-sorted or sorted manually by name or date:
 
+.Sequence Diagram showing how the view operation displays items in order
 image::AutoSortViewSequenceDiagram.png[]
 
 [NOTE]
 Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
 
+.Sequence Diagram : retrieve internal sorted list
 image::AutoSortViewPartSequenceDiagram.png[]
 
 [NOTE]
