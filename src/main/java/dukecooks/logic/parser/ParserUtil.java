@@ -18,6 +18,7 @@ import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.diary.components.PageDescription;
 import dukecooks.model.diary.components.PageType;
 import dukecooks.model.diary.components.Title;
+import dukecooks.model.health.components.Remark;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.Value;
@@ -241,6 +242,33 @@ public class ParserUtil {
             throw new ParseException(Value.MESSAGE_CONSTRAINTS);
         }
         return new Value(value);
+    }
+
+    /**
+     * Parses a {@code String remark} into a {@code remark}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
+     */
+    public static Remark parseRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        if (!Remark.isValidRemarkName(trimmedRemark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
+        }
+        return new Remark(trimmedRemark);
+    }
+
+    /**
+     * Parses {@code Collection<String> remarks} into a {@code Set<Remark>}.
+     */
+    public static Set<Remark> parseRemarks(Collection<String> remarks) throws ParseException {
+        requireNonNull(remarks);
+        final Set<Remark> remarkSet = new HashSet<>();
+        for (String remarkName : remarks) {
+            remarkSet.add(parseRemark(remarkName));
+        }
+        return remarkSet;
     }
 
     /**

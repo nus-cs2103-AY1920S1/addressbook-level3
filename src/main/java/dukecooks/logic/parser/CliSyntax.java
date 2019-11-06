@@ -53,9 +53,15 @@ public class CliSyntax {
     public static final Prefix PREFIX_TYPE = new Prefix("t/");
     public static final Prefix PREFIX_VALUE = new Prefix("val/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
+    public static final Prefix PREFIX_REMARK = new Prefix("remark/");
+    public static final Prefix PREFIX_REMOVEREMARK = new Prefix("remark-/");
+
+    /* User Profile */
+    // prefix name shared with recipe book
     public static final Prefix PREFIX_GENDER = new Prefix("g/");
     public static final Prefix PREFIX_DOB = new Prefix("d/");
     public static final Prefix PREFIX_BLOODTYPE = new Prefix("bt/");
+    // prefix weight shared with workout/exercises
     public static final Prefix PREFIX_HEIGHT = new Prefix("h/");
     public static final Prefix PREFIX_MEDICALHISTORY = new Prefix("m/");
     public static final Prefix PREFIX_REMOVEMEDICALHISTORY = new Prefix("m-/");

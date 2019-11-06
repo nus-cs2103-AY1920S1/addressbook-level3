@@ -1,0 +1,7 @@
+{
+  "healthrecords" : [ {
+    "type" : "Weight",
+    "value" : "500.0",
+    "timestamp" : "26/10/2019 12:00"
+  } ]
+}

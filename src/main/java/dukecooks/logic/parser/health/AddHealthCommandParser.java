@@ -2,9 +2,11 @@ package dukecooks.logic.parser.health;
 
 import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMARK;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_TYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_VALUE;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import dukecooks.logic.commands.health.AddHealthCommand;
@@ -15,6 +17,7 @@ import dukecooks.logic.parser.ParserUtil;
 import dukecooks.logic.parser.Prefix;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.Remark;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.Value;
@@ -31,7 +34,7 @@ public class AddHealthCommandParser implements Parser<AddHealthCommand> {
      */
     public AddHealthCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_VALUE, PREFIX_DATETIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_VALUE, PREFIX_DATETIME, PREFIX_REMARK);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_VALUE, PREFIX_DATETIME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -42,7 +45,10 @@ public class AddHealthCommandParser implements Parser<AddHealthCommand> {
         Value value = ParserUtil.parseValue(argMultimap.getValue(PREFIX_VALUE).get());
         Timestamp timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_DATETIME).get());
 
-        Record record = new Record(type, value, timestamp);
+        Set<Remark> remarkList = ParserUtil.parseRemarks(
+                argMultimap.getAllValues(PREFIX_REMARK));
+
+        Record record = new Record(type, value, timestamp, remarkList);
 
         return new AddHealthCommand(record);
     }

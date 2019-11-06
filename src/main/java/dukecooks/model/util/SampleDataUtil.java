@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import dukecooks.model.health.HealthRecords;
 import dukecooks.model.health.ReadOnlyHealthRecords;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.Remark;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.Value;
@@ -170,7 +171,8 @@ public class SampleDataUtil {
             new Record(
             Type.Glucose,
             new Value("90"),
-            new Timestamp("14/10/2019 01:10"))
+            new Timestamp("14/10/2019 01:10"),
+            getRemarkSet("after meal", "on diet"))
         };
     }
 
@@ -180,5 +182,14 @@ public class SampleDataUtil {
             sampleDc.addRecord(sampleRecord);
         }
         return sampleDc;
+    }
+
+    /**
+     * Returns a remark set containing the list of strings given.
+     */
+    public static Set<Remark> getRemarkSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Remark::new)
+                .collect(Collectors.toSet());
     }
 }

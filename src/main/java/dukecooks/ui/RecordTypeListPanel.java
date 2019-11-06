@@ -187,7 +187,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordListCard}.
      */
     class RecordListViewCell extends ListCell<Record> {
         @Override

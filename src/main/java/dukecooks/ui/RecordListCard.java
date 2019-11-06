@@ -3,13 +3,14 @@ package dukecooks.ui;
 import dukecooks.model.health.components.Record;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
  * An UI component that displays information of a {@code Record}.
  */
-public class RecordCard extends UiPart<Region> {
+public class RecordListCard extends UiPart<Region> {
 
     private static final String FXML = "RecordListCard.fxml";
 
@@ -33,13 +34,18 @@ public class RecordCard extends UiPart<Region> {
     private Label type;
     @FXML
     private Label value;
+    @FXML
+    private FlowPane pages;
 
-    public RecordCard(Record record, int displayedIndex) {
+    public RecordListCard(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
         timestamp.setText(record.getTimestamp().toString());
         type.setText(record.getType().toString());
         value.setText(record.getValue().value + record.getType().getUnit());
+
+        record.getRemarks().stream()
+                .forEach(remark -> pages.getChildren().add(new Label(remark.remarkName)));
     }
 
     @Override
@@ -50,12 +56,12 @@ public class RecordCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RecordCard)) {
+        if (!(other instanceof RecordListCard)) {
             return false;
         }
 
         // state check
-        RecordCard card = (RecordCard) other;
+        RecordListCard card = (RecordListCard) other;
         return id.getText().equals(card.id.getText())
                 && record.equals(card.record);
     }

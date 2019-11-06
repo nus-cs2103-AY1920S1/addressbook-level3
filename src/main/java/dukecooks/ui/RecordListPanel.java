@@ -57,10 +57,10 @@ public class RecordListPanel extends UiPart<Region> {
             private ObservableList<Record> summaryList = CustomRecordList.filterSummary(recordList);
         };
 
-        // Creates a RecordCard for each Record and adds to FlowPane
+        // Creates a RecordListCard for each Record and adds to FlowPane
         int i = 0;
         for (Record record : ref.summaryList) {
-            flowPaneView.getChildren().add(new RecordCard(record, i).getRoot());
+            flowPaneView.getChildren().add(new RecordListCard(record, i).getRoot());
             i++;
         }
         //add listener for new record changes
@@ -70,7 +70,7 @@ public class RecordListPanel extends UiPart<Region> {
             ref.summaryList = CustomRecordList.filterSummary(recordList);
             int x = 0;
             for (Record r: ref.summaryList) {
-                flowPaneView.getChildren().add(new RecordCard(r, x).getRoot());
+                flowPaneView.getChildren().add(new RecordListCard(r, x).getRoot());
                 x++;
             }
         });
@@ -136,7 +136,7 @@ public class RecordListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordListCard}.
      */
     class RecordListViewCell extends ListCell<Record> {
         @Override
