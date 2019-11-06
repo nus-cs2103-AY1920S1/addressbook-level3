@@ -31,6 +31,7 @@ public class ExportCommand extends Command {
             + ": Exports patients data into a .csv file in /exports.\n"
             + "Patients are exported selectively by index.\n"
             + "If indexes are not provided, all patients will be exported.\n"
+            + "File name cannot be blank and can only contain alphanumerics, underscores and hyphens.\n"
             + "File name must be new - overriding an existing file is not permitted.\n"
             + "Parameters: " + PREFIX_FILENAME + "FILENAME "
             + "[" + PREFIX_INDEXES + "INDEXES]...\n"
