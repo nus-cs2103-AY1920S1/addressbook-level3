@@ -10,7 +10,7 @@
             xmlns:fx="http://javafx.com/fxml/1">
     <AnchorPane styleClass="stats-pane-color">
         <PieChart fx:id="pc" styleClass="chart-pie-label" AnchorPane.rightAnchor="10.0"/>
-        <Label fx:id="overview" styleClass="label-bright" text="Label">
+        <Label fx:id="overview" styleClass="label-bright" text="Label" wrapText="true">
             <padding>
                 <Insets top="20.0"/>
             </padding>

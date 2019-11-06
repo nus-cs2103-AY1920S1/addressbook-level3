@@ -25,9 +25,9 @@ public class StatsPieChart extends UiPart<Region> {
         super(FXML);
         pc.setLegendSide(Side.LEFT);
         pc.setData(data);
-        overview.setText("The total number of questions answered so far: " + totalQns + "\n"
-                + "Number of questions answered correctly: " + (int) data.get(0).getPieValue() + "\n"
-                + "Number of questions answered incorrectly: " + (int) data.get(1).getPieValue() + "\n");
+        overview.setText("The total number of entries so far: " + totalQns + "\n"
+                + "Number of correct entries: " + (int) data.get(0).getPieValue() + "\n"
+                + "Number of incorrect entries: " + (int) data.get(1).getPieValue() + "\n");
     }
 
     /**
