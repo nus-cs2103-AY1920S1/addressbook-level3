@@ -1,6 +1,7 @@
 = Seller Manager Lite - Developer Guide
 :site-section: DeveloperGuide
 :toc:
+:toclevels: 2
 :toc-title:
 :toc-placement: preamble
 :sectnums:
