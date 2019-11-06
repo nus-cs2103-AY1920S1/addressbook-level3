@@ -35,7 +35,7 @@ public class RecipeListPanel extends UiPart<Region> {
 
     /**
      * Initialises FlowPane Config.
-     * Gives the overview of health records recorded by user
+     * Gives the overview of recipe list recorded by user
      */
     void initializeFlowPaneView(ObservableList<Recipe> recipeList) {
         recipeListView.setHgap(10);

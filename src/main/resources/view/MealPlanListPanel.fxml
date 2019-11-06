@@ -50,11 +50,109 @@
          <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
             <children>
                <ListView fx:id="mealPlanIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
-               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <ScrollPane fx:id="mealPlanListPanel" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                   <content>
                      <FlowPane fx:id="mealPlanListView" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: snow;" />
                   </content>
                </ScrollPane>
+               <VBox fx:id="mealPlanViewPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <children>
+                     <HBox fillHeight="false" maxWidth="1.7976931348623157E308">
+                        <children>
+                           <Label fx:id="mealPlanViewing" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Viewing:" textFill="#797373">
+                              <padding>
+                                 <Insets bottom="5.0" left="5.0" top="5.0" />
+                              </padding>
+                           </Label>
+                           <Label fx:id="mealPlanHeader" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="\$mealPlanName">
+                              <padding>
+                                 <Insets bottom="5.0" left="5.0" top="5.0" />
+                              </padding>
+                           </Label>
+                           <Pane prefWidth="50.0" HBox.hgrow="NEVER" />
+                           <Label fx:id="mealPlanNutrition" text="\$mealPlanNutrition" />
+                        </children>
+                     </HBox>
+                     <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                        <content>
+                           <HBox fx:id="mealPlanViewView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                              <children>
+                                 <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0">
+                                    <children>
+                                       <Label text="Day 1" />
+                                       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="222.0" VBox.vgrow="ALWAYS">
+                                          <content>
+                                             <FlowPane fx:id="mealPlanDay1ListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0" />
+                                          </content>
+                                       </ScrollPane>
+                                    </children>
+                                 </VBox>
+                                 <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0">
+                                    <children>
+                                       <Label text="Day 2" />
+                                       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="222.0" VBox.vgrow="ALWAYS">
+                                          <content>
+                                             <FlowPane fx:id="mealPlanDay2ListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0" />
+                                          </content>
+                                       </ScrollPane>
+                                    </children>
+                                 </VBox>
+                                 <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0">
+                                    <children>
+                                       <Label text="Day 3" />
+                                       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="222.0" VBox.vgrow="ALWAYS">
+                                          <content>
+                                             <FlowPane fx:id="mealPlanDay3ListView" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0" />
+                                          </content>
+                                       </ScrollPane>
+                                    </children>
+                                 </VBox>
+                                 <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0">
+                                    <children>
+                                       <Label text="Day 4" />
+                                       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="222.0" VBox.vgrow="ALWAYS">
+                                          <content>
+                                             <FlowPane fx:id="mealPlanDay4ListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0" />
+                                          </content>
+                                       </ScrollPane>
+                                    </children>
+                                 </VBox>
+                                 <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0">
+                                    <children>
+                                       <Label text="Day 5" />
+                                       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="222.0" VBox.vgrow="ALWAYS">
+                                          <content>
+                                             <FlowPane fx:id="mealPlanDay6ListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0" />
+                                          </content>
+                                       </ScrollPane>
+                                    </children>
+                                 </VBox>
+                                 <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0">
+                                    <children>
+                                       <Label text="Day 6" />
+                                       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="222.0" VBox.vgrow="ALWAYS">
+                                          <content>
+                                             <FlowPane fx:id="mealPlanDay5ListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0" />
+                                          </content>
+                                       </ScrollPane>
+                                    </children>
+                                 </VBox>
+                                 <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0">
+                                    <children>
+                                       <Label text="Day 7" />
+                                       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="222.0" VBox.vgrow="ALWAYS">
+                                          <content>
+                                             <FlowPane fx:id="mealPlanDay7ListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0" />
+                                          </content>
+                                       </ScrollPane>
+                                    </children>
+                                 </VBox>
+                              </children>
+                           </HBox>
+                        </content>
+                     </ScrollPane>
+                  </children>
+               </VBox>
             </children>
          </HBox>
       </VBox>

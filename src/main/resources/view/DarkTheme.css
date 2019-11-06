@@ -537,3 +537,13 @@
     -fx-font-size: 11;
     -fx-text-fill: rgba(254, 95, 85, 0.75);
 }
+
+#mealPlanHeader {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
+}
+
+#mealPlanViewing {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
+}

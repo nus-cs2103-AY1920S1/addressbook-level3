@@ -15,8 +15,10 @@ import org.junit.jupiter.api.Test;
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.mealplan.components.MealPlanName;
+import dukecooks.model.recipe.components.Recipe;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
+import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class MealPlanTest {
 
@@ -85,6 +87,17 @@ public class MealPlanTest {
         MealPlan expectedMealPlan = new MealPlanBuilder(FISH_MP).withName(CommandTestUtil.VALID_NAME_BURGER_MP).build();
         MealPlan actualMealPlan = BURGER_MP;
         actualMealPlan.replaceRecipe(BURGER, FISH);
+        assertEquals(expectedMealPlan, actualMealPlan);
+    }
+
+    @Test
+    public void removeRecipe_removalSuccess() {
+        MealPlan expectedMealPlan = new MealPlanBuilder(FISH_MP).withDay1().withDay2().withDay3().withDay4().withDay5()
+                .withDay6().withDay7().build();
+
+        MealPlan initialMealPlan = new MealPlanBuilder(FISH_MP).build();
+        Recipe recipeToDelete = new RecipeBuilder(FISH).build();
+        MealPlan actualMealPlan = initialMealPlan.removeRecipe(recipeToDelete)[1];
         assertEquals(expectedMealPlan, actualMealPlan);
     }
 

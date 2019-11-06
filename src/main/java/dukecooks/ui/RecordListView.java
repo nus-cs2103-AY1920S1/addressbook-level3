@@ -3,6 +3,7 @@ package dukecooks.ui;
 import dukecooks.model.health.components.Record;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -31,13 +32,18 @@ public class RecordListView extends UiPart<Region> {
     private Label timestamp;
     @FXML
     private Label value;
+    @FXML
+    private FlowPane pages;
 
     public RecordListView(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
         id.setText(displayedIndex + ". ");
         timestamp.setText(record.getTimestamp().toString());
-        value.setText(record.getValue().value + record.getType().unit);
+        value.setText(record.getValue().value + record.getType().getUnit());
+
+        record.getRemarks().stream()
+                .forEach(remark -> pages.getChildren().add(new Label(remark.remarkName)));
     }
 
     @Override

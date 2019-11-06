@@ -11,6 +11,21 @@ import java.util.Arrays;
  */
 public class StringUtil {
 
+    /***
+     * Returns a string with the format whereby each word starts with a capital letter
+     * followed by small letters.
+     */
+    public static String capitalizeFirstLetterOnly(String str) {
+        StringBuilder sb = new StringBuilder();
+        String[] arr = str.split(" ");
+        for (String s: arr) {
+            sb.append(s.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase());
+            sb.append(" ");
+        }
+
+        return sb.toString().trim();
+    }
+
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, but a full word match is required.

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -28,6 +29,7 @@
          <Label fx:id="timestamp" styleClass="cell_big_label" text="\$timestamp" />
       </HBox>
       <Label fx:id="value" styleClass="cell_small_label_label" text="\$value" />
+         <FlowPane fx:id="pages" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

@@ -49,7 +49,7 @@ public class DeleteRecipeCommand extends DeleteCommand {
 
         model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);
         for (MealPlan mealPlan : model.getFilteredMealPlanList()) {
-            MealPlan[] updatedMealPlan = mealPlan.removeRecipe(recipeToDelete, model);
+            MealPlan[] updatedMealPlan = mealPlan.removeRecipe(recipeToDelete);
             model.setMealPlan(updatedMealPlan[0], updatedMealPlan[1]);
         }
         model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_NO_MEALPLANS);
