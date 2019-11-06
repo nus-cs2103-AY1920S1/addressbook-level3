@@ -739,11 +739,11 @@ Example:
 
 `binitemexpiry days/30` +
 
-Set BinItems to expire 30 days their deletion. After 30 days, they will be removed permanently.
+Set all BinItems to expire 30 days their deletion. They will be removed permanently once they exceed their expiry date.
 
 Expected Output: +
 ```
-Changed bin item expiry time! Items in the Bin will be removed permanently after 30 days.
+Changed bin item expiry time! Items in the Bin will be removed permanently 30 days after their deletion.
 ```
 // end::binitemexpiry[]
 
