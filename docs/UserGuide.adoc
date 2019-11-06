@@ -217,7 +217,7 @@ Examples:
 ****
 * Only `tutorials`/ `tut` / `lab` / `consultations` / `c` / `sectionals` / `s` / `preparation_time` / `p`
 arguments are allowed for `TYPE`.
-* `DATE` format must be done in `DD/MM/YYYY` format.
+* `DATE` format must be done in `DD/MM/YYYY` or `DD-MM-YYYY` format.
 * `AMOUNT` has a max value of 1 000 000.00 and should not contain commas.
 ****
 
@@ -471,6 +471,11 @@ Examples:
 
 * `ad` (instead of `add`) -> TutorAid will prompt the user what they meant. Type `add` now to be able
 to use `ad` as an `add` command in the future.
+
+=== Logout : `logout`
+
+Logs out of the account. +
+Format: `logout`
 
 === Upcoming Features
 
