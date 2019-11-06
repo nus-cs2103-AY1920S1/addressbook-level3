@@ -344,8 +344,8 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #003d7a, transparent, #003d7a;
-    -fx-background-radius: 20;
+    -fx-background-color: transparent, #ffce8e, transparent, #ffce8e;
+    -fx-background-radius: 0;
 }
 
 #categories {

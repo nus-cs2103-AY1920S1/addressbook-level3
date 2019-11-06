@@ -336,7 +336,7 @@
 
 #resultDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 20;
+    -fx-background-radius: 0;
 }
 
 #categories {
