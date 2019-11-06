@@ -126,6 +126,8 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        listenToLesson();
+
         helpWindow = new HelpWindow();
     }
 
@@ -335,7 +337,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             commandText = uploadCommandCheck(commandText);
-            listenToLesson();
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -390,6 +391,17 @@ public class MainWindow extends UiPart<Stage> {
     public void listenToLesson() {
         logger.info("listening to lesson");
         ObservableList<Lesson> lessons = logic.getFilteredLessonList();
+        for (int i = 0; i < lessons.size(); i++) {
+            Lesson lesson = lessons.get(i);
+            Scheduler scheduler = new Scheduler(lesson);
+            scheduler.scheduleLesson(new Runnable() {
+                @Override
+                public void run() {
+                    logger.info("creating countdown");
+                    countDownAlert("You have a lesson", lesson.toString());
+                }
+            });
+        }
         lessons.addListener(new ListChangeListener<Lesson>() {
             @Override
             public void onChanged(Change<? extends Lesson> c) {
