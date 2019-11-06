@@ -48,8 +48,10 @@ public class EditOrderCommand extends Command {
             + PREFIX_FOOD + "Shrooms Burger "
             + PREFIX_QUANTITY + "3";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided!";
+    public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided!";
+
+    private static final String MESSAGE_ALREADY_COMPLETED = "The order cannot be edited as it is already completed!";
     private static final String MESSAGE_SUCCESS_EDIT = "Successful edition of order: %1$s";
     private static final LinkedList<Prefix> prefixesList = new LinkedList<>(
             List.of(PREFIX_INDEX, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY));
@@ -79,6 +81,9 @@ public class EditOrderCommand extends Command {
 
         // Creating editedOrder and testing validity
         Order orderToEdit = lastShownList.get(index.getZeroBased());
+        if (orderToEdit.isCompleted()) {
+            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
+        }
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
         AddOrderCommand.isValidOrder(editedOrder, model);
 
