@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VTYPE;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -51,6 +52,7 @@ public class CommandTestUtil {
     public static final String VALID_DISTRICT = "21";
     public static final String VALID_CALLER = "91234567";
     public static final String VALID_DESCRIPTION = "This is a valid description.";
+    public static final String VALID_VNUM ="SFD1234Z";
 
     public static final String VALID_VTYPE = "Ambulance";
     public static final String VALID_AVAILABILITY = "Available";
@@ -72,6 +74,7 @@ public class CommandTestUtil {
     public static final String CALLER_DESC = " " + PREFIX_PHONE + VALID_CALLER;
     public static final String DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
 
+    public static final String VNUM_DESC = " " + PREFIX_VNUM + VALID_VNUM;
     public static final String VTYPE_DESC = " " + PREFIX_VTYPE + VALID_VTYPE;
     public static final String AVAIL_DESC = " " + PREFIX_AVAIL + VALID_AVAILABILITY;
 
@@ -85,6 +88,7 @@ public class CommandTestUtil {
     public static final String INVALID_DISTRICT_DESC = " " + PREFIX_DISTRICT + "30"; //district only from 1-28
     public static final String INVALID_VTYPE_DESC = " " + PREFIX_VTYPE + "Limousine";
     public static final String INVALID_AVAIL_DESC = " " + PREFIX_AVAIL + "Standby";
+    public static final String INVALID_VNUM_DESC = " " + PREFIX_VNUM + "s333";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
