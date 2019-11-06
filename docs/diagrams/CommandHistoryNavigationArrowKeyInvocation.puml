@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CommandBox" as CommandBox UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CommandHistory" as CommandHistory MODEL_COLOR
+end box
+
+[-> MainWindow
+activate MainWindow
+
+note left of MainWindow
+This sequence of interactions
+happens when the "Up" arrow key is
+pressed
+end note
+
+MainWindow -> Logic : getPrevCommandString()
+activate Logic
+
+Logic -> Model : getPrevCommandString()
+activate Model
+
+Model -> CommandHistory : getPrevCommandString()
+activate CommandHistory
+CommandHistory --> Model : commandString
+deactivate CommandHistory
+
+Model --> Logic : commandString
+deactivate Model
+
+Logic --> MainWindow : commandString
+deactivate Logic
+
+MainWindow -> CommandBox : setTextField(commandString)
+activate CommandBox
+
+note right of CommandBox
+This updates the text to be displayed
+in the Command Input Box in Alfred with
+`commandString`
+end note
+
+CommandBox --> MainWindow
+deactivate CommandBox
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

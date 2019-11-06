@@ -5,8 +5,8 @@
 :stylesDir: stylesheets
 
 AddressBook3 (AB3) was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-AB3 is to be morphed into Alfred - an app that is to be used by Hackathon HR managers to manage
-their events. This project was developed by group F11 of CS2103T. Our team repo can be found
+We morphed the project into Alfred - an app that is to be used by Hackathon HR managers to manage
+and organise Hackathons. This project was developed by group F11 of CS2103T. Our team repo can be found
 https://github.com/AY1920S1-CS2103T-F11-1/main[here]. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
@@ -27,7 +27,7 @@ image::brianyenna.png[width="150", align="left"]
 {empty}[http://github.com/brianyenna[github]] [<<brianyen#, portfolio>>]
 
 Role: Documentation +
-Responsibilities: Storage
+Responsibilities: Storage, Undo/Redo Feature, Command History Navigation Feature
 
 '''
 

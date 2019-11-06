@@ -1,0 +1,135 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":DeleteCommandAllocator" as DeleteCommandAllocator LOGIC_COLOR
+participant ":DeleteParticipantCommandParser" as DeleteParticipantCommandParser LOGIC_COLOR
+participant "d:DeleteParticipantCommand" as DeleteParticipantCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModelHistory" as ModelHistory MODEL_COLOR
+participant ":ModelHistoryRecord" as ModelHistoryRecord MODEL_COLOR
+end box
+
+[-> Logic : execute("delete participant P-1")
+activate Logic
+
+Logic -> AlfredParser : parseCommand("delete participant P-1")
+activate AlfredParser
+
+create DeleteCommandAllocator
+AlfredParser -> DeleteCommandAllocator
+activate DeleteCommandAllocator
+
+DeleteCommandAllocator --> AlfredParser
+deactivate DeleteCommandAllocator
+
+AlfredParser -> DeleteCommandAllocator : allocate("participant P-1")
+activate DeleteCommandAllocator
+
+create DeleteParticipantCommandParser
+DeleteCommandAllocator -> DeleteParticipantCommandParser
+activate DeleteParticipantCommandParser
+
+DeleteParticipantCommandParser --> DeleteCommandAllocator
+deactivate DeleteParticipantCommandParser
+
+DeleteCommandAllocator -> DeleteParticipantCommandParser : parse("P-1")
+activate DeleteParticipantCommandParser
+
+create DeleteParticipantCommand
+DeleteParticipantCommandParser -> DeleteParticipantCommand
+activate DeleteParticipantCommand
+
+DeleteParticipantCommand --> DeleteParticipantCommandParser : d
+deactivate DeleteParticipantCommand
+
+DeleteParticipantCommandParser --> DeleteCommandAllocator : d
+deactivate DeleteParticipantCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteParticipantCommandParser -[hidden]-> DeleteCommandAllocator
+destroy DeleteParticipantCommandParser
+
+DeleteCommandAllocator --> AlfredParser : d
+deactivate DeleteCommandAllocator
+DeleteCommandAllocator -[hidden]-> DeleteParticipantCommandParser
+destroy DeleteCommandAllocator
+
+AlfredParser -> DeleteParticipantCommand : setCommandInputString("delete participant P-1")
+activate DeleteParticipantCommand
+DeleteParticipantCommand --> AlfredParser
+deactivate DeleteParticipantCommand
+
+AlfredParser --> Logic : d
+deactivate AlfredParser
+
+Logic -> DeleteParticipantCommand : execute()
+activate DeleteParticipantCommand
+
+DeleteParticipantCommand -> Model : deleteParticipant(P-1)
+activate Model
+
+Model --> DeleteParticipantCommand
+deactivate Model
+
+DeleteParticipantCommand -> Model : updateHistory(this)
+activate Model
+
+Model -> ModelHistory : updateHistory(pList, pListId, mList, mListId, tList, tListId, command)
+activate ModelHistory
+
+note right of Model
+    Note that a deep copy of the 3 EntityLists
+    (ParticipantList, MentorList and TeamList)
+    is created and stored in ModelHistoryRecord
+end note
+
+opt command instanceof TrackableState
+    create ModelHistoryRecord
+    ModelHistory -> ModelHistoryRecord
+    activate ModelHistoryRecord
+
+    ModelHistoryRecord --> ModelHistory : newRecord
+    deactivate ModelHistoryRecord
+
+    ModelHistory -> ModelHistory : addToHistory(newRecord)
+    activate ModelHistory
+    ModelHistory --> ModelHistory
+    deactivate ModelHistory
+end
+
+ModelHistory --> Model
+deactivate ModelHistory
+
+Model --> DeleteParticipantCommand
+deactivate Model
+
+DeleteParticipantCommand -> DeleteParticipantCommand : getCommandInputString()
+activate DeleteParticipantCommand
+DeleteParticipantCommand --> DeleteParticipantCommand : commandString
+deactivate DeleteParticipantCommand
+
+DeleteParticipantCommand -> Model : recordCommandExecution(commandString)
+activate Model
+
+Model --> DeleteParticipantCommand
+deactivate Model
+
+create CommandResult
+DeleteParticipantCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteParticipantCommand
+deactivate CommandResult
+
+DeleteParticipantCommand --> Logic : result
+deactivate DeleteParticipantCommand
+
+[<--Logic
+deactivate Logic
+@enduml

@@ -1,0 +1,127 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":UndoCommandParser" as UndoCommandParser LOGIC_COLOR
+participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModelHistory" as ModelHistory MODEL_COLOR
+end box
+
+[-> Logic : execute("undo 3")
+activate Logic
+
+Logic -> AlfredParser : parseCommand("undo 3")
+activate AlfredParser
+
+create UndoCommandParser
+AlfredParser -> UndoCommandParser
+activate UndoCommandParser
+
+UndoCommandParser -> AlfredParser
+deactivate UndoCommandParser
+
+AlfredParser -> UndoCommandParser : parse("3")
+activate UndoCommandParser
+
+create UndoCommand
+UndoCommandParser -> UndoCommand : new UndoCommand(3)
+activate UndoCommand
+
+UndoCommand --> UndoCommandParser : u
+deactivate UndoCommand
+
+UndoCommandParser --> AlfredParser : u
+deactivate UndoCommandParser
+
+AlfredParser -> UndoCommand : setCommandInputString("undo 3")
+activate UndoCommand
+
+UndoCommand --> AlfredParser
+deactivate UndoCommand
+
+AlfredParser --> Logic : u
+deactivate AlfredParser
+
+Logic -> UndoCommand : execute(model)
+activate UndoCommand
+
+UndoCommand -> Model : undo(3)
+activate Model
+
+Model -> ModelHistory : canUndo(3)
+activate ModelHistory
+
+ModelHistory --> Model : bool
+deactivate ModelHistory
+
+alt bool is true
+    Model -> ModelHistory : undo()
+    activate ModelHistory
+
+    ModelHistory --> Model : historyRecord
+    deactivate ModelHistory
+
+    Model -> Model : updateModelState(historyRecord)
+    activate Model
+
+    Model --> Model
+    deactivate Model
+
+    note right Model
+    This method will set the ParticipantList,
+    MentorList, TeamList and their respective
+    static IDs, so that Model will have the
+    state of its data updated
+    end note
+else bool is false
+    note right Model
+    An AlfredModelHistoryException will be thrown.
+    end note
+end
+
+Model --> UndoCommand
+deactivate Model
+
+UndoCommand -> Model : updateHistory(this)
+activate Model
+
+note right Model
+    UndoCommand does not implement
+    TrackableState (see explanation below)
+end note
+
+Model --> UndoCommand
+deactivate Model
+
+UndoCommand -> UndoCommand : getCommandInputString()
+activate UndoCommand
+
+UndoCommand --> UndoCommand : s
+deactivate UndoCommand
+
+UndoCommand -> Model : recordCommandExecution(s)
+activate Model
+
+Model --> UndoCommand
+deactivate Model
+
+create CommandResult
+UndoCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UndoCommand
+deactivate CommandResult
+
+UndoCommand --> Logic
+deactivate UndoCommand
+
+[<--Logic
+deactivate Logic
+@enduml
