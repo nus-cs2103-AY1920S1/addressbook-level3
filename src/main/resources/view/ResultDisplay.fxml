@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.web.WebView?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="380" prefWidth="380">
     <VBox minWidth="380" prefWidth="380" styleClass="command-feedback">
@@ -20,5 +21,8 @@
     <VBox minWidth="380" prefWidth="380" styleClass="eatery-map">
         <WebView fx:id="eateryMap" minHeight="350" prefHeight="350"/>
     </VBox>
+
+    <Label fx:id="reviewHeader" styleClass="h2" wrapText="true"/>
+    <StackPane fx:id="reviewListPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="eatery-reviews"/>
 </VBox>
 

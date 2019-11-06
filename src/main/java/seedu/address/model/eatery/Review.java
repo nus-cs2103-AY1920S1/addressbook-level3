@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Represents an Eatery's review in the EatMe application.
  */
-public class Review {
+public class Review implements Comparable<Review> {
 
     public static final String REVIEW_CONSTRAINTS = "Review description should not be empty,"
             + " Cost cannot be negative and cannot exceed 10000 and"
@@ -36,8 +36,8 @@ public class Review {
      * Constructs a {@code Review}
      *
      * @param description A valid description.
-     * @param cost Cost of the meal being reviewed.
-     * @param rating Rating out of 5 for the meal being reviewed.
+     * @param cost        Cost of the meal being reviewed.
+     * @param rating      Rating out of 5 for the meal being reviewed.
      */
     public Review(String description, double cost, int rating, Date date) {
         requireAllNonNull(description, cost, rating, date);
@@ -128,4 +128,8 @@ public class Review {
         return Objects.hash(description, cost, rating, date);
     }
 
+    @Override
+    public int compareTo(Review other) {
+        return other.date.compareTo(this.date);
+    }
 }

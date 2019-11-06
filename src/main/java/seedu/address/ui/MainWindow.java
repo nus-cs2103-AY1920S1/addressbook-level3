@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     private CommandBox commandBox;
+    private ReviewListPanel reviewListPanel;
 
     @FXML
     private VBox commandBoxPlaceholder;
@@ -83,7 +84,9 @@ public class MainWindow extends UiPart<Stage> {
         feedPostListPanel = new FeedPostListPanel(logic.getFeedList(), logic);
         feedPostListPanelPlaceholder.getChildren().add(feedPostListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
+        reviewListPanel = new ReviewListPanel(logic.getActiveReviews());
+
+        resultDisplay = new ResultDisplay(reviewListPanel);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());

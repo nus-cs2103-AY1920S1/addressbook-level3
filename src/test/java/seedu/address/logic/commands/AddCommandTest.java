@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFeedList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.eatery.Eatery;
+import seedu.address.model.eatery.Review;
 import seedu.address.model.feed.Feed;
 import seedu.address.testutil.EateryBuilder;
 
@@ -152,6 +154,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredEateryList(Predicate<Eatery> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Review> getActiveReviews() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateActiveReviews(List<Review> reviews) {
             throw new AssertionError("This method should not be called.");
         }
 

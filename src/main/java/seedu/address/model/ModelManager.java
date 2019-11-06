@@ -4,14 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.eatery.Eatery;
+import seedu.address.model.eatery.Review;
 import seedu.address.model.feed.Feed;
 
 /**
@@ -26,7 +29,7 @@ public class ModelManager implements Model {
 
     private FilteredList<Eatery> filteredTodo;
     private FilteredList<Eatery> filteredEateries;
-
+    private ObservableList<Review> activeReviews;
 
     /**
      * Initializes a ModelManager with the given addressBook, feedList and userPrefs.
@@ -44,6 +47,7 @@ public class ModelManager implements Model {
 
         filteredEateries = new FilteredList<>(this.addressBook.getEateryList());
         filteredTodo = new FilteredList<>(this.addressBook.getTodoList());
+        activeReviews = FXCollections.observableArrayList();
     }
 
     public ModelManager() {
@@ -155,6 +159,25 @@ public class ModelManager implements Model {
         } else {
             filteredTodo.setPredicate(predicate);
         }
+    }
+
+    //=========== Active Review Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the active reviews
+     */
+    @Override
+    public ObservableList<Review> getActiveReviews() {
+        return activeReviews;
+    }
+
+    /**
+     * Updates the list of active reviews based on the given {@code reviews}.
+     */
+    @Override
+    public void updateActiveReviews(List<Review> reviews) {
+        activeReviews.clear();
+        activeReviews.addAll(reviews);
     }
 
     //=========== General =============================================================
