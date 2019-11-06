@@ -157,7 +157,7 @@ public class ClashCommand extends Command {
         for (Module currentModule : currentModules) {
             if (!moduleToCheck.getModuleCode().equalsIgnoreCase(currentModule.getModuleCode())
                     && getClashCase(currentModule, moduleToCheck).isPresent()) {
-                clashCases.add(getClashCase(currentModule, moduleToCheck).get());
+                clashCases.add(getClashCase(moduleToCheck, currentModule).get());
             }
         }
     }
