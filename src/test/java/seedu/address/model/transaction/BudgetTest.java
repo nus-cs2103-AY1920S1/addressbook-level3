@@ -43,7 +43,7 @@ public class BudgetTest {
 
     @Test
     public void getBudget_fail() {
-        assertNotEquals(ONE, new Budget(new Amount(100), new Date(VALID_DATE)).getBudget());
+        assertNotEquals(ONE, new Budget(new Amount(10000), new Date(VALID_DATE)).getBudget());
     }
 
     @Test
