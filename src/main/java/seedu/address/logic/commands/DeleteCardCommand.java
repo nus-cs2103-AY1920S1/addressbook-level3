@@ -19,9 +19,12 @@ public class DeleteCardCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the card identified by the description used in the displayed card list.\n"
+            + ": Deletes the card identified by the description or index used "
+            + "in the displayed card list.\n"
             + "Parameters: DESCRIPTION\n"
-            + "Example: " + COMMAND_WORD + " POSB Debit";
+            + "Example: " + COMMAND_WORD + " POSB Debit\n"
+            + "Parameters: INDEX (must be positive integer\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_CARD_SUCCESS = "Deleted Card: %1$s";
 
