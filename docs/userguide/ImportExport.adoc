@@ -21,10 +21,14 @@ You can import patient data from a .csv file into the application using
 Reads patient data from a specified .csv file.
 
 All existing patient data will be deleted and replaced with this new data.
+Provided file should not be empty.
 
 **Cannot be executed when there is an ongoing visit.**
 
-Format: `app-import-replace [n/FILENAME]`
+`".csv"` will be auto-appended to the specified `FILENAME`,
+**so there is no need to type in the file extension**.
+
+Format: `app-import-replace n/FILENAME`
 
 Examples:
 
@@ -35,13 +39,17 @@ Examples:
 ==== Import and Merge: `app-import-merge`
 
 Patient data will be read from a specified .csv file and merged without
-affecting existing data.
+affecting existing data. Provided file should not be empty.
 
 **The .csv file cannot contain a patient that already exists in the app.**
 
 Can be executed when there is an ongoing visit.
 
-Format: `app-import-merge [n/FILENAME]`
+`".csv"` will be auto-appended to the specified `FILENAME`,
+**so there is no need to type in the file extension**.
+
+
+Format: `app-import-merge n/FILENAME`
 
 Examples:
 
@@ -79,13 +87,16 @@ You can export patient data from the application into a .csv file using `app-exp
 A new .csv file will be created and data will be written into it.
 Indexes can be provided to selectively export data of specific persons.
 
+`".csv"` will be auto-appended to the specified `FILENAME`,
+**so there is no need to type in the file extension**.
+
 ****
 * Only the file format .csv is supported.
 * Creates `FILENAME.csv` in the `./exports` folder
 * **The provided file name must not be already in use.**
 ****
 
-Format: `app-export [n/FILENAME] [i/INDEX...]`
+Format: `app-export n/FILENAME [i/INDEX...]`
 
 Examples:
 
