@@ -119,6 +119,11 @@ This is to prevent additional instantiation since every application should only 
 Also, the list of commands in `CommandHistory` is implemented similar to a queue.
 It has a maximum length of 10 and when commands that are added when the list is full, the new command would replace the oldest command in the command history list.
 
+=== Code contributions
+
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Raikonen&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-11-05[Project Code Dashboard]
+| https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?q=is%3Apr+author%3Ajon-chua+is%3Aclosed[Pull Requests]
+
 === Other contributions
 
 * Project Management:
@@ -160,6 +165,8 @@ include::../UserGuide.adoc[tag=purchasing]
 
 == Contributions to the Developer Guide
 
-This section shows the additions that I have made to the Budget-Tracking feature of the Developer Guide.
+I have made documentation contributions to the Developer Guide regarding the 2 main features I implemented, i.e. Budget-Tracking and Purchase-Tracking features. +
+This section will only show the contribution that I have made regarding the Budget-Tracking feature of the Developer Guide to adhere to the PPP word limit. +
+The documentation regarding the Purchase-Tracking feature can be found in our Developer Guide.
 
 include::../DeveloperGuide.adoc[tag=budgeting]
