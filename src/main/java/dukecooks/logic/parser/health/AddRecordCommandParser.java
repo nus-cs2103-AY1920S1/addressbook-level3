@@ -25,7 +25,7 @@ import dukecooks.model.health.components.Value;
 /**
  * Parses input arguments and creates a new AddRecordCommand object
  */
-public class AddHealthCommandParser implements Parser<AddRecordCommand> {
+public class AddRecordCommandParser implements Parser<AddRecordCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddRecordCommand

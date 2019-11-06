@@ -144,9 +144,9 @@ public class CommandTestUtil {
     public static final String VALID_TYPE_CALORIES = "Calories";
     public static final String VALID_REMARK_GLUCOSE = "After meal";
     public static final String VALID_REMARK_CALORIES = "Dinner";
-    public static final String VALID_VALUE_GLUCOSE = "18";
-    public static final String VALID_VALUE_CALORIES = "500";
-    public static final String VALID_TIMESTAMP_GLUCOSE = "25/10/2019 12:00";
+    public static final String VALID_VALUE_GLUCOSE = "18.0";
+    public static final String VALID_VALUE_CALORIES = "500.0";
+    public static final String VALID_TIMESTAMP_GLUCOSE = "27/10/2019 12:00";
     public static final String VALID_TIMESTAMP_CALORIES = "25/10/2019 12:00";
 
     /** Workout & Exercises */
@@ -253,8 +253,8 @@ public class CommandTestUtil {
     public static final String REMARK_DESC_CALORIES = " " + PREFIX_REMARK + VALID_REMARK_CALORIES;
     public static final String REMOVEREMARK_DESC_GLUCOSE = " " + PREFIX_REMOVEREMARK + VALID_REMARK_GLUCOSE;
     public static final String REMOVEREMARK_DESC_CALORIES = " " + PREFIX_REMOVEREMARK + VALID_REMARK_CALORIES;
-    public static final String VALUE_DESC_GLUCOSE = " " + PREFIX_CALORIES + VALID_VALUE_GLUCOSE;
-    public static final String VALUE_DESC_CALORIES = " " + PREFIX_CALORIES + VALID_VALUE_CALORIES;
+    public static final String VALUE_DESC_GLUCOSE = " " + PREFIX_VALUE + VALID_VALUE_GLUCOSE;
+    public static final String VALUE_DESC_CALORIES = " " + PREFIX_VALUE + VALID_VALUE_CALORIES;
     public static final String TIMESTAMP_DESC_GLUCOSE = " " + PREFIX_DATETIME + VALID_TIMESTAMP_GLUCOSE;
     public static final String TIMESTAMP_DESC_CALORIES = " " + PREFIX_DATETIME + VALID_TIMESTAMP_CALORIES;
 
@@ -306,7 +306,7 @@ public class CommandTestUtil {
             + "Fish & Chips Plan"; // '&' not allowed in names
 
     /** Health Record */
-    public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "Glucose"; // '&' not allowed in types
+    public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "&Glucose"; // '&' not allowed in types
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK
             + "Blood*pressure"; // '*' not allowed in remark types
     public static final String INVALID_VALUE_DESC = " " + PREFIX_VALUE + "1a"; // 'a' not allowed in value
@@ -392,7 +392,7 @@ public class CommandTestUtil {
                 .withValue(VALID_VALUE_GLUCOSE).withTimestamp(VALID_TIMESTAMP_GLUCOSE)
                 .build();
         DESC_CALORIES = new EditRecordDescriptorBuilder().withType(VALID_TYPE_CALORIES)
-                .withRemarksToAdd(VALID_REMARK_CALORIES, VALID_REMARK_GLUCOSE)
+                .withRemarksToAdd(VALID_REMARK_CALORIES)
                 .withValue(VALID_VALUE_CALORIES).withTimestamp(VALID_TIMESTAMP_CALORIES)
                 .build();
     }

@@ -42,4 +42,11 @@ public class Value {
         return String.valueOf(value);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Value // instanceof handles nulls
+                && value == (((Value) other).value)); // state check
+    }
+
 }
