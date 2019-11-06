@@ -176,7 +176,7 @@ The user will be prompted once to confirm their deletion.
     Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
     Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
         [ 2. 110 in Binary is 6 is Decimal ]
-    Hit enter again to confirm your deletion.
+    Please use `delete 8` again to confirm your deletion.
 
 Upon deleting any StudyBuddyItem (Flashcard, Note, NoteFragment, CheatSheet), the user will be prompted once to confirm his deletion. The user would need to key in the delete command once more to confirm his/her deletion.
 
