@@ -3,7 +3,9 @@ package seedu.address.logic.commands.merge;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
 import seedu.address.model.Model;
@@ -27,6 +29,8 @@ public class MergePolicyCommand extends MergeCommand {
     public static final String MERGE_INPUT_HEADER = "Input: ";
     public static final String MERGE_INSTRUCTIONS = "\nPlease press enter or 'yes' to proceed or 'no' to skip.";
 
+    private static final Logger logger = LogsCenter.getLogger(MergePolicyCommand.class);
+
     private final Policy inputPolicy;
     private Policy originalPolicy;
     private ArrayList<String[]> differentFields = new ArrayList<>();
@@ -43,9 +47,11 @@ public class MergePolicyCommand extends MergeCommand {
     @Override
     public CommandResult execute(Model model) throws DuplicatePolicyWithMergeException {
         requireNonNull(model);
+        logger.info("Initialising merge process...");
         this.originalPolicy = model.getPolicy(inputPolicy);
         getDifferences();
         assert(differentFields.size() != 0);
+        logger.info(differentFields.size() + " differences found.");
         return new CommandResult(getNextMergePrompt());
     }
 

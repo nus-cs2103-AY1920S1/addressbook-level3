@@ -2,6 +2,9 @@ package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
 import seedu.address.model.Model;
@@ -12,6 +15,8 @@ import seedu.address.model.Model;
 public class MergePolicyRejectedCommand extends MergeRejectedCommand {
 
     public static final String MESSAGE_MERGE_FIELD_NOT_EXECUTED = "%1$s not updated.";
+
+    private static final Logger logger = LogsCenter.getLogger(MergePolicyRejectedCommand.class);
 
     private MergePolicyCommand previousMergeCommand;
 
@@ -28,6 +33,7 @@ public class MergePolicyRejectedCommand extends MergeRejectedCommand {
     public CommandResult execute(Model model) throws DuplicatePolicyWithMergeException {
         requireNonNull(model);
         String fieldType = previousMergeCommand.getNextMergeFieldType();
+        logger.info("Rejecting merge: skipping " + fieldType);
         if (isLastMerge()) {
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_NOT_EXECUTED, fieldType)
                     + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,

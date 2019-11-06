@@ -2,6 +2,9 @@ package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
@@ -18,6 +21,8 @@ import seedu.address.model.person.Phone;
 public class MergePersonConfirmedCommand extends MergeConfirmedCommand {
 
     public static final String MESSAGE_MERGE_FIELD_SUCCESS = "Successfully updated %1$s";
+
+    private static final Logger logger = LogsCenter.getLogger(MergePersonConfirmedCommand.class);
 
     private MergePersonCommand previousMergeCommand;
 
@@ -37,6 +42,7 @@ public class MergePersonConfirmedCommand extends MergeConfirmedCommand {
         Person inputPerson = previousMergeCommand.getInputPerson();
         String fieldType = previousMergeCommand.getNextMergeFieldType();
         EditCommand.EditPersonDescriptor editPersonDescriptor = new EditCommand.EditPersonDescriptor();
+        logger.info("Executing merge: editing " + fieldType);
         switch(fieldType) {
         case Phone.DATA_TYPE:
             editPersonDescriptor.setPhone(inputPerson.getPhone());
