@@ -625,9 +625,9 @@ public class ModelManager implements Model {
 
     @Override
     public void unregisterBorrower(Borrower toUnregister) {
+        assert toUnregister.getCurrentLoanList().isEmpty() : "Books still on loan, cannot unregister";
         borrowerRecords.removeBorrower(toUnregister);
     }
-
 
     //=========== CommandHistory ===============================================================================
 

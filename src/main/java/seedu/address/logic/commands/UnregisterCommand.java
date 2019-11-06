@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_UNREGISTER_WHILE_SERVING;
+import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_UNREGISTER_WITH_BOOKS_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -44,10 +46,25 @@ public class UnregisterCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         if (!model.hasBorrowerId(id)) {
             throw new CommandException(MESSAGE_NO_SUCH_BORROWER_ID);
         }
+
+        if (model.isServeMode()) {
+            Borrower servingBorrower = model.getServingBorrower();
+            if (servingBorrower.getBorrowerId().equals(id)) {
+                // Do not allow deleting current serving borrower
+                throw new CommandException(
+                        String.format(MESSAGE_CANNOT_UNREGISTER_WHILE_SERVING, servingBorrower.getName()));
+            }
+        }
+
         Borrower toUnregister = model.getBorrowerFromId(id);
+        if (!toUnregister.getCurrentLoanList().isEmpty()) {
+            throw new CommandException(
+                    String.format(MESSAGE_CANNOT_UNREGISTER_WITH_BOOKS_ON_LOAN, toUnregister.getName()));
+        }
 
         model.unregisterBorrower(toUnregister);
 
