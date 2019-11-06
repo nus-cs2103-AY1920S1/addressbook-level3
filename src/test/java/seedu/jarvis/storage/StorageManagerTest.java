@@ -122,6 +122,7 @@ public class StorageManagerTest {
         FinanceTracker original = getTypicalFinanceTracker();
         storageManager.saveFinanceTracker(original);
         FinanceTracker retrieved = storageManager.readFinanceTracker().get();
+        assertEquals(original.getPurchaseList(), retrieved.getPurchaseList());
         assertEquals(original, retrieved);
     }
 

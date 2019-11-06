@@ -104,7 +104,7 @@ public class UndoCommand extends Command {
             throw new CommandException(String.format(MESSAGE_UNABLE_TO_UNDO, numberOfTimes, numberOfRollbacks + 1));
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfRollbacks));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfRollbacks), true);
     }
 
     /**

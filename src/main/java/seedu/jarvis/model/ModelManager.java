@@ -22,8 +22,6 @@ import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
 import seedu.jarvis.model.finance.MonthlyLimit;
-import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
-import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
@@ -294,7 +292,7 @@ public class ModelManager implements Model {
      * @param itemNumber to be deleted
      */
     @Override
-    public Purchase deletePurchase(int itemNumber) throws PurchaseNotFoundException {
+    public Purchase deletePurchase(int itemNumber) {
         return financeTracker.deleteSinglePurchase(itemNumber);
     }
 
@@ -322,7 +320,7 @@ public class ModelManager implements Model {
      * Retrieves installment at a particular index as seen on the list of finance tracker.
      */
     @Override
-    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
+    public Installment getInstallment(int instalIndex) {
         return financeTracker.getInstallment(instalIndex);
     }
 
@@ -367,7 +365,7 @@ public class ModelManager implements Model {
      * @param instalNumber
      */
     @Override
-    public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
+    public Installment deleteInstallment(int instalNumber) {
         return financeTracker.deleteInstallment(instalNumber);
     }
 
@@ -462,11 +460,19 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Calculates remaining available amount by user.
+     * Calculates the remaining amount that is available by user.
      */
     @Override
     public double calculateRemainingAmount() {
         return financeTracker.calculateRemainingAmount();
+    }
+
+    /**
+     * Calculates the remaining amount that is available by user to be rendered onto Ui.
+     */
+    @Override
+    public String getRemainingAmount() {
+        return df2.format(calculateRemainingAmount());
     }
 
     @Override
@@ -693,6 +699,14 @@ public class ModelManager implements Model {
      */
     public void updateSchedule() {
         planner.updateSchedule();
+    }
+
+    /**
+     * Updates the list of tasks according to changes made in the planner
+     */
+    @Override
+    public void updateUnfilteredTaskList() {
+        planner.updateUnfilteredTaskList();
     }
 
     /**
