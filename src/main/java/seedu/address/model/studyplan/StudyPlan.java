@@ -29,6 +29,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 import seedu.address.model.tag.exceptions.InvalidTagException;
+import seedu.address.model.tag.exceptions.InvalidTagModificationException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
@@ -672,6 +673,28 @@ public class StudyPlan implements Cloneable {
         }
         Module targetModule = modules.get(moduleCode);
         return targetModule.addTag(tag);
+    }
+
+    /**
+     * Replaces the given original tag with the other replacement tag in the list.
+     * @throws InvalidTagModificationException
+     */
+    public void replaceTag(Tag original, Tag replacement) throws InvalidTagException {
+        if (original.isDefault() || replacement.isDefault()) {
+            throw new InvalidTagModificationException();
+        }
+        if (!moduleTags.containsTagWithName(replacement.getTagName())) {
+            throw new InvalidTagException("There is no tag called " + replacement.getTagName() + " in this study plan");
+        }
+        Set<String> moduleCodes = modules.keySet();
+        for (String moduleCode: moduleCodes) {
+            Module currentModule = modules.get(moduleCode);
+            if (currentModule.hasTag(original)) {
+                currentModule.deleteUserTag((UserTag) original);
+                currentModule.addTag(replacement);
+            }
+        }
+        moduleTags.removeTag(original);
     }
 
     /**

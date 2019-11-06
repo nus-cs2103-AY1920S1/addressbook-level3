@@ -51,6 +51,7 @@ public class ModuleCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.getTagName()))
                 .forEach(tag -> {
                     Label tagLabel = new Label(tag.getTagName());
+                    tagLabel.setWrapText(true);
                     if (tag.isDefault()) {
                         tagLabel.setId("defaultTag");
                     } else {

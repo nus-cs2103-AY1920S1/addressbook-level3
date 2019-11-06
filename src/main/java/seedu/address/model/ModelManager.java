@@ -337,6 +337,10 @@ public class ModelManager implements Model {
         modulePlanner.removeStudyPlanTagFromSp(tag, index);
     }
 
+    public void replaceTagInActiveSp(Tag original, Tag replacement) {
+        modulePlanner.replaceTagInActiveSp(original, replacement);
+    }
+
     public PriorityTag getPriorityTagFromSp(int index) {
         return modulePlanner.getPriorityTagFromSp(index);
     }

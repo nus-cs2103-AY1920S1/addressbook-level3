@@ -64,7 +64,7 @@ public class RenameTagCommandTest {
         // construct command to rename one of the user tags
         RenameTagCommand renameTagCommand = new RenameTagCommand(validTagNameOne, validTagNameTwo);
         assertCommandSuccess(renameTagCommand, model, String.format(RenameTagCommand.MESSAGE_SUCCESS, validTagNameOne,
-                validTagTwo), expectedModel);
+                validTagTwo.getTagName()), expectedModel);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class RenameTagCommandTest {
         // construct command to rename one of the user tags
         RenameTagCommand renameTagCommand = new RenameTagCommand(validTagNameOne, validTagNameThree);
         assertCommandSuccess(renameTagCommand, model, String.format(RenameTagCommand.MESSAGE_SUCCESS, validTagNameOne,
-                validTagThree), expectedModel);
+                validTagThree.getTagName()), expectedModel);
     }
 
     @Test

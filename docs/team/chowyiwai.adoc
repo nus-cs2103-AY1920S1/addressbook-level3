@@ -1,0 +1,83 @@
+= Chow Yi Wai - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CS ModBuddy
+
+ifndef::env-github[]
+image::title.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::title.png[width="250"]
+endif::[]
+
+== Overview
+
+CS ModBuddy is a desktop application that can be used for module planning by NUS undergraduates taking a Computer
+Science major. The user interacts with it using a CLI and it has a GUI created with JavaFX. It is written in Java and
+has about 85kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *the ability to manage and classify modules and study plans with tag-related commands*
+** What it does:
+*** For pass:q[<u>modules</u>]: Users can _add_, _delete_, _rename_ and _view_ tags, as well as view modules
+that are filtered according to their tags
+*** For pass:q[<u>study plans</u>]: Users can add _priority_ tags to study plans to indicate the relative importance
+of different study plans and view a list of study plans that are sorted according to their priorities
+** Justification: This feature improves the product significantly because module planning is considerably complex given
+the variety of modules that one can choose from. Hence, the application should provide a convenient way to manage and
+categorize them for easier viewing and neater planning.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. Instead of adopting the previous
+implementation of creating a new tag object every time a change is made, this implementation modifies the existing tag
+directly. In addition, references were used to allow various entities to store the same tag. This not only promotes
+consistency when a change to a tag is made, but also the efficiency of a command as only one object has to be modified.
+Polymorphism was also utilized to support the storage of different types of tags (e.g. default tags, user-created tags
+and priority tags)
+
+* *Minor enhancement*: Added a command that allows users to find the semester in which a module is current located
+within the active study plan.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chow%20yi%20wai&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiwai&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chow%20yi%20wai&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiwai&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** In charge of managing documentations and deadlines and deliverables
+*** Managed some milestones (assigned issues to other members and closed milestone)
+** Enhancements to existing features:
+*** Did basic refactoring of AddressBook, Person and other related classes (e.g. Name, Address, etc.) in AB3 to Module Planner and Study Plan classes (Pull request https://https://github.com/AY1920S1-CS2103-F09-3/main/pull/111.com[#111])
+*** Added result view panel in GUI to show different result types (e.g. tag cards, module cards) depending on executed command (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/184[#184])
+*** Modified Tag class to an interface that supports different types of tags and changed existing tests (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/104[#104], https://github.com/AY1920S1-CS2103-F09-3/main/pull/221[#221], https://github.com/AY1920S1-CS2103-F09-3/main/pull/145[#145])
+** Documentation:
+*** Contributed to modification of overall design part of the developer’s guide
+** Community:
+*** Helped to fix minor bugs in teammates’ codes
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=dataclassificationandmanagement]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=modelcomponent]
+
+include::../DeveloperGuide.adoc[tag=moduletagging]
+
+include::../DeveloperGuide.adoc[tag=tagusecase]
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

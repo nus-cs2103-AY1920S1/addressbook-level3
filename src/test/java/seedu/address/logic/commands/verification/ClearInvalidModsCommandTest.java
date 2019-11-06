@@ -222,6 +222,11 @@ public class ClearInvalidModsCommandTest {
         }
 
         @Override
+        public void replaceTagInActiveSp(Tag original, Tag replacement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean spContainsPriorityTag(int index) {
             throw new AssertionError("This method should not be called.");
         }
@@ -520,6 +525,11 @@ public class ClearInvalidModsCommandTest {
 
         @Override
         public void removeStudyPlanTagFromSp(Tag tag, int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void replaceTagInActiveSp(Tag original, Tag replacement) {
             throw new AssertionError("This method should not be called.");
         }
 

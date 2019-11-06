@@ -316,6 +316,7 @@ Examples:
 * `addmod y1s1 CS1101S CS1231 MA1521`
 * `movemodule CS2105 y2s1 y2s2 && addmod CS2106 y2s2`
 
+//tag::dataclassificationandmanagement[]
 === Data classification and management
 ==== Viewing default tags : `viewdefaulttags`
 Shows all default tag types. +
@@ -455,6 +456,8 @@ Examples
 ==== Listing study plans by priority: `listbypriority`
 Lists all study plans in the order of their priorities. +
 Format: `listbypriority`
+
+//end::dataclassificationandmanagement[]
 
 === Verification
 

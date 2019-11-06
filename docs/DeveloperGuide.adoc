@@ -115,6 +115,9 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+
+//tag::modelcomponent[]
+
 [[Design-Model]]
 === Model component
 
@@ -134,6 +137,8 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `module planner`, which `Person` can reference. This would allow `module planner` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+
+//end::modelcomponent[]
 
 [[Design-Storage]]
 === Storage component
@@ -334,6 +339,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+//tag::moduletagging[]
 === Module Tagging Feature
 
 ==== Implementation
@@ -423,6 +429,8 @@ same name.
 ** Pros: Easier to implement as no searching of previous tags need to be done.
 ** Cons: Increases memory usage and duplication checking might be more difficult (have to check the `UniqueTagList` of
 every `Module` instead of just the one in the `StudyPlan`.
+
+//end::moduletagging[]
 
 === Module Information and Verification
 
@@ -769,6 +777,7 @@ Use case ends.
 +
 Use case ends.
 
+// tag::tagusecase[]
 
 === Use case: UC04 - Tag a module
 
@@ -796,6 +805,7 @@ Use case resumes from step 3.
 +
 Use case ends.
 
+// end::tagusecase[]
 
 === Use case: UC05 - Correct modules without a prerequisite
 

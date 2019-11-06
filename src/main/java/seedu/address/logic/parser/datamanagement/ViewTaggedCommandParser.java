@@ -3,6 +3,7 @@ package seedu.address.logic.parser.datamanagement;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.TAG_PATTERN;
 
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -36,13 +37,12 @@ public class ViewTaggedCommandParser implements Parser<ViewTaggedCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, TAG_PATTERN);
 
-        if (!arePatternsPresent(argMultimap, TAG_PATTERN)
-                || argMultimap.getNumberOfArgsForPattern(TAG_PATTERN) != 1) {
+        if (!arePatternsPresent(argMultimap, TAG_PATTERN)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ViewTaggedCommand.MESSAGE_USAGE));
         }
-        String tag = ParserUtil.parseTag(argMultimap.getValue(TAG_PATTERN).get());
-        return new ViewTaggedCommand(tag);
+        List<String> tagNames = ParserUtil.parseTags(argMultimap.getAllValues(TAG_PATTERN));
+        return new ViewTaggedCommand(tagNames.toArray(new String[tagNames.size()]));
     }
 
 }

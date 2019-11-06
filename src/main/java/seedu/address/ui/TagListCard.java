@@ -27,6 +27,7 @@ public class TagListCard extends UiPart<Region> {
         super(FXML);
         this.tag = tag;
         Label tagLabel = new Label(tag.getTagName());
+        tagLabel.setWrapText(true);
         tags.getChildren().add(tagLabel);
         if (tag.isDefault()) {
             tagLabel.setId("defaultTag");

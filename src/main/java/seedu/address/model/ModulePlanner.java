@@ -435,6 +435,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         studyPlans.getStudyPlanByIndex(index).removeStudyPlanTag(tag);
     }
 
+    public void replaceTagInActiveSp(Tag original, Tag replacement) {
+        activeStudyPlan.replaceTag(original, replacement);
+    }
+
     public boolean spContainsPriorityTag(int index) {
         return studyPlans.getStudyPlanByIndex(index).containsPriorityTag();
     }

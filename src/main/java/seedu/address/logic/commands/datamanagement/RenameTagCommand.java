@@ -27,7 +27,7 @@ public class RenameTagCommand extends Command {
             + "Example: "
             + "renamemodtag exchange SEP";
 
-    public static final String MESSAGE_SUCCESS = "Tag [%1$s] renamed to %2$s";
+    public static final String MESSAGE_SUCCESS = "Tag [%1$s] renamed to [%2$s]";
     public static final String MESSAGE_TAG_NOT_FOUND = "There is no [%1$s] tag in this study plan";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be renamed";
     public static final String MESSAGE_INVALID_TAG_NAME = "You cannot rename a tag to a default tag name";
@@ -63,16 +63,24 @@ public class RenameTagCommand extends Command {
 
         UserTag toRename = (UserTag) targetTag;
 
-        try {
-            toRename.rename(newTagName);
-            UniqueTagList modelTags = model.getModuleTagsFromActiveSp();
-            modelTags.updateTagMaps(originalTagName, newTagName);
-        } catch (InvalidTagNameException exception) {
-            throw new CommandException(MESSAGE_INVALID_TAG_NAME);
+        if (model.activeSpContainsModuleTag(newTagName)) {
+            Tag replacement = model.getModuleTagFromActiveSp(newTagName);
+            if (replacement.isDefault()) {
+                throw new CommandException(MESSAGE_INVALID_TAG_NAME);
+            }
+            model.replaceTagInActiveSp(toRename, replacement);
+        } else {
+            try {
+                toRename.rename(newTagName);
+                UniqueTagList modelTags = model.getModuleTagsFromActiveSp();
+                modelTags.updateTagMaps(originalTagName, newTagName);
+            } catch (InvalidTagNameException exception) {
+                throw new CommandException(MESSAGE_INVALID_TAG_NAME);
+            }
         }
         model.addToHistory();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, originalTagName, toRename));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, originalTagName, newTagName));
     }
 
     @Override

@@ -235,6 +235,8 @@ public interface Model {
 
     void removeStudyPlanTagFromSp(Tag tag, int index);
 
+    void replaceTagInActiveSp(Tag original, Tag replacement);
+
     boolean spContainsPriorityTag(int index);
 
     PriorityTag getPriorityTagFromSp(int index);
