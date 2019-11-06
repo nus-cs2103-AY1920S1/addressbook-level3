@@ -196,6 +196,15 @@ Edits a tag by the specified index.
 
 This allows the user to easily modify the tags of all the items with a single command.
 
+For instance, if the user has items that are tagged [cs2100] and [midterm], and the user wishes to make
+use of such items to include in a cheatsheet for CS2100 finals, the user can input
+
+    edit tag/midterm tag/finals
+
+to conveniently change, for instance, all notes tagged with [midterm] to be tagged with [finals].
+
+This then allows the user to more conveniently generate a cheatsheet for his/her final exams.
+
 == Contributions to the developer guide
 
 The following shows my additions to the StudyBuddyPro Developer Guide for the tagging feature.
