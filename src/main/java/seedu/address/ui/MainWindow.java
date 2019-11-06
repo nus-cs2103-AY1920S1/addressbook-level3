@@ -143,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         logger.info("Main Window closing.");
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getGuiSettings().getMode());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getGuiSettings().getGuiTheme());
         logic.setGuiSettings(guiSettings);
         primaryStage.hide();
     }
@@ -247,7 +247,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void initialiseMode(GuiSettings guiSettings) {
         ObservableList<String> styles = primaryStage.getScene().getStylesheets();
-        styles.add(guiSettings.getMode().getCssString());
+        styles.add(guiSettings.getGuiTheme().getCssString());
     }
 
     /**
@@ -256,7 +256,7 @@ public class MainWindow extends UiPart<Stage> {
     private void changeMode(GuiSettings guiSettings) {
         ObservableList<String> styles = primaryStage.getScene().getStylesheets();
         styles.remove(styles.size() - 1);
-        styles.add(guiSettings.getMode().getCssString());
+        styles.add(guiSettings.getGuiTheme().getCssString());
     }
 
 }

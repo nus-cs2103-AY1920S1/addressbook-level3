@@ -31,7 +31,7 @@ import seedu.address.logic.commands.datamanagement.ViewAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewDefaultTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
-import seedu.address.logic.commands.gui.ChangeModeCommand;
+import seedu.address.logic.commands.gui.ChangeThemeCommand;
 import seedu.address.logic.commands.gui.CollapseAllCommand;
 import seedu.address.logic.commands.gui.CollapseCommand;
 import seedu.address.logic.commands.gui.ExpandAllCommand;
@@ -132,7 +132,7 @@ public class ModulePlannerAutocompleteSearch {
         commandKeywords.add(RedoCommand.COMMAND_WORD);
         commandKeywords.add(RemoveAllTagsCommand.COMMAND_WORD);
         commandKeywords.add(ExitCommand.COMMAND_WORD);
-        commandKeywords.add(ChangeModeCommand.COMMAND_WORD);
+        commandKeywords.add(ChangeThemeCommand.COMMAND_WORD);
     }
 
     /**

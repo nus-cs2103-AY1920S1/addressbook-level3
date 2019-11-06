@@ -13,8 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.core.GuiMode;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.GuiTheme;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ModulePlanner;
 import seedu.address.model.ModulesInfo;
@@ -53,7 +53,7 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
          */
         UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(300, 600, 4, 6, GuiMode.LIGHT));
+        original.setGuiSettings(new GuiSettings(300, 600, 4, 6, GuiTheme.LIGHT));
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);

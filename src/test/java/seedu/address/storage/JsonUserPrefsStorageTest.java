@@ -12,8 +12,8 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.core.GuiMode;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.GuiTheme;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
 
@@ -58,7 +58,7 @@ public class JsonUserPrefsStorageTest {
 
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100, GuiMode.LIGHT));
+        userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100, GuiTheme.LIGHT));
         userPrefs.setModulePlannerFilePath(Paths.get("moduleplanner.json"));
         return userPrefs;
     }
@@ -89,7 +89,7 @@ public class JsonUserPrefsStorageTest {
     public void saveUserPrefs_allInOrder_success() throws DataConversionException, IOException {
 
         UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(1200, 200, 0, 2, GuiMode.LIGHT));
+        original.setGuiSettings(new GuiSettings(1200, 200, 0, 2, GuiTheme.LIGHT));
 
         Path pefsFilePath = testFolder.resolve("TempPrefs.json");
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
@@ -100,7 +100,7 @@ public class JsonUserPrefsStorageTest {
         assertEquals(original, readBack);
 
         //Try saving when the file exists
-        original.setGuiSettings(new GuiSettings(5, 5, 5, 5, GuiMode.LIGHT));
+        original.setGuiSettings(new GuiSettings(5, 5, 5, 5, GuiTheme.LIGHT));
         jsonUserPrefsStorage.saveUserPrefs(original);
         readBack = jsonUserPrefsStorage.readUserPrefs().get();
         assertEquals(original, readBack);

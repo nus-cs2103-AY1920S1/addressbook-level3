@@ -6,8 +6,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.GuiMode;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.GuiTheme;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,60 +16,60 @@ import seedu.address.model.UserPrefs;
 import seedu.address.testutil.ModulePlannerBuilder;
 import seedu.address.testutil.TypicalModulesInfo;
 
-class ChangeModeCommandTest {
+class ChangeThemeCommandTest {
 
     @Test
     public void constructor_nullSemesterName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ChangeModeCommand(null));
+        assertThrows(NullPointerException.class, () -> new ChangeThemeCommand(null));
     }
 
     @Test
     public void execute_changeToDark_successful()
             throws CommandException {
-        ChangeModeCommand changeModeCommand = new ChangeModeCommand(GuiMode.DARK);
+        ChangeThemeCommand changeThemeCommand = new ChangeThemeCommand(GuiTheme.DARK);
 
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(600, 600,
-                0, 0, GuiMode.LIGHT));
+                0, 0, GuiTheme.LIGHT));
         Model model = new ModelManager(new ModulePlannerBuilder().build(),
                 userPrefs, TypicalModulesInfo.getTypicalModulesInfo());
 
         UserPrefs expectedUserPrefs = new UserPrefs();
         expectedUserPrefs.setGuiSettings(new GuiSettings(600, 600,
-                0, 0, GuiMode.DARK));
+                0, 0, GuiTheme.DARK));
         Model expectedModel = new ModelManager(new ModulePlannerBuilder().build(),
                 expectedUserPrefs, TypicalModulesInfo.getTypicalModulesInfo());
 
         // construct command to collapse semester
-        CommandResult res = changeModeCommand.execute(model);
-        assertEquals(expectedModel.getGuiSettings().getMode(),
-                model.getGuiSettings().getMode());
+        CommandResult res = changeThemeCommand.execute(model);
+        assertEquals(expectedModel.getGuiSettings().getGuiTheme(),
+                model.getGuiSettings().getGuiTheme());
         assertEquals(res.getFeedbackToUser(),
-                String.format(ChangeModeCommand.MESSAGE_SUCCESS, GuiMode.DARK.getModeName()));
+                String.format(ChangeThemeCommand.MESSAGE_SUCCESS, GuiTheme.DARK.getModeName()));
     }
 
     @Test
     void testEquals() {
-        ChangeModeCommand changeModeCommand =
-                new ChangeModeCommand(GuiMode.LIGHT);
-        ChangeModeCommand otherChangeModeCommand =
-                new ChangeModeCommand(GuiMode.DARK);
+        ChangeThemeCommand changeThemeCommand =
+                new ChangeThemeCommand(GuiTheme.LIGHT);
+        ChangeThemeCommand otherChangeThemeCommand =
+                new ChangeThemeCommand(GuiTheme.DARK);
 
         // same object -> returns true
-        assertEquals(changeModeCommand, changeModeCommand);
+        assertEquals(changeThemeCommand, changeThemeCommand);
 
         // same values -> returns true
-        ChangeModeCommand changeModeCommandCopy =
-                new ChangeModeCommand(GuiMode.LIGHT);
-        assertEquals(changeModeCommand, changeModeCommandCopy);
+        ChangeThemeCommand changeThemeCommandCopy =
+                new ChangeThemeCommand(GuiTheme.LIGHT);
+        assertEquals(changeThemeCommand, changeThemeCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, changeModeCommand);
+        assertNotEquals(1, changeThemeCommand);
 
         // null -> returns false
-        assertNotEquals(null, changeModeCommand);
+        assertNotEquals(null, changeThemeCommand);
 
         // different sem -> returns false
-        assertNotEquals(changeModeCommand, otherChangeModeCommand);
+        assertNotEquals(changeThemeCommand, otherChangeThemeCommand);
     }
 }
