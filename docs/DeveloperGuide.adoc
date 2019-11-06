@@ -784,13 +784,8 @@ image::BorrowerObjectDiagram.png[width=300]
 ==== Design Considerations
 
 ===== Aspect: Purpose of generating a borrower ID
-Whenever a borrower wants to borrower a book to check his information, the librarian will have to identify him from
-the list of borrowers in the library's BorrowerRecords. It is possible to list down all the borrowers in the application
-and the librarians will look for the borrower from the list. However, this becomes extremely
-tedious and not feasible when there are like hundreds or even thousands of borrowers. Borrowers can also have similar
-names. Hence, a better way to identify a borrower is by using a unique borrower ID.
-We also do not display a list of borrowers in the application as the librarian will just have to enter serve mode to
-assist the borrower in borrowing books or checking of his details.
+Borrowers are issued with physical card by the library which they present to the librarian to borrower books.
+The library card includes the borrower's ID which librarian will use to serve the borrowers.
 
 ===== Aspect: Generating a unique borrower ID
 Every time a new borrower is being registered, the system will automatically generate a borrower ID for the borrower
