@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.io.File;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -63,15 +62,17 @@ public class StudentCard extends UiPart<Region> {
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        /*
         String imgFilePath = student.getDisplayPictureFilePath();
         String pathForTest = imgFilePath.substring(6);
         File loadFileTest = new File(pathForTest);
-        //Image displayImg = new Image(student.getDefaultDisplayPicture(), 150, 200,false, false);
         Image displayImg = new Image(student.getDefaultDisplayPicture());
         boolean fileExists = loadFileTest.exists();
         if (fileExists) {
             displayImg = new Image(student.getDisplayPictureFilePath());
         }
+         */
+        Image displayImg = new Image(student.getDisplayPictureFilePath());
         displayPicture.setImage(displayImg);
     }
 

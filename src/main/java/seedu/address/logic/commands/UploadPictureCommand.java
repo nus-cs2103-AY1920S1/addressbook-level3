@@ -26,7 +26,7 @@ import seedu.address.model.tag.Tag;
  * acts like edit command
  */
 public class UploadPictureCommand extends Command {
-    //TODO save new filepath into storage somehow
+
     public static final String COMMAND_WORD = "upload";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": activates file chooser to upload "
@@ -36,6 +36,7 @@ public class UploadPictureCommand extends Command {
 
     public static final String MESSAGE_WRONG_FORMAT = "Please only upload a PNG or JPG file.";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the classroom.";
+    public static final String MESSAGE_FILE_NOT_FOUND = "File not found! Please upload another file.";
 
     private final Index index;
     private final String fileName;
