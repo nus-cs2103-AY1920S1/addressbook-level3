@@ -62,7 +62,18 @@ public class SugarMummyParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord.toLowerCase()) {
+
+        case ExitCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new HelpCommand();
+
+        //=========== Records ===========================================================
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -73,13 +84,7 @@ public class SugarMummyParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            requireEmptyArguments(arguments);
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            requireEmptyArguments(arguments);
-            return new HelpCommand();
+        //=========== Statistics ===========================================================
 
         case AverageCommand.COMMAND_WORD:
             return new AverageCommandParser().parse(arguments);

@@ -95,6 +95,8 @@ public class AddBioCommand extends Command {
             }
         });
 
+        assert !addedFields.toString().isEmpty() : "Added fields in user feedback cannot be empty.";
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, addedFields.toString().trim()));
     }
 

@@ -202,6 +202,9 @@ public class EditBioCommand extends Command {
                 editedFields.append("\n");
             });
 
+            assert changedDifferences.size() == 0 || !editedFields.toString().isEmpty()
+                    : "Edited fields in user feedback cannot be empty.";
+
             return new CommandResult(changedDifferences.size() == 0
                     ? MESSAGE_NO_CHANGE
                     : String.format(MESSAGE_EDIT_USER_SUCCESS,

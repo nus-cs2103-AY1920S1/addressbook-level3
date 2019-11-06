@@ -2,6 +2,7 @@ package seedu.sugarmummy.ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +26,7 @@ public class Achievements extends UiPart<Region> {
         super(FXML);
 
         List<RecordType> keyList = new ArrayList<>(achievementsMap.keySet());
-        keyList.sort((firstRecord, secondRecord) -> firstRecord.toString()
-                .compareTo(secondRecord.toString()));
+        keyList.sort(Comparator.comparing(Enum::toString));
 
         for (RecordType recordType : keyList) {
             List<Achievement> achievementsList = new ArrayList<>(List.copyOf(achievementsMap.get(recordType)));

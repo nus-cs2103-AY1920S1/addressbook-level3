@@ -158,6 +158,10 @@ task extrachecks(type: Exec) {
     commandLine 'bash', './config/travis/run-checks.sh'
 }
 
+run{
+    enableAssertions = true
+}
+
 tasks.check {
     dependsOn extrachecks
 }
