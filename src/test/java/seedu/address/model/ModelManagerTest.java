@@ -4,17 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP0;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME0;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 import static seedu.address.testutil.mappingutil.TypicalMappings.MAP00;
 import static seedu.address.testutil.mappingutil.TypicalMappings.MAP20;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.CARL;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ELLE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ZACK;
+import static seedu.address.testutil.scheduleutil.TypicalEvents.EVENT_NAME1;
+import static seedu.address.testutil.scheduleutil.TypicalEvents.EVENT_NAME2;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,15 +33,19 @@ import seedu.address.model.group.GroupId;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.group.exceptions.DuplicateGroupException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
-import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
+import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.Role;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.grouputil.TypicalGroups;
@@ -51,7 +59,7 @@ public class ModelManagerTest {
     private ModelManager modelManager;
 
     @BeforeEach
-    void init() throws DuplicateGroupException, DuplicatePersonException, DuplicateMappingException {
+    void init() {
         Person.counterReset();
         Group.counterReset();
 
@@ -192,24 +200,92 @@ public class ModelManagerTest {
     }
 
     @Test
-    void addEvent() throws EventClashException, PersonNotFoundException {
-        assertDoesNotThrow(() -> modelManager.addEvent(BENSON.getName(), TypicalEvents.generateTypicalEvent2()));
+    void addEvent_person() {
         assertDoesNotThrow(() -> modelManager.addEvent(ALICE.getName(), TypicalEvents.generateTypicalEvent1()));
+        assertDoesNotThrow(() -> modelManager.addEvent(BENSON.getName(), TypicalEvents.generateTypicalEvent2()));
+
+        assertThrows(EventClashException.class, () ->
+                modelManager.addEvent(ALICE.getName(), TypicalEvents.generateTypicalEvent1()));
 
         assertThrows(PersonNotFoundException.class, () ->
                 modelManager.addEvent(ZACK.getName(), TypicalEvents.generateTypicalEvent2()));
     }
 
     @Test
-    void editPerson() throws PersonNotFoundException, DuplicatePersonException, NoPersonFieldsEditedException {
-        assertDoesNotThrow(() -> modelManager.editPerson(ALICE.getName(), ZACK));
-        assertThrows(PersonNotFoundException.class, () -> modelManager.editPerson(ALICE.getName(), BENSON));
+    void addEvent_user() {
+
+        assertDoesNotThrow(() ->
+                modelManager.addEvent(TypicalEvents.generateTypicalEvent1()));
+
+        assertThrows(EventClashException.class, () ->
+                modelManager.addEvent(TypicalEvents.generateTypicalEvent1()));
     }
 
     @Test
-    void deletePerson() throws PersonNotFoundException {
+    void deleteEvent_person() {
+        assertDoesNotThrow(() -> modelManager.addEvent(ALICE.getName(), TypicalEvents.generateTypicalEvent1()));
+
+        assertThrows(EventNotFoundException.class, () -> modelManager.deleteEvent(ALICE.getName(), EVENT_NAME2));
+        assertThrows(PersonNotFoundException.class, () -> modelManager.deleteEvent(ZACK.getName(), EVENT_NAME2));
+
+        assertDoesNotThrow(() -> modelManager.deleteEvent(ALICE.getName(), EVENT_NAME1));
+
+    }
+
+    @Test
+    void deleteEvent_user() {
+
+        assertThrows(EventNotFoundException.class, () ->
+                modelManager.deleteEvent(EVENT_NAME1));
+
+        assertDoesNotThrow(() ->
+                modelManager.addEvent(TypicalEvents.generateTypicalEvent1()));
+
+        assertDoesNotThrow(() ->
+                modelManager.deleteEvent(EVENT_NAME1));
+    }
+
+    @Test
+    void editPerson() {
+        assertDoesNotThrow(() ->
+                modelManager.editPerson(ALICE.getName(), ZACK));
+        assertThrows(PersonNotFoundException.class, () ->
+                modelManager.editPerson(ALICE.getName(), BENSON));
+        assertThrows(NoPersonFieldsEditedException.class, () ->
+                modelManager.editPerson(BENSON.getName(), new PersonDescriptor()));
+        assertThrows(DuplicatePersonException.class, () ->
+                modelManager.editPerson(BENSON.getName(), CARL));
+    }
+
+    @Test
+    void editUser() {
+
+        assertThrows(NoPersonFieldsEditedException.class, () ->
+                modelManager.editUser(new PersonDescriptor()));
+
+        assertDoesNotThrow(() ->
+                modelManager.editUser(ZACK));
+    }
+
+    @Test
+    void deletePerson_byId() throws PersonNotFoundException {
         Person person = modelManager.findPerson(ALICE.getName());
-        assertDoesNotThrow(() -> modelManager.deletePerson(person.getPersonId()));
+
+        assertThrows(PersonNotFoundException.class, () ->
+                modelManager.deletePerson(new PersonId(123)));
+
+        assertDoesNotThrow(() ->
+                modelManager.deletePerson(person.getPersonId()));
+    }
+
+    @Test
+    void deletePerson_byName() {
+        assertDoesNotThrow(() ->
+                modelManager.deletePerson(ALICE.getName()));
+
+        assertThrows(PersonNotFoundException.class, () ->
+                modelManager.deletePerson(ZACK.getName()));
+
     }
 
     @Test
@@ -220,34 +296,55 @@ public class ModelManagerTest {
     }
 
     @Test
-    void getGroupList() throws GroupNotFoundException {
-        assertNotNull(modelManager.getGroupList());
-        assertDoesNotThrow(() -> modelManager.findGroup(GROUPNAME1));
-        assertThrows(GroupNotFoundException.class, () -> modelManager.findGroup(GROUPNAME0));
+    void isEventClash_personNotFound() {
+        assertThrows(PersonNotFoundException.class, () ->
+                modelManager.isEventClash(ZACK.getName(), TypicalEvents.generateTypicalEvent1()));
     }
 
     @Test
-    void addGroup() throws DuplicateGroupException {
+    void isEventClash_true() throws PersonNotFoundException {
+        assertDoesNotThrow(() ->
+                modelManager.addEvent(ALICE.getName(), TypicalEvents.generateTypicalEvent1()));
+
+        assertTrue(modelManager.isEventClash(ALICE.getName(), TypicalEvents.generateTypicalEvent1()));
+    }
+
+    @Test
+    void isEventClash_false() throws PersonNotFoundException {
+        assertFalse(modelManager.isEventClash(ALICE.getName(), TypicalEvents.generateTypicalEvent1()));
+        assertFalse(modelManager.isEventClash(ALICE.getName(), TypicalEvents.generateTypicalEvent2()));
+
+    }
+
+    @Test
+    void getGroupList() {
+        assertNotNull(modelManager.getGroupList());
+        assertDoesNotThrow(() -> modelManager.findGroup(GROUP_NAME1));
+        assertThrows(GroupNotFoundException.class, () -> modelManager.findGroup(GROUP_NAME0));
+    }
+
+    @Test
+    void addGroup() {
         assertThrows(DuplicateGroupException.class, () ->modelManager.addGroup(GROUP1));
         assertDoesNotThrow(() -> modelManager.addGroup(GROUP0));
         assertThrows(DuplicateGroupException.class, () -> modelManager.addGroup(GROUP0));
     }
 
     @Test
-    void editGroup() throws GroupNotFoundException, DuplicateGroupException, NoGroupFieldsEditedException {
-        assertThrows(DuplicateGroupException.class, () -> modelManager.editGroup(GROUPNAME1, GROUP1));
-        assertDoesNotThrow(() -> modelManager.editGroup(GROUPNAME1, GROUP0));
+    void editGroup() {
+        assertThrows(DuplicateGroupException.class, () -> modelManager.editGroup(GROUP_NAME1, GROUP1));
+        assertDoesNotThrow(() -> modelManager.editGroup(GROUP_NAME1, GROUP0));
     }
 
     @Test
-    void findGroup() throws GroupNotFoundException {
-        assertDoesNotThrow(() -> modelManager.findGroup(GROUPNAME1));
-        assertThrows(GroupNotFoundException.class, () -> modelManager.findGroup(GROUPNAME0));
+    void findGroup() {
+        assertDoesNotThrow(() -> modelManager.findGroup(GROUP_NAME1));
+        assertThrows(GroupNotFoundException.class, () -> modelManager.findGroup(GROUP_NAME0));
     }
 
     @Test
     void testFindGroup() throws GroupNotFoundException {
-        Group group = modelManager.findGroup(GROUPNAME1);
+        Group group = modelManager.findGroup(GROUP_NAME1);
         assertNotNull(group);
 
         assertNotNull(modelManager.findGroup(group.getGroupId()));
@@ -255,7 +352,7 @@ public class ModelManagerTest {
 
     @Test
     void deleteGroup() throws GroupNotFoundException {
-        Group group = modelManager.findGroup(GROUPNAME1);
+        Group group = modelManager.findGroup(GROUP_NAME1);
         assertDoesNotThrow(() -> modelManager.deleteGroup(group.getGroupId()));
 
         assertThrows(GroupNotFoundException.class, () -> modelManager.deleteGroup(group.getGroupId()));
@@ -263,7 +360,7 @@ public class ModelManagerTest {
 
     @Test
     void findPersonsOfGroup() throws GroupNotFoundException {
-        Group group = modelManager.findGroup(GROUPNAME1);
+        Group group = modelManager.findGroup(GROUP_NAME1);
         assertNotNull(group);
         ArrayList<PersonId> arr = modelManager.findPersonsOfGroup(group.getGroupId());
         assertNotNull(arr);
@@ -276,20 +373,28 @@ public class ModelManagerTest {
     }
 
     @Test
-    void addPersonToGroupMapping() throws DuplicateMappingException {
+    void addPersonToGroupMapping() {
         assertDoesNotThrow(() -> modelManager.addPersonToGroupMapping(MAP20));
-        assertThrows(DuplicateMappingException.class, () -> modelManager.addPersonToGroupMapping(MAP00));
+
+        assertThrows(DuplicateMappingException.class, () ->
+                modelManager.addPersonToGroupMapping(MAP00));
+
+        PersonToGroupMapping map =
+                new PersonToGroupMapping(new PersonId(0), new GroupId(0), new Role("role"));
+
+        assertThrows(AlreadyInGroupException.class, () ->
+                modelManager.addPersonToGroupMapping(map));
     }
 
     @Test
-    void findPersonToGroupMapping() throws MappingNotFoundException {
+    void findPersonToGroupMapping() {
         assertDoesNotThrow(() -> modelManager.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
         assertThrows(MappingNotFoundException.class, () ->
                 modelManager.findPersonToGroupMapping(MAP20.getPersonId(), MAP20.getGroupId()));
     }
 
     @Test
-    void deletePersonToGroupMapping() throws MappingNotFoundException {
+    void deletePersonToGroupMapping() {
         assertDoesNotThrow(() -> modelManager.deletePersonToGroupMapping(MAP00));
         assertThrows(MappingNotFoundException.class, () -> modelManager.deletePersonToGroupMapping(MAP00));
     }
@@ -299,18 +404,34 @@ public class ModelManagerTest {
         Person person = modelManager.findPerson(ALICE.getName());
         assertNotNull(person);
 
-        modelManager.deletePersonFromMapping(person.getPersonId());
+        assertDoesNotThrow(() ->
+                modelManager.deletePersonFromMapping(person.getPersonId()));
+
         ArrayList<GroupId> arr = modelManager.findGroupsOfPerson(person.getPersonId());
-        assertTrue(arr.size() == 0);
+        assertEquals(0, arr.size());
     }
 
     @Test
     void deleteGroupFromMapping() throws GroupNotFoundException {
-        Group group = modelManager.findGroup(GROUPNAME1);
+        Group group = modelManager.findGroup(GROUP_NAME1);
         assertNotNull(group);
 
         modelManager.deleteGroupFromMapping(group.getGroupId());
         ArrayList<PersonId> arr = modelManager.findPersonsOfGroup(group.getGroupId());
-        assertTrue(arr.size() == 0);
+        assertEquals(0, arr.size());
+    }
+
+    @Test
+    void findRole() throws PersonNotFoundException, GroupNotFoundException {
+        Person alice = modelManager.findPerson(ALICE.getName());
+        Person elle = modelManager.findPerson(ELLE.getName());
+
+        Group group1 = modelManager.findGroup(GROUP_NAME1);
+
+        assertDoesNotThrow(() ->
+                modelManager.findRole(alice.getPersonId(), group1.getGroupId()));
+
+        assertThrows(MappingNotFoundException.class, () ->
+                modelManager.findRole(elle.getPersonId(), group1.getGroupId()));
     }
 }

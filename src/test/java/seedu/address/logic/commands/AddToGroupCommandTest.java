@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.DANIEL;
 
@@ -35,7 +35,7 @@ class AddToGroupCommandTest {
     void execute_success() throws CommandException, PersonNotFoundException, GroupNotFoundException {
 
         Person person = model.findPerson(DANIEL.getName());
-        Group group = model.findGroup(GROUPNAME1);
+        Group group = model.findGroup(GROUP_NAME1);
         PersonToGroupMapping map = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
 
         CommandResult actualCommandResult =
@@ -90,7 +90,7 @@ class AddToGroupCommandTest {
     void execute_duplicate() throws CommandException {
 
         CommandResult actualCommandResult =
-                new AddToGroupCommand(ALICE.getName(), GROUPNAME1, Role.emptyRole()).execute(model);
+                new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(AddToGroupCommand.MESSAGE_DUPLICATE);

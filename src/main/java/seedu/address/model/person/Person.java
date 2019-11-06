@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -119,10 +118,8 @@ public class Person {
             return false;
         } else if (!this.isSamePerson(otherPerson)) {
             return false;
-        } else if (otherPerson.getPersonId().equals(this.getPersonId())) {
-            return true;
         } else {
-            return false;
+            return otherPerson.getPersonId().equals(this.getPersonId());
         }
     }
 
@@ -161,7 +158,7 @@ public class Person {
         this.tags = tags;
     }
 
-    public void addEvent(Event event) throws EventClashException, DuplicateEventException {
+    public void addEvent(Event event) throws EventClashException {
         this.schedule.addEvent(event);
     }
 
@@ -219,50 +216,6 @@ public class Person {
 
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
-    }
-
-    /**
-     * Prints of all details of a person.
-     *
-     * @return String
-     */
-    public String details() {
-        String output = "";
-        String notAvailable = "NOT AVAILABLE";
-        output += this.toString() + "\n";
-
-        output += "Phone: ";
-        if (phone == null) {
-            output += notAvailable + "\n";
-        } else {
-            output += phone.toString() + "\n";
-        }
-
-        output += "Email: ";
-        if (email == null) {
-            output += notAvailable + "\n";
-        } else {
-            output += email.toString() + "\n";
-        }
-
-        output += "Address: ";
-        if (address == null) {
-            output += notAvailable + "\n";
-        } else {
-            output += address.toString() + "\n";
-        }
-
-        output += "Remark: ";
-        if (remark == null) {
-            output += notAvailable + "\n";
-        } else {
-            output += remark.toString() + "\n";
-        }
-
-        output += "Tags: " + tags.toString() + "\n\n";
-        output += schedule.toString();
-
-        return output;
     }
 
 }

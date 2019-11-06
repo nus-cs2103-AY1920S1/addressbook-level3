@@ -26,7 +26,6 @@ import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -92,8 +91,6 @@ public class AddNusModCommand extends Command {
 
         try {
             person.addEvent(event);
-        } catch (DuplicateEventException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_EVENT));
         } catch (EventClashException e) {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_EVENTS_CLASH));
         }

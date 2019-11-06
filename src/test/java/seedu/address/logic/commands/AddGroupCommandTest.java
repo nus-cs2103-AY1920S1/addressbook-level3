@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP0;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class AddGroupCommandTest {
     void execute_success() throws CommandException, GroupNotFoundException {
 
         CommandResult actualCommandResult = new AddGroupCommand(GROUP0).execute(model);
-        Group group = model.findGroup(GROUPNAME0);
+        Group group = model.findGroup(GROUP_NAME0);
         assertNotNull(group);
         CommandResult expectedCommandResult = new CommandResult(String.format(AddGroupCommand.MESSAGE_SUCCESS,
                 group.getGroupName().toString()));

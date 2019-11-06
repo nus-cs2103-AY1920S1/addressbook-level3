@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP0;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME0;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,18 +41,18 @@ class EditGroupCommandTest {
 
     @Test
     public void constructor_nullGroupDescription_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EditGroupCommand(GROUPNAME1, null));
+        assertThrows(NullPointerException.class, () -> new EditGroupCommand(GROUP_NAME1, null));
     }
 
     @Test
     void execute_success() throws CommandException, GroupNotFoundException {
-        Group group = model.findGroup(GROUPNAME1);
+        Group group = model.findGroup(GROUP_NAME1);
 
         CommandResult actualCommandResult =
-                new EditGroupCommand(GROUPNAME1, GROUP0).execute(model);
+                new EditGroupCommand(GROUP_NAME1, GROUP0).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(String.format(EditGroupCommand.MESSAGE_SUCCESS, GROUPNAME1.toString().trim()));
+                new CommandResult(String.format(EditGroupCommand.MESSAGE_SUCCESS, GROUP_NAME1.toString().trim()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -60,7 +60,7 @@ class EditGroupCommandTest {
     @Test
     void execute_descriptorNotEdited() throws CommandException {
         CommandResult actualCommandResult =
-                new EditGroupCommand(GROUPNAME1, new GroupDescriptor()).execute(model);
+                new EditGroupCommand(GROUP_NAME1, new GroupDescriptor()).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(String.format(EditGroupCommand.MESSAGE_FAILURE,
@@ -72,7 +72,7 @@ class EditGroupCommandTest {
     @Test
     void execute_groupDoesNotExist() throws CommandException {
         CommandResult actualCommandResult =
-                new EditGroupCommand(GROUPNAME0, GROUP1).execute(model);
+                new EditGroupCommand(GROUP_NAME0, GROUP1).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(String.format(EditGroupCommand.MESSAGE_FAILURE,

@@ -2,12 +2,12 @@ package seedu.address.model.person.schedule;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.scheduleutil.TypicalTimeslots.ENDTIME1;
-import static seedu.address.testutil.scheduleutil.TypicalTimeslots.ENDTIME2;
-import static seedu.address.testutil.scheduleutil.TypicalTimeslots.STARTTIME1;
-import static seedu.address.testutil.scheduleutil.TypicalTimeslots.STARTTIME2;
-import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIMESLOT1;
-import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIMESLOT2;
+import static seedu.address.testutil.scheduleutil.TypicalTimeslots.END_TIME1;
+import static seedu.address.testutil.scheduleutil.TypicalTimeslots.END_TIME2;
+import static seedu.address.testutil.scheduleutil.TypicalTimeslots.START_TIME1;
+import static seedu.address.testutil.scheduleutil.TypicalTimeslots.START_TIME2;
+import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIME_SLOT1;
+import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIME_SLOT2;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE1;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE2;
 
@@ -17,25 +17,25 @@ class TimeslotTest {
 
     @Test
     void testEquals() {
-        assertTrue(TIMESLOT1.equals(TIMESLOT1));
-        assertFalse(TIMESLOT1.equals(TIMESLOT2));
+        assertTrue(TIME_SLOT1.equals(TIME_SLOT1));
+        assertFalse(TIME_SLOT1.equals(TIME_SLOT2));
     }
 
     @Test
     void getStartTime() {
-        assertTrue(TIMESLOT1.getStartTime().compareTo(STARTTIME1) == 0);
-        assertFalse(TIMESLOT1.getStartTime().compareTo(STARTTIME2) == 0);
+        assertTrue(TIME_SLOT1.getStartTime().compareTo(START_TIME1) == 0);
+        assertFalse(TIME_SLOT1.getStartTime().compareTo(START_TIME2) == 0);
     }
 
     @Test
     void getEndTime() {
-        assertTrue(TIMESLOT1.getEndTime().compareTo(ENDTIME1) == 0);
-        assertFalse(TIMESLOT1.getEndTime().compareTo(ENDTIME2) == 0);
+        assertTrue(TIME_SLOT1.getEndTime().compareTo(END_TIME1) == 0);
+        assertFalse(TIME_SLOT1.getEndTime().compareTo(END_TIME2) == 0);
     }
 
     @Test
     void getVenue() {
-        assertTrue(VENUE1.equals(TIMESLOT1.getVenue()));
-        assertFalse(VENUE2.equals(TIMESLOT1.getVenue()));
+        assertTrue(VENUE1.equals(TIME_SLOT1.getVenue()));
+        assertFalse(VENUE2.equals(TIME_SLOT1.getVenue()));
     }
 }

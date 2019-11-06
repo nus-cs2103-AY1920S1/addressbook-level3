@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.EventNotFoundException;
@@ -96,7 +95,7 @@ public class PersonList {
             user.setRemark(personDescriptor.getRemark());
         }
         if (personDescriptor.getTags() != null) {
-            user.addTags(personDescriptor.getTags());
+            user.setTags(personDescriptor.getTags());
         }
 
         return user;
@@ -123,9 +122,8 @@ public class PersonList {
                 findPerson(otherName);
                 throw new DuplicatePersonException();
             } catch (PersonNotFoundException e) {
-                e.printStackTrace();
+                toEdit.setName(personDescriptor.getName());
             }
-            toEdit.setName(personDescriptor.getName());
         }
         if (!personDescriptor.getPhone().equals(Phone.emptyPhone())) {
             toEdit.setPhone(personDescriptor.getPhone());
@@ -154,7 +152,7 @@ public class PersonList {
      * @throws EventClashException     when the is a clash with the existing schedule of the person
      */
     public void addEvent(Name name, Event event)
-            throws PersonNotFoundException, EventClashException, DuplicateEventException {
+            throws PersonNotFoundException, EventClashException {
         Person person = findPerson(name);
         person.addEvent(event);
     }

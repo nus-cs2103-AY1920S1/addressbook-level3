@@ -11,7 +11,6 @@ import seedu.address.model.Model;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -38,7 +37,6 @@ public class AddEventCommand extends Command {
             + "\n" + "Date format: ddMMyyyy     Time format: HHmm";
     public static final String MESSAGE_UNABLE_TO_FIND_PERSON = "Unable to find person";
     public static final String MESSAGE_CLASH_IN_EVENTS = "Clash in events";
-    public static final String MESSAGE_DUPLICATE_EVENT = "Event already exists";
 
     public final Event event;
     public final Name name;
@@ -73,8 +71,6 @@ public class AddEventCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_UNABLE_TO_FIND_PERSON));
             } catch (EventClashException e) {
                 return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_CLASH_IN_EVENTS));
-            } catch (DuplicateEventException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_EVENT));
             }
         }
     }

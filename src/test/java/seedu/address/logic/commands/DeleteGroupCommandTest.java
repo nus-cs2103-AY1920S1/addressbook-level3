@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME0;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,10 +35,10 @@ class DeleteGroupCommandTest {
     void execute_success() throws CommandException {
 
         CommandResult actualCommandResult =
-                new DeleteGroupCommand(GROUPNAME1).execute(model);
+                new DeleteGroupCommand(GROUP_NAME1).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(String.format(DeleteGroupCommand.MESSAGE_SUCCESS, GROUPNAME1.toString()));
+                new CommandResult(String.format(DeleteGroupCommand.MESSAGE_SUCCESS, GROUP_NAME1.toString()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -47,7 +47,7 @@ class DeleteGroupCommandTest {
     void execute_failure() throws CommandException {
 
         CommandResult actualCommandResult =
-                new DeleteGroupCommand(GROUPNAME0).execute(model);
+                new DeleteGroupCommand(GROUP_NAME0).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(String.format(DeleteGroupCommand.MESSAGE_FAILURE,
