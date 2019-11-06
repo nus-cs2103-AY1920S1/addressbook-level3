@@ -39,16 +39,16 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
      * @throws DuplicateFlashcardException if toCheck is the same flascard as beingChecked
      */
     private void flashcardExceptionTypeHelper(Flashcard toCheck, Flashcard beingChecked)
-            throws DuplicateFlashcardQuestionException, DuplicateFlashcardTitleException, DuplicateFlashcardException {
-            boolean hasSameQuestion = beingChecked.getQuestion().equals(toCheck.getQuestion());
-            boolean hasSameTitle = beingChecked.getTitle().equals(toCheck.getTitle());
-            if (hasSameQuestion && hasSameTitle) {
-                throw new DuplicateFlashcardException();
-            } else if (hasSameQuestion) {
-                throw new DuplicateFlashcardQuestionException();
-            } else if (hasSameTitle) {
-                throw new DuplicateFlashcardTitleException();
-            }
+        throws DuplicateFlashcardQuestionException, DuplicateFlashcardTitleException, DuplicateFlashcardException {
+        boolean hasSameQuestion = beingChecked.getQuestion().equals(toCheck.getQuestion());
+        boolean hasSameTitle = beingChecked.getTitle().equals(toCheck.getTitle());
+        if (hasSameQuestion && hasSameTitle) {
+            throw new DuplicateFlashcardException();
+        } else if (hasSameQuestion) {
+            throw new DuplicateFlashcardQuestionException();
+        } else if (hasSameTitle) {
+            throw new DuplicateFlashcardTitleException();
+        }
     }
 
     /**
