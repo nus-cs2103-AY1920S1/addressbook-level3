@@ -18,7 +18,7 @@ import seedu.address.model.vehicle.VehicleType;
 /**
  * Parses input arguments and returns a new AddVehicleCommand object.
  */
-public class AddVehicleCommandParser {
+public class AddVehicleCommandParser implements Parser<AddVehicleCommand> {
 
     /**
      * Parses the given arguments {@code args} and returns a new AddVehicleCommand for execution

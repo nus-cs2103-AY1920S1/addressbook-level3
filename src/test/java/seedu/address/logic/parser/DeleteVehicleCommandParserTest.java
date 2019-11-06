@@ -1,22 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.AVAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.DISTRICT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VTYPE_DESC;
 import static seedu.address.logic.commands.DeleteVehicleCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ENTITY;
 
-import javax.annotation.processing.Generated;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteVehicleCommand;
-import seedu.address.logic.parser.DeleteVehicleCommandParser;
 
 public class DeleteVehicleCommandParserTest {
     private DeleteVehicleCommandParser parser = new DeleteVehicleCommandParser();

@@ -38,7 +38,6 @@ public class EditIncidentCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
-
         // no index specified
         assertParseFailure(parser, EditIncidentCommand.COMMAND_WORD, (MESSAGE_INVALID_INDEX + "\n"
                 + MESSAGE_INVALID_FORMAT));
