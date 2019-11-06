@@ -434,9 +434,6 @@ To exit:
 *Q*: Will I be able to resume the test from where I left off after I have stopped? +
 *A*: No. The program does not support that.
 
-*Q*: Can I undo the commands that I have entered? +
-*A*: No. However, a confirmation will be displayed before any potentially-hard-to-reverse actions are done.
-
 *Q*: Can I change the category of a flashcard? +
 *A*: Yes, it will be one of the fields you can change when you edit the flashcard. Do note that after you change the category, you will have to refer to it using its new category and ID.
 
@@ -444,10 +441,7 @@ To exit:
 *A*: Yes, but only to a very small extent, like closing the window. This application is targeted primarily at keyboard users.
 
 *Q*: What if I forget the format of a command’s arguments? +
-*A*: Don’t worry! You will be shown the expected format once you have keyed in the whole command.
-
-*Q*: Is there an autocomplete functionality? +
-*A*: Yes, you can press Tab to use this feature.
+*A*: Don’t worry! Just try your best. If the format you've provided is wrong, you will be prompted with the correct format.
 
 == Command Summary
 
