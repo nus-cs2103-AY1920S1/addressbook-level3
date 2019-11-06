@@ -31,7 +31,6 @@ image::ArchitectureDiagram_FlashCardPro.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 
-
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
@@ -87,16 +86,26 @@ image::ModelClassDiagram_FlashCardPro.png[]
 
 *API* : link:{repoURL}/src/main/java/dream/fcard/model[`Model`]
 
-.Structure of the Model Component
-image::cards_class_diagram.png[]
+// tag::cards[]
+
 
 
 .`FlashCard`,
 
 * There are 3 types of cards used by our App, the `JavascriptCard`, `FrontBackCard` and `MultipleChoiceCard`.
+
+image::cards_class_diagram.png[]
+
 * `JavascriptCard` and `FrontBackCard` implements from `FlashCard`, an interface class.
 * `MultipleChoiceCard` inherits from `FrontBackCard`.
 * The interface class `FlashCard` also implements `JsonInterface` class to allow loading and saving to Json format.
+
+Refer to the activity diagram below to see the process of creating a `MultipleChoiceCard`:
+
+image::MultipleChoiceCardCreation.png[]
+
+For the `MultipleChoiceCard`, the choices provided by the user must be unique, i.e. there cannot be any duplicate in the choices provided.
+If a duplicate choice is detected, then the creation of the `MultipleChoiceCard` will not be successful.
 
 .FlashCard Priority
 Each FlashCard has an associated priority level, which the user can indicate his/her value of the importance of the card.
@@ -115,17 +124,27 @@ The priority levels are described below:
 
 The sequence diagram below shows how the `ExamRunner` component can use the `createSubsetForTest()` method in the `Deck` and make use of the priorities associated with the `FlashCards` to create a test that emphasises the `FlashCards` that the user deems as important.
 
-image::flashcards_priority cards.png[]
+image::PriorityFlashCardTestSetSequenceDiagram.png[]
 
-* Constructor of `ExamRunner` is called.
-* In the constructor of `ExamRunner`, a method call is made to `Deck` to create a subset of cards for test.
-* `Deck` processes the method call, responds as such:
-** If there are less than 10 cards in `Deck`, return all the cards.
-** If there are more than 10 cards in `Deck`, return a set of cards with both `HIGH_PRIORITY` and `LOW_PRIORITY` cards, which the proportion is weighted at 60% to 40% ration respectively.
-* `Deck` returns the test set to `ExamRunner`.
+* Step 1: Constructor of `ExamRunner` is called.
+* Step 2: In the constructor of `ExamRunner`, a method call is made to `Deck` to create a subset of cards for test.
+* Step 3: If there are less than 10 cards in `Deck`, return all the cards.
+* Step 4 - 10: Return a set of cards with both `HIGH_PRIORITY` and `LOW_PRIORITY` cards, which the proportion is weighted at 60% to 40% ratio respectively.
+* Step 11: `Deck` returns the test set to `ExamRunner`.
 
-[Note]
-The current implementation has yet to handle the situation where `ExamRunner` creates a test set when there are no cards in Deck. This will be implemented before the next code release.
+==== Design Considerations
+===== Aspect: how to store and select the `HIGH_PRIORITY` and `LOW_PRIORITY` cards
+* **Alternative 1:** Use a priority queue to store the cards
+** Pros: Allows the user to test the cards according to `HIGH_PRIORITY` cards first, effectively choosing only `HIGH_PRIORITY` cards first, then `LOW_PRIORITY` cards.
+** Cons: Certain `LOW_PRIORITY` cards may not be tested if the test set size is smaller than the number of `HIGH_PRIORITY` cards
+** Cons: FlashCard Pro cannot have the flexibility of letting the user select the number of `LOW_PRIORITY` cards in the test set.
+
+* **Alternative 2: (Current Choice)** Maintain two lists of cards, `HIGH_PRIORITY` and `LOW_PRIORITY` cards
+** Pros: Can control the ratio of `HIGH_PRIORITY` and `LOW_PRIORITY` cards in the test set created
+** Pros: Have the flexibility to randomize the card order and choose a random set each time
+** Cons: FlashCard Pro cannot have the flexibility of letting users assign more than 2 priority levels
+
+// end::cards[]
 
 [[Design-Storage]]
 === Storage component
@@ -323,6 +342,22 @@ Use case ends.
 
 Use case resumes from step 4.
 
+// tag::configure_difficulty[]
+=== [Proposed] Configure difficulty of test set in `test` mode
+
+Currently, the user is restricted to a test set of 60% `HIGH_PRIORITY` and 40% `LOW_PRIORITY` cards in the test set.
+
+In V2.0, the user should be able to configure the proportion of `HIGH_PRIORITY` and `LOW_PRIORITY` cards in the test set to pitch the level of difficulty of the test.
+
+image::ConfigurePriorityFlashCardTestSetSequenceDiagram.png[]
+
+The ExamRunner will be expanded to allow the user to take in the ratio of `HIGH_PRIORITY`.
+
+Then, the computation of the number of `HIGH_PRIORITY` and `LOW_PRIORITY` cards will be done according to the ratio provided by the user.
+
+// end::configure_difficulty[]
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -336,6 +371,8 @@ Refer to the guide <<Testing#, here>>.
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
+
+// tag::productscope[]
 == Product Scope
 
 *Target user profile*:
@@ -349,8 +386,11 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: allow effective reinforcement learning of textual content by answering using CLI input to a question prompt from a GUI
+// end::productscope[]
 
 [appendix]
+
+// tag::user_stories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -366,8 +406,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` | user| save my deck of flash cards into my local drive| I can share it with my friends
 
 |`* * *` | user| load my deck of flash cards into the app| I can reuse the deck of cards created
-
-|`* * *` | |
 
 |`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
 
@@ -405,9 +443,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
+// end::user_stories[]
+
 _{More to be added}_
 
 [appendix]
+
+// tag::use_case[]
 == Use Cases
 
 (For all use cases below, the *System* is the `FlashCard Pro` and the *Actor* is the `learner`, unless specified otherwise)
@@ -640,7 +682,7 @@ Use case ends.
 Use case ends.
 
 
-
+// end::use_case[]
 
 
 [appendix]
@@ -659,9 +701,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 
 [appendix]
 == Instructions for Manual Testing
@@ -670,14 +709,4 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-
-
-=== Deleting a person
-
-
-=== Saving data
-
 

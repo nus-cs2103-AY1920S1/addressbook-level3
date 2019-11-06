@@ -83,7 +83,6 @@ public class CardEditingWindow extends VBox {
             });
             populateExistingAnswers();
         } catch (IOException e) {
-            //TODO: replace with logger
             e.printStackTrace();
         }
     }

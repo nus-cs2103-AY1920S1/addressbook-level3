@@ -19,8 +19,8 @@ public class FrontBackCard extends FlashCard {
      * Constructor to create a FrontBackCard.
      * Takes in 2 String, front text and back text.
      *
-     * @param frontString
-     * @param backString
+     * @param frontString String of the front text.
+     * @param backString  String of the back text.
      */
     public FrontBackCard(String frontString, String backString) {
         back = backString;
@@ -31,7 +31,7 @@ public class FrontBackCard extends FlashCard {
     }
 
     /**
-     * Constructor to create a FrontBackCard with front and back string, and integer priority levle.
+     * Constructor to create a FrontBackCard with front and back string, and integer priority level.
      *
      * @param frontString   String of front text.
      * @param backString    String of back text.
@@ -40,6 +40,7 @@ public class FrontBackCard extends FlashCard {
     public FrontBackCard(String frontString, String backString, int priorityLevel) {
         back = backString;
         front = frontString;
+        priority = priorityLevel;
     }
 
     /**

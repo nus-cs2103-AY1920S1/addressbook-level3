@@ -19,20 +19,39 @@ public class SimpleCardBack extends AnchorPane {
     @FXML
     private Button correctButton;
     @FXML
+    private Button wrongButton;
+    @FXML
     private Label answerLabel;
 
-    public SimpleCardBack(String backOfCard, Consumer<Boolean> wantToSeeFront, Consumer<Boolean> updateScore) {
+    private Consumer<Boolean> onNext;
+    private Consumer<Boolean> updateScore;
+
+    public SimpleCardBack(String backOfCard, Consumer<Boolean> wantToSeeFront,
+                          Consumer<Boolean> updateScore, Consumer<Boolean> onNext) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Cards/"
                     + "Back/SimpleCardBack.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+            this.onNext = onNext;
+            this.updateScore = updateScore;
             answerLabel.setText(backOfCard);
             seeFrontButton.setOnAction(e -> wantToSeeFront.accept(true));
-            correctButton.setOnAction(e -> updateScore.accept(true));
+            correctButton.setOnAction(e -> onCorrect());
+            wrongButton.setOnAction((e -> onWrong()));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void onCorrect() {
+        updateScore.accept(true);
+        onNext.accept(true);
+    }
+
+    private void onWrong() {
+        updateScore.accept(false);
+        onNext.accept(false);
     }
 }

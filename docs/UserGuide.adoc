@@ -55,6 +55,8 @@ image::Ui.png[width="790"]
 * Commands are case-sensitive.
 ====
 
+
+// tag::help[]
 === Show help page for commands available : `help`
 
 Shows the help page and guides you through the available commands for FlashCard Pro. You can also choose a specific command to look up how to use it
@@ -78,6 +80,9 @@ Displays the commands available for use in FlashCard Pro.
 
 Displays the syntax to use command `view`.
 
+// end::help[]
+
+// tag::import[]
 === Importing flashcards from disk : `import`
 
 Adds a deck of flashcards from a JSON file path to FlashCard Pro's library
@@ -95,6 +100,9 @@ Examples:
 
 Importing the JSON file `german.json` file from a Windows OS file path.
 
+// end::import[]
+
+// tag::export[]
 === Exporting flashcards to disk: `export`
 
 Saves the deck of flashcards to a JSON file in the specified file path
@@ -115,6 +123,9 @@ Refer to <<Importing flashcards from disk : `import`>> for steps.
 You are advised to save your FlashCard Pro decks of flashcards in a folder that is separate from your files. +
 FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
 
+// end::export[]
+
+// tag::view[]
 === Viewing flashcards in library: `view`
 
 View the flashcard decks or the individual flashcards in a specific deck
@@ -131,6 +142,10 @@ Displays all the decks of cards in the library
 
 Displays all the cards in the deck of cards, `science_deck`
 
+// end::view[]
+
+
+// tag::create_deck[]
 === Create new empty deck: `create`
 
 Creates an empty deck in FlashCard Pro library.
@@ -151,7 +166,10 @@ Examples:
 
 Creates a new empty deck named `german`.
 
+// end::create_deck[]
 
+
+// tag::add_front_MCQ[]
 === Add new Front Back card or Multiple Choice Card to deck: `add`
 
 Creates an Front Back card or Multiple Choice Card in a deck of FlashCard Pro library.
@@ -206,11 +224,14 @@ Creates a new Front Back card in deck `german`.
 
 Creates a new Multiple Choice card in deck `german`, with the answer as the first `choice/` parameter, hello.
 
+// end::add_front_MCQ[]
 
 === Add new Javascript card or Java Card
 
 (TBC)
 
+
+// tag::edit[]
 === Editing the card of an existing deck of flashcards : `edit`
 
 The edit command allows the user to edit flashcards in any existing deck.
@@ -255,8 +276,10 @@ Edits the first flashcard of the deck `science_deck`
 
 Edits the first Multiple Choice flashcard of the deck `science_deck`, edit 3rd choice to hello.
 
+// end::edit[]
 
 
+// tag::delete[]
 === Delete the card of an existing deck of flashcards : `delete`
 
 Deletes a card from an existing deck in FlashCard Pro.
@@ -269,6 +292,7 @@ Example:
 
 Deletes the first card of the deck `german`.
 
+// end::delete[]
 
 === Start test with flashcards : `test`
 
@@ -289,12 +313,16 @@ Starts a untimed test with the deck of cards, `science_deck`
 Starts a timed test of 50 seconds with the deck of cards, `science_deck`
 
 
+// tag::stop[]
 ==== Quit test: `stop`
 
 Exits the test process when the user is in test mode. +
 
 Exams will also terminate automatically upon running out of cards in the test deck. This will trigger a popup with the results of the test.
 
+// end::stop[]
+
+// tag::stats[]
 === Viewing user statistics : `stats`
 
 Shows your usage statistics, such as time spent and usage count in general of for a deck of cards.
@@ -311,12 +339,17 @@ Displays the overview of the time spent and usage count of all decks of cards. A
 
 Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 
+// end::stats[]
 
+// tag::FAQ[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+// end::FAQ[]
+
+// tag::summary[]
 == Command Summary
 
 * *help* `help [command/COMMAND_NAME]` +
@@ -333,3 +366,4 @@ e.g. `test deck/science_deck`
 * *exit* : `exit`
 * *edit* : `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]` +
 e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
+// end::summary[]

@@ -28,7 +28,7 @@ public class JavaFront extends AnchorPane {
 
     private JavaCard card;
     private Application javaEditor;
-    private Consumer<ArrayList<TestCase>> getResult = this::receiveResult;
+    private Consumer<Pair<String, ArrayList<TestCase>>> getResult = this::receiveResult;
     private Consumer<String> updateUserAttempt;
     private Consumer<Boolean> getScore;
 
@@ -71,10 +71,12 @@ public class JavaFront extends AnchorPane {
      * @param result user's attempted code, the number of passed and failed attempts.
      * @return
      */
-    private void receiveResult(ArrayList<TestCase> result) {
+    private void receiveResult(Pair<String, ArrayList<TestCase>> result) {
         int failed = 0;
         boolean compileWrong = false;
-        for (TestCase tc : result) {
+        card.setAttempt(result.fst());
+        ArrayList<TestCase> cases = result.snd();
+        for (TestCase tc : cases) {
             Pair<Boolean, Pair<String, String>> difference = tc.checkDiff(tc.getActualOutput());
             if (!difference.fst()) {
                 failed++;
@@ -94,12 +96,15 @@ public class JavaFront extends AnchorPane {
         if (failed == 0) {
             card.editFront(front + pass);
             questionTextLabel.setText(front + pass);
+            getScore.accept(true);
         } else if (compileWrong) {
             card.editFront(front + err);
             questionTextLabel.setText(front + err);
+            getScore.accept(false);
         } else {
             card.editFront(front + fail);
             questionTextLabel.setText(front + fail);
+            getScore.accept(false);
         }
     }
 }

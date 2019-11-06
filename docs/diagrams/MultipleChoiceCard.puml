@@ -1,0 +1,23 @@
+@startuml
+
+(*) --> "Multiple Choice Card\n adds Front String"
+ --> "Multiple Choice Card\n adds Back String"
+--> "Multiple Choice Card\n checks for duplicate in\n user choices"
+
+if "[Duplicates detected]" then
+--> [true] "Multiple Choice Card\n throws\n DuplicateInChoiceException"
+-down->(*)
+else
+-left-> [false] "Multiple Choice Card \nadds user choices\n to Choices"
+
+-down-> "Multiple Choice Card\n parse user's answer\n index"
+
+if "[Invalid answer provided]" then
+-down-> [true]"Multiple Choice Card\n throws\n NumberFormatException"
+->(*)
+else
+->[false] "Multiple Choice Card\n adds answer \nto answerIndex"
+endif
+
+@enduml
+

@@ -6,7 +6,7 @@ import dream.fcard.core.Main;
 
 import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.storage.StorageManager;
-import dream.fcard.model.State;
+import dream.fcard.model.StateHolder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -36,7 +36,7 @@ public class MainApp extends Application {
             // when the 'X' button is clicked.
             stage.setOnCloseRequest(e -> {
                 userStats.endCurrentSession();
-                StorageManager.saveAll(State.getState().getDecks());
+                StorageManager.saveAll(StateHolder.getState().getDecks());
                 //StorageManager.saveStats(State.getUserStats());
             });
             // start a session

@@ -14,7 +14,6 @@ import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
-import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 
 import javafx.collections.FXCollections;
@@ -59,6 +58,7 @@ public class MainWindow extends VBox {
     private TextField commandLine;
 
     private Consumer<Boolean> displayDecks = b -> render();
+    private Consumer<Boolean> renderList = b -> renderDecks();
     private Consumer<Pane> swapDisplays = p -> {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(p);
@@ -70,12 +70,23 @@ public class MainWindow extends VBox {
 
     //Example code
     private Consumer<Boolean> create = b -> showCreateNewDeckForm();
-    private Consumer<String> createWDeckName = s -> showCreateNewDeckForm(s);
-    private Consumer<Integer> seeDeck = i -> displaySpecificDeck(StateHolder.getState().getDecks().get(i - 1));
-    private Consumer<Boolean> exitCreate = b -> exitCreate();
-    private Consumer<String> processInputCreate = s -> processInputCreate(s);
+    private Consumer<Integer> seeDeck = i -> {
+        Deck d = StateHolder.getState().getDecks().get(i - 1);
+        deckList.getSelectionModel().select(d);
+        DeckDisplay deckDisplay = new DeckDisplay(d);
+        displayContainer.getChildren().clear();
+        displayContainer.getChildren().add(deckDisplay);
+    };
+    //private Consumer<Boolean> exitCreate = b -> exitCreate();
 
-    private Consumer<Boolean> quitProgram = b -> quit();
+    private Consumer<Boolean> quitProgram = b -> {
+        //UserStats.endCurrentSession();
+
+        // save all files only on exit
+        StorageManager.saveAll(StateHolder.getState().getDecks());
+        //StorageManager.saveStats();
+        System.exit(0);
+    };
 
     private CreateDeckDisplay tempCreateDeckDisplay;
 
@@ -88,18 +99,13 @@ public class MainWindow extends VBox {
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
         onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
-        StateHolder.makeState();
-        //StateHolder.getState().setCurrState(StateEnum.DECK_VIEWING);
         displayMessage.accept("Welcome to FlashCard Pro!");
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
-            displaySpecificDeck(d);
-            //TODO: need to check if currently in a review session. If so, might want to disable re-rendering
-            // because that would terminate the review session unexpectedly. or we can just give the use
-            // this extra flexibility - whether it's a flexibility or an annoyance depends on us.
+            seeDeck.accept(StateHolder.getState().getDecks().indexOf(d) + 1);
         });
         quit.setOnAction(e -> {
-            quit();
+            quitProgram.accept(true);
         });
         javaEditor.setOnAction(e -> openEditor(true));
         jsEditor.setOnAction(e -> openEditor(false));
@@ -126,6 +132,7 @@ public class MainWindow extends VBox {
         deckList.getSelectionModel().selectFirst();
     }
 
+
     /**
      * Creates the display pane telling the user there are no decks, with a button to start creating one.
      * Renders the display pane.
@@ -149,16 +156,16 @@ public class MainWindow extends VBox {
         displayContainer.getChildren().add(tempCreateDeckDisplay);
     }
 
-    /**
-     * Switches the display pane to create pane, used to enter StateEnun.CREATE.
-     *
-     * @param s The name of the deck being created.
-     */
-    private void showCreateNewDeckForm(String s) {
-        displayContainer.getChildren().clear();
-        this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
-        displayContainer.getChildren().add(tempCreateDeckDisplay);
-    }
+    ///**
+    // * Switches the display pane to create pane, used to enter StateEnun.CREATE.
+    // *
+    // * @param s The name of the deck being created.
+    // */
+    //private void showCreateNewDeckForm(String s) {
+    //    displayContainer.getChildren().clear();
+    //    this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
+    //    displayContainer.getChildren().add(tempCreateDeckDisplay);
+    //}
 
     /**
      * When user wants to create/edit deck, put the editing pane.
@@ -177,14 +184,6 @@ public class MainWindow extends VBox {
         }
     }
 
-    /**
-     * Changes the deck on display in the display pane to the selected one.
-     */
-    private void displaySpecificDeck(Deck d) {
-        DeckDisplay deckDisplay = new DeckDisplay(d);
-        displayContainer.getChildren().clear();
-        displayContainer.getChildren().add(deckDisplay);
-    }
 
     /**
      * Responsible for clearing text input area after user presses the Enter key.
@@ -203,14 +202,12 @@ public class MainWindow extends VBox {
     private void registerConsumers() {
         Consumers.addConsumer(ConsumerSchema.SWAP_DISPLAYS, swapDisplays);
         Consumers.addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
+        Consumers.addConsumer(ConsumerSchema.RENDER_LIST, renderList);
         Consumers.addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
         Consumers.addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
         Consumers.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
-        Consumers.addConsumer(ConsumerSchema.CREATE_NEW_DECK_W_NAME, createWDeckName);
         Consumers.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
         Consumers.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
-        Consumers.addConsumer(ConsumerSchema.EXIT_CREATE, exitCreate);
-        Consumers.addConsumer(ConsumerSchema.PROCESS_INPUT, processInputCreate);
     }
 
     /**
@@ -230,37 +227,6 @@ public class MainWindow extends VBox {
     }
 
     /**
-     * Quits from the entire program. Saves the decks to a file first.
-     */
-    public void quit() {
-        // end the current session todo: figure out how to pass UserStats
-        // UserStats.endCurrentSession();
-
-        // save all files only on exit
-        StorageManager.saveAll(StateHolder.getState().getDecks());
-        StorageManager.saveStats();
-        System.exit(0);
-    }
-
-    /**
-     * Saves and exits from Create mode.
-     */
-    private void exitCreate() {
-        tempCreateDeckDisplay.onSaveDeck();
-        StateHolder.getState().setCurrState(StateEnum.DEFAULT);
-    }
-
-    /**
-     * Handles the input when State is in Create mode.
-     *
-     * @param input
-     */
-    public void processInputCreate(String input) {
-        tempCreateDeckDisplay.processInput(input);
-
-    }
-    /**
-     * Quits from the entire program. Saves the decks to a file first.
      * Opens a new window to show the user's statistics.
      */
     @FXML

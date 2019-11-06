@@ -6,11 +6,10 @@ package dream.fcard.model;
 public class StateHolder {
     private static State state;
 
-    public static void makeState() {
-        state = new State();
-    }
-
     public static State getState() {
+        if (state == null) {
+            state = new State();
+        }
         return state;
     }
 }
