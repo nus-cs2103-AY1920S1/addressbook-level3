@@ -152,9 +152,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case-insensitive. e.g `Pikachu` will match `pikachu`
-* The order of the keywords does not matter. e.g. `run naruto` will match `naruto run`
-* Only the tag names are searched.
+* The order of the keywords does not matter. e.g. `run naruto` will match a meme tagged with `naruto run`
+* Only the tag names are searched
 * Only full words will be matched e.g. `naru` will not match `naruto`
+* Memes matching at least one tag will be returned (i.e. OR search). e.g. `spongebob funny` will match both memes tagged with `spongebob` and those tagged with `funny`
 ****
 
 Examples:
@@ -257,7 +258,7 @@ Examples:
 * `edit 1 n/Surprised Pikachu` +
 Edits the name of the 1st template to be `Surprised Pikachu`.
 
-==== Locating templates by name: `find` (_coming in v1.4_)
+==== Locating templates by name: `find`
 
 Finds templates whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -276,7 +277,7 @@ Examples:
 Returns all templates containing `Thanos` in their names
 
 * `find Stonks Doge Pikachu` +
-Returns any templates having names `stonks`, `doge`, or `pikachu`
+Returns any templates whose names contain `stonks`, `doge`, or `pikachu`
 
 ==== Deleting a template: `delete`
 
@@ -519,7 +520,7 @@ e.g. `add p//Users/Me/Downloads/dgirl_oof.jpg d/Disaster Girl t/Funny`
 ** *Add Template* : `add n/NAME p/PATH`
 ** *Edit Template* : `edit INDEX n/NAME`
 ** *Delete Template* : `delete INDEX`
-** *Find Template* : `find KEYWORD [MORE_KEYWORDS]` (_coming in v1.4_)
+** *Find Template* : `find KEYWORD [MORE_KEYWORDS]`
 ** *Archive Template* : `archive INDEX`
 ** *Unarchive Template* : `unarchive INDEX`
 ** *List Templates* : `list`

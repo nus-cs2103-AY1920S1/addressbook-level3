@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.weme.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Meme}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Meme}'s {@code Tag}s matches any of the keywords given.
  */
 public class TagContainsKeywordsPredicate implements Predicate<Meme> {
     private final List<String> keywords;
