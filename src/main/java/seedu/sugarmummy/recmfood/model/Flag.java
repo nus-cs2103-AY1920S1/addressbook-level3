@@ -1,16 +1,25 @@
 package seedu.sugarmummy.recmfood.model;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
+
 /**
  * Marks the option flags for selective food recommendations. E.g. '-m' in 'recmf -m' to only show meal
  * recommendations.
  */
 public class Flag {
 
-    private static final String VALIDATION_REGEX = "^-[a-zA-Z]+";
+    public static final String FLAG_SIGNAL = "-";
+    public static final String MESSAGE_CONSTRAINTS = "Flag should begin with \"" + FLAG_SIGNAL + "\" and be followed by"
+            + "the following food types: nsv, sv, f, p, s, m";
+
+    private static final String VALIDATION_REGEX = "^" + FLAG_SIGNAL + "[a-zA-Z]+";
 
     private final String flag;
 
     public Flag(String flag) {
+        requireNonNull(flag);
+        checkArgument(isValidFlag(flag), MESSAGE_CONSTRAINTS);
         this.flag = flag;
     }
 

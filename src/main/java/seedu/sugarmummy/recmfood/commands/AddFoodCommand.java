@@ -55,7 +55,7 @@ public class AddFoodCommand extends Command {
         }
 
         model.addFood(toAdd);
-        model.sortFoodListInAscendingOrder(new FoodComparator(FoodComparator.DEFAULT_SORT_ORDER_STRING));
+        model.sortFoodList(new FoodComparator(FoodComparator.DEFAULT_SORT_ORDER_STRING));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

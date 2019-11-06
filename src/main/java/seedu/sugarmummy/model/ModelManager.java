@@ -333,13 +333,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
-        requireNonNull(foodComparator);
-        foodList.sortFoods(foodComparator);
-    }
-
-    @Override
-    public void sortFoodListInDescendingOrder(FoodComparator foodComparator) {
+    public void sortFoodList(FoodComparator foodComparator) {
         requireNonNull(foodComparator);
         foodList.sortFoods(foodComparator);
     }

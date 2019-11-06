@@ -12,7 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T16-1/main/tree/master
+:recmfPath: /src/main/java/seedu/sugarmummy/recmfood
+
 
 By: `AY1920S1-CS2103-T16-1`      Since: `Oct 2019`      Licence: `MIT`
 
@@ -209,90 +211,210 @@ time period records are from and value is the average values.
 ** Pros: Higher level of abstraction.
 ** Cons: More codes to write.
 
+
 // tag::recmf[]
 === Food Recommendation Feature
-The food recommendation feature externally shows a filtered food list in the form of cards. Internally, it mainly consists of three parts:
 
-* Food Model: holds data for a certain food
+The food recommendation mechanism is based on the manipulation on `UniqueFoodList`, with the implementation of operations:
+
+* *Showing filtered food cards* -- Shows recommended foods to the users, which are filtered by`Flags` and / or `FoodNames`.
+* *Sorting the food list* -- Sorts the recommendation order based on comparing food fields specified in `SortOrderType`.
+* *Showing concise recommendations* -- Recommends one food from each food type with an additional _summary_ food.
+* *Adding new a food* -- Adds a new food to the food database and for future recommendations.
+* *Resetting food database* -- Clears user-added foods.
+
+These operations are respectively exposed in the `Model` interface as `Model#updateFilteredFoodList()`, `Model#sortFoodList()`,`Model#getMixedFoodList`, `Model#addFood()`, `Model#setFoods()`.
+
+anchor:recmf_overview[]
+
+==== Overview of Data Structures
+
+The main data structures used to support food recommendation feature are *Food Model*, *UniqueFoodList*, and *Predicates*
+
+anchor:recmf_food_model[]
+
+.*1. Food Model*
+* *Food Model*: holds data for a certain food
 * Predicates: indicates the filters that the user wants to apply on partial presentation of the foods
 * Unique Food List: holds the collection of all foods
 
-==== Overview
-* Internal Data Structure
-+
+*API:* link:{repoURL}{recmfPath}/model/Food.java[`Food.java`]
+
+---
+
+anchor:recmf_uniqueFoodList[]
+
+.*2. UniqueFoodList*
 The `UniqueFoodList` is the main model that contains all the foods and interacts with logic and UI. It exposes an
 unmodifiable `ObservableList<Food>` that associates the UI display of food recommendations.
 
+*API:* link:{repoURL}{recmfPath}/model/UniqueFoodList.java[`UniqueFoodList.java`]
+
+anchor:recmf_predicates[]
+
+.*3. Predicates*
+
+*API:* link:{repoURL}{recmfPath}/predicates/FoodNameContainsKeywordsPredicate.java[`FoodNameContainsKeywordsPredicate.java`]
+link:{repoURL}{recmfPath}/predicates/FoodTypeIsWantedPredicate.java[`FoodTypeIsWantedPredicate.java`]
+
+---
+
+The following class diagram shows the main association and interactions among the main components. Other essential parts are summaries as follows:
+
+* UI: `FoodFlowPanel` holds an `ObservableList` of `Food`, each visulized in the form of `FoodCard`.
+* Storage: Reading data from and writing data to is handled by `JsonFoodListStorage`, inherited methods from `JsonGeneralStorage`.
+
 image::FoodModelClassDiagram.png[]
 
-* Parsers
-** `RecmFoodCommandParser` specifies the filters applied on the food list. Filters are implemented by two `Predicate` and are based on `Flag` and / or `FoodName`.
-** `AddFoodCommandParser` specifies and checks each fields of a new input food.
+==== Implementation of _recmf_ and _recmfmix_ command
 
-* UI: Two main components are `FoodCard`, which shows the food information, and `FoodFlowPanel`: holds all the cards. It is nested in a `Scrollable` One highlight of the design is the background color usage for food name. Different colors are corresponding to different types of foods.
+===== _recmf_ command
 
-==== Implementation
+_The_ `_recmf_` _command visualizes medically suggested foods as food cards for diabetics that are contained in_ `_UniqueFoodList_`.
 
-The food recommendation mechanism majorly implements the following operations:
+The customised presentation of food recommendations is implemented via the following three ways:
 
-* `SugarMummy#recmf()` -- Recommends a list of foods to the user.
-* `SugarMummy#sort()` -- Sorts the recommendations in ascending or descending order in terms of food name or calorie, gi, sugar, and fat values.
-* `SugarMummy#addfood()` -- Inputs new foods into the database for future recommendations.
+.*1. Specifying flags* +
+Flags are similar to the usage of flags / options in Unix commands. In SugarMummy, they are used to specify food types
+that are intended to be shown. The existence of a certain flag depends on available food types in `FoodType`.
+The flags in the user input will eventually be translated to `FoodTypeIsWantedPredicate` and applied on `UniqueFoodList`.
 
-These operations are exposed in the `Model` interface as `Model#updateFilteredFoodList()`, `Model#sortFilteredFoodList()`, `Model#addFood()` respectively.
-
-Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
-
-Step 1. The user launches the application and enter `recmf` Command for the first time and . The `foodlist.json` storage file will be initialized with the pre-loaded food data from `SampleFoodDataUtil`.
-
-Step 2. The user executes `recmf -f -sv` command. `IsWantedTypePredicate` will be applied on the food list to select specified types.
-
+Data Structure::
+A `HashSet` is used to hold specified `FoodTypes` translated from user-input flags.
 [NOTE]
-If no flag is specified, `RecmFoodCommandParser#getParsedFlags()` will return all flags to show to full content of foods.
+If no flag is specified, `RecmFoodCommandParser#getWantedFoodTypes(flagsStr)` will return an empty `HashSet`.
 
-Step 3. The user executes `recmf fn/Cherry`. Similar to step 2, `FoodNameContainsKeywordPredicate` will be applied.
+*API:* link:{repoURL}{recmfPath}/model/Flag.java[Flag.java]
 
-Step 4. The user executes `recmf sort/calorie`.
+---
 
-[NOTE]
-Collectively, Step 2 to 4 have similar underlying logic implementation and Ui updates. The whole food list wil be iterated through to get a filter or reordered food list.
+.*2. Filtering food names* +
+A `List` of strings as food names will be supplied to `FoodNameContainsKeywordsPredicate`.
+Similar to the situation of no specified flags, an empty `ArrayList` will be returned by `RecmFoodCommandParser#getWantedFoodKeywords(namesStr)`. +
 
-Step 5. The user feels the database is insufficient and wants to add a new food by executing `addfood (FOOD INFO)`. The `foodlist.json` storage file will be immediately updated if the execution is successful.
+The implementation is simple, details about `FoodNameContainsKeywordsPredicate` and `RecmFoodCommandParser` can be referred at <<recmf_overview, Overview>> section.
 
-* The following sequence diagram shows how the typical food recommendation operation works: `recmf -f fn/Cherry`
+Diagram::
+The following sequence diagrams shows the how recmf command with food name as the filter works.
 
 image::RecmFoodSequenceDiagram.png[]
 
+---
+
+.*3. Sorting* +
+Sorting the food recommendations is via supplying a `FoodComparator` to `UniqueFoodList#sortFoods`.
+To maintain or change the ordering of food recommendations, `model#sortFoodList` method must be added to `execute` method of relevant commands.
 [NOTE]
-The lifeline for `RecmFoodCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The default sort order is currently set to be by food type, specified in public variable `FoodComparator#DEFAULT_SORT_ORDER_STRING`.
+It is used when there is no specified sort type from the user and for the `addfood` command.
 
-* The following activity diagram summarizes what happens when a user executes `addfood` command.
+Data Structure::
+* A `Comparator` is wrapped by `FoodComparator` to handle the main logic, such as reversing the `FoodComparator` via `Comparator#reversed()`.
+* A inner enum class SortOrderType` is used to specify all the available food fields for comparison and sorting. (See <<recmf_food_model, Food>> model for its field details.)
 
-image::AddFoodActivityDiagram.png[]
+[NOTE]
+Instantiating `FoodComparator` by other classes is done by supplying `String` that matches one of the enum value of its inner enum class `SortOrderType`.
+Instantiate FoodComparator directly from `Comparator` is for internal usage of getting reversed `FoodComparator`.
+
+*API:* link:{repoURL}{recmfPath}/model/FoodComparator.java[`FoodComparator.java`]
+
+---
+
+Diagram::
+The following object diagram summaries the components in food recommendation mechanism.
+
+===== _recmfmix_ command
+
+_Compared to_ `_recmf_` command with customized options, `_recmfmix_`  _is a simpler command that concisely recommends one food from each type with a summary food card at the end._
+
+*General:*
+Randomly selecting foods is implemented by `UniqueFoodList#getMixedFoodList()` that generates a separate and temporary `ObservableList` from the existing food data of `UniqueFoodList`.
+This list of mixed foods will be accessible by the `Model` and will be further used by the `Logic` to fill the content of `FoodFlowPanel`.
+
+*Food Summary Card:* It is essentially treated as `Food` with _Summary_ as food name and _meal_ as food type.
+The total / average nutrition values are calculated by `FoodCalculator`.
+
+[NOTE]
+This command has to override the `Command#isToCreateNewPane()` to return a `true` value,
+since it should refresh the display pane each time by randomly getting new foods, rather than getting the existing display pane from `typeToPaneMap`.
+
+Diagram::
+The following sequence diagram shows how recmfmix operation work.
+
+*API:* link:{repoURL}{recmfPath}/model/FoodCalculator.java[`FoodCalculator.java`]
+
+==== Implementation of other supplementary commands
+
+The following two commands are designed to help expand and clean up database of foods.
+
+===== _addfood_ command
+_`addfood` _command adds a new food with all specified fields into the food list._
+
+It is implemented by using `AddFoodCommandParser`, which relies on `RecmFoodParserUtil` to check the validation of input values.
+
+*API:* link:{repoURL}{recmfPath}/parser/RecmFoodParserUtil.java[`RecmFoodParserUtil.java`]
+
+===== _resetf_ command
+_`resetf` _command clears(deletes) all newly added foods from the user._
+
+It is implemented by setting the internal list of `UniqueFoodList` to be the pre-loaded food data in `SampleFoodDataUtil`.
+
+==== Example Usage Scenario and Summary
+
+Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
+
+. The user launches the application and enter `recmf` command for the first time.
+.. The `foodlist.json` storage file will be created and written with the pre-loaded food data from `SampleFoodDataUtil`.
+.. The `UniqueFoodList` will indirectly (via `Model`) supply a list of foods to `FoodFlowPane` to display.
+
+. The user executes `recmf -f -sv fn/Chicken` command.
+.. `RecmFoodParser` will parse the flag string as _fruit_ and _starchy vegetable_ for `FoodTypeIsWantedPredicate`
+and the food name string as _Chicken_ for `FoodNameContainsKeywordPredicate`. Meanwhile, `FoodComparator` will be of default sorting order
+.. They will be supplied to instantiate a `RecmFoodCommand` to update the display of food recommendations.
+
+. The user executes `recmfmix` command.
+.. The `UniqueFoodList#getMixedFoodList()` method will return a list of randomly selected foods from each food type.
+.. A summary food with calculated value by `FoodCalculator` will be appended at the end.
+
+. The user feels the database is insufficient and wants to add a new food by executing `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`.
+.. The display will switch to show the full list containing the newly added food in the default sorting order.
+.. The `foodlist.json` storage file will be immediately updated with this new food.
+
+. The user executes `resetf` command.
+.. `UniqueFoodList` will reset its internal list to hold the sample data from from `SampleFoodDataUtil`.
+
+[]
+Diagram::
+The following activity diagram summarizes the above steps.
+
+image::RecmFoodActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How recommendations are presented to user
+===== Aspect: Data Structure of the Food Collection
 
-* **Alternative 1 (current choice):** Shows the user a pane of cards. Different types are indicated by the different background colors of the food names.
-** Pros: Easy to implement.
-** Cons:
-* **Alternative 2:** Use several scrollable horizontal list views to hold different food type.
-** Pros:
-*** The content is more organized and the user does not need to specify food types in the filter.
-*** The food card for different food types can be more targeted. For example, for most proteins, the sugar and gi of value 0 can be omitted while protein values can be added.
+* **Alternative 1 (current choice):** Use a `List` to store all the foods
+** Pros: The logic can be easily understood.
+** Cons: Filtering, sorting, and adding new foods need to enumerating through the whole list.
+* **Alternative 2:** Use a `Map` that categorizes foods based on their food types
+** Pros: For the `Flag` filtering, it can simply get the wanted types from the `Map`.
+Besides, maintaining the order after adding a new food only requires to sort foods of the same type.
+It can improve efficiency especially the database is large.
+** Cons: There is no `FilteredMap` class supported by JavaFX. Thus, additionally structures needs to be defined to accept
+`Predicate` as filters.
+
+===== Aspect: The presentation of food recommendations (UI)
+
+* **Alternative 1 (current choice):** Show the user a pane of cards. Different types are indicated by the different background colors of the food names.
+** Pros: Easy to implement. The usage of cheerful colors may make reading recommendations more pleasant.
+** Cons: The size of food cards cannot be customized. If the window size is relatively small, the user may need to
+repeatedly scroll up and down to locate some foods.
+* **Alternative 2:** Use several horizontal `ListViews` to hold different food type.
+** Pros: The content is more organized and the user does not need to specify food types in the filter.
+Besides, the food card for different food types can be more targeted. For example, for most proteins, the sugar and gi of value 0 can be omitted while protein values can be added.
 ** Cons: The operations targeting at the whole list, such as filtering based on food names, need to be applied repeatedly for each food list.
 
-===== Aspect: Data structure to support the recmf command
-
-* **Alternative 1 (current choice):** Use a list to store all the foods
-** Pros: The logic can be easily understood.
-** Cons:
-* **Alternative 2:** Use a map that maps different food types to corresponding food list
-** Pros:
-** Cons:
-
-===== Aspect: New food data input from user
+===== Aspect: Inputting New Food Data
 
 * **Alternative 1 (current choice):** Require inputs for all fields (e.g. calorie, gi...).
 ** Pros: It is easy for data manipulation. Specifically, this prevents some foods from permanently having empty fields. Additionally, this may further hinder the data usage for data analysis.
@@ -301,18 +423,41 @@ image::AddFoodActivityDiagram.png[]
 ** Pros: This provides the user with more freedom and flexibility of entering data.
 ** Cons: Every change or manipulation on food data needs to be applied on two lists. Transferring data from one list to the other may also be error-prone.
 
-// tag::dataencryption[]
 
-=== [Proposed] Data Encryption
+===== Aspect: Data Recovery after Resetting
 
-==== Future Development Direction
+* **Alternative 1 (current choice):** There is additional storage for holding the food database just before resetting.
+** Pros: The implementation is straightforward. The management of storage is also simple since it only needs synchronized with one `UniqueFoodList`.
+** Cons: There is no way for the user to recover data.
+* **Alternative 2:** Pop up another command to confirm with the user about the resetting.
+** Pros: Prevent the situation of resetting all food data due to accidentally entering a wrong command.,
+** Cons: The recovery is still unavailable. Besides, this expands one command to two steps.
+* **Alternative 3:** Save only one copy before resetting all the food data. Update that copy whenever `reset` command is executed.
+** Pros: Provide more flexibility for the user to temporarily clean up the food data.
+This may be useful when another user want to temporarily use the same jar file on the same PC to get food recommendations.
+** Cons: Only the latest history of food list is available.
+* **Alternative 4:** Save every copies before resetting.
+** Pros: Provide more freedom to the user to manipulate the history.
+** Cons: The implementation can be complex. Besides, it may take up much more storage if the database is large.
 
-** Larger database for food recommendations
-To increase the usability of food recommendations, it is suggested to have more food data at the beginning instead of depending on user inputs. Ideally, the recommendation data can be connected to online database for dynamic updates while can have local storage for offline operations.
+==== Future Development Suggestion
 
-** Diet records and analysis
-The current food models can be utilized to help record daily diets. This would allow the user to have an overview of his food consuming statistics. Therefore, some suggestions can be proposed to help diabetes users regulate and plan their diets.
+** Editing and Deleting Foods
+This would provide more flexibility to the user to manipulate food data, instead of resetting all the food data.
+
+** Disliking Foods
+This would prevent the user from repeatedly seeing the foods they dislike, cannot eat (due to religion reason), or are allergic to.
+
+** Expanding the food database
+This would relieve the extra work required from the user to input unavailable food data.
+Ideally, the recommendation data can be connected to online database for dynamic updates while can be stored locally for offline operations.
+
+** Recording and Analyzing diets
+This would allow the user to have an overview of his food consumption statistics. Bases on such statistics,
+more specific suggestions can be proposed to to balance the user's nutrition intake.
+
 // end::recmf[]
+
 
 //tag::datalogDG[]
 === [Proposed] Data log feature

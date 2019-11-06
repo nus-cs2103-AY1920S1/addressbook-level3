@@ -93,14 +93,9 @@ public interface Model {
     void updateFilteredFoodList(Predicate<Food> predicate);
 
     /**
-     * Sorts the filtered food list in ascending order by comparing the use-specified fields.
+     * Sorts the food list based on the given {@code FoodComparator}.
      */
-    void sortFoodListInAscendingOrder(FoodComparator foodComparator);
-
-    /**
-     * Sorts the filtered food list in descending order by comparing the use-specified fields.
-     */
-    void sortFoodListInDescendingOrder(FoodComparator foodComparator);
+    void sortFoodList(FoodComparator foodComparator);
 
     /**
      * Returns an unmodifiable view of the mix of foods from each food type.

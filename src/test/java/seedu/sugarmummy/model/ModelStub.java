@@ -213,7 +213,7 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
+    public void sortFoodList(FoodComparator foodComparator) {
         throw new AssertionError("This method should not be called.");
     }
 
