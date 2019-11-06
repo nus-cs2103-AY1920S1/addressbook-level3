@@ -3,10 +3,8 @@ package seedu.address.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import seedu.address.model.transaction.Budget;
 
 /**
@@ -47,6 +45,12 @@ public class BudgetCard extends UiPart<Region> {
             .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
     }
 
+    /**
+     * Determines if the number of remaining days till deadline is less than or equals to 3.
+     * If so, a {@code DEFICIT} label is displayed, otherwise {@code budgetDetails} label is displayed.
+     *
+     * @param budget to be displayed in this budget card
+     */
     private void displayRemDays(Budget budget) {
         if (budget.getBetweenRaw() <= 3) {
             DEFICIT.getChildren().add(new Label(budget.getBetween()));
@@ -55,6 +59,12 @@ public class BudgetCard extends UiPart<Region> {
         }
     }
 
+    /**
+     * Determines if the amount of the remaining budget is less than $0.00.
+     * If so, a {@code minus} label is displayed, otherwise {@code amount} label is displayed.
+     *
+     * @param budget to be displayed in this budget card
+     */
     private void displayBudget(Budget budget) {
         if (budget.getBudget().isNegative()) {
             amount.setText("");
