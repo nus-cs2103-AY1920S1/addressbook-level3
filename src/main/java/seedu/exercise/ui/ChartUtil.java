@@ -1,11 +1,38 @@
 package seedu.exercise.ui;
 
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tooltip;
+
 /**
- * A class to format text in chart panels.
+ * A class that contains common methods for ChartPanel.
  */
-public class ChartTextUtil {
+public class ChartUtil {
 
     public static final String TITLE_FORMAT = "%s (%s to %s)";
+
+    /**
+     * Install tooltip for bar chart and line chart.
+     */
+    public static void installToolTipXyChart(ObservableList<XYChart.Data<String, Double>> data) {
+        data.stream().forEach(d -> {
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText(d.getXValue() + "\n" + d.getYValue());
+            Tooltip.install(d.getNode(), tooltip);
+        });
+    }
+
+    /**
+     * Install tooltip for pie chart.
+     */
+    public static void installToolTipPieChart(ObservableList<PieChart.Data> data) {
+        data.stream().forEach(d -> {
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText(d.getName());
+            Tooltip.install(d.getNode(), tooltip);
+        });
+    }
 
     /**
      * Returns the formatted title of line chart and bar chart.

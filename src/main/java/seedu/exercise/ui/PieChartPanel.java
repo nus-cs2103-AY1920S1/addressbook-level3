@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 import seedu.exercise.logic.commands.statistic.Statistic;
 
@@ -43,19 +42,15 @@ public class PieChartPanel extends UiPart<Region> {
 
         for (int i = 0; i < size; i++) {
             double percentage = Statistic.percentage(values.get(i), statistic.getTotal());
-            String property = ChartTextUtil.propertyFormatter(properties.get(i));
-            String propertyWithPercentage = ChartTextUtil.percentageFormatter(property, percentage);
+            String property = ChartUtil.propertyFormatter(properties.get(i));
+            String propertyWithPercentage = ChartUtil.percentageFormatter(property, percentage);
             PieChart.Data slice = new PieChart.Data(propertyWithPercentage, values.get(i));
             pieChart.getData().add(slice);
         }
 
-        pieChart.getData().stream().forEach(data -> {
-            Tooltip tooltip = new Tooltip();
-            tooltip.setText(data.getName());
-            Tooltip.install(data.getNode(), tooltip);
-        });
+        ChartUtil.installToolTipPieChart(pieChart.getData());
 
         pieChart.setLegendVisible(false);
-        pieChart.setTitle(ChartTextUtil.pieChartTitleFormatter(category, startDate, endDate));
+        pieChart.setTitle(ChartUtil.pieChartTitleFormatter(category, startDate, endDate));
     }
 }

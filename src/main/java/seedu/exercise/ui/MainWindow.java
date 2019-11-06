@@ -164,8 +164,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private String getTotalAndAverage() {
         Statistic statistic = logic.getStatistic();
-        return ChartTextUtil.totalFormatter(statistic.getCategory(), statistic.getTotal()) + "\n"
-            + ChartTextUtil.averageFormatter(statistic.getCategory(), statistic.getAverage());
+        return ChartUtil.totalFormatter(statistic.getCategory(), statistic.getTotal()) + "\n"
+            + ChartUtil.averageFormatter(statistic.getCategory(), statistic.getAverage());
     }
 
     private void setStats() {

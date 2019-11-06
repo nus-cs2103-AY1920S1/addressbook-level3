@@ -45,18 +45,20 @@ public class BarChartPanel extends UiPart<Region> {
         barChart.layout();
 
         xAxis.setLabel(DEFAULT_EXERCISES);
-        yAxis.setLabel(ChartTextUtil.labelFormatter(statistic.getCategory()));
+        yAxis.setLabel(ChartUtil.labelFormatter(statistic.getCategory()));
 
         XYChart.Series<String, Double> series = new XYChart.Series<>();
 
         int size = properties.size();
         for (int i = 0; i < size; i++) {
-            String property = ChartTextUtil.propertyFormatter(properties.get(i));
+            String property = ChartUtil.propertyFormatter(properties.get(i));
             series.getData().add(new XYChart.Data<>(property, values.get(i)));
         }
 
         barChart.setLegendVisible(false);
-        barChart.setTitle(ChartTextUtil.lineAndBarChartTitleFormatter(category, startDate, endDate));
+        barChart.setTitle(ChartUtil.lineAndBarChartTitleFormatter(category, startDate, endDate));
         barChart.getData().add(series);
+
+        ChartUtil.installToolTipXyChart(series.getData());
     }
 }
