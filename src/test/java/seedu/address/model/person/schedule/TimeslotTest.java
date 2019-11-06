@@ -11,8 +11,10 @@ import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIME_SLOT1;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIME_SLOT2;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE1;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE2;
+import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE3;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.testutil.scheduleutil.TypicalTimeslots;
 
 class TimeslotTest {
 
@@ -44,7 +46,7 @@ class TimeslotTest {
     void equals_differentVenue() {
         assertFalse(
                 new Timeslot(START_TIME1, END_TIME2, VENUE1).equals(
-                        new Timeslot(START_TIME1, END_TIME2, VENUE2)
+                        new Timeslot(START_TIME1, END_TIME2, VENUE3)
                 )
         );
     }
@@ -63,7 +65,7 @@ class TimeslotTest {
 
     @Test
     void getVenue() {
-        assertTrue(VENUE1.equals(TIME_SLOT1.getVenue()));
-        assertFalse(VENUE2.equals(TIME_SLOT1.getVenue()));
+        assertTrue(VENUE1.equals(TypicalTimeslots.generateTimeslot1().getVenue()));
+        assertFalse(VENUE2.equals(TypicalTimeslots.generateTimeslot1().getVenue()));
     }
 }
