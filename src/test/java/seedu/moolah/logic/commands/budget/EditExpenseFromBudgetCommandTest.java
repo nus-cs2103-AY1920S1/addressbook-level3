@@ -48,7 +48,8 @@ public class EditExpenseFromBudgetCommandTest {
         EditExpenseFromBudgetCommand editExpenseFromBudgetCommand = new EditExpenseFromBudgetCommand(
                 INDEX_FIRST, descriptor);
 
-        assertTrue(model.getPrimaryBudget().getCurrentPeriodExpenses().get(INDEX_FIRST.getZeroBased()).equals(CHICKEN_RICE));
+        assertTrue(model.getPrimaryBudget().getCurrentPeriodExpenses().get(INDEX_FIRST.getZeroBased())
+                .equals(CHICKEN_RICE));
         String expectedMessage = String.format(EditExpenseFromBudgetCommand.MESSAGE_EDIT_EXPENSE_SUCCESS,
                 editedExpense);
 
