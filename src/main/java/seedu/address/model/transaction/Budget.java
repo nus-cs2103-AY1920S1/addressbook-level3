@@ -28,12 +28,12 @@ public class Budget {
 
     /**
      * Constructor for Budget with no categories given.
-     * By default, category is "general"
+     * By default, category is "Uncategorised"
      */
     public Budget(Amount amount, Date date) {
         this.amount = amount;
         this.deadline = date;
-        this.categories.add(new Category("general"));
+        this.categories.add(new Category("Uncategorised"));
         this.valid = true;
         this.between = calculateRemaining();
     }
@@ -90,10 +90,12 @@ public class Budget {
         }
 
         if (isSameCategory) {
-            Amount newBudget = this.amount.addAmount(amount);
-            this.amount = newBudget;
+            Amount newAmount = this.amount.addAmount(amount);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            return newBudget;
+        } else {
+            return this;
         }
-        return this;
     }
 
     private void updateDeadline(Date date) {
