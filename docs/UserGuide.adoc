@@ -258,6 +258,7 @@ Finds customers whose fields contain any of the given keywords. +
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The search matches anywhere for name, contact number, email and tags.
+* The search looks for partial matches e.g. `ha` will match `hans`.
 * Entries matching ALL fields will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and with tag `bbb`;
 ****
@@ -398,6 +399,7 @@ Finds phones whose fields contain any of the given keywords. +
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
+* The search looks for partial matches e.g. `ha` will match `hans`.
 * The search matches anywhere for name, contact number, email and tags.
 * Entries matching ALL field will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a phone with name `Aaah` and with tag `bbb`;
@@ -502,6 +504,7 @@ for a price to be that high.
 ==== Find an order : `find-o`
 Returns all the information pertaining to the order. +
 Format: `find-o KEYWORD [KEYWORD]...`
+
 
 ==== Complete an order : `complete`
 Completes the order, order status changed to `COMPLETED`. Phone associated with order will also be deleted. +
