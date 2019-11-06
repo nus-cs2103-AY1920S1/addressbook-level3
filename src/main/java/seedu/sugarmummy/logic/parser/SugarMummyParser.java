@@ -7,35 +7,41 @@ import static seedu.sugarmummy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.sugarmummy.logic.commands.AddCommand;
-import seedu.sugarmummy.logic.commands.AverageCommand;
 import seedu.sugarmummy.logic.commands.Command;
-import seedu.sugarmummy.logic.commands.DeleteCommand;
 import seedu.sugarmummy.logic.commands.ExitCommand;
 import seedu.sugarmummy.logic.commands.HelpCommand;
-import seedu.sugarmummy.logic.commands.ListCommand;
-import seedu.sugarmummy.logic.commands.achvm.AchvmCommand;
+import seedu.sugarmummy.logic.commands.achievements.AchvmCommand;
 import seedu.sugarmummy.logic.commands.aesthetics.BackgroundCommand;
 import seedu.sugarmummy.logic.commands.aesthetics.FontColourCommand;
-import seedu.sugarmummy.logic.commands.bio.AddBioCommand;
-import seedu.sugarmummy.logic.commands.bio.BioCommand;
-import seedu.sugarmummy.logic.commands.bio.ClearBioCommand;
-import seedu.sugarmummy.logic.commands.bio.EditBioCommand;
+import seedu.sugarmummy.logic.commands.biography.AddBioCommand;
+import seedu.sugarmummy.logic.commands.biography.BioCommand;
+import seedu.sugarmummy.logic.commands.biography.ClearBioCommand;
+import seedu.sugarmummy.logic.commands.biography.EditBioCommand;
 import seedu.sugarmummy.logic.commands.calendar.CalendarCommand;
 import seedu.sugarmummy.logic.commands.calendar.EventCommand;
 import seedu.sugarmummy.logic.commands.calendar.ReminderCommand;
+import seedu.sugarmummy.logic.commands.recmf.AddFoodCommand;
+import seedu.sugarmummy.logic.commands.recmf.RecmFoodCommand;
+import seedu.sugarmummy.logic.commands.recmf.RecmMixedFoodCommand;
+import seedu.sugarmummy.logic.commands.recmf.ResetFoodDataCommand;
+import seedu.sugarmummy.logic.commands.records.AddCommand;
+import seedu.sugarmummy.logic.commands.records.DeleteCommand;
+import seedu.sugarmummy.logic.commands.records.ListCommand;
+import seedu.sugarmummy.logic.commands.statistics.AverageCommand;
 import seedu.sugarmummy.logic.parser.aesthetics.BackgroundCommandParser;
 import seedu.sugarmummy.logic.parser.aesthetics.FontColourCommandParser;
-import seedu.sugarmummy.logic.parser.bio.AddBioCommandParser;
-import seedu.sugarmummy.logic.parser.bio.EditBioCommandParser;
+import seedu.sugarmummy.logic.parser.biography.AddBioCommandParser;
+import seedu.sugarmummy.logic.parser.biography.EditBioCommandParser;
+import seedu.sugarmummy.logic.parser.calendar.CalendarCommandParser;
+import seedu.sugarmummy.logic.parser.calendar.EventCommandParser;
+import seedu.sugarmummy.logic.parser.calendar.ReminderCommandParser;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
-import seedu.sugarmummy.recmfood.commands.AddFoodCommand;
-import seedu.sugarmummy.recmfood.commands.RecmFoodCommand;
-import seedu.sugarmummy.recmfood.commands.RecmMixedFoodCommand;
-import seedu.sugarmummy.recmfood.commands.ResetFoodDataCommand;
-import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;
-import seedu.sugarmummy.recmfood.parser.AddFoodCommandParser;
-import seedu.sugarmummy.recmfood.parser.RecmFoodCommandParser;
+import seedu.sugarmummy.logic.parser.recmf.AddFoodCommandParser;
+import seedu.sugarmummy.logic.parser.recmf.RecmFoodCommandParser;
+import seedu.sugarmummy.logic.parser.records.AddCommandParser;
+import seedu.sugarmummy.logic.parser.records.DeleteCommandParser;
+import seedu.sugarmummy.logic.parser.statistics.AverageCommandParser;
+import seedu.sugarmummy.model.recmf.exceptions.FoodNotSuitableException;
 
 /**
  * Parses user input.
@@ -62,7 +68,18 @@ public class SugarMummyParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord.toLowerCase()) {
+
+        case ExitCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new HelpCommand();
+
+        //=========== Records ===========================================================
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -73,13 +90,7 @@ public class SugarMummyParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            requireEmptyArguments(arguments);
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            requireEmptyArguments(arguments);
-            return new HelpCommand();
+        //=========== Statistics ===========================================================
 
         case AverageCommand.COMMAND_WORD:
             return new AverageCommandParser().parse(arguments);

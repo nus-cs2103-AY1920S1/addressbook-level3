@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.sugarmummy.model.record.BloodSugar;
-import seedu.sugarmummy.model.record.Bmi;
-import seedu.sugarmummy.model.record.Concentration;
-import seedu.sugarmummy.model.record.Height;
-import seedu.sugarmummy.model.record.RecordType;
-import seedu.sugarmummy.model.record.Weight;
+import seedu.sugarmummy.model.records.BloodSugar;
+import seedu.sugarmummy.model.records.Bmi;
+import seedu.sugarmummy.model.records.Concentration;
+import seedu.sugarmummy.model.records.Height;
+import seedu.sugarmummy.model.records.RecordType;
+import seedu.sugarmummy.model.records.Weight;
+import seedu.sugarmummy.model.statistics.predicates.RecordContainsRecordTypePredicate;
 import seedu.sugarmummy.model.time.DateTime;
 
 public class RecordContainsRecordTypePredicateTest {

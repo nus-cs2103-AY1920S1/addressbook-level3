@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 //@@author chen-xi-cx
+
 /**
  * An extended version of JavaFX {@code LineChart} to add horizontal range markers.
  * Area between horizontal range markers is highlighted by user specified color.

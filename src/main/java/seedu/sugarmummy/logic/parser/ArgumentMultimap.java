@@ -85,7 +85,7 @@ public class ArgumentMultimap {
     /**
      * Returns whether or not all prefixes in a given list are contained in this ArgumentMultimap.
      */
-    public boolean containsAllPrefixes(Prefix...prefixes) {
+    public boolean containsAllPrefixes(Prefix... prefixes) {
         Set<Prefix> keySet = argMultimap.keySet();
         for (Prefix prefix : prefixes) {
             if (!keySet.contains(prefix)) {
@@ -110,7 +110,7 @@ public class ArgumentMultimap {
     /**
      * Returns whether or not a given list of prefixes are all unique.
      */
-    public boolean prefixesAreUnique(Prefix...prefixes) {
+    public boolean prefixesAreUnique(Prefix... prefixes) {
         for (Prefix prefix : prefixes) {
             if (!isUniquePrefix(prefix)) {
                 return false;
@@ -119,7 +119,7 @@ public class ArgumentMultimap {
         return true;
     }
 
-    public List<Prefix> getNonUniquePrefixes(Prefix...prefixes) {
+    public List<Prefix> getNonUniquePrefixes(Prefix... prefixes) {
         List<Prefix> nonUniquePrefixes = new ArrayList<>();
         for (Prefix prefix : prefixes) {
             if (!isUniquePrefix(prefix)) {

@@ -2,6 +2,8 @@ package seedu.sugarmummy.logic.commands.aesthetics;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 import seedu.sugarmummy.logic.commands.Command;
 import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
@@ -31,7 +33,7 @@ public class FontColourCommand extends Command {
     public static final String MESSAGE_NO_CHANGE = "The colour that you've keyed in is no different from "
             + "what has already been set in your current settings! As such, there's nothing for me to update :)";
 
-    private static final String MESSAGE_COLOURS_TOO_CLOSE = "Oops! The font colour you have keyed in has colours "
+    public static final String MESSAGE_COLOURS_TOO_CLOSE = "Oops! The font colour you have keyed in has colours "
             + "that are too close to the dominant colour of the current background. Please try changing your "
             + "background first or selecting a different font colour. Alternatively you may combine the fontcolour "
             + "command for the new font colour with a background command, using the prefix [bg/].\n"
@@ -104,4 +106,60 @@ public class FontColourCommand extends Command {
     public DisplayPaneType getDisplayPaneType() {
         return backgroundCommand != null ? DisplayPaneType.COLOUR_AND_BACKGROUND : DisplayPaneType.COLOUR;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else {
+            if (other instanceof FontColourCommand) {
+                if ((this.fontColour == null && ((FontColourCommand) other).fontColour == null)
+                        && (this.backgroundCommand == null && ((FontColourCommand) other).backgroundCommand == null)) {
+                    return true;
+                }
+
+                if ((this.fontColour != null && ((FontColourCommand) other).fontColour == null)
+                        || (this.fontColour == null && ((FontColourCommand) other).fontColour != null)
+                        || (this.backgroundCommand != null && ((FontColourCommand) other).backgroundCommand == null)
+                        || (this.backgroundCommand == null && ((FontColourCommand) other).backgroundCommand != null)) {
+                    return false;
+                }
+
+                if ((this.fontColour != null && ((FontColourCommand) other).fontColour != null)
+                        && this.backgroundCommand == null && ((FontColourCommand) other).backgroundCommand == null) {
+                    return this.fontColour.equals(((FontColourCommand) other).fontColour);
+                } else if ((this.fontColour == null && ((FontColourCommand) other).fontColour == null)
+                        && this.backgroundCommand != null && ((FontColourCommand) other).backgroundCommand != null) {
+                    return this.backgroundCommand.equals(((FontColourCommand) other).backgroundCommand);
+                }
+
+                assert this.fontColour != null;
+                assert this.backgroundCommand != null;
+
+                return this.fontColour.equals(((FontColourCommand) other).fontColour)
+                        && this.backgroundCommand.equals(((FontColourCommand) other).backgroundCommand);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return fontColour == null && backgroundCommand == null
+                ? 0
+                : fontColour == null
+                        ? backgroundCommand.hashCode()
+                        : backgroundCommand == null
+                                ? fontColour.hashCode()
+                                : Objects.hash(fontColour, backgroundCommand);
+    }
+
+    @Override
+    public String toString() {
+        return "FontColourCommand with attributes:\n"
+                + "fontColour: " + fontColour + "\n"
+                + "backgroundCommand: " + backgroundCommand;
+    }
+
 }

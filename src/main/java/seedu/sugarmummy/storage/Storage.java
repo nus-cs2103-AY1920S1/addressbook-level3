@@ -7,12 +7,14 @@ import java.util.Map;
 import java.util.Optional;
 
 import seedu.sugarmummy.commons.exceptions.DataConversionException;
-import seedu.sugarmummy.model.ReadOnlyCalendar;
-import seedu.sugarmummy.model.ReadOnlyUserList;
 import seedu.sugarmummy.model.ReadOnlyUserPrefs;
 import seedu.sugarmummy.model.UserPrefs;
-import seedu.sugarmummy.model.record.UniqueRecordList;
-import seedu.sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
+import seedu.sugarmummy.model.recmf.UniqueFoodList;
+import seedu.sugarmummy.model.records.UniqueRecordList;
+import seedu.sugarmummy.storage.biography.UserListStorage;
+import seedu.sugarmummy.storage.calendar.CalendarStorage;
 
 /**
  * API of the Storage component

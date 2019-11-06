@@ -4,7 +4,7 @@ import static seedu.sugarmummy.model.achievements.AchievementState.ACHIEVED;
 import static seedu.sugarmummy.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
 import static seedu.sugarmummy.model.achievements.AchievementState.YET_TO_ACHIEVE;
 
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.records.RecordType;
 
 /**
  * Class that represents an achievement earned by a user of this program.

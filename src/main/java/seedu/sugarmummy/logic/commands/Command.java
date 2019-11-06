@@ -27,6 +27,7 @@ public abstract class Command {
 
     /**
      * Returns
+     *
      * @return
      */
     public boolean isToCreateNewPane() {

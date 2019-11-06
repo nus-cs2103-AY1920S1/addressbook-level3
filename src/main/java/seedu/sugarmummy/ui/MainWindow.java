@@ -7,8 +7,6 @@ import static seedu.sugarmummy.commons.core.Messages.MESSAGE_ACHIEVEMENTS_LOST;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
@@ -31,14 +29,17 @@ import javafx.stage.Stage;
 import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.commons.core.LogsCenter;
 import seedu.sugarmummy.logic.Logic;
-import seedu.sugarmummy.logic.commands.CalendarCommandResult;
 import seedu.sugarmummy.logic.commands.CommandResult;
+import seedu.sugarmummy.logic.commands.calendar.CalendarCommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.aesthetics.Background;
+import seedu.sugarmummy.model.recmf.exceptions.FoodNotSuitableException;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
-import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;
+import seedu.sugarmummy.ui.aesthetics.StyleManager;
+import seedu.sugarmummy.ui.calendar.ReminderListPanel;
+import seedu.sugarmummy.ui.motivationalquotes.MotivationalQuotesLabel;
 
 /**
  * Provides the basic application layout containing a menu bar and space where other JavaFX elements can be placed.
@@ -337,8 +338,9 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the main display pane to the specified UI part.
      */
     private void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
+        assert displayPaneType != null : "displayPaneType cannot be null";
         assert Arrays.asList(DisplayPaneType.values()).contains(displayPaneType) : "The displayPaneType "
-                + displayPaneType + " is inside the enum";
+                + displayPaneType + " is not inside the enum";
 
         if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
             DisplayPaneType nextPaneType = getNextPaneType(displayPaneType, guiIsModified(displayPaneType));
@@ -436,28 +438,16 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
                 return commandResult;
             } else {
-                //TODO: change exception to assertion
-                try {
-                    if (commandResult.isCalendar()) {
-                        CalendarCommandResult calendarCommandResult = (CalendarCommandResult) commandResult;
-                        switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated(),
-                                calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
-                                calendarCommandResult.isShowingWeek());
-                    } else {
-                        switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
-                    }
-                    logger.info("Result: " + commandResult.getFeedbackToUser() + achievementsNotification);
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser() + achievementsNotification);
-                } catch (NullPointerException e) {
-                    StringWriter stringWriter = new StringWriter();
-                    PrintWriter printWriter = new PrintWriter(stringWriter);
-                    e.printStackTrace(printWriter);
-                    String feedbackToUser =
-                            commandResult.getFeedbackToUser() + "\n" + achievementsNotification
-                                    + MESSAGE_CANNOT_LOAD_WINDOW + stringWriter.toString();
-                    resultDisplay.setFeedbackToUser(feedbackToUser);
-                    return new CommandResult(feedbackToUser);
+                if (commandResult.isCalendar()) {
+                    CalendarCommandResult calendarCommandResult = (CalendarCommandResult) commandResult;
+                    switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated(),
+                            calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
+                            calendarCommandResult.isShowingWeek());
+                } else {
+                    switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
                 }
+                logger.info("Result: " + commandResult.getFeedbackToUser() + achievementsNotification);
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser() + achievementsNotification);
             }
 
             return commandResult;

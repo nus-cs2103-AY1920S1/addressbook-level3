@@ -36,7 +36,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/sugarmummy/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/sugarmummy/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -79,11 +79,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/sugarmummy/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/sugarmummy/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -98,7 +98,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/sugarmummy/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -119,7 +119,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/sugarmummy/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -139,7 +139,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/sugarmummy/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -149,67 +149,132 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.sugarmummy.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Average graph feature
+// tag::average[]
+=== Data Sumamry/Analysis feature
 
-The average graph shows how the average blood sugar level or weight of users change over time.
+==== Average graph feature: Displays the daily/weekly/monthly average of records in a line graph: `average`
+
+The average graph shows how the average blood sugar level or BMI of users change over time.
 Daily, weekly, monthly average are supported.
 
-==== Implementation
+===== Implementation
 
-The average graph is implemented by `AverageMap` and the average values are stored
-internally as `internalAverageMap`. Additionally, it implements the following method:
+User input to get average graph is parsed by `SugarMummyParser` which creates a new `AverageCommandParser`.
+`AverageCommandParser` then parses user input and creates a new `AverageCommand`. Next, `AverageCommand`
+performs operations on `AverageMap` in `Model` with the help from `RecordContainsRecordTypePredicate` to
+filter `UniqueRecordList` in `Model`. The result of the execution is returned to `Ui` as a
+`CommandResult` object and is displayed to the user. In addition, `Ui` calls and displays average graph
+related `.fxml` file to the user.
 
-* `AverageMap#calculateAverage()` - calculates and stores the average values needed by the user.
-* `AverageMap#asUnmodifiableObservableMap()` - returns an read only version of `internalAverageMap`.
+The average graph data points generation is implemented by `AverageMap` and the average values are stored
+internally as `internalMap`. Additionally, it implements the following method:
+
+* `AverageMap#calculateAverage()` - calculates and stores the average values needed by `AverageCommand`.
+* `AverageMap#asUnmodifiableObservableMap()` - returns a read only version of `internalMap`.
 
 
 These operations are exposed in the `Model` interface as `Model#calculateAverageMap()` and
 `Model#getAverageMap()` respectively.
 
+===== Example Usage Scenario
 Below is an example usage scenario and how average graph is created.
 
-Step 1. The user launches the application for the first time. The `AverageMap` will be
-initialized and `internalAverageMap` will be empty.
+Step 1. User launches the application for the first time. The `AverageMap` will be
+initialized and `internalMap` will be empty.
 
-Step 2. The user enters `average a/daily rt/bloodsugar` in SugarMummy to get daily average blood sugar.
-The average command then call for `Model#calculateAverageMap()` which updates the `internalAverageMap` with
-new average values.
+Step 2. User enters `average a/daily rt/bloodsugar n/4` in SugarMummy to get daily average blood sugar.
+Input is parsed and send to `AverageCommand`. `AverageCommand` then calls `Model#updateFilteredRecordList`
+to filter record list with `RecordContainsRecordTypePredicate`. This results in a list of
+records containing only blood sugar records. Subsequently, `AverageCommand` calls
+`Model#calculateAverageMap()` to update the `internalMap` to store 4 most recent daily average values by using the filtered
+record list.
 
 The following sequence diagram shows how the average operation works:
 
 .Sequence diagram of how average command calculates average values.
 image::AverageSequenceDiagram.png[]
 
-NOTE: Step 2a. If the user enters `average a/daily rt/bloodsugar` and there is no data available,
-then the command will fail to execute. This step is illustrated in the activity diagram below.
+NOTE: The lifeline for `AverageCommand` should end at the destroy marker (X) but due to a limitation of
+PlantUML, the lifeline reaches the end of diagram.
+
+Step 2a. If the user enters `average a/daily rt/bloodsugar n/4` and there is no data available,
+then the command will fail to execute and throw a `CommandException`. Alternatively, if user enters
+an invalid command, a `ParseException` will be thrown.
+This is illustrated in the activity diagram below.
 
 .Activity diagram of user enter an average command.
 image::AverageCommandFailureActivityDiagram.png[]
 
-Step 3. `Ui` receives average command result from `LogicManager` and creates a new `AverageGraphPanel`.
-It then display the `AverageGraphPanel`.
+Step 3. `Ui` receives average `CommandResult` from `LogicManager` and creates a new `AverageGraphPane`
+as well as all other necessary components (see below). `Ui` then displays the `AverageGraphPane` to
+user.
 
-.Sequence diagram of how `Ui` displays average graph.
-image::AverageGraphUiSequenceDiagram.png[]
+Average graph Ui consists of several parts:
 
-==== Design Considerations
+* `AverageGraphPane`: Placeholder for `AverageGraph` and `LegendPane`.
+* `AverageGraph`: Contains the average graph. Data points are generated by `internalMap`.
+* `CustomLineChart`: The implementation for average graph which extends and override JavaFx `LineChart`.
+* `LegendPane`: Placeholder for `LegendRow`. This is the legend box for average graph.
+* `LegendRow`: Consists of a colored legend symbol and its description.
 
-===== Aspect: Data structure for `internalAverageMap`.
+.Class diagram of average graph ui related classes.
+image::AverageUiClassDiagram.png[]
 
-* **Alternative 1 (current choice):** Use `observableMap<LocalDate, Double>` where key is the
-time period records are from and value is the average values.
-** Pros: Easy to implement.
-** Cons: Lower level of abstraction.
-* **Alternative 2:** Use `observableList<Average>` where we store each average values in an
-`Average` class.
-** Pros: Higher level of abstraction.
-** Cons: More codes to write.
+===== Design Considerations
+
+===== Aspect: How to display average graph to user.
+
+The dilemma arises because users, especially recently diagnosed type 2 diabetics,
+do not know the normal range of BMI and blood sugar level. An intuitive and aesthetically
+pleasing method is needed to convey this information to user.
+
+* **Alternative 1:** Use JavaFx `LineChart` to display the average graph and display the ranges below
+the graph using JavaFx `Label`.
+** Pros: Do not need to implement anything.
+** Cons: User need to trace data points to the y axis to find it's value and compare it with the
+ranges given below the graph. This can be annoying and tedious for the user.
+* **Alternative 2 (current choice):** Override JavaFx `LineChart` by adding horizontal range markers
+to the graph and color the area between the markers.
+** Pros: User is able to tell which range a particular data point falls in immediately.
+** Cons: Need to implement horizontal range markers and lay it out on the graph. In addition,
+a custom legend box is needed to label the horizontal range markers.
+
+==== Data Summary/Analysis Feature `coming in v2.0`
+
+===== [Proposed] Summary statistics of a particular record type `[coming in v2.0]`
+
+The implementation will be similar to average graph feature. The `UniqueRecordList` can be filtered
+the same way as average graph feature to get a list containing only the specified record type.
+If only records from a certain time period is needed, a new date predicate class needs to be created
+to further filter the `UniqueRecordList` by starting and ending date. Using the filtered record list,
+count the number of low, normal and high values based on some threshold set by the developer. These
+counts will then be displayed using JavaFX `PieChart`. Also calculate the minimum, maximum and average of the
+filtered record list. These 3 statistics will be displayed right under the pie chart as plain text.
+
+===== [Proposed] Shows relationship between record types: `[coming in v2.0]`
+
+The implementation will be similar to average graph feature. But now, `UniqueRecordList` needs to
+be filtered so that it only contains the two record types needed. To do this, future developer
+need to tweak the current `RecordContainsRecordTypePredicate` to be able to filter two record types.
+
+NOTE: Since SugarMummy only supports two record types now, filtering `UniqueRecordList` is
+redundant. However, this implementation consider the situation that more record types may be added
+in the future.
+
+Using the filtered record list, pair two different record types from the same day together and this pair
+represents a data point. Discard records that cannot be paired. Once the pairing process finishes,
+display the points in JavaFX `ScatterChart`.
+
+===== [Proposed] Exports summary of all medical records into pdf `[coming in v2.0]`
+
+This feature can be implemented using `PDFBOX` libraries or any other existing libraries.
+// end::average[]
 
 
 // tag::recmf[]
@@ -709,6 +774,7 @@ implemented using the command words `fontcolour` and `bg` respectively.
 //end::personalisedUserExperienceDgAestheticsPppPart1[]
 
 * Possible valid usages are as follows:
+
 ** Scenario 1: User keys in `fontcolour`
 ** Scenario 2: User keys in `fontcolour white`
 ** Scenario 3: User keys in `fontcolour #FFFF00`
@@ -1311,3 +1377,47 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Average command
+
+.. Prerequisites: There are exactly 7 different days of blood sugar and exactly 7 different days of BMI records.
+... Test case: `average a/daily rt/bloodsugar` +
+    Expected: Shows a graph with 5 data points. The dates of the 5 data points are the 5 most
+    recent blood sugar records.
+... Test case: `average a/daily rt/bmi n/10` +
+    Expected: Since there are only 7 BMI records, the graph will only have 7 data points instead
+    of 10.
+... Test case: `average a/yearly rt/bmi n/3` +
+    Expected: This is an unsupported average type. An error message is displayed saying +
+    `Please enter correct input for a/AVERAGE_TYPE! +
+    AVERAGE_TYPE is "daily", "weekly" or "monthly"`.
+... Test case: `average a/weekly` +
+    Expected: Missing compulsory field rt/RECORD_TYPE. An error message is shown: +
+    `Oops! The command you've entered appears to be in an invalid format. +
+    average: Shows daily/weekly/monthly average of different record types in a line graph. +
+    Format: average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT] +
+    Example: average a/daily rt/bloodsugar n/5`
+.. Prerequisites: There are exactly 3 distinct weeks of blood sugar records and no BMI records.
+... Test case: `average a/weekly rt/bloodsugar` +
+    Expected: Since there are only 3 blood sugar records, the graph will only have 3 data points
+    with dates of the 3 most recent blood sugar records in terms of week. There is not enough
+    records to show 5 data points.
+... Test case: `average a/weekly rt/bmi` +
+    Expected: Since there are no bmi records, an error message is displayed saying +
+    `Sorry! You do not have any BMI record.`
+.. Prerequisites: There are at least 12 distinct months of BMI records and no blood sugar records.
+... Test case: `average a/monthly rt/bmi n/9` +
+    Expected: Shows a graph with 9 data points and these points are the average
+    BMI values of the 9 most recent month.
+... Test case: `average a/monthly rt/expenses n/3` +
+    Expected: This is an unsupported record type. Following error message will be shown: +
+    `Please enter correct input for rt/RECORD_TYPE! +
+    RECORD_TYPE is "BLOODSUGAR" or "BMI"`
+... Test case: `average a/monthly rt/bmi n/13` +
+    Expected: COUNT field is out of the range 1 and 12 inclusive. Following error message will be shown: +
+    `Please enter correct input for n/COUNT! +
+    COUNT takes integer value between 1 and 12 inclusive.`
+... Test case: `average a/monthly rt/bmi n/five` +
+    Expected: COUNT field only takes integer value. Following error message will be shown: +
+    `Please enter correct input for n/COUNT! +
+    COUNT takes integer value between 1 and 12 inclusive.`

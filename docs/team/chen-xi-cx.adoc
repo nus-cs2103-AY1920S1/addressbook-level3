@@ -1,0 +1,66 @@
+= Chen Xi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SugarMummy
+
+---
+
+== Overview
+
+SugarMummy is a desktop application tailored for type 2 diabetics to better manage their day-to-day life.
+Users interact with it using a CLI, and it has a GUI created with JavaFX. It is written in Java and has
+about 19 kLOC.
+
+Besides being a schedule planner cum reminder app, SugarMummy also supports logging of data such as
+blood sugar level and BMI. As these data are closely linked to the severity of type 2 diabetes, data
+can be summarized over a time period and presented in a visually intuitive graphical form. This helps
+users to track progressions better. Moreover, there are achievements waiting to be unlocked and they serve
+as extrinsic motivation for users to keep a healthy lifestyle. GUI font color and background are also
+customizable to fully enhance user experience. The diet aspect is also taken care by SugarMummy which
+recommends food and snacks beneficial for type 2 diabetics upon request.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to view daily, weekly or monthly average in a graphical form.
+** What it does: `average` command allows users to track their daily, weekly or monthly progressions for different
+record types. Averages are presented in a line graph. Different parts of the graph background are also colored differently
+to demarcate healthy and unhealthy values. The graph also shows a legend box to describe the color used.
+** Justification: Without this feature, user can only track their progression using `list` command. This requires them
+to scroll through possibly hundreds and even thousands of records. Due to this infeasibility, `average` command is
+introduced. The main part of tracking progression is to see the general trend
+and this justifies the use of line graph. Lastly, graph demarcations are used because users may not
+be familiar with the range of healthy and unhealthy values.
+** Highlights: The first difficulty encountered when implementing this feature was how to group records
+from same day, week or month together without using a separate code for each type. The solution can be
+found in link:https://github.com/AY1920S1-CS2103-T16-1/main/tree/master/src/main/java/seedu/sugarmummy/model/statistics/AverageMap.java[`AverageMap.java`].
+The second difficulty was highlighting graph background with colors. JavaFX `LineChart` does not support
+such functionality hence I had to implement the functionality using through link:https://github.com/AY1920S1-CS2103-T16-1/main/tree/master/src/main/java/seedu/sugarmummy/ui/statistics/CustomLineChart.java[`CustomLineChart.java`]
+which overrides JavaFX `LineChart`.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chen-xi-cx&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chen-xi-cx&tabRepo=AY1920S1-CS2103-T16-1%2Fmain%5Bmaster%5D[Code contribution on Reposense Report]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.3`
+** Enhancements to existing features:
+*** Refactor original addressbook to suit our app (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/119[#119])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=average]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=average]
