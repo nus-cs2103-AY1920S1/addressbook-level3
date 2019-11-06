@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.ModelValidationException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.PrefixType;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 
 /**
@@ -221,6 +222,22 @@ public class TeamList extends EntityList {
             newTList.add(t.copy());
         }
         return newTList;
+    }
+
+    public long getEduTeam() {
+        return teams.stream().filter(m -> m.getSubject().equals(SubjectName.EDUCATION)).count();
+    }
+
+    public long getEnvTeam() {
+        return teams.stream().filter(m -> m.getSubject().equals(SubjectName.ENVIRONMENTAL)).count();
+    }
+
+    public long getSocialTeam() {
+        return teams.stream().filter(m -> m.getSubject().equals(SubjectName.SOCIAL)).count();
+    }
+
+    public long getHealthTeam() {
+        return teams.stream().filter(m -> m.getSubject().equals(SubjectName.HEALTH)).count();
     }
 
     @Override

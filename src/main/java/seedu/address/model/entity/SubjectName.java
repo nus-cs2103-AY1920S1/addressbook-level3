@@ -47,4 +47,24 @@ public enum SubjectName {
         return this.name();
     }
 
+    /**
+     * Checks if two SubjectName are equal.
+     *
+     * @param other
+     * @return boolean Whether they are equal.
+     */
+    public boolean equals(SubjectName other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof SubjectName)) {
+            return false;
+        }
+
+
+        SubjectName otherSubject = ((SubjectName) other);
+        return otherSubject.toString().equals(this.toString());
+    }
+
 }

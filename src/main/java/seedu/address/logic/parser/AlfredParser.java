@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.assigncommand.AssignCommand;
 import seedu.address.logic.commands.csvcommand.ExportCommand;
@@ -58,7 +59,7 @@ public class AlfredParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full   input string
+     * @param userInput full input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -153,6 +154,8 @@ public class AlfredParser {
             c = new RemoveCommandAllocator().allocate(arguments);
             break;
 
+        case HomeCommand.COMMAND_WORD:
+            return new HomeCommand();
         default:
             logger.info("Unknown command type: " + commandWord);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

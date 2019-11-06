@@ -7,5 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:linux:11.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:win:11.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:win:11.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.jfoenix:jfoenix:9.0.8" level="project" />
+    <orderEntry type="library" name="Gradle: de.jensd:fontawesomefx-fontawesome:4.7.0-11" level="project" />
   </component>
 </module>

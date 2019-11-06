@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
@@ -23,10 +24,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.CommandType;
+import seedu.address.ui.listpanel.EntityListPanel;
+import seedu.address.ui.listpanel.StatisticsListPanel;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -38,13 +41,13 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private StatisticsListPanel statisticListPanel;
     private EntityListPanel entityListPanel;
     private CommandListPanel commandListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private JFXButton lastFired;
     private CommandBox commandBox;
-
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -75,6 +78,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private JFXButton historyButton;
+
+    @FXML
+    private JFXButton homeButton;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -110,18 +116,18 @@ public class MainWindow extends UiPart<Stage> {
 
         /*
          * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
+         * https://bugs.openjdk.java.net/browse/JDK-8131666 is fixed in later version of
+         * SDK.
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will not
+         * work when the focus is in them because the key event is consumed by the
+         * TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
+         * help window purposely so to support accelerators even when focus is in
+         * CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -135,15 +141,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //Displays the list of teams during application start up
-        entityListPanel = new EntityListPanel(logic.getFilteredParticipantList());
-        listPanelPlaceholder.getChildren().add(entityListPanel.getRoot());
-
+        // Displays the list of teams during application start up
+        statisticListPanel = new StatisticsListPanel(logic.getStatistics());
+        listPanelPlaceholder.getChildren().add(statisticListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        //Displays the file path for team list during start up for application
+        // Displays the file path for team list during start up for application
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTeamListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -153,8 +158,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+<<<<<<< HEAD
+     * Sets the handlers for the events generated whenever the up and down arrow
+     * keys are pressed.
+=======
      * Sets the handlers for the events generated whenever the alt modifier key, as well
      * as the up/down arrow keys are pressed.
+>>>>>>> upstream/master
      */
     private void setCommandNavigationHandler() {
         this.commandBoxPlaceholder.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -212,7 +222,35 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays the list of Participants in Model and Storage on Graphical User Interface.
+     * Handles the display of Command History in the GUI.
+     */
+    private void handleHistory() {
+        List<String> undoHistory = logic.getUndoCommandHistory();
+        List<String> redoHistory = logic.getRedoCommandHistory();
+        System.out.println("Inside handleHistory: printing");
+        for (String h : redoHistory) {
+            System.out.println(h);
+        }
+        System.out.println("=====================<< Current State >>=====================");
+        for (String h : undoHistory) {
+            System.out.println(h);
+        }
+    }
+
+    /**
+     * Displays the statistics of total number or entities and its distribution.
+     */
+    @FXML
+    private void displayStatistics() {
+        logger.info("Statistics object gotten from Logic is: " + logic.getStatistics());
+        logger.info("Statistics panel to be assigned is: " + new StatisticsListPanel(logic.getStatistics()));
+        statisticListPanel = new StatisticsListPanel(logic.getStatistics());
+        listPanelPlaceholder.getChildren().set(0, statisticListPanel.getRoot());
+    }
+
+    /**
+     * Displays the list of Participants in Model and Storage on Graphical User
+     * Interface.
      */
     @FXML
     private void displayParticipantList() {
@@ -241,7 +279,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays the list of Mentors in Model and Storage on Graphical User Interface.
+     * Displays the list of Mentors in Model and Storage on Graphical User
+     * Interface.
      */
     @FXML
     private void displayMentorList() {
@@ -263,12 +302,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Disarms or resets all buttons so that a new command can be carried out.
-     * The new command will arm a new button.
+     * Disarms or resets all buttons so that a new command can be carried out. The
+     * new command will arm a new button.
      */
     private void disarmAllButton() {
-        //TODO: shorten this
-        //Any ideas on how to shorten this method?
+        // TODO: shorten this
+        // Any ideas on how to shorten this method?
+        if (homeButton.isArmed()) {
+            homeButton.disarm();
+        }
         if (participantsButton.isArmed()) {
             participantsButton.disarm();
         }
@@ -278,6 +320,10 @@ public class MainWindow extends UiPart<Stage> {
         if (mentorsButton.isArmed()) {
             mentorsButton.disarm();
         }
+        if (historyButton.isArmed()) {
+            historyButton.disarm();
+        }
+
     }
 
     private void fireButton(Button button) throws AlfredModelHistoryException {
@@ -285,7 +331,6 @@ public class MainWindow extends UiPart<Stage> {
         button.arm();
         button.fire();
     }
-
 
     /**
      * Executes the command and returns the result.
@@ -313,7 +358,8 @@ public class MainWindow extends UiPart<Stage> {
                 this.fireButton(lastFired);
             }
             logger.info("CommandResult has the prefix: " + commandType);
-            //TODO: if the current panel is the one being changed, do not change the entityListPlaceholder
+            // TODO: if the current panel is the one being changed, do not change the
+            // entityListPlaceholder
             switch (commandType) {
             case M:
                 this.fireButton(mentorsButton);

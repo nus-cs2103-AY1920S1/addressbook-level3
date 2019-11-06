@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.transformation.FilteredList;
-
 import javafx.collections.transformation.SortedList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
@@ -26,7 +26,9 @@ import seedu.address.model.person.Person;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
@@ -166,6 +168,7 @@ public interface Model {
     void setTopKRandom(int k, ArrayList<Comparator<Team>> comparators);
 
     /* View command */
+
     /**
      * Sets the predicate to show detailed information of {@code entity}.
      *
@@ -174,13 +177,15 @@ public interface Model {
     void viewEntity(Entity entity);
 
     /**
-     * Updates the history of entity states with the current state (after execution of Command c)
+     * Updates the history of entity states with the current state (after execution
+     * of Command c)
      */
     void updateHistory(Command c);
 
     /**
      * Undoes the effects of {@code numToUndo} previous command(s) and returns the model to the state
      * prior to the execution of these command(s).
+     *
      * @param numToUndo number of previous commands to undo.
      * @throws AlfredModelHistoryException this is thrown when an error is encountered trying to alter the model
      *                                     state while undoing the previous commands.
@@ -190,6 +195,7 @@ public interface Model {
     /**
      * Redoes the effects of the {@code numToRedo} next command(s) and returns the model to the state
      * after the execution of these command(s).
+     *
      * @param numToRedo number of next commands to redo.
      * @throws AlfredModelHistoryException this is thrown when an error is encountered trying to alter the model
      *                                     state while redoing the next commands.
@@ -197,8 +203,11 @@ public interface Model {
     void redo(int numToRedo) throws AlfredModelHistoryException;
 
     /**
-     * Gets a String detailing the previously executed commands that can be undone by the user.
-     * @return String representing the previously executed commands that can be undone by the user.
+     * Gets a String detailing the previously executed commands that can be undone
+     * by the user.
+     *
+     * @return String representing the previously executed commands that can be
+     * undone by the user.
      */
     String getCommandHistoryString();
 
@@ -213,14 +222,22 @@ public interface Model {
     List<String> getRedoCommandHistory();
 
     /**
-     * Returns a List of CommandsRecords describing the commands that can be undone/redone
+     * Returns a List of CommandsRecords describing the commands that can be
+     * undone/redone
+     *
      * @throws AlfredModelHistoryException
      */
     ArrayList<CommandRecord> getCommandHistory();
 
     /**
-     * Records the execution of the command. This is for the Command Navigation feature.
+     * Records the
+     * execution of
+     * the command.
+     * This is for
+     * the Command
+     * Navigation feature.
      */
+
     void recordCommandExecution(String commandInputString);
 
     /**
