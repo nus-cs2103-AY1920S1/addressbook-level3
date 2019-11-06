@@ -15,6 +15,7 @@ import seedu.planner.model.tag.Tag;
 /**
  * Represents an Activity in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
+ *
  * @@author oscarsu97
  */
 public class Activity implements Comparable<Activity> {
@@ -130,7 +131,7 @@ public class Activity implements Comparable<Activity> {
                 if (thisPriority - thatPriority > 0) {
                     return 1;
                 }
-                if (thatPriority - thatPriority < 0) {
+                if (thisPriority - thatPriority < 0) {
                     return -1;
                 } else {
                     return 0;

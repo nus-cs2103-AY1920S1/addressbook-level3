@@ -1,6 +1,7 @@
 package seedu.planner.model.activity;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.planner.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the duration of an Activity in the application.
@@ -23,6 +24,7 @@ public class Duration {
      */
     public Duration(Integer duration) {
         requireNonNull(duration);
+        checkArgument(isValidDuration(duration.toString()), MESSAGE_CONSTRAINTS);
         value = duration;
     }
 

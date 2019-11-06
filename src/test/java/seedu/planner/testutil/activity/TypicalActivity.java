@@ -6,14 +6,20 @@ import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_A
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_B;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_COST_HUNDRED;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_COST_TWO_HUNDRED;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_DURATION_A;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_DURATION_B;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_TEN;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_TWENTY;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_LESSON;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HIKING;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_SIGHTSEEING;
 
 import java.util.ArrayList;
@@ -24,7 +30,7 @@ import seedu.planner.model.ActivityManager;
 import seedu.planner.model.activity.Activity;
 
 /**
- * A utility class containing a list of {@code Activity} objects to be used in tests.
+ * An utility class containing a list of {@code Activity} objects to be used in tests.
  */
 public class TypicalActivity {
     //Contact: name phone (OPT)email (OPT)address tags
@@ -36,7 +42,10 @@ public class TypicalActivity {
                     "sam1997@gmail.com",
                     "Nantan, Kyoto 601-0776, Japan",
                     "tourguide")
-            .withTags("sightseeing").build();
+            .withTags("sightseeing")
+            .withDuration("30")
+            .withPriority("1")
+            .withCost("10").build();
     public static final Activity ACTIVITYTWO = new ActivityBuilder().withName("Visit Mount Fuji")
             .withAddress("Tokyo")
             .withContact("Matsafushi",
@@ -44,27 +53,39 @@ public class TypicalActivity {
                     "matsafushi@gmail.com",
                     "150-2345 Tokyo-to, Shibuya-ku, Hommachi 2 choume, 4-7, Sunny Mansion 203",
                     "tourguide")
-            .withTags("sightseeing").build();
+            .withTags("sightseeing")
+            .withDuration("60")
+            .withPriority("2")
+            .withCost("20").build();
     public static final Activity ACTIVITYTHREE = new ActivityBuilder().withName("sushi making")
             .withAddress("Kodaira, Tokyo")
             .withContact("Yui",
                     "93619823",
                     "Yui@hotmail.com",
-                    "Akishima, Tokyo 196-0022").build();
+                    "Akishima, Tokyo 196-0022")
+            .withDuration("90")
+            .withPriority("3")
+            .withCost("30").build();
     public static final Activity ACTIVITYFOUR = new ActivityBuilder().withName("Visit Nagoya Castle")
             .withAddress("Tokyo")
             .withContact("Himari",
                     "94523656",
                     "Himari@hotmail.com",
                     "5 Chome Josai, Nishi Ward, Nagoya, Aichi 451-0031",
-                    "tourguide").build();
+                    "tourguide")
+            .withDuration("120")
+            .withPriority("4")
+            .withCost("40").build();
     public static final Activity ACTIVITYFIVE = new ActivityBuilder().withName("Shop at Dontobori")
             .withAddress("Tokyo")
             .withContact("kosuke",
                     "95255523",
                     "kosuke@hotmail.com",
                     "5 Chome Josai, Nishi Ward, Nagoya, Aichi 451-0031")
-            .withTags("souvenirs").build();
+            .withTags("souvenirs")
+            .withDuration("180")
+            .withPriority("5")
+            .withCost("50").build();
     public static final Activity ACTIVITYSIX = new ActivityBuilder().withName("Visit Monkey Park")
             .withAddress("Yokoyu River")
             .withContact("Kakashi",
@@ -72,7 +93,10 @@ public class TypicalActivity {
                     "kakashi@yahoo.com",
                     "Aioi Inuyama, Aichi 484-0081",
                     "tourguide", "experienced")
-            .withTags("sightseeing").build();
+            .withTags("sightseeing")
+            .withDuration("210")
+            .withPriority("6")
+            .withCost("60").build();
     public static final Activity ACTIVITYSEVEN = new ActivityBuilder().withName("Walk through Bamboo Forest")
             .withAddress("Kyoto")
             .withContact("Maylin",
@@ -80,7 +104,10 @@ public class TypicalActivity {
                     "Maylin@yahoo.com",
                     "Kita Ward, Kyoto, 603-8477",
                     "Japanfriend")
-            .withTags("MUSTdo", "sightseeing").build();
+            .withTags("MUSTdo", "sightseeing")
+            .withDuration("240")
+            .withPriority("7")
+            .withCost("70").build();
 
     // Manually added
     public static final Activity ACTIVITYEIGHT = new ActivityBuilder().withName("Visit Ramen Museum")
@@ -88,25 +115,37 @@ public class TypicalActivity {
             .withContact("Jack",
                     "81241034",
                     "Jack@example.com",
-                    "Doichi Ward, Shitamachi, 120-8222").build();
+                    "Doichi Ward, Shitamachi, 120-8222")
+            .withDuration("270")
+            .withPriority("8")
+            .withCost("80").build();
     public static final Activity ACTIVITYNINE = new ActivityBuilder().withName("Watch Kabuki show")
             .withAddress("Osaka")
             .withContact("Gaara",
-                    "81241034",
+                    "91037493",
                     "Gaara@example.com",
-                    "Tennoji Ward, Osaka, 543-0017").build();
+                    "Tennoji Ward, Osaka, 543-0017")
+            .withDuration("300")
+            .withPriority("9")
+            .withCost("90").build();
 
     // Manually added - Activity's details found in {@code CommandTestUtil}
     public static final Activity ACTIVITY_A = new ActivityBuilder().withName(VALID_ACTIVITY_NAME_A)
             .withAddress(VALID_ACTIVITY_ADDRESS_A)
             .withContact(VALID_NAME_AMY, VALID_PHONE_AMY,
                     VALID_EMAIL_AMY, VALID_ADDRESS_AMY, VALID_TAG_FRIEND)
-            .withTags(VALID_TAG_SIGHTSEEING).build();
+            .withTags(VALID_TAG_SIGHTSEEING)
+            .withDuration(VALID_DURATION_A)
+            .withPriority(VALID_PRIORITY_TEN)
+            .withCost(VALID_COST_HUNDRED).build();
     public static final Activity ACTIVITY_B = new ActivityBuilder().withName(VALID_ACTIVITY_NAME_B)
             .withAddress(VALID_ACTIVITY_ADDRESS_B)
             .withContact(VALID_NAME_BOB, VALID_PHONE_BOB,
                     VALID_EMAIL_BOB, VALID_ADDRESS_BOB, VALID_TAG_FRIEND)
-            .withTags(VALID_TAG_LESSON)
+            .withTags(VALID_TAG_HIKING)
+            .withDuration(VALID_DURATION_B)
+            .withPriority(VALID_PRIORITY_TWENTY)
+            .withCost(VALID_COST_TWO_HUNDRED)
             .build();
 
     private TypicalActivity() {
