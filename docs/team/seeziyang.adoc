@@ -56,7 +56,7 @@ dates and fines respectively.
 
 === Code contributed
 
-[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=seeziyang[Functional and test code]
 
 === Other contributions
 
