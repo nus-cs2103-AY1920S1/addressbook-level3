@@ -35,11 +35,11 @@ reimbursements, inventory and member’s contact details easily. The duration of
 This symbol indicates extra information or definition.
 
 `Model` :
-Text with grey highlight indicates a component, class or object in the architecture of
+Text with this font indicates a component, class or object in the architecture of
 the application.
 
 [blue]`command` :
-Text with blue font and grey highlight indicates a command that can be inputted by the user.
+Text with this blue font indicates a command that can be inputted by the user.
 
 === Introduction of treasurerPro
 
