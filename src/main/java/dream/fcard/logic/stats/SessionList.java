@@ -1,22 +1,20 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
-import java.time.Duration;
 import java.util.ArrayList;
 
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import dream.fcard.util.stats.DateTimeUtil;
 
 /**
  * A list of Session objects.
  */
-
 public class SessionList implements JsonInterface {
 
     private ArrayList<Session> sessionArrayList;
+    // todo: add another data structure to store sessions by date?
 
     /** Constructs a new instance of SessionList, with an empty list by default. */
     public SessionList() {
@@ -43,31 +41,46 @@ public class SessionList implements JsonInterface {
      * Returns the number of sessions in the list.
      * @return The number of sessions in the list.
      */
-    public int getNumberOfSessions() {
+    public int numberOfSessions() {
         return this.sessionArrayList.size();
+    }
+
+    /**
+     * Returns the list of sessions, sorted by start date, in chronological order (earliest first).
+     * @return The list of sessions, sorted by start date, in chronological order (earliest first).
+     */
+    public ArrayList<Session> sortByDateChrono() {
+        this.sessionArrayList.sort((a, b) -> {
+            if (a.getSessionStart().isBefore(b.getSessionStart())) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        return this.sessionArrayList;
+
+        // todo: write tests!!! what should happen if the dates are the same?
+        // todo: problem!!! cannot sort if a session has not yet been terminated (no end!)
+    }
+
+    /**
+     * Returns the list of sessions, sorted by start date, in chronological order (latest first).
+     * @return The list of sessions, sorted by start date, in chronological order (latest first).
+     */
+    public ArrayList<Session> sortByDateChronoReversed() {
+        this.sessionArrayList.sort((a, b) -> {
+            if (a.getSessionStart().isAfter(b.getSessionStart())) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        return this.sessionArrayList;
     }
 
     /** Gets the sessionArrayList contained in this SessionList. */
     public ArrayList<Session> getSessionArrayList() {
         return this.sessionArrayList;
-    }
-
-    /** Gets the total duration of sessions in this SessionList, as a String. */
-    public String getTotalDurationAsString() {
-        Duration duration = Duration.ZERO;
-
-        for (Session session : sessionArrayList) {
-            Duration sessionDuration = session.getDuration();
-            duration = duration.plus(sessionDuration);
-        }
-
-        return DateTimeUtil.getStringFromDuration(duration);
-    }
-
-    /** Gets the average duration of sessions in this SessionList, as a String. */
-    public String getAverageDurationAsString() {
-        Duration averageDuration = DateTimeUtil.getAverageDuration(this);
-        return DateTimeUtil.getStringFromDuration(averageDuration);
     }
 
     @Override

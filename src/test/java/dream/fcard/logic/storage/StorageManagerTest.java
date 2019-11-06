@@ -37,9 +37,9 @@ public class StorageManagerTest {
         // write decks
 
         for (Deck d : StorageManager.loadDecks()) {
-            if (d.getDeckName() == "deck1") {
+            if (d.getName() == "deck1") {
                 assertEquals(d1.toJson().toString(), d.toJson().toString());
-            } else if (d.getDeckName() == "deck2") {
+            } else if (d.getName() == "deck2") {
                 assertEquals(d2.toJson().toString(), d.toJson().toString());
             }
         }

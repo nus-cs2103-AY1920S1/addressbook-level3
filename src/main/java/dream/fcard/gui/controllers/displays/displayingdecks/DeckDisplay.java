@@ -13,7 +13,6 @@ import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
-import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.StateHolder;
@@ -61,7 +60,7 @@ public class DeckDisplay extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.deck = deck;
-            deckName.setText(deck.getDeckName());
+            deckName.setText(deck.getName());
             renderQuestions();
             deleteDeckButton.setOnAction(e -> {
                 try {
@@ -131,14 +130,9 @@ public class DeckDisplay extends AnchorPane {
         }
     }
 
-    /**
-     * Delete a deck.
-     * @throws DeckNotFoundException
-     */
-    private void deleteDeck() throws DeckNotFoundException { //can be in Responses
+    private void deleteDeck() throws DeckNotFoundException {
         State state = StateHolder.getState();
-        state.removeDeck(deck.getDeckName());
-        StorageManager.deleteDeck(deck);
+        state.removeDeck(deck.getName());
         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
 

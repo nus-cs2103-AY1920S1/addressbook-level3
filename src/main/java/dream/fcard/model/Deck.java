@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -32,9 +31,6 @@ public class Deck implements JsonInterface {
 
     /** List of FlashCards with Low priority levels. */
     private ArrayList<FlashCard> lowPriorityList;
-
-    /** Statistics pertaining to this deck. */
-    private DeckStats deckStats;
 
     /**
      * Constructor to create a Deck with no name and cards.
@@ -177,7 +173,7 @@ public class Deck implements JsonInterface {
 
     @Override
     public String toString() {
-        return getDeckName();
+        return getName();
     }
 
     /**
@@ -212,7 +208,7 @@ public class Deck implements JsonInterface {
      *
      * @return String name of deck.
      */
-    public String getDeckName() {
+    public String getName() {
         return deckName;
     }
 
@@ -307,31 +303,4 @@ public class Deck implements JsonInterface {
     public Deck duplicateMyself() {
         return new Deck(DeepCopy.duplicateCards(cards), deckName);
     }
-
-    //@@author nattanyz
-    /** Get DeckStats pertaining to this deck. */
-    public DeckStats getDeckStats() {
-        return this.deckStats;
-    }
-
-    /** Set DeckStats pertaining to this deck. */
-    public void setDeckStats(DeckStats stats) {
-        this.deckStats = stats;
-    }
-
-    ///** Get number of sessions user has engaged in pertaining to this deck. */
-    //public Integer getNumberOfSessions() {
-    //    return this.deckStats.getNumberOfSessions();
-    //}
-
-    /** Get number of cards in this deck.*/
-    public Integer getNumberOfCards() {
-        return this.cards.size();
-    }
-
-    /** Get the average score for the sessions has engaged in pertaining to this deck. */
-    //public Double getAverageScore() {
-    //    return this.deckStats.getAverageScore();
-    //}
-    //@@author
 }

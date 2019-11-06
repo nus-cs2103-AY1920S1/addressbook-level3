@@ -1,33 +1,67 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
-/** Abstract class for statistics objects, like UserStats and DeckStats. */
-public abstract class Stats {
+import java.util.ArrayList;
 
-    /** List of Sessions the user has engaged in. */
-    protected SessionList sessionList;
+/**
+ * Represents the user's statistics.
+ */
+public class Stats {
+    /** The one and only instance of Stats allowed to exist. */
+    private static Stats userStats;
 
-    /** The current Session the user is engaging in. */
-    protected Session currentSession;
+    /** List of Sessions the user has engaged in to date. */
+    private static SessionList loginSessions;
 
+    /** Current Session the user is engaging in, if the application is open. */
+    private static Session currentSession;
+
+    /** Constructs a new instance of Stats with no stored data. */
     public Stats() {
-        this.sessionList = new SessionList();
-        this.currentSession = null;
+        System.out.println("New Stats object created");
+        loginSessions = new SessionList();
+        System.out.println("New loginSessions created");
     }
 
-    /** Sets the sessionList of the current Stats object to the given newSessionList. */
-    public void setSessionList(SessionList newSessionList) {
-        this.sessionList = newSessionList;
+    /** Returns the Stats object pertaining to this user. */
+    public static Stats getUserStats() {
+        if (userStats == null) {
+            System.out.println("Creating a new Stats object...");
+            userStats = new Stats();
+        }
+        return userStats;
     }
 
-    /** Gets the list of sessions. */
-    public SessionList getSessionList() {
-        return this.sessionList;
+    /** Sets userStats to the pre-defined Stats object. */
+    public static void setUserStats(Stats stats) {
+        userStats = stats;
     }
+
+    /**
+     * Creates a new Stats object from a String read from a file.
+     * @param fileText String containing info about the Stats object, read from a file.
+     * @return The new Stats object created.
+     */
+    public static Stats parseStats(String fileText) {
+        // todo: should parse Stats from file every time app is initialised. now, just create new
+        return new Stats();
+    }
+
+    public static void setSessionList(SessionList sessionList) {
+        loginSessions = sessionList;
+    }
+
+    /** Returns the number of login sessions. */
+    public static int getNumberOfLoginSessions() {
+        return loginSessions.numberOfSessions();
+    }
+
+    // todo: calculate number of sessions in past week, past month etc. should this generate a list?
+    // todo: possibly compare past week to previous week etc.
 
     /** Starts a new Session, representing the current Session the user is engaging in. */
-    public void startCurrentSession() {
-        if (this.currentSession != null) {
+    public static void startCurrentSession() {
+        if (currentSession != null) {
             endCurrentSession(); // should not occur, but should terminate just in case
             System.out.println("Existing current session detected. Terminating it first...");
         }
@@ -35,18 +69,21 @@ public abstract class Stats {
         // debug (change to Logger when implemented)
         System.out.println("Starting a session...");
 
-        this.currentSession = new Session(); // currentSession should be null
+        currentSession = new Session(); // currentSession should be null
     }
 
     /** Ends the current Session the user is engaging in and saves it to the list of Sessions. */
-    public void endCurrentSession() {
+    public static void endCurrentSession() {
         // assert current session is not null?
         try {
-            this.currentSession.endSession();
-            this.sessionList.addSession(currentSession);
+            // ensure that new Stats() is called
+            getUserStats(); // temporary
+
+            currentSession.endSession();
+            loginSessions.addSession(currentSession);
 
             // reset currentSession to null since this is terminated
-            this.currentSession = null;
+            currentSession = null;
 
             // debug (change to Logger when implemented)
             System.out.println("Ending the current session...");
@@ -56,8 +93,18 @@ public abstract class Stats {
         }
     }
 
+    /** Gets the list of login sessions. */
+    public static SessionList getLoginSessions() {
+        return loginSessions;
+    }
+
+    /** Gets the list of login sessions, as the underlying ArrayList, to display in the GUI. */
+    public static ArrayList<Session> getLoginSessionsAsArrayList() {
+        return getLoginSessions().getSessionArrayList();
+    }
+
     /** Gets the current session. */
-    public Session getCurrentSession() {
-        return this.currentSession;
+    public static Session getCurrentSession() {
+        return currentSession;
     }
 }

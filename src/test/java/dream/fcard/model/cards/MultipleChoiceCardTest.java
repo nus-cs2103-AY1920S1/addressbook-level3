@@ -5,6 +5,7 @@ package dream.fcard.model.cards;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
 
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import org.junit.jupiter.api.Test;
@@ -12,69 +13,8 @@ import org.junit.jupiter.api.Test;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 */
 
-import static dream.fcard.model.cards.Priority.HIGH_PRIORITY;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.Test;
-
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
-
-/**
- * Junit testing for MultipleChoiceCard class.
- */
 class MultipleChoiceCardTest {
-
-    @Test
-    void createMultipleChoiceCard_duplicateChoice_exceptionThrown() {
-        ArrayList<String> choices = new ArrayList<>();
-        choices.add("hello");
-        choices.add("hello");
-        choices.add("xxx");
-        choices.add("zzz");
-
-        String front = "What is your name?";
-        String back = "1";
-
-        assertThrows(DuplicateInChoicesException.class, () -> {
-            new MultipleChoiceCard(front, back, choices, HIGH_PRIORITY);
-        });
-    }
-
-    @Test
-    void createMultipleChoiceCard_invalidAnswer_exceptionThrown() {
-        ArrayList<String> choices = new ArrayList<>();
-        choices.add("hello");
-        choices.add("xxx");
-        choices.add("zzz");
-
-        String front = "What is your name?";
-        String back = "55";
-
-        assertThrows(NumberFormatException.class, () -> {
-            new MultipleChoiceCard(front, back, choices, HIGH_PRIORITY);
-        });
-    }
-
-
-    @Test
-    void createMultipleChoiceCard_nonIntegerAnswer_exceptionThrown() {
-        ArrayList<String> choices = new ArrayList<>();
-        choices.add("hello");
-        choices.add("xxx");
-        choices.add("zzz");
-
-        String front = "What is your name?";
-        String back = "five";
-
-        assertThrows(NumberFormatException.class, () -> {
-            new MultipleChoiceCard(front, back, choices, HIGH_PRIORITY);
-        });
-    }
-
-
-    /*
+/*
     @Test
     void evaluate_correctChoice_sample() throws IndexNotFoundException, DuplicateInChoicesException {
         ArrayList<String> choices = new ArrayList<>();

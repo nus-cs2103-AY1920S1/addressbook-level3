@@ -15,8 +15,7 @@ import java.util.stream.Stream;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.UserStats;
-import dream.fcard.logic.stats.UserStatsHolder;
+import dream.fcard.logic.stats.Stats;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
@@ -24,13 +23,13 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
+import dream.fcard.util.DateTimeUtil;
 import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import dream.fcard.util.stats.DateTimeUtil;
 
 /**
  * Interface to managing storage for the program.
@@ -117,18 +116,8 @@ public class StorageManager {
      */
     public static void writeDeck(Deck deck) {
         resolveRoot();
-        String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getDeckName() + ".json");
+        String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getName() + ".json");
         FileReadWrite.write(path, deck.toJson().toString());
-    }
-
-    /**
-     * Delete a deck.
-     * @param deck the deck to remove.
-     */
-    public static void deleteDeck(Deck deck) {
-        resolveRoot();
-        String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getDeckName() + ".json");
-        FileReadWrite.delete(path);
     }
 
     /**
@@ -254,17 +243,17 @@ public class StorageManager {
     /**
      * Save stats data.
      */
-    public static void saveStats(UserStats userStats) {
+    public static void saveStats() {
         resolveRoot();
-        FileReadWrite.write(statsFileFullPath, userStats.getSessionList().toJson().toString());
+        FileReadWrite.write(statsFileFullPath, Stats.getLoginSessions().toJson().toString());
     }
 
     /**
      * Initialize and load stats data if any.
      */
-    public static void loadUserStats() {
+    public static void loadStats() {
         resolveRoot();
-
+        Stats.getUserStats();
         try {
             ArrayList<Session> arr = new ArrayList<>();
             JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(statsFileFullPath));
@@ -273,15 +262,14 @@ public class StorageManager {
                 Session session = new Session(
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
-                //session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
-                // todo: only need setScore for SessionLists containing DeckSession objects. @AHaliq
+                session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
                 arr.add(session);
             }
-            UserStatsHolder.getUserStats().setSessionList(new SessionList(arr));
+            Stats.setSessionList(new SessionList(arr));
             // load login session
         } catch (FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");
-        } catch (JsonFormatException | NullPointerException e) {
+        } catch (JsonFormatException e) {
             System.out.println("STATS JSON IS ILL FORMED\n" + e.getMessage());
         } catch (JsonWrongValueException e) {
             System.out.println("UNEXPECTED JSON FORMAT FOR STATS\n" + e.getMessage());

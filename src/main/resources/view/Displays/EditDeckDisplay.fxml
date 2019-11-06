@@ -8,7 +8,7 @@
 
 <fx:root id="Content" minHeight="-Infinity" minWidth="-Infinity" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Label styleClass="window-title" text="Edit your deck" />
+      <Label styleClass="window-title" text="Create a new deck" />
       <HBox spacing="10.0">
          <children>
               <Label fx:id="deckName" alignment="CENTER" text="Name of deck:" />
@@ -19,7 +19,8 @@
         <Label fx:id="deckSize" text="0 cards" />
       <HBox spacing="10.0">
          <children>
-              <Button fx:id="doneEditingButton" mnemonicParsing="false" text="Done" />
+              <Button fx:id="onSaveDeck" mnemonicParsing="false" text="Save deck" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
          </children>
       </HBox>
     </children>

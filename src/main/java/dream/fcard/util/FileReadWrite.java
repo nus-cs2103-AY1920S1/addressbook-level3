@@ -88,7 +88,7 @@ public class FileReadWrite {
             }
 
         }
-        throw new FileNotFoundException();
+        return "";
     }
 
     /**

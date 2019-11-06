@@ -24,12 +24,33 @@ public class Consumers {
      * @return whether the consumer was successfully used.
      */
     @SuppressWarnings("unchecked")
-    public static Boolean doTask(String key, Object x) {
+    public static Boolean accept(String key, Object x) {
         Consumer c = consumers.get(key);
         if (c == null) {
             return false;
         }
         c.accept(x);
         return true;
+    }
+
+    /**
+     * @param
+     */
+    @SuppressWarnings("unchecked")
+    public static void doTask(String identifier, Object obj) {
+        Consumer c = consumers.get(identifier);
+        if (c != null) {
+            c.accept(obj);
+        }
+    }
+
+    private static Boolean validInput(String input) {
+        return (input.contains("front/") && input.contains("back/"))
+                | (input.contains("front/") && input.contains("choice/"))
+                | (input.contains("front/") && input.contains("testCase/"));
+    }
+
+    private static String getDeckName(String input) {
+        return input.split("deck/")[1].split(" ")[0].strip();
     }
 }
