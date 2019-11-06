@@ -286,6 +286,7 @@ Examples:
 
 * `redo` +
 
+//tag::sort[]
 === Sorting ELISA out: `sort`
 Is ELISA getting too cluttered and disorganized? Do you want to sort your task by their priority? Or the events by their start date?
 
@@ -305,7 +306,9 @@ Examples:
 * `sort` - a simple sort that follows the criteria mentioned above for the different panel.
 * `sort priority` - sorts the item within the panel by their priority (from high to low).
 * `sort desc` - sorts the item within the panel by their description (lexicographic order)
+//end::sort[]
 
+//tag::find[]
 === Finding a task: `find`
 Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
 
@@ -316,7 +319,9 @@ Examples:
 * `find CS2101` - find all items that have CS2101 in their description within that panel
 
 * `find CS2101 CS2103` - find items that contains either CS2101 or CS2103 within their description.
+//end::find[]
 
+//tag::priority[]
 === Entering priority mode: `priority`
 Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
@@ -338,7 +343,9 @@ Examples:
 * Note that this command can only be called in the task panel.
 * Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
 ****
+//end::priority[]
 
+//tag::open[]
 === Expanding an item in the view: `open` & `close`
 Want to see all the details of an item at one glance? Lazy to go to event list or reminder list to find them? We got you!
 

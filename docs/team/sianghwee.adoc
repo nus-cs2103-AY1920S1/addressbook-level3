@@ -85,8 +85,21 @@ Refactored the model and storage class so that it will work with the project.
 
 Updated the user guide to include the user stories (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/47[PR $47])
 
----
-Contributions to user guide (refer to user guide)
+== Contributions to the User Guide
 
----
-Contributions to developer guide (refer to developer guide)
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=priority]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
