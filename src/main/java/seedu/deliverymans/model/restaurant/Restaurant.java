@@ -3,7 +3,9 @@ package seedu.deliverymans.model.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -32,7 +34,7 @@ public class Restaurant {
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
-    private final ObservableList<Food> menu = FXCollections.observableArrayList();
+    private final List<Food> menu;
 
     /**
      * Every field must be present and not null.
@@ -43,27 +45,28 @@ public class Restaurant {
         this.location = location;
         this.rating = new Rating("0", 0);
         this.tags.addAll(tags);
+        this.menu = List.of();
         this.quantityOrdered = 0;
     }
 
-    public Restaurant(Name name, Location location, Set<Tag> tags, ObservableList<Food> menu) {
+    public Restaurant(Name name, Location location, Set<Tag> tags, List<Food> menu) {
         requireAllNonNull(name, location, tags, menu);
         this.name = name;
         this.location = location;
         this.rating = new Rating("0", 0);
         this.tags.addAll(tags);
-        this.menu.addAll(menu);
+        this.menu = List.copyOf(menu);
         this.quantityOrdered = 0;
     }
 
-    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu,
+    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, List<Food> menu,
                       int quantityOrdered) {
         requireAllNonNull(name, location, rating, tags);
         this.name = name;
         this.location = location;
         this.rating = rating;
         this.tags.addAll(tags);
-        this.menu.addAll(menu);
+        this.menu = List.copyOf(menu);
         this.quantityOrdered = quantityOrdered;
     }
 
@@ -83,7 +86,7 @@ public class Restaurant {
         return tags;
     }
 
-    public ObservableList<Food> getMenu() {
+    public List<Food> getMenu() {
         return menu;
     }
 
@@ -105,56 +108,66 @@ public class Restaurant {
 
 
     /**
-     * Adds the food item to the restaurant's menu
+     * Returns a new restaurant with the food item added to the restaurant's menu
      *
-     * @param toAdd
+     * @param toAdd Food to be added.
      */
-    public void addFood(Food toAdd) {
+    public Restaurant addFood(Food toAdd) {
         requireNonNull(toAdd);
         boolean isDuplicate = menu.stream().anyMatch(toAdd::isSameFood);
         if (isDuplicate) {
             throw new DuplicateFoodException();
         }
-        menu.add(toAdd);
+        List<Food> updatedMenu = new ArrayList<>(menu);
+        updatedMenu.add(toAdd);
+        return new Restaurant(name, location, rating, tags, updatedMenu, quantityOrdered);
     }
 
     /**
-     * Removes the food time from the restaurant's menu
+     * Returns a new restaurant with the food item removed from the restaurant's menu
      *
-     * @param toRemove
+     * @param toRemove Food to be removed.
      */
-    public void removeFood(Food toRemove) {
+    public Restaurant removeFood(Food toRemove) {
         requireAllNonNull(toRemove);
-        if (!menu.remove(toRemove)) {
+        List<Food> updatedMenu = new ArrayList<>(menu);
+        if (!updatedMenu.remove(toRemove)) {
             throw new FoodNotFoundException();
         }
+        return new Restaurant(name, location, rating, tags, updatedMenu, quantityOrdered);
     }
 
     /**
      * Updates quantityOrdered based on order
      */
-    public void updateQuantity(Order order) {
+    public Restaurant updateQuantity(Order order) {
+        int updatedQuantity = quantityOrdered;
+        List<Food> updatedMenu = new ArrayList<>(menu);
         for (Map.Entry<Name, Integer> entry : order.getFoodList().entrySet()) {
-            for (Food food : this.menu) {
+            for (int i = 0; i < updatedMenu.size(); i++) {
+                Food food = updatedMenu.get(i);
                 if (food.getName().equals(entry.getKey())) {
-                    this.quantityOrdered += entry.getValue().intValue();
-                    food.addQuantity(entry.getValue().intValue());
+                    updatedQuantity += entry.getValue();
+                    updatedMenu.set(i, food.addQuantity(entry.getValue()));
                 }
             }
         }
-        for (Food food : this.menu) {
-            food.updateTag(this.quantityOrdered, this.menu.size());
+        for (int i = 0; i < updatedMenu.size(); i++) {
+            Food food = updatedMenu.get(i);
+            updatedMenu.set(i, food.updateTag(updatedQuantity, updatedMenu.size()));
         }
+        return new Restaurant(name, location, rating, tags, updatedMenu, updatedQuantity);
     }
 
     /**
-     * Updates quantityOrdered based on quantity
+     * Updates quantityOrdered based on quantity and returns a new Restaurant.
      */
-    public void updateQuantity(int quantity) {
-        this.quantityOrdered += quantity;
+    public Restaurant updateQuantity(int quantity) {
+        List<Food> updatedMenu = new ArrayList<>();
         for (Food food : this.menu) {
-            food.updateTag(this.quantityOrdered, this.menu.size());
+            updatedMenu.add(food.updateTag(this.quantityOrdered, this.menu.size()));
         }
+        return new Restaurant(name, location, rating, tags, updatedMenu, quantityOrdered + quantity);
     }
 
     /**
