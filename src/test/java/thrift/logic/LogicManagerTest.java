@@ -7,12 +7,16 @@ import static thrift.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import thrift.logic.commands.AddExpenseCommand;
 import thrift.logic.commands.CommandResult;
+import thrift.logic.commands.CommandTestUtil;
 import thrift.logic.commands.HelpCommand;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.logic.parser.exceptions.ParseException;
@@ -58,9 +62,26 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
+    public void execute_validNonScrollingCommand_success() throws Exception {
         String helpCommand = HelpCommand.COMMAND_WORD;
         assertCommandSuccess(helpCommand, HelpCommand.SHOWING_HELP_MESSAGE, model);
+    }
+
+    @Test
+    public void execute_validScrollingCommand_success() throws Exception {
+        String addExpenseCommand = AddExpenseCommand.COMMAND_WORD + CommandTestUtil.DESC_LAKSA
+                + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.REMARK_LAKSA + CommandTestUtil.TAG_BURSARY
+                + CommandTestUtil.TAG_LAKSA;
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String currentDate = dtf.format(LocalDateTime.now());
+
+        String expectedMessage = "New expense added: [-] " + CommandTestUtil.VALID_DESCRIPTION_LAKSA + " ($"
+                + CommandTestUtil.VALID_VALUE_LAKSA + ") Date: " + currentDate + " Remarks: "
+                + CommandTestUtil.VALID_REMARK_LAKSA + " Tags: [" + CommandTestUtil.VALID_TAG_AWARD + "]["
+                + CommandTestUtil.VALID_TAG_LUNCH + "]";
+
+        assertCommandSuccess(addExpenseCommand, expectedMessage, model);
     }
 
     @Test

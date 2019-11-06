@@ -44,7 +44,7 @@ class UntagCommandParserTest {
 
     @Test
     void parse_withBlankTags() {
-        String input = "tag i/1 t/";
+        String input = "untag i/1 t/";
 
         assertParseFailure(parser, input,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT_WITH_PE,
@@ -56,6 +56,14 @@ class UntagCommandParserTest {
         String input = "untag";
 
         assertParseFailure(parser, input, String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    void parse_noTags() {
+        String input = "untag i/1";
+
+        assertParseFailure(parser, input, String.format(MESSAGE_INVALID_COMMAND_FORMAT_WITH_PE,
+                UntagCommand.MESSAGE_USAGE, UntagCommand.MESSAGE_NOT_UNTAGGED));
     }
 
 }

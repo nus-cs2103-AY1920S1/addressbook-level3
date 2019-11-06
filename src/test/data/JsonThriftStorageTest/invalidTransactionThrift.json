@@ -1,5 +1,12 @@
 {
   "transactions": [ {
+    "type" : "income",
+    "description" : "Transaction with invalid value field",
+    "value" : "5ab00.00",
+    "remark" : "Lucky me!",
+    "date" : "20/10/2019",
+    "tagged" : [ "Won", "Gamble" ]
+  }, {
     "type" : "expense",
     "description" : "Netflix",
     "value" : "abc",

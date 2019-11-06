@@ -1,6 +1,7 @@
 package thrift.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.testutil.Assert.assertThrows;
 
@@ -131,5 +132,23 @@ public class VersionTest {
     private void verifyVersionParsedCorrectly(String versionString,
             int major, int minor, int patch, boolean isEarlyAccess) {
         assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));
+    }
+
+    @Test
+    public void equals() {
+        Version version = new Version(1, 2, 3, true);
+
+        // Same object -> true
+        assertTrue(version.equals(version));
+
+        // Same values -> true
+        Version versionCopy = new Version(1, 2, 3, true);
+        assertTrue(version.equals(versionCopy));
+
+        // null -> false
+        assertFalse(version.equals(null));
+
+        // Different object type -> false
+        assertFalse(version.equals("Version"));
     }
 }

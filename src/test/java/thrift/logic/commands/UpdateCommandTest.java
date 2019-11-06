@@ -44,9 +44,8 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION, descriptor);
 
         String expectedMessageUpdated = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedExpense);
-
         Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(1), updatedExpense);
+        expectedModel.setTransactionWithIndex(Index.fromZeroBased(1), updatedExpense);
 
         assertCommandSuccess(updateCommand, model, expectedMessageUpdated + expectedMessageOriginal,
                 expectedModel);
@@ -65,9 +64,8 @@ public class UpdateCommandTest {
 
         String expectedMessageUpdated = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS,
                 updatedTransaction);
-
         Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
-        expectedModel.setTransaction(lastTransaction, updatedTransaction);
+        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
 
         assertCommandSuccess(updateCommand, model, expectedMessageUpdated
                 + expectedMessageOriginal, expectedModel);
@@ -87,9 +85,8 @@ public class UpdateCommandTest {
 
         String expectedMessageUpdated = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS,
                 updatedTransaction);
-
         Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), updatedTransaction);
+        expectedModel.setTransactionWithIndex(Index.fromZeroBased(0), updatedTransaction);
 
         assertCommandSuccess(updateCommand, model, expectedMessageUpdated
                 + expectedMessageOriginal, expectedModel);

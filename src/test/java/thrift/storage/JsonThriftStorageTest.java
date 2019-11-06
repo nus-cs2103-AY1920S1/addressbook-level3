@@ -106,4 +106,5 @@ public class JsonThriftStorageTest {
     public void saveThrift_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveThrift(new Thrift(), null));
     }
+
 }

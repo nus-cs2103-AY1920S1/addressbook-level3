@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static thrift.logic.commands.CommandTestUtil.assertCommandFailure;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static thrift.logic.commands.CommandTestUtil.assertRedoCommandSuccess;
 import static thrift.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
@@ -14,6 +15,8 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import thrift.commons.core.Messages;
+import thrift.commons.core.index.Index;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
@@ -23,6 +26,7 @@ import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
 import thrift.testutil.ExpenseBuilder;
+import thrift.testutil.IncomeBuilder;
 import thrift.testutil.TagSetBuilder;
 import thrift.testutil.TypicalIndexes;
 import thrift.testutil.TypicalTransactions;
@@ -60,12 +64,65 @@ class TagCommandTest {
     }
 
     @Test
+    void execute_existingTagsPresent_success() throws CommandException {
+        Income originalIncome = new IncomeBuilder(model.getFilteredTransactionList().get(1))
+                .withTags("Test", "Tag").build();
+        model.setTransactionWithIndex(TypicalIndexes.INDEX_SECOND_TRANSACTION, originalIncome);
+
+        Set<Tag> tagSet = new TagSetBuilder("Test", "Freedom", "Yahoo").build();
+        TagCommand tagCommand = new TagCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION, tagSet);
+
+        Set<Tag> expectedUpdatedTag = new TagSetBuilder("Freedom", "Tag", "Test", "Yahoo")
+                .build();
+        Income updatedIncome = new Income(
+                originalIncome.getDescription(),
+                originalIncome.getValue(),
+                originalIncome.getRemark(),
+                originalIncome.getDate(),
+                expectedUpdatedTag);
+
+        String taggedTransactionNotification = String.format(TagCommand.MESSAGE_TAG_TRANSACTION_SUCCESS,
+                updatedIncome);
+        String nonexistentTagsNotification = String.format(TagCommand.MESSAGE_TAG_EXISTED, "[Test]");
+        String originalTransactionNotification = String.format(UntagCommand.MESSAGE_ORIGINAL_TRANSACTION,
+                originalIncome);
+        String expectedMessage = taggedTransactionNotification + nonexistentTagsNotification
+                + originalTransactionNotification;
+
+        ModelManager expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
+        expectedModel.setTransactionWithIndex(TypicalIndexes.INDEX_SECOND_TRANSACTION, updatedIncome);
+
+        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    void invalidIndexField_throwsCommandException() {
+        Index index = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
+        TagCommand tagCommand = new TagCommand(index, new TagSetBuilder().addTag("Test").build());
+
+        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+    }
+
+    @Test
+    void noTagsAdded_throwsCommandException() {
+        Expense expense = new ExpenseBuilder(model.getFilteredTransactionList().get(0))
+                .withTags("Test", "Tag").build();
+        model.setTransactionWithIndex(TypicalIndexes.INDEX_THIRD_TRANSACTION, expense);
+
+        Set<Tag> tagSet = new TagSetBuilder("Test", "Tag").build();
+        TagCommand tagCommand = new TagCommand(TypicalIndexes.INDEX_THIRD_TRANSACTION, tagSet);
+
+        assertCommandFailure(tagCommand, model, TagCommand.MESSAGE_NO_NEW_TAGS);
+    }
+
+    @Test
     void undoAndRedo_tagForExpense_success() {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
         Transaction lastTransaction = model.getFilteredTransactionList()
                 .get(TypicalIndexes.INDEX_THIRD_TRANSACTION.getZeroBased());
         //checks if lastTransaction is an expense
         assertTrue(lastTransaction instanceof Expense);
+
         //assuming that it is tagging the transaction with non-duplicate tag
         Set<Tag> tagSet = new TagSetBuilder("Food", "Recommended").build();
         Set<Tag> updatedTags = new HashSet<Tag>(lastTransaction.getTags());

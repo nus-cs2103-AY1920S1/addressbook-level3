@@ -170,6 +170,10 @@ public class LogicManager implements Logic {
 
     @Override
     public void updateBalanceBar(BalanceBar balanceBar) {
+        // Return on null for testing as JavaFX components cannot be initialized during testing
+        if (balanceBar == null) {
+            return;
+        }
         balanceBar.setMonthYear(getCurrentMonthYear());
         balanceBar.setMonthBudget(getCurrentMonthBudget());
         balanceBar.setMonthBalance(getCurrentMonthBalance());

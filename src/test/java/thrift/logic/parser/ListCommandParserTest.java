@@ -23,7 +23,7 @@ public class ListCommandParserTest {
     public void parse_invalidPreamble_failure() {
         // invalid non empty preamble before valid prefix
         assertParseFailure(parser, CommandTestUtil.PREAMBLE_NON_EMPTY
-                + CommandTestUtil.VALID_MONTH_JAN_19, MESSAGE_INVALID_FORMAT);
+                + CommandTestUtil.MONTH_JAN_19, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -54,6 +54,12 @@ public class ListCommandParserTest {
     public void parse_allFieldsPresent_success() {
         // includes month prefix, list transactions by some specific month (jan 2019).
         assertDoesNotThrow(() -> parser.parse(CommandTestUtil.MONTH_JAN_19));
+    }
+
+
+    @Test
+    public void parse_missingMonthParam_failure() {
+        assertParseFailure(parser, CommandTestUtil.VALID_MONTH_JAN_19, MESSAGE_INVALID_FORMAT);
     }
 
 }

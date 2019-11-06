@@ -1,6 +1,7 @@
 package thrift.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Calendar;
@@ -27,6 +28,25 @@ public class BudgetTest {
         Budget b1 = new Budget(now, new BudgetValue("123"));
         Budget b2 = new Budget(now, new BudgetValue("123"));
         assertEquals(b1, b2);
+
+        // Same object
+        assertEquals(b1, b1);
+    }
+
+    @Test
+    public void equalsOnDifferent_returnsFalse() {
+        Calendar now = Calendar.getInstance();
+        Budget budget = new Budget(now, new BudgetValue("123"));
+
+        // Different object
+        assertFalse(budget.equals("Budget"));
+
+        // Null object
+        assertFalse(budget.equals(null));
+
+        // Different values
+        Budget differentBudget = new Budget(now, new BudgetValue("456"));
+        assertFalse(budget.equals(differentBudget));
     }
 
 }

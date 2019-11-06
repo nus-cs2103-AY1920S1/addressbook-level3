@@ -16,14 +16,19 @@ import org.junit.jupiter.api.Test;
 
 import thrift.logic.commands.AddExpenseCommand;
 import thrift.logic.commands.AddIncomeCommand;
+import thrift.logic.commands.BudgetCommand;
 import thrift.logic.commands.CloneCommand;
+import thrift.logic.commands.CommandTestUtil;
+import thrift.logic.commands.ConvertCommand;
 import thrift.logic.commands.DeleteCommand;
 import thrift.logic.commands.ExitCommand;
 import thrift.logic.commands.FindCommand;
 import thrift.logic.commands.HelpCommand;
 import thrift.logic.commands.ListCommand;
 import thrift.logic.commands.RedoCommand;
+import thrift.logic.commands.TagCommand;
 import thrift.logic.commands.UndoCommand;
+import thrift.logic.commands.UntagCommand;
 import thrift.logic.commands.UpdateCommand;
 import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
 import thrift.logic.parser.exceptions.ParseException;
@@ -39,6 +44,14 @@ import thrift.testutil.UpdateTransactionDescriptorBuilder;
 public class ThriftParserTest {
 
     private final ThriftParser parser = new ThriftParser();
+
+    @Test
+    public void getArguments_emptyUserInput_throwsParseException() {
+        String userInput = "";
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE);
+
+        assertThrows(ParseException.class, expectedMessage, () -> parser.getArguments(userInput));
+    }
 
     @Test
     public void parseCommand_addExpense() throws Exception {
@@ -64,6 +77,7 @@ public class ThriftParserTest {
     public void parseCommand_update() throws Exception {
         Expense expense = new ExpenseBuilder().build();
         UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder(expense).build();
+
         assertDoesNotThrow(() -> (UpdateCommand) parser.parseCommand(UpdateCommand.COMMAND_WORD
                 + " " + CliSyntax.PREFIX_INDEX + TypicalIndexes.INDEX_FIRST_TRANSACTION.getOneBased() + " "
                 + TransactionUtil.getUpdateTransactionDescriptorDetails(descriptor)));
@@ -114,10 +128,42 @@ public class ThriftParserTest {
 
     @Test
     public void parseCommand_clone() throws Exception {
-        CloneCommand command = (CloneCommand) parser.parseCommand(
-                CloneCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX
-                        + TypicalIndexes.INDEX_FIRST_TRANSACTION.getOneBased());
+        String userInput = CloneCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX
+                + TypicalIndexes.INDEX_FIRST_TRANSACTION.getOneBased();
+        CloneCommand command = (CloneCommand) parser.parseCommand(userInput);
+
         assertEquals(new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, new Occurrence("daily", 0)), command);
+    }
+
+    @Test
+    public void parseCommand_budget() throws Exception {
+        String userInput = BudgetCommand.COMMAND_WORD + CommandTestUtil.VALUE_BUDGET + CommandTestUtil.DATE_BUDGET;
+        assertDoesNotThrow(() -> (BudgetCommand) parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_tag() throws Exception {
+        String userInput = TagCommand.COMMAND_WORD + CommandTestUtil.INDEX_TOKEN
+                + TypicalIndexes.INDEX_FIRST_TRANSACTION.getOneBased() + CommandTestUtil.TAG_BURSARY
+                + CommandTestUtil.TAG_AIRPODS;
+
+        assertDoesNotThrow(() -> (TagCommand) parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_untag() throws Exception {
+        String userInput = UntagCommand.COMMAND_WORD + CommandTestUtil.INDEX_TOKEN
+                + TypicalIndexes.INDEX_SECOND_TRANSACTION.getOneBased() + CommandTestUtil.TAG_BRUNCH
+                + CommandTestUtil.TAG_LAKSA;
+
+        assertDoesNotThrow(() -> (UntagCommand) parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_convert() throws Exception {
+        String userInput = ConvertCommand.COMMAND_WORD + CommandTestUtil.VALUE_CONVERT + CommandTestUtil.CURRENCY_USD
+                + CommandTestUtil.CURRENCY_MYR;
+        assertDoesNotThrow(() -> (ConvertCommand) parser.parseCommand(userInput));
     }
 
     @Test

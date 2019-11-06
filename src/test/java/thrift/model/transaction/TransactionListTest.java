@@ -7,6 +7,7 @@ import static thrift.testutil.Assert.assertThrows;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -106,7 +107,7 @@ public class TransactionListTest {
     @Test
     public void setTransactionWithIndex_invalidIndex_throwsIndexOutOfBoundsException() {
         assertThrows(IndexOutOfBoundsException.class, () -> transactionList
-                .setTransactionWithIndex(Index.fromOneBased(0), TypicalTransactions.LAKSA));
+                .setTransactionWithIndex(Index.fromZeroBased(0), TypicalTransactions.LAKSA));
     }
 
     @Test
@@ -160,5 +161,14 @@ public class TransactionListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> transactionList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void getIndex_transactionNotInList() {
+        transactionList.add(TypicalTransactions.BURSARY);
+        transactionList.add(TypicalTransactions.LAKSA);
+        Optional<Index> indexFound = transactionList.getIndex(TypicalTransactions.PENANG_LAKSA);
+
+        assertTrue(indexFound.isEmpty());
     }
 }

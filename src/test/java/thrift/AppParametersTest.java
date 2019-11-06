@@ -1,6 +1,8 @@
 package thrift;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -35,6 +37,22 @@ public class AppParametersTest {
         parametersStub.namedParameters.put("config", "a\0");
         expected.setConfigPath(null);
         assertEquals(expected, AppParameters.parse(parametersStub));
+    }
+
+    @Test
+    public void equals() {
+        parametersStub.namedParameters.put("config", "config.json");
+        AppParameters testAppParameters = AppParameters.parse(parametersStub);
+
+        // Same object -> true
+        assertTrue(testAppParameters.equals(testAppParameters));
+
+        // Different types -> false
+        assertFalse(testAppParameters.equals(3));
+
+        // Same configPath -> trues
+        AppParameters testAppParametersCopy = AppParameters.parse(parametersStub);
+        assertTrue(testAppParameters.equals(testAppParametersCopy));
     }
 
     private static class ParametersStub extends Application.Parameters {

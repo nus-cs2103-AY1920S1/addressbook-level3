@@ -123,28 +123,6 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
     }
 
     /**
-     * Creates a clone of the transaction at {@link #targetIndex} of the displayed list.
-     *
-     * @param transactionToClone {@link Transaction} that a clone should be created of, with current Date.
-     * @param date that the cloned Transaction should contain.
-     * @return {@link Expense} or {@link Income} clone of {@code transactionToClone} containing current Date.
-     */
-    private Transaction createClonedTransaction(Transaction transactionToClone, String date) {
-
-        Description clonedDescription = transactionToClone.getDescription();
-        Value clonedValue = transactionToClone.getValue();
-        Remark clonedRemark = transactionToClone.getRemark();
-        Set<Tag> clonedTags = transactionToClone.getTags();
-        TransactionDate currentDate = new TransactionDate(date);
-        if (transactionToClone instanceof Expense) {
-            return new Expense(clonedDescription, clonedValue, clonedRemark, currentDate, clonedTags);
-        } else {
-            assert transactionToClone instanceof Income : "Transaction to clone not of type Expense or Income";
-            return new Income(clonedDescription, clonedValue, clonedRemark, currentDate, clonedTags);
-        }
-    }
-
-    /**
      * Adds cloned transactions to the existing {@link Model} and scrolls to their list entries in the
      * {@link TransactionListPanel}.
      *
@@ -181,7 +159,8 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
             // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
             // handle JavaFX initialization
             if (transactionListPanel != null && model.isInView(clonedTransaction)) {
-                transactionListPanel.getTransactionListView().scrollTo(model.getFilteredTransactionList().size() - 1);
+                int cloneIndex = model.getFilteredTransactionList().size() - 1;
+                transactionListPanel.getTransactionListView().scrollTo(cloneIndex);
             }
         }
 
@@ -205,6 +184,28 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
         }
         calendar.add(frequencyCalendarField, dateFieldIncrement);
         return DATE_FORMATTER.format(calendar.getTime());
+    }
+
+    /**
+     * Creates a clone of the transaction at {@link #targetIndex} of the displayed list.
+     *
+     * @param transactionToClone {@link Transaction} that a clone should be created of, with current Date.
+     * @param date that the cloned Transaction should contain.
+     * @return {@link Expense} or {@link Income} clone of {@code transactionToClone} containing current Date.
+     */
+    private Transaction createClonedTransaction(Transaction transactionToClone, String date) {
+
+        Description clonedDescription = transactionToClone.getDescription();
+        Value clonedValue = transactionToClone.getValue();
+        Remark clonedRemark = transactionToClone.getRemark();
+        Set<Tag> clonedTags = transactionToClone.getTags();
+        TransactionDate currentDate = new TransactionDate(date);
+        if (transactionToClone instanceof Expense) {
+            return new Expense(clonedDescription, clonedValue, clonedRemark, currentDate, clonedTags);
+        } else {
+            assert transactionToClone instanceof Income : "Transaction to clone not of type Expense or Income";
+            return new Income(clonedDescription, clonedValue, clonedRemark, currentDate, clonedTags);
+        }
     }
 
     @Override

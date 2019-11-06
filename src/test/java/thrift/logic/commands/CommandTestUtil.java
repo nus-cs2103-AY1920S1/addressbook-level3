@@ -2,6 +2,7 @@ package thrift.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static thrift.logic.parser.CliSyntax.PREFIX_CURRENCY;
 import static thrift.logic.parser.CliSyntax.PREFIX_DATE;
 import static thrift.logic.parser.CliSyntax.PREFIX_INDEX;
 import static thrift.logic.parser.CliSyntax.PREFIX_MONTH;
@@ -48,7 +49,9 @@ public class CommandTestUtil {
     public static final String VALID_TAG_BRUNCH = "Brunch";
     public static final String VALID_TAG_ACCESSORY = "Accessory";
     public static final String VALID_MONTH_JAN_19 = "01/2019";
-
+    public static final String VALID_VALUE_CONVERT = "10000";
+    public static final String VALID_CURRENCY_USD = "USD";
+    public static final String VALID_CURRENCY_MYR = "MYR";
 
     public static final String DESC_BURSARY = " " + PREFIX_NAME + VALID_DESCRIPTION_BURSARY;
     public static final String DESC_LAKSA = " " + PREFIX_NAME + VALID_DESCRIPTION_LAKSA;
@@ -67,6 +70,9 @@ public class CommandTestUtil {
     public static final String INDEX_TOKEN = " " + PREFIX_INDEX;
     public static final String MONTH_JAN_19 = " " + PREFIX_MONTH + VALID_MONTH_JAN_19;
     public static final String OCCURRENCE_TOKEN = " " + PREFIX_OCCURRENCE;
+    public static final String VALUE_CONVERT = " " + PREFIX_VALUE + VALID_VALUE_CONVERT;
+    public static final String CURRENCY_USD = " " + PREFIX_CURRENCY + VALID_CURRENCY_USD;
+    public static final String CURRENCY_MYR = " " + PREFIX_CURRENCY + VALID_CURRENCY_MYR;
 
     public static final String INVALID_VALUE = " " + PREFIX_VALUE + ".00"; // missing whole number
     public static final String INVALID_DATE = " " + PREFIX_DATE + "13/aaaa"; // invalid month and non numeric year

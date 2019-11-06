@@ -39,7 +39,6 @@ public class NoArgumentsCommandParser implements Parser<Command> {
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
-        throw new ParseException(String.format(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                errorMessage)));
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, errorMessage));
     }
 }

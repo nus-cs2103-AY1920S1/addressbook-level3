@@ -414,7 +414,7 @@ The following is an explanation for the `clone` command:
 
 - `FREQUENCY` is how often or how far apart the clones occur. Valid values are: `daily`, `weekly`, `monthly` and `yearly`.
 
-- `NUMBER_OF_OCCURRENCES` determines how many clones are produced. If `NUMBER_OF_OCCURRENCES` is 0, the result is exactly the same as `clone i/INDEX` without the entire `FREQUENCT:NUMBER_OF_OCCURRENCES` field.
+- `NUMBER_OF_OCCURRENCES` determines how many clones are produced. If `NUMBER_OF_OCCURRENCES` is 0, the result is exactly the same as `clone i/INDEX` without the entire `FREQUENCY:NUMBER_OF_OCCURRENCES` field.
 
 - The maximum `NUMBER_OF_OCCURRENCES` is **5 for `yearly`** and **12 for `daily`, `weekly` and `monthly`**.
 

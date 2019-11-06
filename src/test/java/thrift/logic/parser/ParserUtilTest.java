@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static thrift.testutil.Assert.assertThrows;
 
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.tag.Tag;
+import thrift.model.transaction.Budget;
 import thrift.model.transaction.Value;
 import thrift.testutil.TypicalIndexes;
 
@@ -41,6 +44,11 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(TypicalIndexes.INDEX_FIRST_TRANSACTION, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void parseDate_invalidDate_throwsParseException() {
+        assertThrows(ParseException.class, Budget.DATE_CONSTRAINTS, () -> ParserUtil.parseDate("Feb2019"));
     }
 
     @Test
@@ -93,5 +101,35 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseCurrencies_invalidCurrencyFormat_throwsParseException() {
+        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_CURRENCY, ()
+            -> ParserUtil.parseCurrencies(new ArrayList<String>() {
+                {
+                    add("Ka-Ching!");
+                    add("$$$");
+                }
+            }));
+    }
+
+    @Test
+    public void parseMonth_validMonth_success() throws ParseException {
+        Month expectedMonth = Month.valueOf("JANUARY");
+        assertEquals(expectedMonth, ParserUtil.parseMonth("Jan"));
+    }
+
+    @Test
+    public void parseMonth_invalidMonthInput_throwsParseException() {
+        // Invalid input month String
+        assertThrows(ParseException.class, ListCommandParser.MESSAGE_INVALID_MONTH_FORMAT, ()
+            -> ParserUtil.parseMonth("FirstMonth"));
+    }
+
+    @Test
+    public void parseMonth_nullMonthInput_throwsNullPointerException() throws NullPointerException {
+        // Null input month String
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMonth(null));
     }
 }
