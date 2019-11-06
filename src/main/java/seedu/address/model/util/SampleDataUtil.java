@@ -32,7 +32,7 @@ public class SampleDataUtil {
                     new MedicalCondition("Sinus"), getTagSet("English REP")),
             new Student(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                     new ParentPhone("92222222"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    new MedicalCondition("Asthma"), getTagSet("colleagues", "Math REP")),
+                    new MedicalCondition("Asthma"), getTagSet("Math REP")),
             new Student(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                     new ParentPhone("93333333"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     new MedicalCondition("Heart Attack"), getTagSet("Misbehaves a lot")),
