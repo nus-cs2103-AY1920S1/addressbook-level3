@@ -102,6 +102,7 @@ public class MainApp extends Application {
                     SampleDataUtil::getSampleReplenishList
             );
         } catch (DataConversionException e) {
+            logger.warning(e.getMessage());
             logger.warning("Data file not in the correct format. Will be starting with an empty Expiry Date Tracker");
             initialTrackerData = new Xpire();
             initialReplenishData = new ReplenishList();

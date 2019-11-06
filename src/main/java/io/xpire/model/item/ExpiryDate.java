@@ -13,8 +13,8 @@ import io.xpire.commons.util.DateUtil;
  */
 public class ExpiryDate {
     public static final String DATE_FORMAT = "d/M/yyyy";
-    public static final String MESSAGE_CONSTRAINTS_LOWER = "Only Expiry dates that have not yet passed are accepted";
-    public static final String MESSAGE_CONSTRAINTS_UPPER = "Only Expiry dates strictly within 100 years are accepted";
+    public static final String MESSAGE_CONSTRAINTS_LOWER = "Only expiry dates that have not yet passed are accepted";
+    public static final String MESSAGE_CONSTRAINTS_UPPER = "Only expiry dates strictly within 100 years are accepted";
 
     public static final String MESSAGE_CONSTRAINTS_FORMAT =
             "Expiry dates should only contain numbers, in the format " + DATE_FORMAT;

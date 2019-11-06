@@ -1,5 +1,6 @@
 package io.xpire.storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.xpire.commons.exceptions.IllegalValueException;
+import io.xpire.commons.util.DateUtil;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
@@ -75,6 +77,7 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted xpireItem.
      */
+    @Override
     public XpireItem toModelType() throws IllegalValueException {
 
         if (this.name == null) {
@@ -91,6 +94,10 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
         }
         if (!ExpiryDate.isValidFormatExpiryDate(this.expiryDate)) {
             throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
+        }
+
+        if (!ExpiryDate.isValidUpperRangeExpiryDate(this.expiryDate)) {
+            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_UPPER);
         }
 
         final ExpiryDate modelExpiryDate = new ExpiryDate(this.expiryDate);
@@ -112,6 +119,17 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
         if (!ReminderThreshold.isValidReminderThreshold(this.reminderThreshold)) {
             throw new IllegalValueException(ReminderThreshold.MESSAGE_CONSTRAINTS);
         }
+
+        /* since the date of creation of the item is known,
+            this check assumes the date to be no earlier than 01/10/2019.
+            Any reminder threshold that results in the reminder before 01/10/2019 will be rejected.
+         */
+        String daysSinceRelease = "" + DateUtil.getOffsetDays(LocalDate.of(2019, 10, 1), modelExpiryDate.getDate());
+
+        if (!ReminderThreshold.isValidReminderThreshold(this.reminderThreshold, daysSinceRelease)) {
+            throw new IllegalValueException(ReminderThreshold.MESSAGE_CONSTRAINTS_LOWER);
+        }
+
         final ReminderThreshold modelReminderThreshold = new ReminderThreshold(this.reminderThreshold);
 
         final List<Tag> itemTags = new ArrayList<>();
