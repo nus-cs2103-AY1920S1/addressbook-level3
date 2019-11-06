@@ -136,7 +136,10 @@ exists currently in the database.
 [TIP]
 ====
 
-Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+.Tip
+
+* Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+
 image::userguide\autocomplete1.png[width="790"]
 ====
 
@@ -215,7 +218,10 @@ image::userguide\EditOrder3.png[width="790"]
 [TIP]
 ====
 
-Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+.Tip
+
+* Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+
 image::userguide\autocomplete1.png[width="790"]
 ====
 
