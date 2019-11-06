@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.model.appointment;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
@@ -83,6 +84,28 @@ public class Appointment {
                 && (otherAppointment.getEndDateTime().equals(getEndDateTime())
                 && otherAppointment.getFrequency().equals(getFrequency()))
                 && otherAppointment.getPatient().equals(getPatient());
+    }
+
+    /**
+     * Returns true if both appointments have overlapping start and end date times.
+     */
+    public boolean isOverlappingTime(Appointment otherAppointment) {
+        LocalDateTime otherStart = otherAppointment.getStartDateTime().dateTime;
+        LocalDateTime otherEnd = otherAppointment.getEndDateTime().dateTime;
+
+        LocalDateTime thisStart = getStartDateTime().dateTime;
+        LocalDateTime thisEnd = getEndDateTime().dateTime;
+
+        // Case 1 when overlapping: otherStart is before or equal to thisStart AND otherEnd is equal or after thisStart
+        boolean caseOneOverlapTrue = (otherStart.isBefore(thisStart) || otherStart.isEqual(thisStart))
+                                        && (otherEnd.isEqual(thisStart) || otherEnd.isAfter(thisStart));
+
+        // Case 2 when overlapping: otherStart is between or equal to the thisStart and thisEnd
+        boolean caseTwoOverlapTrue = otherStart.isEqual(thisStart)
+                                        || (otherStart.isAfter(thisStart) && otherStart.isBefore(thisEnd));
+
+        return caseOneOverlapTrue || caseTwoOverlapTrue;
+
     }
 
     /**

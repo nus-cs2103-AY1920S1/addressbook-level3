@@ -40,7 +40,7 @@ public class EndDateTime extends DateTime {
         if (validStartDateTime && validEndDateTime) {
             StartDateTime start = new StartDateTime(startDateTime);
             EndDateTime end = new EndDateTime(endDateTime);
-            return end.dateTime.isAfter(start.dateTime) || end.dateTime.isEqual(start.dateTime);
+            return end.dateTime.isAfter(start.dateTime);
         } else {
             return false;
         }

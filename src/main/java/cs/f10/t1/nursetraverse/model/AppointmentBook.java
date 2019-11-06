@@ -11,7 +11,6 @@ import cs.f10.t1.nursetraverse.commons.exceptions.CopyError;
 import cs.f10.t1.nursetraverse.commons.exceptions.IllegalValueException;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.appointment.UniqueAppointmentList;
-import cs.f10.t1.nursetraverse.model.datetime.DateTime;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
@@ -75,6 +74,14 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
         return appointments.contains(appointment);
+    }
+
+    /**
+     * Returns true if an appointment with clashing time as {@code appointment} exists in the appointment book.
+     */
+    public boolean hasClashingAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return appointments.clashes(appointment);
     }
 
     /**

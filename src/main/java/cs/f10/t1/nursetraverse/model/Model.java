@@ -233,9 +233,14 @@ public interface Model {
     ReadOnlyAppointmentBook getStagedAppointmentBook();
 
     /**
-     * Returns true if an appointment with the same identity as {@code patient} exists in the appointment list.
+     * Returns true if an appointment with the same identity as {@code appointment} exists in the appointment list.
      */
     boolean hasAppointment(Appointment appointment);
+
+    /**
+     * Returns true if an appointment has clashing time as {@code appointment} exists in the appointment list.
+     */
+    boolean hasClashingAppointment(Appointment appointment);
 
     /**
      * Deletes the given appointment.

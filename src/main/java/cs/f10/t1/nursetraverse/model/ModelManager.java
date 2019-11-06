@@ -424,6 +424,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasClashingAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return stagedAppointmentBook.hasClashingAppointment(appointment);
+    }
+
+    @Override
     public void deleteAppointment(Appointment target) {
         stagedAppointmentBook.removeAppointment(target);
         refreshStagedAppointments();
@@ -442,6 +448,7 @@ public class ModelManager implements Model {
         stagedAppointmentBook.addAppointment(appointment);
         refreshStagedAppointments();
         sortStagedAppointments();
+        replaceStagedAppointmentBook(stagedAppointments);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
@@ -452,6 +459,7 @@ public class ModelManager implements Model {
         stagedAppointmentBook.setAppointment(target, editedAppointment);
         refreshStagedAppointments();
         sortStagedAppointments();
+        replaceStagedAppointmentBook(stagedAppointments);
     }
 
     @Override
@@ -460,7 +468,6 @@ public class ModelManager implements Model {
 
         stagedAppointmentBook.editAppointments(patientToEdit, editedPatient);
         refreshStagedAppointments();
-        sortStagedAppointments();
     }
 
     private void refreshStagedAppointments() {
