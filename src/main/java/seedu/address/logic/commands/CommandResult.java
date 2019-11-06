@@ -46,10 +46,7 @@ public class CommandResult {
         return commandResultType;
     }
 
-    public String getTargetPrintableFileName() throws NullPointerException {
-        if (targetPrintableFileName == null) {
-            throw new NullPointerException("no target export file name specified in command result");
-        }
+    public String getTargetPrintableFileName() {
         return targetPrintableFileName;
     }
 
@@ -65,6 +62,13 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
+
+        if ((targetPrintableFileName != null) && (otherCommandResult.getTargetPrintableFileName() != null)) {
+            return feedbackToUser.equals(otherCommandResult.feedbackToUser)
+                    && commandResultType == otherCommandResult.commandResultType
+                    && targetPrintableFileName.equals(otherCommandResult.getTargetPrintableFileName());
+        }
+
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
             && commandResultType == otherCommandResult.commandResultType;
     }

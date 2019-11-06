@@ -23,8 +23,8 @@ import seedu.address.testutil.model.ModelStub;
 
 public class EventAddCommandTest {
 
-    private static final String VALID_EVENT_NAME  = "my event";
-    private static final String VALID_OTHER_EVENT_NAME  = "my other event";
+    private static final String VALID_EVENT_NAME = "my event";
+    private static final String VALID_OTHER_EVENT_NAME = "my other event";
     private static final LocalDateTime VALID_DATE_TIME_START = LocalDateTime.parse("2019-01-01T03:00");
     private static final LocalDateTime VALID_DATE_TIME_END = LocalDateTime.parse("2019-01-01T04:00");
 

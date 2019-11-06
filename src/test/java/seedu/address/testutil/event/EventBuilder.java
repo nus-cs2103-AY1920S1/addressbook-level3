@@ -1,9 +1,7 @@
 package seedu.address.testutil.event;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRuleCache;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.RecurrenceType;
 
@@ -32,7 +30,7 @@ public class EventBuilder {
         endDateTime = DEFAULT_END_TIME;
         colorCategory = DEFAULT_COLOR_CATEGORY;
         uniqueIdentifier = DEFAULT_UNIQUE_IDENTIFIER;
-        recurrenceType= DEFAULT_RECURRENCE_TYPE;
+        recurrenceType = DEFAULT_RECURRENCE_TYPE;
     }
 
     /**

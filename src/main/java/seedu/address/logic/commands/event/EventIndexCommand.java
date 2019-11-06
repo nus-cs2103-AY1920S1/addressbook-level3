@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.EventUtil.formatIndexVEventPair;
 
 import java.util.List;
 
@@ -21,8 +22,9 @@ public class EventIndexCommand extends EventCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets Index of a Event\n"
             + "Parameters:\n"
             + "Example: event indexOf/cs2100 lecture";
-    private static final String NO_EVENT = "There are no events in nJoy assistant.";
-
+    public static final String NO_EVENT = "There are no events in nJoy assistant.";
+    public static final String MESSAGE_SUGGESTION_EVENT =
+            "Could not find event specified. This is the closest event we can find: \n%s";
     private final String desiredEventName;
 
     /**
@@ -72,24 +74,7 @@ public class EventIndexCommand extends EventCommand {
      * @param resultVEventPair the index, vEvent pair that is to be shown to the user
      */
     private String generateSuggestionMessage(Pair<Index, VEvent> resultVEventPair) {
-        Index vEventIndex = resultVEventPair.getKey();
-        VEvent vEvent = resultVEventPair.getValue();
-        return "Could not find event specified. This is the closest event we can find: \n"
-                + formatIndexVEventPair(resultVEventPair);
-    }
-
-    /**
-     * Formats a Index, VEvent pair to a presentable form
-     *
-     * @param indexVEventPair the index, vEvent pair that is to be shown to the user
-     */
-    private String formatIndexVEventPair(Pair<Index, VEvent> indexVEventPair) {
-        Index vEventIndex = indexVEventPair.getKey();
-        VEvent vEvent = indexVEventPair.getValue();
-        return String.format("Index: %d || event name: %s || start datetime: %s || end datetime: %s\n",
-                vEventIndex.getOneBased(), vEvent.getSummary().getValue(),
-                vEvent.getDateTimeStart().getValue().toString(),
-                vEvent.getDateTimeEnd().getValue().toString());
+        return String.format(MESSAGE_SUGGESTION_EVENT, formatIndexVEventPair(resultVEventPair));
     }
 
     @Override

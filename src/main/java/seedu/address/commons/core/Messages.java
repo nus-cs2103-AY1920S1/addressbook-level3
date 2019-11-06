@@ -50,4 +50,5 @@ public class Messages {
             + " have the same event name, start date time and end date time.";
     public static final String MESSAGE_INVALID_SCHEDULE_VIEW_MODE = "Invalid schedule view mode."
             + " Please input weekly or daily only";
+    public static final String MESSAGE_INVALID_DATE = "Invalid date format passed. Should be of format YYYY-MM-DD";
 }

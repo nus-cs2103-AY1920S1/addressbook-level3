@@ -18,7 +18,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.ReadOnlyEvents;
-import seedu.address.storage.event.JsonEventStorage;
 import seedu.address.testutil.event.EventBuilder;
 import seedu.address.testutil.event.TypicalEvents;
 
@@ -62,8 +61,8 @@ public class JsonEventStorageTest {
 
     @Test
     public void readEventRecord_invalidAndValidEventsEventRecord_throwDataConversionException() {
-        assertThrows(DataConversionException.class,
-                () -> readEventRecord("invalidAndValidEventsEventRecord.json"));
+        assertThrows(DataConversionException.class, () ->
+                readEventRecord("invalidAndValidEventsEventRecord.json"));
     }
 
     @Test

@@ -13,7 +13,6 @@ import static seedu.address.testutil.event.TypicalVEvents.VEVENT2;
 import static seedu.address.testutil.event.TypicalVEvents.VEVENT3;
 import static seedu.address.testutil.event.TypicalVEvents.VEVENT4;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -103,9 +102,9 @@ public class EventRecordTest {
     @Test
     public void hasVEvent_vEventWithSameIdentityFieldsInEventRecord_returnsTrue() {
         eventRecord.addVEvent(VEVENT1);
-        VEvent editedVEVENT1 = new VEvent(VEVENT1).withCategories("group23")
+        VEvent editedVEvent1 = new VEvent(VEVENT1).withCategories("group23")
                 .withRecurrenceRule("FREQ=DAILY;COUNT=2");
-        assertTrue(eventRecord.contains(editedVEVENT1));
+        assertTrue(eventRecord.contains(editedVEvent1));
     }
 
     @Test
@@ -141,11 +140,11 @@ public class EventRecordTest {
     @Test
     public void setVEvent_editedVEventHasSameIdentity_success() {
         eventRecord.addVEvent(VEVENT1);
-        VEvent editedVEVENT1 = new VEvent(VEVENT1).withCategories("group23")
+        VEvent editedVEvent1 = new VEvent(VEVENT1).withCategories("group23")
                 .withRecurrenceRule("FREQ=DAILY;COUNT=2");
-        eventRecord.setVEvent(Index.fromZeroBased(0), editedVEVENT1);
+        eventRecord.setVEvent(Index.fromZeroBased(0), editedVEvent1);
         EventRecord expectedUniqueEventRecord = new EventRecord();
-        expectedUniqueEventRecord.addVEvent(editedVEVENT1);
+        expectedUniqueEventRecord.addVEvent(editedVEvent1);
         assertEquals(expectedUniqueEventRecord, eventRecord);
     }
 
@@ -172,7 +171,7 @@ public class EventRecordTest {
     }
 
     @Test
-    public void deleteVEvent_IndexDoesNotExist_throwsVEventNotFoundException() {
+    public void deleteVEvent_indexDoesNotExist_throwsVEventNotFoundException() {
         assertThrows(IndexOutOfBoundsException.class, () -> eventRecord.deleteVEvent(Index.fromZeroBased(0)));
     }
 
@@ -192,8 +191,8 @@ public class EventRecordTest {
     @Test
     public void setVEvents_list_replacesOwnListWithProvidedList() {
         eventRecord.addVEvent(VEVENT1);
-        List<VEvent> VEventList = Collections.singletonList(VEVENT2);
-        eventRecord.setVEvents(VEventList);
+        List<VEvent> vEventList = Collections.singletonList(VEVENT2);
+        eventRecord.setVEvents(vEventList);
         EventRecord expectedUniqueVEventList = new EventRecord();
         expectedUniqueVEventList.addVEvent(VEVENT2);
         assertEquals(expectedUniqueVEventList, eventRecord);
@@ -246,7 +245,7 @@ public class EventRecordTest {
     }
 
     @Test
-    public void findMostSimilarVEvent_EmptyEventRecord_throwsVEventNotFoundException() {
+    public void findMostSimilarVEvent_emptyEventRecord_throwsVEventNotFoundException() {
         assertThrows(VEventNotFoundException.class, () -> eventRecord.findMostSimilarVEvent("event name"));
     }
 
@@ -281,11 +280,6 @@ public class EventRecordTest {
         Pair<Index, VEvent> vEventPairFound =
                 eventRecord.findMostSimilarVEvent("irrelevant event name");
         assertEquals(VEVENT2, vEventPairFound.getValue());
-    }
-
-    @Test
-    public void findMostSimilarVEvent_emptyStringEventName_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> eventRecord.findMostSimilarVEvent(""));
     }
 
     /**

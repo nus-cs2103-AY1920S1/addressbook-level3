@@ -5,14 +5,8 @@ import static seedu.address.commons.util.EventUtil.NONE_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.WEEKLY_RECUR_RULE_STRING;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import jfxtras.icalendarfx.components.VEvent;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.EventRecord;
-import seedu.address.model.event.RecurrenceType;
 
 /**
  * A utility class containing  {@code VEvent} objects to be used in tests. Note that these VEvents correspond to those
@@ -54,7 +48,4 @@ public class TypicalVEvents {
             .withRecurrenceRule(NONE_RECUR_RULE_STRING)
             .withCategories("group05")
             .withUniqueIdentifier("typicalevent5test");
-
-
-    private TypicalVEvents() {}
 }

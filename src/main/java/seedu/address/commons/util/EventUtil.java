@@ -1,18 +1,15 @@
 package seedu.address.commons.util;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DATETIME_RANGE;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
+
+import org.apache.commons.math3.util.Pair;
 
 import jfxtras.icalendarfx.components.VEvent;
-import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventScheduleViewMode;
@@ -25,7 +22,7 @@ public class EventUtil {
     public static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
     public static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
     public static final String NONE_RECUR_RULE_STRING = "FREQ=YEARLY;COUNT=1";
-    private static final DateTimeFormatter dateOnlyFormatter = new DateTimeFormatterBuilder()
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd[ HH:mm:ss]")
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
@@ -114,7 +111,7 @@ public class EventUtil {
      * @param date date to be converted in the form of yyyy-mm-dd
      */
     public static LocalDateTime dateToLocalDateTimeFormatter(String date) {
-        return LocalDateTime.parse(date, dateOnlyFormatter);
+        return LocalDateTime.parse(date, DATE_TIME_FORMATTER);
     }
 
     /**
@@ -168,4 +165,17 @@ public class EventUtil {
                 && vEvent1.getDateTimeEnd().equals(vEvent2.getDateTimeEnd());
     }
 
+    /**
+     * Formats a Index, VEvent pair to a presentable form
+     *
+     * @param indexVEventPair the index, vEvent pair that is to be shown to the user
+     */
+    public static String formatIndexVEventPair(Pair<Index, VEvent> indexVEventPair) {
+        Index vEventIndex = indexVEventPair.getKey();
+        VEvent vEvent = indexVEventPair.getValue();
+        return String.format("Index: %d || event name: %s || start datetime: %s || end datetime: %s\n",
+                vEventIndex.getOneBased(), vEvent.getSummary().getValue(),
+                vEvent.getDateTimeStart().getValue().toString(),
+                vEvent.getDateTimeEnd().getValue().toString());
+    }
 }

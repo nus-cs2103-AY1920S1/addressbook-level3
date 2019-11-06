@@ -18,11 +18,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW_MODE;
 import static seedu.address.logic.parser.ParserUtil.parseColorNumber;
+import static seedu.address.logic.parser.ParserUtil.parseEventScheduleViewMode;
+import static seedu.address.logic.parser.ParserUtil.parseLocalDate;
 import static seedu.address.logic.parser.ParserUtil.parseLocalDateTime;
 import static seedu.address.logic.parser.ParserUtil.parseRecurrenceType;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -126,22 +127,26 @@ public class EventCommandParser implements Parser<EventCommand> {
     }
 
     /**
-     * Performs validation and return the EventView Object
-     *
+     * Performs validation and return EventView Object
      * @param argMultimap for tokenized input.
-     * @return EventExportCommand object.
-     * @throws ParseException
+     * @return EventViewCommand object
+     * @throws ParseException for invalid view mode or view date format parsed.
      */
-    private EventViewCommand viewCommand(ArgumentMultimap argMultimap) {
-        HashMap<String, String> fields = new HashMap<>();
+    private EventViewCommand viewCommand(ArgumentMultimap argMultimap) throws ParseException {
 
-        String viewMode = argMultimap.getValue(PREFIX_VIEW_MODE).orElse("");
-        String viewDate = argMultimap.getValue(PREFIX_VIEW_DATE).orElse("");
+        EventViewCommand eventViewCommand = new EventViewCommand();
 
-        fields.put("viewMode", viewMode);
-        fields.put("viewDate", viewDate);
+        if (argMultimap.getValue(PREFIX_VIEW_MODE).isPresent()) {
+            eventViewCommand.setDesiredViewMode(parseEventScheduleViewMode(
+                    argMultimap.getValue(PREFIX_VIEW_MODE).get()));
+        }
 
-        return new EventViewCommand(fields);
+        if (argMultimap.getValue(PREFIX_VIEW_DATE).isPresent()) {
+            eventViewCommand.setTargetViewDate(parseLocalDate(
+                    argMultimap.getValue(PREFIX_VIEW_DATE).get()));
+        }
+
+        return eventViewCommand;
     }
 
     /**
@@ -161,23 +166,28 @@ public class EventCommandParser implements Parser<EventCommand> {
      * @return EventEditCommand object.
      * @throws ParseException
      */
-    private EventEditCommand editCommand(Index index, ArgumentMultimap argMultimap) throws ParseException{
+    private EventEditCommand editCommand(Index index, ArgumentMultimap argMultimap) throws ParseException {
         EditVEventDescriptor editVEventDescriptor = new EditVEventDescriptor();
-        if (argMultimap.getValue(PREFIX_COLOR).isPresent()) {
+        if (argMultimap.getValue(PREFIX_COLOR).isPresent()
+                && !argMultimap.getValue(PREFIX_COLOR).get().isBlank()) {
             editVEventDescriptor.setColorCategory(parseColorNumber(argMultimap.getValue(PREFIX_COLOR).get()));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()
+                && !argMultimap.getValue(PREFIX_EVENT_NAME).get().isBlank()) {
             editVEventDescriptor.setEventName(argMultimap.getValue(PREFIX_EVENT_NAME).get());
         }
-        if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()
+                && !argMultimap.getValue(PREFIX_START_DATETIME).get().isBlank()) {
             editVEventDescriptor.setStartDateTime(ParserUtil.parseLocalDateTime(
                     argMultimap.getValue(PREFIX_START_DATETIME).get()));
         }
-        if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()
+                && !argMultimap.getValue(PREFIX_END_DATETIME).get().isBlank()) {
             editVEventDescriptor.setEndDateTime(ParserUtil.parseLocalDateTime(
                     argMultimap.getValue(PREFIX_END_DATETIME).get()));
         }
-        if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
+        if (argMultimap.getValue(PREFIX_RECUR).isPresent()
+                && !argMultimap.getValue(PREFIX_RECUR).get().isBlank()) {
             editVEventDescriptor.setRecurrenceRule(ParserUtil.parseRecurrenceType(
                     argMultimap.getValue(PREFIX_RECUR).get()));
         }

@@ -1,13 +1,9 @@
 package seedu.address.logic.commands.event;
 
-import static seedu.address.commons.util.EventUtil.dateToLocalDateTimeFormatter;
-import static seedu.address.commons.util.EventUtil.stringToEventScheduleViewMode;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.HashMap;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,14 +20,25 @@ public class EventViewCommand extends EventCommand {
             + "scheduleMode/ [weekly / daily]\n"
             + "targetDate/ [yyyy-mm-dd]\n"
             + "Example: event view scheduleMode/weekly targetDate/2019-11-06";
-    private static final String GENERAL_MESSAGE_SUCCESS = "Showing your schedule";
+    public static final String MESSAGE_VIEW_SUCCESS = "Showing your schedule in %s format with reference date %s";
 
-    private final String viewMode;
-    private final String viewDateString;
+    private LocalDateTime targetViewDateTime;
+    private EventScheduleViewMode desiredViewMode;
 
-    public EventViewCommand(HashMap<String, String> fields) {
-        this.viewMode = fields.get("viewMode");
-        this.viewDateString = fields.get("viewDate");
+    public EventViewCommand() {
+
+    }
+
+    public void setDesiredViewMode(EventScheduleViewMode eventScheduleViewMode) {
+        requireNonNull(eventScheduleViewMode);
+
+        this.desiredViewMode = eventScheduleViewMode;
+    }
+
+    public void setTargetViewDate(LocalDateTime targetViewDateTime) {
+        requireNonNull(targetViewDateTime);
+
+        this.targetViewDateTime = targetViewDateTime;
     }
 
     /**
@@ -42,24 +49,14 @@ public class EventViewCommand extends EventCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (!this.viewMode.isBlank()) {
+        if (desiredViewMode != null) {
             // user wants to change the viewMode
-            try {
-                EventScheduleViewMode desiredViewMode = stringToEventScheduleViewMode(viewMode);
-                model.setEventScheduleViewMode(desiredViewMode);
-            } catch (IllegalValueException ex) {
-                throw new CommandException("Invalid view mode entered", ex);
-            }
+            model.setEventScheduleViewMode(desiredViewMode);
         }
 
-        if (!this.viewDateString.isBlank()) {
+        if (targetViewDateTime != null) {
             // user wants to change the reference date
-            try {
-                LocalDateTime targetDateTime = dateToLocalDateTimeFormatter(viewDateString);
-                model.setEventScheduleTargetDateTime(targetDateTime);
-            } catch (DateTimeParseException ex) {
-                throw new CommandException("Invalid date format entered", ex);
-            }
+            model.setEventScheduleTargetDateTime(targetViewDateTime);
         }
 
         return new CommandResult(generateSuccessMessage(model.getEventScheduleViewMode(),
@@ -73,10 +70,8 @@ public class EventViewCommand extends EventCommand {
      * @return a success message string to be shown to the user
      */
     private String generateSuccessMessage(EventScheduleViewMode eventScheduleViewMode, LocalDateTime targetViewDate) {
-        StringBuilder sb = new StringBuilder(GENERAL_MESSAGE_SUCCESS);
-        sb.append(String.format(" in %s format", eventScheduleViewMode.name().toLowerCase()));
-        sb.append(String.format(" with reference date: %s", targetViewDate.toLocalDate().toString()));
-        return sb.toString();
+        return String.format(MESSAGE_VIEW_SUCCESS, eventScheduleViewMode.name().toLowerCase(),
+                targetViewDate.toLocalDate().toString());
     }
 }
 

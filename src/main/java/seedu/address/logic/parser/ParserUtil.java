@@ -1,12 +1,14 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCHEDULE_VIEW_MODE;
 import static seedu.address.commons.util.EventUtil.BAD_DATE_FORMAT;
 import static seedu.address.commons.util.EventUtil.DAILY_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.INVALID_RECURRENCE_TYPE;
 import static seedu.address.commons.util.EventUtil.NONE_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.WEEKLY_RECUR_RULE_STRING;
+import static seedu.address.commons.util.EventUtil.dateToLocalDateTimeFormatter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -19,7 +21,6 @@ import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.EventUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventScheduleViewMode;
@@ -250,13 +251,28 @@ public class ParserUtil {
      * @return corresponding EventScheduleViewMode enumeration
      * @throws IllegalValueException if viewMode is not equilavent to any of the viewModes
      */
-    public static EventScheduleViewMode stringToEventScheduleViewMode(String viewMode) throws ParseException {
+    public static EventScheduleViewMode parseEventScheduleViewMode(String viewMode) throws ParseException {
         if (viewMode.equalsIgnoreCase(EventScheduleViewMode.WEEKLY.name())) {
             return EventScheduleViewMode.WEEKLY;
         } else if (viewMode.equalsIgnoreCase(EventScheduleViewMode.DAILY.name())) {
             return EventScheduleViewMode.DAILY;
         } else {
             throw new ParseException(MESSAGE_INVALID_SCHEDULE_VIEW_MODE);
+        }
+    }
+
+    /**
+     * Convert localDateString into localDateTime with default hour, minute and second values.
+     * @param localDateString String representation of the local date
+     * @return LocalDateTime form of the local date time string parsed
+     * @throws ParseException for invalid local date format.
+     */
+    public static LocalDateTime parseLocalDate(String localDateString) throws ParseException {
+        try {
+            LocalDateTime targetDateTime = dateToLocalDateTimeFormatter(localDateString);
+            return targetDateTime;
+        } catch (DateTimeParseException ex) {
+            throw new ParseException(MESSAGE_INVALID_DATE);
         }
     }
 }

@@ -14,16 +14,16 @@ import java.util.Objects;
  * Maps into a vEvent for UI (iCalendarAgenda) rendering and processing
  */
 public class Event {
+    public static final String INVALID_COLOR_CATEGORY = "Invalid color category."
+            + " Should be of form groupXX where XX is a within range 00 - 23";
+    public static final String COLOR_CATEGORY_VALIDATION_REGEX = "group[0-2][0-9]";
+
     private String eventName;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String colorCategory;
     private String uniqueIdentifier;
     private RecurrenceType recurrenceType;
-
-    public static final String INVALID_COLOR_CATEGORY = "Invalid color category."
-            + " Should be of form groupXX where XX is a within range 00 - 23";
-    public static final String COLOR_CATEGORY_VALIDATION_REGEX = "group[0-2][0-9]";
 
     public Event() {
     }

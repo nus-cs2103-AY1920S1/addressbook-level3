@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * Encapsulates the preferences and settings for the schedule panel
  */
-public class  EventSchedulePrefs {
+public class EventSchedulePrefs {
     private EventScheduleViewMode viewMode;
     private LocalDateTime targetViewDateTime;
 

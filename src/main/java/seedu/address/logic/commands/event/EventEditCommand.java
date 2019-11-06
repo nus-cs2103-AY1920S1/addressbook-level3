@@ -8,9 +8,6 @@ import static seedu.address.commons.util.EventUtil.vEventToString;
 import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +18,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -41,7 +37,8 @@ public class EventEditCommand extends EventCommand {
         + "color/ [0 - 23]\n"
         + "Example: event 6 eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
         + "endDateTime/2019-10-21T15:00 recur/none color/1";
-    private static final String NO_FIELDS_CHANGED = "At least one field to edit must be provided.";
+    public static final String NO_FIELDS_CHANGED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited event: %1$s";
 
     private final EditVEventDescriptor editVEventDescriptor;
     private final Index index;
@@ -92,7 +89,7 @@ public class EventEditCommand extends EventCommand {
      * @param vEvent that has been editted.
      */
     private String generateSuccessMessage(VEvent vEvent) {
-        return "Edited event: \n" + vEventToString(vEvent);
+        return String.format(MESSAGE_EDIT_EVENT_SUCCESS, vEventToString(vEvent));
     }
 
     @Override
@@ -118,7 +115,7 @@ public class EventEditCommand extends EventCommand {
      * edited with {@code editStudentDescriptor}.
      */
     private static VEvent createdEditedVEvent(VEvent vEventToEdit, EditVEventDescriptor editVEventDescriptor)
-            throws IllegalValueException{
+            throws IllegalValueException {
         assert vEventToEdit != null;
 
         String updatedEventName = editVEventDescriptor.getEventName().orElse(vEventToEdit.getSummary().getValue());
@@ -204,7 +201,7 @@ public class EventEditCommand extends EventCommand {
             return Optional.ofNullable(recurrenceRule);
         }
 
-        public void setColorCategory(ArrayList<Categories>  colorCategory) {
+        public void setColorCategory(List<Categories> colorCategory) {
             this.colorCategory = colorCategory;
         }
 

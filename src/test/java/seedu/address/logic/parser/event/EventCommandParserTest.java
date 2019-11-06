@@ -43,7 +43,7 @@ public class EventCommandParserTest {
             + PREFIX_START_DATETIME + VALID_START_DATE_TIME_STRING + " "
             + PREFIX_END_DATETIME + VALID_END_DATE_TIME_STRING + " " + PREFIX_COLOR + VALID_COLOR_STRING + " "
             + PREFIX_RECUR + VALID_RECUR_TYPE_STRING;
-    public static final String INVALID_ADD_MISSING_EVENT_NAME =  " " + PREFIX_EVENT_NAME
+    public static final String INVALID_ADD_MISSING_EVENT_NAME = " " + PREFIX_EVENT_NAME
             + " " + PREFIX_START_DATETIME + VALID_START_DATE_TIME_STRING + " "
             + PREFIX_END_DATETIME + VALID_END_DATE_TIME_STRING + " " + PREFIX_COLOR + VALID_COLOR_STRING + " "
             + PREFIX_RECUR + VALID_RECUR_TYPE_STRING;
@@ -51,10 +51,6 @@ public class EventCommandParserTest {
             + VALID_EVENT_NAME + " " + PREFIX_START_DATETIME + VALID_START_DATE_TIME_STRING + " "
             + PREFIX_END_DATETIME + VALID_END_DATE_TIME_STRING + " " + PREFIX_COLOR + VALID_COLOR_STRING + " "
             + PREFIX_RECUR + VALID_RECUR_TYPE_STRING;
-    public static final String EDIT_EMPTY_FIELD_COMMAND = "1" + " " + PREFIX_EVENT_NAME
-            + " " + PREFIX_START_DATETIME + " "
-            + PREFIX_END_DATETIME +  " " + PREFIX_COLOR +  " "
-            + PREFIX_RECUR;
     public static final String VALID_VIEW_NO_PARAM_COMMAND = " " + PREFIX_VIEW;
     public static final String VALID_VIEW_MODE_FULL = VALID_VIEW_NO_PARAM_COMMAND + " " + VALID_VIEW_MODE + " "
             + VALID_TARGET_DATE;
@@ -95,8 +91,8 @@ public class EventCommandParserTest {
      */
     @Test
     public void parseCommand_addMissingEventName_throwsException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventAddCommand.MESSAGE_USAGE),
-                () -> parser.parse(INVALID_ADD_MISSING_EVENT_NAME));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EventAddCommand.MESSAGE_USAGE), () -> parser.parse(INVALID_ADD_MISSING_EVENT_NAME));
     }
 
     /**
@@ -107,16 +103,6 @@ public class EventCommandParserTest {
     public void parseCommand_validEdit_success() throws Exception {
         Command command = parser.parse(VALID_FULL_EDIT_COMMAND);
         assertTrue(command instanceof EventEditCommand);
-    }
-
-    /**
-     * Test parsing a invalid edit command with no parameters passed. Should throw exception.
-     */
-    @Test
-    public void parseCommand_editEmptyCommandPrioritized_throwsException() {
-        assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventEditCommand.MESSAGE_USAGE), () ->
-                        parser.parse(EDIT_EMPTY_FIELD_COMMAND));
     }
 
     /**
@@ -174,7 +160,7 @@ public class EventCommandParserTest {
      * Test a invalid delete command
      */
     @Test
-    public void parseCommand_invalidDelete_throwsParseException(){
+    public void parseCommand_invalidDelete_throwsParseException() {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventDeleteCommand.MESSAGE_USAGE), () ->
                         parser.parse(INVALID_DELETE));
@@ -184,7 +170,7 @@ public class EventCommandParserTest {
      * Test invalid delete event command by passing zero as index
      */
     @Test
-    public void parseCommand_invalidDeleteZeroIndex_throwsParseException(){
+    public void parseCommand_invalidDeleteZeroIndex_throwsParseException() {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventDeleteCommand.MESSAGE_USAGE), () ->
                         parser.parse(INVALID_DELETE_ZERO_INDEX));
@@ -194,7 +180,7 @@ public class EventCommandParserTest {
      * Test invalid delete event command by passing negative index value
      */
     @Test
-    public void parseCommand_invalidDeleteNegativeIndex_throwsParseException(){
+    public void parseCommand_invalidDeleteNegativeIndex_throwsParseException() {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventDeleteCommand.MESSAGE_USAGE), () ->
                         parser.parse(INVALID_DELETE_NEGATIVE_INDEX));
@@ -204,7 +190,7 @@ public class EventCommandParserTest {
      * Test invalid delete event command by not passing a index
      */
     @Test
-    public void parseCommand_invalidDeleteNoIndex_throwsParseException(){
+    public void parseCommand_invalidDeleteNoIndex_throwsParseException() {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventDeleteCommand.MESSAGE_USAGE), () ->
                         parser.parse(INVALID_DELETE_NO_INDEX));

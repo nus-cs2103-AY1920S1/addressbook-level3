@@ -104,7 +104,7 @@ public class EventTest {
         assertFalse(editedEvent1.equals(EVENT1));
 
         // different start date time -> returns false
-        editedEvent1 = new EventBuilder(EVENT1).withStartDateTime(LocalDateTime.now()).build();
+        editedEvent1 = new EventBuilder(EVENT1).withStartDateTime(VALID_START_DATE_TIME).build();
         assertFalse(editedEvent1.equals(EVENT1));
 
         // different end date time -> returns false

@@ -16,14 +16,14 @@ public class EventSchedulePrefsTest {
 
     @Test
     public void constructor_nullViewMode_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> new EventSchedulePrefs(null, VALID_TARGET_VIEW_DATE_TIME));
+        assertThrows(NullPointerException.class, () ->
+                new EventSchedulePrefs(null, VALID_TARGET_VIEW_DATE_TIME));
     }
 
     @Test
     public void constructor_nullTargetViewDateTime_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> new EventSchedulePrefs(VALID_VIEW_MODE, null));
+        assertThrows(NullPointerException.class, () ->
+                new EventSchedulePrefs(VALID_VIEW_MODE, null));
     }
 
     @Test
@@ -38,15 +38,13 @@ public class EventSchedulePrefsTest {
     @Test
     public void setViewMode_nullViewMode_throwsNullPointerException() {
         EventSchedulePrefs eventSchedulePrefs = new EventSchedulePrefs(VALID_VIEW_MODE, VALID_TARGET_VIEW_DATE_TIME);
-        assertThrows(NullPointerException.class,
-                () -> eventSchedulePrefs.setViewMode(null));
+        assertThrows(NullPointerException.class, () -> eventSchedulePrefs.setViewMode(null));
     }
 
     @Test
     public void setTargetViewDateTime_nullTargetViewDate_throwsNullPointerException() {
         EventSchedulePrefs eventSchedulePrefs = new EventSchedulePrefs(VALID_VIEW_MODE, VALID_TARGET_VIEW_DATE_TIME);
-        assertThrows(NullPointerException.class,
-                () -> eventSchedulePrefs.setTargetViewDateTime(null));
+        assertThrows(NullPointerException.class, () -> eventSchedulePrefs.setTargetViewDateTime(null));
     }
 
     @Test

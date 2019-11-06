@@ -1,7 +1,7 @@
 package seedu.address.storage.event;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static seedu.address.storage.event.JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 

@@ -66,7 +66,7 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-            addressBook.addPerson(ALICE);
+        addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
     }
 
