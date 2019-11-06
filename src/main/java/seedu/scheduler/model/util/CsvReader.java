@@ -120,7 +120,8 @@ public class CsvReader {
      * @param date Date of availability
      */
     public static void updateInterviewersSlotsFromData(ArrayList<Interviewer> interviewers,
-                                                        String[] rowData, String date) {
+        String[] rowData, String date) {
+
         String timing = rowData[0];
         String startTime = getStartTime(timing);
         String endTime = getEndTime(timing);

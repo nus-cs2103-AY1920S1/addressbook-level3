@@ -92,10 +92,12 @@ public class CsvReaderTest {
             Integer yearOfStudy = 1;
             ArrayList<Department> choiceOfDepartments = new ArrayList<>();
             choiceOfDepartments.add(new Department("publicity"));
+
             List<Slot> availableTimeSlots = new ArrayList<>();
             availableTimeSlots.add(Slot.fromString("09/10/2019 18:30-19:00"));
             availableTimeSlots.add(Slot.fromString("10/10/2019 19:00-19:30"));
             availableTimeSlots.add(Slot.fromString("11/10/2019 20:00-20:30"));
+
             Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, DefaultValues.DEFAULT_TAGS)
                     .availableTimeslots(availableTimeSlots)
                     .departmentChoices(choiceOfDepartments)

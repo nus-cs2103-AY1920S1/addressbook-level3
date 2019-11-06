@@ -2,6 +2,7 @@ package seedu.scheduler.model.util;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -27,22 +28,30 @@ public class CsvWriter {
 
     /**
      * Writes current scheduleList from model into destination file.
+     * @return ArrayList of exported table for testing purposes.
      * @throws IOException when FileWriter fails.
      */
-    public void writeSchedulesToFile() throws IOException {
+    public ArrayList<String> writeSchedulesToFile() throws IOException {
         FileWriter csvWriter = new FileWriter(destinationFile);
         List<Schedule> schedules = model.getSchedulesList();
+        ArrayList<String> table = new ArrayList<>();
         for (Schedule schedule: schedules) {
             ObservableList<ObservableList<String>> rows = schedule.getObservableList();
             csvWriter.append(String.join(",", schedule.getTitles()));
             csvWriter.append("\n");
+
+            table.add(String.join(",", schedule.getTitles()));
+
             for (ObservableList<String> rowData: rows) {
                 csvWriter.append(String.join(",", rowData));
                 csvWriter.append("\n");
+
+                table.add(String.join(",", rowData));
             }
             csvWriter.append("\n").append("\n");
         }
         csvWriter.flush();
         csvWriter.close();
+        return table;
     }
 }
