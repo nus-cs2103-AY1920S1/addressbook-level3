@@ -34,18 +34,16 @@ TODO
 |===
 
 * *Major enhancement #1*: I added *the ability to export flashcards to various file formats*.
-** What it does: It allows the user to save a subset of their flashcards to a specified external file. The file format can be either '.docx' or '.json', and is inferred from the file extension specified by the user.
+** What it does: It allows the user to save a subset of their flashcards to a specified external file. The file format can be either '.docx' or '.json', and is inferred from the file extension specified by the user. To avoid clutter, unimportant data (e.g. user rating) is not exported with the flashcards.
 ** Justification: This feature greatly improves the application, as the ability to export flashcards would mean that the user can easily generate cheat sheets or share flashcards with others.
 ** Highlights: This enhancement was designed in such a way as to maximize extensibility in the future (if a developer wishes to add support for more file formats). It required an in-depth analysis of design alternatives. The implementation was challenging due to the dependence on an external library, as well as the tendency of certain file paths to break our parser.
-** Credits: All writing of flashcards to `.docx` format is done with the use of Apache POI.
+** Credits: All writing of flashcards to the '.docx' and '.json' formats is done with the use of two external libraries - Apache POI and Jackson, respectively. 
 
 * *Major enhancement #2: I added *the ability to import flashcards*.
 ** What it does: It allows the user to import flashcards from JSON format (files that end in '.json').
 ** Justification: A user could previously import '.json' files that were previously exported, by copying and pasting the file over their existing save file. This feature allows users to do the same from the convenience of the application's CLI, Furthermore, importing flashcards in this manner will not result in any loss to their original data.
-** Highlights: TODO
-** Credits: TODO
-
-//* *Minor enhancement*: ???
+** Highlights: This feature does not import flashcards which the user already has. This is because there's no good reason for the user to have two copies of the same flashcard. The user will be notified if a duplicate is detected in a file while importing.
+** Credits: All reading of flashcards from the `.json` format is done with the use of Jackson, an external library. 
 
 * *Code contributed*: Please click on these links to see a sample of my code:
 [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_ (reposense link??)
