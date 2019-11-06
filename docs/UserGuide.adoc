@@ -295,7 +295,7 @@ Suppose you have a category named `CS2105`, and you wanted to export the FlashCa
 
 . Navigate to the directory that you specified in the command (in this case, it would be 'C:\Documents'). Sure enough, your exported file is there!
 
-NOTE: Only the questions and answers of FlashCards will be exported. 
+NOTE: Only the questions and answers of FlashCards will be exported.
 
 CAUTION: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following characters: `~\/-_!:[]()` +
 It must also end in either `.json` or `.docx`.
@@ -319,7 +319,7 @@ now your next step is to get those FlashCards into your copy of KFC. Here's how 
 . Press **Enter** to execute the command. The results box will display a success message similar to the one shown in the screenshot below.
 Furthermore, the category panel on the left will now display the category of the newly-imported FlashCards!
 
-NOTE: Duplicate FlashCards will not be imported. You will be notified when we detect duplicate FlashCards in the file you provide. 
+NOTE: Duplicate FlashCards will not be imported. You will be notified when we detect duplicate FlashCards in the file you provide.
 
 === Get the full list of commands: `help`
 
