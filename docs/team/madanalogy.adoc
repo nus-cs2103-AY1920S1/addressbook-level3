@@ -7,7 +7,7 @@
 
 == Overview
 
-The Incident Management System is a desktop application used for managing incidents. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The Incident Management System is a desktop application used for managing incidents and dispatching vehicles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -46,12 +46,6 @@ The Incident Management System is a desktop application used for managing incide
 include::../UserGuide.adoc[tag=access]
 
 include::../UserGuide.adoc[tag=account]
-
-include::../UserGuide.adoc[tag=AccountDelete]
-
-|===
-|_Omitted from this portfolio for page requirement constraints is the `find-a` command from the https://whattheduke.netlify.com/UserGuide.html#locating-accounts-by-name-or-username-code-find-a-code[user guide]._
-|===
 
 == Contributions to the Developer Guide
 

@@ -162,7 +162,6 @@ Examples:
 Displays the entire list of accounts
 * `list-a team-1 admin` +
 Returns a list of all accounts that have both the `admin` and `team-1` tag
-// end::account[]
 
 === Locating accounts by name or username: `find-a`
 
@@ -185,7 +184,6 @@ Returns `john` and `John Doe`
 * `find-a Agent01 Betty`
 Returns all accounts with username or name matching either `agent01` or `betty`
 
-// tag::AccountDelete[]
 === Deleting an account : `delete-a`
 
 Deletes the specified account from the incident Manager. +
@@ -212,7 +210,7 @@ Deletes the 1st account in the results of the `find` command.
 ==== Incident Auto Update `[coming in v2.0]`
 
 Deleting a user will search for all incidents created by the user and place a `deleted` flag next to the account details.
-// end::AccountDelete[]
+// end::account[]
 
 // tag::incident[]
 
