@@ -163,6 +163,7 @@ Examples: +
 ==== Assignment list
 
 Shows a list of all assignments in the current class of the user. +
+Assignments are sorted by order of their deadline, from earliest to latest. +
 Format: listassignments +
 
 Examples: +
