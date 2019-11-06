@@ -102,6 +102,9 @@ public class ParserUtil {
 
         try {
             formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
+            if (formattedDateTime.isBefore(LocalDateTime.now())) {
+                throw new ParseException("You can't remind your past self silly!");
+            }
         } catch (DateTimeParseException e) {
             throw new ParseException("Date Time format given is incorrect. "
                     + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
