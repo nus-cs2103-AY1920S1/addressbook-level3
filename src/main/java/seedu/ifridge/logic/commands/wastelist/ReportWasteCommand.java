@@ -58,8 +58,6 @@ public class ReportWasteCommand extends Command {
                               boolean startMonthGivenByUser, boolean endMonthGivenByUser) {
         requireNonNull(startWm);
         requireNonNull(endWm);
-        requireNonNull(startMonthGivenByUser);
-        requireNonNull(endMonthGivenByUser);
         this.startWasteMonth = startWm;
         this.endWasteMonth = endWm;
         this.startMonthGivenByUser = startMonthGivenByUser;

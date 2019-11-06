@@ -41,6 +41,12 @@ public class TypicalWasteList {
     public static final GroceryItem MILO = new GroceryItemBuilder().withName("Milo")
             .withAmount("200ml").withExpiryDate("28/10/2019").build();
 
+    // Manually Added
+    public static final GroceryItem COFFEE = new GroceryItemBuilder().withName("Coffee")
+            .withAmount("100ml").withExpiryDate("27/10/2019").build();
+    public static final GroceryItem COOKIES = new GroceryItemBuilder().withName("Cookies")
+            .withAmount("200g").withExpiryDate("20/10/2019").build();
+
     private TypicalWasteList() {} // prevents instantiation
 
     public static WasteList getTypicalWasteList() {
