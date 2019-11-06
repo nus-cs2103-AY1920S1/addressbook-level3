@@ -1,14 +1,11 @@
-package seedu.address.achievements.logic;
+package seedu.address.logic;
 
-import javafx.scene.chart.XYChart;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-/**
- * API of the AchievementsLogic component
- */
-public interface AchievementsLogic {
+public interface MainLogic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
@@ -19,14 +16,12 @@ public interface AchievementsLogic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Get statistics of number of total contacts in Address Book.
-     * @return total number of contacts in Address Book
+     * Returns the user prefs' GUI settings.
      */
-    int getTotalPersons();
+    GuiSettings getGuiSettings();
 
     /**
-     * Horizontal bar chart data for Address Book.
-     * @return horizontal bar chart data for Address Book
+     * Set the user prefs' GUI settings.
      */
-    XYChart.Series<Integer, String> getAddressChartData();
+    void setGuiSettings(GuiSettings guiSettings);
 }

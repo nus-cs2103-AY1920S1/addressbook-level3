@@ -1,36 +1,37 @@
 package seedu.address.calendar.ui;
 
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import seedu.address.calendar.logic.CalendarLogic;
-import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.date.ViewOnlyMonth;
-import seedu.address.calendar.model.ReadOnlyCalendar;
-import seedu.address.calendar.model.date.MonthOfYear;
-import seedu.address.calendar.model.date.Year;
-import seedu.address.calendar.storage.CalendarStorage;
-import seedu.address.calendar.storage.JsonCalendarStorage;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.address.logic.AddressBookLogic;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.ResultDisplay;
-import seedu.address.ui.Page;
-import seedu.address.ui.PageManager;
-import seedu.address.ui.PageType;
-import seedu.address.ui.UiPart;
-
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-public class CalendarPage extends UiPart<Scene> implements Page {
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.calendar.logic.CalendarLogic;
+import seedu.address.calendar.model.Calendar;
+import seedu.address.calendar.model.ReadOnlyCalendar;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.ViewOnlyMonth;
+import seedu.address.calendar.model.date.Year;
+import seedu.address.calendar.storage.CalendarStorage;
+import seedu.address.calendar.storage.JsonCalendarStorage;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
+import seedu.address.ui.PageType;
+import seedu.address.ui.ResultDisplay;
+import seedu.address.ui.UiPart;
+
+public class CalendarPage extends UiPart<Region> implements Page {
     private static final String FXML = "CalendarPage.fxml";
     private static final PageType pageType = PageType.CALENDAR;
     private static final String FILE_OPS_ERROR_MESSAGE = "Unable to save calendar";
@@ -73,10 +74,6 @@ public class CalendarPage extends UiPart<Scene> implements Page {
 
         fillInnerParts();
         listWindow = new ListWindow();
-    }
-
-    public Scene getScene() {
-        return getRoot();
     }
 
     public PageType getPageType() {
@@ -179,5 +176,10 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+    }
+
+    @Override
+    public Parent getParent() {
+        return super.getRoot();
     }
 }

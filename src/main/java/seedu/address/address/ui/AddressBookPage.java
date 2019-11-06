@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -12,9 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.address.address.logic.AddressBookLogic;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,6 +21,7 @@ import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
@@ -38,14 +37,9 @@ public class AddressBookPage extends UiPart<Region> implements Page {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private Scene addressBookScene;
-
-    @FXML
     private VBox addressBookBox;
 
     private AddressBookLogic addressBookLogic;
-
-    private Stage primaryStage;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -68,14 +62,11 @@ public class AddressBookPage extends UiPart<Region> implements Page {
     private StackPane resultDisplayPlaceholder;
 
 
-    public AddressBookPage(Stage primaryStage, AddressBookLogic addressBookLogic) {
+    public AddressBookPage(AddressBookLogic addressBookLogic) {
         super(FXML, new VBox());
 
-        // Set dependencies
-        this.primaryStage = primaryStage;
         this.addressBookLogic = addressBookLogic;
 
-        addressBookScene = new Scene(addressBookBox);
         fillInnerParts();
         setAccelerators();
     }
@@ -108,7 +99,7 @@ public class AddressBookPage extends UiPart<Region> implements Page {
          * help window purposely so to support accelerators even when focus is in
          * CommandBox or ResultDisplay.
          */
-        addressBookScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        addressBookBox.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
@@ -131,18 +122,6 @@ public class AddressBookPage extends UiPart<Region> implements Page {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
     }
 
     /**
@@ -174,13 +153,8 @@ public class AddressBookPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(),
-                primaryStage.getHeight(),
-                (int) primaryStage.getX(),
-                (int) primaryStage.getY());
-        addressBookLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        primaryStage.hide();
+        PageManager.closeWindows();
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -215,12 +189,12 @@ public class AddressBookPage extends UiPart<Region> implements Page {
     }
 
     @Override
-    public Scene getScene() {
-        return addressBookScene;
+    public PageType getPageType() {
+        return PageType.ADDRESS_BOOK;
     }
 
     @Override
-    public PageType getPageType() {
-        return PageType.ADDRESS_BOOK;
+    public Parent getParent() {
+        return getRoot();
     }
 }

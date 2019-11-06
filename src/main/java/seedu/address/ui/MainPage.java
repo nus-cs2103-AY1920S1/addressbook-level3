@@ -1,57 +1,49 @@
-package seedu.address.achievements.ui;
+package seedu.address.ui;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import seedu.address.achievements.logic.AchievementsLogic;
+import javafx.stage.Window;
+import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.MainLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.CodeWindow;
-import seedu.address.ui.CommandBox;
-import seedu.address.ui.HelpWindow;
-import seedu.address.ui.Page;
-import seedu.address.ui.PageManager;
-import seedu.address.ui.PageType;
-import seedu.address.ui.ResultDisplay;
-import seedu.address.ui.UiPart;
+
+//import seedu.address.address.ui.AddressBookPage;
 
 /**
- * Page for showing the user achievements
+ * Page for showing the main
  */
-public class AchievementsPage extends UiPart<Region> implements Page {
+public class MainPage extends UiPart<Region> implements Page {
 
-    private static final PageType pagetype = PageType.ACHIEVEMENTS;
-
-    private static final String FXML = "achievements/Achievements.fxml";
+    private static final String FXML = "MainPage.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    @FXML
-    private BorderPane achievementsPane;
+    private MainLogic mainLogic;
 
-    private AchievementsLogic achievementsLogic;
-
+    // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
 
     private HelpWindow helpWindow;
 
     private CodeWindow codeWindow;
-
-    @FXML
-    private VBox achievementsPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -63,18 +55,33 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private Label test;
+    private StackPane statusbarPlaceholder;
 
-    public AchievementsPage(AchievementsLogic achievementsLogic) {
+    @FXML
+    private ImageView backgroundPlaceholder;
+
+    public MainPage(MainLogic mainLogic) {
         super(FXML, new BorderPane());
-        this.achievementsLogic = achievementsLogic;
-        this.helpWindow = new HelpWindow();
-        fillInnerParts();
+        this.mainLogic = mainLogic;
+
         setAccelerators();
+        fillInnerParts();
+
+        helpWindow = new HelpWindow();
+        codeWindow = new CodeWindow();
     }
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    /**
+     * Sets background image to make it resizable.
+     */
+    public void setBackgroundImage() {
+        backgroundPlaceholder.setImage(new Image("/images/mainpage.png"));
+        backgroundPlaceholder.fitHeightProperty().bind(getRoot().heightProperty().multiply(0.6));
+        backgroundPlaceholder.fitWidthProperty().bind(getRoot().widthProperty().multiply(0.9));
     }
 
     /**
@@ -100,7 +107,7 @@ public class AchievementsPage extends UiPart<Region> implements Page {
          * help window purposely so to support accelerators even when focus is in
          * CommandBox or ResultDisplay.
          */
-        achievementsPlaceholder.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
@@ -108,14 +115,10 @@ public class AchievementsPage extends UiPart<Region> implements Page {
         });
     }
 
-
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.helpWindow = new HelpWindow();
-        this.codeWindow = new CodeWindow();
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -124,41 +127,22 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     }
 
     /**
-     * Refresh UI with new data from Statistics.
+     * Quit after letting user read the ByeResponse.
+     *
      */
-    void refreshUi() {
-        achievementsPlaceholder.getChildren().clear();
-        achievementsPlaceholder.getChildren().add(new AchievementsCard(achievementsLogic).getRoot());
+
+    public void exit() {
+        TimerTask myDelay = new TimerTask() {
+            @Override
+            public void run() {
+                System.exit(0);
+                helpWindow.hide();
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(myDelay, 350);
     }
 
-    /**
-     * Executes the command and returns the result.
-     * @param commandText The command as entered by the user.
-     * @return the result of the command execution.
-     * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
-     */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        try {
-            CommandResult commandResult = achievementsLogic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            return commandResult;
-        } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
-        }
-    }
     /**
      * Opens the code window or focuses on it if it's already opened.
      */
@@ -188,17 +172,51 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
+        Window mainWindow = getRoot().getScene().getWindow();
+        GuiSettings guiSettings = new GuiSettings(mainWindow.getWidth(), mainWindow.getHeight(),
+                (int) mainWindow.getX(), (int) mainWindow.getY());
+        logger.info(guiSettings.toString());
+        mainLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        PageManager.closeWindows();
+        mainWindow.hide();
+    }
+
+    /**
+     * Executes the command and returns the result.
+     *
+     * @see AddressBookLogic#execute(String)
+     */
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+            CommandResult commandResult = mainLogic.execute(commandText);
+            //check for right regex, if regex does not match, exception should be thrown
+            assert commandText.matches("(\\s)?+(goto+(\\s).*$|help+(\\s)|exit+(\\s))");;
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
+
+            if (commandResult.isExit()) {
+                logger.info("exit handled");
+                handleExit();
+            }
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public PageType getPageType() {
-        return pagetype;
+        return PageType.MAIN;
     }
 
     @Override
     public Parent getParent() {
-        refreshUi(); return super.getRoot();
+        return getRoot();
     }
 }

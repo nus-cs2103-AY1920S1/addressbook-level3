@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -45,13 +45,6 @@ public class DiaryPage extends UiPart<Region> implements Page {
     private DiaryHelpWindow helpWindow;
     private CodeWindow codeWindow;
 
-
-
-
-
-    @FXML
-    private Scene diaryScene;
-
     @FXML
     private VBox diaryPane;
 
@@ -68,7 +61,6 @@ public class DiaryPage extends UiPart<Region> implements Page {
     public DiaryPage(DiaryBookLogic logic) {
         super(FXML);
         this.parser = new DiaryBookParser();
-        diaryScene = new Scene(diaryPane);
         this.helpWindow = new DiaryHelpWindow();
         this.logicHandler = logic;
         this.codeWindow = new CodeWindow();
@@ -127,8 +119,6 @@ public class DiaryPage extends UiPart<Region> implements Page {
             @Override
             public void run() {
                 System.exit(0);
-                diaryScene.getWindow().hide();
-
             }
         };
         Timer timer = new Timer();
@@ -159,14 +149,13 @@ public class DiaryPage extends UiPart<Region> implements Page {
         }
     }
 
-
-    @Override
-    public Scene getScene() {
-        return diaryScene;
-    }
-
     @Override
     public PageType getPageType() {
         return pageType;
+    }
+
+    @Override
+    public Parent getParent() {
+        return super.getRoot();
     }
 }
