@@ -14,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
 
 /**
  * Window to display user's statistics.
@@ -81,4 +83,18 @@ public class StatisticsWindow extends ScrollPane {
         this.averageDuration.setText("Average duration per login: " + averageDuration);
     }
 
+    /** Opens the relevant DeckStatisticsWindow when a row of the deckTableView is double-clicked. */
+    private void openDeckStatisticsWindow(Deck deck) {
+        this.deckTableView.setRowFactory(tv -> {
+            TableRow<Deck> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                    && event.getClickCount() == 2) {
+                    Deck selectedDeck = row.getItem();
+                    //printRow(clickedRow);
+                }
+            });
+            return row;
+        });
+    }
 }

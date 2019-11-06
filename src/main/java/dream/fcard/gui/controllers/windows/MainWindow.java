@@ -14,6 +14,7 @@ import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
+import dream.fcard.util.stats.StatsDisplayUtil;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -115,7 +116,7 @@ public class MainWindow extends VBox {
         });
         javaEditorMenuItem.setOnAction(e -> openEditor(true));
         jsEditorMenuItem.setOnAction(e -> openEditor(false));
-        statisticsMenuItem.setOnAction(e -> openStatistics());
+        statisticsMenuItem.setOnAction(e -> StatsDisplayUtil.openStatisticsWindow());
         render();
     }
 
@@ -231,20 +232,5 @@ public class MainWindow extends VBox {
             app.start(stage);
         }
 
-    }
-
-    /**
-     * Opens a new window to show the user's statistics.
-     */
-    @FXML
-    public static void openStatistics() {
-        // when Logger is implemented, log "Opening Statistics window..."
-
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new StatisticsWindow());
-        stage.setScene(scene);
-        stage.setTitle("My Statistics");
-        stage.show();
     }
 }

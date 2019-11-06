@@ -3,6 +3,7 @@ package dream.fcard.util.stats;
 
 import java.util.ArrayList;
 
+import dream.fcard.gui.controllers.windows.StatisticsWindow;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStatsHolder;
@@ -10,13 +11,26 @@ import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
 
 import javafx.collections.FXCollections;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /** Utilities related to displaying statistics in the GUI. */
 public class StatsDisplayUtil {
+
+    /** Opens the statistics window to show the user's overall statistics. */
+    public static void openStatisticsWindow() {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(new StatisticsWindow());
+        stage.setScene(scene);
+        stage.setTitle("My Statistics");
+        stage.show();
+    }
 
     /** Creates the TableView object from the given list of sessions. */
     public static TableView<Session> getSessionsTableView(SessionList sessionList) {
@@ -65,10 +79,10 @@ public class StatsDisplayUtil {
         TableColumn<Deck, String> nameColumn = new TableColumn<>("Deck name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("deckName"));
 
-        TableColumn<Deck, Integer> numCardsColumn = new TableColumn<>("No. of cards");
+        TableColumn<Deck, Integer> numCardsColumn = new TableColumn<>("Number of cards");
         numCardsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
 
-        TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("No. of sessions");
+        TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("Number of sessions");
         numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
 
         //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
