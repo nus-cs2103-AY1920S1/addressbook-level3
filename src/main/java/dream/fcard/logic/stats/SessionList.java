@@ -52,7 +52,7 @@ public class SessionList implements JsonInterface {
         return this.sessionArrayList;
     }
 
-    /** Gets the total duration of sessions contained in this SessionList. */
+    /** Gets the total duration of sessions in this SessionList, as a String. */
     public String getTotalDurationAsString() {
         Duration duration = Duration.ZERO;
 
@@ -62,6 +62,12 @@ public class SessionList implements JsonInterface {
         }
 
         return DateTimeUtil.getStringFromDuration(duration);
+    }
+
+    /** Gets the average duration of sessions in this SessionList, as a String. */
+    public String getAverageDurationAsString() {
+        Duration averageDuration = DateTimeUtil.getAverageDuration(this);
+        return DateTimeUtil.getStringFromDuration(averageDuration);
     }
 
     @Override

@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fitToHeight="true" fitToWidth="true" minViewportHeight="400.0" minViewportWidth="600.0" stylesheets="@../defaultStyles.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fitToHeight="true" fitToWidth="true" minViewportHeight="600.0" minViewportWidth="600.0" stylesheets="@../defaultStyles.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox prefHeight="400.0" prefWidth="600.0" styleClass="main-content-window">
+      <VBox prefHeight="600.0" prefWidth="600.0" styleClass="main-content-window">
          <Label fx:id="windowTitle" styleClass="window-title" text="My Statistics" />
          <Label fx:id="totalSessions" text="Total login sessions: 0 sessions" />
          <Label fx:id="sessionsThisWeek" text="Total login sessions this week: 0 sessions" />

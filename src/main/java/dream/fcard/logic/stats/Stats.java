@@ -1,11 +1,6 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
-import java.time.Duration;
-import java.util.ArrayList;
-
-import dream.fcard.util.stats.DateTimeUtil;
-
 /** Abstract class for statistics objects, like UserStats and DeckStats. */
 public abstract class Stats {
 
@@ -28,16 +23,6 @@ public abstract class Stats {
     /** Gets the list of sessions. */
     public SessionList getSessionList() {
         return this.sessionList;
-    }
-
-    /** Returns the number of sessions in the sessionList contained inside this Stats object. */
-    public int getNumberOfSessions() {
-        return this.sessionList.getNumberOfSessions();
-    }
-
-    /** Adds the given Session to the sessionList contained inside this Stats object. */
-    public void addSession(Session session) {
-        this.sessionList.addSession(session);
     }
 
     /** Starts a new Session, representing the current Session the user is engaging in. */
@@ -71,24 +56,8 @@ public abstract class Stats {
         }
     }
 
-    /** Gets the list of sessions, as the underlying ArrayList, to display in the GUI. */
-    public ArrayList<Session> getSessionsAsArrayList() {
-        return this.sessionList.getSessionArrayList();
-    }
-
     /** Gets the current session. */
     public Session getCurrentSession() {
         return this.currentSession;
-    }
-
-    /** Gets the total length of time spent in sessions, as a String. */
-    public String getTotalDurationOfSessionsAsString() {
-        return this.sessionList.getTotalDurationAsString();
-    }
-
-    /** Gets the average length of time spent in sessions, as a String. */
-    public String getAverageDurationOfSessionsAsString() {
-        Duration averageDuration = DateTimeUtil.getAverageDuration(this.sessionList);
-        return DateTimeUtil.getStringFromDuration(averageDuration);
     }
 }

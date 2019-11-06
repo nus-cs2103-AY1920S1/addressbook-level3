@@ -7,9 +7,7 @@ import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.util.StatsDisplayUtil;
-import dream.fcard.util.stats.DateTimeUtil;
 
-import java.time.Duration;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -51,25 +49,24 @@ public class StatisticsWindow extends ScrollPane {
         }
 
         this.userStats = UserStatsHolder.getUserStats();
-        //ArrayList<Deck> decks = StateHolder.getState().getDecks(); TODO
-
         displaySummaryStats();
+
         this.sessionsTableView = StatsDisplayUtil.getSessionsTableView();
-        //sessionsTableView.setPlaceholder(new Label("There are no recorded login sessions yet!"));
         this.sessionsScrollPane.setContent(sessionsTableView);
+
         //this.deckTableView = StatsDisplayUtil.getDeckTableView(StateHolder.getState());
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
-        int numSessions = userStats.getNumberOfSessions();
+        int numSessions = userStats.getSessionList().getNumberOfSessions();
         this.totalSessions.setText("Total login sessions: " + numSessions
             + (numSessions == 1 ? " session" : " sessions"));
 
-        String duration = userStats.getTotalDurationOfSessionsAsString();
+        String duration = userStats.getSessionList().getTotalDurationAsString();
         this.totalDuration.setText("Total login duration: " + duration);
 
-        String averageDuration = userStats.getAverageDurationOfSessionsAsString();
+        String averageDuration = userStats.getSessionList().getAverageDurationAsString();
         this.averageDuration.setText("Average duration per login: " + averageDuration);
     }
 
