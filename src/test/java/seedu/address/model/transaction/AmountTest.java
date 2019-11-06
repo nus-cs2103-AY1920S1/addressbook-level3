@@ -20,8 +20,8 @@ public class AmountTest {
     @Test
     public void isWithinLimits_withinLimits_true() {
         assertTrue(Amount.isWithinLimits(Amount.UNSIGNED_INT_LIMIT));
-        assertTrue(Amount.isWithinLimits(100000000));
-        assertTrue(Amount.isWithinLimits(99999999));
+        assertTrue(Amount.isWithinLimits(1000000000));
+        assertTrue(Amount.isWithinLimits(999999999));
         assertTrue(Amount.isWithinLimits(0));
         assertTrue(Amount.isWithinLimits(1));
         assertTrue(Amount.isWithinLimits(-1));
@@ -30,7 +30,7 @@ public class AmountTest {
 
     @Test
     public void isWithinLimits_overLimits_false() {
-        assertFalse(Amount.isWithinLimits(100000001));
+        assertFalse(Amount.isWithinLimits(1000000001));
         assertFalse(Amount.isWithinLimits(Amount.UNSIGNED_INT_LIMIT + 1));
         assertFalse(Amount.isWithinLimits(-Amount.UNSIGNED_INT_LIMIT - 1));
     }
