@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showIncidentAtIndex;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
-import static seedu.address.testutil.TypicalIncidents.getTypicalIncidentManager;
+import static seedu.address.testutil.TypicalEntities.getTypicalIncidentManager;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
 
 import org.junit.jupiter.api.BeforeEach;
