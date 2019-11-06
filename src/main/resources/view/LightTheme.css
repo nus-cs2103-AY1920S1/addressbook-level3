@@ -89,7 +89,7 @@
 .side-panel-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: Grey;
+    -fx-text-fill: Black;
 }
 
 .side-panel-listview {
@@ -101,6 +101,19 @@
     -fx-background-color: WhiteSmoke;
     -fx-text-fill: Black;
 
+}
+
+.stats-graphic-title {
+    -fx-text-fill: black;
+    -fx-font-size: 20px
+}
+
+.stats-bar-text {
+    -fx-side-shelf-fill: black;
+}
+
+.stats-pie-text {
+    -fx-text-fill: black;
 }
 
 .status-bar {

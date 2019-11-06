@@ -184,24 +184,23 @@
 }
 
 .side-panel-income {
-    -fx-background-color: Black;
+    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-border-color: #3cb371;
     -fx-border-width: 3px;
     -fx-border-radius: 10px;
 }
 
 .side-panel-expense {
-    -fx-background-color: Black;
+    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-border-color: Coral;
     -fx-border-width: 3px;
     -fx-border-radius: 10px;
 }
 
-
 .side-panel-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: Grey;
+    -fx-text-fill: White;
 }
 
 .side-panel-listview {
@@ -215,6 +214,51 @@
     -fx-background-color: derive(#1d1d1d, 20%);
     -fx-text-fill: White;
 
+}
+
+.stats-graphic-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20px
+}
+
+.stats-bar-text {
+    -fx-side-shelf-fill: white;
+    -fx-label-fill: white;
+    -fx-tick-label-fill: white;
+    -fx-text-fill: white;
+}
+
+.stats-bar-cat-axis {
+    -fx-axis-stroke: white;
+    -fx-label-fill: white;
+    -fx-tick-label-fill: white;
+    -fx-text-fill: white;
+}
+
+.stats-bar-num-axis {
+    -fx-axis-stroke: white;
+    -fx-label-fill: white;
+    -fx-tick-label-fill: white;
+    -fx-text-fill: white;
+}
+
+#dateOfRecord {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.chart-title {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.axis-label {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.stats-pie-text {
+    -fx-text-fill: white;
 }
 
 .status-bar {
