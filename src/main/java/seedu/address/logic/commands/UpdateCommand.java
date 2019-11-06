@@ -100,6 +100,7 @@ public class UpdateCommand extends UndoableCommand {
     private Entity entity;
     private Fridge originalFridge;
     private Fridge updatedFridge;
+    private Fridge claimedFridge;
     private List<Notif> toDeleteNotif = Collections.emptyList();
     private List<Notif> autoNotif = Collections.emptyList();
     private boolean isUpdatedFromNotif = false;
@@ -148,13 +149,13 @@ public class UpdateCommand extends UndoableCommand {
         }
         //@@author arjavibahety
         try {
+            //@@author ambervoong
             this.originalEntityDescriptor = saveOriginalFields(entity);
 
             if (originalEntityDescriptor instanceof UpdateBodyDescriptor) {
                 UpdateBodyDescriptor originalBodyDescriptor = (UpdateBodyDescriptor) originalEntityDescriptor;
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
 
-                //@@author ambervoong
                 if (!originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())
                         && updateBodyDescriptor.getFridgeId().isPresent()) {
                     handleUpdatingFridgeAndEntity(model, originalBodyDescriptor, updateBodyDescriptor);
@@ -300,6 +301,8 @@ public class UpdateCommand extends UndoableCommand {
         for (Fridge fridge : model.getFilteredFridgeList()) {
             if (Optional.of(fridge.getIdNum()).equals(body.getFridgeId())) {
                 fridge.setBody(null);
+                model.setEntity(fridge, fridge);
+                this.claimedFridge = fridge;
             }
         }
 
@@ -349,6 +352,14 @@ public class UpdateCommand extends UndoableCommand {
                     updatedFridge.setBody(null);
                     body.setFridgeId(null);
                 }
+
+                // Undoes fridge changes caused by CLAIMED status
+                if (claimedFridge != null) {
+                    claimedFridge.setBody(body);
+                    // This is to make the GUI display the update.
+                    model.setEntity(claimedFridge, claimedFridge);
+                }
+
 
                 // Undo Notif removal
                 for (Notif n : toDeleteNotif) {
