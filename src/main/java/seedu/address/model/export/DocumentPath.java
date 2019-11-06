@@ -52,6 +52,7 @@ public class DocumentPath extends ExportPath {
      * Returns true if a given string is a valid document path.
      */
     public static boolean isValid(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -2,6 +2,8 @@
 
 package seedu.address.model.export;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +28,8 @@ public class JsonImportUtil {
      */
     public static Optional<List<FlashCard>> importFlashCardsFromJson(JsonExportPath jsonExportPath)
             throws DataConversionException {
+
+        requireNonNull(jsonExportPath);
         assert JsonExportPath.isValid(jsonExportPath.toString());
 
         return readFromOptionalKfc(
@@ -37,6 +41,9 @@ public class JsonImportUtil {
 
     private static Optional<ReadOnlyKeyboardFlashCards> getOptionalKfc(JsonExportPath jsonExportPath)
             throws DataConversionException {
+
+        requireNonNull(jsonExportPath);
+
         JsonKeyboardFlashCardsStorage jsonStorage = new JsonKeyboardFlashCardsStorage(
                 jsonExportPath.getPath()
         );
@@ -54,6 +61,8 @@ public class JsonImportUtil {
      * {@code KeyboardFlashCards} Optional.
      */
     private static Optional<List<FlashCard>> readFromOptionalKfc(Optional<ReadOnlyKeyboardFlashCards> optionalKfc) {
+        requireNonNull(optionalKfc);
+
         if (!optionalKfc.isPresent()) {
             return Optional.empty();
         }

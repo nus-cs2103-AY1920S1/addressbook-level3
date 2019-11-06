@@ -25,7 +25,6 @@ public class JsonImportUtilTest {
     @Test
     public void importFlashCardsFromJson_valid_success() {
         List<List<FlashCard>> listsToTest = Arrays.asList(
-                TypicalFlashCards.getEmptyFlashCardList(),
                 TypicalFlashCards.getSingletonFlashCardList(),
                 TypicalFlashCards.getTypicalFlashCards()
         );

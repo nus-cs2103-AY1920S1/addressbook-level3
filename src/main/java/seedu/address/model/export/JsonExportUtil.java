@@ -2,6 +2,8 @@
 
 package seedu.address.model.export;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class JsonExportUtil {
      * @throws IOException If an error arises in writing to the File.
      */
     public static void exportFlashCardsToJson(List<FlashCard> cards, JsonExportPath jsonExportPath) throws IOException {
+        requireAllNonNull(cards, jsonExportPath);
+        assert cards.size() > 0;
         assert JsonExportPath.isValid(jsonExportPath.toString());
 
         KeyboardFlashCards exportKfc = new KeyboardFlashCards();

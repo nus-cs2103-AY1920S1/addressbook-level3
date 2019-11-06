@@ -53,6 +53,7 @@ public class JsonExportPath extends ExportPath {
      * Returns true if a given string is a valid json export path.
      */
     public static boolean isValid(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -64,6 +65,8 @@ public class JsonExportPath extends ExportPath {
      * relative to its immediate parent directory
      */
     private static JsonExportFilePath extractJsonExportFilePath(String jsonExportPathString) {
+        requireNonNull(jsonExportPathString);
+
         Path fullPath = Paths.get(jsonExportPathString);
         int nameCount = fullPath.getNameCount();
 
@@ -89,6 +92,8 @@ public class JsonExportPath extends ExportPath {
 
     @Override
     public void export(List<FlashCard> list) throws IOException {
+        requireNonNull(list);
+
         try {
             directoryPath.createIfNotPresent();
             JsonExportUtil.exportFlashCardsToJson(list, this);

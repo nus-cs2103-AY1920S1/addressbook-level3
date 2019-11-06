@@ -2,6 +2,8 @@
 
 package seedu.address.model.export;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Class used for creating of {@code ExportPath}s. Follows the factory pattern.
  */
@@ -21,6 +23,8 @@ public class ExportPathFactory {
      * @throws IllegalArgumentException if the given String does not match the format of any of the ExportPaths
      */
     public static ExportPath getExportPath(String exportPath) throws IllegalArgumentException {
+        requireNonNull(exportPath);
+
         if (DocumentPath.isValid(exportPath)) {
             return new DocumentPath(exportPath);
         } else if (JsonExportPath.isValid(exportPath)) {

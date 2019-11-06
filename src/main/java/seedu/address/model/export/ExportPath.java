@@ -2,6 +2,8 @@
 
 package seedu.address.model.export;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,6 +34,8 @@ public abstract class ExportPath {
      * @return DirectoryPath representing the path of the most nested directory within the given String
      */
     static DirectoryPath extractDirectoryPath(String exportPathString) {
+        requireNonNull(exportPathString);
+
         return new DirectoryPath(
                 Paths.get(
                         exportPathString
