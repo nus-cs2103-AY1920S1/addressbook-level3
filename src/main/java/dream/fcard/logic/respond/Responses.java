@@ -299,10 +299,17 @@ public enum Responses {
                     }
 
                     if (hasDeckName) {
-                        // Todo: Show Stats for Deck
+                        // Todo: Show Stats for Deck @nattanyz
                         return true;
                     } else {
-                        // Todo: Show Stats for Application
+                        // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
+                        //try {
+                        //    // show stats for the application
+                        //    StatisticsWindow statisticsWindow = new StatisticsWindow();
+                        //    Consumers.doTask(ConsumerSchema.OPEN_WINDOW, statisticsWindow);
+                        //} catch (Exception e) {
+                        //    e.printStackTrace();
+                        //}
                         return true;
                     }
                 }

@@ -3,19 +3,20 @@ package dream.fcard.logic.stats;
 
 /**
  * Represents the user's statistics pertaining to a specific Deck.
+ * The sessionList contained in this object represents the test sessions involving this deck the
+ * user has engaged in.
  */
-public class DeckStats {
+public class DeckStats extends Stats {
     // todo: should implement JsonInterface. need help with toJson().
 
-    /** List of Sessions involving the Deck this DeckStats object corresponds to. */
-    private SessionList deckTestSessions;
+    private String deckName;
+    private int numCards;
 
-    /**
-     * Adds the given session to the deckTestSessions list contained in this DeckStats object.
-     * @param session The Session to be added.
-     */
-    public void addSession(Session session) {
-        this.deckTestSessions.addSession(session);
+    public DeckStats() {
+        super();
+        System.out.println("New DeckStats object created.");
+        this.sessionList = new SessionList();
+        System.out.println("New SessionList for deck test sessions created.");
     }
 
     //@Override
@@ -28,8 +29,13 @@ public class DeckStats {
     //    return new JsonValue(statsJson);
     //}
 
-    /** Returns the number of test sessions. */
-    public int numberOfTestSessions() {
-        return this.deckTestSessions.numberOfSessions();
-    }
+    //public Double getAverageScore() {
+    //    // todo: cannot get score if Session is not DeckSession
+    //    Double score = 0.0;
+    //    ArrayList<Session> sessions = this.getSessionsAsArrayList();
+    //    for (Session session : sessions) {
+    //        score += session.getScore();
+    //    }
+    //}
+    // todo: need to get score as Double
 }

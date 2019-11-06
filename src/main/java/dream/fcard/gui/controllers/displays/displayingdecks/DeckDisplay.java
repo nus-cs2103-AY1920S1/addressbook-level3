@@ -61,7 +61,7 @@ public class DeckDisplay extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.deck = deck;
-            deckName.setText(deck.getName());
+            deckName.setText(deck.getDeckName());
             renderQuestions();
             deleteDeckButton.setOnAction(e -> {
                 try {
@@ -137,7 +137,7 @@ public class DeckDisplay extends AnchorPane {
      */
     private void deleteDeck() throws DeckNotFoundException { //can be in Responses
         State state = StateHolder.getState();
-        state.removeDeck(deck.getName());
+        state.removeDeck(deck.getDeckName());
         StorageManager.deleteDeck(deck);
         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }

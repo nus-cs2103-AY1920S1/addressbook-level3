@@ -15,7 +15,6 @@ public class State {
     private StateEnum currState;
     private Deck currentDeck;
 
-
     /**
      * Constructor to create a State object with no Deck objects.
      */
@@ -47,7 +46,6 @@ public class State {
         return decks;
     }
 
-
     /**
      * Adds a new empty Deck object to decks list.
      */
@@ -66,7 +64,6 @@ public class State {
         decks.add(deck);
         this.currentDeck = deck;
     }
-
 
     /**
      * Removes the deck from the decks list, if there is a deck with a matching name.
@@ -94,7 +91,6 @@ public class State {
         return decks.get(indexOfDeck);
     }
 
-
     /**
      * Returns the index of a deck given the deck name, if a deck with matching name exists.
      * Else, return -1 if no deck with matching name is found.
@@ -107,7 +103,7 @@ public class State {
     private int getDeckIndex(String name) {
         for (int i = 0; i < decks.size(); i++) {
             Deck currentDeck = decks.get(i);
-            boolean isUserInputMatchDeckName = currentDeck.getName().equals(name);
+            boolean isUserInputMatchDeckName = currentDeck.getDeckName().equals(name);
 
             if (isUserInputMatchDeckName) {
                 return i;
@@ -140,7 +136,7 @@ public class State {
      */
     public int hasDeckName(String name) {
         for (int i = 0; i < decks.size(); i++) {
-            if (decks.get(i).getName() == name) {
+            if (decks.get(i).getDeckName() == name) {
                 return i;
             }
         }
