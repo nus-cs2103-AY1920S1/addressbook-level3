@@ -113,12 +113,14 @@ public class LogicManager implements Logic {
                 return new LinkedList<>();
             }
             return getFilteredCustomerList().stream().map(x -> x.getUserName().fullName)
+                    .sorted(String::compareToIgnoreCase)
                     .collect(Collectors.toCollection(LinkedList::new));
         case "r/":
             if (hasDuplicatePrefix(input, prefix)) {
                 return new LinkedList<>();
             }
             return getFilteredRestaurantList().stream().map(x -> x.getName().fullName)
+                    .sorted(String::compareToIgnoreCase)
                     .collect(Collectors.toCollection(LinkedList::new));
         case "f/":
             currRestaurant = getInputRestaurant(input);
@@ -126,6 +128,7 @@ public class LogicManager implements Logic {
                 return new LinkedList<>();
             }
             return currRestaurant.getMenu().stream().map(x -> x.getName().fullName)
+                    .sorted(String::compareToIgnoreCase)
                     .collect(Collectors.toCollection(LinkedList::new));
         default:
             return new LinkedList<>();
@@ -139,7 +142,7 @@ public class LogicManager implements Logic {
     private Restaurant getInputRestaurant(String input) {
         Name restaurantName;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(input, PREFIX_RESTAURANT,
-                PREFIX_FOOD, PREFIX_QUANTITY, PREFIX_CUSTOMER , PREFIX_INDEX);
+                PREFIX_FOOD, PREFIX_QUANTITY, PREFIX_CUSTOMER, PREFIX_INDEX);
 
         // if prefix value is not present
         if (argMultimap.getValue(PREFIX_RESTAURANT).isEmpty()) {

@@ -1,11 +1,12 @@
 package seedu.deliverymans.ui;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
@@ -33,56 +34,28 @@ public class AutocompletionTextField extends TextField {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
-
-        setListener();
     }
 
-    /**
-     * "Suggestion" specific listners
-     */
-    private void setListener() {
-        //Add "suggestions" by changing text
-        textProperty().addListener((observable, oldValue, newValue) -> {
-            String enteredText = getText();
-            //always hide suggestion if nothing has been entered
-            // (only "spacebars" are dissalowed in TextFieldWithLengthLimit)
-            if (enteredText == null || enteredText.isEmpty()) {
-                entriesPopup.hide();
-            } else {
-                //filter all possible suggestions depends on "Text", case insensitive
-                List<String> filteredEntries = entries.stream()
-                        .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
-                        .collect(Collectors.toList());
-                //some suggestions are found
-                if (!filteredEntries.isEmpty()) {
-                    //build popup - list of "CustomMenuItem"
-                    populatePopup(filteredEntries, enteredText);
-                    if (!entriesPopup.isShowing()) { //optional
-                        //position of popup
-                        entriesPopup.show(AutocompletionTextField.this, Side.BOTTOM, 0, 0);
-                    }
-                    //no suggestions -> hide
-                } else {
-                    entriesPopup.hide();
-                }
-            }
-        });
-
-        //Hide always by focus-in (optional) and out
-        focusedProperty().addListener((observableValue, oldValue, newValue) -> {
-            entriesPopup.hide();
-        });
+    public ContextMenu getEntriesPopup() {
+        return entriesPopup;
     }
 
+    public void hideEntriesPopup() {
+        entriesPopup.hide();
+    }
+
+    public void show() {
+        entriesPopup.show(AutocompletionTextField.this, Side.BOTTOM, 0, 0);
+    }
 
     /**
      * Populate the entry set with the given search results. Display is limited to 10 entries, for performance.
      *
      * @param searchResult The set of matching strings.
      */
-    private void populatePopup(List<String> searchResult, String searchRequest) {
+    public void populatePopup(List<String> searchResult, String searchRequest) {
         //List of "suggestions"
-        List<CustomMenuItem> menuItems = new LinkedList<>();
+        List<CustomMenuItem> menuItems = new ArrayList<>();
         //List size - 10 or founded suggestions count
         int maxEntries = 10;
         int count = Math.min(searchResult.size(), maxEntries);
@@ -98,9 +71,9 @@ public class AutocompletionTextField extends TextField {
 
             //if any suggestion is select set it into text and close popup
             item.setOnAction(actionEvent -> {
-                setText(result);
-                positionCaret(result.length());
-                entriesPopup.hide();
+                setText(getText().substring(0, getText().lastIndexOf(searchRequest)) + result);
+                positionCaret(getText().length());
+                fireEvent(new Event(EventType.ROOT));
             });
         }
 
@@ -127,6 +100,13 @@ public class AutocompletionTextField extends TextField {
      * @return - TextFlow
      */
     private static TextFlow buildTextFlow(String text, String filter) {
+        if (filter.equals("")) {
+            Text toReturn = new Text(text);
+            toReturn.setFill(Color.BLACK);
+            toReturn.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
+            return new TextFlow(toReturn);
+        }
+        //System.out.println(filter);
         int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
         Text textBefore = new Text(text.substring(0, filterIndex));
         Text textAfter = new Text(text.substring(filterIndex + filter.length()));
