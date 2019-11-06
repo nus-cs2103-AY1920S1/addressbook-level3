@@ -16,11 +16,12 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
     }
 
     /**
-     * Add an item into the list.
+     * Add an item into the list. The item will not be added if it is already in the list
+     * or it does not belong to the list.
      * @param item the item to be added into the list
      */
     public boolean add(Item item) {
-        if (hasItem(item)) {
+        if (hasItem(item) || !belongToList(item)) {
             return false;
         } else {
             return super.add(item);

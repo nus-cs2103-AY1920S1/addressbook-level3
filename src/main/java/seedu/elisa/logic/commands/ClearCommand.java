@@ -31,7 +31,7 @@ public class ClearCommand extends UndoableCommand {
     @Override
     public void reverse(ItemModel model) throws CommandException {
         model.setItemStorage(beforeClear);
-        model.updateLists();
+        model.repopulateLists();
     }
 
     @Override

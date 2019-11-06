@@ -17,7 +17,6 @@ import seedu.elisa.model.ElisaCommandHistoryManager;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.ItemModelManager;
 import seedu.elisa.model.ItemStorage;
-import seedu.elisa.model.Model;
 import seedu.elisa.model.UserPrefs;
 import seedu.elisa.storage.JsonItemStorage;
 import seedu.elisa.storage.JsonUserPrefsStorage;
@@ -99,7 +98,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, ItemModel)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-                                      Model expectedModel) throws CommandException, ParseException {
+                                      ItemModel expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -141,7 +140,7 @@ public class LogicManagerTest {
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
      *
-     * @see #assertCommandSuccess(String, String, Model)
+     * @see #assertCommandSuccess(String, String, ItemModel)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, ItemModel expectedModel) {
