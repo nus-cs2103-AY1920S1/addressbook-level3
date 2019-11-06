@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 
 import mams.commons.exceptions.DataConversionException;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.ReadOnlyMams;
 import mams.storage.JsonMamsStorage;
@@ -15,7 +16,7 @@ import mams.storage.JsonMamsStorage;
 public class RedoCommand extends StoreCommand {
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_redo.json"));
 
         ReadOnlyMams mamsToReplace;

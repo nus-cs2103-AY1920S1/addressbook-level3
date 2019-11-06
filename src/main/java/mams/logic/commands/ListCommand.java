@@ -2,6 +2,11 @@ package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static mams.logic.parser.CliSyntax.OPTION_APPEAL;
+import static mams.logic.parser.CliSyntax.OPTION_MODULE;
+import static mams.logic.parser.CliSyntax.OPTION_STUDENT;
+
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 
 /**
@@ -10,6 +15,16 @@ import mams.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Lists out MAMS items, with several options for targeting specific lists. If no options "
+            + "are specified, then all items will be listed.\n"
+            + "Parameters: KEYWORD "
+            + "[" + OPTION_APPEAL + "] "
+            + "[" + OPTION_MODULE + "] "
+            + "[" + OPTION_STUDENT + "]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + OPTION_APPEAL + " " + OPTION_STUDENT;
 
     public static final String MESSAGE_LIST_APPEALS_SUCCESS = "Listed all appeals";
     public static final String MESSAGE_LIST_MODULES_SUCCESS = "Listed all modules";
@@ -31,7 +46,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) {
         requireNonNull(model);
         // it is responsibility of parser to enforce this condition
         assert(containsAtLeastOneTrue(showAppeals, showModules, showStudents)) : ASSERT_ERROR_MESSAGE;

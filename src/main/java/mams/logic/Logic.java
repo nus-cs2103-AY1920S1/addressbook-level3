@@ -46,6 +46,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the commands entered by the user */
     ObservableList<InputOutput> getCommandHistory();
 
+    /** Returns an unmodifiable view of the filtered commands entered by the user */
+    ObservableList<InputOutput> getFilteredCommandHistory();
+
     /**
      * Returns the user prefs' MAMS file path.
      */

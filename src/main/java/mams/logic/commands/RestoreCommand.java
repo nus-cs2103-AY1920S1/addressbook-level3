@@ -4,37 +4,39 @@ import java.nio.file.Paths;
 
 import mams.commons.exceptions.DataConversionException;
 import mams.logic.commands.exceptions.CommandException;
-import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.ReadOnlyMams;
 import mams.storage.JsonMamsStorage;
 
 /**
- * loads data from mamshistory_undo.json
+ * saves data under mamshistory_tag.json
  */
-public class UndoCommand extends StoreCommand {
+public class RestoreCommand extends StoreCommand {
+    private String tag = "";
 
-    public UndoCommand() {
-
+    public RestoreCommand(String tag) {
+        this.tag = tag;
     }
 
     @Override
-    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
-        JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_undo.json"));
+    public CommandResult execute(Model model) throws CommandException {
+        JsonMamsStorage target = new JsonMamsStorage(Paths.get("data/mamshistory_" + this.getTag() + ".json"));
         ReadOnlyMams mamsToReplace;
         try {
-            if (history.readMams().isPresent()) {
-                mamsToReplace = history.readMams().get();
+            if (target.readMams().isPresent()) {
+                mamsToReplace = target.readMams().get();
             } else {
                 throw new DataConversionException(new Exception());
             }
         } catch (DataConversionException e) {
-            throw new CommandException("Unable to undo");
+            throw new CommandException("No backup with name found");
         }
-        new SaveCommand("redo").privateExecute(model);
         model.replaceMams(mamsToReplace);
-        return new CommandResult("Undo Successful ");
+        return new CommandResult("Backup  mamshistory_" + this.getTag() + " restored!");
+    }
 
+    public String getTag() {
+        return this.tag;
     }
 
     @Override

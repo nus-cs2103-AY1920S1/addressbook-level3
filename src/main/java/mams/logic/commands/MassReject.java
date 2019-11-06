@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 
@@ -26,7 +27,7 @@ public class MassReject extends Reject {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         List<Appeal> lastShownList = model.getFilteredAppealList();
 
         for (String appealId : validIds) {

@@ -118,10 +118,7 @@ public class Student {
 
         Student otherStudent = (Student) other;
         return otherStudent.getName().equals(getName())
-                && otherStudent.getCredits().equals(getCredits())
-                && otherStudent.getPrevMods().equals(getPrevMods())
-                && otherStudent.getMatricId().equals(getMatricId())
-                && otherStudent.getTags().equals(getTags());
+                && otherStudent.getMatricId().equals(getMatricId());
     }
 
     @Override
