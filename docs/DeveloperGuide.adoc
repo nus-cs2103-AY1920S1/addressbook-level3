@@ -837,6 +837,63 @@ The following activity diagram shows the steps after the user input a checkout c
 
 image::CheckoutCommandCashierActivityDiag.png[]
 
+==== Overall Design Considerations
+
+This section explains the design considerations for some crucial implementations in the Cashier Tab.
+
+|===
+|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+|An ArrayList is used to store the list of sales item shown on the `Cashier Tab`.
+
+*Pros*: Elements are be accessed directly more efficiently.
+
+*Cons*: Adding and removing from the head of the list is less time-efficient for ArrayList.
+
+|A LinkedList is used to store the list of sales item.
+
+*Pros*: Time performance is better when elements are accessed from the head of the list.
+
+*Cons*: Performance is poor when accessing directly via the index.
+
+|Alternative 1 is selected. An ArrayList has better performance with respect to time when accessing each elements directly. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.
+
+|The Transaction, Inventory and Person `Model` interfaces are passed as parameters into Cashier's `Logic`
+to call relevant methods to update the inventory and transactions.
+
+*Pros*: Cashier's Logic can access all public methods in the respective `Model`.
+
+*Cons*: It might result in unintended modification to some of the data in the Models.
+
+|Interfaces that only contains required methods are created. The methods are called via these interfaces
+to update the data.
+
+*Pros*: Prevents any unwanted changes through other methods. This follows the Facade Pattern.
+
+*Cons*: If more methods are needed, they need to be added to these interfaces.
+
+|Alternative 2 was implemented as only a few methods are required from each `Model`, so the new interfaces can act as facades
+and restrict access to all public methods in the models. This prevents in Cashier’s `Logic` from causing any
+unintended modification to any of the data in the Models.
+
+|The Cashier Storage directly writes to and from the data file of the inventory and transaction.
+
+*Pros*: It can access the data file directly without any dependencies.
+
+*Cons*: The data files can be modified from 2 sources, introducing more chances of bugs.
+
+|The Cashier Storage accesses the methods from the Transaction and Inventory storage via their `Logic`
+to update the data.
+
+*Pros*: The data files are only modified from 1 source, ensuring cohesiveness in the format of data stored.
+
+*Cons*: It introduces more dependencies on the storage of other packages.
+
+|Alternative 2 is implemented to enforce defensive programming, so that the data files are not modified via 2 different
+methods and eliminate any chances of uncoordinated data in the data files.
+
+|===
+
 === Overview Tab
 
 This tab displays summary statistics for the data within treasurerPro. There are four main statistics shown:
