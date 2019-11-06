@@ -21,10 +21,12 @@ import com.joestelmach.natty.Parser;
 
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 
+//@@author Nanosync
 /**
  * Contains utility methods used for parsing dates with natural language processing.
  */
 public class DateUtil {
+    /** Formal date formatters **/
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter DATE_FORMAT_PRETTY = DateTimeFormatter.ofPattern("EE dd/MM/yyyy");
     private static final DateTimeFormatter DATE_FORMAT_TWO_DIGIT_YEAR = DateTimeFormatter.ofPattern("dd/MM/yy");
@@ -111,7 +113,7 @@ public class DateUtil {
      * @param day Day
      * @return True if the input date was valid.
      */
-    private static boolean isValidNormalisedDate(int year, int month, int day) {
+    private static boolean isValidDate(int year, int month, int day) {
         try {
             LocalDate.of(year, month, day);
             return true;
@@ -154,7 +156,7 @@ public class DateUtil {
                     }
                 }
 
-                if (!isValidNormalisedDate(year, month, day)) {
+                if (!isValidDate(year, month, day)) {
                     return "";
                 }
 
@@ -202,8 +204,9 @@ public class DateUtil {
         }
     }
 
+    //@@author minpyaemoe
     /**
-     * formats a date to a string with two-digit year.
+     * Formats a date to a string with two-digit year.
      * Example output: 25/12/19
      *
      * @param date Input date
