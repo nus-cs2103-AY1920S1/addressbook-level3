@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -115,8 +116,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Paint elisaTextBlueColor = elisaText.getFill();
     private final Paint elisaDescBlueColor = elisaDescription.getFill();
-    private final Paint elisaTextRedColor = Paint.valueOf("ff0000");
-    private final Paint elisaDescRedColor = Paint.valueOf("fe4949");
+    private final Paint elisaTextRedColor = Paint.valueOf("ff8080");
+    private final Paint elisaDescRedColor = Paint.valueOf("ffb4b4");
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -149,14 +150,23 @@ public class MainWindow extends UiPart<Stage> {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
-                    elisaImage.setImage(redElisa);
-                    setTextRed();
+                    setRed();
                 } else {
-                    elisaImage.setImage(blueElisa);
-                    setTextDefault();
+                    setBlue();
                     if (logic.isSystemToggle()) {
                         Platform.runLater(() -> {
-                            resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF);
+                            String feedback;
+                            switch (logic.getExitStatus()) {
+                            case PRIORITY_TIMEOUT: feedback = PriorityCommand.TIME_OUT;
+                                    break;
+                            case ALL_TASK_COMPLETED: feedback = PriorityCommand.FINISHED_ALL_TASKS;
+                                    break;
+                            default:
+                                // will never reach here as there are only two cases
+                                feedback = "";
+                            }
+
+                            resultDisplay.setFeedbackToUser(feedback);
                             updatePanels();
                         });
                     }
@@ -169,14 +179,19 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setTextRed() {
+    private void setRed() {
+        elisaImage.setImage(redElisa);
         elisaText.setFill(elisaTextRedColor);
+        elisaText.setEffect(new Glow(0.2));
+        elisaText.setStroke(elisaDescRedColor);
         elisaDescription.setFill(elisaDescRedColor);
         elisaDescription2.setFill(elisaDescRedColor);
     }
 
-    private void setTextDefault() {
+    private void setBlue() {
+        elisaImage.setImage(blueElisa);
         elisaText.setFill(elisaTextBlueColor);
+        elisaText.setEffect(null);
         elisaDescription.setFill(elisaDescBlueColor);
         elisaDescription2.setFill(elisaDescBlueColor);
     }
@@ -200,11 +215,15 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             private void createReminders(Change<? extends Item> c) {
-                for (Item newItem : c.getAddedSubList()) {
-                    Platform.runLater(() -> {
-                        //Populate resultDisplay with reminder textbox
-                        resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
-                    });
+                if (c.getAddedSize() > 0) {
+                    //Plays sound
+                    reminderAlarm.play(30);
+                    for (Item newItem : c.getAddedSubList()) {
+                        Platform.runLater(() -> {
+                            //Populate resultDisplay with reminder textbox
+                            resultDisplay.setReminderToUser(newItem.getReminderMessage());
+                        });
+                    }
                 }
             }
         };
@@ -309,6 +328,7 @@ public class MainWindow extends UiPart<Stage> {
         popup.getContent().add(new OpenItem(item).getRoot());
         popup.setHeight(1000);
         popup.setWidth(500);
+        popup.setHideOnEscape(false);
 
         this.popup = popup;
         popup.show(primaryStage);

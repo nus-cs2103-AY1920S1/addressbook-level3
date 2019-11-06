@@ -21,13 +21,17 @@ public class ClearCommand extends UndoableCommand {
         requireNonNull(model);
         beforeClear = model.getItemStorage().deepCopy();
         model.clear();
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
         model.setItemStorage(beforeClear);
-        model.updateLists();
+        model.repopulateLists();
     }
 
     @Override

@@ -20,11 +20,11 @@ import seedu.elisa.commons.core.item.ItemDescription;
 import seedu.elisa.commons.core.item.Priority;
 import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.Task;
+import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.commons.util.CollectionUtil;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.item.VisualizeList;
-import seedu.elisa.model.tag.Tag;
 
 /**
  * Edits the details of an existing item in the item list.
@@ -57,7 +57,7 @@ public class EditCommand extends UndoableCommand {
     private Item editedItem;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index              of the person in the filtered person list to edit
      * @param editItemDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditItemDescriptor editItemDescriptor) {
@@ -79,22 +79,19 @@ public class EditCommand extends UndoableCommand {
 
         Item oldItem = lastShownList.get(index.getZeroBased());
         this.oldItem = oldItem; //Is this line of code necessary?
-        Item editedItem = null;
+        Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
+        this.editedItem = editedItem; //Is this line of code necessary?
 
-        if ((editItemDescriptor.getHasDeleteEvent() //Checks if Event was deleted or if Event has an update
-                || (oldItem.getEvent().isEmpty() && editItemDescriptor.getEvent().isEmpty()))
-                && (editItemDescriptor.getHasDeleteTask() //Checks if Task was deleted or if Task has an update
-                || (oldItem.getTask().isEmpty() && editItemDescriptor.getTask().isEmpty()))
-                && (editItemDescriptor.getHasDeleteReminder() //Checks if Reminder was deleted or has an update
-                || (oldItem.getReminder().isEmpty() && editItemDescriptor.getReminder().isEmpty()))) {
-            model.deleteItem(oldItem);
-            return new CommandResult(String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, oldItem));
-        } else {
-            editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
-            model.editItem(oldItem, editedItem);
-            this.editedItem = editedItem; //Is this line of code necessary?
-            return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
+        if (model.hasItem(editedItem)) {
+            throw new CommandException("Edit failed! Don't you remember that this item already exists?");
         }
+
+        model.editItem(oldItem, editedItem);
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
+        return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
     }
 
     @Override
@@ -104,9 +101,10 @@ public class EditCommand extends UndoableCommand {
 
     /**
      * Create a new Item with the new edited details.
-     * @param itemToEdit old item to edit
+     *
+     * @param itemToEdit         old item to edit
      * @param editItemDescriptor details to edit the item with
-     * @param lastShownList the last list shown to the user, set by the model
+     * @param lastShownList      the last list shown to the user, set by the model
      * @return a new Item with the edited details
      * @throws CommandException representing failure to create new edited item
      */
@@ -133,11 +131,12 @@ public class EditCommand extends UndoableCommand {
                         .getReminder()
                         .orElse(null)));
         Set<Tag> updatedTags = editItemDescriptor.getTags().orElse(itemToEdit.getTags());
+        Priority updatedPriority = editItemDescriptor.getPriority().orElse(itemToEdit.getPriority());
 
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(updatedDescription);
         itemBuilder.setTags(updatedTags);
-        itemBuilder.setItemPriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
+        itemBuilder.setItemPriority(updatedPriority);
 
         if (updatedTask.isPresent()) {
             itemBuilder.setTask(updatedTask.get());
@@ -183,7 +182,8 @@ public class EditCommand extends UndoableCommand {
         private boolean hasDeleteEvent = false;
         private boolean hasDeleteReminder = false;
 
-        public EditItemDescriptor() {}
+        public EditItemDescriptor() {
+        }
 
         /**
          * Copy constructor.

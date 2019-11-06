@@ -88,7 +88,7 @@ public class RescheduleTask extends TimerTask {
             @Override
             public void run() {
                 model.replaceItem(oldItem, newItem);
-                model.updateLists();
+                model.repopulateLists();
                 model.setVisualizeList(model.getVisualList()); // to refresh the view
             }
         });

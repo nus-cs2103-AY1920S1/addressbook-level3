@@ -26,8 +26,15 @@ public class ElisaCommandHistoryManager implements ElisaCommandHistory {
     public void pushUndo(Command command) {
         if (command instanceof UndoableCommand) {
             undoStack.push((UndoableCommand) command);
-            redoStack.clear();
         }
+    }
+
+    /**
+     * empty the redo stack (for use when new command is executed)
+     * */
+    @Override
+    public void clearRedo() {
+        redoStack.clear();
     }
 
     /**
@@ -78,5 +85,20 @@ public class ElisaCommandHistoryManager implements ElisaCommandHistory {
     @Override
     public int sizeRedo() {
         return redoStack.size();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof ElisaCommandHistoryManager)) {
+            return false;
+        }
+
+        ElisaCommandHistoryManager hm = (ElisaCommandHistoryManager) other;
+        return hm.redoStack.equals(this.redoStack)
+                && hm.undoStack.equals(this.undoStack);
     }
 }

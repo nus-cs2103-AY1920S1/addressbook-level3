@@ -3,19 +3,24 @@ package seedu.elisa.model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.DataConversionException;
+import seedu.elisa.commons.exceptions.DuplicateItemException;
 import seedu.elisa.commons.util.JsonUtil;
-import seedu.elisa.model.person.exceptions.DuplicateItemException;
 
 /**
  * The central storage of all the items in the program.
  */
 public class ItemStorage {
+    private static final Logger logger = LogsCenter.getLogger(ItemModelManager.class);
+
     private ArrayList<Item> items = new ArrayList<>();
 
     /**
@@ -131,7 +136,9 @@ public class ItemStorage {
             } catch (NullPointerException e) {
                 throw new DataConversionException(e);
             } catch (DuplicateItemException e) {
-                System.out.println(e);
+                logger.log(Level.INFO, String.format("%s already exists. Skipping.", json));
+            } catch (IllegalArgumentException e) {
+                logger.log(Level.WARNING, String.format("%s is corrupted and will be skipped.", json));
             }
         }
         return itemStorage;
