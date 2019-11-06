@@ -105,7 +105,18 @@ public class ParserUtil {
 
         String trimmedDateTime = reminder.trim();
         LocalDateTime formattedDateTime;
-        formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
+
+        try {
+            formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
+            if (formattedDateTime.isBefore(LocalDateTime.now())) {
+                throw new ParseException("You can't remind your past self silly!");
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Date Time format given is incorrect. "
+                    + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
+                    + "or \"-r 25/09/2019 2359\""
+                    + "of \"-r 10.min.later\"");
+        }
 
         Reminder newReminder = new Reminder(formattedDateTime);
         return Optional.of(newReminder);

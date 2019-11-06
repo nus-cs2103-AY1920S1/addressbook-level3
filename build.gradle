@@ -70,7 +70,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'ELISA_v1.3.5.jar'
+    archiveName = 'ELISA.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

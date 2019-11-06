@@ -1,6 +1,5 @@
 package seedu.elisa.logic.parser;
 
-import static seedu.elisa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
@@ -32,14 +31,15 @@ public class AddReminderCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
 
+
+        ItemDescription description = ParserUtil.parseDescription(desc);
+
         // Reminder must be present.
         if (!arePrefixesPresent(argMultimap, PREFIX_REMINDER)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException("I can't believe you forgot the reminder format again! "
+                    + "The format should follow:\n\"reminder DESCRIPTION -r REMINDER [-t TAG]\"");
         }
-
-        ItemDescription description = ParserUtil.parseDescription(desc);
-        // Reminder must be present.
         Reminder itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()).get();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

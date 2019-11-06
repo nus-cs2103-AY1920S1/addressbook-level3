@@ -38,7 +38,7 @@ Enjoy!
 image::ug_quickstart.png[]
 
 .  Have you installed Java `11` ?
-.  Find me, `elisa.jar` link:{repoURL}/releases[here].
+.  Find me, `ELISA.jar` link:{repoURL}/releases[here].
 .  Double-click me to start the app. See you in a few seconds.
 +
 image::MainWindow.png[width="790"]
@@ -155,6 +155,9 @@ Examples:
 * `reminder John’s Birthday -r 2019-09-19T14:00 -t friend`
 * `reminder John's Birthday -r 3.day.later`
 
+[NOTE]
+It is not possible to set a reminder in the past.
+
 === Snoozing a reminder: `snooze`
 
 Snoozes a reminder that occurred since the application was open. +
@@ -168,7 +171,9 @@ Examples:
 * `snooze -s 10/10/2020`
 
 [NOTE]
-It is not possible to snooze if no reminder has occurred yet.
+1. It is possible to snooze the same reminder multiple times if you wish. +
+2. It is not possible to snooze if no reminder has occurred yet. +
+However, if you use the snooze command incorrectly, ELISA will first attempt to correct your usage of the snooze command.
 
 === Show the specified category : `show`
 
@@ -183,6 +188,10 @@ Examples:
 * `show E`
 * `show r`
 * `show c`
+
+
+[NOTE]
+The flag can be in either lowercase or uppercase. Eg. `show E`.
 
 === Scrolling the list : `up` / `down`
 
@@ -283,7 +292,6 @@ Is ELISA getting too cluttered and disorganized? Do you want to sort your task b
 ELISA comes in-built with a sort feature that allows you to sort your items within the different panel. And the best part of it? YOU can decide how you want to sort it.
 
 The simple sort command on the different panel sorts the list differently (just another sign of how smart ELISA is) and they are as follows:
-
 * task panel - tasks are sorted from those that are incomplete to those that are completed. Within the two groups, they are sorted based on their priority, from high to medium and to low.
 * event panel - events are sorted based on their start date and time.
 * reminder - reminders are sorted based on their firing off date and time.
