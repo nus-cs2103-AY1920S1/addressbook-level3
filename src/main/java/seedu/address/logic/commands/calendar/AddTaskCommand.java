@@ -53,6 +53,7 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
+        model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
                 false, false, false, false, true,
                 false, false, false);

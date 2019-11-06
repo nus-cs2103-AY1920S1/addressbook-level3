@@ -41,7 +41,7 @@ public class UpdateEarningsCommandTest {
 
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setEarnings(model.getFilteredEarningsList().get(0), editedEarnings);
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
     }
 
@@ -63,7 +63,7 @@ public class UpdateEarningsCommandTest {
 
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setEarnings(lastEarnings, editedEarnings);
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(
                 updateEarningsCommand,
                 model,
@@ -80,7 +80,7 @@ public class UpdateEarningsCommandTest {
         String expectedMessage = String.format(UpdateEarningsCommand.MESSAGE_UPDATE_SUCCESS, editedEarnings);
 
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
     }
 
@@ -98,7 +98,7 @@ public class UpdateEarningsCommandTest {
 
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setEarnings(model.getFilteredEarningsList().get(0), editedEarnings);
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
     }
 

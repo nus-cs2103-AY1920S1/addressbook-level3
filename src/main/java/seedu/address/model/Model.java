@@ -64,7 +64,7 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code tutorAid}.
      */
-    void setTutorAid(ReadOnlyTutorAid tutorAid);
+    void setVersionedTutorAid(ReadOnlyTutorAid tutorAid);
 
     /** Returns the TutorAid */
     ReadOnlyTutorAid getTutorAid();
@@ -258,4 +258,28 @@ public interface Model {
      */
     void setNotes(Notes target, Notes editedNote);
 
+    /**
+     * Returns true if the model has previous address book states to restore.
+     */
+    boolean canUndoTutorAid();
+
+    /**
+     * Returns true if the model has undone address book states to restore.
+     */
+    boolean canRedoTutorAid();
+
+    /**
+     * Restores the model's address book to its previous state.
+     */
+    void undoTutorAid();
+
+    /**
+     * Restores the model's address book to its previously undone state.
+     */
+    void redoTutorAid();
+
+    /**
+     * Saves the current address book state for undo/redo.
+     */
+    void commitTutorAid();
 }

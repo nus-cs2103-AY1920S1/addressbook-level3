@@ -36,7 +36,7 @@ public class DeleteEarningsCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getTutorAid(), new UserPrefs());
         expectedModel.deleteEarnings(earningsToDelete);
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(deleteEarningsCommand, model, expectedMessage, expectedModel);
     }
 
@@ -60,7 +60,7 @@ public class DeleteEarningsCommandTest {
         Model expectedModel = new ModelManager(model.getTutorAid(), new UserPrefs());
         expectedModel.deleteEarnings(earningsToDelete);
         showNoEarnings(expectedModel);
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(deleteEarningsCommand, model, expectedMessage, expectedModel);
     }
 

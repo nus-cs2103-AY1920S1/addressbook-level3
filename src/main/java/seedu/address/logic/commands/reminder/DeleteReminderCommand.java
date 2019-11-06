@@ -42,6 +42,7 @@ public class DeleteReminderCommand extends Command {
 
         Reminder reminderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteReminder(reminderToDelete);
+        model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_DELETE_REMINDER_SUCCESS, reminderToDelete),
                 false, false, false, false, false,
                 false, false, true);

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTutorAid;
@@ -26,59 +27,60 @@ import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.EarningsBuilder;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TaskBuilder;
 
-public class AddEarningsCommandTest {
-
+public class AddTaskCommandTest {
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddEarningsCommand(null));
+    public void constructor_nullTask_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddTaskCommand(null));
     }
 
     @Test
-    public void execute_earningsAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingEarningsAdded modelStub = new ModelStubAcceptingEarningsAdded();
-        Earnings validEarnings = new EarningsBuilder().build();
+    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
+        AddTaskCommandTest.ModelStubAcceptingTaskAdded modelStub = new AddTaskCommandTest.ModelStubAcceptingTaskAdded();
+        Task validTask = new TaskBuilder().build();
+        CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub);
 
-        CommandResult commandResult = new AddEarningsCommand(validEarnings).execute(modelStub);
-
-        assertEquals(String.format(AddEarningsCommand.MESSAGE_SUCCESS, validEarnings),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validEarnings), modelStub.earningsAdded);
+        assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
     }
 
     @Test
-    public void execute_duplicateEarnings_throwsCommandException() {
-        Earnings validEarnings = new EarningsBuilder().build();
-        AddEarningsCommand addEarningsCommand = new AddEarningsCommand(validEarnings);
-        ModelStub modelStub = new ModelStubWithEarnings(validEarnings);
+    public void execute_duplicateTask_throwsCommandException() {
+        Task validTask = new TaskBuilder().build();
+        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
+        ModelStub modelStub = new ModelStubWithTask(validTask);
 
         assertThrows(CommandException.class,
-                AddEarningsCommand.MESSAGE_DUPLICATE_EARNINGS, () -> addEarningsCommand.execute(modelStub));
+            AddTaskCommand.MESSAGE_DUPLICATE_TASKS, () -> addTaskCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Earnings earnings1 = new EarningsBuilder().withDate("02/02/2019").build();
-        Earnings earnings2 = new EarningsBuilder().withDate("03/03/2020").build();
-        AddEarningsCommand addEarnings1Command = new AddEarningsCommand(earnings1);
-        AddEarningsCommand addEarnings2Command = new AddEarningsCommand(earnings2);
-
+        Person alice = new PersonBuilder().withName("Alice").build();
+        Person bob = new PersonBuilder().withName("Bob").build();
+        ArrayList<Person> testListAlice = new ArrayList<>();
+        testListAlice.add(alice);
+        ArrayList<Person> testListBob = new ArrayList<>();
+        testListAlice.add(bob);
+        AddCommand addAliceCommand = new AddCommand(testListAlice);
+        AddCommand addBobCommand = new AddCommand(testListBob);
         // same object -> returns true
-        assertTrue(addEarnings1Command.equals(addEarnings1Command));
+        assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddEarningsCommand addEarnings1CommandCopy = new AddEarningsCommand(earnings1);
-        assertTrue(addEarnings1Command.equals(addEarnings1CommandCopy));
+        AddCommand addAliceCommandCopy = new AddCommand(testListAlice);
+        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addEarnings1Command.equals(1));
+        assertFalse(addAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addEarnings1Command.equals(null));
+        assertFalse(addAliceCommand.equals(null));
 
-        // different earnings -> returns false
-        assertFalse(addEarnings1Command.equals(addEarnings2Command));
+        // different person -> returns false
+        assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
     /**
@@ -107,11 +109,6 @@ public class AddEarningsCommandTest {
 
         @Override
         public void updateFilteredCommandsList(Predicate<CommandObject> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredCalendarList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -156,26 +153,6 @@ public class AddEarningsCommandTest {
         }
 
         @Override
-        public void setReminder(Reminder reminder, Reminder editedReminder) {
-            throw new AssertionError("This method should not be called.");
-        };
-
-        @Override
-        public boolean hasReminder(Reminder reminder) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addReminder(Reminder reminder) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteReminder(Reminder reminder) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Path getTutorAidFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -190,6 +167,7 @@ public class AddEarningsCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
         @Override
         public void addEarnings(Earnings earnings) {
             throw new AssertionError("This method should not be called.");
@@ -197,6 +175,11 @@ public class AddEarningsCommandTest {
 
         @Override
         public void addNotes(Notes notes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTask(Task task) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -251,6 +234,16 @@ public class AddEarningsCommandTest {
         }
 
         @Override
+        public void setReminder(Reminder reminders, Reminder editedReminders) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteReminder(Reminder reminders) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -280,10 +273,6 @@ public class AddEarningsCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void addTask(Task task) {
-            throw new AssertionError("This method should not be called.");
-        }
 
 
         @Override
@@ -301,9 +290,12 @@ public class AddEarningsCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /*@Override
+        public ReadOnlyCalendar getCalendar() {
+        }*/
 
         public void setTask(Task target, Task editedTask) {
-            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -313,11 +305,31 @@ public class AddEarningsCommandTest {
 
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
-            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
         public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTask(Task task) {
+            return false;
+        }
+
+        @Override
+        public void deleteTask(Task target) {
+
+        }
+
+        @Override
+        public void addReminder(Reminder reminder) {
+
+        }
+
+        @Override
+        public boolean hasReminder(Reminder reminders) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -327,12 +339,7 @@ public class AddEarningsCommandTest {
         }
 
         @Override
-        public boolean hasTask(Task task) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteTask(Task target) {
+        public void updateFilteredCalendarList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -360,43 +367,42 @@ public class AddEarningsCommandTest {
         public void redoTutorAid() {
             throw new AssertionError("This method should not be called.");
         }
-
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single task.
      */
-    private class ModelStubWithEarnings extends ModelStub {
-        private final Earnings earnings;
+    private class ModelStubWithTask extends ModelStub {
+        private final Task task;
 
-        ModelStubWithEarnings(Earnings earnings) {
-            requireNonNull(earnings);
-            this.earnings = earnings;
+        ModelStubWithTask(Task task) {
+            requireNonNull(task);
+            this.task = task;
         }
 
         @Override
-        public boolean hasEarnings(Earnings earnings) {
-            requireNonNull(earnings);
-            return this.earnings.isSameEarnings(earnings);
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return this.task.isSameTask(task);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the task being added.
      */
-    private class ModelStubAcceptingEarningsAdded extends ModelStub {
-        final ArrayList<Earnings> earningsAdded = new ArrayList<>();
+    private class ModelStubAcceptingTaskAdded extends ModelStub {
+        final ArrayList<Task> tasksAdded = new ArrayList<>();
 
         @Override
-        public boolean hasEarnings(Earnings earnings) {
-            requireNonNull(earnings);
-            return earningsAdded.stream().anyMatch(earnings::isSameEarnings);
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return tasksAdded.stream().anyMatch(task::isSameTask);
         }
 
         @Override
-        public void addEarnings(Earnings earnings) {
-            requireNonNull(earnings);
-            earningsAdded.add(earnings);
+        public void addTask(Task task) {
+            requireNonNull(task);
+            tasksAdded.add(task);
         }
 
         @Override
