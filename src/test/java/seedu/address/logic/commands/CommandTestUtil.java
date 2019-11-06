@@ -20,8 +20,8 @@ import seedu.address.model.AppData;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.TitleContainsKeywordsPredicate;
-import seedu.address.model.question.BodyContainsKeywordsPredicate;
 import seedu.address.model.question.Question;
+import seedu.address.model.question.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 import seedu.address.testutil.EditQuestionDescriptorBuilder;
 
@@ -167,7 +167,8 @@ public class CommandTestUtil {
 
         Question question = model.getFilteredQuestionList().get(targetIndex.getZeroBased());
         final String[] splitName = question.getQuestionBody().body.split("\\s+");
-        model.updateFilteredQuestionList(new BodyContainsKeywordsPredicate(Collections.singletonList(splitName[0])));
+        model.updateFilteredQuestionList(
+                new QuestionContainsKeywordsPredicate(Collections.singletonList(splitName[0])));
 
         assertEquals(1, model.getFilteredQuestionList().size());
     }
