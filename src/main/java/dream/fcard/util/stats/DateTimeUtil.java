@@ -32,7 +32,7 @@ public class DateTimeUtil {
 
     /**
      * Returns the String representation of the given Duration object.
-     * Format: "X hours, Y minutes, Z seconds"
+     * Format: "X hours Y minutes Z seconds"
      * @param duration The duration to be represented as a String.
      * @return The String representation of the given Duration object.
      */

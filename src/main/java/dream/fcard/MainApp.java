@@ -3,8 +3,6 @@ package dream.fcard;
 import java.io.IOException;
 
 import dream.fcard.core.Main;
-
-import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateHolder;

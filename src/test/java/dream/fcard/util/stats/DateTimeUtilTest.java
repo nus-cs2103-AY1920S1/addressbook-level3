@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.util.stats.DateTimeUtil;
 
 public class DateTimeUtilTest {
     @Test
@@ -183,8 +182,8 @@ public class DateTimeUtilTest {
         sessionList.addSession(sessionTwo);
 
         Duration calculatedDuration = DateTimeUtil.getAverageDuration(sessionList);
-        Duration expectedDuration = Duration.ofHours(20).plus(Duration.ofMinutes(6)).
-            plus(Duration.ofSeconds(30));
+        Duration expectedDuration = Duration.ofHours(20).plus(Duration.ofMinutes(6))
+            .plus(Duration.ofSeconds(30));
         // expected: 19.5 hours + 36.5 min = 20 hours 6 min 30 sec
         assertEquals(expectedDuration, calculatedDuration);
     }

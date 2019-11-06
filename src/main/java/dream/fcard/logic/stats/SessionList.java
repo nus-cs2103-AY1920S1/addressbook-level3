@@ -4,11 +4,11 @@ package dream.fcard.logic.stats;
 import java.time.Duration;
 import java.util.ArrayList;
 
-import dream.fcard.util.stats.DateTimeUtil;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonValue;
+import dream.fcard.util.stats.DateTimeUtil;
 
 /**
  * A list of Session objects.

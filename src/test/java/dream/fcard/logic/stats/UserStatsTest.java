@@ -3,6 +3,7 @@ package dream.fcard.logic.stats;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 public class UserStatsTest {
@@ -19,7 +20,7 @@ public class UserStatsTest {
             arrayListOfSessions.add(session);
         }
 
-        UserStats userStats= new UserStats();
+        UserStats userStats = new UserStats();
         SessionList sessionList = new SessionList(arrayListOfSessions);
         userStats.setSessionList(sessionList);
     }
