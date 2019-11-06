@@ -127,10 +127,11 @@ public enum Responses {
                     return true;
                 } //done
     ),
-    CREATE_ERROR(
+    CREATE_DECK_ERROR(
             "^((?i)create).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: CREATE_DECK_ERROR");
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck name.");
                     return true;
                 } //done
@@ -154,11 +155,14 @@ public enum Responses {
                 boolean hasOnlyOneBack = res.get(3).size() == 1;
                 boolean hasValidChoice = res.get(4).size() > 1;
 
+                // Perform command validation
+
                 if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront || !hasOnlyOneBack
                         || !hasValidChoice){
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
                     return true;
                 }
+
 
 
 
