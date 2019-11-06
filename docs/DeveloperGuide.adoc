@@ -72,6 +72,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
@@ -88,6 +89,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -280,6 +282,7 @@ Aspect: Execution
 *** Less flexible optimisation.
 // end::optimise[]
 
+// tag::scheduleactivity[]
 === [Proposed] Schedule Activity feature
 
 *_Plan²travel_* allows user to schedule an activity from the activity list to a specified time of a day.
@@ -329,7 +332,7 @@ image::ScheduleActivityExecution.png[]
 * **Alternative 2:** Directly updates the activity list in the current `Day` class.
 ** Pros: Seem more intuitive and simple to implement.
 ** Cons: Might make it harder to debug if other functions/classes also depends on the same `Day` class.
-
+// end::scheduleactivity[]
 
 === Logging
 
@@ -460,11 +463,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `Plan²travel` application and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Schedule accommodation
+=== Use case: Schedule activity
 
 *MSS*
 
-1.  User requests to schedule accommodation
+1.  User requests to schedule activity
 2.  System shows a list of days and activities
 3.  User requests to add a specific accommodation to a specific day
 4.  System adds accommodation under selected day
