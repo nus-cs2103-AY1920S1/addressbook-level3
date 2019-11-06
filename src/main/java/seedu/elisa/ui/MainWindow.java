@@ -34,6 +34,7 @@ import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.ThemeCommandResult;
 import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
+import seedu.elisa.logic.commands.exceptions.FocusModeException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.item.CalendarList;
 import seedu.elisa.model.item.EventList;
@@ -135,10 +136,14 @@ public class MainWindow extends UiPart<Stage> {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
                         try {
+                            if (logic.isFocusMode() && !t1.getId().equalsIgnoreCase("T")) {
+                                throw new FocusModeException();
+                            }
                             logic.getModel().setVisualList(t1.getId());
                             updatePanels();
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                        } catch (FocusModeException e) {
+                            viewsPlaceholder.getSelectionModel().select(t);
+                            resultDisplay.setFeedbackToUser(e.getMessage());
                         } catch (IllegalValueException e) {
                             e.printStackTrace();
                         }

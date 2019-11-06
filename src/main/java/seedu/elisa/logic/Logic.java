@@ -69,4 +69,6 @@ public interface Logic {
     boolean isSystemToggle();
 
     PriorityExitStatus getExitStatus();
+
+    boolean isFocusMode();
 }
