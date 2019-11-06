@@ -76,7 +76,9 @@ public enum Responses {
             RegexUtil.commandFormatRegex("import", new String[]{"filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT");
+                    //@author
 
                     return true; //if valid
                     //return false; //if not valid
@@ -86,6 +88,9 @@ public enum Responses {
             "^((?i)import).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
+                    //@author
 
                     return true;
                 }
@@ -94,6 +99,9 @@ public enum Responses {
             RegexUtil.commandFormatRegex("export", new String[]{"filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
+                    //@author
 
                     return true; //if valid
                     //return false; //if not valid
@@ -181,6 +189,8 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
                         return true;
                     }
+
+                    return true;
                 }
     ),
     ADD_CARD_ERROR(
