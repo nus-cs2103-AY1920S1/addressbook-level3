@@ -347,8 +347,8 @@ Only schedules without clashes between time slots can be added to the TimeBook.
 Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
 Format:
 
-* `addevent e/EVENT_NAME t/DATETIME` +
-* `addevent n/NAME e/EVENT_NAME t/DATETIME` +
+* `addevent e/EVENT_NAME t/DATETIME...` +
+* `addevent n/NAME e/EVENT_NAME t/DATETIME...` +
 
 *****
 image:./icons/lightbulb.png[] By not specifying `NAME`, the event will be added to your schedule.
@@ -359,8 +359,8 @@ Adds an event `Project Meeting` to your schedule.
 
 Examples:
 
-* `addevent n/John e/Math Lecture t/26092019-1300-1400-LT25` +
-Adds an event `Math Lecture` to `John` 's schedule.
+* `addevent n/John e/Math Lecture t/26092019-1300-1400-LT25 t/03102019-1300-1400-LT25` +
+Adds an event `Math Lecture` that occurs on multiple dates to ``John``'s schedule.
 
 ==== Delete an Event from a Schedule: `deleteevent`
 
@@ -722,7 +722,7 @@ e.g. `editperson ed/James Lee em/jameslee@example.com`
 e.g. `deleteperson n/Benedict`
 * *Find Person* : `findperson n/NAME` +
 e.g. `findperson n/James Jake`
-* *Add Event to Person's Schedule* : `addevent n/NAME e/EVENT_NAME t/DATETIME` +
+* *Add Event to Person's Schedule* : `addevent n/NAME e/EVENT_NAME t/DATETIME...` +
 e.g. `addevent n/John e/Math Lecture t/26092019:1300-26092019:1400-LT25`
 * *Add Module to Person's Schedule* : `addmod n/NAME m/MODULE_CODE class/CLASS_NUMBERS(comma-separated) [ay/ACADEMIC_YEAR] [s/SEMESTER]` +
 e.g. `addmod n/John m/CS2103T class/G01,T5 ay/2019/2020 s/1`
