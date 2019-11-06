@@ -101,7 +101,7 @@ Format: `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME w/PASSWORD [t/TAG]...
 A account can have any number of tags (including 0). Only logged-in admins can add tags.
 
 ****
-* Usernames must be at least 3 characters in length.
+* Usernames must be at least 3 characters in length and must be unique.
 * Usernames can only consist of alphanumeric characters and the following special characters, excluding the parentheses, (.-)
 * Usernames cannot begin or end with a non alphanumeric character.
 * Usernames and Passwords cannot be blank or contain a whitespace.
@@ -182,6 +182,8 @@ Examples:
 
 * `find-a John` +
 Returns `john` and `John Doe`
+* `find-a Agent01 Betty`
+Returns all accounts with username or name matching either `agent01` or `betty`
 
 // tag::AccountDelete[]
 === Deleting an account : `delete-a`
@@ -272,10 +274,11 @@ This command works in two modes:
 Format: `fill` +
 Lists all draft incident reports ready to be filled.
 
-****
 * This command lists both incomplete and complete drafts.
 ** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
-****
+
+[NOTE]
+The user can only fill the draft incident reports that have been created by them.
 
 * Example usage:
 
@@ -314,6 +317,9 @@ Using `fill` in both modes one after the other thus enables convenient listing a
 
 === Submitting a completed draft report: `submit`
 Submits a completed draft incident report if relevant parameters are specified, otherwise lists all completed drafts ready for submission.
+
+[NOTE]
+The user can only submit the completed incident reports that have been created by them.
 
 Similar to `fill`, this command also works in two modes:
 

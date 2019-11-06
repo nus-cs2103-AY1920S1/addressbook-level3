@@ -39,7 +39,7 @@ public class RegisterCommand extends Command {
             + PREFIX_TAG + "Team-A";
 
     public static final String MESSAGE_SUCCESS = "New user added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This user already exists in the incident management system";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This username is already taken.";
 
     private final Person toAdd;
 

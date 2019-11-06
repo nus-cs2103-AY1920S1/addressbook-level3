@@ -189,6 +189,11 @@ public class ModelManager implements Model {
         incidentManager.removeIncident(incident);
     }
 
+    @Override
+    public boolean canLoggedInPersonModifyIncidentStatus(Incident toSubmit) {
+        return toSubmit.getOperator().equals(getLoggedInPerson());
+    }
+
     //=========== Filtered Incident List Accessors =============================================================
 
     /**
@@ -204,6 +209,7 @@ public class ModelManager implements Model {
     public void updateFilteredIncidentList(Predicate<Incident> predicate) {
         requireNonNull(predicate);
         filteredIncidents.setPredicate(predicate);
+        logger.info("Incident list view updated.");
     }
 
     /**

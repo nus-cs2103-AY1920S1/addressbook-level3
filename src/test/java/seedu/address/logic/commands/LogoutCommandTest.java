@@ -14,7 +14,7 @@ class LogoutCommandTest {
     private Model expectedModel = new ModelManager();
 
     @Test
-    void execute_swap_success() {
+    void execute_logout_success() {
         model.setSession(new PersonBuilder().build());
         expectedModel.setSession(new PersonBuilder().build());
         CommandResult expectedCommandResult = new CommandResult(LogoutCommand.MESSAGE_SUCCESS, false, false, true);

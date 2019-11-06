@@ -23,7 +23,7 @@ public class IncidentDateTime {
     private static final FormatStyle dateTimeStyle = FormatStyle.MEDIUM;
     private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofLocalizedDateTime(dateTimeStyle);
 
-    public final LocalDateTime incidentDateTime;
+    private final LocalDateTime incidentDateTime;
 
     /**
      * Constructs a {@code IncidentDateTime}.
@@ -39,7 +39,7 @@ public class IncidentDateTime {
     /**
      * Constructs a {@code IncidentDateTime} for right now.
      */
-    public IncidentDateTime() {
+    IncidentDateTime() {
         this.incidentDateTime = LocalDateTime.now();
     }
 
@@ -47,6 +47,7 @@ public class IncidentDateTime {
      * Returns true if a given string is in a valid DateTime format.
      */
     public static boolean isValidIncidentDateTimeFormat(String test) {
+        assert test != null;
         try {
             LocalDateTime.parse(test, formatter);
             return true;
@@ -75,6 +76,7 @@ public class IncidentDateTime {
     public String toDisplayString() {
         return incidentDateTime.format(displayFormatter);
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
