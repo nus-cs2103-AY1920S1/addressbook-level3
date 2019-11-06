@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.testutil.DummyMutatorCommand;
 import javafx.collections.ObservableList;
 
@@ -97,5 +98,17 @@ public class HistoryManagerTest {
 
         assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord, new PatientBook()));
         assertTrue(historyManager.size() == 1);
+    }
+
+    @Test
+    public void popRedo() {
+        HistoryManager historyManager = new HistoryManager(1);
+        assertEquals(historyManager.popRedo(new PatientBook()), Optional.empty());
+
+        MutatorCommand commandToRedo = new DummyMutatorCommand("1");
+        historyManager.pushRecord(commandToRedo, new PatientBook());
+        historyManager.popRecord(new PatientBook());
+        assertEquals(historyManager.popRedo(new PatientBook()).get(),
+                new HistoryRecord(commandToRedo, new PatientBook()));
     }
 }
