@@ -41,7 +41,7 @@
       <FlowPane fx:id="tags" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$employeeID" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$employeeGender" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$employeePosition" />
+      <Label fx:id="address" styleClass="cell_small_label" text="\$employeeSalaryPaid" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

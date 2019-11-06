@@ -44,9 +44,13 @@ public class MainWindow extends UiPart<Stage> {
     private StatisticsWindow statisticsWindow;
     private ScheduleBox scheduleBox;
     private StatisticsBox statisticsBox;
+    private Finance finance;
 
     @FXML
     private StackPane statisticsPlaceholder;
+  
+    @FXML
+    private StackPane financePlaceholder;
 
     @FXML
     private StackPane schedulePlaceholder;
@@ -141,6 +145,9 @@ public class MainWindow extends UiPart<Stage> {
 
         statisticsBox = new StatisticsBox(logic.getFilteredScheduledEventList(), logic, this);
         statisticsPlaceholder.getChildren().add(statisticsBox.getRoot());
+      
+        finance = new Finance(logic.getFilteredEmployeeList(), logic, this);
+        financePlaceholder.getChildren().add(finance.getRoot());
 
         selectionModel = tabPanePlaceholder.getSelectionModel();
     }
@@ -331,6 +338,11 @@ public class MainWindow extends UiPart<Stage> {
                 selectionModel.select(0);
             }
 
+            if (commandResult.getType().equals("Finance")) {
+                selectionModel.select(2);
+                finance.updateCards();
+            }
+
             if (commandResult.getType().equals("Main_Tab")) {
                 selectionModel.select(0);
             }
@@ -338,7 +350,6 @@ public class MainWindow extends UiPart<Stage> {
             if (fetchEventWindow != null && !commandResult.getType().equals("List")) {
                 fetchEventWindow.updateCards();
             }
-
 
             return commandResult;
 

@@ -1,5 +1,6 @@
 package seedu.address.logic.processor;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,7 +8,7 @@ import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
 /**
- * Utility Methods that requires the processing of both Emplyoees and Events
+ * Utility Methods that requires the processing of both Employees and Events
  */
 public class EmployeeEventProcessor {
 
@@ -32,5 +33,15 @@ public class EmployeeEventProcessor {
                 .filter(event -> event.isPastEvent())
                 .mapToDouble(event -> event.getEventTotalHours())
                 .sum();
+    }
+
+    /**
+     * Checks if an Employee JoinDate > EventStartDate.
+     */
+    public static boolean hasEmployeeJoined(Employee employee, Event event) {
+        LocalDate eventStartDate = event.getStartDate().getDate();
+        LocalDate employeeJoinDate = employee.getEmployeeJoinDate().getJoinDate();
+
+        return eventStartDate.isEqual(employeeJoinDate) || eventStartDate.isAfter(employeeJoinDate);
     }
 }
