@@ -9,16 +9,15 @@
 
 == Overview
 
-The Incident Management System is a desktop application used by emergency call operators for managing incidents. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Incident Management System is a desktop application used by emergency call operators for managing incidents. The user interacts with it via CLI. It is written in Java, has a JavaFX GUI, and has about 10 kLoC.
 
 == Summary of contributions
 
 * *Major enhancement*: Implemented *Incident Filling and Submission*
 ** What it does: Allows users to identify and subsequently fill and/or submit incident reports in the system.
-** Justification: This enhancement improves the product by:
-*** (1) fulfilling its most basic function of reporting incidents.
-*** (2) categorising incidents into 'drafts' which can be filled and/or re-filled before they become 'submitted reports' officially registered in the system.
-*** (3) providing users a convenient way to list incidents ready for filling and submission.
+** Justification: This enhancement improves the product by (1) fulfilling its most basic function of reporting incidents,
+(2) categorising incidents into 'drafts' which can be filled before they become 'submitted reports' officially registered in the system, and
+(3) providing users a convenient way to list incidents ready for filling and submission.
 
 ** Highlights: This enhancement affects existing commands and modifies the Incident model (and hence, UI) behaviour.
 It is designed so it can be easily extended to accommodate changes to the Incident model.
@@ -26,17 +25,15 @@ It required an in-depth analysis of design alternatives.
 The implementation too was challenging as it required brainstorming a seamless way of tracking changes to the status of incidents.
 
 * *Minor enhancement*: Implemented *Incident and Vehicle GUI layout*
-** Summary: this enhancement allows users to view incident reports and on-duty vehicles side-by-side in a readable format.
-** Highlights: this enhancement required in-depth understanding of the GUI design and JavaFX syntax for its implementation.
+** Summary: allows users to view incident reports and on-duty vehicles side-by-side in a readable format.
+** Highlights: this enhancement required in-depth understanding of the GUI design and JavaFX syntax.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=atharvjoshi[View on RepoSense]]
 
 * *Other contributions*:
 
-** Project management:
-*** Integrated Travis CI to the team repo
-** Team tasks:
-*** Created initial UI mockup of the product [https://github.com/AY1920S1-CS2103-T11-1/main/pull/16[#16]]
+** Project management: Integrated Travis CI to the team repo
+** Team task: Created initial UI mockup of the product [https://github.com/AY1920S1-CS2103-T11-1/main/pull/16[#16]]
 
 == Contributions to the User Guide
 
