@@ -12,7 +12,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import seedu.address.ui.StatusBarFooter;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.logic.Logic;
@@ -131,7 +130,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        seedu.address.ui.StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFlashcardListFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFlashcardListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
@@ -196,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.flashcard.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
