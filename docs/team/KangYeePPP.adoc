@@ -174,7 +174,8 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/22[(PR#22)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/197[(PR #197)]
 
 == Contributions to the User Guide
-The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features.
+The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features which showcases my ability
+to write documentation to guide non-technical end-users on how to use treasurerPro.
 
 === Current Enhancement
 {Start of First Extract from User Guide}
@@ -245,7 +246,8 @@ The undo sort command allows you to view the table of transactions in the order 
 {End of Second Extract}
 
 ==  Contributions to the Developer Guide
-The following section shows my additions to the treasurerPro Developer Guide for the `Home Tab` features.
+The following section shows my contribution to the treasurerPro Developer Guide for the `Home Tab` features which showcases
+my ability to write documentation of technical concepts and the technical-depth of my contributions to the project.
 
 === Current enhancement
 {Start of Extract from Developer Guide}
@@ -275,7 +277,7 @@ In addition, the `ModelManager#resetPredicate()` method is not called in the `De
 Find Command and the list at the start of the activity diagram shows
 a filtered list by the Find Command's keywords, the table in the UI will continue to show the filtered list at the end of the current Delete Command.
 To view the full transaction list, the user would be required to enter the
-Back Command where `BackCommand` calls `ModelManager#resetPredicate()` which sets the predicate evaluate to the boolean true. The sequence diagram for the `BackCommand` is shown in the
+Back Command where `BackCommand` calls `ModelManager#resetPredicate()` which sets the predicate to evaluate all `Transaction` objects to the boolean true. The sequence diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3 BackCommand>>
 
 After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
