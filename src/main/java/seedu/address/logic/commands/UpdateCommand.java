@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import javafx.application.Platform;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
@@ -141,7 +142,6 @@ public class UpdateCommand extends UndoableCommand {
         if (!model.hasEntity(entity)) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
-
         //@@author arjavibahety
         try {
             this.originalEntityDescriptor = saveOriginalFields(entity);
@@ -192,10 +192,8 @@ public class UpdateCommand extends UndoableCommand {
 
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
 
-            //@@author shaoyi1997
             SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
             selectCommand.execute(model);
-            //@@author
 
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
@@ -247,6 +245,8 @@ public class UpdateCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
         }
 
+        // this method is called to signal to Ui that the list is updated
+        Platform.runLater(() -> model.updateFilteredFridgeList(fridge -> true));
     }
 
     /**

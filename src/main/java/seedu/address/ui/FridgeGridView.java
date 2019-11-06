@@ -6,6 +6,7 @@ import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -18,6 +19,7 @@ import seedu.address.model.entity.fridge.Fridge;
 public class FridgeGridView extends UiPart<Region> {
 
     private static final String FXML = "FridgeGridView.fxml";
+    private FilteredList<Fridge> fridgeObservableList;
 
     @FXML
     private GridView fridgeGridView;

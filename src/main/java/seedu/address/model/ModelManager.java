@@ -173,21 +173,20 @@ public class ModelManager implements Model {
     public void deleteEntity(Entity target) {
         addressBook.removeEntity(target);
         target.getIdNum().removeMapping();
+        updateAllFilteredLists();
     }
 
     @Override
     public void addEntity(Entity entity) {
         addressBook.addEntity(entity);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
-        updateFilteredWorkerList(PREDICATE_SHOW_ALL_WORKERS);
-        updateFilteredFridgeList(PREDICATE_SHOW_ALL_FRIDGES);
+        updateAllFilteredLists();
     }
 
     @Override
     public void setEntity(Entity target, Entity editedEntity) {
         requireAllNonNull(target, editedEntity);
         addressBook.setEntity(target, editedEntity);
+        updateAllFilteredLists();
     }
 
     @Override
@@ -393,6 +392,20 @@ public class ModelManager implements Model {
         }
     }
     //@@ shaoyi1997-reused
+
+    //@@ author shaoyi1997
+
+    /**
+     * Updates all FilteredLists in Mortago to display all entities.
+     */
+    private void updateAllFilteredLists() {
+        updateFilteredActiveNotifList(PREDICATE_SHOW_ACTIVE_NOTIFS);
+        updateFilteredNotifList(PREDICATE_SHOW_ALL_NOTIFS);
+        updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
+        updateFilteredWorkerList(PREDICATE_SHOW_ALL_WORKERS);
+        updateFilteredFridgeList(PREDICATE_SHOW_ALL_FRIDGES);
+    }
+    //@@ author
 
     @Override
     public boolean equals(Object obj) {

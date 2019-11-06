@@ -200,6 +200,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeNotif(Notif key) {
         notifs.remove(key);
+        indicateModified();
     }
 
 
