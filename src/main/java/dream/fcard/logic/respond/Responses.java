@@ -36,27 +36,26 @@ public enum Responses {
     HELP_WITH_COMMAND(
             RegexUtil.commandFormatRegex("help", new String[]{"command/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
-            i -> {
-                LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
+                i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
 
 
-                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
-                        new String[]{"command/"},
-                        i);
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
+                        new String[]{"command/"}, i);
 
-                boolean validCommand = false;
+                    boolean validCommand = false;
 
-                for (String curr : HelpCommand.getAllCommands()) {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, curr);
-                    validCommand = true;
-                }
+                    for (String curr : HelpCommand.getAllCommands()) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, curr);
+                        validCommand = true;
+                    }
 
-                if (!validCommand) {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command!"
+                    if (!validCommand) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command!"
                             + "Type 'help' for the UserGuide'.");
+                    }
+                    return true;
                 }
-                return true;
-            }
     ),
     HELP(
             "^((?i)help)(\\s*)$",
