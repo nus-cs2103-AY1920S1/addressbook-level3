@@ -10,7 +10,7 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
 public class PreviousMonthState extends EndState {
-    
+
     private static final String MESSAGE_CONSTRAINTS = "Previous month displayed.";
 
     protected PreviousMonthState(ArgumentMultimap soFar) {

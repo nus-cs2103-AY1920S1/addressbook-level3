@@ -18,6 +18,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PROPERTY = new Prefix("p/");
     public static final Prefix PREFIX_ORDER = new Prefix("o/");
     public static final Prefix PREFIX_CALENDAR = new Prefix("c/");
+    public static final Prefix PREFIX_DATE = new Prefix("d/");
     //Report Generation 23/10/19 Ko Gi Hun
     public static final Prefix PREFIX_LIST_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_TO = new Prefix("t/");

@@ -18,6 +18,10 @@ public class TabState extends State {
     private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid tab name after \"b/\".";
     private static final String MESSAGE_INVALID = "Invalid input! The tab name should be one of"
             + " game, calendar, engagement or report";
+    private static final String KEYWORD_GAME_TAB = "game";
+    private static final String KEYWORD_ENGAGEMENT_TAB = "engagement";
+    private static final String KEYWORD_CALENDAR_TAB = "calendar";
+    private static final String KEYWORD_REPORT_TAB = "report";
 
     public TabState(ArgumentMultimap soFar) {
         super(soFar);
@@ -49,10 +53,10 @@ public class TabState extends State {
     }
 
     private boolean isValid(String tabString) {
-        return tabString.equalsIgnoreCase("game")
-                || tabString.equalsIgnoreCase("engagement")
-                || tabString.equalsIgnoreCase("calendar")
-                || tabString.equalsIgnoreCase("report");
+        return tabString.equalsIgnoreCase(KEYWORD_GAME_TAB)
+                || tabString.equalsIgnoreCase(KEYWORD_ENGAGEMENT_TAB)
+                || tabString.equalsIgnoreCase(KEYWORD_CALENDAR_TAB)
+                || tabString.equalsIgnoreCase(KEYWORD_REPORT_TAB);
     }
 
     @Override

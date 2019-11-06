@@ -250,4 +250,10 @@ public class InteractiveParserUtil {
         LocalDateTime end = makeDateTimeFromPattern(endDate);
         return start.isBefore(end);
     }
+
+    public static LocalDate parseLocalDate(String date, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return localDate;
+    }
 }

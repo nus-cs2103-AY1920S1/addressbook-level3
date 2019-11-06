@@ -50,6 +50,7 @@ public class Parser implements InteractiveParser {
             + " Please enter another command to get started!";
     private static final String MESSAGE_IDLE_STATE = "No command is being executed currently.";
     public static final String REGEX_PATTERN_COMMAND_WORD = "^[a-zA-z]+";
+    private static final String MESSAGE_BLANK = "The command entered cannot be blank!";
 
     private State currentState;
     private State temporaryState;
@@ -65,6 +66,11 @@ public class Parser implements InteractiveParser {
 
     @Override
     public void parseInput(String commandText) throws ParseException {
+
+        if (commandText.isBlank()) {
+            throw new ParseException(MESSAGE_BLANK);
+        }
+
         if (isClearArgumentsCommand(commandText)) {
             resetParser();
             return;
@@ -100,8 +106,16 @@ public class Parser implements InteractiveParser {
     }
 
     private boolean isTabCommand(String commandText) {
+        assert !commandText.isBlank();
         String[] tokens = commandText.split("\\s+");
-        return tokens[0].equalsIgnoreCase(TabCommand.COMMAND_WORD);
+        boolean startsWithTab = tokens[0].equalsIgnoreCase(TabCommand.COMMAND_WORD);
+        if (tokens.length == 2) {
+            boolean endsWithArgument = tokens[1].matches("b/[a-z]+");
+            return startsWithTab && endsWithArgument;
+        } else if (tokens.length > 2){
+            return false;
+        }
+        return startsWithTab;
     }
 
     private void initializeCurrent() {
