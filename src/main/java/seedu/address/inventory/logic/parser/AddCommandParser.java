@@ -127,10 +127,15 @@ public class AddCommandParser {
      * Checks to see if the input is a valid numeric value less than 9999 and greater than 0.
      */
     private static boolean isValidNumeric(String strNum) throws InvalidNumberException {
-        if (Double.parseDouble(strNum) > 9999) {
-            throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
-        } else {
-            return strNum.matches("-?\\d+(\\.\\d+)?") && (Double.parseDouble(strNum) > 0);
+        boolean isValid = false;
+        try {
+            isValid = Double.parseDouble(strNum) > 0;
+            if (Double.parseDouble(strNum) > 9999.99) {
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
+            }
+        } catch (Exception e) {
+            throw new InvalidNumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
         }
+        return isValid;
     }
 }
