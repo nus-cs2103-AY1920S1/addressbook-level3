@@ -199,7 +199,7 @@ public class Account {
         return getName().toString() + " (" + getDescription().toString() + ")";
     }
 
-    private String getIncome() {
+    public String getIncome() {
         long income = 0;
         for (Transaction transaction: transactionList) {
             if (transaction.getDirection().equals(Direction.IN)) {
@@ -210,7 +210,7 @@ public class Account {
         return String.format("%s%d.%02d", CURRENCY_SIGN, income / 100, income % 100);
     }
 
-    private String getExpense() {
+    public String getExpense() {
         long expense = 0;
         for (Transaction transaction: transactionList) {
             if (transaction.getDirection().equals(Direction.OUT)) {
@@ -221,7 +221,7 @@ public class Account {
         return String.format("%s%d.%02d", CURRENCY_SIGN, expense / 100, expense % 100);
     }
 
-    private Set<Category> getCategories() {
+    public Set<Category> getCategories() {
         for (Transaction transaction: transactionList) {
             categoryset.addAll(transaction.getCategories());
         }

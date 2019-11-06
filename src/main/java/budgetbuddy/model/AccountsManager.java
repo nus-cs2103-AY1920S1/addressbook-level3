@@ -2,6 +2,7 @@ package budgetbuddy.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -14,6 +15,7 @@ import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
+import budgetbuddy.storage.export.HtmlExporter;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -259,4 +261,28 @@ public class AccountsManager {
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
 
+    /**
+     * Exports the overview report of all accounts.
+     * @return boolean
+     * @throws IOException
+     */
+    public boolean exportReport() throws IOException {
+        StringBuilder reportAllAccount = new StringBuilder();
+
+        reportAllAccount.append("<!DOCTYPE html>\n<html>\n<body>\n" + "<center><h2>")
+                        .append("<b>Overview of All Accounts in Budget Buddy</b></h2></center>\n");
+
+        for (Account account: filteredAccounts) {
+            reportAllAccount.append("<br><br>\n " + "<b>Name : </b>" + account.getName().toString() + "<br>\n")
+                    .append("<b>Description : </b>" + account.getDescription().toString() + "<br>\n")
+                    .append("<b>Total Balance : </b>" + account.getBalanceString() + "<br>\n")
+                    .append("<b>Total Expenses : </b>" + account.getExpense() + "<br>\n")
+                    .append("<b>Total Income : </b>" + account.getIncome() + "<br>\n")
+                    .append("<b>Categories : </b>" + account.getCategories() + "<br>\n");
+        }
+
+        reportAllAccount.append("</body>\n" + "</html>");
+
+        return HtmlExporter.export(reportAllAccount.toString());
+    }
 }

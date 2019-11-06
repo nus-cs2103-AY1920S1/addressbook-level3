@@ -1,5 +1,7 @@
 package budgetbuddy.ui;
 
+import java.io.IOException;
+
 import budgetbuddy.logic.Logic;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
@@ -37,7 +39,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -72,7 +74,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
     }
 
 }

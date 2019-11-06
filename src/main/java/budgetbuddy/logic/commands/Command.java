@@ -1,5 +1,7 @@
 package budgetbuddy.logic.commands;
 
+import java.io.IOException;
+
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.Model;
@@ -16,7 +18,7 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    protected abstract CommandResult execute(Model model) throws CommandException;
+    protected abstract CommandResult execute(Model model) throws CommandException, IOException;
 
     /**
      * Executes the command and returns the result message.
@@ -26,7 +28,7 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public CommandResult execute(Model model, ScriptEngine scriptEngine) throws CommandException {
+    public CommandResult execute(Model model, ScriptEngine scriptEngine) throws CommandException, IOException {
         return execute(model);
     }
 }

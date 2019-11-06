@@ -25,10 +25,7 @@ public class AccountReportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Provides the report of an account.\n"
             + "Parameters: "
             + KEYWORD_SINGLE_ID + " "
-            + "Example: " + COMMAND_WORD + " "
-            + "3";
-
-    public static final String MESSAGE_DELETE_ACCOUNT_SUCCESS = "Report of the account: %1$s";
+            + "Example 1: " + COMMAND_WORD + " 3";
 
     private final Index targetAccountIndex;
 
@@ -54,5 +51,4 @@ public class AccountReportCommand extends Command {
 
         return new CommandResult(accountEssentialInfo, CommandCategory.ACCOUNT);
     }
-
 }
