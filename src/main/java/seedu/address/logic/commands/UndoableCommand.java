@@ -93,8 +93,7 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Executes the command and updates the filtered person
-     * list to show all persons.
+     * Executes the command and updates the filtered lists to show all customers, phones, orders, schedules and archived.
      */
     protected final void redo(Model model) {
         requireNonNull(model);
@@ -110,6 +109,14 @@ public abstract class UndoableCommand extends Command {
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDER);
         model.updateFilteredScheduleList(Model.PREDICATE_SHOW_ALL_SCHEDULE);
         model.updateFilteredArchivedOrderList(Model.PREDICATE_SHOW_ALL_ORDER);
+    }
+
+    public void save(Model model) {
+        saveCustomerBookSnapshot(model);
+        savePhoneBookSnapshot(model);
+        saveOrderBookSnapshot(model);
+        saveScheduleBookSnapshot(model);
+        saveArchivedOrderBookSnapshot(model);
     }
 
     @Override

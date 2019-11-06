@@ -6,6 +6,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.model.Model;
 
 /**
  * Undo-redo Stack
