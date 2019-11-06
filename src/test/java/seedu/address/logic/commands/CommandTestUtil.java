@@ -52,7 +52,7 @@ public class CommandTestUtil {
     public static final String VALID_DISTRICT = "21";
     public static final String VALID_CALLER = "91234567";
     public static final String VALID_DESCRIPTION = "This is a valid description.";
-    public static final String VALID_VNUM ="SFD1234Z";
+    public static final String VALID_VNUM = "SFD1234Z";
 
     public static final String VALID_VTYPE = "Ambulance";
     public static final String VALID_AVAILABILITY = "Available";

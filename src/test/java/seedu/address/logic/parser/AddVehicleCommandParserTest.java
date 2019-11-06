@@ -21,11 +21,11 @@ import seedu.address.model.vehicle.Vehicle;
 import seedu.address.testutil.VehicleBuilder;
 
 public class AddVehicleCommandParserTest {
-    private AddVehicleCommandParser parser = new AddVehicleCommandParser();
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
     private static final String INVALID_PREFIX_DESC = " qwe/hello";
+
+    private AddVehicleCommandParser parser = new AddVehicleCommandParser();
 
     @Test
     public void parse_allFieldsValid_success() {

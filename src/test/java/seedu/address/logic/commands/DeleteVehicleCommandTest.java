@@ -67,14 +67,14 @@ public class DeleteVehicleCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_success() {
-       model.setSession(FIONA);
+        model.setSession(FIONA);
 
-       Index index = INDEX_SECOND_ENTITY;
-       showVehicleAtIndex(model, index);
+        Index index = INDEX_SECOND_ENTITY;
+        showVehicleAtIndex(model, index);
 
-       DeleteVehicleCommand deleteVehicleCommand = new DeleteVehicleCommand(index);
+        DeleteVehicleCommand deleteVehicleCommand = new DeleteVehicleCommand(index);
 
-       assertCommandFailure(deleteVehicleCommand, model, MESSAGE_INVALID_VEHICLE_INDEX);
+        assertCommandFailure(deleteVehicleCommand, model, MESSAGE_INVALID_VEHICLE_INDEX);
     }
 
     @Test
