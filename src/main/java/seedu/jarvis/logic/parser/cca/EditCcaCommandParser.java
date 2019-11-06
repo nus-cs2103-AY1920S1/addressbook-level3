@@ -5,6 +5,7 @@ import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.jarvis.commons.core.index.Index;
@@ -16,6 +17,8 @@ import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
+import seedu.jarvis.model.cca.exceptions.DuplicateCcaMilestoneException;
 import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
 
 /**
@@ -58,12 +61,12 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
             throw new ParseException(EditCcaCommand.MESSAGE_DUPLICATE_EQUIPMENT);
         }
 
-        if (argMultimap.getValue(PREFIX_PROGRESS_LEVEL).isPresent()) {
-            editCcaDescriptor.setCcaCurrentProgress(CcaParserUtil.parseCcaCurrentProgress(argMultimap.
-                    getValue(PREFIX_PROGRESS_LEVEL).get()));
+        try {
+            parseMilestoneListForEdit(argMultimap.getAllValues(PREFIX_PROGRESS_LEVEL_NAMES))
+                    .ifPresent(editCcaDescriptor::setMilestoneList);
+        } catch (DuplicateCcaMilestoneException e) {
+            throw new ParseException(EditCcaCommand.MESSAGE_DUPLICATE_CCA_MILESTONES);
         }
-
-
 
         if (!editCcaDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCcaCommand.MESSAGE_NOT_EDITED);
@@ -71,6 +74,22 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
 
         return new EditCcaCommand(index, editCcaDescriptor);
     }
+
+    private Optional<CcaMilestoneList> parseMilestoneListForEdit(Collection<String> milestones) throws ParseException,
+            DuplicateCcaMilestoneException {
+        assert milestones != null;
+
+        if (milestones.isEmpty()) {
+            return Optional.empty();
+        }
+
+        if (milestones.size() == 1 && milestones.contains("")) {
+            return Optional.of(new CcaMilestoneList());
+        }
+
+        return Optional.of(CcaParserUtil.parseCcaMilestones(milestones));
+    }
+
 
     /**
      * Parses {@code Collection<String> equipment} into a {@code EquipmentList} if {@code equipments} is non-empty.

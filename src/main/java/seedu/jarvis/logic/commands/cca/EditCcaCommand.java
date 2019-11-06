@@ -2,7 +2,6 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.jarvis.logic.commands.cca.IncreaseProgressCommand.MESSAGE_CCA_PROGRESS_NOT_YET_SET;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.*;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
@@ -21,6 +20,7 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
 import seedu.jarvis.model.cca.ccaprogress.CcaCurrentProgress;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
@@ -50,7 +50,7 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CCA = "This Cca already exists in the CcaTracker.";
     public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicate equipment found.";
-
+    public static final String MESSAGE_DUPLICATE_CCA_MILESTONES = "Duplicate milestones found.";
 
     public static final String MESSAGE_INVERSE_SUCCESS_EDIT = "Reverted edit.";
 
@@ -168,9 +168,8 @@ public class EditCcaCommand extends Command {
         }
 
         originalCca = model.getCca(targetIndex);
-        Cca createdEditedCca;
 
-        createdEditedCca = createEditedCca(originalCca, editCcaDescriptor);
+        Cca createdEditedCca = createEditedCca(originalCca, editCcaDescriptor);
 
         // checks if edited cca does not conflict with another existing cca that is not the original cca.
         if (!originalCca.isSameCca(createdEditedCca) && model.containsCca(createdEditedCca)) {
@@ -179,7 +178,7 @@ public class EditCcaCommand extends Command {
 
         editedCca = createdEditedCca;
 
-        model.updateCca(originalCca, createdEditedCca);
+        model.updateCca(originalCca, editedCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
         model.setViewStatus(LIST_CCA);
 
@@ -240,15 +239,10 @@ public class EditCcaCommand extends Command {
         EquipmentList updatedEquipmentList = editCcaDescriptor.getEquipmentList().orElse(ccaToEdit.getEquipmentList());
         CcaProgress updatedCcaProgress = editCcaDescriptor.getCcaProgress().orElse(ccaToEdit.getCcaProgress());
 
-        // check for 1. if cca progress is already set,
-        // 2. else if cca current progress is more than the max progress.
-        if (editCcaDescriptor.getCcaCurrentProgress().isPresent() && updatedCcaProgress.ccaMilestoneListIsEmpty()) {
-            throw new CommandException(MESSAGE_CCA_PROGRESS_NOT_YET_SET);
+        if (editCcaDescriptor.getCcaMilestoneList().isPresent()) {
+            updatedCcaProgress.setMilestones(editCcaDescriptor.getCcaMilestoneList().get());
+            updatedCcaProgress.resetCcaCurrentProgress();
         }
-
-//        if (updatedCcaProgress.get)
-
-        updatedCcaProgress.setCcaCurrentProgress(editCcaDescriptor.getCcaCurrentProgress().get());
 
         return new Cca(updatedName, updatedCcaType, updatedEquipmentList, updatedCcaProgress);
     }
@@ -280,7 +274,7 @@ public class EditCcaCommand extends Command {
         private CcaType ccaType;
         private EquipmentList equipmentList;
         private CcaProgress ccaProgress;
-        private CcaCurrentProgress ccaCurrentProgress;
+        private CcaMilestoneList ccaMilestoneList;
 
         public EditCcaDescriptor() {}
 
@@ -292,14 +286,14 @@ public class EditCcaCommand extends Command {
             setCcaType(toCopy.ccaType);
             setEquipmentList(toCopy.equipmentList);
             setCcaProgress(toCopy.ccaProgress);
-            setCcaCurrentProgress(toCopy.ccaCurrentProgress);
+            setMilestoneList(toCopy.ccaMilestoneList);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(ccaName, ccaType, equipmentList, ccaProgress, ccaCurrentProgress);
+            return CollectionUtil.isAnyNonNull(ccaName, ccaType, equipmentList, ccaProgress, ccaMilestoneList);
         }
 
         public void setCcaName(CcaName ccaName) {
@@ -326,6 +320,14 @@ public class EditCcaCommand extends Command {
             return Optional.ofNullable(equipmentList);
         }
 
+        public void setMilestoneList(CcaMilestoneList ccaMilestones) {
+            this.ccaMilestoneList = ccaMilestones;
+        }
+
+        public Optional<CcaMilestoneList> getCcaMilestoneList() {
+            return Optional.ofNullable(ccaMilestoneList);
+        }
+
         public void setCcaProgress(CcaProgress ccaProgress) {
             this.ccaProgress = ccaProgress;
         }
@@ -333,15 +335,6 @@ public class EditCcaCommand extends Command {
         public Optional<CcaProgress> getCcaProgress() {
             return Optional.ofNullable(ccaProgress);
         }
-
-        public void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress){
-            this.ccaCurrentProgress = ccaCurrentProgress;
-        }
-
-        public Optional<CcaCurrentProgress> getCcaCurrentProgress() {
-            return Optional.ofNullable(ccaCurrentProgress);
-        }
-
 
         @Override
         public boolean equals(Object other) {
@@ -361,8 +354,7 @@ public class EditCcaCommand extends Command {
             return getCcaName().equals(e.getCcaName())
                     && getCcaType().equals(e.getCcaType())
                     && getEquipmentList().equals(e.getEquipmentList())
-                    && getCcaProgress().equals(e.getCcaProgress())
-                    && getCcaCurrentProgress().equals(e.getCcaCurrentProgress());
+                    && getCcaProgress().equals(e.getCcaProgress());
         }
     }
 }

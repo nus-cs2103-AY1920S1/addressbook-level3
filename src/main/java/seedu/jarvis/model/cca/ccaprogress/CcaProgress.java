@@ -60,6 +60,13 @@ public class CcaProgress {
     }
 
     /**
+     * Sets the CcaCurrentProgress to 0.
+     */
+    public void resetCcaCurrentProgress() {
+        this.ccaCurrentProgress.setCurrentProgress(0);
+    }
+
+    /**
      * Gets the current progress percentage of the Cca.
      */
     public double getCcaProgressPercentage() {

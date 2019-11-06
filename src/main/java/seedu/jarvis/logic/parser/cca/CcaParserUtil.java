@@ -122,15 +122,4 @@ public class CcaParserUtil {
         }
         return ccaMilestoneList;
     }
-
-    public static CcaCurrentProgress parseCcaCurrentProgress(String currentProgress) throws ParseException {
-        requireNonNull(currentProgress);
-        String trimmedCurrentProgress = currentProgress.trim();
-        if (!StringUtil.isNonNegativeUnsignedInteger(currentProgress)) {
-            throw new ParseException(MESSSAGE_INVALID_PROGRESS_LEVEL);
-        }
-        int currentProgressInt = Integer.parseInt(trimmedCurrentProgress);
-        return new CcaCurrentProgress(currentProgressInt);
-    }
-
 }
