@@ -19,4 +19,5 @@ public class Messages {
             "The item has only %s day(s) left before expiring. \nReminder will start from today!";
     public static final String MESSAGE_THRESHOLD_ITEM_EXPIRED = "Cannot set reminder for expired item!";
     public static final String MESSAGE_MAXIMUM_INPUT_LENGTH_EXCEEDED = "Maximum input length is 60 characters!";
+    public static final String MESSAGE_VIEW_OPTIONS="Only two lists (main and replenish) are available to view.";
 }
