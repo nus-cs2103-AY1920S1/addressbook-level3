@@ -35,9 +35,9 @@ import seedu.sugarmummy.model.calendar.Calendar;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.calendar.Reminder;
-import seedu.sugarmummy.model.foodrecommendations.Food;
-import seedu.sugarmummy.model.foodrecommendations.FoodComparator;
-import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.recmf.Food;
+import seedu.sugarmummy.model.recmf.FoodComparator;
+import seedu.sugarmummy.model.recmf.UniqueFoodList;
 import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.records.UniqueRecordList;
@@ -335,13 +335,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
-        requireNonNull(foodComparator);
-        foodList.sortFoods(foodComparator);
-    }
-
-    @Override
-    public void sortFoodListInDescendingOrder(FoodComparator foodComparator) {
+    public void sortFoodList(FoodComparator foodComparator) {
         requireNonNull(foodComparator);
         foodList.sortFoods(foodComparator);
     }

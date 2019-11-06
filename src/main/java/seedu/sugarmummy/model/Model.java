@@ -18,9 +18,9 @@ import seedu.sugarmummy.model.biography.User;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.calendar.Reminder;
-import seedu.sugarmummy.model.foodrecommendations.Food;
-import seedu.sugarmummy.model.foodrecommendations.FoodComparator;
-import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.recmf.Food;
+import seedu.sugarmummy.model.recmf.FoodComparator;
+import seedu.sugarmummy.model.recmf.UniqueFoodList;
 import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.records.UniqueRecordList;
@@ -95,14 +95,9 @@ public interface Model {
     void updateFilteredFoodList(Predicate<Food> predicate);
 
     /**
-     * Sorts the filtered food list in ascending order by comparing the use-specified fields.
+     * Sorts the food list based on the given {@code FoodComparator}.
      */
-    void sortFoodListInAscendingOrder(FoodComparator foodComparator);
-
-    /**
-     * Sorts the filtered food list in descending order by comparing the use-specified fields.
-     */
-    void sortFoodListInDescendingOrder(FoodComparator foodComparator);
+    void sortFoodList(FoodComparator foodComparator);
 
     /**
      * Returns an unmodifiable view of the mix of foods from each food type.

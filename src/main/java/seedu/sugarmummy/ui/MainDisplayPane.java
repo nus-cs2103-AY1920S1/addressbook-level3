@@ -18,7 +18,7 @@ import seedu.sugarmummy.model.time.YearMonthDay;
 import seedu.sugarmummy.ui.achievements.AchievementsPane;
 import seedu.sugarmummy.ui.biography.BioPane;
 import seedu.sugarmummy.ui.calendar.CalendarMonthScrollPanel;
-import seedu.sugarmummy.ui.foodrecommendations.FoodFlowPanel;
+import seedu.sugarmummy.ui.recmf.FoodFlowPanel;
 import seedu.sugarmummy.ui.records.RecordListPanel;
 import seedu.sugarmummy.ui.statistics.AverageGraphPane;
 
@@ -27,13 +27,13 @@ import seedu.sugarmummy.ui.statistics.AverageGraphPane;
  */
 public class MainDisplayPane {
 
-    private Map<DisplayPaneType, UiPart<Region>> map;
+    private Map<DisplayPaneType, UiPart<Region>> typeToPaneMap;
     private DisplayPaneType currPaneType;
     private Logic logic;
 
     public MainDisplayPane(Logic logic) {
         this.logic = logic;
-        map = new HashMap<>();
+        typeToPaneMap = new HashMap<>();
     }
 
     /**
@@ -49,7 +49,7 @@ public class MainDisplayPane {
         switch (displayPaneType) {
         case BIO:
             ObservableList<User> filteredUserList = logic.getFilteredUserList();
-            BioPane previousBioPane = (BioPane) map.get(DisplayPaneType.BIO);
+            BioPane previousBioPane = (BioPane) typeToPaneMap.get(DisplayPaneType.BIO);
             Image previousDp = previousBioPane != null ? previousBioPane.getImg() : null;
 
             if (!filteredUserList.isEmpty() && previousDp != null && filteredUserList.get(0).getDpPath().toString()
@@ -64,7 +64,7 @@ public class MainDisplayPane {
             }
         case ACHVM:
             Map<RecordType, List<Achievement>> achievementsMap = logic.getAchievementsMap();
-            AchievementsPane previousAchievementsPane = (AchievementsPane) map.get(DisplayPaneType.ACHVM);
+            AchievementsPane previousAchievementsPane = (AchievementsPane) typeToPaneMap.get(DisplayPaneType.ACHVM);
             Map<RecordType, List<Achievement>> previousMap = previousAchievementsPane != null
                     ? previousAchievementsPane.getAchievementsMap()
                     : null;
@@ -77,6 +77,11 @@ public class MainDisplayPane {
                                 logic.getFilteredUserList()),
                         newPaneIsToBeCreated);
             }
+
+        case ADD_FOOD:
+            return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFoodList()),
+                newPaneIsToBeCreated);
+
         case RECM_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()),
                     newPaneIsToBeCreated);
@@ -121,11 +126,11 @@ public class MainDisplayPane {
      */
     private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
                                          Supplier<UiPart<Region>> newPaneSupplier, boolean isToCreateNewPane) {
-        UiPart<Region> mappedPane = map.get(displayPaneType);
+        UiPart<Region> mappedPane = typeToPaneMap.get(displayPaneType);
         currPaneType = displayPaneType;
         if (mappedPane == null || isToCreateNewPane) {
             mappedPane = newPaneSupplier.get();
-            map.put(displayPaneType, mappedPane);
+            typeToPaneMap.put(displayPaneType, mappedPane);
         }
         return mappedPane;
     }

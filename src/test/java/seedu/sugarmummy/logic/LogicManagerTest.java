@@ -20,13 +20,13 @@ import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.ModelManager;
 import seedu.sugarmummy.model.UserPrefs;
 import seedu.sugarmummy.model.calendar.Calendar;
-import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.recmf.UniqueFoodList;
 import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.storage.JsonUserPrefsStorage;
 import seedu.sugarmummy.storage.StorageManager;
 import seedu.sugarmummy.storage.biography.JsonUserListStorage;
 import seedu.sugarmummy.storage.calendar.JsonCalendarStorage;
-import seedu.sugarmummy.storage.foodrecommendations.JsonFoodListStorage;
+import seedu.sugarmummy.storage.recmf.JsonFoodListStorage;
 import seedu.sugarmummy.storage.records.JsonRecordListStorage;
 
 public class LogicManagerTest {

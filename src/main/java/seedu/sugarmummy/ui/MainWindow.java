@@ -34,7 +34,7 @@ import seedu.sugarmummy.logic.commands.calendar.CalendarCommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.aesthetics.Background;
-import seedu.sugarmummy.model.foodrecommendations.exceptions.FoodNotSuitableException;
+import seedu.sugarmummy.model.recmf.exceptions.FoodNotSuitableException;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
 import seedu.sugarmummy.ui.aesthetics.StyleManager;

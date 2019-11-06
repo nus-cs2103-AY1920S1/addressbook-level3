@@ -20,10 +20,10 @@ import seedu.sugarmummy.logic.commands.biography.EditBioCommand;
 import seedu.sugarmummy.logic.commands.calendar.CalendarCommand;
 import seedu.sugarmummy.logic.commands.calendar.EventCommand;
 import seedu.sugarmummy.logic.commands.calendar.ReminderCommand;
-import seedu.sugarmummy.logic.commands.foodrecommendations.AddFoodCommand;
-import seedu.sugarmummy.logic.commands.foodrecommendations.RecmFoodCommand;
-import seedu.sugarmummy.logic.commands.foodrecommendations.RecmMixedFoodCommand;
-import seedu.sugarmummy.logic.commands.foodrecommendations.ResetFoodDataCommand;
+import seedu.sugarmummy.logic.commands.recmf.AddFoodCommand;
+import seedu.sugarmummy.logic.commands.recmf.RecmFoodCommand;
+import seedu.sugarmummy.logic.commands.recmf.RecmMixedFoodCommand;
+import seedu.sugarmummy.logic.commands.recmf.ResetFoodDataCommand;
 import seedu.sugarmummy.logic.commands.records.AddCommand;
 import seedu.sugarmummy.logic.commands.records.DeleteCommand;
 import seedu.sugarmummy.logic.commands.records.ListCommand;
@@ -36,12 +36,12 @@ import seedu.sugarmummy.logic.parser.calendar.CalendarCommandParser;
 import seedu.sugarmummy.logic.parser.calendar.EventCommandParser;
 import seedu.sugarmummy.logic.parser.calendar.ReminderCommandParser;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
-import seedu.sugarmummy.logic.parser.foodrecommendations.AddFoodCommandParser;
-import seedu.sugarmummy.logic.parser.foodrecommendations.RecmFoodCommandParser;
+import seedu.sugarmummy.logic.parser.recmf.AddFoodCommandParser;
+import seedu.sugarmummy.logic.parser.recmf.RecmFoodCommandParser;
 import seedu.sugarmummy.logic.parser.records.AddCommandParser;
 import seedu.sugarmummy.logic.parser.records.DeleteCommandParser;
 import seedu.sugarmummy.logic.parser.statistics.AverageCommandParser;
-import seedu.sugarmummy.model.foodrecommendations.exceptions.FoodNotSuitableException;
+import seedu.sugarmummy.model.recmf.exceptions.FoodNotSuitableException;
 
 /**
  * Parses user input.

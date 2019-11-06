@@ -12,7 +12,7 @@ import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.model.UserPrefs;
 import seedu.sugarmummy.storage.biography.JsonUserListStorage;
 import seedu.sugarmummy.storage.calendar.JsonCalendarStorage;
-import seedu.sugarmummy.storage.foodrecommendations.JsonFoodListStorage;
+import seedu.sugarmummy.storage.recmf.JsonFoodListStorage;
 import seedu.sugarmummy.storage.records.JsonRecordListStorage;
 
 public class StorageManagerTest {
