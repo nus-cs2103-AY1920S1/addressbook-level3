@@ -24,6 +24,10 @@ class BudgetWindowTest {
     private static final Timestamp OCT_31 = new Timestamp(
             LocalDateTime.of(2019, 10, 31, 23, 59)).toEndOfDay();
     private static final BudgetWindow NOV_1_TO_NOV_30 = new BudgetWindow(NOV_1, BudgetPeriod.MONTH);
+    private static final String NOV_1_TO_NOV_30_SG = " Period: month Start date: 1 Nov 2019, 12:00:00 AM "
+            + "End date: 30 Nov 2019, 11:59:59 PM";
+    private static final String NOV_1_TO_NOV_30_US = " Period: month Start date: Nov 1, 2019, 12:00:00 AM "
+            + "End date: Nov 30, 2019, 11:59:59 PM";
 
     @Test
     void getStartDate() {
@@ -66,7 +70,7 @@ class BudgetWindowTest {
 
     @Test
     void testToString() {
-        assertEquals(" Period: month Start date: 1 Nov 2019, 12:00:00 AM End date: 30 Nov 2019, 11:59:59 PM",
-                NOV_1_TO_NOV_30.toString());
+        assertTrue(NOV_1_TO_NOV_30.toString().equals(NOV_1_TO_NOV_30_SG)
+                || NOV_1_TO_NOV_30.toString().equals(NOV_1_TO_NOV_30_US));
     }
 }
