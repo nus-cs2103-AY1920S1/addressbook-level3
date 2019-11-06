@@ -236,7 +236,7 @@ Link commands are only available when viewing a module and only valid on current
 
 ==== `add`
 
-Format: `link add n/LINK_TITLE l/LINK_URL`
+Format: `link add n/LINK_NAME l/LINK_URL`
 
 Adds link provided to the respective module.
 
@@ -244,15 +244,15 @@ Example: `link add n/course website l/https://www.comp.nus.edu.sg/~cs1231/`
 
 ==== `edit`
 
-Format: `link edit n/LINK_TITLE [nt/EDITED_TITLE nl/EDITED_LINK]`
+Format: `link edit n/LINK_NAME [nn/EDITED_NAME nl/EDITED_LINK]`
 
 Edits the link identified by its current title for the respective module.
 
-Example: `link edit t/course website nt/module website`
+Example: `link edit n/course website nn/module website`
 
 ==== `go`
 
-Format: `link go n/LINK_TITLE`
+Format: `link go n/LINK_NAME`
 
 Launches the link in the user system's default browser.
 
@@ -260,11 +260,19 @@ Example: `link go n/module website`
 
 ==== `delete`
 
-Format: `link delete n/LINK_TITLE`
+Format: `link delete n/LINK_NAME`
 
 Deletes the link with the given link title in the respective module.
 
 Example: `link delete n/module website`
+
+==== `mark`/`unmark`
+
+Format: `link mark n/LINK_NAME`
+
+Marks/unmarks the link with the given link title in the respective module
+
+Example: `link mark n/module website`
 
 === Saving the data
 

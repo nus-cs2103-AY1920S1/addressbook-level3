@@ -26,6 +26,7 @@ public abstract class LinkCommand extends Command {
             + "Current displayed module has not been tracked.";
     public static final String MESSAGE_DELETE_SUCCESS = "Link deleted successfully.";
     public static final String MESSAGE_EDIT_SUCCESS = "Link edited successfully.";
+    public static final String MESSAGE_MARK_SUCCESS = "Link marked successfully.";
 
     /**
      * Returns the current TrackedModule that is being viewed, if any.

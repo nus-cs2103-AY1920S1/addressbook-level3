@@ -12,6 +12,7 @@ import seedu.module.logic.parser.linkcommandparsers.AddLinkCommandParser;
 import seedu.module.logic.parser.linkcommandparsers.DeleteLinkCommandParser;
 import seedu.module.logic.parser.linkcommandparsers.EditLinkCommandParser;
 import seedu.module.logic.parser.linkcommandparsers.LaunchLinkCommandParser;
+import seedu.module.logic.parser.linkcommandparsers.MarkLinkCommandParser;
 
 /**
  * Parses input arguments and creates a new LinkCommand object
@@ -41,6 +42,10 @@ public class LinkCommandParser implements Parser<LinkCommand> {
                 return new DeleteLinkCommandParser().parse(argMultimap);
             } else if (action.equals("edit")) {
                 return new EditLinkCommandParser().parse(argMultimap);
+            } else if (action.equals("mark")) {
+                return new MarkLinkCommandParser().parse(argMultimap, true);
+            } else if (action.equals("unmark")) {
+                return new MarkLinkCommandParser().parse(argMultimap, false);
             } else {
                 throw new ParseException("Command not recognized");
             }

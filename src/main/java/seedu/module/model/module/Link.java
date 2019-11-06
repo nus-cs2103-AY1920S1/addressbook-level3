@@ -18,6 +18,7 @@ public class Link {
 
     public final String url;
     public final String name;
+    private boolean marked = false;
 
     public Link(String name, String url) throws IllegalArgumentException {
 
@@ -31,6 +32,21 @@ public class Link {
         }
         this.name = name;
         this.url = properLink;
+    }
+
+    public Link(String name, String url, boolean marked) throws IllegalArgumentException {
+
+        requireNonNull(url);
+        String properLink = url;
+        if (!url.toLowerCase().startsWith("http://") && !url.toLowerCase().startsWith("https://")) {
+            properLink = "http://" + url;
+        }
+        if (!isValidUrl(properLink)) {
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
+        }
+        this.name = name;
+        this.url = properLink;
+        this.marked = marked;
     }
 
     /**
@@ -69,8 +85,39 @@ public class Link {
         }
     }
 
+    public boolean isMarked() {
+        return this.marked;
+    }
+
+    public boolean setMarked() {
+        if (this.marked) {
+            return false;
+        } else {
+            this.marked = true;
+            return true;
+        }
+    }
+
+    public boolean setUnmarked() {
+        if (!this.marked) {
+            return false;
+        } else {
+            this.marked = false;
+            return true;
+        }
+    }
+
     @Override
     public String toString() {
         return this.name;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Link // instanceof handles nulls
+                && name.equals(((Link) other).name))
+                && url.equals(((Link) other).url); // state check
+    }
+
 }

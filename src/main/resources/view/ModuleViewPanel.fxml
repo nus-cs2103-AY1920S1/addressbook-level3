@@ -76,12 +76,16 @@
                <Label fx:id="deadline" styleClass="label-bright" text="\$deadline" />
             </children>
          </HBox>
-         <HBox alignment="BOTTOM_LEFT" VBox.vgrow="NEVER">
+         <VBox alignment="TOP_LEFT" VBox.vgrow="ALWAYS">
             <children>
-               <Label styleClass="label-bright" text="Links: " />
-               <FlowPane fx:id="links" alignment="BOTTOM_LEFT" />
+                <Label styleClass="label-bright" text="Links: " />
+                <HBox alignment="BOTTOM_LEFT" VBox.vgrow="NEVER">
+                    <children>
+                        <FlowPane fx:id="links" alignment="BOTTOM_LEFT" />
+                    </children>
+                </HBox>
             </children>
-         </HBox>
+         </VBox>
         </VBox>
   </content>
 </ScrollPane>
