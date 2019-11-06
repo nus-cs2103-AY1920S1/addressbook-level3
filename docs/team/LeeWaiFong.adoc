@@ -56,11 +56,93 @@ The current design is used to ensure there is a balance between space allocation
 We had to update the original addressbook User Guide with instructions for the enhancements that we had added.
 The following is an excerpt from *_Billboard User Guide_*, showing additions that I have made for the tag features. +
 
-include::../UserGuide.adoc[tag=tagging]
+=== Tagging expenses: `tag`
+This feature allows you to assign tags to your expenses. Expenses with the same tag will be grouped together, allowing you to search for related expenses easily.
+
+[NOTE]
+Tag names should be *alphanumeric*. This means that they should not contain spaces or special characters. +
+Tag names are *case sensitive.* +
+You are *not* able to use this feature on *archived expenses*.
+
+To view a list of supported tag commands, you could type `tag` in the command box and press `enter`. +
+Similarly, to view parameters for supported tag commands, you could type `tag` followed by the supported tag command and press `enter`. +
+Example: `tag rm`
+
+==== Adding a tag: `tag add` +
+This command adds your input tag(s) to the expense at the index you have specified. +
+{nbsp} +
+Usage:
+
+ tag add [INDEX] t/[TAG] t/[TAG…]
+
+Example: +
+Lets say that you want to add the tags "_holiday_" and "_hangout_" to the expense at index 2 which is "_USS_". +
+{nbsp} +
+To add the tags: +
+1. Type `tag add 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
+image:tagging/AddTagOne.png[] +
+2. The result box will display the message "Added tag(s) to Expense: +
+Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: [[hangout], [holiday]]" +
+{nbsp} +
+image:tagging/AddTagTwo.png[] +
+{nbsp} +
+3. You could see the tags "_holiday_" and "_hangout_" in the expense at index 2. +
+{nbsp} +
+image:tagging/AddTagThreeCropped.png[] +
+{nbsp} +
+
+[NOTE]
+You are not able to add *existing* tags. +
+If you input *existing* and *non-existing* tags, Billboard adds the *non-existing* tags only. +
+If you input *duplicate* tags, Billboard adds them *once*. i.e Billboard does *not* allow Duplicate tags in an expense. +
+Example: `tag add t/holiday t/holiday`
+
+==== Removing a tag: `tag rm` +
+This command removes your input tag(s) from the expense at the index you have specified. +
+{nbsp} +
+Usage:
+
+ tag rm [INDEX] t/[TAG] t/[TAG…]
+
+Example: +
+Lets say that you want to remove the tags "_holiday_" and "_hangout_" from the expense at index `2` which is "_USS_". +
+To remove the tags: +
+1. Type `tag rm 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
+{nbsp} +
+image:tagging/rmTagOne.png[] +
+{nbsp} +
+2. The result box will display the message "Removed tag(s) from Expense: +
+ Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: []" +
+{nbsp} +
+image:tagging/rmTagTwo.png[] +
+{nbsp} +
+3. You could see that the expense at index 2 no longer has the tags "_hangout_" and "_holiday_". +
+{nbsp} +
+image:tagging/rmTagThree.png[] +
+{nbsp} +
+
+[NOTE]
+You are not able to remove *non-existing* tags. +
+If you input *duplicate* tags, Billboard removes them *once*. +
+Example: `tag rm t/holiday t/holiday`
+
+==== Filtering by tag: `tag filter` +
+This command filters expenses by your input tag(s). +
+{nbsp} +
+Usage:
+
+ tag filter t/[TAG] t/[TAG…]
+
+==== Listing out all the tags: `tag list` +
+This command lists out all existing tags. +
+{nbsp} +
+Usage:
+
+ tag list
 
 == Contributions to Developer Guide
 We had to update the original addressbook Developer Guide with instructions for the enhancements that we had added.
-The following is an excerpt from *_Billboard User Guide_*, showing additions that I have made for the tag features. +
+The following is an excerpt from *_Billboard Developer Guide_*, showing additions that I have made for the tag features. +
 
 include::../DeveloperGuide.adoc[tag=tagging]
 
