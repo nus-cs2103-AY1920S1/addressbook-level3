@@ -70,7 +70,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateBarCharts(Date month){
+    public void updateBarCharts(Date month) {
         throw new AssertionError("This method should not be called.");
     }
 

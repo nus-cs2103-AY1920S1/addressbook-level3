@@ -8,7 +8,6 @@ import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_FOOD_EXPEN
 import static seedu.guilttrip.logic.commands.CommandTestUtil.DATE_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.DATE_FOOD_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_AMOUNT;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_CATEGORY_TYPE_BUDGET;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_DATE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -34,7 +33,6 @@ import org.junit.jupiter.api.Test;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddExpenseCommandParser;
 import seedu.guilttrip.model.entry.Amount;
-import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
@@ -115,30 +113,21 @@ public class AddExpenseCommandParserTest {
                         + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
                 Amount.MESSAGE_CONSTRAINTS);
 
-        // invalid Category
-//        assertParseFailure(parser, NAME_DESC_CLOTHING_EXPENSE + AMOUNT_CLOTHING_EXPENSE
-//                        + INVALID_CATEGORY_TYPE_BUDGET + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
-//                Category.MESSAGE_CONSTRAINTS_TYPE);
-
         // invalid Date
         assertParseFailure(parser, NAME_DESC_CLOTHING_EXPENSE + AMOUNT_CLOTHING_EXPENSE
                         + CATEGORY_CLOTHING_EXPENSE + INVALID_DATE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
                 Date.MESSAGE_CONSTRAINTS_FOR_ENTRIES);
-//
-//        // invalid guilttrip
-//        assertParseFailure(parser, NAME_DESC_CLOTHING_EXPENSE + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-//                + TAG_DESC_FOOD + TAG_DESC_CLOTHING, Address.MESSAGE_CONSTRAINTS);
-//
+
         // invalid tag
         assertParseFailure(parser, NAME_DESC_CLOTHING_EXPENSE + AMOUNT_CLOTHING_EXPENSE
                         + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + INVALID_TAG_DESC + TAG_DESC_WANT,
                 Tag.MESSAGE_CONSTRAINTS);
-//
-//        // two invalid values, only first invalid value reported
+
+        // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + AMOUNT_CLOTHING_EXPENSE
                         + CATEGORY_CLOTHING_EXPENSE + INVALID_DATE + INVALID_TAG_DESC + TAG_DESC_WANT,
                 Description.MESSAGE_CONSTRAINTS);
-//
+
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_CLOTHING_EXPENSE + AMOUNT_CLOTHING_EXPENSE
                         + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
