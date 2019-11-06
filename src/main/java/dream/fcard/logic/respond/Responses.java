@@ -120,10 +120,24 @@ public enum Responses {
                 }
     ),
     CREATE_NEW_DECK_WITH_NAME(
-            "^((?i)create)\\s+((?i)deck/)\\s*",
+            RegexUtil.commandFormatRegex("create", new String[]{"deck"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    String deckName = i.split("(?i)deck/\\s*")[1];
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("create",
+                            new String[]{"deck/"}, i);
+
+
+                    //String deckName = i.split("(?i)deck/\\s*")[1];
+
+                    //@@author huiminlim
+                    boolean isOnlyOneDeck = res.get(0).size() == 1;
+                    if(!isOnlyOneDeck) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Create Command: invalid format");
+                        return true;
+                    }
+                    String deckName = res.get(0).get(0);
+                    //@author
+
                     if (StateHolder.getState().hasDeckName(deckName) == -1) {
                         StateHolder.getState().addDeck(deckName);
                         Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
