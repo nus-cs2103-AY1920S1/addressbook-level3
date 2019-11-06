@@ -218,7 +218,7 @@ Deleting a user will search for all incidents created by the user and place a `d
 This command works in two ways:
 
 *1. auto/Y* +
-Format: `new dist/DISTRICT_NUM auto/Y`
+Format: `new dist/DISTRICT auto/Y`
 
 ****
 * An available vehicle in the given district will be automatically dispatched to the incident site.
@@ -238,7 +238,7 @@ image::newCommandAutoYBeforeSS.png[]
 image::newCommandAutoYAfterSS.png[]
 
 *2. auto/N* +
-Format: `new dist/DISTRICT_NUM auto/N`
+Format: `new dist/DISTRICT auto/N`
 
 ****
 * A list of available vehicles in the given district will be shown.
@@ -635,7 +635,7 @@ Data files will be encrypted by default. Users can decrypt the file with the com
 === Creating new incidents even when no vehicle is available in the given district. `[comin in v2.0]`
 
 User can choose to create an incident pending vehicle dispatchment.
-Format: `new dist/DISTRICT_NUM auto/Y r/pending`
+Format: `new dist/DISTRICT auto/Y r/pending`
 
 // end:newincidentwithoutvehicle[]
 

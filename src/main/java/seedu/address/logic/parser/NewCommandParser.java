@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_NOT_ONE_DISTRICT;
+import static seedu.address.commons.core.Messages.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VEHICLE;
@@ -51,9 +50,16 @@ public class NewCommandParser implements Parser<NewCommand> {
                 return new NewCommand(districts.get(0), false, -1);
             }
 
-            String v = vArgMap.getValue(PREFIX_VEHICLE).get();
-            int indexOfV = Integer.valueOf(v);
-            return new NewCommand(districts.get(0), false, indexOfV);
+            try {
+                String v = vArgMap.getValue(PREFIX_VEHICLE).get();
+                int indexOfV = Integer.valueOf(v);
+                if (indexOfV < 1) {
+                    throw new ParseException(MESSAGE_INVALID_INDEX_OF_V);
+                }
+                return new NewCommand(districts.get(0), false, indexOfV);
+            } catch (NumberFormatException e) {
+                throw new ParseException(MESSAGE_INVALID_INDEX_OF_V);
+            }
         }
     }
 

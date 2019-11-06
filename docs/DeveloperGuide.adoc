@@ -341,14 +341,26 @@ In the code base, Persons represent user accounts. See person model for more inf
 ==== Proposed Implementation
 
 The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
+There are two ways to use the New Command:
+1. Auto dispatchment
+2. Manual dispatchment, which requires user to provide a valid index that selects a vehicle
 
-With automatic vehicle dispatchment:
+=== Automatic vehicle dispatchment:
+
+Vehicle will be automatically assigned to the incident draft if any is available in the district. If no vehicle is available, an exception will be thrown.
+
+Below is a sequence diagram of a successful case:
 
 image::NewDraftSequenceDiagramAuto.png[]
 
-With manual vehicle dispatchment:
+=== Manual vehicle dispatchment:
+
+User needs to key in the index of vehicle (based on the displayed vehicle list) to dispatch. If no index is provided, or the index is not a positive integer, an exception will be thrown and user will be prompted to provide a valid index.
+
+Below is a sequence diagram of a successful case:
 
 image::NewDraftSequenceDiagramManual.png[]
+
 
 ==== Design Considerations
 
@@ -577,13 +589,12 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 
 ===== Aspect: How vehicle search keyword is inputted
 
-* **Current choice:** Parse user input after flag (eg. `ds/` or `vnum/`)
+* **Current choice:** Parse user input after flag (eg. `dist/` or `vnum/`)
 ** Pros:
 *** Easy to implement.
 *** Reduce number of steps of input, more efficient.
 ** Cons:
 *** Have to parse keyword from command and flag, user has to follow style of flag for successful search.
-*** User might confuse relevant flags, eg ds/ and l/, as they both pertain to districts.
 *** User might have to remember too many flags.
 * **Alternative:** Prompt user for search input
 ** Pros:
@@ -604,6 +615,8 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 * **Alternative:** Utilise separate command `vehicles`
 ** Pros: Intuitive for some.
 ** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
+
+// end::vehiclesearch[]
 
 === Logging
 
@@ -746,23 +759,22 @@ Use case ends.
 *MSS*
 
 1.  User requests to create a new incident
-2.  IMS prompts for confirmation of vehicle assignment
-3.  User accepts auto assigned vehicle for dispatch
-4.  IMS creates a new incident with autofill details
-5.  IMS prompts for completion of incident report
-6.  User fills in necessary details
-7.  User submits incident report
+2.  User chooses auto vehicle dispatchment
+3.  IMS creates a new incident with autofill details
+4.  IMS prompts for completion of incident report
+5.  User fills in necessary details
+6.  User submits incident report
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. User opts for manual assignment.
+* 2a. User opts for manual assignment.
 +
 [none]
-** 3a1. IMS displays list of all available vehicles.
-** 3a2. User selects index of vehicle to dispatch.
+** 2a1. IMS displays list of all available vehicles.
+** 2a2. User selects index of vehicle to dispatch.
 +
 Use case resumes at step 4.
 
