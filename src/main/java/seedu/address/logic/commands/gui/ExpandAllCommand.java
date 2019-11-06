@@ -25,6 +25,7 @@ public class ExpandAllCommand extends Command {
         for (Semester s : model.getSemestersFromActiveSp()) {
             s.setExpanded(true);
         }
+        model.addToHistory();
         return new CommandResult(MESSAGE_SUCCESS, true, false);
     }
 

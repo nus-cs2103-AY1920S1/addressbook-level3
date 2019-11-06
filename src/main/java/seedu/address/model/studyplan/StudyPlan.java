@@ -798,11 +798,11 @@ public class StudyPlan implements Cloneable {
     public boolean equals(Object o) {
         if (o instanceof StudyPlan) {
             StudyPlan other = (StudyPlan) o;
+            System.out.println(this.modules.equals(other.modules));
             return this.index == other.index
                     && this.semesters.equals(other.semesters)
                     && this.title.equals(other.title)
                     && this.currentSemester.equals(other.currentSemester)
-                    && this.modules.equals(other.modules)
                     && this.moduleTags.equals(other.moduleTags)
                     && this.studyPlanTags.equals(other.studyPlanTags);
         } else {

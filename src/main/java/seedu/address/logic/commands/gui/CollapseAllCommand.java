@@ -25,6 +25,7 @@ public class CollapseAllCommand extends Command {
         for (Semester s : model.getSemestersFromActiveSp()) {
             s.setExpanded(false);
         }
+        model.addToHistory();
         return new CommandResult(MESSAGE_SUCCESS, true, false);
     }
 

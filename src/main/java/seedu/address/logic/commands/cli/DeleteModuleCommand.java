@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.cli;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.cli.AddModuleCommand.MESSAGE_SEMESTER_BLOCKED;
 import static seedu.address.logic.commands.cli.AddModuleCommand.MESSAGE_SEMESTER_DOES_NOT_EXIST;
 
 import seedu.address.logic.commands.Command;
@@ -42,8 +43,16 @@ public class DeleteModuleCommand extends Command {
             throw new CommandException(MESSAGE_SEMESTER_DOES_NOT_EXIST);
         }
 
+        if (model.getSemester(this.sem).isBlocked()) {
+            throw new CommandException(MESSAGE_SEMESTER_BLOCKED);
+        }
+
         if (!model.semesterHasModule(this.moduleCode, this.sem)) {
             throw new CommandException(MODULE_DOES_NOT_EXIST);
+        }
+
+        if (model.getSemester(this.sem).isBlocked()) {
+            throw new CommandException(MESSAGE_SEMESTER_BLOCKED);
         }
 
         model.removeModule(moduleCode, sem);

@@ -249,6 +249,7 @@ Example:
 
 * `collapse y1s1`
 
+//tag::cli[]
 ==== Collapsing all semesters: `collapseall`
 Collapses all semesters so that most details are hidden. +
 Format: `collapseall`
@@ -316,10 +317,11 @@ Chain commands together for greater efficiency. The commands, if different, are 
 Format: `COMMAND_1 && COMMAND_2 && …` +
 Examples:
 
-* `addmod y1s1 CS1101S CS1231 MA1521`
 * `movemodule CS2105 y2s1 y2s2 && addmod CS2106 y2s2`
 
+//end::cli[]
 //tag::dataclassificationandmanagement[]
+
 === Data classification and management
 ==== Viewing default tags : `viewdefaulttags`
 Shows all default tag types. +

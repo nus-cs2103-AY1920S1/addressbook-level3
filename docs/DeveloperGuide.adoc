@@ -62,10 +62,16 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
+<<<<<<< HEAD
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues
 the command `addmod y1s1 cs1231s`.
 
 .Component interactions for the `addmod y1s1 cs1231s` command
+=======
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `addmod y1s1 CS3244`.
+
+.Component interactions for `addmod y1s1 CS3244` command
+>>>>>>> 993a9fffe20caedbfd4498fec21138b100b46106
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -87,7 +93,9 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data. 
+
+// tag::logic[]
 
 [[Design-Logic]]
 === Logic component
@@ -112,8 +120,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-
-//tag::modelcomponent[]
+// end::logic[] 
 
 [[Design-Model]]
 === Model component
@@ -135,7 +142,8 @@ As a more OOP model, we can store a `Tag` list in `module planner`, which `Perso
  +
 image:BetterModelClassDiagram.png[]
 
-//end::modelcomponent[]
+//end::
+[]
 
 [[Design-Storage]]
 === Storage component
@@ -637,6 +645,8 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
+// tag::userprofile[]
+
 *Target user profile*:
 
 * Undergraduate CS student studying in NUS
@@ -647,6 +657,10 @@ Refer to the guide <<DevOps#, here>>.
 * Prefers typing over mouse input
 * Is reasonably comfortable using CLI apps
 
+// end::userprofile[]
+
+// tag::valueproposition[]
+
 *Value proposition*:
 
 * Functionality is not offered by any other existing application.
@@ -656,7 +670,11 @@ Refer to the guide <<DevOps#, here>>.
 * Version control for saving history of study plans, ensuring that mistakes or past study plans are recoverable.
 * Suits users who are able to type fast and can manage their study plan faster.
 
+// end::valueproposition[]
+
 [appendix]
+// tag::userstories[]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -709,6 +727,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
+// end::userstories[]
 
 [appendix]
 == Use Cases
@@ -846,6 +865,8 @@ Use case ends.
 * 2b. User chooses to chain same commands with multiple arguments.
 
 [appendix]
+// tag::nfr[]
+
 == Non Functional Requirements
 
 .  Should work on any mainstream OS as long as it has Java 11 or above installed.

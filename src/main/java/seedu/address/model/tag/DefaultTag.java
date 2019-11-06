@@ -55,6 +55,11 @@ public class DefaultTag implements Tag {
         return defaultTagType.getDefaultTagTypeName();
     }
 
+    @Override
+    public Tag clone() {
+        return this;
+    }
+
     /**
      * Returns the description of the default tag type.
      */

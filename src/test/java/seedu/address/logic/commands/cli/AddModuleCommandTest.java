@@ -3,6 +3,7 @@ package seedu.address.logic.commands.cli;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.commands.cli.AddModuleCommand.MESSAGE_DUPLICATE_MODULE_STUDY_PLAN;
 import static seedu.address.testutil.TypicalModule.CS1101S;
 import static seedu.address.testutil.TypicalModule.CS2102;
 import static seedu.address.testutil.TypicalModule.CS3244;
@@ -131,11 +132,9 @@ class AddModuleCommandTest {
         validModuleCodes.add(ST2334.getModuleCode().toString());
 
         AddModuleCommand addModuleCommand = new AddModuleCommand(validModuleCodes, SemesterName.Y1S1);
-        CommandResult res = addModuleCommand.execute(model);
-
+        assertThrows(CommandException.class, () -> addModuleCommand.execute(model),
+                MESSAGE_DUPLICATE_MODULE_STUDY_PLAN);
         assertEquals(model.getActiveStudyPlan(), expectedModel.getActiveStudyPlan());
-        assertEquals(res.getFeedbackToUser(), String.format(AddModuleCommand.MESSAGE_DUPLICATE_MODULE,
-                ST2334.getModuleCode().toString(), SemesterName.Y1S1));
     }
 
     @Test

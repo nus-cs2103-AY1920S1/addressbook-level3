@@ -37,6 +37,11 @@ public class UserTag implements Tag {
         return test.matches(VALIDATION_REGEX) && (!DefaultTagType.contains(test));
     }
 
+    @Override
+    public Tag clone() {
+        return new UserTag(this.tagName);
+    }
+
     /**
      * Checks if the tag is a default tag.
      *

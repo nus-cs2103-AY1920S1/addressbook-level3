@@ -8,6 +8,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 
 
@@ -25,10 +26,13 @@ public class AddModuleCommand extends Command {
             + "MODULE_CODE\n"
             + "Example: addmod Y1S1 CS1101S CS1231S";
 
-    public static final String MESSAGE_SUCCESS = "Module %1$s added to %2$s.";
-    public static final String MESSAGE_DUPLICATE_MODULE = "Module %1$s already exists in %2$s.";
-    public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "Module %1$s does not exist.";
-    public static final String MESSAGE_SEMESTER_DOES_NOT_EXIST = "Semester %1$s does not exist.";
+    public static final String MESSAGE_SUCCESS = "Module %1$s added to %2$s";
+    public static final String MESSAGE_DUPLICATE_MODULE = "One of these modules already exists in the semester";
+    public static final String MESSAGE_DUPLICATE_MODULE_STUDY_PLAN =
+            "One of these modules already exists in the study plan";
+    public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "One of these modules does not exist.";
+    public static final String MESSAGE_SEMESTER_DOES_NOT_EXIST = "This semester does not exist.";
+    public static final String MESSAGE_SEMESTER_BLOCKED = "This semester is blocked.";
 
     private final SemesterName sem;
     private final List<String> moduleCodes;
@@ -46,7 +50,19 @@ public class AddModuleCommand extends Command {
         requireNonNull(model);
 
         if (model.getSemester(this.sem) == null) {
-            throw new CommandException(String.format(MESSAGE_SEMESTER_DOES_NOT_EXIST, this.sem));
+            throw new CommandException(MESSAGE_SEMESTER_DOES_NOT_EXIST);
+        }
+
+        if (model.getSemester(this.sem).isBlocked()) {
+            throw new CommandException(MESSAGE_SEMESTER_BLOCKED);
+        }
+
+        for (Semester sem : model.getActiveStudyPlan().getSemesters()) {
+            for (String moduleCode : this.moduleCodes) {
+                if (sem.hasModule(moduleCode)) {
+                    throw new CommandException(MESSAGE_DUPLICATE_MODULE_STUDY_PLAN);
+                }
+            }
         }
 
         StringBuilder resultString = new StringBuilder();

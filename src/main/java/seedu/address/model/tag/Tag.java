@@ -20,4 +20,5 @@ public interface Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    Tag clone();
 }

@@ -32,6 +32,7 @@ public class ExpandCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.getSemester(sem).setExpanded(true);
+        model.addToHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, sem), true, false);
     }
 

@@ -216,7 +216,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     public Object clone() {
         UniqueTagList clone = new UniqueTagList();
         for (Tag tag : this) {
-            clone.addTag(tag);
+            clone.addTag(tag.clone());
         }
         return clone;
     }

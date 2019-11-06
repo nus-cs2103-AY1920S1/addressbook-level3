@@ -38,7 +38,6 @@ public class JsonModulesInfoStorage implements ModulesInfoStorage {
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<ModulesInfo> readModulesInfo(Path prefsFilePath) throws IOException {
-        System.out.println(prefsFilePath.toString());
         InputStream stream = getClass()
                 .getClassLoader()
                 .getResourceAsStream(prefsFilePath.toString());

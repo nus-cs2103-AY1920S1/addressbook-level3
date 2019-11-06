@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalModuleHashMap.getTypicalModuleHashMap;
+import static seedu.address.testutil.TypicalSemesterList.TYPICAL_SEMESTER_LIST;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,19 +29,22 @@ class SetCurrentSemesterCommandTest {
 
     @Test
     public void execute_moduleNotPresentInStudyPlan_newModuleAddSuccessful()
-            throws CloneNotSupportedException, CommandException {
+            throws CommandException {
         SetCurrentSemesterCommand setCurrentSemesterCommand = new SetCurrentSemesterCommand(SemesterName.Y2S1);
 
-        StudyPlan studyPlan = new StudyPlanBuilder().withCurrentSemester("Y1S2").build();
+        StudyPlan studyPlan = new StudyPlanBuilder().withCurrentSemester("Y1S2").withModules(getTypicalModuleHashMap())
+                .withSemesters(TYPICAL_SEMESTER_LIST).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withCurrentSemester("Y2S1").build();
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder()
+                .withModules(getTypicalModuleHashMap())
+                .withSemesters(TYPICAL_SEMESTER_LIST)
+                .withCurrentSemester("Y2S1").build();
         Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(expectedStudyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         expectedModel.activateFirstStudyPlan();
-        expectedModel.addToHistory();
 
         // construct command to add a module
         CommandResult res = setCurrentSemesterCommand.execute(model);

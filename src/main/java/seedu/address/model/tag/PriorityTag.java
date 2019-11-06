@@ -28,6 +28,11 @@ public class PriorityTag implements Tag, Comparable<PriorityTag> {
         return PriorityTagType.isValidPriorityTagString(name);
     }
 
+    @Override
+    public Tag clone() {
+        return new PriorityTag(this.priorityTagType);
+    }
+
     /**
      * Checks if the tag is a default tag.
      *

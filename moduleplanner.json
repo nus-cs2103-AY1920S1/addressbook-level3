@@ -9,42 +9,50 @@
       "reasonForBlocked" : null,
       "modules" : [ {
         "moduleCode" : "CS3244"
-      } ]
+      } ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y1S2",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y2S1",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y2S2",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y3S1",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y3S2",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y4S1",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y4S2",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     } ],
     "modules" : [ {
       "moduleCode" : "CP3107",
@@ -570,7 +578,7 @@
       "tagName" : "ml",
       "isPriority" : false
     } ],
-    "currentSemester" : "Y1S2",
+    "currentSemester" : "Y1S1",
     "studyPlanTags" : [ ]
   }, {
     "totalNumber" : 3,
@@ -583,8 +591,13 @@
       "modules" : [ {
         "moduleCode" : "CS1101S"
       }, {
-        "moduleCode" : "CS1231S"
-      } ]
+        "moduleCode" : "CS3244"
+      }, {
+        "moduleCode" : "MA1101R"
+      }, {
+        "moduleCode" : "MA1521"
+      } ],
+      "isExpanded" : true
     }, {
       "semesterName" : "Y1S2",
       "isBlocked" : false,
@@ -597,7 +610,8 @@
         "moduleCode" : "CS2100"
       }, {
         "moduleCode" : "IS1103X"
-      } ]
+      } ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y2S1",
       "isBlocked" : false,
@@ -610,7 +624,8 @@
         "moduleCode" : "CS2105"
       }, {
         "moduleCode" : "CS2106"
-      } ]
+      } ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y2S2",
       "isBlocked" : false,
@@ -619,29 +634,32 @@
         "moduleCode" : "CS3230"
       }, {
         "moduleCode" : "ES2660"
-      } ]
+      } ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y3S1",
-      "isBlocked" : false,
-      "reasonForBlocked" : null,
-      "modules" : [ {
-        "moduleCode" : "CS3203"
-      } ]
+      "isBlocked" : true,
+      "reasonForBlocked" : "",
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y3S2",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y4S1",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     }, {
       "semesterName" : "Y4S2",
       "isBlocked" : false,
       "reasonForBlocked" : null,
-      "modules" : [ ]
+      "modules" : [ ],
+      "isExpanded" : false
     } ],
     "modules" : [ {
       "moduleCode" : "CP3107",
@@ -718,7 +736,10 @@
     }, {
       "moduleCode" : "CS2100",
       "color" : "RED",
-      "userTags" : [ ]
+      "userTags" : [ {
+        "tagName" : "SEP",
+        "isPriority" : false
+      } ]
     }, {
       "moduleCode" : "CS5332",
       "color" : "RED",
@@ -826,7 +847,16 @@
     }, {
       "moduleCode" : "CS1101S",
       "color" : "RED",
-      "userTags" : [ ]
+      "userTags" : [ {
+        "tagName" : "hard",
+        "isPriority" : false
+      }, {
+        "tagName" : "lolsiclasd",
+        "isPriority" : false
+      }, {
+        "tagName" : "a",
+        "isPriority" : false
+      } ]
     }, {
       "moduleCode" : "CS4225",
       "color" : "RED",
@@ -906,7 +936,16 @@
     }, {
       "moduleCode" : "CS3244",
       "color" : "RED",
-      "userTags" : [ ]
+      "userTags" : [ {
+        "tagName" : "lols",
+        "isPriority" : false
+      }, {
+        "tagName" : "yoink",
+        "isPriority" : false
+      }, {
+        "tagName" : "yoink2",
+        "isPriority" : false
+      } ]
     }, {
       "moduleCode" : "CS4212",
       "color" : "RED",
@@ -930,7 +969,10 @@
     }, {
       "moduleCode" : "CS2030",
       "color" : "RED",
-      "userTags" : [ ]
+      "userTags" : [ {
+        "tagName" : "SEP",
+        "isPriority" : false
+      } ]
     }, {
       "moduleCode" : "CS3236",
       "color" : "RED",
@@ -1160,8 +1202,32 @@
       "color" : "RED",
       "userTags" : [ ]
     } ],
-    "moduleTags" : [ ],
-    "currentSemester" : "Y1S2",
+    "moduleTags" : [ {
+      "tagName" : "SEP",
+      "isPriority" : false
+    }, {
+      "tagName" : "hard",
+      "isPriority" : false
+    }, {
+      "tagName" : "lols",
+      "isPriority" : false
+    }, {
+      "tagName" : "lolsiclasd",
+      "isPriority" : false
+    }, {
+      "tagName" : "lll",
+      "isPriority" : false
+    }, {
+      "tagName" : "yoink",
+      "isPriority" : false
+    }, {
+      "tagName" : "yoink2",
+      "isPriority" : false
+    }, {
+      "tagName" : "a",
+      "isPriority" : false
+    } ],
+    "currentSemester" : "Y1S1",
     "studyPlanTags" : [ ]
   } ],
   "activeStudyPlanIndex" : 3,
@@ -1179,42 +1245,50 @@
             "reasonForBlocked" : null,
             "modules" : [ {
               "moduleCode" : "CS3244"
-            } ]
+            } ],
+            "isExpanded" : false
           }, {
             "semesterName" : "Y1S2",
             "isBlocked" : false,
             "reasonForBlocked" : null,
-            "modules" : [ ]
+            "modules" : [ ],
+            "isExpanded" : false
           }, {
             "semesterName" : "Y2S1",
             "isBlocked" : false,
             "reasonForBlocked" : null,
-            "modules" : [ ]
+            "modules" : [ ],
+            "isExpanded" : false
           }, {
             "semesterName" : "Y2S2",
             "isBlocked" : false,
             "reasonForBlocked" : null,
-            "modules" : [ ]
+            "modules" : [ ],
+            "isExpanded" : false
           }, {
             "semesterName" : "Y3S1",
             "isBlocked" : false,
             "reasonForBlocked" : null,
-            "modules" : [ ]
+            "modules" : [ ],
+            "isExpanded" : false
           }, {
             "semesterName" : "Y3S2",
             "isBlocked" : false,
             "reasonForBlocked" : null,
-            "modules" : [ ]
+            "modules" : [ ],
+            "isExpanded" : false
           }, {
             "semesterName" : "Y4S1",
             "isBlocked" : false,
             "reasonForBlocked" : null,
-            "modules" : [ ]
+            "modules" : [ ],
+            "isExpanded" : false
           }, {
             "semesterName" : "Y4S2",
             "isBlocked" : false,
             "reasonForBlocked" : null,
-            "modules" : [ ]
+            "modules" : [ ],
+            "isExpanded" : false
           } ],
           "modules" : [ {
             "moduleCode" : "CP3107",
@@ -1747,5 +1821,5 @@
       } ]
     } ]
   },
-  "currentSemester" : "Y1S2"
+  "currentSemester" : "Y1S1"
 }
