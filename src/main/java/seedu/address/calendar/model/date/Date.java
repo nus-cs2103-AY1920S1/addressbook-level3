@@ -1,5 +1,8 @@
 package seedu.address.calendar.model.date;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.calendar.model.util.IntervalPart;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -11,6 +14,11 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a date with specified day, month and year.
+ * Guarantees: immutable, and {@code Day}, {@code MonthOfYear} and {@code Year} instances associated with the date
+ *              is not {@code null}
+ */
 public class Date implements IntervalPart<Date> {
     private static final String DAY_OF_WEEK_KEY = "dayOfWeek";
     private static final String DAY_OF_MONTH_KEY = "dayOfMonth";
@@ -25,17 +33,40 @@ public class Date implements IntervalPart<Date> {
             + "d stands for the digit in the day of month (there must be 1 to 2), "
             + "m stands for the letters in a day of month (there must be at least 3) and y stands for "
             + "the digits in a year (there must be 4)";
+    private static final String MESSAGE_DATE_CONSTRAINT = "Date's fields must be consistent";
 
     private Day day;
     private MonthOfYear month;
     private Year year;
 
+    /**
+     * Represents a date with the specified day, month and year.
+     * Guarantees: the specified day, month and year are not {@code null}, and the date is valid (i.e. exists)
+     *
+     * @param day The specified day
+     * @param month The specified month
+     * @param year The specified year
+     */
     public Date(Day day, MonthOfYear month, Year year) {
+        // todo: check for exceptions/validity
+        requireNonNull(day);
+        requireNonNull(month);
+        requireNonNull(year);
+        checkArgument(Day.isValidDay(day, month, year), MESSAGE_DATE_CONSTRAINT);
         this.day = day;
         this.month = month;
         this.year = year;
     }
 
+    /**
+     * Represents a date with the specified day. If month and year are not specified, the current month and year
+     * will be used.
+     * Guarantees: the specified day, month and year are not {@code null}, and the date is valid (i.e. exists)
+     *
+     * @param day The specified day, compulsory
+     * @param month The specified month, if any
+     * @param year The specified year, if any
+     */
     public Date(Optional<Day> day, Optional<MonthOfYear> month, Optional<Year> year) {
         assert day.isEmpty() : "Every date should have a specified day";
         this.day = day.get();
@@ -57,18 +88,40 @@ public class Date implements IntervalPart<Date> {
         }
     }
 
+    /**
+     * Gets the day of {@code this}.
+     *
+     * @return The day of {@code this}
+     */
     public Day getDay() {
         return day;
     }
 
+    /**
+     * Gets the year of {@code this}.
+     *
+     * @return The year of {@code this}
+     */
     public Year getYear() {
         return year;
     }
 
+    /**
+     * Gets the month of year of {@code this}.
+     *
+     * @return The month of year of {@code this}
+     */
     public MonthOfYear getMonth() {
         return month;
     }
 
+    /**
+     * Gets a {@code Date} instance from a representative {@code String}, if possible.
+     *
+     * @param dateString The representative {@code String} of a {@code Date} instance
+     * @return A {@code Date} instance that is represented by {@code dateString}
+     * @throws IllegalValueException if {@code dateString} doesn't represent a {@code Date} instance correctly
+     */
     public static Date getInstanceFromString(String dateString) throws IllegalValueException {
         final Matcher matcher = DATE_FORMAT.matcher(dateString.trim());
         if (!matcher.matches()) {
@@ -90,7 +143,7 @@ public class Date implements IntervalPart<Date> {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
-        if (!isValidYear(year)) {
+        if (!Year.isValidYear(year)) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
@@ -99,8 +152,17 @@ public class Date implements IntervalPart<Date> {
         return specifiedDate;
     }
 
-    private static Date getSpecifiedDate(String dayOfWeek, String dayOfMonth, String month, String year)
-            throws IllegalValueException {
+    /**
+     * Gets a {@code Date} instance when given a representative day of week {@code String}, day of month {@code String},
+     * month {@code String} and year {@code String}.
+     *
+     * @param dayOfWeek The representative day of week {@code String}
+     * @param dayOfMonth The representative day of month {@code String}
+     * @param month The representative month {@code String}
+     * @param year The representative year {@code String}
+     * @return A {@code Date} instance that is represented by the {@code String}s
+     */
+    private static Date getSpecifiedDate(String dayOfWeek, String dayOfMonth, String month, String year) {
         DayOfWeek dayOfWeekVal = DayOfWeek.valueOf(dayOfWeek);
         MonthOfYear monthVal = MonthOfYear.valueOf(month);
         Year yearVal = new Year(Integer.parseInt(year));
@@ -113,31 +175,42 @@ public class Date implements IntervalPart<Date> {
         return new Date(givenDay, monthVal, yearVal);
     }
 
+    /**
+     * Represents {@code this} as a string.
+     *
+     * @return A representative {@code String} of {@code this}
+     */
     public String asString() {
         return toString();
     }
 
-    // todo: separate
-    private static boolean isValidYear(String yearInput) {
-        int year = Integer.parseInt(yearInput);
-        if (year < 0) {
-            return false;
-        }
-        return true;
-    }
-
+    /**
+     * Gets an {@code Date} instance that is temporally before {@code this}.
+     *
+     * @return An {@code Date} instance that is temporally before {@code this}
+     */
     public Date getPreviousDate() {
         GregorianCalendar javaDate = toJavaDate();
         javaDate.add(Calendar.DAY_OF_MONTH, -1);
-        return fromJavaDate(javaDate);
+        return Date.fromJavaDate(javaDate);
     }
 
+    /**
+     * Gets an {@code Date} instance that is temporally after {@code this}.
+     *
+     * @return An {@code Date} instance that is temporally after {@code this}
+     */
     public Date getNextDate() {
         GregorianCalendar javaDate = toJavaDate();
         javaDate.add(Calendar.DAY_OF_MONTH, 1);
-        return fromJavaDate(javaDate);
+        return Date.fromJavaDate(javaDate);
     }
 
+    /**
+     * Converts {@code this} to a {@code GregorianCalendar} representation.
+     *
+     * @return A {@code GregorianCalendar} representation of {@code this}
+     */
     private GregorianCalendar toJavaDate() {
         int dayOfMonth = day.getDayOfMonth();
         int monthInt = month.getNumericalVal() - 1;
@@ -146,7 +219,13 @@ public class Date implements IntervalPart<Date> {
         return new GregorianCalendar(yearInt, monthInt, dayOfMonth);
     }
 
-    private Date fromJavaDate(GregorianCalendar javaDate) {
+    /**
+     * Converts the specified {@code GregorianCalendar} representation to an instance of {@code Date}.
+     *
+     * @param javaDate The specified {@code GregorianCalendar} representation to convert
+     * @return An instance of {@code Date} which represents {@code javaDate}
+     */
+    private static Date fromJavaDate(GregorianCalendar javaDate) {
         int yearInt = javaDate.get(Calendar.YEAR);
         int monthInt = javaDate.get(Calendar.MONTH);
         int dayOfMonth = javaDate.get(Calendar.DAY_OF_MONTH);

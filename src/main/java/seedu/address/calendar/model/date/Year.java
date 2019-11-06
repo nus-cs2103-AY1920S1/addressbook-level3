@@ -43,6 +43,22 @@ public class Year implements Comparable<Year> {
     }
 
     /**
+     * Checks whether the given {@code String} year can represent a valid year.
+     *
+     * @param year Year to check
+     * @return {@code true} if and only if {@code year} is a representation of a valid year
+     */
+    public static boolean isValidYear(String year) {
+        String trimmedYear = year.trim();
+        try {
+            int yearInt = Integer.parseInt(trimmedYear);
+            return isValidYear(yearInt);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
      * Checks whether the given {@code int} year is between 1980 and 2200.
      *
      * @param year Year to check

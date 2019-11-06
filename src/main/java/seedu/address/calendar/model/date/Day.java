@@ -180,6 +180,18 @@ public class Day implements Comparable<Day> {
     }
 
     /**
+     * Checks whether the specified day, month of year and year are consistent.
+     *
+     * @param day The specified day
+     * @param monthOfYear The specified month of year
+     * @param year The specified year
+     * @return {@code true} if and only if the information provided is consistent
+     */
+    public static boolean isValidDay(Day day, MonthOfYear monthOfYear, Year year) {
+        return isValidDay(day.dayOfWeek, day.dayOfMonth, monthOfYear, year);
+    }
+
+    /**
      * Checks whether the specified day of week, day of month, month of year and year are consistent.
      *
      * @param dayOfWeek The specified day of week
