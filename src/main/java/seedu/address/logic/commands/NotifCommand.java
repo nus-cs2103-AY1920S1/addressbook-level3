@@ -51,7 +51,6 @@ public class NotifCommand extends Command {
         if (!model.hasNotif(notif)) {
             model.addNotif(notif);
         }
-
         startSesChangeBodyStatus();
         startSesChangeBodyStatusUi(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, notif));
@@ -116,6 +115,12 @@ public class NotifCommand extends Command {
                     notifWindow.setTitle("Contact Police!");
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
+                    if (model.hasNotif(notif)) {
+                        model.deleteNotif(notif);
+                        model.addNotif(notif);
+                    } else {
+                        model.addNotif(notif);
+                    }
                     storageManager.saveAddressBook(model.getAddressBook());
 
                 } catch (CommandException | IOException e) {
