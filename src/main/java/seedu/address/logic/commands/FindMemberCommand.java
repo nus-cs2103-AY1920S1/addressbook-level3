@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.AppUtil;
 import seedu.address.model.Model;
 import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
 
@@ -30,6 +31,7 @@ public class FindMemberCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredMembersList(predicate);
+        AppUtil.scheduleDataUpdate(model::updateData);
         return new CommandResult(
                 String.format(Messages.MESSAGE_MEMBERS_LISTED_OVERVIEW, model.getFilteredMembersList().size()));
     }

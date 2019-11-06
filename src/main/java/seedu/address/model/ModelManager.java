@@ -8,6 +8,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -537,4 +540,13 @@ public class ModelManager implements Model {
     public void setClockFormat(ClockFormat newClockFormat) {
         userSettings.setClockFormat(newClockFormat);
     }
+
+    // ====================== Util methods ======================================================================
+
+    @Override
+    public void updateData() {
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+        updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
+    }
+
 }

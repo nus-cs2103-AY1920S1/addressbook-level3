@@ -2,6 +2,10 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javafx.scene.image.Image;
 import seedu.address.MainApp;
 
@@ -9,6 +13,8 @@ import seedu.address.MainApp;
  * A container for App specific utility functions
  */
 public class AppUtil {
+
+    private static final ScheduledExecutorService dataUpdateControl = Executors.newScheduledThreadPool(1);
 
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);
@@ -35,5 +41,19 @@ public class AppUtil {
         if (!condition) {
             throw new IllegalArgumentException(errorMessage);
         }
+    }
+
+    /**
+     * Schedules the updating of in-memory data after a {@code task} is executed.
+     */
+    public static void scheduleDataUpdate(Runnable task) {
+        dataUpdateControl.schedule(task, 2, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Shutdown the thread that updated data when app exits.
+     */
+    public static void shutDownDataWorker() {
+        dataUpdateControl.shutdown();
     }
 }
