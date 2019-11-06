@@ -1,19 +1,18 @@
 package seedu.jarvis.logic.commands.planner;
 
-import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.Model;
-import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.planner.tasks.Deadline;
-
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.planner.tasks.Deadline;
 
 class ListScheduleCommandTest {
 

@@ -16,7 +16,8 @@ class TaskFrequencyMatchesFrequencyPredicateTest {
 
     @Test
     void test() {
-        TaskFrequencyMatchesFrequencyPredicate predicate = new TaskFrequencyMatchesFrequencyPredicate(Frequency.MONTHLY);
+        TaskFrequencyMatchesFrequencyPredicate predicate =
+                            new TaskFrequencyMatchesFrequencyPredicate(Frequency.MONTHLY);
         Todo t;
 
         //task does not have frequency level -> returns false

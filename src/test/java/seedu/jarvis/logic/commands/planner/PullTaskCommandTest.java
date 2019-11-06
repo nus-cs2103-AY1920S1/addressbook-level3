@@ -1,11 +1,11 @@
 package seedu.jarvis.logic.commands.planner;
 
-import java.util.function.Predicate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
+
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
