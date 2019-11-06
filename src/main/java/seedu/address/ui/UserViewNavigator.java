@@ -73,8 +73,8 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskListView(Logic logic) {
-        TaskListPanel taskListPanel = new TaskListPanel(logic.getProjectDashboard().getTaskList(),
-                logic.getProjectDashboard().getMemberList(), logic.getProjectDashboard().getTasMemMappingList());
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList(),
+                logic.getFilteredMemberList(), logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(taskListPanel);
     }
 
@@ -87,8 +87,8 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadMemberListView(Logic logic) {
-        MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList(),
-                logic.getProjectDashboard().getTaskList(), logic.getProjectDashboard().getTasMemMappingList());
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getFilteredMemberList(),
+                logic.getFilteredTaskList(), logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(memberListPanel);
     }
 
@@ -100,7 +100,7 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadSpecificMemberView(Logic logic) {
-        List<Member> members = logic.getProjectDashboard().getMemberList();
+        List<Member> members = logic.getFilteredMemberList();
         Member specificMember = members.get(members.size() - 1);
 
         IndivMemberCard memberCard = new IndivMemberCard(specificMember, members.size());

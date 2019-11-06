@@ -12,7 +12,7 @@ import java.time.temporal.ChronoField;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Util class that deals with date-time parsing and display.
+ * Container class for date-time specific utility methods.
  */
 public class DateTimeUtil {
 
