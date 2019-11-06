@@ -106,6 +106,6 @@ class DummyParagraphIdentifier extends ParagraphIdentifier {
 
     @Override
     public String toString() {
-        return "NULL (i.e. your note has been added to the general)";
+        return "NULL (i.e. your note has been added to the general notes section)";
     }
 }
