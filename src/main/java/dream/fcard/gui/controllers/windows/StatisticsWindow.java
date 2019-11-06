@@ -31,6 +31,8 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private ScrollPane sessionsScrollPane;
     @FXML
+    private TableView<Session> sessionsTableView;
+    @FXML
     private TableView<Deck> deckTableView;
 
     private UserStats userStats;
@@ -52,8 +54,8 @@ public class StatisticsWindow extends ScrollPane {
         //ArrayList<Deck> decks = StateHolder.getState().getDecks(); TODO
 
         displaySummaryStats();
-        TableView<Session> sessionsTableView = StatsDisplayUtil.getSessionsTableView();
-        sessionsTableView.setPlaceholder(new Label("There are no recorded login sessions yet!"));
+        this.sessionsTableView = StatsDisplayUtil.getSessionsTableView();
+        //sessionsTableView.setPlaceholder(new Label("There are no recorded login sessions yet!"));
         this.sessionsScrollPane.setContent(sessionsTableView);
         //this.deckTableView = StatsDisplayUtil.getDeckTableView(StateHolder.getState());
     }
