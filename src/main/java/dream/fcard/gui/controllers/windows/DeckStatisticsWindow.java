@@ -62,7 +62,7 @@ public class DeckStatisticsWindow extends ScrollPane {
         SessionList deckSessionList = deck.getDeckSessionList();
         int numberOfCards = deck.getNumberOfCards();
         this.numCards.setText("Number of cards in deck: " + numberOfCards
-            + (numberOfCards == 1 ? " card" : "cards"));
+            + (numberOfCards == 1 ? " card" : " cards"));
 
         SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
             deckSessionList);
