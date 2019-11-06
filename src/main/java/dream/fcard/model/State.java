@@ -15,7 +15,6 @@ public class State {
     private ArrayList<Deck> decks;
     private StateEnum currState;
     private Deck currentDeck;
-    private UserStats userStats;
 
     /**
      * Constructor to create a State object with no Deck objects.
@@ -23,7 +22,6 @@ public class State {
     public State() {
         decks = StorageManager.loadDecks();
         currState = StateEnum.DEFAULT;
-        userStats = new UserStats();
     }
 
     /**
@@ -47,16 +45,6 @@ public class State {
      */
     public ArrayList<Deck> getDecks() {
         return decks;
-    }
-
-    /** Gets the UserStats object. */
-    public UserStats getUserStats() {
-        return userStats;
-    }
-
-    /** Sets the UserStats object. */
-    public void setUserStats(UserStats stats) {
-        userStats = stats;
     }
 
     /**
