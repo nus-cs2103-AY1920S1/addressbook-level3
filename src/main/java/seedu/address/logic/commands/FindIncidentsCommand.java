@@ -27,18 +27,17 @@ public class FindIncidentsCommand extends Command {
 
     public static final String COMMAND_WORD = "find-i";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which IDs match exactly "
-            + "or description contains the first specified keyword under the relevant parameter and displays them as "
-            + "a list "
-            + "with index numbers.\n"
-            + "Parameters: "
-            + SEARCH_PREFIX_ID + "<ID> OR "
-            + SEARCH_PREFIX_OPERATOR + "<OPERATOR> OR "
-            + PREFIX_DESCRIPTION + "<KEYWORD [MORE_KEYWORDS]...> OR "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which ID matches exactly, "
+            + "or description contains any of the specified description keywords, "
+            + "or operator name matches any of the specified operator keywords or logged-in operator's name \n"
+            + "Parameters: \n"
+            + SEARCH_PREFIX_ID + "<ID> \n"
+            + SEARCH_PREFIX_OPERATOR + "<OPERATOR KEYWORD [MORE_KEYWORDS]> \n"
+            + PREFIX_DESCRIPTION + "<DESCRIPTION KEYWORD [MORE_KEYWORDS]...> \n"
             + SEARCH_PREFIX_SELF + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + SEARCH_PREFIX_OPERATOR + "alex "
-            + PREFIX_DESCRIPTION + "district "
+            + SEARCH_PREFIX_OPERATOR + "alex yeoh "
+            + PREFIX_DESCRIPTION + "6 "
             + SEARCH_PREFIX_SELF;
 
     private Predicate<Incident> predicate;
