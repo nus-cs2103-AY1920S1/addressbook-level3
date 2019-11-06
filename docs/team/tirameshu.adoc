@@ -1,11 +1,9 @@
-= John Doe - Project Portfolio
+= Wang Xinman - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: IncidentManager - Level 3
-
-'''
 
 == Overview
 
