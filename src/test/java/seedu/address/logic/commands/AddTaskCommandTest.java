@@ -7,13 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Predicate;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,9 +27,8 @@ import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.calendar.Meeting;
 import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
@@ -67,7 +64,7 @@ public class AddTaskCommandTest {
         ModelStub modelStub = new ModelStubWithTask(validTask);
 
         assertThrows(CommandException.class, addTaskCommand.MESSAGE_DUPLICATE_TASK, () ->
-            addTaskCommand.execute(modelStub));
+                addTaskCommand.execute(modelStub));
     }
 
     @Test
@@ -250,7 +247,8 @@ public class AddTaskCommandTest {
 
         @Override
         public boolean hasInventory(Inventory inventory) {
-            throw new AssertionError("This method should not be called.");        }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void deleteInventory(Inventory target) {
@@ -274,11 +272,13 @@ public class AddTaskCommandTest {
 
         @Override
         public boolean hasMapping(Mapping mapping) {
-            throw new AssertionError("This method should not be called.");        }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ObservableList<Mapping> getFilteredMappingsList() {
-            throw new AssertionError("This method should not be called.");        }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updateFilteredMappingsList(Predicate<Mapping> predicate) {

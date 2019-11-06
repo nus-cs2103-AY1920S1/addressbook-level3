@@ -38,11 +38,13 @@ public class AddDCommand extends Command {
         this.dateTime = dateTime;
         this.memId = memId;
     }
+
     public AddDCommand(LocalDateTime dateTime) {
         requireAllNonNull(dateTime);
         this.dateTime = dateTime;
         this.memId = null;
     }
+
     public AddDCommand(MemberId memId) {
         requireAllNonNull(memId);
         this.dateTime = null;

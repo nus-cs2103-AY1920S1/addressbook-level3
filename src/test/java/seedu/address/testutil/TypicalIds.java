@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.member.MemberId;
 
 public class TypicalIds {

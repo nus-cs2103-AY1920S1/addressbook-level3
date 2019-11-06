@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -450,7 +449,7 @@ public class FireCommandTest {
         @Override
         public boolean hasMapping(Mapping mapping) {
             requireNonNull(mapping);
-            return mappingsAdded.stream().anyMatch(((TasMemMapping)mapping)::isSameMapping);
+            return mappingsAdded.stream().anyMatch(((TasMemMapping) mapping)::isSameMapping);
         }
 
         @Override

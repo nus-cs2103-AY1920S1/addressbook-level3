@@ -44,7 +44,7 @@ public class EditMemberCommand extends Command {
     private final EditMemberDescriptor editMemberDescriptor;
 
     /**
-     * @param id of the member in the filtered member list to edit
+     * @param id                   of the member in the filtered member list to edit
      * @param editMemberDescriptor details to edit the member with
      */
     public EditMemberCommand(MemberId id, EditMemberDescriptor editMemberDescriptor) {
@@ -127,7 +127,8 @@ public class EditMemberCommand extends Command {
         private MemberName name;
         private Set<Tag> tags;
 
-        public EditMemberDescriptor() {}
+        public EditMemberDescriptor() {
+        }
 
         /**
          * Copy constructor.

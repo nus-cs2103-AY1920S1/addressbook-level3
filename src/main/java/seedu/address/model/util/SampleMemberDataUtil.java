@@ -16,13 +16,13 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleMemberDataUtil {
     public static Member[] getSampleMembers() {
-        return new Member[] {
-            new Member(new MemberName("Gabriel Seow"), new MemberId("GS"), getTagSet("Cheif Programmer")),
-            new Member(new MemberName("Abhinav"), new MemberId("AB"), getTagSet("Programmer, UI Designer")),
-            new Member(new MemberName("Arun"), new MemberId("AR"), getTagSet("Programmer")),
-            new Member(new MemberName("Seah Lynn"), new MemberId("SL"), getTagSet("Programmer, Pitcher")),
-            new Member(new MemberName("Elsa Koh"), new MemberId("EK"), getTagSet("Programmer, Pitcher")),
-            new Member(new MemberName("John Doe"), new MemberId("JD"), getTagSet("Helps out when he cans"))
+        return new Member[]{
+                new Member(new MemberName("Gabriel Seow"), new MemberId("GS"), getTagSet("Cheif Programmer")),
+                new Member(new MemberName("Abhinav"), new MemberId("AB"), getTagSet("Programmer, UI Designer")),
+                new Member(new MemberName("Arun"), new MemberId("AR"), getTagSet("Programmer")),
+                new Member(new MemberName("Seah Lynn"), new MemberId("SL"), getTagSet("Programmer, Pitcher")),
+                new Member(new MemberName("Elsa Koh"), new MemberId("EK"), getTagSet("Programmer, Pitcher")),
+                new Member(new MemberName("John Doe"), new MemberId("JD"), getTagSet("Helps out when he cans"))
         };
     }
 

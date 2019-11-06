@@ -2,17 +2,17 @@ package seedu.address.ui;
 
 
 import javafx.fxml.FXML;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 /**
  * Controller class for the user views.
- *
  */
 public class UserViewController {
 
-    /** Holder of a switchable user view. */
+    /**
+     * Holder of a switchable user view.
+     */
     @FXML
     private Pane userViewHolder;
 

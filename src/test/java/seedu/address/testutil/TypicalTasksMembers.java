@@ -121,7 +121,8 @@ public class TypicalTasksMembers {
             .withTags(VALID_MEMBER_TAG_PUBLICITY)
             .build();
 
-    private TypicalTasksMembers() {} // prevents instantiation
+    private TypicalTasksMembers() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code ProjectDashboard} with all the typical persons.
@@ -136,11 +137,11 @@ public class TypicalTasksMembers {
             ab.addMember(member);
         }
 
-        for (Inventory inventory: TypicalInventories.getTypicalInventories()) {
+        for (Inventory inventory : TypicalInventories.getTypicalInventories()) {
             ab.addInventory(inventory);
         }
 
-        for (TasMemMapping tasMem: TypicalTasMemMapping.getTypicalTasMemMapping()) {
+        for (TasMemMapping tasMem : TypicalTasMemMapping.getTypicalTasMemMapping()) {
             ab.addMapping(tasMem);
         }
         return ab;

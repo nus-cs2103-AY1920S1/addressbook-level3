@@ -3,15 +3,14 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ListIterator;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
-import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 
 /**
@@ -20,7 +19,7 @@ import seedu.address.model.task.Task;
  * persons uses Task#isSameTask(Task) for equality so as to ensure that the task being added or updated is
  * unique in terms of identity in the UniqueTaskList. However, the removal of a task uses Task#equals(Object) so
  * as to ensure that the task with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Task#isSameTask(Task)
@@ -52,7 +51,7 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
     }
 
     /**
-     *returns a hashMap of members by tasks
+     * returns a hashMap of members by tasks
      */
     public HashMap<Integer, ObservableList<Integer>> listMemberByTask() {
         HashMap<Integer, ObservableList<Integer>> result = new HashMap<>();
@@ -174,7 +173,7 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTasMemMappingList // instanceof handles nulls
-                        && internalList.equals(((UniqueTasMemMappingList) other).internalList));
+                && internalList.equals(((UniqueTasMemMappingList) other).internalList));
     }
 
     @Override

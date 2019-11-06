@@ -5,8 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -97,6 +95,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -233,6 +232,7 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
     public static void updateCommandBox(String text) {
         commandBox.setCommandText(text);
     }

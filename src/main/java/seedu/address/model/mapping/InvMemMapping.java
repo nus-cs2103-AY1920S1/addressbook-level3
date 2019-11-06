@@ -1,13 +1,8 @@
 package seedu.address.model.mapping;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-public class InvMemMapping extends Mapping{
+public class InvMemMapping extends Mapping {
 
     private final int memberIndex;
     private final int inventoryIndex;

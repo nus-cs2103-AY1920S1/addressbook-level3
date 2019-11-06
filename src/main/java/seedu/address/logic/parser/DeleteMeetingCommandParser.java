@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.member.MemberName;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -19,6 +18,7 @@ public class DeleteMeetingCommandParser implements Parser<DeleteMeetingCommand> 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteMeetingCommand parse(String args) throws ParseException, FileNotFoundException {

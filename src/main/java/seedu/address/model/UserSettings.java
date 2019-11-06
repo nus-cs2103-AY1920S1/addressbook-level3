@@ -24,7 +24,10 @@ public class UserSettings implements ReadOnlyUserSettings {
     /**
      * Creates a {@code UserSettings} with default values.
      */
-    public UserSettings() {};
+    public UserSettings() {
+    }
+
+    ;
 
     /**
      * Creates a {@code UserSettings} with the settings in {@code userSettings}

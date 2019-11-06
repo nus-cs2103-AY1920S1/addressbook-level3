@@ -18,7 +18,6 @@ public class Inventory {
     private final Price price;
 
 
-
     /**
      * Every field must be present and not null.
      */

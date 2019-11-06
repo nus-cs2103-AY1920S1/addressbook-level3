@@ -18,7 +18,7 @@ public class FilePath {
 
     public static boolean isValidFilePath(String filePath) {
         String trimmed = filePath.trim();
-        return trimmed!= null
+        return trimmed != null
                 && !trimmed.isEmpty();
     }
 }

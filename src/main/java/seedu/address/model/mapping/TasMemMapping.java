@@ -2,12 +2,12 @@ package seedu.address.model.mapping;
 
 import java.util.Objects;
 
-public class TasMemMapping extends Mapping{
+public class TasMemMapping extends Mapping {
 
     private final int memberIndex;
     private final int taskIndex;
 
-    public TasMemMapping (int taskIndex, int memberIndex) {
+    public TasMemMapping(int taskIndex, int memberIndex) {
         this.memberIndex = memberIndex;
         this.taskIndex = taskIndex;
     }

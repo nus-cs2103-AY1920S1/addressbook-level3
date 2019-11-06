@@ -1,16 +1,8 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskStatus;
-import seedu.address.model.util.SampleTaskDataUtil;
 
 public class InventoryBuilder {
     public static final String DEFAULT_NAME = "Sample Inventory Name";

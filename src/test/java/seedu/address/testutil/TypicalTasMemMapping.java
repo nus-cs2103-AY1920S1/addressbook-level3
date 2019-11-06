@@ -18,7 +18,7 @@ public class TypicalTasMemMapping {
 
     public static List<TasMemMapping> getTypicalTasMemMapping() {
         return new ArrayList<>(Arrays.asList(firstMemFirstTask, firstMemSecondTask, secondMemThirdTask,
-                thirdMemThirdTask,fourthMemFifthTask, fourthMemFirstTask, fourthMemSecondTask, fifthMemFirstTask));
+                thirdMemThirdTask, fourthMemFifthTask, fourthMemFirstTask, fourthMemSecondTask, fifthMemFirstTask));
     }
 }
 

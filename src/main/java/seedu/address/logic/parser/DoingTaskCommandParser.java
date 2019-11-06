@@ -24,9 +24,11 @@ import java.util.Set;*/
  */
 public class DoingTaskCommandParser implements Parser<DoingTaskCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the task ID of the task you want to mark as Doing.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public DoingTaskCommand parse(String args) throws ParseException {

@@ -1,8 +1,7 @@
 package seedu.address.commons.util;
 
-import seedu.address.logic.parser.exceptions.ParseException;
+import static java.util.Objects.requireNonNull;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -10,7 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoField;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Util class that deals with date-time parsing and display.
@@ -59,7 +58,7 @@ public class DateTimeUtil {
 
     /**
      * Parses the date time given by the user.
-      */
+     */
     public static LocalDateTime parseDateTime(String rawDateTime) throws ParseException {
         requireNonNull(rawDateTime);
         try {
@@ -82,7 +81,8 @@ public class DateTimeUtil {
 
     /**
      * Checks if a task is due soon by comparing its due date to the current date and time.
-     * @param weeks the reminder period specified by the user
+     *
+     * @param weeks    the reminder period specified by the user
      * @param dateTime deadline of the task
      * @return true if task is due within user's reminder period
      */

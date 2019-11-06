@@ -2,33 +2,29 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.stream.Collectors;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.calendar.Meeting;
 import seedu.address.model.calendar.MeetingQuery;
-import seedu.address.model.calendar.UniqueMeetingList;
 import seedu.address.model.calendar.UniqueCalendarList;
+import seedu.address.model.calendar.UniqueMeetingList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
-import seedu.address.model.member.Member;
-import seedu.address.model.member.MemberId;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
-import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.UniqueMappingManager;
+import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
 import seedu.address.model.member.UniqueMemberList;
-
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.UniqueTaskList;
@@ -57,8 +53,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         tasks = new UniqueTaskList();
         tasksNotStarted = new UniqueTaskList();
         tasksDoing = new UniqueTaskList();
@@ -71,7 +66,8 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         meetings = new UniqueMeetingList();
     }
 
-    public ProjectDashboard() {}
+    public ProjectDashboard() {
+    }
 
     /**
      * Creates an ProjectDashboard using the Persons in the {@code toBeCopied}
@@ -117,7 +113,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      * Resets the existing data of this {@code ProjectDashboard} with {@code newData}.
      * Replaces the contents of the inventory list with {@code inventories}.
      */
-    public void setInventories(List<Inventory>inventories) {
+    public void setInventories(List<Inventory> inventories) {
         this.inventories.setInventories(inventories);
     }
 
@@ -175,6 +171,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }
 
     //// inventory-level operations
+
     /**
      * Returns true if a inventory with the same identity as {@code inventory} exists in the dashboard.
      */
@@ -202,6 +199,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }
 
     //// util methods TODO add them to the another util class, this breaks SRP
+
     /**
      * Replaces the given inventory {@code target} in the list with {@code editedInventory}.
      * {@code target} must exist in the project dashboard.
@@ -286,16 +284,16 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     public ArrayList<Integer> getInvMemLonelyList() {
         ArrayList<Integer> lonelyList = new ArrayList<>();
-        ObservableList<InvMemMapping>mapList = mappings.getUnmodifiableObservableInvMemList();
-        for(int i = 0; i < inventories.size(); i++) {
+        ObservableList<InvMemMapping> mapList = mappings.getUnmodifiableObservableInvMemList();
+        for (int i = 0; i < inventories.size(); i++) {
             boolean isMapped = false;
-            for(InvMemMapping x: mapList) {
+            for (InvMemMapping x : mapList) {
                 if (x.getInventoryIndex() == i) {
                     isMapped = true;
                     break;
                 }
             }
-            if(!isMapped) {
+            if (!isMapped) {
                 lonelyList.add(i);
             }
         }
@@ -304,16 +302,16 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     public ArrayList<Integer> getInvTasLonelyList() {
         ArrayList<Integer> lonelyList = new ArrayList<>();
-        ObservableList<InvTasMapping>mapList = mappings.getUnmodifiableObservableInvTasList();
-        for(int i = 0; i < inventories.size(); i++) {
+        ObservableList<InvTasMapping> mapList = mappings.getUnmodifiableObservableInvTasList();
+        for (int i = 0; i < inventories.size(); i++) {
             boolean isMapped = false;
-            for(InvTasMapping x: mapList) {
+            for (InvTasMapping x : mapList) {
                 if (x.getInventoryIndex() == i) {
                     isMapped = true;
                     break;
                 }
             }
-            if(!isMapped) {
+            if (!isMapped) {
                 lonelyList.add(i);
             }
         }

@@ -113,7 +113,7 @@ public class Task {
             Duration timeElasped = Duration.between(timeStart, timeEnd);
             long timeInHours = timeElasped.toHours();
 
-            if (timeInHours == 0 ) {
+            if (timeInHours == 0) {
                 timeTaken = timeElasped.toMinutes() + "minutes";
             } else {
                 timeTaken = timeInHours + "hours";
@@ -122,6 +122,7 @@ public class Task {
 
         return timeTaken;
     }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -142,7 +143,7 @@ public class Task {
         // TODO change the logic to check for the identity fields of status and member
         // basically the name cannot be the same, that's it
         return otherTask != null
-            && otherTask.getName().equals(getName());
+                && otherTask.getName().equals(getName());
     }
 
     /**
@@ -192,8 +193,8 @@ public class Task {
         getTags().forEach(builder::append);
         if (hasDeadline()) {
             String formattedDeadline = getDeadline().format(DateTimeFormatter
-                            .ofLocalizedDateTime(FormatStyle.MEDIUM)
-                            .withLocale(Locale.UK));
+                    .ofLocalizedDateTime(FormatStyle.MEDIUM)
+                    .withLocale(Locale.UK));
             builder.append(" Deadline: ")
                     .append(formattedDeadline);
         }
