@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
@@ -52,6 +54,15 @@ public class Ledger implements ReadOnlyLedger {
     public void addOperation(LedgerOperation transaction) {
         pot = transaction.handleBalance(pot, people);
         ledgerHistory.add(transaction);
+        removePeopleWithNoBalance();
+    }
+
+    // TODO: test
+    private void removePeopleWithNoBalance() {
+        List<Person> filtered = people.asUnmodifiableObservableList().stream()
+                .filter(person -> !person.getBalance().equals(Amount.zero()))
+                .collect(Collectors.toList());
+        people.setPersons(filtered);
     }
 
     @Override
