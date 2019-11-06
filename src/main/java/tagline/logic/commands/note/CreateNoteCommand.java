@@ -74,7 +74,7 @@ public class CreateNoteCommand extends NoteCommand {
         for (Tag tagToCreate : tagsToCreate) {
             Tag tagCreated = model.createOrFindTag(tagToCreate);
 
-            if (tagCreated != tagToCreate) {
+            if (!tagCreated.equals(tagToCreate)) {
                 throw new CommandException(String.format(ERROR_UNABLE_TO_TAG, tagToCreate));
             }
         }

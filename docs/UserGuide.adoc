@@ -108,10 +108,10 @@ When given prompts, to minimize inconvenience to you, the autocomplete menu is t
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact create NAME`, `NAME` is a parameter which can be used as `contact create John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact create --n NAME`, `NAME` is a parameter which can be used as `contact create --n John Doe`.
 * Items in square brackets are optional e.g `[--n NAME]` and `[--e EMAIL]` can be used as `--n John Doe --e j.doe@gmail.com` or only `--n John Doe`.
-* Items with `\*` after them can be used multiple times including zero times e.g. `[--t TAG]*`​ can be used as `<empty>` (i.e. 0 times), `--t friend`, `--t friend --t family`, etc.
-* Items with `+`​ after them can be used one or multiple times e.g. `[--t TAG]+`​ can be used as `--t friend` and `--t friend --t family` but cannot be used as `<empty>` (i.e. 0 times),
+* Items with `\*` after them can be used multiple times including zero times e.g. `[--t TAG]*`​ can be used as `<empty>` (i.e. 0 times), `--t #friend`, `--t #friend --t #family`, etc.
+* Items with `+`​ after them can be used one or multiple times e.g. `[--t TAG]+`​ can be used as `--t #friend` and `--t #friend --t #family` but cannot be used as `<empty>` (i.e. 0 times),
 * Parameters can be in any order e.g. `--n NAME --p PHONE_NUMBER` and `--p PHONE_NUMBER --n NAME` are considered the same.
 ====
 
@@ -398,22 +398,32 @@ Tagline can help people to manage their notes easily. When you use note commands
 list of notes will appear in the right pane. The left pane still displays a chat bot for user interaction.
 
 .An example of Note View
-image::NoteListExample.png[]
+image::NoteListExample.png[width="600"]
 
 ==== Creates a note: `create`
 
-Creates a new note.
+Creates a new note. If any tags are listed, the note will be tagged with them. +
+Notes without title will be titled "Untitled Note"
 
 Format:
 
-`note create [--T TITLE] --c CONTENT`
+`note create [--T TITLE] [--c CONTENT] [--t TAG]*`
+
+IMPORTANT: TITLE and CONTENT can be optional if the other is defined but cannot be both empty.
 
 Example:
 
-* `note create --c Today I don’t feel like doing anything` +
-Adds a note with content “Today I don’t feel like doing anything”.
-* `note create --T Relax --c Today I don’t feel like doing anything` +
-Adds a note with title "Relax" and content “Today I don’t feel like doing anything”.
+. Let's say you found a resource link that can be referenced for your assignment and you would like to make a note. You can create a note with the resource link as the content with the following command
+`note create --T MIPS --c https://en.wikipedia.org/wiki/MIPS_architecture --t #assignment`
++
+.Entering `note create` command
+image::ug_notecreate1.png[width="600"]
+
+. A note is created with the title "MIPS" and content "https://en.wikipedia.org/wiki/MIPS_architecture". The note is also tagged with the hashtag "assignment". +
+The note created is displayed in the right pane.
++
+.Note created after command execution
+image::ug_notecreate2.png[width="600"]
 
 NOTE: Upload of image will be supported in v2.0
 
@@ -425,11 +435,20 @@ Format:
 
 `note delete NOTE_ID`
 
+IMPORTANT: As assigned note id is static, deleted note id are not reassigned.
+
 Example:
 
-* `note delete 00002`
+. If you have completed your assignment and would like to delete the note related to the resource link, you can delete with the command `note delete 16`. +
+As the note id is "00016", you can enter "16" as the NOTE_ID parameter.
 +
-Deletes note with id '_00002_'.
+.Entering `note delete` command
+image::ug_notedelete1.png[width="600"]
+
+. The note will be deleted from TagLine.
++
+.Note deleted after command execution
+image::ug_notedelete2.png[width="600"]
 
 ==== Edit a note: `edit`
 
@@ -437,13 +456,21 @@ Edits a saved note.
 
 Format:
 
-`note edit NOTE_ID --c NEW_CONTENT`
+`note edit NOTE_ID [--T NEW_TITLE] [--c NEW_CONTENT]`
+
+IMPORTANT: Enter the parameters to update.
 
 Example:
 
-* `note edit 00002 --c Today I don’t feel like doing anything`
+. If you find that your note title should have more information, you can enter the command `note edit 16 --T CS2100 Assignment: MIPS`
 +
-Replaces the content of the note which id is '_00002_' with “_Today I don’t feel like doing anything._”
+.Entering `note edit` command
+image::ug_noteedit1.png[width="600"]
+
+. The title of the note will be changed from "MIPS" to "CS2100 Assignment: MIPS".
++
+.Note edited after command execution
+image::ug_noteedit2.png[width="600"]
 
 NOTE: Upload of image will be supported in v2.0 +
 Partial editing will be supported in v2.0
@@ -511,9 +538,49 @@ Example:
 |Lists all notes tagged with the contact of ID '_12345_'.
 
 |`note list %GROUPNAME`
-|`note list %cs2103 team`
+|`note list %cs2103t`
 |Lists all notes tagged with the group '_cs2103 team_'.
 |===
+
+. When you would like to see all the notes you have in TagLine, you can enter the command `note list`.
++
+.Entering `note list` command
+image::ug_notelist1.png[width="600"]
+
+. All notes are displayed.
++
+.All notes displayed
+image::ug_notelist2.png[width="600"]
+
+. When you would like to find the notes containing the keyword "cs", you can enter the command `note list cs`.
++
+.Entering `note list` command with keyword
+image::ug_notelist3.png[width="600"]
+
+. Notes with the keyword "cs" found in the title or content are displayed.
++
+.Notes containing keyword displayed
+image::ug_notelist4.png[width="600"]
+
+. When you would like to see the notes tagged with the hashtag "assignment", you can enter the command `note list #assignment`.
++
+.Entering `note list` command with tag filter
+image::ug_notelist5.png[width="600"]
+
+. Notes tagged with "#assignment" are displayed.
++
+.Filtered tagged notes displayed
+image::ug_notelist6.png[width="600"]
+
+. When you would like to filter by multiple tags, you can enter the command `note list @00001 %cs2103t`.
++
+.Entering `note list` command with multiple tag filter
+image::ug_notelist7.png[width="600"]
+
+. Notes tagged with contact of contact id "1" or with group with group name "cs2103t" are displayed.
++
+.Filtered notes displayed
+image::ug_notelist8.png[width="600"]
 
 ==== Clear all notes: `clear`
 Clears all notes.
@@ -528,7 +595,10 @@ Executing this command will trigger a confirmation in the chatbot:
 
   Are you sure you want to clear your contact list? Enter 'Y' to continue.
 
-Then, if you answer "Y", the chatbot will clear all data in your contact list.
+.Confirmation for clearing notes
+image::ug_noteclear.png[width="600"]
+
+If you answer "Y", the chatbot will clear all data in your contact list. +
 If you press the ESC key, the command will be aborted.
 
 ==== Sort your notes: `sort` `[coming in v2.0]`
