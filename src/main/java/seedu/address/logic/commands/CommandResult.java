@@ -134,7 +134,7 @@ public class CommandResult {
                 && toggleUi == otherCommandResult.toggleUi
                 && (info.isPresent() && otherCommandResult.info.isPresent()
                 && info.get().equals(otherCommandResult.info.get())
-                || !info.isPresent() && !otherCommandResult.info.isPresent());
+                || info.isEmpty() && otherCommandResult.info.isEmpty());
     }
 
     @Override

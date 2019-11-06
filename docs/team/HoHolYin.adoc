@@ -74,13 +74,13 @@ In Figure 2, we can see all books loaned by borrower 'Bill' recorded and generat
 On top of the feature to generate loan slips, I am also primarily involved the implementation of the basic book-related core features.
 
 ==== Implemented the ability to *add books*
-* This assists the librarian in tracking the movement of books with ease using the system.
+* This feature assists the librarian in tracking the movement of books with ease using the system.
 
 ==== Implemented the ability to *delete books*.
-* This allows the librarian to update the catalog when a book goes missing.
+* This feature allows the librarian to update the catalog when a book goes missing.
 
 ==== Implemented the ability to *display information* about a book.
-* This aids the librarian in retrieving more information about a book when a borrower enquires about it.
+* This feature aids the librarian in retrieving more information about a book when a borrower enquires about it.
 
 === *Other contributions*:
 
@@ -97,6 +97,7 @@ These enhancements are done through the following Pull Requests:
 
 * https://github.com/AY1920S1-CS2103T-F13-1/main/pull/177[[#177\]]: Created a borrower panel in the Graphical User Interface to list books that the borrower has currently loaned.
 * https://github.com/AY1920S1-CS2103T-F13-1/main/pull/147[[#147\]]: Made the `Book` Object immutable in preparation for the undo/redo feature.
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/206[[#206\]]: Increased test coverage for the source code, thereby increasing code quality and testability.
 
 ==== Documentation:
 The documentations are updated through the following Pull Requests:
