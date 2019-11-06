@@ -489,15 +489,15 @@ Priorities:
 |=======================================================================
 |Priority|As a/an...|I want to...|So that I can...|Author
 
-|`* *`|student|share and receive lecture content from others|my friends can share in the common knowledge, and my family can understand what I am studying|Jeremy
+|`* * *`|student|share and receive lecture content from others|my friends can share in the common knowledge, and my family can understand what I am studying|Jeremy
 
-|`*`|student|annotate my lecture notes|I can go beyond the curriculum|Jeremy
+|`* * *`|student|annotate my lecture notes|I can go beyond the curriculum|Jeremy
 
-|`* *`|module coordinator|brief my subordinates about study materials|the tutors/lecturers under my charge are teaching what they are supposed to teach|Jeremy
+|`*`|module coordinator|brief my subordinates about study materials|the tutors/lecturers under my charge are teaching what they are supposed to teach|Jeremy
 
-|`* *`|tutor|discuss the key points to remember from a tutorial|my students get as much out of their tutorials as possible|Jeremy
+|`*`|tutor|discuss the key points to remember from a tutorial|my students get as much out of their tutorials as possible|Jeremy
 
-|`*`|quizmaster|quiz contestants about their knowledge using the app|the contestants can have as much fun as possible|Jeremy
+|`* *`|quizmaster|quiz contestants about their knowledge using the app|the contestants can have as much fun as possible|Jeremy
 
 |`* * *`|student|set a revision plan and add tasks to my plan|I can be more organised in my revision and will not lose my focus|Shui Yao
 
