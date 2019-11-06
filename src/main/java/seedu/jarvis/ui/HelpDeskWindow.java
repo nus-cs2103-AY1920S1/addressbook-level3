@@ -55,6 +55,7 @@ public class HelpDeskWindow extends UiPart<Region> {
     public void setCcaText() {
         text1.setText("Cca Tracker\n\n"
                 + "Try the following commands:\n\n");
+
         text2.setText("add-cca\n"
                  + "delete-cca\n"
                  + "edit-cca\n"

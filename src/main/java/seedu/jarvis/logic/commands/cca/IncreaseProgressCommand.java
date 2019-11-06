@@ -35,7 +35,7 @@ public class IncreaseProgressCommand extends Command {
     public static final String MESSAGE_CCA_PROGRESS_NOT_YET_SET = "A progress does not yet exists in this cca.";
     public static final String MESSAGE_INCREMENT_AT_MAX = "Cca progress at maximum.";
     public static final String MESSAGE_INCREMENT_AT_MIN = "Cca progress at minimum.";
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
     private Cca targetCca;
@@ -123,8 +123,11 @@ public class IncreaseProgressCommand extends Command {
         }
 
         model.decreaseProgress(targetIndex);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_DECREMENT_PROGRESS_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_DECREMENT_PROGRESS_SUCCESS, targetIndex.getOneBased()),
+                true);
 
     }
 

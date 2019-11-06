@@ -24,6 +24,14 @@ public class CcaProgress {
 
     }
 
+    /**
+     * Constructor to be used when cloning a new copy of CcaProgress.
+     */
+    public CcaProgress(CcaProgress ccaProgressClone) {
+        ccaMilestoneList.setMilestones(ccaProgressClone.ccaMilestoneList);
+        ccaCurrentProgress.setCurrentProgress(ccaProgressClone.getCcaCurrentProgressAsInt());
+    }
+
     public CcaMilestoneList getCcaMilestoneList() {
         return ccaMilestoneList;
     }
@@ -57,6 +65,13 @@ public class CcaProgress {
      */
     public void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
         this.ccaCurrentProgress.setCurrentProgress(ccaCurrentProgress.getCurrentProgress());
+    }
+
+    /**
+     * Sets the CcaCurrentProgress to 0.
+     */
+    public void resetCcaCurrentProgress() {
+        this.ccaCurrentProgress.setCurrentProgress(0);
     }
 
     /**

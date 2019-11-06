@@ -43,7 +43,7 @@ public class AddProgressCommand extends Command {
     public static final String MESSAGE_INVERSE_PROGRESS_NOT_FOUND = "Progress already deleted for Cca at index: %1$s";
     public static final String MESSAGE_INVERSE_CCA_NOT_FOUND = "Cca at index: %1$s not found";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
 
     private final Index targetIndex;
@@ -131,8 +131,10 @@ public class AddProgressCommand extends Command {
         }
 
         model.removeProgress(targetCca, toAddCcaMilestoneList);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, targetIndex));
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, targetIndex), true);
 
     }
 
