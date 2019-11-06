@@ -34,11 +34,11 @@ public class AutotagController {
     }
 
     /**
-     * Returns a shallow copy of the {@link SelectiveBookmarkTagger} list
+     * Returns the observable list of {@link SelectiveBookmarkTagger}s
      * used by this {@code AutotagController}.
      */
     public ObservableList<SelectiveBookmarkTagger> getTaggers() {
-        return FXCollections.observableList(this.taggers);
+        return this.taggers;
     }
 
     /**

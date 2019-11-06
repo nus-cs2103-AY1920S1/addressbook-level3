@@ -2,6 +2,7 @@ package seedu.mark.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -27,11 +28,20 @@ public class AutotagTablePanel extends UiPart<Region> {
 
     public AutotagTablePanel(ObservableList<SelectiveBookmarkTagger> autotagList) {
         super(FXML);
-        logger.info("initialising AutotagTablePanel");
+        logger.fine("Initialising AutotagTablePanel...");
 
         tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagToApply"));
         conditionsColumn.setCellValueFactory(new PropertyValueFactory<>("predicate"));
 
+        // populate table
         autotagTableView.setItems(autotagList);
+
+        // add listener
+        autotagList.addListener((ListChangeListener<SelectiveBookmarkTagger>) c -> {
+            while (c.next()) {
+                logger.fine("Autotag list was changed");
+                autotagTableView.setItems(autotagList);
+            }
+        });
     }
 }
