@@ -195,7 +195,9 @@ public class FetchEventWindow extends UiPart<Stage> {
                         eventOneBasedIndex, fetchWindow, true).getRoot());
             }
         }
+
     }
+
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
@@ -217,6 +219,7 @@ public class FetchEventWindow extends UiPart<Stage> {
                 setGraphic(new FetchEventEmployeeCard(employee, getIndex() + 1, logic,
                         eventOneBasedIndex, fetchWindow, false).getRoot());
             }
+
         }
     }
 

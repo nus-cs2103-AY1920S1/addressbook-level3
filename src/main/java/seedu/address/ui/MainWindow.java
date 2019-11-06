@@ -43,6 +43,10 @@ public class MainWindow extends UiPart<Stage> {
     private DateWindow dateWindow;
     private SummaryWindow summaryWindow;
     private ScheduleBox scheduleBox;
+    private Finance finance;
+
+    @FXML
+    private StackPane financePlaceholder;
 
     @FXML
     private StackPane schedulePlaceholder;
@@ -134,6 +138,9 @@ public class MainWindow extends UiPart<Stage> {
 
         scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
         schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
+
+        finance = new Finance(logic.getFilteredEmployeeList(), logic, this);
+        financePlaceholder.getChildren().add(finance.getRoot());
 
         selectionModel = tabPanePlaceholder.getSelectionModel();
     }
@@ -322,6 +329,24 @@ public class MainWindow extends UiPart<Stage> {
                 selectionModel.select(0);
             }
 
+            if (commandResult.getType().equals("Finance")) {
+                selectionModel.select(2);
+                finance.updateCards();
+            }
+
+            if (!commandResult.getType().equals("Finance")) {
+                selectionModel.select(0);
+            }
+
+
+            /*if (commandResult.isFetch()) {
+                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(),
+                        logic.getFilteredEventList(), logic.getFilteredEventList().get(0));
+                listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+            } else {
+                listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
+                listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
+            }*/
             if (commandResult.getType().equals("Main_Tab")) {
                 selectionModel.select(0);
             }
@@ -329,7 +354,6 @@ public class MainWindow extends UiPart<Stage> {
             if (fetchEventWindow != null && !commandResult.getType().equals("List")) {
                 fetchEventWindow.updateCards();
             }
-
 
             return commandResult;
 

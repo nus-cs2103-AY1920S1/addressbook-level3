@@ -61,13 +61,21 @@ public class CommandTestUtil {
     public static final String INVALID_YEAR_MONTH_4 = " " + PREFIX_YEAR_MONTH + "August 2019";
 
     //valid event fields
-    public static final String VALID_NAME_PARTY = "party";
+    public static final String VALID_NAME_PARTY = "Party";
     public static final String VALID_NAME_MUSICAL = "musical";
-    public static final String VALID_VENUE_NUS = "NUS";
-    public static final String VALID_MANPOWER_COUNT_TO_ADD = "2";
-    public static final String VALID_TAG_FUN = "fun";
+    public static final String VALID_VENUE_PARTY = "Orchard";
+    public static final String VALID_VENUE_MUSICAL = "NUS";
+    public static final String VALID_MANPOWER_COUNT_PARTY = "2";
+    public static final String VALID_MANPOWER_COUNT_MUSICAL = "10";
+    public static final String VALID_MANPOWER_COUNT_TO_ADD = "10";
+    public static final String VALID_DATE_1_PARTY = "20/10/2019";
+    public static final String VALID_DATE_1_MUSICAL = "10/10/2021";
+    public static final String VALID_DATE_2_PARTY = "22/10/2019";
+    public static final String VALID_DATE_2_MUSICAL = "15/10/2021";
+    public static final String VALID_TAG_PARTY = "fun";
+    public static final String VALID_TAG_MUSICAL = "free";
     public static final String NAME_DESC_PARTY = " " + PREFIX_NAME + VALID_NAME_PARTY;
-    public static final String MANPOWER_COUNT_DESC = " " + PREFIX_MANPOWER_TO_ADD + VALID_MANPOWER_COUNT_TO_ADD;
+    public static final String MANPOWER_COUNT_DESC = " " + PREFIX_MANPOWER_TO_ADD + VALID_MANPOWER_COUNT_MUSICAL;
     public static final String INVALID_MANPOWER_DESC = " " + PREFIX_MANPOWER_TO_ADD + "James&";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;

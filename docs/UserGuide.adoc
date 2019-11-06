@@ -571,6 +571,7 @@ which has an event and also display all the events that happens on that date.
 Format: `generate_schedule`
 
 [TIP]
+The `generate_schedule` will only display dates and events that have a set date and time allocated to it.
 The `generate_schedule` command opens a new window to display the new list of information.
 The `generate_schedule` command processes and creates the the list based on when the command is called.
 Note that any changes to the events after the command will not be reflected. Users are advised to use the

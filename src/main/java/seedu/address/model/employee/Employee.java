@@ -12,28 +12,29 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Employee {
-
     // Identity fields
     private final EmployeeName employeeName;
     private final EmployeePhone employeePhone;
     private final EmployeeEmail employeeEmail;
     private final EmployeeId employeeId;
-    private final EmployeePosition employeePosition;
     private final EmployeeGender employeeGender;
-
 
 
     // Data fields
     private final EmployeeAddress employeeAddress;
     private final Set<Tag> tags = new HashSet<>();
     private final EmployeeJoinDate employeeJoinDate;
+    private final EmployeePay employeePay;
+    private final EmployeeSalaryPaid employeeSalaryPaid;
 
     /**
      * Every field must be present and not null.
+     * Called in instantiating an Employee from previously stored object.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
-                     EmployeePosition employeePosition, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
-                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
+                    EmployeePay employeePay, EmployeeSalaryPaid employeeSalaryPaid,
+                    EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                    EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
@@ -41,9 +42,21 @@ public class Employee {
         this.employeeId = employeeId;
         this.employeeGender = employeeGender;
         this.employeeJoinDate = employeeJoinDate;
-        this.employeePosition = employeePosition;
+        this.employeePay = employeePay;
+        this.employeeSalaryPaid = employeeSalaryPaid;
         this.tags.add(new Tag(employeeGender.gender));
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Creates a new Employee Object and instantiates a new {@code EmployeeSalaryPaid} object within.
+     * Called by the Add and Edit Command.
+     */
+    public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
+                    EmployeePay employeePay, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                    EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
+        this(employeeId, employeeName, employeeGender, employeePay, new EmployeeSalaryPaid(),
+                employeePhone, employeeEmail, employeeAddress, employeeJoinDate, tags);
     }
 
     public Employee() {
@@ -54,7 +67,8 @@ public class Employee {
         this.employeeId = null;
         this.employeeGender = null;
         this.employeeJoinDate = null;
-        this.employeePosition = null;
+        this.employeeSalaryPaid = null;
+        this.employeePay = null;
         this.tags.addAll(tags);
     }
 
@@ -78,8 +92,13 @@ public class Employee {
         return employeeId;
     }
 
-    public EmployeePosition getEmployeePosition() {
-        return employeePosition;
+    public EmployeeSalaryPaid getEmployeeSalaryPaid() {
+        return employeeSalaryPaid;
+    }
+
+
+    public EmployeePay getEmployeePay() {
+        return employeePay;
     }
 
     public EmployeeGender getEmployeeGender() {
@@ -88,6 +107,14 @@ public class Employee {
 
     public EmployeeJoinDate getEmployeeJoinDate() {
         return employeeJoinDate;
+    }
+
+    public void addSalaryPaid(double salaryPaid) {
+        employeeSalaryPaid.add(salaryPaid);
+    }
+
+    public void undoSalaryPaid(double salaryPaid) {
+        employeeSalaryPaid.min(salaryPaid);
     }
 
     /**
@@ -108,11 +135,9 @@ public class Employee {
         }
 
         return otherEmployee != null
-
             && otherEmployee.getEmployeeName().equals(getEmployeeName())
             && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
             && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail());
-
     }
 
     /**
@@ -133,7 +158,7 @@ public class Employee {
         return otherEmployee.getEmployeeId().equals(getEmployeeId())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
-                && otherEmployee.getEmployeePosition().equals(getEmployeePosition())
+                && otherEmployee.getEmployeePay().equals(getEmployeePay())
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
                 && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
                 && otherEmployee.getEmployeeAddress().equals(getEmployeeAddress())
@@ -155,9 +180,9 @@ public class Employee {
                 .append(getEmployeeId())
                 .append(" Gender: ")
                 .append(getEmployeeGender())
-                .append(" Position: ")
-                .append(getEmployeePosition())
-                .append(" Phone: ")
+                .append(" EmployeePay: ")
+                .append(getEmployeePay())
+                .append(" EmployeePhone: ")
                 .append(getEmployeePhone())
                 .append(" Email: ")
                 .append(getEmployeeEmail())

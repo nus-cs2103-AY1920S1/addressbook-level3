@@ -92,9 +92,9 @@ public class DistinctDatesProcessor {
             Event currentEvent = eventList.get(i);
             datesSet.addAll(currentEvent.getListOfEventDates());
         }
-
         List<EventDate> datesList = new ArrayList<>(datesSet);
         Collections.sort(datesList);
+        //System.out.println(datesList.toString());
         return datesList;
     }
 }
