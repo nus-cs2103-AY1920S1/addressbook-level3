@@ -8,6 +8,9 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_ARGUMENT_FORMAT = "Invalid arguments! %1$s";
+    public static final String MESSAGE_MISSING_ARGUMENT_FORMAT = "The following arguments are required: %1$s";
+    public static final String MESSAGE_MISSING_INDEX = "Missing an index!";
+    public static final String MESSAGE_REDUNDANT_PREAMBLE_FORMAT = "No index needed for this command, but found %1$s";
     public static final String MESSAGE_INVALID_CATEGORY = "The category provided is invalid. "
             + "Create the category using addCategory.";
     public static final String MESSAGE_NONEXISTENT_CATEGORY = "The category modified is non-existent";

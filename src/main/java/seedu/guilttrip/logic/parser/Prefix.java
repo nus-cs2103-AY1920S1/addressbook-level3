@@ -6,9 +6,11 @@ package seedu.guilttrip.logic.parser;
  */
 public class Prefix {
     private final String prefix;
+    private final String fullName;
 
-    public Prefix(String prefix) {
+    public Prefix(String prefix, String fullName) {
         this.prefix = prefix;
+        this.fullName = fullName;
     }
 
     public String getPrefix() {
@@ -17,6 +19,14 @@ public class Prefix {
 
     public String toString() {
         return getPrefix();
+    }
+
+    public String getfullName() {
+        return fullName;
+    }
+
+    public String getFullUsage() {
+        return prefix + fullName;
     }
 
     @Override
