@@ -68,4 +68,39 @@ public class SessionListUtilTest {
         assertEquals(expectedArrayList, obtainedArrayList);
     }
 
+    @Test
+    void getScoreAsPercentage_testOne() {
+        String score = "5/10";
+        String expectedString = "50"; // 5/10 = 1/2 = 50%
+        String obtainedString = SessionListUtil.getScoreAsPercentage(score);
+
+        assertEquals(expectedString, obtainedString);
+    }
+
+    @Test
+    void getScoreAsPercentage_testTwo() {
+        String score = "3/15";
+        String expectedString = "20"; // 3/15 = 1/5 = 20%
+        String obtainedString = SessionListUtil.getScoreAsPercentage(score);
+
+        assertEquals(expectedString, obtainedString);
+    }
+
+    @Test
+    void getScoreAsPercentage_testThree() {
+        String score = "3/7";
+        String expectedString = "42.86"; // 3/7 = 0.42857...
+        String obtainedString = SessionListUtil.getScoreAsPercentage(score);
+
+        assertEquals(expectedString, obtainedString);
+    }
+
+    @Test
+    void getScoreAsPercentage_testFour() {
+        String score = "17/23";
+        String expectedString = "73.91"; // 17/23 = 0.73913...
+        String obtainedString = SessionListUtil.getScoreAsPercentage(score);
+
+        assertEquals(expectedString, obtainedString);
+    }
 }
