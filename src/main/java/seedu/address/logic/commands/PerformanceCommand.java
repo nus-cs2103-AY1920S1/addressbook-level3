@@ -23,6 +23,8 @@ import seedu.address.model.person.Person;
 public class PerformanceCommand extends Command {
 
     public static final String COMMAND_WORD = "performance";
+    public static final String MESSAGE_SUCCESS =  "Performance record added for %1$s under %2$s event, on "
+        + "%3$s with a timing of %4$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a player performance for an event to Athletick.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_EVENT + "EVENT "
@@ -46,11 +48,6 @@ public class PerformanceCommand extends Command {
         this.event = event;
         this.date = date;
         this.time = time;
-    }
-
-    public static final String getSuccessMessage(Person p, String e, AthletickDate d, Timing t) {
-        return "Performance record added for " + p.getName().fullName + " under " + e + " event, on "
-            + d.toString() + " with a timing of " + t.toString();
     }
 
     @Override
@@ -78,14 +75,11 @@ public class PerformanceCommand extends Command {
                 Event.MESSAGE_RECORD_EXISTS, athlete.getName().fullName, date, event));
         }
 
-        Record record = createRecord();
+        Record record = new Record(date, time);
         date.setType(2);
         model.addRecord(event, athlete, record);
-        return new CommandResult(getSuccessMessage(athlete, event, date, time), date, model);
-    }
-
-    private Record createRecord() {
-        return new Record(date, time);
+        return new CommandResult(
+            String.format(MESSAGE_SUCCESS, athlete.getName().fullName, event, date, time), date, model);
     }
 
     @Override

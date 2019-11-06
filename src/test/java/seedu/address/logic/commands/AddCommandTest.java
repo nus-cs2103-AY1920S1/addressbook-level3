@@ -239,6 +239,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Event getEvent(String eventName) {
+            return null;
+        }
+
+        @Override
         public void deleteEvent(Event target) { }
 
         @Override

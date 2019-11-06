@@ -285,6 +285,11 @@ public class EventCommandTest {
         }
 
         @Override
+        public Event getEvent(String eventName) {
+            return null;
+        }
+
+        @Override
         public void deleteEvent(Event target) {
             throw new AssertionError("This method should not be called.");
         }
