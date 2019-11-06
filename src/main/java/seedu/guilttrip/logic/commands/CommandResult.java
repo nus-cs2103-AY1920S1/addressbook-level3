@@ -266,7 +266,7 @@ public class CommandResult {
                 && changeFont == otherCommandResult.changeFont
                 && listBudgets == otherCommandResult.listBudgets
                 && changeTheme == otherCommandResult.changeTheme
-                && newTheme.equals(otherCommandResult.newTheme);
+                && newTheme == (otherCommandResult.newTheme);
     }
 
     @Override

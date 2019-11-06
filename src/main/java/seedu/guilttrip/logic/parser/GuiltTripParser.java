@@ -10,22 +10,17 @@ import java.util.regex.Pattern;
 import seedu.guilttrip.logic.commands.ClearCommand;
 import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.ExitCommand;
-import seedu.guilttrip.logic.commands.FindBudgetCommand;
-import seedu.guilttrip.logic.commands.FindCommand;
-import seedu.guilttrip.logic.commands.FindWishCommand;
 import seedu.guilttrip.logic.commands.HelpCommand;
 import seedu.guilttrip.logic.commands.HistoryCommand;
 import seedu.guilttrip.logic.commands.ListBudgetCommand;
 import seedu.guilttrip.logic.commands.ListCategoriesCommand;
 import seedu.guilttrip.logic.commands.ListCommand;
 import seedu.guilttrip.logic.commands.RedoCommand;
-import seedu.guilttrip.logic.commands.SortCommand;
 import seedu.guilttrip.logic.commands.UndoCommand;
 import seedu.guilttrip.logic.commands.WishListCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
-import seedu.guilttrip.logic.commands.addcommands.AddCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddClassConditionCommand;
@@ -39,17 +34,20 @@ import seedu.guilttrip.logic.commands.conditioncommands.ShowConditionListCommand
 import seedu.guilttrip.logic.commands.deletecommands.DeleteAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteBudgetCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteCategoryCommand;
-import seedu.guilttrip.logic.commands.deletecommands.DeleteCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteExpenseCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteIncomeCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteWishCommand;
 import seedu.guilttrip.logic.commands.editcommands.EditAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.editcommands.EditBudgetCommand;
 import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
-import seedu.guilttrip.logic.commands.editcommands.EditCommand;
 import seedu.guilttrip.logic.commands.editcommands.EditExpenseCommand;
 import seedu.guilttrip.logic.commands.editcommands.EditIncomeCommand;
 import seedu.guilttrip.logic.commands.editcommands.EditWishCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindAutoExpenseCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindBudgetCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindIncomeCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindWishCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddConditionToReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
@@ -57,6 +55,11 @@ import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.ListActiveRemindersCommand;
 import seedu.guilttrip.logic.commands.remindercommands.ListAllRemindersCommand;
 import seedu.guilttrip.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
+import seedu.guilttrip.logic.commands.sortcommands.SortAutoExpenseCommand;
+import seedu.guilttrip.logic.commands.sortcommands.SortBudgetCommand;
+import seedu.guilttrip.logic.commands.sortcommands.SortExpenseCommand;
+import seedu.guilttrip.logic.commands.sortcommands.SortIncomeCommand;
+import seedu.guilttrip.logic.commands.sortcommands.SortWishCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewBarChartCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewEntryCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewPieChartCommand;
@@ -91,11 +94,21 @@ import seedu.guilttrip.logic.parser.editcommandparsers.EditExpenseCommandParser;
 import seedu.guilttrip.logic.parser.editcommandparsers.EditIncomeCommandParser;
 import seedu.guilttrip.logic.parser.editcommandparsers.EditWishCommandParser;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.logic.parser.findcommandparsers.FindAutoExpenseCommandParser;
+import seedu.guilttrip.logic.parser.findcommandparsers.FindBudgetCommandParser;
+import seedu.guilttrip.logic.parser.findcommandparsers.FindExpenseCommandParser;
+import seedu.guilttrip.logic.parser.findcommandparsers.FindIncomeCommandParser;
+import seedu.guilttrip.logic.parser.findcommandparsers.FindWishCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddConditionToReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.DeleteReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.EditReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.RemoveConditionFromReminderCommandParser;
+import seedu.guilttrip.logic.parser.sortcommandparsers.SortAutoExpenseCommandParser;
+import seedu.guilttrip.logic.parser.sortcommandparsers.SortBudgetCommandParser;
+import seedu.guilttrip.logic.parser.sortcommandparsers.SortExpenseCommandParser;
+import seedu.guilttrip.logic.parser.sortcommandparsers.SortIncomeCommandParser;
+import seedu.guilttrip.logic.parser.sortcommandparsers.SortWishCommandParser;
 import seedu.guilttrip.logic.parser.statscommandparsers.ViewBarChartCommandParser;
 import seedu.guilttrip.logic.parser.statscommandparsers.ViewPieChartCommandParser;
 import seedu.guilttrip.logic.parser.statscommandparsers.ViewTableCommandParser;
@@ -113,19 +126,27 @@ public class GuiltTripParser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     public static final Set<String> COMMANDS_SET = Set.of(
-            AddCommand.COMMAND_WORD,
+            AddExpenseCommand.COMMAND_WORD,
+            AddExpenseCommand.COMMAND_WORD_SHORT,
+            AddIncomeCommand.COMMAND_WORD,
             AddBudgetCommand.COMMAND_WORD,
             AddCategoryCommand.COMMAND_WORD,
-            EditCommand.COMMAND_WORD,
+            EditExpenseCommand.COMMAND_WORD,
+            EditExpenseCommand.COMMAND_WORD_SHORT,
+            EditIncomeCommand.COMMAND_WORD,
             EditCategoryCommand.COMMAND_WORD,
             EditWishCommand.COMMAND_WORD,
             EditBudgetCommand.COMMAND_WORD,
-            DeleteCommand.COMMAND_WORD,
+            DeleteExpenseCommand.COMMAND_WORD,
+            DeleteExpenseCommand.COMMAND_WORD_SHORT,
+            DeleteIncomeCommand.COMMAND_WORD,
             DeleteCategoryCommand.COMMAND_WORD,
             DeleteWishCommand.COMMAND_WORD,
             DeleteBudgetCommand.COMMAND_WORD,
             ClearCommand.COMMAND_WORD,
-            FindCommand.COMMAND_WORD,
+            FindExpenseCommand.COMMAND_WORD,
+            FindAutoExpenseCommand.COMMAND_WORD,
+            FindIncomeCommand.COMMAND_WORD,
             FindWishCommand.COMMAND_WORD,
             FindBudgetCommand.COMMAND_WORD,
             ListCommand.COMMAND_WORD,
@@ -134,7 +155,11 @@ public class GuiltTripParser {
             WishListCommand.COMMAND_WORD,
             ListBudgetCommand.COMMAND_WORD,
             ExitCommand.COMMAND_WORD,
-            SortCommand.COMMAND_WORD,
+            SortExpenseCommand.COMMAND_WORD,
+            SortIncomeCommand.COMMAND_WORD,
+            SortBudgetCommand.COMMAND_WORD,
+            SortAutoExpenseCommand.COMMAND_WORD,
+            SortWishCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
             AddReminderCommand.COMMAND_WORD,
             EditReminderCommand.COMMAND_WORD,
@@ -236,8 +261,14 @@ public class GuiltTripParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case FindExpenseCommand.COMMAND_WORD:
+            return new FindExpenseCommandParser().parse(arguments);
+
+        case FindAutoExpenseCommand.COMMAND_WORD:
+            return new FindAutoExpenseCommandParser().parse(arguments);
+
+        case FindIncomeCommand.COMMAND_WORD:
+            return new FindIncomeCommandParser().parse(arguments);
 
         case FindWishCommand.COMMAND_WORD:
             return new FindWishCommandParser().parse(arguments);
@@ -263,8 +294,20 @@ public class GuiltTripParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
-        case SortCommand.COMMAND_WORD:
-            return new SortCommandParser().parse(arguments);
+        case SortExpenseCommand.COMMAND_WORD:
+            return new SortExpenseCommandParser().parse(arguments);
+
+        case SortIncomeCommand.COMMAND_WORD:
+            return new SortIncomeCommandParser().parse(arguments);
+
+        case SortBudgetCommand.COMMAND_WORD:
+            return new SortBudgetCommandParser().parse(arguments);
+
+        case SortAutoExpenseCommand.COMMAND_WORD:
+            return new SortAutoExpenseCommandParser().parse(arguments);
+
+        case SortWishCommand.COMMAND_WORD:
+            return new SortWishCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

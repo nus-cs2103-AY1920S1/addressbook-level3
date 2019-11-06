@@ -17,7 +17,6 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ReadOnlyGuiltTrip;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
-import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
@@ -102,11 +101,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<CategoryStatistics> getListOfStatsForIncome() {
         return model.getListOfStatsForIncome();
-    }
-
-    @Override
-    public ObservableList<Entry> getFilteredExpenseAndIncomeList() {
-        return model.getFilteredExpensesAndIncomes();
     }
 
     @Override

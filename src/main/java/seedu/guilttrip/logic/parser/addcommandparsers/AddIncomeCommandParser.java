@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
+import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
@@ -26,7 +27,7 @@ import seedu.guilttrip.model.tag.Tag;
 /**
  * Parses input argument and creates a new AddIncomeCommand object.
  */
-public class AddIncomeCommandParser {
+public class AddIncomeCommandParser implements Parser<AddIncomeCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddIncomeCommand

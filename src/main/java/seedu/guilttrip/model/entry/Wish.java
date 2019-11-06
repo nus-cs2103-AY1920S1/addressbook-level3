@@ -20,6 +20,14 @@ public class Wish extends Entry {
     }
 
 
+    //TODO HIGHLY LIKELY ERROR
+    /**
+     * Returns a new Wish if and only if it's category is edited.
+     */
+    public Wish modifiedWish(String newName) {
+        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        return new Wish(newCategory, super.getDesc(), super.getDate(), this.getAmount(), super.getTags());
+    }
     /**
      * Returns true if both expenses have the same data fields.
      * This defines a stronger notion of equality between two entries.

@@ -885,7 +885,7 @@ do so.
 .. sortWishlistPrice <ascending/ descending>
 .. sortWishlistName <ascending/descending>
 .. sortWishlistPriority <ascending/descending>
-.. findWish <keyword>
+.. findWish [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
 .. purchase <index>
 
 . Undo and Redo:

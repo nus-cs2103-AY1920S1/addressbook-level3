@@ -6,7 +6,6 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -86,8 +85,6 @@ public class EditBudgetCommand extends Command {
         }
 
         model.setBudget(entryToEdit, editedEntry);
-        model.updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
-        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
