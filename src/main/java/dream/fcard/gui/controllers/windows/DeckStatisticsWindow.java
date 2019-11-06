@@ -2,8 +2,8 @@ package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
 
-import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
 import dream.fcard.model.Deck;
 //import dream.fcard.util.stats.StatsDisplayUtil;
 
@@ -31,7 +31,7 @@ public class DeckStatisticsWindow extends ScrollPane {
     private TableView<Session> sessionsTableView;
 
     private Deck deck;
-    private DeckStats deckStats;
+    private SessionList deckSessionList;
 
     /** Creates a new instance of DeckStatisticsWindow. */
     public DeckStatisticsWindow(Deck deck) {
@@ -48,7 +48,7 @@ public class DeckStatisticsWindow extends ScrollPane {
 
         windowTitle.setText("Statistics for deck: " + deck.getDeckName());
         this.deck = deck;
-        this.deckStats = deck.getDeckStats();
+        this.deckSessionList = deck.getDeckSessionList();
         //ArrayList<Deck> decks = State.getDecks();
 
         displaySummaryStats();

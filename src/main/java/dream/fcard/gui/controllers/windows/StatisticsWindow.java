@@ -3,9 +3,11 @@ package dream.fcard.gui.controllers.windows;
 import java.io.IOException;
 
 import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.model.Deck;
+import dream.fcard.util.stats.SessionListUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
 
 import javafx.fxml.FXML;
@@ -62,6 +64,12 @@ public class StatisticsWindow extends ScrollPane {
         int numSessions = userStats.getSessionList().getNumberOfSessions();
         this.totalSessions.setText("Total login sessions: " + numSessions
             + (numSessions == 1 ? " session" : " sessions"));
+
+        SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
+            userStats.getSessionList());
+        int numSessionThisWeek = sublistForThisWeek.getNumberOfSessions();
+        this.sessionsThisWeek.setText("Total login sessions this week: " + numSessionThisWeek
+            + (numSessionThisWeek == 1 ? " session" : " sessions"));
 
         String duration = userStats.getSessionList().getTotalDurationAsString();
         this.totalDuration.setText("Total login duration: " + duration);
