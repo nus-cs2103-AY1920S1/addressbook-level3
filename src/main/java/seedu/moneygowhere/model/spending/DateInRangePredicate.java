@@ -2,8 +2,9 @@ package seedu.moneygowhere.model.spending;
 
 import java.util.function.Predicate;
 
+//@@author Nanosync
 /**
- * Tests that a {@code Spending}'s {@code Date} matches any of the keywords given.
+ * Tests that a {@code Spending}'s {@code Date} matches the date range given.
  */
 public class DateInRangePredicate implements Predicate<Spending> {
     private final Date startDate;

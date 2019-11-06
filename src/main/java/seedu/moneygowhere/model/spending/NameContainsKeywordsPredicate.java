@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import seedu.moneygowhere.commons.util.StringUtil;
 
+//@@author Nanosync
 /**
  * Tests that a {@code Spending}'s {@code Name} matches any of the keywords given.
  */

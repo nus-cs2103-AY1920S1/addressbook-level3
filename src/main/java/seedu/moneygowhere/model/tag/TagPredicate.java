@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import seedu.moneygowhere.model.spending.Spending;
 
+//@@author Nanosync
 /**
  * Tests that a {@code Spending}'s {@code Tag} matches any of the keywords given.
  */
