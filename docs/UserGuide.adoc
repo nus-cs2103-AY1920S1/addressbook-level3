@@ -262,6 +262,8 @@ If multiple flags of the same prefix is provided by user, the command will take 
 For example `new dist/1 dist/2 dist/3 auto/Y auto/N` is equivalent to `new dist/3 auto/N`. +
 Rationale: user need not waste time backspacing if an input was keyed in wrongly.
 
+[IMPORTANT]
+For manual dispatchment of vehicle, the index of the chosen vehicle must be from the list of vehicles available in the given district, which is only displayed when `new dist/DISTRICT auto/N` is used.
 // end::new[]
 
 
@@ -449,6 +451,7 @@ Returns any incidents whereby the operator's name contains either 'Alex' or 'Ber
 Returns any incidents whereby the operator's name matches the logged-in operator's name
 // end::findi[]
 
+// tag::edit-i[]
 === Editing an Incident: `edit-i`
 
 Edits an existing incident in the Incident Manager as identified by the index in the display.
@@ -484,6 +487,8 @@ Example of input:
 image::editIncident1.png[]
 image::editIncident2.png[]
 
+// end::edit-i[]
+
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
 Format: `add-v [dist/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
@@ -508,6 +513,7 @@ Examples:
 image::addVehicle1.png[]
 image::addVehicle2.png[]
 
+//tag::edit-v[]
 === Editing a Vehicle: `edit-v`
 Edits a vehicle identified by the index displayed in the Incident Management System.
 Format: `edit-v [INDEX] [dist/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
@@ -535,7 +541,7 @@ Edit Vehicle that results in duplicates:
 
 image::editDuplicateVeh1.png[]
 image::editDuplicateVeh2.png[]
-
+//end::edit-v[]
 // tag::list-v[]
 === Listing vehicles
 Shows a list of all vehicles registered in the incident Manager.

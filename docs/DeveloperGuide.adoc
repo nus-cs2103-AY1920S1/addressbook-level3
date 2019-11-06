@@ -357,7 +357,7 @@ image::NewDraftSequenceDiagramAuto.png[]
 
 === Manual Vehicle Dispatchment:
 
-User needs to key in the index of vehicle (based on the displayed vehicle list) to dispatch. If no index is provided, or the index is not a positive integer, an exception will be thrown and user will be prompted to provide a valid index.
+User needs to key in the index of vehicle based on the list of available vehicle in given district to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
 
 Below is a sequence diagram of a successful case:
 
@@ -633,8 +633,13 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 * **Alternative:** Utilise separate command `vehicles`
 ** Pros: Intuitive for some.
 ** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
+//end::vehiclesearch[]
 
 // end::vehiclesearch[]
+
+//tag::vehicleedit[]
+
+//end::vehicleedit[]
 
 === Logging
 

@@ -19,7 +19,7 @@ Responsibilities: Scheduling and Deadlines + In charge of the `Logic` component 
 
 '''
 
-=== Mandy Wang
+=== Wang Xinman
 image::tirameshu.png[width="300", align="left"]
 {empty}[http://github.com/tirameshu[github]] [<<tirameshu#, portfolio>>]
 

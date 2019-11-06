@@ -46,6 +46,7 @@ public class EditVehicleCommandParser implements Parser<EditVehicleCommand> {
             editVehicle.setVehicleAvailability(ParserUtil.parseAvailability(argMultiMap.getValue(PREFIX_AVAIL).get()));
         }
 
+
         return new EditVehicleCommand(index, editVehicle);
 
     }
