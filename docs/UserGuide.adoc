@@ -179,7 +179,8 @@ Examples:
 * `removesem y1st2`
 
 ==== Viewing description of a module: `description`
-Shows the description of a particular module, including its prerequisites. +
+Shows the description of a particular module, including its prerequisites.
+Only computer-science related modules will have these descriptions, and not general modules nor electives. +
 Format: `description MODULE_CODE` +
 Example:
 
