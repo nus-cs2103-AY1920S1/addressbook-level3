@@ -1,12 +1,16 @@
 package seedu.guilttrip.logic.parser;
 
+<<<<<<< HEAD
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+=======
+>>>>>>> cfa4674600cf5bd5983a3e4a57950dfd11a05c5f
 import static seedu.guilttrip.logic.commands.CommandTestUtil.AMOUNT_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.AMOUNT_FOOD_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_FOOD_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.DATE_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.DATE_FOOD_EXPENSE;
+<<<<<<< HEAD
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_AMOUNT;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_DATE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
@@ -14,16 +18,23 @@ import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.NAME_DESC_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.NAME_DESC_FOOD_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+=======
+import static seedu.guilttrip.logic.commands.CommandTestUtil.NAME_DESC_CLOTHING_EXPENSE;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.NAME_DESC_FOOD_EXPENSE;
+>>>>>>> cfa4674600cf5bd5983a3e4a57950dfd11a05c5f
 import static seedu.guilttrip.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.TAG_DESC_CLOTHING;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.TAG_DESC_FOOD;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.TAG_DESC_WANT;
+<<<<<<< HEAD
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_AMOUNT_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DATE_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DESC_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_TAG_CLOTHING_CLOTHES;
 import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseFailure;
+=======
+>>>>>>> cfa4674600cf5bd5983a3e4a57950dfd11a05c5f
 import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.guilttrip.testutil.TypicalEntries.CLOTHING_EXPENSE;
 import static seedu.guilttrip.testutil.TypicalEntries.FOOD_EXPENSE;
@@ -32,11 +43,15 @@ import org.junit.jupiter.api.Test;
 
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddExpenseCommandParser;
+<<<<<<< HEAD
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.tag.Tag;
+=======
+import seedu.guilttrip.model.entry.Expense;
+>>>>>>> cfa4674600cf5bd5983a3e4a57950dfd11a05c5f
 import seedu.guilttrip.testutil.ExpenseBuilder;
 
 public class AddExpenseCommandParserTest {
@@ -71,6 +86,7 @@ public class AddExpenseCommandParserTest {
                 + CATEGORY_FOOD_EXPENSE + DATE_FOOD_EXPENSE, new AddExpenseCommand(expectedExpense));
     }
 
+<<<<<<< HEAD
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT , AddExpenseCommand.MESSAGE_USAGE);
@@ -134,4 +150,6 @@ public class AddExpenseCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExpenseCommand.MESSAGE_USAGE));
     }
 
+=======
+>>>>>>> cfa4674600cf5bd5983a3e4a57950dfd11a05c5f
 }
