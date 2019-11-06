@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoUnit;
+
 import io.xpire.model.item.ExpiryDate;
 
 /**
@@ -14,7 +15,7 @@ import io.xpire.model.item.ExpiryDate;
  */
 public class DateUtil {
 
-    public static final DateTimeFormatter dateFormatter =
+    public static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(ExpiryDate.DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 
     /**
@@ -27,7 +28,7 @@ public class DateUtil {
     public static String convertDateToString(LocalDate date) {
         requireAllNonNull(date);
         try {
-            return date.format(dateFormatter);
+            return date.format(DATE_TIME_FORMATTER);
         } catch (IllegalArgumentException | DateTimeException e) {
             return "";
         }
@@ -41,9 +42,9 @@ public class DateUtil {
      * @return Date if conversion is successful, else null.
      */
     public static LocalDate convertStringToDate(String dateInString) {
-        requireAllNonNull(dateInString, dateFormatter);
+        requireAllNonNull(dateInString, DATE_TIME_FORMATTER);
         try {
-            return LocalDate.parse(dateInString, dateFormatter);
+            return LocalDate.parse(dateInString, DATE_TIME_FORMATTER);
         } catch (IllegalArgumentException | DateTimeException e) {
             System.out.println(e);
             return null;
