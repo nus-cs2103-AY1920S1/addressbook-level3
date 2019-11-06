@@ -99,20 +99,4 @@ public class ViewRawNoteCommandTest {
         // different note -> returns false
         assertFalse(viewFirstNoteCommand.equals(viewSecondNoteCommand));
     }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoNote(Model model) {
-        model.updateFilteredNoteList(p -> false);
-
-        assertTrue(model.getFilteredNoteList().isEmpty());
-    }
-
-//    /**
-//     * Parses {@code userInput} into a {@code NoteTitleMatchesKeywordsPredicate}.
-//     */
-//    private NoteTitleContainsKeywordsPredicate preparePredicate(String userInput) {
-//        return new NoteTitleContainsKeywordsPredicate(userInput);
-//    }
 }

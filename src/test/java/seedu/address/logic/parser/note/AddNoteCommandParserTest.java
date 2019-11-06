@@ -30,26 +30,30 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.NoteBuilder;
 
 public class AddNoteCommandParserTest {
-    public AddNoteCommandParser parser = new AddNoteCommandParser();
+    private AddNoteCommandParser parser = new AddNoteCommandParser();
+
+    public AddNoteCommandParser getParser() {
+        return parser;
+    }
 
     @Test
     public void parse_allFieldsPresent_success() {
         Note expectedNote = new NoteBuilder(PIPELINE).withTags(VALID_TAG_CS2100).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser,
+        assertParseSuccess(getParser(),
                 PREAMBLE_WHITESPACE + VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE
                         + VALID_NOTE_TAG_1_PIPELINE, new AddNoteCommand(expectedNote));
 
         // duplicate tags - only one accepted
-        assertParseSuccess(parser,
+        assertParseSuccess(getParser(),
                 VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE + VALID_NOTE_TAG_1_PIPELINE
                         + VALID_NOTE_TAG_1_PIPELINE, new AddNoteCommand(expectedNote));
 
         expectedNote = new NoteBuilder(PIPELINE).build();
 
         // multiple tags - all accepted
-        assertParseSuccess(parser,
+        assertParseSuccess(getParser(),
                 VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE + VALID_NOTE_TAG_1_PIPELINE
                         + VALID_NOTE_TAG_2_PIPELINE, new AddNoteCommand(expectedNote));
     }
@@ -58,7 +62,7 @@ public class AddNoteCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Note expectedNote = new NoteBuilder(PIPELINE).withTags().build();
-        assertParseSuccess(parser, VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE,
+        assertParseSuccess(getParser(), VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE,
                 new AddNoteCommand(expectedNote));
     }
 
@@ -67,27 +71,27 @@ public class AddNoteCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE);
 
         // missing space in front
-        assertParseFailure(parser,
+        assertParseFailure(getParser(),
                 PREFIX_TITLE + VALID_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE + VALID_NOTE_TAG_1_PIPELINE,
                 expectedMessage);
 
         // nonempty preamble
-        assertParseFailure(parser,
+        assertParseFailure(getParser(),
                 PREAMBLE_NON_EMPTY + VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE
                         + VALID_NOTE_TAG_1_PIPELINE, expectedMessage);
 
         // missing title prefix
-        assertParseFailure(parser,
+        assertParseFailure(getParser(),
                 VALID_NOTE_CONTENT_PIPELINE + VALID_NOTE_TAG_1_PIPELINE,
                 expectedMessage);
 
         // missing content prefix
-        assertParseFailure(parser,
+        assertParseFailure(getParser(),
                  VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_TAG_1_PIPELINE,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser,
+        assertParseFailure(getParser(),
                 SPACE + VALID_TITLE_PIPELINE + SPACE + VALID_CONTENT_PIPELINE + VALID_NOTE_TAG_1_PIPELINE,
                 expectedMessage);
     }
@@ -95,23 +99,23 @@ public class AddNoteCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid title
-        assertParseFailureIllegalArgument(parser, INVALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE
+        assertParseFailureIllegalArgument(getParser(), INVALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE
                         + VALID_NOTE_TAG_1_PIPELINE, Title.MESSAGE_CONSTRAINTS);
 
         // invalid content
-        assertParseFailureIllegalArgument(parser, VALID_NOTE_TITLE_PIPELINE + INVALID_NOTE_CONTENT_PIPELINE
+        assertParseFailureIllegalArgument(getParser(), VALID_NOTE_TITLE_PIPELINE + INVALID_NOTE_CONTENT_PIPELINE
                 + VALID_NOTE_TAG_1_PIPELINE, Content.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailureIllegalArgument(parser, VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE
+        assertParseFailureIllegalArgument(getParser(), VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE
                 + INVALID_NOTE_TAG_PIPELINE, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailureIllegalArgument(parser, INVALID_NOTE_TITLE_PIPELINE + INVALID_NOTE_CONTENT_PIPELINE
+        assertParseFailureIllegalArgument(getParser(), INVALID_NOTE_TITLE_PIPELINE + INVALID_NOTE_CONTENT_PIPELINE
                 + VALID_NOTE_TAG_1_PIPELINE, Title.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_NOTE_TITLE_PIPELINE
+        assertParseFailure(getParser(), PREAMBLE_NON_EMPTY + VALID_NOTE_TITLE_PIPELINE
                 + VALID_NOTE_CONTENT_PIPELINE + VALID_NOTE_TAG_1_PIPELINE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
     }
