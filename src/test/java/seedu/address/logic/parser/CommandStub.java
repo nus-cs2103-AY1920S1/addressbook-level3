@@ -19,28 +19,28 @@ public class CommandStub extends Command {
     public UserOutput execute() {
         return null;
     }
-}
 
-/** CommandStub */
-class CommandBuilderStub extends CommandBuilder {
+    /** CommandStub */
+    private static class CommandBuilderStub extends CommandBuilder {
 
-    @Override
-    protected CommandBuilder init() {
-        return super.init();
-    }
+        @Override
+        protected CommandBuilder init() {
+            return super.init();
+        }
 
-    @Override
-    protected RequiredArgumentList defineCommandArguments() {
-        return null;
-    }
+        @Override
+        protected RequiredArgumentList defineCommandArguments() {
+            return null;
+        }
 
-    @Override
-    protected Map<String, OptionalArgumentList> defineCommandOptions() {
-        return null;
-    }
+        @Override
+        protected Map<String, OptionalArgumentList> defineCommandOptions() {
+            return null;
+        }
 
-    @Override
-    protected Command commandBuild() {
-        return new CommandStub();
+        @Override
+        protected Command commandBuild() {
+            return new CommandStub();
+        }
     }
 }
