@@ -41,12 +41,15 @@ public class SanitizeLocation {
         validLocationString = validLocationString.split("/")[0];
         validLocationString = validLocationString.split("_")[0];
         validLocationString = "NUS_" + validLocationString;
+        if (locationName.contains("SR_LT19")) {
+            validLocationString = "NUS_LT19";
+        }
         Location validLocation = new Location(validLocationString);
         validLocation.setValidLocation(validLocationString);
         if (!validLocationList.contains(validLocation)) {
             JSONObject apiResponse = Cache.loadPlaces(validLocationString);
             String status = GmapsJsonUtils.getStatus(apiResponse);
-            if (status.equals("OK")) {
+            if (status != null && status.equals("OK")) {
                 String lat = Double.toString(GmapsJsonUtils.getLatPlacesApi(apiResponse));
                 String lng = Double.toString(GmapsJsonUtils.getLngPlacesApi(apiResponse));
                 validLocation.setPlaceId(GmapsJsonUtils.getPlaceId(apiResponse));
@@ -66,7 +69,6 @@ public class SanitizeLocation {
             location.setPlaceId(placeId);
             location.setValidLocation(validLocationString);
         }
-
         return location;
     }
 }

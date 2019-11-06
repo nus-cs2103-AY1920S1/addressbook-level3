@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.gmaps.Location;
 
@@ -19,6 +21,8 @@ import seedu.address.model.gmaps.Location;
 public class UrlUtil {
 
     private static String gmapsApiKey = "";
+
+    private static final Logger logger = LogsCenter.getLogger(UrlUtil.class);
 
     /**
      * Generates a URL object from a String.
@@ -106,9 +110,9 @@ public class UrlUtil {
      */
     public static String generateGmapsPlacesUrl(String locationName) {
         String baseUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&"
-                + "inputtype=textquery&fields=name,place_id,geometry&";
+                + "inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&";
         String apiKeyQueryParams = "key=" + gmapsApiKey + "&";
-        String queryParams = "input=" + locationName + "&";
+        String queryParams = "input=" + conditionalLocationName(locationName) + "&";
         String fullUrl = baseUrl + queryParams + apiKeyQueryParams;
         return fullUrl;
     }
@@ -153,5 +157,51 @@ public class UrlUtil {
      */
     public static void setGmapsApiKey(String gmapsApiKey) {
         UrlUtil.gmapsApiKey = gmapsApiKey;
+    }
+
+    /**
+     * This method is used to handle edge cases on Google Api so that it would support all the locations in NUS.
+     * @param locationName
+     * @return
+     */
+    private static String conditionalLocationName(String locationName) {
+        if (!locationName.contains("NUS_")) {
+            logger.warning("Internal logic error for conditional name " + locationName);
+        }
+        if (locationName.contains("AS") || locationName.contains("E2") ) {
+            return locationName.split("NUS_")[1];
+        } else if (locationName.contains("EH")) {
+            return "NUS_Eusoff_Hall";
+        } else if (locationName.contains("GBT")) {
+            return "NUS_SDE";
+        } else if (locationName.contains("LT11")) {
+            return "AS2";
+        } else if (locationName.contains("MD7")) {
+            return "MD7";
+        } else if (locationName.contains("RH")) {
+            return "NUS_Raffles_Hall";
+        } else if (locationName.contains("S2")) {
+            return "NUS_S1";
+        } else if (locationName.contains("S5")) {
+            return "NUS_S4";
+        } else if (locationName.contains("S7") || locationName.contains("S8")) {
+            return "S7";
+        } else if (locationName.contains("SDE1")) {
+            return "NUS_SDE";
+        } else if (locationName.contains("SH")) {
+            return "NUS_Sheares_Hall";
+        } else if (locationName.contains("SR")) {
+            return "SR_LT_19";
+        } else if (locationName.contains("TB")) {
+            return "NUS_CLB";
+        } else if (locationName.contains("UT22")) {
+            return "NUS_UT";
+        } else if (locationName.contains("WT")) {
+            return "NUS_SDE2";
+        } else if (locationName.contains("YSTCM")) {
+            return "NUS%20Yong%20Siew%20Toh%20Conservatory%20of%20Music";
+        }
+
+        return locationName;
     }
 }
