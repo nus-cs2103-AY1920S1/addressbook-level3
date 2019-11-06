@@ -230,6 +230,11 @@ Examples:
 
 * `update_earnings 2 d/14/04/2020 type/lab`
 
+****
+* Not allowed to update earnings claim status through `update_earnings` method. Only can use `claim_earnings`
+method.
+****
+
 ==== Delete Earnings: `delete_earnings`
 
 Delete Earnings in the list of earnings. +
@@ -256,12 +261,17 @@ Examples:
 
 ==== Claim Earnings: `claim_earnings`
 
-Tick off that user has claimed Earnings in the list of earnings. +
-Format: `claim_earnings d/DATE c/CLASSID`
+Changes the user the earnings status in the list of earnings. +
+Format: `claim_earnings INDEX c/CLASSID`
 
 Examples:
 
-* `claim_earnings k/CS2103T, c/CS1231`
+* `claim_earnings 2 claim/rejected`
+
+****
+* Only `approved`/`rejected`/`processing`/`pending submission` statuses are allowed.
+* Only one status is allowed at a time.
+****
 
 === Notes
 ==== Add Note: `addnote`

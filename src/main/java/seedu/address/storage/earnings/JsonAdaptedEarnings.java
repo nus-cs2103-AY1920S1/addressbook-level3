@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
+import seedu.address.model.earnings.Claim;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.Type;
@@ -22,17 +23,20 @@ public class JsonAdaptedEarnings {
     private final String classId;
     private final String amount;
     private final String type;
+    private final String claim;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedEarnings(@JsonProperty("date") String date, @JsonProperty("classId") String classId,
-                             @JsonProperty("amount") String amount, @JsonProperty("type") String type) {
+                             @JsonProperty("amount") String amount, @JsonProperty("type") String type,
+                               @JsonProperty("claim") String claim) {
         this.date = date;
         this.classId = classId;
         this.amount = amount;
         this.type = type;
+        this.claim = claim;
     }
 
     /**
@@ -43,6 +47,7 @@ public class JsonAdaptedEarnings {
         classId = source.getClassId().value;
         amount = source.getAmount().amount;
         type = source.getType().type;
+        claim = source.getClaim().claimStatus;
     }
 
     /**
@@ -84,6 +89,17 @@ public class JsonAdaptedEarnings {
         }
         final Type modelType = new Type(type);
 
-        return new Earnings(modelDate, modelClassId, modelAmount, modelType);
+        if (claim == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Claim.class.getSimpleName()));
+        }
+        if (!Claim.isValidClaim(claim)) {
+            throw new IllegalValueException(Claim.MESSAGE_CONSTRAINTS);
+        }
+        final Claim modelClaim = new Claim(claim);
+
+        Earnings earnings = new Earnings(modelDate, modelClassId, modelAmount, modelType);
+        earnings.setClaim(modelClaim);
+
+        return earnings;
     }
 }

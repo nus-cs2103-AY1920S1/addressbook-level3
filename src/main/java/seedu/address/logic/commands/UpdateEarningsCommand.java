@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
+import seedu.address.model.earnings.Claim;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.Type;
@@ -72,7 +73,9 @@ public class UpdateEarningsCommand extends Command {
         }
 
         Earnings earningsToEdit = lastShownList.get(index.getZeroBased());
+        Claim claim = earningsToEdit.getClaim();
         Earnings editedEarnings = createEditedEarnings(earningsToEdit, editEarningsDescriptor);
+        editedEarnings.setClaim(claim);
 
         if (!earningsToEdit.isSameEarnings(editedEarnings) && model.hasEarnings(editedEarnings)) {
             throw new CommandException(MESSAGE_DUPLICATE_EARNINGS);
