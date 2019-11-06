@@ -20,9 +20,9 @@ public class DisplayCommand extends Command {
 
     public static final String COMMAND_WORD = "display";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays a specified instance of the user's state.\n"
-            + "Parameter: USER_STATE_INSTANCE_ID (p -> Projection, b -> Budget)\n"
-            + "Example: " + seedu.address.logic.commands.DisplayCommand.COMMAND_WORD + " p1";
+        + ": Displays a specified instance of the user's state.\n"
+        + "Parameter: USER_STATE_INSTANCE_ID (p -> Projection, b -> Budget)\n"
+        + "Example: " + COMMAND_WORD + " p1";
 
     public static final String MESSAGE_SUCCESS = "Display %s success! Enter \"ALT-F4\" to terminate display window\n";
 
@@ -57,7 +57,7 @@ public class DisplayCommand extends Command {
             }
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, "stub"),
-                    false, false, Tab.BUDGET);
+                false, false, Tab.BUDGET);
         } else {
             throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
         }
@@ -66,7 +66,7 @@ public class DisplayCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DisplayCommand // instanceof handles nulls
-                && targetIndex.equals(((DisplayCommand) other).targetIndex)); // state check
+            || (other instanceof DisplayCommand // instanceof handles nulls
+            && targetIndex.equals(((DisplayCommand) other).targetIndex)); // state check
     }
 }
