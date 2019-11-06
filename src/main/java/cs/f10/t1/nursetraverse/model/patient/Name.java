@@ -33,12 +33,19 @@ public class Name {
     }
 
     /**
+     * Returns true if a given name is the same as this one, case insensitive. This defines a weaker notion of
+     * equality between two names than {@link #equals(Object)}, which is case sensitive.
+     */
+    public boolean isSameName(Name name) {
+        return fullName.equalsIgnoreCase(name.fullName);
+    }
+
+    /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
