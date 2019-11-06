@@ -305,6 +305,9 @@ public class ModelManager implements Model {
     public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         requireNonNull(deliveryman);
         deliverymenDatabase.switchDeliverymanStatus(deliveryman);
+        if (deliveryman.getStatus().getDescription().equals("AVAILABLE")) {
+            signalNewAvailableDeliveryman();
+        }
     }
 
     @Override
@@ -315,11 +318,17 @@ public class ModelManager implements Model {
     @Override
     public void updateDeliverymanStatusAfterChangesToOrder(Name deliverymanName) {
         deliverymenDatabase.updateDeliverymanStatusAfterChangesToOrder(deliverymanName);
+        signalNewAvailableDeliveryman();
     }
 
     @Override
     public StatisticsRecordCard getDeliverymenStatusStats() {
         return deliverymenDatabase.analyzeDeliverymenStatus();
+    }
+
+    @Override
+    public void signalNewAvailableDeliveryman() {
+        // method to be added
     }
 
     //=========== Order Methods =============================================================
