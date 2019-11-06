@@ -41,6 +41,16 @@ class ClosestLocationTest {
     }
 
     @Test
+    void happyFlowAllSantizedLocationValid() {
+        ArrayList<String> locationNameList = new ArrayList<>(Arrays.asList("AS5", "AS5", "AS5"));
+        ClosestCommonLocationData result = closestLocation.closestLocationData(locationNameList);
+        assertEquals(result.getFirstClosest(), "AS5");
+        assertEquals("Avg distance: 0(meters)", result.getFirstAvg());
+        assertEquals(result.getLocationEntered(), locationNameList);
+        assertEquals(result.getValidLocation(), locationNameList);
+    }
+
+    @Test
     void happyFlowSomeLocationValid() {
         ArrayList<String> locationNameList1 = new ArrayList<>(Arrays.asList("canteen", "LT17", "BIAP"));
         ClosestCommonLocationData result1;
@@ -81,13 +91,38 @@ class ClosestLocationTest {
     }
 
     @Test
-    void closestLocation() {
+    void closestLocationDataStringHappyFlow() {
         ArrayList<String> locationNameList = new ArrayList<>(Arrays.asList("LT17", "LT17", "LT17"));
         String result = closestLocation.closestLocationDataString(locationNameList);
         String expectedResult = "\n"
                 + "First closest location: LT17 | Average travelling distance/meters Avg distance: 0(meters)\n"
                 + "Second closest location: LT19 | Average travelling distance/meters Avg distance: 11(meters)\n"
                 + "Third closest location: LT8 | Average travelling distance/meters Avg distance: 224(meters)\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void closestLocationDataStringHappyFlow_oneInvalidLocation() {
+        ArrayList<String> locationNameList = new ArrayList<>(Arrays.asList("LT17", "LT17", "BIAP"));
+        String result = closestLocation.closestLocationDataString(locationNameList);
+        String expectedResult = "\n"
+                + "First closest location: LT17 | Average travelling distance/meters Avg distance: 0(meters)\n"
+                + "Second closest location: LT19 | Average travelling distance/meters Avg distance: 7(meters)\n"
+                + "Third closest location: LT8 | Average travelling distance/meters Avg distance: 149(meters)\n"
+                + "Could not recognise these locations:\n"
+                + "BIAP\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void closestLocationDataStringSadFlow() {
+        ArrayList<String> locationNameList = new ArrayList<>(Arrays.asList("BIAP", "BIAP", "BIAP"));
+        String result = closestLocation.closestLocationDataString(locationNameList);
+        String expectedResult =
+                "Cannot get result because All location entered cannot be identified by TimeBook. Refer to  "
+                        + "Supported Location table in User Guide to ge the supported locations.\n"
+                        + "Source location: BIAP, BIAP, BIAP\n"
+                        + "Invalid Source location: BIAP, BIAP, BIAP\n";
         assertEquals(expectedResult, result);
     }
 }

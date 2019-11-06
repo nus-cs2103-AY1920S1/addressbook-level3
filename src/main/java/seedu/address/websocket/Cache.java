@@ -418,7 +418,7 @@ public class Cache {
     }
 
     private static void checkGmapsKey(String url) throws ConnectException {
-        if (url.split("key=").length == 1) {
+        if (!UrlUtil.isGmapsKeyPresent()) {
             throw new ConnectException("Enter API key to make API call");
         }
     }
@@ -454,7 +454,7 @@ public class Cache {
         try {
             img = ImageIO.read(resourceStream);
             logger.info("Successfully loaded image for " + validLocation);
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             logger.warning("Error reading from image file " + path + ": " + e);
         }
         return img;

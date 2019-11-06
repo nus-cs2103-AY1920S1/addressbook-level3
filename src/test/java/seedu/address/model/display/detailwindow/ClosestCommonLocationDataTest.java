@@ -53,9 +53,20 @@ class ClosestCommonLocationDataTest {
     }
 
     @Test
-    void getImageFirst() {
+    void getImageFirstHappyFlow() {
         closestCommonLocationData.setFirstClosest("LT17");
         assertDoesNotThrow(()->closestCommonLocationData.getImageFirst());
+    }
+
+    @Test
+    void getImageFirstSadFlowNullEntry() {
+        assertEquals(closestCommonLocationData.getImageFirst(), null);
+    }
+
+    @Test
+    void getImageFirstSadFlowInvalidPrefix() {
+        closestCommonLocationData.setFirstClosest("NUS_LT17");
+        assertEquals(closestCommonLocationData.getImageFirst(), null);
     }
 
     @Test
@@ -65,9 +76,31 @@ class ClosestCommonLocationDataTest {
     }
 
     @Test
+    void getImageSecondSadFlowNullEntry() {
+        assertEquals(closestCommonLocationData.getImageSecond(), null);
+    }
+
+    @Test
+    void getImageSecondSadFlowInvalidPrefix() {
+        closestCommonLocationData.setSecondClosest("NUS_LT17");
+        assertEquals(closestCommonLocationData.getImageSecond(), null);
+    }
+
+    @Test
     void getImageThird() {
         closestCommonLocationData.setThirdClosest("LT17");
         assertDoesNotThrow(()->closestCommonLocationData.getImageThird());
+    }
+
+    @Test
+    void getImageThirdSadFlowNullEntry() {
+        assertEquals(closestCommonLocationData.getImageThird(), null);
+    }
+
+    @Test
+    void getImageThirdSadFlowInvalidPrefix() {
+        closestCommonLocationData.setThirdClosest("NUS_LT17");
+        assertEquals(closestCommonLocationData.getImageThird(), null);
     }
 
     @Test
@@ -126,5 +159,15 @@ class ClosestCommonLocationDataTest {
         assertEquals(closestCommonLocationData.isOk(), false);
         closestCommonLocationData.setOk(true);
         assertEquals(closestCommonLocationData.isOk(), true);
+    }
+
+    @Test
+    void testToString() {
+        closestCommonLocationData.setFirstClosest("Foo");
+        closestCommonLocationData.setSecondClosest("Bar");
+        closestCommonLocationData.setThirdClosest("BarFoo");
+        assertEquals(closestCommonLocationData.toString(), "Foo: 0\n"
+                + "Bar: 0\n"
+                + "Bar: 0\n");
     }
 }
