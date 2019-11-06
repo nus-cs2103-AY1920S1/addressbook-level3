@@ -151,6 +151,8 @@ public class ReportWindow extends UiPart<Region> {
             return false;
         } else if (!new File(selectedItem.getValue()).exists()) {
             return false;
+        } else if (!(new File(selectedItem.getValue()).canWrite())) {
+            return false;
         }
         return true;
     }

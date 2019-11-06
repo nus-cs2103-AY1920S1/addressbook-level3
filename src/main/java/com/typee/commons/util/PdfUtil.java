@@ -27,6 +27,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.typee.commons.core.LogsCenter;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
 import com.typee.model.engagement.Appointment;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
@@ -93,16 +94,18 @@ public class PdfUtil {
     /**
      * Deletes the document of a give file name in the directory.
      */
-    public static boolean deleteDocument(String to, String from, LocalDateTime start, String desc) {
+    public static boolean deleteDocument(String to, String from, LocalDateTime start, String desc)
+            throws DeleteDocumentException {
         String fileName = generateFileName(to, from, start, desc);
 
         if (Files.notExists(Paths.get(FOLDER_PATH))) {
             Paths.get(FOLDER_PATH).toFile().mkdir();
         }
-
         File fileToDelete = new File(fileName);
-
-        return fileToDelete.delete();
+        if (fileToDelete.canWrite()) {
+            return fileToDelete.delete();
+        }
+        throw new DeleteDocumentException();
     }
 
     /**
