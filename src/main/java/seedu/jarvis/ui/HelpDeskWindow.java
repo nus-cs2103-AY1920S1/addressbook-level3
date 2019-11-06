@@ -56,7 +56,6 @@ public class HelpDeskWindow extends UiPart<Region> {
         text1.setText("Cca Tracker\n\n"
                 + "Try the following commands:\n\n");
         text2.setText("add-cca\n"
-                 + "add-cca\n"
                  + "delete-cca\n"
                  + "edit-cca\n"
                  + "list-cca\n"
@@ -69,7 +68,14 @@ public class HelpDeskWindow extends UiPart<Region> {
     public void setFinanceText() {
         text1.setText("Finance Tracker\n\n"
                 + "Try the following commands:\n\n");
-        text2.setText("");
+        text2.setText("add-paid\n"
+                + "delete-paid\n"
+                + "find-paid\n"
+                + "add-install\n"
+                + "delete-install\n"
+                + "edit-install\n"
+                + "set-limit\n"
+                + "list-finances");
     }
 
     public void setCourseText() {
