@@ -49,6 +49,7 @@ public class DeleteFoodCommand extends Command {
         Food foodToDelete = restaurant.getMenu().get(targetIndex.getZeroBased());
         restaurant.removeFood(foodToDelete);
 
+        /*
         List<Order> orders = model.getFilteredOrderList().stream()
                 .filter(order -> order.getRestaurant().equals(restaurant.getName()))
                 .filter(order -> order.isCompleted() == false)
@@ -65,7 +66,7 @@ public class DeleteFoodCommand extends Command {
                     .completeOrder();
             model.setOrder(order, newOrder);
         }
-
+         */
         restaurant.updateQuantity(foodToDelete.getQuantityOrdered() * -1);
         return new CommandResult(String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, foodToDelete));
     }
