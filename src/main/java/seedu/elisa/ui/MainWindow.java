@@ -136,7 +136,7 @@ public class MainWindow extends UiPart<Stage> {
                 public void changed(ObservableValue<? extends Boolean> o, Boolean old, Boolean n) {
                     if (!primaryStage.focusedProperty().get() && popup != null) {
                         popup.hide();
-                    } else if (popup != null){
+                    } else if (popup != null) {
                         popup.show(primaryStage);
                     } else {
                         // do nothing to the popup

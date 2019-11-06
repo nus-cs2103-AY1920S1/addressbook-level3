@@ -18,6 +18,7 @@ import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.commons.util.StringUtil;
 import seedu.elisa.logic.parser.exceptions.FastReminderParseException;
+import seedu.elisa.logic.parser.exceptions.InvalidDateException;
 import seedu.elisa.logic.parser.exceptions.MidnightParseException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.AutoReschedulePeriod;
@@ -228,7 +229,8 @@ public class ParserUtil {
                 reschedulePeriod = AutoReschedulePeriod.from(temp);
             } catch (Exception e) {
                 if (e instanceof FastReminderParseException) {
-                    throw new ParseException("Hmmm... There seems to be an issue with your -auto flag... " + e.getMessage());
+                    throw new ParseException("Hmmm... There seems to be an issue with your -auto flag... "
+                            + e.getMessage());
                 } else {
                     throw new ParseException(MESSAGE_INCORRECT_AUTORESCHEDULE_FORMAT);
                 }
@@ -267,6 +269,9 @@ public class ParserUtil {
             } catch (MidnightParseException mp) {
                 String formatted = String.format(MESSAGE_MIDNIGHT, mp.getMessage());
                 parseException = new ParseException(formatted);
+            } catch (InvalidDateException de) {
+                invalidFormat = true;
+                parseException = de;
             } catch (ParseException err) {
                 invalidFormat = true;
             }

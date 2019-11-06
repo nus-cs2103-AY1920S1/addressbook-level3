@@ -1,7 +1,6 @@
 package seedu.elisa.logic.parser;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 import seedu.elisa.logic.parser.exceptions.MidnightParseException;
