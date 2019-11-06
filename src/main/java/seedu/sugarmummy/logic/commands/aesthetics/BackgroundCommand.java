@@ -40,7 +40,7 @@ public class BackgroundCommand extends Command {
             + "no different from what has already been set in your current settings! As such, there's nothing "
             + "for me to update :)";
 
-    public static final String MESSAGE_COLOURS_TOO_CLOSE = "Oops! The background you have keyed in has dominant "
+    private static final String MESSAGE_COLOURS_TOO_CLOSE = "Oops! The background you have keyed in has dominant "
             + "colours that are too close to the current font colour. Please try changing your font colour first or "
             + "selecting a different background. Alternatively you may combine the background "
             + "command for the new background with a fontcolour command, using the prefix [fontcolour/].\n"
@@ -97,8 +97,8 @@ public class BackgroundCommand extends Command {
         StringBuilder updateMessage = new StringBuilder();
 
         if (previousBackground.isBackgroundColour()
-                && (!newBackground.isEmpty()
-                && (!newBackground.getBgSize().isEmpty() || !newBackground.getBgRepeat().isEmpty()))) {
+                && (newBackground.isEmpty()
+                && !newBackground.getBgSize().isEmpty() || !newBackground.getBgRepeat().isEmpty())) {
             throw new CommandException(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT, MESSAGE_USAGE));
         }
 

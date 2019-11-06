@@ -1,6 +1,5 @@
 package seedu.sugarmummy.recmfood.ui;
 
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
@@ -28,19 +27,13 @@ public class FoodFlowPanel extends UiPart<Region> {
     public FoodFlowPanel(ObservableList<Food> foodList) {
         super(FXML);
 
-        foodList.addListener(new ListChangeListener<Food>() {
-            @Override
-            public void onChanged(Change<? extends Food> c) {
-                refreshFlowPanel(foodList);
-            }
-        });
-        foodList.stream().sorted(Comparator.comparing(food -> food.getFoodType()))
-                .forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
+        foodList.addListener((ListChangeListener<Food>) listener -> refreshFlowPanel(foodList));
+        fillFlowPaneContent(foodList);
         mainScrollPanel.setContent(flowPane);
     }
 
-    public FoodFlowPanel(Food mix, ObservableList<Food> foodList) {
-        super(FXML);
+    private void fillFlowPaneContent(ObservableList<Food> foodList) {
+        foodList.stream().forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
     }
 
     /**
@@ -48,7 +41,6 @@ public class FoodFlowPanel extends UiPart<Region> {
      */
     private void refreshFlowPanel(ObservableList<Food> foodList) {
         flowPane.getChildren().clear();
-        foodList.stream().sorted(Comparator.comparing(food -> food.getFoodType()))
-                .forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
+        fillFlowPaneContent(foodList);
     }
 }

@@ -10,6 +10,7 @@ import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.calendar.Reminder;
+import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
  * Adds a reminder to the calendar.
@@ -51,6 +52,11 @@ public class ReminderCommand extends Command {
         model.addCalendarEntry(toAdd);
         model.schedule();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+    }
+
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.NONE;
     }
 
     @Override

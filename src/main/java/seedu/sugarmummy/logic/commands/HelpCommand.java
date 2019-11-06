@@ -1,6 +1,7 @@
 package seedu.sugarmummy.logic.commands;
 
 import seedu.sugarmummy.model.Model;
+import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
  * Format full help instructions for every command for display.
@@ -13,6 +14,11 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.NONE;
+    }
 
     @Override
     public CommandResult execute(Model model) {

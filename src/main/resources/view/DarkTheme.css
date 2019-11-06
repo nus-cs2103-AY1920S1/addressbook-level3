@@ -76,7 +76,7 @@
 }
 
 .myGridStyle Line {
-    -fx-stroke: red;
+    -fx-stroke: white;
 }
 
 .table-view .column-header .label {

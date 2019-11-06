@@ -24,6 +24,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -300,7 +301,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param guiIsModified   Boolean indicating whether the GUI has been modified.
      * @return Pane to be displayed.
      */
-    private DisplayPaneType getPaneToDisplay(DisplayPaneType displayPaneType, boolean guiIsModified) {
+    private DisplayPaneType getNextPaneType(DisplayPaneType displayPaneType, boolean guiIsModified) {
         if (guiIsModified && mainDisplayPane.getCurrPaneType() == DisplayPaneType.BIO) {
             return DisplayPaneType.BIO;
         } else if (guiIsModified) {
@@ -336,20 +337,18 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the main display pane to the specified UI part.
      */
     private void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
-        if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
-            //throw new NullPointerException();
-        } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
-            DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
-            if (paneToDisplay == null) {
+        assert Arrays.asList(DisplayPaneType.values()).contains(displayPaneType) : "The displayPaneType "
+                + displayPaneType + " is inside the enum";
+
+        if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
+            DisplayPaneType nextPaneType = getNextPaneType(displayPaneType, guiIsModified(displayPaneType));
+            if (nextPaneType == null) {
                 return;
             }
             newPaneIsToBeCreated = ((displayPaneType == DisplayPaneType.COLOUR
                     || displayPaneType == DisplayPaneType.BACKGROUND)
-                    && paneToDisplay == DisplayPaneType.BIO) || newPaneIsToBeCreated;
-            mainDisplayPanePlaceholder.setStyle(null);
-            mainDisplayPanePlaceholder.getChildren().clear();
-            mainDisplayPanePlaceholder.getChildren()
-                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
+                    && nextPaneType == DisplayPaneType.BIO) || newPaneIsToBeCreated;
+            updateMainDisplayPane(requireNonNull(mainDisplayPane.get(nextPaneType, newPaneIsToBeCreated)));
         }
     }
 
@@ -362,16 +361,19 @@ public class MainWindow extends UiPart<Stage> {
         if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
             throw new NullPointerException();
         } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
-            DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
+            DisplayPaneType paneToDisplay = getNextPaneType(displayPaneType, guiIsModified(displayPaneType));
             if (paneToDisplay == null) {
                 return;
             }
-            mainDisplayPanePlaceholder.setStyle(null);
-            mainDisplayPanePlaceholder.getChildren().clear();
-            mainDisplayPanePlaceholder.getChildren()
-                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
-                            yearMonth, yearMonthDay, isShowingWeek).getRoot()));
+            updateMainDisplayPane(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
+                    yearMonth, yearMonthDay, isShowingWeek)));
         }
+    }
+
+    private void updateMainDisplayPane(UiPart<Region> paneUi) {
+        mainDisplayPanePlaceholder.setStyle(null);
+        mainDisplayPanePlaceholder.getChildren().clear();
+        mainDisplayPanePlaceholder.getChildren().add(paneUi.getRoot());
     }
 
     void show() {

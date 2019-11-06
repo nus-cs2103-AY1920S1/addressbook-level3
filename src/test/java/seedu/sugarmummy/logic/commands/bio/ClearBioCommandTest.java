@@ -22,7 +22,7 @@ class ClearBioCommandTest {
     @Test
     public void executeClrBio_nullModel_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
-                .getMessage(), () -> (new ClearBioCommand()).execute(null));
+                        .getMessage(), () -> (new ClearBioCommand()).execute(null));
     }
 
     @Test
@@ -48,7 +48,7 @@ class ClearBioCommandTest {
 
     @Test
     public void getNewPaneIsToBeCreated_test() {
-        assertTrue(new ClearBioCommand().getNewPaneIsToBeCreated());
+        assertTrue(new ClearBioCommand().isToCreateNewPane());
     }
 
 }

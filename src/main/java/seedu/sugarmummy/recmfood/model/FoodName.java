@@ -7,11 +7,10 @@ import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
  * Represents the name of <code>Food</code> in the recommended food list. Guarantees: immutable; is valid as declared in
  * {@link #isValidName(String)}
  */
-public class FoodName {
+public class FoodName implements Comparable<FoodName> {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces. It should not be blank "
-                    + "or longer than 30 characters";
+    public static final String MESSAGE_CONSTRAINTS = "Names should only contain alphanumeric characters and spaces. "
+            + "It should not be blank or longer than 30 characters";
 
     /*
      * The first character of the food must not be a whitespace,
@@ -65,4 +64,8 @@ public class FoodName {
         return foodName.hashCode();
     }
 
+    @Override
+    public int compareTo(FoodName another) {
+        return foodName.compareTo(another.foodName);
+    }
 }

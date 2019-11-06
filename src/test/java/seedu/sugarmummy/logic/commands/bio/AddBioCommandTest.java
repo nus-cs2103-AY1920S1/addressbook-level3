@@ -24,13 +24,13 @@ class AddBioCommandTest {
     @Test
     public void nullUser_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
-                .getMessage(), () -> new AddBioCommand(null));
+                        .getMessage(), () -> new AddBioCommand(null));
     }
 
     @Test
     public void executeAddbio_nullModel_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
-                .getMessage(), () -> (new AddBioCommand(VALID_USER)).execute(null));
+                        .getMessage(), () -> (new AddBioCommand(VALID_USER)).execute(null));
     }
 
     @Test
@@ -49,15 +49,15 @@ class AddBioCommandTest {
         VALID_USER.getFieldMap().forEach((key, value) -> {
             if (!value.isEmpty() && !value.equals("[]")) {
                 addedFields.append("- ").append(key).append(": ")
-                        .append(value).append("\n");
+                    .append(value).append("\n");
             }
         });
 
         CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
-                addedFields.toString().trim()), false, false);
+            addedFields.toString().trim()), false, false);
         assertCommandSuccess(new AddBioCommand(VALID_USER), new BioModelStub.ModelStubWithNoUserList(),
-                expectedCommandResult,
-                model);
+            expectedCommandResult,
+            model);
     }
 
     @Test
@@ -67,7 +67,7 @@ class AddBioCommandTest {
 
     @Test
     public void getNewPaneToBecreated_test() {
-        assertTrue(new AddBioCommand(VALID_USER).getNewPaneIsToBeCreated());
+        assertTrue(new AddBioCommand(VALID_USER).isToCreateNewPane());
     }
 
     @Test

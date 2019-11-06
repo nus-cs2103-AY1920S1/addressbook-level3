@@ -1,5 +1,7 @@
 package seedu.sugarmummy.recmfood.model;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -7,23 +9,31 @@ import java.util.List;
  */
 public class FoodCalculator {
 
-    public static Calorie getCalorieSum(List<Food> foodItems) {
+    private static final NumberFormat resultFormatter = new DecimalFormat("0");
+
+    private final List<Food> foodItems;
+
+    public FoodCalculator(List<Food> foodItems) {
+        this.foodItems = foodItems;
+    }
+
+    public Calorie getCalorieSum() {
         double sum = foodItems.stream().mapToDouble(food -> food.getCalorie().getNumericalValue()).sum();
-        return new Calorie(Double.toString(sum));
+        return new Calorie(resultFormatter.format(sum));
     }
 
-    public static Gi getGiSum(List<Food> foodItems) {
-        double sum = foodItems.stream().mapToDouble(food -> food.getGi().getNumericalValue()).sum();
-        return new Gi(Double.toString(sum));
+    public Gi getGiAverage() {
+        double average = foodItems.stream().mapToDouble(f -> f.getGi().getNumericalValue()).average().getAsDouble();
+        return new Gi(resultFormatter.format(average));
     }
 
-    public static Sugar getSugarSum(List<Food> foodItems) {
+    public Sugar getSugarSum() {
         double sum = foodItems.stream().mapToDouble(food -> food.getSugar().getNumericalValue()).sum();
-        return new Sugar(Double.toString(sum));
+        return new Sugar(resultFormatter.format(sum));
     }
 
-    public static Fat getFatSum(List<Food> foodItems) {
+    public Fat getFatSum() {
         double sum = foodItems.stream().mapToDouble(food -> food.getFat().getNumericalValue()).sum();
-        return new Fat(Double.toString(sum));
+        return new Fat(resultFormatter.format(sum));
     }
 }

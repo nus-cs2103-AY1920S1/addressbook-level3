@@ -21,7 +21,7 @@ class BioCommandTest {
         Model expectedModel = new BioModelStub.ModelStubWithNoUserList();
 
         CommandResult expectedCommandResult = new CommandResult(SHOWING_BIO_MESSAGE, false, true,
-                false, false);
+            false, false);
         assertCommandSuccess(new BioCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -32,7 +32,7 @@ class BioCommandTest {
         Model expectedModel = new BioModelStub.ModelStubWithUserList();
 
         CommandResult expectedCommandResult = new CommandResult(SHOWING_BIO_MESSAGE, false, true,
-                false, false);
+            false, false);
         assertCommandSuccess(new BioCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -43,7 +43,7 @@ class BioCommandTest {
 
     @Test
     public void getNewPaneIsToBeCreated_test() {
-        assertFalse(new BioCommand().getNewPaneIsToBeCreated());
+        assertFalse(new BioCommand().isToCreateNewPane());
     }
 
 }

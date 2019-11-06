@@ -8,12 +8,9 @@ import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_GI;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SUGAR;
 
-import java.util.stream.Stream;
-
 import seedu.sugarmummy.logic.parser.ArgumentMultimap;
 import seedu.sugarmummy.logic.parser.ArgumentTokenizer;
 import seedu.sugarmummy.logic.parser.Parser;
-import seedu.sugarmummy.logic.parser.Prefix;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.recmfood.commands.AddFoodCommand;
 import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;
@@ -30,14 +27,6 @@ import seedu.sugarmummy.recmfood.model.Sugar;
  * Parses input arguments and creates a new AddFoodCommand object
  */
 public class AddFoodCommandParser implements Parser<AddFoodCommand> {
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
-     * ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 
     /**
      * Checks whether the input food has suitable calorie, gi, sugar, and fat values for type II diabetes patients.
@@ -62,7 +51,7 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_FOOD_NAME, PREFIX_FOOD_TYPE, PREFIX_CALORIE, PREFIX_GI, PREFIX_SUGAR, PREFIX_FAT);
 
-        if (arePrefixesPresent(argMultimap,
+        if (Parser.arePrefixesPresent(argMultimap,
                 PREFIX_FOOD_NAME, PREFIX_FOOD_TYPE, PREFIX_CALORIE, PREFIX_GI, PREFIX_SUGAR, PREFIX_FAT)
                 && argMultimap.getPreamble().isEmpty()) {
 

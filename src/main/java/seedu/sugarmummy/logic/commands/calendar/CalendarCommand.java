@@ -73,7 +73,7 @@ public class CalendarCommand extends Command {
     }
 
     @Override
-    public boolean getNewPaneIsToBeCreated() {
+    public boolean isToCreateNewPane() {
         return true;
     }
 }
