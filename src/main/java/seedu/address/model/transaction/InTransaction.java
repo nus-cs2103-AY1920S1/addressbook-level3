@@ -18,11 +18,6 @@ public class InTransaction extends Transaction implements BankAccountOperation {
         super(amount, date, description, categories);
     }
 
-    public InTransaction(Amount amount, Date date, Description description,
-                         Set<Category> categories, Person personInvolved) {
-        super(amount, date, description, categories, personInvolved);
-    }
-
     @Override
     public Amount handleBalance(Amount balance) {
         Amount newBalance = balance.addAmount(super.amount);
