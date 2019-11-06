@@ -21,6 +21,8 @@ public class DashboardPanel extends UiPart<Region> {
     @FXML
     private StackPane folderStructurePlaceholder;
     @FXML
+    private StackPane favoriteListPlaceholder;
+    @FXML
     private StackPane reminderListPlaceholder;
     @FXML
     private StackPane autotagDisplayPlaceholder;
@@ -35,6 +37,10 @@ public class DashboardPanel extends UiPart<Region> {
 
         ReminderListPanel reminderListPanel = new ReminderListPanel(logic.getReminderList());
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
+
+        FavoriteListPanel favoriteListPanel = new FavoriteListPanel(logic.getFavoriteBookmarkList(),
+                currentUrlChangeHandler);
+        favoriteListPlaceholder.getChildren().add(favoriteListPanel.getRoot());
 
         AutotagTablePanel autotagTablePanel = new AutotagTablePanel(logic.getAutotags());
         autotagDisplayPlaceholder.getChildren().add(autotagTablePanel.getRoot());

@@ -103,9 +103,9 @@ specified.
 f/CS2103T r/Contains textbook & important deadlines` +
 Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
 The new bookmark's remark is `Contains textbook & important deadlines`.
-* `*add* u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
+* `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
 Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
-`video` and `watch-later`.
+`video` and `watchLater`.
 
 [[folder]]
 === Adding a new folder: *`folder`*
@@ -117,6 +117,7 @@ Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
 * `FOLDER_NAME` cannot be the name of an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
+* `FOLDER_NAME` must be alphanumeric.
 * `PARENT_FOLDER` must be an existing folder.
 * If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
 ****
@@ -210,6 +211,7 @@ Deletes the 2nd bookmark in the bookmark manager.
 `*delete* 1` +
 Deletes the 1st bookmark in the results of the find command.
 
+// tag::goto-command[]
 === Opening a bookmark: *`goto`*
 
 Opens the specified the bookmark from the bookmark manager.
@@ -227,7 +229,9 @@ Examples:
 * `*list*` +
 `*goto* 1` +
 Opens the first bookmark in the bookmark manager.
+// end::goto-command[]
 
+// tag::favorite-command[]
 === Adding a bookmark to Favorites: *`favorite|fav`*
 
 Adds a Favorite tag to the specified bookmark.
@@ -248,7 +252,7 @@ Adds a Favorite tag to the first bookmark in the bookmark manager.
 
 * `*fav* 2` +
 Adds a Favorite tag to the second bookmark in the bookmark manager.
-
+// end::favorite-command[]
 
 === Clearing all entries: *`clear`*
 
@@ -256,6 +260,7 @@ Clears all entries from the bookmark manager.
 
 Format: `*clear*`
 
+// tag::undo-redo-command[]
 === Undoing previous commands: *`undo`*
 
 Restores the list to the state before the given number of previous undoable commands were
@@ -291,6 +296,7 @@ Examples:
 
 * `*redo*` +
 Reverses the most recent `*undo*` command.
+// end::undo-redo-command[]
 
 === Exiting the program: *`exit`*
 
@@ -307,6 +313,7 @@ There is no need to save data manually. It is also possible to save
 Mark data with a different file name using the command `*export*`
 (see <<exporting-bookmarks>>).
 
+// tag::exportcommand[]
 [[exporting-bookmarks]]
 === Exporting bookmarks: *`export`*
 
@@ -321,6 +328,7 @@ Format: `*export* [FILENAME]`
 +
 `FILENAME` should not include the file extension. E.g. `myBookmarks` and not
 `myBookmarks.json`
+* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
 * The data file is saved at `[applicationHome]/data/bookmarks/FILENAME.json`.
 If the given file already exists, it is overwritten.
 ****
@@ -331,6 +339,7 @@ Example:
 Exports all bookmark manager data to a file named `mark/data/bookmarks/myBookmarks.json`
 (assuming `mark.jar` is stored in the folder `mark`). The content of `myBookmarks.json`
 is identical to the current content of `mark.json`.
+// end::exportcommand[]
 
 === Importing bookmarks: *`import`*
 
@@ -346,6 +355,7 @@ Format: `*import* FILENAME`
 ****
 * `FILENAME` is case sensitive and should not include the file extension. E.g.
 `myBookmarks` and not `myBookmarks.json`
+* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
 * `FILENAME.json` should be a file stored in the folder
 `[applicationHome]/data/bookmarks/`.
 * The file corresponding to `FILENAME` should have a valid format, identical
@@ -358,6 +368,7 @@ Example:
 Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
 file `mark/data/bookmarks/myBookmarks.json`.
 
+// tag::autotagcommand[]
 [[Autotag-Command]]
 === Creating an automatic tag: *`autotag`*
 
@@ -411,6 +422,7 @@ containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
  Creates an autotag that adds the tag `Quiz` to all bookmarks that are either in
  the folder `NUS` or in the folder `Module`, and that do not contain any of the
 keywords `github` or `stackoverflow` in their URLs.
+// end::autotagcommand[]
 
 === Deleting automatic tags: *`autotag-delete`*
 
@@ -648,7 +660,7 @@ Format: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 
 ****
 * `INDEX` is the index of the bookmark that you want to add with a reminder.
- * `TIME_DATE` follows `_dd/mm/yyyy HHMM_` format.
+ * `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format.
 * `NOTE` is the description of the reminder, the default value is Open.
 ****
 Examples:
@@ -670,7 +682,7 @@ Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
 ****
 * `INDEX` is the index of the reminder you want to edit on the dashboard.
-* `TIME_DATE` is the time you want to edit. The time follows `_dd/mm/yyyy HHMM_` format.
+* `TIME_DATE` is the time you want to edit. The time follows `_dd/MM/uuuu HHmm_` format.
 * `NOTE` is the description of the reminder that you want to edit.
 ****
 Examples:

@@ -41,6 +41,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of bookmarks */
     ObservableList<Bookmark> getFilteredBookmarkList();
 
+    /** Returns an unmodifiable view of the list of favorite bookmarks */
+    ObservableList<Bookmark> getFavoriteBookmarkList();
+
     /** Returns an unmodifiable view of the folder structure */
     FolderStructure getFolderStructure();
 

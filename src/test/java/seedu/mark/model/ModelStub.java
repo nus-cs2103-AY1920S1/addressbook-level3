@@ -91,6 +91,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public ObservableList<Bookmark> getFavoriteBookmarkList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Bookmark> getFilteredBookmarkList() {
         throw new AssertionError("This method should not be called.");
     }

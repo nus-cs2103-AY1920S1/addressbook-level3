@@ -4,6 +4,7 @@ import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Note;
@@ -17,8 +18,9 @@ public class ReminderBuilder {
     public static final String DEFAULT_NOTE = Note.DEFAULT_VALUE;
     public static final String DEFAULT_URL = VALID_URL_AMY;
     public static final String DEFAULT_TIME = "12/12/2020 1800";
-    private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+    private static final String DATE_FORMATTER = "dd/MM/uuuu HHmm";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMATTER)
+                                                                        .withResolverStyle(ResolverStyle.STRICT);
 
 
     private Note note;

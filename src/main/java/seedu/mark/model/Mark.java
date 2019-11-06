@@ -267,7 +267,7 @@ public class Mark implements ReadOnlyMark {
      * @param bookmark the bookmark to be added to the favorites
      */
     public void favoriteBookmark(Bookmark bookmark) {
-        BookmarkTagger favoriteTagger = new BookmarkTagger(new Tag("Favorite"));
+        BookmarkTagger favoriteTagger = new BookmarkTagger(Tag.FAVORITE);
         setBookmark(bookmark, favoriteTagger.applyTag(bookmark));
     }
 

@@ -29,7 +29,8 @@ public class AddReminderCommand extends Command {
             + "[" + PREFIX_NOTE + "NOTE] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "07/01/2020 1300 "
-            + PREFIX_NOTE + "Check the schedule ";
+            + PREFIX_NOTE + "Check the schedule \n"
+            + "You can find your reminder in dashboard.";
 
     public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
     public static final String MESSAGE_DUPLICATE_REMINDER = "This bookmark already has a reminder.";

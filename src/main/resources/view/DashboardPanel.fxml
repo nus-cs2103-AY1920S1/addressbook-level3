@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.HBox?>
-<HBox xmlns:fx="http://javafx.com/fxml/1">
-    <VBox prefHeight="400.0" prefWidth="600.0">
-
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" spacing="5">
+    <VBox HBox.hgrow="ALWAYS">
         <HBox VBox.vgrow="ALWAYS">
-            <StackPane fx:id="folderStructurePlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="folderStructurePlaceholder" HBox.hgrow="ALWAYS"/>
         </HBox>
-
         <HBox VBox.vgrow="ALWAYS">
-            <StackPane fx:id="reminderListPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="reminderListPlaceholder" HBox.hgrow="ALWAYS"/>
         </HBox>
 
     </VBox>
-
-    <HBox VBox.vgrow="ALWAYS">
-        <StackPane fx:id="autotagDisplayPlaceholder" VBox.vgrow="ALWAYS"/>
-    </HBox>
+    <VBox maxWidth="200">
+        <HBox VBox.vgrow="ALWAYS">
+            <StackPane fx:id="favoriteListPlaceholder"/>
+        </HBox>
+        <HBox VBox.vgrow="ALWAYS">
+            <StackPane fx:id="autotagDisplayPlaceholder" VBox.vgrow="ALWAYS"/>
+        </HBox>
+    </VBox>
 </HBox>
