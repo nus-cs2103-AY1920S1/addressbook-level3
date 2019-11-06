@@ -20,7 +20,8 @@ public class EditAccommodationEvent implements Event {
     private final EditAccommodationDescriptor editInfo;
     private final EditAccommodationDescriptor reverseEditInfo;
 
-    public EditAccommodationEvent(Index index, EditAccommodationDescriptor editInfo, Model model) throws EventException {
+    public EditAccommodationEvent(Index index, EditAccommodationDescriptor editInfo, Model model)
+            throws EventException {
         this.index = index;
         this.editInfo = editInfo;
         this.reverseEditInfo = generateReverseEditInfo(model);

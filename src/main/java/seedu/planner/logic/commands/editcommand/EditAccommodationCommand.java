@@ -69,7 +69,8 @@ public class EditAccommodationCommand extends EditCommand {
         isUndo = false;
     }
 
-    public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor, boolean isUndo) {
+    public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor,
+                                    boolean isUndo) {
         requireAllNonNull(index, editAccommodationDescriptor, isUndo);
         this.index = index;
         this.editAccommodationDescriptor = editAccommodationDescriptor;

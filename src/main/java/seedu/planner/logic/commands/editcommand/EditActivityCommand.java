@@ -64,7 +64,6 @@ public class EditActivityCommand extends EditCommand {
     private final Index index;
     private final EditActivityDescriptor editActivityDescriptor;
     private final boolean isUndo;
-    
     /**
      * @param index of the activity in the filtered activity list to edit
      */
@@ -76,7 +75,7 @@ public class EditActivityCommand extends EditCommand {
     }
 
     public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor, boolean isUndo) {
-        requireAllNonNull(index, editActivityDescriptor);
+        requireAllNonNull(index, editActivityDescriptor, isUndo);
         this.index = index;
         this.editActivityDescriptor = editActivityDescriptor;
         this.isUndo = isUndo;
