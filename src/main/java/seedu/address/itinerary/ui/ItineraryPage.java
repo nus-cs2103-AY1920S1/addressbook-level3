@@ -1,9 +1,5 @@
 package seedu.address.itinerary.ui;
 
-import static seedu.address.address.logic.AddressBookLogicManager.FILE_OPS_ERROR_MESSAGE;
-
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -23,10 +19,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.itinerary.logic.ItineraryLogic;
 import seedu.address.itinerary.logic.parser.ItineraryParser;
-import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.storage.ItineraryStorage;
-import seedu.address.itinerary.storage.JsonItineraryStorage;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -67,6 +60,8 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private ItineraryStorage itineraryStorage;
 
     private ItineraryLogic itineraryLogic;
+
+    private Stage primaryStage;
 
     @FXML
     private Scene itineraryScene;
