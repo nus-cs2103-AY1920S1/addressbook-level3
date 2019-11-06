@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: IncidentManager - Level 3
+== PROJECT:  Incident Management System
 
 == Overview
 
