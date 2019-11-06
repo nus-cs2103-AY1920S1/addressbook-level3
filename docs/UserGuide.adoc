@@ -186,6 +186,9 @@ Examples:
 * `show r`
 * `show c`
 
+[NOTE]
+The flag can be in either lowercase or uppercase. Eg. `show E`.
+
 === Editing an item : `edit`
 
 This command is used to edit any of the items that you might have. +
