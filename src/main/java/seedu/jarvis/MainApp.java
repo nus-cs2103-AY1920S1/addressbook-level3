@@ -119,7 +119,15 @@ public class MainApp extends Application {
      */
     private CcaTracker readCcaTracker(Storage storage) {
         try {
-            return storage.readCcaTracker().orElseGet(CcaTracker::new);
+//            return storage.readCcaTracker().orElseGet(CcaTracker::new);
+            Optional<CcaTracker> optionalCcaTracker = storage.readCcaTracker();
+            if (optionalCcaTracker.isPresent()) {
+                return optionalCcaTracker.get();
+            } else {
+                logger.info("Data file not found. Will be starting with a sample Cca Tracker");
+                return SampleDataUtil.getSampleCcaTracker();
+            }
+
         } catch (DataConversionException | IOException e) {
             return new CcaTracker();
         }
