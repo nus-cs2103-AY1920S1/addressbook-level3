@@ -31,9 +31,9 @@ import cs.f10.t1.nursetraverse.testutil.PatientBuilder;
 import cs.f10.t1.nursetraverse.testutil.PatientUtil;
 import cs.f10.t1.nursetraverse.testutil.TypicalIndexes;
 
-public class PatientBookParserTest {
+public class AppParserTest {
 
-    private final PatientBookParser parser = new PatientBookParser();
+    private final AppParser parser = new AppParser();
 
     @Test
     public void parseCommand_add() throws Exception {
