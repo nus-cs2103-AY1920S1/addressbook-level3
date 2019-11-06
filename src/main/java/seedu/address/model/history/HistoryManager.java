@@ -14,14 +14,9 @@ public class HistoryManager {
     private static Stack<Command> commands = new Stack<>();
     private static Stack<ReadOnlyAthletick> addressBooks = new Stack<>();
     private static Stack<Command> undoneCommands = new Stack<>();
-<<<<<<< HEAD
-    private static Stack<ReadOnlyAddressBook> undoneAddressBooks = new Stack<>();
+    private static Stack<ReadOnlyAthletick> undoneAddressBooks = new Stack<>();
     private static Stack<List<Training>> trainingLists = new Stack<>();
     private static Stack<List<Training>> undoneTrainingLists = new Stack<>();
-=======
-    private static Stack<ReadOnlyAthletick> undoneAddressBooks = new Stack<>();
-    private static Stack<Training> undoneTrainingLists = new Stack<>();
->>>>>>> 8038f5b073ce72e9a18558307eb1ee3db3705cf0
     public HistoryManager() {}
     public Command getLatestCommand() {
         return commands.peek();

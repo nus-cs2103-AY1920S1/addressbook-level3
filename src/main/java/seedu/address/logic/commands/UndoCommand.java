@@ -20,7 +20,6 @@ public class UndoCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
         while (!history.getLatestCommand().isUndoable()) {
-            System.out.println(history.getLatestCommand());
             if (history.isUndoneEmpty()) {
                 return new CommandResult(MESSAGE_FAILURE);
             } else {

@@ -52,12 +52,7 @@ public class LogicManager implements Logic {
             HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
         }
         HistoryManager.getCommands().push(command);
-<<<<<<< HEAD
-        HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
-=======
         HistoryManager.getAddressBooks().push(model.getAthletickDeepCopy());
-
->>>>>>> 8038f5b073ce72e9a18558307eb1ee3db3705cf0
         try {
             storage.saveAthletick(model.getAthletick());
             storage.saveEvents(model.getPerformance());
