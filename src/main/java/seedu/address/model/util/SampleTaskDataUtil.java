@@ -1,12 +1,21 @@
 package seedu.address.model.util;
 
 import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import net.fortuna.ical4j.model.Calendar;
+
+import seedu.address.commons.util.DateTimeUtil;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
@@ -27,74 +36,119 @@ import seedu.address.model.task.TaskStatus;
 public class SampleTaskDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[]{
-            new Task(new Name("Review Budget"), TaskStatus.UNBEGUN, getTagSet("Finance"),
-                    LocalDateTime.now().plusWeeks(1)),
-            new Task(new Name("Increase Funding"), TaskStatus.DOING,
-                    getTagSet("Finance", "Urgent"), LocalDateTime.now().plusWeeks(1)),
-            new Task(new Name("Settle Claims"), TaskStatus.DOING, getTagSet("Finance")),
-            new Task(new Name("Update Website"), TaskStatus.DONE, getTagSet("Branding"),
-                    LocalDateTime.now().plusWeeks(1)),
-            new Task(new Name("Shirts for Freshman Open Day"), TaskStatus.DOING, getTagSet("Logistics")),
-            new Task(new Name("Design Poster"), TaskStatus.UNBEGUN,
-                    getTagSet("Branding"), LocalDateTime.now().plusWeeks(7))
+                new Task(new Name("Review Budget"), TaskStatus.UNBEGUN, getTagSet("Finance"),
+                        LocalDateTime.now().plusWeeks(1)),
+                new Task(new Name("Increase Funding"), TaskStatus.DOING,
+                        getTagSet("Finance", "Urgent"), LocalDateTime.now().plusWeeks(1)),
+                new Task(new Name("Settle Claims"), TaskStatus.DOING, getTagSet("Finance")),
+                new Task(new Name("Update Website"), TaskStatus.DONE, getTagSet("Branding"),
+                        LocalDateTime.now().plusWeeks(1)),
+                new Task(new Name("Shirts for Freshman Open Day"), TaskStatus.DOING, getTagSet("Logistics")),
+                new Task(new Name("Design Poster"), TaskStatus.UNBEGUN,
+                        getTagSet("Branding"), LocalDateTime.now().plusWeeks(7))
         };
     }
 
     public static Member[] getSampleMembers() {
         return new Member[]{
-            new Member(new MemberName("Gabriel Seow"), new MemberId("GS"), getTagSet("Programmer")),
-            new Member(new MemberName("Abhinav"), new MemberId("AB"), getTagSet("UIDesigner")),
-            new Member(new MemberName("Arun"), new MemberId("AR"), getTagSet("Programmer")),
-            new Member(new MemberName("Seah Lynn"), new MemberId("SL"), getTagSet("Pitcher")),
-            new Member(new MemberName("Elsa Koh"), new MemberId("EK"), getTagSet("Pitcher")),
-            new Member(new MemberName("John Doe"), new MemberId("JD"), getTagSet("Helper"))
+                new Member(new MemberName("Gabriel Seow"), new MemberId("GS"), getTagSet("Programmer")),
+                new Member(new MemberName("Abhinav"), new MemberId("AB"), getTagSet("UIDesigner")),
+                new Member(new MemberName("Arun"), new MemberId("AR"), getTagSet("Programmer")),
+                new Member(new MemberName("Seah Lynn"), new MemberId("SL"), getTagSet("Pitcher")),
+                new Member(new MemberName("Elsa Koh"), new MemberId("EK"), getTagSet("Pitcher")),
+                new Member(new MemberName("John Doe"), new MemberId("JD"), getTagSet("Helper"))
         };
     }
 
     public static Inventory[] getSampleInventory() {
         return new Inventory[]{
-            new Inventory(new InvName("Toy"), new Price(8.90)),
-            new Inventory(new InvName("Bench"), new Price(59.90)),
-            new Inventory(new InvName("Chairs")),
-            new Inventory(new InvName("Bag"), new Price(50.0)),
-            new Inventory(new InvName("Canola Oil"), new Price(17.90)),
-            new Inventory(new InvName("Laptop"), new Price(1111.11)),
+                new Inventory(new InvName("Toy"), new Price(8.90)),
+                new Inventory(new InvName("Bench"), new Price(59.90)),
+                new Inventory(new InvName("Chairs")),
+                new Inventory(new InvName("Bag"), new Price(50.0)),
+                new Inventory(new InvName("Canola Oil"), new Price(17.90)),
+                new Inventory(new InvName("Laptop"), new Price(1111.11)),
         };
     }
 
 
     public static InvMemMapping[] getSampleInvMemMapping() {
         return new InvMemMapping[]{
-            new InvMemMapping(2, 0),
-            new InvMemMapping(2, 1),
-            new InvMemMapping(0, 2),
-            new InvMemMapping(1, 3),
-            new InvMemMapping(2, 4),
-            new InvMemMapping(0, 5),
+                new InvMemMapping(2, 0),
+                new InvMemMapping(2, 1),
+                new InvMemMapping(0, 2),
+                new InvMemMapping(1, 3),
+                new InvMemMapping(2, 4),
+                new InvMemMapping(0, 5),
         };
     }
 
     public static InvTasMapping[] getSampleInvTasMapping() {
         return new InvTasMapping[]{
-            new InvTasMapping(5, 0),
-            new InvTasMapping(2, 1),
-            new InvTasMapping(5, 2),
-            new InvTasMapping(5, 3),
-            new InvTasMapping(2, 4),
-            new InvTasMapping(4, 5),
+                new InvTasMapping(5, 0),
+                new InvTasMapping(2, 1),
+                new InvTasMapping(5, 2),
+                new InvTasMapping(5, 3),
+                new InvTasMapping(2, 4),
+                new InvTasMapping(4, 5),
         };
     }
 
 
     public static TasMemMapping[] getSampleTasMemMapping() {
         return new TasMemMapping[]{
-            new TasMemMapping(1, 1),
-            new TasMemMapping(1, 2),
-            new TasMemMapping(2, 1),
-            new TasMemMapping(3, 4),
-            new TasMemMapping(4, 3),
-            new TasMemMapping(5, 5),
+                new TasMemMapping(1, 1),
+                new TasMemMapping(1, 2),
+                new TasMemMapping(2, 1),
+                new TasMemMapping(3, 4),
+                new TasMemMapping(4, 3),
+                new TasMemMapping(5, 5),
         };
+    }
+
+    public static Meeting[] getSampleMeeting() {
+        try {
+            LocalDateTime sampleDateTime1 = DateTimeUtil.parseDateTime("29-10-2019 18:00");
+            Duration sampleHours1 = ParserUtil.parseHours("4");
+            List<MemberName> sampleMembers1 = Arrays.asList(new MemberName[]{
+                    new MemberName("Gabriel"),
+                    new MemberName("Abhinav"),
+                    new MemberName("Lynn")
+            });
+            LocalDateTime sampleDateTime2 = DateTimeUtil.parseDateTime("11-11-2019 20:00");
+            Duration sampleHours2 = ParserUtil.parseHours("2");
+            List<MemberName> sampleMembers2 = Arrays.asList(new MemberName[]{
+                    new MemberName("Gabriel"),
+                    new MemberName("Abhinav"),
+                    new MemberName("Lynn")
+            });
+            return new Meeting[]{
+                    new Meeting(sampleDateTime1, sampleHours1, sampleMembers1),
+                    new Meeting(sampleDateTime2, sampleHours2, sampleMembers2)
+            };
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new Meeting[0];
+        }
+    }
+
+    public static CalendarWrapper[] getSampleCalendar() {
+        try {
+            Calendar sampleCalendar1 = ParserUtil.parseCalendar(SampleCalendarUtil.SAMPLE_CALENDAR_GABRIEL);
+            Calendar sampleCalendar2 = ParserUtil.parseCalendar(SampleCalendarUtil.SAMPLE_CALENDAR_ABHINAV);
+            Calendar sampleCalendar3 = ParserUtil.parseCalendar(SampleCalendarUtil.SAMPLE_CALENDAR_LYNN);
+            return new CalendarWrapper[]{
+                    new CalendarWrapper(new MemberName("Gabriel"), sampleCalendar1,
+                            SampleCalendarUtil.SAMPLE_CALENDAR_GABRIEL),
+                    new CalendarWrapper(new MemberName("Abhinav"), sampleCalendar2,
+                            SampleCalendarUtil.SAMPLE_CALENDAR_ABHINAV),
+                    new CalendarWrapper(new MemberName("Lynn"), sampleCalendar3,
+                            SampleCalendarUtil.SAMPLE_CALENDAR_LYNN)
+            };
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new CalendarWrapper[0];
+        }
     }
 
     public static ReadOnlyProjectDashboard getSampleProjectDashboard() {
@@ -119,6 +173,14 @@ public class SampleTaskDataUtil {
 
         for (TasMemMapping sampleTasMem : getSampleTasMemMapping()) {
             samplePd.addMapping(sampleTasMem);
+        }
+
+        for (Meeting sampleMeeting : getSampleMeeting()) {
+            samplePd.addMeeting(sampleMeeting);
+        }
+
+        for (CalendarWrapper sampleCalendar : getSampleCalendar()) {
+            samplePd.addCalendar(sampleCalendar);
         }
 
         return samplePd;
