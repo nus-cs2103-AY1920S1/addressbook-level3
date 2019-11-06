@@ -322,9 +322,9 @@ public class ClashCommand extends Command {
             return moduleCodes.get(1);
         }
 
-        public boolean isPresent() {
+        /*public boolean isPresent() {
             return CollectionUtil.isAnyNonNull(appealIndex, moduleIndices, studentIndex, moduleCodes);
-        }
+        }*/
 
         @Override
         public boolean equals(Object other) {
