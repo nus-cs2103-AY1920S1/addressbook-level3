@@ -38,7 +38,8 @@ public class FindCommand extends NonActionableCommand {
         model.updateFilteredPatientList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
-                        model.getFilteredPatientList().size()));
+                        model.getFilteredPatientList().size(),
+                        predicate.toString()));
     }
 
     @Override

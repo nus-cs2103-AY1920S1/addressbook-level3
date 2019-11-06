@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
@@ -20,7 +19,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -55,7 +53,7 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
                     ChangeDutyShiftCommand.COMMAND_WORD));
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ENTRY, PREFIX_START, PREFIX_END)
+        if (!argMultimap.arePrefixesPresent(PREFIX_ENTRY, PREFIX_START, PREFIX_END)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeDutyShiftCommand.MESSAGE_USAGE));
@@ -71,7 +69,7 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
             String startString = argMultimap.getValue(PREFIX_START).get();
             Timing timing;
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+            if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
                 timing = ParserUtil.parseTiming(startString, null);
             } else {
                 String endString = argMultimap.getValue(PREFIX_END).get();
@@ -90,13 +88,5 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
         } catch (ParseException e) {
             throw new ParseException(e.getMessage());
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 }

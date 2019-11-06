@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.staff.RegisterStaffCommand;
@@ -18,7 +17,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.person.Person;
@@ -43,7 +41,7 @@ public class RegisterStaffCommandParser implements Parser<ReversibleActionPairCo
                 ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_NAME,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_NAME)
+        if (!argMultimap.arePrefixesPresent(PREFIX_ID, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 RegisterStaffCommand.MESSAGE_USAGE));
@@ -62,13 +60,4 @@ public class RegisterStaffCommandParser implements Parser<ReversibleActionPairCo
             new RegisterStaffCommand(person),
             new UnregisterStaffCommand(person));
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }

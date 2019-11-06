@@ -56,6 +56,36 @@ public class LogicManager implements Logic {
         this.lastEagerEvaluationThread = new Thread();
     }
 
+    /**
+     * Executes the command eagerly.
+     */
+    void runEagerEvaluation(String commandText, Command command,
+                                  Consumer<String> displayResult,
+                                  Thread previousEagerEvaluationThread) {
+        try {
+            Thread.sleep(200);
+            previousEagerEvaluationThread.join();
+        } catch (InterruptedException ex) {
+            logger.info("Skipping eager evaluation execution ");
+            return;
+        }
+
+        logger.info("Starting Eager evaluation execution  - " + commandText);
+        displayResult.accept("searching...");
+
+        try {
+            CommandResult result = command.execute(model);
+            if (!result.getFeedbackToUser().isEmpty()) {
+                logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
+                displayResult.accept(result.getFeedbackToUser());
+            }
+        } catch (CommandException ex) {
+            logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
+        } catch (ForceThreadInterruptException ex) {
+            logger.info("Interrupting eager evaluation execution");
+        }
+    }
+
     @Override
     public synchronized CommandResult execute(String commandText)
             throws CommandException, ParseException {
@@ -116,30 +146,12 @@ public class LogicManager implements Logic {
         assert lastEagerEvaluationThread != null;
         lastEagerEvaluationThread.interrupt();
         Thread previousEagerEvaluationThread = lastEagerEvaluationThread;
-        lastEagerEvaluationThread = new Thread(() -> {
-            try {
-                Thread.sleep(200);
-                previousEagerEvaluationThread.join();
-            } catch (InterruptedException ex) {
-                logger.info("Skipping eager evaluation execution ");
-                return;
-            }
-
-            logger.info("Starting Eager evaluation execution  - " + commandText);
-            displayResult.accept("searching...");
-
-            try {
-                CommandResult result = command.execute(model);
-                if (!result.getFeedbackToUser().isEmpty()) {
-                    logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
-                    displayResult.accept(result.getFeedbackToUser());
-                }
-            } catch (CommandException ex) {
-                logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
-            } catch (ForceThreadInterruptException ex) {
-                logger.info("Interrupting eager evaluation execution");
-            }
-        });
+        lastEagerEvaluationThread = new Thread(() ->
+                runEagerEvaluation(
+                        commandText,
+                        command,
+                        displayResult,
+                        previousEagerEvaluationThread));
         lastEagerEvaluationThread.start();
     }
 

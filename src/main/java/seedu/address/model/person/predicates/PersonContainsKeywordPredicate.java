@@ -9,10 +9,10 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Person}'s {@code ReferenceId}, {@code Name} or {@code Phone} matches the given keyword.
  */
-public class ContainsKeywordsPredicate implements Predicate<Person> {
+public class PersonContainsKeywordPredicate implements Predicate<Person> {
     private final String keyword;
 
-    public ContainsKeywordsPredicate(String keyword) {
+    public PersonContainsKeywordPredicate(String keyword) {
         this.keyword = keyword.toUpperCase();
     }
 
@@ -29,8 +29,13 @@ public class ContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ContainsKeywordsPredicate // instanceof handles nulls
-                && StringUtil.containsIgnoreCase(keyword, ((ContainsKeywordsPredicate) other).keyword)); // state check
+                || (other instanceof PersonContainsKeywordPredicate // instanceof handles nulls
+                && StringUtil.containsIgnoreCase(
+                        keyword, ((PersonContainsKeywordPredicate) other).keyword)); // state check
     }
 
+    @Override
+    public String toString() {
+        return String.format("Suggesting person(s) whose ref id, name or phone number contains\n'%1$s'", keyword);
+    }
 }
