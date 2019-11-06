@@ -17,12 +17,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import seedu.sugarmummy.model.record.BloodSugar;
-import seedu.sugarmummy.model.record.Bmi;
-import seedu.sugarmummy.model.record.Record;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.records.BloodSugar;
+import seedu.sugarmummy.model.records.Bmi;
+import seedu.sugarmummy.model.records.Record;
+import seedu.sugarmummy.model.records.RecordType;
 
 //@@author chen-xi-cx
+
 /**
  * Calculates the average values required by {@code AverageCommand}. The averages are stored as a map
  * with key as {@code LocalDate} and value as {@code Double}. Key represents the time period.
@@ -54,13 +55,13 @@ public class AverageMap {
      * Calculates average values of a given record type based on the average type given.
      * Pre-requisite: filteredRecordList must contain only the record type specified by {@code AverageCommand}.
      *
-     * @param filteredRecordList  list of records containing only the record type specified by @param recordType.
-     * @param averageType the average type.
-     * @param recordType  the record type.
-     * @param count the number of most recent averages to calculate.
+     * @param filteredRecordList list of records containing only the record type specified by @param recordType.
+     * @param averageType        the average type.
+     * @param recordType         the record type.
+     * @param count              the number of most recent averages to calculate.
      */
     public void calculateAverage(ObservableList<Record> filteredRecordList,
-            AverageType averageType, RecordType recordType, int count) {
+                                 AverageType averageType, RecordType recordType, int count) {
         // Group records according to average type
         Map<LocalDate, List<Record>> groupByTimeRecords = groupByAverageType(averageType, filteredRecordList);
 
@@ -92,10 +93,10 @@ public class AverageMap {
      * period.
      */
     private Map<LocalDate, List<Record>> groupByAverageType(AverageType averageType,
-            ObservableList<Record> recordList) {
+                                                            ObservableList<Record> recordList) {
         return recordList.stream()
                 .collect(Collectors.groupingBy(record -> record.getDateTime()
-                .getDate().with(TIMEADJUSTERS.get(averageType))));
+                        .getDate().with(TIMEADJUSTERS.get(averageType))));
     }
 
     /**
@@ -103,7 +104,7 @@ public class AverageMap {
      *
      * @param recordType the record type.
      * @param recordMap  a {@code Map} object that maps a time period to the respective records found in that time
-     * period.
+     *                   period.
      * @return returns a {@code Map} object that maps a time period to the respective average values of records
      * found in that time period.
      */
@@ -112,15 +113,15 @@ public class AverageMap {
         case BLOODSUGAR:
             return recordMap.entrySet().stream()
                     .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
-                    .stream().map(record -> (BloodSugar) record)
-                    .map(record -> record.getConcentration().getConcentration())
-                    .mapToDouble(Double::doubleValue).average().getAsDouble()));
+                            .stream().map(record -> (BloodSugar) record)
+                            .map(record -> record.getConcentration().getConcentration())
+                            .mapToDouble(Double::doubleValue).average().getAsDouble()));
         case BMI:
             return recordMap.entrySet().stream()
                     .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
-                    .stream().map(record -> (Bmi) record)
-                    .map(record -> record.getBmi())
-                    .mapToDouble(Double::doubleValue).average().getAsDouble()));
+                            .stream().map(record -> (Bmi) record)
+                            .map(record -> record.getBmi())
+                            .mapToDouble(Double::doubleValue).average().getAsDouble()));
         default:
             assert false : "Record type is not found and should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);

@@ -29,14 +29,17 @@ import javafx.stage.Stage;
 import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.commons.core.LogsCenter;
 import seedu.sugarmummy.logic.Logic;
-import seedu.sugarmummy.logic.commands.CalendarCommandResult;
 import seedu.sugarmummy.logic.commands.CommandResult;
+import seedu.sugarmummy.logic.commands.calendar.CalendarCommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.aesthetics.Background;
+import seedu.sugarmummy.model.foodrecommendations.exceptions.FoodNotSuitableException;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
-import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;
+import seedu.sugarmummy.ui.aesthetics.StyleManager;
+import seedu.sugarmummy.ui.calendar.ReminderListPanel;
+import seedu.sugarmummy.ui.motivationalquotes.MotivationalQuotesLabel;
 
 /**
  * Provides the basic application layout containing a menu bar and space where other JavaFX elements can be placed.

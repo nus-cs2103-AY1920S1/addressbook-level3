@@ -1,8 +1,8 @@
 package seedu.sugarmummy.model.achievements;
 
 import static java.util.Map.entry;
-import static seedu.sugarmummy.model.record.RecordType.BLOODSUGAR;
-import static seedu.sugarmummy.model.record.RecordType.BMI;
+import static seedu.sugarmummy.model.records.RecordType.BLOODSUGAR;
+import static seedu.sugarmummy.model.records.RecordType.BMI;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +20,7 @@ import seedu.sugarmummy.model.achievements.bmi.BmiDiamond;
 import seedu.sugarmummy.model.achievements.bmi.BmiGold;
 import seedu.sugarmummy.model.achievements.bmi.BmiPlatinum;
 import seedu.sugarmummy.model.achievements.bmi.BmiSilver;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.records.RecordType;
 
 /**
  * Class containing a predefined map of achievements that maps record types to respective achievement lists.
@@ -44,6 +44,7 @@ public class AchievementsMap {
 
     /**
      * Returns whether or not a given achievement map is the same as the current one stored in the program.
+     *
      * @param prevAchievementsMap Previous achievement map to be checked again current achievement map stored.
      * @return Primitive boolean denoting whether the given achievement map is the same as the current one stored in
      * the program.
@@ -63,7 +64,7 @@ public class AchievementsMap {
             return false;
         }
 
-        for (RecordType recordtype: currAchievementsMapKeyList) {
+        for (RecordType recordtype : currAchievementsMapKeyList) {
             if (!sameElementsAreInLists(ACHIEVEMENTS_MAP.get(recordtype), prevAchievementsMap.get(recordtype))) {
                 return false;
             }
@@ -74,9 +75,10 @@ public class AchievementsMap {
 
     /**
      * Returns whether two lists contain the same elements.
-     * @param firstList List containing elements to compare with the second list.
+     *
+     * @param firstList  List containing elements to compare with the second list.
      * @param secondList List containing elements to compare with the first list.
-     * @param <T> Generic type T of elements in the given lists.
+     * @param <T>        Generic type T of elements in the given lists.
      * @return Primitive boolean denoting whether the two lists contain the same elements.
      */
     private static <T> boolean sameElementsAreInLists(List<T> firstList, List<T> secondList) {
@@ -90,10 +92,11 @@ public class AchievementsMap {
 
     /**
      * Returns a sorted List of map keys, given a map and comparator.
-     * @param map Map containing keys to be returned in a sorted List.
+     *
+     * @param map           Map containing keys to be returned in a sorted List.
      * @param keyComparator Comparator used to compare keys in the given map.
-     * @param <V> Generic type V of values in the given map.
-     * @param <K> Generic type K of keys in the given map.
+     * @param <V>           Generic type V of values in the given map.
+     * @param <K>           Generic type K of keys in the given map.
      * @return List of keys of the map, arranged in order based on given key comparator.
      */
     private static <V, K> List<K> getSortedKeyList(Map<K, V> map, Comparator<K> keyComparator) {

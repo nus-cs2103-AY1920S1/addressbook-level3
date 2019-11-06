@@ -1,6 +1,6 @@
 package seedu.sugarmummy.commons.core;
 
-import seedu.sugarmummy.logic.commands.bio.BioCommand;
+import seedu.sugarmummy.logic.commands.biography.BioCommand;
 
 /**
  * Container for user visible messages.

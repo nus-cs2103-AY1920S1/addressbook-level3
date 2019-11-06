@@ -22,10 +22,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.statistics.AverageType;
 
 //author chen-xi-cx
+
 /**
  * Represents ui of an average line graph with no legend.
  */
@@ -60,7 +61,7 @@ public class AverageGraph {
     private final CustomLineChart<String, Number> customLineChart = new CustomLineChart<>(xAxis, yAxis);
 
     public AverageGraph(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-            SimpleStringProperty recordType) {
+                        SimpleStringProperty recordType) {
 
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
@@ -96,12 +97,12 @@ public class AverageGraph {
      * A convenience function to update customLineChart with new data points whenever averageMap, averageType or
      * recordType changes.
      *
-     * @param averageMap the newly updated averageMap containing the average values.
+     * @param averageMap  the newly updated averageMap containing the average values.
      * @param averageType the newly updated type of average.
-     * @param recordType the newly updated type of record.
+     * @param recordType  the newly updated type of record.
      */
     private void refreshChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-            SimpleStringProperty recordType) {
+                              SimpleStringProperty recordType) {
         customLineChart.getData().clear();
         customLineChart.removeAllHorizontalRangeMarker();
         createChart(averageMap, averageType, recordType);
@@ -111,7 +112,7 @@ public class AverageGraph {
      * A convenience function to create a new chart.
      */
     private void createChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-            SimpleStringProperty recordType) {
+                             SimpleStringProperty recordType) {
         setTitle(averageType, recordType);
         setAxesLabel(averageType, recordType);
         addHorizontalRangeMarker(recordType);

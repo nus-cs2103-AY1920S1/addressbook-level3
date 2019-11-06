@@ -13,16 +13,18 @@ import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.model.achievements.Achievement;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
-import seedu.sugarmummy.model.bio.User;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.biography.User;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
+import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.calendar.Reminder;
-import seedu.sugarmummy.model.record.Record;
-import seedu.sugarmummy.model.record.RecordType;
-import seedu.sugarmummy.model.record.UniqueRecordList;
+import seedu.sugarmummy.model.foodrecommendations.Food;
+import seedu.sugarmummy.model.foodrecommendations.FoodComparator;
+import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.records.Record;
+import seedu.sugarmummy.model.records.RecordType;
+import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageType;
-import seedu.sugarmummy.recmfood.model.Food;
-import seedu.sugarmummy.recmfood.model.FoodComparator;
-import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * The API of the Model component.

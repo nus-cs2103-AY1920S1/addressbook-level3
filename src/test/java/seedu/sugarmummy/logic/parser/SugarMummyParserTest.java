@@ -13,17 +13,17 @@ import java.time.Month;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.sugarmummy.logic.commands.AddCommand;
-import seedu.sugarmummy.logic.commands.DeleteCommand;
 import seedu.sugarmummy.logic.commands.ExitCommand;
 import seedu.sugarmummy.logic.commands.HelpCommand;
-import seedu.sugarmummy.logic.commands.ListCommand;
-import seedu.sugarmummy.logic.commands.achvm.AchvmCommand;
-import seedu.sugarmummy.logic.commands.bio.BioCommand;
+import seedu.sugarmummy.logic.commands.achievements.AchvmCommand;
+import seedu.sugarmummy.logic.commands.biography.BioCommand;
 import seedu.sugarmummy.logic.commands.calendar.ReminderCommand;
+import seedu.sugarmummy.logic.commands.records.AddCommand;
+import seedu.sugarmummy.logic.commands.records.DeleteCommand;
+import seedu.sugarmummy.logic.commands.records.ListCommand;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
-import seedu.sugarmummy.model.record.BloodSugar;
-import seedu.sugarmummy.model.record.Concentration;
+import seedu.sugarmummy.model.records.BloodSugar;
+import seedu.sugarmummy.model.records.Concentration;
 import seedu.sugarmummy.model.time.DateTime;
 
 public class SugarMummyParserTest {
@@ -83,7 +83,7 @@ public class SugarMummyParserTest {
     @Test
     public void parseCommand_reminder() throws Exception {
         assertTrue(parser.parseCommand(
-                ReminderCommand.COMMAND_WORD + " d/test dt/2019-11-30 12:00") instanceof ReminderCommand);
+            ReminderCommand.COMMAND_WORD + " d/test dt/2019-11-30 12:00") instanceof ReminderCommand);
         assertThrows(ParseException.class, () -> parser.parseCommand(
                 ReminderCommand.COMMAND_WORD + " d/test dt/2019-02-29 12:00"));
         assertThrows(ParseException.class, () -> parser.parseCommand(

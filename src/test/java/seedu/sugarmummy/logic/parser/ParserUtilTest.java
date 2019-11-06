@@ -15,16 +15,16 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
-import seedu.sugarmummy.model.bio.Address;
-import seedu.sugarmummy.model.bio.DateOfBirth;
-import seedu.sugarmummy.model.bio.Gender;
-import seedu.sugarmummy.model.bio.Goal;
-import seedu.sugarmummy.model.bio.MedicalCondition;
-import seedu.sugarmummy.model.bio.Name;
-import seedu.sugarmummy.model.bio.Nric;
-import seedu.sugarmummy.model.bio.OtherBioInfo;
-import seedu.sugarmummy.model.bio.Phone;
-import seedu.sugarmummy.model.bio.ProfileDesc;
+import seedu.sugarmummy.model.biography.Address;
+import seedu.sugarmummy.model.biography.DateOfBirth;
+import seedu.sugarmummy.model.biography.Gender;
+import seedu.sugarmummy.model.biography.Goal;
+import seedu.sugarmummy.model.biography.MedicalCondition;
+import seedu.sugarmummy.model.biography.Name;
+import seedu.sugarmummy.model.biography.Nric;
+import seedu.sugarmummy.model.biography.OtherBioInfo;
+import seedu.sugarmummy.model.biography.Phone;
+import seedu.sugarmummy.model.biography.ProfileDesc;
 import seedu.sugarmummy.model.statistics.AverageType;
 
 public class ParserUtilTest {
@@ -295,7 +295,7 @@ public class ParserUtilTest {
     public void parsePhones_collectionWithValidPhones_returnsPhoneSet() throws Exception {
         List<Phone> actualPhoneList = ParserUtil.parsePhones(Arrays.asList(VALID_PHONE_1, VALID_PHONE_2));
         List<Phone> expectedPhoneList = new ArrayList<Phone>(Arrays.asList(new Phone(VALID_PHONE_1),
-            new Phone(VALID_PHONE_2)));
+                new Phone(VALID_PHONE_2)));
         assertEquals(expectedPhoneList, actualPhoneList);
     }
 
@@ -324,12 +324,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseGoals_collectionWithValidGoals_returnsGoalSet()
-        throws Exception {
+            throws Exception {
         List<Goal> actualGoalList = ParserUtil.parseGoals(
-            Arrays.asList(VALID_GOAL_1, VALID_GOAL_2));
+                Arrays.asList(VALID_GOAL_1, VALID_GOAL_2));
         List<Goal> expectedGoalList = new ArrayList<Goal>(
-            Arrays.asList(new Goal(VALID_GOAL_1),
-                new Goal(VALID_GOAL_2)));
+                Arrays.asList(new Goal(VALID_GOAL_1),
+                        new Goal(VALID_GOAL_2)));
         assertEquals(expectedGoalList, actualGoalList);
     }
 
@@ -378,7 +378,7 @@ public class ParserUtilTest {
     @Test
     public void parseMedicalConditions_collectionWithInvalidMedicalConditions_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseMedicalConditions(Arrays.asList(
-            VALID_MEDICAL_CONDITION_1, INVALID_MEDICAL_CONDITION)));
+                VALID_MEDICAL_CONDITION_1, INVALID_MEDICAL_CONDITION)));
     }
 
     @Test
@@ -388,12 +388,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseMedicalConditions_collectionWithValidMedicalConditions_returnsMedicalConditionSet()
-        throws Exception {
+            throws Exception {
         List<MedicalCondition> actualMedicalConditionList = ParserUtil.parseMedicalConditions(
-            Arrays.asList(VALID_MEDICAL_CONDITION_1, VALID_MEDICAL_CONDITION_2));
+                Arrays.asList(VALID_MEDICAL_CONDITION_1, VALID_MEDICAL_CONDITION_2));
         List<MedicalCondition> expectedMedicalConditionList = new ArrayList<MedicalCondition>(
-            Arrays.asList(new MedicalCondition(VALID_MEDICAL_CONDITION_1),
-                new MedicalCondition(VALID_MEDICAL_CONDITION_2)));
+                Arrays.asList(new MedicalCondition(VALID_MEDICAL_CONDITION_1),
+                        new MedicalCondition(VALID_MEDICAL_CONDITION_2)));
         assertEquals(expectedMedicalConditionList, actualMedicalConditionList);
     }
 

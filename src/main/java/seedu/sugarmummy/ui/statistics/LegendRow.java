@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 import seedu.sugarmummy.ui.UiPart;
 
 //@@author chen-xi-cx
+
 /**
  * Represents a ui for a legend symbol and legend description.
  */
