@@ -30,6 +30,8 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
                                 order.getCustomer().getContactNumber().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(
                                 order.getCustomer().getEmail().toString(), keyword)
+                        || order.getCustomer().getTags().stream().anyMatch(tag ->
+                                StringUtil.containsWordIgnoreCase(tag.toString(), keyword))
 
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getCapacity().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getColour().toString(), keyword)
@@ -38,6 +40,8 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getBrand().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getSerialNumber().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getCost().toString(), keyword)
+                        || order.getPhone().getTags().stream().anyMatch(tag ->
+                                StringUtil.containsWordIgnoreCase(tag.toString(), keyword))
 
                         || StringUtil.containsWordIgnoreCase(order.getId().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPrice().toString(), keyword)

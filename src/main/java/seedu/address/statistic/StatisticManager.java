@@ -2,10 +2,12 @@ package seedu.address.statistic;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,6 +15,7 @@ import org.apache.commons.math3.stat.StatUtils;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.MoneyUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyDataBook;
@@ -26,18 +29,23 @@ import seedu.address.model.order.Status;
  */
 public class StatisticManager implements Statistic {
 
-    public StatisticManager() {}
+    private final Logger logger = LogsCenter.getLogger(StatisticManager.class);
+
+    public StatisticManager() {
+        logger.fine("Initializing statistic module");
+    }
 
     /*--------------------Methods to calculate--------------------------*/
     @Override
     public XYChart.Series<String, Number> calculateTotalProfitOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
                                                                                 StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
+        logger.info("filtering orders from order Book");
         //filter the list of orders to be only the orders within the starting and ending date.
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
-
+        logger.info("calculating list of month");
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -50,6 +58,7 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList());
 
         listOfMonthlyProfit.stream().forEach(x -> series.getData().add(x));
+        logger.info("calculating monthly data of Profit");
         return series;
     }
 
@@ -57,11 +66,12 @@ public class StatisticManager implements Statistic {
     public XYChart.Series<String, Number> calculateTotalRevenueOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
                                                                      StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
+        logger.info("filtering orders from order Book");
         //filter the list of orders to be only the orders within the starting and ending date.
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
-
+        logger.info("calculating list of month");
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
 
@@ -75,6 +85,7 @@ public class StatisticManager implements Statistic {
                 .collect(Collectors.toList());
 
         listOfMonthlyRevenue.stream().forEach(x -> series.getData().add(x));
+        logger.info("calculating monthly data of Revenue");
         return series;
     }
 
@@ -83,10 +94,11 @@ public class StatisticManager implements Statistic {
                                                                                StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
         //filter the list of orders to be only the orders within the starting and ending date.
+        logger.info("filtering orders from order Book");
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
-
+        logger.info("calculating list of month");
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
 
@@ -100,6 +112,7 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList());
 
         listOfMonthlyCost.stream().forEach(x -> series.getData().add(x));
+        logger.info("calculating monthly data of Cost");
         return series;
     }
 
@@ -110,6 +123,8 @@ public class StatisticManager implements Statistic {
         double revenue = this.getTotalRevenue(orderBook, statsPayload);
         double cost = this.getTotalCost(orderBook, statsPayload);
         double totalProfit = revenue - cost;
+        totalProfit = new BigDecimal(totalProfit).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        logger.info("calculating total profit");
         return String.valueOf(totalProfit);
     }
 
@@ -117,13 +132,18 @@ public class StatisticManager implements Statistic {
     public String calculateTotalRevenueOnCompleted(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
         double totalRevenue = getTotalRevenue(orderBook, statsPayload);
+        totalRevenue = new BigDecimal(totalRevenue).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        logger.info("calculating total Revenue");
         return String.valueOf(totalRevenue);
     }
 
     @Override
     public String calculateTotalCostOnCompleted(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         requireAllNonNull(orderBook);
+        DecimalFormat format = new DecimalFormat("##.00");
         double totalCost = getTotalCost(orderBook, statsPayload);
+        totalCost = new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        logger.info("calculating total Cost");
         return String.valueOf(totalCost);
     }
 
@@ -171,7 +191,10 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList())
                         .stream()
                         .mapToDouble(Double::parseDouble).toArray();
-        return StatUtils.sum(doubleProfitList);
+        double result = new BigDecimal(StatUtils.sum(doubleProfitList))
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+        return result;
     }
 
     /**
@@ -187,7 +210,10 @@ public class StatisticManager implements Statistic {
                 .collect(Collectors.toList())
                 .stream()
                 .mapToDouble(d -> d).toArray();
-        return StatUtils.sum(doubleRevenueList);
+        double result = new BigDecimal(StatUtils.sum(doubleRevenueList))
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+        return result;
     }
 
     /**
@@ -203,7 +229,10 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList())
                         .stream()
                         .mapToDouble(d -> d).toArray();
-        return StatUtils.sum(doubleCostList);
+        double result = new BigDecimal(StatUtils.sum(doubleCostList))
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+        return result;
     }
 
     /*-------------- helper methods ------------------*/
@@ -242,6 +271,8 @@ public class StatisticManager implements Statistic {
 
     private static Stream<Order> getFilteredOrderListByDate(ReadOnlyDataBook<Order> orderBook,
                                                             StatsPayload statsPayload) {
+        assert (statsPayload.getStartingDate() != null
+                && statsPayload.getEndingDate() != null);
         ObservableList<Order> orderList = orderBook.getList();
         return StatisticManager.streamOfPresentOrders(orderList.stream())
                 .filter(currentOrder -> statsPayload.getStartingDate().compareTo(

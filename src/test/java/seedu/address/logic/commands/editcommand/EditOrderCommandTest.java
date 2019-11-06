@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.clearcommand.ClearCustomerCommand;
 import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescriptor;
 import seedu.address.model.DataBook;
 import seedu.address.model.Model;
@@ -38,7 +38,8 @@ import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * and unit tests for EditOrderCommand.
  */
 public class EditOrderCommandTest {
 
@@ -213,7 +214,7 @@ public class EditOrderCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearCustomerCommand()));
 
         // different order index -> returns false
         assertFalse(standardCommand.equals(new EditOrderCommand(INDEX_SECOND_ORDER,

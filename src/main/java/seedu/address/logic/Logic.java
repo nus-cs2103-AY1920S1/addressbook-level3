@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
@@ -9,11 +7,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CalendarDate;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.statistic.StatsPayload;
@@ -30,13 +26,6 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
-
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
 
     /**
      * Returns the Order DataBook.
@@ -59,9 +48,6 @@ public interface Logic {
      */
     ReadOnlyDataBook<Phone> getPhoneBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
     /** Returns an unmodifiable view of the filtered list of customers */
     ObservableList<Customer> getFilteredCustomerList();
 
@@ -78,11 +64,6 @@ public interface Logic {
     ObservableList<Schedule> getFilteredScheduleList();
 
 
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

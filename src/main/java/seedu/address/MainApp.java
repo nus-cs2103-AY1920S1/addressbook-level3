@@ -32,9 +32,7 @@ import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.CustomerBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCustomerBookStorage;
 import seedu.address.storage.JsonOrderBookStorage;
 import seedu.address.storage.JsonPhoneBookStorage;
@@ -76,19 +74,24 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CustomerBookStorage customerBookStorage = new JsonCustomerBookStorage(userPrefs.getCustomerBookFilePath());
         PhoneBookStorage phoneBookStorage = new JsonPhoneBookStorage(userPrefs.getPhoneBookFilePath());
         ScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage(userPrefs.getScheduleBookFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
+
         OrderBookStorage archivedOrderBookStorage = new JsonOrderBookStorage(userPrefs.getArchivedOrderBookFilePath());
-        storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage, scheduleBookStorage,
+        storage = new StorageManager(customerBookStorage, phoneBookStorage, scheduleBookStorage,
                 orderBookStorage, archivedOrderBookStorage, userPrefsStorage);
 
         initLogging(config);
         //create statistic manager;
         statistic = new StatisticManager();
         model = initModelManager(storage, userPrefs);
+        storage.saveCustomerBook(model.getCustomerBook());
+        storage.savePhoneBook(model.getPhoneBook());
+        storage.saveScheduleBook(model.getScheduleBook());
+        storage.saveOrderBook(model.getOrderBook());
+        storage.saveArchivedOrderBook(model.getArchivedOrderBook());
         logic = new LogicManager(model, storage, statistic);
         ui = new UiManager(logic);
     }
@@ -292,7 +295,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Seller Manager Lite " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

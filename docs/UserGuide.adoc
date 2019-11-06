@@ -28,6 +28,8 @@ Get started on this journey by installing SML and take a quick tour of our main 
 .  Download the latest `sellermanagerlite.jar` https://github.com/AY1920S1-CS2103T-T09-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Seller Manager Lite.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  If Double-clicking does not work, open your command line prompt / terminal, navigate to it and
+input `java -jar [filename]` to run the file
 
 === User Interface
 
@@ -206,6 +208,10 @@ This can be done in any Tab Panel.
 Contact numbers should be 8-digits long.
 [TIP]
 A customer can have any number of tags, including 0.
+[TIP]
+Customers can share the same name.
+[TIP]
+Customers cannot share the same contact number or email.
 
 [underline]#Examples#:
 * Adds a single customer
@@ -472,6 +478,14 @@ Switches to Order Tab Panel.
 Adds an order to the list of orders. +
 Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
 
+****
+* Negative prices will be rejected.
+* $0 is accepted to accommodate for free transactions.
+* Prices above 1.7*10^308 will not be rejected. However, they will
+*corrupt* the data. There is no practical reason
+for a price to be that high.
+****
+
 ==== Find an order : `find-o`
 Returns all the information pertaining to the order. +
 Format: `find-o KEYWORD [KEYWORD]...`
@@ -678,7 +692,9 @@ image::ug-command/ug-history.png[width="800"]
 
 ==== Generate stats : `generate-s`
 
-`v1.4` only allows statistics on orders marked as `Completed` and calculates the three type of
+`v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`
+
+This function calculates the three type of
 statistics as shown below.
 
 Accepts two types of input: Without date input and with date input +

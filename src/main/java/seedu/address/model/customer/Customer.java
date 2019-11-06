@@ -102,7 +102,6 @@ public class Customer implements Identifiable<Customer> {
         }
 
         return other != null
-                && other.getCustomerName().equals(getCustomerName())
                 && (other.getContactNumber().equals(getContactNumber())
                 || other.getEmail().equals(getEmail()));
     }

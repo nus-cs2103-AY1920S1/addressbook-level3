@@ -27,7 +27,7 @@ public class DateUtil {
         int year = extractYear(order);
         int day = order.getSchedule().get().getCalendar().get(Calendar.DAY_OF_MONTH);
         Calendar temp = new Calendar.Builder().setDate(year, month, day).build();
-        System.out.println(temp.getTime());
+        //System.out.println(temp.getTime());
         return temp;
     }
 
