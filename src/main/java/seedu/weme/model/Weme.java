@@ -233,6 +233,7 @@ public class Weme implements ReadOnlyWeme {
     public void addMeme(Meme m) {
         memes.add(m);
         stats.addDefaultLikeData(m);
+        stats.addDefaultDislikeData(m);
     }
 
     /**
