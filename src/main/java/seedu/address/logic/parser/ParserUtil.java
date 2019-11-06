@@ -380,7 +380,6 @@ public class ParserUtil {
     }
 
     /**
-
      * Parses a {@code String claim} into an {@code Claim}.
      * @param claim String of claim.
      * @return Claim.
@@ -395,6 +394,7 @@ public class ParserUtil {
         return new Claim(trimmedClaim);
     }
 
+    /**
      * Helps fill command list with all the basic in built commands.
      * @param commandList A {@code TreeMap} that is used to store all commands and their actions.
      */
