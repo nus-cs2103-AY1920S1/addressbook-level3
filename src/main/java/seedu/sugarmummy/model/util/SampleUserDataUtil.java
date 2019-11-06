@@ -68,7 +68,7 @@ public class SampleUserDataUtil {
     public static List<MedicalCondition> getMedicalConditionList(String... strings) {
         return Arrays.stream(strings)
                 .map(MedicalCondition::new)
-                .collect(Collectors.toList());
+                        .collect(Collectors.toList());
     }
 
     /**
@@ -77,7 +77,7 @@ public class SampleUserDataUtil {
     public static List<Goal> getGoalList(String... strings) {
         return Arrays.stream(strings)
                 .map(Goal::new)
-                .collect(Collectors.toList());
+                        .collect(Collectors.toList());
     }
 
 }

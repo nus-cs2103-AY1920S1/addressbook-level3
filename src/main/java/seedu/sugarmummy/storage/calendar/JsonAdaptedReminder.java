@@ -23,8 +23,8 @@ public class JsonAdaptedReminder extends JsonAdaptedCalendarEntry {
      */
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("description") String description,
-                               @JsonProperty("dateTime") String dateTime,
-                               @JsonProperty("repetition") String repetition) {
+            @JsonProperty("dateTime") String dateTime,
+                    @JsonProperty("repetition") String repetition) {
         super(description, dateTime);
         this.repetition = repetition;
     }

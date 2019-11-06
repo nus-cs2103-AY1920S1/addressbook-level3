@@ -33,7 +33,7 @@ public class AverageGraphPane extends UiPart<Region> {
     private VBox lineChartVBox;
 
     public AverageGraphPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                            SimpleStringProperty recordType) {
+            SimpleStringProperty recordType) {
         super(FXML);
 
         this.averageGraph = new AverageGraph(averageMap, averageType, recordType);

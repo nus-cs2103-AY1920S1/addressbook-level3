@@ -124,7 +124,7 @@ public class Calendar implements ReadOnlyCalendar {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Calendar // instanceof handles nulls
-                && calendarEntries.equals(((Calendar) other).calendarEntries));
+                        && calendarEntries.equals(((Calendar) other).calendarEntries));
     }
 
     @Override

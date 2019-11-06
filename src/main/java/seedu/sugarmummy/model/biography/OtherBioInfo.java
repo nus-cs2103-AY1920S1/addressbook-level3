@@ -36,7 +36,7 @@ public class OtherBioInfo {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof OtherBioInfo // instanceof handles nulls
-                && otherInfo.equals(((OtherBioInfo) other).otherInfo)); // state check
+                        && otherInfo.equals(((OtherBioInfo) other).otherInfo)); // state check
     }
 
     @Override

@@ -129,7 +129,7 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof UniqueFoodList
-                && internalList.equals(((UniqueFoodList) other).internalList));
+                        && internalList.equals(((UniqueFoodList) other).internalList));
     }
 
     @Override
