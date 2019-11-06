@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A command that can be undone.
  */
@@ -15,6 +17,7 @@ public abstract class ReversibleCommand extends Command {
      * @return a command that undo what this command does.
      */
     public Command getUndoCommand() {
+        requireNonNull(undoCommand);
         return undoCommand;
     };
 
@@ -24,6 +27,7 @@ public abstract class ReversibleCommand extends Command {
      * @return a command that redo what this command does.
      */
     public Command getRedoCommand() {
+        requireNonNull(redoCommand);
         return redoCommand;
     }
 
@@ -34,6 +38,7 @@ public abstract class ReversibleCommand extends Command {
      * @return a {@code CommandResult} of the executed command.
      */
     public CommandResult getCommandResult() {
+        requireNonNull(commandResult);
         return commandResult;
     }
 }

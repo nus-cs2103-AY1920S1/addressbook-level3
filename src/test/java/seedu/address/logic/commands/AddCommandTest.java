@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BOOK;
+import seedu.address.model.ModelManager;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -62,6 +64,122 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithBook(validBook);
 
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_BOOK, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void getUndoCommand_beforeExecute_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+
+        assertThrows(NullPointerException.class, addCommand::getUndoCommand);
+    }
+
+    @Test
+    public void getUndoCommand_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+        Model model = new ModelManager();
+        model.addBook(validBook);
+
+        try {
+            addCommand.execute(model);
+        } catch (CommandException ignored) {
+        }
+
+        assertThrows(NullPointerException.class, addCommand::getUndoCommand);
+    }
+
+    @Test
+    public void getUndoCommand_afterExecuteValidCommand_returnsUndoCommand() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+        Model model = new ModelManager();
+
+        try {
+            addCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(addCommand.getUndoCommand(), new DeleteBySerialNumberCommand(validBook.getSerialNumber()));
+    }
+
+    @Test
+    public void getRedoCommand_beforeExecute_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+        ModelStub modelStub = new ModelStubWithBook(validBook);
+
+        assertThrows(NullPointerException.class, addCommand::getRedoCommand);
+    }
+
+    @Test
+    public void getRedoCommand_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+        Model model = new ModelManager();
+        model.addBook(validBook);
+
+        try {
+            addCommand.execute(model);
+        } catch (CommandException ignored) {
+        }
+
+        assertThrows(NullPointerException.class, addCommand::getRedoCommand);
+    }
+
+    @Test
+    public void getRedoCommand_afterExecuteValidCommand_returnsRedoCommand() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+        Model model = new ModelManager();
+
+        try {
+            addCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(addCommand.getRedoCommand(), addCommand);
+    }
+
+    @Test
+    public void getCommandResult_beforeExecute_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+
+        assertThrows(NullPointerException.class, addCommand::getCommandResult);
+    }
+
+    @Test
+    public void getCommandResult_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+        Model model = new ModelManager();
+        model.addBook(validBook);
+
+        try {
+            addCommand.execute(model);
+        } catch (CommandException ignored) {
+        }
+
+        assertThrows(NullPointerException.class, addCommand::getCommandResult);
+    }
+
+    @Test
+    public void getCommandResult_afterExecuteValidCommand_returnsCommandResult() {
+        Book validBook = new BookBuilder().build();
+        AddCommand addCommand = new AddCommand(validBook);
+        Model model = new ModelManager();
+        CommandResult expectedCommandResult = new CommandResult("Test");
+
+        try {
+            expectedCommandResult = addCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(addCommand.getCommandResult(), expectedCommandResult);
     }
 
     @Test
