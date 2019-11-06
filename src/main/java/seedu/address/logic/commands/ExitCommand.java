@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.util.AppUtil;
 import seedu.address.model.Model;
 
 /**
@@ -15,7 +14,6 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        AppUtil.shutDownDataWorker();
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
     }
 

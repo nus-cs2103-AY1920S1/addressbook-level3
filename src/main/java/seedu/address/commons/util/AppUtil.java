@@ -4,8 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import seedu.address.MainApp;
 
@@ -14,7 +17,6 @@ import seedu.address.MainApp;
  */
 public class AppUtil {
 
-    private static final ScheduledExecutorService dataUpdateControl = Executors.newScheduledThreadPool(1);
 
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);
@@ -44,16 +46,27 @@ public class AppUtil {
     }
 
     /**
-     * Schedules the updating of in-memory data after a {@code task} is executed.
+     * Schedules the update of in-memory data after a {@code task} is executed.
      */
     public static void scheduleDataUpdate(Runnable task) {
-        dataUpdateControl.schedule(task, 2, TimeUnit.SECONDS);
+        final ScheduledThreadPoolExecutor dataUpdateControl = new ScheduledThreadPoolExecutor(1);
+        ScheduledFuture taskToComplete = dataUpdateControl.schedule(task, 2, TimeUnit.SECONDS);
+        if (taskToComplete.isDone()) {
+            shutDownDataWorker(dataUpdateControl);
+        }
     }
 
     /**
-     * Shutdown the thread that updated data when app exits.
+     * Shutdown the thread that updated data when the task is done
      */
-    public static void shutDownDataWorker() {
+    public static void shutDownDataWorker(ScheduledThreadPoolExecutor dataUpdateControl) {
         dataUpdateControl.shutdown();
+        try {
+            if (!dataUpdateControl.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                dataUpdateControl.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            dataUpdateControl.shutdownNow();
+        }
     }
 }
