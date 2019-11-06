@@ -30,6 +30,7 @@ public class JavaFront extends AnchorPane {
     private JavaCard card;
     private Application javaEditor;
     private Consumer<Pair<String, ArrayList<TestCase>>> getResult = this::receiveResult;
+    private Consumer<Boolean> launchJavaCoder = bool -> { startCoding();};
 
     public JavaFront(JavaCard card) {
         try {
@@ -39,6 +40,7 @@ public class JavaFront extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.card = card;
+            Consumers.addConsumer("LAUNCH_JAVA", launchJavaCoder);
             questionTextLabel.setText(card.getFront());
             openCoderButton.setOnAction(e -> startCoding());
         } catch (IOException e) {

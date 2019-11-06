@@ -3,6 +3,7 @@ package dream.fcard.logic.respond;
 import java.util.ArrayList;
 
 import dream.fcard.core.commons.core.LogsCenter;
+import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.displays.test.TimedTestDisplay;
 import dream.fcard.logic.exam.Exam;
@@ -15,8 +16,10 @@ import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.RegexUtil;
 import javafx.scene.layout.AnchorPane;
 
@@ -418,6 +421,7 @@ public enum Responses {
                     }
                     Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                     Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
+                    StateHolder.getState().setCurrState(StateEnum.DEFAULT);
                     return true;
                 }
     ),
@@ -478,10 +482,21 @@ public enum Responses {
     // TEST_FB GROUP ----------------------------------------------------------
 
     MCQ_PROCESS_INPUT(
-            "^((?i)(\\d)+\\s*",
+            "^((?i)(\\d)+\\s*)",
             new ResponseGroup[]{ResponseGroup.TEST_MCQ},
                 i -> {
-                    
+                    LogsCenter.getLogger(i);
+                    String[] inputArray = i.split(" ");
+                    String choice = inputArray[0];
+                    Exam exam = ExamRunner.getCurrentExam();
+                    MultipleChoiceCard mcqCard = (MultipleChoiceCard) exam.getCurrentCard();
+                    mcqCard.setUserAttempt(Integer.parseInt(choice));
+                    try {
+                        boolean isCorrect = mcqCard.evaluate(choice);
+                        Consumers.doTask("GET_SCORE", isCorrect);
+                    } catch (IndexNotFoundException e) {
+                        Consumers.doTask("DISPLAY_MESSAGE", "Invalid Choice");
+                    }
                     return true;
                 }
     ),
@@ -489,7 +504,10 @@ public enum Responses {
             "^((?i)front)\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_MCQ_BACK},
                 i -> {
-
+                    StateHolder.getState().setCurrState(StateEnum.TEST_MCQ);
+                    Exam exam = ExamRunner.getCurrentExam();
+                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }
     ),
@@ -500,12 +518,16 @@ public enum Responses {
             "^((?i)code)\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_JSJAVA},
                 i -> {
-
+                    Exam exam = ExamRunner.getCurrentExam();
+                    FlashCard card = exam.getCurrentCard();
+                    if (card.getClass().getSimpleName().equals("JavascriptCard")) {
+                        Consumers.doTask("LAUNCH_JS", true);
+                    } else if (card.getClass().getSimpleName().equals("JavaCard")) {
+                        Consumers.doTask("LAUNCH_JAVA", true);
+                    }
                     return true;
                 }
     ),
-
-    // TEST_JSJAVA GROUP ----------------------------------------------------------
 
     QUIT(
             "^((?i)quit)\\s*$",

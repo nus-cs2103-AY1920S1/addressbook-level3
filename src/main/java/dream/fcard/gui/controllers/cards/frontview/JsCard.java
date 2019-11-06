@@ -28,6 +28,7 @@ public class JsCard extends AnchorPane {
     private JavascriptCard card;
     private Application jsEditor;
     private Consumer<Pair<String, Pair<Integer, Integer>>> getResult = this::receiveResult;
+    private Consumer<Boolean> launchJsCoder = bool -> { startCoding();};
 
     public JsCard(JavascriptCard card) {
         try {
@@ -37,6 +38,7 @@ public class JsCard extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.card = card;
+            Consumers.addConsumer("LAUNCH_JS", launchJsCoder);
             questionTextLabel.setText(card.getFront());
             openCoderButton.setOnAction(e -> startCoding());
         } catch (IOException e) {
