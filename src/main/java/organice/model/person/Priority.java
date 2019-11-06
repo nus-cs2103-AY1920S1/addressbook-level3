@@ -11,7 +11,7 @@ import static organice.commons.util.AppUtil.checkArgument;
 public class Priority implements Comparable<Priority> {
 
     public static final String MESSAGE_CONSTRAINTS = "Priority can only be high, medium or low"
-            + "and it should not be blank";
+            + " and it should not be blank";
 
     /*
      * The first character of the priority must not be a whitespace,
