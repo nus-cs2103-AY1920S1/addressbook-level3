@@ -34,8 +34,8 @@ public class AddTaskCommandIntegrationTest {
         expectedModel.addTask(validTask);
 
         //Commented out for assertion error
-//        assertCommandSuccess(new AddTaskCommand(validTask), model,
-//                String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), expectedModel);
+        //assertCommandSuccess(new AddTaskCommand(validTask), model,
+        //String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), expectedModel);
     }
 
     @Test

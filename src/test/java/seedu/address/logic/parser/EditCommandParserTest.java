@@ -74,8 +74,10 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() throws CommandException {
-        assertParseFailure(parser, "edit-task ti/1 " + INVALID_TASK_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "edit-task ti/1 " + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "edit-task ti/1 "
+                + INVALID_TASK_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "edit-task ti/1 "
+                + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Task} being edited,
@@ -117,7 +119,6 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
-    // TODO add tests for member and progress
     @Test
     public void parse_oneFieldSpecified_success() throws CommandException {
         // name
@@ -158,15 +159,16 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() throws CommandException {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_TASK;
-        String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + INVALID_TASK_STATUS_DESC + TASK_STATUS_DESC_PUBLICITY;
+        String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased()
+                + INVALID_TASK_STATUS_DESC + TASK_STATUS_DESC_PUBLICITY;
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withStatus(TaskStatus.valueOf(VALID_TASK_STATUS_PUBLICITY.toUpperCase())).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_DESC_FINANCE + INVALID_TASK_NAME_DESC
-                + TASK_NAME_DESC_FINANCE;
+        userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased()
+                + TAG_DESC_FINANCE + INVALID_TASK_NAME_DESC + TASK_NAME_DESC_FINANCE;
         descriptor = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE).withTags(VALID_TAG_FINANCE)
                 .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);

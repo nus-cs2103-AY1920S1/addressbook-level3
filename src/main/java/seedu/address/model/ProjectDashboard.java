@@ -53,7 +53,8 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */ {
+     */
+    {
         tasks = new UniqueTaskList();
         tasksNotStarted = new UniqueTaskList();
         tasksDoing = new UniqueTaskList();
@@ -198,12 +199,11 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         mappings.updateInventoryRemoved(index);
     }
 
-    //// util methods TODO add them to the another util class, this breaks SRP
-
     /**
      * Replaces the given inventory {@code target} in the list with {@code editedInventory}.
      * {@code target} must exist in the project dashboard.
-     * The inventory identity of {@code editedInventory} must not be the same as another existing inventory in the project dashboard.
+     * The inventory identity of {@code editedInventory} must not be the same as another
+     * existing inventory in the project dashboard.
      */
     public void setInventory(Inventory target, Inventory editedInventory) {
         requireNonNull(editedInventory);

@@ -39,17 +39,17 @@ public class SetDeadlineCommandParserStub implements Parser<SetDeadlineCommand> 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetDeadlineCommand.MESSAGE_USAGE));
         }
         switch (count % 3) {
-            case 0:
-                stubDateTime = stubDateTime0;
-                break;
-            case 1:
-                stubDateTime = stubDateTime1;
-                break;
-            case 2:
-                stubDateTime = stubDateTime2;
-                break;
-            default:
-                stubDateTime = null;
+        case 0:
+            stubDateTime = stubDateTime0;
+            break;
+        case 1:
+            stubDateTime = stubDateTime1;
+            break;
+        case 2:
+            stubDateTime = stubDateTime2;
+            break;
+        default:
+            stubDateTime = null;
         }
         count++;
         return new SetDeadlineCommand(stubIndex1, stubDateTime);

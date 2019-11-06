@@ -48,7 +48,7 @@ public class UserViewMain {
     /**
      * Shows the user the list of tasks.
      *
-     * @return the task list pane
+     * @return {@code TaskListPanel}
      */
     public Pane loadTasks() {
         userViewNavigator.loadTaskListView(logic);
@@ -58,13 +58,18 @@ public class UserViewMain {
     /**
      * Shows the user the list of members.
      *
-     * @return the task list pane
+     * @return {@code MemberListPanel}
      */
     public Pane loadMembers() {
         userViewNavigator.loadMemberListView(logic);
         return userViewController.getCurrentView();
     }
 
+    /**
+     * Shows the user the a specific member.
+     *
+     * @return {@code IndivMemberCard}
+     */
     public Pane loadSpecificMember() {
         userViewNavigator.loadSpecificMemberView(logic);
         return userViewController.getCurrentView();
@@ -93,7 +98,7 @@ public class UserViewMain {
     /**
      * Shows the user the list of inventories.
      *
-     * @return the task list pane
+     * @return {@code InventoryListPanel}
      */
     public Pane loadInventories() {
         userViewNavigator.loadInventoriesListView(logic);
@@ -113,7 +118,7 @@ public class UserViewMain {
     /**
      * Shows the user the current settings.
      *
-     * @return the settings view
+     * @return {@code SettingsView}
      */
     public Pane loadSettingsView() {
         userViewNavigator.loadSettingsView(logic);
@@ -123,7 +128,7 @@ public class UserViewMain {
     /**
      * Shows the user the commands.
      *
-     * @return the help view
+     * @return {@code CommandListPanel}
      */
     public Pane loadHelpView() {
         userViewNavigator.loadHelpView(logic);

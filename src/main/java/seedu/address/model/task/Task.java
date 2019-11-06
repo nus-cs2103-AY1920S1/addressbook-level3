@@ -36,7 +36,7 @@ public class Task {
 
 
     public Task(Name name, TaskStatus taskStatus, Set<Tag> tags) {
-        requireAllNonNull(name, tags);
+        requireAllNonNull(name, taskStatus, tags);
         this.name = name;
         this.taskStatus = taskStatus;
 
@@ -53,7 +53,7 @@ public class Task {
 
     // for test purposes
     public Task(Name name, TaskStatus taskStatus, Set<Tag> tags, LocalDateTime dateTime) {
-        requireAllNonNull(name, tags);
+        requireAllNonNull(name, tags, taskStatus, dateTime);
         this.name = name;
         this.taskStatus = taskStatus;
         this.tags.addAll(tags);
@@ -64,8 +64,6 @@ public class Task {
         name = null;
         taskStatus = null;
     }
-
-    // TODO add multiple constructors so that users can add aditional info later
 
     public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;

@@ -53,7 +53,7 @@ public class AddTaskCommandTest {
         CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub);
 
         //Commented out for assertion error
-//        assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
+        //assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
     }
 
@@ -63,7 +63,7 @@ public class AddTaskCommandTest {
         AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
 
-        assertThrows(CommandException.class, addTaskCommand.MESSAGE_DUPLICATE_TASK, () ->
+        assertThrows(CommandException.class, AddTaskCommand.MESSAGE_DUPLICATE_TASK, () ->
                 addTaskCommand.execute(modelStub));
     }
 

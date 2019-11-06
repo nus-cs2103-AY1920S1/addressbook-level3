@@ -36,103 +36,104 @@ public class UserViewUpdate {
         paneToRender.getChildren().clear();
 
         switch (preamble) {
+        case "add-task":
 
-            case "add-task":
+        case "list-tasks":
 
-            case "list-tasks":
+        case "delete-task":
 
-            case "delete-task":
+        case "edit-task":
 
-            case "edit-task":
+        case "set-deadline":
 
-            case "set-deadline":
+        case "doing-task":
 
-            case "doing-task":
+        case "done-task":
 
-            case "done-task":
+        case "find-task":
+            paneToRender.getChildren().add(userViewMain.loadTasks());
+            break;
 
-            case "find-task":
-                paneToRender.getChildren().add(userViewMain.loadTasks());
-                break;
+        case "add-member":
+            paneToRender.getChildren().add(userViewMain.loadSpecificMember());
+            break;
 
-            case "add-member":
-                paneToRender.getChildren().add(userViewMain.loadSpecificMember());
-                break;
+        case "set-image":
+            paneToRender.getChildren().add(userViewMain.loadSetImage());
+            break;
 
-            case "set-image":
-                paneToRender.getChildren().add(userViewMain.loadSetImage());
-                break;
+        case "find-member":
+            paneToRender.getChildren().add(userViewMain.loadFoundMembers());
+            break;
 
-            case "find-member":
-                paneToRender.getChildren().add(userViewMain.loadFoundMembers());
-                break;
+        case "assign":
+            paneToRender.getChildren().add(userViewMain.loadAssign());
+            break;
 
-            case "assign":
-                paneToRender.getChildren().add(userViewMain.loadAssign());
-                break;
+        case "fire":
+            paneToRender.getChildren().add(userViewMain.loadTasks());
+            break;
 
-            case "fire":
-                paneToRender.getChildren().add(userViewMain.loadTasks());
-                break;
+        case "edit-member":
 
-            case "edit-member":
+        case "remove-member":
 
-            case "remove-member":
+        case "list-members":
+            paneToRender.getChildren().add(userViewMain.loadMembers());
+            break;
 
-            case "list-members":
-                paneToRender.getChildren().add(userViewMain.loadMembers());
-                break;
+        case "delete-inv":
 
-            case "delete-inv":
+        case "edit-inv":
 
-            case "edit-inv":
+        case "add-inv":
 
-            case "add-inv":
+        case "add-i":
 
-            case "add-i":
-
-            case "list-inv":
-                paneToRender.getChildren().add(userViewMain.loadInventories());
-                break;
-
-
-            case "member-stats":
-                paneToRender.getChildren().add(userViewMain.loadMemberStats());
-                break;
+        case "list-inv":
+            paneToRender.getChildren().add(userViewMain.loadInventories());
+            break;
 
 
-            case "task-stats":
-                paneToRender.getChildren().add(userViewMain.loadTaskStats());
-                break;
+        case "member-stats":
+            paneToRender.getChildren().add(userViewMain.loadMemberStats());
+            break;
 
-            case "find-meeting-time":
-                paneToRender.getChildren().add(userViewMain.loadMeetingTimes());
-                break;
 
-            case "settings":
+        case "task-stats":
+            paneToRender.getChildren().add(userViewMain.loadTaskStats());
+            break;
 
-            case "theme":
+        case "find-meeting-time":
+            paneToRender.getChildren().add(userViewMain.loadMeetingTimes());
+            break;
 
-            case "clock":
-                paneToRender.getChildren().add(userViewMain.loadSettingsView());
-                break;
+        case "settings":
 
-            case "clear":
+        case "theme":
 
-            case "home":
+        case "clock":
+            paneToRender.getChildren().add(userViewMain.loadSettingsView());
+            break;
 
-            case "add-d":
+        case "clear":
 
-            case "no":
+        case "home":
 
-            case "yes":
-                paneToRender.getChildren().add(userViewMain.loadDashboard());
-                break;
+        case "add-d":
 
-            case "help":
-                paneToRender.getChildren().add(userViewMain.loadHelpView());
-            default:
-                // show nothing (only exit has no case)
+        case "no":
+
+        case "yes":
+            paneToRender.getChildren().add(userViewMain.loadDashboard());
+            break;
+
+        case "help":
+            paneToRender.getChildren().add(userViewMain.loadHelpView());
+            break;
+
+        default:
+            // show nothing (only exit has no case)
         }
     }
 }

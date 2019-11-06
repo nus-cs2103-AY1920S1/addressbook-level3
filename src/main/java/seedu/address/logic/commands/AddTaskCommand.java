@@ -11,7 +11,7 @@ import seedu.address.model.task.Task;
 
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the project.
  */
 public class AddTaskCommand extends Command {
 

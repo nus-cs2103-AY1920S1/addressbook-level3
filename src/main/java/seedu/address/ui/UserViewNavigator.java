@@ -214,6 +214,11 @@ public class UserViewNavigator {
         userViewController.setUserView(taskStatsView);
     }
 
+    /**
+     * Relays to controller to swap current user view with meeting times list.
+     *
+     * @param logic to access meeting data
+     */
     public void loadMeetingTimesView(Logic logic) {
         meetingListPanel = new MeetingListPanel(logic.getMeetingQuery());
         userViewController.setUserView(meetingListPanel);

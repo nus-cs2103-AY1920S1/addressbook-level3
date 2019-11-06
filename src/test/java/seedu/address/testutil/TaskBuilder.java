@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import seedu.address.model.task.TaskStatus;
 import seedu.address.model.util.SampleTaskDataUtil;
 
 /**
- * A utility class to help with building Task objects.
+ * A utility class to help with building {@code Task} objects.
  */
 public class TaskBuilder {
 
