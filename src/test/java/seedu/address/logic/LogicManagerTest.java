@@ -124,7 +124,7 @@ public class LogicManagerTest {
 
     @Test
     public void setGuiSettings_success() {
-        GuiSettings guiSettings = new GuiSettings(2.2, 2.2, 1, 3);
+        GuiSettings guiSettings = new GuiSettings(2.2, 2.2, 1, 3, false);
         model.setGuiSettings(guiSettings);
         assertEquals(logic.getGuiSettings(), guiSettings);
         assertNotEquals(logic.getGuiSettings(), new GuiSettings());

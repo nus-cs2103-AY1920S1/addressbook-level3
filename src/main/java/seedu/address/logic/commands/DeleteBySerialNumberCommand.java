@@ -2,16 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
-
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.util.DateUtil;
-import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
-import seedu.address.model.loan.Loan;
 
 /**
  * Deletes a book identified using it's serial number from the catalog.
@@ -42,20 +37,8 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
             throw new CommandException(Messages.MESSAGE_NO_SUCH_BOOK);
         }
         Book bookToDelete = retrieveBookFromCatalog(model, targetSerialNumber);
-        if (bookToDelete.isCurrentlyLoanedOut()) {
-            Loan loanToBeReturned = bookToDelete.getLoan().get();
-            LocalDate returnDate = DateUtil.getTodayDate();
-            Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, FINE_AMOUNT_ZERO);
 
-            Book returnedBook = bookToDelete.returnBook();
-            LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToDelete);
-
-            // mark book as returned
-            super.markBookAsReturned(model, bookToDelete, returnedBook, loanToBeReturned, returnedLoan);
-            undoCommand = new UndeleteCommand(returnedBook, bookToDelete, returnedLoan, loanToBeReturned);
-        } else {
-            undoCommand = new AddCommand(bookToDelete);
-        }
+        returnBook(model, bookToDelete); // return before deleting
 
         model.deleteBook(bookToDelete);
 
@@ -73,11 +56,7 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
      * @return true if target book is found in model.
      */
     private boolean modelContainsBook(Model model, SerialNumber serialNumber) {
-        return model.getCatalog()
-                .getBookList()
-                .stream()
-                .filter(book -> book.getSerialNumber().equals(serialNumber))
-                .count() == 1;
+        return model.hasBook(serialNumber);
     }
 
     /**
@@ -88,11 +67,7 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
      * @return Book object, the target book.
      */
     private Book retrieveBookFromCatalog(Model model, SerialNumber serialNumber) {
-        return (Book) model.getCatalog()
-                .getBookList()
-                .stream()
-                .filter(book -> book.getSerialNumber().equals(serialNumber))
-                .toArray()[0];
+        return model.getBook(serialNumber);
     }
 
     @Override

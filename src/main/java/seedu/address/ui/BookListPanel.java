@@ -17,13 +17,16 @@ public class BookListPanel extends UiPart<Region> {
     private static final String FXML = "BookListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(BookListPanel.class);
 
+    private boolean isDarkTheme;
+
     @FXML
     private ListView<Book> bookListView;
 
-    public BookListPanel(ObservableList<Book> bookList) {
+    public BookListPanel(ObservableList<Book> bookList, boolean isDarkTheme) {
         super(FXML);
         bookListView.setItems(bookList);
         bookListView.setCellFactory(listView -> new BookListViewCell());
+        this.isDarkTheme = isDarkTheme;
     }
 
     /**
@@ -38,7 +41,7 @@ public class BookListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(BookCard.bookCardWithIndex(book, getIndex() + 1).getRoot());
+                setGraphic(new BookCard(book, getIndex() + 1, isDarkTheme).getRoot());
             }
         }
     }

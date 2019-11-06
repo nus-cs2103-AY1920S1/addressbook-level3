@@ -32,4 +32,20 @@ public class CollectionUtil {
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
+
+    /**
+     * Returns true if all each {@code Collection} has the same size.
+     */
+    public static boolean areAllSameSize(Collection<?>... collections) {
+        requireAllNonNull((Object[]) collections); // Warning shown if not type-casted
+
+        int size = collections[0].size();
+        for (Collection<?> collection : collections) {
+            if (collection.size() != size) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

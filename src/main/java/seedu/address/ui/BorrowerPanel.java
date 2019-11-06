@@ -23,6 +23,8 @@ import seedu.address.model.borrower.Borrower;
 public class BorrowerPanel extends UiPart<Region> {
     private static final String FXML = "BorrowerPanel.fxml";
 
+    private boolean isDarkTheme;
+
     @FXML
     private Label name;
     @FXML
@@ -38,7 +40,7 @@ public class BorrowerPanel extends UiPart<Region> {
     private ListView<Book> bookListView;
 
     /** Constructor when not in Serve Mode */
-    public BorrowerPanel() {
+    public BorrowerPanel(boolean isDarkTheme) {
         super(FXML);
         name.setText("");
         id.setText("");
@@ -46,6 +48,7 @@ public class BorrowerPanel extends UiPart<Region> {
         email.setText("");
         fines.setText("");
         VBox.setVgrow(bookListView, Priority.ALWAYS);
+        this.isDarkTheme = isDarkTheme;
     }
 
     /**
@@ -54,8 +57,9 @@ public class BorrowerPanel extends UiPart<Region> {
      * @param borrower Borrower being served/
      * @param observableBookList List of books the borrower loaned from the library.
      */
-    public void setBorrower(Borrower borrower, ObservableList<Book> observableBookList) {
+    public void setBorrower(Borrower borrower, ObservableList<Book> observableBookList, boolean isDarkTheme) {
         requireNonNull(borrower);
+        this.isDarkTheme = isDarkTheme;
         name.setText("Borrower: " + borrower.getName().toString());
         id.setText("ID: " + borrower.getBorrowerId().toString());
         phone.setText("Phone: " + borrower.getPhone().toString());
@@ -101,7 +105,7 @@ public class BorrowerPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(BookCard.bookCardWithIndex(book, getIndex() + 1).getRoot());
+                setGraphic(new BookCard(book, getIndex() + 1, isDarkTheme).getRoot());
             }
         }
     }

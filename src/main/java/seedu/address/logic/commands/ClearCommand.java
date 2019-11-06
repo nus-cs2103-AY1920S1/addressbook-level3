@@ -13,7 +13,7 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Resets filtered book list. \n\n"
             + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Catalog results have been cleared!";
+    public static final String MESSAGE_SUCCESS = "Search results have been cleared!";
     private String unusedArguments = null;
 
     public ClearCommand() {}
