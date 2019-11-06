@@ -696,6 +696,14 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Updates the list of tasks according to changes made in the planner
+     */
+    @Override
+    public void updateUnfilteredTaskList() {
+        planner.updateUnfilteredTaskList();
+    }
+
+    /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
      * of {@code Planner}
      */

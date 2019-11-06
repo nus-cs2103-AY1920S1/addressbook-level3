@@ -163,6 +163,7 @@ public class MainWindow extends UiPart<Stage> {
         FinanceListView flv = new FinanceListView(this, logic, model);
 
         model.updateSchedule();
+        model.updateUnfilteredTaskList();
         pw.fillPage();
         plannerContentPlaceholder.getChildren().add(pw.getRoot());
 

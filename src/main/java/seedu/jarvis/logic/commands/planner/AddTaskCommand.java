@@ -17,6 +17,7 @@ import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.planner.JsonAdaptedAddTaskCommand;
+import seedu.jarvis.ui.planner.PlannerView;
 
 /**
  * Adds a task to JARVIS
@@ -142,6 +143,7 @@ public class AddTaskCommand extends Command {
 
         model.addTask(toAdd);
         model.updateSchedule();
+        model.updateUnfilteredTaskList();
         model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
@@ -164,8 +166,11 @@ public class AddTaskCommand extends Command {
         }
 
         model.deleteTask(toAdd);
+        model.updateSchedule();
+        model.updateUnfilteredTaskList();
+        model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
 
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd), true);
     }
 
     /**

@@ -103,7 +103,7 @@ public class RedoCommand extends Command {
             throw new CommandException(String.format(MESSAGE_UNABLE_TO_REDO, numberOfTimes, numberOfCommits + 1));
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfCommits));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfCommits), true);
     }
 
     /**
