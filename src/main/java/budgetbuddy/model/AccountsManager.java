@@ -25,7 +25,7 @@ public class AccountsManager {
     private final UniqueAccountList accounts;
     private final FilteredList<Account> filteredAccounts;
 
-    private Index activeAccountIndex;
+    private Index activeAccountIndex = Index.fromZeroBased(0);
     private final TransactionList activeTransactionList;
 
     /**
@@ -36,6 +36,7 @@ public class AccountsManager {
         filteredAccounts = new FilteredList<>(this.getAccounts());
         // TODO add proper default data
         addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList()));
+        setActiveAccount(Index.fromZeroBased(0));
         activeTransactionList = new TransactionList();
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
@@ -79,7 +80,6 @@ public class AccountsManager {
      * Reset the filteredAccountList so that it contains all the accounts.
      */
     public void resetFilteredAccountList() {
-        filteredAccounts.setPredicate(s -> false);
         filteredAccounts.setPredicate(s -> true);
         //activeAccountIndex is reset to the first account
         setActiveAccount(Index.fromZeroBased(0));
@@ -161,8 +161,10 @@ public class AccountsManager {
      * @param toSet the account to be set to the active account.
      */
     public void setActiveAccount(Index toSet) {
-        accounts.iterator().forEachRemaining(a -> a.setInactive());
+        Account oldActiveAccount = filteredAccounts.get(activeAccountIndex.getZeroBased());
+        oldActiveAccount.setInactive();
         Account newActiveAccount = filteredAccounts.get(toSet.getZeroBased());
+        System.out.println("SETTING TO ACTIVE");
         newActiveAccount.setActive();
         activeAccountIndex = toSet;
     }
