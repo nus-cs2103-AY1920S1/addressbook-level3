@@ -11,6 +11,7 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.script.ScriptEngine;
+import budgetbuddy.logic.script.ScriptModelBinding;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.loan.Debtor;
@@ -38,11 +39,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new CommandLineParser();
-        scriptEngine = new ScriptEngine(engine -> {
-            // TODO: This will be pulled out into a separate class in a future PR
-            // TODO: Currently, this just brings it to feature-parity
-            engine.setVariable("bb", model);
-        });
+        scriptEngine = new ScriptEngine(new ScriptModelBinding(model));
     }
 
     @Override

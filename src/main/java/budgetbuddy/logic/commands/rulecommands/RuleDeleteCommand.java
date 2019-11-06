@@ -13,7 +13,7 @@ import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.rule.exceptions.RuleNotFoundException;
 
 /**
- * Delete a rule from budget buddy.
+ * Delete a rule.
  */
 public class RuleDeleteCommand extends Command {
 
@@ -21,7 +21,7 @@ public class RuleDeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a rule.\n"
             + "Parameters: "
-            + "<rule index> "
+            + "<rule ID> "
             + "Example: " + COMMAND_WORD + " 3";
 
     public static final String MESSAGE_SUCCESS = "Rule #%1$d Deleted.";

@@ -1,5 +1,6 @@
 package budgetbuddy;
 
+import budgetbuddy.commons.core.Config;
 import javafx.application.Application;
 
 /**
@@ -19,7 +20,13 @@ import javafx.application.Application;
  * to be the entry point of the application, we avoid this issue.
  */
 public class Main {
+    /**
+     * Runs everything.
+     */
     public static void main(String[] args) {
+        if (args.length > 0 && args[0].equalsIgnoreCase("--demo")) {
+            Config.setDemo(true);
+        }
         Application.launch(MainApp.class, args);
     }
 }

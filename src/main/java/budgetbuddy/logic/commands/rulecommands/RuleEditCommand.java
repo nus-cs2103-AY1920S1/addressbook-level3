@@ -33,7 +33,7 @@ public class RuleEditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a rule.\n"
             + "Parameters: "
-            + "<rule index> "
+            + "<rule ID> "
             + "[" + PREFIX_PREDICATE + "PREDICATE] "
             + "[" + PREFIX_ACTION + "ACTION]\n"
             + "Example: " + COMMAND_WORD + " "

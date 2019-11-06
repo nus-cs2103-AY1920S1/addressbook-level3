@@ -12,4 +12,12 @@ public class ScriptException extends Exception {
     public ScriptException(String message, Throwable cause) {
         super(message, cause);
     }
+
+    /**
+     * Constructs a <code>ScriptException</code> with the specified detail message.
+     * @param message the detail message
+     */
+    public ScriptException(String message) {
+        super(message);
+    }
 }

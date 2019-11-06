@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import budgetbuddy.commons.core.Config;
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.logic.Logic;
@@ -82,6 +83,10 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         tabMap = new HashMap<>();
+
+        if (Config.isDemo()) {
+            new DemoWindow(this).show();
+        }
     }
 
     public Stage getPrimaryStage() {
