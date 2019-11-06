@@ -1,4 +1,4 @@
-= Liu Guangyuan- Project Portfolio
+= Liu Guangyuan (Gary) - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,35 +13,33 @@
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to create memes from templates*
+** What it does: allows the user to add meme templates and create memes by adding text to templates. +
+The user can:
+*** add, list, edit, search, and delete templates
+*** place text anywhere on the template image and see the effect immediately
+*** customize the font size, color, and style of the text they add to the template
+** Justification: This feature forms an integral part of the product because generating memes is something that meme lovers do on a regular basis.
+** Highlights: This enhancement required extending all levels of the architecture: model and storage components were extended to support storing templates; UI was extended to display templates and the current meme creation session.
+It required an in-depth analysis of how the user should interact with the product, given our target user group are those who prefer Command Line Interfaces.
+The implementation was challenging as it involved graphics processing.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+** Implement front-end for tabs [https://github.com/AY1920S1-CS2103-T16-3/main/pull/50[#50]]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=gary-lgy&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=gary-lgy&tabRepo=AY1920S1-CS2103-T16-3%2Fmain%5Bmaster%5D[RepoSense data]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Reviewed a large number of pull requests [https://github.com/AY1920S1-CS2103-T16-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+reviewed-by%3Agary-lgy[Reviews]]
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Changed the display from a list to a grid, which is more suitable for images [https://github.com/AY1920S1-CS2103-T16-3/main/pull/44[#44]]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Reworded, formatted, and organized the User Guide: [https://github.com/AY1920S1-CS2103-T16-3/main/pull/159[#159]]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Reported bugs and suggestions for other teams in the class [https://github.com/gary-lgy/ped/issues[PED]]
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -50,7 +48,13 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+****
+Besides the section below, I have also written the *Templates tab* section, which is not included here due to page limit.
+Please refer to https://ay1920s1-cs2103-t16-3.github.io/main/UserGuide.html#templates-tab[here] if you would like to see more detail.
+****
+
+
+include::../UserGuide.adoc[tag=meme-create]
 
 == Contributions to the Developer Guide
 
@@ -58,13 +62,10 @@ include::../UserGuide.adoc[tag=delete]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+****
+Besides the section below, I have also written the *Tabs feature* section, which is not included here due to page limit.
+Please refer to https://ay1920s1-cs2103-t16-3.github.io/main/DeveloperGuide.html#tabs-feature[here] if you would like to see more detail.
+****
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=templates]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

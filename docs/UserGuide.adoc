@@ -223,6 +223,7 @@ Format: `archive INDEX`
 Unarchives a meme at the specified index. +
 Format: `unarchive INDEX`
 
+// tag::templates[]
 === Templates Tab
 Templates are meme prototypes.
 You can add templates to Weme and use them to create new memes.
@@ -301,6 +302,10 @@ Weme will enter the create tab and allow you to add text to the template. +
 For details, please refer to the next section <<Create Tab>>. +
 Format: `use INDEX`
 
+// end::templates[]
+
+// tag::meme-create[]
+
 === Create Tab
 The create tab allows you to create a new meme from a template.
 To start a meme creation session, select a template from the templates tab and execute the `use` command.
@@ -319,6 +324,10 @@ Format: `add TEXT x/X_COORDINATE y/Y_COORDINATE [c/COLOR] [s/SIZE] [S/STYLE]...`
 * If you do not specify `COLOR`, `SIZE`, or `STYLE`, the default values will be used. The default values are black, 5, and plain, respectively.
 * Weme will not add text that would exceed the image boundary. If it detects such a scenario, it will print an error message.
 ****
+
+[TIP]
+The x and y coordinates given in the command specify the position for the *center* of the text.
+This means if you want to add text to the center of the image, the command will always be `add TEXT x/0.5 y/0.5` no matter how long your text is.
 
 Examples:
 
@@ -372,6 +381,7 @@ Examples:
 * `create d/sleep or code t/soc t/cs2103` +
 Creates a new meme from the current meme creation session, giving it a description `sleep or code` and tags `soc` and `cs2103`.
 
+// end::meme-create[]
 
 // tag::export/import[]
 
