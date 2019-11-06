@@ -22,7 +22,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAllCommand;
 import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.ImportCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RateQuestionCommand;
 import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SearchAnswerCommand;
