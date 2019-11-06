@@ -2,11 +2,9 @@ package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
 
-import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.model.Deck;
-import dream.fcard.util.stats.StatsDisplayUtil;
-//import dream.fcard.util.stats.StatsDisplayUtil;
+import dream.fcard.util.stats.SessionListUtil;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,15 +59,22 @@ public class DeckStatisticsWindow extends ScrollPane {
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
+        SessionList deckSessionList = deck.getDeckSessionList();
         int numberOfCards = deck.getNumberOfCards();
-        numCards.setText("Number of cards in deck: " + numberOfCards
-            + (numberOfCards == 1 ? "card" : "cards"));
+        this.numCards.setText("Number of cards in deck: " + numberOfCards
+            + (numberOfCards == 1 ? " card" : "cards"));
 
-        //int numSessions = deckStats.getNumberOfSessions();
+        SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
+            deckSessionList);
+        int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
+        this.sessionsThisWeek.setText("Total test sessions this week: " + numSessionsThisWeek
+            + (numSessionsThisWeek == 1 ? " session" : " sessions"));
+
+        //int numSessions = deckSessionList.getNumberOfSessions();
         //totalSessions.setText("Total login sessions: " + numSessions
         //    + (numSessions == 1 ? " session" : " sessions"));
-
-        //String duration = deckStats.getTotalDurationOfSessionsAsString();
+        //
+        //String duration = deckSessionList.getTotalDurationAsString();
         //totalDuration.setText("Total login duration: " + duration);
     }
 }

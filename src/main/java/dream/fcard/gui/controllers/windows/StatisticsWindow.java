@@ -62,6 +62,7 @@ public class StatisticsWindow extends ScrollPane {
 
         this.deckTableView = StatsDisplayUtil.getDeckTableView();
         this.deckTableScrollPane.setContent(deckTableView);
+        allowDeckStatisticsWindowToBeOpened();
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
@@ -72,9 +73,9 @@ public class StatisticsWindow extends ScrollPane {
 
         SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
             userStats.getSessionList());
-        int numSessionThisWeek = sublistForThisWeek.getNumberOfSessions();
-        this.sessionsThisWeek.setText("Total login sessions this week: " + numSessionThisWeek
-            + (numSessionThisWeek == 1 ? " session" : " sessions"));
+        int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
+        this.sessionsThisWeek.setText("Total login sessions this week: " + numSessionsThisWeek
+            + (numSessionsThisWeek == 1 ? " session" : " sessions"));
 
         String duration = userStats.getSessionList().getTotalDurationAsString();
         this.totalDuration.setText("Total login duration: " + duration);
@@ -83,15 +84,15 @@ public class StatisticsWindow extends ScrollPane {
         this.averageDuration.setText("Average duration per login: " + averageDuration);
     }
 
-    /** Opens the relevant DeckStatisticsWindow when a row of the deckTableView is double-clicked. */
-    private void openDeckStatisticsWindow(Deck deck) {
+    /** Allows the relevant DeckStatisticsWindow to be opened when a row of the deckTableView is double-clicked. */
+    private void allowDeckStatisticsWindowToBeOpened() {
         this.deckTableView.setRowFactory(tv -> {
             TableRow<Deck> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                     && event.getClickCount() == 2) {
                     Deck selectedDeck = row.getItem();
-                    //printRow(clickedRow);
+                    StatsDisplayUtil.openDeckStatisticsWindow(selectedDeck);
                 }
             });
             return row;

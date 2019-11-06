@@ -3,6 +3,7 @@ package dream.fcard.util.stats;
 
 import java.util.ArrayList;
 
+import dream.fcard.gui.controllers.windows.DeckStatisticsWindow;
 import dream.fcard.gui.controllers.windows.StatisticsWindow;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
@@ -27,6 +28,16 @@ public class StatsDisplayUtil {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new StatisticsWindow());
+        stage.setScene(scene);
+        stage.setTitle("My Statistics");
+        stage.show();
+    }
+
+    /** Opens the deck statistics window to show the statistics for the given deck. */
+    public static void openDeckStatisticsWindow(Deck deck) {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(new DeckStatisticsWindow(deck));
         stage.setScene(scene);
         stage.setTitle("My Statistics");
         stage.show();
