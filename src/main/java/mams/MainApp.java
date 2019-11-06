@@ -21,7 +21,6 @@ import mams.model.ModelManager;
 import mams.model.ReadOnlyMams;
 import mams.model.ReadOnlyUserPrefs;
 import mams.model.UserPrefs;
-import mams.model.util.SampleDataUtil;
 import mams.storage.CommandHistoryStorage;
 import mams.storage.JsonCommandHistoryStorage;
 import mams.storage.JsonMamsStorage;
@@ -85,7 +84,7 @@ public class MainApp extends Application {
             if (!mamsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample MAMS");
             }
-            initialData = mamsOptional.orElseGet(SampleDataUtil::getSampleMams);
+            initialData = mamsOptional.orElse(new Mams());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MAMS");
             initialData = new Mams();

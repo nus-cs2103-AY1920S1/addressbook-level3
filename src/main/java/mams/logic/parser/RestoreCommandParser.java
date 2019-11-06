@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
+import mams.logic.commands.RestoreCommand;
 import mams.logic.commands.SaveCommand;
 
 import mams.logic.parser.exceptions.ParseException;
@@ -11,7 +12,7 @@ import mams.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new SaveCommand object
  */
-public class SaveCommandParser implements Parser<SaveCommand> {
+public class RestoreCommandParser implements Parser<RestoreCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetCredits
@@ -19,21 +20,21 @@ public class SaveCommandParser implements Parser<SaveCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public SaveCommand parse(String args) throws ParseException {
+    public RestoreCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
         if (argMultimap.getValue(PREFIX_TAG).isEmpty()) {
-            return new SaveCommand();
+            throw new ParseException(SaveCommand.MESSAGE_USAGE_RESTORE);
         } else if (argMultimap.getValue(PREFIX_TAG).get().equals("undo")) {
-            throw new ParseException((SaveCommand.MESSAGE_USAGE_BACKUP));
+            throw new ParseException((SaveCommand.MESSAGE_USAGE_RESTORE));
         } else if (argMultimap.getValue(PREFIX_TAG).get().equals("redo")) {
-            throw new ParseException(SaveCommand.MESSAGE_USAGE_BACKUP);
+            throw new ParseException(SaveCommand.MESSAGE_USAGE_RESTORE);
         } else if (argMultimap.getValueSize(PREFIX_TAG) == 1) {
-            return new SaveCommand(argMultimap.getAllValues(PREFIX_TAG).get(0));
+            return new RestoreCommand(argMultimap.getAllValues(PREFIX_TAG).get(0));
         } else {
-            throw new ParseException(SaveCommand.MESSAGE_USAGE_BACKUP);
+            throw new ParseException(SaveCommand.MESSAGE_USAGE_RESTORE);
         }
     }
 }

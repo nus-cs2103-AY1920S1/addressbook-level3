@@ -10,11 +10,17 @@ import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
 import mams.commons.core.time.TimeStamp;
 import mams.commons.exceptions.DataConversionException;
+import mams.logic.commands.ClashCommand;
 import mams.logic.commands.Command;
 import mams.logic.commands.CommandResult;
+import mams.logic.commands.FindCommand;
+import mams.logic.commands.HelpCommand;
+import mams.logic.commands.HistoryCommand;
+import mams.logic.commands.ListCommand;
 import mams.logic.commands.RedoCommand;
 import mams.logic.commands.SaveCommand;
 import mams.logic.commands.UndoCommand;
+import mams.logic.commands.ViewCommand;
 import mams.logic.commands.exceptions.CommandException;
 import mams.logic.history.CommandHistory;
 import mams.logic.history.InputOutput;
@@ -69,7 +75,10 @@ public class LogicManager implements Logic {
 
         try {
             command = mamsParser.parseCommand(commandText);
-            if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
+            if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)
+                    && !(command instanceof ListCommand) && !(command instanceof HistoryCommand)
+                    && !(command instanceof HelpCommand) && !(command instanceof FindCommand)
+                    && !(command instanceof ClashCommand) && !(command instanceof ViewCommand)) {
                 new SaveCommand("undo").privateExecute(model);
             }
             commandResult = command.execute(model, commandHistory);
