@@ -69,7 +69,7 @@ class JsonAdaptedAnswerable {
         }
 
         question = source.getQuestion().question;
-        difficulty = source.getDifficulty().value;
+        difficulty = source.getDifficulty().difficulty;
         correctAnswerSet.addAll(source.getCorrectAnswerList().stream()
                 .map(JsonAdaptedAnswer::new)
                 .collect(Collectors.toList()));

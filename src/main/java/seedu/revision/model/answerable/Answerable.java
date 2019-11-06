@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import seedu.revision.model.category.Category;
 
@@ -17,8 +16,6 @@ import seedu.revision.model.category.Category;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public abstract class Answerable {
-
-    private static final Logger logger = Logger.getLogger(Answerable.class.getName());
 
     protected final Question question;
     protected final Difficulty difficulty;
@@ -77,10 +74,8 @@ public abstract class Answerable {
     public boolean isCorrect(Answer selectedAnswer) {
         requireNonNull(selectedAnswer);
         if (correctAnswerList.contains(selectedAnswer)) {
-            logger.info("correct answer selected");
             return true;
         }
-        logger.info("WRONG answer selected");
         return false;
     }
 

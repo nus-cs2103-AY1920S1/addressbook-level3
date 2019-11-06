@@ -33,14 +33,14 @@ import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.StorageManager;
 import seedu.revision.testutil.McqBuilder;
 
-public class MainLogicManagerTest {
+public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
     public Path temporaryFolder;
 
     private Model model = new ModelManager();
-    private MainLogic mainLogic;
+    private Logic logic;
 
     @BeforeEach
     public void setUp() {
@@ -48,7 +48,7 @@ public class MainLogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        mainLogic = new MainLogicManager(model, storage);
+        logic = new LogicManager(model, storage);
     }
 
     @Test
@@ -73,13 +73,13 @@ public class MainLogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup MainLogicManager with JsonAddressBookIoExceptionThrowingStub
+        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        mainLogic = new MainLogicManager(model, storage);
+        logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_ALPHA
@@ -87,13 +87,13 @@ public class MainLogicManagerTest {
         Answerable expectedAnswerable = new McqBuilder(MCQ_A).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addAnswerable(expectedAnswerable);
-        String expectedMessage = MainLogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
     public void getFilteredAnswerableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> mainLogic.getFilteredAnswerableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredAnswerableList().remove(0));
     }
 
     /**
@@ -105,7 +105,7 @@ public class MainLogicManagerTest {
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
             Model expectedModel) throws CommandException, ParseException {
-        CommandResult result = mainLogic.execute(inputCommand);
+        CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
@@ -145,7 +145,7 @@ public class MainLogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
-        assertThrows(expectedException, expectedMessage, () -> mainLogic.execute(inputCommand));
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
 

@@ -56,7 +56,7 @@ public class AnswerableCard extends UiPart<Region> {
         }
         id.setText(displayedIndex + ". ");
         question.setText(answerable.getQuestion().question);
-        difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
+        difficulty.setText("Difficulty: " + answerable.getDifficulty().difficulty);
         answerable.getCorrectAnswerList().stream()
                 .sorted(Comparator.comparing(correctAnswer -> correctAnswer.answer))
                 .forEach(correctAnswer -> answerPane.getChildren().add(correctLabel(correctAnswer.answer)));
@@ -65,8 +65,8 @@ public class AnswerableCard extends UiPart<Region> {
                 .forEach(wrongAnswer -> answerPane.getChildren().add(new Label(wrongAnswer.answer)));
 
         answerable.getCategories().stream()
-                .sorted(Comparator.comparing(category -> category.categoryName))
-                .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
+                .sorted(Comparator.comparing(category -> category.category))
+                .forEach(category -> categories.getChildren().add(new Label(category.category)));
 
     }
 

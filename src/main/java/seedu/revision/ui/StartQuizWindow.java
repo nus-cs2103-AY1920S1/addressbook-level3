@@ -1,7 +1,5 @@
 package seedu.revision.ui;
 
-import static seedu.revision.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
-
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -10,13 +8,11 @@ import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -67,8 +63,8 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
-    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
-        super(FXML, primaryStage, mainLogic);
+    public StartQuizWindow(Stage primaryStage, Logic logic, Mode mode) {
+        super(FXML, primaryStage, logic);
         this.mode = mode;
     }
 
@@ -76,7 +72,7 @@ public class StartQuizWindow extends Window {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.quizList = mainLogic.getFilteredSortedAnswerableList();
+        this.quizList = logic.getFilteredSortedAnswerableList();
         answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
@@ -86,13 +82,13 @@ public class StartQuizWindow extends Window {
         questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         commandBox = new CommandBox(this::executeCommand, false);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        int nextLevel = Integer.parseInt(quizList.get(0).getDifficulty().value);
+        int nextLevel = Integer.parseInt(quizList.get(0).getDifficulty().difficulty);
         this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
 
         levelLabel = new LevelLabel(nextLevel);
@@ -108,8 +104,7 @@ public class StartQuizWindow extends Window {
 
     private int getSizeOfCurrentLevel(Answerable answerable) {
         ObservableList<Answerable> sectionList = quizList.filtered(a ->
-                a.getDifficulty().value.equals(answerable.getDifficulty().value));
-        logger.info("section size: " + sectionList.size());
+                a.getDifficulty().difficulty.equals(answerable.getDifficulty().difficulty));
         return sectionList.size();
     }
 
@@ -127,13 +122,12 @@ public class StartQuizWindow extends Window {
     /**
      * Executes the command and returns the result.
      *
-     * @see MainLogic#execute(String, Answerable)
+     * @see Logic#execute(String, Answerable)
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
-            logger.info("Question result: " + commandResult.getFeedbackToUser());
+            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
                 // TODO: KhiangLeon use the updateStatistics() method here or in McqInputCommand#execute.
                 //  Both has access to the answerable.
@@ -177,7 +171,6 @@ public class StartQuizWindow extends Window {
 
             return commandResult;
         } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
             throw e;
         }
@@ -187,66 +180,41 @@ public class StartQuizWindow extends Window {
      * Handles progression to the next level and receives response from the user.
      * @param nextAnswerable next answerable that will be displayed.
      */
-    @FXML
     private void handleNextLevel(Answerable nextAnswerable) {
-        int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().value);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
-
-        alert.setTitle("Well done!");
-        alert.setHeaderText(null);
-        alert.setGraphic(null);
-        alert.setContentText("You have completed level " + (nextLevel - 1) + "\n"
-                + "Your current score is: " + score + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
-                + "Would you like to proceed to level " + nextLevel + "?\n"
-                + "Press [ENTER] to proceed.\n"
-                + "Press [ESC] to return to main screen.");
-
-        ButtonType tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        ButtonType endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        alert.getButtonTypes().setAll(tryAgainButton, endButton);
+        int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().difficulty);
+        AlertDialog nextLevelDialog = AlertDialog.getNextLevelAlert(nextLevel, score,
+                logic.getFilteredAnswerableList().size());
+        //TODO: Khiangleon to replace logic.getFilteredAnswerableList to the total score so far.
 
         Task<Void> task = new Task<>() {
             @Override
-            public Void call() throws Exception {
+            public Void call() {
                 timer.stopTimer();
-                logger.info("---------Timer Stopped!!!!----------");
                 return null;
             }
         };
+
         task.setOnSucceeded(e -> {
-            nextLevelHelper(alert, endButton, nextAnswerable, nextLevel);
+            Optional<ButtonType> result = nextLevelDialog.showAndWait();
+            if (result.get() == nextLevelDialog.getEndButton()) {
+                handleExit();
+            } else {
+                //Reset UI in the window
+                levelLabel = new LevelLabel(nextLevel);
+                levelPlaceholder.getChildren().add(levelLabel.getRoot());
+                currentProgressIndex.set(0);
+                progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
+                        getSizeOfCurrentLevel(nextAnswerable),
+                        "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
+                //Start a new timer for the next level
+                this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
+                progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
+                scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
+            }
         });
+
+        //Start the event on a new thread so that showAndWait event is not conflicted with timer animation.
         new Thread(task).start();
-    }
-
-    /**
-     * Helper function for the nextLevel method used to show the alert and get user input.
-     * @param alert alert that will be shown to the user.
-     * @param endButton button that will end the quiz.
-     * @param nextAnswerable the next answerable in the quiz.
-     * @param nextLevel the next level in the quiz.
-     */
-    private void nextLevelHelper(Alert alert, ButtonType endButton, Answerable nextAnswerable, int nextLevel) {
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() == endButton) {
-            handleExit();
-        } else {
-            levelLabel = new LevelLabel(nextLevel);
-            levelPlaceholder.getChildren().add(levelLabel.getRoot());
-
-            currentProgressIndex.set(0);
-            progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
-                    getSizeOfCurrentLevel(nextAnswerable),
-                    "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-            //Start a new timer for the next level
-            this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
-            progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
-            scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
-        }
     }
 
     /**
@@ -255,65 +223,34 @@ public class StartQuizWindow extends Window {
     @FXML
     private void handleEnd() {
         currentProgressIndex.set(currentProgressIndex.get() + 1);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
-        alert.setTitle("End of Quiz!");
-        alert.setHeaderText(null);
-        alert.setGraphic(null);
+        boolean isFailure = mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext();
+        AlertDialog endAlert = AlertDialog.getEndAlert(score, logic.getFilteredAnswerableList().size(), isFailure);
+        //TODO: Khiangleon to replace logic.getFilteredAnswerableList to the total score so far.
 
-        if (mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext()) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Better luck next time! :P Your score is " + score
-                    + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
-                    + "Try again?\n"
-                    + "Press [ENTER] to try again.\n"
-                    + "Press [ESC] to return to main screen.");
-        } else {
-            alert.setContentText("Quiz has ended! Your final score is " + score
-                    + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
-                    + "Try again?\n"
-                    + "Press [ENTER] to try again.\n"
-                    + "Press [ESC] to return to main screen.");
-        }
-
-        ButtonType tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        ButtonType endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        alert.getButtonTypes().setAll(tryAgainButton, endButton);
-
-        Task<Void> task = new Task<Void>() {
+        Task<Void> task = new Task<>() {
             @Override
-            public Void call() throws Exception {
+            public Void call() {
                 timer.stopTimer();
-                logger.info("---------Timer Stopped!!!!----------");
                 return null;
             }
         };
+
         task.setOnSucceeded(e -> {
-            endHelper(alert, endButton);
+            Optional<ButtonType> result = endAlert.showAndWait();
+            if (result.get() == endAlert.getEndButton()) {
+                handleExit();
+            } else {
+                restartQuiz();
+            }
         });
 
+        //Start the event on a new thread so that showAndWait event is not conflicted with timer animation.
         new Thread(task).start();
 
     }
 
     /**
-     * Helper function to display the alert when quiz ends.
-     * @param alert alert that is shown to user when the quiz ends.
-     * @param endButton button that will end the quiz.
-     */
-    private void endHelper(Alert alert, ButtonType endButton) {
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == endButton) {
-            handleExit();
-        } else {
-            restartQuiz();
-        }
-    }
-
-    /**
-     * Restarts the quiz session by resetting progress.
+     * Restarts the quiz session and resets the progress.
      */
     private void restartQuiz() {
         answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
@@ -329,8 +266,8 @@ public class StartQuizWindow extends Window {
     @FXML
     protected void handleExit() {
         timer.stopTimer();
-        mainLogic.removeFiltersFromAnswerableList();
-        mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
+        logic.removeFiltersFromAnswerableList();
+        mainWindow = new MainWindow(getPrimaryStage(), logic);
         mainWindow.show();
         mainWindow.fillInnerParts();
         mainWindow.resultDisplay.setFeedbackToUser("Great attempt! Type 'start mode/MODE' "
