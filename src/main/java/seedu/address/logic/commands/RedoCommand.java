@@ -26,7 +26,9 @@ public class RedoCommand extends Command {
         if (!model.canRedoCommand()) {
             throw new CommandException(MESSAGE_CANNOT_REDO_COMMAND);
         }
-        CommandResult commandResult = model.redoCommand();
+        Command redoCommand = model.getRedoCommand();
+        CommandResult commandResult = redoCommand.execute(model);
+
         String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
 
         if (commandResult.isDone()) {

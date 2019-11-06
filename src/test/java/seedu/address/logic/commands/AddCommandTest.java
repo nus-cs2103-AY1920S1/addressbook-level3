@@ -365,12 +365,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Pair<CommandResult, CommandResult> undoCommand() {
+        public Pair<Command, ReversibleCommand> getUndoCommand() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public CommandResult redoCommand() {
+        public Command getRedoCommand() {
             throw new AssertionError("This method should not be called.");
         }
 

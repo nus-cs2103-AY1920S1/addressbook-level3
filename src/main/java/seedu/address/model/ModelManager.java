@@ -20,9 +20,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.DateUtil;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ReversibleCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
@@ -45,7 +44,7 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
-    private final CommandHistory commandHistory;
+    private final CommandHistory commandHistoryManager;
 
     private Optional<Borrower> servingBorrower;
 
@@ -72,7 +71,7 @@ public class ModelManager implements Model {
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
 
-        this.commandHistory = new CommandHistory();
+        this.commandHistoryManager = new CommandHistoryManager();
 
         this.servingBorrower = Optional.empty();
     }
@@ -638,32 +637,32 @@ public class ModelManager implements Model {
 
     @Override
     public boolean canUndoCommand() {
-        return commandHistory.canUndo();
+        return commandHistoryManager.canUndo();
     }
 
     @Override
     public boolean canRedoCommand() {
-        return commandHistory.canRedo();
+        return commandHistoryManager.canRedo();
     }
 
     @Override
     public void commitCommand(ReversibleCommand command) {
-        commandHistory.commit(command);
+        commandHistoryManager.commit(command);
     }
 
     @Override
-    public Pair<CommandResult, CommandResult> undoCommand() throws CommandException {
-        return commandHistory.undo(this);
+    public Pair<Command, ReversibleCommand> getUndoCommand() {
+        return commandHistoryManager.getUndoCommand();
     }
 
     @Override
-    public CommandResult redoCommand() throws CommandException {
-        return commandHistory.redo(this);
+    public Command getRedoCommand() {
+        return commandHistoryManager.getRedoCommand();
     }
 
     @Override
     public void resetCommandHistory() {
-        commandHistory.reset();
+        commandHistoryManager.reset();
     }
 
 }
