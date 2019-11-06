@@ -1,9 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
-import static seedu.address.logic.parser.CliSyntax.FLAG_PERSON;
-import static seedu.address.logic.parser.CliSyntax.FLAG_TRAINING;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -13,10 +9,9 @@ import seedu.address.model.Model;
 public abstract class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-
-    public static final String MESSAGE_USAGE = "Use the flags "
-        + FLAG_PERSON + " or " + FLAG_EVENT + " or " + FLAG_TRAINING
-        + " to delete a person, event or training respectively.";
+    public static final String MESSAGE_USAGE = "\nTo delete a person,\n" + DeletePersonCommand.MESSAGE_USAGE + "\n"
+        + "\nTo delete an event,\n" + DeleteEventCommand.MESSAGE_USAGE + "\n"
+        + "\nTo delete a trainng,\n" + DeleteTrainingCommand.MESSAGE_USAGE;
 
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;

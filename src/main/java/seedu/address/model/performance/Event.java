@@ -14,10 +14,9 @@ import seedu.address.model.person.Person;
  */
 public class Event {
 
-    public static final String MESSAGE_CONSTRAINTS = "%1$s event has not been created.\n"
+    public static final String MESSAGE_NO_SUCH_EVENT = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
-
-    public static final String INVALID_NAME_MESSAGE_CONSTRAINTS = "Event name should not begin with a space.\n";
+    public static final String MESSAGE_CONSTRAINTS = "Event name should not begin with a space.\n";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -113,8 +112,7 @@ public class Event {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both events have the same names.
      */
     @Override
     public boolean equals(Object other) {
@@ -128,6 +126,11 @@ public class Event {
 
         Event otherEvent = (Event) other;
         return otherEvent.getName().equals(name);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     //// Analysis helper functions

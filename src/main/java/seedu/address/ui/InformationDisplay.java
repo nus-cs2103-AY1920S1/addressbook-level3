@@ -31,13 +31,13 @@ public class InformationDisplay extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label gender;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
     @FXML
     private Label email;
-    @FXML
-    private Label gender;
     @FXML
     private Label attendanceRate;
     @FXML

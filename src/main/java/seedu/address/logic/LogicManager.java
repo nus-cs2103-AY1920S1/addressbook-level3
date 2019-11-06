@@ -72,7 +72,7 @@ public class LogicManager implements Logic {
 
     @Override
     public String getPersonAttendance() {
-        return model.getAttendance().getPersonAttendanceString(getPerson());
+        return model.getAttendance().getPersonAttendanceRateString(getPerson());
     }
 
     @Override

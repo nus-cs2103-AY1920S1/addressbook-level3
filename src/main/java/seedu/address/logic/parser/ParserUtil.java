@@ -16,6 +16,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.feature.Feature;
+import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -99,15 +100,13 @@ public class ParserUtil {
         if (trimmedDate.length() == 6 || trimmedDate.length() == 8) {
             if (trimmedDate.length() == 8) {
                 return parseDateTypeOne(trimmedDate);
-            } else if (date.length() == 6) {
+            } else {
                 return parseDateTypeTwo(trimmedDate);
             }
         } else {
             throw new ParseException(String.format(AthletickDate.MESSAGE_CONSTRAINTS,
                     AthletickDate.DATE_FORMAT_GENERAL));
         }
-        // should not reach here
-        return null;
     }
 
     /**
@@ -130,7 +129,8 @@ public class ParserUtil {
             return new AthletickDate(day, month, year, type, mth);
         } catch (java.text.ParseException e) {
             throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " "
-                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_ONE));
+                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_ONE)
+                    + "\n" + AthletickDate.MONTH_CONSTRAINTS + "\n" + AthletickDate.YEAR_CONSTRAINTS);
         }
     }
 
@@ -154,7 +154,8 @@ public class ParserUtil {
             return new AthletickDate(day, month, year, type, mth);
         } catch (java.text.ParseException e) {
             throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " "
-                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_TWO));
+                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_TWO)
+                    + "\n" + AthletickDate.MONTH_CONSTRAINTS + "\n" + AthletickDate.YEAR_CONSTRAINTS);
         }
     }
 
@@ -263,9 +264,12 @@ public class ParserUtil {
     /**
      * Parses {@code String event} into a {@code Event}
      */
-    public static String parseEvent(String event) {
+    public static String parseEvent(String event) throws ParseException {
         requireNonNull(event);
         String trimmedEvent = event.trim().toLowerCase();
+        if (!Event.isValidName(trimmedEvent)) {
+            throw new ParseException(Event.MESSAGE_CONSTRAINTS);
+        }
         return trimmedEvent;
     }
 

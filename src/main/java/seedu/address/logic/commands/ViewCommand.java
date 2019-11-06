@@ -36,7 +36,7 @@ public class ViewCommand extends Command {
         case "calendar":
             return new CommandResult(MESSAGE_SUCCESS_CALENDAR, feature, model);
         case "attendance":
-            return new CommandResult(MESSAGE_SUCCESS_ATTENDANCE, feature);
+            return new CommandResult(MESSAGE_SUCCESS_ATTENDANCE, feature, model);
         case "performance":
             return new CommandResult(MESSAGE_SUCCESS_PERFORMANCE, feature, model);
         case "records":
