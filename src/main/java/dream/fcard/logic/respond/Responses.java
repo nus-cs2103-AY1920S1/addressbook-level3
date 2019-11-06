@@ -179,6 +179,8 @@ public enum Responses {
                         return true;
                     } catch (NumberFormatException n) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
+                    } catch (DeckNotFoundException dnfExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnfExc.getMessage());
                         return true;
                     }
                 }

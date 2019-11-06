@@ -9,6 +9,7 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.DeckAlreadyExistsException;
+import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 
 /**
@@ -88,13 +89,13 @@ public class CreateCommand extends Command {
      * @throws DuplicateInChoicesException
      */
     public static boolean createMcqFrontBack(ArrayList<ArrayList<String>> command, State state)
-        throws DuplicateInChoicesException {
+        throws DuplicateInChoicesException, DeckNotFoundException {
         // Checks if deckName matches any deck in the State.
         boolean deckExistsInState = false;
         Deck currDeck = null;
         for (Deck curr : state.getDecks()) {
 
-            if (curr.getDeckName().equals(command.get(0))) {
+            if (curr.getDeckName().equals(command.get(0).get(0))) {
                 // todo: @PhireHandy -- equals() between String and ArrayList<String>
                 deckExistsInState = true;
                 currDeck = curr;
@@ -103,12 +104,13 @@ public class CreateCommand extends Command {
         }
 
         if (!deckExistsInState) {
-            return false;
+            throw new DeckNotFoundException("The specified deck does not exist! Please create it first.");
         }
 
+        boolean hasPriority = command.get(1).size() > 0;
         // Checks if priority level matches high or low
-        if (!command.get(1).get(0).equalsIgnoreCase("high")
-            && !command.get(1).get(0).equalsIgnoreCase("low")) {
+        if (hasPriority && (!command.get(1).get(0).equalsIgnoreCase("high")
+            && !command.get(1).get(0).equalsIgnoreCase("low"))) {
             return false;
         }
 
@@ -141,7 +143,7 @@ public class CreateCommand extends Command {
         // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
         String front = command.get(2).get(0);
         String correctIndex = command.get(3).get(0);
-        int priority = getPriorityLevel(command.get(1).get(0));
+        int priority = getPriorityLevel(command.get(1));
 
         return new MultipleChoiceCard(front, correctIndex, command.get(4), priority);
     }
@@ -156,14 +158,16 @@ public class CreateCommand extends Command {
         // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
         String front = command.get(2).get(0);
         String back = command.get(3).get(0);
-        int priority = getPriorityLevel(command.get(1).get(0));
+        int priority = getPriorityLevel(command.get(1));
 
         return new FrontBackCard(front, back, priority);
     }
 
-    private static int getPriorityLevel(String input) {
-        if (input.equalsIgnoreCase("high")) {
-            return Priority.HIGH_PRIORITY;
+    private static int getPriorityLevel(ArrayList<String> input) {
+        if (input.size() > 0) {
+            if (input.get(0).equalsIgnoreCase("high")) {
+                return Priority.HIGH_PRIORITY;
+            }
         }
         return Priority.LOW_PRIORITY;
     }
