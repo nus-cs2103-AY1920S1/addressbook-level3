@@ -7,7 +7,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
@@ -16,6 +18,7 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class CheatSheet extends StudyBuddyItem {
+
     // Identity fields
     private final Title title;
 

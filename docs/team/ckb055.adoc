@@ -59,7 +59,7 @@ to view my code contributions.
 
 * Enhancements to existing features:
 ** Upgraded the auto-generation cheatsheet feature of the application to pull intra-content tags from the content feature of the application (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/244[#244]).
-** Enhanced delete commands to prompt the user once to confirm his/her deletion(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/244[#244]).
+** Enhanced delete commands to lprompt the user once to confirm his/her deletion(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/244[#244]).
 ** Updated the appIcons for the application, and created the logo for the application using an online software, logomakr (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/254[#254]).
 ** Wrote additional tests for existing features to increase the test coverage(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/316[#316]).
 
