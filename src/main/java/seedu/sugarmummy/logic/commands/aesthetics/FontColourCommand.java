@@ -67,8 +67,6 @@ public class FontColourCommand extends Command {
 
         if (backgroundCommand != null) {
             backgroundCommand.getBackground().merge(model.getBackground());
-            System.out.println(backgroundCommand.getBackground() + backgroundCommand.getBackground().getBgSize() + backgroundCommand.getBackground().getBgRepeat());
-            System.out.println(model.getBackground() + model.getBackground().getBgSize() + model.getBackground().getBgRepeat());
         }
 
         Colour bgColourToCompare = backgroundCommand == null || (backgroundCommand.getBackground().isEmpty())
