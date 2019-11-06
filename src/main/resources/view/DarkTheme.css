@@ -45,9 +45,14 @@
     -fx-max-height: 0;
 }
 
-.split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
+.split-pane:vertical .split-pane-divider {
+    -fx-background-color: #667070;
+    -fx-border-color: transparent #484848 transparent #484848;
+    -fx-padding: 0.8em 0 0.8em 0;
+}
+
+.split-pane:vertical .split-pane-divider:hover {
+    -fx-background-color: #4a738a;
 }
 
 .split-pane {
