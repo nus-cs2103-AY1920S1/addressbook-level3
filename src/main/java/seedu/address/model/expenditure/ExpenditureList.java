@@ -15,7 +15,7 @@ import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 
 /**
- * List containing {@code Expenditure}s.
+ * List containing {@code Expenditure}.
  */
 public class ExpenditureList implements Iterable<Expenditure> {
 

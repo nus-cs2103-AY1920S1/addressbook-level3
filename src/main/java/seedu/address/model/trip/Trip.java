@@ -3,6 +3,7 @@ package seedu.address.model.trip;
 import java.time.LocalDateTime;
 
 import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.model.booking.BookingList;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.ExpenditureList;
 import seedu.address.model.inventory.InventoryList;
@@ -26,6 +27,7 @@ public class Trip {
     private final ExpenditureList expenditureList;
     private final Budget totalBudget;
     private final Diary diary;
+    private final BookingList bookingList;
 
     private final InventoryList inventoryList = new InventoryList();
 
@@ -33,7 +35,8 @@ public class Trip {
      * Constructs a trip.
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary) {
+                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary,
+                BookingList bookingList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -43,6 +46,7 @@ public class Trip {
         this.expenditureList = expenditureList;
         this.tripId = new TripId();
         this.diary = diary;
+        this.bookingList = bookingList;
     }
 
     //Compulsory field getters
@@ -80,6 +84,10 @@ public class Trip {
 
     public InventoryList getInventoryList() {
         return inventoryList;
+    }
+
+    public BookingList getBookingList() {
+        return bookingList;
     }
 
     public Diary getDiary() {

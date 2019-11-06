@@ -17,7 +17,6 @@ import seedu.address.ui.template.PageWithSidebar;
  */
 public abstract class ExpensesPage extends PageWithSidebar<AnchorPane> {
 
-
     protected static final String FXML = "expenses/ExpensesPage.fxml";
 
     protected List<Expenditure> expenses;
