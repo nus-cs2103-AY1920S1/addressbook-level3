@@ -33,7 +33,6 @@ public class EditLessonCommandParser implements Parser<EditLessonCommand> {
         Index day;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DAY) || argMultimap.getPreamble().isEmpty()) {
-            System.out.println("prefix not present error");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditLessonCommand.MESSAGE_USAGE));
         }
 

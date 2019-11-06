@@ -30,7 +30,7 @@ public class EditLessonCommand extends Command {
     public static final String COMMAND_WORD = "editlesson";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the lesson identified "
-            + "by the index number used in the displayed lesson list. "
+            + "by the index number used in the displayed lesson list in each day tab. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: LESSON_INDEX (must be a positive integer) "
             + PREFIX_DAY + "DAY_OF_THE_WEEK (Monday: 1, Tuesday: 2 etc) "
