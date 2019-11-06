@@ -95,11 +95,4 @@ public class ParserUtilTest {
         assertEquals(expectedPicture, ParserUtil.parsePicture(pictureWithWhitespace));
     }
 
-    @Test
-    public void parsePicture_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String pictureWithWhitespace = WHITESPACE + VALID_PICTURE + WHITESPACE;
-        Picture expectedPicture = new Picture(VALID_PICTURE);
-        assertEquals(expectedPicture, ParserUtil.parsePicture(pictureWithWhitespace));
-    }
-
 }
