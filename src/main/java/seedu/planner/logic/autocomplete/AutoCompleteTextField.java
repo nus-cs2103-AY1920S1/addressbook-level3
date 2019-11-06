@@ -3,14 +3,10 @@ package seedu.planner.logic.autocomplete;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
@@ -45,13 +41,12 @@ public class AutoCompleteTextField extends TextField {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
                 String input = getText();
-                SortedSet<String> entries = getEntries(input);
+                List<String> entries = getEntries(input);
                 if (input.length() == 0) {
                     entriesPopup.hide();
                 } else {
-                    LinkedList<String> searchResult = new LinkedList<>(entries);
                     if (entries.size() > 0) {
-                        populatePopup(searchResult);
+                        populatePopup(entries);
                         if (!entriesPopup.isShowing()) {
                             entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
                         }
@@ -77,9 +72,9 @@ public class AutoCompleteTextField extends TextField {
      *
      * @return The existing autocomplete entries.
      */
-    public SortedSet<String> getEntries(String input) {
+    public List<String> getEntries(String input) {
         if (input.contains("<") || input.contains(">")) {
-            return new TreeSet<>();
+            return new LinkedList<>();
         }
 
         String command;
@@ -88,29 +83,21 @@ public class AutoCompleteTextField extends TextField {
         try {
             command = autoCompleteParser.parseCommandWord(input);
         } catch (CommandWordNotFoundException e) {
-            return new TreeSet<>(
-                    autoCompleteSuggester.getPossibilities(input, false, new ArrayList<>())
-            );
+            return autoCompleteSuggester.getPossibilities(input, false, new ArrayList<>());
         }
 
         if (input.charAt(input.length() - 1) != ' ') {
-            return new TreeSet<>();
+            return new LinkedList<>();
         }
 
         try {
             String preamble = autoCompleteParser.parsePreamble(input, command);
-            if (preamble.equals("")) {
-                preambleIsPresent = false;
-            } else {
-                preambleIsPresent = true;
-            }
+            preambleIsPresent = !preamble.equals("");
         } catch (PreambleNotFoundException e) {
             preambleIsPresent = false;
         }
         listOfPrefixPresent = autoCompleteParser.parsePrefix(input);
-        return new TreeSet<>(
-            autoCompleteSuggester.getPossibilities(command, preambleIsPresent, listOfPrefixPresent)
-        );
+        return autoCompleteSuggester.getPossibilities(command, preambleIsPresent, listOfPrefixPresent);
     }
 
     /**
@@ -127,14 +114,11 @@ public class AutoCompleteTextField extends TextField {
             final String result = searchResult.get(i);
             Label entryLabel = new Label(result);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-            item.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    String input = getText();
-                    setText(replaceFromBack(input, result));
-                    positionCaret(getText().length());
-                    entriesPopup.hide();
-                }
+            item.setOnAction(actionEvent -> {
+                String input = getText();
+                setText(replaceFromBack(input, result));
+                positionCaret(getText().length());
+                entriesPopup.hide();
             });
             menuItems.add(item);
         }

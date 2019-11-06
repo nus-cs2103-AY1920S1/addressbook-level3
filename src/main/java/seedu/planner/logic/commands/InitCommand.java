@@ -38,7 +38,7 @@ public class InitCommand extends Command {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD,
-            Arrays.asList(PREFIX_START_DATE.toString(), PREFIX_NAME.toString()),
+            Arrays.asList(PREFIX_NAME.toString(), PREFIX_START_DATE.toString()),
             new ArrayList<>(),
             new ArrayList<>(),
             new ArrayList<>()
