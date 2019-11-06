@@ -228,7 +228,7 @@ public class EventCommandTest {
         }
 
         @Override
-        public void deleteTrainingOnDate(AthletickDate date) {
+        public Training deleteTrainingOnDate(AthletickDate date) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -247,11 +247,19 @@ public class EventCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public void undo() {
+        public List<Training> getTrainingsDeepCopy(List<Training> trainingsList) {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public void redo() {
+        public HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Command undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Command redo() {
             throw new AssertionError("This method should not be called.");
         }
         @Override

@@ -29,6 +29,7 @@ public class TrainingCommandPresent extends TrainingCommand {
             + "Index must be a positive integer\nExample: " + COMMAND_WORD + " " + PREFIX_DATE + "20102019 "
             + PREFIX_INDEXES + " 1 5 7";
 
+    private Training trainingToAdd;
     /**
      * Creates a TrainingCommandPresent to add a training session on {@code date}
      * using the {@code indexList}.
@@ -40,6 +41,9 @@ public class TrainingCommandPresent extends TrainingCommand {
         super(date, indexList);
     }
 
+    public Training getTrainingToAdd() {
+        return this.trainingToAdd;
+    }
     /**
      * Executes the TrainingCommandPresent which adds a training to the Attendance
      * in model. People in indexList are marked as present while everyone else is
@@ -60,6 +64,7 @@ public class TrainingCommandPresent extends TrainingCommand {
 
         // Create training
         Training training = createTrainingByPresent(date, model, indexes);
+        this.trainingToAdd = training;
 
         CommandResult result;
         if (model.hasTrainingOnDate(super.getDate())) {
@@ -98,5 +103,9 @@ public class TrainingCommandPresent extends TrainingCommand {
             trainingAttendance.put(person, true);
         }
         return new Training(date, trainingAttendance);
+    }
+    @Override
+    public String toString() {
+        return "Add '" + trainingToAdd + "' Command";
     }
 }

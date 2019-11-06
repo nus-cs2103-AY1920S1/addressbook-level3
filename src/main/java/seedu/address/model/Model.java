@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
@@ -58,11 +59,14 @@ public interface Model {
      */
     void setAthletick(ReadOnlyAthletick athletick);
 
+
     /** Returns Athletick */
     ReadOnlyAthletick getAthletick();
     ReadOnlyAthletick getAthletickDeepCopy();
-    void undo();
-    void redo();
+    List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
+    HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy);
+    Command undo();
+    Command redo();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in athletick.
@@ -120,7 +124,7 @@ public interface Model {
     /**
      * Removes training on {@code date}
      */
-    void deleteTrainingOnDate(AthletickDate date);
+    Training deleteTrainingOnDate(AthletickDate date);
 
     /**
      * Gets a list of AttendanceEntry on {@code date}, where each entry indicates whether a person was present.

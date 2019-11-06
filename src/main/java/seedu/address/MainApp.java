@@ -54,7 +54,6 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
@@ -81,6 +80,7 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic, model);
         HistoryManager.getAddressBooks().push(model.getAthletickDeepCopy());
+        HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
     }
 
     /**

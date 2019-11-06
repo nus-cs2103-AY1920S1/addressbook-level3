@@ -9,7 +9,7 @@ import seedu.address.model.history.HistoryManager;
  */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_SUCCESS = "Undo Command Success";
+    public static final String MESSAGE_SUCCESS = "Undo ";
     public static final String MESSAGE_FAILURE = "Undo Command Failure:"
         + " No available commands to be undone. "
         + " Commands that can be undone is as follows: add, delete, edit, clear and training.";
@@ -20,22 +20,34 @@ public class UndoCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
         while (!history.getLatestCommand().isUndoable()) {
-            System.out.println(history.getLatestCommand());
             if (history.isUndoneEmpty()) {
                 return new CommandResult(MESSAGE_FAILURE);
             } else {
-                System.out.println(HistoryManager.getCommands().pop());
-                System.out.println(HistoryManager.getAddressBooks().pop());
+                HistoryManager.getCommands().pop();
+                HistoryManager.getAddressBooks().pop();
                 if (history.isUndoneEmpty()) {
                     return new CommandResult(MESSAGE_FAILURE);
                 }
             }
         }
-        model.undo();
-        return new CommandResult(MESSAGE_SUCCESS);
+        Command undoneCommand = model.undo();
+        if (undoneCommand instanceof TrainingCommand) {
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!", ((TrainingCommand) undoneCommand).getDate(), model);
+        } else if (undoneCommand instanceof DeleteTrainingCommand) {
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!", ((DeleteTrainingCommand) undoneCommand).getDate(), model);
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!");
+        }
     }
     @Override
     public boolean isUndoable() {
         return false;
+    }
+    @Override
+    public String toString() {
+        return "Undo Command";
     }
 }

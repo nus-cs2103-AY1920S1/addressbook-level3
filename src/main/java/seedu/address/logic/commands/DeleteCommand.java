@@ -20,5 +20,8 @@ public abstract class DeleteCommand extends Command {
     public boolean isUndoable() {
         return true;
     }
-
+    @Override
+    public String toString() {
+        return "Delete Command";
+    }
 }
