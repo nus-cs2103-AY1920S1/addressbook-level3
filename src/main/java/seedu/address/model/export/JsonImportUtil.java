@@ -24,7 +24,8 @@ public class JsonImportUtil {
      * @throws IOException If there is an error in accessing or reading from the file
      * @throws DataConversionException If there is an error in converting the data from the file
      */
-    public static Optional<List<FlashCard>> importFlashCardsFromJson(JsonExportPath jsonExportPath) throws DataConversionException {
+    public static Optional<List<FlashCard>> importFlashCardsFromJson(JsonExportPath jsonExportPath)
+            throws DataConversionException {
         assert JsonExportPath.isValid(jsonExportPath.toString());
 
         return readFromOptionalKfc(
@@ -34,7 +35,8 @@ public class JsonImportUtil {
         );
     }
 
-    private static Optional<ReadOnlyKeyboardFlashCards> getOptionalKfc(JsonExportPath jsonExportPath) throws DataConversionException {
+    private static Optional<ReadOnlyKeyboardFlashCards> getOptionalKfc(JsonExportPath jsonExportPath)
+            throws DataConversionException {
         JsonKeyboardFlashCardsStorage jsonStorage = new JsonKeyboardFlashCardsStorage(
                 jsonExportPath.getPath()
         );
@@ -42,6 +44,15 @@ public class JsonImportUtil {
         return jsonStorage.readKeyboardFlashCards();
     }
 
+    /**
+     * Reads an Optional {@code KeyboardFlashCards}. Returns an Optional {@code List} of {@code FlashCard}s. If the
+     * provided Optional is empty, the returned Optional will also be empty.
+     *
+     * @param optionalKfc Optional KeyboardFlashCards
+     *
+     * @return Optional List of {@code FlashCard}s, representing all the {@code FlashCard}s in the provided
+     * {@code KeyboardFlashCards} Optional.
+     */
     private static Optional<List<FlashCard>> readFromOptionalKfc(Optional<ReadOnlyKeyboardFlashCards> optionalKfc) {
         if (!optionalKfc.isPresent()) {
             return Optional.empty();

@@ -27,11 +27,16 @@ public class ImportCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EXPORT_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
-    public static final String MESSAGE_IMPORT_EMPTY_OPTIONAL = "Could not find any FlashCards to import. Are you sure you got the path correct?";
-    public static final String MESSAGE_IMPORT_DATA_CONVERSION_EXCEPTION = "There was an error in reading from the file. Perhaps it was corrupted?";
-    public static final String MESSAGE_IMPORT_SUCCESS = "Import was successful! Number of FlashCards imported: %d\n";
-    public static final String MESSAGE_IMPORT_DUPLICATES = "%d duplicate FlashCard(s) were not imported.";
-    public static final String MESSAGE_IMPORT_ALL_DUPLICATES = "There are no new FlashCards to import from that file.";
+    public static final String MESSAGE_IMPORT_EMPTY_OPTIONAL =
+            "Could not find any FlashCards to import. Are you sure you got the path correct?";
+    public static final String MESSAGE_IMPORT_DATA_CONVERSION_EXCEPTION =
+            "There was an error in reading from the file. Perhaps it was corrupted?";
+    public static final String MESSAGE_IMPORT_SUCCESS =
+            "Import was successful! Number of FlashCards imported: %d\n";
+    public static final String MESSAGE_IMPORT_DUPLICATES =
+            "%d duplicate FlashCard(s) were not imported.";
+    public static final String MESSAGE_IMPORT_ALL_DUPLICATES =
+            "There are no new FlashCards to import from that file.";
 
     private final ExportPath exportPath;
 
@@ -68,6 +73,15 @@ public class ImportCommand extends Command {
                 && exportPath.equals(((ImportCommand) other).exportPath)); // state check
     }
 
+    /**
+     * Helper function to add an imported List of {@code FlashCard}s to a {@code Model}. This imported List comes in an
+     * Optional. A CommandException will be thrown if the Optional is empty.
+     *
+     * @param model The Model to be updated
+     * @param optionalList An Optional List of {@code FlashCard}s to add to the Model.
+     * @return CommandResult representing the operation's success.
+     * @throws CommandException If the Optional List turns out to be empty.
+     */
     private CommandResult applyImport(Model model, Optional<List<FlashCard>> optionalList) throws CommandException {
 
         verifyOptionalFlashCardListPresent(optionalList, MESSAGE_IMPORT_EMPTY_OPTIONAL);
@@ -90,7 +104,14 @@ public class ImportCommand extends Command {
         );
     }
 
-    private void verifyOptionalFlashCardListPresent(Optional<List<FlashCard>> optionalList, String message) throws CommandException {
+    /**
+     * Verifies that an Optional List of {@code FlashCard}s is present. Throws a CommandException otherwise.
+     * @param optionalList Optional List of {@code FlashCard}s
+     * @param message Message to be thrown with the CommandException if the Optional turns out to be empty
+     * @throws CommandException If the Optional is empty
+     */
+    private void verifyOptionalFlashCardListPresent(Optional<List<FlashCard>> optionalList, String message)
+            throws CommandException {
         if (optionalList.isEmpty()) {
             throw new CommandException(
                 message
@@ -98,6 +119,13 @@ public class ImportCommand extends Command {
         }
     }
 
+    /**
+     * Helper function to format the String that will be returned in the CommandResult of an ImportCommand.
+     *
+     * @param successCount Number of {@code FlashCard}s that were successfully imported
+     * @param duplicateCount Number of {@code FlashCard}s that were found to be duplicates (already present in Model)
+     * @return String representing the formatted success message
+     */
     private String formatCommandResultString(int successCount, int duplicateCount) {
         if (successCount == 0) {
             return MESSAGE_IMPORT_ALL_DUPLICATES;

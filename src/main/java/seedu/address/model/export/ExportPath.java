@@ -22,7 +22,8 @@ import seedu.address.model.flashcard.FlashCard;
 public abstract class ExportPath {
     public abstract Path getPath();
     public abstract void export(List<FlashCard> list) throws IOException;
-    public abstract Optional<List<FlashCard>> importFrom() throws DataConversionException, UnsupportedOperationException;
+    public abstract Optional<List<FlashCard>> importFrom()
+            throws DataConversionException, UnsupportedOperationException;
 
     /**
      * Helper method to get the directory path from a given String.
@@ -39,6 +40,12 @@ public abstract class ExportPath {
         );
     }
 
+    /**
+     * Converts the ExportPath to a String representing the absolute path. Note that this is not the same as calling
+     * toString().
+     *
+     * @return String representing the absolute path of this ExportPath
+     */
     public String toAbsolutePathString() {
         return this
                 .getPath()

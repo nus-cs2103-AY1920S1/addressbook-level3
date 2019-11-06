@@ -56,6 +56,11 @@ public class DirectoryPath {
         return path;
     }
 
+    /**
+     * Creates this DirectoryPath if it is not yet present.
+     *
+     * @throws IOException If there is an error in creating the DirectoryPath.
+     */
     public void createIfNotPresent() throws IOException {
         try {
             Files.createDirectories(path);

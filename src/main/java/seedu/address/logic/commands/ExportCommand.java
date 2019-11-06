@@ -23,8 +23,8 @@ import seedu.address.model.flashcard.Rating;
 
 /**
  * Exports all {@code FlashCard}s whose category matches the supplied argument keyword. Keyword matching is case
- * insensitive. FlashCards will have their questions and answers copied to a specified file. Ratings and other categories
- * are removed.
+ * insensitive. FlashCards will have their questions and answers copied to a specified file. Ratings and other
+ * categories are removed.
  */
 public class ExportCommand extends Command {
 
@@ -61,7 +61,10 @@ public class ExportCommand extends Command {
 
         try {
             List<FlashCard> flashCardList = getFlashCardsByCategory(model, category);
-            verifyNonEmptyFlashCardList(flashCardList, "There are no FlashCards matching the specified category.");
+            verifyNonEmptyFlashCardList(
+                    flashCardList,
+                    "There are no FlashCards matching the specified category."
+            );
             this.exportPath.export(
                     wipeTransientData(flashCardList, category)
             );
@@ -126,20 +129,31 @@ public class ExportCommand extends Command {
         return categoryKeywordList;
     }
 
-    private static void verifyNonEmptyFlashCardList(List<FlashCard> flashCardList, String message) throws CommandException {
+    private static void verifyNonEmptyFlashCardList(List<FlashCard> flashCardList, String message)
+            throws CommandException {
         if (flashCardList.size() == 0) {
             throw new CommandException(message);
         }
     }
 
+    /**
+     * Wipes all transient data from a {@code List} of {@code FlashCard}s. We define transient data to be any data that
+     * does not need to be exported with the {@code FlashCard}. This includes rating and all categories, other than the
+     * category that was specified in the export command.
+     *
+     * @param flashCardList List of FlashCards to export
+     * @param category Category that was used to export these FlashCards - this category alone will not be considered
+     *                 transient
+     * @return A List of FlashCards with the transient data wiped
+     */
     private static List<FlashCard> wipeTransientData(List<FlashCard> flashCardList, Category category) {
         return flashCardList.stream().map(
-                flashCard -> new FlashCard(
-                        flashCard.getQuestion(),
-                        flashCard.getAnswer(),
-                        new Rating(Rating.NULL),
-                        Collections.singleton(category)
-                )
+            flashCard -> new FlashCard(
+                    flashCard.getQuestion(),
+                    flashCard.getAnswer(),
+                    new Rating(Rating.NULL),
+                    Collections.singleton(category)
+            )
         ).collect(Collectors.toList());
     }
 }
