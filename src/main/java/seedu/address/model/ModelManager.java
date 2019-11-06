@@ -32,9 +32,9 @@ public class ModelManager implements Model {
     private final BudgetList budgetList;
     private final UserPrefs userPrefs;
     private final FilteredList<Budget> filteredBudgets;
-    private ExchangeData exchangeData;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Expense> expenses;
+    private ExchangeData exchangeData;
 
     /**
      * Initializes a ModelManager with the given expenseList, budgetlist and userPrefs.
@@ -64,35 +64,29 @@ public class ModelManager implements Model {
         return viewState;
     }
 
+    public void setViewState(ViewState state) {
+        viewState = state;
+    }
+
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
     }
 
-    public void setViewState(ViewState state) {
-        viewState = state;
+    @Override
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     public Budget getLastViewedBudget() {
         return lastViewedBudget;
     }
 
-    public void setLastViewedBudget(Budget budget) {
-        lastViewedBudget = budget;
-    }
-
     //=========== UserPrefs ==================================================================================
 
-    @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
-    }
-
-    @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public void setLastViewedBudget(Budget budget) {
+        lastViewedBudget = budget;
     }
 
     @Override
@@ -142,12 +136,12 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyExpenseList getExpenseList() {
-        return defaultExpenseList;;
+        return defaultExpenseList;
     }
 
     @Override
     public void setExpenseList(ReadOnlyExpenseList expenseList) {
-        this.expenseList.resetData(expenseList);
+        this.defaultExpenseList.resetData(expenseList);
     }
 
     @Override
@@ -161,15 +155,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setExpenseList(ReadOnlyExpenseList expenseList) {
-        this.defaultExpenseList.resetData(expenseList);
-    }
-
-    @Override
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
         Optional<Budget> budget = getBudgetExpenseFallsInto(expense);
-        return budget.map(value -> value.budgetHasExpense(expense)).orElseGet(() -> defaultExpenseList.hasExpense(expense));
+        return budget.map(value -> value.budgetHasExpense(expense))
+            .orElseGet(() -> defaultExpenseList.hasExpense(expense));
     }
 
     @Override

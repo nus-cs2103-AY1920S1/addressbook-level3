@@ -123,6 +123,11 @@ public class Budget {
         return !date.localDate.isBefore(startDate.localDate) && !date.localDate.isAfter(endDate.localDate);
     }
 
+    /**
+     * Checks if a budget overlaps with the current instance of the budget.
+     * @param otherBudget Budget to compare with
+     * @return a boolean value.
+     */
     public boolean doesOtherBudgetOverlap(Budget otherBudget) {
         return otherBudget.getStartDate().localDate.isBefore(this.startDate.localDate)
             && otherBudget.getEndDate().localDate.isAfter(this.endDate.localDate);

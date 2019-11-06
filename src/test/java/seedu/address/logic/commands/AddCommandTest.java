@@ -23,7 +23,6 @@ import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.exchangedata.ExchangeData;
-
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.ExpenseBuilder;
 
@@ -114,6 +113,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyExpenseList getExpenseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setExpenseList(ReadOnlyExpenseList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addExpense(Expense expense) {
             throw new AssertionError("This method should not be called.");
         }
@@ -123,7 +132,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
         public void updateFilteredExpenses(Predicate<Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -145,11 +153,6 @@ public class AddCommandTest {
 
         @Override
         public void setExchangeData(ExchangeData exchangeData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setExpenseList(ReadOnlyExpenseList newData) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -40,7 +40,7 @@ public class Currency {
      * Constructs a {@code Currency}.
      *
      * @param currency A valid currency.
-     * @param rate A valid rate.
+     * @param rate     A valid rate.
      */
     public Currency(String currency, Double rate) {
         requireNonNull(currency);
@@ -63,7 +63,7 @@ public class Currency {
 
     @Override
     public String toString() {
-        return value + " @ " + String.format("%.3f",rate);
+        return value + " @ " + String.format("%.3f", rate);
     }
 
     @Override

@@ -2,7 +2,6 @@ package seedu.address.model.exchangedata;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -35,6 +34,7 @@ public class ExchangeData {
         this.baseCurrency = data.baseCurrency;
         this.rates.getRates().putAll(data.getRates().getRates());
     }
+
     /**
      * Every field must be present and not null.
      */

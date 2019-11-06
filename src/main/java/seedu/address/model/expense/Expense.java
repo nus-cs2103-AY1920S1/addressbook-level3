@@ -48,7 +48,7 @@ public class Expense implements Comparable<Expense> {
     }
 
     public Amount getAmount() {
-            return amount;
+        return amount;
     }
 
     public boolean isForeign() {

@@ -50,10 +50,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense list.";
-    public static final String MESSAGE_EDIT_ERROR = "An error occurred while " +
-        "trying to edit the expense";
-    public static final String MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR = "You have to be viewing an " +
-        "expense list to edit an expense";
+    public static final String MESSAGE_EDIT_ERROR = "An error occurred while "
+        + "trying to edit the expense";
+    public static final String MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR = "You have to be viewing an "
+        + "expense list to edit an expense";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
