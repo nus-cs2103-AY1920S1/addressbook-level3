@@ -4,7 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's displayPicPath in the displayPicPath book. Guarantees: immutable; is valid as declared in
+ * Represents the user's file path to his / her profile picture. Guarantees: immutable; is valid as
+ * declared in
  * {@link #isValidDisplayPicPath(String)}
  */
 public class DisplayPicPath {

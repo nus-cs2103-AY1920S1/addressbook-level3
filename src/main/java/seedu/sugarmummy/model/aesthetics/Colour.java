@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Represents a User's colour in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * Represents a user's chosen colour for either background or font colour. Guarantees: immutable; is valid as
+ * declared in
+ * {@link
  * #isValidColour(String)}
  */
 public class Colour {

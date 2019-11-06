@@ -10,7 +10,7 @@ import seedu.sugarmummy.commons.exceptions.DataConversionException;
 import seedu.sugarmummy.model.biography.ReadOnlyUserList;
 
 /**
- * Represents a storage for {@link seedu.sugarmummy.model.UserList}.
+ * Represents a storage for {@link seedu.sugarmummy.model.biography.UserList}.
  */
 public interface UserListStorage {
 

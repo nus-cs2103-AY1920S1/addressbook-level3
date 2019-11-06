@@ -56,7 +56,7 @@ public class UserList implements ReadOnlyUserList {
     //// user-level operations
 
     /**
-     * Returns true if a user with the same identity as {@code user} exists in the user list.
+     * Returns true if a user with the same biography as {@code user} exists in the user list.
      */
     public boolean hasUser(User user) {
         requireNonNull(user);

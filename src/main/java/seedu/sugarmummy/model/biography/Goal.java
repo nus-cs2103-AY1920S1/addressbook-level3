@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Goal in the address book. Guarantees: immutable; name is valid as declared in {@link
+ * Represents the user's goal in his / her biography. Guarantees: immutable; name is valid as declared in {@link
  * #isValidGoal(String)}
  */
 public class Goal implements ListableField {
