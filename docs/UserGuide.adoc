@@ -277,19 +277,49 @@ This command rates the flashcard, depending on how well you answered the questio
 ==== End test
 You can stop the test any time simply by typing `end`.
 
-=== Export flashcards to a document file: `export c>CATEGORY p>FILE_PATH`
+//@@author LeowWB
+=== Export flashcards to a file: `export c>CATEGORY p>FILE_PATH`
 
-Exports all flashcards in the supplied category to an external document (`.docx`) file.
-Each flashcard will be represented as a question-and-answer pair.
-The document file will be created at the supplied file path.
+You can use this command to export all your FlashCards in a particular category, to an external file.
+This may be useful if you wish to publish your FlashCards somewhere, print them out, or share them with a friend.
+The file will be located at the file path that you specify, and the format of the file will be inferred from the
+extension. We currently support exporting to JSON (.json) and document (.docx) file formats. +
+Example: `export c>CS2105 p>C:\Documents\cs2105.json`
+
+Suppose you have a category named `CS2105`, and you wanted to export the FlashCards in that category to an external file
+(so you can share them with your friend). Here's how you would go about this:
+
+. Type the example command given above into the command box (`export c>CS2105 p>C:\Documents\cs2105.json`), as shown below.
+
+. Press **Enter** to execute the command. The results box will display a success message similar to the one shown in the screenshot below.
+
+. Navigate to the directory that you specified in the command (in this case, it would be 'C:\Documents'). Sure enough, your exported file is there!
+
+NOTE: Only the questions and answers of FlashCards will be exported.
+
+CAUTION: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following characters: `~\/-_!:[]()` +
+It must also end in either `.json` or `.docx`.
+
+CAUTION: Do note that some directories may be protected by your operating system (`C:\` on Windows, `/` on Unix). You may not be allowed to save files to these directories.
 
 TIP: Use this to export your flashcards into an easily-printable cheat sheet! Use them for your assessments or
 self-learning.
 
-WARNING: The given file path is required to end with `.docx` - this is because we currently only support
-exporting to document files.
+=== Import flashcards from a JSON file: `import p>FILE_PATH`
 
-`export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
+You can use this command to import FlashCards from a file that you or someone else had exported to earlier.
+We currently only support importing from JSON (.json) files. +
+Example: `import p>C:\Downloads\cs2105.json`
+
+Suppose your friend has kindly exported some of his FlashCards for you to use. You've download the `.json` file that he sent you;
+now your next step is to get those FlashCards into your copy of KFC. Here's how you'd go about this:
+
+. Type the example command given above into the command box (`import p>C:\Downloads\cs2105.json`), as shown below.
+
+. Press **Enter** to execute the command. The results box will display a success message similar to the one shown in the screenshot below.
+Furthermore, the category panel on the left will now display the category of the newly-imported FlashCards!
+
+NOTE: Duplicate FlashCards will not be imported. You will be notified when we detect duplicate FlashCards in the file you provide.
 
 === Get the full list of commands: `help`
 
@@ -428,7 +458,10 @@ e.g.  `delete 10`
 e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
-* List all flashcards under a specific category - `list CATEGORY` +
+* Import flashcards from a JSON file - `import p>FILE_PATH` +
+e.g.  `import p>C:\Users\User\Documents\flashcards.json`
+* List all flashcards - list
+* List all flashcards under a specific category - `list [category]` +
 e.g.  `list Math`
 * List all flashcards - 'listall'
 * Set user preference for reminders - `remind CATEGORY DD/MM HHmm` +

@@ -5,6 +5,8 @@ package seedu.address.model.export;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.nio.file.Paths;
+
 import org.junit.jupiter.api.Test;
 
 public class DirectoryPathTest {
@@ -22,8 +24,8 @@ public class DirectoryPathTest {
             assertThrows(
                 IllegalArgumentException.class, () ->
                     new DirectoryPath(
-                    invalidDirectoryPathString
-                )
+                            Paths.get(invalidDirectoryPathString)
+                    )
             );
         }
     }
@@ -41,12 +43,15 @@ public class DirectoryPathTest {
             "../",
             "..\\",
             "/",
-            "\\"
+            "\\",
+            "GitHub\\main\\.git"
         };
 
         for (String validDirectoryPathString : validDirectoryPathStrings) {
             try {
-                new DirectoryPath(validDirectoryPathString);
+                new DirectoryPath(
+                        Paths.get(validDirectoryPathString)
+                );
             } catch (IllegalArgumentException e) {
                 fail("Valid directory file path was not recognized as being valid");
             }

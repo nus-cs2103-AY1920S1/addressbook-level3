@@ -2,9 +2,10 @@
 
 package seedu.address.model.export;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -25,6 +26,8 @@ public class DirectoryPath {
      */
     public static final String VALIDATION_REGEX = "[~.\\w\\-!:\\[\\]()/\\\\ ]+";
 
+    private static final String CURRENT_DIRECTORY_PATH_STRING = "./";
+
     private final Path path;
 
     /**
@@ -32,10 +35,14 @@ public class DirectoryPath {
      *
      * @param directoryPath A valid DirectoryPath.
      */
-    public DirectoryPath(String directoryPath) {
-        requireNonNull(directoryPath);
-        checkArgument(isValid(directoryPath), MESSAGE_CONSTRAINTS);
-        path = Paths.get(directoryPath);
+    public DirectoryPath(Path directoryPath) {
+        if (directoryPath == null) {
+            path = Paths.get(CURRENT_DIRECTORY_PATH_STRING);
+            return;
+        }
+
+        checkArgument(isValid(directoryPath.toString()), MESSAGE_CONSTRAINTS);
+        path = directoryPath;
     }
 
     /**
@@ -48,6 +55,20 @@ public class DirectoryPath {
     public Path getPath() {
         return path;
     }
+
+    /**
+     * Creates this DirectoryPath if it is not yet present.
+     *
+     * @throws IOException If there is an error in creating the DirectoryPath.
+     */
+    public void createIfNotPresent() throws IOException {
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
 
     @Override
     public String toString() {

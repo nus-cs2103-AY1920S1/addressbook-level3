@@ -22,6 +22,8 @@ public class JsonExportUtil {
      * @throws IOException If an error arises in writing to the File.
      */
     public static void exportFlashCardsToJson(List<FlashCard> cards, JsonExportPath jsonExportPath) throws IOException {
+        assert JsonExportPath.isValid(jsonExportPath.toString());
+
         KeyboardFlashCards exportKfc = new KeyboardFlashCards();
         exportKfc.setFlashCards(cards);
 

@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT_PATH;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
@@ -18,10 +19,12 @@ import seedu.address.model.category.Category;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.export.ExportPath;
 import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Rating;
 
 /**
  * Exports all {@code FlashCard}s whose category matches the supplied argument keyword. Keyword matching is case
- * insensitive. FlashCards will have their questions and answers copied to a specified file.
+ * insensitive. FlashCards will have their questions and answers copied to a specified file. Ratings and other
+ * categories are removed.
  */
 public class ExportCommand extends Command {
 
@@ -36,7 +39,7 @@ public class ExportCommand extends Command {
             + PREFIX_CATEGORY + "CS2105 "
             + PREFIX_EXPORT_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
-    public static final String MESSAGE_EXPORT_SUCCESS = "Export was successful! You can find your file at "
+    public static final String MESSAGE_EXPORT_SUCCESS = "%d FlashCard(s) were exported! You can find your file at "
             + "the following path:\n%s";
 
     private final Category category;
@@ -57,19 +60,25 @@ public class ExportCommand extends Command {
         requireNonNull(model);
 
         try {
+            List<FlashCard> flashCardList = getFlashCardsByCategory(model, category);
+            verifyNonEmptyFlashCardList(
+                    flashCardList,
+                    "There are no FlashCards matching the specified category."
+            );
             this.exportPath.export(
-                    getFlashCardsByCategory(model, category)
+                    wipeTransientData(flashCardList, category)
+            );
+
+            return new CommandResult(
+                    String.format(
+                            MESSAGE_EXPORT_SUCCESS,
+                            flashCardList.size(),
+                            exportPath.toAbsolutePathString()
+                    )
             );
         } catch (IOException e) {
             throw new CommandException(Messages.MESSAGE_EXPORT_IO_EXCEPTION);
         }
-
-        return new CommandResult(
-                String.format(
-                        MESSAGE_EXPORT_SUCCESS,
-                        exportPath.toAbsolutePathString()
-                )
-        );
     }
 
     @Override
@@ -118,5 +127,33 @@ public class ExportCommand extends Command {
         String categoryName = category.categoryName;
         List<String> categoryKeywordList = Collections.singletonList(categoryName);
         return categoryKeywordList;
+    }
+
+    private static void verifyNonEmptyFlashCardList(List<FlashCard> flashCardList, String message)
+            throws CommandException {
+        if (flashCardList.size() == 0) {
+            throw new CommandException(message);
+        }
+    }
+
+    /**
+     * Wipes all transient data from a {@code List} of {@code FlashCard}s. We define transient data to be any data that
+     * does not need to be exported with the {@code FlashCard}. This includes rating and all categories, other than the
+     * category that was specified in the export command.
+     *
+     * @param flashCardList List of FlashCards to export
+     * @param category Category that was used to export these FlashCards - this category alone will not be considered
+     *                 transient
+     * @return A List of FlashCards with the transient data wiped
+     */
+    private static List<FlashCard> wipeTransientData(List<FlashCard> flashCardList, Category category) {
+        return flashCardList.stream().map(
+            flashCard -> new FlashCard(
+                    flashCard.getQuestion(),
+                    flashCard.getAnswer(),
+                    new Rating(Rating.NULL),
+                    Collections.singleton(category)
+            )
+        ).collect(Collectors.toList());
     }
 }
