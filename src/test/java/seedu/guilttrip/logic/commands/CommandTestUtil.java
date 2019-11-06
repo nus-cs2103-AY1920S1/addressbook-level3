@@ -46,8 +46,10 @@ public class CommandTestUtil {
     public static final String TAG_DESC_WANT = " " + PREFIX_TAG + VALID_TAG_CLOTHING_WANT;
 
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_DESC + "deck mala&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_DESC + ""; // 'empty' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "food*"; // '*' not allowed in tags
+    public static final String INVALID_AMOUNT = " " + PREFIX_AMOUNT + "0.001"; // '3dp' not allowed in amount
+    public static final String INVALID_DATE = " " + PREFIX_DATE + "31-02-2019"; // 'non-existsnt date'
 
     //Category related Test Utils.
     public static final String VALID_CATEGORY_TYPE_EXPENSE = "Expense";
