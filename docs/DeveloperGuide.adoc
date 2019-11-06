@@ -267,8 +267,7 @@ image::ArchiveClassDiagram.png[]
 *  `Archive` extends from `ExpenseList` in order to encapsulate an archive name and a list of expenses together as an archive.
 * `ArchiveWrapper` manages all existing archives and hashes each `Archive` object to its archive name.
 
-Similar to `Billboard`, which manages the list of current non-archived expenses,
-`ArchiveWrapper` is used in `ModelManager` and its respective operations are called to access and manipulate archive expenses when an archive command is entered. +
+`ArchiveWrapper` is used in `ModelManager` to manage all archives. Its respective operations are called to access and manipulate archive expenses when an archive command is entered. +
 Such operations include:
 
 * `ArchiveWrapper#AddArchive(Archive)` - Adds the given archive to the current map of archive objects.
