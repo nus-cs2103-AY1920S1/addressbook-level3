@@ -2,6 +2,7 @@ package dream.fcard.logic.respond;
 
 import java.util.ArrayList;
 
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.displays.test.TimedTestDisplay;
 import dream.fcard.logic.exam.Exam;
@@ -32,10 +33,13 @@ import dream.fcard.util.RegexUtil;
  * In no other class should they take the responsibility.
  */
 public enum Responses {
-    HELP_W_COMMAND(
+    HELP_WITH_COMMAND(
             RegexUtil.commandFormatRegex("", new String[]{"command/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
+
+
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
                             new String[]{"command/"},
                             i);
@@ -55,9 +59,13 @@ public enum Responses {
                 }
     ),
     HELP(
-            "^((?i)help)(.)*",
+            "^((?i)help)(\\s*)$",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: HELP");
+
+
                     //TODO open a window to UserGuide.html (by Taha)
                     return true;
                 }
