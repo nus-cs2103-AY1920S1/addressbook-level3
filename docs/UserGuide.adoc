@@ -464,7 +464,7 @@ Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_
 IMPORTANT: The format for note fragment content is 'C/', not 'c/', and the format for note fragment tags is 'TAG/', not
 'tag/'.
 
-WARNING: If the format is not followed correctly, the note fragment tag will simply not be added (but the note will 
+WARNING: If the format is not followed correctly, the note fragment tag will simply not be added (but the note will
 still be added). StudyBuddyPro will assume that the user typed the tags correctly.
 
 * In the following example, two note fragment tags are added to the same note fragment:
