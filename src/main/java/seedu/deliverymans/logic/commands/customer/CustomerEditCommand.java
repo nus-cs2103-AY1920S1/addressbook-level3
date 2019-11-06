@@ -1,28 +1,24 @@
 package seedu.deliverymans.logic.commands.customer;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.util.CollectionUtil;
-import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
-import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.customer.Address;
 import seedu.deliverymans.model.customer.Customer;
 
 /**
@@ -38,7 +34,7 @@ public class CustomerEditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 ";
 
@@ -62,7 +58,7 @@ public class CustomerEditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Logic logic) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Customer> lastShownList = model.getFilteredCustomerList();
 
@@ -90,9 +86,11 @@ public class CustomerEditCommand extends Command {
                                                  EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
+        Name updatedUserName = customerToEdit.getUserName();
         Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
         Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
-        return new Customer(updatedName, updatedPhone);
+        Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
+        return new Customer(updatedUserName, updatedName, updatedPhone, updatedAddress);
     }
 
     @Override
@@ -120,7 +118,7 @@ public class CustomerEditCommand extends Command {
     public static class EditCustomerDescriptor {
         private Name name;
         private Phone phone;
-        private Set<Tag> tags;
+        private Address address;
 
         public EditCustomerDescriptor() {
         }
@@ -132,14 +130,14 @@ public class CustomerEditCommand extends Command {
         public EditCustomerDescriptor(EditCustomerDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setTags(toCopy.tags);
+            setAddress(toCopy.address);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, address);
         }
 
         public void setName(Name name) {
@@ -158,21 +156,12 @@ public class CustomerEditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setAddress(Address address) {
+            this.address = address;
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
         }
 
         @Override
@@ -192,7 +181,7 @@ public class CustomerEditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getTags().equals(e.getTags());
+                    && getAddress().equals(e.getAddress());
         }
     }
 }

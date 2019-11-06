@@ -148,6 +148,16 @@ public class Restaurant {
     }
 
     /**
+     * Updates quantityOrdered based on quantity
+     */
+    public void updateQuantity(int quantity) {
+        this.quantityOrdered += quantity;
+        for (Food food : this.menu) {
+            food.updateTag(this.quantityOrdered, this.menu.size());
+        }
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */

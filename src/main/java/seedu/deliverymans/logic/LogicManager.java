@@ -1,5 +1,11 @@
 package seedu.deliverymans.logic;
 
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.LinkedList;
@@ -12,10 +18,15 @@ import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.ArgumentMultimap;
+import seedu.deliverymans.logic.parser.ArgumentTokenizer;
+import seedu.deliverymans.logic.parser.ParserUtil;
+import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.logic.parser.universal.UniversalParser;
 import seedu.deliverymans.model.Model;
+import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
@@ -42,6 +53,9 @@ public class LogicManager implements Logic {
     private final TrieManager trieManager;
     private final UniversalParser universalParser;
 
+    private LinkedList<String> currentList = new LinkedList<>();
+    private Restaurant currRestaurant;
+
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
@@ -54,8 +68,8 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = universalParser.parseCommand(commandText, this.currentContext);
-        commandResult = command.execute(model, this);
+        Command command = universalParser.parseCommand(commandText, currentContext);
+        commandResult = command.execute(model);
 
         model.notifyChange(commandText);
         try {
@@ -73,30 +87,78 @@ public class LogicManager implements Logic {
     //=========== Autocomplete =========================================================
     @Override
     public LinkedList<String> getAutoCompleteResults(String input) {
-        if (input.endsWith("/")) {
-            int index = input.lastIndexOf(" ");
-            if (index != -1) {
-                String prefix = input.substring(index + 1);
-                return getRelevantList(prefix);
-            }
+        int firstSpace = input.indexOf(" ");
+        if (firstSpace == -1) { // still entering commandWord
+            return trieManager.getAutoCompleteResults(input, currentContext);
+        }
+        String commandWord = input.substring(0, firstSpace);
+
+        // input is not a valid commandWord/ commandWord has no valid prefix to autocomplete
+        if (!trieManager.hasPrefixes(commandWord)) {
             return new LinkedList<>();
         }
-        return trieManager.getAutoCompleteResults(input, currentContext);
+        if (input.endsWith("/")) { // entering a new prefix for the valid commandWord
+            currentList = getRelevantList(input);
+        }
+        // still entering the input for the current prefix
+        return currentList;
     }
 
     private LinkedList<String> getRelevantList(String input) {
-        switch(input) {
+        int lastSpace = input.lastIndexOf(" ");
+        String prefix = input.substring(lastSpace + 1);
+        switch (prefix) {
         case "c/":
-            return getFilteredCustomerList().stream().map(x -> x.getName().fullName)
+            if (hasDuplicatePrefix(input, prefix)) {
+                return new LinkedList<>();
+            }
+            return getFilteredCustomerList().stream().map(x -> x.getUserName().fullName)
                     .collect(Collectors.toCollection(LinkedList::new));
         case "r/":
+            if (hasDuplicatePrefix(input, prefix)) {
+                return new LinkedList<>();
+            }
             return getFilteredRestaurantList().stream().map(x -> x.getName().fullName)
                     .collect(Collectors.toCollection(LinkedList::new));
         case "f/":
-            return new LinkedList<>();
+            currRestaurant = getInputRestaurant(input);
+            if (currRestaurant == null) {
+                return new LinkedList<>();
+            }
+            return currRestaurant.getMenu().stream().map(x -> x.getName().fullName)
+                    .collect(Collectors.toCollection(LinkedList::new));
         default:
             return new LinkedList<>();
         }
+    }
+
+    private boolean hasDuplicatePrefix(String input, String prefix) {
+        return ParserUtil.hasRepeatedPrefix(input, new Prefix(prefix));
+    }
+
+    private Restaurant getInputRestaurant(String input) {
+        Name restaurantName;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(input, PREFIX_RESTAURANT,
+                PREFIX_FOOD, PREFIX_QUANTITY, PREFIX_CUSTOMER , PREFIX_INDEX);
+
+        // if prefix value is not present
+        if (argMultimap.getValue(PREFIX_RESTAURANT).isEmpty()) {
+            return null;
+        }
+
+        try {
+            restaurantName = ParserUtil.parseName(argMultimap.getValue(PREFIX_RESTAURANT).get());
+        } catch (ParseException pe) { // invalid Name format
+            System.out.println(argMultimap.getValue(PREFIX_RESTAURANT).get());
+            return null;
+        }
+
+        for (Restaurant restaurant : getFilteredRestaurantList()) {
+            if (restaurant.getName().equals(restaurantName)) {
+                return restaurant;
+            }
+        }
+        return null;
     }
 
     //=========== Customer =============================================================
@@ -205,9 +267,8 @@ public class LogicManager implements Logic {
     }
 
     //=============Context======================
-    @Override
-    public void setContext(Context context) {
-        this.currentContext = context;
+    public static void setContext(Context context) {
+        currentContext = context;
     }
 
     public static Context getContext() {

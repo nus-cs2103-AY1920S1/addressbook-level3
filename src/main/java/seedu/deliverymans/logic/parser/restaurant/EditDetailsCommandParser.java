@@ -35,7 +35,8 @@ public class EditDetailsCommandParser implements Parser<EditDetailsCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LOCATION, PREFIX_TAG);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty()
+                || ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME, PREFIX_LOCATION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDetailsCommand.MESSAGE_USAGE));
         }
 
