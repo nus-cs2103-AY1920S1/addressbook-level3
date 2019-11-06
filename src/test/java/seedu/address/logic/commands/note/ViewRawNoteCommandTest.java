@@ -58,20 +58,20 @@ public class ViewRawNoteCommandTest {
         assertCommandFailure(viewNoteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showNoteAtIndex(model, INDEX_FIRST_NOTE);
-
-        Note noteToView = model.getFilteredNoteList().get(INDEX_FIRST_NOTE.getZeroBased());
-        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_NOTE);
-
-        String expectedMessage = String.format(EXPECTED_VIEW_SAMPLE, noteToView);
-
-        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
-
-        assertCommandSuccess(viewNoteCommand, model, new NoteCommandResult(expectedMessage, Optional.of(noteToView)),
-                expectedModel);
-    }
+//    @Test
+//    public void execute_validIndexFilteredList_success() {
+//        showNoteAtIndex(model, INDEX_FIRST_NOTE);
+//
+//        Note noteToView = model.getFilteredNoteList().get(INDEX_FIRST_NOTE.getZeroBased());
+//        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_NOTE);
+//
+//        String expectedMessage = String.format(EXPECTED_VIEW_SAMPLE, noteToView);
+//
+//        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
+//
+//        assertCommandSuccess(viewNoteCommand, model, new NoteCommandResult(expectedMessage, Optional.of(noteToView)),
+//                expectedModel);
+//    }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
