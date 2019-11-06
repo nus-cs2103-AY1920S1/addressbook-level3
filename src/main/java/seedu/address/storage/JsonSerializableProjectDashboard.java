@@ -14,11 +14,11 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.calendar.Meeting;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
-import seedu.address.model.mapping.InvTasMapping;
-import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.TasMemMapping;
 
 /**
  * An Immutable ProjectDashboard that is serializable to JSON format.
@@ -49,11 +49,11 @@ class JsonSerializableProjectDashboard {
     public JsonSerializableProjectDashboard(@JsonProperty("tasks") List<JsonAdaptedTask> tasks,
                                             @JsonProperty("members") List<JsonAdaptedMember> members,
                                             @JsonProperty("invMemMappings")
-                                                        List<JsonAdaptedInvMemMapping> invMemMappings,
+                                                    List<JsonAdaptedInvMemMapping> invMemMappings,
                                             @JsonProperty("invTasMappings")
-                                                        List<JsonAdaptedInvTasMapping> invTasMappings,
+                                                    List<JsonAdaptedInvTasMapping> invTasMappings,
                                             @JsonProperty("tasMemMappings")
-                                                        List<JsonAdaptedTasMemMapping> tasMemMappings,
+                                                    List<JsonAdaptedTasMemMapping> tasMemMappings,
                                             @JsonProperty("inventory") List<JsonAdaptedInventory> inventory,
                                             @JsonProperty("calendars") List<JsonAdaptedCalendar> calendars,
                                             @JsonProperty("meetings") List<JsonAdaptedMeeting> meetings) {
@@ -114,7 +114,7 @@ class JsonSerializableProjectDashboard {
             projectDashboard.addInventory(inventory);
         }
 
-        for (JsonAdaptedMember jsonAdaptedMem: members) {
+        for (JsonAdaptedMember jsonAdaptedMem : members) {
             Member member = jsonAdaptedMem.toModelType();
             if (projectDashboard.hasMember(member)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEMBERS);

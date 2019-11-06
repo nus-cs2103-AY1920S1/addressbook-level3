@@ -19,16 +19,18 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditInventoryCommandParser implements Parser<EditInventoryCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the inventory ID of the inventory you want to edit.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditInventoryCommand
      * and returns an EditInventoryCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditInventoryCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INVENTORY_INDEX, PREFIX_INVENTORY_NAME, PREFIX_INVENTORY_PRICE,
-                                                PREFIX_TASK_INDEX, PREFIX_MEMBER_ID);
+                        PREFIX_TASK_INDEX, PREFIX_MEMBER_ID);
 
         Index index;
         if (!arePrefixesPresent(argMultimap, PREFIX_INVENTORY_INDEX)) {
@@ -39,11 +41,11 @@ public class EditInventoryCommandParser implements Parser<EditInventoryCommand> 
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INVENTORY_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                                        EditInventoryCommand.MESSAGE_USAGE), pe);
+                    EditInventoryCommand.MESSAGE_USAGE), pe);
         }
 
         EditInventoryCommand.EditInventoryDescriptor editInventoryDescriptor =
-                                                new EditInventoryCommand.EditInventoryDescriptor();
+                new EditInventoryCommand.EditInventoryDescriptor();
 
         if (argMultimap.getValue(PREFIX_INVENTORY_NAME).isPresent()) {
             editInventoryDescriptor

@@ -26,22 +26,22 @@ import seedu.address.model.task.TaskStatus;
  */
 public class SampleTaskDataUtil {
     public static Task[] getSampleTasks() {
-        return new Task[] {
+        return new Task[]{
             new Task(new Name("Review Budget"), TaskStatus.UNBEGUN, getTagSet("Finance"),
-                LocalDateTime.now().plusWeeks(1)),
+                    LocalDateTime.now().plusWeeks(1)),
             new Task(new Name("Increase Funding"), TaskStatus.DOING,
-                getTagSet("Finance", "Urgent"), LocalDateTime.now().plusWeeks(1)),
+                    getTagSet("Finance", "Urgent"), LocalDateTime.now().plusWeeks(1)),
             new Task(new Name("Settle Claims"), TaskStatus.DOING, getTagSet("Finance")),
             new Task(new Name("Update Website"), TaskStatus.DONE, getTagSet("Branding"),
-                LocalDateTime.now().plusWeeks(1)),
+                    LocalDateTime.now().plusWeeks(1)),
             new Task(new Name("Shirts for Freshman Open Day"), TaskStatus.DOING, getTagSet("Logistics")),
             new Task(new Name("Design Poster"), TaskStatus.UNBEGUN,
-                getTagSet("Branding"), LocalDateTime.now().plusWeeks(7))
+                    getTagSet("Branding"), LocalDateTime.now().plusWeeks(7))
         };
     }
 
     public static Member[] getSampleMembers() {
-        return new Member[] {
+        return new Member[]{
             new Member(new MemberName("Gabriel Seow"), new MemberId("GS"), getTagSet("Programmer")),
             new Member(new MemberName("Abhinav"), new MemberId("AB"), getTagSet("UIDesigner")),
             new Member(new MemberName("Arun"), new MemberId("AR"), getTagSet("Programmer")),
@@ -52,7 +52,7 @@ public class SampleTaskDataUtil {
     }
 
     public static Inventory[] getSampleInventory() {
-        return new Inventory[] {
+        return new Inventory[]{
             new Inventory(new InvName("Toy"), new Price(8.90)),
             new Inventory(new InvName("Bench"), new Price(59.90)),
             new Inventory(new InvName("Chairs")),
@@ -64,13 +64,13 @@ public class SampleTaskDataUtil {
 
 
     public static InvMemMapping[] getSampleInvMemMapping() {
-        return new InvMemMapping[] {
-            new InvMemMapping(2,0),
-            new InvMemMapping(2,1),
-            new InvMemMapping(0,2),
-            new InvMemMapping(1,3),
-            new InvMemMapping(2,4),
-            new InvMemMapping(0,5),
+        return new InvMemMapping[]{
+            new InvMemMapping(2, 0),
+            new InvMemMapping(2, 1),
+            new InvMemMapping(0, 2),
+            new InvMemMapping(1, 3),
+            new InvMemMapping(2, 4),
+            new InvMemMapping(0, 5),
         };
     }
 
@@ -87,7 +87,7 @@ public class SampleTaskDataUtil {
 
 
     public static TasMemMapping[] getSampleTasMemMapping() {
-        return new TasMemMapping[] {
+        return new TasMemMapping[]{
             new TasMemMapping(1, 1),
             new TasMemMapping(1, 2),
             new TasMemMapping(2, 1),

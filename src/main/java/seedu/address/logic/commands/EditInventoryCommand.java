@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INVENTORIES;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +27,7 @@ import seedu.address.model.task.Task;
 /**
  * Edits the details of an existing inventory in the Dashboard.
  */
-public class EditInventoryCommand extends Command{
+public class EditInventoryCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-inv";
     public static final String PREFIX_USAGE = "i/ p/ ti/ mi/";
@@ -51,7 +50,7 @@ public class EditInventoryCommand extends Command{
     private final EditInventoryCommand.EditInventoryDescriptor editInventoryDescriptor;
 
     /**
-     * @param index of the inventory in the filtered inventory list to edit
+     * @param index                   of the inventory in the filtered inventory list to edit
      * @param editInventoryDescriptor details to edit the task with
      */
     public EditInventoryCommand(Index index, EditInventoryCommand.EditInventoryDescriptor editInventoryDescriptor) {
@@ -78,7 +77,7 @@ public class EditInventoryCommand extends Command{
         Inventory editedInventory = createEditedInventory(inventoryToEdit, editInventoryDescriptor);
 
         //Mappings Section start
-        if(editInventoryDescriptor.getTaskId().isPresent()) {
+        if (editInventoryDescriptor.getTaskId().isPresent()) {
             for (int i = 0; i < lastShownTaskList.size(); i++) {
                 InvTasMapping mapping = new InvTasMapping(i, index.getZeroBased());
                 if (model.hasMapping(mapping)) {
@@ -86,10 +85,10 @@ public class EditInventoryCommand extends Command{
                 }
             }
             InvTasMapping newMapping = new InvTasMapping(editInventoryDescriptor.getTaskId().get().getZeroBased(),
-                                                            index.getZeroBased());
+                    index.getZeroBased());
             model.addMapping(newMapping);
         }
-        if(editInventoryDescriptor.getMemberId().isPresent()) {
+        if (editInventoryDescriptor.getMemberId().isPresent()) {
             for (int j = 0; j < lastShownMemberList.size(); j++) {
                 InvMemMapping mapping = new InvMemMapping(j, index.getZeroBased());
                 if (model.hasMapping(mapping)) {
@@ -162,7 +161,8 @@ public class EditInventoryCommand extends Command{
         private Index taskId;
         private MemberId memId;
 
-        public EditInventoryDescriptor() {}
+        public EditInventoryDescriptor() {
+        }
 
         /**
          * Copy constructor.

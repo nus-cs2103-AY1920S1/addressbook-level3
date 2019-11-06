@@ -2,12 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.inventory.InvName;
@@ -61,7 +58,7 @@ public class AddICommand extends Command {
         }
 
         //Task taskToAdd = model.getFilteredTasksList().get(taskId.getZeroBased());
-        Inventory toAdd = new Inventory( new InvName("DUMMY"), price);
+        Inventory toAdd = new Inventory(new InvName("DUMMY"), price);
 
         if (model.hasInventory(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_INVENTORY);

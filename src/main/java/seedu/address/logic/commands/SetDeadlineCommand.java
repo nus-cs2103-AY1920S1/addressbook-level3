@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.time.LocalDateTime;
-
 import java.util.List;
 import java.util.Set;
 
@@ -46,7 +45,7 @@ public class SetDeadlineCommand extends Command {
     private final LocalDateTime dateTime;
 
     /**
-     * @param index of the task in the filtered task list to edit
+     * @param index    of the task in the filtered task list to edit
      * @param dateTime deadline of the task
      */
     public SetDeadlineCommand(Index index, LocalDateTime dateTime) {

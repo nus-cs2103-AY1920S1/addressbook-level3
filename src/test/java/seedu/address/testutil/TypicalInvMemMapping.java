@@ -18,6 +18,6 @@ public class TypicalInvMemMapping {
 
     public static List<InvMemMapping> getTypicalInvMemMapping() {
         return new ArrayList<>(Arrays.asList(firstMemFirstTask, firstMemSecondTask, secondMemThirdTask,
-                thirdMemThirdTask,fourthMemFifthTask, fourthMemFirstTask, fourthMemSecondTask, sixthMemFirstTask));
+                thirdMemThirdTask, fourthMemFifthTask, fourthMemFirstTask, fourthMemSecondTask, sixthMemFirstTask));
     }
 }

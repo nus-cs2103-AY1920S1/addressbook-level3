@@ -1,8 +1,5 @@
-
 package seedu.address.logic.MultiLine;
 
-
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 
@@ -25,8 +22,8 @@ import seedu.address.model.task.Task;
 public class DoneTaskInvTag {
 
     public static CommandResult manageOne(CommandResult commandResult, Command command,
-                                          Model model, ArrayList<Command>commands) throws CommandException, ParseException {
-        String commandWord = commandResult.getFeedbackToUser().split("/",2)[0].trim();
+                                          Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+        String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "Type-1":
                 commands.add(command);
@@ -39,7 +36,7 @@ public class DoneTaskInvTag {
                 return new CommandResult("Please add the the price and member in the following format: " +
                         "\n" + "add-i p/[PRICE] mi/[MEMBER ID]");
             case "final":
-                if(!commands.get(commands.size()-1).equals(new YesCommand())) {
+                if (!commands.get(commands.size() - 1).equals(new YesCommand())) {
                     throw new CommandException("Invalid Command for this situation");
                 }
                 commands.add(command);
@@ -52,7 +49,7 @@ public class DoneTaskInvTag {
     }
 
     public static boolean isMultiLine(CommandResult commandResult) {
-        String commandWord = commandResult.getFeedbackToUser().split("/",2)[0].trim();
+        String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "continue":
             case "Type-2":
@@ -62,18 +59,18 @@ public class DoneTaskInvTag {
         }
     }
 
-    public static AddInventoryCommand createCommandOne(Command command, Model model, ArrayList<Command>commands) throws ParseException {
+    public static AddInventoryCommand createCommandOne(Command command, Model model, ArrayList<Command> commands) throws ParseException {
         try {
             Index index;
             Name name;
             Command firstCommand = commands.get(0);
-            if(firstCommand instanceof DoneTaskCommand) {
-                index = new Index(((DoneTaskCommand)(commands.get(0))).getIndex());
+            if (firstCommand instanceof DoneTaskCommand) {
+                index = new Index(((DoneTaskCommand) (commands.get(0))).getIndex());
                 Task taskToAdd = model.getFilteredTasksList().get(index.getZeroBased());
                 String nameRaw = taskToAdd.getName().toString();
 
-                String[]splitNameRaw = nameRaw.split(" ",2);
-                if(splitNameRaw[0].equals("buy") || splitNameRaw[0].equals("get")) {
+                String[] splitNameRaw = nameRaw.split(" ", 2);
+                if (splitNameRaw[0].equals("buy") || splitNameRaw[0].equals("get")) {
                     name = new Name(splitNameRaw[1]);
                 } else {
                     name = new Name(nameRaw);

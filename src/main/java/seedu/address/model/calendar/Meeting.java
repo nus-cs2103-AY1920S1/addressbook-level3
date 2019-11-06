@@ -1,12 +1,11 @@
 package seedu.address.model.calendar;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.member.MemberName;
 

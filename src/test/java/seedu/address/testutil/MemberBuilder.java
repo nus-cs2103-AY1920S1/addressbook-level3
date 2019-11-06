@@ -51,7 +51,7 @@ public class MemberBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Task} that we are building.
      */
-    public MemberBuilder withTags(String ... tags) {
+    public MemberBuilder withTags(String... tags) {
         this.tags = SampleMemberDataUtil.getTagSet(tags);
         return this;
     }

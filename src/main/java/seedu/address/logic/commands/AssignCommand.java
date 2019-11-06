@@ -15,6 +15,9 @@ import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 
+/**
+ * Assigns a status to tasks in the project.
+ */
 public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
     public static final String PREFIX_USAGE = "ti/ mi/";
@@ -34,8 +37,9 @@ public class AssignCommand extends Command {
 
     private final Index taskId;
     private final MemberId memberId;
+
     /**
-     * @param taskId of the task in the filtered task list to be added to member
+     * @param taskId   of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
     public AssignCommand(Index taskId, MemberId memberId) {

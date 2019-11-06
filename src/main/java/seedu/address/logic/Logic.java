@@ -11,9 +11,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.calendar.Meeting;
 import seedu.address.model.calendar.MeetingQuery;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
-import seedu.address.model.inventory.Inventory;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
@@ -25,10 +25,11 @@ import seedu.address.model.task.Task;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, FileNotFoundException;
 
@@ -40,29 +41,44 @@ public interface Logic {
     ReadOnlyProjectDashboard getProjectDashboard();
 
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Task> getFilteredTaskList();
 
-    /** Returns an unmodifiable view of the filtered list of members */
+    /**
+     * Returns an unmodifiable view of the filtered list of members
+     */
     ObservableList<Member> getFilteredMemberList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Task> getFilteredTaskListNotStarted();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Task> getFilteredTaskListDoing();
 
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Task> getFilteredTaskListDone();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Task> getFilteredTaskListByDeadline();
 
-    /** Returns an unmodifiable view of the filtered list of inventories */
+    /**
+     * Returns an unmodifiable view of the filtered list of inventories
+     */
     ObservableList<Inventory> getFilteredInventoryList();
 
     ObservableList<TasMemMapping> getFilteredTasMemMappingList();
+
     /**
      * Returns the user prefs' address book file path.
      */

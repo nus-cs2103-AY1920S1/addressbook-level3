@@ -8,15 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.member.Member;
 import seedu.address.model.statistics.Statistics;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskStatus;
 import seedu.address.ui.UiPart;
 
 public class MemberStatisticsView extends UiPart<Region> {

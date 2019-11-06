@@ -5,8 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -31,6 +29,7 @@ import seedu.address.model.settings.Theme;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static CommandBox commandBox;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -64,8 +63,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    private static CommandBox commandBox;
-
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -97,6 +94,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -191,7 +189,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-//        primaryStage.setResizable(false);
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
@@ -233,6 +230,7 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
     public static void updateCommandBox(String text) {
         commandBox.setCommandText(text);
     }

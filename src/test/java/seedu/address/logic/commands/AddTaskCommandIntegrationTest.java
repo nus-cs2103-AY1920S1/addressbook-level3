@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -35,8 +34,8 @@ public class AddTaskCommandIntegrationTest {
         expectedModel.addTask(validTask);
 
         //Commented out for assertion error
-//        assertCommandSuccess(new AddTaskCommand(validTask), model,
-//                String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), expectedModel);
+        //assertCommandSuccess(new AddTaskCommand(validTask), model,
+        //String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), expectedModel);
     }
 
     @Test
