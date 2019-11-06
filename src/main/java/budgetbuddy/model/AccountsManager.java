@@ -82,7 +82,7 @@ public class AccountsManager {
         filteredAccounts.setPredicate(s -> false);
         filteredAccounts.setPredicate(s -> true);
         //activeAccountIndex is reset to the first account
-        activeAccountIndex = Index.fromZeroBased(0);
+        setActiveAccount(Index.fromZeroBased(0));
     }
 
     /**
@@ -155,7 +155,7 @@ public class AccountsManager {
     }
 
     /**
-     * Sets the provided account to the active account.
+     * Sets the provided Index to the active account.
      * The previous ActiveAccount will also be de-marked, so there can only be
      * one active account at any time.
      * @param toSet the account to be set to the active account.

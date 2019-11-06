@@ -1,5 +1,6 @@
 package budgetbuddy.logic.commands.accountcommands;
 
+import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
@@ -65,7 +66,13 @@ public class AccountEditCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         } catch (DuplicateAccountException e) {
             throw new CommandException(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(MESSAGE_INVALID_DISPLAYED_INDEX);
         }
+
+        //after editing the account, the new account may not be in the filtered account list,
+        //so we reset the filtered account list.
+        accountsManager.resetFilteredAccountList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount), CommandCategory.ACCOUNT);
     }
 

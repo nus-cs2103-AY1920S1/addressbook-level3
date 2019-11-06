@@ -67,10 +67,6 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
                     CommandParserUtil.parseDate(argMultiMap.getValue(PREFIX_DATE).get()));
         }
 
-        if (!loanEditDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(LoanEditCommand.MESSAGE_UNEDITED);
-        }
-
         return new LoanEditCommand(loanIndex, loanEditDescriptor);
     }
 }

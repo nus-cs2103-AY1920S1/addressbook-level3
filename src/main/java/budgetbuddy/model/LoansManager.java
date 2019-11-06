@@ -101,12 +101,12 @@ public class LoansManager {
     }
 
     /**
-     * Returns the loan at the specified index in the list.
-     * @param toGet The index of the target loan.
-     * @throws LoanNotFoundException If the loan is not in the list.
+     * Returns the loan at the specified index in the filtered list.
+     * @param toGet The index of the target loan in the filtered list.
+     * @throws LoanNotFoundException If the loan is not in the filtered list.
      */
     public Loan getLoan(Index toGet) throws LoanNotFoundException {
-        checkIndexValidity(toGet);
+        checkIndexValidityInFilteredList(toGet);
         return getLoans().get(toGet.getZeroBased());
     }
 
@@ -129,31 +129,32 @@ public class LoansManager {
     }
 
     /**
-     * Replaces a target loan with the given loan.
-     * @param toEdit The index of the target loan to replace.
+     * Replaces a target loan in the filtered list with the given loan.
+     * @param toEdit The index of the target loan to replace in the filtered list
      * @param editedLoan The edited loan to replace the target loan with.
      */
     public void editLoan(Index toEdit, Loan editedLoan) throws LoanNotFoundException {
-        checkIndexValidity(toEdit);
+        checkIndexValidityInFilteredList(toEdit);
         internalList.set(toEdit.getZeroBased(), editedLoan);
     }
 
     /**
-     * Deletes a target loan from the list.
-     * @param toDelete The index of the target loan to delete.
+     * Deletes a target loan from the filtered list.
+     * @param toDelete The index of the target loan to delete in the filtered list.
      */
-    public void deleteLoan(Index toDelete) {
-        checkIndexValidity(toDelete);
-        internalList.remove(toDelete.getZeroBased());
+    public void deleteLoan(Index toDelete) throws LoanNotFoundException {
+        checkIndexValidityInFilteredList(toDelete);
+        Loan loanInInternalList = filteredLoans.get(toDelete.getZeroBased());
+        internalList.remove(loanInInternalList);
     }
 
     /**
-     * Checks if a given index exceeds the number of loans currently in the list.
+     * Checks if a given index exceeds the number of loans currently in the filtered list.
      * @param toCheck The index to check.
-     * @throws LoanNotFoundException If the index exceeds the current number of loans.
+     * @throws LoanNotFoundException If the index exceeds the current number of loans in the filtered list.
      */
-    private void checkIndexValidity(Index toCheck) throws LoanNotFoundException {
-        if (toCheck.getOneBased() > getLoansCount()) {
+    private void checkIndexValidityInFilteredList(Index toCheck) throws LoanNotFoundException {
+        if (toCheck.getOneBased() > getFilteredLoans().size()) {
             throw new LoanNotFoundException();
         }
     }
@@ -188,6 +189,8 @@ public class LoansManager {
 
         LoansManager otherLoansManager = (LoansManager) other;
         return getLoans().equals(otherLoansManager.getLoans())
-                && getDebtors().equals(otherLoansManager.getDebtors());
+                && getDebtors().equals(otherLoansManager.getDebtors())
+                && getFilteredLoans().equals(otherLoansManager.getFilteredLoans())
+                && sorter.equals(otherLoansManager.sorter);
     }
 }

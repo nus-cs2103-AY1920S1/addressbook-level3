@@ -213,7 +213,7 @@ Examples:
 
 ==== List loans: `loan list`
 
-Displays a list of all loans, sorted alphabetically by person first, then by newest for each person's loans.
+Displays a list of all loans. Optionally, filters and/or sorts the list.
 
 Format: `loan list [out|in|unpaid|paid ...] [p/<person> ...] [x/<amount> ...] [w/<date> ...] [d/<description> ...] [s/w|x|p]`
 ****
@@ -225,12 +225,15 @@ For example, `loan list out p/Duke` will result in the filter: `loans out AND lo
 ** Sorting the list using the same method when it is already sorted will reverse the order of sorting (e.g. descending to ascending).
 ****
 
+[NOTE]
+Adding a new loan to the list will reset all filters. Other list operations (edit, paid/unpaid, delete) will not.
+
 Examples:
 
 * `loan list out unpaid p/John Doe` +
 Lists all unpaid loans out to the person named "John Doe".
 * `loan list s/p` +
-`loan list s/p`
+`loan list s/p` +
 Lists all loans sorted by persons in alphabetical order. Then lists all loans again, but sorted by persons in reverse alphabetical order.
 
 ==== Edit loan: `loan edit`

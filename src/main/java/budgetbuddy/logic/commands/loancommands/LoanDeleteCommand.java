@@ -36,7 +36,7 @@ public class LoanDeleteCommand extends MultiLoanCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getLoansManager());
 
         LoansManager loansManager = model.getLoansManager();

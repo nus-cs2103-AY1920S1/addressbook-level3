@@ -33,7 +33,7 @@ public class LoanPaidCommand extends UpdateStatusCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getLoansManager());
 
         updateStatuses(model.getLoansManager(), Status.PAID);
