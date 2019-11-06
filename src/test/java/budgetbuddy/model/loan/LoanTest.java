@@ -2,7 +2,9 @@ package budgetbuddy.model.loan;
 
 import static budgetbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
@@ -42,6 +44,33 @@ public class LoanTest {
     public void isPaid() {
         assert !TypicalLoans.JOHN_OUT_UNPAID.isPaid();
         assert TypicalLoans.PETER_OUT_PAID.isPaid();
+    }
+
+    @Test
+    public void isSameLoan() {
+        Loan loan = TypicalLoans.JOHN_OUT_UNPAID;
+
+        // identical -> returns true
+        Loan loanCopy = new LoanBuilder(loan).build();
+        assertTrue(loan.isSameLoan(loanCopy));
+
+        // different status -> returns true
+        Loan loanWithDifferentStatus = new LoanBuilder(loan).withStatus("PAID").build();
+        assertTrue(loan.isSameLoan(loanWithDifferentStatus));
+
+        // other different properties -> returns false
+
+        Loan loanOther = new LoanBuilder(loan).withAmount(loan.getAmount().toLong() + 1L).build();
+        assertFalse(loan.isSameLoan(loanOther));
+
+        loanOther = new LoanBuilder(loan).withPerson("Mary").build();
+        assertFalse(loan.isSameLoan(loanOther));
+
+        loanOther = new LoanBuilder(loan).withDate(loan.getDate().minusDays(1)).build();
+        assertFalse(loan.isSameLoan(loanOther));
+
+        loanOther = new LoanBuilder(loan).withDescription("Bogus description").build();
+        assertFalse(loan.isSameLoan(loanOther));
     }
 
     @Test

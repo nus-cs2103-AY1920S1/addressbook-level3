@@ -17,6 +17,7 @@ import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.LoanFilters;
 import budgetbuddy.model.loan.LoanSorters;
 import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.loan.predicates.AmountMatchPredicate;
 import budgetbuddy.model.loan.predicates.DateMatchPredicate;
@@ -155,6 +156,11 @@ public class LoansManagerTest {
     }
 
     @Test
+    public void addLoan_duplicateLoan_throwsDuplicateLoanException() {
+        assertThrows(DuplicateLoanException.class, () -> loansManager.addLoan(TypicalLoans.JOHN_OUT_UNPAID));
+    }
+
+    @Test
     public void editLoan_validIndexValidLoan_editedLoanReplacesTargetLoan() {
         Index targetIndex = TypicalIndexes.INDEX_FIRST_ITEM;
 
@@ -163,6 +169,23 @@ public class LoansManagerTest {
 
         loansManager.editLoan(targetIndex, editedLoan);
         assertEquals(editedLoan, loansManager.getLoan(targetIndex));
+    }
+
+    @Test
+    public void editLoan_duplicateLoan_throwsDuplicateLoanException() {
+        assertThrows(DuplicateLoanException.class, () -> loansManager.editLoan(
+                TypicalIndexes.INDEX_THIRD_ITEM, TypicalLoans.JOHN_OUT_UNPAID));
+    }
+
+    @Test
+    public void updateStatus_validIndexValidLoan_updatedLoanReplacesTargetLoan() {
+        Index targetIndex = TypicalIndexes.INDEX_FIRST_ITEM;
+
+        Loan targetLoan = loansManager.getLoan(targetIndex);
+        Loan updatedLoan = new LoanBuilder(targetLoan).withStatus("PAID").build();
+
+        loansManager.updateStatus(targetIndex, updatedLoan);
+        assertEquals(updatedLoan, loansManager.getLoan(targetIndex));
     }
 
     @Test
