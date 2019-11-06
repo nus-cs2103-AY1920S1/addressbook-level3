@@ -6,7 +6,6 @@ import java.util.Set;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TvResultsPage;
-import info.movito.themoviedbapi.model.Discover;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import info.movito.themoviedbapi.tools.MovieDbException;
 import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
@@ -197,13 +196,13 @@ public class ApiManager implements ApiInterface {
      */
     public List<Movie> getMovieByGenre(Set<Genre> genreSet) throws OnlineConnectionException {
         ArrayList<Movie> movies = new ArrayList<>();
-        try{
+        try {
             List<info.movito.themoviedbapi.model.Genre> genreList = apiCall.getGenre().getGenreList(null);
             for (Genre genreSearched : genreSet) {
                 for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
                     if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
-                        int genreID = genreApi.getId();
-                        MovieResultsPage moviePage = apiCall.getGenre().getGenreMovies(genreID, null, 1, true);
+                        int genreId = genreApi.getId();
+                        MovieResultsPage moviePage = apiCall.getGenre().getGenreMovies(genreId, null, 1, true);
                         ApiUtil.extractMovies(movies, moviePage, apiCall);
                     }
                 }

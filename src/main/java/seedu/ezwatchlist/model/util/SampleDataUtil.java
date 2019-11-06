@@ -24,7 +24,7 @@ public class SampleDataUtil {
             new Movie(new Name("Joker"), new Description("In Gotham City, mentally-troubled comedian Arthur Fleck"
                     + " embarks on a downward-spiral of social revolution and bloody crime. This path brings"
                     + " him face-to-face with his infamous alter-ego: \"The Joker\"."),
-                    new IsWatched(false), new Date("4 October 2019"), new RunningTime(122),
+                    new IsWatched("false"), new Date("4 October 2019"), new RunningTime(122),
                     getActorSet("Joaquin Phoenix, Robert De Niro"))
         };
     }

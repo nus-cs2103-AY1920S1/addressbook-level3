@@ -37,8 +37,8 @@ public class CommandTestUtil {
     public static final String VALID_TYPE_BOB_THE_BUILDER = "tv";
     public static final String VALID_DATE_ANNABELLE = "10/10/2014";
     public static final String VALID_DATE_BOB_THE_BUILDER = "1998";
-    public static final boolean VALID_WATCHED_ANNABELLE = true;
-    public static final boolean VALID_WATCHED_BOB_THE_BUILDER = false;
+    public static final String VALID_WATCHED_ANNABELLE = "true";
+    public static final String VALID_WATCHED_BOB_THE_BUILDER = "false";
     public static final String VALID_DESCRIPTION_ANNABELLE = "Horror film";
     public static final String VALID_DESCRIPTION_BOB_THE_BUILDER = "Cartoon about building things";
     public static final int VALID_RUNNING_TIME_ANNABELLE = 99;

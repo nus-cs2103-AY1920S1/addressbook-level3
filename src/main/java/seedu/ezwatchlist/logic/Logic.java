@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.logic;
 
 import java.nio.file.Path;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
@@ -38,11 +39,17 @@ public interface Logic {
      */
     ReadOnlyWatchList getWatchList();
 
+    /** Returns an unmodifiable view of the filtered shows that have not been watched */
+    ObservableList<Show> getUnWatchedList();
+
     /** Returns an unmodifiable view of the filtered watched list of shows */
     ObservableList<Show> getWatchedList();
 
     /** Returns an unmodifiable view of the filtered list of shows */
     ObservableList<Show> getFilteredShowList();
+
+    /** Updates the filter of the filtered show list by the given {@code predicate}. */
+    void updateFilteredShowList(Predicate<Show> predicate);
 
     /** Returns an unmodifiable view of the search results of shows */
     ObservableList<Show> getSearchResultList();

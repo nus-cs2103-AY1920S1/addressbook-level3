@@ -2,7 +2,7 @@ package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NUM_OF_EPISODES;
-import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
+import static seedu.ezwatchlist.model.Model.PREDICATE_ALL_SHOWS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,9 +47,10 @@ public class WatchCommand extends Command {
     public static final String MESSAGE_UNWATCH_SHOW_SUCCESS = "Unmarked show as watched: %1$s";
     public static final String MESSAGE_MARK_EPISODES_SUCCESS = "Marked %1$s episodes as watched: %2$s";
     public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist.";
-    public static final String MESSAGE_INVALID_EPISODE_NUMBER = "The provided number of episodes is too large, the are"
-            + " only %1$s episodes in %2$s.";
-    public static final String MESSAGE_INVALID_SEASON_NUMBER = "The provided number of seasons is too large, the are"
+    public static final String MESSAGE_EDITING_MOVIE_EPISODES_OR_SEASONS = "Movies do not have episodes and seasons.";
+    public static final String MESSAGE_INVALID_EPISODE_NUMBER = "The provided number of episodes is too large, there"
+            + " are only %1$s episodes in %2$s.";
+    public static final String MESSAGE_INVALID_SEASON_NUMBER = "The provided number of seasons is too large, there are"
             + " only %1$s seasons in %2$s.";
     public static final String MESSAGE_INVALID_EPISODE_NUMBER_OF_SEASON = "Season %1$s of %2$s only has"
             + " %3$s episodes.";
@@ -95,8 +96,12 @@ public class WatchCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }
 
+        if (showToEdit.getType().equals("Movie") && !isToggle) {
+            throw new CommandException(MESSAGE_EDITING_MOVIE_EPISODES_OR_SEASONS);
+        }
+
         model.setShow(showToEdit, editedShow);
-        model.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
+        model.updateFilteredShowList(PREDICATE_ALL_SHOWS);
 
         boolean isWatched = editedShow.isWatched().value;
 
@@ -132,7 +137,7 @@ public class WatchCommand extends Command {
 
         if (showToEdit.getType().equals("Movie")) {
 
-            IsWatched updatedIsWatched = new IsWatched(!showToEdit.isWatched().value);
+            IsWatched updatedIsWatched = new IsWatched(Boolean.toString(!showToEdit.isWatched().value));
             Movie editedShow = new Movie(name, description, updatedIsWatched, dateOfRelease, runningTime, actors);
             editedShow.setPoster(poster);
             editedShow.addGenres(genres);
@@ -146,7 +151,7 @@ public class WatchCommand extends Command {
             IsWatched updatedIsWatched = showToEdit.isWatched();
 
             if (isToggle) {
-                updatedIsWatched = new IsWatched(!showToEdit.isWatched().value);
+                updatedIsWatched = new IsWatched(Boolean.toString(!showToEdit.isWatched().value));
             }
 
             if (seasonsArePresent && !isValidSeasonNumber(showToEdit, numOfSeasonsWatched)) {
@@ -180,9 +185,9 @@ public class WatchCommand extends Command {
                 }
             } else {
                 if (numOfEpisodesWatched == totalNumOfEpisodes) {
-                    updatedIsWatched = new IsWatched(true);
+                    updatedIsWatched = new IsWatched("true");
                 } else {
-                    updatedIsWatched = new IsWatched(false);
+                    updatedIsWatched = new IsWatched("false");
                 }
             }
 
@@ -367,10 +372,6 @@ public class WatchCommand extends Command {
 
         public void setTotalNumOfEpisodes(int totalNumOfEpisodes) {
             this.totalNumOfEpisodes = totalNumOfEpisodes;
-        }
-
-        public int getTotalNumOfEpisodes() {
-            return totalNumOfEpisodes;
         }
 
         public void setNumOfSeasonsWatched(int numOfSeasonsWatched) {

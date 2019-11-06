@@ -18,7 +18,7 @@ public class TypicalShows {
                     + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
                     + "and disregarded by society, Fleck begins a slow descent into madness as he transforms into the "
                     + "criminal mastermind known as the Joker."
-    ).withIsWatched(false).withDateOfRelease("3 october 2019").withType("Movie")
+    ).withIsWatched("false").withDateOfRelease("3 october 2019").withType("Movie")
             .withRunningTime(122).withActors("Joaquin Phoenix").build();
 
     public static final Show AVENGERSENDGAME = new ShowBuilder().withName("Avenger Endgame").withDescription(""
@@ -26,9 +26,8 @@ public class TypicalShows {
             + "starts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce "
             + "Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos"
             + " -- the evil demigod who decimated the planet and the universe.")
-            .withIsWatched(false).withDateOfRelease("24 April 2019").withRunningTime(182).withActors("Chris Hemsworth")
-            .withType("Movie")
-            .build();
+            .withIsWatched("false").withDateOfRelease("24 April 2019").withRunningTime(182)
+            .withActors("Chris Hemsworth").withType("Movie").build();
 
     /*public static final Show BLACKPANTHER = new ShowBuilder().withName("Black Panther").withDescription("After the"
             + " death of his father, T'Challa returns home to the African nation of Wakanda to take his rightful place"
@@ -46,7 +45,7 @@ public class TypicalShows {
                     + "destroyed. The two bored men form an underground club with strict rules and fight other men who "
                     + "are fed up with their mundane lives. Their perfect partnership frays when Marla (Helena Bonham"
                     + " Carter), a fellow support group crasher, attracts Tyler's attention.")
-            .withIsWatched(true).withDateOfRelease("4 Nov 1999").withRunningTime(151).withActors().build();
+            .withIsWatched("true").withDateOfRelease("4 Nov 1999").withRunningTime(151).withActors().build();
     /*
         // Manually added - Show's details found in {@code CommandTestUtil}
         public static final Show SAVINGPRIVATERYAN = new ShowBuilder().withName("Saving Private Ryan")
@@ -62,7 +61,7 @@ public class TypicalShows {
             + " sequel to \"The Godfather,\" contrasting the life of Corleone father and son. Traces the problems "
             + "of Michael Corleone (Al Pacino) in 1958 and that of a young immigrant Vito Corleone (Robert De Niro) "
             + "in 1917's Hell's Kitchen. Michael survives many misfortunes and Vito is introduced to a life of crime.")
-            .withIsWatched(true).withDateOfRelease("12 December 1974")
+            .withIsWatched("true").withDateOfRelease("12 December 1974")
             .withRunningTime(202).withActors("Al Pacino").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

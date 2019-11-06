@@ -73,7 +73,7 @@ public class ApiUtil {
         RunningTime runtime = new RunningTime(movie.getRuntime());
         Description overview = new Description(movie.getOverview());
         Date releaseDate = new Date(movie.getReleaseDate());
-        IsWatched isWatched = new IsWatched(false);
+        IsWatched isWatched = new IsWatched("false");
 
         //actors
         Set<Actor> actors = getActors(movie.getCast());
@@ -149,7 +149,7 @@ public class ApiUtil {
         Date date = new Date(series.getFirstAirDate()); //date of release
         int totalNumOfEpisodes = getTotalNumOfEpisodes(seasonsList);
         Description description = new Description(tv.getOverview()); //description
-        IsWatched isWatched = new IsWatched(false);
+        IsWatched isWatched = new IsWatched("false");
 
         //actors
         Credits credits = apiCallTvSeries.getCredits(tvId, null);
@@ -268,11 +268,11 @@ public class ApiUtil {
     }
 
     /**
-     * Splits the list of Shows to a list of Movies.
+     * Filters the list of Shows to a list of Movies.
      * @param shows the list of Shows.
      * @return a list of movies from the Shows.
      */
-    public static List<Movie> splitToMovieFromShow(List<Show> shows) {
+    public static List<Movie> filterToMovieFromShow(List<Show> shows) {
         List<Movie> movies = new LinkedList<>();
         for (Show show: shows) {
             if (show.getType().equals("Movie")) {
@@ -283,11 +283,11 @@ public class ApiUtil {
     }
 
     /**
-     * Splits the list of Shows to a list of Tv Shows.
+     * Filters the list of Shows to a list of Tv Shows.
      * @param shows the list of Shows.
      * @return a list of Tv Shows from the Shows.
      */
-    public static List<TvShow> splitToTvShowsFromShow(List<Show> shows) {
+    public static List<TvShow> filterToTvShowsFromShow(List<Show> shows) {
         List<TvShow> tvShows = new LinkedList<>();
         for (Show show: shows) {
             if (show.getType().equals("Tv Show")) {

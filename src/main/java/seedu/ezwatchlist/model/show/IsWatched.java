@@ -5,18 +5,18 @@ import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Show's watched or not field in the watchlist.
- * Guarantees: is valid as declared in {@link #isValidIsWatched(boolean)}
+ * Guarantees: is valid as declared in {@link #isValidIsWatched(String)}
  */
 public class IsWatched {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Shows IsWatched should only contain alphanumeric characters and spaces, and it should not be blank";
+            "The watched value of a show can only be 'true' or 'false' (case in-sensitive)";
 
     /*
      * The first character of the show must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final boolean value;
 
@@ -29,17 +29,17 @@ public class IsWatched {
      *
      * @param isWatched A valid boolean.
      */
-    public IsWatched(boolean isWatched) {
+    public IsWatched(String isWatched) {
         requireNonNull(isWatched);
         checkArgument(isValidIsWatched(isWatched), MESSAGE_CONSTRAINTS);
-        value = isWatched;
+        value = Boolean.parseBoolean(isWatched);
     }
 
     /**
-     * Returns true if a given boolean is a valid isWatched.
+     * Returns true if a given String is a valid isWatched.
      */
-    public static boolean isValidIsWatched(boolean test) {
-        return true;
+    public static boolean isValidIsWatched(String test) {
+        return test.equals("true") || test.equals("false");
     }
 
     public boolean getIsWatchedBoolean() {

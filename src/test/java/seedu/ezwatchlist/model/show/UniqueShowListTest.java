@@ -40,7 +40,7 @@ public class UniqueShowListTest {
     @Test
     public void contains_showWithSameIdentityFieldsInList_returnsTrue() {
         uniqueShowList.add(AVENGERSENDGAME);
-        Show editedAlice = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withType("Movie").build();
+        Show editedAlice = new ShowBuilder(AVENGERSENDGAME).withIsWatched("true").withType("Movie").build();
         assertTrue(uniqueShowList.contains(editedAlice));
     }
 
@@ -77,7 +77,7 @@ public class UniqueShowListTest {
 
     public void setShow_editedShowHasSameIdentity_success() {
         uniqueShowList.add(AVENGERSENDGAME);
-        Show editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).build();
+        Show editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched("true").build();
         uniqueShowList.setShow(AVENGERSENDGAME, editedAvengersEndGame);
         UniqueShowList expectedUniqueShowList = new UniqueShowList();
         expectedUniqueShowList.add(editedAvengersEndGame);
