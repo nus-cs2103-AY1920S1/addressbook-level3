@@ -2,10 +2,13 @@ package seedu.jarvis.logic.parser.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.*;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import seedu.jarvis.commons.core.index.Index;
@@ -75,6 +78,11 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
         return new EditCcaCommand(index, editCcaDescriptor);
     }
 
+    /**
+     * Parses {@code Collection<String> milestone} into a {@code CcaMilestoneList} if {@code milestones} is non-empty.
+     * If {@code milestones} contain only one element which is an empty string, it will be parsed into a
+     * {@code CcaMilestoneList} containing zero milestones.
+     */
     private Optional<CcaMilestoneList> parseMilestoneListForEdit(Collection<String> milestones) throws ParseException,
             DuplicateCcaMilestoneException {
         assert milestones != null;

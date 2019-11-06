@@ -2,7 +2,11 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.*;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
@@ -246,6 +250,10 @@ public class EditCcaCommand extends Command {
             updatedCcaProgress.resetCcaCurrentProgress();
         }
 
+        if (editCcaDescriptor.getCcaCurrentProgress().isPresent()) {
+            updatedCcaProgress.setCcaCurrentProgress(editCcaDescriptor.getCcaCurrentProgress().get());
+        }
+
         return new Cca(updatedName, updatedCcaType, updatedEquipmentList, updatedCcaProgress);
     }
 
@@ -277,6 +285,7 @@ public class EditCcaCommand extends Command {
         private EquipmentList equipmentList;
         private CcaProgress ccaProgress;
         private CcaMilestoneList ccaMilestoneList;
+        private CcaCurrentProgress ccaCurrentProgress;
 
         public EditCcaDescriptor() {}
 
@@ -289,13 +298,15 @@ public class EditCcaCommand extends Command {
             setEquipmentList(toCopy.equipmentList);
             setCcaProgress(toCopy.ccaProgress);
             setMilestoneList(toCopy.ccaMilestoneList);
+            setCcaCurrentProgress(toCopy.ccaCurrentProgress);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(ccaName, ccaType, equipmentList, ccaProgress, ccaMilestoneList);
+            return CollectionUtil.isAnyNonNull(ccaName, ccaType, equipmentList, ccaProgress, ccaMilestoneList,
+                    ccaCurrentProgress);
         }
 
         public void setCcaName(CcaName ccaName) {
@@ -336,6 +347,14 @@ public class EditCcaCommand extends Command {
 
         public Optional<CcaProgress> getCcaProgress() {
             return Optional.ofNullable(ccaProgress);
+        }
+
+        private void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
+            this.ccaCurrentProgress = ccaCurrentProgress;
+        }
+
+        public Optional<CcaCurrentProgress> getCcaCurrentProgress() {
+            return Optional.ofNullable(ccaCurrentProgress);
         }
 
         @Override

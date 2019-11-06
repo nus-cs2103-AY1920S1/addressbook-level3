@@ -11,10 +11,8 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
-import seedu.jarvis.model.cca.ccaprogress.CcaCurrentProgress;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
 
 /**
@@ -23,7 +21,7 @@ import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
 public class CcaParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    private static final String MESSSAGE_INVALID_PROGRESS_LEVEL = "Progress is not a non-negative unsigned integer." ;
+    private static final String MESSSAGE_INVALID_PROGRESS_LEVEL = "Progress is not a non-negative unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

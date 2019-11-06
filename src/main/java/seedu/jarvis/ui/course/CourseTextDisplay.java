@@ -22,7 +22,7 @@ public class CourseTextDisplay extends UiPart<Region> {
         courseTextDisplay.textProperty().bind(logic.getCourseTextDisplay());
 
         // get custom font
-//        final Font f = Font.loadFont(this.getClass().getResource(PATH_TO_FONT).toExternalForm(), 15);
-//        courseTextDisplay.setFont(f);
+        final Font f = Font.loadFont(this.getClass().getResource(PATH_TO_FONT).toExternalForm(), 15);
+        courseTextDisplay.setFont(f);
     }
 }
