@@ -70,4 +70,6 @@ public class PullTaskCommandParser implements Parser<PullTaskCommand> {
         return p == PREFIX_DATE || p == PREFIX_TASK_TYPE || p == PREFIX_FREQ
                 || p == PREFIX_PRIORITY || p == PREFIX_TAG;
     }
+
+
 }

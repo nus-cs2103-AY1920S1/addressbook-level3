@@ -22,12 +22,12 @@ public interface PlannerModel {
     /**
      * {@code Predicate} that evaluates to true if Task date is in the week
      */
-    TaskDateMatchesDatePredicate PREDICATE_TASKS_THIS_WEEK = new TaskDateMatchesDatePredicate(LocalDate.now());
+    TaskDateMatchesDatePredicate PREDICATE_TASKS_THIS_WEEK = new TaskDateMatchesDatePredicate(true);
 
     /**
      * {@code Predicate} that evaluates to true if the Task date is equal to today
      */
-    TaskDateMatchesDatePredicate PREDICATE_TASKS_TODAY = new TaskDateMatchesDatePredicate();
+    TaskDateMatchesDatePredicate PREDICATE_TASKS_TODAY = new TaskDateMatchesDatePredicate(false);
 
 
     /**
