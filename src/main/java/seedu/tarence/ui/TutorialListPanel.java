@@ -17,6 +17,8 @@ public class TutorialListPanel extends UiPart<Region> {
     private static final String FXML = "TutorialListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(TutorialListPanel.class);
 
+    private int scrollPosition = 0;
+
     @FXML
     private ListView<Tutorial> tutorialListView;
 
@@ -41,5 +43,18 @@ public class TutorialListPanel extends UiPart<Region> {
                 setGraphic(new TutorialCard(tutorial, getIndex() + 1).getRoot());
             }
         }
+    }
+
+    /**
+     * Scrolls through the tutorial list panel in the given direction.
+     */
+    void scrollPanel(String direction) {
+        if (direction.equals("down") && scrollPosition < tutorialListView.getItems().size() - 1) {
+            scrollPosition += 1;
+        }
+        if (direction.equals("up") && scrollPosition > 0) {
+            scrollPosition -= 1;
+        }
+        tutorialListView.scrollTo(scrollPosition);
     }
 }

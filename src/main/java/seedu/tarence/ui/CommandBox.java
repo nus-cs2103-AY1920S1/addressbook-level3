@@ -27,12 +27,13 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
-    private final CommandExecutor commandExecutor;
-    private final CommandExecutor autocompleteExecutor;
-    private final CommandExecutor nextSuggestionExecutor;
-    private final CommandExecutor inputChangedExecutor;
-    private final CommandExecutor pastInputExecutor;
-    private final CommandExecutor inputFieldFocusExecutor;
+    private final InputExecutor commandExecutor;
+    private final InputExecutor autocompleteExecutor;
+    private final InputExecutor nextSuggestionExecutor;
+    private final InputExecutor inputChangedExecutor;
+    private final InputExecutor pastInputExecutor;
+    private final InputExecutor inputFieldFocusExecutor;
+    private final InputExecutor scrollPanelExecutor;
 
     @FXML
     private TextField commandTextField;
@@ -43,10 +44,10 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private Text autocompleteTextBox;
 
-    public CommandBox(CommandExecutor commandExecutor, CommandExecutor autocompleteExecutor,
-                      CommandExecutor nextSuggestionExecutor,
-                      CommandExecutor inputChangedExecutor, CommandExecutor pastInputExecutor,
-                      CommandExecutor inputFieldFocusExecutor) {
+    public CommandBox(InputExecutor commandExecutor, InputExecutor autocompleteExecutor,
+                      InputExecutor nextSuggestionExecutor,
+                      InputExecutor inputChangedExecutor, InputExecutor pastInputExecutor,
+                      InputExecutor inputFieldFocusExecutor, InputExecutor scrollPanelExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.autocompleteExecutor = autocompleteExecutor;
@@ -54,6 +55,7 @@ public class CommandBox extends UiPart<Region> {
         this.inputChangedExecutor = inputChangedExecutor;
         this.pastInputExecutor = pastInputExecutor;
         this.inputFieldFocusExecutor = inputFieldFocusExecutor;
+        this.scrollPanelExecutor = scrollPanelExecutor;
 
         // actions to carry out whenever text field content changes
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
@@ -171,15 +173,18 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Default handler for button pressed events.
+     * Handles the PageDown and PageUp button pressed events.
      */
-    @FXML
-    private void handleOtherInput() throws CommandException, ParseException {
-        inputChangedExecutor.execute("");
+    private void handleScrollPanel(KeyCode keyCode) throws CommandException, ParseException {
+        if (keyCode.equals(KeyCode.PAGE_DOWN)) {
+            scrollPanelExecutor.execute("down");
+        } else {
+            scrollPanelExecutor.execute("up");
+        }
     }
 
     /**
-     * Handles button press inputs from the user.
+     * Dispatches events based on button press inputs from the user.
      */
     @FXML
     private void handleKeyPressed(KeyEvent keyEvent) throws CommandException, ParseException {
@@ -191,6 +196,8 @@ public class CommandBox extends UiPart<Region> {
             handleNextSuggestion();
         } else if (keyEvent.getCode().equals(KeyCode.UP) || keyEvent.getCode().equals(KeyCode.DOWN)) {
             handlePastInput(keyEvent.getCode());
+        } else if (keyEvent.getCode().equals(KeyCode.PAGE_DOWN) || keyEvent.getCode().equals(KeyCode.PAGE_UP)) {
+            handleScrollPanel(keyEvent.getCode());
         } else if (keyEvent.getCode().equals(KeyCode.BACK_SPACE)) {
             commandTextField.setAlignment(BASELINE_LEFT);
         } else {
@@ -238,9 +245,9 @@ public class CommandBox extends UiPart<Region> {
      * Represents a function that can execute commands.
      */
     @FunctionalInterface
-    public interface CommandExecutor {
+    public interface InputExecutor {
         /**
-         * Executes the command and returns the result.
+         * Executes an action based on the user's input and returns the result.
          *
          * @see seedu.tarence.logic.Logic#execute(String)
          */

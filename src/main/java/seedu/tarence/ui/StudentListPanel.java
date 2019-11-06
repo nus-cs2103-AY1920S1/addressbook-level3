@@ -17,6 +17,8 @@ public class StudentListPanel extends UiPart<Region> {
     private static final String FXML = "StudentListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
+    private int scrollPosition = 0;
+
     @FXML
     private ListView<Student> studentListView;
 
@@ -24,6 +26,20 @@ public class StudentListPanel extends UiPart<Region> {
         super(FXML);
         studentListView.setItems(studentList);
         studentListView.setCellFactory(listView -> new StudentListViewCell());
+    }
+
+    /**
+     * Scrolls through the student list panel in the given direction.
+     */
+
+    void scrollPanel(String direction) {
+        if (direction.equals("down") && scrollPosition < studentListView.getItems().size() - 1) {
+            scrollPosition += 1;
+        }
+        if (direction.equals("up") && scrollPosition > 0) {
+            scrollPosition -= 1;
+        }
+        studentListView.scrollTo(scrollPosition);
     }
 
     /**

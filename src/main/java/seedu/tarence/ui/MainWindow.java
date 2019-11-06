@@ -197,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeNextSuggestion,
-                this::executeInputChanged, this::getPastInput, this::focusOnInputField);
+                this::executeInputChanged, this::getPastInput, this::focusOnInputField, this::executeScrollPanel);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         updateCommandBoxWindowWidth(primaryStage.getWidth());
     }
@@ -390,6 +390,21 @@ public class MainWindow extends UiPart<Stage> {
         String pastInput = logic.getPastInput(arrowDirection);
         if (pastInput != null) {
             commandBox.setInput(pastInput);
+        }
+        return new CommandResult("");
+    }
+
+    /**
+     * Handles scrolling of student list panel.
+     */
+    private CommandResult executeScrollPanel(String direction) {
+        Tab selectedTab = listTabPane.getSelectionModel().getSelectedItem();
+        if (selectedTab == modulesTab) {
+            moduleListPanel.scrollPanel(direction);
+        } else if (selectedTab == studentsTab) {
+            studentListPanel.scrollPanel(direction);
+        } else { // tutorialsTab
+            tutorialListPanel.scrollPanel(direction);
         }
         return new CommandResult("");
     }

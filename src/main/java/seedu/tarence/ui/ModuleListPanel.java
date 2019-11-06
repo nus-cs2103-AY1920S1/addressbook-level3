@@ -17,6 +17,8 @@ public class ModuleListPanel extends UiPart<Region> {
     private static final String FXML = "ModuleListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
+    private int scrollPosition = 0;
+
     @FXML
     private ListView<Module> moduleListView;
 
@@ -41,6 +43,19 @@ public class ModuleListPanel extends UiPart<Region> {
                 setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
             }
         }
+    }
+
+    /**
+     * Scrolls through the module list panel in the given direction.
+     */
+    void scrollPanel(String direction) {
+        if (direction.equals("down") && scrollPosition < moduleListView.getItems().size() - 1) {
+            scrollPosition += 1;
+        }
+        if (direction.equals("up") && scrollPosition > 0) {
+            scrollPosition -= 1;
+        }
+        moduleListView.scrollTo(scrollPosition);
     }
 
 }

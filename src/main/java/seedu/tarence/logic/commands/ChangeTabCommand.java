@@ -14,7 +14,7 @@ import seedu.tarence.storage.Storage;
 public class ChangeTabCommand extends Command {
     public static final String COMMAND_WORD = "cd";
 
-    public static final String MESSAGE_SUCCESS = "%1$s has been displayed";
+    public static final String MESSAGE_SUCCESS = "Displaying list of %1$s.";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "changetab"};
 

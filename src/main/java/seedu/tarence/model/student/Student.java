@@ -56,21 +56,28 @@ public class Student extends Person {
     }
 
     /**
-     * Returns true if both students have the same email, nusnet id or matric number.
+     * Returns true if both students have the same email, nusnet id or matric number and are in the same class.
      * This defines a weaker notion of equality between two students.
      */
     @Override
-    public boolean isSamePerson(Person otherStudent) {
+    public boolean isSamePerson(Person otherPerson) {
+        Student otherStudent = (Student) otherPerson;
         if (otherStudent == this) {
             return true;
+        } else if (otherStudent == null) {
+            return false;
         }
 
-        return otherStudent != null
-                && ((((Student) otherStudent).getEmail().equals(getEmail())
-                || (((Student) otherStudent).getMatricNum().equals(getMatricNum())
-                && getMatricNum().isPresent())
-                || (((Student) otherStudent).getNusnetId().equals(getNusnetId())
-                && getNusnetId().isPresent())));
+        boolean hasSameEmail = otherStudent.getEmail().equals(getEmail());
+        boolean hasSameMatNo = getMatricNum().isPresent() && otherStudent.getMatricNum().equals(getMatricNum());
+        boolean hasSameNusId = getNusnetId().isPresent() && otherStudent.getNusnetId().equals(getNusnetId());
+        boolean hasSameClass = otherStudent.getTutName().equals(getTutName())
+                && otherStudent.getModCode().equals(getModCode());
+
+        return (((hasSameEmail || hasSameMatNo || hasSameNusId) && hasSameClass)
+                || (hasSameEmail && (!hasSameMatNo || !hasSameNusId))
+                || (hasSameMatNo && !hasSameEmail)
+                || (hasSameNusId && !hasSameEmail));
     }
 
     /**
