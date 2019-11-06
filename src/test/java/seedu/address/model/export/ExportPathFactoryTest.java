@@ -10,29 +10,29 @@ import org.junit.jupiter.api.Test;
 
 public class ExportPathFactoryTest {
 
-    String[] filePathsNoExtensions = {
-            "cheat_sheet",
-            "cheat-sheet",
-            "directory/cheatsheet",
-            "ChEAtShEAT",
-            "../cheatsheet",
-            "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2)",
-            "~/Desktop/[CS2105] Midterm Cheat Sheet (v3)"
+    private String[] filePathsNoExtensions = {
+        "cheat_sheet",
+        "cheat-sheet",
+        "directory/cheatsheet",
+        "ChEAtShEAT",
+        "../cheatsheet",
+        "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2)",
+        "~/Desktop/[CS2105] Midterm Cheat Sheet (v3)"
     };
 
-    String[] validExtensions = {
-            ".json",
-            ".docx",
-            ".JsOn",
-            ".DocX"
+    private String[] validExtensions = {
+        ".json",
+        ".docx",
+        ".JsOn",
+        ".DocX"
     };
 
-    String[] invalidExtensions = {
-            ".html",
-            ".png",
-            ".txt",
-            ".jsonn",
-            "."
+    private String[] invalidExtensions = {
+        ".html",
+        ".png",
+        ".txt",
+        ".jsonn",
+        "."
     };
 
     @Test
@@ -72,5 +72,4 @@ public class ExportPathFactoryTest {
             }
         }
     }
-
-    }
+}

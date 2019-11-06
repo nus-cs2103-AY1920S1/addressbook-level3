@@ -32,6 +32,12 @@ public class DocumentExportUtilTest {
         }
     }
 
+    /**
+     * Helper method that tries to export a List of {@code FlashCard}s to a specific Document path.
+     * Will clean up after the test is done by deleting the file if it was created.
+     *
+     * @param list List of {@code FlashCard}s to be exported.
+     */
     private void tryExport(List<FlashCard> list) {
         deleteFileIfExists(TypicalExportPaths.CHEATSHEET_DOCX);
 

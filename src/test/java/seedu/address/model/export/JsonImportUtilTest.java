@@ -35,6 +35,12 @@ public class JsonImportUtilTest {
         }
     }
 
+    /**
+     * Helper function to attempt an import from a specific JsonExportPath. Will first export the {@code FlashCard}s to
+     * that path, before importing them back in. Verifies the import works as expected.
+     *
+     * @param list List of {@code FlashCard}s to test the import function with.
+     */
     private void tryImportFrom(List<FlashCard> list) {
         JsonExportPath path = TypicalExportPaths.CS2105_JSON;
         deleteFileIfExists(path);
