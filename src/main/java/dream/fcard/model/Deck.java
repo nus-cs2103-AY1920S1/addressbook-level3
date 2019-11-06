@@ -319,17 +319,17 @@ public class Deck implements JsonInterface {
         this.deckStats = stats;
     }
 
-    /** Get number of sessions user has engaged in pertaining to this deck. */
-    public Integer getNumberOfSessions() {
-        return this.deckStats.getNumberOfSessions();
-    }
+    ///** Get number of sessions user has engaged in pertaining to this deck. */
+    //public Integer getNumberOfSessions() {
+    //    return this.deckStats.getNumberOfSessions();
+    //}
 
     /** Get number of cards in this deck.*/
     public Integer getNumberOfCards() {
         return this.cards.size();
     }
 
-    /** Get the average score for the seesions has engaged in pertaining to this deck. */
+    /** Get the average score for the sessions has engaged in pertaining to this deck. */
     //public Double getAverageScore() {
     //    return this.deckStats.getAverageScore();
     //}

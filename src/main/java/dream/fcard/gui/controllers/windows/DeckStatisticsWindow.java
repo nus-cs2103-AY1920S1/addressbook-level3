@@ -52,7 +52,7 @@ public class DeckStatisticsWindow extends ScrollPane {
         //ArrayList<Deck> decks = State.getDecks();
 
         displaySummaryStats();
-        sessionsTableView = StatsDisplayUtil.getSessionsTableView(deckStats.getSessionList());
+        //sessionsTableView = StatsDisplayUtil.getSessionsTableView(deckStats.getSessionList());
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
@@ -61,11 +61,11 @@ public class DeckStatisticsWindow extends ScrollPane {
         numCards.setText("Number of cards in deck: " + numberOfCards
             + (numberOfCards == 1 ? "card" : "cards"));
 
-        int numSessions = deckStats.getNumberOfSessions();
-        totalSessions.setText("Total login sessions: " + numSessions
-            + (numSessions == 1 ? " session" : " sessions"));
+        //int numSessions = deckStats.getNumberOfSessions();
+        //totalSessions.setText("Total login sessions: " + numSessions
+        //    + (numSessions == 1 ? " session" : " sessions"));
 
-        String duration = deckStats.getTotalDurationOfSessionsAsString();
-        totalDuration.setText("Total login duration: " + duration);
+        //String duration = deckStats.getTotalDurationOfSessionsAsString();
+        //totalDuration.setText("Total login duration: " + duration);
     }
 }
