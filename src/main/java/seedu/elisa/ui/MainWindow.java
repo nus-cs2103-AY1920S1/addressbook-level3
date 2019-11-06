@@ -213,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             private void createReminders(Change<? extends Item> c) {
-                if(c.getAddedSize() > 0) {
+                if (c.getAddedSize() > 0) {
                     //Plays sound
                     reminderAlarm.play(30);
                     for (Item newItem : c.getAddedSubList()) {
