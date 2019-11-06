@@ -49,6 +49,9 @@ Tags are completely optional and there is no default tag. +
 Format 2: `add NUMBER_IN_SUGGESTED_MEAL_LIST` +
 NUMBER_IN_SUGGESTED_MEAL_LIST is the number that corresponds to the meal in suggested list on the right side of the application
 
+[NOTE]
+MEAL_NAME can only be a maximum of 30 characters to ensure it displays correctly for you.
+
 Examples:
 
 * `add n/Spaghetti c/480 t/tasty`

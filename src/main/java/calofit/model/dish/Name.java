@@ -10,6 +10,9 @@ import calofit.commons.util.AppUtil;
  */
 public class Name {
 
+    public static final String LENGTH_CONSTRAINTS =
+            "Names should only be a maximum of 30 characters.";
+
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 

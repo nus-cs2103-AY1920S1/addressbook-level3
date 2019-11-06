@@ -14,7 +14,7 @@ import calofit.model.util.SampleDataUtil;
  */
 public class DishBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Spaghetti";
     public static final int DEFAULT_CALORIE = 1000;
 
     private Name name;

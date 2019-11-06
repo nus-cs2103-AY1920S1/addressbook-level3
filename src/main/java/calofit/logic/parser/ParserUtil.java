@@ -42,6 +42,9 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
+        if (trimmedName.length() > 30) {
+            throw new ParseException(Name.LENGTH_CONSTRAINTS);
+        }
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
