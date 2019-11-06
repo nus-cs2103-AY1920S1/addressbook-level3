@@ -1,6 +1,7 @@
 = Seller Manager Lite - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -54,6 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+// tag::overview[]
 === Overview
 
 ==== Clutter-free
@@ -81,6 +83,10 @@ SML generates real-time sales charts for you:
 * Total Revenue (monthly)
 * Total Profit (monthly)
 * Total Cost (monthly)
+
+// end::overview[]
+
+// tag::glossary[]
 
 === Glossary
 
@@ -152,9 +158,9 @@ Inverse of undo.
 . *Copy* +
 Action of copying an entry into clipboard.
 
+// end::glossary[]
 
-
-
+// tag::tabpanels[]
 [[TabPanels]]
 == Tab Panels
 
@@ -170,6 +176,9 @@ we have divided the user interface into 5 partitions
 Use our <<Switch>> commands to toggle between the tab panels!
 The cool thing about our commands is that it will automatically
 toggle to the Tab Panel that it belongs to.
+
+// end::tabpanels[]
+
 [[Commands]]
 == Commands
 
@@ -186,7 +195,7 @@ toggle to the Tab Panel that it belongs to.
 Lists out the commands you need to navigate SML. +
 Format: `help`
 
-
+// tag::customer[]
 === Customer Commands
 Commands that work on customers in SML.
 
@@ -215,7 +224,7 @@ Customers cannot share the same contact number or email.
 
 [underline]#Examples#:
 * Adds a single customer
-. `add-c n/Steve Jobs c/12345678 e/stevejobs@apple.com [t/TAG]…`
+. `add-c n/Steve Jobs c/12345678 e/stevejobs@apple.com`
 
 image::ug-command/ug-add-c.png[width="900"]
 
@@ -249,6 +258,7 @@ Finds customers whose fields contain any of the given keywords. +
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The search matches anywhere for name, contact number, email and tags.
+* The search looks for partial matches e.g. `ha` will match `hans`.
 * Entries matching ALL fields will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and with tag `bbb`;
 ****
@@ -325,9 +335,9 @@ Copies a customer in SML to clipboard +
 . `copy-c 1`
 
 
+// end::customer[]
 
-
-
+// tag::phone[]
 === Phone Commands
 Commands that work on phones that you have in SML.
 
@@ -347,7 +357,7 @@ Adds a phone. Similar to add customer. +
 [TIP]
 IMEI Number should be 15 digits long.
 [TIP]
-Capacity can be 8GB, 16GB, 32GB, 64GB, 128GB, 256GB, 512GB or 1024GB.
+Capacity can be 8GB, 16GB, 32GB, 64GB, 128GB, 256GB, 512GB or 1024GB. You do not need to type GB after the prefix cp/.
 [TIP]
 Cost must start with $ and can only have a maximum of 2 decimal place.
 [TIP]
@@ -389,6 +399,7 @@ Finds phones whose fields contain any of the given keywords. +
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
+* The search looks for partial matches e.g. `ha` will match `hans`.
 * The search matches anywhere for name, contact number, email and tags.
 * Entries matching ALL field will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a phone with name `Aaah` and with tag `bbb`;
@@ -464,8 +475,12 @@ Copies a phone in SML to clipboard +
 . `find-p apple`
 . `copy-p 1`
 
+==== Add Photo to phone : `addphoto PHONE_INDEX fc/` `[coming in v2.0]`
+
+Adds a photo to a phone in the database using the system's user interface dialog.
 
 
+// end::phone[]
 
 === Order Commands
 Commands that work on orders that you have.
@@ -490,8 +505,9 @@ for a price to be that high.
 Returns all the information pertaining to the order. +
 Format: `find-o KEYWORD [KEYWORD]...`
 
+
 ==== Complete an order : `complete`
-Completes the order, order status changed to `COMPLETED`. +
+Completes the order, order status changed to `COMPLETED`. Phone associated with order will also be deleted. +
 Format: `complete INDEX`
 
 ==== Cancel an order : `cancel`
@@ -509,7 +525,7 @@ Clears every order in SML. +
 
 ==== Edit an order : `edit-o`
 Edits the data fields of an order. +
-[underline]#Format#: `edit-o INDEX [c/CUSTOMER] [p/PHONE] [$/PRICE] [t/TAG]…`
+[underline]#Format#: `edit-o INDEX [c/CUSTOMER_INDEX] [p/PHONE_INDEX] [$/PRICE] [t/TAG]…`
 
 
 ****
@@ -605,6 +621,45 @@ Clears every schedule in SML. +
 
 [underline]#Format#: `clear-s`
 
+=== Archived Orders Commands:
+
+
+==== Switch to Archived Tab Panel : `switch-a`
+
+Switches to Archived Order Tab Panel.
+
+[underline]#Format#: `switch-a`
+
+==== Clear the archived orders : `clear-a`
+Clears every archived order in SML. +
+
+[underline]#Format#: `clear-a`
+
+==== Find Archived Order: `find-a` [coming in v2.0]
+
+Finds archived orders whose fields contain any of the given keywords. +
+
+[underline]#Format#: `find-a KEYWORD [MORE_KEYWORDS]...`
+
+
+==== List Archived Order: `list-a` [coming in v2.0]
+List every archived order in SML. Acts as a switch archived order command as well. +
+
+[underline]#Format#: `list-a`
+
+- `list-a`
+
+==== Delete Archived Order: `delete-a` [coming in v2.0]
+
+Deletes an archived order in SML.
+
+[underline]#Format#: `delete-c INDEX`
+
+
+=== Copy Archived Order: `copy-a` [coming in v2.0]
+Copies an archived order field to clipboard. +
+Format: `copy-a INDEX`
+
 === General Commands
 
 ==== Undo : `undo`
@@ -621,6 +676,7 @@ Currently, the following commands are undoable and redoable. +
 . Edit Order
 . Complete Order
 . Cancel Order
+. Clear Order
 
 . Add Phone
 . Edit Phone
@@ -679,7 +735,7 @@ Currently, the following commands are undoable and redoable. +
 image::ug-command/ug-redo.png[width="800"]
 
 
-=== History: `history`
+==== History: `history`
 
 Views the command history of all your previous commands.
 
@@ -753,10 +809,6 @@ Coming in `V2.0`:
 //Format: `check <flag>` +
 //Possible flag: `-p` for phone stock, `check -p <threshold>`
 
-==== Clearing all entries : `clear`
-Clears all entries of items, orders and customers. +
-Format: `clear`
-
 ==== Exiting the program : `exit`
 Exits the program. +
 Format: `exit`
@@ -787,70 +839,89 @@ Export any of the data in SML to PDF format.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SML folder.
 
+
+// tag::summary[]
 == Command Summary
-* *Switch* +
-** customer: `switch-c`
-** phone: `switch-p`
-** order: `switch-o`
-** schedule: `switch-s`
 
-* *Add* +
-** customer : `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
-** phone : `add-p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…`
-** order : `add-o p/PHONE_NUMBER i/ITEM...`
-** schedule : `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]`
+=== Customer Commands
 
-* *Cancel* +
-** order : `cancel INDEX`
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`switch-c` | Switches to customer tab panel.
+|`add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`| Adds a new customer into SML
+|`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ `| Edits an existing customer.
+|`delete-c INDEX`| Deletes a customer and its associated orders and schedules.
+|`clear-c`| Deletes all customers and their associated orders and schedules.
+|`find-c KEYWORD [MORE_KEYWORDS]`| Finds the customers that contains the keywords in its field.
+|`copy-c INDEX`| Copies a customer into clipboard
+|=======================================================================
 
-* *Clear* : `clear`
-** customer : `clear-c`
-** phone : `clear-p`
-** order : `clear-o`
 
-* *Complete* +
-** order : `complete INDEX`
+=== Phone Commands
 
-* *Copy* +
-** customer : `copy-c <field>`
-** phone : `copy-p <field>`
-** order : `copy-o <field>`
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`switch-p` | Switches to phone tab panel.
+|`add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML
+|`edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
+|`delete-p INDEX`| Deletes a phone and its associated orders and schedules.
+|`clear-p`| Deletes all phones and their associated orders and schedules.
+|`find-p KEYWORD [MORE_KEYWORDS]`| Finds the phones that contains the keywords in its field.
+|`copy-p INDEX`| Copies a phone into clipboard
+|=======================================================================
 
-* *Delete* +
-** customer : `delete-c INDEX`
-** phone : `delete-p INDEX`
-** schedule : `delete-s ORDER_INDEX`
+=== Order Commands
 
-* *History* +
-** history : `history`
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`switch-o` | Switches to order tab panel.
+|`add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`| Adds a new order into SML
+|`edit-o INDEX [c/CUSTOMER_INDEX] [p/PHONE_INDEX] [$/PRICE] [t/TAG]…`| Edits an existing order.
+|`complete INDEX`| Completes an order and shift it into Archived Order Tab. Also deletes the associated phone.
+|`cancel INDEX`| Cancels an order and shift it into Archived Order Tab.
+|`clear-o`| Deletes all orders
+|`find-o KEYWORD [MORE_KEYWORDS]`| Finds the orders that contains the keywords in its field.
+|`copy-o INDEX`| Copies an order into clipboard
+|=======================================================================
 
-* *Edit* +
-** customer : `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-** phone : `edit-p INDEX n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
-** order : `edit-o INDEX ...`
-** schedule : `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`
+=== Schedule Commands
 
-* *Exit* : `exit`
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`switch-s` | Switches to schedule tab panel.
+|`schedule cd/DATE`| Shows the week of the date specified by the user.
+|`add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]`| Adds a new schedule into SML
+|`edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`| Edits an existing schedule.
+|`delete-s ORDER_INDEX`| Deletes a schedule.
+|`clear-s`| Deletes all schedules.
+|=======================================================================
 
-* *Export* : `export <file name>`
+=== Archived Order Commands
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`switch-a` | Switches to archived order tab panel.
+|`clear-a`| Deletes all archived orders.
+|=======================================================================
 
-* *Find* +
-** customer : `find-c KEYWORD [MORE_KEYWORDS]`
-** phone : `find-p p/PHONE`
-** order : `find-o INDEX`
 
-* *Generate* : `generate -s s/STAT -d d/ -t t/TYPE`
+=== General Commands
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` | Generates the statistics with date input in chart format (in pop-up modal dialog). +
+|`generate-s s/stat`| Generates the statistics with no date input.
+|`undo`| Undo the last undoable command.
+|`redo`| Redo the undone command.
+|`history`| Views command history.
+|`export <file name>`| Exports application data into csv file.
+|`help`| Pops up a help window.
+|`exit`| Quits the application.
+|=======================================================================
 
-* *List* +
-** customer : `list-c`
-** phone : `list-p`
-** order : `list-o`
-
-* *Help* : `help`
-
-* *Redo* : `redo`
-
-* *Schedule* : `schedule cd/DATE`
-
-* *Undo* : `undo`
+// end::summary[]
 

@@ -660,6 +660,40 @@ public class ModelManager implements Model {
                 }
             }
         }
+
+        List<Schedule> schedules = scheduleBook.getList();
+
+        //Ensure that schedules that do not have an order attached to it in ScheduleBook are deleted
+        for (int i = schedules.size() - 1; i >= 0; i--) {
+
+            Schedule s = schedules.get(i);
+
+            boolean hasOrder = false;
+
+            for (int j = orders.size() - 1; j >= 0; j--) {
+
+                Order o = orders.get(j);
+
+                if (o.getSchedule().isPresent() && s.equals(o.getSchedule().get())) {
+                    hasOrder = true;
+                    break;
+                }
+            }
+
+            if (!hasOrder) {
+                scheduleBook.remove(s);
+            }
+        }
+
+        //Ensure that all schedules in OrderBook exist in ScheduleBook.
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order o = orders.get(i);
+
+            if (o.getSchedule().isPresent() && !scheduleBook.has(o.getSchedule().get())) {
+                scheduleBook.add(o.getSchedule().get());
+            }
+        }
+
     }
 
 
