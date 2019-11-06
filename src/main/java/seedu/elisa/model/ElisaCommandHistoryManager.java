@@ -86,4 +86,19 @@ public class ElisaCommandHistoryManager implements ElisaCommandHistory {
     public int sizeRedo() {
         return redoStack.size();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof ElisaCommandHistoryManager)) {
+            return false;
+        }
+
+        ElisaCommandHistoryManager hm = (ElisaCommandHistoryManager) other;
+        return hm.redoStack.equals(this.redoStack)
+                && hm.undoStack.equals(this.undoStack);
+    }
 }

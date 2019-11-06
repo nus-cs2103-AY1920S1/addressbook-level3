@@ -65,10 +65,6 @@ public interface ItemModel {
 
     public void replaceItem(Item item, Item newItem);
 
-    public Item removeItem(int index);
-
-    public Item removeItem(Item item);
-
     public Item deleteItem(int index);
 
     public Item deleteItem(Item item);
