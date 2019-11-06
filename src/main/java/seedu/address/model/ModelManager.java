@@ -660,6 +660,18 @@ public class ModelManager implements Model {
                 }
             }
         }
+
+        //Ensure that all schedules in OrderBook exist in ScheduleBook.
+        List<Schedule> schedules = scheduleBook.getList();
+
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order o = orders.get(i);
+
+            if (o.getSchedule().isPresent() && !scheduleBook.has(o.getSchedule().get())) {
+                scheduleBook.add(o.getSchedule().get());
+            }
+        }
+
     }
 
 
