@@ -46,6 +46,12 @@ This section contains the features and their respective commands
 * Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
 * Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
 * Currently, our application does not support emoji.
+
+Please also note the following icons, which will indicate points of interest throughout this document.
+
+NOTE: A point of information that you may wish to note
+TIP: A tip or suggestion
+CAUTION: A cautionary word of advice
 ====
 
 // tag::flashcard[]
