@@ -5,9 +5,10 @@ import static seedu.address.logic.commands.CalendarViewCommandBuilder.OPTION_CAL
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.stub.UiManagerStub;
+import seedu.address.ui.stub.UiManagerStub;
 
 class CalendarViewCommandTest {
+
     @Test
     void build_fullCommand_success() {
         String calendarDate = "11/1111";

@@ -1,4 +1,8 @@
-package seedu.address.commons.stub;
+package seedu.address.ui.stub;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.logic.UiManager;
 import seedu.address.model.CalendarDate;
@@ -8,52 +12,49 @@ import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskDateComparator;
 import seedu.address.model.tasks.TaskSource;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 /**
- * Represents a stub for the UiManager that is used for testing purpose only.
- * @see UiManager
+ * Represents a logic class that holds all of the methods that uses logic only that
+ * is mainly used for testing.
  */
 public class UiManagerStub extends UiManager {
 
-    @Override
-    public void viewCalendar(CalendarDate calendarDate) {
-        return;
-    }
-
-    @Override
-    public void viewList() {
-        return;
-    }
-
-    @Override
-    public void viewLog() {
-        return;
-    }
-
-    @Override
     public void viewDay(CalendarDate calendarDate) {
         return;
     }
 
-    @Override
     public void viewWeek(CalendarDate calendarDate) {
         return;
     }
 
-    @Override
     public void viewMonth(CalendarDate calendarDate) {
         return;
     }
 
-    @Override
-    public void onModelListChange(ModelLists lists) {
+    public void viewList() {
+        return;
+    }
+
+    public void viewLog() {
+        return;
+    }
+
+    public void viewCalendar(CalendarDate calendarDate) {
+        return;
+    }
+
+    /**
+     * Returns a ModelLists mainly for testing.
+     *
+     * @param lists The given model lists.
+     * @return The sorted model lists.
+     */
+    public ModelLists overrideOnModelListChange(ModelLists lists) {
         List<EventSource> sortedDateEventList = sortDateEventList(lists.getEvents());
         List<TaskSource> sortedDateTaskList = sortDateTaskList(lists.getTasks());
         HashMap<EventSource, Integer> eventHash = addEventIndex(lists.getEvents());
         HashMap<TaskSource, Integer> taskHash = addTaskIndex(lists.getTasks());
+
+        return new ModelLists(sortedDateEventList, sortedDateTaskList);
     }
 
     /**
