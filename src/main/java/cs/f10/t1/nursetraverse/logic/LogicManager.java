@@ -10,7 +10,7 @@ import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
-import cs.f10.t1.nursetraverse.logic.parser.PatientBookParser;
+import cs.f10.t1.nursetraverse.logic.parser.AppParser;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.Model;
@@ -34,12 +34,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final PatientBookParser patientBookParser;
+    private final AppParser appParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        patientBookParser = new PatientBookParser();
+        appParser = new AppParser();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = patientBookParser.parseCommand(commandText);
+        Command command = appParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         if (command instanceof MutatorCommand) {
