@@ -46,7 +46,8 @@ public class AddCommandTest extends GuiUnitTest {
 
         CommandResult commandResult = new AddCommand(validWorker).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, "worker", validWorker.getIdNum()), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, "worker",
+                validWorker.getIdNum()), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validWorker), modelStub.entitiesAdded);
     }
 
