@@ -35,6 +35,7 @@ make the feature more robust.
 ** Project management:
 *** Managed releases `v1.1` and `v1.2.1` (3 releases) on GitHub
 *** Tracked and helped to fix bugs found during developer testing using issues (Issue https://github.com/AY1920S1-CS2103T-T12-1/main/issues/82[#82])
+*** Added additional tests for the repository to bump coverage up ....
 ** Enhancements to existing features:
 *** Created a modular framework in `Ui` to make it easier for teammates to add different user screens for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
 *** Added an "Upcoming deadlines" sidebar to help users keep track of tasks that are due soon. (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/63[#63] )
@@ -45,6 +46,7 @@ make the feature more robust.
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools:
+*** Added test coverage tool Coveralls to the team repo (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/149[#149])
 
 _{you can add/remove categories in the list above}_
 

@@ -18,7 +18,7 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-+Work is a project management tool that allows you to successfully achieve your objectives for your project.
++Work is a project management tool that allows students to successfully achieve your objectives for their project.
 It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people.
 +Work is a one-stop application to help you manage your members, meeting times, task allocations as well as equipment purchased.
 Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI).
@@ -61,26 +61,38 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after tn/ and inputs the status of the task after s/ , such as: `add task t/Finish Project Draft s/undone`
 
-[%header,cols=2*]
 .List of Prefixes
 |===
-|Prefix
-|Description
-* Parameters can be given in any order
-|mn/
-|Member name
-|mi/
-|Member ID (set by you)
-|mt/
-|Member tag
-|im/
-|Image Path
-|tn/
-|Task name
-|s/
-|Task status
-|tt/
-|Task tag
+|Command Type |Prefix | Description + Parameters can be given in any order
+
+1.1+h|Calendars
+|fp/|File path
+
+1.4+h|Inventories
+|i/|Inventory name
+|p/|Price
+|ii/|Inventory tag
+|ty/|PDF type
+
+1.4+h|Meetings
+|meeting/|Meeting index
+|start/|Start period
+|end/|End period
+|hours/|Duration of meeting
+
+1.4+h|Members
+|mn/|Member name
+|mi/|Member ID (set by you)
+|mt/|Member tag
+|im/|Image path
+
+1.5+h|Tasks
+|tn/|Task name
+|ti/|Task index
+|at/|Task deadline
+|s/|Task status
+|tt/|Task tag
+
 |===
 
 * *Tags*
@@ -116,7 +128,7 @@ This command brings you to the settings page  +
 
 Format: `settings` +
 
-Calling the `settings` command will bring you to the following page:
+Entering the `settings` command will bring you to the following page:
 
 image::Settings.png[width=790]
 
@@ -275,8 +287,6 @@ image::BeforeAssign.png[width="790"]
 
 image::AfterAssignNew.png[width="790"]
 
-// end::MemberCommands[]
-
 ==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 
@@ -298,17 +308,18 @@ image::AfterFireMember.png[width="790"]
 '''
 // end::MemberCommands[]
 
+// tag::task[]
 === Task-related Commands
 
 ==== Adding a task: `add task`
 
 To add a task to the project, use the 'add-task' command in the format below. +
-Format: `add-task [t/TASK_NAME]` +
-Optional Parameters: `[s/STATUS]` `[t/TAG]`
+Format: `add-task [tn/TASK_NAME]` +
+Optional Parameters: `[s/STATUS]` `[tt/TAG]`
 
 Example:
 
-* `add-task t/Finish up milestone setting` +
+* `add-task tn/Finish up milestone setting` +
 A new task will be added to the project dashboard
 
 ==== Removing a task: remove-task
@@ -373,10 +384,10 @@ Usage of this command is very similar to setting a task status to `doing` as exp
 
 This sets a deadline for an existing task in your project.
 
-Format: `set-deadline [ti/TASK_ID] [at/DEADLINE] [at/dd/mm/yy hh:mm]`
+Format: `set-deadline [ti/TASK_ID] [at/DEADLINE] [at/dd-mm-yyyy hh:mm]`
 
 [TIP]
-Remember to input using the 24 hour time format of dd/mm/yy hh:mm
+Remember to input using the 24 hour time format of dd-mm-yyyy hh:mm
 
 Example:
 
@@ -384,7 +395,7 @@ Example:
 
 image::Ui.png[]
 
-* Suppose the deadline is on the 10th of November 2019 at 6pm, type `deadline-task ti/5 at/10-11-19 18:00` into the command box.
+* Suppose the deadline for your task is on the 10th of November 2019 at 6pm, enter `set-deadline ti/5 at/10-11-2019 18:00` into the command box.
 
 * Hit the kbd:[Enter] key and you will see that a deadline has been set!.
 
@@ -396,7 +407,7 @@ image::set-deadline-res-dashboard.png[]
 
 [TIP]
 The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in less than two weeks.
-end::task[]
+// end::task[]
 
 '''
 
@@ -542,10 +553,10 @@ as well as the time taken for each task inputted into +Work.
 // end::Statistics[]
 
 === Settings Commands
-
+// tag::settings[]
 ==== Switching the theme of +Work: `theme`
 
-This command toggles the theme of +Work between light and dark to suit your viewing preferences.
+This command helps you toggle the theme of +Work between light and dark to suit your viewing preferences.
 
 [TIP]
 
@@ -563,16 +574,16 @@ image::theme-light-command.png[]
 
 image::theme_light.png[]
 
-* Similarly, `theme dark` switches to the dark theme
+* Similarly, `theme dark` switches to the dark theme, and your choice is highlighted.
 
 ==== Switching the clock format of +Work: `clock`
 
-This command toggles the clock format of +Work between 24 hour and 12 hour format.
-By default, the clock format is set to 24 hour.
+This command helps you toggle the clock format of +Work between 24 hour and 12 hour format. +
+The clock format is set to 24 hour is set to 24 hour by default.
 
 [NOTE]
 
-This does not affect the input format of deadlines for tasks, they still need to be entered in 24 hour format!.
+This does not affect the input format of deadlines for tasks, you still need to be enter them in the 24 hour format!
 
 Format: `clock twenty_four`
 
@@ -584,9 +595,8 @@ Switches to the 12 hour clock
 * `clock twenty_four` +
 Switches to the 24 hour clock
 
-end::settings[]
-
 '''
+// end::settings[]
 
 === Saving the data
 
@@ -629,17 +639,17 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Since +Work is member-oriented, the application displays information according to members. Hence, you have to assign task to all the different members that are working on the task.
 
 *Q*: What happens when a task has been completed? +
-*A*: You can mark the task as ‘Done’, which will move the task to the bottom of the task list. In the case where you do not want to keep the task in the list, using ‘Remove Task’ will delete it.
+*A*: You can mark the task as `done`, which will move the task to the bottom of the task list. In the case where you do not want to keep the task in the list, using ‘Remove Task’ will delete it.
 
 == Command Summary
 
 * `add-inventory [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
 
-* `add-meeting [at/ dd/mm/yyyy hh:mm - hh:mm] [l/LOCATION]`: *Adds a meeting*
+* `add-meeting [at/dd-mm-yyyy hh:mm - hh:mm] [l/LOCATION]`: *Adds a meeting*
 
 * `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Adds a member*
 
-* `add-task [t/TASK_NAME]  [m/MEMBER_NAME]`: *Adds a task*
+* `add-task [tn/TASK_NAME] s/TASK_STATUS tt/TASK_TAG`: *Adds a task*
 
 * `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
 
@@ -649,7 +659,7 @@ _{explain how the user can enable/disable data encryption}_
 
 * `clock twenty_four`: *Switches deadline display to the 24 hour clock format*
 
-* `deadline-task [ti/TASK_ID] [at/dd/mm/yy hh:mm]`: *Assigns a deadline to a task*
+* `set-deadline [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]`: *Assigns a deadline to a task*
 
 * `delete-inventory [ii/ITEM_ID]`: *Deletes an inventory*
 
@@ -684,3 +694,15 @@ _{explain how the user can enable/disable data encryption}_
 * `theme dark`: *Switches to the dark theme*
 
 * `theme light`: *Switches to the light theme*
+
+== Upcoming Features
+
+// tag::version-2.0[]
+=== Cloud integration `[coming in v2.0]`
+
+Collaborate online with your teammates, and store your project details such as members calendars in the cloud.
+
+=== Customisable user profiles `[coming in v2.0]`
+
+Create more detailed profiles for members and choose who has authority to change details of the project.
+// end::version-2.0[]
