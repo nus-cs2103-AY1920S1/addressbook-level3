@@ -83,18 +83,18 @@ public class ExportPathFactoryTest {
                 ExportPath exportPath = ExportPathFactory.getExportPath(filePath);
 
                 switch (validExtension.toLowerCase()) {
-                    case ".docx":
-                        assertTrue(
-                                exportPath instanceof DocumentPath
-                        );
-                        break;
-                    case ".json":
-                        assertTrue(
-                                exportPath instanceof JsonExportPath
-                        );
-                        break;
-                    default:
-                        fail("Valid export path not recognized as valid: " + filePath);
+                case ".docx":
+                    assertTrue(
+                            exportPath instanceof DocumentPath
+                    );
+                    break;
+                case ".json":
+                    assertTrue(
+                            exportPath instanceof JsonExportPath
+                    );
+                    break;
+                default:
+                    fail("Valid export path not recognized as valid: " + filePath);
                 }
             }
         }
