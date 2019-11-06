@@ -21,5 +21,6 @@ public class CliSyntax {
     public static final Flag FLAG_EVENT = new Flag("-e");
     public static final Flag FLAG_TRAINING = new Flag("-t");
     public static final Flag FLAG_ABSENT = new Flag("-a");
+    public static final Flag FLAG_RECORD = new Flag("-r");
 
 }

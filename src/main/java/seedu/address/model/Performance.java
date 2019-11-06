@@ -123,6 +123,8 @@ public class Performance implements ReadOnlyPerformance {
         events.getEvent(e).addPerformance(p, r);
     }
 
+    public void deleteRecord(String e, Person p, AthletickDate d) { events.getEvent(e).deleteRecord(p, d); }
+
     @Override
     public String toString() {
         return events.asUnmodifiableObservableList().size() + " events";

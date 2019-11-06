@@ -170,6 +170,8 @@ public interface Model {
 
     void addRecord(String eventName, Person person, Record record);
 
+    void deleteRecord(String eventName, Person person, AthletickDate date);
+
     HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date);
 
     boolean hasPerformanceOn(AthletickDate date);

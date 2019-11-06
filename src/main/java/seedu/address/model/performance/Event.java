@@ -108,8 +108,21 @@ public class Event {
         sortAthleteRecords(athlete);
     }
 
+    public void deleteRecord(Person athlete, AthletickDate date) {
+        assert(doesAthleteHavePerformanceOn(date, athlete));
+        List<Record> athleteRecords = getAthleteRecords(athlete);
+        int i = 0;
+        for (Record record : athleteRecords) {
+            if (record.getDate().equals(date)) {
+                break;
+            }
+            i++;
+        }
+        athleteRecords.remove(i);
+    }
+
     /**
-     * Sorts records based on AthletickDate
+     * Sorts records based on AthletickDate.
      */
     private void sortAthleteRecords(Person athlete) {
         List<Record> athleteRecords = getAthleteRecords(athlete);

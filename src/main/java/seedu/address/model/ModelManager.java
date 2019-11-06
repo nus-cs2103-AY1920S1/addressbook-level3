@@ -308,6 +308,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteRecord(String eventName, Person person, AthletickDate date) {
+        performance.deleteRecord(eventName, person, date);
+    }
+
+    @Override
     public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
         return performance.getCalendarCompatiblePerformance(date);
     }
