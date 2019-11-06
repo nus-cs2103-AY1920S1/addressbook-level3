@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,8 +23,8 @@ public class SortCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+        model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
                 new Attendance(), new UserPrefs());
     }
 
@@ -37,7 +37,7 @@ public class SortCommandTest {
     public void execute_listIsUnsorted_showsSortedList() {
         model.deletePerson(ALICE);
         model.addPerson(ALICE);
-        model.sortAddressBookByName();
+        model.sortAthletickByName();
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

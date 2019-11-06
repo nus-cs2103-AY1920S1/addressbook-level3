@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,9 +27,9 @@ import seedu.address.model.person.TagMatchesPredicate;
  */
 public class FilterCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
             new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
+    private Model expectedModel = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
             new UserPrefs());
 
     @Test

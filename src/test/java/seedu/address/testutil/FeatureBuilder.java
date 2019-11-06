@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.feature.Feature;
+import seedu.address.ui.feature.Feature;
 
 /**
  * A utility class to help with building Feature objects.

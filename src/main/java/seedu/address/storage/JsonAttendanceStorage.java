@@ -19,7 +19,7 @@ import seedu.address.model.Attendance;
  */
 public class JsonAttendanceStorage implements AttendanceStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonAthletickStorage.class);
 
     private Path path;
 
@@ -28,7 +28,7 @@ public class JsonAttendanceStorage implements AttendanceStorage {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getAthletickFilePath() {
         return path;
     }
 

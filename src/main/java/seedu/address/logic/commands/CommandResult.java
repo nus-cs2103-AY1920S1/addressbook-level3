@@ -6,8 +6,8 @@ import java.util.Objects;
 
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
-import seedu.address.model.feature.Feature;
 import seedu.address.model.person.Person;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Represents the result of a command execution.

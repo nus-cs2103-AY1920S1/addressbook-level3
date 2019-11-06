@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.feature.Feature;
 import seedu.address.model.performance.Event;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Adds an event for the performance recording.
