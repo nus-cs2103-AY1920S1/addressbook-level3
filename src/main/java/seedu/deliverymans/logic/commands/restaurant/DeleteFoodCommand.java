@@ -51,11 +51,13 @@ public class DeleteFoodCommand extends Command {
 
         List<Order> orders = model.getFilteredOrderList().stream()
                 .filter(order -> order.getRestaurant().equals(restaurant.getName()))
+                .filter(order -> order.isCompleted() == false)
                 .collect(Collectors.toList());
         for (Order order : orders) {
             Map<Name, Integer> newFoodList = new HashMap<Name, Integer>(order.getFoodList());
             newFoodList.remove(foodToDelete.getName());
-            Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
+            Order newOrder = new Order.OrderBuilder().setOrderName(order.getOrderName())
+                    .setCustomer(order.getCustomer())
                     .setRestaurant(order.getRestaurant())
                     .setDeliveryman(order.getDeliveryman())
                     .setFood(newFoodList)

@@ -60,10 +60,6 @@ public class JsonAdaptedOrder {
         foodList.addAll(source.getFoodList().entrySet().stream()
                 .map(JsonAdaptedFoodOrder::new)
                 .collect(Collectors.toList()));
-        // foodList.addAll(source.getFood().keySet().stream().map(x-> x.fullName)
-        //        .collect(Collectors.toList()));
-        //quantityList.addAll(source.getFood().values().stream().map(x -> x.toString())
-        //        .collect(Collectors.toList()));
     }
 
     /**
@@ -78,16 +74,6 @@ public class JsonAdaptedOrder {
             Map.Entry<Name, Integer> entry = food.toModelType();
             modelFoodMap.put(entry.getKey(), entry.getValue());
         }
-
-        //for (int i = 0; i < foodList.size(); ++i) {
-        //    String tempFood = foodList.get(i);
-        //    String tempQuantity = quantityList.get(i);
-        //   if (!Name.isValidName(tempFood)) {
-        //        throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        //    }
-        //    modelFoodMap.put(new Name(tempFood), Integer.parseInt(tempQuantity));
-        //}
-
 
         if (orderName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
