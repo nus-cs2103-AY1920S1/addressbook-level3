@@ -83,14 +83,15 @@ image::ExportSequenceDiagram.png[]
 
 ===== Aspect: Illegal Characters in Data Fields
 
-* **Alternative 1 (current choice)**: Disallow forbidden characters
-** Pros: Exported .csv files are guaranteed to be in the correct format.
-** Cons: Data fields cannot have commas, semi-colons, etc.
-
-* **Alternative 2**: Allow forbidden characters
+* **Alternative 1 (current choice)**: Allow forbidden characters
 ** Pros: Certain fields may be more accurately represented, i.e. addresses.
-** Cons: The exported csv file may be bugged, i.e. have data in the wrong columns.
-More developer work to code around detecting and escaping forbidden characters.
+** Cons: The exported csv file may be bugged in edge cases, i.e. have data in the wrong columns.
+Exported fields with forbidden characters may not be properly handled and escaped all of the time.
+More developer work to test around edge cases.
+
+* **Alternative 2**: Disallow forbidden characters
+** Pros: Exported .csv files are guaranteed to be in the correct format.
+** Cons: Data fields are restricted and cannot have commas, semi-colons, etc.
 
 ===== Import
 
@@ -130,7 +131,8 @@ it will not be executed. This is checked by the function stated above,
 ====== Aspect: Allowing Patient Overriding for `app-import-merge`
 
 * **Alternative 1 (current choice)**: Disallow overriding.
-** Pros: Existing `Patient` data will not be accidentally overridden.
+** Pros: Existing `Patient`  will not be accidentally overridden.
+No need to deal with potential merge conflicts.
 ** Cons: User may have intended to use `app-import-merge` to update old data.
 More hassle for the user to delete old `Patient` data that they want to replace.
 
