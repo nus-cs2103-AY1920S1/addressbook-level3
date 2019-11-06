@@ -50,6 +50,7 @@ public class ClashCommand extends Command {
     public static final String MESSAGE_INVALID_INDEX = "Please enter a valid index. ";
     public static final String MESSAGE_INVALID_APPEAL_TYPE = "This is not a add/drop module appeal. "
             + "No need to check clashes.";
+
     private ArrayList<ClashCase> clashCases;
 
     private ClashCommandParameters params;
@@ -68,18 +69,23 @@ public class ClashCommand extends Command {
         clashCases = new ArrayList<>();
 
         if (params.getAppealIndex().isPresent()) {
+
             verifyIndex(params.getAppealIndex().get().getZeroBased(), lastShownAppealList.size());
             Appeal appeal = lastShownAppealList.get(params.getAppealIndex().get().getZeroBased());
-            if (!isAddOrDropModAppeal(appeal)) {
+
+            if (!isAddModAppeal(appeal) && !isDropModAppeal(appeal)) {
                 throw new CommandException(MESSAGE_INVALID_APPEAL_TYPE);
             }
-            Module moduleToAdd = getModule(appeal.getModuleToAdd(), model.getFullModuleList());
+
             Student studentToCheck = getStudent(appeal.getStudentId(), model.getFullStudentList());
             ArrayList<Module> currentModules = getStudentCurrentModules(studentToCheck, model);
-            for (Module currentModule : currentModules) {
-                if (getClashCase(currentModule, moduleToAdd).isPresent()) {
-                    clashCases.add(getClashCase(currentModule, moduleToAdd).get());
-                }
+
+            if (isAddModAppeal(appeal)) {
+                Module moduleToAdd = getModule(appeal.getModuleToAdd(), model.getFullModuleList());
+                checkAddOrDropModClashes(moduleToAdd, currentModules);
+            } else if (isDropModAppeal(appeal)) {
+                Module moduleToDrop = getModule(appeal.getModuleToDrop(), model.getFullModuleList());
+                checkAddOrDropModClashes(moduleToDrop, currentModules);
             }
         }
 
@@ -87,8 +93,10 @@ public class ClashCommand extends Command {
 
             verifyIndex(params.getFirstModuleIndex().getZeroBased(), lastShownModuleList.size());
             verifyIndex(params.getSecondModuleIndex().getZeroBased(), lastShownModuleList.size());
+
             Module firstModule = lastShownModuleList.get(params.getFirstModuleIndex().getZeroBased());
             Module secondModule = lastShownModuleList.get(params.getSecondModuleIndex().getZeroBased());
+
             if (getClashCase(firstModule, secondModule).isPresent()) {
                 clashCases.add(getClashCase(firstModule, secondModule).get());
             }
@@ -98,22 +106,19 @@ public class ClashCommand extends Command {
 
             Module firstModule = getModule(params.getFirstModuleCode(), model.getFilteredModuleList());
             Module secondModule = getModule(params.getSecondModuleCode(), model.getFilteredModuleList());
+
             if (getClashCase(firstModule, secondModule).isPresent()) {
                 clashCases.add(getClashCase(firstModule, secondModule).get());
             }
         }
 
         if (params.getStudentIndex().isPresent()) {
+
             verifyIndex(params.getStudentIndex().get().getZeroBased(), lastShownStudentList.size());
+
             Student student = lastShownStudentList.get(params.getStudentIndex().get().getZeroBased());
             ArrayList<Module> currentModules = getStudentCurrentModules(student, model);
-            for (int i = 0; i < currentModules.size() - 1; i++) {
-                for (int j = i + 1; j < currentModules.size(); j++) {
-                    if (getClashCase(currentModules.get(i), currentModules.get(j)).isPresent()) {
-                        clashCases.add(getClashCase(currentModules.get(i), currentModules.get(j)).get());
-                    }
-                }
-            }
+            checkClashesInStudentCurrentTimeTable(currentModules);
         }
 
         if (clashCases.size() != 0) {
@@ -124,6 +129,59 @@ public class ClashCommand extends Command {
 
     }
 
+    /**
+     * Returns true if the appeal type is Add Module.
+     * @param appeal a particular appeal object
+     * @return true if the appeal type is Add Module
+     */
+    private boolean isAddModAppeal(Appeal appeal) {
+        return appeal.getAppealType().equalsIgnoreCase("add module");
+    }
+
+    /**
+     * Returns true if the appeal type is Drop Module.
+     * @param appeal a particular appeal object
+     * @return true if the appeal type is Drop Module
+     */
+    private boolean isDropModAppeal(Appeal appeal) {
+        return appeal.getAppealType().equalsIgnoreCase("drop module");
+    }
+
+    /**
+     * Checks time slot clashes between the module to add/drop and the student's current timetable. If there are
+     * clashes, a new {@code ClashCase} object is created and added to the clashCases list.
+     * @param moduleToCheck the module to add/drop
+     * @param currentModules List of modules the student has currently
+     */
+    private void checkAddOrDropModClashes(Module moduleToCheck, ArrayList<Module> currentModules) {
+        for (Module currentModule : currentModules) {
+            if (!moduleToCheck.getModuleCode().equalsIgnoreCase(currentModule.getModuleCode())
+                    && getClashCase(currentModule, moduleToCheck).isPresent()) {
+                clashCases.add(getClashCase(currentModule, moduleToCheck).get());
+            }
+        }
+    }
+
+    /**
+     * Checks time slot clashes in the student's current timetable. If there is clash, a new {@code ClashCase} object
+     * is created and added to the clashCases list.
+     * @param currentModules List of modules the student has currently
+     */
+    private void checkClashesInStudentCurrentTimeTable(ArrayList<Module> currentModules) {
+        for (int i = 0; i < currentModules.size() - 1; i++) {
+            for (int j = i + 1; j < currentModules.size(); j++) {
+                if (getClashCase(currentModules.get(i), currentModules.get(j)).isPresent()) {
+                    clashCases.add(getClashCase(currentModules.get(i), currentModules.get(j)).get());
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns a String representation of details of each {@code ClashCase} object in the clashCases list.
+     * (i.e. two module codes and the time slots they have in common)
+     * @return a String representation of details of each {@code ClashCase} object in the clashCases list.
+     */
     private String getClashDetails() {
         StringBuilder s = new StringBuilder();
         for (ClashCase c : clashCases) {
@@ -138,7 +196,7 @@ public class ClashCommand extends Command {
     }
 
     /**
-     * Check whether index is within the bound of the list.
+     * Check whether {@code Index} is within the size of the list.
      * @param index index input
      * @param size size of the list
      * @throws CommandException when index is larger than the size of the list
@@ -179,7 +237,8 @@ public class ClashCommand extends Command {
      */
     private Module getModule(String moduleCode, List<Module> moduleList) throws CommandException {
         List<Module> modulesToCheckList = moduleList.stream()
-                .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
+                .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
+                .collect(Collectors.toList());
 
         if (modulesToCheckList.isEmpty()) {
             throw new CommandException(MESSAGE_INVALID_MODULE);
@@ -197,7 +256,8 @@ public class ClashCommand extends Command {
      */
     private Student getStudent(String studentId, List<Student> studentList) throws CommandException {
         List<Student> studentToCheckList = studentList.stream()
-                .filter(s -> s.getMatricId().toString().equalsIgnoreCase(studentId)).collect(Collectors.toList());
+                .filter(s -> s.getMatricId().toString().equalsIgnoreCase(studentId))
+                .collect(Collectors.toList());
 
         if (studentToCheckList.isEmpty()) {
             throw new CommandException(MESSAGE_INVALID_STUDENT);
@@ -216,6 +276,7 @@ public class ClashCommand extends Command {
         int[] timeTableA = moduleA.getTimeSlotToIntArray();
         int[] timeTableB = moduleB.getTimeSlotToIntArray();
         ArrayList<Integer> slots = new ArrayList<>();
+
         for (int i : timeTableA) {
             for (int j : timeTableB) {
                 if (i == j) {
@@ -223,6 +284,7 @@ public class ClashCommand extends Command {
                 }
             }
         }
+
         if (!slots.isEmpty()) {
             ClashCase c = new ClashCase();
             c.setModuleA(moduleA);
@@ -230,17 +292,8 @@ public class ClashCommand extends Command {
             c.setClashingSlots(slots);
             return Optional.of(c);
         }
-        return Optional.empty();
-    }
 
-    /**
-     * Returns true if the appeal is a request to add or drop module
-     * @param appeal a particular Appeal object
-     * @return true if the appeal is a request to add or drop module
-     */
-    private boolean isAddOrDropModAppeal(Appeal appeal) {
-        return appeal.getAppealType().equalsIgnoreCase("add module")
-                || appeal.getAppealType().equalsIgnoreCase("drop module");
+        return Optional.empty();
     }
 
     @Override
