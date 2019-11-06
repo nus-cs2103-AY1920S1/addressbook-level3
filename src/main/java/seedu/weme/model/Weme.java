@@ -231,8 +231,9 @@ public class Weme implements ReadOnlyWeme {
      * The meme must not already exist in Weme.
      */
     public void addMeme(Meme m) {
-        memes.add(m);
         stats.addDefaultLikeData(m);
+        stats.addDefaultDislikeData(m);
+        memes.add(m);
     }
 
     /**
