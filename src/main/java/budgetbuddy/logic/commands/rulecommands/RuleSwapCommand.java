@@ -10,7 +10,6 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.RuleManager;
-import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.exceptions.RuleNotFoundException;
 
 /**
@@ -42,15 +41,12 @@ public class RuleSwapCommand extends Command {
         RuleManager ruleManager = model.getRuleManager();
 
         try {
-            Rule firstRule = ruleManager.getRule(firstIndex);
-            Rule secondRule = ruleManager.getRule(secondIndex);
-
             if (firstIndex.equals(secondIndex)) {
                 throw new CommandException(String.format(MESSAGE_NO_EFFECT, firstIndex.getOneBased()));
             }
 
-            ruleManager.editRule(secondIndex, firstRule);
-            ruleManager.editRule(firstIndex, secondRule);
+            ruleManager.swapRules(firstIndex, secondIndex);
+
             return new CommandResult(
                     String.format(MESSAGE_SUCCESS, firstIndex.getOneBased(), secondIndex.getOneBased()),
                     CommandCategory.RULE);

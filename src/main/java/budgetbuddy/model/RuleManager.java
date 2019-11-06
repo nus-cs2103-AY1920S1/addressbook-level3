@@ -2,6 +2,7 @@ package budgetbuddy.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
@@ -70,7 +71,7 @@ public class RuleManager {
      * The rule must not already exist in the rule manager.
      */
     public void addRule(Rule toAdd) {
-        internalList.add(0, toAdd);
+        internalList.add(toAdd);
     }
 
     /**
@@ -81,6 +82,17 @@ public class RuleManager {
     public void editRule(Index toEdit, Rule editedRule) throws RuleNotFoundException {
         checkIndexValidity(toEdit);
         internalList.set(toEdit.getZeroBased(), editedRule);
+    }
+
+    /**
+     * Swaps two rules in the list given their indices.
+     * @param firstIndex The first rule index.
+     * @param secondIndex The second rule index.
+     */
+    public void swapRules(Index firstIndex, Index secondIndex) throws RuleNotFoundException {
+        checkIndexValidity(firstIndex);
+        checkIndexValidity(secondIndex);
+        Collections.swap(internalList, firstIndex.getZeroBased(), secondIndex.getZeroBased());
     }
 
     /**

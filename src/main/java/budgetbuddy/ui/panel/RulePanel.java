@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.ui.card.RuleCard;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -24,6 +25,15 @@ public class RulePanel extends DisplayPanel {
         super(FXML);
         ruleListView.setItems(ruleList);
         ruleListView.setCellFactory(listView -> new RuleListViewCell());
+
+        // check for changes
+        ruleList.addListener((ListChangeListener<Rule>) c -> {
+            while (c.next()) {
+                if (c.wasAdded()) {
+                    ruleListView.scrollTo(c.getFrom());
+                }
+            }
+        });
     }
 
     /**
@@ -38,8 +48,7 @@ public class RulePanel extends DisplayPanel {
                 setGraphic(null);
                 setText(null);
             } else {
-                int newIndex = getIndex() + 1;
-                setGraphic(new RuleCard(rule, newIndex).getRoot());
+                setGraphic(new RuleCard(rule, getIndex() + 1).getRoot());
                 setMouseTransparent(true);
                 setFocusTraversable(false);
             }

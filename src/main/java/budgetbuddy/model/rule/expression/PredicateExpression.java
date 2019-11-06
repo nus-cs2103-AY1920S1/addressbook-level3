@@ -17,7 +17,7 @@ import budgetbuddy.model.rule.RulePredicate;
 public class PredicateExpression extends RulePredicate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Predicate expressions should contain exactly three terms in the order\n"
+            "Predicate expressions should contain exactly three terms in the order of\n"
             + "<attribute> <operator> <value> "
             + "and should not be blank";
 

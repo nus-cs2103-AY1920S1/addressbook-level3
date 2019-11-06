@@ -348,7 +348,7 @@ OR
 
 * it is an existing transaction and has been successfully edited.
 
-WARNING: All rules will be executed from the bottom of the list upwards.
+WARNING: All rules will be executed from the top of the list downwards.
 Typically, this is the order in which the rules were added.
 Rules with conflicting actions will therefore be allowed.
 
@@ -413,7 +413,7 @@ Format: `rule delete <rule ID>`
 ==== Swap two rules: `rule swap`
 
 NOTE: Ths will affect the execution order of the rules.
-Rules will be executed from the bottom of the list upwards.
+Rules will be executed from the top of the list downwards.
 
 Swaps the position of two specified rules in the Rule Engine.
 
