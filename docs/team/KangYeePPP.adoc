@@ -35,11 +35,11 @@ reimbursements, inventory and member’s contact details easily. The duration of
 This symbol indicates extra information or definition.
 
 `Model` :
-Text with grey highlight indicates a component, class or object in the architecture of
+Text with this font indicates a component, class or object in the architecture of
 the application.
 
 [blue]`command` :
-Text with blue font and grey highlight indicates a command that can be inputted by the user.
+Text with this blue font indicates a command that can be inputted by the user.
 
 === Introduction of treasurerPro
 
@@ -55,7 +55,7 @@ club's finances.
 This is what our application looks like when it is first opened. (graphical user interface for treasurerPro):
 
 .Graphical User Interface of treasurerPro
-image::AnnotatedUi.png[width="600"]
+image::AnnotatedUi.png[width="700"]
 
 == Summary of contributions
 My role was to design and write the code for the features of the Home Tab. The following sections shows a summary of these
@@ -193,7 +193,7 @@ This command allows you to delete either all transactions of a person or a singl
 * Steps for Deleting by ID
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
 
-image::homeUG/HomeDeleteStep1cr.png[]
+image::homeUG/HomeDeleteStep1cr.png[width = "750"]
 
 
 [start = 2]
@@ -201,20 +201,20 @@ image::homeUG/HomeDeleteStep1cr.png[]
 
 Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
-image::homeUG/HomeDeleteStep2cr.png[]
+image::homeUG/HomeDeleteStep2cr.png[width = "750"]
 
 
 * Steps for Deleting by Person
 1. Type the command with the person's name to delete all transactions related to that person, as shown in the screenshot below:
 
-image::homeUG/HomeDeletePStep1cr.png[]
+image::homeUG/HomeDeletePStep1cr.png[width = "750"]
 
 [start = 2]
 2. Hit `Enter`.
 
 Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
 
-image::homeUG/HomeDeletePStep2cr.png[]
+image::homeUG/HomeDeletePStep2cr.png[width = "750"]
 
 For both delete commands, if the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
 reimbursement record. On the other hand, if the person entered is not part of our database as shown in the Members Tab,
@@ -273,7 +273,7 @@ The following activity diagram shows the steps needed to delete a new transactio
 
 [caption = "Figure 17. "]
 .Activity Diagram of Delete Command in Home Tab (transaction package)
-image::HomeTabActivityDiagramDeleteCommand.png[width = "400"]
+image::HomeTabActivityDiagramDeleteCommand.png[width = "500"]
 
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
 be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
@@ -290,7 +290,7 @@ The following detailed sequence diagram shows how the back command works:
 
 [caption = "Figure 18. "]
 .Sequence Diagram of Back Command in Home Tab (transaction package)
-image::HomeTabBackCommandSequenceDiagram.png[width = "450"]
+image::HomeTabBackCommandSequenceDiagram.png[width = "500"]
 
 [big red]*3.1.4 Sort Command Feature*
 
@@ -339,11 +339,11 @@ to `AddressBook`. The interface implemented is `GetPersonByNameOnlyModel` as sho
 [[lists]]
 [caption = "Figure 20. "]
 .Code Snippet of `ModelManager` class with 2 `TransactionList` objects
-image::homeDG/2lists.png[width = "400"]
+image::homeDG/2lists.png[width = "450"]
 
 [[facade]]
 [caption = "Figure 21. "]
 .Code Snippet of `GetPersonByNameOnly` facade class for `ModelManager` from Members Tab
-image::homeDG/facadeForDesignConsiderations.png[width = "400"]
+image::homeDG/facadeForDesignConsiderations.png[width = "450"]
 
 {End of Extract}
