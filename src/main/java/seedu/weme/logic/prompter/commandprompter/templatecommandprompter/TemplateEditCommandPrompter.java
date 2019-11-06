@@ -7,7 +7,7 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FOR
 import static seedu.weme.logic.parser.util.ArgumentTokenizer.getLastArgument;
 import static seedu.weme.logic.parser.util.ArgumentTokenizer.removeLastArgument;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_NAME;
-import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarArguments;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarTemplateArguments;
 
 import java.util.regex.Matcher;
 
@@ -53,6 +53,6 @@ public class TemplateEditCommandPrompter implements Prompter {
         }
 
         String inputWithoutLastArgument = removeLastArgument(userInput, PREFIX_NAME);
-        return promptSimilarArguments(model, inputWithoutLastArgument, lastArgument);
+        return promptSimilarTemplateArguments(model, inputWithoutLastArgument, lastArgument);
     }
 }

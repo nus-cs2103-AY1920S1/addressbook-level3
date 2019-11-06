@@ -112,15 +112,14 @@ public class SampleDataUtil {
                 "Gangnam Style",
                 "TheDress")
                 .collect(Collectors.toSet());
-        Set<String> colorRecords = Stream.of(
-                "black",
-                "white",
-                "red",
-                "yellow",
-                "blue",
-                "green")
+        Set<String> textRecords = Stream.of(
+                "Success starts with SU",
+                "When you fix the problem in coding",
+                "Would be fun they said",
+                "Now...only God knows",
+                "People who only know Python")
                 .collect(Collectors.toSet());
-        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords, colorRecords);
+        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords, textRecords);
     }
 
     /**

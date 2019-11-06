@@ -19,9 +19,11 @@ public class TextDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the meme text identified by the index number in the displayed list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
+            + ": Deletes the meme text identified by the index number in the displayed list.";
+
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + "\nParameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_MEME_TEXT_SUCCESS = "Deleted text: %1$s";

@@ -442,7 +442,7 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public Set<String> getColorRecords() {
+        public Set<String> getTextRecords() {
             throw new AssertionError("This method should not be called");
         }
 

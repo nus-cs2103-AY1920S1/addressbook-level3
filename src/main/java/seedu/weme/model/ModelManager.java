@@ -444,8 +444,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Set<String> getColorRecords() {
-        return versionedWeme.getColors();
+    public Set<String> getTextRecords() {
+        return versionedWeme.getTexts();
     }
 
     @Override
@@ -463,7 +463,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addMemeTextToRecords(MemeText memeText) {
-        versionedWeme.addColor(memeText.getColor());
+        versionedWeme.addText(memeText.getText());
     }
 
     @Override
