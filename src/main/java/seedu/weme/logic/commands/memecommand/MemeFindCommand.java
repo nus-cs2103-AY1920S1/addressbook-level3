@@ -9,7 +9,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 
 /**
- * Finds and lists all memes in Weme whose name contains any of the argument keywords.
+ * Finds and lists all memes in Weme whose tags contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class MemeFindCommand extends Command {
@@ -17,11 +17,11 @@ public class MemeFindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": finds all memes with tags containing any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.";
+            + "the specified keywords (case-insensitive)";
 
     public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
             + "\nParameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + " school funny";
 
     private final TagContainsKeywordsPredicate predicate;
 

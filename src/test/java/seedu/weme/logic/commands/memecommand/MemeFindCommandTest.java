@@ -72,7 +72,7 @@ public class MemeFindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code TagContainsKeywordsPredicate}.
      */
     private TagContainsKeywordsPredicate preparePredicate(String userInput) {
         return new TagContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
