@@ -994,9 +994,7 @@ Additionally, the following below shows the sequence diagram of how the
 program checks if the user satisfies the course's prerequisites.
 
 .CheckCommand Sequence Diagram
-image::todo.png[TODO]
-
-TODO: DESCRIBE THE DIAGRAM
+image::CheckCommandSequenceDiagram.png[]
 
 === Finance Tracker feature
 
