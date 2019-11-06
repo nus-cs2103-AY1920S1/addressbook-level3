@@ -111,7 +111,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -126,7 +126,7 @@ The `Model`,
 * stores the Flashcard List data.
 * exposes an unmodifiable `ObservableList<Flashcard>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * also exposes a statistics object to the ui to create the statistic charts .
-
+// end::model[]
 
 
 [[Design-Storage]]
