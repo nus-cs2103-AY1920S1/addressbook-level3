@@ -20,7 +20,7 @@ import javafx.scene.layout.Region;
 /**
  * Panel containing the list of suggested words cards.
  */
-public class AutoCompletePanel extends UiPart<Region> implements Observer, DataSender {
+public class AutoCompletePanel extends UiPart<Region> implements ObserverUi, DataSender {
     private static final String FXML = "AutoCompletePanel.fxml";
 
     private AutoCompleteListHandler autoCompleteListHandler;

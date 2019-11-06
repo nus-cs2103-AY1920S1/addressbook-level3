@@ -25,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private ArrayList<ObserverUi> observerUis = new ArrayList<>();
     private DataSender dataSender;
 
     @FXML
@@ -122,8 +122,8 @@ public class CommandBox extends UiPart<Region> {
         });
     }
 
-    public void addObserver(Observer observer) {
-        observers.add(observer);
+    public void addObserver(ObserverUi observerUi) {
+        observerUis.add(observerUi);
     }
 
     public void setDataSender(DataSender dataSender) {
@@ -131,14 +131,14 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void notifyObserversKeyPressed(KeyCode keyCode) {
-        for (Observer observer : observers) {
-            observer.update(keyCode);
+        for (ObserverUi observerUi : observerUis) {
+            observerUi.update(keyCode);
         }
     }
 
     private void notifyObserversToChange(KeyCode keyCode, String resultString) {
-        for (Observer observer : observers) {
-            observer.update(keyCode, resultString);
+        for (ObserverUi observerUi : observerUis) {
+            observerUi.update(keyCode, resultString);
         }
     }
 
