@@ -188,7 +188,12 @@ public class UpdateCommand extends UndoableCommand {
                 if (updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
                         && !doesNotifExist(model)) {
                     Notif notif = new Notif((Body) entity);
-                    Platform.runLater(() -> model.addNotif(notif));
+                    Platform.runLater(() -> {
+                            if (!model.hasNotif(notif)) {
+                                model.addNotif(notif);
+                            }
+                        }
+                    );
                 }
             }
             //@@author
