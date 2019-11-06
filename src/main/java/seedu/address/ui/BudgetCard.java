@@ -4,7 +4,9 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import seedu.address.model.transaction.Budget;
 
 /**
@@ -29,8 +31,6 @@ public class BudgetCard extends UiPart<Region> {
     private FlowPane categories;
     @FXML
     private FlowPane budgetDetails;
-    @FXML
-    private FlowPane DEFICIT;
 
     public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
@@ -52,10 +52,9 @@ public class BudgetCard extends UiPart<Region> {
      * @param budget to be displayed in this budget card
      */
     private void displayRemDays(Budget budget) {
+        budgetDetails.getChildren().add(new Label(budget.getBetween()));
         if (budget.getBetweenRaw() <= 3) {
-            DEFICIT.getChildren().add(new Label(budget.getBetween()));
-        } else {
-            budgetDetails.getChildren().add(new Label(budget.getBetween()));
+            budgetDetails.setId("DEFICIT");
         }
     }
 
