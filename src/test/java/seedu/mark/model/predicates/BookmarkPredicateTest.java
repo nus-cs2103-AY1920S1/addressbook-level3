@@ -128,7 +128,7 @@ public class BookmarkPredicateTest {
         assertEquals(predicate.getNotUrlKeywords(), new HashSet<>());
 
         // behaviour check
-        // assumption: BookmarkBuilder.DEFAULT_NAME doesn't affect predicate result
+        // assumption: BookmarkBuilder.DEFAULT_URL doesn't affect predicate result
         assertTrue(predicate.test(new BookmarkBuilder().withName(STANDARD_NAME).build()));
         assertFalse(predicate.test(new BookmarkBuilder().withName(FIRST_NAME).build()));
         assertFalse(predicate.test(new BookmarkBuilder().withName(SECOND_NAME).build()));
