@@ -11,7 +11,6 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.Prefix;
-import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.order.Order;
@@ -75,7 +74,7 @@ public class CompleteOrderCommand extends Command {
             }
         }
 
-        String MESSAGE_ASSIGN_NEXT_ORDER;
+        // String MESSAGE_ASSIGN_NEXT_ORDER;
         model.assignUnassignedOrder();
         /*
         if (unassigned == null) {

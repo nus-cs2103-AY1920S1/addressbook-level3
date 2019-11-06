@@ -447,7 +447,7 @@ public class ModelManager implements Model {
     @Override
     public void assignUnassignedOrder() {
         LinkedList<Order> sortedList = getFilteredOrderList().stream().sorted((o1, o2)
-                -> o1.getOrderName().fullName.compareToIgnoreCase(o2.getOrderName().fullName))
+            -> o1.getOrderName().fullName.compareToIgnoreCase(o2.getOrderName().fullName))
                 .collect(Collectors.toCollection(LinkedList::new));
         for (Order order : sortedList) {
             if (order.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
