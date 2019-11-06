@@ -431,13 +431,14 @@ public class MooLahParserTest {
     @Test
     void parseCommand_statsCompare() throws Exception {
         Command command = parser.parseCommand(
-                String.format("%s %s10-10 %s11-10",
+                String.format("%s %s01-10-2019 %s31-10-2019",
                         StatsCompareCommand.COMMAND_WORD,
                         PREFIX_FIRST_START_DATE ,
                         PREFIX_SECOND_START_DATE),
                 CommandGroup.STATISTIC, readOnlyUserPrefs);
         assertTrue(command instanceof StatsCompareCommand);
-        // equals not included yet
+        assertEquals(command, new StatsCompareCommand(
+                CommandTestUtil.OCTOBER_FIRST, CommandTestUtil.OCTOBER_LAST));
     }
 
 

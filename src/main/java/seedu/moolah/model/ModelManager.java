@@ -357,8 +357,8 @@ public class ModelManager implements Model {
 
     @Override
     public void calculateStatistics(String command, Timestamp date1, Timestamp date2, boolean isBudgetMode) {
-        ObservableList<Expense> primaryBudgetExpenses = getPrimaryBudget().getExpenses();
-        Statistics statistics = Statistics.calculateStats(primaryBudgetExpenses, command, date1, date2,
+        //ObservableList<Expense> primaryBudgetExpenses = getPrimaryBudget().getExpenses();
+        Statistics statistics = Statistics.calculateStats(command, date1, date2,
                 getPrimaryBudget(), isBudgetMode);
         this.setStatistics(statistics);
     }

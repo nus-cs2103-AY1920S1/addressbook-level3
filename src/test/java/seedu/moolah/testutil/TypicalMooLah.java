@@ -71,6 +71,210 @@ public class TypicalMooLah {
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000004")
             .build();
 
+    //==== For Statistics testing ===
+    public static final Budget DAY_BUDGET = new BudgetBuilder()
+            .withDescription("budget")
+            .withAmount("100")
+            .withStartDate("05-09-2016 evening")
+            .withPeriod("day")
+            .withEndDate("05-09-2016 noon")
+            .withIsPrimary(true)
+            .build();
+
+    public static final Budget WEEK_BUDGET = new BudgetBuilder()
+            .withDescription("Budget")
+            .withAmount("200")
+            .withStartDate("05-09-2016 noon")
+            .withPeriod("week")
+            .withEndDate("11-09-2016 evening")
+            .withIsPrimary(true)
+            .build();
+
+    public static final Budget MONTH_BUDGET = new BudgetBuilder()
+            .withDescription("Budget")
+            .withAmount("300")
+            .withStartDate("05-09-2016 noon")
+            .withPeriod("month")
+            .withEndDate("04-10-2016 evening")
+            .withIsPrimary(true)
+            .build();
+
+    public static final Budget YEAR_BUDGET = new BudgetBuilder()
+            .withDescription("Budget")
+            .withAmount("400")
+            .withStartDate("05-09-2016 noon")
+            .withPeriod("year")
+            .withEndDate("04-09-2017 evening")
+            .withIsPrimary(true)
+            .build();
+
+    public static final Expense DUCK_RICE = new ExpenseBuilder()
+            .withDescription("Duck Rice")
+            .withPrice("5")
+            .withCategory("Food")
+            .withTimestamp("05-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000023")
+            .build();
+
+    public static final Expense MEE_POK = new ExpenseBuilder()
+            .withDescription("Mee Pok")
+            .withPrice("10")
+            .withCategory("Food")
+            .withTimestamp("13-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000024")
+            .build();
+
+
+    public static final Expense GRAB_RIDE = new ExpenseBuilder()
+            .withDescription("Grab Ride")
+            .withPrice("20")
+            .withCategory("Transport")
+            .withTimestamp("14-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000025")
+            .build();
+
+    public static final Expense MALAYSIA_TRIP = new ExpenseBuilder()
+            .withDescription("Malaysia Trip")
+            .withPrice("30")
+            .withCategory("Travel")
+            .withTimestamp("15-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000026")
+            .build();
+
+    public static final Expense SOCCER_JERSEY = new ExpenseBuilder()
+            .withDescription("Soccer Jersey")
+            .withPrice("60")
+            .withCategory("Shopping")
+            .withTimestamp("16-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000027")
+            .build();
+
+
+
+    public static final Expense GIANT_GROCERIES = new ExpenseBuilder()
+            .withDescription("Weekend Groceries")
+            .withPrice("50")
+            .withCategory("Utilities")
+            .withTimestamp("17-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000028")
+            .build();
+
+    public static final Expense NTUC_GROCERIES = new ExpenseBuilder()
+            .withDescription("Weekend Groceries")
+            .withPrice("70")
+            .withCategory("Utilities")
+            .withTimestamp("20-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000100")
+            .build();
+
+    public static final Expense MEDICATION = new ExpenseBuilder()
+            .withDescription("Medication")
+            .withPrice("240")
+            .withCategory("Healthcare")
+            .withTimestamp("18-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000029")
+            .build();
+
+    public static final Expense ROLLER_COASTER = new ExpenseBuilder()
+            .withDescription("Roller Coaster")
+            .withPrice("480")
+            .withCategory("Entertainment")
+            .withTimestamp("19-09-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000030")
+            .build();
+
+    public static final Expense TUITION = new ExpenseBuilder()
+            .withDescription("Tuition")
+            .withPrice("960")
+            .withCategory("Education")
+            .withTimestamp("05-10-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000031")
+            .build();
+
+    public static final Expense DEBT_TO_DEBBY = new ExpenseBuilder()
+            .withDescription("Debt to Debby")
+            .withPrice("1920")
+            .withCategory("Others")
+            .withTimestamp("06-10-2016 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000031")
+            .build();
+
+
+    //==== For Statscompare ===
+
+    public static final Expense MEE_SIAM = new ExpenseBuilder()
+            .withDescription("Mee Siam")
+            .withPrice("5")
+            .withCategory("Food")
+            .withTimestamp("13-09-2015 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000101")
+            .build();
+
+
+    public static final Expense MEE_REBUS = new ExpenseBuilder()
+            .withDescription("Mee Rebus")
+            .withPrice("5")
+            .withCategory("Food")
+            .withTimestamp("13-09-2015 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000102")
+            .build();
+
+    public static final Expense BUS_RIDE = new ExpenseBuilder()
+            .withDescription("Bus Ride")
+            .withPrice("20")
+            .withCategory("Transport")
+            .withTimestamp("14-09-2015 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000103")
+            .build();
+
+    public static final Expense THAILAND_TRIP = new ExpenseBuilder()
+            .withDescription("Thailand Trip")
+            .withPrice("500")
+            .withCategory("Travel")
+            .withTimestamp("15-09-2015 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000107")
+            .build();
+
+    public static final Expense BASKETBALL_JERSEY = new ExpenseBuilder()
+            .withDescription("Basketball Jersey")
+            .withPrice("60")
+            .withCategory("Shopping")
+            .withTimestamp("16-09-2015 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000108")
+            .build();
+
+
+
+    public static final Expense COLD_STORAGE = new ExpenseBuilder()
+            .withDescription("Weekend Groceries")
+            .withPrice("20")
+            .withCategory("Utilities")
+            .withTimestamp("17-09-2015 noon")
+            .withBudgetName("Budget")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000028")
+            .build();
+
+
+
+
+    //==== For MooLah testing ===
+
     public static final Expense ANNIVERSARY = new ExpenseBuilder()
             .withDescription("Alices Birthday")
             .withPrice("20")
@@ -227,4 +431,49 @@ public class TypicalMooLah {
     public static List<Budget> getTypicalBudgets() {
         return new ArrayList<>(Arrays.asList(OUTSIDE_SCHOOL, SCHOOL));
     }
+
+    //==== For Statistics testing ===
+
+    public static List<Expense> getExpenseForStatistics() {
+        return new ArrayList<>(List.of(DUCK_RICE, MEE_POK, GRAB_RIDE, MALAYSIA_TRIP, SOCCER_JERSEY,
+                //GIANT_GROCERIES, MEDICATION, ROLLER_COASTER, TUITION, DEBT_TO_DEBBY, NTUC_GROCERIES));
+                GIANT_GROCERIES, MEDICATION, ROLLER_COASTER, TUITION, DEBT_TO_DEBBY, NTUC_GROCERIES,
+                MEE_SIAM, MEE_REBUS, BUS_RIDE, THAILAND_TRIP, BASKETBALL_JERSEY, COLD_STORAGE));
+    }
+
+    public static Budget getPopulatedDayBudget() {
+        Budget budget = TypicalMooLah.DAY_BUDGET;
+        for (Expense expense : getExpenseForStatistics()) {
+            budget.addExpense(expense);
+        }
+        return budget;
+    }
+
+    public static Budget getPopulatedWeekBudget() {
+        Budget budget = TypicalMooLah.WEEK_BUDGET;
+        for (Expense expense : getExpenseForStatistics()) {
+            budget.addExpense(expense);
+        }
+        return budget;
+    }
+
+    public static Budget getPopulatedMonthBudget() {
+        Budget budget = TypicalMooLah.MONTH_BUDGET;
+        for (Expense expense : getExpenseForStatistics()) {
+            budget.addExpense(expense);
+        }
+        return budget;
+    }
+
+    public static Budget getPopulatedYearBudget() {
+        Budget budget = TypicalMooLah.YEAR_BUDGET;
+        for (Expense expense : getExpenseForStatistics()) {
+            budget.addExpense(expense);
+        }
+        return budget;
+    }
+
+    //==== For User testing ===
+
+
 }

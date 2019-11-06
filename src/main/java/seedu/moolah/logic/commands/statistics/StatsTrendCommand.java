@@ -40,8 +40,8 @@ public class StatsTrendCommand extends Command {
     private final Timestamp endDate;
     private final boolean mode;
 
-
-    private StatsTrendCommand(Timestamp date1, Timestamp date2, Mode mode) {
+    //made public for testing purposes?
+    public StatsTrendCommand(Timestamp date1, Timestamp date2, Mode mode) {
         requireNonNull(mode);
 
         this.startDate = date1;
@@ -106,8 +106,6 @@ public class StatsTrendCommand extends Command {
     public static StatsTrendCommand createWithNoDate(Mode mode) {
         return new StatsTrendCommand(null, null, mode);
     }
-
-
 
 
     @Override
