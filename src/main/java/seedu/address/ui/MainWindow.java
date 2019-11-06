@@ -41,9 +41,13 @@ public class MainWindow extends UiPart<Stage> {
     private FetchEventWindow fetchEventWindow;
     private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
-    private SummaryWindow summaryWindow;
+    private StatisticsWindow statisticsWindow;
     private ScheduleBox scheduleBox;
+    private StatisticsBox statisticsBox;
     private Finance finance;
+
+    @FXML
+    private StackPane statisticsPlaceholder;
 
     @FXML
     private StackPane financePlaceholder;
@@ -139,6 +143,9 @@ public class MainWindow extends UiPart<Stage> {
         scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
         schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
 
+        statisticsBox = new StatisticsBox(logic.getFilteredScheduledEventList(), logic, this);
+        statisticsPlaceholder.getChildren().add(statisticsBox.getRoot());
+
         finance = new Finance(logic.getFilteredEmployeeList(), logic, this);
         financePlaceholder.getChildren().add(finance.getRoot());
 
@@ -231,19 +238,20 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the date window or focuses on it if it's already opened.
+     * Opens the statistics window or focuses on it if it's already opened.
      */
     @FXML
-    public void generateSummary() {
-        if (summaryWindow != null) {
-            summaryWindow.hide();
+    public void generateDetail(String text) {
+        if (statisticsWindow != null) {
+            statisticsWindow.hide();
         }
-        summaryWindow = new SummaryWindow(logic);
-        summaryWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
-        if (!summaryWindow.isShowing()) {
-            summaryWindow.show();
+        statisticsWindow = new StatisticsWindow(logic);
+        statisticsWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        statisticsWindow.setLabelText(text);
+        if (!statisticsWindow.isShowing()) {
+            statisticsWindow.show();
         } else {
-            summaryWindow.focus();
+            statisticsWindow.focus();
         }
     }
 
@@ -303,12 +311,13 @@ public class MainWindow extends UiPart<Stage> {
                 generateDate();
             }
 
-            if (commandResult.getType().equals("Summary")) {
-                generateSummary();
-            }
-
             if (commandResult.getType().equals("Statistics")) {
                 selectionModel.select(3);
+            }
+
+            if (commandResult.getType().equals("Detail")) {
+                selectionModel.select(3);
+                generateDetail(commandResult.getUiChange());
             }
 
             if (commandResult.getType().equals("Schedule_Update")) {
