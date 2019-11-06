@@ -2,7 +2,9 @@ package seedu.address.model.flashcard;
 
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -11,8 +13,11 @@ import seedu.address.model.tag.Tag;
 public class FlashcardContainsTagPredicate implements Predicate<Flashcard> {
     private final Set<Tag> tags;
 
+    private final Logger logger = LogsCenter.getLogger(FlashcardContainsTagPredicate.class.getName());
+
     public FlashcardContainsTagPredicate (Set<Tag> tags) {
         this.tags = tags;
+        logger.info("Filtering Flashcards that contain at least the specified tags");
     }
 
     // test on the flashcard to see if it has the tag
