@@ -259,6 +259,7 @@ public class Parser implements InteractiveParser {
     private void instantiateStateMachine(String commandText) throws ParseException {
         String commandWord = getCommandWord(commandText);
         switch (commandWord) {
+
         case AddCommand.COMMAND_WORD:
             currentState = new TypeState(new ArgumentMultimap());
             break;
