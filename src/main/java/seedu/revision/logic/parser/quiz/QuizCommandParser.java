@@ -42,10 +42,10 @@ public class QuizCommandParser {
             final String commandWord = matcher.group("commandWord");
 
             switch (commandWord) {
-                case ExitCommand.COMMAND_WORD:
-                    return new ExitCommand();
-                default:
-                    break;
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+            default:
+                break;
             }
         }
 
