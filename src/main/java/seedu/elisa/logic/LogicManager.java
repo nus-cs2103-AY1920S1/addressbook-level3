@@ -124,4 +124,8 @@ public class LogicManager implements Logic {
     public PriorityExitStatus getExitStatus() {
         return model.getExitStatus();
     }
+
+    public boolean isFocusMode() {
+        return model.isFocusMode();
+    }
 }
