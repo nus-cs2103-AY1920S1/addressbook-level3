@@ -11,13 +11,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
-import seedu.deliverymans.model.order.Order;
-
 /**
  * Represents a Customer in the system.
  */
@@ -32,7 +29,7 @@ public class Customer {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final ObservableMap<Tag, Integer> totalTags = FXCollections.observableHashMap();
-    private final ObservableList<Order> orders = FXCollections.observableArrayList();
+    private int noOfOrders;
 
     /**
      * Every field must be present and not null.
@@ -43,13 +40,14 @@ public class Customer {
         this.name = name;
         this.phone = phone;
         this.address = address;
+        noOfOrders = 0;
     }
 
     /**
      * Constructor for SampleDataUtil.
      */
-    public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(userName, phone, tags);
+    public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags, int noOfOrders) {
+        requireAllNonNull(userName, phone, address, tags);
         this.userName = userName;
         this.name = name;
         this.phone = phone;
@@ -58,21 +56,22 @@ public class Customer {
         for (Tag tag : tags) {
             totalTags.put(tag, 1);
         }
+        this.noOfOrders = noOfOrders;
     }
 
     /**
      * Constructor for saving to storage
      */
     public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags,
-                    ObservableMap<Tag, Integer> totalTags, ObservableList<Order> orders) {
-        requireAllNonNull(userName, phone, tags, orders);
+                    ObservableMap<Tag, Integer> totalTags, int noOfOrders) {
+        requireAllNonNull(userName, phone, tags, address, totalTags);
         this.userName = userName;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.tags.addAll(tags);
         this.totalTags.putAll(totalTags);
-        this.orders.addAll(orders);
+        this.noOfOrders = noOfOrders;
     }
 
     public Name getUserName() {
@@ -102,28 +101,20 @@ public class Customer {
     public Map<Tag, Integer> getTotalTags() {
         return Collections.unmodifiableMap(totalTags);
     }
-    /**
-     * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders.
-     */
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
 
     /**
-     * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders and adds the tags to
-     * {@code ObservableMap<Tag, Integer>} totalTags.
+     * Adds Customer's noOfOrders and adds the tags to {@code ObservableMap<Tag, Integer>} totalTags.
      */
-    public void addOrder(Order order, Set<Tag> tags) {
-        orders.add(order);
+    public void addOrder(Set<Tag> tags) {
+        noOfOrders++;
         addTags(tags);
     }
 
     /**
-     * Deletes {@code Order} from Customer's {@code ObservableList<Order>} orders and deletes the tags from
-     * {@code ObservableMap<Tag, Integer>} totalTags.
+     * Reduces Customer's noOfOrders and deletes the tags from {@code ObservableMap<Tag, Integer>} totalTags.
      */
-    public void deleteOrder(Order order, Set<Tag> tags) {
-        orders.remove(order);
+    public void deleteOrder(Set<Tag> tags) {
+        noOfOrders--;
         deleteTags(tags);
     }
 
@@ -176,16 +167,8 @@ public class Customer {
         }
     }
 
-    /**
-     * Returns an immutable order list, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public ObservableList<Order> getOrders() {
-        return orders;
-    }
-
-    public int getOrderSize() {
-        return orders.size();
+    public int getNoOfOrders() {
+        return noOfOrders;
     }
 
     /**
@@ -226,7 +209,7 @@ public class Customer {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(userName, name, phone, address, tags, orders);
+        return Objects.hash(userName, name, phone, address, tags, noOfOrders);
     }
 
     @Override

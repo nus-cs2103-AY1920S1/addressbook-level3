@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -153,6 +154,18 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteCustomer(Customer target) {
+        ObservableList<Order> orders = getFilteredOrderList();
+        ArrayList<Order> ordersToDelete = new ArrayList<>();
+        for (Order order : orders) {
+            if (target.getUserName().equals(order.getCustomer()) && !order.isCompleted()) {
+                ordersToDelete.add(order);
+            }
+        }
+        int size = ordersToDelete.size();
+        for (int i = 0; i < size; i++) {
+            updateDeliverymanStatusAfterChangesToOrder(ordersToDelete.get(i).getDeliveryman());
+            deleteOrder(ordersToDelete.get(i));
+        }
         customerDatabase.removeCustomer(target);
     }
 
@@ -176,8 +189,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Customer getCustomerOrders() {
-        return customerDatabase.getCustomerOrders();
+    public ObservableList<Order> getCustomerOrders() {
+        ArrayList<Order> orders = new ArrayList<>();
+        for (Order order : getFilteredOrderList()) {
+            if (order.getCustomer().equals(customerDatabase.getCustomerOrders().getUserName())) {
+                orders.add(order);
+            }
+        }
+        ObservableList<Order> modelOrders = FXCollections.observableArrayList();
+        modelOrders.addAll(orders);
+        return modelOrders;
     }
 
     //=========== Restaurant Methods =============================================================
@@ -390,8 +411,7 @@ public class ModelManager implements Model {
                 break;
             }
         }
-        customer.addOrder(order, restaurant.getTags());
-
+        customer.addOrder(restaurant.getTags());
     }
 
     @Override
@@ -410,7 +430,7 @@ public class ModelManager implements Model {
                 break;
             }
         }
-        customer.deleteOrder(order, restaurant.getTags());
+        customer.deleteOrder(restaurant.getTags());
     }
 
     //=========== Undo ================================================================================
