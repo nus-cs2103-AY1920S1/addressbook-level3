@@ -28,7 +28,7 @@ public class ActivityBuilder {
     public static final String DEFAULT_CONTACT_PHONE = "91170081";
     public static final String DEFAULT_CONTACT_EMAIL = "sam1987@gmail.com";
     public static final String DEFAULT_CONTACT_ADDRESS = "456, Bukit Batok st 53, #03-21";
-    public static final Integer DEFAULT_DURATION = 30;
+    public static final Integer DEFAULT_DURATION = 120;
     public static final Integer DEFAULT_PRIORITY = 1;
     public static final String DEFAULT_COST = "1.00";
 
@@ -99,6 +99,7 @@ public class ActivityBuilder {
 
     /**
      * Sets the {@code Contact} of the {@code Activity} that we are building.
+     *
      * @param contact new contact to be set.
      * @return
      */
@@ -112,6 +113,22 @@ public class ActivityBuilder {
      */
     public ActivityBuilder withCost(String cost) {
         this.cost = new Cost(cost);
+        return this;
+    }
+
+    /**
+     * Sets the {@code duration} of the {@code Activity} that we are building.
+     */
+    public ActivityBuilder withDuration(String duration) {
+        this.duration = new Duration(Integer.parseInt(duration));
+        return this;
+    }
+
+    /**
+     * Sets the {@code priority} of the {@code Activity} that we are building.
+     */
+    public ActivityBuilder withPriority(String priority) {
+        this.priority = new Priority(Integer.parseInt(priority));
         return this;
     }
 
