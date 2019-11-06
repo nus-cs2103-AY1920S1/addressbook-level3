@@ -9,13 +9,16 @@ import java.util.logging.Logger;
 
 import seedu.sugarmummy.commons.core.LogsCenter;
 import seedu.sugarmummy.commons.exceptions.DataConversionException;
-import seedu.sugarmummy.model.ReadOnlyCalendar;
-import seedu.sugarmummy.model.ReadOnlyUserList;
 import seedu.sugarmummy.model.ReadOnlyUserPrefs;
 import seedu.sugarmummy.model.UserPrefs;
-import seedu.sugarmummy.model.record.UniqueRecordList;
-import seedu.sugarmummy.recmfood.model.UniqueFoodList;
-import seedu.sugarmummy.recmfood.storage.JsonFoodListStorage;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
+import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.records.UniqueRecordList;
+import seedu.sugarmummy.storage.biography.UserListStorage;
+import seedu.sugarmummy.storage.calendar.JsonCalendarStorage;
+import seedu.sugarmummy.storage.foodrecommendations.JsonFoodListStorage;
+import seedu.sugarmummy.storage.records.JsonRecordListStorage;
 
 /**
  * Manages storage of SugarMummy data in local storage.

@@ -4,20 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.sugarmummy.model.ReadOnlyUserList;
-import seedu.sugarmummy.model.bio.Address;
-import seedu.sugarmummy.model.bio.DateOfBirth;
-import seedu.sugarmummy.model.bio.DisplayPicPath;
-import seedu.sugarmummy.model.bio.Gender;
-import seedu.sugarmummy.model.bio.Goal;
-import seedu.sugarmummy.model.bio.MedicalCondition;
-import seedu.sugarmummy.model.bio.Name;
-import seedu.sugarmummy.model.bio.Nric;
-import seedu.sugarmummy.model.bio.OtherBioInfo;
-import seedu.sugarmummy.model.bio.Phone;
-import seedu.sugarmummy.model.bio.ProfileDesc;
-import seedu.sugarmummy.model.bio.User;
-import seedu.sugarmummy.model.bio.UserList;
+import seedu.sugarmummy.model.biography.Address;
+import seedu.sugarmummy.model.biography.DateOfBirth;
+import seedu.sugarmummy.model.biography.DisplayPicPath;
+import seedu.sugarmummy.model.biography.Gender;
+import seedu.sugarmummy.model.biography.Goal;
+import seedu.sugarmummy.model.biography.MedicalCondition;
+import seedu.sugarmummy.model.biography.Name;
+import seedu.sugarmummy.model.biography.Nric;
+import seedu.sugarmummy.model.biography.OtherBioInfo;
+import seedu.sugarmummy.model.biography.Phone;
+import seedu.sugarmummy.model.biography.ProfileDesc;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.biography.User;
+import seedu.sugarmummy.model.biography.UserList;
 
 
 /**
@@ -32,7 +32,8 @@ public class SampleUserDataUtil {
                     getContactNumberList("91234567"), getEmergencyContactList("81234567"),
                     getMedicalConditionList("Type II Diabetes"),
                     new Address("Blk 123 #01-123 Example Road S(123456)"), getGoalList("test"),
-                    new OtherBioInfo("dislikes potatoes"))};
+                    new OtherBioInfo("dislikes potatoes"))
+        };
     }
 
     public static ReadOnlyUserList getSampleUserList() {

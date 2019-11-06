@@ -16,10 +16,11 @@ import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.ui.UiPart;
 
 //@@author chen-xi-cx
+
 /**
  * Represents ui of a {@code CustomLineChart} legend.
  */

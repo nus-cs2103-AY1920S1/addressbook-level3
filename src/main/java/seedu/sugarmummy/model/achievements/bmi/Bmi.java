@@ -1,10 +1,10 @@
 package seedu.sugarmummy.model.achievements.bmi;
 
 import static seedu.sugarmummy.model.achievements.DurationUnit.DAY;
-import static seedu.sugarmummy.model.record.RecordType.BMI;
+import static seedu.sugarmummy.model.records.RecordType.BMI;
 
 import seedu.sugarmummy.model.achievements.DurationUnit;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.records.RecordType;
 
 /**
  * Achievement of type BMI.

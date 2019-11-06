@@ -9,16 +9,16 @@ import static seedu.sugarmummy.logic.commands.aesthetics.BackgroundCommand.MESSA
 import static seedu.sugarmummy.logic.commands.aesthetics.BackgroundCommand.MESSAGE_NO_CHANGE;
 import static seedu.sugarmummy.logic.commands.aesthetics.BackgroundCommand.MESSAGE_SUCCESS;
 import static seedu.sugarmummy.logic.commands.aesthetics.BackgroundCommand.MESSAGE_USAGE;
-import static seedu.sugarmummy.model.AestheticsModelStub.VALID_BACKGROUND;
-import static seedu.sugarmummy.model.AestheticsModelStub.VALID_FONT_COLOUR;
+import static seedu.sugarmummy.model.aesthetics.AestheticsModelStub.VALID_BACKGROUND;
+import static seedu.sugarmummy.model.aesthetics.AestheticsModelStub.VALID_FONT_COLOUR;
 import static seedu.sugarmummy.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
-import seedu.sugarmummy.model.AestheticsModelStub.ModelStubForBackground;
-import seedu.sugarmummy.model.AestheticsModelStub.ModelStubForFontColour;
+import seedu.sugarmummy.model.aesthetics.AestheticsModelStub.ModelStubForBackground;
+import seedu.sugarmummy.model.aesthetics.AestheticsModelStub.ModelStubForFontColour;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
 import seedu.sugarmummy.ui.DisplayPaneType;
