@@ -66,8 +66,7 @@ public class AddFoodCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_FOOD);
         }
 
-        restaurant.addFood(toAdd);
-        restaurant.updateQuantity(0);
+        model.setRestaurant(restaurant, restaurant.addFood(toAdd).updateQuantity(0));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

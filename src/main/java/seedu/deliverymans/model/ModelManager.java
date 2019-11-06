@@ -247,6 +247,9 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedRestaurant);
 
         restaurantDatabase.setRestaurant(target, editedRestaurant);
+        if (getEditingRestaurantList().size() > 0 && target == getEditingRestaurantList().get(0)) {
+            setEditingRestaurant(editedRestaurant);
+        }
     }
 
     @Override
