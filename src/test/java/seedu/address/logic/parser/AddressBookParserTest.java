@@ -69,8 +69,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_clearWithTrailingArguments_throwsParseException() throws Exception {
-        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, ClearCommand.COMMAND_WORD),
-            () -> parser.parseCommand(ClearCommand.COMMAND_WORD + " 3"));
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, ClearCommand.COMMAND_WORD), ()
+            -> parser.parseCommand(ClearCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
@@ -96,8 +96,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_exitWithTrailingArguments_throwsParseException() throws Exception {
-        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, ExitCommand.COMMAND_WORD),
-            () -> parser.parseCommand(ExitCommand.COMMAND_WORD + " 3"));
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, ExitCommand.COMMAND_WORD), ()
+            -> parser.parseCommand(ExitCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
@@ -115,8 +115,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_helpWithTrailingArguments_throwsParseException() throws Exception {
-        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, HelpCommand.COMMAND_WORD),
-            () -> parser.parseCommand(HelpCommand.COMMAND_WORD + " 3"));
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, HelpCommand.COMMAND_WORD), ()
+            -> parser.parseCommand(HelpCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
@@ -128,6 +128,28 @@ public class AddressBookParserTest {
     public void parseCommand_listPeopleWithTrailingArguments_throwsParseException() throws Exception {
         assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
             ListPeopleCommand.COMMAND_WORD), () -> parser.parseCommand(ListPeopleCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_listPolicy() throws Exception {
+        assertTrue(parser.parseCommand(ListPolicyCommand.COMMAND_WORD) instanceof ListPolicyCommand);
+    }
+
+    @Test
+    public void parseCommand_listPolicyWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
+            ListPolicyCommand.COMMAND_WORD), () -> parser.parseCommand(ListPolicyCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_listBin() throws Exception {
+        assertTrue(parser.parseCommand(ListBinCommand.COMMAND_WORD) instanceof ListBinCommand);
+    }
+
+    @Test
+    public void parseCommand_listBinWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
+            ListBinCommand.COMMAND_WORD), () -> parser.parseCommand(ListBinCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
