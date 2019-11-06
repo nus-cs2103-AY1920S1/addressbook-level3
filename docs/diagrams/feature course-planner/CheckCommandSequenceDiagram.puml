@@ -38,5 +38,4 @@ end box
             return
         return result
     [<-- LogicManager
-
 @enduml
