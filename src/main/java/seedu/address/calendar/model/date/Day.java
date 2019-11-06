@@ -17,6 +17,7 @@ import java.util.stream.IntStream;
 public class Day implements Comparable<Day> {
     public static final String MESSAGE_INVALID_DAY_RANGE_ERROR = "Invalid day. Day should exist within stated month.";
     public static final String MESSAGE_MISMATCH = "Invalid day. Day of week and day of month should match.";
+    public static final int BOUND_LOWER = 1;
     private DayOfWeek dayOfWeek;
     private int dayOfMonth;
 
@@ -134,9 +135,6 @@ public class Day implements Comparable<Day> {
                 .mapToObj(dayOfMonth -> Day.getDayGivenFirstDayOfWeek(firstDayOfWeekAsNum, dayOfMonth))
                 .forEach(day -> daysOfMonth.add(day));
 
-        System.out.println("This month: " + monthOfYear);
-        daysOfMonth.stream().forEach(System.out::println);
-
         return daysOfMonth;
     }
 
@@ -153,14 +151,6 @@ public class Day implements Comparable<Day> {
 
         return new Day(dayOfWeek, dayOfMonth);
     }
-
-    /*
-     * Gets a {@code Day} instance such that its day of week is in one-based index.
-     * @param dayOfWeek day of the week (e.g. Sunday, Monday, ...)
-     * @param dayZeroBased day of the month (e.g. 0, 1, ..., 30)
-    public static Day getOneBased(DayOfWeek dayOfWeek, int dayZeroBased) {
-        return new Day(dayOfWeek, dayZeroBased + 1);
-    }*/
 
     /**
      * Gets the day of month of {@code this}.
@@ -225,7 +215,7 @@ public class Day implements Comparable<Day> {
             return false;
         }
 
-        boolean isNotLessThanOne = dayOfMonth > 0;
+        boolean isNotLessThanOne = dayOfMonth >= BOUND_LOWER;
         boolean isWithinUpperBound = dayOfMonth <= DateUtil.getNumDaysInMonth(monthOfYear, year);
         return isNotLessThanOne && isWithinUpperBound;
     }
