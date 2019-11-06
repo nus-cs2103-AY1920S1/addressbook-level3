@@ -140,7 +140,7 @@ public class MainWindow extends UiPart<Stage> {
         scheduleViewPanel = new ScheduleViewPanel(logic.getTitlesLists(), logic.getObservableLists());
         schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
 
-        intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeList();
+        intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeList());
         intervieweeListPlaceholder.getChildren().add(intervieweeListPanel.getRoot());
 
         interviewerListPanel = new InterviewerListPanel(logic.getFilteredInterviewerList());
