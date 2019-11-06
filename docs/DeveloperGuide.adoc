@@ -539,15 +539,15 @@ Priorities:
 
 |`*`|student|get an overview to see the number of notes added for each topic/subject|I can see which topic/subject I need to make more notes on|Irene
 
-|`* * *`|student|mark and store the questions I have made mistakes on|I can get a better understanding of which part I need to put more time to study|Dongjun
+|`*`|student|mark and store the questions I have made mistakes on|I can get a better understanding of which part I need to put more time to study|Dongjun
 
 |`* * *`|student|take a series questions as a mock test before exam|I can refresh my memory on different modules before exam|Dongjun
 
 |`* *`|student|find specific questions according to the keywords|I can filter the questions I want for different purposes|Dongjun
 
-|`* *`|student|change the difficulty of my test|I can be better prepared for actual exam|Dongjun
+|`* * *`|student|change the difficulty of my test|I can be better prepared for actual exam|Dongjun
 
-|`*`|student|view all questions and answers stored|I can refer them as revision guide according to different subjects|Dongjun
+|`* *`|student|view all questions and answers stored|I can refer them as revision guide according to different subjects|Dongjun
 
 |=======================================================================
 
