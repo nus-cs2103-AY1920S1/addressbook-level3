@@ -38,7 +38,7 @@ public class DeleteCommand extends UndoableCommand {
         requireNonNull(model);
         VisualizeList lastShownList = model.getVisualList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size() || targetIndex.getOneBased() == 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 

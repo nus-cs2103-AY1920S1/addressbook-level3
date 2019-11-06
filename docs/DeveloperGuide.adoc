@@ -363,7 +363,7 @@ A Task with a deadline flag `-d` will be considered an Event. A Task with a remi
 The following activity diagram shows the how a task can be added, depending on the flags present:
 
 .Activity Diagram of adding a Task
-image::AddTaskActivity.png[]
+image::AddTaskActivity.png[200, 600]
 
 This shows how we can easily add Task, Event and Reminder with a _single_ command.
 However, in this section, we will only show how Task and Event is added. Adding of Reminders is shown in a separate section as it includes other steps.
@@ -380,13 +380,13 @@ Step 6. Upon the successful execution of AddCommand, a CommandResult is returned
 
 The figures below shows the sequence diagram on what happens from a simple execution of `task shower -d 1.min.later` user command: +
 
-.Calling execute in LogicManager
+.Call execute in LogicManager to create an AddTaskCommand
 image::AddCommandPart_1.png[]
 
 This diagram shows how `execute` is carried out in the `Logic` component.
 The following diagram shows how the same command is continued onto the `Model` component:
 
-.LogicManager executing the command and returns CommandResult
+.LogicManager executes the AddTaskCommand and returns CommandResult
 image::AddCommandPart_2.png[]
 
 This shows how `execute(model)` affects the `Model` component. It then returns a `CommandResult` r, which is the result of calling LogicManager#execute("task shower -d 1.hour.later").
@@ -415,7 +415,7 @@ The accepted parameters for `-auto` is `day`, `week`, `month` and the format of 
 The following diagram shows the process of adding an Event with -auto flag:
 
 .Activity diagram of adding an Event with -auto flag
-image::AutoRescheduleActivity.png[]
+image::AutoRescheduleActivity.png[100, 400]
 
 In the diagram, when we add the Event initially, we would check the start time of the Event and update it accordingly.
 However, this is not the only place where rescheduling occurs.
@@ -435,17 +435,31 @@ The classes involved in the above rescheduling are: +
 * `AutoRescheduleManager` -- Manages all the rescheduling tasks. There is only one of such manager.
 
 To better understand its underlying structure, we can look at the class diagram below:
-_{insert class diagram here}_
+
+.Class Diagram of classes involved in AutoReschedule function
+image::AutoRescheduleClassDiagram.png[100, 500]
 
 ==== Internal workings of the command
 Now we are ready to look at the sequence of actions. Given below is an example usage scenario of how add behaves at each step: +
 
 Step 1. The user enters the command `event CS2103T Quiz -d 23/09/2019 2359 -auto week`. +
 Step 2. The Event is created, following the sequence of steps in the section _Adding Task/Event_. However there are now some extra steps from Step 3 onwards that occur concurrently from the object creation of Event. +
-Step 3. ... _{work in progress}_
+Step 3. ... _{work in progress}_ +
 
-_{insert sequence diagram here}_ +
-_explain the above diagram_ +
+
+The following diagrams show how the command `event Quiz -d 10.hour.later -auto week` is executed from the Logic component.
+The first diagram shows the adding of an Event, which may appear familiar as it has a sequence similar to the adding of task in <<Add Task/Event feature>>. However, there are some minor differences due to the presence of `-auto` which should be noted.
+
+.Call execute in LogicManager and create an AddEventCommand
+image::AutoRescheduleSequence_1.png[]
+
+As mentioned, the key points to take note of in the diagram above is `Event#setAutoReschedule(true)` and `Event#setReschedulePeriod(period)`. +
+The significance of these methods will be shown in the continuing diagram below:
+
+.LogicManager executing AddEventCommand and create task for AutoRescheduleManager
+image::AutoRescheduleSequence_2.png[]
+
+From the above diagram, we can see that the presence of `AutoReschedulePeriod` in Event results in the creation of `RescheduleTask` which would be queued into the Timer managed by `AutoRescheduleManager`.
 
 
 ==== Design considerations
