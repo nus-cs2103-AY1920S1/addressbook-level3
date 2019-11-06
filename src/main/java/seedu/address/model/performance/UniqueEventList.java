@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.exceptions.DuplicateEventException;
 import seedu.address.model.person.Person;
+import seedu.address.model.performance.exceptions.NoEventException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -37,8 +38,8 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Adds an event to the list.
-     * The event must not already exist in the list.
+     * Adds an event to this list.
+     * The event must not already exist in this list.
      */
     public void add(Event toAdd) {
         requireNonNull(toAdd);
@@ -46,6 +47,18 @@ public class UniqueEventList implements Iterable<Event> {
             throw new DuplicateEventException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes an event from this list.
+     * The event must already exist in this list.
+     */
+    public void remove(Event toRemove) {
+        requireNonNull(toRemove);
+        if (!contains(toRemove)) {
+            throw new NoEventException();
+        }
+        internalList.remove(toRemove);
     }
 
     public Event getEvent(String eventName) {

@@ -230,6 +230,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void editPersonTrainingRecords(Person target, Person editedPerson) {
+        this.attendance.editPersonTrainingRecords(target, editedPerson);
+    }
+
+    @Override
     public boolean hasTrainingOnDate(AthletickDate date) {
         return this.attendance.hasTrainingOnDate(date);
     }
@@ -280,6 +285,11 @@ public class ModelManager implements Model {
     @Override
     public boolean hasEvent(Event event) {
         return performance.hasEvent(event);
+    }
+
+    @Override
+    public void deleteEvent(Event target) {
+        performance.removeEvent(target);
     }
 
     @Override

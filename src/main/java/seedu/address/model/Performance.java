@@ -93,11 +93,19 @@ public class Performance implements ReadOnlyPerformance {
     }
 
     /**
-     * Adds a person to the events list.
+     * Adds an event to the events list.
      * The event must not already exist in the events list.
      */
     public void addEvent(Event e) {
         events.add(e);
+    }
+
+    /**
+     * Removes an event from the list.
+     * The event must already exist in the events list.
+     */
+    public void removeEvent(Event e) {
+        events.remove(e);
     }
 
     /**

@@ -223,6 +223,11 @@ public class EventCommandTest {
         }
 
         @Override
+        public void editPersonTrainingRecords(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteTrainingOnDate(AthletickDate date) {
             throw new AssertionError("This method should not be called.");
         }
@@ -277,6 +282,11 @@ public class EventCommandTest {
         @Override
         public boolean hasEvent(Event event) {
             return false;
+        }
+
+        @Override
+        public void deleteEvent(Event target) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
