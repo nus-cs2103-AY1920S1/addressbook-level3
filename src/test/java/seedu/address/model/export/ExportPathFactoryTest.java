@@ -16,7 +16,6 @@ public class ExportPathFactoryTest {
         "directory/cheatsheet",
         "ChEAtShEAT",
         "../cheatsheet",
-        "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2)",
         "~/Desktop/[CS2105] Midterm Cheat Sheet (v3)"
     };
 

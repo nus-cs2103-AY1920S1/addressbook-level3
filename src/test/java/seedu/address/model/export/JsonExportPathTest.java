@@ -13,6 +13,7 @@ public class JsonExportPathTest {
     public void jsonExportPath_invalidPath_throwsException() {
         String[] invalidJsonExportPathStrings = {
             "C:\\Users\\User\\Documents\\cs2105",
+            "directory/cs2105",
             "cs2105.txt",
             "cs2105.jsonn",
             "cs.2105.json",
@@ -42,7 +43,6 @@ public class JsonExportPathTest {
             "directory/cs2105.json",
             "cS2105.JsOn",
             "../cs2105.json",
-            "C:\\Users\\User\\Desktop\\[CS2105] exported flashcards.json",
             "~/Desktop/[CS2105] exported flashcards.json"
         };
 
