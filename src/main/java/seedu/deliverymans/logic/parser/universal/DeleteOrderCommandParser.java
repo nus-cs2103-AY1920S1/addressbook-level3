@@ -1,8 +1,12 @@
 package seedu.deliverymans.logic.parser.universal;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.deliverymans.logic.commands.universal.DeleteOrderCommand;
+import seedu.deliverymans.logic.parser.ArgumentMultimap;
+import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -20,6 +24,23 @@ public class DeleteOrderCommandParser implements Parser<DeleteOrderCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteOrderCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+
+        try {
+            if (argMultimap.getValue(PREFIX_NAME).isPresent()
+                    || ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME)) {
+                Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+                return new DeleteOrderCommand(name);
+            } else {
+                throw new ParseException("");
+            }
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteOrderCommand.MESSAGE_USAGE), pe);
+        }
+
+        /*
         try {
             Name name = ParserUtil.parseName(args);
             return new DeleteOrderCommand(name);
@@ -27,5 +48,6 @@ public class DeleteOrderCommandParser implements Parser<DeleteOrderCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteOrderCommand.MESSAGE_USAGE), pe);
         }
+         */
     }
 }
