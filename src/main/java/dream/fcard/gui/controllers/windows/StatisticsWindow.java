@@ -6,6 +6,7 @@ import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.UserStats;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateHolder;
 import dream.fcard.util.StatsDisplayUtil;
 
 import javafx.fxml.FXML;
@@ -49,7 +50,7 @@ public class StatisticsWindow extends ScrollPane {
 
         displaySummaryStats();
         this.sessionsTableView = StatsDisplayUtil.getSessionsTableView(userStats.getSessionList());
-        this.deckTableView = StatsDisplayUtil.getDeckTableView(State.getState());
+        this.deckTableView = StatsDisplayUtil.getDeckTableView(StateHolder.getState());
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */

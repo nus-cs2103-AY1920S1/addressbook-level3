@@ -291,10 +291,10 @@ public enum Responses {
                     }
 
                     if (hasDeckName) {
-                        // Todo: Show Stats for Deck
+                        // Todo: Show Stats for Deck @nattanyz
                         return true;
                     } else {
-                        // Todo: Show Stats for Application
+                        // Todo: Show Stats for Application @nattanyz
                         return true;
                     }
                 }

@@ -125,7 +125,7 @@ public class StorageManager {
      */
     public static void deleteDeck(Deck deck) {
         resolveRoot();
-        String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getName() + ".json");
+        String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getDeckName() + ".json");
         FileReadWrite.delete(path);
     }
 
@@ -260,7 +260,7 @@ public class StorageManager {
     /**
      * Initialize and load stats data if any.
      */
-    public static void loadStats() {
+    public static void loadUserStats() {
         resolveRoot();
         //Stats.getUserStats();
         try {

@@ -1,16 +1,16 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
-import java.io.Serializable;
+import dream.fcard.logic.storage.StorageManager;
 
 /**
  * Represents the user's statistics.
  */
-public class UserStats extends Stats implements Serializable {
+public class UserStats extends Stats {
 
     /** Constructs a new instance of UserStats with no stored data. */
     public UserStats() {
-        super();
+        StorageManager.loadUserStats();
         System.out.println("New UserStats object created");
         this.sessionList = new SessionList();
         System.out.println("New SessionList for logins created");

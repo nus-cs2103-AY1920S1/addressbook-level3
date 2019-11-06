@@ -151,7 +151,7 @@ public class State {
      */
     public int hasDeckName(String name) {
         for (int i = 0; i < decks.size(); i++) {
-            if (decks.get(i).getName() == name) {
+            if (decks.get(i).getDeckName() == name) {
                 return i;
             }
         }
