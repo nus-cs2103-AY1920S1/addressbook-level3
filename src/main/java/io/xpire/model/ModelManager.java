@@ -125,6 +125,16 @@ public class ModelManager implements Model {
     }
 */
     @Override
+    public Xpire getXpire() {
+        return this.xpire;
+    }
+
+    @Override
+    public ReplenishList getReplenishList() {
+        return this.replenishList;
+    }
+
+    @Override
     public void setXpire(ReadOnlyListView<XpireItem> xpire) {
         this.xpire.resetData(xpire);
     }
@@ -267,9 +277,28 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void filterCurrentList(Predicate<Item> predicate) {
-        requireNonNull(predicate);
-        this.currentList.setPredicate(predicate);
+    public void filterCurrentList(ListType listType, Predicate<? extends Item> predicate) {
+        requireAllNonNull(listType, predicate);
+
+        try {
+            switch (listType) {
+            case XPIRE:
+                FilteredList<XpireItem> xpireTemp = ((FilteredList<XpireItem>) this.currentList);
+                xpireTemp.setPredicate((Predicate<XpireItem>)predicate);
+                this.currentList = xpireTemp;
+                break;
+            case REPLENISH:
+                FilteredList<Item> replenishTemp = ((FilteredList<Item>) this.currentList);
+                replenishTemp.setPredicate((Predicate<Item>)predicate);
+                this.currentList = replenishTemp;
+                break;
+            default:
+                logger.warning("Unknown list type");
+                assert false;
+            }
+        } catch (ClassCastException e) {
+            this.logger.warning("List type and predicate type mismatch");
+        }
     }
 
     private void refreshCurrentList(ListType listType) {

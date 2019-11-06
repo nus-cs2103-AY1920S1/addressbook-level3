@@ -26,7 +26,6 @@ import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
-import io.xpire.model.ListType;
 
 /**
  * Parses user input.
@@ -77,7 +76,7 @@ public class XpireParser implements Parser {
         case SearchCommand.COMMAND_WORD:
             //fallthrough
         case SearchCommand.COMMAND_SHORTHAND:
-            return new SearchCommandParser().parse(arguments);
+            return new SearchCommandParser(XPIRE).parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
             //fallthrough

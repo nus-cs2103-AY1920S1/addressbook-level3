@@ -27,7 +27,6 @@ import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
-import io.xpire.model.ListType;
 
 //@@author febee99
 /**

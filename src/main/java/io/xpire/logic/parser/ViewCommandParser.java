@@ -20,6 +20,9 @@ import io.xpire.model.ListType;
  */
 public class ViewCommandParser {
     private final ListType listType;
+    private static final String EMPTY_STRING = "";
+    private static final String XPIRE_VIEW = "main";
+    private static final String REPLENISH_LIST_VIEW = "replenish";
 
     ViewCommandParser(ListType listType) {
         this.listType = listType;
@@ -36,11 +39,11 @@ public class ViewCommandParser {
         String trimmedArgs = args.trim();
 
         switch (trimmedArgs) {
-        case "":
+        case EMPTY_STRING:
             return new ViewCommand(this.listType);
-        case XPIRE.toString():
+        case XPIRE_VIEW:
             return new ViewCommand(XPIRE);
-        case REPLENISH.toString():
+        case REPLENISH_LIST_VIEW:
             return new ViewCommand(REPLENISH);
         default:
             Set<String> allowedArgs = new HashSet<>(Arrays.asList(XPIRE.toString(), REPLENISH.toString()));

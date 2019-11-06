@@ -5,7 +5,6 @@ import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -15,13 +14,13 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
+import javafx.collections.ObservableList;
 
 /**
  * Deletes an xpireItem identified with its displayed index or tag(s) associated with the xpireItem.
@@ -85,25 +84,25 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException, ParseException {
         requireNonNull(model);
         stateManager.saveState(new ModifiedState(model));
-        List<XpireItem> lastShownList = model.getFilteredXpireItemList();
+        ObservableList<? extends Item> currentList = model.getCurrentList();
 
-        if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (this.targetIndex.getZeroBased() >= currentList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        XpireItem targetXpireItem = lastShownList.get(this.targetIndex.getZeroBased());
+        XpireItem targetXpireItem = (XpireItem) currentList.get(this.targetIndex.getZeroBased());
         this.item = targetXpireItem;
 
         switch(this.mode) {
         case ITEM:
-            model.deleteItem(targetXpireItem);
+            model.deleteItem(XPIRE, targetXpireItem);
             this.result = String.format(MESSAGE_DELETE_ITEM_SUCCESS, targetXpireItem);
             setShowInHistory(true);
             return new CommandResult(this.result);
         case TAGS:
             assert this.tagSet != null;
             XpireItem newTaggedXpireItem = removeTagsFromItem(new XpireItem(targetXpireItem), this.tagSet);
-            model.setItem(targetXpireItem, newTaggedXpireItem);
+            model.setItem(XPIRE, targetXpireItem, newTaggedXpireItem);
             this.result = String.format(MESSAGE_DELETE_TAGS_SUCCESS, newTaggedXpireItem);
             setShowInHistory(true);
             return new CommandResult(this.result);

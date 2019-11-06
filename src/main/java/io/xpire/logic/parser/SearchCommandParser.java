@@ -17,6 +17,12 @@ import io.xpire.model.item.ContainsKeywordsPredicate;
  * Parses input arguments and creates a new SearchCommand object
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
+    private final ListType listType;
+
+    SearchCommandParser(ListType listType) {
+        this.listType = listType;
+    }
+
     /**
      * Parses the given {@code String} of arguments in the context of the SearchCommand
      * and returns a SearchCommand object for execution.
@@ -37,6 +43,6 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
-        return new SearchCommand(new ContainsKeywordsPredicate(keywords));
+        return new SearchCommand(this.listType, new ContainsKeywordsPredicate(keywords));
     }
 }

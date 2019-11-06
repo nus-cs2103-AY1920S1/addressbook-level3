@@ -37,13 +37,13 @@ public interface Logic {
     ReadOnlyListView<? extends Item>[] getLists();
 
     /** Returns an unmodifiable view of the current filtered list of items */
-    FilteredList<? extends Item> getCurrentFilteredItemList();
+    ObservableList<? extends Item> getCurrentFilteredItemList();
 
     /** Returns an unmodifiable view of the current list of tracked items */
-    ObservableList<? extends Item> getXpireItemList();
+    ObservableList<XpireItem> getXpireItemList();
 
     /** Returns an unmodifiable view of the current list of to-buy items */
-    ObservableList<? extends Item> getReplenishItemList();
+    ObservableList<Item> getReplenishItemList();
 
     /**
      * Returns the user prefs' xpire file path.

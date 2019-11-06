@@ -23,7 +23,7 @@ public class ExportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
-        ObservableList<? extends Item> currentList = model.getCurrentFilteredItemList();
+        ObservableList<? extends Item> currentList = model.getCurrentList();
         StringBuilder formattedOutput = new StringBuilder(BORDER);
         for (int index = 1; index <= currentList.size(); index++) {
             formattedOutput.append(String.format("%d. %s\n", index, currentList.get(index - 1).toString()));

@@ -18,13 +18,13 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
+import io.xpire.model.Xpire;
 import io.xpire.model.history.CommandHistory;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.StateManager;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * The main LogicManager of the app.
@@ -86,20 +86,30 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public FilteredList<? extends Item> getCurrentFilteredItemList() {
-        return this.model.getCurrentFilteredItemList();
+    public ObservableList<? extends Item> getCurrentFilteredItemList() {
+        return this.model.getCurrentList();
     }
 
     // @author xiaoyu
     @Override
-    public ObservableList<? extends Item> getXpireItemList() {
-        return this.model.getItemList(ListType.XPIRE);
+    public ObservableList<XpireItem> getXpireItemList() {
+        try {
+            return (ObservableList<XpireItem>) this.model.getItemList(ListType.XPIRE);
+        } catch (ClassCastException e) {
+            this.logger.warning("Wrong item type for Xpire");
+            return null;
+        }
     }
 
     // @author xiaoyu
     @Override
-    public ObservableList<? extends Item> getReplenishItemList() {
-        return this.model.getItemList(ListType.REPLENISH);
+    public ObservableList<Item> getReplenishItemList() {
+        try {
+            return (ObservableList<Item>) this.model.getItemList(ListType.REPLENISH);
+        } catch (ClassCastException e) {
+            this.logger.warning("Wrong item type for Replenish List");
+            return null;
+        }
     }
 
     @Override

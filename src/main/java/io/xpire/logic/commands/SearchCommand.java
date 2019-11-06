@@ -36,8 +36,10 @@ public class SearchCommand extends Command {
 
     private final ContainsKeywordsPredicate predicate;
 
+    private final ListType listType;
 
-    public SearchCommand(ContainsKeywordsPredicate predicate) {
+    public SearchCommand(ListType listType, ContainsKeywordsPredicate predicate) {
+        this.listType = listType;
         this.predicate = predicate;
     }
 
@@ -46,7 +48,7 @@ public class SearchCommand extends Command {
         requireNonNull(model);
         stateManager.saveState(new FilteredState(model));
 
-        model.filterCurrentList(this.predicate);
+        model.filterCurrentList(this.listType, this.predicate);
         ObservableList<? extends Item> currentList = model.getCurrentList();
 
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, currentList.size()));

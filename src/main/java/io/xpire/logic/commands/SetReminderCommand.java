@@ -3,18 +3,19 @@ package io.xpire.logic.commands;
 import static io.xpire.commons.core.Messages.MESSAGE_REMINDER_THRESHOLD_EXCEEDED;
 import static io.xpire.commons.core.Messages.MESSAGE_THRESHOLD_ITEM_EXPIRED;
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
-
-import java.util.List;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
+import javafx.collections.ObservableList;
 
 
 /**
@@ -54,13 +55,13 @@ public class SetReminderCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
         stateManager.saveState(new ModifiedState(model));
-        List<XpireItem> lastShownList = model.getFilteredXpireItemList();
+        ObservableList<? extends Item> currentList = model.getCurrentList();
 
-        if (this.index.getZeroBased() >= lastShownList.size()) {
+        if (this.index.getZeroBased() >= currentList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        XpireItem targetItem = lastShownList.get(this.index.getZeroBased());
+        XpireItem targetItem = (XpireItem) currentList.get(this.index.getZeroBased());
         XpireItem xpireItemToSetReminder = new XpireItem(targetItem);
 
         if (xpireItemToSetReminder.isExpired()) {
@@ -71,8 +72,8 @@ public class SetReminderCommand extends Command {
         ReminderThreshold finalThreshold = getValidThreshold(daysLeft);
         xpireItemToSetReminder.setReminderThreshold(finalThreshold);
         this.item = xpireItemToSetReminder;
-        model.setItem(targetItem, xpireItemToSetReminder);
-        model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
+        model.setItem(XPIRE, targetItem, xpireItemToSetReminder);
+        //model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
         if (isThresholdExceeded(daysLeft)) {
             setShowInHistory(true);
             return new CommandResult(String.format(MESSAGE_REMINDER_THRESHOLD_EXCEEDED, daysLeft));

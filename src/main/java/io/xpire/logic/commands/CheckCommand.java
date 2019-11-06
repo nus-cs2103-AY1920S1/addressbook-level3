@@ -1,11 +1,14 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.function.Predicate;
 
 import io.xpire.model.Model;
 import io.xpire.model.item.ExpiringSoonPredicate;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.ReminderThresholdExceededPredicate;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.FilteredState;
@@ -44,9 +47,11 @@ public class CheckCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
         stateManager.saveState(new FilteredState(model));
-        model.updateFilteredItemList(this.predicate);
+
+        model.filterCurrentList(XPIRE, this.predicate);
+
         setShowInHistory(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }
