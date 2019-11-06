@@ -5,13 +5,14 @@ import java.util.ArrayList;
 /**
  * Represents the checklist for donor and patient in ORGANice.
  * When a donor and patient is matched, they will be processed and a TaskList will be generated containing all the
- * necessary tasks both patient and donor need to do to prepare for a cross-matching
+ * necessary tasks both patient and donor need to do to prepare for a cross-matching.
  */
 public class TaskList {
 
     public final String value;
 
     protected ArrayList<Task> listOfTask;
+    protected Patient patient;
 
     public TaskList(String tasklist) {
         this.listOfTask = new ArrayList<Task>();
@@ -32,6 +33,14 @@ public class TaskList {
 
     public void remove(int index) {
         listOfTask.remove(index);
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient newPatient) {
+        this.patient = newPatient;
     }
 
     /**
