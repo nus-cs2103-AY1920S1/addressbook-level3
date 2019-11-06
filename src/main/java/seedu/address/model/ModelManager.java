@@ -31,12 +31,12 @@ import seedu.address.model.training.Training;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final Athletick athletick;
     private final UserPrefs userPrefs;
     private final Attendance attendance;
     private final Performance performance;
     private final FilteredList<Person> filteredPersons;
-    private ReadOnlyAddressBook readOnlyAddressBook;
+    private ReadOnlyAthletick readOnlyAthletick;
     private Person selectedPerson;
     private HistoryManager history = new HistoryManager();
 
@@ -44,22 +44,22 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyPerformance performance,
+    public ModelManager(ReadOnlyAthletick athletick, ReadOnlyPerformance performance,
                         Attendance attendance, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(athletick, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with athletick: " + athletick + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.athletick = new Athletick(athletick);
         this.userPrefs = new UserPrefs(userPrefs);
         this.performance = new Performance(performance);
         this.attendance = attendance;
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.athletick.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new Performance(), new Attendance(), new UserPrefs());
+        this(new Athletick(), new Performance(), new Attendance(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -87,78 +87,79 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getAthletickFilePath() {
+        return userPrefs.getAthletickFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setAthletickFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setAthletickFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Athletick ========================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setAthletick(ReadOnlyAthletick athletick) {
+        this.athletick.resetData(athletick);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAthletick getAthletick() {
+        return athletick;
     }
+
     @Override
-    public ReadOnlyAddressBook getAddressBookDeepCopy() {
-        UniquePersonList persons = addressBook.getPersons();
-        AddressBook deepCopy = new AddressBook();
+    public ReadOnlyAthletick getAthletickDeepCopy() {
+        UniquePersonList persons = athletick.getPersons();
+        Athletick deepCopy = new Athletick();
         deepCopy.getPersons().setPersons(persons);
         return deepCopy;
     }
     @Override
     public void undo() {
         Command undoneCommand = HistoryManager.getCommands().pop();
-        ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
+        ReadOnlyAthletick undoneAthletick = HistoryManager.getAddressBooks().pop();
         HistoryManager.getUndoneCommands().push(undoneCommand);
-        HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
+        HistoryManager.getUndoneAddressBooks().push(undoneAthletick);
         if (undoneCommand instanceof TrainingCommand) {
             int attendanceListSize = this.attendance.getTrainings().size();
             int lastIndex = attendanceListSize - 1;
             Training undoneTraining = this.attendance.getTrainings().remove(lastIndex);
             HistoryManager.getUndoneTrainingLists().push(undoneTraining);
         } else {
-            ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
-            addressBook.resetData(afterUndoneState);
+            ReadOnlyAthletick afterUndoneState = HistoryManager.getAddressBooks().peek();
+            athletick.resetData(afterUndoneState);
         }
     }
     @Override
     public void redo() {
         Command redoneCommand = HistoryManager.getUndoneCommands().pop();
-        ReadOnlyAddressBook redoneAddressBook = HistoryManager.getUndoneAddressBooks().pop();
+        ReadOnlyAthletick redoneAthletick = HistoryManager.getUndoneAddressBooks().pop();
         HistoryManager.getCommands().push(redoneCommand);
-        HistoryManager.getAddressBooks().push(redoneAddressBook);
+        HistoryManager.getAddressBooks().push(redoneAthletick);
         if (redoneCommand instanceof TrainingCommand) {
             Training redoneTraining = HistoryManager.getUndoneTrainingLists().pop();
             this.attendance.getTrainings().add(redoneTraining);
         } else {
-            addressBook.resetData(redoneAddressBook);
+            athletick.resetData(redoneAthletick);
         }
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return athletick.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        athletick.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        athletick.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -166,7 +167,7 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        athletick.setPerson(target, editedPerson);
     }
 
     @Override
@@ -178,8 +179,8 @@ public class ModelManager implements Model {
         selectedPerson = person;
     }
 
-    public void sortAddressBookByName() {
-        this.addressBook.sortByName();
+    public void sortAthletickByName() {
+        this.athletick.sortByName();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -213,7 +214,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return athletick.equals(other.athletick)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

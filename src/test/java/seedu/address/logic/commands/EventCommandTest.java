@@ -22,7 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.Performance;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.date.AthletickDate;
@@ -151,12 +151,12 @@ public class EventCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getAthletickFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setAthletickFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -176,12 +176,12 @@ public class EventCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAthletick(ReadOnlyAthletick newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAthletick getAthletick() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -201,7 +201,7 @@ public class EventCommandTest {
         }
 
         @Override
-        public void sortAddressBookByName() {
+        public void sortAthletickByName() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -231,7 +231,7 @@ public class EventCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBookDeepCopy() {
+        public ReadOnlyAthletick getAthletickDeepCopy() {
             throw new AssertionError("This method should not be called.");
         }
         @Override

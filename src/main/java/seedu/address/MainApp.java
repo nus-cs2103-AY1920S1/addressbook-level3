@@ -15,20 +15,20 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Athletick;
 import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Performance;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.AthletickStorage;
 import seedu.address.storage.AttendanceStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonAthletickStorage;
 import seedu.address.storage.JsonAttendanceStorage;
 import seedu.address.storage.JsonPerformanceStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -44,7 +44,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 1, true);
+    public static final Version VERSION = new Version(3, 1, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -64,10 +64,11 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        PerformanceStorage performanceStorage = new JsonPerformanceStorage(userPrefs.getEventListFilePath());
+        AthletickStorage athletickStorage = new JsonAthletickStorage(userPrefs.getAthletickFilePath());
+        PerformanceStorage performanceStorage = new JsonPerformanceStorage(userPrefs.getPerformanceFilePath());
         AttendanceStorage attendanceStorage = new JsonAttendanceStorage(userPrefs.getAttendanceFilePath());
-        storage = new StorageManager(addressBookStorage, performanceStorage, attendanceStorage, userPrefsStorage);
+        storage = new StorageManager(athletickStorage, performanceStorage, attendanceStorage,
+                userPrefsStorage);
 
         initLogging(config);
 
@@ -76,7 +77,7 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, model);
-        HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
+        HistoryManager.getAddressBooks().push(model.getAthletickDeepCopy());
     }
 
     /**
@@ -85,28 +86,28 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialAddressBook;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyAthletick> athletickOptional;
+        ReadOnlyAthletick initialAthletick;
+        ReadOnlyAthletick initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            athletickOptional = storage.readAthletick();
+            if (!athletickOptional.isPresent()) {
                 logger.info("Data file for Athletick not found. Will be starting with a sample "
                         + "team list");
             }
-            initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAthletick = athletickOptional.orElseGet(SampleDataUtil::getSampleAthletick);
+            initialData = athletickOptional.orElseGet(SampleDataUtil::getSampleAthletick);
 
         } catch (DataConversionException e) {
             logger.warning(
                     "Data file for Athletick not in the correct format. Will be starting with an "
                             + "empty team list");
-            initialAddressBook = new AddressBook();
+            initialAthletick = new Athletick();
         } catch (IOException e) {
             logger.warning(
                     "Problem while reading from Athletick file. Will be starting with an empty "
                             + "team list");
-            initialAddressBook = new AddressBook();
+            initialAthletick = new Athletick();
         }
 
         Optional<ReadOnlyPerformance> performanceOptional;
@@ -141,7 +142,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Attendance");
             initialAttendance = new Attendance();
         }
-        return new ModelManager(initialAddressBook, initialEventsList, initialAttendance, userPrefs);
+        return new ModelManager(initialAthletick, initialEventsList, initialAttendance, userPrefs);
     }
 
     private void initLogging(Config config) {

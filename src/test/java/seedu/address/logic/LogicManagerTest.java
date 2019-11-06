@@ -26,10 +26,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonAthletickStorage;
 import seedu.address.storage.JsonAttendanceStorage;
 import seedu.address.storage.JsonPerformanceStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -47,12 +47,12 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonAthletickStorage athletickStorage =
+                new JsonAthletickStorage(temporaryFolder.resolve("Athletick.json"));
         JsonPerformanceStorage eventStorage = new JsonPerformanceStorage(temporaryFolder.resolve(("events.json")));
         JsonAttendanceStorage attendanceStorage = new JsonAttendanceStorage(temporaryFolder.resolve("attendance.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, eventStorage,
+        StorageManager storage = new StorageManager(athletickStorage, eventStorage,
                 attendanceStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
@@ -77,16 +77,16 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonAthletickIoExceptionThrowingStub
+        JsonAthletickStorage athletickStorage =
+                new JsonAthletickIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAthletick.json"));
         JsonPerformanceStorage eventStorage =
                 new JsonPerformanceStorage(temporaryFolder.resolve("ioException.json"));
         JsonAttendanceStorage attendanceStorage = new JsonAttendanceStorage(temporaryFolder.resolve(
                 "ioExceptionAttendance.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, eventStorage,
+        StorageManager storage = new StorageManager(athletickStorage, eventStorage,
                 attendanceStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
@@ -141,7 +141,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+        Model expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
                 model.getAttendance(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
@@ -162,13 +162,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonAthletickIoExceptionThrowingStub extends JsonAthletickStorage {
+        private JsonAthletickIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveAthletick(ReadOnlyAthletick athletick, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

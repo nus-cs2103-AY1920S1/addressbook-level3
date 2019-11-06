@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.feature.Feature;
+import seedu.address.ui.feature.Feature;
 
 public class ViewCommandParserTest {
 

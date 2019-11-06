@@ -65,7 +65,7 @@ public class TrainingCommandPresent extends TrainingCommand {
             throw new CommandException(TrainingCommand.DUPLICATE_TRAINING);
         }
 
-        List<Person> allPeople = model.getAddressBook().getPersonList();
+        List<Person> allPeople = model.getAthletick().getPersonList();
 
         HashMap<Person, Boolean> trainingAttendance = new HashMap<>();
         // Set all people in the address book to did not attend

@@ -3,7 +3,7 @@ package seedu.address.model.history;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.training.Training;
 
 /**
@@ -11,9 +11,9 @@ import seedu.address.model.training.Training;
  */
 public class HistoryManager {
     private static Stack<Command> commands = new Stack<>();
-    private static Stack<ReadOnlyAddressBook> addressBooks = new Stack<>();
+    private static Stack<ReadOnlyAthletick> addressBooks = new Stack<>();
     private static Stack<Command> undoneCommands = new Stack<>();
-    private static Stack<ReadOnlyAddressBook> undoneAddressBooks = new Stack<>();
+    private static Stack<ReadOnlyAthletick> undoneAddressBooks = new Stack<>();
     private static Stack<Training> undoneTrainingLists = new Stack<>();
     public HistoryManager() {}
     public Command getLatestCommand() {
@@ -22,13 +22,13 @@ public class HistoryManager {
     public static Stack<Command> getCommands() {
         return commands;
     }
-    public static Stack<ReadOnlyAddressBook> getAddressBooks() {
+    public static Stack<ReadOnlyAthletick> getAddressBooks() {
         return addressBooks;
     }
     public static Stack<Command> getUndoneCommands() {
         return undoneCommands;
     }
-    public static Stack<ReadOnlyAddressBook> getUndoneAddressBooks() {
+    public static Stack<ReadOnlyAthletick> getUndoneAddressBooks() {
         return undoneAddressBooks;
     }
     public static Stack<Training> getUndoneTrainingLists() {
