@@ -30,7 +30,7 @@ Responsibilities: Notification
 
 === Bernice Chio Hui Yin
 image::bernicechio.png[width="150", align="left"]
-{empty}[http://github.com/bernicechio[github]]
+{empty}[http://github.com/bernicechio[github]] [<<bernicechio#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Generate PDF
