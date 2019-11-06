@@ -4,7 +4,6 @@ import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.stream.Stream;
@@ -34,8 +33,7 @@ public class AddCommandParser implements Parser<CustomerAddCommand> {
      */
     public CustomerAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS,
-                        PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_NAME, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
