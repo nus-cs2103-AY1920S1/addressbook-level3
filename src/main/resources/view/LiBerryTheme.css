@@ -6,10 +6,48 @@
     Accent2: #B3B8C1;
     Accent3: #1C1413;
     Accent4: #808999;
+    Selected: #373849;
     borders: #D9DBE0;
     empty: #383838;
     alt1: #EEEFF0;
     alt2: #E3E5E6;
+}
+
+#helpTable {
+    -fx-base: #EEEFF0;
+    -fx-control-inner-background: #EEEFF0;
+    -fx-background-color: #EEEFF0;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+#helpTable .column-header-background {
+    -fx-background-color: transparent;
+}
+
+#helpTable .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color:
+        transparent
+        transparent
+        derive(-fx-base, 80%)
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+#helpTable .column-header .label {
+    -fx-font-size: 20px;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #010504;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+#helpTable:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #373849;
 }
 
 .error {

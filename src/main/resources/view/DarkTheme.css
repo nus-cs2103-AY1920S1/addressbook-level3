@@ -38,15 +38,15 @@
 }
 
 #helpTable .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 20px;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: #C2C3C4;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
 
 #helpTable:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: #414142;
 }
 
 .error {

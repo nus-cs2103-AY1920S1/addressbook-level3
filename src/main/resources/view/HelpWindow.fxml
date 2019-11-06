@@ -13,11 +13,11 @@
     </icons>
     <scene>
         <Scene>
-            <TableView fx:id="helpTable" prefHeight="400.0" prefWidth="400.0">
+            <TableView fx:id="helpTable" prefHeight="480.0" prefWidth="720.0">
                 <columns>
-                    <TableColumn fx:id="commandCol" editable="false" prefWidth="75.0" resizable="false" sortable="false"
+                    <TableColumn fx:id="commandCol" editable="false" prefWidth="110.0" resizable="false" sortable="false"
                                  text="Command"/>
-                    <TableColumn fx:id="usageCol" editable="false" prefWidth="305.0" resizable="false" sortable="false"
+                    <TableColumn fx:id="usageCol" editable="false" prefWidth="610.0" resizable="false" sortable="false"
                                  text="Usage"/>
                 </columns>
                 <columnResizePolicy>

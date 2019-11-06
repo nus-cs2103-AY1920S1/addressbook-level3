@@ -85,11 +85,15 @@ public class MainWindow extends UiPart<Stage> {
         assert helpWindow != null : "helpWindow not initialized!";
 
         if (guiSettings.isDarkTheme()) {
+            helpWindow.getRoot().getScene().getStylesheets().clear();
+            helpWindow.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
             infoWindow.getRoot().getScene().getStylesheets().clear();
             infoWindow.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
             this.getRoot().getScene().getStylesheets().clear();
             this.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
         } else {
+            helpWindow.getRoot().getScene().getStylesheets().clear();
+            helpWindow.getRoot().getScene().getStylesheets().add(LIBERRY_THEME_CSS_PATH);
             infoWindow.getRoot().getScene().getStylesheets().clear();
             infoWindow.getRoot().getScene().getStylesheets().add(LIBERRY_THEME_CSS_PATH);
             this.getRoot().getScene().getStylesheets().clear();
