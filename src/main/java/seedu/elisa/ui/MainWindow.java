@@ -159,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
                                 throw new FocusModeException();
                             }
                             logic.getModel().setVisualList(t1.getId());
-                            updatePanels();
+                            updatePanels(logic.getVisualList());
                         } catch (FocusModeException e) {
                             viewsPlaceholder.getSelectionModel().select(t);
                             resultDisplay.setFeedbackToUser(e.getMessage());
@@ -191,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
                             }
 
                             resultDisplay.setFeedbackToUser(feedback);
-                            updatePanels();
+                            updatePanels(logic.getVisualList());
                         });
                     }
                 }
@@ -224,7 +224,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        updatePanels();
+        updatePanels(logic.getVisualList());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -399,18 +399,20 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the panels to display the correct list of item.
      */
-    public void updatePanels() {
-        taskListPanel = new TaskListPanel(logic.getVisualList());
-        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
-
-        eventListPanel = new EventListPanel(logic.getVisualList());
-        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
-
-        reminderListPanel = new ReminderListPanel(logic.getVisualList());
-        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
-
-        calendarPanel = new CalendarPanel(logic.getVisualList());
-        calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+    public void updatePanels(VisualizeList targetList) {
+        if (targetList instanceof TaskList) {
+            taskListPanel = new TaskListPanel(logic.getVisualList());
+            taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+        } else if (targetList instanceof EventList) {
+            eventListPanel = new EventListPanel(logic.getVisualList());
+            eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        } else if (targetList instanceof ReminderList) {
+            reminderListPanel = new ReminderListPanel(logic.getVisualList());
+            reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        } else if (targetList instanceof CalendarList) {
+            calendarPanel = new CalendarPanel(logic.getVisualList());
+            calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+        } else {}
     }
 
     public TaskListPanel getTaskListPanel() {
@@ -504,7 +506,7 @@ public class MainWindow extends UiPart<Stage> {
                 resultDisplay.clear();
             }
 
-            updatePanels();
+            updatePanels(logic.getVisualList());
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
