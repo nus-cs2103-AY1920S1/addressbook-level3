@@ -74,6 +74,11 @@ public class CompleteOrderCommand extends Command {
             }
         }
 
+        Order unassigned = model.getUnassignedOrder();
+        if (unassigned != null) {
+            new AssignOrderCommand(unassigned.getOrderName()).execute(model);
+        }
+
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete));
     }
 
