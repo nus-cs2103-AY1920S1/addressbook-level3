@@ -69,7 +69,7 @@ public class EditShowDescriptorBuilder {
     /**
      * Sets the {@code IsWatched} of the {@code EditShowDescriptor} that we are building.
      */
-    public EditShowDescriptorBuilder withIsWatched(boolean isWatched) {
+    public EditShowDescriptorBuilder withIsWatched(String isWatched) {
         descriptor.setIsWatched(new IsWatched(isWatched));
         return this;
     }

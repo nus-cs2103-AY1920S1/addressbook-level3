@@ -73,7 +73,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (argMultimap.getValue(PREFIX_IS_WATCHED).isPresent()) {
             isWatched = ParserUtil.parseIsWatched(argMultimap.getValue(PREFIX_IS_WATCHED).get());
         } else {
-            isWatched = new IsWatched(false);
+            isWatched = new IsWatched("false");
         }
 
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {

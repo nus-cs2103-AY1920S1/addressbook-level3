@@ -18,7 +18,16 @@ import seedu.ezwatchlist.model.show.Show;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Show> PREDICATE_SHOW_ALL_SHOWS = unused -> true;
+    Predicate<Show> PREDICATE_ALL_SHOWS = unused -> true;
+
+    /** {@code Predicate} that evaluates to true when a show is not watched*/
+    Predicate<Show> PREDICATE_UNWATCHED_SHOWS = show -> !show.isWatched().value;
+
+    /** {@code Predicate} that evaluates to true when a show is watched */
+    Predicate<Show> PREDICATE_WATCHED_SHOWS = show -> show.isWatched().value;
+
+    /** {@code Predicate} that always evaluates to false */
+    Predicate<Show> PREDICATE_NO_SHOWS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -130,11 +139,19 @@ public interface Model {
      */
     void updateFilteredShowList(Predicate<Show> predicate);
 
+    /** Returns an unmodifiable view of the unwatched show list */
+    ObservableList<Show> getUnWatchedShowList();
+
     /** Returns an unmodifiable view of the watched show list */
     ObservableList<Show> getWatchedShowList();
 
     /**
-     * Updates the watched show list to filter by the given watched status.
+     * Updates the unwatched show list to filter shows that have not been watched.
+     */
+    void updateUnWatchedShowList();
+
+    /**
+     * Updates the watched show list to filter shows that have been watched.
      */
     void updateWatchedShowList();
 

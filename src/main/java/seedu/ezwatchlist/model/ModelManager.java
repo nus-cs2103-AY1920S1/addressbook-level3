@@ -26,11 +26,14 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final WatchList watchList;
+    private final WatchList searchResult = new WatchList();
+    private final FilteredList<Show> unWatchedList;
     private final FilteredList<Show> watchedList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Show> filteredShows;
-    private final WatchList searchResult = new WatchList();
+
+    private FilteredList<Show> filteredShows;
     private final String[] pageResult = {"Watchlist", "Watchedlist", "Search", "Statistics"};
+
 
     /**
      * Initializes a ModelManager with the given watchList and userPrefs.
@@ -44,7 +47,8 @@ public class ModelManager implements Model {
         this.watchList = new WatchList(watchList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredShows = new FilteredList<>(this.watchList.getShowList());
-
+        unWatchedList = new FilteredList<>(this.watchList.getShowList());
+        updateUnWatchedShowList();
         watchedList = new FilteredList<>(this.watchList.getShowList());
         updateWatchedShowList();
     }
@@ -186,19 +190,33 @@ public class ModelManager implements Model {
      * {@code versionedWatchList}
      */
     @Override
+    public ObservableList<Show> getUnWatchedShowList() {
+        return unWatchedList;
+    }
+
+    /**
+     * Returns an unmodifiable view of the watched list of {@code Show} backed by the internal list of
+     * {@code versionedWatchList}
+     */
+    @Override
     public ObservableList<Show> getWatchedShowList() {
         return watchedList;
     }
 
     @Override
+    public void updateUnWatchedShowList() {
+        unWatchedList.setPredicate(Model.PREDICATE_UNWATCHED_SHOWS);
+    }
+
+    @Override
     public void updateWatchedShowList() {
-        watchedList.setPredicate(show -> show.isWatched().value);
+        watchedList.setPredicate(Model.PREDICATE_WATCHED_SHOWS);
     }
 
     @Override
     public void updateSearchResultList(List<Show> shows) {
         searchResult.setShows(shows);
-        updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
+        updateFilteredShowList(PREDICATE_ALL_SHOWS);
     }
 
     public ObservableList<Show> getSearchResultList() {
