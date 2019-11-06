@@ -26,7 +26,8 @@ import seedu.address.model.util.Date;
 public class OutCommandParser implements Parser<OutCommand> {
 
     /**
-     * Parses input and checks for valid conditions of arguments
+     * Parses the given {@code String} of arguments in the context of the OutCommand
+     * and checks for valid conditions of arguments
      *
      * @param args user input after command word 'out'
      * @return InCommand of an InTransaction if all checks passes

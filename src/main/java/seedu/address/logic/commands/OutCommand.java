@@ -33,13 +33,15 @@ public class OutCommand extends Command {
         + PREFIX_CATEGORY + "foodAndBeverage";
 
     public static final String MESSAGE_SUCCESS = "Out transaction added: %1$s";
-    public static final String MESSAGE_DUPLICATE = "This transaction already exists: %1$s";
     public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 million (i.e. 1000000)";
     public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
     public static final String MESSAGE_AMOUNT_ZERO = "Transaction amount cannot be zero";
 
     private final BankAccountOperation transaction;
 
+    /**
+     * Creates an OutCommand to add the specified {@code BankAccountOperation}
+     */
     public OutCommand(BankAccountOperation transaction) {
         requireNonNull(transaction);
         this.transaction = transaction;

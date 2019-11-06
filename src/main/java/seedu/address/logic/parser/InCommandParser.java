@@ -25,7 +25,8 @@ import seedu.address.model.util.Date;
 public class InCommandParser implements Parser<InCommand> {
 
     /**
-     * Parses input and checks for valid conditions of arguments
+     * Parses the given {@code String} of arguments in the context of the InCommand
+     * and checks for valid conditions of arguments
      *
      * @param args user input after command word 'in'
      * @return InCommand of an InTransaction if all checks passes
