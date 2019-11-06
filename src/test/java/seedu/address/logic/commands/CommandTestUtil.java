@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +25,8 @@ import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.TitleContainsKeywordsPredicate;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardTitleContainsKeywordsPredicate;
+import seedu.address.model.flashcard.ScheduleIncrement;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteTitleContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -36,6 +39,10 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final Statistics DUE_STATISTICS = new Statistics(LocalDate.now().minusDays(1),
+            LocalDate.now(), ScheduleIncrement.FIRST);
+    public static final Statistics OVERDUE_STATISICS = new Statistics(LocalDate.of(2010, 6, 12),
+            LocalDate.of(2010, 6, 13), ScheduleIncrement.FIRST);
     public static final String VALID_QUESTION_ONE = "What is the IntelliJ keyboard shortcut to find a class, file or "
             + "symbol?";
     public static final String VALID_ANSWER_ONE = "Ctrl + Shift + N";

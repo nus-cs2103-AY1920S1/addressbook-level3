@@ -10,7 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Answer {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Answer can take any values, and it should not be blank";
+            "Answer can take any values, and it should not be blank"
+                    + "\nAnswers have a maximum length of 300 characters. "
+                    + "\nAll leading and trailing spaces are ignored.";
 
     /*
      * The first character of the answer must not be a whitespace,
@@ -23,7 +25,7 @@ public class Answer {
     /**
      * Constructs a {@code Answer}.
      *
-     * @param answer A valid question.
+     * @param answer A valid answer.
      */
     public Answer(String answer) {
         requireNonNull(answer);
@@ -35,7 +37,7 @@ public class Answer {
      * Returns true if a given string is a valid Answer.
      */
     public static boolean isValidAnswer(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= 300;
     }
 
 
@@ -47,8 +49,8 @@ public class Answer {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Question // instanceof handles nulls
-                && fullAnswer.equals(((Question) other).fullQuestion)); // state check
+                || (other instanceof Answer // instanceof handles nulls
+                && fullAnswer.equals(((Answer) other).fullAnswer)); // state check
     }
 
     @Override
