@@ -1,13 +1,9 @@
-package seedu.address.achievements.logic.commands;
-
-import seedu.address.achievements.model.StatisticsModel;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
+package seedu.address.logic.commands;
 
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends Command<StatisticsModel> {
+public class HelpCommand<T> extends Command<T> {
 
     public static final String COMMAND_WORD = "help";
 
@@ -16,8 +12,7 @@ public class HelpCommand extends Command<StatisticsModel> {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
-    @Override
-    public CommandResult execute(StatisticsModel statisticsModel) {
+    public CommandResult execute(T model) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }

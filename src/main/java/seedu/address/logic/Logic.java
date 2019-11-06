@@ -4,15 +4,12 @@ import seedu.address.achievements.logic.AchievementsLogic;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
-import seedu.address.storage.Storage;
 
 /**
  * API of the AddressBookLogic component
  */
 
-public interface Logic {
-
-    public Storage getStorage();
+public interface Logic extends GuiSettingsLogic {
 
     public AddressBookLogic getAddressBookLogic();
 
@@ -20,13 +17,15 @@ public interface Logic {
 
     public DiaryBookLogic getDiaryLogic();
 
+    public MainLogic getMainLogic();
+
     /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
 
     /**
-     * Set the user prefs' GUI settings.
+     * Set gui settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
 }

@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import seedu.address.achievements.logic.AchievementsLogic;
@@ -8,8 +9,10 @@ import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.address.logic.AddressBookLogicManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
 import seedu.address.model.Model;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.UserPrefsModel;
 import seedu.address.storage.Storage;
 
@@ -23,14 +26,16 @@ public class LogicManager implements Logic {
     private AchievementsLogic achievementsLogic;
     private UserPrefsModel userPrefsModel;
     private DiaryBookLogic diaryLogic;
+    private MainLogic mainLogic;
     private Storage storage;
 
     public LogicManager(Model model, Storage storage) {
         // overloaded AddressBook Logic Manager to pass main model in
         // main model is used to save gui settings
         this.userPrefsModel = model.getUserPrefsModel();
-        this.addressBookLogic = new AddressBookLogicManager(userPrefsModel, model.getAddressBookModel(), storage);
-        this.achievementsLogic = new AchievementsLogicManager(userPrefsModel, model.statisticsModelSupplier());
+        this.addressBookLogic = new AddressBookLogicManager(model.getAddressBookModel(), storage);
+        this.achievementsLogic = new AchievementsLogicManager(model.statisticsModelSupplier());
+        this.mainLogic = new MainLogicManager(userPrefsModel, storage);
         this.diaryLogic = new DiaryBookLogic();
         this.storage = storage;
     }
@@ -49,6 +54,10 @@ public class LogicManager implements Logic {
 
     public DiaryBookLogic getDiaryLogic() {
         return this.diaryLogic;
+    }
+
+    public MainLogic getMainLogic() {
+        return this.mainLogic;
     }
 
     @Override

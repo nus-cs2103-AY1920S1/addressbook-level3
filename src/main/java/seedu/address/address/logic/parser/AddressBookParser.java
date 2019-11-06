@@ -8,9 +8,10 @@ import seedu.address.address.logic.commands.ClearCommand;
 import seedu.address.address.logic.commands.DeleteCommand;
 import seedu.address.address.logic.commands.EditCommand;
 import seedu.address.address.logic.commands.FindCommand;
-import seedu.address.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.address.logic.commands.ListCommand;
 import seedu.address.address.logic.commands.RemarkCommand;
+import seedu.address.address.model.AddressBookModel;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -70,7 +71,7 @@ public class AddressBookParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommand<AddressBookModel>();
 
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);

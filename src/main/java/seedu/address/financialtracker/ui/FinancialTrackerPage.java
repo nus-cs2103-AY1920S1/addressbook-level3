@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -47,9 +47,6 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     private HelpWindow helpMenuWindow;
 
     @FXML
-    private Scene financialTrackerScene;
-
-    @FXML
     private VBox financialTrackerPane;
 
     @FXML
@@ -73,7 +70,6 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
                 new JsonFinancialTrackerStorage(Paths.get("data", "financialtracker.json"));
         this.financialTrackerLogic = new FinancialTrackerLogic(model, financialTrackerStorage);
         this.helpWindow = new FinancialTrackerHelpWindow();
-        financialTrackerScene = new Scene(financialTrackerPane);
         fillInnerParts();
     }
 
@@ -166,16 +162,17 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      */
     @FXML
     private void handleExit() {
+        helpWindow.hide();
         PageManager.closeWindows();
-    }
-
-    @Override
-    public Scene getScene() {
-        return financialTrackerScene;
     }
 
     @Override
     public PageType getPageType() {
         return pageType;
+    }
+
+    @Override
+    public Parent getParent() {
+        return super.getRoot();
     }
 }

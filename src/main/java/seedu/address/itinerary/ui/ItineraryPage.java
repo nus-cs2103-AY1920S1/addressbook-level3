@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -19,7 +20,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.itinerary.logic.ItineraryLogic;
 import seedu.address.itinerary.logic.parser.ItineraryParser;
@@ -106,7 +106,6 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     public ItineraryPage(Stage primaryStage) {
         super(fxmlWindow);
-        this.itineraryScene = new Scene(itineraryPane);
         this.primaryStage = primaryStage;
         this.itineraryParser = new ItineraryParser();
         this.model = new Model();
@@ -178,17 +177,6 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     }
 
     @Override
-    public Scene getScene() {
-        setAccelerators();
-
-        this.helpWindow = new HelpWindow();
-        this.codeWindow = new CodeWindow();
-
-        fillInnerParts();
-        return itineraryScene;
-    }
-
-    @Override
     public PageType getPageType() {
         return pageType;
     }
@@ -241,7 +229,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
 
-        itineraryScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        itineraryPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
@@ -251,5 +239,16 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     public String[] getPossibleSuggestions() {
         return possibleSuggestions;
+    }
+
+    @Override
+    public Parent getParent() {
+        setAccelerators();
+
+        this.helpWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
+
+        fillInnerParts();
+        return itineraryPane;
     }
 }
