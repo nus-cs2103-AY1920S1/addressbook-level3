@@ -26,6 +26,8 @@ public class TypicalShoppingList {
             .withAmount("20g").build();
     public static final ShoppingItem GRAPES = new ShoppingItemBuilder().withName("Grapes")
             .withAmount("25g").build();
+    public static final ShoppingItem ORANGE = new ShoppingItemBuilder().withName("Oranges")
+            .withAmount("300g").build();
     public static final ShoppingItem BOUGHT_EGGS = new ShoppingItemBuilder().withName("Eggs")
             .withAmount("15g").withBought(true).build();
     public static final ShoppingItem URGENT_EGGS = new ShoppingItemBuilder().withName("Eggs")

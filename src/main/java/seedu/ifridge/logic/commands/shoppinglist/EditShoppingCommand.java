@@ -96,6 +96,7 @@ public class EditShoppingCommand extends Command {
         } else if (!(o instanceof EditShoppingCommand)) {
             return false;
         } else {
+            System.out.println(this.editShoppingItemDescriptor.getName());
             return this.index.equals(((EditShoppingCommand) o).index)
                     && this.editShoppingItemDescriptor.equals(((EditShoppingCommand) o).editShoppingItemDescriptor);
         }
@@ -178,8 +179,17 @@ public class EditShoppingCommand extends Command {
             } else if (!(o instanceof EditShoppingItemDescriptor)) {
                 return false;
             } else {
-                return this.name.equals(((EditShoppingItemDescriptor) o).name)
-                        && this.amount.equals(((EditShoppingItemDescriptor) o).amount);
+                if (this.getName().isPresent() && ((EditShoppingItemDescriptor) o).getName().isPresent()
+                    && this.getAmount().isPresent() && ((EditShoppingItemDescriptor) o).getAmount().isPresent()) {
+                    return this.name.equals(((EditShoppingItemDescriptor) o).name)
+                            && this.amount.equals(((EditShoppingItemDescriptor) o).amount);
+                } else if (this.getName().isPresent() && ((EditShoppingItemDescriptor) o).getName().isPresent()) {
+                    return this.name.equals(((EditShoppingItemDescriptor) o).name);
+                } else if (this.getAmount().isPresent() && ((EditShoppingItemDescriptor) o).getAmount().isPresent()) {
+                    return this.amount.equals(((EditShoppingItemDescriptor) o).amount);
+                } else {
+                    return false;
+                }
             }
         }
 

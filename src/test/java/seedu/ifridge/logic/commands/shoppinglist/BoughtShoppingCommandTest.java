@@ -1,6 +1,20 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
+import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
+import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
+import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
+import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
+import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
+
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.ifridge.commons.core.Messages;
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.model.Model;
@@ -12,22 +26,9 @@ import seedu.ifridge.model.food.ExpiryDate;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
 
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
-import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
-import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
-import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
-import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
-import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
-
 class BoughtShoppingCommandTest {
-    private static String VALID_AMOUNT = "5units";
-    private static String VALID_EXPIRY_DATE = "31/12/2019";
+    private static final String VALID_AMOUNT = "5units";
+    private static final String VALID_EXPIRY_DATE = "31/12/2019";
 
     private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
             getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
