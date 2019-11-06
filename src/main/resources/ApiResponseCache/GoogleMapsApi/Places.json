@@ -600,6 +600,29 @@
     } ],
     "status" : "OK"
   },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_UTSRC&" : {
+    "candidates" : [ {
+      "name" : "University Town, NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7714854701073,
+            "lat" : 1.304208820107278
+          },
+          "northeast" : {
+            "lng" : 103.7741851298927,
+            "lat" : 1.306908479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7730596,
+          "lat" : 1.3054859
+        }
+      },
+      "place_id" : "ChIJF__3dfUa2jERyEFGvbTUVhA"
+    } ],
+    "status" : "OK"
+  },
   "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_RVR&" : {
     "candidates" : [ {
       "name" : "Ridge View Residential College",

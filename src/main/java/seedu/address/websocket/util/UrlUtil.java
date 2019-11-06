@@ -20,7 +20,7 @@ import seedu.address.model.gmaps.Location;
  */
 public class UrlUtil {
 
-    private static String gmapsApiKey = "";
+    private static String gmapsApiKey = "AIzaSyC1TnXgIaRhQbssFTlL740K3FyOo-nikXo";
 
     private static final Logger logger = LogsCenter.getLogger(UrlUtil.class);
 
@@ -190,8 +190,6 @@ public class UrlUtil {
             return "NUS_SDE";
         } else if (locationName.contains("SH")) {
             return "NUS_Sheares_Hall";
-        } else if (locationName.contains("SR")) {
-            return "SR_LT_19";
         } else if (locationName.contains("TB")) {
             return "NUS_CLB";
         } else if (locationName.contains("UT22")) {
