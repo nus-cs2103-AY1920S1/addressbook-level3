@@ -137,8 +137,12 @@ public class ParserUtil {
         try {
             date = sdf.parse(trimmedAssignmentDeadline);
             calendar.setTime(date);
+            Calendar currCalendar = Calendar.getInstance();
+            if (calendar.compareTo(currCalendar) < 0) {
+                throw new ParseException(AssignmentDeadline.MESSAGE_DEADLINE_CONSTRAINT);
+            }
         } catch (java.text.ParseException e) {
-            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+            throw new ParseException(AssignmentDeadline.MESSAGE_CONSTRAINTS);
         }
         return new AssignmentDeadline(trimmedAssignmentDeadline);
     }

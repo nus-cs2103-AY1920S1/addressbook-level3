@@ -94,7 +94,7 @@ public class AssignmentGrades {
     }
 
     /**
-     * Returns true if a given string is a valid AssignmentGrades map.
+     * Returns true if a given array of string is a valid AssignmentGrades map.
      */
     public static boolean isValidGrade(String[] marks) {
         for (String mark: marks) {
