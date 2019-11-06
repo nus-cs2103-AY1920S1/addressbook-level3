@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteTrainingCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
@@ -121,14 +123,26 @@ public class ModelManager implements Model {
     @Override
     public List<Training> getTrainingsDeepCopy(List<Training> trainingsList) {
         List<Training> trainingsDeepCopy = new ArrayList<>();
-        trainingsDeepCopy.addAll(trainingsList);
+        for (Training training: trainingsList) {
+            Training trainingDeepCopy = new Training(training.getDate(),
+                deepCopyHashMap(training.getTrainingAttendance()));
+            trainingsDeepCopy.add(trainingDeepCopy);
+        }
         return trainingsDeepCopy;
     }
-    
+    @Override
+    public HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy) {
+        HashMap<Person, Boolean> deepCopy = new HashMap<>();
+        for (Map.Entry<Person, Boolean> entry: mapToCopy.entrySet()) {
+            deepCopy.put(entry.getKey(), entry.getValue());
+        }
+        return deepCopy;
+    }
     @Override
     public Command undo() {
         Command undoneCommand = HistoryManager.getCommands().pop();
         ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
+        System.out.println("Popped AB: " + undoneAddressBooks);
         HistoryManager.getUndoneCommands().push(undoneCommand);
         HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
         //undo add/delete training command
@@ -137,8 +151,19 @@ public class ModelManager implements Model {
             HistoryManager.getUndoneTrainingLists().push(undoneTrainingList);
             List<Training> afterUndoneTrainingList =
                 this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().peek());
-            Attendance.resetTrainingList(afterUndoneTrainingList);
+            attendance.resetTrainingList(afterUndoneTrainingList);
             //undo normal addressbook commands
+        } else if (undoneCommand instanceof EditCommand) {
+            ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
+            System.out.println("Peek AB: " + afterUndoneState);
+            addressBook.resetData(afterUndoneState);
+            List<Training> undoneTrainingList = this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().pop());
+            System.out.println("Popped Training: " + undoneTrainingList);
+            HistoryManager.getUndoneTrainingLists().push(undoneTrainingList);
+            List<Training> afterUndoneTrainingList =
+                this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().peek());
+            System.out.println("Peek Training: " + afterUndoneTrainingList);
+            attendance.resetTrainingList(afterUndoneTrainingList);
         } else {
             ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
             addressBook.resetData(afterUndoneState);
@@ -155,7 +180,12 @@ public class ModelManager implements Model {
         if (redoneCommand instanceof TrainingCommand || redoneCommand instanceof DeleteTrainingCommand) {
             List<Training> redoneTrainingLists = getTrainingsDeepCopy(HistoryManager.getUndoneTrainingLists().pop());
             HistoryManager.getTrainingLists().push(redoneTrainingLists);
-            Attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
+            attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
+        } else if (redoneCommand instanceof EditCommand) {
+            List<Training> redoneTrainingLists = getTrainingsDeepCopy(HistoryManager.getUndoneTrainingLists().pop());
+            HistoryManager.getTrainingLists().push(redoneTrainingLists);
+            attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
+            addressBook.resetData(redoneAddressBook);
         } else {
             addressBook.resetData(redoneAddressBook);
         }

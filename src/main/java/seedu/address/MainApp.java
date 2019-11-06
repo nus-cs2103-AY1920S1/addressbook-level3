@@ -84,8 +84,7 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic, model);
         HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
-        List<Training> training = new ArrayList<>();
-        HistoryManager.getTrainingLists().push(training);
+        HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
     }
 
     /**

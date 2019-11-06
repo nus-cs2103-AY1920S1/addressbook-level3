@@ -14,7 +14,7 @@ import seedu.address.model.training.Training;
  */
 public class Attendance {
 
-    private static List<Training> trainings;
+    private List<Training> trainings;
 
     public Attendance() {
         trainings = new ArrayList<>();
@@ -27,8 +27,8 @@ public class Attendance {
     /**
      * Resets all data in the Attendance.
      */
-    public static void resetAttendance() {
-        trainings = new ArrayList<>();
+    public void resetAttendance() {
+        this.trainings = new ArrayList<>();
     }
 
     /**
@@ -102,8 +102,8 @@ public class Attendance {
         return trainingToBeDeleted;
     }
 
-    public static List<Training> getTrainings() {
-        return trainings;
+    public List<Training> getTrainings() {
+        return this.trainings;
     }
 
     public int getPersonAttendedTrainings(Person person) {
@@ -176,7 +176,7 @@ public class Attendance {
         }
         return null; // With assertion, code should not reach here.
     }
-    public static void resetTrainingList(List<Training> newTrainingList) {
-        trainings = newTrainingList;
+    public void resetTrainingList(List<Training> newTrainingList) {
+        this.trainings = newTrainingList;
     }
 }

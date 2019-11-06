@@ -78,8 +78,8 @@ public class Training {
         return listOfAbsentees;
     }
     @Override
-    public String toString(){
-        return "Training on " + date;
+    public String toString() {
+        return "Training on " + date + ". Hash: " + this.trainingAttendance;
     }
     /**
      * Replaces person data in the training record. Called when a person is edited.

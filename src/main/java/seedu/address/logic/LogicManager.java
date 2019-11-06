@@ -8,20 +8,15 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.DeleteTrainingCommand;
-import seedu.address.logic.commands.TrainingCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
-import seedu.address.model.training.Training;
 import seedu.address.storage.Storage;
 
 /**
@@ -47,12 +42,16 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
+        System.out.println("Before Logic Manager: TrainingList:" + HistoryManager.getTrainingLists());
+        System.out.println("Before Logic Manager: AddressBooks:" + HistoryManager.getAddressBooks());
         commandResult = command.execute(model);
-        if (command instanceof DeleteTrainingCommand || command instanceof TrainingCommand) {
-            HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(Attendance.getTrainings()));
+        if (command instanceof DeleteTrainingCommand || command instanceof TrainingCommand || command instanceof EditCommand) {
+            HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
         }
         HistoryManager.getCommands().push(command);
         HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
+        System.out.println("Logic Manager: TrainingList:" + HistoryManager.getTrainingLists());
+        System.out.println("Logic Manager: AddressBooks:" + HistoryManager.getAddressBooks());
 
         try {
             storage.saveAddressBook(model.getAddressBook());

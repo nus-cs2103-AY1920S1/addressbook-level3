@@ -63,6 +63,7 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
     ReadOnlyAddressBook getAddressBookDeepCopy();
     List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
+    HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy);
     Command undo();
     Command redo();
 
