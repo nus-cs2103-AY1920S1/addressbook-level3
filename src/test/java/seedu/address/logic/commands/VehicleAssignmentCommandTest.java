@@ -36,20 +36,20 @@ public class VehicleAssignmentCommandTest {
     private VehicleAssignmentCommand c5 = new VehicleAssignmentCommand(draft2, false, 1);
     private VehicleAssignmentCommand c6 = new VehicleAssignmentCommand(draft1, false, 10);
 
-    // @Test
-    // public void equals() {
+    /* @Test
+    public void equals() {
         // same object -> returns true
-        // assertTrue(c1.equals(c1));
+        assertTrue(c1.equals(c1));
 
         // different drafts -> return false
-        // assertFalse(c1.equals(c2));
+        assertFalse(c1.equals(c2));
 
         // same draft different auto -> returns true, shld be unaffected
-        // assertTrue(c1.equals(c4));
+        assertTrue(c1.equals(c4));
 
         // same district but different draft -> return false
-        // assertFalse(c1.equals(c3));
-    // }
+        assertFalse(c1.equals(c3));
+    }*/
 
     @Test
     public void autoAssign_vehicleNotAvailable_exceptionThrown() {
