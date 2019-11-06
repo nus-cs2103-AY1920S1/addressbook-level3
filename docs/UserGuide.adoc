@@ -712,6 +712,12 @@ Displays a set of statistics, Number of events, Number of employee etc
 
 Format: `stats_generate`
 
+==== Generate Detailed Statistics: `stats_generate_detail`
+
+Displays a set of statistics, Number of events, Number of employee etc
+
+Format: `stats_generate_detail`
+
 //end::Statistics[]
 
 === Miscellaneous
