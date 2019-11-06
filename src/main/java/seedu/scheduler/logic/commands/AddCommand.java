@@ -22,34 +22,51 @@ public abstract class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the scheduler book. "
-            + "Parameters: "
-            + PREFIX_ROLE + "ROLE "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds an entity to the scheduler book. An entity can be an interviewee or interviewer.\n"
+            + "Parameters to add interviewees:\n"
+            + PREFIX_ROLE + "interviewee "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_FACULTY + "FACULTY] "
-            + "[" + PREFIX_YEAR_OF_STUDY + "YEAR OF STUDY] "
-            + "[" + PREFIX_DEPARTMENT + "DEPARTMENT]... "
-            + "[" + PREFIX_SLOT + "TIMESLOTS]... "
-            + "[" + PREFIX_PERSONAL_EMAIL + "PERSONAL_EMAIL] "
-            + "[" + PREFIX_NUS_WORK_EMAIL + "NUS_WORK_EMAIL]\n"
-            + "Example: "
+            + PREFIX_FACULTY + "FACULTY "
+            + PREFIX_YEAR_OF_STUDY + "YEAR OF STUDY "
+            + PREFIX_PERSONAL_EMAIL + "PERSONAL_EMAIL "
+            + PREFIX_NUS_WORK_EMAIL + "NUS_WORK_EMAIL "
+            + PREFIX_DEPARTMENT + "DEPARTMENT... "
+            + PREFIX_SLOT + "SLOT... "
+            + "[" + PREFIX_TAG + "TAG]... \n"
+            + "Parameters to add interviewers:\n"
+            + PREFIX_ROLE + "interviewer "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
+            + PREFIX_NUS_WORK_EMAIL + "NUS_WORK_EMAIL "
+            + PREFIX_DEPARTMENT + "DEPARTMENT "
+            + PREFIX_SLOT + "SLOT... "
+            + "[" + PREFIX_TAG + "TAG]... \n"
+            + "Example (add interviewee):\n"
             + COMMAND_WORD + " "
             + PREFIX_ROLE + DefaultValues.DEFAULT_INTERVIEWEE_ROLE + " "
             + PREFIX_NAME + DefaultValues.DEFAULT_NAME + " "
             + PREFIX_PHONE + DefaultValues.DEFAULT_PHONE + " "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney "
             + PREFIX_FACULTY + DefaultValues.DEFAULT_FACULTY + " "
             + PREFIX_YEAR_OF_STUDY + DefaultValues.DEFAULT_YEAR_OF_STUDY + " "
+            + PREFIX_PERSONAL_EMAIL + DefaultValues.DEFAULT_PERSONAL_EMAIL + " "
+            + PREFIX_NUS_WORK_EMAIL + DefaultValues.DEFAULT_NUS_WORK_EMAIL + " "
             + PREFIX_DEPARTMENT + DefaultValues.DEFAULT_DEPARTMENT + " "
             + PREFIX_SLOT + DefaultValues.DEFAULT_SLOT + " "
-            + PREFIX_PERSONAL_EMAIL + DefaultValues.DEFAULT_PERSONAL_EMAIL + " "
-            + PREFIX_NUS_WORK_EMAIL + DefaultValues.DEFAULT_NUS_WORK_EMAIL;
+            + PREFIX_TAG + "friends\n"
+            + "Example (add interviewer):\n"
+            + COMMAND_WORD + " "
+            + PREFIX_ROLE + DefaultValues.DEFAULT_INTERVIEWER_ROLE + " "
+            + PREFIX_NAME + DefaultValues.DEFAULT_NAME + " "
+            + PREFIX_PHONE + DefaultValues.DEFAULT_PHONE + " "
+            + PREFIX_NUS_WORK_EMAIL + DefaultValues.DEFAULT_NUS_WORK_EMAIL + " "
+            + PREFIX_DEPARTMENT + DefaultValues.DEFAULT_DEPARTMENT + " "
+            + PREFIX_SLOT + DefaultValues.DEFAULT_SLOT + " "
+            + PREFIX_TAG + "friends";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the scheduler book";
+    public static final String MESSAGE_SUCCESS = "New entity added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This entity already exists in the scheduler book";
 
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;

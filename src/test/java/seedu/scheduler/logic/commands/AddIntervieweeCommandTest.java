@@ -217,12 +217,10 @@ class AddIntervieweeCommandTest {
 
         @Override
         public void updateFilteredIntervieweeList(Predicate<Interviewee> predicate) {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredInterviewerList(Predicate<Interviewer> predicate) {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override

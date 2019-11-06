@@ -21,25 +21,39 @@ public abstract class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    // TODO: correct this. Interviewee: slots and departments must have at least one non-empty department
-    // TODO: Interviewer: slots must have at least one non-empty string
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the entity identified "
-            + "by the entity's name used in the displayed entity list. "
+            + "by its name as displayed on the entity list. Entities are interviewees or interviewers.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: NAME, ROLE (must be interviewee/interviewer) "
+            + "Parameters to edit interviewees:\n"
+            + "NAME " + PREFIX_ROLE + "interviewee "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_FACULTY + "FACULTY] "
             + "[" + PREFIX_YEAR_OF_STUDY + "YEAR OF STUDY] "
-            + "[" + PREFIX_DEPARTMENT + "DEPARTMENT]... "
-            + "[" + PREFIX_SLOT + "TIMESLOTS]... "
             + "[" + PREFIX_PERSONAL_EMAIL + "PERSONAL_EMAIL] "
-            + "[" + PREFIX_NUS_WORK_EMAIL + "NUS_WORK_EMAIL]\n"
-            + "Example: " + COMMAND_WORD + " John Doe "
+            + "[" + PREFIX_NUS_WORK_EMAIL + "NUS_WORK_EMAIL] "
+            + "[" + PREFIX_DEPARTMENT + "DEPARTMENT]... "
+            + "[" + PREFIX_SLOT + "SLOT]... "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Parameters to edit interviewers:\n"
+            + "NAME " + PREFIX_ROLE + "interviewer "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_NUS_WORK_EMAIL + "NUS_WORK_EMAIL] "
+            + "[" + PREFIX_DEPARTMENT + "DEPARTMENT] "
+            + "[" + PREFIX_SLOT + "SLOT]... "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example (add interviewee):\n"
+            + COMMAND_WORD + " John Doe "
             + PREFIX_ROLE + "interviewee "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_FACULTY + "School of Computing";
+            + PREFIX_FACULTY + "School of Computing "
+            + PREFIX_SLOT + "05/11/2019 18:00-19:00\n"
+            + "Example (add interviewer):\n"
+            + COMMAND_WORD + " John Doe "
+            + PREFIX_ROLE + "interviewer "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_DEPARTMENT + "Marketing\n";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

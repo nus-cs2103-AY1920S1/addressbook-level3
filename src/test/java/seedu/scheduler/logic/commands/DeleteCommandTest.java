@@ -92,7 +92,6 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validNameFilteredList_success() {
-        // showPersonAtIndex(model, INDEX_FIRST_PERSON);
         // pre-processing
         Model model = new ModelManager(getTypicalIntervieweeList(), new InterviewerList(),
                 new UserPrefs(), new LinkedList<>());
@@ -110,7 +109,7 @@ public class DeleteCommandTest {
                 new UserPrefs(), new LinkedList<>());
         expectedModel.deleteInterviewee(toDelete);
 
-        showNoInterviewee(expectedModel);
+        showAllInterviewees(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -158,5 +157,13 @@ public class DeleteCommandTest {
         model.updateFilteredIntervieweeList(p -> false);
 
         assertTrue(model.getFilteredIntervieweeList().isEmpty());
+    }
+
+    /**
+     * Updates {@code model}'s filtered interviewee list to show everyone.
+     * @param model
+     */
+    private void showAllInterviewees(Model model) {
+        model.updateFilteredIntervieweeList(p -> true);
     }
 }

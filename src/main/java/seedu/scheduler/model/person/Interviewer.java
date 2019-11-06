@@ -173,13 +173,15 @@ public class Interviewer extends Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Role ")
+                .append(" Role: ")
                 .append(getClass().getSimpleName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Department ")
+                .append(" Department: ")
                 .append(getDepartment())
-                .append(" Availabilities ")
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Availabilities: ")
                 .append(getAvailabilities())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

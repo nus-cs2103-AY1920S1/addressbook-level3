@@ -8,7 +8,11 @@ import static seedu.scheduler.commons.util.AppUtil.checkArgument;
  */
 public class Faculty {
 
-    public static final String MESSAGE_CONSTRAINTS = "Faculties can take any values, but should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Faculties can take any values, but should not be blank."
+            + "Examples:\n"
+            + "Correct: 'School of Computing'\n"
+            + "Incorrect: ' '";
     public static final String VALIDATION_REGEX = "[^\\s].*"; // "" will be wrong
     public final String faculty;
 

@@ -1,6 +1,7 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.NoSuchElementException;
 
@@ -11,6 +12,7 @@ import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.Role;
+import seedu.scheduler.model.person.RoleType;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -21,8 +23,12 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by his/her name and role.\n"
-            + "Parameters: NAME (case-sensitive), ROLE (interviewee/interviewer)\n"
+            + ": Deletes an entity identified by the entity's name. "
+            + "An entity can either be an interviewee or interviewer.\n"
+            + "Parameters to delete interviewees:\n"
+            + "NAME " + PREFIX_ROLE + "interviewee\n"
+            + "Parameters to delete interviewees:\n"
+            + "NAME " + PREFIX_ROLE + "interviewer\n"
             + "Example: " + COMMAND_WORD + " John Doe" + "r/interviewee";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
@@ -40,13 +46,15 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         String deleted;
         try {
-            if (targetRole.value.equals("interviewee")) {
+            if (targetRole.getRole().equals(RoleType.INTERVIEWEE)) {
                 Interviewee i = model.getInterviewee(targetName.fullName);
                 model.deleteInterviewee(i);
+                model.updateFilteredIntervieweeList(Model.PREDICATE_SHOW_ALL_INTERVIEWEES);
                 deleted = i.toString();
-            } else if (targetRole.value.equals("interviewer")) {
+            } else if (targetRole.getRole().equals(RoleType.INTERVIEWER)) {
                 Interviewer i = model.getInterviewer(targetName.fullName);
                 model.deleteInterviewer(i);
+                model.updateFilteredInterviewerList(Model.PREDICATE_SHOW_ALL_INTERVIEWERS);
                 deleted = i.toString();
             } else {
                 throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);

@@ -45,12 +45,12 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_FACULTY_AMY = "School of Engineering";
     public static final String VALID_FACULTY_BOB = "School of Computing";
-    public static final String VALID_YEAR_OF_STUDY_AMY = "2018";
-    public static final String VALID_YEAR_OF_STUDY_BOB = "2019";
+    public static final String VALID_YEAR_OF_STUDY_AMY = "2019";
+    public static final String VALID_YEAR_OF_STUDY_BOB = "2020";
     public static final String VALID_DEPARTMENT_AMY = "Logistics";
     public static final String VALID_DEPARTMENT_BOB = "Marketing";
     public static final String VALID_SLOT_AMY = "17/10/2019 12:30-13:30";
-    public static final String VALID_SLOT_BOB = "17/10/2019 12:30-13:30";
+    public static final String VALID_SLOT_BOB = "17/10/2019 13:30-14:30";
     public static final String VALID_PERSONAL_EMAIL_AMY = "amy_infamy@gmail.com";
     public static final String VALID_NUS_WORK_EMAIL_AMY = "amy_infamy@u.nus.edu";
     public static final String VALID_PERSONAL_EMAIL_BOB = "bob_cat@gmail.com";
