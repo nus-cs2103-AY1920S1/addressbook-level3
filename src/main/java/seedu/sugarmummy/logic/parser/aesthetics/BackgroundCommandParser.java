@@ -91,8 +91,8 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
             bgRepeat = bgRepeat.get().equals("") ? Optional.of("repeat") : bgRepeat;
         }
 
-        String bgSizeToString = bgSize.orElse(!background.isBackgroundColour() ? "auto" : "");
-        String bgRepeatToString = bgRepeat.orElse(!background.isBackgroundColour() ? "repeat" : "");
+        String bgSizeToString = bgSize.orElse("");
+        String bgRepeatToString = bgRepeat.orElse("");
 
         background.setBgSize(bgSizeToString);
         background.setBgRepeat(bgRepeatToString);

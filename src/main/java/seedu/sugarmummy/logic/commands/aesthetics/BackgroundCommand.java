@@ -147,8 +147,6 @@ public class BackgroundCommand extends Command {
                     .append(" to ").append(newBackground).append(".\n");
         }
 
-
-
         if (fontColourCommand != null) {
             if (!fontColourCommand.getFontColour().equals(model.getFontColour())) {
                 updateMessage.append(fontColourCommand.execute(model).getFeedbackToUser());
