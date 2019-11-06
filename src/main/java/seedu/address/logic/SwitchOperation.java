@@ -48,6 +48,7 @@ import seedu.address.ui.cap.UiCapManager;
 import seedu.address.ui.finance.UiFinanceManager;
 import seedu.address.ui.quiz.UiQuizManager;
 
+
 /**
  * Switches the Application to a new component (Calendar, Module, Quiz, or Finance)
  */
