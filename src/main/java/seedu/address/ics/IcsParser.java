@@ -31,11 +31,6 @@ public class IcsParser {
     private static final String FILE_IS_CORRUPTED = "The ICS file is corrupted!";
     private static final String TIMESTAMP_IS_INVALID = "The timestamp provided is invalid!";
 
-    /**
-     * This enum represents the different types of objects the IcsParser could be parsing at any given point in time.
-     */
-    private enum Parsing { TASK, EVENT }
-
     private File icsFile;
 
     private IcsParser(String path) throws IcsException {
