@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.revision.logic.commands.CommandTestUtil.showAnswerableAtIndex;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_SECOND_ANSWERABLE;
 
@@ -27,7 +27,7 @@ import seedu.revision.model.answerable.Answerable;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRevisionTool(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws ParseException {

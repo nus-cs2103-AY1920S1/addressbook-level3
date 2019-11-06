@@ -1,7 +1,7 @@
 package seedu.revision.logic.commands;
 
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +24,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() throws ParseException {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalRevisionTool(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalRevisionTool(), new UserPrefs());
         expectedModel.setAddressBook(new RevisionTool());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

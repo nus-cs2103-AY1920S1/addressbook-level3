@@ -72,7 +72,7 @@ public class TypicalAnswerables {
     /**
      * Returns an {@code RevisionTool} with all the typical answerables.
      */
-    public static RevisionTool getTypicalAddressBook() {
+    public static RevisionTool getTypicalRevisionTool() {
         RevisionTool ab = new RevisionTool();
         for (Answerable answerable : getTypicalAnswerables()) {
             ab.addAnswerable(answerable);

@@ -2,7 +2,7 @@ package seedu.revision.logic.commands;
 
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalRevisionTool(), new UserPrefs());
     }
 
     @Test

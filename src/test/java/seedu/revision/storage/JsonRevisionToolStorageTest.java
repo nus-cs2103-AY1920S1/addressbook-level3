@@ -6,7 +6,7 @@ import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalAnswerables.H_ANSWERABLE;
 import static seedu.revision.testutil.TypicalAnswerables.I_ANSWERABLE;
 import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -63,7 +63,7 @@ public class JsonRevisionToolStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        RevisionTool original = getTypicalAddressBook();
+        RevisionTool original = getTypicalRevisionTool();
         JsonRevisionToolStorage jsonAddressBookStorage = new JsonRevisionToolStorage(filePath);
 
         // Save in new file and read back

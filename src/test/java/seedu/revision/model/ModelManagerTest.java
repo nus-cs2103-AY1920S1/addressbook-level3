@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.AddressBookBuilder;
+import seedu.revision.testutil.RevisionToolBuilder;
 
 public class ModelManagerTest {
 
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        RevisionTool addressBook = new AddressBookBuilder().withAnswerable(MCQ_STUB)
+        RevisionTool addressBook = new RevisionToolBuilder().withAnswerable(MCQ_STUB)
                 .withAnswerable(B_ANSWERABLE).build();
         RevisionTool differentAddressBook = new RevisionTool();
         UserPrefs userPrefs = new UserPrefs();

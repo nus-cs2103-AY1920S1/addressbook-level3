@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.revision.commons.exceptions.IllegalValueException;
-import seedu.revision.model.RevisionTool;
 import seedu.revision.model.ReadOnlyRevisionTool;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answerable;
 
 /**
@@ -47,14 +47,14 @@ class JsonSerializableRevisionTool {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public RevisionTool toModelType() throws IllegalValueException {
-        RevisionTool addressBook = new RevisionTool();
+        RevisionTool revisionTool = new RevisionTool();
         for (JsonAdaptedAnswerable jsonAdaptedAnswerable : answerables) {
             Answerable answerable = jsonAdaptedAnswerable.toModelType();
-            if (addressBook.hasAnswerable(answerable)) {
+            if (revisionTool.hasAnswerable(answerable)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ANSWERABLE);
             }
-            addressBook.addAnswerable(answerable);
+            revisionTool.addAnswerable(answerable);
         }
-        return addressBook;
+        return revisionTool;
     }
 }
