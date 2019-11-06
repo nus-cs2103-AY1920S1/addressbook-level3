@@ -37,7 +37,7 @@ class BudgetWindowTest {
 
     @Test
     void getPeriod() {
-        assertEquals(BudgetPeriod.MONTH, NOV_1_TO_NOV_30.getPeriod());
+        assertEquals(BudgetPeriod.MONTH, NOV_1_TO_NOV_30.getBudgetPeriod());
     }
 
     @Test
@@ -52,7 +52,7 @@ class BudgetWindowTest {
         copy.normalize(OCT_15);
         assertEquals(OCT_1, copy.getStartDate());
         assertEquals(OCT_31, copy.getEndDate());
-        assertEquals(BudgetPeriod.MONTH, copy.getPeriod());
+        assertEquals(BudgetPeriod.MONTH, copy.getBudgetPeriod());
     }
 
     @Test

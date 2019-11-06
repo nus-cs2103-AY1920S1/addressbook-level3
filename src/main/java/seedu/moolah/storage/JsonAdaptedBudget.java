@@ -64,9 +64,9 @@ class JsonAdaptedBudget {
         requireNonNull(source);
         description = source.getDescription().fullDescription;
         amount = source.getAmount().value;
-        startDate = source.getStartDate().toString();
-        endDate = source.getEndDate().toString();
-        period = source.getPeriod().toString();
+        startDate = source.getWindowStartDate().toString();
+        endDate = source.getWindowEndDate().toString();
+        period = source.getBudgetPeriod().toString();
         expenseIds.addAll(source.getExpenses().stream()
                 .map(e -> e.getUniqueIdentifier().value)
                 .collect(Collectors.toList()));

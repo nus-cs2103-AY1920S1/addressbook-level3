@@ -66,16 +66,16 @@ public class Budget {
         return this.amount;
     }
 
-    public Timestamp getStartDate() {
+    public Timestamp getWindowStartDate() {
         return this.window.getStartDate();
     }
 
-    public Timestamp getEndDate() {
+    public Timestamp getWindowEndDate() {
         return this.window.getEndDate();
     }
 
-    public BudgetPeriod getPeriod() {
-        return this.window.getPeriod();
+    public BudgetPeriod getBudgetPeriod() {
+        return this.window.getBudgetPeriod();
     }
 
     public ObservableList<Expense> getExpenses() {
@@ -110,8 +110,8 @@ public class Budget {
      */
     public Budget deepCopy() {
         ObservableList<Expense> expensesCopy = FXCollections.observableArrayList(this.expenses);
-        Budget budget = new Budget(this.description, this.amount, this.getStartDate(),
-                this.getPeriod(), expensesCopy, this.isPrimary);
+        Budget budget = new Budget(this.description, this.amount, this.getWindowStartDate(),
+                this.getBudgetPeriod(), expensesCopy, this.isPrimary);
         return budget;
     }
 

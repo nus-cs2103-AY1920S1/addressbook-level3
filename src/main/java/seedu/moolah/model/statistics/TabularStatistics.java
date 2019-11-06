@@ -73,7 +73,7 @@ public class TabularStatistics extends Statistics {
         requireNonNull(secondStartDate);
         requireNonNull(primaryBudget);
 
-        Period period = primaryBudget.getPeriod().getPeriod();
+        Period period = primaryBudget.getBudgetPeriod().getPeriod();
 
         Timestamp firstEndDate = new Timestamp(firstStartDate.getFullTimestamp().plus(period)).minusDays(1);
         Timestamp secondEndDate = new Timestamp(secondStartDate.getFullTimestamp().plus(period)).minusDays(1);

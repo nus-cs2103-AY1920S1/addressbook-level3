@@ -31,8 +31,8 @@ public class EditBudgetDescriptorBuilder {
         descriptor = new EditBudgetCommand.EditBudgetDescriptor();
         descriptor.setDescription(budget.getDescription());
         descriptor.setAmount(budget.getAmount());
-        descriptor.setStartDate(budget.getStartDate());
-        descriptor.setPeriod(budget.getPeriod());
+        descriptor.setStartDate(budget.getWindowStartDate());
+        descriptor.setPeriod(budget.getBudgetPeriod());
     }
 
     /**

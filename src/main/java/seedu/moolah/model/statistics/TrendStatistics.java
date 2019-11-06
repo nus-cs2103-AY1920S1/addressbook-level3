@@ -71,16 +71,16 @@ public class TrendStatistics extends Statistics {
         boolean isEndPresent = endDate != null;
 
         if (!isStartPresent && !isEndPresent) {
-            Timestamp centreDate = primaryBudget.getStartDate();
-            endDate = centreDate.createForwardTimestamp(primaryBudget.getPeriod(),
+            Timestamp centreDate = primaryBudget.getWindowStartDate();
+            endDate = centreDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
                     StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-            startDate = centreDate.createBackwardTimestamp(primaryBudget.getPeriod(),
+            startDate = centreDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
                     StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
         } else if (isStartPresent && !isEndPresent) {
-            endDate = startDate.createForwardTimestamp(primaryBudget.getPeriod(),
+            endDate = startDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
                     2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
         } else if (!isStartPresent) {
-            startDate = endDate.createBackwardTimestamp(primaryBudget.getPeriod(),
+            startDate = endDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
                     2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
         }
 
@@ -121,8 +121,8 @@ public class TrendStatistics extends Statistics {
         ArrayList<ArrayList<ArrayList<Expense>>> data = new ArrayList<>();
 
 
-        BudgetPeriod period = primaryBudget.getPeriod();
-        Timestamp windowStartDate = primaryBudget.getStartDate();
+        BudgetPeriod period = primaryBudget.getBudgetPeriod();
+        Timestamp windowStartDate = primaryBudget.getWindowStartDate();
 
         Timestamp validDate = findClosestWindowStartDate(startDate, windowStartDate, period);
 

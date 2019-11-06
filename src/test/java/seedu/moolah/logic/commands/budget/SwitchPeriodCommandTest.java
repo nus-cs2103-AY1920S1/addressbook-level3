@@ -37,8 +37,8 @@ public class SwitchPeriodCommandTest {
             Timestamp validInput = Timestamp.createTimestampIfValid("01-10-2019").get();
             SwitchPeriodCommand command = new SwitchPeriodCommand(validInput);
             CommandResult commandResult = command.run(model);
-            assertEquals(model.getPrimaryBudget().getStartDate(), SEP_15);
-            assertEquals(model.getPrimaryBudget().getEndDate(), OCT_14);
+            assertEquals(model.getPrimaryBudget().getWindowStartDate(), SEP_15);
+            assertEquals(model.getPrimaryBudget().getWindowEndDate(), OCT_14);
             assertEquals(String.format(SwitchPeriodCommand.MESSAGE_SWITCH_PERIOD_SUCCESS, validInput),
                     commandResult.getFeedbackToUser());
         } catch (CommandException e) {

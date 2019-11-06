@@ -31,7 +31,7 @@ public class BudgetWindow {
         return this.endDate;
     }
 
-    public BudgetPeriod getPeriod() {
+    public BudgetPeriod getBudgetPeriod() {
         return this.period;
     }
 

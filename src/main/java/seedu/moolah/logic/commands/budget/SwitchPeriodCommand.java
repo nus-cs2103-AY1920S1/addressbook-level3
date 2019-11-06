@@ -46,7 +46,7 @@ public class SwitchPeriodCommand extends UndoableCommand {
         Budget currentPeriod = model.getPrimaryBudget().deepCopy();
         currentPeriod.normalize(Timestamp.getCurrentTimestamp());
 
-        if (pastDate.dateIsAfter(currentPeriod.getEndDate())) {
+        if (pastDate.dateIsAfter(currentPeriod.getWindowEndDate())) {
             throw new CommandException(MESSAGE_PERIOD_IS_FUTURE);
         }
     }

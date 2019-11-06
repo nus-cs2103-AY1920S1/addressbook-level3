@@ -16,8 +16,8 @@ class PieChartStatisticsTest {
 
     public static final String DAY_BUDGET_TITLE = String.format("Statistics Summary from %s to %s\n\n"
                     + "Total amount: $5.00",
-            TypicalMooLah.DAY_BUDGET.getStartDate().showDate(),
-            TypicalMooLah.DAY_BUDGET.getEndDate().showDate());
+            TypicalMooLah.DAY_BUDGET.getWindowStartDate().showDate(),
+            TypicalMooLah.DAY_BUDGET.getWindowEndDate().showDate());
 
     public static final List<String> DAY_BUDGET_RESULTS = List.of("FOOD(100.00%)");
 

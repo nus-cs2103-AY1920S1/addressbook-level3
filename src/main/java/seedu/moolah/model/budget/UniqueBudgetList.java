@@ -150,7 +150,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         Budget currentPeriod = primaryBudget.deepCopy();
         currentPeriod.normalize(Timestamp.getCurrentTimestamp());
 
-        if (date.dateIsAfter(currentPeriod.getEndDate())) {
+        if (date.dateIsAfter(currentPeriod.getWindowEndDate())) {
             throw new SwitchToFuturePeriodException();
         }
 

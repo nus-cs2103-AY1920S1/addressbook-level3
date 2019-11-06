@@ -51,9 +51,9 @@ public class BudgetBuilder {
         description = budgetToCopy.getDescription();
         amount = budgetToCopy.getAmount();
         expenses = FXCollections.observableArrayList(budgetToCopy.getExpenses());
-        startDate = budgetToCopy.getStartDate();
-        endDate = budgetToCopy.getEndDate();
-        period = budgetToCopy.getPeriod();
+        startDate = budgetToCopy.getWindowStartDate();
+        endDate = budgetToCopy.getWindowEndDate();
+        period = budgetToCopy.getBudgetPeriod();
         isPrimary = budgetToCopy.isPrimary();
     }
 
