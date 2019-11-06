@@ -104,7 +104,7 @@ public class NotifCommand extends Command {
         Runnable changeUi = () -> Platform.runLater(() -> {
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                 UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
-                // This is so that when undone, the status goes back to ARRIVED.
+                up.setUpdateFromNotif(true);
                 body.setBodyStatus(ARRIVED);
                 try {
                     up.execute(model);

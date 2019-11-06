@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class DeleteCommand extends UndoableCommand {
 
     private Entity entityToDelete;
     private Fridge fridge;
-    private List<Notif> notifList;
+    private List<Notif> notifList = Collections.emptyList();
 
     public DeleteCommand(Index targetIndexNum, String entityType) {
         this.targetIndexNum = targetIndexNum;
