@@ -34,7 +34,7 @@ import dream.fcard.util.RegexUtil;
  */
 public enum Responses {
     HELP_WITH_COMMAND(
-            RegexUtil.commandFormatRegex("", new String[]{"command/"}),
+            RegexUtil.commandFormatRegex("help", new String[]{"command/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
@@ -105,7 +105,7 @@ public enum Responses {
                 }
     ),
     CREATE_NEW_DECK_WITH_NAME(
-            "^((?i)create)\\s+((?i)deck/)\\s*\\S.*",
+            "^((?i)create)\\s+((?i)deck/)\\s*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     String deckName = i.split("(?i)deck/\\s*")[1];
@@ -141,32 +141,46 @@ public enum Responses {
     ADD_CARD(
             RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "back/"}),
             new ResponseGroup[] {ResponseGroup.DEFAULT},
-                i -> {
-                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
-                            new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
-                            i);
+            i -> {
+                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                        new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
+                        i);
+                LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD");
 
-                    // Checks if "deck/", "front/"  and "back/" are supplied.
-                    if (res.get(0).size() == 0 || res.get(2).size() == 0 || res.get(3).size() == 0) {
-                        return false;
-                    }
+                // Checks if "deck/", "front/"  and "back/" are supplied.
+                boolean hasOnlyOneDeck = res.get(0).size() == 1;
+                boolean hasOnlyOnePriority = res.get(1).size() == 1;
+                boolean hasOnlyOneFront = res.get(2).size() == 1;
+                boolean hasOnlyOneBack = res.get(3).size() == 1;
+                boolean hasValidChoice = res.get(4).size() > 1;
 
-                    try {
-                        return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
-                    } catch (DuplicateInChoicesException dicExc) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
-                        return true;
-                    }
-                }
-    ),
-    ADD_CARD_ERROR(
-            "^((?i)(add).*",
-            new ResponseGroup[] {ResponseGroup.DEFAULT},
-                i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
-                            + "format of the Add command, type 'help command/add'");
+                if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront || !hasOnlyOneBack
+                        || !hasValidChoice){
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
                     return true;
                 }
+
+
+
+                try {
+                    return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                } catch (DuplicateInChoicesException dicExc) {
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
+                    return true;
+                } catch (NumberFormatException n){
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
+                    return true;
+                }
+            }
+    ),
+    ADD_CARD_ERROR(
+            "^((?i)(add)).*",
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            i -> {
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
+                        + "format of the Add command, type 'help command/add'");
+                return true;
+            }
     ),
     EDIT_CARD(
             RegexUtil.commandFormatRegex("edit", new String[]{
@@ -212,7 +226,7 @@ public enum Responses {
                 }
     ),
     EDIT_CARD_ERROR(
-            "^((?i)(edit).*",
+            "^((?i)(edit)).*",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
