@@ -107,7 +107,6 @@ public class AccountsManager {
      */
     public void editAccount(Index toEdit, Account editedAccount) throws AccountNotFoundException {
         accounts.replace(filteredAccounts.get(toEdit.getZeroBased()), editedAccount);
-        unsetActiveAccount();
         //editing the account may cause it to no longer be part of the filtered list,
         //so we have to reset the filtered account list.
         resetFilteredAccountList();

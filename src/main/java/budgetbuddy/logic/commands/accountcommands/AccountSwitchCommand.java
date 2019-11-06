@@ -1,12 +1,13 @@
 package budgetbuddy.logic.commands.accountcommands;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
-import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 
 /**
@@ -28,6 +29,7 @@ public class AccountSwitchCommand extends Command {
     private final Index targetAccountIndex;
 
     public AccountSwitchCommand(Index targetAccountIndex) {
+        requireNonNull(targetAccountIndex);
         this.targetAccountIndex = targetAccountIndex;
     }
 
@@ -44,6 +46,4 @@ public class AccountSwitchCommand extends Command {
         return new CommandResult(resultMessage, CommandCategory.ACCOUNT);
     }
 
-    private void requireAllNonNull(Model model, AccountsManager accountsManager) {
-    }
 }
