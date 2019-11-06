@@ -8,7 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
 
@@ -21,16 +21,16 @@ public interface Logic {
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
      * Returns the AddressBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getAthletick()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyAthletick getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.training.Training;
 
 /**
@@ -12,11 +12,16 @@ import seedu.address.model.training.Training;
  */
 public class HistoryManager {
     private static Stack<Command> commands = new Stack<>();
-    private static Stack<ReadOnlyAddressBook> addressBooks = new Stack<>();
+    private static Stack<ReadOnlyAthletick> addressBooks = new Stack<>();
     private static Stack<Command> undoneCommands = new Stack<>();
+<<<<<<< HEAD
     private static Stack<ReadOnlyAddressBook> undoneAddressBooks = new Stack<>();
     private static Stack<List<Training>> trainingLists = new Stack<>();
     private static Stack<List<Training>> undoneTrainingLists = new Stack<>();
+=======
+    private static Stack<ReadOnlyAthletick> undoneAddressBooks = new Stack<>();
+    private static Stack<Training> undoneTrainingLists = new Stack<>();
+>>>>>>> 8038f5b073ce72e9a18558307eb1ee3db3705cf0
     public HistoryManager() {}
     public Command getLatestCommand() {
         return commands.peek();
@@ -24,13 +29,13 @@ public class HistoryManager {
     public static Stack<Command> getCommands() {
         return commands;
     }
-    public static Stack<ReadOnlyAddressBook> getAddressBooks() {
+    public static Stack<ReadOnlyAthletick> getAddressBooks() {
         return addressBooks;
     }
     public static Stack<Command> getUndoneCommands() {
         return undoneCommands;
     }
-    public static Stack<ReadOnlyAddressBook> getUndoneAddressBooks() {
+    public static Stack<ReadOnlyAthletick> getUndoneAddressBooks() {
         return undoneAddressBooks;
     }
     public static Stack<List<Training>> getTrainingLists() {

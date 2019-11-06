@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ import seedu.address.model.person.Person;
 
 class SelectCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
             new UserPrefs());
 
     @Test
@@ -32,7 +32,7 @@ class SelectCommandTest {
 
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, personToSelect);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+        ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
                 model.getAttendance(), new UserPrefs());
 
         expectedModel.selectPerson();
@@ -54,7 +54,7 @@ class SelectCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
 
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAthletick().getPersonList().size());
 
         SelectCommand selectCommand = new SelectCommand(outOfBoundIndex);
 

@@ -47,28 +47,29 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getAthletickFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setAthletickFilePath(Path athletickFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAthletick(ReadOnlyAthletick athletick);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-    ReadOnlyAddressBook getAddressBookDeepCopy();
+
+    /** Returns Athletick */
+    ReadOnlyAthletick getAthletick();
+    ReadOnlyAthletick getAthletickDeepCopy();
     List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
     HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy);
     Command undo();
     Command redo();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in athletick.
      */
     boolean hasPerson(Person person);
 
@@ -80,7 +81,7 @@ public interface Model {
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in Athletick.
      */
     void addPerson(Person person);
 
@@ -90,15 +91,16 @@ public interface Model {
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in Athletick.
+     * The person identity of {@code editedPerson} must not be the same as another existing
+     * person in Athletick.
      */
     void setPerson(Person target, Person editedPerson);
 
     /**
-     * Reorders the address book in alphabetical order according to person's name.
+     * Reorders Athletick in alphabetical order according to person's name.
      */
-    void sortAddressBookByName();
+    void sortAthletickByName();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

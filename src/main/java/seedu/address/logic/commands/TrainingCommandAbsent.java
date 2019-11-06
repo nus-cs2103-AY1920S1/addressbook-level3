@@ -17,7 +17,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
 
 /**
- * Adds a training session of everyone except players specified by the indexes on the specified date.
+ * Adds a training session of everyone except players specified by the indexes
+ * on the specified date.
  */
 public class TrainingCommandAbsent extends TrainingCommand {
     public static final String ABSENT_FLAG = "-a";
@@ -30,9 +31,10 @@ public class TrainingCommandAbsent extends TrainingCommand {
 
     private Training trainingToAdd;
     /**
-     * Creates a TrainingCommandAbsent to add a training session on {@code date} using the {@code indexList}.
+     * Creates a TrainingCommandAbsent to add a training session on {@code date}
+     * using the {@code indexList}.
      *
-     * @param date of training.
+     * @param date      of training.
      * @param indexList List of index indicating absentees.
      */
     public TrainingCommandAbsent(AthletickDate date, List<Index> indexList) {
@@ -42,8 +44,9 @@ public class TrainingCommandAbsent extends TrainingCommand {
         return this.trainingToAdd;
     }
     /**
-     * Executes the TrainingCommandAbsent which adds a training to the Attendance in model. People in indexList are
-     * marked as absent while everyone else is marked as present.
+     * Executes the TrainingCommandAbsent which adds a training to the Attendance in
+     * model. People in indexList are marked as absent while everyone else is marked
+     * as present.
      *
      * @param model {@code Model} where Training is saved.
      * @return Outcome of executed command.
@@ -75,13 +78,13 @@ public class TrainingCommandAbsent extends TrainingCommand {
 
     /**
      * Creates a training session using a list of indexes and marks them as absent.
-     * @param date Date of training.
+     * @param date    Date of training.
      * @param indexes Indexes of absentees.
      * @return Created training session.
      */
     private static Training createTrainingByAbsent(AthletickDate date, Model model, List<Index> indexes) {
         List<Person> lastShownList = model.getFilteredPersonList();
-        List<Person> allPeople = model.getAddressBook().getPersonList();
+        List<Person> allPeople = model.getAthletick().getPersonList();
         HashMap<Person, Boolean> trainingAttendance = new HashMap<>();
         // Set all people in the address book to true, indicating that they attended.
         for (Person person : allPeople) {
@@ -93,7 +96,8 @@ public class TrainingCommandAbsent extends TrainingCommand {
             Person personWhoAttended = lastShownList.get(index.getZeroBased());
             attendedPersons.add(personWhoAttended);
         }
-        // Change the value in trainingAttendance of these people to false, indicating that they attended.
+        // Change the value in trainingAttendance of these people to false, indicating
+        // that they attended.
         for (Person person : attendedPersons) {
             trainingAttendance.put(person, false);
         }

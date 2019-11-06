@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.feature.Feature;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Allows user to view calendar, attendance or performance.
