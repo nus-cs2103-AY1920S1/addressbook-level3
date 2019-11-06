@@ -55,11 +55,12 @@ public class InCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE).withCategories().build();
-        /* TODO: FIX
+        BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE)
+                .withCategories("Uncategorised").build();
+
         assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
                 + DESCRIPTION_DESC_ALICE, new InCommand(expectedTransaction2));
-         */
+
     }
 
     @Test void parse_compulsoryFieldMissing_failure() {

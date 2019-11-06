@@ -58,11 +58,10 @@ public class OutCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE)
-                .withAmount("-100").withCategories().build();
-        /* TODO: FIX
+                .withAmount("-100").withCategories("Uncategorised").build();
         assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
                 + DESCRIPTION_DESC_ALICE, new OutCommand(expectedTransaction2));
-         */
+
     }
 
     @Test void parse_compulsoryFieldMissing_failure() {
