@@ -18,4 +18,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_QUANTITY =
             "The quantity provided is invalid! Please enter a valid integer greater than 0!";
     public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid!";
+    public static final String MESSAGE_INVALID_ORDER_TO_ASSIGN =
+            "Cant you see that the order has already been assigned or completed?";
 }
