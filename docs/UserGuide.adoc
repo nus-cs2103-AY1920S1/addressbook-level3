@@ -519,6 +519,8 @@ This command increments the progress for a CCA at the specified index.
 [NOTE]
 Note that progress can only be incremented if a progress has been added to that Cca.
 
+Note that progress can only be incremented if a progress has been added to that Cca.
+
 Format: `increment-progress INDEX`
 
 ===== Example
