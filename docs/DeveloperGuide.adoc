@@ -192,17 +192,18 @@ sessions in Athletick. The class diagram below shows how the different component
 
 image::training_class_diagram.png[]
 
-The `Training` class contains a date and a hash map.
-The date in the training class represents the date of training session and the hash map is used to check the
-attendance of a Person. We used a `AthletickDate` class to  represent a date of training. This class is shared across
-both the `Ui` and backend, allowing training information to be shown in the `view calendar` function.
-The hash map uses `Person` objects as keys and a boolean as it’s value. This is used to check whether a `Person` has
-attended a training session, indicated by the boolean value attached to  a `Person` key. If a `Person` attended a
-training session on that day, the value associated with the key will be  true, and false if he did not attend.
+The `Training` class contains a date and training attendance, represented by an `AthletickDate` and a `HashMap`
+respectively. The date in the training class represents the date of a training session and training attendance is
+used to check the attendance of a Person. We used the class `AthletickDate` to represent the date of a training
+session. This class is shared across both the `Ui` and backend, allowing training information to be shown in the
+`view calendar` function. The `HashMap` uses `Person` objects as keys and a `Boolean` as it’s value. This is used to
+check whether a `Person` has attended a training session, indicated by the boolean value attached to  a `Person` key.
+If a `Person` attended a training session on that day, the value associated with the key will be  true, and false if
+he did not attend.
 
-A `TrainingManager` is used to store and manage all `Training` sessions in Athletick. It has a list
-containing `Training` sessions. A `Training` is added to this list whenever a user records a `Training` session
-using a `TrainingCommand`. The sequence diagram below shows how `TrainingManager` stores and manages training records.
+A `TrainingManager` is used to store and manage all `Training` sessions in Athletick. It has a list of `Training`
+sessions. A `Training` is added to this list whenever a user records a `Training` session using a `TrainingCommand`.
+The sequence diagram below shows how `TrainingManager` stores and manages training records.
 
 image::add_training.png[]
 
@@ -221,8 +222,8 @@ image::to_add.png[]
 ==== Design Considerations
 Aspect: Where to store attendance information of an individual.
 
-* Alternative 1: Extend on the `AddressBook` by storing and tagging each person with number of
-trainings attended and total number of trainings.
+* Alternative 1: Extend on the `AddressBook` by storing and tagging each `Person` with number of trainings attended
+and total number of trainings.
 
 ** Pros: Easy to implement.
 
@@ -233,10 +234,10 @@ trainings attended and total number of trainings.
 
 ** Pros: Allows storing of specific training information without depending on the `AddressBook`.
 
-** Cons: Harder to code and introduces more dependencies to Model.
-
+** Cons: More time needed to design the class.
 
 Aspect: Which data structure to store training attendance.
+
 * Alternative 1: Use a linked list to store training attendance.
 
 ** Pros: Easy to maintain.
@@ -257,7 +258,7 @@ Aspect: How to edit training information
 
 ** Cons: Unable to support multiple trainings on same date.
 
-** Alternative 2: Create a command to support editing of training.
+* Alternative 2: Create a command to support editing of training.
 
 ** Pros: More intuitive to a user who wants to edit.
 
