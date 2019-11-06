@@ -1,9 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -21,6 +19,7 @@ public class SplitCommand extends Command {
         + ": Splits an expenditure between people and add that transaction to the bank account.\n"
         + "Parameters: "
         + PREFIX_AMOUNT + "AMOUNT "
+        + PREFIX_DESC + "DESCRIPTION "
         + "[" + PREFIX_NAME + "NAME]..."
         + "[" + PREFIX_SHARE + "SHARE]...\n"
         + "Example: " + COMMAND_WORD + " "
