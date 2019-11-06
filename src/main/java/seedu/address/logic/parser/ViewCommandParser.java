@@ -23,9 +23,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
-
         Feature feature = ParserUtil.parseFeature(trimmedArgs);
-
         return new ViewCommand(feature);
     }
 }

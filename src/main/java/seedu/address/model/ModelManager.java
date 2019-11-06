@@ -326,6 +326,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Event getEvent(String eventName) {
+        return performance.getEvent(eventName);
+    }
+
+    @Override
     public void deleteEvent(Event target) {
         performance.removeEvent(target);
     }
@@ -338,6 +343,11 @@ public class ModelManager implements Model {
     @Override
     public void addRecord(String eventName, Person person, Record record) {
         performance.addRecord(eventName, person, record);
+    }
+
+    @Override
+    public void deleteRecord(String eventName, Person person, AthletickDate date) {
+        performance.deleteRecord(eventName, person, date);
     }
 
     @Override

@@ -183,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (!(commandResult.getFeature() == null)) {
-                switch (commandResult.getFeature().toString()) {
+                switch (commandResult.getFeature().getName()) {
                 case "calendar":
                     showCalendar(commandResult.getModel());
                     break;
@@ -192,6 +192,12 @@ public class MainWindow extends UiPart<Stage> {
                     break;
                 case "performance":
                     showPerformancePanel(commandResult.getModel());
+                    break;
+                case "records":
+                    RecordsPanel recordsPanel =
+                        new RecordsPanel(commandResult.getModel(), commandResult.getEventName());
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(recordsPanel.getRoot());
                     break;
                 default:
                     break;

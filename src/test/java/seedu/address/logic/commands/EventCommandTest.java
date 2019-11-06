@@ -105,7 +105,7 @@ public class EventCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the event being added.
      */
     private class ModelStubAcceptingEventAdded extends ModelStub {
         final ArrayList<Event> eventsAdded = new ArrayList<>();
@@ -293,6 +293,11 @@ public class EventCommandTest {
         }
 
         @Override
+        public Event getEvent(String eventName) {
+            return null;
+        }
+
+        @Override
         public void deleteEvent(Event target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -303,8 +308,10 @@ public class EventCommandTest {
         }
 
         @Override
-        public void addRecord(String eventName, Person person, Record record) {
-        }
+        public void addRecord(String eventName, Person person, Record record) { }
+
+        @Override
+        public void deleteRecord(String eventName, Person person, AthletickDate date) { }
 
         @Override
         public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
