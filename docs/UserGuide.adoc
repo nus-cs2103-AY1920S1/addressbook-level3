@@ -224,8 +224,8 @@ Feature by
 === Where did all my money go?
 Introducing the **Finance Tracker** feature of Jarvis, which is responsible for keeping track of all your purchases,
 monthly subscriptions and debts owed. Upon switching to the Finance tab, you will be able to see a list of purchases on
-the left and a list of your monthly subscriptions on the right. The circle in the middle indicates how much you have
-spent in relation to the spending limit set and you can see your "monthly expenses" right below that. How neat!
+the left and a list of your monthly subscriptions on the right. At the bottom left, Jarvis shows the total amount you
+have spent this month and how much you are left (if you have set a spending limit). How neat!
 
 //todo: add a ui ss
 
@@ -242,6 +242,9 @@ Jarvis will then also update your monthly expenses accordingly.
 
 Format: `add-paid d/PURCHASE-DESCRIPTION a/AMOUNT`
 
+NOTE: Jarvis will show the latest purchase at the top of the list so you can easily see your last purchase without
+scrolling!
+
 ===== Example
 ----
 add-paid d/GongCha a/2.8
@@ -257,20 +260,20 @@ Jarvis will also update your monthly expenses accordingly, which also means you 
 
 Format: `delete-paid INDEX`
 
-NOTE: `INDEX` corresponds to index shown on the list "What I bought this month..." under the Finance tab. This also
+NOTE: `INDEX` corresponds to index shown on the list __What I bought this month...__ under the Finance tab. This also
 means that the index must exist within this list!
 
 
-==== Searching for a purchase: `find-purchases`
-Ever wondered how many cups of GongCha you bought over the past month? Brace yourself for the truth.
+==== Searching for a purchase: `find-paid`
+Ever wondered how many cups of Gongcha you bought over the past month? Brace yourself for the truth.
 
 Jarvis can help you search for your purchases that match whatever keyword you give it!
 
-Format: `find-purchases KEYWORD`
+Format: `find-paid KEYWORD`
 
 ===== Example
 ----
-find-purchases GongCha
+find-paid Gongcha
 ----
 
 
@@ -299,14 +302,14 @@ Finance tab. Jarvis will also update your monthly expenses accordingly.
 
 Format: `delete-install INDEX`
 
-NOTE: `INDEX` corresponds to index shown on the list "What I spend on monthly..." under the Finance tab. This also
+NOTE: `INDEX` corresponds to index shown on the list __What I spend on monthly...__ under the Finance tab. This also
 means that the index must exist within this list!
 
 
 ==== Edit an installment: `edit-install`
 Spotify just released a new student plan? Great, that means a lower subscription fee every month!
 
-Let's inform Jarvis of the changes using the index of the installment on the list "What I spend on monthly..." under
+Let's inform Jarvis of the changes using the index of the installment on the list __What I spend on monthly...__ under
 the Finance tab. You can either change the description or the amount or both.
 
 Format: `edit-install INDEX {d/INSTALLMENT-DESCRIPTION | a/AMOUNT}`
@@ -333,9 +336,6 @@ set-limit a/300
 set-limit a/500.90
 ----
 
-If no monthly limit has been specified, the program will show:
-
-`Oops, there does not seem to be a monthly limit.`
 
 ==== Listing finances: `list-finances`
 Jarvis will switch you onto the Finance tab if you are not already there. If you have previously searched through your
@@ -344,10 +344,10 @@ purchases for something, then Jarvis returns you to the original list of purchas
 Format: `list-finances`
 
 
-==== Export to File: `export`
-A feature coming to you in v2.0!
+==== Export to File: `export` - coming to you in v2.0!
+Want to keep a record of your finances for this month?
 
-Want to keep a record of your finances for this month? Simple export your current expenditures to a file, either
+Simple export your current expenditures to a file, either
 as a `.txt`, `.csv` or `xlsx` format.
 
 Format: `export {csv | txt | xlsx} f/FILENAME`
@@ -359,6 +359,61 @@ export csv f/expenditures
 
 NOTE: Jarvis will create a file called `expenditures.csv` in the current directory, containing all expenditures.
 
+
+==== Adding owed amounts: `owe` & `debt` - coming to you in v2.0!
+A night out with friends usually ends with someone paying and splitting the tab with his friends. But how do you
+remember who you owe or who owes you?
+
+Let Jarvis take care of your debts: +
+`add-owe`: someone else paid the bill, and now you owe him/her. +
+`add-debt`: you paid the bill, and now people owe you.
+
+Format: `add-owe d/DESCRIPTION n/PERSON a/AMOUNT` or `add-debt d/DESCRIPTION n/PERSON a/AMOUNT`
+
+===== Example
+----
+add-owe n/Jamie a/5.50
+add-debt n/Sean a/10
+----
+
+==== Splitting a Tab: `add-tab` - coming to you in v2.0!
+So you're the one who paid for your group of friends?
+
+Let Jarvis divide the total amount paid and track the tab for
+this bill! Remember to include the names of those who owe you.
+
+Format: `add-tab d/DESCRIPTION a/AMOUNT n/PERSON...`
+
+===== Example
+----
+add-tab d/pizza party a/20 n/Alice n/Bob n/Charlie
+----
+
+NOTE: The above example is equivalent to adding these commands separately: +
+`add paid d/pizza party a/5` +
+`add-debt n/Alice a/5` +
+`add-debt n/Bob a/5` +
+`add-debt n/Charlie a/5`
+
+
+==== Mark a debt/owe as paid: `paid-debt` - coming to you in v2.0!
+Your friend has finally paid off their debt to you! Mark that in Jarvis and the debt will be removed automatically!
+
+Alternatively, you paid what you owe your friend. Jarvis will remove the owed payment and put it under your purchases
+instead!
+
+Jarvis will identify the debt/owe by its index in the list of debts.
+
+Format: `done-owe INDEX` or `done-debt INDEX`
+
+where `INDEX` corresponds to index shown on the list of debts under the Finance tab. This also
+means that the index must exist within this list!
+
+===== Example
+----
+done-owe INDEX 1
+done-debt INDEX 2
+----
 
 ////
 Module Lookup
@@ -424,17 +479,22 @@ Feature by
 -> Tan Ye Kai
 ////
 === CCA tracker
+Oh no, you have recently enrolled into NUS and are enthralled by the plethora of Ccas available. Before you know it,
+you are competing for your faculty's basketball team, singing for your hall band , planning an overseas service-learning
+project and handing out welfare packs for NUSSU. Thankfully, the **Cca Tracker** feature is here to help you keep track
+of each Cca.
 
 ==== Add a CCA: `add-cca`
-Add a CCA to your list. You need to to specify the name of the course and the
-type of CCA. The types of the CCA will be limited to the following:
+Firstly, lets add some Ccas to the Cca Tracker. The `add-cca` command adds a CCA to your list. You need to to specify
+the name of the cca and the type of CCA. The types of the CCA will be limited to the following:
 
 . `performingArt`
 . `sport`
 . `club`
 . `uniformedGroup`
 
-Note that equipment for each `Cca` is not compulsory.
+[NOTE]
+Note that the equipment for each `Cca` is not compulsory.
 
 Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]`
 
@@ -446,7 +506,8 @@ add-cca n/Guitar Ensemble t/performingArt e/guitar
 ----
 
 ==== Delete a CCA: `delete-cca`
-Deletes the specified CCA by index from your list.
+What if you over-commit and end up quitting the Cca? Don't worry, you can delete the Cca from the tracker too!. The
+`delete-cca` command deletes the specified CCA by index from the tracker.
 
 Format: `delete-cca INDEX`
 
@@ -457,7 +518,9 @@ delete-cca 1
 
 
 ==== Edit a CCA: `edit-cca`
-Edits the CCA. Note that the keywords in square brackets are optional.
+Oh no, a slip of the finger and you have accidentally classified the Canoeing as a 'club' instead of a 'cca'. Not to
+worry, the `edit-cca` command allows you to edit the details of your CCA. Note that the keywords in square brackets are
+optional.
 
 Format: `edit-cca INDEX [n/NAME] [t/TYPE] [e/EQUIPMENT]`
 
@@ -468,17 +531,19 @@ edit-cca 1 t/performingArt
 edit-cca 1 n/Running e/shoes e/water bottle
 ----
 
+[NOTE]
+Note that you cannot edit your milestones for the Cca! This feature is coming in v2.0!
 
 ==== List a CCA: `list-cca`
-List the CCAs that the user is participating in. If user does not participate
-in any CCAs, an empty list will be shown.
+This command lists the CCAs that you are participating in. If you do not participate in any CCAs, an empty list will be
+shown.
 
 Format: `list-cca`
 
 
 ==== Find a CCA: `find-cca`
-Find a CCA based on keyword. If no such CCA can be found, an empty list will
-be shown. Note that you can use any number of keywords.
+This command finds a CCA based on keyword. If no such CCA can be found, an empty list will be shown. Note that you can
+use any number of keywords.
 
 Format: `find-cca KEYWORD`
 
@@ -490,7 +555,9 @@ find-cca canoeing guitar
 
 
 ==== Add progress levels for a CCA: `add-progress`
-Adds the progress milestones for the CCA.
+Very often, Ccas tend to have certain milestones to achieve. For example, swimming might require you to achieve the
+different grade levels (example show below). The `add-progress` command adds the progress milestones for each chosen
+CCA.
 
 Format: `add-progress INDEX p/MILESTONE `
 
@@ -502,8 +569,9 @@ add-progress n/Guitar Ensemble l/8
 ----
 
 ==== Increment progress level: `increment-progress`
-Increments the progress for a CCA at the specified index.
+This command increments the progress for a CCA at the specified index.
 
+[NOTE]
 Note that progress can only be incremented if a progress has been added to that Cca.
 
 Format: `increment-progress INDEX`
@@ -639,7 +707,7 @@ you will not be able to redo the commands.
 * `edit-install INDEX {d/INSTALLMENT-DESCRIPTION | a/AMOUNT}`
 * `delete-install INDEX`
 * `set-monthly a/AMOUNT`
-* `find-purchases k/KEYWORD`
+* `find-paid k/KEYWORD`
 * `list-finances`
 * `export {csv | txt | xlsx} f/FILENAME`
 

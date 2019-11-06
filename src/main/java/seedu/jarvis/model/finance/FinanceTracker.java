@@ -8,9 +8,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.finance.exceptions.NegativeLimitException;
-import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.purchase.Purchase;
 
@@ -124,7 +122,7 @@ public class FinanceTracker {
     //=========== Command Methods =====================================================================
 
     /**
-     * Adds single use payment.
+     * Adds single use purchase.
      *
      * @param purchase to be added to the finance tracker
      */
@@ -137,13 +135,24 @@ public class FinanceTracker {
     /**
      * Adds a purchase to the list at the given index.
      *
-     * @param newPurchase object from newly added single-use payment
+     * @param purchase to be added to the finance tracker
      * @param zeroBasedIndex index where the purchase should be added
      */
-    public void addSinglePurchase(int zeroBasedIndex, Purchase newPurchase) {
-        requireNonNull(newPurchase);
+    public void addSinglePurchase(int zeroBasedIndex, Purchase purchase) {
+        requireNonNull(purchase);
 
-        purchaseList.addSinglePurchase(zeroBasedIndex, newPurchase);
+        purchaseList.addSinglePurchase(zeroBasedIndex, purchase);
+    }
+
+    /**
+     * Adds a purchase to the end of the list for transferring of storage purposes.
+     *
+     * @param purchase to be added to the finance tracker
+     */
+    public void addPurchaseToBack(Purchase purchase) {
+        requireNonNull(purchase);
+
+        purchaseList.addPurchaseToBack(purchase);
     }
 
     /**
@@ -151,7 +160,7 @@ public class FinanceTracker {
      *
      * @param itemNumber of payment to be deleted
      */
-    public Purchase deleteSinglePurchase(int itemNumber) throws PurchaseNotFoundException {
+    public Purchase deleteSinglePurchase(int itemNumber) {
         return purchaseList.deletePurchase(itemNumber);
     }
 
@@ -160,7 +169,7 @@ public class FinanceTracker {
      *
      * @param purchase  deleted
      */
-    public Purchase deleteSinglePurchase(Purchase purchase) throws PurchaseNotFoundException {
+    public Purchase deleteSinglePurchase(Purchase purchase) {
         requireNonNull(purchase);
 
         return purchaseList.deletePurchase(purchase);
@@ -211,7 +220,7 @@ public class FinanceTracker {
 
     //=========== Getter Methods ======================================================================
 
-    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
+    public Installment getInstallment(int instalIndex) {
         return installmentList.getInstallment(instalIndex);
     }
 
@@ -277,7 +286,7 @@ public class FinanceTracker {
      *
      * @param instalNumber of installment to be removed
      */
-    public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
+    public Installment deleteInstallment(int instalNumber) {
         return installmentList.deleteInstallment(instalNumber);
     }
 
@@ -286,7 +295,7 @@ public class FinanceTracker {
      *
      * @param installment to be removed
      */
-    public Installment deleteInstallment(Installment installment) throws InstallmentNotFoundException {
+    public Installment deleteInstallment(Installment installment) {
         requireNonNull(installment);
 
         return installmentList.deleteInstallment(installment);
@@ -330,8 +339,10 @@ public class FinanceTracker {
      * @param limit
      */
     public void setMonthlyLimit(MonthlyLimit limit) {
-        requireNonNull(limit);
-
+        if (limit == null) {
+            monthlyLimit = null;
+            return;
+        }
         if (limit.getMonthlyLimit() < 0) {
             throw new NegativeLimitException();
         }

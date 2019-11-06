@@ -96,13 +96,13 @@ public class PurchaseList {
     //=========== Command Methods ==================================================================================
 
     /**
-     * Adds a single-use purchases to the list of purchases.
+     * Adds a single-use purchase to the list of purchases.
      *
      * @param newPurchase object from newly added single-use payment
      */
     public void addSinglePurchase(Purchase newPurchase) {
         requireNonNull(newPurchase);
-        internalPurchaseList.add(newPurchase);
+        addSinglePurchase(0, newPurchase);
     }
 
     /**
@@ -117,9 +117,20 @@ public class PurchaseList {
     }
 
     /**
+     * Adds a purchase to the end of the list for transferring of storage purposes.
+     *
+     * @param purchase to be added to the finance tracker
+     */
+    public void addPurchaseToBack(Purchase purchase) {
+        requireNonNull(purchase);
+
+        internalPurchaseList.add(purchase);
+    }
+
+    /**
      * Removes purchase from the list of purchases based on the purchase number.
      *
-     * @param purchaseIndex
+     * @param purchaseIndex index of the target purchase
      * @return Purchase that was just deleted from the user's list of purchases
      */
     public Purchase deletePurchase(int purchaseIndex) {

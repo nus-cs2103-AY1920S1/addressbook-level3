@@ -1,0 +1,13 @@
+@startuml
+
+start
+:User executes a command;
+if () then (has inverse execution)
+    :Remember command to support undo/redo operations;
+    :Purge all stored undone commands;
+else (else)
+endif
+:Save stored commands to local storage;
+stop
+
+@enduml

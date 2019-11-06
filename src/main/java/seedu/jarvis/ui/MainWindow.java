@@ -25,7 +25,7 @@ import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.cca.CcaListView;
-import seedu.jarvis.ui.course.CoursePlannerWindow;
+import seedu.jarvis.ui.course.CoursePlannerView;
 import seedu.jarvis.ui.finance.FinanceListView;
 import seedu.jarvis.ui.planner.PlannerUiType;
 import seedu.jarvis.ui.planner.PlannerView;
@@ -53,6 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private HelpDeskWindow helpDeskWindow;
 
     @FXML
     private VBox parentVBox;
@@ -68,6 +69,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane helpDeskWindowPlaceholder;
 
     @FXML
     private TabPane tabPanePlaceHolder;
@@ -120,10 +124,18 @@ public class MainWindow extends UiPart<Stage> {
             if (event.getCode() == KeyCode.TAB) {
                 event.consume();
                 SingleSelectionModel<Tab> selectionModel = tabPanePlaceHolder.getSelectionModel();
-                if (selectionModel.isSelected(FINANCES_INDEX)) {
-                    selectionModel.selectFirst();
-                } else {
+                if (selectionModel.isSelected(PLANNER_INDEX)) {
                     selectionModel.selectNext();
+                    helpDeskWindow.setCourseText();
+                } else if (selectionModel.isSelected(MODULES_INDEX)) {
+                    selectionModel.selectNext();
+                    helpDeskWindow.setCcaText();
+                } else if (selectionModel.isSelected(CCAS_INDEX)) {
+                    selectionModel.selectNext();
+                    helpDeskWindow.setFinanceText();
+                } else if (selectionModel.isSelected(FINANCES_INDEX)) {
+                    selectionModel.selectFirst();
+                    helpDeskWindow.setPlannerText();
                 }
             }
         });
@@ -149,6 +161,9 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        helpDeskWindow = new HelpDeskWindow();
+        helpDeskWindowPlaceholder.getChildren().add(helpDeskWindow.getRoot());
+
         // Press "Enter" to auto-focus to CommandBox
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -157,7 +172,7 @@ public class MainWindow extends UiPart<Stage> {
         });
 
         // filling individual tabs
-        CoursePlannerWindow cpw = new CoursePlannerWindow(this, logic, model);
+        CoursePlannerView cpv = new CoursePlannerView(this, logic, model);
         PlannerView pw = new PlannerView(this, logic, model, PlannerUiType.SCHEDULE);
         CcaListView clv = new CcaListView(this, logic, model);
         FinanceListView flv = new FinanceListView(this, logic, model);
@@ -166,8 +181,8 @@ public class MainWindow extends UiPart<Stage> {
         pw.fillPage();
         plannerContentPlaceholder.getChildren().add(pw.getRoot());
 
-        cpw.fillPage();
-        moduleContentPlaceholder.getChildren().add(cpw.getRoot());
+        cpv.fillPage();
+        moduleContentPlaceholder.getChildren().add(cpv.getRoot());
 
         clv.fillPage();
         ccaContentPlaceholder.getChildren().add(clv.getRoot());
@@ -279,7 +294,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case LIST_COURSE:
-            newView = new CoursePlannerWindow(this, logic, model);
+            newView = new CoursePlannerView(this, logic, model);
             toUpdatePlaceHolder = moduleContentPlaceholder;
             break;
 
@@ -333,18 +348,22 @@ public class MainWindow extends UiPart<Stage> {
 
         case "plannerContentPlaceholder":
             tabPanePlaceHolder.getSelectionModel().select(PLANNER_INDEX);
+            helpDeskWindow.setPlannerText();
             break;
 
         case "financeContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
+            helpDeskWindow.setFinanceText();
             break;
 
         case "moduleContentPlaceholder":
             tabPanePlaceHolder.getSelectionModel().select(MODULES_INDEX);
+            helpDeskWindow.setCourseText();
             break;
 
         case "ccaContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(CCAS_INDEX);
+            helpDeskWindow.setCcaText();
             break;
 
         default:
