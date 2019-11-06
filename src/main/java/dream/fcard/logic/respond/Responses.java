@@ -131,7 +131,7 @@ public enum Responses {
 
                     //@@author huiminlim
                     boolean isOnlyOneDeck = res.get(0).size() == 1;
-                    if(!isOnlyOneDeck) {
+                    if (!isOnlyOneDeck) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Create Command: invalid format");
                         return true;
                     }
