@@ -68,6 +68,8 @@ thus the provided file name cannot already exist in `/exports`.
 The following diagram shows how an export command works:
 
 image::ExportSequenceDiagram.png[]
+image::ExportSequenceDiagramRef.png[]
+image::ExportSequenceDiagramRef2.png[]
 
 ===== ExportCommand Design Considerations
 
