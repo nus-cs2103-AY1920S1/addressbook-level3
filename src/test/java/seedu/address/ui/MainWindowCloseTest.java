@@ -62,7 +62,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
         assertTrue(HelpWindowHandle.isWindowPresent());
         mainWindowHandle.closeMainWindowExternally();
         // The application will exit when all windows are closed.
-        assertEquals(Collections.emptyList(), guiRobot.listWindows());
+        Platform.runLater(() -> assertEquals(Collections.emptyList(), guiRobot.listWindows()));
     }
 
     /**
