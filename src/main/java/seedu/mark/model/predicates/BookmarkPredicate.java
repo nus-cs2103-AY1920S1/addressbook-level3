@@ -209,13 +209,35 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
                 && nameKeywords.equals(((BookmarkPredicate) other).nameKeywords)
                 && notNameKeywords.equals(((BookmarkPredicate) other).notNameKeywords)
                 && urlKeywords.equals(((BookmarkPredicate) other).urlKeywords)
-                && notUrlKeywords.equals((((BookmarkPredicate) other).notUrlKeywords))); // state check
+                && notUrlKeywords.equals((((BookmarkPredicate) other).notUrlKeywords))
+                && folderNames.equals((((BookmarkPredicate) other).folderNames))
+                && notFolderNames.equals((((BookmarkPredicate) other).notFolderNames))); // state check
     }
 
     @Override
     public String toString() {
-        return "[name: " + nameKeywords + ", not name: " + notNameKeywords + ", url: "
-                + urlKeywords + ", not url: " + notUrlKeywords + "]";
-        // TODO: Improve toString()
+        StringBuilder stringBuilder = new StringBuilder("[");
+        if (!nameKeywords.isEmpty()) {
+            stringBuilder.append("Name: " + nameKeywords + ",");
+        }
+        if (!notNameKeywords.isEmpty()) {
+            stringBuilder.append("Not name: " + notNameKeywords + ",");
+        }
+        if (!urlKeywords.isEmpty()) {
+            stringBuilder.append("URL: " + urlKeywords + ",");
+        }
+        if (!notUrlKeywords.isEmpty()) {
+            stringBuilder.append("Not URL: " + notUrlKeywords + ",");
+        }
+        if (!folderNames.isEmpty()) {
+            stringBuilder.append("Folder: " + folderNames + ",");
+        }
+        if (!notFolderNames.isEmpty()) {
+            stringBuilder.append("Folder: " + notFolderNames + ",");
+        }
+        if (stringBuilder.substring(stringBuilder.length() - 1).equals(",")) {
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        }
+        return stringBuilder.append("]").toString();
     }
 }

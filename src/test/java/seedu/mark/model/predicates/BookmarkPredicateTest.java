@@ -51,6 +51,10 @@ public class BookmarkPredicateTest {
                         .withUrlKeywords(KEYWORD_LIST_SINGLE))); // different url keywords
         assertFalse(firstPredicate.equals(new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE)
                         .withoutUrlKeywords(KEYWORD_LIST_MULTIPLE))); // different not-url keywords
+        assertFalse(firstPredicate.equals(new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE)
+                .withFolder(KEYWORD_LIST_SINGLE))); // different folder names
+        assertFalse(firstPredicate.equals(new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE)
+                .withoutFolder(KEYWORD_LIST_SINGLE))); // different not-folder names
     }
 
     @Test
