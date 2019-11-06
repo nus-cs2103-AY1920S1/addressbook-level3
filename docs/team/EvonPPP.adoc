@@ -100,18 +100,12 @@ suggestions will be offered. This further augments the hassle-free aspect of thi
 //his/her contact details.
 
 * Checking Out the Cart
-
 ** What it does:
 This checkout feature calculates and displays the total amount and the change to be returned.
-
-//Checking out allows users to confirm all the sales items in the table as sold.
 
 ** Justification:
 This feature allows the stock to be updated accordingly automatically on the `Inventory Tab`
 and abolish any need for manual logging of the stock.
-
-//Thus, this is an essential feature to keep the quantity of stock
-//up to date.
 
 ** Highlights:
 This feature ensures accountability by prohibiting checkout if the cashier has not been set. Additionally, the sales
@@ -204,7 +198,7 @@ The following section illustrates my contribution to the User Guide for features
 //are advised to reduce the quantity of items or checkout separately in another cart.
 //====
 
-[big]##5.5.1. Add a Sales Item to the Table##
+[big red]*5.5.1. Add a Sales Item to the Table*
 
 This command enables you to add a sales item into the table.
 
@@ -259,9 +253,10 @@ Leo will respond to the successful addition with a response message. The newly a
 
 {End of First Extract from User Guide}
 
+
 {Start of Second Extract from User Guide}
 
-[big]##5.5.5 Checkout All Sales Items##
+[big red]*5.5.5 Checkout All Sales Items*
 
 This command enables you to perform a checkout of all the sales items in the table.
 
@@ -319,7 +314,7 @@ The following section shows my contribution to the Developer Guide for features 
 //image::UMLCashierTab.png[width="550"]
 //[italic small red]*Figure 9. Class Diagram of Cashier Tab (cashier package)*
 
-[big]##3.1.1 Add Sales Item feature##
+[big red]*3.1.1 Add Sales Item feature*
 
 This feature allows the addition of sales items to the cart.
 
@@ -424,7 +419,7 @@ image::AddCommandCashierActivity.png[width="600"]
 
 {Start of Second Extract from Developer Guide}
 
-[big]##3.1.2 Checkout Feature##
+[big red]*3.1.2 Checkout Feature*
 
 This feature records all the sales items in the table as one transaction under the `Sales` category.
 
@@ -469,7 +464,7 @@ image::CheckoutCommandCashierSeq2.png[width="600"]
 
 {Start of Third Extract from Developer Guide}
 
-[big]##3.1.5 Overall Design Considerations##
+[big red]*3.1.5 Overall Design Considerations*
 
 This section explains the design considerations for some crucial implementations in the Cashier Tab.
 
