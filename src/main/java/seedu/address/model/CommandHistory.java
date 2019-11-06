@@ -4,6 +4,10 @@ import javafx.util.Pair;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ReversibleCommand;
 
+/**
+ * The history manager that keeps track of the application {@code ReversibleCommand} history.
+ * This class is used for the undo/redo feature.
+ */
 public interface CommandHistory {
 
     /**

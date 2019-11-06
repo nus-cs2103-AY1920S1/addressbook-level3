@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
@@ -44,7 +45,7 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
-    private final CommandHistory commandHistoryManager;
+    private final CommandHistory commandHistory;
 
     private Optional<Borrower> servingBorrower;
 
@@ -71,7 +72,7 @@ public class ModelManager implements Model {
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
 
-        this.commandHistoryManager = new CommandHistoryManager();
+        this.commandHistory = new CommandHistoryManager();
 
         this.servingBorrower = Optional.empty();
     }
@@ -414,7 +415,8 @@ public class ModelManager implements Model {
         return userPrefs.equals(other.userPrefs)
                 && loanRecords.equals(other.loanRecords)
                 && catalog.equals(other.catalog)
-                && borrowerRecords.equals(other.borrowerRecords);
+                && borrowerRecords.equals(other.borrowerRecords)
+                && commandHistory.equals(other.commandHistory);
     }
 
     @Override
@@ -637,32 +639,36 @@ public class ModelManager implements Model {
 
     @Override
     public boolean canUndoCommand() {
-        return commandHistoryManager.canUndo();
+        return commandHistory.canUndo();
     }
 
     @Override
     public boolean canRedoCommand() {
-        return commandHistoryManager.canRedo();
+        return commandHistory.canRedo();
     }
 
     @Override
     public void commitCommand(ReversibleCommand command) {
-        commandHistoryManager.commit(command);
+        commandHistory.commit(command);
     }
 
     @Override
     public Pair<Command, ReversibleCommand> getUndoCommand() {
-        return commandHistoryManager.getUndoCommand();
+        logger.info("Retrieving undo command from CommandHistory.");
+        return commandHistory.getUndoCommand();
     }
 
     @Override
     public Command getRedoCommand() {
-        return commandHistoryManager.getRedoCommand();
+        logger.info("Retrieving redo command from CommandHistory.");
+        return commandHistory.getRedoCommand();
     }
 
     @Override
     public void resetCommandHistory() {
-        commandHistoryManager.reset();
+        logger.info("Resetting CommandHistory.");
+        commandHistory.reset();
+        logger.info("Resetting of commandHistory is completed.");
     }
 
 }

@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -11,15 +10,16 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.ReversibleCommand;
-import seedu.address.model.book.Book;
-import seedu.address.testutil.BookBuilder;
+import org.junit.jupiter.api.Test;
 
 import javafx.util.Pair;
-import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.book.Book;
+import seedu.address.testutil.BookBuilder;
 
 public class CommandHistoryTest {
     private CommandHistory commandHistory = new CommandHistoryManager();
@@ -86,7 +86,7 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void getUndoCommand_undoable_returnsUndoCommand() {
+    public void getUndoCommand_undoable_returnsUndoCommandPair() {
         Model model = new ModelManager();
         try {
             testCommand.execute(model);

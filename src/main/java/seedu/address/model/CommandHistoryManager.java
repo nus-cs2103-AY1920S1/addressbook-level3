@@ -67,7 +67,7 @@ public class CommandHistoryManager implements CommandHistory {
             throw new NoUndoableCommandException();
         }
 
-        logger.info("Retrieving undo command from CommandHistory");
+        logger.info("Retrieving undo command from commandHistoryList.");
 
         ReversibleCommand commandToUndo = commandHistoryList.get(currentCommandPointer);
         assert commandToUndo != null : "All reversible commands committed should have been null checked.";
@@ -90,7 +90,7 @@ public class CommandHistoryManager implements CommandHistory {
             throw new NoRedoableCommandException();
         }
 
-        logger.info("Retrieving redo command from CommandHistory");
+        logger.info("Retrieving redo command from commandHistoryList.");
 
         currentCommandPointer++;
 
@@ -121,10 +121,10 @@ public class CommandHistoryManager implements CommandHistory {
      * Resets the entire command history.
      */
     public void reset() {
-        logger.info("Resetting CommandHistory.");
+        logger.info("Resetting commandHistoryList.");
         commandHistoryList.clear();
         currentCommandPointer = -1;
-        logger.info("Reset is complete.");
+        logger.info("Resetting of commandHistoryList is completed.");
     }
 
     @Override

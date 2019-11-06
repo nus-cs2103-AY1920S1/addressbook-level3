@@ -17,10 +17,6 @@ public class SetUserSettingsDescriptorBuilder {
         descriptor = new SetCommand.SetUserSettingsDescriptor();
     }
 
-    public SetUserSettingsDescriptorBuilder(SetCommand.SetUserSettingsDescriptor descriptor) {
-        this.descriptor = new SetCommand.SetUserSettingsDescriptor(descriptor);
-    }
-
     /**
      * Returns an {@code SetUserSettingsDescriptor} with fields containing {@code UserSettings}'s details
      */
