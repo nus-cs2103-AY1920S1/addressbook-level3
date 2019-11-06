@@ -140,6 +140,9 @@ public class Account {
         balanceLongProperty.set(balance);
     }
 
+    /**
+     * This extractor method helps to update the UI when the internal properties of accounts are changed.
+     */
     public static Callback<Account, Observable[]> extractor() {
         return new Callback<Account, Observable[]>() {
             @Override

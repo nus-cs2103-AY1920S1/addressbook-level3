@@ -6,7 +6,6 @@ import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.ui.card.AccountCard;
 import javafx.collections.ObservableList;
-import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -32,7 +31,6 @@ public class AccountListPanel extends DisplayPanel {
      */
     class AccountListViewCell extends ListCell<Account> {
 
-        PseudoClass customClass = PseudoClass.getPseudoClass("activeAccount");
         @Override
         protected void updateItem(Account account, boolean empty) {
             super.updateItem(account, empty);
