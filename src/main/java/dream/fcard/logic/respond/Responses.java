@@ -37,8 +37,9 @@ public enum Responses {
             RegexUtil.commandFormatRegex("help", new String[]{"command/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
-
+                    //@author
 
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
                         new String[]{"command/"}, i);
@@ -62,7 +63,9 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
             i -> {
 
+                //@@author huiminlim
                 LogsCenter.getLogger(Responses.class).info("COMMAND: HELP");
+                //@author
 
 
                 //TODO open a window to UserGuide.html (by Taha)
@@ -73,6 +76,7 @@ public enum Responses {
             RegexUtil.commandFormatRegex("import", new String[]{"filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
             i -> {
+                LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
 
                 return true; //if valid
                 //return false; //if not valid
