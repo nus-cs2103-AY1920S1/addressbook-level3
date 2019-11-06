@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
+    public static final String PREFIX_USAGE = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the most recent command";
 

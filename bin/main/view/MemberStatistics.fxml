@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<HBox VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+            <children>
+                <Label id="memberByTasks" text="Members by tasks allocated"/>
+                <PieChart fx:id="memberByTasks" prefWidth="300" prefHeight="300"/>
+            </children>
+        </VBox>
+        <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+            <children>
+                <Label id="doneLabel" text="Members by items bought"/>
+                <PieChart fx:id="memberByInv" prefWidth="300" prefHeight="300"/>
+            </children>
+        </VBox>
+    </children>
+</HBox>
+
