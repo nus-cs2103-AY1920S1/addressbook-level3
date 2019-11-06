@@ -13,6 +13,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
 
 /**
  * Adds a loan.
@@ -37,6 +38,9 @@ public class LoanCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New loan added:\n%1$s";
 
+    public static final String MESSAGE_DUPLICATE_LOAN = "An identical loan already exists in the list.\n"
+            + "Perhaps try changing the field(s) of the new loan to separate it from the existing one.";
+
     private final Loan toAdd;
 
     public LoanCommand(Loan loan) {
@@ -48,7 +52,11 @@ public class LoanCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getLoansManager());
 
-        model.getLoansManager().addLoan(toAdd);
+        try {
+            model.getLoansManager().addLoan(toAdd);
+        } catch (DuplicateLoanException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_LOAN);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.LOAN);
     }
 

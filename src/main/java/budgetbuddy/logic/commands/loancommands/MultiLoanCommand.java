@@ -4,6 +4,7 @@ import static budgetbuddy.commons.util.CollectionUtil.hasDuplicates;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -105,12 +106,22 @@ public abstract class MultiLoanCommand extends Command {
 
     /**
      * Executes a given operation on loans targeted using the given list of indices.
+     * This method takes into account the possibility that the list size might change after an operation.
+     * To combat this, the target indices are decremented if the list size changes.
      * @param operation A `Consumer` that takes an index, gets the loan with that index, and acts on the loan.
      */
-    protected void actOnTargetLoans(List<Index> targetLoanIndices, Consumer<Index> operation) {
+    protected void actOnTargetLoans(
+            LoansManager loansManager, List<Index> targetLoanIndices, Consumer<Index> operation) {
+        targetLoanIndices.sort(Comparator.comparingInt(Index::getZeroBased));
+
+        int decrementCounter = 0;
         for (Index index : targetLoanIndices) {
             try {
-                operation.accept(index);
+                int originalListSize = loansManager.getFilteredLoans().size();
+                operation.accept(Index.fromZeroBased(index.getZeroBased() - decrementCounter));
+                if (loansManager.getFilteredLoans().size() != originalListSize) {
+                    decrementCounter++;
+                }
                 hitLoanIndices.add(index);
             } catch (LoanNotFoundException e) {
                 missingLoanIndices.add(index);

@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 
 import javafx.collections.FXCollections;
@@ -107,7 +108,7 @@ public class LoansManager {
      */
     public Loan getLoan(Index toGet) throws LoanNotFoundException {
         checkIndexValidityInFilteredList(toGet);
-        return getLoans().get(toGet.getZeroBased());
+        return filteredLoans.get(toGet.getZeroBased());
     }
 
     /**
@@ -122,7 +123,10 @@ public class LoansManager {
      * Adds a given loan to the list.
      * @param toAdd The loan to add.
      */
-    public void addLoan(Loan toAdd) {
+    public void addLoan(Loan toAdd) throws DuplicateLoanException {
+        if (internalList.stream().anyMatch(loan -> loan.isSameLoan(toAdd))) {
+            throw new DuplicateLoanException();
+        }
         internalList.add(0, toAdd);
         internalList.sort(sorter);
         updateFilteredList(FILTER_ALL);
@@ -133,9 +137,23 @@ public class LoansManager {
      * @param toEdit The index of the target loan to replace in the filtered list
      * @param editedLoan The edited loan to replace the target loan with.
      */
-    public void editLoan(Index toEdit, Loan editedLoan) throws LoanNotFoundException {
+    public void editLoan(Index toEdit, Loan editedLoan) throws LoanNotFoundException, DuplicateLoanException {
+        if (internalList.stream().anyMatch(loan -> loan.isSameLoan(editedLoan))) {
+            throw new DuplicateLoanException();
+        }
         checkIndexValidityInFilteredList(toEdit);
-        internalList.set(toEdit.getZeroBased(), editedLoan);
+        internalList.set(filteredLoans.getSourceIndex(toEdit.getZeroBased()), editedLoan);
+    }
+
+    /**
+     * Updates a target loan in the filtered list to the given loan.
+     * @param toUpdate The index of the loan in the filtered list to update.
+     * @param updatedLoan The updated loan; it should be identical to the target loan except for (maybe) its status.
+     * @throws LoanNotFoundException If the loan is not found in the filtered list.
+     */
+    public void updateStatus(Index toUpdate, Loan updatedLoan) throws LoanNotFoundException {
+        checkIndexValidityInFilteredList(toUpdate);
+        internalList.set(filteredLoans.getSourceIndex(toUpdate.getZeroBased()), updatedLoan);
     }
 
     /**
@@ -144,8 +162,8 @@ public class LoansManager {
      */
     public void deleteLoan(Index toDelete) throws LoanNotFoundException {
         checkIndexValidityInFilteredList(toDelete);
-        Loan loanInInternalList = filteredLoans.get(toDelete.getZeroBased());
-        internalList.remove(loanInInternalList);
+        Loan inFilteredList = filteredLoans.get(toDelete.getZeroBased());
+        internalList.remove(inFilteredList);
     }
 
     /**

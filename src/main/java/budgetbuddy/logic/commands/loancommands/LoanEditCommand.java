@@ -21,6 +21,7 @@ import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
@@ -44,7 +45,8 @@ public class LoanEditCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Loan %1$d edited.";
     public static final String MESSAGE_UNEDITED = "At least one field must be provided for editing.";
-    public static final String MESSAGE_FAILURE = "The loan targeted for editing could not be found.";
+    public static final String MESSAGE_LOAN_NOT_FOUND = "The loan targeted for editing could not be found.";
+    public static final String MESSAGE_DUPLICATE_LOAN = "The edited loan already exists in the list.";
 
     private final Index targetLoanIndex;
     private final LoanEditDescriptor loanEditDescriptor;
@@ -71,7 +73,9 @@ public class LoanEditCommand extends Command {
             editedLoan = createEditedLoan(targetLoan, loanEditDescriptor);
             loansManager.editLoan(targetLoanIndex, editedLoan);
         } catch (LoanNotFoundException e) {
-            throw new CommandException(MESSAGE_FAILURE);
+            throw new CommandException(MESSAGE_LOAN_NOT_FOUND);
+        } catch (DuplicateLoanException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_LOAN);
         }
 
         return new CommandResult(

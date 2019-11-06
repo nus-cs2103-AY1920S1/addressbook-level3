@@ -86,6 +86,18 @@ public class Loan {
     }
 
     /**
+     * Returns true if all fields (EXCEPT status) of a given loan are identical to this one.
+     * @param loan The loan to check.
+     */
+    public boolean isSameLoan(Loan loan) {
+        return getPerson().equals(loan.getPerson())
+                && getDirection().equals(loan.getDirection())
+                && getAmount().equals(loan.getAmount())
+                && getDate().equals(loan.getDate())
+                && getDescription().equals(loan.getDescription());
+    }
+
+    /**
      * Checks all fields of a Loan for equality (person, direction, amount, date, description, status).
      */
     @Override
@@ -98,13 +110,13 @@ public class Loan {
             return false;
         }
 
-        // do not compare status of loan
         Loan otherLoan = (Loan) other;
         return otherLoan.getPerson().isSamePerson(person)
                 && otherLoan.getDirection() == direction
                 && otherLoan.getAmount().equals(amount)
                 && otherLoan.getDate().equals(date)
-                && otherLoan.getDescription().equals(description);
+                && otherLoan.getDescription().equals(description)
+                && otherLoan.getStatus().equals(status);
     }
 
     @Override

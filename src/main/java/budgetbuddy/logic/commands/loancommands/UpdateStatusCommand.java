@@ -30,10 +30,10 @@ public abstract class UpdateStatusCommand extends MultiLoanCommand {
         List<Index> targetLoanIndices = constructTargetLoanIndicesList(loansManager);
         Consumer<Index> updateStatusOp = targetIndex -> {
             Loan updatedLoan = createUpdatedLoan(loansManager.getLoan(targetIndex), updatedStatus);
-            loansManager.editLoan(targetIndex, updatedLoan);
+            loansManager.updateStatus(targetIndex, updatedLoan);
         };
 
-        actOnTargetLoans(targetLoanIndices, updateStatusOp);
+        actOnTargetLoans(loansManager, targetLoanIndices, updateStatusOp);
     }
 
     /**
