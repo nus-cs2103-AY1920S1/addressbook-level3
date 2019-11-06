@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,6 +18,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ViewState;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
@@ -43,18 +44,22 @@ public class EditCommand extends Command {
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_AMOUNT + "$23.50 "
+        + PREFIX_AMOUNT + "23.50 "
         + PREFIX_DATE + "1245";
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense list.";
+    public static final String MESSAGE_EDIT_ERROR = "An error occurred while " +
+        "trying to edit the expense";
+    public static final String MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR = "You have to be viewing an " +
+        "expense list to edit an expense";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
 
     /**
-     * @param index                of the expense in the filtered expense list to edit
+     * @param index                 of the expense in the filtered expense list to edit
      * @param editExpenseDescriptor details to edit the expense with
      */
     public EditCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
@@ -63,27 +68,6 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editExpenseDescriptor = new EditExpenseDescriptor(editExpenseDescriptor);
-    }
-
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Expense> lastShownList = model.getFilteredExpenseList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
-        }
-
-        Expense expenseToEdit = lastShownList.get(index.getZeroBased());
-        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
-
-        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
-        }
-
-        model.setExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
     }
 
     /**
@@ -100,6 +84,68 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
 
         return new Expense(updatedName, updatedAmount, updatedCurrency, updatedDate, updatedTags);
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        ViewState viewState = model.getViewState();
+        List<Expense> lastShownList;
+
+        if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
+            lastShownList = model.getFilteredExpenseList();
+        } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
+            Budget viewingBudget = model.getLastViewedBudget();
+            lastShownList = viewingBudget.getObservableExpenseList();
+        } else {
+            throw new CommandException(MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR);
+        }
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
+        }
+
+        Expense expenseToEdit = lastShownList.get(index.getZeroBased());
+        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
+
+        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
+        }
+
+        Optional<Budget> b1 = model.getBudgetExpenseFallsInto(expenseToEdit);
+        Optional<Budget> b2 = model.getBudgetExpenseFallsInto(editedExpense);
+
+        if (b1.isPresent() && b2.isPresent() && b1.get().equals(b2.get())) {
+            // both expenses fall in same budget
+            b1.get().setExpenseInBudget(expenseToEdit, editedExpense);
+        } else if (b1.isEmpty() && b2.isEmpty()) {
+            // both expenses do not fall in any budget
+            model.setExpense(expenseToEdit, editedExpense);
+        } else if (b1.isPresent() && b2.isEmpty()) {
+            // toEdit falls in budget, edited doesn't
+            b1.get().deleteExpenseInBudget(expenseToEdit);
+            model.addExpense(editedExpense);
+        } else if (b1.isEmpty() && b2.isPresent()) {
+            // toEdit doesn't fall in budget, edited does
+            model.deleteExpense(expenseToEdit);
+            b2.get().addExpenseIntoBudget(editedExpense);
+        } else if (b1.isPresent() && b2.isPresent() && !b1.get().equals(b2.get())) {
+            // both expenses in different budget
+            b1.get().deleteExpenseInBudget(expenseToEdit);
+            b2.get().addExpenseIntoBudget(editedExpense);
+        } else {
+            throw new CommandException(MESSAGE_EDIT_ERROR);
+        }
+
+        if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
+            return new CommandResult(model.getFilteredExpenseList(), null,
+                null, String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
+        } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
+            return new CommandResult(model.getExpenseListFromBudget(b1.get()), null, null,
+                String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
+        } else {
+            throw new CommandException(MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR);
+        }
     }
 
     @Override
@@ -154,44 +200,36 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, amount, currency, date, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
-        }
-
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
 
-        public void setAmount(Amount amount) {
-            this.amount = amount;
+        public void setName(Name name) {
+            this.name = name;
         }
 
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
         }
 
-        public void setCurrency(Currency currency) {
-            this.currency = currency;
+        public void setAmount(Amount amount) {
+            this.amount = amount;
         }
 
         public Optional<Currency> getCurrency() {
             return Optional.ofNullable(currency);
         }
 
-        public void setDate(Date date) {
-            this.date = date;
+        public void setCurrency(Currency currency) {
+            this.currency = currency;
         }
 
         public Optional<Date> getDate() {
             return Optional.ofNullable(date);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
         /**
@@ -201,6 +239,14 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         @Override

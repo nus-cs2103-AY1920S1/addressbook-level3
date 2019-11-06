@@ -12,8 +12,7 @@ import seedu.address.model.exchangedata.ExchangeDataSingleton;
 public class Currency {
 
     public static final String DEFAULT_BASE_CURRENCY = "SGD";
-
-    public static final String MESSAGE_CONSTRAINTS = "Currency should exactly 3 Letters "
+    public static final String MESSAGE_CONSTRAINTS = "Currency should be exactly 3 Letters "
         + "and it should not be blank";
     public static final String VALIDATION_REGEX = "([a-zA-Z]){3}";
 

@@ -28,8 +28,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_VODKA = "Belvedere Vodka";
     public static final String VALID_NAME_RUM = "Ron Zacapa";
-    public static final String VALID_AMOUNT_VODKA = "$30";
-    public static final String VALID_AMOUNT_RUM = "$200";
+    public static final String VALID_AMOUNT_VODKA = "30";
+    public static final String VALID_AMOUNT_RUM = "200";
     public static final String VALID_CURRENCY_VODKA = "SGD";
     public static final String VALID_CURRENCY_RUM = "USD";
     public static final String VALID_DATE_VODKA = "13/10/2019";
