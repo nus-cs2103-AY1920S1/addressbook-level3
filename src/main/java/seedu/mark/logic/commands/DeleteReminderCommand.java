@@ -25,7 +25,8 @@ public class DeleteReminderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the reminder identified by the index number used in the displayed reminder list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 \n"
+            + "You can find reminder in dashboard.";
 
     public static final String MESSAGE_DELETE_REMINDER_SUCCESS = "Deleted Bookmark: %1$s";
 

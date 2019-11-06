@@ -15,7 +15,7 @@ import seedu.mark.model.bookmark.Url;
 public class Reminder {
 
     //TODO: temporarily; to change when confirmed
-    private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
+    private static final String DATE_FORMATTER = "dd/MM/uuuu HHmm";
 
     //data fields
     private Url url;
