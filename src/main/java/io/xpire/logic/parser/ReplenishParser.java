@@ -3,6 +3,7 @@ package io.xpire.logic.parser;
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static io.xpire.commons.core.Messages.MESSAGE_XPIRE_COMMAND_ONLY;
+import static io.xpire.model.ListType.REPLENISH;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -26,6 +27,7 @@ import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.ListType;
 
 //@@author febee99
 /**
@@ -62,17 +64,17 @@ public class ReplenishParser implements Parser {
         case ClearCommand.COMMAND_WORD:
             //fallthrough
         case ClearCommand.COMMAND_SHORTHAND:
-            return new ClearCommand("replenish");
+            return new ClearCommand(REPLENISH);
 
         case SearchCommand.COMMAND_WORD:
             //fallthrough
         case SearchCommand.COMMAND_SHORTHAND:
-            return new SearchCommandParser().parse(arguments);
+            return new SearchCommandParser(REPLENISH).parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
             //fallthrough
         case ViewCommand.COMMAND_SHORTHAND:
-            return new ViewCommandParser().parse(arguments);
+            return new ViewCommandParser(REPLENISH).parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             //fallthrough
@@ -85,10 +87,10 @@ public class ReplenishParser implements Parser {
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return new UndoCommand(REPLENISH);
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            return new RedoCommand(REPLENISH);
 
         case ShiftToMainCommand.COMMAND_WORD:
             //fallthrough

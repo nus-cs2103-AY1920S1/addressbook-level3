@@ -124,6 +124,17 @@ public class ModelManager implements Model {
         }
     }
 */
+    @Override
+    public void setXpire(ReadOnlyListView<XpireItem> xpire) {
+        this.xpire.resetData(xpire);
+    }
+
+    @Override
+    public void setReplenishList(ReadOnlyListView<Item> replenishList) {
+        this.replenishList.resetData(replenishList);
+    }
+
+    @Override
     public ObservableList<? extends Item> getItemList(ListType listType) {
         requireNonNull(listType);
 
@@ -139,6 +150,7 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
     public boolean hasItem(ListType listType, Item item) {
         requireAllNonNull(listType, item);
 
@@ -159,6 +171,7 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
     public void deleteItem(ListType listType, Item item) {
         requireAllNonNull(listType, item);
 
@@ -179,6 +192,7 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
     public void addItem(ListType listType, Item item) {
         requireAllNonNull(listType, item);
 
@@ -199,6 +213,7 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
     public void setItem(ListType listType, Item currentItem, Item newItem) {
         requireAllNonNull(listType, currentItem, newItem);
 
@@ -219,6 +234,7 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
     public void sortXpire(XpireMethodOfSorting method) {
         requireNonNull(method);
         this.xpire.setMethodOfSorting(method);
@@ -228,10 +244,12 @@ public class ModelManager implements Model {
      * Returns an unmodifiable view of the current viewing list of {@code Item} backed by the internal list of
      * {@code Xpire} or {@code ReplenishList}.
      */
+    @Override
     public ObservableList<? extends Item> getCurrentList() {
         return this.currentList;
     }
 
+    @Override
     public void setCurrentList(ListType listType) {
         requireAllNonNull(listType);
 
@@ -248,6 +266,7 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
     public void filterCurrentList(Predicate<Item> predicate) {
         requireNonNull(predicate);
         this.currentList.setPredicate(predicate);
@@ -271,11 +290,10 @@ public class ModelManager implements Model {
         }
         try {
             newCurrentList.setPredicate((Predicate<Item>) this.currentList.getPredicate());
+            this.currentList = newCurrentList;
         } catch (ClassCastException e) {
             logger.warning("Refresh failed");
-            return;
         }
-        this.currentList = newCurrentList;
     }
 
     @Override

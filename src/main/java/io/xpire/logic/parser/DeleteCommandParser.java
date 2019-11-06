@@ -7,6 +7,7 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 
+import io.xpire.model.ListType;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 

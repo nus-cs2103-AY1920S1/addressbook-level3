@@ -34,6 +34,7 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         stateManager.saveState(new FilteredState(model));
+
         model.updateFilteredItemList(this.predicate);
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
                 model.getCurrentFilteredItemList().size()));

@@ -2,6 +2,7 @@ package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static io.xpire.model.ListType.XPIRE;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -25,6 +26,7 @@ import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.ListType;
 
 /**
  * Parses user input.
@@ -70,17 +72,17 @@ public class XpireParser implements Parser {
         case ClearCommand.COMMAND_WORD:
             //fallthrough
         case ClearCommand.COMMAND_SHORTHAND:
-            return new ClearCommand("main");
+            return new ClearCommand(XPIRE);
 
         case SearchCommand.COMMAND_WORD:
             //fallthrough
         case SearchCommand.COMMAND_SHORTHAND:
-            return new SearchCommandParser().parse(arguments);
+            return new SearchCommandParser(XPIRE).parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
             //fallthrough
         case ViewCommand.COMMAND_SHORTHAND:
-            return new ViewCommandParser().parse(arguments);
+            return new ViewCommandParser(XPIRE).parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             //fallthrough
@@ -110,17 +112,17 @@ public class XpireParser implements Parser {
         case TagCommand.COMMAND_WORD:
             //fallthrough
         case TagCommand.COMMAND_SHORTHAND:
-            return new TagCommandParser().parse(arguments);
+            return new TagCommandParser(XPIRE).parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             //fallthrough
         case UndoCommand.COMMAND_SHORTHAND:
-            return new UndoCommand();
+            return new UndoCommand(XPIRE);
 
         case RedoCommand.COMMAND_WORD:
             //fallthrough
         case RedoCommand.COMMAND_SHORTHAND:
-            return new RedoCommand();
+            return new RedoCommand(XPIRE);
 
         case ShiftToReplenishCommand.COMMAND_WORD:
             //fallthrough

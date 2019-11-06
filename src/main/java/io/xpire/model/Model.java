@@ -65,6 +65,10 @@ public interface Model {
      */
     ReadOnlyListView<? extends Item>[] getLists();
 
+    void setXpire(ReadOnlyListView<XpireItem> xpire);
+
+    void setReplenishList(ReadOnlyListView<Item> replenishList);
+
     ObservableList<? extends Item> getItemList(ListType listType);
 
     boolean hasItem(ListType listType, Item item);
@@ -83,7 +87,6 @@ public interface Model {
 
     void filterCurrentList(Predicate<Item> predicate);
 
-    void resetCurrentList();
 /*
     /**
      * Replaces xpire data with the data in {@code xpire}.
