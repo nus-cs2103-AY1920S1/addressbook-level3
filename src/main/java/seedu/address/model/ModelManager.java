@@ -116,6 +116,11 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public void toggleGuiSettingsTheme() {
+        userPrefs.getGuiSettings().toggleTheme();
+    }
+
     public Path getLoanRecordsFilePath() {
         return userPrefs.getLoanRecordsFilePath();
     }

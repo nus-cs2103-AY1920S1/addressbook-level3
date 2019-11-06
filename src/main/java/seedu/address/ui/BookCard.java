@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
 
@@ -40,17 +42,18 @@ public class BookCard extends UiPart<Region> {
     @FXML
     private FlowPane genres;
     @FXML
+    private VBox loanStatusBox;
+    @FXML
     private Label loanStatus;
     @FXML
     private Label dueDate;
     @FXML
     private Label renewCount;
 
-    private BookCard(Book book, String indexText) {
+    public BookCard(Book book, int displayedIndex, boolean isDarkTheme) {
         super(FXML);
         this.book = book;
-
-        id.setText(indexText);
+        id.setText(displayedIndex + ". ");
         title.setText(book.getTitle().value);
         serialNumber.setText(book.getSerialNumber().value);
         author.setText(book.getAuthor().value);
@@ -60,15 +63,26 @@ public class BookCard extends UiPart<Region> {
                 .forEach(tag -> genres.getChildren().add(new Label(tag.genreName)));
 
         if (book.isCurrentlyLoanedOut()) {
+            if (isDarkTheme) {
+                setLoanStatusBoxTheme(GuiSettings.COLOR_DARK_THEME_LOAN_LABEL);
+            } else {
+                setLoanStatusBoxTheme(GuiSettings.COLOR_LIBERRY_THEME_LOAN_LABEL);
+            }
             loanStatus.setText("On Loan");
             dueDate.setText("Due: " + DateUtil.formatDate(book.getLoan().get().getDueDate()));
             renewCount.setText("Renewed: " + book.getLoan().get().getRenewCount() + " times");
         }
-
+        if (book.isOverdue()) {
+            if (isDarkTheme) {
+                setLoanStatusBoxTheme(GuiSettings.COLOR_DARK_THEME_ALERT_1);
+            } else {
+                setLoanStatusBoxTheme(GuiSettings.COLOR_LIBERRY_THEME_ALERT_1);
+            }
+        }
     }
 
-    public static BookCard bookCardWithIndex(Book book, int displayedIndex) {
-        return new BookCard(book, displayedIndex + ". ");
+    public void setLoanStatusBoxTheme(String theme) {
+        loanStatusBox.setStyle("-fx-background-color: " + theme + ";");
     }
 
     @Override
