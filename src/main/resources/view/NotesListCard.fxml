@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
@@ -40,7 +41,10 @@
     </GridPane>
    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
       <children>
-         <Button mnemonicParsing="false" text="x" textAlignment="RIGHT" textFill="#979797" />
+         <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDelete" style="-fx-border-color: none; -fx-background-color: #489d64;" text="x" textAlignment="CENTER" textFill="#979797">
+            <font>
+               <Font size="10.0" />
+            </font></Button>
       </children>
    </HBox>
 </HBox>

@@ -237,7 +237,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         reminderBox = new ReminderBox();
-        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
