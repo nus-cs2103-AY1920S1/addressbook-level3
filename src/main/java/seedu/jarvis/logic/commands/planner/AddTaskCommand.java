@@ -17,7 +17,6 @@ import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.planner.JsonAdaptedAddTaskCommand;
-import seedu.jarvis.ui.planner.PlannerView;
 
 /**
  * Adds a task to JARVIS
