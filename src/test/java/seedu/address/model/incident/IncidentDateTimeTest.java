@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.Assert;
-
 class IncidentDateTimeTest {
 
     private static final String VALID_DATETIME = "2016-12-20T14:30:40";
@@ -20,10 +18,6 @@ class IncidentDateTimeTest {
 
     @Test
     public void isValidIncidentDateTime() {
-
-        // null incident dateTime
-        Assert.assertThrows(NullPointerException.class, () -> IncidentDateTime.isValidIncidentDateTimeFormat(null));
-
         // invalid dateTime
         assertFalse(IncidentDateTime.isValidIncidentDateTimeFormat("")); // empty string
         assertFalse(IncidentDateTime.isValidIncidentDateTimeFormat("   ")); // spaces only

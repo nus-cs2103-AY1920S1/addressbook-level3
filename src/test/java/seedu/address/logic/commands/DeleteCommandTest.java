@@ -19,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -28,9 +29,27 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
 
+    //@@author madanalogy
     @BeforeEach
     public void setUp() {
         model.setSession(AMY); // Added to simulate a logged in person
+    }
+
+    @Test
+    public void execute_validIndexNonAdmin_throwsCommandException() {
+        model.setSession(new PersonBuilder().build());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ENTITY);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_ACCESS_ADMIN);
+    }
+
+    @Test
+    public void execute_deleteSelf_throwsCommandException() {
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_ENTITY.getZeroBased());
+        model.setSession(new PersonBuilder(personToDelete).withTags("Admin").build());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ENTITY);
+
+        assertCommandFailure(deleteCommand, model, DeleteCommand.MESSAGE_DELETE_ERROR);
     }
 
     @Test
