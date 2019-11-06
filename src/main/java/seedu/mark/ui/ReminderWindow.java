@@ -67,7 +67,7 @@ public class ReminderWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing help page about the application.");
+        logger.fine("Showing reminder page about the application.");
         getRoot().show();
         getRoot().centerOnScreen();
     }

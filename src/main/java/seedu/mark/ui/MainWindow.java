@@ -4,12 +4,15 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -90,6 +93,7 @@ public class MainWindow extends UiPart<Stage> {
     Runnable r = () -> showDueReminder();
 
     private ObservableList<Reminder> reminders;
+    private List<ReminderWindow> reminderWindows = new ArrayList<>();
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -105,7 +109,22 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         reminders = logic.getReminderList();
+        setReminderWindows();
+        reminders.addListener((ListChangeListener<? super Reminder>) change -> {
+            while (change.next()) {
+                setReminderWindows();
+            }
+        });
         executor.scheduleAtFixedRate( r , 0L , 5L , TimeUnit.SECONDS);
+    }
+
+    private void setReminderWindows() {
+        reminderWindows.clear();
+        for (int i = 0; i < reminders.size(); i++) {
+            Reminder reminder = reminders.get(i);
+            ReminderWindow window = new ReminderWindow(reminder.getUrl(), reminder.getNote());
+            reminderWindows.add(window);
+        }
     }
 
     public Stage getPrimaryStage() {
@@ -207,6 +226,9 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        for (ReminderWindow window : reminderWindows) {
+            window.hide();
+        }
         primaryStage.hide();
     }
 
@@ -336,9 +358,13 @@ public class MainWindow extends UiPart<Stage> {
             System.out.println(now.isBefore(remindTime) && compareTime(now, remindTime) < 5);
             if (now.isBefore(remindTime) && compareTime(now, remindTime) < 5) {
                 System.out.println(true);
-                Notifications.create() .title("Task Reminder") .text(reminder.getNote().toString()) .show();
-//                ReminderWindow window = new ReminderWindow(reminder.getUrl(), reminder.getNote());
-//                window.show();
+                ReminderWindow window = reminderWindows.get(i);
+
+                if (window.isShowing()) {
+                    window.show();
+                } else {
+                    window.focus();
+                }
             }
         }
     }
