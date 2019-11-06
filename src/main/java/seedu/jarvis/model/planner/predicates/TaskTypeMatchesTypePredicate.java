@@ -8,7 +8,6 @@ import seedu.jarvis.model.planner.tasks.Task;
 /**
  * Tests that the type of a {@code Task} matches the type of task given
  */
-//TODO test
 public class TaskTypeMatchesTypePredicate implements Predicate<Task> {
     private final TaskType type;
 

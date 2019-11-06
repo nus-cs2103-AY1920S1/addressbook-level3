@@ -8,7 +8,6 @@ import seedu.jarvis.model.planner.tasks.Task;
 /**
  * Tests that the frequency of a {@code Task} matches the frequency level given
  */
-//TODO test
 public class TaskFrequencyMatchesFrequencyPredicate implements Predicate<Task> {
     private final Frequency frequency;
 

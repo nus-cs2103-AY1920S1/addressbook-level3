@@ -17,7 +17,6 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
  * Pulls a list of tasks based on certain specified attributes
  * Attributes are priority, tags and date.
  */
-//TODO tests
 public class PullTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "pull-task";

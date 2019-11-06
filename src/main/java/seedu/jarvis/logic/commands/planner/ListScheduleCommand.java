@@ -13,7 +13,6 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
 /**
  * Lists all the tasks in the planner that is due in the given day or week
  */
-//TODO tests
 public class ListScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "list-schedule";

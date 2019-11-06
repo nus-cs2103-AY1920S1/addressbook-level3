@@ -8,7 +8,6 @@ import seedu.jarvis.model.planner.tasks.Task;
 /**
  * Tests that the tags of a {@code Task} matches the tag given
  */
-//TODO test
 public class TaskTagMatchesTagPredicate implements Predicate<Task> {
     private final Tag tag;
 
