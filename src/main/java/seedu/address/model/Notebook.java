@@ -221,7 +221,7 @@ public class Notebook implements ReadOnlyNotebook {
         int day = p.getDayIndex();
         UniqueLessonList dayList = lessonLists.getDayList(day);
         dayList.add(p);
-        //lessons.add(p);
+        lessons.add(p);
     }
 
     /**
@@ -242,6 +242,7 @@ public class Notebook implements ReadOnlyNotebook {
         int day = key.getDayIndex();
         UniqueLessonList dayList = lessonLists.getDayList(day);
         dayList.remove(key);
+        lessons.remove(key);
     }
 
 
