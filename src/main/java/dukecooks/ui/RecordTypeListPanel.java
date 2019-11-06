@@ -3,10 +3,10 @@ package dukecooks.ui;
 import java.util.logging.Logger;
 
 import dukecooks.commons.core.LogsCenter;
-import dukecooks.logic.parser.health.TimestampComparator;
+import dukecooks.logic.commands.health.ListHealthByTypeCommand;
 import dukecooks.logic.ui.CustomRecordList;
 import dukecooks.model.health.components.Record;
-import dukecooks.model.health.components.util.TypeUtil;
+import dukecooks.model.health.components.Type;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -61,10 +61,10 @@ public class RecordTypeListPanel extends UiPart<Region> {
 
     public RecordTypeListPanel(ObservableList<Record> recordList) {
         super(FXML);
-        recordType = TypeUtil.TYPE_CALORIES;
-        recordUnit = TypeUtil.UNIT_CALORIES;
+        recordType = Type.Calories.toString();
+        recordUnit = Type.Calories.getUnit();
 
-        sideView.setItems(recordList.sorted(new TimestampComparator()));
+        sideView.setItems(recordList);
         sideView.setCellFactory(listView -> new RecordListViewCell());
 
         initializeLineGraph(recordList);
@@ -88,13 +88,13 @@ public class RecordTypeListPanel extends UiPart<Region> {
      * Decides which graph is more suitable based on the health type that user is viewing.
      */
     void chooseGraph(String recordType) {
-        String type = TypeUtil.TYPE_BEHAVIOUR.get(recordType);
+        String type = Type.valueOf(recordType).getBehavior();
 
         switch (type) {
-        case TypeUtil.BEHAVIOUR_LATEST:
+        case "latest":
             showGraph(true, false);
             break;
-        case TypeUtil.BEHAVIOUR_SUM:
+        case "sum":
             showGraph(false, true);
             break;
         default:
@@ -103,13 +103,13 @@ public class RecordTypeListPanel extends UiPart<Region> {
     }
 
     String getRecordType(ObservableList<Record> recordList) {
-        return recordList.isEmpty() ? TypeUtil.TYPE_CALORIES
-                : recordList.get(0).getType().type;
+        return recordList.isEmpty() ? ListHealthByTypeCommand.getCurrentTypeView().toString()
+                : recordList.get(0).getType().toString();
     }
 
     String getRecordUnit(ObservableList<Record> recordList) {
-        return recordList.isEmpty() ? TypeUtil.UNIT_CALORIES
-                : recordList.get(0).getType().unit;
+        return recordList.isEmpty() ? ListHealthByTypeCommand.getCurrentTypeView().getUnit()
+                : recordList.get(0).getType().getUnit();
     }
 
     /**
@@ -140,8 +140,8 @@ public class RecordTypeListPanel extends UiPart<Region> {
     public void setUpLineGraph(ObservableList<Record> record) {
         title.setText(getRecordType(record));
         yAxis.setLabel("Value (" + getRecordUnit(record) + ")");
-        ObservableList<XYChart.Data<String, Integer>> data =
-                FXCollections.<XYChart.Data<String, Integer>>observableArrayList();
+        ObservableList<XYChart.Data<String, Double>> data =
+                FXCollections.<XYChart.Data<String, Double>>observableArrayList();
         for (Record r: record) {
             data.add(new XYChart.Data<>(r.getTimestamp().getDate().toString(), r.getValue().value));
         }
@@ -177,8 +177,8 @@ public class RecordTypeListPanel extends UiPart<Region> {
     public void setUpBarGraph(ObservableList<Record> record) {
         title.setText(getRecordType(record));
         yBarAxis.setLabel("Value (" + getRecordUnit(record) + ")");
-        ObservableList<XYChart.Data<String, Integer>> data =
-                FXCollections.<XYChart.Data<String, Integer>>observableArrayList();
+        ObservableList<XYChart.Data<String, Double>> data =
+                FXCollections.<XYChart.Data<String, Double>>observableArrayList();
         for (Record r: record) {
             data.add(new XYChart.Data<>(r.getTimestamp().getDate().toString(), r.getValue().value));
         }
@@ -187,7 +187,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordListCard}.
      */
     class RecordListViewCell extends ListCell<Record> {
         @Override

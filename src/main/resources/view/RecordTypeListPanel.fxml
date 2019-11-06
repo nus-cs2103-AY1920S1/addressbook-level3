@@ -13,7 +13,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="title" alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="50.0" prefHeight="50.0" text="/TYPE" VBox.vgrow="NEVER">
+      <Label fx:id="title" alignment="CENTER" maxWidth="1.7976931348623157E308" text="/TYPE" VBox.vgrow="NEVER">
          <padding>
             <Insets left="10.0" />
          </padding>

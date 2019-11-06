@@ -9,15 +9,15 @@ import dukecooks.commons.util.AppUtil;
  */
 public class Value {
     public static final String MESSAGE_CONSTRAINTS =
-            "Value should only contain numeric characters";
+            "Value should only contain numeric characters, rounded by 1 decimal place";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[0-9]+";
+    public static final String VALIDATION_REGEX = "^\\s*(?=.*[1-9])\\d*(?:\\.\\d{1})?";
 
-    public final int value;
+    public final double value;
 
     /**
      * Constructs a {@code Value}.
@@ -27,7 +27,7 @@ public class Value {
     public Value(String value) {
         requireNonNull(value);
         AppUtil.checkArgument(isValidNumber(value), MESSAGE_CONSTRAINTS);
-        this.value = Integer.parseInt(value);
+        this.value = Double.parseDouble(value);
     }
 
     /**
@@ -40,6 +40,13 @@ public class Value {
     @Override
     public String toString() {
         return String.valueOf(value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Value // instanceof handles nulls
+                && value == (((Value) other).value)); // state check
     }
 
 }

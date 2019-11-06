@@ -34,6 +34,7 @@ import dukecooks.model.util.SampleDataUtil;
 import dukecooks.model.util.SampleDiaryDataUtil;
 import dukecooks.model.util.SampleMealPlanDataUtil;
 import dukecooks.model.util.SampleRecipeDataUtil;
+import dukecooks.model.util.SampleRecordDataUtil;
 import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
 import dukecooks.model.workout.WorkoutCatalogue;
 import dukecooks.model.workout.exercise.ExerciseCatalogue;
@@ -289,7 +290,7 @@ public class MainApp extends Application {
             if (!healthRecordsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample Health Records");
             }
-            initialData = healthRecordsOptional.orElseGet(SampleDataUtil::getSampleHealthRecords);
+            initialData = healthRecordsOptional.orElseGet(SampleRecordDataUtil::getSampleHealthRecords);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Health Records");
             initialData = new HealthRecords();

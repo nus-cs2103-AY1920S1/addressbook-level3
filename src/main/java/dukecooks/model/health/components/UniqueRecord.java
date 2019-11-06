@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import dukecooks.commons.util.CollectionUtil;
+import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.model.health.exceptions.DuplicateRecordException;
 import dukecooks.model.health.exceptions.RecordNotFoundException;
 import javafx.collections.FXCollections;
@@ -47,6 +48,7 @@ public class UniqueRecord implements Iterable<Record> {
             throw new DuplicateRecordException();
         }
         internalList.add(toAdd);
+        internalList.sort(new TimestampComparator().reversed());
     }
 
     /**
@@ -62,7 +64,12 @@ public class UniqueRecord implements Iterable<Record> {
             throw new RecordNotFoundException();
         }
 
+        if (!target.isSameRecord(editedRecord) && contains(editedRecord)) {
+            throw new DuplicateRecordException();
+        }
+
         internalList.set(index, editedRecord);
+        internalList.sort(new TimestampComparator().reversed());
     }
 
     /**
@@ -79,6 +86,7 @@ public class UniqueRecord implements Iterable<Record> {
     public void setRecords(UniqueRecord replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        internalList.sort(new TimestampComparator().reversed());
     }
 
     /**
@@ -92,6 +100,32 @@ public class UniqueRecord implements Iterable<Record> {
         }
 
         internalList.setAll(records);
+        internalList.sort(new TimestampComparator().reversed());
+    }
+
+    /**
+     * Retrieves the equivalent record from the list according to {@code RecordName} of the Record.
+     * The record must exist in the list.
+     */
+    public Record retrieve(Record record) {
+        requireNonNull(record);
+
+        int i = 0;
+        boolean found = false;
+        while (i < internalList.size()) {
+            Record curr = internalList.get(i);
+            if (curr.isSameRecord(record)) {
+                found = true;
+                break;
+            }
+            i++;
+        }
+
+        if (!found) {
+            throw new RecordNotFoundException();
+        }
+
+        return internalList.get(i);
     }
 
     /**

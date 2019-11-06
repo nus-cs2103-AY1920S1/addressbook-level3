@@ -19,7 +19,7 @@ import dukecooks.model.profile.person.Person;
 @JsonRootName(value = "userprofile")
 class JsonSerializableUserProfile {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains multiple profile(s).";
 
     private final List<JsonAdaptedPerson> userprofile = new ArrayList<>();
 
@@ -50,6 +50,9 @@ class JsonSerializableUserProfile {
         UserProfile userProfile = new UserProfile();
         for (JsonAdaptedPerson jsonAdaptedPerson : userprofile) {
             Person person = jsonAdaptedPerson.toModelType();
+            if (userProfile.hasProfile()) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
             userProfile.addPerson(person);
         }
         return userProfile;

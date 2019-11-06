@@ -5,8 +5,11 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_TYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_VALUE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
@@ -16,6 +19,7 @@ import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.Remark;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.Value;
@@ -72,6 +76,12 @@ public class EditRecordCommand extends EditCommand {
             throw new CommandException(MESSAGE_DUPLICATE_RECORD);
         }
 
+        Type type = editedRecord.getType();
+        double value = editedRecord.getValue().value;
+        if (!type.isValidNumber(type.toString(), value)) {
+            throw new CommandException(type.messageInflatedValue());
+        }
+
         model.setRecord(recordToEdit, editedRecord);
         return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
     }
@@ -87,7 +97,25 @@ public class EditRecordCommand extends EditCommand {
         Value updatedValue = editRecordDescriptor.getValue().orElse(recordToEdit.getValue());
         Timestamp updatedTimestamp = editRecordDescriptor.getTimestamp().orElse(recordToEdit.getTimestamp());
 
-        return new Record(updatedType, updatedValue, updatedTimestamp);
+        Set<Remark> updatedRemarks;
+        if (editRecordDescriptor.getRemarksToAdd().isPresent()
+                || editRecordDescriptor.getRemarksToRemove().isPresent()) {
+
+            updatedRemarks = new HashSet<>(recordToEdit.getRemarks());
+
+            if (editRecordDescriptor.getRemarksToAdd().isPresent()) {
+                updatedRemarks.addAll(editRecordDescriptor.getRemarksToAdd().get());
+            }
+
+            if (editRecordDescriptor.getRemarksToRemove().isPresent()) {
+                updatedRemarks.removeAll(editRecordDescriptor.getRemarksToRemove().get());
+            }
+
+        } else {
+            updatedRemarks = recordToEdit.getRemarks();
+        }
+
+        return new Record(updatedType, updatedValue, updatedTimestamp, updatedRemarks);
     }
 
     @Override
@@ -116,6 +144,8 @@ public class EditRecordCommand extends EditCommand {
         private Type type;
         private Value value;
         private Timestamp timestamp;
+        private Set<Remark> remarksToAdd;
+        private Set<Remark> remarksToRemove;
 
         public EditRecordDescriptor() {}
 
@@ -126,13 +156,15 @@ public class EditRecordCommand extends EditCommand {
             setType(toCopy.type);
             setValue(toCopy.value);
             setTimestamp(toCopy.timestamp);
+            setAddRemarks(toCopy.remarksToAdd);
+            setRemoveRemarks(toCopy.remarksToRemove);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(type, value, timestamp);
+            return CollectionUtil.isAnyNonNull(type, value, timestamp, remarksToAdd, remarksToRemove);
         }
 
         public void setType(Type type) {
@@ -157,6 +189,60 @@ public class EditRecordCommand extends EditCommand {
 
         public Optional<Timestamp> getTimestamp() {
             return Optional.ofNullable(timestamp);
+        }
+
+        /**
+         * Set {@code remarks} to this object's {@code remarksToAdd}.
+         * A defensive copy of {@code remarksToAdd} is used internally.
+         */
+        public void setAddRemarks(Set<Remark> remarks) {
+            this.remarksToAdd = (remarks != null) ? new HashSet<>(remarks) : null;
+        }
+
+        /**
+         * Set {@code remarks} to this object's {@code remarksToRemove}.
+         * A defensive copy of {@code remarksToRemove} is used internally.
+         */
+        public void setRemoveRemarks(Set<Remark> remarks) {
+            this.remarksToRemove = (remarks != null) ? new HashSet<>(remarks) : null;
+        }
+
+        /**
+         * Adds {@code remarks} to this object's {@code remarksToAdd}.
+         * A defensive copy of {@code remarks} is used internally.
+         */
+        public void addRemarks(Set<Remark> remarks) {
+            this.remarksToAdd = (remarks != null) ? new HashSet<>(remarks) : null;
+        }
+
+        /**
+         * Removes {@code remarks} to this object's {@code remarks}.
+         * A defensive copy of {@code remarks} is used internally.
+         */
+        public void removeRemarks(Set<Remark> remarks) {
+            this.remarksToRemove = (remarks != null) ? new HashSet<>(remarks) : null;
+        }
+
+        /**
+         * Returns an unmodifiable remark set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code remarks} is null.
+         */
+        public Optional<Set<Remark>> getRemarksToAdd() {
+            return (remarksToAdd != null)
+                    ? Optional.of(Collections.unmodifiableSet(remarksToAdd))
+                    : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable remark set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code remarks} is null.
+         */
+        public Optional<Set<Remark>> getRemarksToRemove() {
+            return (remarksToRemove != null)
+                    ? Optional.of(Collections.unmodifiableSet(remarksToRemove))
+                    : Optional.empty();
         }
 
         @Override

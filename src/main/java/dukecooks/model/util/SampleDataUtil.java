@@ -6,12 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import dukecooks.model.health.HealthRecords;
-import dukecooks.model.health.ReadOnlyHealthRecords;
-import dukecooks.model.health.components.Record;
-import dukecooks.model.health.components.Timestamp;
-import dukecooks.model.health.components.Type;
-import dukecooks.model.health.components.Value;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.profile.medical.MedicalHistory;
@@ -161,24 +155,5 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
            .map(MedicalHistory::new)
            .collect(Collectors.toSet());
-    }
-
-    //=========== Sample Record ==================================================================================
-
-    public static Record[] getSampleRecords () {
-        return new Record[]{
-            new Record(
-            new Type("glucose"),
-            new Value("90"),
-            new Timestamp("14/10/2019 01:10"))
-        };
-    }
-
-    public static ReadOnlyHealthRecords getSampleHealthRecords () {
-        HealthRecords sampleDc = new HealthRecords();
-        for (Record sampleRecord : getSampleRecords()) {
-            sampleDc.addRecord(sampleRecord);
-        }
-        return sampleDc;
     }
 }

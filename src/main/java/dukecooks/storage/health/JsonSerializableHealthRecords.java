@@ -50,6 +50,9 @@ class JsonSerializableHealthRecords {
         HealthRecords healthRecords = new HealthRecords();
         for (JsonAdaptedRecord jsonAdaptedRecord : healthrecords) {
             Record record = jsonAdaptedRecord.toModelType();
+            if (healthRecords.hasRecord(record)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_RECORD);
+            }
             healthRecords.addRecord(record);
         }
         return healthRecords;
