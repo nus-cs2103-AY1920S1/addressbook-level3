@@ -1,6 +1,5 @@
 package seedu.mark.logic.commands;
 
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
@@ -126,7 +125,7 @@ class EditAnnotationCommandTest {
                         new EditAnnotationCommand(INDEX_FIRST_BOOKMARK,
                                 ParagraphIdentifier.makeExistId(Index.fromOneBased(1)),
                                 null,
-                                null, null)
+                                null, Highlight.GREEN)
                                 .execute(modelStub, new StorageStub()));
     }
 

@@ -132,7 +132,6 @@ class AddAnnotationCommandParserTest {
                 PREAMBLE_WHITESPACE + "1 p/p3 h/yel low",
                 Highlight.MESSAGE_INVALID_COLOUR);
         //empty note
-
         assertParseFailure(parser,
                 PREAMBLE_WHITESPACE + "1 p/p3 n/       \r \n    ",
                 AnnotationNote.MESSAGE_BLANK_NOTE);

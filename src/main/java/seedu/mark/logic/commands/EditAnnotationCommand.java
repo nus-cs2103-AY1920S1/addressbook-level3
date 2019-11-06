@@ -166,4 +166,22 @@ public class EditAnnotationCommand extends AnnotationCommand {
             }
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof EditAnnotationCommand)) {
+            return false;
+        }
+        return getBookmarkIndex().equals(((EditAnnotationCommand) other).getBookmarkIndex())
+                && getPid().equals(((EditAnnotationCommand) other).getPid())
+                && newHighlight == ((EditAnnotationCommand) other).newHighlight
+                && (newNote == ((EditAnnotationCommand) other).newNote
+                || (newNote != null && newNote.equals(((EditAnnotationCommand) other).newNote)))
+                && (newPid == ((EditAnnotationCommand) other).newPid
+                || (newPid != null && newPid.equals(((EditAnnotationCommand) other).newPid)));
+    }
+
 }
