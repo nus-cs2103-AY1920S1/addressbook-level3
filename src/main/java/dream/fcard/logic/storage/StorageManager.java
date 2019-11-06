@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStats;
+import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
@@ -275,7 +277,7 @@ public class StorageManager {
                 // todo: only need setScore for SessionLists containing DeckSession objects. @AHaliq
                 arr.add(session);
             }
-            //Stats.setSessionList(new SessionList(arr));
+            UserStatsHolder.getUserStats().setSessionList(new SessionList(arr));
             // load login session
         } catch (FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");

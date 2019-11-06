@@ -49,9 +49,6 @@ public abstract class Stats {
     public void endCurrentSession() {
         // assert current session is not null?
         try {
-            // ensure that new UserStats() is called
-            //getUserStats(); // temporary
-
             this.currentSession.endSession();
             this.sessionList.addSession(currentSession);
 

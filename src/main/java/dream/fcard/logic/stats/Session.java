@@ -89,7 +89,7 @@ public class Session implements JsonInterface {
      * Ends this session, to argument datetime
      * @param end   end time
      */
-    public void endSession(LocalDateTime end) {
+    private void endSession(LocalDateTime end) {
         this.sessionEnd = end;
         this.sessionEndString = DateTimeUtil.getStringFromDateTime(this.sessionEnd);
         this.setDuration();
