@@ -17,7 +17,6 @@ import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.AddCommand;
 
-import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
