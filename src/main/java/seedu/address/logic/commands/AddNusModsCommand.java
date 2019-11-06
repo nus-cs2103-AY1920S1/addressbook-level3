@@ -46,7 +46,7 @@ public class AddNusModsCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Added NUS modules to person's schedule.";
     public static final String MESSAGE_FAILURE = "Unable to add modules: %s";
     public static final String MESSAGE_PERSON_NOT_FOUND = "couldn't find person!";
-    public static final String MESSAGE_MODULE_NOT_FOUND = "couldn't get all module details";
+    public static final String MESSAGE_MODULE_NOT_FOUND = "invalid module %s in link";
     public static final String MESSAGE_EVENTS_CLASH = "there's a timing clash somewhere "
             + "between the modules you're adding and the person's schedule!";
     public static final String MESSAGE_DUPLICATE_EVENT = "module already exists in the schedule";
@@ -79,7 +79,8 @@ public class AddNusModsCommand extends Command {
         try {
             eventsToAdd = mapModulesToEvents(model, acadYear, startAcadSemDate, holidays);
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_MODULE_NOT_FOUND));
+            return new CommandResult(String.format(MESSAGE_FAILURE,
+                    String.format(MESSAGE_MODULE_NOT_FOUND, e.getMessage())));
         } catch (ModuleToEventMappingException e) {
             return new CommandResult(String.format(MESSAGE_FAILURE, e.getMessage()));
         }
@@ -102,7 +103,6 @@ public class AddNusModsCommand extends Command {
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
-        //return new CommandResult(MESSAGE_SUCCESS + user.getSchedule());
     }
 
     /**

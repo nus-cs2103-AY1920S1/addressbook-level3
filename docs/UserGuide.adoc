@@ -551,20 +551,22 @@ Removes `Bobby` from the group `CS2103`
 
 === Advanced Features
 
-// TODO: UI not implemented for this command yet.
-//==== Show Module: `showmod`
-//
-//Shows the schedule of available classes for the module in the academic year and semester. Default values for `ACADEMIC_YEAR` is 2019/2020 and `SEMESTER` is 1.
-//
-//Format:
-//
-//* `showmod m/MODULE_CODE [ay/ACADEMIC_YEAR] [s/SEMESTER]`
-//
-//Examples:
-//
-//* `showmod m/CS2103T`
-//* `showmod m/GEQ1000 ay/2019/2020`
-//* `showmod m/CS3230 ay/2019/2020 s/2`
+// tag::showmod[]
+==== Show Module: `showmod`
+
+Want to know more information about an NUS module? Use `showmod` to quickly open up the NUSMods page for a specific module on your browser!
+
+Format:
+
+* `showmod m/MODULE_CODE`
+
+Examples:
+
+* `showmod m/CS2103T` +
+Opens up https://nusmods.com/modules/CS2103T on your default browser.
+* `showmod m/CS2101` +
+Opens up https://nusmods.com/modules/CS2101 on your default browser.
+// end::showmod[]
 
 ==== Export VR (Visual Representation): `export-vr`
 
