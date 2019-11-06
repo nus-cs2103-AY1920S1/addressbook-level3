@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
-import seedu.weme.model.Records;
-import seedu.weme.model.RecordsManager;
+import seedu.weme.model.records.Records;
+import seedu.weme.model.records.RecordsManager;
 
 /**
  * An Immutable Records that is serializable to JSON format.

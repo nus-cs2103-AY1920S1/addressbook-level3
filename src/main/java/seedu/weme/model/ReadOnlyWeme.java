@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 
 import javafx.collections.ObservableMap;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.records.Records;
 import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.statistics.TagWithDislike;

@@ -583,16 +583,38 @@ The user can also use the "TAB" key to auto complete the command word/argument, 
 replace the current command word/argument in user input.
 
 ==== Current Implementation
-The command suggestions is achieved using a package of prompter files.
+The command suggestion is achieved using a package of prompter files.
 For each parser, there will a corresponding prompter to process the current user input and return the `CommandPrompt` for display in `ResultBox`.
+The following class diagram summarizes the Prompter package in the Logic.
+
+.Partial Class Diagram of the Logic Component related Prompter package
+image::CommandPromptClassDiagram.png[]
+
+The following Sequence Diagram summarizes the how a `CommandPrompt` is generated:
+
+image::CommandPromptSequenceDiagram.png[]
+
+Here is how a user interact with the command suggestion features:
+
 Step 1. The user types commands into the `CommandBox`.
+
 Step 2. The `MainWindow` listens to changes in the content in `CommandBox` and direct the input to `WemePrompter`.
+
 Step 3. Depending on the context, the prompter that implements `WemePrompter` (e.g. `MemePrompter`) will then pass the arguments
+
 to different `Prompter` (e.g. `MemeAddCommandPrompter`) based on the command word.
-Step 4: The `Prompter` will process the input and return a `CommandPrompt` containing the command suggestion, and the
+
+Step 4. The `Prompter` will process the input and return a `CommandPrompt` containing the command suggestion, and the
+
 complete text for auto-completion for the given input.
-Step 5: The prompt will be passed to and displayed by `ResultBox`.
-Step 6: The `CommandBox` listens to the "TAB" key press, and replace the current argument with the first command prompt.
+
+Step 5. The prompt will be passed to and displayed by `ResultBox`.
+
+Step 6. The `CommandBox` listens to the "TAB" key press, and replace the current argument with the first command prompt.
+
+The following Activity Diagram summarizes the command suggestion process:
+
+image::CommandPromptActivityDiagram.png[]
 
 ==== Design Considerations
 

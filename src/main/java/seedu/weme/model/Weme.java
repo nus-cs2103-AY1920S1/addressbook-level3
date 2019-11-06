@@ -17,6 +17,8 @@ import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.UniqueMemeList;
+import seedu.weme.model.records.Records;
+import seedu.weme.model.records.RecordsManager;
 import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.StatsManager;
 import seedu.weme.model.statistics.TagWithCount;

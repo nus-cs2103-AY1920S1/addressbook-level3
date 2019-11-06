@@ -1,4 +1,4 @@
-package seedu.weme.model;
+package seedu.weme.model.records;
 
 import java.util.Set;
 
