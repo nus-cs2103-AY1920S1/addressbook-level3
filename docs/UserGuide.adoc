@@ -234,6 +234,12 @@ image::archiveCommandMessage.png[]
 
 The following are all the archive commands, descriptions of how they work and their usage.
 
+NOTE: Note the formatting of command parameters used in this section: +
+[INDEX]: The list index of the expense involved in the command. +
+`arc/`: Prefix to indicate that the text appended to it is the specified archive name. +
+[ARCHIVE NAME]: Specified name of archive involved in the command. Archive name is case-sensitive and must be non-empty.
+Names with symbols and multiple words are accepted as well.
+
 ==== _Adding an expense to an archive: ``archive add``_ +
 This command allows you to transfer the expense at the specified index to your specified archive. +
 If the archive you entered does not exist, then a new archive is created before the expense is added. +
@@ -241,13 +247,6 @@ If the archive you entered does not exist, then a new archive is created before 
 Usage:
 
  archive add [INDEX] arc/[ARCHIVE NAME]
-
-Parameters:
-
-* [INDEX]: The main list index of the expense you want to archive.
-* `arc/`: Prefix to indicate that the text appended to it is the specified archive name.
-* [ARCHIVE NAME]: Specified name of archive to add expense into. Archive name is case-sensitive and must be non-empty.
-Names with symbols and multiple words are accepted as well.
 
 Example:
 
@@ -299,11 +298,6 @@ Usage:
 
  archive list [ARCHIVE NAME]
 
-Parameter:
-
-* [ARCHIVE NAME]: Specified name of archive to display. Archive name is case-sensitive and must be non-empty.
-Names with symbols and multiple words are accepted as well.
-
 NOTE: You do not need to prepend the archive prefix `arc/` to the archive name as there are no other
 arguments (like [INDEX]) to be entered for this command.
 
@@ -330,13 +324,6 @@ If the archived expense you delete was the last expense in the archive, the empt
 Usage:
 
  archive delete [INDEX] arc/[ARCHIVE NAME]
-
-Parameters:
-
-* [INDEX]: The archive list index of the archived expense you want to delete.
-* `arc/`: Prefix to indicate that the text appended to it is the specified archive name.
-* [ARCHIVE NAME]: Specified name of archive to delete the expense from. Archive name is case-sensitive and must be non-empty.
-Names with symbols and multiple words are accepted as well.
 
 Example:
 
@@ -373,13 +360,6 @@ If the archive expense you reverted was the last expense in the archive, the emp
 Usage:
 
  archive revert [INDEX] arc/[ARCHIVE NAME]
-
-Parameters:
-
-* [INDEX]: The archive list index of the expense you want to unarchive.
-* `arc/`: Prefix to indicate that the text appended after it is the specified archive name.
-* [ARCHIVE NAME]: Specified name of archive to unarchive the expense from. Archive name is case-sensitive and must be non-empty.
-Names with symbols and multiple words are accepted as well.
 
 Example: +
 Suppose you have an expense "_Airpod Pro_" archived into "_gadgets_", but you changed your mind and decided that it should not be archived yet. +
