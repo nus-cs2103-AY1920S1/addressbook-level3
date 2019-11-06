@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.MultipleChoiceCard;
+import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.DeckAlreadyExistsException;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 
 /**
  * Represents a command that creates a new deck or card (?).
@@ -75,19 +80,91 @@ public class CreateCommand extends Command {
     }
 
     /**
-     * Checks if there is already a deck with the same name as the user input.
+     * Is used to create a FrontBack or MCQ card and adds it to the State in a specific deck
      *
-     * @param deckName A String representing the name of the deck to be created.
-     * @return A boolean of whether a deck with the same name already exists
+     * @param command An ArrayList of the parsed user input.
+     * @param state The State
+     * @return A Boolean which indicates if the creation of the card was successful.
+     * @throws DuplicateInChoicesException
      */
-    private boolean deckAlreadyExists(String deckName) {
-        ArrayList<Deck> allDecks = progState.getAllDecks();
-        for (Deck curr : allDecks) {
-            if (curr.getName().equals(deckName)) {
-                return true;
+    public static boolean createMcqFrontBack(ArrayList<ArrayList<String>> command, State state)
+        throws DuplicateInChoicesException {
+        // Checks if deckName matches any deck in the State.
+        boolean deckExistsInState = false;
+        Deck currDeck = null;
+        for (Deck curr : state.getDecks()) {
+
+            if (curr.getDeckName().equals(command.get(0))) {
+                // todo: @PhireHandy -- equals() between String and ArrayList<String>
+                deckExistsInState = true;
+                currDeck = curr;
+                break;
             }
         }
-        return false;
+
+        if (!deckExistsInState) {
+            return false;
+        }
+
+        // Checks if priority level matches high or low
+        if (!command.get(1).get(0).equalsIgnoreCase("high")
+            && !command.get(1).get(0).equalsIgnoreCase("low")) {
+            return false;
+        }
+
+        // Checks if the card is an MCQ or FrontBack card
+        boolean isMcq = (command.get(4).size() > 0);
+
+        // Checks if the MCQ has more than two choices
+        if (isMcq && command.get(4).size() < 2) {
+            return false;
+        }
+
+        // Creates the card and adds to the State
+        if (isMcq) {
+            currDeck.addNewCard(CreateCommand.createMcq(command));
+            return true;
+        } else {
+            currDeck.addNewCard(CreateCommand.createFrontBack(command));
+            return true;
+        }
+    }
+
+    /**
+     * Used to create an MCQ card. Only used internally.
+     *
+     * @param command An ArrayList of the parsed user input
+     * @return The MCQ Card represented as a FlashCard
+     * @throws DuplicateInChoicesException
+     */
+    private static FlashCard createMcq(ArrayList<ArrayList<String>> command) throws DuplicateInChoicesException {
+        // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
+        String front = command.get(2).get(0);
+        String correctIndex = command.get(3).get(0);
+        int priority = getPriorityLevel(command.get(1).get(0));
+
+        return new MultipleChoiceCard(front, correctIndex, command.get(4), priority);
+    }
+
+    /**
+     * Used to create a Front Back card. Only used internally.
+     *
+     * @param command An ArrayList of the parsed user input
+     * @return The FrontBack Card represented as a FlashCard
+     */
+    private static FlashCard createFrontBack(ArrayList<ArrayList<String>> command) {
+        // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
+        String front = command.get(2).get(0);
+        String back = command.get(3).get(0);
+        int priority = getPriorityLevel(command.get(1).get(0));
+
+        return new FrontBackCard(front, back, priority);
+    }
+
+    private static int getPriorityLevel(String input) {
+        if (input.equalsIgnoreCase("high")) {
+            return Priority.HIGH_PRIORITY;
+        }
+        return Priority.LOW_PRIORITY;
     }
 }
-
