@@ -33,6 +33,7 @@ import seedu.weme.model.template.MemeTextColor;
 import seedu.weme.model.template.MemeTextSize;
 import seedu.weme.model.template.MemeTextStyle;
 import seedu.weme.model.template.Name;
+import seedu.weme.model.template.exceptions.InvalidCoordinatesException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -43,7 +44,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_FILEPATH = "File not found or invalid file path given.";
     public static final String MESSAGE_INVALID_DIRECTORYPATH = "Invalid directory path given.";
-    public static final String MESSAGE_INVALID_COORDINATES = "Coordinates must be numbers between 0 and 1 inclusive";
+    public static final String MESSAGE_INVALID_COORDINATES_CHANGE = "Change must be numbers between -1 and 1 inclusive";
 
     public static final MemeParser MEMES_PARSER = new MemeParser();
     public static final TemplateParser TEMPLATE_PARSER = new TemplateParser();
@@ -122,7 +123,11 @@ public class ParserUtil {
      * @throws ParseException if x or y is not between 0 to 1
      */
     public static Coordinates parseCoordinates(String x, String y) throws ParseException {
-        return new Coordinates(parseCoordinate(x), parseCoordinate(y));
+        try {
+            return new Coordinates(parseCoordinate(x), parseCoordinate(y));
+        } catch (InvalidCoordinatesException e) {
+            throw new ParseException(Coordinates.MESSAGE_INVALID_COORDINATES, e);
+        }
     }
 
     /**
@@ -134,10 +139,27 @@ public class ParserUtil {
         try {
             val = Float.parseFloat(coordinate);
         } catch (NumberFormatException nfe) {
-            throw new ParseException(MESSAGE_INVALID_COORDINATES);
+            throw new ParseException(Coordinates.MESSAGE_INVALID_COORDINATES);
         }
         if (val < 0 || val > 1) {
-            throw new ParseException(MESSAGE_INVALID_COORDINATES);
+            throw new ParseException(Coordinates.MESSAGE_INVALID_COORDINATES);
+        }
+        return val;
+    }
+
+    /**
+     * Parses {@code change} into a float representing a change in {@code Coordinates}.
+     * @throws ParseException if change cannot be parsed as as number
+     */
+    public static float parseCoordinateChange(String change) throws ParseException {
+        float val;
+        try {
+            val = Float.parseFloat(change);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(MESSAGE_INVALID_COORDINATES_CHANGE);
+        }
+        if (val < -1 || val > 1) {
+            throw new ParseException(MESSAGE_INVALID_COORDINATES_CHANGE);
         }
         return val;
     }

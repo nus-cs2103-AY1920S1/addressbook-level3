@@ -29,7 +29,7 @@ public class MemeTextStyle {
     /**
      * Constructs a {@code MemeTextStyle}.
      *
-     * @param color A valid meme text color
+     * @param style A valid meme text style
      */
     public MemeTextStyle(String style) {
         requireNonNull(style);

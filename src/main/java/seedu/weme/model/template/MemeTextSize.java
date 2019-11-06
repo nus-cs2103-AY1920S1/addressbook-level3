@@ -25,6 +25,7 @@ public class MemeTextSize {
         checkArgument(isValidMemeTextSize(size), MESSAGE_CONSTRAINTS);
         this.size = Integer.parseInt(size);
     }
+
     /**
      * Returns true if a given string is a valid meme text size.
      */

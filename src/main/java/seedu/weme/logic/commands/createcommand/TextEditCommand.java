@@ -24,6 +24,7 @@ import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.MemeTextColor;
 import seedu.weme.model.template.MemeTextSize;
 import seedu.weme.model.template.MemeTextStyle;
+import seedu.weme.model.template.exceptions.InvalidCoordinatesException;
 
 /**
  * Edits the details of an existing meme in Weme.
@@ -69,13 +70,19 @@ public class TextEditCommand extends Command {
      * Creates and returns a {@code Memetext} with the details of {@code textToEdit}
      * edited with {@code editTextDescriptor}.
      */
-    private static MemeText createEditedMemeText(MemeText textToEdit, EditMemeTextDescriptor editTextDescriptor) {
+    private static MemeText createEditedMemeText(MemeText textToEdit,
+                                                 EditMemeTextDescriptor editTextDescriptor) throws CommandException {
         requireAllNonNull(textToEdit, editTextDescriptor);
 
         String text = editTextDescriptor.getText().orElse(textToEdit.getText());
         float x = editTextDescriptor.getX().orElse(textToEdit.getX());
         float y = editTextDescriptor.getY().orElse(textToEdit.getY());
-        Coordinates coordinates = new Coordinates(x, y);
+        Coordinates coordinates;
+        try {
+            coordinates = new Coordinates(x, y);
+        } catch (InvalidCoordinatesException e) {
+            throw new CommandException(Coordinates.MESSAGE_INVALID_COORDINATES, e);
+        }
         MemeTextColor color = editTextDescriptor.getColor().orElse(textToEdit.getMemeTextColor());
         MemeTextStyle style = editTextDescriptor.getStyle().orElse(textToEdit.getMemeTextStyle());
         MemeTextSize size = editTextDescriptor.getSize().orElse(textToEdit.getMemeTextSize());
