@@ -14,6 +14,7 @@ import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.CurrentCommand;
 import com.typee.logic.commands.DeleteCommand;
 import com.typee.logic.commands.ExitCommand;
+import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.ListCommand;
 import com.typee.logic.commands.PdfCommand;
@@ -32,6 +33,7 @@ import com.typee.logic.interactive.parser.state.clearmachine.ClearState;
 import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
+import com.typee.logic.interactive.parser.state.findmachine.FindDescriptionState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
 import com.typee.logic.interactive.parser.state.listmachine.ListState;
 import com.typee.logic.interactive.parser.state.pdfmachine.PdfIndexState;
@@ -71,9 +73,11 @@ public class Parser implements InteractiveParser {
     @Override
     public void parseInput(String commandText) throws ParseException {
 
+        /*
         if (commandText.isBlank()) {
             throw new ParseException(MESSAGE_BLANK);
         }
+         */
 
         if (isClearArgumentsCommand(commandText)) {
             resetParser();
@@ -110,7 +114,9 @@ public class Parser implements InteractiveParser {
     }
 
     private boolean isTabCommand(String commandText) {
-        assert !commandText.isBlank();
+        if (commandText.isBlank()) {
+            return false;
+        }
         String[] tokens = commandText.split("\\s+");
         boolean startsWithTab = tokens[0].equalsIgnoreCase(TabCommand.COMMAND_WORD);
         if (tokens.length == 2) {
@@ -278,6 +284,10 @@ public class Parser implements InteractiveParser {
 
         case ListCommand.COMMAND_WORD:
             currentState = new ListState(new ArgumentMultimap());
+            break;
+
+        case FindCommand.COMMAND_WORD:
+            currentState = new FindDescriptionState(new ArgumentMultimap());
             break;
 
         default:

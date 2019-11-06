@@ -36,7 +36,7 @@ public class AttendeeList {
         if (stringWithoutBrackets.isBlank()) {
             return false;
         }
-        return validateNames(stringWithoutBrackets);
+        return areValidNames(stringWithoutBrackets);
     }
 
     /**
@@ -45,7 +45,7 @@ public class AttendeeList {
      * @param stringWithoutBrackets {@code String} representing a list of people.
      * @return true if all the names are valid.
      */
-    public static boolean validateNames(String stringWithoutBrackets) {
+    public static boolean areValidNames(String stringWithoutBrackets) {
         return Arrays.stream(stringWithoutBrackets.split("\\|"))
                 .map(person -> person.trim())
                 .allMatch(name -> Name.isValidName(name));

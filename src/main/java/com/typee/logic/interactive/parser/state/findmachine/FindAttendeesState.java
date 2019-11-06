@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state.addmachine;
+package com.typee.logic.interactive.parser.state.findmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ATTENDEES;
 import static java.util.Objects.requireNonNull;
@@ -6,18 +6,17 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
+import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
-import com.typee.logic.interactive.parser.Prefix;
 import com.typee.model.engagement.AttendeeList;
 
-public class AttendeesState extends State {
+public class FindAttendeesState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "Please enter the list of attendees separated by vertical lines"
-            + " and prefixed by \"a/\". Only English names are supported.";
-    private static final String MESSAGE_MISSING_KEYWORD = "Please enter the list of attendees prefixed by \"a/\".";
+    private static final String MESSAGE_CONSTRAINTS = "Please enter the attendees to search for prefixed by \"a/\"."
+            + " The presence of ANY attendee will be considered a match. Vertical lines should separate attendees.";
 
-    protected AttendeesState(ArgumentMultimap soFar) {
+    protected FindAttendeesState(ArgumentMultimap soFar) {
         super(soFar);
     }
 
@@ -29,18 +28,19 @@ public class AttendeesState extends State {
         performGuardChecks(newArgs, attendees);
         collateArguments(this, newArgs, PREFIX_ATTENDEES);
 
-        return new PriorityState(soFar);
+        return new FindPriorityState(soFar);
     }
 
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> attendees)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(attendees, MESSAGE_MISSING_KEYWORD);
-        enforceValidity(attendees);
+        if (attendees.isPresent()) {
+            enforceValidity(attendees.get());
+        }
     }
 
-    private void enforceValidity(Optional<String> attendees) throws StateTransitionException {
-        if (!AttendeeList.areValidNames(attendees.get())) {
+    private void enforceValidity(String attendees) throws StateTransitionException {
+        if (!AttendeeList.areValidNames(attendees)) {
             throw new StateTransitionException(AttendeeList.MESSAGE_CONSTRAINTS);
         }
     }
