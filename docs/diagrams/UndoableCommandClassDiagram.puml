@@ -23,8 +23,12 @@ class UndoableCommand {
     # final void undo(Model model)
     # final void redo(Model model)
 
+
+    + void save(Model model)
     + CommandResult execute(Model model, CommandHistory commandHistory,
                        UndoRedoStack undoRedoStack)
+
+
 
     # CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
                              UndoRedoStack undoRedoStack) {abstract}
