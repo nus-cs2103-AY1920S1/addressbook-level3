@@ -476,6 +476,11 @@ Example:
 
 * `validmods y2s1`
 
+==== Clear all currently invalid modules : `clearinvalidmods`
+Clears all modules that are currently invalid, whose prerequisites have not been met in previous semesters.
+This may cause other modules in future semesters to be invalidated as well. +
+Format: `clearinvalidmods`
+
 ==== Displays
 Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules as tags.
 
