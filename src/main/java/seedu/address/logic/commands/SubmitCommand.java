@@ -11,8 +11,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
 
+//@@author atharvjoshi
 /**
- * Terminates the program.
+ * Submits a completed incident report, if specified, otherwise lists all completed incident reports ready
+ * for submission.
  */
 public class SubmitCommand extends Command {
 
@@ -95,7 +97,6 @@ public class SubmitCommand extends Command {
     /**
      * Submits specified incident by returning a new incident which is a copy of the old incident with 'Submitted'
      * status.
-     * Triggered by 'submit' command.
      * @param toSubmit the incident report to be submitted.
      * @return updated incident report.
      */
