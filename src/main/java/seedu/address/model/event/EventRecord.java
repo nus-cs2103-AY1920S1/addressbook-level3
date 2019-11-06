@@ -192,7 +192,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         List<Pair<Index, VEvent>> resultIndexList = new ArrayList<>();
         for (int i = 0; i < vEvents.size(); i++) {
             VEvent currentVEvent = vEvents.get(i);
-            if (currentVEvent.getSummary().getValue().equals(desiredEventName)) {
+            if (currentVEvent.getSummary().getValue().equalsIgnoreCase(desiredEventName)) {
                 resultIndexList.add(new Pair(Index.fromZeroBased(i), currentVEvent));
             }
         }
