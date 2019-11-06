@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 
@@ -52,6 +54,7 @@ public class CalendarPanel extends UiPart<Region> {
         visualList.addListener(new ListChangeListener<Item>() {
             @Override
             public void onChanged(Change<? extends Item> c) {
+                System.out.println("Change");
                 clearCells();
                 generateDate();
                 loadData(visualList);
@@ -69,7 +72,53 @@ public class CalendarPanel extends UiPart<Region> {
      * @param visualList the list containing all the data to be loaded from.
      */
     private void loadData(ObservableList<Item> visualList) {
+        HashMap<Integer, ArrayList<Item>> monthEvents = new HashMap<>();
+        for (Item item : visualList) {
+            if (!isMonth(item)) {
+                continue;
+            } else {
+                int day = getDate(item);
+                if (!monthEvents.containsKey(day)) {
+                    monthEvents.put(day, new ArrayList<Item>());
+                }
+                monthEvents.get(day).add(item);
+            }
+        }
+
+        for (Integer i : monthEvents.keySet()) {
+            ArrayList<Item> temp = monthEvents.get(i);
+            int size = temp.size() - 1;
+            Label lbl = new Label();
+            lbl.setPadding(new Insets(0, 5, 0, 5));
+            Item item = temp.get(0);
+            if (size > 0) {
+                lbl.setText(String.format("%s + %d event(s)", item.getItemDescription().getDescription(), size));
+            } else {
+                lbl.setText(String.format("%s", item.getItemDescription().getDescription()));
+            }
+            String priority = item.getPriority().toString();
+            switch (priority) {
+            case "HIGH":
+                lbl.setStyle("-fx-background-color: red; -fx-background-radius: 15, 15, 15, 15");
+                lbl.setTextFill(Color.WHITE);
+                break;
+            case "MEDIUM":
+                lbl.setStyle("-fx-background-color: orange; -fx-background-radius: 15, 15, 15, 15");
+                break;
+            case "LOW":
+                lbl.setStyle("-fx-background-color: green; -fx-background-radius: 15, 15, 15, 15");
+                break;
+            default:
+            }
+            Node node = calendarGrid.lookup("#" + Integer.toString(i));
+            VBox pane = (VBox) node;
+            pane.getChildren().add(lbl);
+        }
+
+
+        /*
         ObservableList<Item> eventList = visualList.filtered(x -> x.hasEvent());
+        System.out.println("check here?");
         ObservableList<Item> monthEvent = eventList.filtered(x -> x.getEvent()
                 .get().getStartDateTime().getMonthValue() == month);
 
@@ -111,6 +160,24 @@ public class CalendarPanel extends UiPart<Region> {
                 }
             }
         }
+        */
+    }
+
+    /**
+     * Check if an item belongs to the current month.
+     * @param item the item to be checked for.
+     * @return a boolean value if the item is happening within the month.
+     */
+    private boolean isMonth(Item item) {
+        if (!item.hasEvent()) {
+            return false;
+        } else {
+            return item.getEvent().get().getStartDateTime().getMonthValue() == month;
+        }
+    }
+
+    private int getDate(Item item) {
+        return item.getEvent().get().getStartDateTime().getDayOfMonth();
     }
 
     /**

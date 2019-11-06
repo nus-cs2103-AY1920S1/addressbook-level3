@@ -10,10 +10,10 @@ import seedu.elisa.commons.core.item.ItemDescription;
 import seedu.elisa.commons.core.item.Priority;
 import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.Task;
+import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.elisa.logic.parser.ParserUtil;
 import seedu.elisa.logic.parser.exceptions.ParseException;
-import seedu.elisa.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.

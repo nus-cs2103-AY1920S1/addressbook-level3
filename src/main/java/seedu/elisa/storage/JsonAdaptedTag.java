@@ -3,8 +3,8 @@ package seedu.elisa.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.commons.exceptions.IllegalValueException;
-import seedu.elisa.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.
