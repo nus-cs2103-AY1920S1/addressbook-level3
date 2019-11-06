@@ -70,7 +70,6 @@ class AchievementTest {
                 assertEquals(achievement.getRecordType().toString().toLowerCase()
                         + "_" + achievement.getAchievementLevel().toString().toLowerCase()
                         + "_" + ACHIEVED.toString().toLowerCase(), achievement.getImageName()));
-        achievementList.forEach(achievement -> System.out.println("\"" + achievement.toString() + "\","));
     }
 
     @Test

@@ -115,8 +115,6 @@ class FontColourCommandTest {
 
         CommandResult expectedCommandResult =
                 new CommandResult(FontColourCommand.MESSAGE_SUCCESS + " " + updateMessage);
-        System.out.println(background.getDominantColour());
-        System.out.println(fontColour);
         assertCommandSuccess(new FontColourCommand(fontColour, backgroundCommand), model,
                 expectedCommandResult, expectedModel);
     }

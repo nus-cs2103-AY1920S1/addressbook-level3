@@ -59,8 +59,6 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddBioCommand parse(String args) throws ParseException {
-        System.out.println(args);
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DP_PATH, PREFIX_PROFILE_DESC, PREFIX_NRIC,
                         PREFIX_GENDER, PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT,
