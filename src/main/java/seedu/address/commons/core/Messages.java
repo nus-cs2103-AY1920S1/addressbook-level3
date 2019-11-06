@@ -37,4 +37,8 @@ public class Messages {
     protected static String getMessageInvalidBudgetDisplayedIndex() {
         return Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX;
     }
+
+    protected static String getMessageInvalidProjectionDisplayedIndex() {
+        return Messages.MESSAGE_INVALID_PROJECTION_DISPLAYED_INDEX;
+    }
 }
