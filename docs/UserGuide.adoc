@@ -175,7 +175,7 @@ image::userguide\AssignOrder1.png[width="790"]
 {nbsp} +
 
 ==== Completing an order: `-complete_order`
-This command allows you to complete an order in the database by its order name.
+This command allows you to complete an order in the database by its order name. The next unassigned order, if any, will automatically be assigned to an available deliveryman in the database.
 
 Format: `-complete_order n/ORDERNAME`
 
