@@ -125,7 +125,7 @@ public class SampleDataUtil {
                     getCategory("shopping"), Timestamp.createTimestampIfValid("14-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-            new Expense(new Description("Pull&Bears"), new Price("30"),
+            new Expense(new Description("Pull and Bears"), new Price("30"),
                     getCategory("shopping"), Timestamp.createTimestampIfValid("05-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
@@ -137,7 +137,7 @@ public class SampleDataUtil {
                     getCategory("utilities"), Timestamp.createTimestampIfValid("31-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-            new Expense(new Description("Hardware shop at YX's house"), new Price("25.40"),
+            new Expense(new Description("Hardware shop at my house"), new Price("25.40"),
                     getCategory("utilities"), Timestamp.createTimestampIfValid("23-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
