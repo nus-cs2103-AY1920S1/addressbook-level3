@@ -8,6 +8,7 @@ import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_NAME_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_SIZE_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_STYLE_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG_STRING;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TEXT_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_X_COORDINATE_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_Y_COORDINATE_STRING;
 import static seedu.weme.model.ModelContext.CONTEXT_CREATE;
@@ -30,6 +31,8 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 import seedu.weme.logic.commands.createcommand.AbortCreationCommand;
 import seedu.weme.logic.commands.createcommand.CreateCommand;
 import seedu.weme.logic.commands.createcommand.TextAddCommand;
+import seedu.weme.logic.commands.createcommand.TextDeleteCommand;
+import seedu.weme.logic.commands.createcommand.TextEditCommand;
 import seedu.weme.logic.commands.exportcommand.ExportClearCommand;
 import seedu.weme.logic.commands.exportcommand.ExportCommand;
 import seedu.weme.logic.commands.exportcommand.UnstageCommand;
@@ -177,7 +180,9 @@ public class PrompterUtil {
             .concat(Stream.of(
                     AbortCreationCommand.COMMAND_WORD,
                     CreateCommand.COMMAND_WORD,
-                    TextAddCommand.COMMAND_WORD
+                    TextAddCommand.COMMAND_WORD,
+                    TextDeleteCommand.COMMAND_WORD,
+                    TextEditCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
 
@@ -185,6 +190,8 @@ public class PrompterUtil {
             put(AbortCreationCommand.COMMAND_WORD, AbortCreationCommand.MESSAGE_DESCRIPTION);
             put(CreateCommand.COMMAND_WORD, CreateCommand.MESSAGE_DESCRIPTION);
             put(TextAddCommand.COMMAND_WORD, TextAddCommand.MESSAGE_DESCRIPTION);
+            put(TextDeleteCommand.COMMAND_WORD, TextDeleteCommand.MESSAGE_DESCRIPTION);
+            put(TextEditCommand.COMMAND_WORD, TextEditCommand.MESSAGE_DESCRIPTION);
             putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
         }};
 
@@ -235,6 +242,7 @@ public class PrompterUtil {
     public static final String Y_COORDINATE_PROMPT = "0.2\n0.4\n0.6\n0.8";
     public static final String Y_COORDINATE_AUTO_COMPLETION = "0.2";
 
+    public static final Set<String> COLORS = Set.of("black", "red", "blue", "yellow", "green", "pink");
     public static final Set<String> STYLES = Set.of("plain", "bold", "italic");
     public static final Set<String> SIZES = Set.of("1", "2", "3", "4", "5", "6");
 
@@ -355,10 +363,10 @@ public class PrompterUtil {
     }
 
     /**
-     * Find most similar arguments from records for the last argument in user input.
+     * Find most similar arguments from records for the last argument in user input in meme context.
      * @return CommandPrompt containing the most similar arguments
      */
-    public static CommandPrompt promptSimilarArguments(
+    public static CommandPrompt promptSimilarMemeArguments(
             Model model, String inputWithoutLastArgument, LastArgument lastArgument) throws PromptException {
         String lastArgumentValue = lastArgument.getArgument();
         switch (lastArgument.getPrefix().toString()) {
@@ -377,21 +385,56 @@ public class PrompterUtil {
             return new CommandPrompt(findSimilarStrings(tagRecords, lastArgumentValue),
                     inputWithoutLastArgument + findMostSimilarString(tagRecords, lastArgumentValue));
 
+        default:
+            throw new PromptException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
+
+    /**
+     * Find most similar arguments from records for the last argument in user input in template context.
+     * @return CommandPrompt containing the most similar arguments
+     */
+    public static CommandPrompt promptSimilarTemplateArguments(
+            Model model, String inputWithoutLastArgument, LastArgument lastArgument) throws PromptException {
+        String lastArgumentValue = lastArgument.getArgument();
+        switch (lastArgument.getPrefix().toString()) {
+        case PREFIX_FILEPATH_STRING:
+            Set<String> pathRecords = model.getPathRecords();
+            return new CommandPrompt(findSimilarStrings(pathRecords, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(pathRecords, lastArgumentValue));
+
         case PREFIX_NAME_STRING:
             Set<String> nameRecords = model.getNameRecords();
             return new CommandPrompt(findSimilarStrings(nameRecords, lastArgumentValue),
                     inputWithoutLastArgument + findMostSimilarString(nameRecords, lastArgumentValue));
 
+        default:
+            throw new PromptException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
+
+    /**
+     * Find most similar arguments from records for the last argument in user input in create context.
+     * @return CommandPrompt containing the most similar arguments
+     */
+    public static CommandPrompt promptSimilarCreateArguments(
+            Model model, String inputWithoutLastArgument, LastArgument lastArgument) throws PromptException {
+        String lastArgumentValue = lastArgument.getArgument();
+        switch (lastArgument.getPrefix().toString()) {
         case PREFIX_X_COORDINATE_STRING:
             return new CommandPrompt(X_COORDINATE_PROMPT, inputWithoutLastArgument + X_COORDINATE_AUTO_COMPLETION);
 
         case PREFIX_Y_COORDINATE_STRING:
             return new CommandPrompt(Y_COORDINATE_PROMPT, inputWithoutLastArgument + Y_COORDINATE_AUTO_COMPLETION);
 
+        case PREFIX_TEXT_STRING:
+            Set<String> textRecords = model.getTextRecords();
+            return new CommandPrompt(findSimilarStrings(textRecords, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(textRecords, lastArgumentValue));
+
         case PREFIX_COLOR_STRING:
-            Set<String> colorRecords = model.getColorRecords();
-            return new CommandPrompt(findSimilarStrings(colorRecords, lastArgumentValue),
-                    inputWithoutLastArgument + findMostSimilarString(colorRecords, lastArgumentValue));
+            return new CommandPrompt(findSimilarStrings(COLORS, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(COLORS, lastArgumentValue));
 
         case PREFIX_STYLE_STRING:
             return new CommandPrompt(findSimilarStrings(STYLES, lastArgumentValue),
@@ -405,4 +448,23 @@ public class PrompterUtil {
             throw new PromptException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
     }
+
+    /**
+     * Find most similar arguments from records for the last argument in user input in export context.
+     * @return CommandPrompt containing the most similar arguments
+     */
+    public static CommandPrompt promptSimilarImportExportArguments(
+            Model model, String inputWithoutLastArgument, LastArgument lastArgument) throws PromptException {
+        String lastArgumentValue = lastArgument.getArgument();
+        switch (lastArgument.getPrefix().toString()) {
+        case PREFIX_FILEPATH_STRING:
+            Set<String> pathRecords = model.getPathRecords();
+            return new CommandPrompt(findSimilarStrings(pathRecords, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(pathRecords, lastArgumentValue));
+
+        default:
+            throw new PromptException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
+
 }

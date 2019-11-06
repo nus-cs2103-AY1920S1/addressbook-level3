@@ -8,7 +8,7 @@ import static seedu.weme.logic.parser.util.ArgumentTokenizer.getLastArgument;
 import static seedu.weme.logic.parser.util.ArgumentTokenizer.removeLastArgument;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
-import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarArguments;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarMemeArguments;
 
 import java.util.regex.Matcher;
 
@@ -54,6 +54,6 @@ public class MemeEditCommandPrompter implements Prompter {
         }
 
         String inputWithoutLastArgument = removeLastArgument(userInput, PREFIX_DESCRIPTION, PREFIX_TAG);
-        return promptSimilarArguments(model, inputWithoutLastArgument, lastArgument);
+        return promptSimilarMemeArguments(model, inputWithoutLastArgument, lastArgument);
     }
 }

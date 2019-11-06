@@ -32,10 +32,12 @@ public class TextEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the meme text identified "
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": Edits the details of the meme text identified "
             + "by the index number. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Existing values will be overwritten by the input values.";
+
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + "\nParameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TEXT + "TEXT] "
             + "[" + PREFIX_X_COORDINATE + "X_COORDINATE] "
             + "[" + PREFIX_Y_COORDINATE + "Y_COORDINATE] "
@@ -94,6 +96,7 @@ public class TextEditCommand extends Command {
         MemeText editedText = createEditedMemeText(textToEdit, editMemeTextDescriptor);
 
         model.setMemeText(textToEdit, editedText);
+        model.addMemeTextToRecords(editedText);
 
         CommandResult result = new CommandResult(
                 String.format(MESSAGE_EDIT_MEME_TEXT_SUCCESS, editedText.toString()));

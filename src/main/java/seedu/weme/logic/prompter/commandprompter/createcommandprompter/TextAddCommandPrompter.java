@@ -10,7 +10,7 @@ import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_SIZE;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_STYLE;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_X_COORDINATE;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_Y_COORDINATE;
-import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarArguments;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarCreateArguments;
 
 import java.util.regex.Matcher;
 
@@ -43,6 +43,6 @@ public class TextAddCommandPrompter implements Prompter {
 
         String inputWithoutLastArgument = removeLastArgument(userInput, PREFIX_X_COORDINATE, PREFIX_Y_COORDINATE,
                 PREFIX_COLOR, PREFIX_STYLE, PREFIX_SIZE);
-        return promptSimilarArguments(model, inputWithoutLastArgument, lastArgument);
+        return promptSimilarCreateArguments(model, inputWithoutLastArgument, lastArgument);
     }
 }

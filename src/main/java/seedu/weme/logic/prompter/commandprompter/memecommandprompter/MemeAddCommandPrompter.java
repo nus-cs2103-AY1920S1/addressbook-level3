@@ -10,7 +10,7 @@ import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
 import static seedu.weme.logic.prompter.util.PrompterUtil.PREFIX_LENGTH;
-import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarArguments;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarMemeArguments;
 
 import java.util.regex.Matcher;
 
@@ -44,6 +44,6 @@ public class MemeAddCommandPrompter implements Prompter {
 
         String inputWithoutLastArgument = removeLastArgument(userInput, PREFIX_FILEPATH, PREFIX_DESCRIPTION,
                 PREFIX_TAG);
-        return promptSimilarArguments(model, inputWithoutLastArgument, lastArgument);
+        return promptSimilarMemeArguments(model, inputWithoutLastArgument, lastArgument);
     }
 }

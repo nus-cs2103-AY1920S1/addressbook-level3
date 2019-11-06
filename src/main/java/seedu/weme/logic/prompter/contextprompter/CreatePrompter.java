@@ -14,7 +14,11 @@ import java.util.regex.Matcher;
 import seedu.weme.logic.commands.createcommand.AbortCreationCommand;
 import seedu.weme.logic.commands.createcommand.CreateCommand;
 import seedu.weme.logic.commands.createcommand.TextAddCommand;
+import seedu.weme.logic.commands.createcommand.TextDeleteCommand;
+import seedu.weme.logic.commands.createcommand.TextEditCommand;
 import seedu.weme.logic.prompter.commandprompter.createcommandprompter.TextAddCommandPrompter;
+import seedu.weme.logic.prompter.commandprompter.createcommandprompter.TextDeleteCommandPrompter;
+import seedu.weme.logic.prompter.commandprompter.createcommandprompter.TextEditCommandPrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
@@ -46,6 +50,12 @@ public class CreatePrompter extends WemePrompter {
         switch (commandWord) {
         case TextAddCommand.COMMAND_WORD:
             return new TextAddCommandPrompter().prompt(model, userInput);
+
+        case TextDeleteCommand.COMMAND_WORD:
+            return new TextDeleteCommandPrompter().prompt(model, userInput);
+
+        case TextEditCommand.COMMAND_WORD:
+            return new TextEditCommandPrompter().prompt(model, userInput);
 
         case AbortCreationCommand.COMMAND_WORD:
             return new CommandPrompt(AbortCreationCommand.MESSAGE_USAGE, userInput);

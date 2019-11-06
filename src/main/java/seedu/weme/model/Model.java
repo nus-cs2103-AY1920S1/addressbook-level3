@@ -397,9 +397,9 @@ public interface Model {
     Set<String> getNameRecords();
 
     /**
-     * Returns all past records of colors.
+     * Returns all past records of texts.
      */
-    Set<String> getColorRecords();
+    Set<String> getTextRecords();
 
     /**
      * Add information of a meme to the records.

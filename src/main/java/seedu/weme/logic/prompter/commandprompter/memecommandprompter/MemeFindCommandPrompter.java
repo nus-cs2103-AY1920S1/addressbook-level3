@@ -6,7 +6,7 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
 import static seedu.weme.logic.prompter.util.PrompterUtil.COMMAND_DELIMITER;
-import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarArguments;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarMemeArguments;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -73,6 +73,6 @@ public class MemeFindCommandPrompter implements Prompter {
 
         String inputWithoutLastArgument = PREAMBLE + String.join(" ",
                 Arrays.copyOfRange(tokens, 0, tokens.length - 1)) + COMMAND_DELIMITER;
-        return promptSimilarArguments(model, inputWithoutLastArgument, lastArgument);
+        return promptSimilarMemeArguments(model, inputWithoutLastArgument, lastArgument);
     }
 }

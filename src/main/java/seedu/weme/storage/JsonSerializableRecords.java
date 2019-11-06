@@ -22,7 +22,7 @@ public class JsonSerializableRecords {
     private Set<String> descriptionRecords = new HashSet<>();
     private Set<String> tagRecords = new HashSet<>();
     private Set<String> nameRecords = new HashSet<>();
-    private Set<String> colorRecords = new HashSet<>();
+    private Set<String> textRecords = new HashSet<>();
 
     /**
      * Constructs a {@code JsonSerializableRecords} with the given records details.
@@ -32,13 +32,13 @@ public class JsonSerializableRecords {
                                     @JsonProperty("descriptionRecords") Set<String> descriptionRecords,
                                     @JsonProperty("tagRecords") Set<String> tagRecords,
                                     @JsonProperty("nameRecords") Set<String> nameRecords,
-                                   @JsonProperty("colorRecords") Set<String> colorRecords) {
+                                   @JsonProperty("textRecords") Set<String> textRecords) {
 
         this.pathRecords.addAll(pathRecords);
         this.descriptionRecords.addAll(descriptionRecords);
         this.tagRecords.addAll(tagRecords);
         this.nameRecords.addAll(nameRecords);
-        this.colorRecords.addAll(colorRecords);
+        this.textRecords.addAll(textRecords);
     }
 
     /**
@@ -49,7 +49,7 @@ public class JsonSerializableRecords {
         descriptionRecords.addAll(records.getDescriptions());
         tagRecords.addAll(records.getTags());
         nameRecords.addAll(records.getNames());
-        colorRecords.addAll(records.getColors());
+        textRecords.addAll(records.getTexts());
     }
 
     /**
@@ -62,14 +62,14 @@ public class JsonSerializableRecords {
         Set<String> descriptionRecords = new HashSet<>();
         Set<String> tagRecords = new HashSet<>();
         Set<String> nameRecords = new HashSet<>();
-        Set<String> colorRecords = new HashSet<>();
+        Set<String> textRecords = new HashSet<>();
 
         pathRecords.addAll(this.pathRecords);
         descriptionRecords.addAll(this.descriptionRecords);
         tagRecords.addAll(this.tagRecords);
         nameRecords.addAll(this.nameRecords);
-        colorRecords.addAll(this.colorRecords);
-        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords, colorRecords);
+        textRecords.addAll(this.textRecords);
+        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords, textRecords);
     }
 
 }

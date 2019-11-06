@@ -1,6 +1,5 @@
 package seedu.weme.model;
 
-import java.awt.Color;
 import java.util.Set;
 
 import seedu.weme.model.imagePath.ImagePath;
@@ -21,7 +20,7 @@ public interface Records {
 
     public Set<String> getNames();
 
-    public Set<String> getColors();
+    public Set<String> getTexts();
 
     public void addPath(ImagePath path);
 
@@ -31,7 +30,7 @@ public interface Records {
 
     public void addName(Name name);
 
-    public void addColor(Color color);
+    public void addText(String text);
 
     public void resetRecords(Records records);
 
