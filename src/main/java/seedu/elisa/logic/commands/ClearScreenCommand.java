@@ -2,8 +2,10 @@ package seedu.elisa.logic.commands;
 
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
-import seedu.elisa.model.ItemStorage;
 
+/**
+ * Clears the chat box.
+ */
 public class ClearScreenCommand extends Command {
 
     public static final String COMMAND_WORD = "clearscreen";
