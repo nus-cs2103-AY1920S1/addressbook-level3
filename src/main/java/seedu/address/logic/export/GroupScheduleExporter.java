@@ -4,8 +4,9 @@ import java.io.IOException;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
-import seedu.address.ui.GroupInformation;
-import seedu.address.ui.ScheduleView;
+import javafx.scene.layout.Region;
+import seedu.address.ui.schedule.GroupInformation;
+import seedu.address.ui.schedule.ScheduleView;
 
 /**
  * Class to handle exporting visual representation of a group.
@@ -31,7 +32,9 @@ public class GroupScheduleExporter implements Exporter {
      */
     public void export() throws IOException {
         HBox exportContainer = new HBox();
-        exportContainer.getChildren().addAll(groupInformation.getRoot(), scheduleView.getRoot());
+        Region scheduleTable = scheduleView.getRoot();
+        scheduleTable.setMaxWidth(1000);
+        exportContainer.getChildren().addAll(groupInformation.getRoot(), scheduleTable);
         exportContainer.setId("exportContainer");
         Scene scene = new Scene(exportContainer);
         scene.getStylesheets().add("/view/DarkTheme.css");

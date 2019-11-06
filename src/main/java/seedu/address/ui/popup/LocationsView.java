@@ -1,4 +1,4 @@
-package seedu.address.ui.util;
+package seedu.address.ui.popup;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;

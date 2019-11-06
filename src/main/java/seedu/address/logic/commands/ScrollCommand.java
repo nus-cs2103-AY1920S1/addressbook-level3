@@ -9,7 +9,7 @@ import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
  */
 public class ScrollCommand extends Command {
 
-    public static final String COMMAND_WORD = "n";
+    public static final String COMMAND_WORD = "scroll";
 
     public static final String MESSAGE_SUCCESS = "Showing next view of schedule";
     public static final String MESSAGE_FAILURE = "Nothing to scroll";

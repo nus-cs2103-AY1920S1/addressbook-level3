@@ -1,7 +1,8 @@
-package seedu.address.ui;
+package seedu.address.ui.schedule;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
@@ -18,10 +19,14 @@ public interface ScheduleViewManager {
         switch(displayType) {
         case PERSON:
             //There is only 1 schedule in the scheduleWindowDisplay
-            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules(),
-                    scheduleWindowDisplay.getPersonSchedules().get(0).get(0).getPersonDisplay(), colors.get(0));
+            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules()
+                    .get(0).getScheduleDisplay(),
+                    scheduleWindowDisplay.getPersonDisplays().get(0), colors.get(0));
         case GROUP:
-            return new GroupScheduleViewManager(scheduleWindowDisplay.getPersonSchedules(),
+            return new GroupScheduleViewManager(scheduleWindowDisplay
+                    .getPersonSchedules()
+                    .stream()
+                    .map(sch -> sch.getScheduleDisplay()).collect(Collectors.toCollection(ArrayList::new)),
                     colors,
                     scheduleWindowDisplay.getGroupDisplay().getGroupName(),
                     scheduleWindowDisplay.getFreeSchedule());

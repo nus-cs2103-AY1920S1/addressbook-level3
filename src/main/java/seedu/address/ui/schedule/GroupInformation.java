@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.schedule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
-import seedu.address.ui.util.GroupDetailCard;
-import seedu.address.ui.util.MemberList;
+import seedu.address.ui.UiPart;
 
 /**
  * A class to handle the view of a group.
