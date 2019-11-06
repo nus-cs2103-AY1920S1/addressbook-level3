@@ -30,8 +30,8 @@ public class OrderCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
-    // @FXML
-    // private Label orderName;
+    @FXML
+    private Label orderName;
     @FXML
     private Label id;
     @FXML
@@ -51,7 +51,7 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         id.setText(displayedIndex + ". ");
-        // orderName.setText(order.getOrderName().fullName);
+        orderName.setText(order.getOrderName().fullName);
         customer.setText("Customer: \t" + order.getCustomer().fullName);
         restaurant.setText("Restaurant: \t" + order.getRestaurant().fullName);
         deliveryman.setText("Deliveryman: \t" + order.getDeliveryman().fullName);

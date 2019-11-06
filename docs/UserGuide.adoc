@@ -138,9 +138,9 @@ exists currently in the database.
 ==== Completing an order: `-complete_order`
 This command allows you to complete an order in the database by its index.
 
-Format: `-complete_order INDEX`
+Format: `-complete_order ORDERNAME`
 
-Example:  `-complete_order 3`
+Example:  `-complete_order Order 1`
 
 [start]
 .Example use case
@@ -161,7 +161,7 @@ image::userguide\CompleteOrder3.png[width="790"]
 
 * A deliveryman must already be assigned to the order before it can be completed.
 
-* The index provided must be within the order list size and be greater than or equals to 0.
+* The `ORDERNAME` must exist in the order list.
 ====
 
 {nbsp} +
@@ -198,7 +198,7 @@ image::userguide\EditOrder3.png[width="790"]
 
 .Requirements
 
-* The index `i/INDEX` provided must be within the order list size and be greater than or equals to 1.
+* The `ORDERNAME` must exist in the order list.
 
 * A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
 
@@ -210,9 +210,9 @@ image::userguide\EditOrder3.png[width="790"]
 ==== Deleting an order: `-delete_order`
 This command enables you to delete an unwanted/cancelled order in the database by its index.
 
-Format: `-delete_order INDEX`
+Format: `-delete_order ORDERNAME`
 
-Example: `-delete_order 3`
+Example: `-delete_order Order 1`
 
 [start]
 .Example use case
@@ -230,7 +230,7 @@ image::userguide\DeleteOrder3.png[width="790"]
 ====
 
 .Requirements
-* The index provided must be within the order list size and be greater than or equals to 0.
+* The `ORDERNAME` must exist in the order list.
 ====
 
 {nbsp} +
@@ -334,7 +334,7 @@ Example: `edit 1 n/John Hoe p/97654321`
 ====
 
 .Requirements
-* The index `i/INDEX` provided must be within the customer list size and be greater than or equals to 1.
+* The index `INDEX` provided must be within the customer list size and be greater than or equals to 1.
 ====
 
 {nbsp} +
@@ -351,7 +351,7 @@ Example: `delete 1`
 ====
 
 .Requirements
-* The index `i/INDEX` provided must be within the customer list size and be greater than or equals to 1.
+* The index `INDEX` provided must be within the customer list size and be greater than or equals to 1.
 ====
 
 {nbsp} +
@@ -368,7 +368,7 @@ Example: `history 1`
 ====
 
 .Requirements
-* The index `i/INDEX` provided must be within the customer list size and be greater than or equals to 1.
+* The index `INDEX` provided must be within the customer list size and be greater than or equals to 1.
 ====
 
 // end::customerCommand[]
@@ -659,8 +659,8 @@ Example: `enter 1`
 * Universal commands
 - View help: `-help`
 - Add order: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
-- Complete order: `-complete_order INDEX`
-- Edit order: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
+- Complete order: `-complete_order ORDERNAME`
+- Edit order: `-edit_order n/ORDERNAME [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
 - Delete order: `-delete_order INDEX`
 - List orders: `-list_orders`
 - Switch to restaurant context: `-restaurant`

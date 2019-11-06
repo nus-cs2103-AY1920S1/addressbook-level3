@@ -315,6 +315,10 @@ public interface Model {
      */
     void setOrder(Order target, Order editedOrder);
 
+    Order getOrder(Name targetOrder);
+
+    Name getFreeOrderName();
+
     void addOrderInCustomer(Order order);
 
     void deleteOrderInCustomer(Order order);
