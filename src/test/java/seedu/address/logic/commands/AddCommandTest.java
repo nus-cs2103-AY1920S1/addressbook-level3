@@ -16,11 +16,10 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-//import seedu.address.model.ReadOnlyCalendar;
+import seedu.address.model.ReadOnlyTutorAid;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TutorAid;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.note.Notes;
@@ -28,6 +27,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
+
+//import seedu.address.model.ReadOnlyCalendar;
 
 public class AddCommandTest {
 
@@ -156,12 +157,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getTutorAidFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setTutorAidFilePath(Path tutorAidFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -169,6 +170,7 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public void addEarnings(Earnings earnings) {
@@ -186,17 +188,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void afterAddTask() {
+        public void setTutorAid(ReadOnlyTutorAid newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyTutorAid getTutorAid() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -388,8 +385,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyTutorAid getTutorAid() {
+            return new TutorAid();
         }
     }
 }

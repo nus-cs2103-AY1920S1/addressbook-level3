@@ -10,10 +10,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.TutorAidParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTutorAid;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.note.Notes;
@@ -31,12 +31,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final TutorAidParser tutorAidParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser(getFilteredCommandsList());
+        tutorAidParser = new TutorAidParser(getFilteredCommandsList());
 
     }
 
@@ -52,16 +52,15 @@ public class LogicManager implements Logic {
                 Command command;
 
                 if (isUnknown) {
-                    command = addressBookParser.checkCommand(commandText, model.getSavedCommand());
+                    command = tutorAidParser.checkCommand(commandText, model.getSavedCommand());
                 } else {
-                    command = addressBookParser.parseCommand(commandText);
+                    command = tutorAidParser.parseCommand(commandText);
                 }
                 commandResult = command.execute(model);
-                storage.saveAddressBook(model.getAddressBook());
-                //storage.saveCalendar(model.getCalendar());
+                storage.saveTutorAid(model.getTutorAid());
 
             } else {
-                Command command = addressBookParser.parseCommandWithoutLoggingIn(commandText);
+                Command command = tutorAidParser.parseCommandWithoutLoggingIn(commandText);
                 commandResult = command.execute(model);
             }
             return commandResult;
@@ -72,8 +71,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyTutorAid getTutorAid() {
+        return model.getTutorAid();
     }
 
     @Override
@@ -107,8 +106,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getTutorAidFilePath() {
+        return model.getTutorAidFilePath();
     }
 
     @Override

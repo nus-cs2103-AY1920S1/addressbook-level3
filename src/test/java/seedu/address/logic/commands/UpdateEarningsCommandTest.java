@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_EARNINGS_C
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showEarningsAtIndex;
-import static seedu.address.testutil.TypicalEarnings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEarnings.getTypicalTutorAid;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateEarningsCommand.EditEarningsDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TutorAid;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.testutil.EarningsBuilder;
@@ -29,7 +29,7 @@ import seedu.address.testutil.UpdateEarningsDescriptorBuilder;
 public class UpdateEarningsCommandTest {
 
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTutorAid(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -39,7 +39,7 @@ public class UpdateEarningsCommandTest {
 
         String expectedMessage = String.format(UpdateEarningsCommand.MESSAGE_UPDATE_SUCCESS, editedEarnings);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setEarnings(model.getFilteredEarningsList().get(0), editedEarnings);
 
         assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class UpdateEarningsCommandTest {
 
         String expectedMessage = String.format(UpdateEarningsCommand.MESSAGE_UPDATE_SUCCESS, editedEarnings);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setEarnings(lastEarnings, editedEarnings);
 
         assertCommandSuccess(
@@ -79,7 +79,7 @@ public class UpdateEarningsCommandTest {
 
         String expectedMessage = String.format(UpdateEarningsCommand.MESSAGE_UPDATE_SUCCESS, editedEarnings);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
 
         assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
     }
@@ -96,7 +96,7 @@ public class UpdateEarningsCommandTest {
 
         String expectedMessage = String.format(UpdateEarningsCommand.MESSAGE_UPDATE_SUCCESS, editedEarnings);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setEarnings(model.getFilteredEarningsList().get(0), editedEarnings);
 
         assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
@@ -116,7 +116,7 @@ public class UpdateEarningsCommandTest {
         showEarningsAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit earnings in filtered list into a duplicate in address book
-        Earnings earningsInList = model.getAddressBook().getEarningsList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Earnings earningsInList = model.getTutorAid().getEarningsList().get(INDEX_SECOND_PERSON.getZeroBased());
         UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_FIRST_PERSON,
                 new UpdateEarningsDescriptorBuilder(earningsInList).build());
 
@@ -142,7 +142,7 @@ public class UpdateEarningsCommandTest {
         showEarningsAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getEarningsList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getTutorAid().getEarningsList().size());
 
         UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(outOfBoundIndex,
                 new UpdateEarningsDescriptorBuilder().withDate(VALID_DATE_EARNINGS_CS1231_T05).build());

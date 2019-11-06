@@ -30,7 +30,9 @@ public class FindEarningsCommand extends Command {
         requireNonNull(model);
         model.updateFilteredEarningsList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_EARNINGS_LISTED_OVERVIEW, model.getFilteredEarningsList().size()));
+                String.format(Messages.MESSAGE_EARNINGS_LISTED_OVERVIEW, model.getFilteredEarningsList().size()),
+                false, false, true, false, false,
+                false, false, false);
     }
 
     @Override

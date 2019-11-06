@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":TutorAidParser" as TutorAidParser LOGIC_COLOR
 participant ":AddNotesCommandParser" as AddNotesCommandParser LOGIC_COLOR
 participant "ae:AddNotesCommand" as AddNotesCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("addnote mod/....")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("addnote mod/....")
-activate AddressBookParser
+LogicManager -> TutorAidParser : parseCommand("addnote mod/....")
+activate TutorAidParser
 
 create AddNotesCommandParser
-AddressBookParser -> AddNotesCommandParser
+TutorAidParser -> AddNotesCommandParser
 activate AddNotesCommandParser
 
-AddNotesCommandParser --> AddressBookParser
+AddNotesCommandParser --> TutorAidParser
 deactivate AddNotesCommandParser
 
-AddressBookParser -> AddNotesCommandParser : parse("mod/...")
+TutorAidParser -> AddNotesCommandParser : parse("mod/...")
 activate AddNotesCommandParser
 
 create AddNotesCommand
@@ -36,14 +36,14 @@ activate AddNotesCommand
 AddNotesCommand --> AddNotesCommandParser : ae
 deactivate AddNotesCommand
 
-AddNotesCommandParser --> AddressBookParser : ae
+AddNotesCommandParser --> TutorAidParser : ae
 deactivate AddNotesCommand
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddNotesCommandParser -[hidden]-> AddressBookParser
+AddNotesCommandParser -[hidden]-> TutorAidParser
 destroy AddNotesCommandParser
 
-AddressBookParser --> LogicManager : ae
-deactivate AddressBookParser
+TutorAidParser --> LogicManager : ae
+deactivate TutorAidParser
 
 LogicManager -> AddNotesCommand : execute()
 activate AddNotesCommand

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.TutorAid;
 import seedu.address.model.task.Task;
 
 /**
@@ -24,10 +24,10 @@ public class TypicalTasks {
     private TypicalTasks() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code TutorAid} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static TutorAid getTypicalTutorAid() {
+        TutorAid ab = new TutorAid();
         for (Task task : getTypicalTasks()) {
             ab.addTask(task);
         }

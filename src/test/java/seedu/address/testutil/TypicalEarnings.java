@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.TutorAid;
 import seedu.address.model.earnings.Earnings;
 
 /**
@@ -28,7 +28,7 @@ public class TypicalEarnings {
             .withType("lab").withClassId("Tutorial 99")
             .withAmount("19.00").build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
+    // Manually added - Earnings's details found in {@code CommandTestUtil}
     public static final Earnings CS2100 = new EarningsBuilder().withDate(VALID_DATE_EARNINGS_CS2100_A01)
             .withType(VALID_TYPE_EARNINGS_CS2100_A01)
             .withClassId(VALID_CLASSID_AMY)
@@ -45,10 +45,10 @@ public class TypicalEarnings {
     private TypicalEarnings() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code TutorAid} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static TutorAid getTypicalTutorAid() {
+        TutorAid ab = new TutorAid();
         for (Earnings earning : getTypicalEarnings()) {
             ab.addEarnings(earning);
         }

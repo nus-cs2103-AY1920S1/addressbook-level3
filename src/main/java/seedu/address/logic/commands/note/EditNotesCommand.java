@@ -71,7 +71,9 @@ public class EditNotesCommand extends Command {
 
         model.setNotes(notesToEdit, editedNote);
         model.updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
-        return new CommandResult(String.format(MESSAGE_EDIT_NOTES_SUCCESS, editedNote));
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTES_SUCCESS, editedNote),
+                false, false, false, false, false,
+                false, true, false);
     }
 
     /**

@@ -34,6 +34,7 @@ public class UnknownCommand extends Command {
         }
         model.saveCommand(this.unknown);
         return new CommandResult(String.format(SHOWING_UNKNOWN_MESSAGE, this.unknown),
-                false, false, false, true, false);
+                false, false, false, true, false,
+                false, false, false);
     }
 }

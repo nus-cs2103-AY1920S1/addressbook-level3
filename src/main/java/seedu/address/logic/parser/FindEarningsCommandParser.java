@@ -11,7 +11,7 @@ import seedu.address.model.earnings.ClassIdContainKeywordPredicate;
 /**
  * Parses input arguments and creates a new FindEarningsCommand object
  */
-public class FindEarningsCommandParser {
+public class FindEarningsCommandParser implements Parser<FindEarningsCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand

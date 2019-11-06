@@ -6,7 +6,7 @@ import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
 
 /**
- * Adds a new command to the AddressBook's commands list.
+ * Adds a new command to the TutorAid's commands list.
  */
 public class NewCommand extends Command {
 
@@ -27,8 +27,8 @@ public class NewCommand extends Command {
         model.addCommand(newCommand);
 
         return new CommandResult(SHOWING_NEW_COMMAND_MESSAGE
-                + this.prevUnknownCommand + " as " + this.userInput,
-                false, false, false, false, false);
+                + this.prevUnknownCommand + " as " + this.userInput);
+
     }
 
 }

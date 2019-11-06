@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.TutorAidParser;
 import seedu.address.model.Model;
 import seedu.address.model.commands.CommandObject;
 
@@ -34,7 +34,7 @@ public class DeleteCustomCommand extends Command {
         try {
             model.deleteCommand(this.targetCommand);
             String commandWordToRemove = this.targetCommand.getCommandWord().word;
-            AddressBookParser.getCommandList().remove(commandWordToRemove);
+            TutorAidParser.getCommandList().remove(commandWordToRemove);
             return new CommandResult(String.format(MESSAGE_DELETE_COMMAND_SUCCESS));
         } catch (Exception e) {
             return new CommandResult(String.format(MESSAGE_DELETE_COMMAND_FAIL));

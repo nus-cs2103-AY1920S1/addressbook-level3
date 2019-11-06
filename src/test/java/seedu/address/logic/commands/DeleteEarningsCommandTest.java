@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showEarningsAtIndex;
-import static seedu.address.testutil.TypicalEarnings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEarnings.getTypicalTutorAid;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -25,7 +25,7 @@ import seedu.address.model.earnings.Earnings;
 public class DeleteEarningsCommandTest {
 
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTutorAid(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +34,7 @@ public class DeleteEarningsCommandTest {
 
         String expectedMessage = String.format(DeleteEarningsCommand.MESSAGE_DELETE_EARNINGS_SUCCESS, earningsToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getTutorAid(), new UserPrefs());
         expectedModel.deleteEarnings(earningsToDelete);
 
         assertCommandSuccess(deleteEarningsCommand, model, expectedMessage, expectedModel);
@@ -57,7 +57,7 @@ public class DeleteEarningsCommandTest {
 
         String expectedMessage = String.format(DeleteEarningsCommand.MESSAGE_DELETE_EARNINGS_SUCCESS, earningsToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTutorAid(), new UserPrefs());
         expectedModel.deleteEarnings(earningsToDelete);
         showNoEarnings(expectedModel);
 
@@ -70,7 +70,7 @@ public class DeleteEarningsCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getEarningsList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getTutorAid().getEarningsList().size());
 
         DeleteEarningsCommand deleteEarningsCommand = new DeleteEarningsCommand(outOfBoundIndex);
 
