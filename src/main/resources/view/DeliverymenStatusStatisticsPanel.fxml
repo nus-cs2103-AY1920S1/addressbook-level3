@@ -11,9 +11,11 @@
     <Label fx:id="deliveringDeliverymenLabel" />
     <HBox >
         <PieChart fx:id="statusStatisticsPieChart" />
+        <Label fx:id="caption" />
         <TextArea fx:id="resultDisplay" style="-fx-font-family: Consolas; -fx-highlight-fill: #00ff00;
         -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00; -fx-background-color:#000000 " editable="false"/>
-        <TextArea fx:id="adviceDisplay" style="-fx-font-family: Consolas; -fx-text-fill: red; -fx-highlight-fill: #00ff00;
-        -fx-background-color: #000000; -fx-highlight-text-fill: #000000; " editable="false" />
+        <TextArea fx:id="adviceDisplay" style="-fx-font-family: Consolas; -fx-text-fill: red;
+        -fx-highlight-fill: #00ff00; -fx-background-color: #000000; -fx-highlight-text-fill: #000000;"
+        wrapText="true" editable="false"/>
     </HBox>
 </VBox>

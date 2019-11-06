@@ -19,6 +19,7 @@ public class Order {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
 
     // Identity fields
+    private final Name orderName;
     private final Name customer;
     private final Name restaurant;
     private Name deliveryman;
@@ -30,20 +31,26 @@ public class Order {
     /**
      * Constructs a {@code Order}
      *
+     * @param orderName   The name of the order
      * @param customer    The customer who made the order.
      * @param restaurant  The restaurant to order from.
      * @param deliveryman The deliveryman delivering the order.
      * @param foodList    The list of food ordered with their respective quantities;
      * @param isCompleted The completion status of the order.
      */
-    private Order(Name customer, Name restaurant, Name deliveryman,
+    private Order(Name orderName, Name customer, Name restaurant, Name deliveryman,
                   Map<Name, Integer> foodList, boolean isCompleted) {
         requireAllNonNull(customer, restaurant, deliveryman, foodList);
+        this.orderName = orderName;
         this.customer = customer;
         this.restaurant = restaurant;
         this.deliveryman = deliveryman;
         this.foodList.putAll(foodList);
         this.isCompleted = isCompleted;
+    }
+
+    public Name getOrderName() {
+        return orderName;
     }
 
     public Name getCustomer() {
@@ -52,10 +59,6 @@ public class Order {
 
     public Name getDeliveryman() {
         return deliveryman;
-    }
-
-    public void setDeliveryman(Name man) {
-        this.deliveryman = man;
     }
 
     /**
@@ -84,6 +87,7 @@ public class Order {
         }
 
         return otherOrder != null
+                && otherOrder.getOrderName().equals(getOrderName())
                 && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getDeliveryman().equals(getDeliveryman())
                 && otherOrder.getRestaurant().equals(getRestaurant())
@@ -106,7 +110,9 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getCustomer().equals(getCustomer())
+
+        return otherOrder.getOrderName().equals(getOrderName())
+                && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getDeliveryman().equals(getDeliveryman())
                 && otherOrder.getFoodList().equals(getFoodList())
                 && otherOrder.getRestaurant().equals(getRestaurant())
@@ -121,7 +127,9 @@ public class Order {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Customer: ")
+        builder.append(" Order Name: ")
+                .append(getOrderName())
+                .append(" Customer: ")
                 .append(getCustomer())
                 .append(" Restaurant: ")
                 .append(getRestaurant())
@@ -140,11 +148,17 @@ public class Order {
      * and creates a new Order object once its completeOrder() function is called
      */
     public static class OrderBuilder {
+        private Name orderName;
         private Name customer;
         private Name restaurant;
         private Name deliveryman = new Name("Unassigned");
         private boolean isCompleted = false;
         private final Map<Name, Integer> foodList = new HashMap<>();
+
+        public OrderBuilder setOrderName(Name orderName) {
+            this.orderName = orderName;
+            return this;
+        }
 
         public OrderBuilder setCustomer(Name customer) {
             this.customer = customer;
@@ -172,7 +186,7 @@ public class Order {
         }
 
         public Order completeOrder() {
-            return new Order(customer, restaurant, deliveryman, foodList, isCompleted);
+            return new Order(orderName, customer, restaurant, deliveryman, foodList, isCompleted);
         }
     }
 }

@@ -13,7 +13,7 @@ public class Phone {
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers should only contain numbers, and it should be at least 3 digits long but shorter than 10 "
                     + "digits.";
-    public static final String VALIDATION_REGEX = "\\d{1,10}";
+    public static final String VALIDATION_REGEX = "\\d{3,10}";
     public final String value;
 
     /**

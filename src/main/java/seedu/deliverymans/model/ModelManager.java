@@ -27,6 +27,7 @@ import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsRecordCard;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
+import seedu.deliverymans.model.deliveryman.exceptions.UnableToDeleteDeliveringDeliverymanException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -258,7 +259,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteDeliveryman(Deliveryman target) {
+    public void deleteDeliveryman(Deliveryman target) throws UnableToDeleteDeliveringDeliverymanException {
         deliverymenDatabase.removeDeliveryman(target);
     }
 
@@ -344,6 +345,33 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedOrder);
 
         orderDatabase.setOrder(target, editedOrder);
+    }
+
+    @Override
+    public Order getOrder(Name targetOrder) {
+        Order orderToGet = null;
+        for (Order order : getFilteredOrderList()) {
+            if (order.getOrderName().equals(targetOrder)) {
+                orderToGet = order;
+            }
+        }
+        return orderToGet;
+    }
+
+    @Override
+    public Name getFreeOrderName() {
+        int n = 1;
+        for (Order order : getFilteredOrderList()) {
+            String orderNumber = order.getOrderName().fullName.split("\\s")[1];
+            if (Integer.parseInt(orderNumber) >= n) {
+                n = Integer.parseInt(orderNumber);
+            }
+        }
+        n++;
+        StringBuilder builder = new StringBuilder();
+        builder.append("Order ")
+                .append(n);
+        return new Name(builder.toString());
     }
 
     @Override

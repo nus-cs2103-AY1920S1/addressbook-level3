@@ -2,11 +2,11 @@ package seedu.deliverymans.logic.parser.universal;
 
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.universal.CompleteOrderCommand;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.model.Name;
 
 /**
  * Tofill.
@@ -21,8 +21,8 @@ public class CompleteOrderCommandParser implements Parser<CompleteOrderCommand> 
      */
     public CompleteOrderCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new CompleteOrderCommand(index);
+            Name orderName = ParserUtil.parseName(args);
+            return new CompleteOrderCommand(orderName);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteOrderCommand.MESSAGE_USAGE), pe);

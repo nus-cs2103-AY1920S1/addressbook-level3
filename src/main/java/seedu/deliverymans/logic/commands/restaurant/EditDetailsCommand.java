@@ -78,7 +78,8 @@ public class EditDetailsCommand extends Command {
                 .filter(order -> order.getRestaurant().equals(restaurantToEdit.getName()))
                 .collect(Collectors.toList());
         for (Order order : orders) {
-            Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
+            Order newOrder = new Order.OrderBuilder().setOrderName(order.getOrderName())
+                    .setCustomer(order.getCustomer())
                     .setRestaurant(editedRestaurant.getName())
                     .setDeliveryman(order.getDeliveryman())
                     .setFood(order.getFoodList())

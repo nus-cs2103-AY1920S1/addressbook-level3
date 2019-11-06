@@ -5,6 +5,7 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_ORDERS;
@@ -17,7 +18,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import seedu.deliverymans.commons.core.Messages;
-import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.util.CollectionUtil;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
@@ -36,35 +36,37 @@ public class EditOrderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits an order present in the manager by its given index used in the displayed order list. "
             + "Parameters: "
-            + "[" + PREFIX_INDEX + "INDEX]\n"
+            + "[" + PREFIX_NAME + "ORDERNAME]\n"
             + "[" + PREFIX_CUSTOMER + "CUSTOMER]\n"
             + "[" + PREFIX_RESTAURANT + "RESTAURANT]\n"
             + "[" + PREFIX_FOOD + "FOOD]...\n"
             + "[" + PREFIX_QUANTITY + "QUANTITY]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INDEX + "2 "
+            + PREFIX_NAME + "Order 1 "
             + PREFIX_CUSTOMER + "Alex Yeoh "
             + PREFIX_RESTAURANT + "KFC "
             + PREFIX_FOOD + "Shrooms Burger "
             + PREFIX_QUANTITY + "3";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided!";
+    public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided!";
+
+    private static final String MESSAGE_ALREADY_COMPLETED = "The order cannot be edited as it is already completed!";
     private static final String MESSAGE_SUCCESS_EDIT = "Successful edition of order: %1$s";
     private static final LinkedList<Prefix> prefixesList = new LinkedList<>(
             List.of(PREFIX_INDEX, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY));
 
-    private final Index index;
+    private final Name targetOrder;
     private final EditOrderDescriptor editOrderDescriptor;
 
     /**
-     * @param index               of the order in the filtered order list to edit
+     * @param targetOrder         of the order in the filtered order list to edit
      * @param editOrderDescriptor details to edit the order with
      */
-    public EditOrderCommand(Index index, EditOrderDescriptor editOrderDescriptor) {
-        requireAllNonNull(index, editOrderDescriptor);
+    public EditOrderCommand(Name targetOrder, EditOrderDescriptor editOrderDescriptor) {
+        requireAllNonNull(targetOrder, editOrderDescriptor);
 
-        this.index = index;
+        this.targetOrder = targetOrder;
         this.editOrderDescriptor = new EditOrderDescriptor(editOrderDescriptor);
     }
 
@@ -72,13 +74,15 @@ public class EditOrderCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Order> lastShownList = model.getFilteredOrderList();
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        Order orderToEdit = model.getOrder(targetOrder);
+        if (orderToEdit == null) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_NAME);
         }
 
         // Creating editedOrder and testing validity
-        Order orderToEdit = lastShownList.get(index.getZeroBased());
+        if (orderToEdit.isCompleted()) {
+            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
+        }
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
         AddOrderCommand.isValidOrder(editedOrder, model);
 
@@ -93,15 +97,16 @@ public class EditOrderCommand extends Command {
      */
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
+        Name orderName = orderToEdit.getOrderName();
         Name updatedCustomer = editOrderDescriptor.getCustomer().orElse(orderToEdit.getCustomer());
         Name updatedRestaurant = editOrderDescriptor.getRestaurant().orElse(orderToEdit.getRestaurant());
         Name deliveryman = orderToEdit.getDeliveryman();
         boolean isCompleted = orderToEdit.isCompleted();
         Map<Name, Integer> updatedFood = editOrderDescriptor.getFoods().orElse(orderToEdit.getFoodList());
 
-        return new Order.OrderBuilder().setCustomer(updatedCustomer).setRestaurant(updatedRestaurant)
-                .setDeliveryman(deliveryman).setFood(updatedFood).setCompleted(isCompleted)
-                .completeOrder();
+        return new Order.OrderBuilder().setOrderName(orderName).setCustomer(updatedCustomer)
+                .setRestaurant(updatedRestaurant).setDeliveryman(deliveryman).setFood(updatedFood)
+                .setCompleted(isCompleted).completeOrder();
     }
 
     public static LinkedList<Prefix> getPrefixesList() {
@@ -122,7 +127,7 @@ public class EditOrderCommand extends Command {
 
         // state check
         EditOrderCommand e = (EditOrderCommand) other;
-        return index == e.index
+        return targetOrder == e.targetOrder
                 && editOrderDescriptor.equals(e.editOrderDescriptor);
     }
 

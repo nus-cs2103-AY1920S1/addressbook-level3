@@ -14,6 +14,7 @@ import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsReco
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusManager;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
+import seedu.deliverymans.model.deliveryman.exceptions.UnableToDeleteDeliveringDeliverymanException;
 
 /**
  * Wraps all Deliverymen data at the deliverymen-database level
@@ -98,7 +99,10 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      * Removes {@code key} from this {@code DeliverymenDatabase}.
      * {@code key} must exist in the deliverymen database.
      */
-    public void removeDeliveryman(Deliveryman key) {
+    public void removeDeliveryman(Deliveryman key) throws UnableToDeleteDeliveringDeliverymanException {
+        if (key.getStatus().getDescription().equals("DELIVERING")) {
+            throw new UnableToDeleteDeliveringDeliverymanException();
+        }
         deliverymen.remove(key);
         statusManager.removeDeliveryman(key);
     }
