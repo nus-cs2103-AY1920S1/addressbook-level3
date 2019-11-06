@@ -15,7 +15,7 @@ import seedu.savenus.model.alias.AliasPair;
 /**
  * An Immutable AliasList that is serializable to JSON format.
  */
-@JsonRootName(value = "savenus")
+@JsonRootName(value = "savenus-alias")
 public class JsonSerializableAliasList {
 
     public static final String INVALID_FIELD_MESSAGE_FORMAT = "AliasPairs have an error!";

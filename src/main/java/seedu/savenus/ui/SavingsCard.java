@@ -32,7 +32,11 @@ public class SavingsCard extends UiPart<Region> {
     public SavingsCard(Savings savings) {
         super(FXML);
         this.savings = savings;
-        savingsPane.setText("$" + savings.toString());
+        if (this.savings.isWithdraw()) { // check if it is a withdrawal.
+            savingsPane.setText("-$" + savings.getSavingsAmount().getAmount().abs());
+        } else {
+            savingsPane.setText("$" + savings.toString());
+        }
         timePane.setText(savings.getTimeStamp().getTimeAgoString());
     }
 

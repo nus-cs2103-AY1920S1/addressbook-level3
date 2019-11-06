@@ -15,7 +15,7 @@ import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
  */
 public class SaveCommand extends Command {
 
-    public static final String COMMAND_WORD = "save";
+    public static final String COMMAND_WORD = "deposit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Set User's savings\n"
@@ -23,12 +23,12 @@ public class SaveCommand extends Command {
             + "Restriction: " + Savings.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 100";
 
-    public static final String MESSAGE_SAVINGS_SUCCESS = "Added to your Savings Account: $%1$s";
+    private static final String MESSAGE_SAVINGS_SUCCESS = "Added to your Savings Account: $%1$s";
 
     private final Savings savingsAmount;
 
     public SaveCommand(String savings) {
-        this.savingsAmount = new Savings(savings, TimeStamp.generateCurrentTimeStamp());
+        this.savingsAmount = new Savings(savings, TimeStamp.generateCurrentTimeStamp(), false);
     }
 
     @Override
@@ -38,14 +38,10 @@ public class SaveCommand extends Command {
         // deduct from wallet in model
         try {
             model.deductFromWallet(this.savingsAmount);
+            model.addToHistory(this.savingsAmount);
         } catch (InsufficientFundsException e) {
             throw new CommandException(e.getMessage() + " to add to savings account!");
-        }
-
-        // add to the savings account in the model.
-        try {
-            model.addToHistory(this.savingsAmount);
-        } catch (InvalidSavingsAmountException e) {
+        } catch (InvalidSavingsAmountException e) { // add to the savings account in the model.
             throw new CommandException(e.getMessage());
         }
 
