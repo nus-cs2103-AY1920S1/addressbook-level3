@@ -464,10 +464,6 @@
     -fx-background-color: rgba(152, 251, 152, 0.35) !important;
 }
 
-#freeTimeslot #freeTimeslotBlock:hover {
-    -fx-background-color: rgba(100, 200, 100, 0.35) !important;
-}
-
 #freeTimeslot .label {
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI Semibold";

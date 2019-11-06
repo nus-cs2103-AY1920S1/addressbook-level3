@@ -60,7 +60,6 @@ public class ScheduleView extends UiPart<Region> {
         initialiseDayHeaders();
         initialiseTimeSlotHeaders();
         initialiseEmptyTableContents();
-        generateSchedule();
     }
 
     /**
@@ -109,7 +108,7 @@ public class ScheduleView extends UiPart<Region> {
     /**
      * Generates the schedule from the given List of WeekSchedules in the constructor.
      */
-    private void generateSchedule() {
+    public void generateSchedule() {
         for (int i = 1; i <= 7; i++) {
             HBox combinedSchedules = new HBox();
             for (int j = 0; j < schedulesShown.size(); j++) {
