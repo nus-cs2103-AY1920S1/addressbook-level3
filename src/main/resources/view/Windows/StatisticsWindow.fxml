@@ -12,8 +12,9 @@
          <Label fx:id="totalSessions" text="Total login sessions: 0 sessions" />
          <Label fx:id="sessionsThisWeek" text="Total login sessions this week: 0 sessions" />
          <Label fx:id="totalDuration" text="Total login duration: 0 hours 0 minutes 0 seconds" />
+         <Label fx:id="averageDuration" text="Average duration per login: 0 hours 0 minutes 0 seconds" />
          <Label styleClass="window-subtitle" text="My Login Sessions" />
-         <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="60.0" prefHeight="200.0">
+         <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="400.0" minHeight="60.0" prefHeight="400.0">
             <!--<content>-->
             <!--   <TableView fx:id="sessionsTableView" fixedCellSize="24.0">-->
             <!--      <placeholder><Label text="There are no recorded sessions yet!" /></placeholder>-->

@@ -1,7 +1,10 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
+import java.time.Duration;
 import java.util.ArrayList;
+
+import dream.fcard.util.stats.DateTimeUtil;
 
 /** Abstract class for statistics objects, like UserStats and DeckStats. */
 public abstract class Stats {
@@ -81,5 +84,11 @@ public abstract class Stats {
     /** Gets the total length of time spent in sessions, as a String. */
     public String getTotalDurationOfSessionsAsString() {
         return this.sessionList.getTotalDurationAsString();
+    }
+
+    /** Gets the average length of time spent in sessions, as a String. */
+    public String getAverageDurationOfSessionsAsString() {
+        Duration averageDuration = DateTimeUtil.getAverageDuration(this.sessionList);
+        return DateTimeUtil.getStringFromDuration(averageDuration);
     }
 }

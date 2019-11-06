@@ -6,9 +6,10 @@ import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.model.Deck;
-import dream.fcard.model.StateHolder;
 import dream.fcard.util.StatsDisplayUtil;
+import dream.fcard.util.stats.DateTimeUtil;
 
+import java.time.Duration;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -22,9 +23,11 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private Label totalSessions;
     @FXML
+    private Label sessionsThisWeek;
+    @FXML
     private Label totalDuration;
     @FXML
-    private Label sessionsThisWeek;
+    private Label averageDuration;
     @FXML
     private ScrollPane sessionsScrollPane;
     @FXML
@@ -63,6 +66,9 @@ public class StatisticsWindow extends ScrollPane {
 
         String duration = userStats.getTotalDurationOfSessionsAsString();
         this.totalDuration.setText("Total login duration: " + duration);
+
+        String averageDuration = userStats.getAverageDurationOfSessionsAsString();
+        this.averageDuration.setText("Average duration per login: " + averageDuration);
     }
 
 }
