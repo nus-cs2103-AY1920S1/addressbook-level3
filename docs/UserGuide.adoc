@@ -601,6 +601,12 @@ Keyword: `sort date`
 
 Format: `sort date`
 
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+`sort date` doesn't apply to contacts list
+
 //@@author {lawncegoh}
 === Sorting the Claims list by Status
 
@@ -612,13 +618,25 @@ Keyword: `sort status`
 
 Format: `sort status`
 
+*Warning*
+`sort status` only applies to the claims list
+
+<<UG-BudgetExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
+[[UG-BudgetExample]]
+[reftext="Figure 3.15.1"]
+[caption="Figure 3.15.1: "]
+.FinSec Status of the claim is shown and the right and sorted as stated above. Pending, Approved then Rejected.
+image::UG-ClaimsListSort.png[width="800"]
+
 Examples:
 * `sort date`
 //@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list in reverse order
 
-This feature allows you to sort the various lists according to the contact's name in reverse lexicographical order. This command
-is not applicable in the contacts page.
+This feature allows you to sort the various lists according to the contact's name in reverse lexicographical order.
+
+*Warning*
+`reverse name` in the claims list sorts it by desription of the claims
 
 Keyword: `reverse name`
 
@@ -634,6 +652,9 @@ Keyword: `reverse date`
 
 Format: `reverse date`
 
+*Warning*
+`reverse date` doesn't apply to contacts list
+
 //@@author {lawncegoh}
 === Sorting the Claims list in reverse order by Status
 
@@ -644,6 +665,9 @@ will be sorted as REJECTED at the top, followed by APPROVED then PENDING.
 Keyword: `reverse status`
 
 Format: `reverse status`
+
+*Warning*
+`reverse status` only applies to the claims list
 
 === Deleting a Contact : `delete_contact`
 
@@ -679,7 +703,7 @@ Format: `budget`
 .FinSec calculates your budget from the income and claim totals on the left while simultaneously displaying a graph of the income, claim and budget values for the current month on the right
 image::UG-BudgetExample.PNG[width="800"]
 
-
+//@@{lawncegoh}
 === Clearing all data : `clear`
 
 This command wipes all data from the FinSec and starts with a new FinSec. This feature is also updated from addressbook
