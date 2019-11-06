@@ -16,7 +16,7 @@ The user interacts with it using a command line interface, and it has a GUI crea
 
 Below is a screenshot of what our desktop application looks like:
 
-**//TODO: Add image of UI**
+image::Ui.png[]
 
 My role in this project was to design and develop the scheduling and resolving of scheduling conflicts features.
 The following sections will illustrate these additions to the application in finer details, as well as any

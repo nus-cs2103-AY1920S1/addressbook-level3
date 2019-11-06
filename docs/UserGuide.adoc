@@ -69,6 +69,11 @@ can be used as `{nbsp}` (i.e. 0 times), `m/glutes`, `m/glutes m/chest` etc.
 ====
 
 === Viewing help : `help`
+Views the help dialog box which will bring you to this UserGuide. You can expect to see a window as shown below.
+
+image::HelpDialogBox.png[]
+
+Clicking on the `Copy URL` button will copy the link to your clipboard and you can open any browser of your choice to access the UserGuide for `ExerHealth`.
 
 Format: `help`
 
@@ -121,6 +126,7 @@ Adds the 1st, 2nd and 3rd exercise in the list to the regime named `power sets`.
 
 Adds the 4th exercise in the list to the regime named `cardio`.
 
+[[list]]
 === Listing information : `list`
 
 Retrieves a list of information - Exercise, Regime, Scheduled Regime or Suggestion - from ExerHealth.
@@ -301,68 +307,135 @@ Format: `redo`
 
 ==== Schedules a regime
 
-Schedules an exercise regime for a certain date. If regime clashes with another scheduled regime, users will be prompted to resolve the conflict via a popup window. Refer to <<resolve>> for details on resolving scheduling conflicts.
+Schedules an exercise regime for a certain date. If the regime clashes with another scheduled regime, you will be prompted to resolve the conflict via a popup window. Refer to <<resolve>> for details on resolving scheduling conflicts.
 
 Format: `schedule n/REGIME_NAME d/DATE`
 
-Example:
+****
+* To schedule a regime, `REGIME_NAME` must exist in your regime list. You can use <<list, `list t/regime`>> command to view the regimes that you currently have.
+* The format of `DATE` must be of the form `dd/MM/YYYY`. For example, `12/12/2019` or `01/01/2020`. Even if the number has only one digit, please ensure you include a 0 at the front to ensure that it adheres to the format required.
+* You will not be allowed to schedule a regime on a date that falls before the date displayed on your system clock
+* You are allowed to schedule a regime of the same name on the same date. The resolve window will pop up for you as per normal.
+****
+*Example 1:*
 
 * `schedule n/cardio d/12/12/2019`
 
 Schedules the regime called `cardio` on the date `12/12/2019`. If there are no other regimes scheduled on `12/12/2019` then the command is successful. Otherwise, you will be prompted to resolve the scheduling conflict.
 
+Expected Result:
+
+image::ScheduleRegimeCardio.png[]
+
+Expected Result (if other schedule exist on `12/12/2019`):
+
+image::ScheduleRegimeCardioConflict.png[]
+
+If the resolve window pops up for you, please refer to <<resolve>> for details on resolving a scheduling conflict.
+
 ==== Completes a schedule regime
 
-Once a scheduled regime is completed, users can add that regime to the exercise tracker. The schedule is then deleted from the scheduling list.
+Once a scheduled regime is completed, you can add that completed schedule to the exercise tracker. The schedule is then deleted from the scheduling list.
 
-Format: `schedule i/INDEX_OF_REGIME_IN_SCHEDULE`
+Format: `schedule i/INDEX_OF_SCHEDULE`
 
-Example:
+
+[TIP]
+The `INDEX_OF_SCHEDULE` provided must be a valid index from your schedule list. Please use <<list, `list t/schedule`>> to view you index of the schedule you wish to complete.
+
+*Example:*
 
 * `schedule i/2`
 
-Completes all the exercises that are in the schedule at index `2`. All the exercises will be added to the exercise list and the schedule at index `2` is deleted.
+Completes all the exercises that are in the schedule at index `2`. All the exercises scheduled will be added to the exercise list and the schedule at index `2` is deleted.
+
+Expected Result:
+
+Before execution of `schedule i/2`
+
+image::ScheduleCompleteBefore.png[]
+
+In your exercise tracker
+
+image::ScheduleCompleteExerciseTracker.png[]
+
+In your schedule tracker after completing execution of `schedule i/2`
+
+image::ScheduleCompleteScheduleTracker.png[]
+
+// end::scheduleresolve[]
+
 [[resolve]]
 === Resolving scheduling conflicts: `resolve`
+Described in the following two sections are two possible ways to resolve a scheduling conflict in the resolve window that pops up.
 
-==== Taking one of the conflicting regimes completely
+****
+* Once the resolve window pops up, you are not allowed to interact with the main `ExerHealth` window anymore. You are required to resolve the scheduling conflict before continuing to use the application as normal.
+* Any *valid* commands that are not `resolve` will not get executed in the resolve window. Only the `resolve` command is allowed in the resolve window.
+****
 
-Takes the scheduled regime or the conflicting regime completely and discarding the other. Neither regimes will be completely deleted from the user’s collection.
+[[resolvetakeone]]
+==== Taking one of the regimes completely
+
+Takes the scheduled regime or the conflicting regime completely and discarding the other. Neither regimes will be deleted from the user’s collection.
 
 Format: `resolve n/SCHEDULED_OR_CONFLICTING`
 
-Example:
+[TIP]
+You can only enter `n/scheduled` or `n/conflicting` to tell ExerHealth which schedule you wish to take. The scheduled or conflicting regimes are stated at the top of the list of exercises as shown below.
+
+image::ResolveScheduledOrConflicting.png[]
+
+*Example:*
 
 * `resolve n/scheduled`
 
 Takes the already scheduled regime and schedule it at conflicting date.
 
-* `resolve n/conflicting`
+*Expected Result:*
 
-Takes the conflicting regime and schedule it at conflicting date.
+The resolve window and inputting the example command
 
-==== Taking some exercises from some regime
-Takes some exercises from the scheduled regime and some from the conflicting regime to make a brand new regime. The new regime that is a result of the combination will be added  to the user’s collection and scheduled at the date of conflict. This new regime will also be added to the user’s collection of regimes
+image::ResolveScheduled.png[]
 
-Format: `resolve n/REGIME_NAME [i/INDEX_OF_EXERCISE_IN_SCHEDULED]... [r/INDEX_OF_EXERCISE_IN_CONFLICTING]...`
+Once resolve window closes, the scheduled regime should be taken and scheduled at the correct date.
+
+image::ResolveScheduledResult.png[]
+
+
+==== Taking some exercises from both regimes
+Takes some exercises from the scheduled regime and some from the conflicting regime to make a brand new regime. The new regime will be scheduled at the date of conflict. This new regime will also be added to your collection of regimes.
+
+Format: `resolve n/NEW_REGIME_NAME [i/INDEX_OF_EXERCISE_IN_SCHEDULED] [r/INDEX_OF_EXERCISE_IN_CONFLICTING]`
 
 ****
-* Takes the exercise at the specified `INDEX`.
-* A new regime with `REGIME_NAME` will be created and added to user's collection
-* `REGIME_NAME` must be a new name that does not exist in user's collection
-* The index refers to the index number shown in the displayed conflict resolving window.
+* Takes the exercise at the specified indexes of `i/` and `r/`
+* `NEW_REGIME_NAME` must be a new name that does not exist in your collection of regimes
+* The index refers to the index number shown in the displayed resolve window
 * The index *must be a positive integer* 1, 2, 3, ...
 * i/ is for index of the scheduled regime
 * r/ is for index of the conflicting regime
+* At least one `i/` or `r/` must exist in your input for this command to succeed. Otherwise, ExerHealth will think you are trying to take one regime completely as stated in the <<resolvetakeone, previous section>>.
 ****
 
-Example:
+*Example:*
 
-* `resolve n/cardios i/1 i/2 i/3 r/4 r/2`
+* `resolve n/new cardio i/1 r/4 r/2`
 
-Takes exercise 1, 2, 3 from scheduled regime and exercise 2, 4 from conflicting regime and adds them to a new regime called cardios
+Expected Result:
 
-// end::scheduleresolve[]
+Takes exercise `1` from `scheduled regime` and exercises `2` and `4` from `conflicting regime` and adds them to a new regime called `new cardio`
+
+image::ResolveTakeOneOrOther.png[]
+
+The `new cardio` regime is now scheduled at the conflicting date with the new exercises that have been resolved.
+
+image::ResolveTakeResolved.png[]
+
+The `new cardio` regime is now added to your collection of regimes
+
+image::ResolveRegimeTracker.png[]
+
 
 // tag::suggest[]
 
@@ -538,6 +611,8 @@ There is no need to save manually.
 
 === Suggest intensity `[Coming in v2.0]`
 
+Suggesting the amount of repetitions to complete for exercises.
+
 === Remind to do exercises `[coming in v2.0]`
 
 Reminds you to do exercises.
@@ -553,7 +628,7 @@ Imports data to update inbuilt database of exercises.
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+Allows you to encrypt your data files for more security.
 // end::dataencryption[]
 
 == FAQ
@@ -586,10 +661,12 @@ e.g. `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Schedule* : `schedule n/REGIME_NAME d/DATE`
-e.g. `schedule n/cardio d/19/09/2019`
-* *Resolve(Take one regime)* : `resolve n/REGIME_TO_TAKE`
-e.g. `resolve n/cardio`
-* *Resolve(Take some exercise from both regime)* : `resolve n/NEW_REGIME_NAME [i/INDEX_OF_SCHEDULED_EXERCISE]... [r/INDEX_OF_CONFLICTING_EXERCISE]...`
+e.g. `schedule n/cardio d/12/12/2019`
+* *Complete Schedule* : `schedule i/INDEX_OF_SCHEDULE`
+e.g. `schedule i/2`
+* *Resolve(Take one regime)* : `resolve n/SCHEDULED_OR_CONFLICTING`
+e.g. `resolve n/scheduled`, `resolve n/conflicting`
+* *Resolve(Take some exercise from both regime)* : `resolve n/NEW_REGIME_NAME [i/INDEX_OF_SCHEDULED_EXERCISE] [r/INDEX_OF_CONFLICTING_EXERCISE]`
 e.g. `resolve n/new cardio i/1 i/3 r/2`
 * *Suggest basic* : `suggest s/basic`
 * *Suggest possible* : `suggest s/possible [o/OPERATION_TYPE] [m/MUSCLE]... [CUSTOM_PROPERTY_PREFIX/VALUE]...`
