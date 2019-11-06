@@ -25,6 +25,7 @@ import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.EndStateException;
+import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
@@ -33,6 +34,7 @@ import com.typee.logic.interactive.parser.state.clearmachine.ClearState;
 import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
+import com.typee.logic.interactive.parser.state.findmachine.FindBufferState;
 import com.typee.logic.interactive.parser.state.findmachine.FindDescriptionState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
 import com.typee.logic.interactive.parser.state.listmachine.ListState;
@@ -233,7 +235,8 @@ public class Parser implements InteractiveParser {
             argumentMultimap.clearValues(new Prefix(""));
         }
         try {
-            while (!argumentMultimap.isEmpty() && !currentState.isEndState()) {
+            while ((!argumentMultimap.isEmpty() && !currentState.isEndState())
+                    || isOptionalState(argumentMultimap)) {
                 currentState = currentState.transition(argumentMultimap);
             }
         } catch (EndStateException e) {
@@ -241,6 +244,16 @@ public class Parser implements InteractiveParser {
         } catch (StateTransitionException e) {
             throw new ParseException(e.getMessage());
         }
+    }
+
+    private boolean isOptionalState(ArgumentMultimap argumentMultimap) {
+        if (currentState instanceof OptionalState) {
+            OptionalState optionalState = (OptionalState) currentState;
+            if (optionalState.canBeSkipped(argumentMultimap)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void instantiateStateMachine(String commandText) throws ParseException {
@@ -287,7 +300,7 @@ public class Parser implements InteractiveParser {
             break;
 
         case FindCommand.COMMAND_WORD:
-            currentState = new FindDescriptionState(new ArgumentMultimap());
+            currentState = new FindBufferState(new ArgumentMultimap());
             break;
 
         default:

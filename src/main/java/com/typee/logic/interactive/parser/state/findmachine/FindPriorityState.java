@@ -7,11 +7,12 @@ import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.model.engagement.Priority;
 
-public class FindPriorityState extends State {
+public class FindPriorityState extends State implements OptionalState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter the priority to search for, prefixed by \"p/\".";
 
@@ -59,5 +60,13 @@ public class FindPriorityState extends State {
     @Override
     public Prefix getPrefix() {
         return PREFIX_PRIORITY;
+    }
+
+    @Override
+    public boolean canBeSkipped(ArgumentMultimap newArgs) {
+        if (newArgs.getValue(PREFIX_PRIORITY).isPresent()) {
+            return false;
+        }
+        return true;
     }
 }

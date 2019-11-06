@@ -7,16 +7,17 @@ import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class FindDescriptionState extends State {
+public class FindDescriptionState extends State implements OptionalState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Find command initiated! Please enter a description to"
+    private static final String MESSAGE_CONSTRAINTS = "Please enter a description to"
             + " search for prefixed by \"d/\".";
     private static final String MESSAGE_INVALID_INPUT = "Invalid input. The entered description cannot be blank!";
 
-    public FindDescriptionState(ArgumentMultimap soFar) {
+    protected FindDescriptionState(ArgumentMultimap soFar) {
         super(soFar);
     }
 
@@ -60,5 +61,13 @@ public class FindDescriptionState extends State {
     @Override
     public Prefix getPrefix() {
         return PREFIX_DESCRIPTION;
+    }
+
+    @Override
+    public boolean canBeSkipped(ArgumentMultimap newArgs) {
+        if (newArgs.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            return false;
+        }
+        return true;
     }
 }

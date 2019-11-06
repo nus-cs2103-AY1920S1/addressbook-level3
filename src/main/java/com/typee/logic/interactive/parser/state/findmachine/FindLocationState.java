@@ -7,11 +7,12 @@ import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.model.engagement.Location;
 
-public class FindLocationState extends State {
+public class FindLocationState extends State implements OptionalState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter a location to search for, prefixed by \"l/\".";
 
@@ -60,5 +61,13 @@ public class FindLocationState extends State {
     @Override
     public Prefix getPrefix() {
         return PREFIX_LOCATION;
+    }
+
+    @Override
+    public boolean canBeSkipped(ArgumentMultimap newArgs) {
+        if (newArgs.getValue(PREFIX_LOCATION).isPresent()) {
+            return false;
+        }
+        return true;
     }
 }

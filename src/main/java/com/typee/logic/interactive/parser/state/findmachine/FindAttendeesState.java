@@ -7,11 +7,12 @@ import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.model.engagement.AttendeeList;
 
-public class FindAttendeesState extends State {
+public class FindAttendeesState extends State implements OptionalState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter the attendees to search for prefixed by \"a/\"."
             + " The presence of ANY attendee will be considered a match. Vertical lines should separate attendees.";
@@ -60,5 +61,13 @@ public class FindAttendeesState extends State {
     @Override
     public Prefix getPrefix() {
         return PREFIX_ATTENDEES;
+    }
+
+    @Override
+    public boolean canBeSkipped(ArgumentMultimap newArgs) {
+        if (newArgs.getValue(PREFIX_ATTENDEES).isPresent()) {
+            return false;
+        }
+        return true;
     }
 }
