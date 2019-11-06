@@ -153,19 +153,20 @@ public enum Responses {
                     boolean hasOnlyOnePriority = res.get(1).size() == 1;
                     boolean hasOnlyOneFront = res.get(2).size() == 1;
                     boolean hasOnlyOneBack = res.get(3).size() == 1;
-                    boolean hasValidChoice = res.get(4).size() > 1;
+
+                    boolean isFrontBack = res.get(4).size() == 0;
+                    boolean isMCQ = res.get(4).size() > 1;
+                    boolean isInvalidCard =  res.get(4).size() == 1;
 
                     // Perform command validation
 
-                    if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront || !hasOnlyOneBack
-                            || !hasValidChoice) {
+                    if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront
+                            || !hasOnlyOneBack || isInvalidCard) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
                         return true;
                     }
 
-
-
-
+                    
                     try {
                         return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
                     } catch (DuplicateInChoicesException dicExc) {
