@@ -5,9 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.commons.util.PreviewUtil;
@@ -47,13 +45,7 @@ public class PreviewFileCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<EncryptedFile> lastShownList = model.getFilteredFileList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FILE_DISPLAYED_INDEX);
-        }
-
-        EncryptedFile fileToPreview = lastShownList.get(targetIndex.getZeroBased());
+        EncryptedFile fileToPreview = FileCommandUtil.getFileWithIndex(targetIndex, model);
         FileCommandUtil.checkIfFileExists(fileToPreview, model);
 
         try {

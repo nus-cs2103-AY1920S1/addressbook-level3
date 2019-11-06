@@ -5,7 +5,10 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FILES;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -42,5 +45,18 @@ public class FileCommandUtil {
             model.updateFilteredFileList(PREDICATE_SHOW_ALL_FILES);
             throw new CommandException(MESSAGE_FILE_NOT_ENCRYPTED);
         }
+    }
+
+    /**
+     * Gets the file from the displayed list with the specified index.
+     */
+    public static EncryptedFile getFileWithIndex(Index targetIndex, Model model) throws CommandException {
+        List<EncryptedFile> lastShownList = model.getFilteredFileList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_FILE_DISPLAYED_INDEX);
+        }
+
+        return lastShownList.get(targetIndex.getZeroBased());
     }
 }

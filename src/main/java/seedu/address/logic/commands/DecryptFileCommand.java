@@ -6,9 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FILES;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
 import java.security.GeneralSecurityException;
-import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.TargetFileExistException;
 import seedu.address.commons.util.EncryptionUtil;
@@ -49,13 +47,7 @@ public class DecryptFileCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<EncryptedFile> lastShownList = model.getFilteredFileList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FILE_DISPLAYED_INDEX);
-        }
-
-        EncryptedFile fileToDecrypt = lastShownList.get(targetIndex.getZeroBased());
+        EncryptedFile fileToDecrypt = FileCommandUtil.getFileWithIndex(targetIndex, model);;
         FileCommandUtil.checkIfFileExists(fileToDecrypt, model);
 
         try {
