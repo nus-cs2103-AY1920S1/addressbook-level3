@@ -21,10 +21,7 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
-<<<<<<< HEAD
 import seedu.guilttrip.model.entry.Category;
-=======
->>>>>>> cfa4674600cf5bd5983a3e4a57950dfd11a05c5f
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsCategoryPredicate;
