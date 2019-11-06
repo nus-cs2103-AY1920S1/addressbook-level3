@@ -16,7 +16,6 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_USAGE = "Usage: 1) " + COMMAND_WORD + " calendar 2) "
             + COMMAND_WORD + " attendance 3) " + COMMAND_WORD + " performance\n" + "Example: "
             + COMMAND_WORD + " " + "calendar\n";
-
     public static final String MESSAGE_SUCCESS_CALENDAR = "Viewing your calendar";
     public static final String MESSAGE_SUCCESS_ATTENDANCE = "Viewing your team's attendance";
     public static final String MESSAGE_SUCCESS_PERFORMANCE = "Here are your events stored Athletick.\n"

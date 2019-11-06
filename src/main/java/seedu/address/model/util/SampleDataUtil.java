@@ -34,22 +34,9 @@ public class SampleDataUtil {
         };
     }
 
-    private static Record[] getSampleRecords() {
-        return new Record[] {
-            new Record(new AthletickDate(2, 9, 2019, 1, "September"), new Timing("30.12")),
-            new Record(new AthletickDate(9, 10, 2019, 1, "October"), new Timing("31.27")),
-            new Record(new AthletickDate(23, 10, 2019, 1, "October"), new Timing("30.61"))
-        };
-    }
-
     public static ReadOnlyPerformance getSamplePerformance() {
         Performance samplePerformance = new Performance();
-        for (int i = 0; i < getSampleEvents().length; i++) {
-            Event sampleEvent = getSampleEvents()[i];
-            for (int j = getSamplePersons().length - 1; j >= 0; j--) {
-                int recordIndex = j / 2;
-                sampleEvent.addPerformance(getSamplePersons()[j], getSampleRecords()[recordIndex]);
-            }
+        for (Event sampleEvent : getSampleEvents()) {
             samplePerformance.addEvent(sampleEvent);
         }
         return samplePerformance;
