@@ -249,9 +249,9 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-//tag:updown[]
-[[Implementation-commandHistory]]
-=== command History
+// tag::updown[]
+[[Implementation-UpDown]]
+=== Up/Down key
 
 Similar to a typical Command Line Interface(CLI), the up and down key allows the users to through their previous commands.
 
