@@ -86,6 +86,24 @@ public class JsonWordBankStatisticsListStorage implements WordBankStatisticsList
         return wbStatsList;
     }
 
+    @Override
+    public void removeWordBankStatistics(String wordBankName) {
+        WordBankStatistics toRemove = wbStatsList.getWordBankStatistics(wordBankName);
+        removeWordBankStatistics(toRemove);
+    }
+
+    /**
+     * Remove {@code wbStats} from storage.
+     */
+    private void removeWordBankStatistics(WordBankStatistics wbStats) {
+        Path wbStatsFilePath = Paths.get(filePath.toString(), wbStats.getWordBankName() + ".json");
+        File toDelete = wbStatsFilePath.toFile();
+        if (toDelete.exists()) {
+            toDelete.delete();
+        }
+        wbStatsList.removeWordBankStatistics(wbStats);
+    }
+
     /**
      * Saves the word bank statistics.
      *

@@ -77,8 +77,9 @@ public class WordBankStatisticsList implements ReadOnlyWordBankStatisticsList {
     }
 
     public Optional<WordBankStatistics> getMostPlayedWordBankStatistics() {
-        return internalList.stream()
+        Optional<WordBankStatistics> mostPlayed = internalList.stream()
                 .max(Comparator.comparingInt(WordBankStatistics::getGamesPlayed));
+        return mostPlayed.filter(x -> x.getGamesPlayed() > 0);
     }
 
     public int getTotalPlayed() {

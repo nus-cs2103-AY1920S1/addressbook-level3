@@ -1,4 +1,4 @@
-= Dukemon - Developer Guide
+= Dukemon - Developer Guide image:address_book_32.png[width=35]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SErebros`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -480,18 +480,15 @@ in this one, we do not think the added functionality of allowing the user to ext
 .Screenshot of the `Timer` component in action.
 image::TimerDGScreenshot.png[]
 
-.Screenshot of the automatic `Hints` feature in action.
-image::HintDGScreenshot.png[]
-
 ==== Implementation Overview
 
-The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch during a `Game`. It also relies on
+The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch that runs for each `Card` in a `Game`. It also relies on
 using _Functional Interfaces_ as _callbacks_ to periodically notify other components in the system. Using _callbacks_
 allows the `Timer` to enact changes in other components of the system without directly holding a reference to those
 components.
 
 Internally, the `Timer`
-works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate.
+works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate (_every 1ms_).
 
 An _Observer Pattern_ is loosly followed between the `Timer` and the other components. As opposed to defining an
 _Observable_ interface, the `AppManager` simply passes in _method pointers_ into the `Timer` to _callback_ when an
@@ -510,32 +507,60 @@ image::TimerClassDiagramCallbacks.png[]
 
 The three main events that are currently triggered by the `Timer` component which require a _callback_ are:
 
-1. Time has elapsed, _callback_ to `AppManager` to update and display the new timestamp on the `UI`.
-2. Time has run out (_reached zero_), _callback_ to `AppManager` to skip over to next `Card`.
-3. Time has reached a point where `Hints` are to be given to the User, _callback_ to `AppManager` to retrieve a hint
-and display accordingly on the `UI`.
+1. Time has elapsed, _callback_ to `AppManager` to *update and display the new timestamp* on the `UI`.
+2. Time has run out (_reached zero_), _callback_ to `AppManager` to *skip over* to next `Card`.
+3. Time has reached a point where `Hints` are to be given to the User, _callback_ to `AppManager` to *retrieve a `Hint`
+and display* accordingly on the `UI`.
 
-The call-backs for each of these events are implemented as nested _Functional Interfaces_
-within the  `GameTimer` interface, which is concretized via the `GameTimerManager`.
+The _callbacks_ for each of these events are implemented as nested _Functional Interfaces_
+within the  `GameTimer` interface, which is implemented by the `GameTimerManager`.
 
 ==== Flow of Events - `Hints` Disabled
 
-This section describes the sequential flow of events in the life cycle of a `GameTimer` object with *no hints*.
+This section describes the general sequence of events in the life cycle of a single `GameTimer` object with *no hints*.
 
-.Sequence diagram describing the flow of registering and executing callbacks between the different components
+.Sequence diagram (with some details omitted) describing the flow of registering and executing callbacks between the different components
 image::TimerSequenceDiagram1.png[]
 
-The `UI` component first registers callbacks with the `AppManager`, who then registers callbacks with
-the `Timer` component. Periodically, the `Timer` will notify the `AppManager` to perform tasks to notify
-the `UI` component. This is to provide better abstraction between the `UI` and `Timer`.
+[NOTE]
+`GameTimer` interface uses a factory method to create `GameTimerManager` instances. This behavior
+is omitted in the above diagram for simplicity.
 
-A `GameTimer` instance is created by the `AppManager` for every `Card` of a `Game`.
-The `AppManager` provides information regarding the duration in which the `Timer` should run for.
+. `UI` component first registers _callbacks_ with the `AppManager`.
+. When a _Game_ is started, `AppManager` initializes a `GameTimer` instance for the first _Card_.
+. `AppManager` registers _callbacks_ with the `GameTimer` component.
+. `AppManager` starts the `GameTimer`.
+. Periodically, the `GameTimer` notifies the `AppManager` to update the `UI` accordingly.
+. `AppManager` is notified by `GameTimer`, and then notifies `UI` to actually trigger the `UI` change.
+. `GameTimer` finishes counting down (or is *aborted*).
+. `AppManager` repeats Steps 2 to 7 for each _Card_ while the _Game_ has *not* ended.
+
+Using this approach of _callbacks_ provides *better abstraction* between the `UI` and `Timer`.
+
+[NOTE]
+A new `GameTimer` instance is created by the `AppManager` for every `Card` of a `Game`.
+The `AppManager` provides information regarding the duration in which the `GameTimer` should run for, and whether
+`Hints` are enabled.
 
 ==== Flow of Events - `Hints` Enabled
 
-.Activity diagram of the `Timer` component when `Hints` are enabled
+.Screenshot of the automatic `Hints` feature in action.
+image::HintDGScreenshot.png[width=790]
+
+.Activity diagram of the `run()` method of an instance of `GameTimerManager` when `Hints` are enabled.
 image::TimerActivityDiagramWithHints.png[]
+
+The behavior of `Timer` when `Hints` are enabled is *largely still the same.* +
+ +
+ When `Hints` are enabled,
+`AppManager` initializes a `HintTimingQueue` in the `GameTimer` for each _Card_. `HintTimingQueue` is a class that
+contains a `java.util.Queue` of _timestamps_ (in milliseconds). `GameTimer` polls from the `HintTimingQueue` and checks against
+these polled _timestamps_ to update the `Hints` provided periodically. +
+ +
+The described activity is visualized via the activity diagram as *shown above*. The internal `Timer` is started when
+`GameTimerManager` calls the `.schedule()` method of its internal `java.util.Timer`, which schedules `TimerTasks` immediately,
+every millisecond until the `java.util.Timer` is cancelled. The field `timeLeft` is initialized
+to be the amount of time allowed per _Card_ (in milliseconds), and is updated every 1ms.
 
 ==== Design Considerations
 
@@ -1133,9 +1158,10 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Users can export and import their <<word-bank,word banks>> or statistics.
+.  Compatible any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  User has above average typing speed for regular English text (i.e. not code, not system admin commands); able to accomplish most of the tasks faster using commands than using the mouse.
+.  Users can export and import their <<wordbank,wordbanks>> or _Statistics_.
+.  Feedback shown to user must be fast (< 0.2s) especially during a _Game_.
 
 _{More to be added}_
 
@@ -1143,13 +1169,30 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X, Ubuntu and _etc_.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[wordbank]] WordBank::
+Data structure that contains a list of several _Cards_.
 
-[[word-bank]] Word Bank::
-A list of word-description pair that either the user can create himself or import from.
+[[card]] Card::
+Analogue to a physical Flashcard- contains a _Word_ and a _Meaning_.
+
+[[word]] Word::
+The component of a _Card_ that is to be guessed by the user during a _Game_.
+
+[[meaning]] Meaning::
+The meaning represented by the _Word_ of a _Card_; is shown to the user during a _Game_.
+
+[[game]] Game::
+A game session that runs on a specific _WordBank_ of _Cards_.
+
+[[callback]] Callback::
+A piece of executable code that is passed as an argument to other another
+code that is expected to _callback_ (execute) the argument at a given time.
+(Adapted from https://en.wikipedia.org/wiki/Callback_(computer_programming)[Wikipedia])
+
+
+[[callback]]
 
 [appendix]
 == Product Survey
