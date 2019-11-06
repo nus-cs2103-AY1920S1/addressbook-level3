@@ -59,8 +59,8 @@ public class JsonAdaptedModuleTest {
     public void toModelType_tutorialMapWithInvalidWeeks_throwsIllegalValueExcepion() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
                 JsonUtil.getMapOfSingleTutorialWithInvalidTutorialWeeks());
-        String expectedMessage = "Error in reading field! Invalid week number(s) entered. "
-                + "Should contain only numbers from 1 to 13.";
+        String expectedMessage = "Error in reading field! Invalid weeks input. Must be 'even', 'odd', or 'every week', "
+                + "or numbers separated by commas.";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 

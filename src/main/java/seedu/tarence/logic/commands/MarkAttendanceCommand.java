@@ -1,6 +1,7 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.commons.core.Messages.MESSAGE_MULTIPLE_OF_SAME_NAME;
 import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
@@ -9,9 +10,11 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
@@ -68,6 +71,7 @@ public class MarkAttendanceCommand extends Command {
     private final Optional<Index> targetIndex;
     private final Week week;
     private final Optional<Name> targetStudName;
+    private final Optional<Student> student;
 
     public MarkAttendanceCommand(ModCode modCode, TutName tutName, Index index, Week week, Name studName) {
         this.targetModCode = Optional.ofNullable(modCode);
@@ -75,6 +79,7 @@ public class MarkAttendanceCommand extends Command {
         this.targetIndex = Optional.ofNullable(index);
         this.targetStudName = Optional.ofNullable(studName);
         this.week = week;
+        this.student = Optional.empty();
     }
 
     private MarkAttendanceCommand(ModCode modCode, TutName tutName, Index index, Week week, Optional<Name> studName) {
@@ -83,6 +88,16 @@ public class MarkAttendanceCommand extends Command {
         this.targetIndex = Optional.ofNullable(index);
         this.targetStudName = studName;
         this.week = week;
+        this.student = Optional.empty();
+    }
+
+    private MarkAttendanceCommand(ModCode modCode, TutName tutName, Week week, Student student) {
+        this.targetModCode = Optional.ofNullable(modCode);
+        this.targetTutName = Optional.ofNullable(tutName);
+        this.targetIndex = Optional.empty();
+        this.targetStudName = Optional.empty();
+        this.week = week;
+        this.student = Optional.ofNullable(student);
     }
 
     @Override
@@ -117,7 +132,7 @@ public class MarkAttendanceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_WEEK_IN_TUTORIAL);
         }
 
-        if (targetStudName.isEmpty()) {
+        if (targetStudName.isEmpty() && student.isEmpty()) {
             // stores the chain of commands to mark attendance of a class if targetStudName is not specified
             List<Student> students = targetTutorial.getStudents();
             for (int i = students.size() - 1; i >= 0; i--) {
@@ -135,16 +150,25 @@ public class MarkAttendanceCommand extends Command {
         }
 
         // otherwise marks attendance of individual student
-        Student targetStudent = targetTutorial.getStudents().stream()
-            .filter(student -> student.getName().equals(targetStudName.get()))
-            .findFirst()
-            .orElse(null);
+        List<Student> targetStudents;
 
-        if (targetStudent == null) {
+        Tutorial finalTargetTutorial = targetTutorial;
+        targetStudents = student.map(Collections::singletonList)
+                .orElseGet(() -> finalTargetTutorial.getStudents().stream()
+                .filter(student -> student.getName().equals(targetStudName.get()))
+                .collect(Collectors.toList()));
+
+        if (targetStudents.size() == 0) {
             return handleSuggestedStudentCommands(
                     targetTutorial.getModCode(), targetTutorial.getTutName(), targetStudName.get(), model);
         }
 
+        if (targetStudents.size() > 1) {
+            return handleMultipleStudentsCommands(
+                    targetTutorial.getModCode(), targetTutorial.getTutName(), targetStudents, model);
+        }
+
+        Student targetStudent = targetStudents.get(0);
         targetTutorial.setAttendance(week, targetStudent);
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
@@ -209,6 +233,26 @@ public class MarkAttendanceCommand extends Command {
         model.storePendingCommand(new SelectSuggestionCommand());
         return new CommandResult(String.format(MESSAGE_SUGGESTED_CORRECTIONS, "Student",
                 studName.toString()) + suggestedCorrections);
+    }
+
+
+    /**
+     * Handles the creating and processing of suggested {@code MarkAttendanceCommand}s, if the user's input matches
+     * multiple students of the same name.
+     *
+     * @param modCode The module code entered by the user.
+     * @param tutName The tutorial name entered by the user.
+     * @param students The students matching the name entered by the user.
+     * @return a string representation of the suggested alternative commands to the user's invalid input.
+     * @throws CommandException if no suggested commands can be found.
+     */
+    private CommandResult handleMultipleStudentsCommands(
+            ModCode modCode, TutName tutName, List<Student> students, Model model) throws CommandException {
+
+        String suggestedCorrections = createMultipleStudentsCommands(modCode, tutName, students, model);
+        model.storePendingCommand(new SelectSuggestionCommand());
+        return new CommandResult(String.format(MESSAGE_MULTIPLE_OF_SAME_NAME,
+                students.get(0).getName()) + suggestedCorrections);
     }
 
     /**
@@ -277,6 +321,30 @@ public class MarkAttendanceCommand extends Command {
         for (Name similarName : similarNames) {
             suggestedCommands.add(new MarkAttendanceCommand(modCode, tutName, null, week, similarName));
             s.append(index).append(". ").append(similarName).append("\n");
+            index++;
+        }
+        String suggestedCorrections = s.toString();
+        model.storeSuggestedCommands(suggestedCommands, suggestedCorrections);
+        return suggestedCorrections;
+    }
+
+    /**
+     * Generates and stores {@code MarkAttendanceCommand}s from a list of {@code Student}s.
+     *
+     * @param modCode Code of module that suggested student must be in.
+     * @param tutName Name of tutorial that suggested student must be in.
+     * @param students List of students with identical names.
+     * @param model The {@code Model} to search in.
+     * @return string representing the generated suggestions and their corresponding indexes for user selection.
+     */
+    private String createMultipleStudentsCommands(
+            ModCode modCode, TutName tutName, List<Student> students, Model model) {
+        List<Command> suggestedCommands = new ArrayList<>();
+        StringBuilder s = new StringBuilder();
+        int index = 1;
+        for (Student student: students) {
+            suggestedCommands.add(new MarkAttendanceCommand(modCode, tutName, week, student));
+            s.append(index).append(". ").append(student).append("\n");
             index++;
         }
         String suggestedCorrections = s.toString();

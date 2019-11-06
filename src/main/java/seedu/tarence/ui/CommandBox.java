@@ -113,8 +113,10 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
+            setFocus();
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
+            setFocus();
         }
     }
 

@@ -27,6 +27,8 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_SUGGESTED_CORRECTIONS = "%1$s %2$s not found! Did you mean one of the following:"
             + "\n(Enter a number to select that option and re-run the command)\n";
+    public static final String MESSAGE_MULTIPLE_OF_SAME_NAME = "Multiple students of name '%1$s' found! Please select "
+            + "from the following:\n";
     public static final String MESSAGE_INVALID_TAB = "No such tab exists!";
     public static final String MESSAGE_INVALID_DISPLAY_FORMAT = "No such format to display!";
 }

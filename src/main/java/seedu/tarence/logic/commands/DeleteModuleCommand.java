@@ -32,8 +32,8 @@ public class DeleteModuleCommand extends Command {
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
 
     public static final String MESSAGE_CONFIRM_DELETE_NONEMPTY_MODULE = "WARNING: Module %1$s "
-            + "contains %2$d tutorial(s). Are you sure you want to delete it?\n"
-            + "(y/n)";
+            + "contains %2$d tutorial(s).\n"
+            + "Are you sure you want to delete it? (y/n)";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module identified by either the index number used in the displayed module list,\n"
@@ -99,7 +99,7 @@ public class DeleteModuleCommand extends Command {
         if (!moduleToDelete.getTutorials().isEmpty()) {
             model.storePendingCommand(new DeleteModuleVerifiedCommand(moduleToDelete));
             return new CommandResult(String.format(MESSAGE_CONFIRM_DELETE_NONEMPTY_MODULE,
-                    moduleToDelete,
+                    moduleToDelete.getModCode(),
                     moduleToDelete.getTutorials().size()));
         }
 
