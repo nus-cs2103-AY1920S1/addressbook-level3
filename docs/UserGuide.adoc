@@ -26,8 +26,9 @@ The Admin+ Team understands the struggles that start-ups faces on a daily basis,
 *AddMin+* is specially designed to ease the workload of the admin and allow him/her to effectively handle the administrative tasks of the company by providing the following functions: event creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events and providing an overview of all the data via statistics.
 The purpose of this user guide is show the user how they can use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using our app.
 
-== Quick Start
+== Getting Started
 
+=== Installation
 . Ensure you have Java `11` or above installed in your Computer.
 . Download the latest `AddMin+.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for AddMin+
@@ -36,8 +37,13 @@ The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-. Click on the specific tab you want.
-For now, we have `Main` and `Schedule`.
+
+
+=== Using AddMin+
+
+AddMin+ is an app that is mainly used through the Command Line Interface (CLI), complemented with a GUI display.
+
+. Click on the specific tab you to navigate across. Currently, we have the `Main`, `Schedule`, `Finance` and `Statistics` Tab.
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 * e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
@@ -49,22 +55,94 @@ For now, we have `Main` and `Schedule`.
 
 . Refer to <<Features>> for details of each command.
 
+=== Understanding the GUI Components
+**To be filled**
+
+=== CLI Usage & Command Formatting
+
+*Command Format*
+
+As a CLI application, most commands are executed by typing your commands on the Command Box. We will discuss the exact commands that you may execute under the <<Features>> section, but it is important to first understand the format of the command.
+
+Commands start with a single string (which may include underscores) such as `add_em` or `free`. Subsequently, you supply the prefix, for example `n/` and then the necessary parameter. It is alright if there is spacing within your parameter. The prefixes and parameters will be stated for each command.
+
+* Words in `UPPER_CASE` are the *compulsory* parameters to be supplied by the user e.g. in `add_em n/NAME`, `NAME` is a parameter which can be used as `add_em n/John Doe`.
+* Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME no/PHONE_NUMBER`, `no/PHONE_NUMBER n/NAME` is also acceptable.
+* Previous commands can be accessed by using the *up-arrow keys*.
+* Not following the specific format will trigger an _Invalid Command Format_ erorr message on the result display box.
+
+[[Constraints]]
+*Parameter Constraints*
+
+Our application requires the strict adhering of parameters to certain constraints to prevent feature flaws and functionality bugs.
+Listed below are category of parameter, the prefixes utilizing them and their constraints.
+
+[cols="20%,20%,60%"]
+|===
+| *Type & Format* | *Utilizing Prefixes* | *Constraints*
+| *Index*
+| _No Prefix_
+a|
+* The index refer to the index number of an *existing* employee/event in the displayed employee/event list, starting from 1.
+* It *must be a positive integer*
+| *Date* +
+`DD/MM/YYYY` +
+`MM/yyyy`
+| `on/` `till/` `for/` +
+`/start` `/end`
+a|
+* It must be a valid calendar date. E.g. `31/02/2019` is not allowed
+* Dates cannot be more than 10 years ago.
+| *Time Period* +
+`HHMM-HHMM`
+| `time/` +
+a|
+* Two different time must be stated to represent a time period
+* The stated first time must be *earlier/lower in value* than the second.
+* Time is in 24HR (HHMM) format. The minimum value is _0000_ and maximum value is _2359_.
+* _2400_ is not an accepted time value.
+| *Name*
+| `n/` +
+a|
+* Names should only contain alphanumeric characters and spaces, and it should not be blank
+| *Gender* +
+`Male` `Female`
+| `g/` +
+a|
+* Gender is either `Male` or `Female` (case-insensitive). No other parameter is accepted.
+| *Email* +
+`email@gmail.com` +
+| `e/` +
+a|
+* Email must be a valid email that adheres to the https://www.ietf.org/rfc/rfc5322.txt[RFC 5322 Standard]
+| *Phone Number* +
+`65162727`
+| `no/` +
+a|
+* Between 7 - 15 digits long
+* Adhere to the https://en.wikipedia.org/wiki/E.164[E.164 ITU-T Recommendation Standard]
+| *Integer*
+| `m/` `n/`
+a|
+* Must be a positive integer. Floating Numbers/Decimals are strictly not accepted
+| *Money*
+| `s/` `p/` +
+a|
+* Must be a postive number. Floating Numbers/Decimals are acceptable.
+* _Special_: Only for EmployeePay used in `p/`, is must be a value between 0 and 100.0
+
+|===
+
 [[Features]]
 == Features
 
 ====
-The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General.
+The features of AddMin+ can be grouped into 4 main categories, General, Entity Management, Finance, Schedule, and Statistics.
 The commands that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands.
 For new users, do refer to the subsections under Section 3 for the specific command and how to use them.
 For more advanced users, you could refer to <<Command Summary>>.
-
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME no/PHONE_NUMBER`, `no/PHONE_NUMBER n/NAME` is also acceptable.
-* Previous commands can be accessed by using the *up-arrow keys*.
 ====
 
 === General Commands
@@ -122,29 +200,31 @@ Event Format: `list_ev`
 
 Employee: Adds an employee to the employee list
 
+Employee Format: `add_em n/NAME g/GENDER p/PAY no/PHONE e/EMAIL a/ADDRESS on/JOIN_DATE [t/TAG]...`
+
+****
+* Note the <<Constraints>> for *NAME*, *GENDER*, *PAY*, *PHONE*, *EMAIL* and *JOIN_DATE*.
+* An employee's identity is uniquely identified by his/her name, phone number and email. You cannot add an employee whose identity is the same as another employee already inside the Employee List.
+****
+
 Event: Adds an event that the company is organizing or hosting to the company’s calendar.
-
-Employee Format: `add_em n/NAME g/GENDER p/POSITION no/PHONE e/EMAIL a/ADDRESS on/JOIN_DATE [t/TAG]...`
-
-[IMPORTANT]
-GENDER is strictly either 'male' or 'female' only (Case-Insensitive). +
-EMAIL has to be a valid email. +
-JOIN_DATE is of the format `DD/MM/YYYY` and must be a valid Calendar Date from the last 10 years.
-
-[CAUTION]
-You cannot add an employee whose identity is identical to someone already inside the EmployeeBook. +
-An employee's identity is uniquely identified by his/her name, phone number and email.
 
 Event Format: `add_ev n/NAME at/VENUE m/MANPOWER_NEEDED on/START_DATE till/END_DATE[t/TAG]...`
 
+****
+* Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
+* Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
+* An events's identity is uniquely identified by its name, start date, and end date. You cannot add an event which is identical to another event already insid
+****
+
 [TIP]
-A employee can have any number of tags (including 0)
+Both employee and events can have any number of tags (including 0)
 
 Add Employee Examples:
 
-* `add_em n/John Doe g/Male p/Manager no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends t/owesMoney`
+* `add_em n/John Doe g/Male p/10 no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends t/owesMoney`
 
-* `add_em n/Betsy Crowe g/Female p/CFO no/91909111 e/betsycrowe@example.com a/Newgate Prison on/10/12/2019 t/criminal`
+* `add_em n/Betsy Crowe g/Female p/6 no/91909111 e/betsycrowe@example.com a/Newgate Prison on/10/12/2019 t/criminal`
 
 Add Event Examples:
 
@@ -154,47 +234,56 @@ Add Event Examples:
 
 ==== Editing details : `edit_em | edit_ev`
 
+Edits a specific entity based on the fields input by the user. At least one field must be provided, and existing values will be updated to the input values.
+
 Employee: Edit an existing employee in the employee list.
 
-Event: Edits an existing event in the event list.
-
 Employee Format: `edit_em INDEX [n/NAME] [g/GENDER] [p/POSITION] [no/PHONE] [e/EMAIL] [a/ADDRESS] [on/JOIN_DATE] [t/TAG]...`
+
+****
+* Note the <<Constraints>> for *NAME*, *GENDER*, *PAY*, *PHONE*, *EMAIL* and *JOIN_DATE*.
+* An employee's identity is uniquely identified by his/her name, phone number and email. You cannot edit an employee whose identity is the same as another employee already inside the Employee List.
+****
+
+Event: Edits an existing event in the event list.
 
 Event Format Format: `edit_ev INDEX [n/EVENT_NAME] [at/VENUE] [m/MANPOWER_NEEDED] [on/START_DATE] [till/END_DATE] [t/TAG]...`
 
 ****
-* Edits the entity at the specified `INDEX`.
-The index refers to the index number shown in the displayed entity list.
-The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the entity will be removed i.e adding of tags is not cumulative.
-* You can remove all the entity's tags by typing `t/` without specifying any tags after it.
+* Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
+* Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
+* An events's identity is uniquely identified by its name, start date, and end date. You cannot edit an event which is identical to another event already inside the Event List.
+* This command will flush the current manpower allocated list and replace it with a new allocation list.
+* The parameters provided will affect the functionality of the `edit_ev` Command. If the START_DATE and/or END_DATE is modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
 ****
+
+[TIP]
+When editing tags, the existing tags of the entity will be removed i.e adding of tags is not cumulative. +
+You can remove all the entity's tags by typing `t/` without specifying any tags after it.
 
 Employee Edit Examples:
 
 * `edit_em 1 no/91234567 e/johndoe@example.com` +
-Edits the employeePhone number and employeeEmail address of the 1st employee to be `91234567` and `johndoe@example.com` respectively.
+Edits the Phone Number and Email address of the 1st employee on the displayed employee list to be `91234567` and `johndoe@example.com` respectively.
 * `edit_em 2 n/Betsy Crower t/` +
 Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
 
 Event Edit Examples:
 
 * `edit_ev 1 on/16/09/2019` +
-Edits the start date of the 1st event to be on the 16th September, 2019.
+Edits the start date of the 1st event on the displayed event list to be on the 16th September, 2019.
 * `edit_ev 2 n/Concert t/` +
-Edits the name of the 2nd event to be `Concert` and clears all existing tags.
+Edits the name of the 2nd event on the displayed event list to be `Concert` and clears all existing tags.
 
 ==== Find: `find_em_name | find_em_tag | find_ev_name | find_ev_tag`
 
-Find entities whose names contain any of the given keywords.
+Find entities whose *names* contain any of the given keywords.
 
 Employee Format: `find_em_name KEYWORD [MORE_KEYWORDS]`
 
 Event Format: `find_ev_name KEYWORD [MORE_KEYWORDS]`
 
-Find entities whose tag contain any of the given keywords.
+Find entities whose *tag* contain any of the given keywords.
 
 Employee Format: `find_em_tag KEYWORD [MORE_KEYWORDS]`
 
@@ -226,16 +315,15 @@ Returns all events that are tagged as `free` and `music`
 
 ==== Deleting an entity : `delete_em | delete_ev`
 
-Deletes the entity from the employee roster/event calendar.
+Deletes the entity from the employee list/event calendar.
 
 Employee Format: `delete_em INDEX`
 
 Event Format: `delete_ev INDEX`
 
 ****
-* Deletes the entity at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* `INDEX` refers to the index number shown in the displayed entity list.
+* Note the <<Constraints>> for *INDEX*.
 ****
 
 Examples:
@@ -256,14 +344,14 @@ Fetches an employee by displaying a pop-up window that shows the full list of ev
 Format: `fetch_em EMPLOYEE_INDEX`
 
 ****
-* The `EMPLOYEE_INDEX` refers to the index number shown in the displayed event list.
-* The `EMPLOYEE_INDEX` *must be a positive integer* 1, 2, 3, ...
+* The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
+* Note the <<Constraints>> for *INDEX*.
 ****
 
 Examples:
 
 * `fetch_em 2` +
-Returns the 2rd employee from the employee list.
+Returns the 2rd employee from the displayed employee list.
 
 //tag::calvin[]
 === Event-Specific Management
@@ -280,7 +368,7 @@ Format: `fetch_ev EVENT_INDEX`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
-* The `EVENT_INDEX` *must be a positive integer* 1, 2, 3, ...
+* Note the <<Constraints>> for *INDEX*.
 ****
 
 Examples:
@@ -314,7 +402,8 @@ Random selection of employee to allocate if supply exceeds demand of event.
 * Allocates a `NUMBER` of employees to the event at the specified `EVENT_INDEX` filtered based on `TAG`.
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * The `NUMBER` refers to the number of employees to be allocated to the event.
-* Both `EVENT_INDEX` and `NUMBER` *must be a positive integer* 1, 2, 3, ...
+* Note the <<Constraints>> for *INDEX* and *INTEGER* _(for NUMBER)_.
+
 * If no `NUMBER` is specified, it is assumed to be the current manpower count required by the event.
 
 ****
@@ -342,7 +431,7 @@ Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
 * Allocates an employee with `EMPLOYEE_INDEX` to the event at the specified `EVENT_INDEX`.
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
-* Both `EVENT_INDEX` and `EMPLOYEE_INDEX` *must be positive integers* 1, 2, 3, ...
+* Note the <<Constraints>> for *INDEX*.
 ****
 
 Examples:
@@ -369,7 +458,7 @@ Format: `free EVENT_INDEX [id/EMPLOYEE_ID]`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
-* `EVENT_INDEX` *must be a positive integer* 1, 2, 3, ...
+* Note the <<Constraints>> for *INDEX*.
 * if `EMPLOYEE_ID` is not specified, all employees allocated to the event will be removed.
 * `EMPLOYEE_ID` must match the exact 3-digit ID shown in the displayed employee list.
 ****
@@ -394,12 +483,13 @@ as shown in the 2nd figure in <<Manually allocation of Employees to Events: `all
 
 
 //tag::DeXun2[]
+[[set_ev_dt]]
 ==== Setting a Date&Time to an Event: `set_ev_dt`
 
 Sets a Date-Time mapping to an specific Event.
 
 [NOTE]
-Events are initialized without any schedule, other than their stated start and end date with a default time of 8-6pm.
+Events are initialized without any schedule, other than their stated start and end date with a default time of 0800-1800.
 Hence, the mapping _declares_ the schedule for the dates that the event is being held.
 
 [TIP]
@@ -409,20 +499,17 @@ If `EVENT_DATE` is not stated, then all dates inclusive of the start to end date
 Format: `set_ev_dt EVENT_INDEX [on/EVENT_DATE] time/EVENT_DAYTIME`
 
 ****
-* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
-* The `EVENT_INDEX` *must be a positive integer* 1, 2, 3, ...
-* The `EVENT_DATE` *must be of the format* DD/MM/YYYY
+* Note the <<Constraints>> for *INDEX*, *DATE*, and *TIME PERIOD*.
 * THE `EVENT_DATE` *must be within the Event's Start and End Date*
-* The `EVENT_DAYTIME` *must be of the format* HHMM-HHMM
 ****
 
 Examples:
 
-* `set_ev_dt 2 on/18/10/2019 time/1000-2000` +
-Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 18th October 2019.
+* `set_ev_dt 2 on/02/10/2019 time/1000-2000` +
+Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 2nd of October 2019.
 
 * `set_ev_dt 3 time/0500-1500` +
-Sets the 1st Event from the Event List a time period of 5am-3pm on all dates from the start to the end date.
+Sets the 1st Event from the Event List a time period of 5am-3pm on all dates from the start to the end date (inclusive).
 
 ==== Delete a DateTime Mapping from an Event: `delete_ev_dt`
 
@@ -432,9 +519,7 @@ Format: `delete_ev_dt EVENT_INDEX on/EVENT_DATE`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
-* The `EVENT_INDEX` *must be a positive integer:* 1, 2, 3, ...
-* The `EVENT_DATE` *must be of the format* DD/MM/YYYY, and within the Event's Start and End Date*
-* The `EVENT_DAYTIME` *must be of the format* HHMM-HHMM, where the _start time_ is before the _end time_.
+* Note the <<Constraints>> for *INDEX* and *DATE*.
 ****
 
 Example:
@@ -447,11 +532,11 @@ Deletes the mapping on 18th October from the 2nd Event on the Event list.
 Clears all date-time mappings for a specific event.
 As a side effect, all manpower allocated to the event will be de-allocated.
 
-Format: `clear_ev_dt EVENT_INDEX `
+Format: `clear_ev_dt EVENT_INDEX`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
-* The `EVENT_INDEX` *must be a positive integer:* 1, 2, 3, ...
+* Note the <<Constraints>> for *INDEX*.
 ****
 
 Example:
@@ -459,11 +544,6 @@ Example:
 * `clear_ev_dt 2` +
 Clears all the date-time mapping from the 2nd Event on the Event list.
 //end::DeXun2[]
-
-
-
-
-
 
 
 === Finance Management
@@ -514,7 +594,7 @@ Examples:
 `display_schedule_date on/02/12/2019`
 
 ****
-* on/ represents the date in dd/MM/yyyy that the user wants to display
+* Note the <<Constraints>> for *DATE*.
 ****
 
 
@@ -548,6 +628,7 @@ Format: `display_schedule_month for/MM/yyyy`
 
 ****
 * for/ represents the month and year in MM/yyyy that the user wants to display
+* * Note the <<Constraints>> for *DATE*.
 ****
 
 **Example: To display schedule for a specific Month and Year (11/2019):**
@@ -619,6 +700,7 @@ Examples:
 ****
 * start/ represents the date in dd/MM/yyyy that the user wants to start the range to display from.
 * end/ represents the date in dd/MM/yyyy that the user wants to end the range to display from.
+* Note the <<Constraints>> for *INDEX* and *DATE*.
 * Note that specified start date must be before the specified end date, else an error will be displayed.
 ****
 
@@ -663,12 +745,6 @@ such as the location, budget, and date.
 
 
 == Command Summary
-
-* *Delete DateTime from Event*: `delete_ev_dt EVENT_INDEX on/EVENT_DATE` +
-e.g. `delete_ev_dt 2 on/18/10/2019`
-* *Clear DateTime from Event*: `clear_ev_dt EVENT_INDEX` +
-e.g. `clear_ev_dt 2`
-
 
 [cols="3*^"]
 |===

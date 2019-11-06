@@ -19,15 +19,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class EventDateTimeMap {
     public static final String MESSAGE_CONSTRAINTS =
             "EventDateTimeMap is of the format DDMMYYYY:HHMM-HHMM, delimited by commas";
-    private final Map<EventDate, EventDayTime> dateTimeMap;
+    private final Map<EventDate, EventDayTime> dateTimeMap = new HashMap<>();
 
 
     public EventDateTimeMap() {
-        this.dateTimeMap = new HashMap<>();
     }
 
     public EventDateTimeMap(Map<EventDate, EventDayTime> map) {
-        dateTimeMap = map;
+        dateTimeMap.putAll(map);
     }
 
     public EventDateTimeMap(String stringMap) throws IllegalArgumentException {
