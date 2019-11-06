@@ -6,7 +6,6 @@ import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.CategoryList;
-import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
@@ -27,8 +26,6 @@ public interface ReadOnlyGuiltTrip extends Observable {
     ObservableList<Category> getExpenseCategoryList();
 
     ObservableList<Category> getIncomeCategoryList();
-
-    ObservableList<Entry> getEntryList();
 
     ObservableList<Expense> getExpenseList();
 

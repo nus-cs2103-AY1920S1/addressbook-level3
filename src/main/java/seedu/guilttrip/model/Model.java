@@ -107,8 +107,6 @@ public interface Model {
      * Returns true if a entry with the same identity as {@code entry} exists in
      * the guilttrip book.
      */
-    boolean hasEntry(Entry entry);
-
     boolean hasReminder(Reminder reminder);
 
     boolean hasCondition(Condition condition);
@@ -117,15 +115,17 @@ public interface Model {
 
     boolean hasWish(Wish wish);
 
+    boolean hasExpense(Expense expense);
+
+    boolean hasIncome(Income income);
+
+    boolean hasAutoExpense(AutoExpense expense);
+
+
     /**
      * Deletes the given category. The category must exist in the guilttrip book.
      */
     void deleteCategory(Category target);
-
-    /**
-     * Deletes the given entry. The entry must exist in the guilttrip book.
-     */
-    void deleteEntry(Entry target);
 
     /**
      * Deletes the given expense. The entry must exist in the guilttrip book.
@@ -161,7 +161,6 @@ public interface Model {
      * Adds the given entry. {@code entry} must not already exist in the guilttrip
      * book.
      */
-    void addEntry(Entry entry);
 
     void addCategory(Category category);
 
@@ -187,8 +186,6 @@ public interface Model {
      * {@code editedEntry} must not be the same as another existing entry in the
      * guilttrip book.
      */
-    void setEntry(Entry target, Entry editedEntry);
-
 
     void setReminder(Reminder target, Reminder editedEntry);
 
@@ -202,6 +199,7 @@ public interface Model {
 
     void setBudget(Budget target, Budget editedbudget);
 
+    void setAutoExpense(AutoExpense target, AutoExpense editedbudget);
 
     CategoryList getCategoryList();
 
@@ -211,17 +209,11 @@ public interface Model {
     /** Returns an unmodifiable view of the expense category list */
     ObservableList<Category> getExpenseCategoryList();
 
-    /** Returns an unmodifiable view of the filtered entry list */
-    ObservableList<Entry> getFilteredEntryList();
-
     /** Returns an unmodifiable view of the filtered expenditure list */
     ObservableList<Expense> getFilteredExpenses();
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Income> getFilteredIncomes();
-
-    /** Returns an unmodifiable view of filtered expense and income list */
-    ObservableList<Entry> getFilteredExpensesAndIncomes();
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
@@ -244,21 +236,29 @@ public interface Model {
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredEntryList(Predicate<Entry> predicate);
+    void updateAllLists(Predicate<Entry> predicate);
 
-    void updateFilteredExpenses(Predicate<Expense> predicate);
+    void updateFilteredExpenses(Predicate<Entry> predicate);
 
-    void updateFilteredIncomes(Predicate<Income> predicate);
+    void updateFilteredIncomes(Predicate<Entry> predicate);
 
     void updateFilteredWishes(Predicate<Entry> predicate);
 
     void updateFilteredBudgets(Predicate<Entry> predicate);
 
-    void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
+    void updateFilteredAutoExpenses(Predicate<Entry> predicate);
 
     void updateFilteredReminders(Predicate<Reminder> predicate);
 
-    void sortFilteredEntry(SortType comparator, SortSequence sequence);
+    void sortFilteredExpense(SortType comparator, SortSequence sequence);
+
+    void sortFilteredIncome(SortType comparator, SortSequence sequence);
+
+    void sortFilteredBudget(SortType comparator, SortSequence sequence);
+
+    void sortFilteredAutoExpense(SortType comparator, SortSequence sequence);
+
+    void sortFilteredWishes(SortType comparator, SortSequence sequence);
 
     /**
      * Returns true if the model has previous finance tracker states to restore.

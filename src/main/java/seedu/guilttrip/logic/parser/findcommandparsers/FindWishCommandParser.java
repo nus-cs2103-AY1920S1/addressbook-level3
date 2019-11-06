@@ -1,4 +1,4 @@
-package seedu.guilttrip.logic.parser;
+package seedu.guilttrip.logic.parser.findcommandparsers;
 
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -14,9 +14,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.guilttrip.logic.commands.FindCommand;
-import seedu.guilttrip.logic.commands.FindWishCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindWishCommand;
+import seedu.guilttrip.logic.parser.ArgumentMultimap;
+import seedu.guilttrip.logic.parser.ArgumentTokenizer;
+import seedu.guilttrip.logic.parser.Parser;
+import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsCategoryPredicate;
@@ -26,7 +31,7 @@ import seedu.guilttrip.model.entry.predicates.EntryContainsTagsPredicate;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindExpenseCommand object
  */
 public class FindWishCommandParser implements Parser<FindWishCommand> {
 
@@ -44,7 +49,7 @@ public class FindWishCommandParser implements Parser<FindWishCommand> {
             String trimmedArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).fullDesc.trim();
             if (trimmedArgs.isEmpty()) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindExpenseCommand.MESSAGE_USAGE));
             }
 
             String[] nameKeywords = trimmedArgs.split("\\s+");
@@ -58,7 +63,7 @@ public class FindWishCommandParser implements Parser<FindWishCommand> {
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-            predicateList.add(new EntryContainsCategoryPredicate(name));
+            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, "Expense")));
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {

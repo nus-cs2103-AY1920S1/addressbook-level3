@@ -1,4 +1,4 @@
-package seedu.guilttrip.logic.commands;
+package seedu.guilttrip.logic.commands.findcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -12,20 +12,22 @@ import java.util.function.Predicate;
 
 import seedu.guilttrip.commons.core.Messages;
 import seedu.guilttrip.logic.CommandHistory;
+import seedu.guilttrip.logic.commands.Command;
+import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Entry;
 
 /**
- * Finds and lists all persons in guilttrip book whose name contains any of the argument keywords.
+ * Finds and lists all budgets in finance tracker with description containing any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindAutoExpenseCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "findAutoExp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all income and expense entries which contains "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all autoexpense entries which contains "
             + " the keywords that the user requests to be filtered by contain any of and displays them as a list with "
-            + "index numbers. There must at least be one property that you are searching by. \n"
+            + "index numbers.\n"
             + "[" + PREFIX_CATEGORY + "KEYWORDS] "
             + "[" + PREFIX_DESC + "KEYWORDS] "
             + "[" + PREFIX_DATE + "TIME] "
@@ -33,11 +35,11 @@ public class FindCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + PREFIX_AMOUNT + "5.60";
 
-    public static final String EMPTY_PROPETIES = "Propeties cannot be empty.";
+    public static final String INSUFFICENT_ARGUMENTS = "Find by at least one property";
 
     private final List<Predicate<Entry>> predicate;
 
-    public FindCommand(List<Predicate<Entry>> predicate) {
+    public FindAutoExpenseCommand(List<Predicate<Entry>> predicate) {
         this.predicate = predicate;
     }
 
@@ -45,16 +47,16 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         Predicate<Entry> newPredicate = this.predicate.stream().reduce(t -> true, (tbefore, tafter) ->
-            tbefore.and(tafter));
-        model.updateFilteredEntryList(newPredicate);
+                tbefore.and(tafter));
+        model.updateFilteredAutoExpenses(newPredicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredEntryList().size()));
+                String.format(Messages.MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredAutoExpenses().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof FindAutoExpenseCommand // instanceof handles nulls
+                && predicate.equals(((FindAutoExpenseCommand) other).predicate)); // state check
     }
 }

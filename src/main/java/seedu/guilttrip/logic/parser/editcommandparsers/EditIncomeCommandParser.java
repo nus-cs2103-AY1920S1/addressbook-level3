@@ -21,6 +21,7 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
@@ -61,9 +62,10 @@ public class EditIncomeCommandParser implements Parser<EditIncomeCommand> {
         }
 
         // TODO: allow category of income to be edited
-        /*if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editWishDescriptor.setAmount(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
-        }*/
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            Category editedCategory = new Category(argMultimap.getValue(PREFIX_CATEGORY).get(), "Income");
+            editIncomeDescriptor.setCategory(editedCategory);
+        }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editIncomeDescriptor::setTags);
 
