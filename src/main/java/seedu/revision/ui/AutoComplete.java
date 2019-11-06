@@ -20,7 +20,7 @@ import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.main.RestoreCommand;
-import seedu.revision.logic.commands.main.StartQuizCommand;
+import seedu.revision.logic.commands.main.StartCommand;
 
 /**
  * This class is a TextField which implements an "autocomplete" functionality.
@@ -73,9 +73,9 @@ public class AutoComplete extends TextField {
         entries.add(ListCommand.COMPLETE_COMMAND_CAT);
         entries.add(HelpCommand.COMMAND_WORD);
         entries.add(RestoreCommand.COMMAND_WORD);
-        entries.add(StartQuizCommand.COMMAND_AUTOCOMPLETE);
-        entries.add(StartQuizCommand.COMMAND_AUTOCOMPLETE_NORMAL);
-        entries.add(StartQuizCommand.COMMAND_AUTOCOMPLETE_CHAOS);
+        entries.add(StartCommand.COMMAND_AUTOCOMPLETE);
+        entries.add(StartCommand.COMMAND_AUTOCOMPLETE_NORMAL);
+        entries.add(StartCommand.COMMAND_AUTOCOMPLETE_CHAOS);
     }
 
     /**

@@ -2,7 +2,6 @@ package seedu.revision.model.answerable;
 
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import seedu.revision.model.category.Category;
 
@@ -13,8 +12,6 @@ import seedu.revision.model.category.Category;
 public class Saq extends Answerable {
 
     public static final String MESSAGE_CONSTRAINTS = "SAQs should not be blank.";
-
-    private static final Logger logger = Logger.getLogger(Saq.class.getName());
 
     /**
      * Every field must be present and not null.

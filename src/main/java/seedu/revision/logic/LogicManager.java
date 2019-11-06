@@ -1,7 +1,5 @@
 package seedu.revision.logic;
 
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -13,7 +11,6 @@ import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
-import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.MainParser;
 import seedu.revision.logic.parser.quiz.QuizCommandParser;
@@ -23,17 +20,17 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.Storage;
 
 /**
- * The main MainLogicManager of the app.
+ * The main LogicManager of the app.
  */
-public class MainLogicManager implements MainLogic {
+public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private static final Logger logger = LogsCenter.getLogger(MainLogicManager.class);
+    private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     protected final Model model;
     private final Storage storage;
     private final MainParser mainParser;
 
-    public MainLogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         mainParser = new MainParser();
@@ -60,14 +57,6 @@ public class MainLogicManager implements MainLogic {
     }
 
 
-    /**
-     * Executes commands while the Quiz session in operation. Takes in user input and determines command to execute.
-     * @param commandText The command as entered by the user.
-     * @param currentAnswerable The current question to be responded to.
-     * @return commandResult to be executed.
-     * @throws ParseException
-     * @throws CommandException
-     */
     @Override
     public CommandResult execute(String commandText, Answerable currentAnswerable)
             throws ParseException, CommandException {
@@ -76,10 +65,10 @@ public class MainLogicManager implements MainLogic {
         Command command = QuizCommandParser.parseCommand(commandText, currentAnswerable);
         CommandResult commandResult = command.execute(model);
 
-        //If user exits the quiz, restore the filtered list to original state.
-        if (commandResult.isExit()) {
-            ListCommand restoreList = new ListCommand(PREDICATE_SHOW_ALL_ANSWERABLE);
-            restoreList.execute(model);
+        if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
+            logger.info("Correct answer selected");
+        } else {
+            logger.info("Wrong answer selected");
         }
 
         return commandResult;

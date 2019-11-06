@@ -12,7 +12,7 @@ public class Difficulty implements Comparable<Difficulty> {
     public static final String MESSAGE_CONSTRAINTS =
             "Difficulty should only contain numbers, and it should only be 1, 2, or 3";
     public static final String VALIDATION_REGEX = "[1-3]";
-    public final String value;
+    public final String difficulty;
 
     /**
      * Constructs a {@code Difficulty}.
@@ -22,7 +22,7 @@ public class Difficulty implements Comparable<Difficulty> {
     public Difficulty(String difficulty) {
         requireNonNull(difficulty);
         checkArgument(isValidDifficulty(difficulty), MESSAGE_CONSTRAINTS);
-        value = difficulty;
+        this.difficulty = difficulty;
     }
 
     /**
@@ -34,23 +34,23 @@ public class Difficulty implements Comparable<Difficulty> {
 
     @Override
     public String toString() {
-        return value;
+        return difficulty;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Difficulty // instanceof handles nulls
-                && value.equals(((Difficulty) other).value)); // state check
+                && difficulty.equals(((Difficulty) other).difficulty)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return difficulty.hashCode();
     }
 
     @Override
     public int compareTo(Difficulty o) {
-        return this.value.compareTo(o.value);
+        return this.difficulty.compareTo(o.difficulty);
     }
 }

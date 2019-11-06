@@ -43,12 +43,12 @@ public class AnswerableUtil {
             sb.append(PREFIX_QUESTION_TYPE + "saq" + " ");
         }
         sb.append(PREFIX_QUESTION + answerable.getQuestion().question + " ");
-        sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().value + " ");
+        sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().difficulty + " ");
         answerable.getCorrectAnswerList().stream().forEach(
             s -> sb.append(PREFIX_CORRECT + s.toString() + " ")
         );
         answerable.getCategories().stream().forEach(
-            s -> sb.append(PREFIX_CATEGORY + s.categoryName + " ")
+            s -> sb.append(PREFIX_CATEGORY + s.category + " ")
         );
         return sb.toString();
     }
@@ -61,13 +61,13 @@ public class AnswerableUtil {
         descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION)
                 .append(question.question).append(" "));
         descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY)
-                .append(difficulty.value).append(" "));
+                .append(difficulty.difficulty).append(" "));
         if (descriptor.getCategories().isPresent()) {
             Set<Category> tags = descriptor.getCategories().get();
             if (tags.isEmpty()) {
                 sb.append(PREFIX_CATEGORY + " ");
             } else {
-                tags.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.category).append(" "));
             }
         }
         if (descriptor.getCorrectAnswerList().isPresent()) {

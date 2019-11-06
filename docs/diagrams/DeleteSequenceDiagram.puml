@@ -1,12 +1,12 @@
 @startuml
 !include style.puml
 
-box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+box Logic LOGIC_COLOR_T2
+participant ":LogicManager" as LogicManager LOGIC_COLOR_T1
+participant ":RevisionToolParser" as RevisionToolParser LOGIC_COLOR_T1
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR_T1
+participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR_T1
+participant ":CommandResult" as CommandResult LOGIC_COLOR_T1
 end box
 
 box Model MODEL_COLOR_T1
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("delete 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> RevisionToolParser : parseCommand("delete 1")
+activate RevisionToolParser
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
+RevisionToolParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --> RevisionToolParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+RevisionToolParser -> DeleteCommandParser : parse("1")
 activate DeleteCommandParser
 
 create DeleteCommand
@@ -36,14 +36,14 @@ activate DeleteCommand
 DeleteCommand --> DeleteCommandParser : d
 deactivate DeleteCommand
 
-DeleteCommandParser --> AddressBookParser : d
+DeleteCommandParser --> RevisionToolParser : d
 deactivate DeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
+DeleteCommandParser -[hidden]-> RevisionToolParser
 destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+RevisionToolParser --> LogicManager : d
+deactivate RevisionToolParser
 
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
@@ -55,13 +55,18 @@ Model --> DeleteCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteCommand -> CommandResult : CommandResult()
 activate CommandResult
-
-CommandResult --> DeleteCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
+CommandResult -> CommandResult : withFeedback(deleteMessage)
+
+CommandResult -> CommandResult : build()
+
+CommandResult --> DeleteCommand : c
+deactivate CommandResult
+
+DeleteCommand --> LogicManager : c
 deactivate DeleteCommand
 
 [<--LogicManager

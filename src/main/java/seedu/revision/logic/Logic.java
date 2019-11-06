@@ -5,11 +5,14 @@ import java.nio.file.Path;
 import javafx.collections.ObservableList;
 
 import seedu.revision.commons.core.GuiSettings;
+import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
 
 /**
- * API of the MainLogic component
+ * API of the Logic component
  */
 public interface Logic {
 
@@ -43,4 +46,23 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Executes the command and returns the result.
+     * @param commandText The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
+     */
+    CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Executes commands while the Quiz session in operation. Takes in user input and determines command to execute.
+     * @param commandText The command as entered by the user.
+     * @param currentAnswerable The current question to be responded to.
+     * @return commandResult to be executed.
+     * @throws ParseException
+     * @throws CommandException
+     */
+    CommandResult execute(String commandText, Answerable currentAnswerable) throws CommandException, ParseException;
 }
