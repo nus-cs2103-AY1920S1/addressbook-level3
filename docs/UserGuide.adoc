@@ -51,7 +51,7 @@ NUMBER_IN_SUGGESTED_MEAL_LIST is the number that corresponds to the meal in sugg
 You can also add multiple meals at one go using the indexes. This can be done by separating the numbers with a space.
 e.g. `add 1 2 3`
 
-Examples usage:
+Examples usage: +
 It is lunchtime and you are about to go have some Mushroom Soup.
 You would like to add the meal into CaloFit to record it down. What do you do?
 
