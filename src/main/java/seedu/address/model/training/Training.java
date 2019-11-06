@@ -77,4 +77,15 @@ public class Training {
         }
         return listOfAbsentees;
     }
+
+    /**
+     * Replaces person data in the training record. Called when a person is edited.
+     */
+    public void editPersonDetails(Person target, Person editedPerson) {
+        assert(this.hasPerson(target)); // done in other calls
+
+        boolean hasAttended = this.hasPersonAttended(target);
+        this.trainingAttendance.remove(target);
+        this.trainingAttendance.put(editedPerson, hasAttended);
+    }
 }

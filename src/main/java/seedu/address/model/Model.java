@@ -111,6 +111,11 @@ public interface Model {
     void addTraining(Training training);
 
     /**
+     * Replaces all occurences of person at {@code target} with {@code editedPerson} in training records.
+     */
+    void editPersonTrainingRecords(Person target, Person editedPerson);
+
+    /**
      * Removes training on {@code date}
      */
     void deleteTrainingOnDate(AthletickDate date);
