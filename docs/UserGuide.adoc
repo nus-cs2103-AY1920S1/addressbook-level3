@@ -704,7 +704,7 @@ Who is Alice? / How do I store my details and schedule?::
 // tag::alice[]
 When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create. +
 {nbsp} +
-To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-person-command,`edituser` command>>.
+To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command,`edituser` command>>.
 // end::alice[]
 +
 {nbsp} +
