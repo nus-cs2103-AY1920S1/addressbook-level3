@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.logic.Logic;
+import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
@@ -59,6 +60,9 @@ public class MainWindow extends UiPart<Stage> {
     private EntryListPanel entryListPanel;
     private ExpenseListPanel expenseListPanel;
     private IncomeListPanel incomeListPanel;
+    private BudgetPanel budgetPanel;
+    private WishListPanel wishListPanel;
+    private AutoExpensesPanel autoExpensesPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statsListPanel;
@@ -179,12 +183,9 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getTotalExpenseForPeriod(), logic.getTotalIncomeForPeriod());
         statsBar = new StatisticsBarChart(logic.getListOfStatsForBarChart());
 
-        /*entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
-        entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());*/
-
-        expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
-        incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
-        entryList.getChildren().addAll(expenseListPanel.getRoot(), incomeListPanel.getRoot());
+        this.expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
+        this.incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
+        entryList.getChildren().addAll(this.expenseListPanel.getRoot(), this.incomeListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -195,17 +196,17 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        WishListPanel wishListPanel = new WishListPanel(logic.getFilteredWishList());
-        wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
+        this.wishListPanel = new WishListPanel(logic.getFilteredWishList());
+        wishesPlaceHolder.getChildren().add(this.wishListPanel.getRoot());
 
-        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
-        budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
+        this.budgetPanel = new BudgetPanel(logic.getFilteredBudgetList());
+        budgetsPlaceHolder.getChildren().add(this.budgetPanel.getRoot());
 
         ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
 
-        AutoExpensesPanel autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
-        autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
+        this.autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
+        autoExpensesPlaceHolder.getChildren().add(this.autoExpensesPanel.getRoot());
     }
 
     /**
@@ -280,7 +281,7 @@ public class MainWindow extends UiPart<Stage> {
      * Toggles the isVisible and isManaged property for the specified panel.
      * Checks if the entire side panel needs to be toggled as well.
      */
-    private void handleTogglePanel(String panelNameString) {
+    private void handleTogglePanel(String panelNameString) throws CommandException {
         togglePanel(panelNameString);
         toggleEntireSidePanelIfNecessary();
     }
@@ -290,12 +291,15 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param panelName name of the specified panel to be toggled.
      */
-    private void togglePanel(String panelName) {
+    private void togglePanel(String panelName) throws CommandException {
         switch (panelName) {
         case "wishlist":
             togglePlaceHolder(wishesPlaceHolder);
             break;
         case "budget":
+            if (entryList.getChildren().contains(budgetPanel.getRoot())) {
+                throw new CommandException("The panel you want to toggle is already shown in the main panel!");
+            }
             togglePlaceHolder(budgetsPlaceHolder);
             break;
         case "reminder":
@@ -332,7 +336,6 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Toggles the isVisible and isManaged properties of the specified place holder.
-     *
      * @param placeHolder specified place holder to be toggled.
      */
     private void togglePlaceHolder(VBox placeHolder) {
@@ -471,6 +474,31 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Resets the main panel (i.e. entry list panel) to contain just incomes and expenses.
+     */
+    private void resetMainPanel() throws CommandException {
+        entryList.getChildren().removeAll(entryList.getChildren());
+        entryList.getChildren().addAll(expenseListPanel.getRoot(), incomeListPanel.getRoot());
+
+        // Add the respective panels to their placeholders and turn them on
+        if (!budgetsPlaceHolder.getChildren().contains(budgetPanel.getRoot())) {
+            budgetsPlaceHolder.getChildren().add(budgetPanel.getRoot());
+            togglePlaceHolder(budgetsPlaceHolder);
+        }
+
+        if (!wishesPlaceHolder.getChildren().contains(wishListPanel.getRoot())) {
+            wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
+            togglePlaceHolder(wishesPlaceHolder);
+        }
+
+        if (!autoExpensesPlaceHolder.getChildren().contains(autoExpensesPanel.getRoot())) {
+            autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
+            togglePlaceHolder(autoExpensesPlaceHolder);
+        }
+
+    }
+
     public EntryListPanel getEntryListPanel() {
         return entryListPanel;
     }
@@ -543,18 +571,32 @@ public class MainWindow extends UiPart<Stage> {
                 showReminderPanel();
             }
 
-            if (commandResult.isListBudgets()) {
-                if (wishesPlaceHolder.isVisible()) {
-                    togglePanel("wishlist"); //closes wishlist panel if visible
-                }
-                if (autoExpensesPlaceHolder.isVisible()) {
-                    togglePanel("autoexpense"); //closes autoexpense panel if visible
-                }
-                if (remindersPlaceHolder.isVisible()) {
-                    togglePanel("reminder"); //closes reminder panel if visible
-                }
-                if (!budgetsPlaceHolder.isVisible()) {
-                    togglePanel("budget"); //opens budget panel if not visible
+            if (commandResult.isListEntry()) {
+                String entryToList = commandResult.getEntryToList();
+                assert(entryToList.equals("main") || entryToList.equals("budget") || entryToList.equals("wish")
+                        || entryToList.equals("autoexpense")); // allow only these possible values of entryToList
+
+                switch (entryToList) {
+                case "main":
+                    resetMainPanel();
+                    break;
+                case "budget":
+                    resetMainPanel();
+                    entryList.getChildren().add(this.budgetPanel.getRoot());
+                    togglePlaceHolder(budgetsPlaceHolder);
+                    break;
+                case "wish":
+                    resetMainPanel();
+                    entryList.getChildren().add(this.wishListPanel.getRoot());
+                    togglePlaceHolder(wishesPlaceHolder);
+                    break;
+                case "autoexpense":
+                    resetMainPanel();
+                    entryList.getChildren().add(this.autoExpensesPanel.getRoot());
+                    togglePlaceHolder(autoExpensesPlaceHolder);
+                    break;
+                default:
+                    // Do nothing.
                 }
             }
 

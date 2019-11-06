@@ -2,23 +2,26 @@ package seedu.guilttrip.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
+import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
+import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_INCOMES;
 
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.model.Model;
 
 /**
- * Lists all persons in the guilttrip book to the user.
+ * Lists all expenses and incomes in guiltTrip to the user. Removes any other list of entries from the main panel.
  */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all entries";
+    public static final String MESSAGE_SUCCESS = "Listed all expenses and incomes";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
+        model.updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
+        return new CommandResult(MESSAGE_SUCCESS, true,"main");
     }
 }
