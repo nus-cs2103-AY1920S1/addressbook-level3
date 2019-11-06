@@ -18,18 +18,25 @@ import seedu.jarvis.model.planner.tasks.Task;
 public class TaskDateMatchesDatePredicate implements Predicate<Task> {
     private final List<LocalDate> dates;
 
-    public TaskDateMatchesDatePredicate() {
-        List<LocalDate> dates = new ArrayList<>();
-        dates.add(LocalDate.now());
-        this.dates = dates;
+    public TaskDateMatchesDatePredicate(boolean isWeek) {
+        if (isWeek) {
+            int numOfDaysInAWeek = 7;
+            dates = IntStream.iterate(0, i -> i + 1)
+                    .limit(numOfDaysInAWeek)
+                    .mapToObj(LocalDate.now()::plusDays)
+                    .collect(Collectors.toList());
+        } else {
+            List<LocalDate> dates = new ArrayList<>();
+            dates.add(LocalDate.now());
+            this.dates = dates;
+        }
+
     }
 
     public TaskDateMatchesDatePredicate(LocalDate startDate) {
-        int numOfDaysInAWeek = 7;
-        dates = IntStream.iterate(0, i -> i + 1)
-                .limit(numOfDaysInAWeek)
-                .mapToObj(startDate::plusDays)
-                .collect(Collectors.toList());
+        List<LocalDate> dates = new ArrayList<>();
+        dates.add(startDate);
+        this.dates = dates;
     }
 
     @Override

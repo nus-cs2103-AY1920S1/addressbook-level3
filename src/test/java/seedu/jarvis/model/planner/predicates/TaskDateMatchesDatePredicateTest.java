@@ -20,7 +20,7 @@ class TaskDateMatchesDatePredicateTest {
 
     @Test
     void test_taskMatchesSingleDate() {
-        TaskDateMatchesDatePredicate predicate = new TaskDateMatchesDatePredicate();
+        TaskDateMatchesDatePredicate predicate = new TaskDateMatchesDatePredicate(false);
         LocalDate date = LocalDate.now();
         Deadline d;
         Event e;
@@ -32,7 +32,7 @@ class TaskDateMatchesDatePredicateTest {
         //deadline is not on the date -> returns false
         LocalDate dd = LocalDate.parse("3/11/2016", Task.getDateFormat());
         d = new Deadline("test", dd);
-        predicate = new TaskDateMatchesDatePredicate();
+        predicate = new TaskDateMatchesDatePredicate(false);
         assertFalse(predicate.test(d));
 
         //todo -> returns false
@@ -67,7 +67,7 @@ class TaskDateMatchesDatePredicateTest {
     void test_taskMatchesDatesInWeek() {
 
         LocalDate date = LocalDate.now();
-        TaskDateMatchesDatePredicate predicate = new TaskDateMatchesDatePredicate(date);
+        TaskDateMatchesDatePredicate predicate = new TaskDateMatchesDatePredicate(true);
         Deadline d;
         Event e;
 
@@ -109,7 +109,7 @@ class TaskDateMatchesDatePredicateTest {
     @Test
     void testEquals() {
 
-        TaskDateMatchesDatePredicate firstPredicate = new TaskDateMatchesDatePredicate();
+        TaskDateMatchesDatePredicate firstPredicate = new TaskDateMatchesDatePredicate(false);
         TaskDateMatchesDatePredicate secondPredicate = new TaskDateMatchesDatePredicate(
                                                             LocalDate.parse("10/10/2010", Task.getDateFormat()));
 
