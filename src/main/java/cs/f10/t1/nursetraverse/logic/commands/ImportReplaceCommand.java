@@ -82,4 +82,11 @@ public class ImportReplaceCommand extends MutatorCommand {
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object that) {
+        return this == that
+                || (that instanceof ImportReplaceCommand
+                && this.importFileName.equals(((ImportReplaceCommand) that).importFileName));
+    }
 }

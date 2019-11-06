@@ -14,7 +14,7 @@ public class ExportCommandParserTest {
     private ExportCommandParser parser = new ExportCommandParser();
 
     @Test
-    public void execute_validArgs_success() {
+    public void parse_validArgs_returnsExportCommand() {
         ExportCommand expectedCommandNoIndex = new ExportCommand("filename", Optional.empty());
         // only filename, no indexes
         CommandParserTestUtil.assertParseSuccess(parser, " n/filename", expectedCommandNoIndex);
@@ -27,7 +27,7 @@ public class ExportCommandParserTest {
     }
 
     @Test
-    public void execute_invalidArgs_throwsParseException() {
+    public void parse_invalidArgs_throwsParseException() {
         // No filename
         CommandParserTestUtil.assertParseFailure(parser, "", String
                 .format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
@@ -35,5 +35,9 @@ public class ExportCommandParserTest {
         // Invalid index
         CommandParserTestUtil.assertParseFailure(parser, " n/filename i/a",
                 ParserUtil.MESSAGE_INVALID_INDEX);
+
+        // Invalid filename
+        CommandParserTestUtil.assertParseFailure(parser, " n/`/\\:;.@# i/1",
+                String.format(ParserUtil.MESSAGE_INVALID_FILENAME, "`/\\:;.@#"));
     }
 }

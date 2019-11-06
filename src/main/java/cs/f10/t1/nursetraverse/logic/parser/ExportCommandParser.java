@@ -33,6 +33,11 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         }
 
         String fileName = argMultimap.getValue(PREFIX_FILENAME).get();
+        if (!ParserUtil.isValidFileName(fileName)) {
+            throw new ParseException(
+                    String.format(ParserUtil.MESSAGE_INVALID_FILENAME, fileName));
+        }
+
         Optional<Set<Index>> targetIndexes = Optional.empty();
 
         if (argMultimap.getValue(PREFIX_INDEXES).isPresent()) {

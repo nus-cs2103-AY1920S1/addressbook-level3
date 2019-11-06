@@ -80,4 +80,11 @@ public class ImportMergeCommand extends MutatorCommand {
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object that) {
+        return this == that
+                || (that instanceof ImportMergeCommand
+                    && this.importFileName.equals(((ImportMergeCommand) that).importFileName));
+    }
 }
