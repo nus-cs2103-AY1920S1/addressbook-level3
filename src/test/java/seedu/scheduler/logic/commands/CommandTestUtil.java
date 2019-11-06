@@ -3,6 +3,7 @@ package seedu.scheduler.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NUS_WORK_EMAIL;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_PERSONAL_EMAIL;
@@ -54,6 +55,7 @@ public class CommandTestUtil {
     public static final String VALID_NUS_WORK_EMAIL_AMY = "amy_infamy@u.nus.edu";
     public static final String VALID_PERSONAL_EMAIL_BOB = "bob_cat@gmail.com";
     public static final String VALID_NUS_WORK_EMAIL_BOB = "bob_cat@u.nus.edu";
+    public static final String VALID_FILE_PATH = "src/test/data/ImportsTest/storage.csv";
 
     public static final String ROLE_DESC_AMY_INTVR = " " + PREFIX_ROLE + VALID_ROLE_AMY_INTVR;
     public static final String ROLE_DESC_BOB_INTVE = " " + PREFIX_ROLE + VALID_ROLE_BOB_INTVE;
@@ -75,6 +77,7 @@ public class CommandTestUtil {
     public static final String EMAIL_NUS_WORK_DESC_AMY = " " + PREFIX_NUS_WORK_EMAIL + VALID_NUS_WORK_EMAIL_AMY;
     public static final String EMAIL_PERSONAL_DESC_BOB = " " + PREFIX_PERSONAL_EMAIL + VALID_PERSONAL_EMAIL_BOB;
     public static final String EMAIL_NUS_WORK_DESC_BOB = " " + PREFIX_NUS_WORK_EMAIL + VALID_NUS_WORK_EMAIL_BOB;
+    public static final String FILE_PATH_DESC = " " + PREFIX_FILE_PATH + VALID_FILE_PATH;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -85,6 +88,8 @@ public class CommandTestUtil {
     public static final String INVALID_SLOT_DESC = " " + PREFIX_SLOT + "123456"; // invalid format
     public static final String INVALID_PERSONAL_EMAIL_DESC = " " + PREFIX_PERSONAL_EMAIL + "bool sheet";
     public static final String INVALID_NUS_WORK_EMAIL_DESC = " " + PREFIX_NUS_WORK_EMAIL + "long dong";
+    public static final String INVALID_FILE_PATH_DESC = " " + PREFIX_FILE_PATH
+            + "src/test/data/ImportsTest/InterviewerInvalidTestData.csv";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -183,5 +188,21 @@ public class CommandTestUtil {
         } catch (NoSuchElementException e) {
             throw new AssertionError("Name should exist in the model beforehand!");
         }
+    }
+
+    /**
+     * Generates test data for export command.
+     * @return expected results for export function.
+     */
+    public static ArrayList<String> getExpectedExportedData() {
+        ArrayList<String> exportedData = new ArrayList<>();
+        exportedData.add("10/09/2019,Welfare - Hazel,Technical - Johnathan,Publicity - Lucia");
+        exportedData.add("18:00-18:30,John,Steven,0");
+        exportedData.add("18:30-19:00,Alex,Clark,John");
+        exportedData.add("19:00-19:30,Alicia,0,charlie");
+        exportedData.add("19:30-20:00,Charlie,0,Selina");
+        exportedData.add("20:00-20:30,Selina,0,0");
+        exportedData.add("20:30-21:00,Natal,0,0");
+        return exportedData;
     }
 }

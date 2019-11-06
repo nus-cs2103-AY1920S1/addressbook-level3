@@ -51,4 +51,12 @@ public class FilePath {
     public String toString() {
         return value;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilePath // instanceof handles nulls
+                && value.equals(((FilePath) other).value)); // state check
+    }
+
 }

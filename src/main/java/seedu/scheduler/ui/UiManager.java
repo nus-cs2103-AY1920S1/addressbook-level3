@@ -15,7 +15,7 @@ import seedu.scheduler.logic.Logic;
 /**
  * The manager of the UI component.
  */
-public class UiManager implements Ui, RefreshListener {
+public class UiManager implements Ui, TabListener, RefreshListener {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -60,6 +60,18 @@ public class UiManager implements Ui, RefreshListener {
      */
     public void intervieweeListUpdated() {
         mainWindow.intervieweeListUpdated(logic.getFilteredIntervieweeList());
+    }
+
+    public void changeTabSchedule() {
+        mainWindow.changeTab(0);
+    }
+
+    public void changeTabInterviewer() {
+        mainWindow.changeTab(2);
+    }
+
+    public void changeTabInterviewee() {
+        mainWindow.changeTab(1);
     }
 
     /**

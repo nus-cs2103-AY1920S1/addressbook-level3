@@ -1,7 +1,7 @@
 package seedu.scheduler.logic.parser;
 
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.scheduler.logic.commands.ImportCommand.MESSAGE_USAGE;
+import static seedu.scheduler.logic.commands.ExportCommand.MESSAGE_USAGE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
 import seedu.scheduler.logic.commands.ExportCommand;

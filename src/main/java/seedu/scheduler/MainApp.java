@@ -79,6 +79,7 @@ public class MainApp extends Application {
         ui = new UiManager(logic);
 
         model.addRefreshListener(ui);
+        model.addTabListener(ui);
     }
 
     /**
