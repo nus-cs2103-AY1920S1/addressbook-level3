@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +29,8 @@ import seedu.address.model.task.Task;
 
 public class AddInventoryCommand extends Command {
     public static final String COMMAND_WORD = "add-inv";
-    public static final String PREFIX_USAGE = PREFIX_INVENTORY_NAME + 
-                                                " " + PREFIX_INVENTORY_PRICE + 
+    public static final String PREFIX_USAGE = PREFIX_INVENTORY_NAME +
+                                                " " + PREFIX_INVENTORY_PRICE +
                                                 " " + PREFIX_TASK_INDEX +
                                                 " " + PREFIX_MEMBER_ID;
 
@@ -65,6 +65,7 @@ public class AddInventoryCommand extends Command {
         this.price = price;
         this.memId = memId;
     }
+
     public AddInventoryCommand(Index taskId, InvName name, MemberId memId) {
         requireAllNonNull(taskId, name);
         this.taskId = taskId;

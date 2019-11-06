@@ -21,7 +21,6 @@ import seedu.address.model.inventory.Price;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
-import seedu.address.model.member.MemberNameContainsKeywordsPredicateTest;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
@@ -96,7 +95,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -111,7 +110,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -132,6 +131,7 @@ public class CommandTestUtil {
         assertEquals(expectedProjectDashboard, actualModel.getProjectDashboard());
         assertEquals(expectedFilteredList, actualModel.getFilteredTasksList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the task at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -154,7 +154,7 @@ public class CommandTestUtil {
         List<Member> lastShownList = model.getFilteredMembersList();
 
         boolean contains = false;
-        Member targetMember  = null;
+        Member targetMember = null;
 
         for (int i = 0; i < lastShownList.size(); i++) {
             if (lastShownList.get(i).getId().equals(targetId)) {

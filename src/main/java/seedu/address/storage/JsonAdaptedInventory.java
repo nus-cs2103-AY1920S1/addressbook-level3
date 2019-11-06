@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -26,7 +25,7 @@ public class JsonAdaptedInventory {
      */
     @JsonCreator
     public JsonAdaptedInventory(@JsonProperty("name") InvName name/*, @JsonProperty("task") Task task*/,
-                           @JsonProperty("price") Price price) {
+                                @JsonProperty("price") Price price) {
         this.name = name;
         //this.task = task;
         this.price = price;

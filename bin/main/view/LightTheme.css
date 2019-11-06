@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: #848484;
-    background-color: #c1c1c1; /* Used in the default.html file */
+    background-color: #ffffff; /* Used in the default.html file */
 }
 
 .label {
@@ -65,11 +65,7 @@
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
-    -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
+    -fx-border-color: transparent transparent derive(-fx-base, 80%) transparent;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -104,7 +100,7 @@
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
+    -fx-graphic-text-gap: 0;
     -fx-padding: 0 0 0 0;
 }
 
@@ -129,6 +125,43 @@
     -fx-text-fill: #000000;
 }
 
+
+/* Dashboard list view styling */
+/*#taskBox {*/
+/*    -fx-border-width: 2px;*/
+/*    -fx-border-style: solid inside;*/
+/*    -fx-border-radius: 10px;*/
+/*    -fx-background-insets: 5px;*/
+/*    -fx-border-color: #263238;*/
+/*}*/
+
+#taskBox .list-view {
+    -fx-padding: 3px;
+    -fx-background-color: #BDBDBD;
+    -fx-border-width: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-insets: 5px;
+    -fx-border-color: #BDBDBD;
+}
+
+#taskBox .list-view .label {
+    -fx-text-fill: white;
+}
+
+#taskBox .list-view .list-cell {
+    -fx-border-radius: 10px;
+    -fx-background-color: #BDBDBD;
+    -fx-border-width: 2;
+    -fx-padding: 4px;
+    -fx-background-insets: 0px, 2px;
+}
+
+#taskBox .list-view .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-padding: 4px;
+    -fx-background-insets: 0;
+}
+
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
@@ -142,13 +175,13 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#e2e2e2, 20%);
+    -fx-background-color: derive(#e2e2e2, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#e2e2e2, 20%);
-     -fx-border-color: derive(#e2e2e2, 10%);
-     -fx-border-top-width: 1px;
+    -fx-background-color: derive(#e2e2e2, 20%);
+    -fx-border-color: derive(#e2e2e2, 10%);
+    -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -164,6 +197,11 @@
 
 .result-display .label {
     -fx-text-fill: #000000 /*!important */;
+}
+
+.scroll-pane {
+    -fx-background: derive(#e2e2e2, 30%);
+    -fx-border-top-width: 1px;
 }
 
 .status-bar .label {
@@ -238,8 +276,8 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: #000000;
-  -fx-text-fill: #c7c7c7;
+    -fx-background-color: #000000;
+    -fx-text-fill: #c7c7c7;
 }
 
 .button:focused {
@@ -316,10 +354,10 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
-}
+/*#cardPane {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-border-width: 0;*/
+/*}*/
 
 #commandTypeLabel {
     -fx-font-size: 11px;
@@ -335,6 +373,7 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #000000;
 }
 
 #filterField, #taskListPanel, #taskWebpage {
@@ -358,7 +397,7 @@
 
 #tags .label {
     -fx-text-fill: #000000;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #2E7D32;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

@@ -15,6 +15,9 @@ import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 
+/**
+ * Assigns a status to tasks in the project.
+ */
 public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
     public static final String PREFIX_USAGE = PREFIX_TASK_INDEX + " " + PREFIX_MEMBER_ID;
@@ -30,12 +33,13 @@ public class AssignCommand extends Command {
             + PREFIX_MEMBER_ID + "JD";
 
     public static final String MESSAGE_ASSIGN_SUCCESS = "Task set under member";
-    public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
+    public static final String MESSAGE_DUPLICATE_MAPPING = "This assignment already exists!";
 
     private final Index taskId;
     private final MemberId memberId;
+
     /**
-     * @param taskId of the task in the filtered task list to be added to member
+     * @param taskId   of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
     public AssignCommand(Index taskId, MemberId memberId) {

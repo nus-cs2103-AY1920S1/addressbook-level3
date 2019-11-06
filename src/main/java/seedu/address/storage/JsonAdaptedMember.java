@@ -28,12 +28,13 @@ class JsonAdaptedMember {
 
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final String memberImage;
+
     /**
      * Constructs a {@code JsonAdaptedMember} with the given member details.
      */
     @JsonCreator
     public JsonAdaptedMember(@JsonProperty("name") String name, @JsonProperty("id") String id,
-                           @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("image") String memberImage) {
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("image") String memberImage) {
         this.name = name;
         this.id = id;
         if (tags != null) {

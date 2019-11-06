@@ -3,7 +3,6 @@ package seedu.address.logic.MultiLine;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -16,7 +15,7 @@ public class MultiLineManager {
 
     private Model model;
     private static boolean isMultiLine = false;
-    private static ArrayList<Command>commands = new ArrayList<>();
+    private static ArrayList<Command> commands = new ArrayList<>();
     private static int currentType = 0;
 
     //Constructor
@@ -45,35 +44,35 @@ public class MultiLineManager {
     //Manager methods
 
     public CommandResult manage(CommandResult commandResult, Command command) throws CommandException, ParseException {
-        if(isMultiLine) {
+        if (isMultiLine) {
             switch (currentType) {
                 case 1:
                     isMultiLine = DoneTaskInvTag.isMultiLine(commandResult);
-                    return DoneTaskInvTag.manageOne(commandResult,command, model, commands);
+                    return DoneTaskInvTag.manageOne(commandResult, command, model, commands);
                 case 2:
                     isMultiLine = ClearQuestion.isMultiLine(commandResult);
-                    return ClearQuestion.manageOne(commandResult,command, model, commands);
+                    return ClearQuestion.manageOne(commandResult, command, model, commands);
                 case 3:
                     isMultiLine = AddTaskDetails.isMultiLine(commandResult);
-                    return AddTaskDetails.manageOne(commandResult,command, model, commands);
+                    return AddTaskDetails.manageOne(commandResult, command, model, commands);
                 default:
                     throw new ParseException("Invalid Command");
             }
         } else {
-            String commandWord = commandResult.getFeedbackToUser().split("/",2)[0].trim();
-            switch(commandWord) {
+            String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
+            switch (commandWord) {
                 case "Type-1":
                     currentType = 1;
                     isMultiLine = true;
-                    return DoneTaskInvTag.manageOne(commandResult,command, model, commands);
+                    return DoneTaskInvTag.manageOne(commandResult, command, model, commands);
                 case "Type-2":
                     currentType = 2;
                     isMultiLine = true;
-                    return ClearQuestion.manageOne(commandResult,command, model, commands);
+                    return ClearQuestion.manageOne(commandResult, command, model, commands);
                 case "Type-3":
                     currentType = 3;
                     isMultiLine = true;
-                    return AddTaskDetails.manageOne(commandResult,command, model, commands);
+                    return AddTaskDetails.manageOne(commandResult, command, model, commands);
                 case "halt":
                 case "continue":
                 case "final":

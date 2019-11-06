@@ -39,14 +39,16 @@ public class AddDCommand extends Command {
         this.dateTime = dateTime;
         this.memId = memId;
     }
+
     public AddDCommand(LocalDateTime dateTime) {
         requireAllNonNull(dateTime);
         this.dateTime = dateTime;
-        this.memId = null;
+        this.memId = new MemberId("NIL");
     }
+
     public AddDCommand(MemberId memId) {
         requireAllNonNull(memId);
-        this.dateTime = null;
+        this.dateTime = LocalDateTime.MIN;
         this.memId = memId;
     }
 
@@ -62,7 +64,7 @@ public class AddDCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasMemberId(memId)) {
+        if ((!memId.equals(new MemberId("NIL"))) && (!model.hasMemberId(memId))) {
             throw new CommandException(MESSAGE_MEMBERID_INVALID);
         }
 

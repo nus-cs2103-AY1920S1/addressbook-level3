@@ -1,9 +1,6 @@
 package seedu.address.ui.views;
 
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -72,13 +69,13 @@ public class InventoryListPanel extends UiPart<Region> {
     @FXML
     private ListView<IndivInventoryCard> inventoryListView;
 
-    public InventoryListPanel(ObservableList<Inventory>invList, ObservableList<Member> memberList, ObservableList<Task> taskList,
-                              ObservableList<InvMemMapping> invMemMappings, ObservableList<InvTasMapping>invTasMappings) {
+    public InventoryListPanel(ObservableList<Inventory> invList, ObservableList<Member> memberList, ObservableList<Task> taskList,
+                              ObservableList<InvMemMapping> invMemMappings, ObservableList<InvTasMapping> invTasMappings) {
         super(FXML);
         ObservableList<IndivInventoryCard> inventoryCards = FXCollections.observableArrayList();
 
         logger.info("Size of list to be printed: " + invList.size());
-        for (int i = 0; i<invList.size(); i++) {
+        for (int i = 0; i < invList.size(); i++) {
             Inventory invInvolved = invList.get(i);
             //int invIndex = invList.indexOf(invInvolved);
 
@@ -89,22 +86,22 @@ public class InventoryListPanel extends UiPart<Region> {
                 }
             }
 
-            Member invMem = new Member(new MemberName("No member attached"), new MemberId(""),
-                                        Collections.<Tag>emptySet());
+            Member invMem = new Member(new MemberName("No member attached"), new MemberId("NIL"),
+                    Collections.<Tag>emptySet());
             for (InvMemMapping mapping : invMemMappings) {
                 if (mapping.getInventoryIndex() == i) {
                     invMem = memberList.get(mapping.getMemberIndex());
                 }
             }
 
-            IndivInventoryCard invCard = new IndivInventoryCard(invInvolved, invMem, i+1, invTask);
+            IndivInventoryCard invCard = new IndivInventoryCard(invInvolved, invMem, i + 1, invTask);
             inventoryCards.add(invCard);
         }
 
-        try{
+        try {
             inventoryListView.setItems(inventoryCards);
             inventoryListView.setCellFactory(listView -> new InventoryListViewCell());
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.info("the exception is: " + e.getLocalizedMessage());
         }
     }

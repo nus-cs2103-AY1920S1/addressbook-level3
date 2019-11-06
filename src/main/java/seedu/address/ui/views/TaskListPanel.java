@@ -32,7 +32,7 @@ public class TaskListPanel extends UiPart<Region> {
 
         ObservableList<IndivTaskCard> taskCards = FXCollections.observableArrayList();
 
-        for (int i=0; i<taskList.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             Task taskInvolved = taskList.get(i);
             //int taskIndex = taskList.indexOf(taskInvolved);
             //int taskIndex = taskList.indexOf(taskInvolved);
@@ -44,7 +44,7 @@ public class TaskListPanel extends UiPart<Region> {
                 }
             }
 
-            IndivTaskCard taskCard = new IndivTaskCard(taskInvolved, i+1,  specificMembers);
+            IndivTaskCard taskCard = new IndivTaskCard(taskInvolved, i + 1, specificMembers);
             taskCards.add(taskCard);
         }
 

@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasksMembers.ORDER_SHIRTS;
-import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 import static seedu.address.testutil.TypicalTasksMembers.GET_SPONSORS;
 import static seedu.address.testutil.TypicalTasksMembers.ORDER_SHIRTS;
 import static seedu.address.testutil.TypicalTasksMembers.RECRUIT_MEMBERS;
@@ -16,23 +14,22 @@ import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashbo
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.inventory.Inventory;
 import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.calendar.Meeting;
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.testutil.TaskBuilder;
 

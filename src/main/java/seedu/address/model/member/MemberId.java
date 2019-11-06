@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public class MemberId {
     public static final String MESSAGE_CONSTRAINTS =
             "Invalid member ID, please enter an alphanumeric code";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     private String displayId;
 

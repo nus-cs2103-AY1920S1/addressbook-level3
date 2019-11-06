@@ -1,19 +1,15 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.calendar.Meeting;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.task.Task;
-import seedu.address.model.member.Member;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
-import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
-
-import java.util.List;
-import java.util.HashMap;
+import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.member.Member;
+import seedu.address.model.task.Task;
 
 
 /**

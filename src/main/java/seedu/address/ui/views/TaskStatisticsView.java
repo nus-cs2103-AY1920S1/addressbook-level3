@@ -1,6 +1,5 @@
 package seedu.address.ui.views;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.Bindings;
@@ -11,9 +10,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.member.Member;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;

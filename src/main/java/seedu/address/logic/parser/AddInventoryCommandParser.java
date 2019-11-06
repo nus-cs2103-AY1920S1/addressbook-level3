@@ -18,6 +18,7 @@ import seedu.address.model.member.MemberId;
 /**
  * Parses the given {@code String} of arguments in the context of the AddInventoryCommand
  * and returns an AddInventoryCommand object for execution.
+ *
  * @throws ParseException if the user input does not conform the expected format
  */
 public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
@@ -25,6 +26,7 @@ public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddInventoryCommand parse(String args) throws ParseException {

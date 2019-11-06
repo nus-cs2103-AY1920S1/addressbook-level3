@@ -2,9 +2,8 @@ package seedu.address.ui.views;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -20,6 +19,7 @@ import seedu.address.ui.UiPart;
  */
 public class ProjectDashboardView extends UiPart<Region> {
     private static final String FXML = "ProjectDashboard.fxml";
+    private static final String CARD_STYLE = "card-border";
     private final Logger logger = LogsCenter.getLogger(ProjectDashboardView.class);
 
     @FXML
@@ -72,6 +72,8 @@ public class ProjectDashboardView extends UiPart<Region> {
                 setText(null);
             } else {
                 TaskCard cardToRender = new TaskCard(task, getIndex() + 1);
+                cardToRender.getRoot().getStyleClass().clear();
+                cardToRender.getRoot().getStyleClass().add(CARD_STYLE);
                 setGraphic(cardToRender.getRoot());
             }
         }

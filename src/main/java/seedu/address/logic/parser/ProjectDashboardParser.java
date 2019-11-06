@@ -7,9 +7,9 @@ import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddDCommand;
 import seedu.address.logic.commands.AddICommand;
-import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.AddMemberCommand;
@@ -41,12 +41,12 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.NoCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.commands.SetImageCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.ThemeCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.YesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -147,7 +147,7 @@ public class ProjectDashboardParser {
         case GetStatisticsCommand.COMMAND_WORD_TASK:
             return new GetStatisticsCommand();
 
-            // SETTINGS
+        // SETTINGS
         case ThemeCommand.COMMAND_WORD:
             return new ThemeCommandParser().parse(arguments);
 

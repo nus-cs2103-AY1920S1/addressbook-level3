@@ -1,28 +1,30 @@
 package seedu.address.commons.util;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 
 public class DateTimeUtilTest {
 
-    private static final String VALID_DATE_TIME_FORMAT = "10/10/2018 18:00";
-    private static final String INVALID_DATE_TIME_FORMAT_DASH = "10-10-2018 18-00";
-    private static final String INVALID_DATE_TIME_FORMAT_ZERO = "1/1/2019 18:00";
+    private static final String VALID_DATE_TIME_FORMAT = "10-10-2018 18:00";
+    private static final String INVALID_DATE_TIME_FORMAT_SLASH = "10/10/2018 18-00";
+    private static final String INVALID_DATE_TIME_FORMAT_ZERO = "1-1-2019 18:00";
 
-    private static final String EXCEEDING_DAY_DATE_TIME_FORMAT = "32/10/2018 18:00";
-    private static final String EXCEEDING_TIME_DATE_TIME_FORMAT = "22/10/2018 25:00";
-    private static final String EXCEEDING_MONTH_DATE_TIME_FORMAT = "22/15/2018 15:00";
+    private static final String EXCEEDING_DAY_DATE_TIME_FORMAT = "32-10-2018 18:00";
+    private static final String EXCEEDING_TIME_DATE_TIME_FORMAT = "22-10-2018 25:00";
+    private static final String EXCEEDING_MONTH_DATE_TIME_FORMAT = "22-15-2018 15:00";
 
-    private static final String FALL_SHORT_DAY_DATE_TIME_FORMAT = "0/10/2018 18:00";
-    private static final String FALL_SHORT_MONTH_DATE_TIME_FORMAT = "22/00/2018 15:00";
+    private static final String FALL_SHORT_DAY_DATE_TIME_FORMAT = "0-10-2018 18:00";
+    private static final String FALL_SHORT_MONTH_DATE_TIME_FORMAT = "22-00-2018 15:00";
+
+    private static final String VALID_LEAP_YEAR = "29-02-2020 20:00";
+    private static final String INVALID_LEAP_YEAR = "29-02-2019 10:00";
 
     private static final String DUE_SOON_DATE_TIME = "31/01/2020 10:00";
 
@@ -33,7 +35,7 @@ public class DateTimeUtilTest {
 
     @Test
     public void parseDateTime_invalidFormat_throwsParseException() {
-        assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(INVALID_DATE_TIME_FORMAT_DASH));
+        assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(INVALID_DATE_TIME_FORMAT_SLASH));
         assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(INVALID_DATE_TIME_FORMAT_ZERO));
     }
 
@@ -64,15 +66,17 @@ public class DateTimeUtilTest {
         assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(FALL_SHORT_MONTH_DATE_TIME_FORMAT));
     }
 
+    // EP leap days in leap and non-leap years
     @Test
-    public void checkIfDueSoon_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> DateTimeUtil.checkIfDueSoon(100, (LocalDateTime) null));
+    public void parseDateTime_dateTimeLeapYear_throwsParseExceptionWhenInvalid() throws ParseException {
+        assertEquals(LocalDateTime.parse(VALID_LEAP_YEAR, DateTimeUtil.getDefaultFormatter()),
+                DateTimeUtil.parseDateTime(VALID_LEAP_YEAR));
+        assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(INVALID_LEAP_YEAR));
     }
 
     @Test
-    public void checkIfDueSoon_dueSoon_success() throws ParseException {
-        //assertTrue(DateTimeUtil.checkIfDueSoon(100, DateTimeUtil.parseDateTime(DUE_SOON_DATE_TIME)));
-        //assertTrue(DateTimeUtil.checkIfDueSoon(2, LocalDateTime.now().plusWeeks(2)));
+    public void checkIfDueSoon_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> DateTimeUtil.checkIfDueSoon(100, (LocalDateTime) null));
     }
 
 }

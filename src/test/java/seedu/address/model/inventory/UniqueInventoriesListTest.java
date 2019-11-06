@@ -3,7 +3,6 @@ package seedu.address.model.inventory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INVENTORY_NAME_SPORTS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INVENTORY_PRICE_MUSIC;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInventories.BALLS;
@@ -98,7 +97,7 @@ public class UniqueInventoriesListTest {
         uniqueInventoryList.add(SHIRTS);
         uniqueInventoryList.add(BALLS);
         assertThrows(DuplicateInventoryException.class,
-                    () -> uniqueInventoryList.setInventory(SHIRTS, BALLS));
+                () -> uniqueInventoryList.setInventory(SHIRTS, BALLS));
     }
 
     @Test
@@ -152,7 +151,7 @@ public class UniqueInventoriesListTest {
     public void setInventories_listWithDuplicateInventories_throwsDuplicateInventoriesException() {
         List<Inventory> listWithDuplicateTasks = Arrays.asList(SHIRTS, SHIRTS);
         assertThrows(DuplicateInventoryException.class, () -> uniqueInventoryList
-                                                                    .setInventories(listWithDuplicateTasks));
+                .setInventories(listWithDuplicateTasks));
     }
 
     @Test

@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
@@ -11,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
@@ -42,9 +42,11 @@ public class IndivMemberCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private Text listTasks;
+    private Label listTasks;
     @FXML
     private SplitPane split_pane_indiv;
+    @FXML
+    private Alert alert = new Alert(Alert.AlertType.WARNING);
 
     public IndivMemberCard(Member member, int displayedIndex) {
         super(FXML);
@@ -75,9 +77,17 @@ public class IndivMemberCard extends UiPart<Region> {
         member.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        alert.setHeaderText("Image not found.");
+        Label label = new Label("Image file for member with Member ID: " + member.getId().getDisplayId() +
+                " has been moved. \nPlease move the file back, or set a new image for the member.");
+        label.setWrapText(true);
+        alert.getDialogPane().setContent(label);
 
         if (member.getImage() == null) {
             imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
+        } else if (member.getImage().errorProperty().getValue()) {
+            imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
+            alert.showAndWait();
         } else {
             imageView.setImage(member.getImage());
         }
@@ -85,13 +95,15 @@ public class IndivMemberCard extends UiPart<Region> {
         imageView.setFitHeight(120);
         imageView.setFitWidth(120);
 
+
         String listOfTasks = "";
 
         for (int i = 0; i < tasks.size(); i++) {
-            listOfTasks += (i+1) + ". " + tasks.get(i).toStringShort() + "\n";
+            listOfTasks += (i + 1) + ". " + tasks.get(i).toStringShort() + "\n";
         }
 
         listTasks.setText(listOfTasks);
+        listTasks.setWrapText(true);
     }
 
     @Override

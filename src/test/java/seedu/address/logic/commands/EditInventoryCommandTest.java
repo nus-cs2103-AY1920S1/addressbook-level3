@@ -29,7 +29,8 @@ public class EditInventoryCommandTest {
     private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     private static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_BALL =
-                                new EditInventoryCommand.EditInventoryDescriptor();
+            new EditInventoryCommand.EditInventoryDescriptor();
+
     static {
         INVENTORY_DESC_BALL.setName(new InvName("Sample Inventory Name"));
         INVENTORY_DESC_BALL.setPrice(new Price(0));
@@ -91,6 +92,7 @@ public class EditInventoryCommandTest {
 
         assertCommandSuccess(editInventoryCommand, model, expectedMessage, expectedModel);
     }
+
     /*
     @Test
     public void execute_duplicateTaskUnfilteredList_failure() {

@@ -6,7 +6,7 @@ import seedu.address.model.task.Task;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code ProjectDashboard ab = new ProjectDashboardBuilder().withTask("John", "Doe").build();}
+ * {@code ProjectDashboard ab = new ProjectDashboardBuilder().withTask("John", "Doe").build();}
  */
 public class ProjectDashboardBuilder {
 

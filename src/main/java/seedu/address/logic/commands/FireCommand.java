@@ -37,7 +37,7 @@ public class FireCommand extends Command {
     private final MemberId memberId;
 
     /**
-     * @param taskId of the task in the filtered task list to be added to member
+     * @param taskId   of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
     public FireCommand(Index taskId, MemberId memberId) {

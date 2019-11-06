@@ -22,6 +22,7 @@ public class SetDeadlineCommandParser implements Parser<SetDeadlineCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SetDeadlineCommand
      * and returns an SetDeadlineCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetDeadlineCommand parse(String args) throws ParseException {
@@ -29,7 +30,6 @@ public class SetDeadlineCommandParser implements Parser<SetDeadlineCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX, PREFIX_DEADLINE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK_INDEX, PREFIX_DEADLINE)) {
-            System.out.println("Prefixes not present!");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetDeadlineCommand.MESSAGE_USAGE));
         }
 
@@ -40,8 +40,7 @@ public class SetDeadlineCommandParser implements Parser<SetDeadlineCommand> {
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
             dateTime = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_DEADLINE).get());
         } catch (ParseException e) {
-            System.out.println("Index or invalid date time not present!");
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetDeadlineCommand.MESSAGE_USAGE));
+            throw new ParseException(e.getMessage());
         }
 
         return new SetDeadlineCommand(index, dateTime);

@@ -12,7 +12,7 @@ public enum ClockFormat {
     TWENTY_FOUR("24HR", DateTimeUtil.getDisplayFormatterTwentyFourHour());
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Invalid clock format, please enter one of twelve or twenty_four.";
+            "Invalid clock format, please enter one of twelve or twenty_four.";
 
     private String displayName;
     private DateTimeFormatter formatter;

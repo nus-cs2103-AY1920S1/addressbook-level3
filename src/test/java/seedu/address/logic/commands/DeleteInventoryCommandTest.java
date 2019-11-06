@@ -28,7 +28,7 @@ public class DeleteInventoryCommandTest {
         DeleteInventoryCommand deleteInventoryCommand = new DeleteInventoryCommand(INDEX_FIRST_INVENTORY);
 
         String expectedMessage = String.format(DeleteInventoryCommand.MESSAGE_DELETE_INVENTORY_SUCCESS,
-                                                    inventoryToDelete);
+                inventoryToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), new UserSettings());
         expectedModel.deleteInventory(inventoryToDelete);

@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
@@ -45,7 +44,7 @@ public class IndivTaskCard extends UiPart<Region> {
     @FXML
     private Label membersAllocated;
     @FXML
-    private Text members;
+    private Label members;
 
     public IndivTaskCard(Task task, int displayedIndex, List<Member> memberList) {
         super(FXML);
@@ -65,7 +64,7 @@ public class IndivTaskCard extends UiPart<Region> {
         String listOfMembers = "";
 
         for (int i = 0; i < memberList.size(); i++) {
-            listOfMembers += (i+1) + ". " + memberList.get(i).toStringOnlyId() + "\n";
+            listOfMembers += (i + 1) + ". " + memberList.get(i).toStringOnlyId() + "\n";
         }
 
         members.setText(listOfMembers);

@@ -2,7 +2,43 @@ package seedu.address.commons;
 
 import java.util.List;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCalendarCommand;
+import seedu.address.logic.commands.AddInventoryCommand;
+import seedu.address.logic.commands.AddMeetingCommand;
+import seedu.address.logic.commands.AddMemberCommand;
+import seedu.address.logic.commands.AddTaskCommand;
+import seedu.address.logic.commands.AssignCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClockCommand;
+import seedu.address.logic.commands.DeleteCalendarCommand;
+import seedu.address.logic.commands.DeleteInventoryCommand;
+import seedu.address.logic.commands.DeleteMeetingCommand;
+import seedu.address.logic.commands.DeleteMemberCommand;
+import seedu.address.logic.commands.DeleteTaskCommand;
+import seedu.address.logic.commands.DoingTaskCommand;
+import seedu.address.logic.commands.DoneTaskCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditInventoryCommand;
+import seedu.address.logic.commands.EditMemberCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindMeetingTimeCommand;
+import seedu.address.logic.commands.FindMemberCommand;
+import seedu.address.logic.commands.FireCommand;
+import seedu.address.logic.commands.GeneratePDFCommand;
+import seedu.address.logic.commands.GetStatisticsCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HomeCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListInventoryCommand;
+import seedu.address.logic.commands.ListMemberByTaskCommand;
+import seedu.address.logic.commands.ListMemberCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetDeadlineCommand;
+import seedu.address.logic.commands.SetImageCommand;
+import seedu.address.logic.commands.SettingsCommand;
+import seedu.address.logic.commands.ThemeCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 public class Keywords {
     public static List<String> commandList = List.of(
@@ -62,7 +98,7 @@ public class Keywords {
     );
 
     public static String getParameters(String commandWord) {
-        switch(commandWord) {
+        switch (commandWord) {
             // TASK
             case AddTaskCommand.COMMAND_WORD:
                 return commandWord + " " + AddTaskCommand.PREFIX_USAGE;
@@ -90,7 +126,7 @@ public class Keywords {
 
             case ListMemberByTaskCommand.COMMAND_WORD:
                 return commandWord + " " + ListMemberByTaskCommand.PREFIX_USAGE;
-            
+
             case UndoCommand.COMMAND_WORD:
                 return commandWord + " " + FindCommand.PREFIX_USAGE;
 
@@ -120,7 +156,7 @@ public class Keywords {
             case AssignCommand.COMMAND_WORD:
                 return commandWord + " " + AssignCommand.PREFIX_USAGE;
 
-            case  FireCommand.COMMAND_WORD:
+            case FireCommand.COMMAND_WORD:
                 return commandWord + " " + FireCommand.PREFIX_USAGE;
 
             // case  RemoveTaskFromMemberCommand.COMMAND_WORD:

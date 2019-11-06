@@ -1,20 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_PERIOD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION_HOURS;
-
-import seedu.address.commons.util.DateTimeUtil;
-import seedu.address.model.calendar.MeetingQuery;
-import seedu.address.model.Model;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_PERIOD;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import java.util.List;
+import seedu.address.commons.util.DateTimeUtil;
+import seedu.address.model.Model;
+import seedu.address.model.calendar.MeetingQuery;
 
 /**
  * Lists all persons in the address book to the user.

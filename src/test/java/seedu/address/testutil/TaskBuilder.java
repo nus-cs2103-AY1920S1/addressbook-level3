@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +13,7 @@ import seedu.address.model.task.TaskStatus;
 import seedu.address.model.util.SampleTaskDataUtil;
 
 /**
- * A utility class to help with building Task objects.
+ * A utility class to help with building {@code Task} objects.
  */
 public class TaskBuilder {
 
@@ -19,6 +22,7 @@ public class TaskBuilder {
     private Name name;
     private TaskStatus taskStatus;
     private Set<Tag> tags;
+    private LocalDateTime deadline;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -30,9 +34,13 @@ public class TaskBuilder {
      * Initializes the TaskBuilder with the data of {@code taskToCopy}.
      */
     public TaskBuilder(Task taskToCopy) {
+        requireNonNull(taskToCopy);
         name = taskToCopy.getName();
         taskStatus = taskToCopy.getTaskStatus();
         tags = new HashSet<>(taskToCopy.getTags());
+        if (taskToCopy.hasDeadline()) {
+            deadline = taskToCopy.getDeadline();
+        }
     }
 
     /**
@@ -54,8 +62,16 @@ public class TaskBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Task} that we are building.
      */
-    public TaskBuilder withTags(String ... tags) {
+    public TaskBuilder withTags(String... tags) {
         this.tags = SampleTaskDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Sets the {@code LocalDateTime deadline} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withDeadline(LocalDateTime dateTime) {
+        this.deadline = dateTime;
         return this;
     }
 

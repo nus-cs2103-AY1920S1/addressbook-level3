@@ -1,23 +1,17 @@
 package seedu.address.model.calendar;
 
-import java.time.Duration;
-import java.util.Iterator;
-
-import seedu.address.model.member.MemberName;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Period;
 import net.fortuna.ical4j.model.PeriodList;
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.model.component.*;
-
-import org.apache.commons.lang3.time.DateUtils;
+import net.fortuna.ical4j.model.component.VEvent;
+import seedu.address.model.member.MemberName;
 
 public class CalendarWrapper {
     private final MemberName memberName;
     private final Calendar calendar;
     private final String calendarStorageFormat;
 
-    public CalendarWrapper (MemberName memberName, Calendar calendar, String calendarStorageFormat) {
+    public CalendarWrapper(MemberName memberName, Calendar calendar, String calendarStorageFormat) {
         this.memberName = memberName;
         this.calendar = calendar;
         this.calendarStorageFormat = calendarStorageFormat;
