@@ -15,6 +15,13 @@
     -fx-background-radius: 3;
 }
 
+.card-border {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: #78909C;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
 .tooltip-text {
     -fx-text-fill: white;
 }

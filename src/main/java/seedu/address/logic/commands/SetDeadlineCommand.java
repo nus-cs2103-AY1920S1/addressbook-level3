@@ -32,7 +32,7 @@ public class SetDeadlineCommand extends Command {
             + "by the index number used in the displayed task list.\n"
             + "Parameters: "
             + PREFIX_TASK_INDEX + "TASK_INDEX "
-            + PREFIX_DEADLINE + DateTimeUtil.DEFAULT_INPUT_FORMAT + "\n"
+            + PREFIX_DEADLINE + DateTimeUtil.DEFAULT_INPUT_FORMAT_MESSAGE + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_INDEX + " 2 "
             + PREFIX_DEADLINE + " 10/10/2019 18:00";

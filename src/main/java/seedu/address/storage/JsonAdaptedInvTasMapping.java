@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.mapping.InvTasMapping;
 
 /**
- * Jackson-friendly version of {@link Task}.
+ * Jackson-friendly version of {@link InvTasMapping}.
  */
 class JsonAdaptedInvTasMapping {
 
@@ -27,7 +27,7 @@ class JsonAdaptedInvTasMapping {
      */
     @JsonCreator
     public JsonAdaptedInvTasMapping(@JsonProperty("task") int taskIndex,
-                              @JsonProperty("inventory") int inventoryIndex){
+                              @JsonProperty("inventory") int inventoryIndex) {
         this.taskIndex = taskIndex;
         this.inventoryIndex = inventoryIndex;
     }
