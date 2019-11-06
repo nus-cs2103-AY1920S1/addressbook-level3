@@ -67,6 +67,10 @@ public class AddCommandParserTest {
                 + CommandTestUtil.CALORIE_DESC_1000
                 + CommandTestUtil.TAG_DESC_SALTY + CommandTestUtil.TAG_DESC_EXPENSIVE, Name.MESSAGE_CONSTRAINTS);
 
+        CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.INVALID_NAME_LENGTH
+                + CommandTestUtil.CALORIE_DESC_1000
+                + CommandTestUtil.TAG_DESC_SALTY + CommandTestUtil.TAG_DESC_EXPENSIVE, Name.LENGTH_CONSTRAINTS);
+
         // invalid tag
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.NAME_DESC_MACARONI
                 + CommandTestUtil.CALORIE_DESC_1000
