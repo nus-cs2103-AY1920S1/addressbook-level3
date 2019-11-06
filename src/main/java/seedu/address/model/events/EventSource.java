@@ -2,6 +2,7 @@ package seedu.address.model.events;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_END_DATE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_REMIND_DATE;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
