@@ -51,4 +51,13 @@ class SanitizeLocationTest {
         assertEquals(sanitizeLocation.sanitize("AS5-1234556"), as5);
         assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("jcdhsajkfebadbs"));
     }
+
+    /**
+     * Acceptance test to make sure that a location has place_id, lat and lng
+     */
+    @Test
+    void sanitizeLatLngAcceptanceTest() throws TimeBookInvalidLocation {
+        Location actualLocation = sanitizeLocation.sanitize("LT17");
+        assertEquals(actualLocation.getLatLng(), "1.2935909,103.773989");
+    }
 }

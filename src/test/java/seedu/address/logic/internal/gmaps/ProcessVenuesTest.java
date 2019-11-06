@@ -54,6 +54,18 @@ class ProcessVenuesTest {
     }
 
     @Test
+    void allValidLocationHasLatLng() {
+        ProcessVenues newProcessVenues = processVenues.process();
+        ArrayList<Location> locationArrayList = newProcessVenues.getValidLocationList();
+        for (int i = 0; i < locationArrayList.size(); i++) {
+            assertTrue(locationArrayList.get(i).getLatLng().length() > 1);
+        }
+    }
+
+    /**
+     * Acceptance test to make sure that all the images are present
+     */
+    @Test
     void imageSanityCheck() {
         processVenues.process();
         ArrayList<Location> validLocationList = processVenues.getValidLocationList();

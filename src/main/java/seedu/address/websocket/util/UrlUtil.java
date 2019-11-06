@@ -106,7 +106,7 @@ public class UrlUtil {
      */
     public static String generateGmapsPlacesUrl(String locationName) {
         String baseUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&"
-                + "inputtype=textquery&fields=name,place_id&";
+                + "inputtype=textquery&fields=name,place_id,geometry&";
         String apiKeyQueryParams = "key=" + gmapsApiKey + "&";
         String queryParams = "input=" + locationName + "&";
         String fullUrl = baseUrl + queryParams + apiKeyQueryParams;

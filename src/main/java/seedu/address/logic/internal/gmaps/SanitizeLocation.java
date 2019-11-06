@@ -47,11 +47,17 @@ public class SanitizeLocation {
             JSONObject apiResponse = Cache.loadPlaces(validLocationString);
             String status = GmapsJsonUtils.getStatus(apiResponse);
             if (status.equals("OK")) {
+                String lat = Double.toString(GmapsJsonUtils.getLatPlacesApi(apiResponse));
+                String lng = Double.toString(GmapsJsonUtils.getLngPlacesApi(apiResponse));
                 validLocation.setPlaceId(GmapsJsonUtils.getPlaceId(apiResponse));
+                validLocation.setLng(lng);
+                validLocation.setLat(lat);
                 validLocationList.add(validLocation);
 
                 location.setValidLocation(validLocation.getValidLocation());
                 location.setPlaceId(GmapsJsonUtils.getPlaceId(apiResponse));
+                location.setLat(lat);
+                location.setLng(lng);
             } else {
                 throw new TimeBookInvalidLocation("Cannot identify " + validLocation);
             }

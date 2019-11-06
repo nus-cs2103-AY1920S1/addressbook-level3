@@ -72,7 +72,6 @@ public class GmapsModelManager {
      * @throws TimeBookInvalidState
      */
     public void generateImage() throws TimeBookInvalidState {
-        populateCoordinates();
         new GenerateImage(validLocationList).execute();
     }
 
@@ -106,5 +105,9 @@ public class GmapsModelManager {
     private void initLocationGraph() {
         ArrayList<ArrayList<Long>> distanceMatrix = new ProcessLocationGraph(validLocationList).getDistanceMatrix();
         locationGraph = new LocationGraph(locations, validLocationList, distanceMatrix);
+    }
+
+    public static void main(String[] args) throws TimeBookInvalidState {
+        new GmapsModelManager().generateImage();
     }
 }
