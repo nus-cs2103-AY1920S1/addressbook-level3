@@ -1,0 +1,56 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JarvisParser" as JarvisParser LOGIC_COLOR
+participant "u:RedoCommand" as RedoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":HistoryManager" as HistoryManager MODEL_COLOR
+participant ":CommandDeque" as CommandDeque MODEL_COLOR
+participant ":Command" as Command MODEL_COLOR
+end box
+
+[-> LogicManager : execute(redo)
+activate LogicManager
+LogicManager -> JarvisParser : parseCommand(redo)
+    activate JarvisParser
+    create RedoCommand
+    JarvisParser -> RedoCommand
+        activate RedoCommand
+        return
+    return u
+
+LogicManager -> RedoCommand : execute(model)
+    activate RedoCommand
+    RedoCommand -> Model : commit()
+        activate Model
+        Model -> HistoryManager : commit(this)
+            activate HistoryManager
+            HistoryManager -> CommandDeque : getLatestCommand()
+                activate CommandDeque
+                return c
+            HistoryManager -> Command : execute(model)
+                activate Command
+                return
+            HistoryManager -> CommandDeque : deleteLatestCommand()
+                activate CommandDeque
+                return c
+            HistoryManager -> CommandDeque : addLatestCommand()
+                activate CommandDeque
+                return
+            return
+        return
+    return result
+
+deactivate RedoCommand
+RedoCommand -[hidden]-> LogicManager : hiddenText
+destroy RedoCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+
+@enduml
