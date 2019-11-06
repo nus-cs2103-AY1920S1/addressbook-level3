@@ -12,7 +12,7 @@ import dukecooks.model.health.components.Type;
 /**
  * Adds a record to Duke Cooks.
  */
-public class AddHealthCommand extends AddCommand {
+public class AddRecordCommand extends AddCommand {
 
     public static final String VARIANT_WORD = "health";
 
@@ -27,7 +27,7 @@ public class AddHealthCommand extends AddCommand {
     /**
      * Creates an AddProfileCommand to add the specified {@code Record}
      */
-    public AddHealthCommand(Record record) {
+    public AddRecordCommand(Record record) {
         requireNonNull(record);
         toAdd = record;
     }
@@ -53,7 +53,7 @@ public class AddHealthCommand extends AddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddHealthCommand // instanceof handles nulls
-                && toAdd.equals(((AddHealthCommand) other).toAdd));
+                || (other instanceof AddRecordCommand // instanceof handles nulls
+                && toAdd.equals(((AddRecordCommand) other).toAdd));
     }
 }

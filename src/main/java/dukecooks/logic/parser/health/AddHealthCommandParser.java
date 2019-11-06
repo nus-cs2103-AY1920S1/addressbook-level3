@@ -9,7 +9,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_VALUE;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import dukecooks.logic.commands.health.AddHealthCommand;
+import dukecooks.logic.commands.health.AddRecordCommand;
 import dukecooks.logic.parser.ArgumentMultimap;
 import dukecooks.logic.parser.ArgumentTokenizer;
 import dukecooks.logic.parser.Parser;
@@ -23,22 +23,22 @@ import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.Value;
 
 /**
- * Parses input arguments and creates a new AddHealthCommand object
+ * Parses input arguments and creates a new AddRecordCommand object
  */
-public class AddHealthCommandParser implements Parser<AddHealthCommand> {
+public class AddHealthCommandParser implements Parser<AddRecordCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddHealthCommand
-     * and returns an AddHealthCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddRecordCommand
+     * and returns an AddRecordCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddHealthCommand parse(String args) throws ParseException {
+    public AddRecordCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_VALUE, PREFIX_DATETIME, PREFIX_REMARK);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_VALUE, PREFIX_DATETIME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddHealthCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRecordCommand.MESSAGE_USAGE));
         }
 
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
@@ -50,7 +50,7 @@ public class AddHealthCommandParser implements Parser<AddHealthCommand> {
 
         Record record = new Record(type, value, timestamp, remarkList);
 
-        return new AddHealthCommand(record);
+        return new AddRecordCommand(record);
     }
 
     /**

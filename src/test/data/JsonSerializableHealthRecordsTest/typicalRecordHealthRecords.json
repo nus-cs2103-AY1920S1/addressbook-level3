@@ -1,47 +1,39 @@
 {
+  "_comment": "HealthRecords save file which contains the same records as in TypicalRecords#getTypicalRecords()",
   "healthrecords" : [ {
-    "type" : "Weight",
-    "value" : "67.0",
-    "timestamp" : "26/10/2019 12:00"
-  }, {
-    "type" : "Height",
-    "value" : "168.0",
-    "timestamp" : "25/10/2019 15:00"
-  }, {
-    "type" : "Height",
-    "value" : "167.0",
-    "timestamp" : "25/10/2019 14:00"
-  }, {
-    "type" : "Height",
-    "value" : "165.0",
-    "timestamp" : "25/10/2019 13:00"
+    "type" : "Glucose",
+    "value" : "18.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "two cups of milk tea" ]
   }, {
     "type" : "Calories",
-    "value" : "500.0",
-    "timestamp" : "25/10/2019 13:00"
-  }, {
-    "type" : "Weight",
-    "value" : "63.0",
-    "timestamp" : "24/10/2019 12:00"
-  }, {
-    "type" : "Weight",
-    "value" : "65.0",
-    "timestamp" : "23/10/2019 12:00"
-  }, {
-    "type" : "Glucose",
-    "value" : "20.0",
-    "timestamp" : "30/04/2019 12:00"
-  }, {
-    "type" : "Carbs",
-    "value" : "10.0",
-    "timestamp" : "24/10/2019 12:00"
-  }, {
-    "type" : "Protein",
-    "value" : "10.0",
-    "timestamp" : "24/10/2019 12:00"
+    "value" : "1058.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "Dinner", "three course meal" ]
   }, {
     "type" : "Fats",
-    "value" : "5.0",
-    "timestamp" : "24/10/2019 12:00"
+    "value" : "29.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "Dinner" ]
+  }, {
+    "type" : "Weight",
+    "value" : "49.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ ]
+  }, {
+    "type" : "Height",
+    "value" : "155.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ ]
+  }, {
+    "type" : "Carbs",
+    "value" : "1.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "No carbs diet" ]
+  }, {
+    "type" : "Protein",
+    "value" : "12.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "Fish challenge" ]
   } ]
 }

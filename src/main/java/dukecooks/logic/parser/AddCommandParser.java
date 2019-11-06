@@ -10,7 +10,7 @@ import dukecooks.logic.commands.dashboard.AddTaskCommand;
 import dukecooks.logic.commands.diary.AddDiaryCommand;
 import dukecooks.logic.commands.diary.AddPageCommand;
 import dukecooks.logic.commands.exercise.AddExerciseCommand;
-import dukecooks.logic.commands.health.AddHealthCommand;
+import dukecooks.logic.commands.health.AddRecordCommand;
 import dukecooks.logic.commands.mealplan.AddMealPlanCommand;
 import dukecooks.logic.commands.profile.AddProfileCommand;
 import dukecooks.logic.commands.recipe.AddRecipeCommand;
@@ -70,7 +70,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         case AddExerciseCommand.VARIANT_WORD:
             return new AddExerciseCommandParser().parse(arguments);
 
-        case AddHealthCommand.VARIANT_WORD:
+        case AddRecordCommand.VARIANT_WORD:
             return new AddHealthCommandParser().parse(arguments);
 
         case AddProfileCommand.VARIANT_WORD:

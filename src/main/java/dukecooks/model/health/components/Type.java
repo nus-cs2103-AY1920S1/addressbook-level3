@@ -1,5 +1,7 @@
 package dukecooks.model.health.components;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.EnumSet;
 
 /**
@@ -46,6 +48,7 @@ public enum Type {
      * Checks if the String is one of the health types.
      */
     public static boolean isValidType(String str) {
+        requireNonNull(str);
         for (Type type: Type.values()) {
             if (type.name().equalsIgnoreCase(str)) {
                 return true;
