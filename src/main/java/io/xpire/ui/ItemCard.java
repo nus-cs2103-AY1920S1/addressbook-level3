@@ -95,8 +95,8 @@ public class ItemCard extends UiPart<Region> {
         return DateUtil.convertDateToString(
                 DateUtil.getPreviousDate(
                         this.xpireItem.getExpiryDate().getDate(),
-                        this.xpireItem.getReminderThreshold().getValue()),
-                DATE_FORMAT);
+                        this.xpireItem.getReminderThreshold().getValue())
+                );
     }
 
     //@@author xiaoyu-nus

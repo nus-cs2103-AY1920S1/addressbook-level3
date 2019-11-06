@@ -5,27 +5,29 @@ import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoUnit;
+import io.xpire.model.item.ExpiryDate;
 
 /**
  * Helper functions for handling dates.
  */
 public class DateUtil {
 
+    public static final DateTimeFormatter dateFormatter =
+            DateTimeFormatter.ofPattern(ExpiryDate.DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
+
     /**
      * Converts a {@code LocalDate} object to its string representation.
      * Empty string is returned if date is unable to be parsed into string.
      *
      * @param date Date object.
-     * @param dateFormat String format of the date.
      * @return Date in string if conversion is successful, else empty string.
      */
-    public static String convertDateToString(LocalDate date, String dateFormat) {
-        requireAllNonNull(date, dateFormat);
-
+    public static String convertDateToString(LocalDate date) {
+        requireAllNonNull(date);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-            return date.format(formatter);
+            return date.format(dateFormatter);
         } catch (IllegalArgumentException | DateTimeException e) {
             return "";
         }
@@ -36,17 +38,14 @@ public class DateUtil {
      * {@code null} is returned if string is unable to be parsed into date.
      *
      * @param dateInString Date in string.
-     * @param dateFormat String format of the date.
      * @return Date if conversion is successful, else null.
      */
-    public static LocalDate convertStringToDate(String dateInString, String dateFormat) {
-        requireAllNonNull(dateInString, dateFormat);
-
+    public static LocalDate convertStringToDate(String dateInString) {
+        requireAllNonNull(dateInString, dateFormatter);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-            LocalDate date = LocalDate.parse(dateInString, formatter);
-            return date;
+            return LocalDate.parse(dateInString, dateFormatter);
         } catch (IllegalArgumentException | DateTimeException e) {
+            System.out.println(e);
             return null;
         }
     }
@@ -80,7 +79,7 @@ public class DateUtil {
     }
 
     /**
-     * Retrieves a date prior to current date by {@COde offsetDays} number of days.
+     * Retrieves a date prior to current date by {@code offsetDays} number of days.
      *
      * @param offsetDays Number of days before current date.
      * @return Earlier date.
