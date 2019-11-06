@@ -1,6 +1,6 @@
 package seedu.address.model.util;
 
-public class SampleCalendarUtil {
+public class SampleCalendarDataUtil {
     public static final String SAMPLE_CALENDAR_ABHINAV = "BEGIN:VCALENDAR\n" +
             "VERSION:2.0\n" +
             "PRODID:-//NUSMods//NUSMods//EN\n" +

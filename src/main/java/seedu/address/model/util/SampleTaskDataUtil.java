@@ -134,16 +134,16 @@ public class SampleTaskDataUtil {
 
     public static CalendarWrapper[] getSampleCalendar() {
         try {
-            Calendar sampleCalendar1 = ParserUtil.parseCalendar(SampleCalendarUtil.SAMPLE_CALENDAR_GABRIEL);
-            Calendar sampleCalendar2 = ParserUtil.parseCalendar(SampleCalendarUtil.SAMPLE_CALENDAR_ABHINAV);
-            Calendar sampleCalendar3 = ParserUtil.parseCalendar(SampleCalendarUtil.SAMPLE_CALENDAR_LYNN);
+            Calendar sampleCalendar1 = ParserUtil.parseCalendar(SampleCalendarDataUtil.SAMPLE_CALENDAR_GABRIEL);
+            Calendar sampleCalendar2 = ParserUtil.parseCalendar(SampleCalendarDataUtil.SAMPLE_CALENDAR_ABHINAV);
+            Calendar sampleCalendar3 = ParserUtil.parseCalendar(SampleCalendarDataUtil.SAMPLE_CALENDAR_LYNN);
             return new CalendarWrapper[]{
                     new CalendarWrapper(new MemberName("Gabriel"), sampleCalendar1,
-                            SampleCalendarUtil.SAMPLE_CALENDAR_GABRIEL),
+                            SampleCalendarDataUtil.SAMPLE_CALENDAR_GABRIEL),
                     new CalendarWrapper(new MemberName("Abhinav"), sampleCalendar2,
-                            SampleCalendarUtil.SAMPLE_CALENDAR_ABHINAV),
+                            SampleCalendarDataUtil.SAMPLE_CALENDAR_ABHINAV),
                     new CalendarWrapper(new MemberName("Lynn"), sampleCalendar3,
-                            SampleCalendarUtil.SAMPLE_CALENDAR_LYNN)
+                            SampleCalendarDataUtil.SAMPLE_CALENDAR_LYNN)
             };
         } catch (ParseException e) {
             e.printStackTrace();
