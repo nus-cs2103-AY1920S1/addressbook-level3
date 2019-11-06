@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.moneygowhere.commons.exceptions.IllegalValueException;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@author Nanosync
 class JsonAdaptedCurrencyTest {
 
     private static final String INVALID_NAME = "SGDEE";
@@ -67,7 +68,7 @@ class JsonAdaptedCurrencyTest {
     }
 
     @Test
-    public void test_compareTo() {
+    public void compareTo_equals() {
         assertEquals(0, SGD_CURRENCY.compareTo(SGD_CURRENCY));
     }
 }

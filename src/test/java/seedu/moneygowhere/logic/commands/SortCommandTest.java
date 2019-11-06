@@ -22,9 +22,17 @@ import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.SortUtil;
 import seedu.moneygowhere.testutil.SpendingBuilder;
 
+//@author Nanosync
 class SortCommandTest {
+
     private Model model;
     private Model expectedModel;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
+    }
 
     @Test
     public void equals() {
@@ -45,12 +53,6 @@ class SortCommandTest {
 
         // different value -> returns false
         assertFalse(sortCommand.equals(new SortCommand(new LinkedHashSet<>())));
-    }
-
-    @BeforeEach
-    public void setUp() {
-        model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
     }
 
     @Test

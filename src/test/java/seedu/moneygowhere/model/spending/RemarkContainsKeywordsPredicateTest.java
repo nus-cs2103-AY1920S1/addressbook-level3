@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moneygowhere.testutil.SpendingBuilder;
 
+//@author Nanosync
 public class RemarkContainsKeywordsPredicateTest {
 
     @Test
@@ -42,7 +43,7 @@ public class RemarkContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_remarkContainsKeywords_returnsTrue() {
+    public void predicate_remarkContainsKeywords_returnsTrue() {
         // One keyword
         RemarkContainsKeywordsPredicate predicate =
                 new RemarkContainsKeywordsPredicate(Collections.singletonList("watch"));
@@ -62,7 +63,7 @@ public class RemarkContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_remarkDoesNotContainKeywords_returnsFalse() {
+    public void predicate_remarkDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         RemarkContainsKeywordsPredicate predicate = new RemarkContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new SpendingBuilder().withRemark("Apple").build()));

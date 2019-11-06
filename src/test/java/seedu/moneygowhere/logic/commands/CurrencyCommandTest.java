@@ -15,7 +15,9 @@ import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.UserPrefs;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@author Nanosync
 class CurrencyCommandTest {
+
     private Model model;
     private Model expectedModel;
 
