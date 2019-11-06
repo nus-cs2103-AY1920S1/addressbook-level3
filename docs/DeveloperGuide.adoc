@@ -124,6 +124,8 @@ Step 3  . ScheduleViewPanel will firstly clear all the data and input the update
 
 image::ImportUIRefreshSequenceDiagram.png[]
 
+// tag::logic[]
+
 [[Design-Logic]]
 === Logic component
 
@@ -147,6 +149,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
+
+// end::logic[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -193,6 +197,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::add[]
+
 === Add Interviewee/Interviewer feature
 The add command is facilitated by the `AddCommandParser` class. It extends `AddCommandParser` by allowing it to parse
 prefixes specific to our Scheduler app, namely:
@@ -217,6 +223,8 @@ image::AddSequenceDiagram_1_2.png[]
 The following activity diagram shows the steps needed to add a new interviewee:
 
 image::AddActivityDiagram_1_2.png[]
+
+// end::add[]
 
 === [Coming soon in v1.3] Scheduling Algorithm
 The scheduling of interviews is essentially a https://www.geeksforgeeks.org/maximum-bipartite-matching/[maximum bipartite matching problem].

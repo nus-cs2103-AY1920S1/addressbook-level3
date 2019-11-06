@@ -25,7 +25,6 @@ AddressBook - Level 3 is a desktop address book application used for teaching So
 
 * *Other contributions*:
 
-** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
@@ -50,7 +49,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=Tag]
 
 include::../UserGuide.adoc[tag=dataencryption]
 

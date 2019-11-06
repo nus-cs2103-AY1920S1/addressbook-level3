@@ -5,27 +5,44 @@
 
 == PROJECT: Scheduler
 
----
+
 
 == Overview
 
-Scheduler is a desktop application which is used to automate the process of scheduling interviews.
-Its main feature is matching interviewees with interview time slots to generate an interview timetable.
+People who hold leadership positions, especially those in student-led clubs, have to usually schedule interviews with those interested in applying to
+leadership positions. Usually, there are clashing preferred time slots between interviewees, which the interviewer has to resolve.
+We found that the current practice of constant back-and-forth messaging between interviewees and interviewers to resolve this to
+be inefficient. We therefore came up with Scheduler, a desktop application used to automate the process of interview scheduling.
+
+Its main feature is matching interviewees with interview time slots to generate an optimal interview timetable, and works with
+two types of data: data on interviewees and interviewers.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
-** Credits:
-
-* *Minor enhancement*:
+* *Major enhancement*: added the *ability to manually add, edit and delete entities (interviewees and interviewers)* in Scheduler.
+** What it does: This allows the user to manually alter the data currently in Scheduler .
+** Justification: This feature is necessary to the product as interview schedules change frequently - interviewees may suddenly
+be unable to attend an interview, withdraw from the interview. Interviewers may also be forced to
+withdraw due to urgent business. There may also be more applicants, and hence interviewees. In these cases, the ability to
+manually change data in Scheduler is essential.
+** Highlights: This enhancement deeply affects the foundational structure of Scheduler. It required an in-depth understanding of
+the existing code base. The implementation too was challenging as it required changes to existing commands and needed to be
+designed such that enhancements could be easily added.
+** Credits: Joshua Bloch, author of Effective Java, for his ideas on Builder patterns as a way to generate objects with optional parameters.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage to above 75%: https://github.com/AY1920S1-CS2103-F09-1/main/pull/148[#148], https://github.com/AY1920S1-CS2103-F09-1/main/pull/154[#154]
+** Documentation:
+*** Did cosmetic and structural tweaks to existing contents of the User Guide to improve readability: https://github.com/AY1920S1-CS2103-F09-1/main/pull/156[#156]
+** Community:
+*** Contributed to forum discussions: https://github.com/nus-cs2103-AY1920S1/forum/issues/88#issuecomment-533785777[#1]
+
+====
 
 ** Project management:
 *** Managed releases
@@ -34,14 +51,18 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 ** Community:
 ** Tools:
 
+====
+
 == Contributions to the User Guide
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::
+include::../UserGuide.adoc[tag=add]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=edit]
+
+include::../UserGuide.adoc[tag=delete]
 
 == Contributions to the Developer Guide
 
@@ -49,7 +70,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::
+include::../DeveloperGuide.adoc[tag=logic]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+include::../DeveloperGuide.adoc[tag=add]

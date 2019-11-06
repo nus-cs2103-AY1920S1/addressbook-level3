@@ -193,6 +193,8 @@ Example:
 
  import interviewer fp/C:\Users\johndoe\Interviewees.csv
 
+// tag::add[]
+
 === Add interviewees/interviewers manually `add`
 Manually add a new entity to the database. The command format differs on the `r/ROLE` prefix supplied:
 
@@ -225,7 +227,6 @@ by the value of `duration` in <<User Preferences, User Preferences>>. See <<Dura
 
 ====
 
-
 ==== Adding a new interviewer
 Manually add a new interviewer to the database.
 
@@ -250,6 +251,10 @@ and the rightmost *HH:mm* refers to the *end duration*.
 by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>>.
 
 ====
+
+// end::add[]
+
+// tag::edit[]
 
 === Edit interviewees/interviewers manually `edit`
 Manually edit an entity in the database. The command format depends on the `r/ROLE` prefix supplied:
@@ -327,6 +332,10 @@ by the value of `duration` in <<User Preferences, User Preferences>>. See <<Dura
 
 ====
 
+// end::edit[]
+
+// tag::delete[]
+
 === Delete interviewees/interviewers manually `delete`
 Manually delete an entity from the database.
 
@@ -368,6 +377,8 @@ Constraints:
 * The interviewer with `NAME` must exist in the Scheduler.
 
 ====
+
+// end::delete[]
 
 === UI Display
 
