@@ -181,6 +181,21 @@ Examples:
 * `show r`
 * `show c`
 
+=== Scrolling the list : 'up' / 'down'
+
+Scrolls the list up/down
+
+Examples:
+* 'up'
+* 'down'
+
+=== Changing the theme : 'theme'
+
+Changes the theme of Elisa!
+
+* 'theme white'
+* 'theme black'
+
 === Editing an item : `edit`
 
 This command is used to edit any of the items that you might have. +
