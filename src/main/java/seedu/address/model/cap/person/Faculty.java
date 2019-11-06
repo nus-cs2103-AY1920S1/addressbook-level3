@@ -69,8 +69,6 @@ public class Faculty {
         case "medicine":
         case "Yong Loo Lin School (Medicine)":
         case "music":
-        case "public health":
-        case "public policy":
         case "science":
         case "university scholar programme":
         case "yale-nus":

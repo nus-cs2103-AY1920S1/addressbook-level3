@@ -40,6 +40,10 @@ public class BorrowLogEntryCard extends UiPart<Region> {
     private FlowPane cats;
     @FXML
     private Label from;
+    @FXML
+    private Label status;
+    @FXML
+    private Label repaidDate;
 
     public BorrowLogEntryCard(BorrowLogEntry logEntry, int displayedIndex) {
         super(FXML);
@@ -52,6 +56,9 @@ public class BorrowLogEntryCard extends UiPart<Region> {
         logEntry.getCategories().stream()
                 .forEach(cat -> cats.getChildren().add(new Label(cat.catName)));
         from.setText(logEntry.getFrom().name);
+        Boolean isRepaid = logEntry.isRepaid();
+        status.setText(isRepaid ? "repaid" : "STILL OWE $$");
+        repaidDate.setText(isRepaid ? "Repaid on: " + logEntry.getRepaidDate().value : "");
     }
 
     @Override

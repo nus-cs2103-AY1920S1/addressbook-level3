@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Category {
 
-    public static final String MESSAGE_CONSTRAINTS = "Category names can be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Category names can be alphanumeric, with no spaces";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String catName;

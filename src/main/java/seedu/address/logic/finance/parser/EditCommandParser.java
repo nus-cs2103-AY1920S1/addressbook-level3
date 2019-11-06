@@ -6,6 +6,9 @@ import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_FROM;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_PLACE;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TO;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
 
 import java.util.Collection;
@@ -34,8 +37,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DAY,
-                        PREFIX_DESCRIPTION, PREFIX_TRANSACTION_METHOD,
-                        PREFIX_CATEGORY);
+                        PREFIX_DESCRIPTION, PREFIX_CATEGORY,
+                        PREFIX_TRANSACTION_METHOD,
+                        PREFIX_PLACE, PREFIX_FROM, PREFIX_TO);
 
         Index index;
 
@@ -46,6 +50,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditLogEntryDescriptor editLogEntryDescriptor = new EditCommand.EditLogEntryDescriptor();
+
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editLogEntryDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
@@ -57,6 +62,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             editLogEntryDescriptor.setDesc(ParserUtil.parseDescription(
                     argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
+        if (argMultimap.getValue(PREFIX_TRANSACTION_METHOD).isPresent()) {
+            editLogEntryDescriptor.setTMethod(ParserUtil.parseTransactionMethod(
+                    argMultimap.getValue(PREFIX_TRANSACTION_METHOD).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PLACE).isPresent()) {
+            editLogEntryDescriptor.setPlace(ParserUtil.parsePlace(
+                    argMultimap.getValue(PREFIX_PLACE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_FROM).isPresent()) {
+            editLogEntryDescriptor.setFrom(ParserUtil.parsePerson(
+                    argMultimap.getValue(PREFIX_FROM).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TO).isPresent()) {
+            editLogEntryDescriptor.setTo(ParserUtil.parsePerson(
+                    argMultimap.getValue(PREFIX_TO).get()));
+        }
+        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
+                .ifPresent(editLogEntryDescriptor::setCategories);
 
         if (!editLogEntryDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

@@ -55,18 +55,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditTaskDescriptor editTaskDescriptor;
 
     /**
      * @param index of the task in the filtered task list to edit
-     * @param editPersonDescriptor details to edit the task with
+     * @param editTaskDescriptor details to edit the task with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editTaskDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class EditCommand extends Command {
         }
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
-        Task editedTask = createEditedPerson(taskToEdit, editPersonDescriptor);
+        Task editedTask = createEditedPerson(taskToEdit, editTaskDescriptor);
 
         if (!taskToEdit.getTaskDeadline().getValue().equals(editedTask.getTaskDeadline().getValue())
             && taskToEdit.isPersistent()) {
@@ -97,19 +97,19 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Task} with the details of {@code taskToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editTaskDescriptor}.
      */
-    private static Task createEditedPerson(Task taskToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Task createEditedPerson(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
 
-        TaskTitle updatedTaskTitle = editPersonDescriptor.getTaskTitle().orElse(taskToEdit.getTaskTitle());
-        TaskDay updatedTaskDay = editPersonDescriptor.getTaskDay().orElse(taskToEdit.getTaskDay());
-        TaskDescription updatedTaskDescription = editPersonDescriptor.getTaskDescription()
+        TaskTitle updatedTaskTitle = editTaskDescriptor.getTaskTitle().orElse(taskToEdit.getTaskTitle());
+        TaskDay updatedTaskDay = editTaskDescriptor.getTaskDay().orElse(taskToEdit.getTaskDay());
+        TaskDescription updatedTaskDescription = editTaskDescriptor.getTaskDescription()
                 .orElse(taskToEdit.getTaskDescription());
-        TaskDeadline updatedTaskDeadline = editPersonDescriptor.getTaskDeadline()
+        TaskDeadline updatedTaskDeadline = editTaskDescriptor.getTaskDeadline()
                 .orElse(taskToEdit.getTaskDeadline());
-        TaskTime updatedTaskTime = editPersonDescriptor.getTaskTime().orElse(taskToEdit.getTaskTime());
-        Set<TaskTag> updatedTaskTags = editPersonDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
+        TaskTime updatedTaskTime = editTaskDescriptor.getTaskTime().orElse(taskToEdit.getTaskTime());
+        Set<TaskTag> updatedTaskTags = editTaskDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
 
         return new ToDoTask(updatedTaskTitle, updatedTaskDay, updatedTaskDescription, updatedTaskDeadline,
             updatedTaskTime, updatedTaskTags, taskToEdit.getWeek());
@@ -130,14 +130,14 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editTaskDescriptor.equals(e.editTaskDescriptor);
     }
 
     /**
      * Stores the details to edit the task with. Each non-empty field value will replace the
      * corresponding field value of the task.
      */
-    public static class EditPersonDescriptor {
+    public static class EditTaskDescriptor {
         private TaskTitle taskTitle;
         private TaskDay taskDay;
         private TaskDescription taskDescription;
@@ -145,13 +145,13 @@ public class EditCommand extends Command {
         private TaskTime taskTime;
         private Set<TaskTag> taskTags;
 
-        public EditPersonDescriptor() {}
+        public EditTaskDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code taskTags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setTaskTitle(toCopy.taskTitle);
             setTaskDay(toCopy.taskDay);
             setTaskDescription(toCopy.taskDescription);
@@ -232,12 +232,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditTaskDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getTaskTitle().equals(e.getTaskTitle())
                     && getTaskDay().equals(e.getTaskDay())

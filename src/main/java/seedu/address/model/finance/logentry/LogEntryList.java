@@ -38,6 +38,13 @@ public class LogEntryList implements Iterable<LogEntry> {
     public void add(LogEntry toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+        sort();
+    }
+
+    // Sort log entries by date (latest date first)
+    private void sort() {
+        FXCollections.sort(internalList, (
+                le1, le2) -> le1.getTransactionDate().compareTo(le2.getTransactionDate()));
     }
 
     /**
@@ -52,6 +59,7 @@ public class LogEntryList implements Iterable<LogEntry> {
             throw new LogEntryNotFoundException();
         }
         internalList.set(index, editedLogEntry);
+        sort();
     }
 
     /**
@@ -68,6 +76,7 @@ public class LogEntryList implements Iterable<LogEntry> {
     public void setLogEntries(LogEntryList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        sort();
     }
 
     /**
@@ -76,8 +85,23 @@ public class LogEntryList implements Iterable<LogEntry> {
      */
     public void setLogEntries(List<LogEntry> logEntries) {
         requireAllNonNull(logEntries);
-
         internalList.setAll(logEntries);
+        sort();
+    }
+
+    /**
+     * Marks equivalent log entry as repaid.
+     * The log entry must exist in the list.
+     * Log entry must be of type borrow or lend.
+     */
+    public void markAsRepaid(LogEntry toMarkAsRepaid) {
+        requireNonNull(toMarkAsRepaid);
+        int index = internalList.indexOf(toMarkAsRepaid);
+        if (index == -1) {
+            throw new LogEntryNotFoundException();
+        }
+        toMarkAsRepaid.markAsRepaid();
+        internalList.set(index, toMarkAsRepaid);
     }
 
     /**

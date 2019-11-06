@@ -5,11 +5,11 @@ https://travis-ci.org/AY1920S1-CS2103-T16-2/main[image:https://travis-ci.org/AY1
 https://coveralls.io/github/AY1920S1-CS2103-T16-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-T16-2/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.png[width="800"]
 endif::[]
 
 * _Modulo_ is a desktop application developed to help National University of Singapore (NUS) students manage their studies and expenditures.

@@ -16,7 +16,7 @@ import seedu.address.model.finance.attributes.TransactionMethod;
 public class SpendLogEntry extends LogEntry {
 
     // Meta data
-    public static final String LOG_ENTRY_TYPE = "expenditure";
+    public static final String LOG_ENTRY_TYPE = "spend";
 
     // Fields
     private final Place place;
@@ -39,6 +39,8 @@ public class SpendLogEntry extends LogEntry {
     public Place getPlace() {
         return place;
     }
+
+    public void markAsRepaid() {}
 
     @Override
     public boolean equals(Object other) {

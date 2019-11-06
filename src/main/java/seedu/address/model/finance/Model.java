@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.finance.logentry.LogEntry;
 
-
 /**
  * The API of the Model component.
  */
@@ -53,8 +52,11 @@ public interface Model {
     /** Returns the FinanceLog */
     ReadOnlyFinanceLog getFinanceLog();
 
+    /** Set the {@code GraphicsData} object to view. */
+    void setGraphicsData(GraphicsData gData);
+
     /**
-     * Returns true if an entry with the same identity as {@code LogEntry} exists in the address book.
+     * Returns true if an entry with the same identity as {@code LogEntry} exists in the finance log.
      */
     boolean hasLogEntry(LogEntry logEntry);
 
@@ -75,12 +77,21 @@ public interface Model {
      */
     void setLogEntry(LogEntry target, LogEntry editedLogEntry);
 
+    /**
+     * Marks the given log entry as repaid.
+     * {@code LogEntry} must be of type borrow or lend.
+     */
+    void markLogEntryAsRepaid(LogEntry logEntry);
+
     /** Returns an unmodifiable view of the filtered list of log entries */
     ObservableList<LogEntry> getFilteredLogEntryList();
+
+    GraphicsData getGraphicsData();
 
     /**
      * Updates the filter of the filtered list of log entries to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredLogEntryList(Predicate<LogEntry> predicate);
+
 }

@@ -10,20 +10,20 @@ import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
 import seedu.address.model.finance.logentry.LogEntry;
 
-
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a log entry identified using it's displayed index from the finance log.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the log entry identified by the index number used "
+            + "in the displayed list of log entries.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_LOG_ENTRY_SUCCESS = "Deleted log entry: %1$s";
 
     private final Index targetIndex;
 
@@ -37,12 +37,12 @@ public class DeleteCommand extends Command {
         List<LogEntry> lastShownList = model.getFilteredLogEntryList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_LOG_ENTRY_DISPLAYED_INDEX);
         }
 
         LogEntry logEntryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteLogEntry(logEntryToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, logEntryToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_LOG_ENTRY_SUCCESS, logEntryToDelete));
     }
 
     @Override

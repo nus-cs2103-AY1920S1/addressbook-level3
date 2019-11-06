@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private LogEntryListPanel logEntryListPanel;
+    private StatsGraphic statsGraphic;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,7 +44,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane logEntryListPanelPlaceholder;
+
+    @FXML
+    private StackPane statsGraphicPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,13 +112,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        logEntryListPanel = new LogEntryListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(logEntryListPanel.getRoot());
+        logEntryListPanel = new LogEntryListPanel(logic.getFilteredLogEntryList());
+        logEntryListPanelPlaceholder.getChildren().add(logEntryListPanel.getRoot());
+
+        statsGraphic = new StatsGraphic(logic.getGraphicsData());
+        statsGraphicPlaceholder.getChildren().add(statsGraphic.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFinanceLogFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -150,6 +157,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switch to view of statistical summaries.
+     */
+    public void showStats() {
+        // Update stats view
+        statsGraphic = new StatsGraphic(logic.getGraphicsData());
+        statsGraphicPlaceholder.getChildren().add(statsGraphic.getRoot());
+        logEntryListPanelPlaceholder.setVisible(false);
+        statsGraphicPlaceholder.setVisible(true);
+    }
+
+    /**
+     * Switch to view of list of log entries.
+     */
+    public void hideStats() {
+        statsGraphicPlaceholder.setVisible(false);
+        logEntryListPanelPlaceholder.setVisible(true);
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -175,6 +201,12 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowStats()) {
+                showStats();
+            } else {
+                hideStats();
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

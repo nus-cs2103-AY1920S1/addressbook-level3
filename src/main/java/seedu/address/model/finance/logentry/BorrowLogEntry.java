@@ -4,9 +4,9 @@ import java.util.Set;
 
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
-import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
+import seedu.address.model.finance.attributes.RepaidDate;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
 
@@ -19,21 +19,20 @@ public class BorrowLogEntry extends LogEntry {
     // Meta data
     public static final String LOG_ENTRY_TYPE = "borrow";
     private static boolean isRepaid; // whether borrowed money has been returned to lender
+    private static RepaidDate repaidDate; // date when user repaid money
 
     // Fields
     private final Person from; // person borrowed from
-    private Deadline deadline;
 
     /**
      * Every field must be present and not null.
      */
     public BorrowLogEntry(Amount amount, TransactionDate transactionDate, Description description,
                           TransactionMethod transactionMethod, Set<Category> categories,
-                          Person from, Deadline deadline) {
+                          Person from) {
         super(amount, transactionDate, description,
                 transactionMethod, categories);
         this.from = from;
-        this.deadline = deadline;
         this.isRepaid = false;
     }
 
@@ -45,16 +44,26 @@ public class BorrowLogEntry extends LogEntry {
         return from;
     }
 
-    public Deadline getDeadline() {
-        return deadline;
-    }
-
     public boolean isRepaid() {
         return isRepaid;
     }
 
-    public void setAsRepaid() {
+    /**
+     * Marks log entry as repaid
+     * (i.e. money returned to person borrowed from)
+     * and records down the day of repayment.
+     */
+    public void markAsRepaid() {
         isRepaid = true;
+        repaidDate = new RepaidDate();
+    }
+
+    public RepaidDate getRepaidDate() {
+        return repaidDate;
+    }
+
+    public void setRepaidDate(String rDate, String tDate) {
+        repaidDate = new RepaidDate(rDate, tDate);
     }
 
     @Override
@@ -74,8 +83,8 @@ public class BorrowLogEntry extends LogEntry {
                 && otherLogEntry.getTransactionMethod().equals(getTransactionMethod())
                 && otherLogEntry.getCategories().equals(getCategories())
                 && otherLogEntry.getFrom().equals(getFrom())
-                && otherLogEntry.getDeadline().equals(getDeadline())
-                && (otherLogEntry.isRepaid() == isRepaid());
+                && (otherLogEntry.isRepaid() == isRepaid())
+                && (otherLogEntry.getRepaidDate().equals(getRepaidDate()));
     }
 
     @Override
@@ -91,8 +100,10 @@ public class BorrowLogEntry extends LogEntry {
                 .append(getTransactionMethod())
                 .append(" From: ")
                 .append(getFrom())
-                .append(" Deadline: ")
-                .append(getDeadline())
+                .append(" Is Repaid: ")
+                .append(isRepaid())
+                .append(isRepaid() ? " Repaid Date:" : "")
+                .append(isRepaid() ? getRepaidDate() : "")
                 .append(" Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();

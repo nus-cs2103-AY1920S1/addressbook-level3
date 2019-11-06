@@ -6,7 +6,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.finance.commands.DeleteCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 
-
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */

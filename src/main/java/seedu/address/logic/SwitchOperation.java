@@ -335,14 +335,14 @@ public class SwitchOperation {
      */
     private seedu.address.model.finance.Model initModelManager(seedu.address.storage.finance.Storage storage,
                                                             seedu.address.model.finance.ReadOnlyUserPrefs userPrefs) {
-        Optional<seedu.address.model.finance.ReadOnlyFinanceLog> addressBookOptional;
+        Optional<seedu.address.model.finance.ReadOnlyFinanceLog> financeLogOptional;
         seedu.address.model.finance.ReadOnlyFinanceLog initialData;
         try {
-            addressBookOptional = storage.readFinanceLog();
-            if (!addressBookOptional.isPresent()) {
+            financeLogOptional = storage.readFinanceLog();
+            if (!financeLogOptional.isPresent()) {
                 System.out.println("Data file not found. Will be starting with a sample FinanceLog");
             }
-            initialData = addressBookOptional
+            initialData = financeLogOptional
                     .orElseGet(seedu.address.model.finance.util.SampleDataUtil::getSampleFinanceLog);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty FinanceLog");
@@ -364,15 +364,15 @@ public class SwitchOperation {
         try {
             addressBookOptional = storage.readCapLog();
             if (!addressBookOptional.isPresent()) {
-                System.out.println("Data file not found. Will be starting with a sample AddressBook");
+                System.out.println("Data file not found. Will be starting with a sample CapLog");
             }
             initialData = addressBookOptional
                     .orElseGet(seedu.address.model.cap.util.SampleDataUtil::getSampleCapLog);
         } catch (DataConversionException e) {
-            System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
+            System.out.println("Data file not in the correct format. Will be starting with an empty CapLog");
             initialData = new seedu.address.model.cap.CapLog();
         } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
+            System.out.println("Problem while reading from the file. Will be starting with an empty CapLog");
             initialData = new CapLog();
         }
 

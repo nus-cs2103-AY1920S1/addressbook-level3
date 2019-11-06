@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
-import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TO;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
@@ -16,7 +15,6 @@ import seedu.address.logic.finance.commands.LendCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
-import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
@@ -36,11 +34,11 @@ public class LendCommandParser implements Parser<LendCommand> {
     public LendCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
-                        PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY, PREFIX_TO, PREFIX_DEADLINE);
+                        PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY, PREFIX_TO);
 
         // If compulsory fields are empty
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
-                PREFIX_TRANSACTION_METHOD, PREFIX_TO, PREFIX_DEADLINE)
+                PREFIX_TRANSACTION_METHOD, PREFIX_TO)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LendCommand.MESSAGE_USAGE));
         }
@@ -52,10 +50,9 @@ public class LendCommandParser implements Parser<LendCommand> {
                 argMultimap.getValue(PREFIX_TRANSACTION_METHOD).get());
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
         Person to = ParserUtil.parsePerson(argMultimap.getValue(PREFIX_TO).get());
-        Deadline deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
 
         LendLogEntry logEntry = new LendLogEntry(amount, tDate, description, tMethod,
-                categoryList, to, deadline);
+                categoryList, to);
 
         return new LendCommand(logEntry);
     }
