@@ -706,17 +706,46 @@ Examples:
 
 //tag::Statistics[]
 === Statistics
-==== Generate Statistics: `stats_generate`
+==== Generate Statistics: `generate_stats`
 
 Displays a set of statistics, Number of events, Number of employee etc
 
-Format: `stats_generate`
+Format: `generate_stats`
 
-==== Generate Detailed Statistics: `stats_generate_detail`
+**Example: To generate list and pie chart statistics on demand.**
+
+**Step 1**.  Either type `generate_stats` into the command box or navigate to the statistics tab and
+click the 'Generate Statistics' button.
+
+image::StatsUiPart1.png[]
+
+**Step 2**.  Statistics will be displayed in 2 different types of views: list and pie chart. The list will display the upcoming events that require manpower sorted from the nearest date to the furthest date. The pie charts represent the events and employees tags respectively. For example, a music event will have a 'music' tag and an employee who plays the guitar will have a 'musician' tag. The pie charts will reflect that there is one event under the 'music' tag and one employee under the 'musician' tag.
+
+image::StatsUiPart2.png[]
+
+**Step 3**.  To allocate an employee to an upcoming event, double-click the event on the list and it will display the allocate function covered earlier in the User Guide. The segments on the pie charts can also be clicked to display the number of events or employees associated with that specific tag on the top right corner of each of the pie charts.
+
+image::StatsUiPart3.png[]
+
+**Step 4**.  Generate statistics when any change in data occurs to keep the statistics up to date and relevant.
+
+image::StatsUiPart4.png[]
+
+==== Generate Detailed Statistics: `generate_stats_detail`
 
 Displays a set of statistics, Number of events, Number of employee etc
 
-Format: `stats_generate_detail`
+Format: `generate_stats_detail`
+
+**Example: To generate detailed statistics in plain text format on demand.**
+
+**Step 1**.  Either type `generate_stats_detail` into the command box or navigate to the statistics tab and click the 'Generate Detailed Statistics' button.
+
+image::StatsUiPart5.png[]
+
+**Step 2**.  A pop-up window with the header "StatisticsWindow" will appear displaying statistics for both employees and events.
+
+image::StatsUiPart6.png[]
 
 //end::Statistics[]
 
