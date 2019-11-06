@@ -141,12 +141,17 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
+    public void set(BankAccountOperation target, BankAccountOperation editedTransaction) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+    public void set(LedgerOperation ledgerTarget, LedgerOperation ledgerEdit) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void set(Budget budgetTarget, Budget budgetEdit) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -162,6 +167,11 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredLedgerList(Predicate<LedgerOperation> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteLedger(LedgerOperation target) {
         throw new AssertionError("This method should not be called.");
     }
 
