@@ -133,7 +133,7 @@ public class EditEventCommand extends Command {
         EventDate updatedStartDate = editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
         EventDate updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
-        EventManpowerAllocatedList updatedManpowerAllocatedList = eventToEdit.getManpowerAllocatedList();
+        EventManpowerAllocatedList updatedManpowerAllocatedList = new EventManpowerAllocatedList();
         EventDateTimeMap updatedDateTimeMap =
                 new EventDateTimeMap(eventToEdit.getEventDateTimeMap().getDateTimeMap());
 
