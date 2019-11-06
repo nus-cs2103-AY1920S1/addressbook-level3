@@ -106,19 +106,30 @@ that builds on top of it. (statistics, settings, game modes)
 
 ** As this feature lays the basis for the app, it needs to be implemented well to support integration with every component of the app.
 
+**
+
+**
+
 //{nbsp}
 
 * Credits: +
 
-** Subbash and Paul for holding a heavy discussion on how to integrate different modes altogether. +
-** Jason for huge initial refactoring of address book. +
-** Yi Da for his suggestion on using call backs from within a deeply nested function to access the CommandBox +
+** Subbash and Paul for holding a heavy discussion on how to integrate and name different modes altogether. +
+** Subbash for his `Home` mode to host my `WordBankComands` and `Open` mode to host my `CardCommands`.
+** Jason for huge initial refactoring of address book. Leveraged on parts of his statistics to implement some parts of revision bank. +
+** Yi Da for his suggestion on using call backs from within a deeply nested function to access the CommandBox. +
 ** Paul for integration of my `WordBank` and `Card` display on the UI.
 
 === Minor features
-** Creation of data folder
+** Default word banks for new players.
+*** Three user friendly word banks for user to try out. (pokemon, arithmetic and trivia)
+*** They are created on the first launch of Dukemon, and behaves like normal word bank. (Can be removed)
 
-** Three automatically created `WordBank` on first initialisation.
+** Greatly improve user experience
+*** Played the game insane amount of times to design constructive feedback to display on the command box from the user perspective.
+*** Developed user friendly command usage feedback that guides the user to using Dukemon.
+
+** Automatically creation of folder for Dukemon related files if not present.
 
 ** Preference.json file
 
@@ -147,7 +158,8 @@ that builds on top of it. (statistics, settings, game modes)
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 //*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 
-** Tools:
+** Tools: +
+JUnit testing +
 Netlify
 //*** Integrated a third party library (Natty) to the project (https://github.com[#42])
 //*** Integrated a new Github plugin (CircleCI) to the team repo
