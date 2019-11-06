@@ -19,7 +19,8 @@ public class ScheduleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Switch the schedule view according to the date input by the user.\n"
-            + "Parameters: PREFIX_CALENDAR + YYYY.MM.DD\n"
+            + "Parameters: "
+            + PREFIX_DATE + "YYYY.MM.DD\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2019.10.18\n";
 
