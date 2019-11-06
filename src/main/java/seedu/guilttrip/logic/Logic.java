@@ -35,9 +35,9 @@ public interface Logic {
     /**
      * Returns the GuiltTrip.
      *
-     * @see seedu.guilttrip.model.Model#getAddressBook()
+     * @see seedu.guilttrip.model.Model#getGuiltTrip()
      */
-    ReadOnlyGuiltTrip getAddressBook();
+    ReadOnlyGuiltTrip getGuiltTrip();
 
     DoubleProperty getTotalExpenseForPeriod();
 
@@ -73,7 +73,7 @@ public interface Logic {
     /**
      * Returns the user prefs' guilttrip book file path.
      */
-    Path getAddressBookFilePath();
+    Path getGuiltTripFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

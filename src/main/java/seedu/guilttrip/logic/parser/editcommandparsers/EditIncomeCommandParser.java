@@ -14,8 +14,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.guilttrip.commons.core.index.Index;
-import seedu.guilttrip.logic.commands.editcommands.EditIncomeCommand.EditIncomeDescriptor;
 import seedu.guilttrip.logic.commands.editcommands.EditIncomeCommand;
+import seedu.guilttrip.logic.commands.editcommands.EditIncomeCommand.EditIncomeDescriptor;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
@@ -54,7 +54,7 @@ public class EditIncomeCommandParser implements Parser<EditIncomeCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            editIncomeDescriptor.setTime(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+            editIncomeDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {

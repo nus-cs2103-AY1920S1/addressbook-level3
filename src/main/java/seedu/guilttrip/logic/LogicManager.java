@@ -37,7 +37,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final GuiltTripParser guiltTripParser;
-    private boolean addressBookModified;
+    private boolean guiltTripModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -45,8 +45,8 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         guiltTripParser = new GuiltTripParser();
 
-        //Set addressBookModified to true whenever the models' addressbook is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        //Set guiltTripModified to true whenever the models' GuiltTrip is modified.
+        model.getGuiltTrip().addListener(observable -> guiltTripModified = true);
     }
 
     @Override
@@ -61,10 +61,10 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
+        if (guiltTripModified) {
             logger.info("Finance tracker modified, saving to file");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveGuiltTrip(model.getGuiltTrip());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -74,8 +74,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyGuiltTrip getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyGuiltTrip getGuiltTrip() {
+        return model.getGuiltTrip();
     }
 
     @Override
@@ -143,8 +143,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getGuiltTripFilePath() {
+        return model.getGuiltTripFilePath();
     }
 
     @Override
