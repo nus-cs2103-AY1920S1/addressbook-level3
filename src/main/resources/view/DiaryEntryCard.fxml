@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@Diary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <VBox alignment="CENTER" prefHeight="108.0" prefWidth="122.0" stylesheets="@Diary.css">
+   <VBox alignment="CENTER" prefHeight="108.0" prefWidth="122.0" stylesheets="@Diary.css" HBox.hgrow="NEVER">
       <children>
          <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_small_label" stylesheets="@Diary.css" text="\\$id" />
       </children>
@@ -16,11 +16,11 @@
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </opaqueInsets>
    </VBox>
-   <VBox prefHeight="108.0" prefWidth="624.0">
+   <VBox minWidth="-Infinity" prefWidth="186.0" HBox.hgrow="ALWAYS">
       <children>
          <HBox>
             <children>
-               <Label fx:id="title" prefHeight="28.0" prefWidth="527.0" styleClass="cell_big_label" text="\$title" textOverrun="CLIP" wrapText="true">
+               <Label fx:id="title" styleClass="cell_big_label" text="\$title" textOverrun="CLIP" wrapText="true">
                   <padding>
                      <Insets bottom="3.0" left="3.0" right="3.0" top="5.0" />
                   </padding></Label>
@@ -28,7 +28,7 @@
          </HBox>
          <HBox>
             <children>
-               <Label fx:id="date" prefHeight="26.0" prefWidth="534.0" styleClass="cell_small_label" text="\$date" textOverrun="CLIP" wrapText="true">
+               <Label fx:id="date" styleClass="cell_small_label" text="\$date" textOverrun="CLIP" wrapText="true">
                   <padding>
                      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                   </padding></Label>
@@ -36,7 +36,7 @@
          </HBox>
          <HBox>
             <children>
-               <Label fx:id="place" prefHeight="26.0" prefWidth="529.0" styleClass="cell_small_label" text="\$place" textOverrun="CLIP" wrapText="true">
+               <Label fx:id="place" styleClass="cell_small_label" text="\$place" textOverrun="CLIP" wrapText="true">
                   <padding>
                      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                   </padding></Label>
@@ -44,7 +44,7 @@
          </HBox>
          <HBox>
             <children>
-               <Label fx:id="memory" prefHeight="26.0" prefWidth="525.0" styleClass="cell_small_label" text="\$memory" textOverrun="CLIP">
+               <Label fx:id="memory" styleClass="cell_small_label" text="\$memory" textOverrun="CLIP" wrapText="true">
                   <padding>
                      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                   </padding></Label>
@@ -52,10 +52,13 @@
          </HBox>
       </children>
    </VBox>
-   <VBox />
-   <ImageView fitHeight="105.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../images/travelDiary.png" />
-      </image>
-   </ImageView>
+   <VBox HBox.hgrow="ALWAYS" />
+   <VBox alignment="CENTER_RIGHT">
+      <children>
+         <ImageView fitHeight="105.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../images/travelDiary.png" />
+            </image>
+         </ImageView>
+      </children></VBox>
 </HBox>
