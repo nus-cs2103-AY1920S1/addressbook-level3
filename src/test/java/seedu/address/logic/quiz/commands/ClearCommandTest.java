@@ -1,7 +1,6 @@
 package seedu.address.logic.quiz.commands;
 
 import static seedu.address.logic.quiz.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.testutil.TypicalQuestion.getTypicalAddressQuizBook;
 
 import org.junit.jupiter.api.Test;
 

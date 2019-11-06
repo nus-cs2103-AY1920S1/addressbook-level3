@@ -2,11 +2,11 @@ package seedu.address.logic.quiz.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.*;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.showQuestionAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalQuestion.ALICE;
-//import static seedu.address.testutil.TypicalQuestion.getTypicalAddressQuizBook;
 
 import org.junit.jupiter.api.Test;
 

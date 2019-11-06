@@ -2,7 +2,13 @@ package seedu.address.logic.quiz.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.*;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.DESC_AMY;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_ANSWER_BOB;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_CATEGORY_BOB;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TAG_LECTURE;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TYPE_BOB;
 
 import org.junit.jupiter.api.Test;
 
