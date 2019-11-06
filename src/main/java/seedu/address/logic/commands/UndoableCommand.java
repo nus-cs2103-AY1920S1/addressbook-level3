@@ -93,16 +93,17 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Executes the command and updates the filtered lists to show all customers, phones, orders, schedules and archived.
+     * Executes the command and updates the filtered lists to show all customers,
+     * phones, orders, schedules and archived.
      */
     protected final void redo(Model model) {
         requireNonNull(model);
-        try {
-            executeUndoableCommand(model, new CommandHistory(), new UndoRedoStack());
-        } catch (CommandException ce) {
-            throw new AssertionError("The command has been successfully executed previously; "
-                    + "it should not fail now");
-        }
+
+        model.setCustomerBook(previousCustomerBook);
+        model.setPhoneBook(previousPhoneBook);
+        model.setOrderBook(previousOrderBook);
+        model.setScheduleBook(previousScheduleBook);
+        model.setArchivedOrderBook(previousArchivedOrderBook);
 
         model.updateFilteredCustomerList(Model.PREDICATE_SHOW_ALL_CUSTOMERS);
         model.updateFilteredPhoneList(Model.PREDICATE_SHOW_ALL_PHONES);
@@ -111,6 +112,10 @@ public abstract class UndoableCommand extends Command {
         model.updateFilteredArchivedOrderList(Model.PREDICATE_SHOW_ALL_ORDER);
     }
 
+
+    /**
+     * Saves state of model.
+     */
     public void save(Model model) {
         saveCustomerBookSnapshot(model);
         savePhoneBookSnapshot(model);
