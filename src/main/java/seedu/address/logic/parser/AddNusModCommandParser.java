@@ -21,8 +21,8 @@ import seedu.address.model.person.Name;
  */
 public class AddNusModCommandParser implements Parser<AddNusModCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the AddNusModsCommand
-     * and returns an AddNusModsCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddNusModCommand
+     * and returns an AddNusModCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

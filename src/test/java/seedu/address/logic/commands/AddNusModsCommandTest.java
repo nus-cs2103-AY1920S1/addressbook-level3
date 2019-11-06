@@ -59,7 +59,8 @@ class AddNusModsCommandTest {
 
         CommandResult actualCommandResult = new AddNusModsCommand(name, validLink).execute(model);
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(AddNusModsCommand.MESSAGE_FAILURE, AddNusModsCommand.MESSAGE_MODULE_NOT_FOUND));
+                String.format(AddNusModsCommand.MESSAGE_FAILURE,
+                        String.format(AddNusModsCommand.MESSAGE_MODULE_NOT_FOUND, "INVALIDMODULE")));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

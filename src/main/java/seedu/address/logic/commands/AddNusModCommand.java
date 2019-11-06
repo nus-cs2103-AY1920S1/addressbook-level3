@@ -39,12 +39,12 @@ public class AddNusModCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + "PERSON_NAME "
             + PREFIX_MODULE_CODE + "MODULE_CODE "
-            + "[" + PREFIX_LESSON_TYPE_AND_NUM + "CLASS_TYPE_1:CLASS_NUMBER_1,CLASS_TYPE_2:CLASS_NUMBER_2,]...\n";
+            + PREFIX_LESSON_TYPE_AND_NUM + "CLASS_TYPE_1:CLASS_NUMBER_1,CLASS_TYPE_2:CLASS_NUMBER_2,...\n";
 
     public static final String MESSAGE_SUCCESS = "Added module to person's schedule.";
     public static final String MESSAGE_FAILURE = "Unable to add module: %s";
     public static final String MESSAGE_PERSON_NOT_FOUND = "couldn't find person!";
-    public static final String MESSAGE_MODULE_NOT_FOUND = "couldn't find module!";
+    public static final String MESSAGE_MODULE_NOT_FOUND = "invalid module %s";
     public static final String MESSAGE_EVENTS_CLASH = "there is a timing clash between the module you're adding and"
             + " the events in the person's schedule!";
     public static final String MESSAGE_DUPLICATE_EVENT = "module already exists in the schedule";
@@ -84,7 +84,8 @@ public class AddNusModCommand extends Command {
             module = model.findModule(moduleId);
             event = mapModuleToEvent(module, startAcadSemDate, semesterNo, this.lessonTypeNumMap, holidays);
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_MODULE_NOT_FOUND));
+            return new CommandResult(String.format(MESSAGE_FAILURE,
+                    String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode)));
         } catch (ModuleToEventMappingException e) {
             return new CommandResult(String.format(MESSAGE_FAILURE, e.getMessage()));
         }
@@ -107,7 +108,6 @@ public class AddNusModCommand extends Command {
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
-        //return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());
     }
 
     private Person getPerson(Name name, Model model) throws PersonNotFoundException {

@@ -60,12 +60,14 @@ class AddNusModCommandTest {
     @Test
     void execute_invalidModuleCode_commandResultFailure() throws CommandException, ParseException {
         Name name = ALICE.getName();
-        ModuleCode moduleCode = new ModuleCode("INVALID_MODULE_CODE");
+        String invalidModuleCode = "INVALID_MODULE_CODE";
+        ModuleCode moduleCode = new ModuleCode(invalidModuleCode);
         Map<LessonType, LessonNo> lessonTypeNumMap = ParserUtil.parseLessonTypeNumMap("LEC:1,TUT:08");
 
         CommandResult actualCommandResult = new AddNusModCommand(name, moduleCode, lessonTypeNumMap).execute(model);
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(AddNusModCommand.MESSAGE_FAILURE, AddNusModCommand.MESSAGE_MODULE_NOT_FOUND));
+                String.format(AddNusModCommand.MESSAGE_FAILURE,
+                        String.format(AddNusModCommand.MESSAGE_MODULE_NOT_FOUND, invalidModuleCode)));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

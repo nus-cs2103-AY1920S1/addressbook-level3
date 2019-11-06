@@ -37,7 +37,7 @@ public class ModuleSummaryList {
                 return moduleSummary;
             }
         }
-        throw new ModuleNotFoundException();
+        throw new ModuleNotFoundException(id.getModuleCode().toString());
     }
 
     public List<ModuleSummary> getModuleSummaries() {
