@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.revision.logic.commands.quiz.McqInputCommand;
 import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
@@ -49,6 +50,8 @@ public class TypicalAnswerables {
     public static final Answerable F_ANSWERABLE = new McqBuilder().withQuestion("Fiona Kunz").withDifficulty("1")
             .withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST).withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST)
             .build();
+    public static final Answerable G_ANSWERABLE = new McqBuilder().buildTest();
+    public static final McqInputCommand G_MCQ_COMMAND = new McqInputCommand("a", G_ANSWERABLE);
 
     // Manually added
     public static final Answerable H_ANSWERABLE = new McqBuilder().withQuestion("Hoon Meier")
