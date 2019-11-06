@@ -174,7 +174,7 @@ Examples: +
 //tag::reminder[]
 === Sending reminders to teachers
 
-Sends system notification to user at the time of the event (assumes user keeps program running continuously). +
+Sends system notification to user at the time of the lesson (assumes user keeps program running continuously). +
 Format: none, reminder should come automatically
 
 //end::reminder[]
@@ -215,8 +215,8 @@ Examples: +
 
 ==== Undone assignments
 
-Finds all the undone assignments in the current classroom. +
-Format: getgrades undone
+Finds all the unsubmitted assignments in the current classroom. +
+Format: getunsubmitted
 
 
 //end::get[]
@@ -285,6 +285,26 @@ Format: exit
 
 //end::exit[]
 
+== Additional Features Coming in V2.0
+
+//tag::reminders_for_assignments[]
+
+=== Reminders for Assignments [coming in v2.0]
+
+Assignments can be added to the reminders for the notebook, where users will be alerted when the deadline is up for assignments. +
+Once the deadline is over, the assignments will be removed from the reminder panel, but will remain in the assignment list for future reference.
+
+//end::reminders_for_assignments[]
+
+//tag::statistics[]
+
+=== Statistics for Assignments [coming in v2.0]
+
+Calculates the statistics for the chosen assignment for each class - Average, Median, 25th / 75th percentile etc. +
+Format: getstats ASSIGNMENT_INDEX
+
+//end::statistics[]
+
 == FAQ
 
 Coming up soon!
@@ -315,9 +335,9 @@ e.g. liststudents +
 e.g. listassignments
 * Find: findstudent STUDENT_NAME +
 e.g. findstudent John Doe
-* Get: getgrades STUDENT_INDEX OR getgrades undone +
+* Get: getgrades STUDENT_INDEX OR getunsubmitted +
 e.g. getgrades 2 +
-e.g. getgrades undone
+e.g. getunsubmitted
 * Delete Student: deletestudent STUDENT_INDEX +
 e.g. deletestudent 3
 * Delete Assignment: deleteassignment ASSIGNMENT_INDEX +

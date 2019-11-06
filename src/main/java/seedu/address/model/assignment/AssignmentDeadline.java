@@ -17,6 +17,8 @@ public class AssignmentDeadline {
 
     public static final String MESSAGE_CONSTRAINTS =
             "There is no such date / time! Input should be in dd/MM/yyyy HHmm format.";
+    public static final String MESSAGE_DEADLINE_CONSTRAINT =
+            "Deadline inputted should not be before the current system time.";
 
     public final String assignmentDeadline;
     private Calendar assignmentDeadlineCalendar;
