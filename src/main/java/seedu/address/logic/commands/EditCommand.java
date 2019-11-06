@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
@@ -39,8 +40,9 @@ public class EditCommand extends Command {
             + "Parameters:" + PREFIX_TASK_INDEX + "TASK INDEX"
             + PREFIX_TASK_NAME + "NAME] "
             + PREFIX_TASK_STATUS + "STATUS "
+            + PREFIX_DEADLINE + "DEADLINE "
             + PREFIX_TASK_TAG + "TAG...\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_TASK_INDEX + "1 " + PREFIX_TASK_NAME + " new name";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
