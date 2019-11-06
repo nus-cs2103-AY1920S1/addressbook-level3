@@ -63,7 +63,7 @@ public class ElisaParser {
         final String description = matcher.group("description");
         final String flags = " " + matcher.group("flags");
 
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case "task":
             return new AddTaskCommandParser().parse(description, flags);
