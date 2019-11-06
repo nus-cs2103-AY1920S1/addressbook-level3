@@ -95,7 +95,7 @@ public class ApiManager implements ApiInterface {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
             MovieResultsPage page = apiCall.getSearch().searchMovie(name,
-                    null, null, true, 1);
+                    null, null, false, 1);
 
 
             ApiUtil.extractMovies(movies, page, apiCall);
@@ -176,7 +176,9 @@ public class ApiManager implements ApiInterface {
                 for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
                     if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
                         int genreID = genreApi.getId();
-                        tvResultsPage tvPage = apiCall.getDiscover().getDiscover(new Discover().withGenres()).
+                        Discover discover = new Discover();
+                        discover.includeAdult(false).withGenres(genreID);
+                        MovieResultsPage tvPage = apiCall.getDiscover().getDiscover(discover);
                         ApiUtil.extractTvShows(tvShows, tvPage, apiCall);
                     }
                 }
@@ -186,7 +188,9 @@ public class ApiManager implements ApiInterface {
             notConnected();
             return tvShows;
         }
-    }*/
+    }
+
+    */
 
     /**
      * Returns a list of movies from the API search method.
@@ -197,16 +201,19 @@ public class ApiManager implements ApiInterface {
     public List<Movie> getMovieByGenre(Set<Genre> genreSet) throws OnlineConnectionException {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
+
             List<info.movito.themoviedbapi.model.Genre> genreList = apiCall.getGenre().getGenreList(null);
             for (Genre genreSearched : genreSet) {
                 for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
                     if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
                         int genreId = genreApi.getId();
-                        MovieResultsPage moviePage = apiCall.getGenre().getGenreMovies(genreId, null, 1, true);
+                        MovieResultsPage moviePage = apiCall.getGenre().getGenreMovies(genreId, null, 1,
+                                true);
                         ApiUtil.extractMovies(movies, moviePage, apiCall);
                     }
                 }
             }
+
             return movies;
         } catch (MovieDbException e) {
             notConnected();
