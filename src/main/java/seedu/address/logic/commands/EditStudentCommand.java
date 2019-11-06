@@ -85,7 +85,7 @@ public class EditStudentCommand extends Command {
 
         Student studentToEdit = lastShownList.get(index.getZeroBased());
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
-
+        
         if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         } else if (editedStudent.getParentPhone().toString().equals(editedStudent.getPhone().toString())) {
@@ -170,7 +170,7 @@ public class EditStudentCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, parentPhone, medicalCondition, email, address, tags);
         }
 
         public void setName(Name name) {
