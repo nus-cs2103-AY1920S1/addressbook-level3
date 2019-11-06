@@ -9,8 +9,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.elisa.commons.core.item.*;
+import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.core.item.Item.ItemBuilder;
+import seedu.elisa.commons.core.item.ItemDescription;
+import seedu.elisa.commons.core.item.Priority;
+import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.logic.commands.AddCommand;
 import seedu.elisa.logic.commands.AddReminderCommand;

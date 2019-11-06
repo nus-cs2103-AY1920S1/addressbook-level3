@@ -412,7 +412,7 @@ public class MainWindow extends UiPart<Stage> {
         } else if (targetList instanceof CalendarList) {
             calendarPanel = new CalendarPanel(logic.getVisualList());
             calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
-        } else {}
+        } else { }
     }
 
     public TaskListPanel getTaskListPanel() {
