@@ -17,6 +17,7 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.RegexUtil;
+import dream.fcard.util.stats.StatsDisplayUtil;
 
 /**
  * The enums are composed of three properties:
@@ -334,17 +335,12 @@ public enum Responses {
                     }
 
                     if (hasDeckName) {
-                        // Todo: Show Stats for Deck @nattanyz
+                        // todo: @PhireHandy where should I get the name of the deck?
+                        //StatsDisplayUtil.openDeckStatisticsWindow(deck);
                         return true;
                     } else {
                         // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
-                        //try {
-                        //    // show stats for the application
-                        //    StatisticsWindow statisticsWindow = new StatisticsWindow();
-                        //    Consumers.doTask(ConsumerSchema.OPEN_WINDOW, statisticsWindow);
-                        //} catch (Exception e) {
-                        //    e.printStackTrace();
-                        //}
+                        StatsDisplayUtil.openStatisticsWindow();
                         return true;
                     }
                 }
