@@ -10,8 +10,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showEarningsAtIndex;
 import static seedu.address.testutil.TypicalEarnings.getTypicalTutorAid;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +35,7 @@ public class UpdateEarningsCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Earnings editedEarnings = new EarningsBuilder().build();
         EditEarningsDescriptor descriptor = new UpdateEarningsDescriptorBuilder(editedEarnings).build();
-        UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_FIRST_PERSON, descriptor);
+        UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_FIRST, descriptor);
 
         String expectedMessage = String.format(UpdateEarningsCommand.MESSAGE_UPDATE_SUCCESS, editedEarnings);
 
@@ -74,8 +74,8 @@ public class UpdateEarningsCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         UpdateEarningsCommand updateEarningsCommand =
-                new UpdateEarningsCommand(INDEX_FIRST_PERSON, new EditEarningsDescriptor());
-        Earnings editedEarnings = model.getFilteredEarningsList().get(INDEX_FIRST_PERSON.getZeroBased());
+                new UpdateEarningsCommand(INDEX_FIRST, new EditEarningsDescriptor());
+        Earnings editedEarnings = model.getFilteredEarningsList().get(INDEX_FIRST.getZeroBased());
 
         String expectedMessage = String.format(UpdateEarningsCommand.MESSAGE_UPDATE_SUCCESS, editedEarnings);
 
@@ -86,12 +86,12 @@ public class UpdateEarningsCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showEarningsAtIndex(model, INDEX_FIRST_PERSON);
+        showEarningsAtIndex(model, INDEX_FIRST);
 
-        Earnings earningsInFilteredList = model.getFilteredEarningsList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Earnings earningsInFilteredList = model.getFilteredEarningsList().get(INDEX_FIRST.getZeroBased());
         Earnings editedEarnings = new EarningsBuilder(earningsInFilteredList)
                 .withDate(VALID_DATE_EARNINGS_CS1231_T05).build();
-        UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_FIRST_PERSON,
+        UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_FIRST,
                 new UpdateEarningsDescriptorBuilder().withDate(VALID_DATE_EARNINGS_CS1231_T05).build());
 
         String expectedMessage = String.format(UpdateEarningsCommand.MESSAGE_UPDATE_SUCCESS, editedEarnings);
@@ -104,20 +104,20 @@ public class UpdateEarningsCommandTest {
 
     @Test
     public void execute_duplicateEarningsUnfilteredList_failure() {
-        Earnings firstEarnings = model.getFilteredEarningsList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Earnings firstEarnings = model.getFilteredEarningsList().get(INDEX_FIRST.getZeroBased());
         EditEarningsDescriptor descriptor = new UpdateEarningsDescriptorBuilder(firstEarnings).build();
-        UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_SECOND_PERSON, descriptor);
+        UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_SECOND, descriptor);
 
         assertCommandFailure(updateEarningsCommand, model, UpdateEarningsCommand.MESSAGE_DUPLICATE_EARNINGS);
     }
 
     @Test
     public void execute_duplicateEarningsFilteredList_failure() {
-        showEarningsAtIndex(model, INDEX_FIRST_PERSON);
+        showEarningsAtIndex(model, INDEX_FIRST);
 
         // edit earnings in filtered list into a duplicate in address book
-        Earnings earningsInList = model.getTutorAid().getEarningsList().get(INDEX_SECOND_PERSON.getZeroBased());
-        UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_FIRST_PERSON,
+        Earnings earningsInList = model.getTutorAid().getEarningsList().get(INDEX_SECOND.getZeroBased());
+        UpdateEarningsCommand updateEarningsCommand = new UpdateEarningsCommand(INDEX_FIRST,
                 new UpdateEarningsDescriptorBuilder(earningsInList).build());
 
         assertCommandFailure(updateEarningsCommand, model, UpdateEarningsCommand.MESSAGE_DUPLICATE_EARNINGS);
@@ -139,8 +139,8 @@ public class UpdateEarningsCommandTest {
      */
     @Test
     public void execute_invalidEarningsIndexFilteredList_failure() {
-        showEarningsAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showEarningsAtIndex(model, INDEX_FIRST);
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTutorAid().getEarningsList().size());
 
@@ -152,11 +152,11 @@ public class UpdateEarningsCommandTest {
 
     @Test
     public void equals() {
-        final UpdateEarningsCommand standardCommand = new UpdateEarningsCommand(INDEX_FIRST_PERSON, DESC_CS2100);
+        final UpdateEarningsCommand standardCommand = new UpdateEarningsCommand(INDEX_FIRST, DESC_CS2100);
 
         // same values -> returns true
         EditEarningsDescriptor copyDescriptor = new EditEarningsDescriptor(DESC_CS2100);
-        UpdateEarningsCommand commandWithSameValues = new UpdateEarningsCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        UpdateEarningsCommand commandWithSameValues = new UpdateEarningsCommand(INDEX_FIRST, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -169,10 +169,10 @@ public class UpdateEarningsCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new UpdateEarningsCommand(INDEX_SECOND_PERSON, DESC_CS2100)));
+        assertFalse(standardCommand.equals(new UpdateEarningsCommand(INDEX_SECOND, DESC_CS2100)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new UpdateEarningsCommand(INDEX_FIRST_PERSON, DESC_CS1231)));
+        assertFalse(standardCommand.equals(new UpdateEarningsCommand(INDEX_FIRST, DESC_CS1231)));
     }
 
 }

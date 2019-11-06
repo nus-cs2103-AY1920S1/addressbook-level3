@@ -11,7 +11,7 @@ import seedu.address.model.note.NotesContainsKeywordsPredicate;
 /**
  * Parses input arguments and creates a new FindNotesCommand object
  */
-public class FindNotesCommandParser {
+public class FindNotesCommandParser implements Parser<FindNotesCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.

@@ -43,6 +43,11 @@ public class AddEarningsCommandParser implements Parser<AddEarningsCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
 
+        if (Amount.moreThanMaxValue(argMultimap.getValue(PREFIX_AMOUNT).get())) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+
+        Earnings.addToTotalEarnings(amount);
         Earnings earnings = new Earnings(date, classId, amount, type);
 
         return new AddEarningsCommand(earnings);

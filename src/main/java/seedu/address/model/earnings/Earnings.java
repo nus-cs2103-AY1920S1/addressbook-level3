@@ -2,8 +2,10 @@ package seedu.address.model.earnings;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.classid.ClassId;
 
 /**
@@ -12,25 +14,25 @@ import seedu.address.model.classid.ClassId;
  */
 public class Earnings {
 
-    private static Amount totalEarnings = new Amount("00.00");
+    private static ArrayList<Amount> totalEarnings = new ArrayList<>();
 
     // Identity fields
     private final Date date;
     private final ClassId classId;
     private final Amount amount;
     private final Type type;
+    private Claim claim;
 
     /**
      * Every field must be present and not null.
      */
     public Earnings(Date date, ClassId classId, Amount amount, Type type) {
-        requireAllNonNull(date, classId, amount);
+        requireAllNonNull(date, classId, amount, type);
         this.date = date;
         this.classId = classId;
         this.amount = amount;
-
         this.type = type;
-        addToTotalEarnings();
+        this.claim = new Claim("pending submission");
     }
 
     public Date getDate() {
@@ -49,13 +51,31 @@ public class Earnings {
         return type;
     }
 
-    public void addToTotalEarnings() {
-        totalEarnings = totalEarnings.addAmount(this.amount);
+    public Claim getClaim() {
+        return claim;
     }
 
-    public static Amount getTotalEarnings() {
-        return totalEarnings;
+    public void setClaim(Claim claim) {
+        this.claim = claim;
     }
+
+    public static String getTotalEarnings() {
+        double total = totalEarnings.stream().mapToDouble(Amount::doubleValue).sum();
+        return String.format("%.2f", total);
+    }
+
+    public static void addToTotalEarnings(Amount amt) {
+        totalEarnings.add(amt);
+    }
+
+    public static void replacePreviousEarnings(Index index, Amount amt) {
+        totalEarnings.set(index.getZeroBased(), amt);
+    }
+
+    public static void deleteEarnings(Index index) {
+        totalEarnings.remove(index.getZeroBased());
+    }
+
     /**
      * Returns true if both earnings of the same date and classId have an identity field that is the same.
      * This defines a weaker notion of equality between two earnings.

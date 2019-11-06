@@ -13,7 +13,7 @@ public class CommandWord {
             "Command word should not be blank!";
 
     /**
-     * The first character of the address must not be a whitespace,
+     * The first character of the action must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";

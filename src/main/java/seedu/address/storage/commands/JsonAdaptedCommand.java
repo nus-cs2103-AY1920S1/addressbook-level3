@@ -15,6 +15,8 @@ import seedu.address.model.commands.CommandWord;
 public class JsonAdaptedCommand {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "CommandObject's %s field is missing!";
+    public static final String COMMAND_WORD = "command word";
+    public static final String COMMAND_ACTION = "command action";
 
     private final String commandWord;
     private final String commandAction;
@@ -25,8 +27,8 @@ public class JsonAdaptedCommand {
     @JsonCreator
     public JsonAdaptedCommand(@JsonProperty("commandWord") String commandWord,
                                @JsonProperty("commandAction") String commandAction) {
-        this.commandAction = commandAction;
         this.commandWord = commandWord;
+        this.commandAction = commandAction;
     }
 
     /**
@@ -45,7 +47,7 @@ public class JsonAdaptedCommand {
     public CommandObject toModelType() throws IllegalValueException {
 
         if (commandAction == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, COMMAND_ACTION));
         }
         if (!CommandAction.isValidAction(commandAction)) {
             throw new IllegalValueException(CommandAction.MESSAGE_CONSTRAINTS);
@@ -53,7 +55,7 @@ public class JsonAdaptedCommand {
         final CommandAction modelAction = new CommandAction(commandAction);
 
         if (commandWord == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, COMMAND_WORD));
         }
         if (!CommandWord.isValidWord(commandWord)) {
             throw new IllegalValueException(CommandWord.MESSAGE_CONSTRAINTS);

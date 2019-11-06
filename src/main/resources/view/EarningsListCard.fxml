@@ -31,4 +31,5 @@
             <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
         </VBox>
     </GridPane>
+    <Label fx:id="claim" alignment="CENTER_RIGHT" text="\$claim" />
 </HBox>

@@ -19,14 +19,17 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.UpdateEarningsCommand.EditEarningsDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.util.EditPersonDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.TutorAid;
+import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.ClassIdContainKeywordPredicate;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.CommandObjectBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.UpdateEarningsDescriptorBuilder;
 
@@ -35,6 +38,8 @@ import seedu.address.testutil.UpdateEarningsDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String BASIC_COMMAND_ACTION_DELETE = "delete";
+    public static final String BASIC_COMMAND_WORD_DELETE = "delete";
     public static final String VALID_CLASSID_BOB = "CS2103";
     public static final String VALID_CLASSID_AMY = "CS2100";
     public static final String VALID_ATTENDANCE_BOB = "10";
@@ -101,8 +106,15 @@ public class CommandTestUtil {
     public static final String INVALID_AMOUNT_DESC =
             " " + PREFIX_AMOUNT + "323.332"; // Only 2 decimal places are allowed
 
-    public static final UpdateEarningsCommand.EditEarningsDescriptor DESC_CS2100;
-    public static final UpdateEarningsCommand.EditEarningsDescriptor DESC_CS1231;
+    public static final EditEarningsDescriptor DESC_CS2100;
+    public static final EditEarningsDescriptor DESC_CS1231;
+
+    public static final String VALID_USERNAME_ADRIAN = "amychoo";
+    public static final String VALID_USERNAME_BARBARA = "barbara";
+    public static final String VALID_PASSWORD_ADRIAN = "password123";
+    public static final String VALID_PASSWORD_BARBARA = "passingword123";
+
+    public static final CommandObject DELETE_COMMAND;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -119,6 +131,8 @@ public class CommandTestUtil {
         DESC_CS1231 = new UpdateEarningsDescriptorBuilder().withDate(VALID_DATE_EARNINGS_CS1231_T05)
                 .withType(VALID_TYPE_EARNINGS_CS1231_T05).withClassId(VALID_CLASSID_BOB)
                 .withAmount(VALID_AMOUNT_EARNINGS_CS1231_T05).build();
+        DELETE_COMMAND = new CommandObjectBuilder().withCommandWord(BASIC_COMMAND_WORD_DELETE)
+                .withCommandAction(BASIC_COMMAND_ACTION_DELETE).build();
     }
 
     /**

@@ -13,6 +13,7 @@ import seedu.address.logic.commands.AddEarningsCommand;
 import seedu.address.logic.commands.AssignClassCommand;
 import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
+import seedu.address.logic.commands.ClaimEarningsCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -125,6 +126,7 @@ public class TutorAidParser {
         TutorAidParser.commandList.put(SetPictureCommand.COMMAND_WORD, SetPictureCommand.COMMAND_WORD);
         TutorAidParser.commandList.put(UndoCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD);
         TutorAidParser.commandList.put(RedoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD);
+        ParserUtil.fillBasicCommands(TutorAidParser.commandList);
     }
 
     /**
@@ -225,6 +227,9 @@ public class TutorAidParser {
 
             case DeleteEarningsCommand.COMMAND_WORD:
                 return new DeleteEarningsCommandParser().parse(arguments);
+
+            case ClaimEarningsCommand.COMMAND_WORD:
+                return new ClaimEarningsCommandParser().parse(arguments);
 
             case FindTaskCommand.COMMAND_WORD:
                 return new FindTaskCommandParser().parse(arguments);

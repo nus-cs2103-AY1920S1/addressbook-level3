@@ -237,7 +237,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         reminderBox = new ReminderBox();
-        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -395,15 +394,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             CommandResult commandResult = logic.execute(commandText, this.unknown);
             if (this.unknown) {
                 if (!commandResult.isUnknown()) {
                     setUnknownFalse();
                 }
             }
-            //logger.info("Result: " + commandResult.getFeedbackToUser());
-            //resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            //reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -423,15 +420,10 @@ public class MainWindow extends UiPart<Stage> {
                 UiManager.startReminders();
             }
 
-
-
-
-
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
             return commandResult;
-
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

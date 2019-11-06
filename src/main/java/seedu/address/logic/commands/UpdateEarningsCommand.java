@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
+import seedu.address.model.earnings.Claim;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.Type;
@@ -29,7 +30,7 @@ public class UpdateEarningsCommand extends Command {
     public static final String COMMAND_WORD = "update_earnings";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits/Updates the earnings of the user "
-            + "by the index number used in the displayed person list. \n"
+            + "by the index number used in the displayed earnings list. \n"
             + "Existing values will be overwritten by the input values.\n"
 
             + "Parameters: INDEX (must be a positive integer) "
@@ -72,7 +73,9 @@ public class UpdateEarningsCommand extends Command {
         }
 
         Earnings earningsToEdit = lastShownList.get(index.getZeroBased());
+        Claim claim = earningsToEdit.getClaim();
         Earnings editedEarnings = createEditedEarnings(earningsToEdit, editEarningsDescriptor);
+        editedEarnings.setClaim(claim);
 
         if (!earningsToEdit.isSameEarnings(editedEarnings) && model.hasEarnings(editedEarnings)) {
             throw new CommandException(MESSAGE_DUPLICATE_EARNINGS);
@@ -148,7 +151,7 @@ public class UpdateEarningsCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(date, classId, amount);
+            return CollectionUtil.isAnyNonNull(date, classId, amount, type);
         }
 
         public void setDate(Date date) {
