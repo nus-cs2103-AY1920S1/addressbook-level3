@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+
 import seedu.address.logic.cap.parser.ParserUtil;
 import seedu.address.model.cap.person.Credit;
 import seedu.address.model.cap.person.Description;
@@ -13,7 +14,6 @@ import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Semester;
 import seedu.address.model.cap.person.Title;
 import seedu.address.model.common.Module;
-
 
 /**
  * Jackson-friendly version of {@link ModuleCode}.

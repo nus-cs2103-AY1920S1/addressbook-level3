@@ -31,6 +31,10 @@ public class Semester {
         return academicYear;
     }
 
+    public SemesterPeriod getSemesterPeriod() {
+        return semesterPeriod;
+    }
+
     /**
      * Compares if two modules are the same.
      * @param otherSemester module of comparison
@@ -44,10 +48,6 @@ public class Semester {
         return otherSemester != null
                 && otherSemester.getSemesterPeriod().equals(getSemesterPeriod())
                 && (otherSemester.getAcademicYear().equals(getAcademicYear()));
-    }
-
-    public SemesterPeriod getSemesterPeriod() {
-        return semesterPeriod;
     }
 
     /**
@@ -70,6 +70,6 @@ public class Semester {
 
     @Override
     public String toString() {
-        return "Y" + academicYear.toString() + "S" + semesterPeriod.toString();
+        return academicYear.toString() + "S" + semesterPeriod.toString();
     }
 }

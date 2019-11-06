@@ -176,25 +176,19 @@ Format: `clear`
 
 === Modules
 
-To enter the Module section please enter the command: `cap`
+To enter the Module section please enter the command: `switch cap`
 
 ==== Manually add module to record : `add`
 The user can add new modules to the a specific semester, even for future semesters.
 
-Format: `add MODULE_CODE YEAR_AND_SEMESTER`
-e.g. `add CS2103 1920S1`
+Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULE_DESCRIPTION MODULE_FACULTY MODULAR_CREDIT GRADE`
+e.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <d>This module introduces the necessary conceptual and analytical tools for systematic and rigorous development of software systems. It covers four main areas of software development, namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, with emphasis on system modelling and design and implementation of software modules that work cooperatively to fulfill the requirements of the system. Tools and techniques for software development, such as Unified Modelling Language (UML), program specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, program correctness, and software quality will also be covered. <f>Computing <c>4 <g>A`
 
 ==== Delete module from record : `delete`
 Delete a specific module from one of the selected semester.
 
-Format: `delete MODULE_CODE YEAR_AND_SEMESTER`
-e.g. `delete CS2103 1920S1`
-
-==== Edit details of a module : `edit`
-Edit the record of a module including specifications such as CAP and MC.
-
-Format: `edit MODULE_CODE YEAR_AND_SEMESTER`
-e.g. `edit CS2103 1920S1`
+Format: `delete MODULE_CODE`
+e.g. `delete CS2103`
 
 ==== Locating module by module code or title : `find`
 Finds the module with the module code or any module that contains the keyword entered by the user.
@@ -210,8 +204,8 @@ e.g. `find CS1010S`, `find Programming Methodology I`
 Deletes all modules in the record or delete all modules in a semester. The user can avoid clearing modules one-by-one when large number of modules have to be cleared.
 When the only single keyword `clear` is entered, Modulo would recognise it as a command to clear all the modules. As the action is not reversible, a notification would prompt the user to confirm this non-reversible action.
 
-Format: `clear [YEAR_AND_SEMESTER]`
-e.g. `clear 1920S2`
+Format: `clear`
+e.g. `clear`
 
 ==== Password protection [Coming in V2.0]
 Prevent unauthorised access to your grades.

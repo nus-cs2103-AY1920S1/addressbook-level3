@@ -27,7 +27,7 @@ class JsonSerializableCapLog {
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableCapLog(@JsonProperty("Module") List<JsonAdaptedModule> modules) {
+    public JsonSerializableCapLog(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
         this.modules.addAll(modules);
     }
 
