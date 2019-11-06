@@ -22,7 +22,6 @@ import seedu.deliverymans.model.customer.Address;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.storage.JsonAdaptedTag;
-import seedu.deliverymans.storage.order.JsonAdaptedOrder;
 
 /**
  * Jackson-friendly version of {@link Customer}.
@@ -37,7 +36,7 @@ public class JsonAdaptedCustomer {
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedTotalTags> totalTags = new ArrayList<>();
-    private final List<JsonAdaptedOrder> orders = new ArrayList<>();
+    private final String noOfOrders;
 
     /**
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
@@ -48,7 +47,7 @@ public class JsonAdaptedCustomer {
                                @JsonProperty("phone") String phone,
                                @JsonProperty("address") String address,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                               @JsonProperty("orders") List<JsonAdaptedOrder> orders) {
+                               @JsonProperty("noOfOrders") String noOfOrders) {
         this.userName = userName;
         this.name = name;
         this.phone = phone;
@@ -56,9 +55,7 @@ public class JsonAdaptedCustomer {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
-        if (orders != null) {
-            this.orders.addAll(orders);
-        }
+        this.noOfOrders = noOfOrders;
     }
 
     /**
@@ -75,9 +72,7 @@ public class JsonAdaptedCustomer {
         totalTags.addAll(source.getTotalTags().entrySet().stream()
                 .map(JsonAdaptedTotalTags::new)
                 .collect(Collectors.toList()));
-        orders.addAll(source.getOrders().stream()
-                .map(JsonAdaptedOrder::new)
-                .collect(Collectors.toList()));
+        noOfOrders = String.valueOf(source.getNoOfOrders());
     }
 
     /**
@@ -92,10 +87,6 @@ public class JsonAdaptedCustomer {
 
         for (JsonAdaptedTag tag : tagged) {
             customerTags.add(tag.toModelType());
-        }
-
-        for (JsonAdaptedOrder order : orders) {
-            customerOrders.add(order.toModelType());
         }
 
         for (JsonAdaptedTotalTags totalTag : totalTags) {
@@ -132,12 +123,18 @@ public class JsonAdaptedCustomer {
         }
         final Address modelAddress = new Address(address);
 
+        if (noOfOrders == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
+        }
+        final int modelNoOfOrders = Integer.parseInt(noOfOrders);
+
         final Set<Tag> modelTags = new HashSet<>(customerTags);
         final ObservableList<Order> modelOrders = FXCollections.observableArrayList();
         modelOrders.addAll(customerOrders);
         final ObservableMap<Tag, Integer> modelTotalTags = FXCollections.observableHashMap();
         modelTotalTags.putAll(customerTotalTags);
-        return new Customer(modelUserName, modelName, modelPhone, modelAddress, modelTags, modelTotalTags, modelOrders);
+        return new Customer(modelUserName, modelName, modelPhone, modelAddress, modelTags, modelTotalTags,
+                modelNoOfOrders);
     }
 
 }

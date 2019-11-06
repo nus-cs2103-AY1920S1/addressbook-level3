@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
@@ -54,7 +53,7 @@ public class EditOrderCommand extends Command {
     private static final String MESSAGE_ALREADY_COMPLETED = "The order cannot be edited as it is already completed!";
     private static final String MESSAGE_SUCCESS_EDIT = "Successful edition of order: %1$s";
     private static final LinkedList<Prefix> prefixesList = new LinkedList<>(
-            List.of(PREFIX_INDEX, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY));
+            List.of(PREFIX_NAME, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY));
 
     private final Name targetOrder;
     private final EditOrderDescriptor editOrderDescriptor;

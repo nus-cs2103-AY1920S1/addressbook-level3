@@ -21,7 +21,6 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
-import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -246,8 +245,7 @@ public class MainWindow extends UiPart<Stage> {
         System.out.println(commandName.getSimpleName());
         switch(commandName.getSimpleName()) {
         case "CustomerHistoryCommand":
-            Customer customer = logic.getCustomerOrders();
-            orderListPanel = new OrderListPanel(customer.getOrders());
+            orderListPanel = new OrderListPanel(logic.getCustomerOrders());;
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
             break;
         case "DeliverymanStatusSwitchCommand":

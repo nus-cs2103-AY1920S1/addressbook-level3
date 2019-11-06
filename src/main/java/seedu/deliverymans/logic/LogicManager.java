@@ -177,7 +177,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Customer getCustomerOrders() {
+    public ObservableList<Order> getCustomerOrders() {
         return model.getCustomerOrders();
     }
 

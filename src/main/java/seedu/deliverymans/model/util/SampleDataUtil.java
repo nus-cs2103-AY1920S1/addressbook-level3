@@ -39,19 +39,19 @@ public class SampleDataUtil {
         return new Customer[]{
             new Customer(new Name("AlexYeoh"), new Name("Alex Yeoh"), new Phone("87438807"),
                     new Address("Blk 30 Geylang Street 29, #06-40"),
-                    getTagSet("FastFood", "Western")),
+                    getTagSet("FastFood", "Western"), 1),
             new Customer(new Name("BerniceYu"), new Name("Bernice Yu"), new Phone("99272758"),
                     new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("Indian")),
+                    getTagSet("Indian"), 1),
             new Customer(new Name("CharlotteOliveiro"), new Name("Charlotte Oliveiro"), new Phone("93210283"),
                     new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getTagSet("Bar")),
+                    getTagSet("Bar"), 1),
             new Customer(new Name("DavidLi"), new Name("David Li"), new Phone("91031282"),
                     new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    getTagSet("Japanese")),
+                    getTagSet("Japanese"), 1),
             new Customer(new Name("IfranIbrahim"), new Name("Ifran Ibrahim"), new Phone("92492021"),
                     new Address("Blk 45 Aljunied Street 85, #11-31"),
-                    getTagSet("Barbeque"))
+                    getTagSet("Barbeque"), 1)
         };
     }
 
@@ -162,12 +162,6 @@ public class SampleDataUtil {
     public static ReadOnlyCustomerDatabase getSampleCustomerDatabase() {
         CustomerDatabase sampleCd = new CustomerDatabase();
         Customer[] sampleCustomerArray = getSampleCustomers();
-        Order[] sampleOrderArray = getSampleOrders();
-        sampleCustomerArray[0].addOrder(sampleOrderArray[0]);
-        sampleCustomerArray[1].addOrder(sampleOrderArray[1]);
-        sampleCustomerArray[2].addOrder(sampleOrderArray[2]);
-        sampleCustomerArray[3].addOrder(sampleOrderArray[3]);
-        sampleCustomerArray[4].addOrder(sampleOrderArray[4]);
         for (Customer sampleCustomer : sampleCustomerArray) {
             sampleCd.addCustomer(sampleCustomer);
         }

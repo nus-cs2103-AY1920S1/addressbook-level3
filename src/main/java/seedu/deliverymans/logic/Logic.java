@@ -50,7 +50,7 @@ public interface Logic {
      */
     ObservableList<Customer> getFilteredCustomerList();
 
-    Customer getCustomerOrders();
+    ObservableList<Order> getCustomerOrders();
 
     /**
      * Returns the user prefs' customer database file path.
