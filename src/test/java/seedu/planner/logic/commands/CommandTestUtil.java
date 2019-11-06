@@ -42,9 +42,6 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_TWENTY = "20";
     public static final String VALID_COST_HUNDRED = "100";
     public static final String VALID_COST_TWO_HUNDRED = "200";
-    public static final String VALID_ACTIVITY_COUNT = "6";
-
-
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -76,6 +73,8 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final Long VALID_ACTIVITY_COUNT = (long) 6;
 
     public static final EditContactCommand.EditContactDescriptor DESC_AMY;
     public static final EditContactCommand.EditContactDescriptor DESC_BOB;
