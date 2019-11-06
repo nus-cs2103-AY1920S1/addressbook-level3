@@ -24,7 +24,7 @@
            <Label fx:id="moduleCode" styleClass="cell_big_label" text="\$modulecode" />
             <Label fx:id="title" styleClass="cell_small_label" text="\$title" />
             <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
-            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+            <Label fx:id="description" styleClass="cell_small_label" text="\$description" wrapText="true"/>
             <Label fx:id="faculty" styleClass="cell_small_label" text="\$faculty" />
           </VBox>
          <Label fx:id="grade" styleClass="cell_extreme_label" text="\$grade">
