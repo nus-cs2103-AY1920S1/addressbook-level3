@@ -1,3 +1,4 @@
+// tag::visitmanagement[]
 Visit Management has 3 sections to it: the model that models the visits, the logic that allows users to manipulate these models and the UI.
 
 ==== Model
