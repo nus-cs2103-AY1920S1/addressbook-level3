@@ -186,8 +186,27 @@ Examples:
 * `show r`
 * `show c`
 
+
 [NOTE]
 The flag can be in either lowercase or uppercase. Eg. `show E`.
+
+=== Scrolling the list : `up` / `down`
+
+Scrolls the list up/down
+
+Examples:
+
+* `up`
+* `down`
+
+=== Changing the theme : `theme`
+
+Changes the theme of Elisa!
+
+Examples:
+
+* `theme white`
+* `theme black`
 
 === Editing an item : `edit`
 

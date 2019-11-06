@@ -10,19 +10,8 @@ public abstract class ScrollCommand extends Command {
 
     protected String pane;
 
-    public ScrollCommand(String input) {
-        switch(input.trim()) {
-        case "L":
-        case "l":
-            this.pane = "resultDisplay";
-            break;
-        case "R":
-        case "r":
-            this.pane = "tabPane";
-            break;
-        default:
-            this.pane = "Illegal";
-        }
+    public ScrollCommand() {
+        this.pane = "tabPane";
     }
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
