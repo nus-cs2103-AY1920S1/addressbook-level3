@@ -47,7 +47,8 @@ public class AddOrderCommand extends UndoableCommand {
             + PREFIX_TAG + "Urgent ";
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in SML.";
+    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in SML. "
+            + "The phone that you are trying to add is part of another order. ";
 
     private final Index toAddCustomerIndex;
     private final Index toAddPhoneIndex;
@@ -55,7 +56,7 @@ public class AddOrderCommand extends UndoableCommand {
     private final Set<Tag> toAddTags;
 
     /**
-     * Creates an AddCommand to add the specified {@code Order}
+     * Creates an AddOrderCommand to add the specified {@code Order}
      */
     public AddOrderCommand(Index customerIndex, Index phoneIndex, Price price, Set<Tag> tags) {
         requireNonNull(customerIndex);

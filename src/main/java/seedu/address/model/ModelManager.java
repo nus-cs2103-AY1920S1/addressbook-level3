@@ -3,7 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -20,19 +19,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
-import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
-
 
 /**
  * Represents the in-memory model of the SML data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
-    private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
 
     private final DataBook<Customer> customerBook;
     private final DataBook<Phone> phoneBook;
@@ -50,17 +44,15 @@ public class ModelManager implements Model {
     private final CalendarDate calendarDate;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
         this.customerBook = new DataBook<>();
         this.phoneBook = new DataBook<>();
@@ -78,7 +70,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new UserPrefs());
     }
 
     public ModelManager(ReadOnlyDataBook<Customer> customerBook, ReadOnlyDataBook<Phone> phoneBook,
@@ -105,10 +97,6 @@ public class ModelManager implements Model {
         this.filteredOrders = new FilteredList<>(this.orderBook.getList());
         this.filteredSchedules = new FilteredList<>(this.scheduleBook.getList());
         this.filteredArchivedOrders = new FilteredList<>(this.archivedOrderBook.getList());
-
-        this.addressBook = new AddressBook();
-        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
     }
 
     //=========== UserPrefs ==================================================================================
@@ -133,70 +121,6 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Customer} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
     }
 
     //=========== customerBook ================================================================================
@@ -736,6 +660,40 @@ public class ModelManager implements Model {
                 }
             }
         }
+
+        List<Schedule> schedules = scheduleBook.getList();
+
+        //Ensure that schedules that do not have an order attached to it in ScheduleBook are deleted
+        for (int i = schedules.size() - 1; i >= 0; i--) {
+
+            Schedule s = schedules.get(i);
+
+            boolean hasOrder = false;
+
+            for (int j = orders.size() - 1; j >= 0; j--) {
+
+                Order o = orders.get(j);
+
+                if (o.getSchedule().isPresent() && s.equals(o.getSchedule().get())) {
+                    hasOrder = true;
+                    break;
+                }
+            }
+
+            if (!hasOrder) {
+                scheduleBook.remove(s);
+            }
+        }
+
+        //Ensure that all schedules in OrderBook exist in ScheduleBook.
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order o = orders.get(i);
+
+            if (o.getSchedule().isPresent() && !scheduleBook.has(o.getSchedule().get())) {
+                scheduleBook.add(o.getSchedule().get());
+            }
+        }
+
     }
 
 

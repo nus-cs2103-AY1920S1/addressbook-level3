@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -44,7 +45,6 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
 
-    //private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
@@ -63,9 +63,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    /*@FXML
-    private StackPane personListPanelPlaceholder;*/
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -147,7 +144,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(Paths.get("data"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic);

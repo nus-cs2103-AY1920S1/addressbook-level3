@@ -41,7 +41,7 @@ public class AddCustomerCommand extends UndoableCommand {
     private final Customer toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Customer}
+     * Creates an AddCustomerCommand to add the specified {@code Customer}
      */
     public AddCustomerCommand(Customer customer) {
         requireNonNull(customer);
