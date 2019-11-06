@@ -85,6 +85,7 @@ public class ReadCardCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadCardCommand // instanceof handles nulls
-                && description.equals(((ReadCardCommand) other).description)); // state check
+                && description.equals(((ReadCardCommand) other).description)
+                && targetIndex.equals(((ReadCardCommand) other).targetIndex)); // state check
     }
 }
