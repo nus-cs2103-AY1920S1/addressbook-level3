@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -9,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIE_BREAK;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import seedu.address.logic.commands.editcommand.EditMentorCommand.EditMentorDescriptor;
@@ -54,6 +53,11 @@ public class CommandTestUtil {
     public static final String VALID_PROJECT_NAME_BRUCE = "Hackathon Batman";
     public static final int VALID_LOCATION_BRUCE = 2;
 
+    //Valid Tiebreak methods
+    public static final String VALID_TB_MORE_PARTICIPANTS = "moreParticipants";
+    public static final String VALID_TB_LESS_PARTICIPANTS = "lessParticipants";
+    public static final String VALID_RANDOM_KEYWORD = "random";
+
     public static final EditMentorDescriptor MENTOR_DESC_AMY;
     public static final EditMentorDescriptor MENTOR_DESC_BOB;
     public static final EditParticipantDescriptor PARTICIPANT_DESC_AMY;
@@ -86,6 +90,11 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    //Tiebreak method formatted
+    public static final String TIE_BREAK_DESC_MOREPARTICIPANTS = " " + PREFIX_TIE_BREAK + VALID_TB_MORE_PARTICIPANTS;
+    public static final String TIE_BREAK_DESC_LESSPARTICIPANTS = " " + PREFIX_TIE_BREAK + VALID_TB_LESS_PARTICIPANTS;
+    public static final String TIE_BREAK_DESC_RANDOM = " " + PREFIX_TIE_BREAK + VALID_RANDOM_KEYWORD;
+
     // Participant and Mentor formatted data
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -108,12 +117,6 @@ public class CommandTestUtil {
     public static final String SUBJECT_DESC_ALFRED = " " + PREFIX_SUBJECT_NAME + VALID_SUBJECT_ALFRED;
     public static final String SUBJECT_DESC_BRUCE = " " + PREFIX_SUBJECT_NAME + VALID_SUBJECT_BRUCE;
 
-    // Redundant and can be deleted
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-
     // Invalid data for tests
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PROJECT_NAME_DESC = " " + PREFIX_PROJECT_NAME
@@ -123,10 +126,8 @@ public class CommandTestUtil {
     public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISATION + "Y@hoo"; // invalid '@' symbol
     public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT_NAME + "Dance"; // invalid Subject Name
     public static final String INVALID_LOCATION_DESC = " " + PREFIX_LOCATION + "room5"; // Should be a number
-
-    // Redundant and can be deleted
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TIEBREAK_METHOD = " " + PREFIX_TIE_BREAK + "yes"; // Does not exist
+    public static final String MISSING_TIEBREAK_METHOD = " " + PREFIX_TIE_BREAK + "";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -140,6 +141,8 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
+            System.out.println(result.getFeedbackToUser());
+            System.out.println(expectedCommandResult.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {

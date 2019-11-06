@@ -9,20 +9,33 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.SimpleTopTeamsCommand;
-import seedu.address.logic.commands.TopTeamsCommand;
-import seedu.address.logic.commands.TopTeamsRandomCommand;
+import seedu.address.logic.commands.topteamscommand.SimpleTopTeamsCommand;
+import seedu.address.logic.commands.topteamscommand.TopTeamsCommand;
+import seedu.address.logic.commands.topteamscommand.TopTeamsRandomCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.Team;
 
 /**
- * Parses input arguments and creates a new GetTopTeamCommand object.
+ * Parses input arguments and creates a new {@link TopTeamsCommand} object.
  */
 public class GetTopTeamsCommandParser implements Parser<TopTeamsCommand> {
 
     private static final String METHOD_SPLIT_REGEX = "\\s+";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Parses the {@code userInput} and determines whether a new {@link SimpleTopTeamsCommand} or
+     * {@link TopTeamsRandomCommand} needs to be created and returned. If no tie-break methods are specified
+     * then a {@link SimpleTopTeamsCommand} object without any comparators is
+     * created and returned. However, if there are tie-break methods
+     * present, denoted by the prefix "tb" then the {@code parse} method will parse the tie-break methods specified
+     * and return a {@link SimpleTopTeamsCommand} with the appropriate comparators as arguments. If "random" is
+     * selected as a method of tie-break as well then a {@link TopTeamsRandomCommand} with the appropriate comparators
+     * will be created and returned.
+     *
+     * @return a new TopTeamCommands object.
+     * @throws ParseException if there user input is invalid.
+     */
     @Override
     public TopTeamsCommand parse(String userInput) throws ParseException {
         userInput = userInput.trim();

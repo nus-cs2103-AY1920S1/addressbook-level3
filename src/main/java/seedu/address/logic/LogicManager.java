@@ -61,11 +61,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Team> getTopKTeams() {
-        return model.getTopKTeams();
-    }
-
-    @Override
     public ObservableList<Mentor> getFilteredMentorList() {
         return model.getFilteredMentorList();
     }

@@ -17,8 +17,6 @@ public class LeaderboardUtil {
 
     public static final String RANDOM_KEYWORD = "random";
     public static final String RANDOM_USAGE_WARNING = "Random must be the last specified tie-breaking method.";
-    public static final String INVALID_TIE_BREAK = "The tie-break method specified does not exist or is not "
-            + "supported by Alfred: ";
 
     /**
      * Gets the top {@code k} teams in the hackathon based on the current standing

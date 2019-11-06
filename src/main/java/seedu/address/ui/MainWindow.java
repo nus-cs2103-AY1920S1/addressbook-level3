@@ -232,16 +232,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays the top K teams on the Graphical User Interface.
-     */
-    @FXML
-    private void displayTopK() {
-        entityListPanel = new EntityListPanel(logic.getTopKTeams());
-
-        listPanelPlaceholder.getChildren().set(0, entityListPanel.getRoot());
-    }
-
-    /**
      * Displays the list of Teams in Model and Storage on Graphical User Interface.
      */
     @FXML
@@ -345,10 +335,6 @@ public class MainWindow extends UiPart<Stage> {
                 this.fireButton(leaderboardButton);
                 lastFired = leaderboardButton;
                 break;
-            case K:
-                displayTopK();
-                break;
-
             default:
                 logger.info("The command does not edit any of the list of Entity");
                 break;

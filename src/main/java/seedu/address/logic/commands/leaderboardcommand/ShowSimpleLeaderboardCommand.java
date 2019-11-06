@@ -20,7 +20,6 @@ import seedu.address.model.entity.Team;
 public class ShowSimpleLeaderboardCommand extends LeaderboardCommand {
 
     public static final String MESSAGE_SUCCESS = "Showing Leaderboard as it Stands.";
-    private static final String MESSAGE_LEADERBOARD_HEADER = "Current Standings of Teams: ";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     public ShowSimpleLeaderboardCommand(ArrayList<Comparator<Team>> comparators) {
@@ -30,13 +29,20 @@ public class ShowSimpleLeaderboardCommand extends LeaderboardCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        assert comparators != null : "The comparators list should not be null";
+        checkNoTeams(model);
         model.setSimpleLeaderboard(comparators);
 
-        System.out.println(MESSAGE_LEADERBOARD_HEADER);
         logger.info("Showing Leaderboard.");
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.L);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ShowSimpleLeaderboardCommand // instanceof handles nulls
+                && comparators.equals(((ShowSimpleLeaderboardCommand) other).comparators));
+    }
 }

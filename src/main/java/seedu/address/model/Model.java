@@ -99,8 +99,6 @@ public interface Model {
 
     SortedList<Team> getSortedTeamList();
 
-    SortedList<Team> getTopKTeams();
-
     void resetFilteredLists();
 
     /* Below is the API exposed for the controllers to call */
@@ -160,8 +158,6 @@ public interface Model {
     List<Team> findTeam(Predicate<Team> predicate);
 
     List<Mentor> findMentor(Predicate<Mentor> predicate);
-
-    void setLeaderboardWithRandom(ArrayList<Comparator<Team>> comparators);
 
     void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators);
 
