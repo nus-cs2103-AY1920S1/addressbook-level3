@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_ADD_EVENT_DUPLICATE;
+import static seedu.address.commons.core.Messages.MESSAGE_IMPORT_ICS_DUPLICATE;
 import static seedu.address.commons.core.Messages.MESSAGE_IMPORT_ICS_SUCCESS;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class ImportIcsCommand extends Command {
         try {
             model.setModelData(new ModelData(events, tasks));
         } catch (DuplicateElementException e) {
-            throw new CommandException(MESSAGE_ADD_EVENT_DUPLICATE);
+            throw new CommandException(MESSAGE_IMPORT_ICS_DUPLICATE);
         }
 
         return new UserOutput(String.format(MESSAGE_IMPORT_ICS_SUCCESS, filepath));

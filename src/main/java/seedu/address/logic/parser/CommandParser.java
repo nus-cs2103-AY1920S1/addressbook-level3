@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandBuilder;
+import seedu.address.logic.commands.exceptions.ArgumentException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -88,7 +89,7 @@ public class CommandParser implements Parser<Command> {
 
         try {
             return this.commandBuilder.build();
-        } catch (Exception e) {
+        } catch (ArgumentException e) {
             throw new ParseException(e.getMessage());
         }
     }

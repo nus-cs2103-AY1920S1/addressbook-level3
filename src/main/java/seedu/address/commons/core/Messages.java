@@ -55,6 +55,8 @@ public class Messages {
     /* Ics */
     public static final String MESSAGE_IMPORT_ICS_SUCCESS = "ICS file at %s has been successfully imported!";
     public static final String MESSAGE_EXPORT_ICS_SUCCESS = "Horo has successfully been exported at the filepath: %s";
+    public static final String MESSAGE_IMPORT_ICS_DUPLICATE = "Unable to import:"
+        + " A duplicate event or task already exists!";
 
     /* Notifications */
     public static final String MESSAGE_NOTIFICATION_OFF = "Notifications have been turned off.";
