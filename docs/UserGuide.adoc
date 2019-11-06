@@ -455,6 +455,11 @@ Format: `addgroup g/GROUP_NAME [d/GROUP_DESCRIPTION] [r/GROUP_REMARK] [role/USER
 * A group can be optionally created with a description, a remark, and your role in the Group.
 ****
 
+[IMPORTANT]
+====
+include::UserGuide.adoc[tag=alice-full]
+====
+
 Examples:
 
 * `addgroup g/Friends` +
@@ -502,6 +507,11 @@ Format: `show g/GROUP_NAME`
 ****
 * Shows the description, members and aggregated schedules for this group.
 ****
+
+[IMPORTANT]
+====
+include::UserGuide.adoc[tag=alice-full]
+====
 
 Examples:
 
