@@ -99,6 +99,7 @@ public class Entry {
         }
 
         return otherEntry != null
+                && otherEntry.getType().equals(getType())
                 && otherEntry.getCategory().equals(getCategory())
                 && otherEntry.getDesc().equals(getDesc())
                 && otherEntry.getAmount().equals(getAmount())

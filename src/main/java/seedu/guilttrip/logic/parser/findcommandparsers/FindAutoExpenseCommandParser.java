@@ -22,6 +22,7 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsCategoryPredicate;
@@ -63,7 +64,7 @@ public class FindAutoExpenseCommandParser implements Parser<FindAutoExpenseComma
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-            predicateList.add(new EntryContainsCategoryPredicate(name));
+            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, "Expense")));
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
