@@ -150,7 +150,7 @@ Format: `reminder DESCRIPTION -r REMINDER [-t TAG]`
 
 Examples:
 
-* `reminder John’s Birthday -r 19/09/2019 14:00`
+* `reminder John’s Birthday -r 19/09/2019 1400`
 * `reminder John’s Birthday -r 2019-09-19T14:00 -t friend`
 * `reminder John's Birthday -r 3.day.later`
 
