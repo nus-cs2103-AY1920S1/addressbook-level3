@@ -1002,12 +1002,12 @@ image::/images/FinancialTrackerHelp3.png[]
 === Sort out your expense list: ``sort``
 Sort your expenses according your needs!
 
-The _Command Word_ is ``sort`` with parameters "date", "time", "amount" or "default". +
+The _Command Word_ is ``sort`` with parameters "date", "time", "amount", "type" or "default". +
 "default": Sort by default, which is sorting by dates followed by time.
 
 This command sort your current expense list according to the stated specification in decensing order.
 
-Format: ``sort date`` | ``sort time`` | ``sort amount`` | ``sort default``
+Format: ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
 
 Example: to sort by amount
 

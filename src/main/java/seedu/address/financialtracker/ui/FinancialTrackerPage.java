@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.logic.FinancialTrackerLogic;
+import seedu.address.financialtracker.model.FinancialTracker;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.storage.FinancialTrackerStorage;
 import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
@@ -64,14 +65,11 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    public FinancialTrackerPage() {
+    public FinancialTrackerPage(FinancialTrackerLogic logic) {
         super(FXML);
         this.helpMenuWindow = new HelpWindow();
         this.codeWindow = new CodeWindow();
-        Model model = new Model();
-        FinancialTrackerStorage financialTrackerStorage =
-                new JsonFinancialTrackerStorage(Paths.get("data", "financialtracker.json"));
-        this.financialTrackerLogic = new FinancialTrackerLogic(model, financialTrackerStorage);
+        this.financialTrackerLogic = logic;
         this.helpWindow = new FinancialTrackerHelpWindow();
         financialTrackerScene = new Scene(financialTrackerPane);
         fillInnerParts();

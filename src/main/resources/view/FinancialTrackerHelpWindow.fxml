@@ -119,8 +119,8 @@
                                              </ToolBar>
                                              <ToolBar prefHeight="46.0" prefWidth="498.0">
                                                 <items>
-                                                   <Label prefHeight="34.0" prefWidth="346.0" text="Sort expense: sort amount | sort date | sort time | sort default" wrapText="true" />
-                                                   <Region prefHeight="36.0" prefWidth="52.0" />
+                                                   <Label prefHeight="34.0" prefWidth="383.0" text="Sort expense: sort amount | sort date | sort time | sort type | sort default" wrapText="true" />
+                                                   <Region prefHeight="38.0" prefWidth="13.0" />
                                                    <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
                                                 </items>
                                              </ToolBar>

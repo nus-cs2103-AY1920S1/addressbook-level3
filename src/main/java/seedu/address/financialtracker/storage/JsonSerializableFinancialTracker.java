@@ -48,7 +48,7 @@ public class JsonSerializableFinancialTracker {
     }
 
     /**
-     * Converts this address book into the financialTrackerModel's {@code FinancialTracker} object.
+     * Converts this financial tracker into the financialTrackerModel's {@code FinancialTracker} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -56,7 +56,11 @@ public class JsonSerializableFinancialTracker {
         FinancialTracker financialTracker = new FinancialTracker();
         for (JsonAdaptedExpense jsonAdaptedExpense : expenses) {
             Expense expense = jsonAdaptedExpense.toModelType();
-            financialTracker.addExpense(expense, expense.getCountry());
+            try {
+                financialTracker.addExpense(expense, expense.getCountry());
+            } catch (NullPointerException e) {
+                throw new IllegalValueException("File corrupted");
+            }
         }
         return financialTracker;
     }
