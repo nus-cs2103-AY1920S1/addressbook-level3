@@ -1,6 +1,8 @@
 package seedu.deliverymans.ui;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,7 +31,65 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         this.logic = logic;
-        // this.commandTextFieldfield = new AutocompletionTextField();
+
+        setListener();
+    }
+
+
+    //@@author soilingrogue-reused
+    //Reused from https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
+
+    /**
+     * Setting listener for CommandBox text field.
+     */
+    private void setListener() {
+        //Add "suggestions" by changing text
+        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            String enteredText = commandTextField.getText();
+            //always hide suggestion if nothing has been entered
+            // (only "spacebars" are dissalowed in TextFieldWithLengthLimit)
+            if (enteredText == null) {
+                commandTextField.hideEntriesPopup();
+            } else {
+                //Add autocomplete results to commandTextField entries
+                LinkedList<String> temp = logic.getAutoCompleteResults(enteredText);
+                commandTextField.getEntries().clear();
+                commandTextField.getEntries().addAll(temp);
+
+                int slash = enteredText.lastIndexOf("/");
+                if (slash != -1) {
+                    enteredText = enteredText.substring(slash + 1);
+                }
+                List<String> filteredEntries = getFilteredEntries(enteredText);
+
+                //some suggestions are found
+                if (!filteredEntries.isEmpty()) {
+                    //build popup - list of "CustomMenuItem"
+                    commandTextField.populatePopup(filteredEntries, enteredText);
+                    if (!commandTextField.getEntriesPopup().isShowing()) { //optional
+                        //position of popup
+                        commandTextField.show();
+                    }
+                    //no suggestions -> hide
+                } else {
+                    commandTextField.hideEntriesPopup();
+                }
+            }
+        });
+
+        // Hide always by focus-in (optional) and out
+        commandTextField.focusedProperty().addListener((observableValue, oldValue, newValue) -> {
+            commandTextField.hideEntriesPopup();
+        });
+    }
+
+    /**
+     * tofill.
+     */
+    private List<String> getFilteredEntries(String enteredText) {
+        return commandTextField.getEntries().stream()
+                .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -42,26 +102,6 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
-        }
-    }
-
-    /**
-     * Handles the Key pressed event.
-     */
-    @FXML
-    private void handleKeyPressed() {
-        String enteredText = commandTextField.getText();
-        if (enteredText != null && !enteredText.isEmpty()) {
-            LinkedList<String> temp = logic.getAutoCompleteResults(enteredText);
-            if (!temp.isEmpty()) {
-                for (String s : temp) {
-                    System.out.println(s);
-                }
-            }
-            commandTextField.getEntries().clear();
-            commandTextField.getEntries().addAll(temp);
-            System.out.println(commandTextField.getText());
-            // System.out.println("Clearing and adding entries");
         }
     }
 
