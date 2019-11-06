@@ -46,7 +46,7 @@ public class AddCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entity to Mortago.\n"
             + "Please refer to the User Guide for more details on how to add an entity";
 
-    public static final String MESSAGE_SUCCESS = "New %1$s added.";
+    public static final String MESSAGE_SUCCESS = "New %1$s added. ID Number: %2$s";
     public static final String MESSAGE_DUPLICATE_ENTITY = "This entity already exists in Mortago";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid adding this entity: %1$s";
 
@@ -106,7 +106,7 @@ public class AddCommand extends UndoableCommand {
         model.addExecutedCommand(this);
         Platform.runLater(() -> model.updateFilteredFridgeList(fridge -> true));
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                toAdd instanceof Body ? "body" : (toAdd instanceof Worker ? "worker" : "fridge")));
+                toAdd instanceof Body ? "body" : (toAdd instanceof Worker ? "worker" : "fridge"), toAdd.getIdNum()));
     }
 
     //@@author ambervoong
@@ -133,7 +133,7 @@ public class AddCommand extends UndoableCommand {
         setRedoable();
         model.addUndoneCommand(this);
 
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd.getIdNum()));
     }
     //@@author
 

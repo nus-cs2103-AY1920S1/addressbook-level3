@@ -39,6 +39,7 @@ public class WorkerListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new WorkerCard(worker, getIndex() + 1).getRoot());
+                //setWrapText(true);
             }
         }
     }
