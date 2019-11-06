@@ -1,0 +1,56 @@
+= Tan YuGin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+Hello, I'm YuGin, a Computer Science undergraduate at the National University of Singapore (NUS).
+
+== PROJECT: T.A.rence
+
+== Overview
+
+T.A.rence is a module and class management system aimed at teaching assistants (TAs) in universities. It helps TAs manage student- and assignment-related data and tasks, and is optimised for users who are proficient in speed-typing.
+
+== Summary of contributions
+
+* *Major enhancement*: Added autocorrect and autocomplete systems to the input field.
+** What it does: Autocorrect picks out minor mistakes in fields like student names and module codes, and suggests similar valid commands. Autocomplete provides suggestions to complete partial inputs by the user.
+** Justification: As a CLI-focused application, the user will likely do a considerable amount of typing. Especially for longer commands, an autocorrect feature can save the user from having to retype lengthy lines of text. Meanwhile, autocomplete helps the user fill in names, a useful feature if the TA has a large number of students or classes.
+
+* *Minor enhancement*: Added a command history feature that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*:
+
+[link:https://github.com/AY1920S1-CS2103-T14-2/main/commits/master?author=lumos309[Commits]],
+[link:https://github.com/AY1920S1-CS2103-T14-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Alumos309+[Pull Requests]],
+[link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lumos309&tabRepo=AY1920S1-CS2103-T14-2%2Fmain%5Bmaster%5D[RepoSense Dashboard]].
+
+
+* *Other contributions*:
+
+** Coming soon...
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include:: https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/UserGuide.adoc#enhancements[enhancements]
+
+Parts of the main features:
+
+include:: https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/UserGuide.adoc#3-features[features]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include:: https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/DeveloperGuide.adoc#Design-Logic[Logic]
+
+include:: https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/DeveloperGuide.adoc#autocorrect-feature[Autocorrect]
+
+include:: https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/DeveloperGuide.adoc#autocomplete-feature[Autocomplete]
