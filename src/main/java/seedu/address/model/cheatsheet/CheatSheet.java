@@ -7,9 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
