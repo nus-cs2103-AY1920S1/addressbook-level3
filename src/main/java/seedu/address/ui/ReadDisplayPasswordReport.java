@@ -4,16 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import javafx.util.Callback;
 import seedu.address.model.password.analyser.report.AnalysisReport;
 import seedu.address.model.password.analyser.report.StrongAnalysisReport;
 
@@ -50,11 +50,33 @@ public class ReadDisplayPasswordReport extends UiPart<Region> {
             AnalysisReport a = (AnalysisReport) analysisReport;
             for (int i = 0; i < a.getResults().size(); i++) {
                 Label label = new Label(a.getTargetHeader(i));
-                TableView table = new TableView();
+                TableView table = new TableView<AnalysisReport>();
                 table.setFixedCellSize(25);
-
                 TableColumn one = new TableColumn("Description");
                 one.setCellValueFactory(new PropertyValueFactory("passwordDesc"));
+                //one.setCellFactory(new Callback<TableColumn, TableCell>() {
+                //
+                //                    @Override
+                //                    public TableCell call(TableColumn param) {
+                //                        return new TableCell<AnalysisReport, String>() {
+                //
+                //                            @Override
+                //                            public void updateItem(String item, boolean empty) {
+                //                                super.updateItem(item, empty);
+                //
+                //                                if(isEmpty()) {
+                //                                    setText("");
+                //                                } else {
+                //
+                //                                    //setTextFill(Color.RED);
+                //                                    setFont(f);
+                //                                    setText(item);
+                //                                }
+                //                            }
+                //                        };
+                //                    }
+                //                });
+                //
                 TableColumn two = new TableColumn("Username");
                 two.setCellValueFactory(new PropertyValueFactory("passwordUser"));
                 TableColumn three = new TableColumn("Password");
