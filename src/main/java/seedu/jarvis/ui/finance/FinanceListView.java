@@ -33,6 +33,10 @@ public class FinanceListView extends View<AnchorPane> {
     private Label installmentListHeader;
     @FXML
     private Label statisticHeader;
+    @FXML
+    private Label spentAmountHeader;
+    @FXML
+    private Label remainingAmountHeader;
 
     public FinanceListView(MainWindow mainWindow, Logic logic, Model model) {
 
@@ -47,14 +51,18 @@ public class FinanceListView extends View<AnchorPane> {
         installmentListView.setItems(model.getFilteredInstallmentList());
         installmentListView.setCellFactory(listView -> new InstallmentListViewCell());
 
-        spentAmount.setText("Monthly expenses: $" + model.getTotalSpending() + "");
+        spentAmount.setText("$" + model.getTotalSpending() + "");
+        if (model.calculateRemainingAmount() > 0) {
+            remainingAmount.setText("$" + model.getRemainingAmount() + "");
+        } else {
+            remainingAmount.setText("try 'set-limit'!");
+        }
+
         purchaseListHeader.setText("What I bought this month...");
         installmentListHeader.setText("What I pay for monthly...");
-        statisticHeader.setText("Statistics");
-
-        if (model.calculateRemainingAmount() > 0) {
-            remainingAmount.setText("Remaining spending: " + model.calculateRemainingAmount() + "");
-        }
+        statisticHeader.setText("Statistics: finance");
+        spentAmountHeader.setText("Expenses This Month");
+        remainingAmountHeader.setText("Remaining Spending");
     }
 
     /**

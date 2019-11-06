@@ -20,7 +20,7 @@ public class TypicalFinances {
     public static FinanceTracker getTypicalFinanceTracker() {
         FinanceTracker financeTracker = new FinanceTracker();
         for (Purchase purchase : getTypicalPurchases()) {
-            financeTracker.addSinglePurchase(purchase);
+            financeTracker.addPurchaseToBack(purchase);
         }
         for (Installment installment : getTypicalInstallments()) {
             financeTracker.addInstallment(installment);
