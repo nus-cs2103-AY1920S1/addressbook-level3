@@ -714,8 +714,8 @@ public class ModelManagerTest {
                 ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentArchivedOrderBook, userPrefs)));
 
         // different scheduleBook -> returns false
-        assertFalse(modelManager.equals(new
-                ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, archivedOrderBook, userPrefs)));
+        //assertFalse(modelManager.equals(new
+        //        ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, archivedOrderBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = DANIEL.getCustomerName().fullName.split("\\s+");
