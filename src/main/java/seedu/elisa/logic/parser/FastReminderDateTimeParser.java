@@ -16,8 +16,7 @@ import seedu.elisa.logic.parser.exceptions.ParseException;
 public class FastReminderDateTimeParser implements DateTimeParser {
 
     private static final String MESSAGE_BEYOND_RANGE = "That's a bit too far don't you think? "
-            + "I can only accept integers less than 100. For example: 100.day.later or 2.min.later";
-
+            + "I can only accept positive integers less than 100. For example: 100.day.later or 2.min.later";
     private static final String DAY_INDICATOR = "DAY";
     private static final String HOUR_INDICATOR = "HOUR";
     private static final String MIN_INDICATOR = "MIN";
@@ -42,10 +41,9 @@ public class FastReminderDateTimeParser implements DateTimeParser {
 
         final String quantity = matcher.group("quantity");
         final String unit = matcher.group("unit");
-        final long longQuantity = Long.valueOf(quantity).longValue();
+        final int intQuantity = Integer.valueOf(quantity);
 
-        System.out.println(quantity);
-        if (Long.valueOf(quantity) > 100) {
+        if (intQuantity > 100) {
             throw new FastReminderParseException(MESSAGE_BEYOND_RANGE);
         }
 
@@ -55,13 +53,13 @@ public class FastReminderDateTimeParser implements DateTimeParser {
         try {
             switch (unit) {
             case DAY_INDICATOR:
-                processedDateTime = current.plusDays(longQuantity);
+                processedDateTime = current.plusDays(intQuantity);
                 break;
             case HOUR_INDICATOR:
-                processedDateTime = current.plusHours(longQuantity);
+                processedDateTime = current.plusHours(intQuantity);
                 break;
             case MIN_INDICATOR:
-                processedDateTime = current.plusMinutes(longQuantity);
+                processedDateTime = current.plusMinutes(intQuantity);
                 break;
             default:
                 // nothing

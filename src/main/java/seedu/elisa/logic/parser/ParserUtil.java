@@ -267,6 +267,7 @@ public class ParserUtil {
                 invalidFormat = true;
                 parseException = fp;
             } catch (MidnightParseException mp) {
+                invalidFormat = true;
                 String formatted = String.format(MESSAGE_MIDNIGHT, mp.getMessage());
                 parseException = new ParseException(formatted);
             } catch (InvalidDateException de) {
