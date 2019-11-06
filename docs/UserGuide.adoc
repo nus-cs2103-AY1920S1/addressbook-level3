@@ -360,6 +360,7 @@ Displays current stored exchange rates. +
 * If AMOUNT and CURRENCYCODE are specified, the indicated values are converted to SGD.
 * CURRENCYCODE can be `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
 * Entering `SGD` as CURRENCYCODE will display an error since the entered value is already in SGD.
+* Due to network limitations, exchange rates are fixed and locally stored. Note that exchange rates may vary across different websites.
 ****
 
 *Example:*
