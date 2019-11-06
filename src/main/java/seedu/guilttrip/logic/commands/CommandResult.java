@@ -277,7 +277,7 @@ public class CommandResult {
                 && changeFont == otherCommandResult.changeFont
                 && entryToList.equals(otherCommandResult.entryToList)
                 && changeTheme == otherCommandResult.changeTheme
-                && newTheme.equals(otherCommandResult.newTheme);
+                && newTheme == (otherCommandResult.newTheme);
     }
 
     @Override
