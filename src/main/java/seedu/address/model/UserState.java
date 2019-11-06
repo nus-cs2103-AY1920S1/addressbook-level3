@@ -81,6 +81,10 @@ public class UserState implements ReadOnlyUserState {
         bankAccount.setBudget(budgetTarget, budgetEdit);
     }
 
+    public void set(LedgerOperation target, LedgerOperation source) {
+        ledger.set(target, source);
+    }
+
     public void set(List<BankAccountOperation> transactionHistory) {
         bankAccount.setTransactions(transactionHistory);
     }

@@ -58,6 +58,10 @@ public class Ledger implements ReadOnlyLedger {
     }
 
     // TODO: test
+    /**
+     * Removes person from {@code people} that is not in deficit or surplus.
+     *
+     */
     private void removePeopleWithNoBalance() {
         List<Person> filtered = people.asUnmodifiableObservableList().stream()
                 .filter(person -> !person.getBalance().equals(Amount.zero()))
@@ -121,5 +125,9 @@ public class Ledger implements ReadOnlyLedger {
         return this.pot.equals(otherLedger.pot)
             && this.people.equals(otherLedger.people)
             && this.ledgerHistory.equals(otherLedger.ledgerHistory);
+    }
+
+    public void set(LedgerOperation target, LedgerOperation source) {
+        ledgerHistory.set(target, source);
     }
 }

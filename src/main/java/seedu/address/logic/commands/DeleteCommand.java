@@ -99,7 +99,7 @@ public class DeleteCommand extends Command {
             ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_INDEX);
             }
 
             LedgerOperation ledgerToDelete = lastShownList.get(targetIndex.getZeroBased());
