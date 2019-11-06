@@ -7,7 +7,7 @@ import java.util.Arrays;
 import seedu.address.logic.commands.questioncommands.FindQuestionCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.question.BodyContainsKeywordsPredicate;
+import seedu.address.model.question.QuestionContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindQuestionCommand object
@@ -28,7 +28,7 @@ public class FindQuestionCommandParser implements Parser<FindQuestionCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindQuestionCommand(new BodyContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindQuestionCommand(new QuestionContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

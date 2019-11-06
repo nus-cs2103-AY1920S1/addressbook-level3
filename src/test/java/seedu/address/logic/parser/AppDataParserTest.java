@@ -28,8 +28,8 @@ import seedu.address.logic.commands.questioncommands.ListQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.TitleContainsKeywordsPredicate;
-import seedu.address.model.question.BodyContainsKeywordsPredicate;
 import seedu.address.model.question.Question;
+import seedu.address.model.question.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 import seedu.address.testutil.EditQuestionDescriptorBuilder;
 import seedu.address.testutil.NoteBuilder;
@@ -124,7 +124,7 @@ class AppDataParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindQuestionCommand command = (FindQuestionCommand) parser.parseCommand(
                 FindQuestionCommand.COMMAND_WORD + " " + String.join(" ", keywords));
-        assertEquals(new FindQuestionCommand(new BodyContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindQuestionCommand(new QuestionContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
