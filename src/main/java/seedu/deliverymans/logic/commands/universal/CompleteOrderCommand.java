@@ -1,13 +1,16 @@
 package seedu.deliverymans.logic.commands.universal;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.order.Order;
@@ -21,14 +24,19 @@ public class CompleteOrderCommand extends Command {
     public static final String COMMAND_WORD = "-complete_order";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Completes the order identified by the index used in the displayed order list.\n"
-            + "Parameters: ORDERNAME\n"
-            + "Example: " + COMMAND_WORD + "Order 1";
+            + ": Completes the order identified by the order name used in the displayed order list.\n"
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "ORDERNAME]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Order 1";
 
     private static final String MESSAGE_COMPLETE_ORDER_SUCCESS = "Order completed: %1$s";
     private static final String MESSAGE_ALREADY_COMPLETED = "The order is already completed!";
     private static final String MESSAGE_INVALID_DELIVERYMAN = "The order needs "
             + "an assigned deliveryman before it can be completed!";
+    private static final LinkedList<Prefix> prefixesList = new LinkedList<>(List.of(PREFIX_NAME));
+
+
     private final Name targetOrder;
 
     public CompleteOrderCommand(Name targetOrder) {
@@ -67,5 +75,9 @@ public class CompleteOrderCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete));
+    }
+
+    public static LinkedList<Prefix> getPrefixesList() {
+        return prefixesList;
     }
 }

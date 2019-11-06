@@ -33,7 +33,7 @@ public class EditOrderCommand extends Command {
     public static final String COMMAND_WORD = "-edit_order";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits an order present in the manager by its given index used in the displayed order list. "
+            + ": Edits an order present in the manager by the order name used in the displayed order list. "
             + "Parameters: "
             + "[" + PREFIX_NAME + "ORDERNAME]\n"
             + "[" + PREFIX_CUSTOMER + "CUSTOMER]\n"

@@ -1,11 +1,20 @@
 package seedu.deliverymans.logic.commands.universal;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.order.Order;
@@ -18,11 +27,14 @@ public class DeleteOrderCommand extends Command {
     public static final String COMMAND_WORD = "-delete_order";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the order identified by the index used in the displayed order list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " Order 1";
+            + ": Deletes the order identified by the order name used in the displayed order list.\n"
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "ORDERNAME]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Order 1";
 
     private static final String MESSAGE_DELETE_ORDER_SUCCESS = "Deleted Order: %1$s";
+    private static final LinkedList<Prefix> prefixesList = new LinkedList<>(List.of(PREFIX_NAME));
 
     private final Name targetOrder;
 
@@ -43,6 +55,10 @@ public class DeleteOrderCommand extends Command {
         model.deleteOrder(orderToDelete);
         model.updateDeliverymanStatusAfterChangesToOrder(orderToDelete.getDeliveryman());
         return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, orderToDelete));
+    }
+
+    public static LinkedList<Prefix> getPrefixesList() {
+        return prefixesList;
     }
 
     @Override

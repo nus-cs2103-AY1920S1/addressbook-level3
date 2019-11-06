@@ -103,9 +103,9 @@ class TrieManager {
      */
     private void addUniversalCommands() {
         insertCommandToAllTries(AddOrderCommand.COMMAND_WORD, AddOrderCommand.getPrefixesList());
-        insertCommandToAllTries(AssignOrderCommand.COMMAND_WORD);
-        insertCommandToAllTries(CompleteOrderCommand.COMMAND_WORD);
-        insertCommandToAllTries(DeleteOrderCommand.COMMAND_WORD);
+        insertCommandToAllTries(AssignOrderCommand.COMMAND_WORD, AssignOrderCommand.getPrefixesList());
+        insertCommandToAllTries(CompleteOrderCommand.COMMAND_WORD, CompleteOrderCommand.getPrefixesList());
+        insertCommandToAllTries(DeleteOrderCommand.COMMAND_WORD, DeleteOrderCommand.getPrefixesList());
         insertCommandToAllTries(EditOrderCommand.COMMAND_WORD, EditOrderCommand.getPrefixesList());
         insertCommandToAllTries(ExitCommand.COMMAND_WORD);
         insertCommandToAllTries(HelpCommand.COMMAND_WORD);
