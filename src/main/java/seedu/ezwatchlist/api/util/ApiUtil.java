@@ -105,7 +105,7 @@ public class ApiUtil {
             String imagePath = instance.retrieveImage();
             toAdd.setPoster(new Poster(imagePath));
         } catch (IllegalArgumentException e) {
-
+            toAdd.setPoster(new Poster());
         }
     }
 

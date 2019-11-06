@@ -109,7 +109,7 @@ public class ImageRetrieval {
             Path filepath = Paths.get(IMAGE_CACHE_LOCATION + File.separator
                     + formattedFileName + ".png");
 
-            if(filepath.toFile().exists()) {
+            if (filepath.toFile().exists()) {
                 throw new FileAlreadyExistsException("Duplicate image");
             }
 
