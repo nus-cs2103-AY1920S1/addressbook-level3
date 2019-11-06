@@ -7,31 +7,35 @@ import java.util.stream.Stream;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.Logic;
 
 /**
  * A singleton task that handles all UI for page navigation. It must be initialised using {@code getInstance} before
  * use.
  */
 public class PageManager {
-    private static Stage primaryStage;
     private static List<Page> pages;
-    private static Scene mainPageScene;
+    private static Scene commonScene;
+    private static Stage primaryStage;
+    private static Logic guiSettingsLogic;
     private static Optional<PageManager> pageManager = Optional.empty();
-
     // prevent multiple instances of pages
-    private PageManager(Stage primaryStage, Scene mainPageScene, Page... pages) {
+    private PageManager(Stage primaryStage, Scene commonScene, Logic guiSettingsLogic, Page... pages) {
         this.primaryStage = primaryStage;
-        this.mainPageScene = mainPageScene;
+        this.commonScene = commonScene;
+        this.guiSettingsLogic = guiSettingsLogic;
         this.pages = Stream.of(pages)
                 .collect(Collectors.toList());
     }
 
-    public static PageManager getInstance(Stage primaryStage, Scene mainPageScene, Page... pages) {
-        pageManager = Optional.of(new PageManager(primaryStage, mainPageScene, pages));
+    public static PageManager getInstance(Stage primaryStage, Scene commonScene,
+                                          Logic guiSettingsLogic, Page... pages) {
+        pageManager = Optional.of(new PageManager(primaryStage, commonScene, guiSettingsLogic, pages));
         return pageManager.get();
     }
 
@@ -41,28 +45,26 @@ public class PageManager {
             assert false : "Page manager has to be initialised before other pages can be retrieved";
         }
 
-        Optional<Scene> requestedPage = pages.stream()
+        Optional<Parent> requestedPage = pages.stream()
                 .filter(p -> p.getPageType().equals(pageType))
-                .map(p -> p.getScene())
+                .map(p -> p.getParent())
                 .findFirst();
 
-        if (requestedPage.isEmpty() && pageType.equals(PageType.MAIN)) {
-            requestedPage = Optional.of(mainPageScene);
-        } else if (requestedPage.isEmpty()) {
+        if (requestedPage.isEmpty()) {
             assert false : "Every get page command should have a page class implemented for it";
         }
         //@@author bjhoohaha-reused
         //Credits to : Asfal, Genuine Coder
         //https://www.genuinecoder.com/javafx-scene-switch-change-animation/
-        Scene requestedScene = requestedPage.get();
+        Parent requestedRoot = requestedPage.get();
         //Fade out transition
-        FadeTransition fadeOutTransition = new FadeTransition(Duration.millis(500), primaryStage.getScene().getRoot());
+        FadeTransition fadeOutTransition = new FadeTransition(Duration.millis(500), commonScene.getRoot());
         fadeOutTransition.setFromValue(1.0);
         fadeOutTransition.setToValue(0.0);
         fadeOutTransition.play();
-        primaryStage.setScene(requestedScene);
+        commonScene.setRoot(requestedRoot);
         //Fade in transition
-        FadeTransition fadeInTransition = new FadeTransition(Duration.millis(500), requestedPage.get().getRoot());
+        FadeTransition fadeInTransition = new FadeTransition(Duration.millis(500), requestedRoot);
         fadeInTransition.setFromValue(0.0);
         fadeInTransition.setToValue(1.0);
         fadeInTransition.play();
@@ -72,8 +74,11 @@ public class PageManager {
      * Closes the TravEzy application window when the user calls the exit command.
      */
     public static void closeWindows() {
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        guiSettingsLogic.setGuiSettings(guiSettings);
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished(event -> Platform.exit());
+        delay.setOnFinished(event -> primaryStage.hide());
         delay.play();
     }
 

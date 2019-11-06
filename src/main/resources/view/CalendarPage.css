@@ -35,7 +35,7 @@
     -fx-padding: 30 25;
 }
 
-#monthHeader {
+#monthHeaderPlaceholder .label {
     -fx-font-size: 60;
 }
 

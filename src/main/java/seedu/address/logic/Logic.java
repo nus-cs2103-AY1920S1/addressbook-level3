@@ -8,11 +8,12 @@ import seedu.address.financialtracker.logic.FinancialTrackerLogic;
 import seedu.address.itinerary.logic.ItineraryLogic;
 import seedu.address.storage.Storage;
 
+
 /**
  * API of the AddressBookLogic component
  */
 
-public interface Logic {
+public interface Logic extends GuiSettingsLogic {
 
     Storage getStorage();
 
@@ -26,13 +27,15 @@ public interface Logic {
 
     FinancialTrackerLogic getFinancialTrackerLogic();
 
+    public MainLogic getMainLogic();
+
     /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
 
     /**
-     * Set the user prefs' GUI settings.
+     * Set gui settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
 }
