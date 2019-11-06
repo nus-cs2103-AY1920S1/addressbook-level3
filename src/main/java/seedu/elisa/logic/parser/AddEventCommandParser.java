@@ -59,6 +59,8 @@ public class AddEventCommandParser implements Parser<AddCommand> {
             if (reschedulePeriod.isPresent()) {
                 event = event.setAutoReschedule(true).setReschedulePeriod(reschedulePeriod.get());
             }
+        } catch (ParseException pe) {
+            throw pe;
         } catch (Exception e) {
             System.out.println("Issue with parsing -auto " + e.getMessage());
         }
