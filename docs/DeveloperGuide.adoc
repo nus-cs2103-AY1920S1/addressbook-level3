@@ -161,6 +161,7 @@ that can be 'observed' e.g. the UI can be bound to this list so that the UI auto
 //+
 //image:BetterModelClassDiagram.png[]
 
+//TODO: update
 [[Design-Storage]]
 === Storage Component
 
@@ -255,22 +256,23 @@ This section describes some noteworthy details on how certain features are imple
 //image::UndoRedoState5.png[]
 
 // tag::transaction[]
-=== Transaction: `in` / `out` / `split`
+=== Transaction: `in` / `out` / `split` / `receive`
 
 The `Transaction` abstract class allows user to input income, expense or split commands into the PalPay.
 
 ==== Current Implementation
 
-`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extends the `Transaction` class.
-`Transaction` stores an *amount*, *date* and a set of *categories*. This describes the variables a `Transaction` with the `BankAccount` will typically hold.
-`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
-`inTransaction` and `outTransaction` implements `BankAccountOperation`.
+`Transaction` is an abstract class which contains the default constructor and commonly used functions. `InTransaction` and `OutTransaction` extends the `Transaction` class.
+`Transaction` stores an *amount*, *date*, *description*, and a set of *categories*. This describes the variables a `Transaction` with the `BankAccount` will typically hold.
+`InTransaction` and `OutTransaction` implements `BankAccountOperation`.
 
 ==== Design Considerations
 
-Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
-`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`, this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
-This allows multiple transaction calls within the same method.
+Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables. +
+The balance in `BankAccount` is considered separate from the balance in `Ledger`, both being encompassed in `UserState`.
+Therefore user operations that deal with `BankAccount` implements the `BankAccountOperation` interface, while operations
+that deal with `Ledger` implements the `LedgerOperation` interface. +
+This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
 
 // end::transaction[]
 
@@ -445,27 +447,58 @@ The `split` command is an abstraction of `LendMoney` class. +
 Given a list of *shares* and *people*, each person is assigned an *amount* based on the corresponding positional share and the total amount given to `split` command. +
 A `LendMoney` instance is created for each person and executed.
 
+.Class diagram for operations that deal with Ledger
 image::LedgerOperationDiagram.png[]
+
+.Activity diagram for creating a `Split` object
+image::SplitBehaviour.png[]
 
 ==== Design Considerations
 
 Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
 However, this introduces coupling as the behavior of `Split` is now inexplicably tied to `LendMoney`.
 
-// TODO: add sequence diagram here
+.Sequence diagram for executing a `SplitCommand`
+image::Split.png[]
 
 // end::split[]
 
-=== Settle Up Feature: `pay`
+=== Settle Up Feature: `receive`
 
-This feature allows the user to send money to another person. +
-The balance in the `Ledger` and the balance of the recipient is updated accordingly.
+This feature allows another person to send money to the user. +
+The balance in the `Ledger` and the balance of the sender is updated accordingly.
 
 ==== Current Implementation
 
-The `pay` command creates `LendMoney` class that handles the transfer of fund from the user to another person.
+The `receive` command creates `ReceiveMoney` class that handles the transfer of fund from another person to the user.
 
-// TODO: add sequence diagram here
+In the `handleBalance` method of `ReceiveMoney`, it will find the correct person in the `Ledger` by name,
+or create a new `Person` with given *name* if it is not already in the `Ledger`. +
+Balance of the user and the sender is then updated accordingly.
+
+.Code snippet of `handleBalance` in ReceiveMoney
+```
+public class ReceiveMoney extends Payment {
+    @Override
+    public Amount handleBalance(Amount balance, UniquePersonList peopleInLedger) {
+        Person target = super.handleTarget(peopleInLedger);
+        target.spend(amount);
+        return balance.addAmount(amount);
+    }
+}
+
+public abstract class Payment extends Transaction implements LedgerOperations {
+    protected Person handleTarget(UniquePersonList peopleInLedger) {
+        Person personInvolved = person;
+        if (peopleInLedger.contains(person)) {
+            personInvolved = peopleInLedger.get(person).get();
+        } else {
+            peopleInLedger.add(person);
+        }
+        return personInvolved;
+    }
+}
+```
 
 // tag::set[]
 === Set Budget Feature: `set`

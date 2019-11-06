@@ -3,7 +3,6 @@ package seedu.address.model.transaction;
 import java.util.Set;
 
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Person;
 import seedu.address.model.util.Date;
 
 /**
@@ -16,12 +15,6 @@ public class OutTransaction extends Transaction implements BankAccountOperation 
 
     public OutTransaction(Amount amount, Date date, Description description, Set<Category> categories) {
         super(amount.makeNegative(), date, description, categories);
-    }
-
-    public OutTransaction(Amount amount, Date date, Description description,
-                          Set<Category> categories, Person personInvolved) {
-        super(amount.makeNegative(), date, description, categories, personInvolved);
-
     }
 
     @Override
