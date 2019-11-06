@@ -104,9 +104,9 @@ public class EditOrderCommand extends Command {
         boolean isCompleted = orderToEdit.isCompleted();
         Map<Name, Integer> updatedFood = editOrderDescriptor.getFoods().orElse(orderToEdit.getFoodList());
 
-        return new Order.OrderBuilder().setOrderName(orderName).setCustomer(updatedCustomer).setRestaurant(updatedRestaurant)
-                .setDeliveryman(deliveryman).setFood(updatedFood).setCompleted(isCompleted)
-                .completeOrder();
+        return new Order.OrderBuilder().setOrderName(orderName).setCustomer(updatedCustomer)
+                .setRestaurant(updatedRestaurant).setDeliveryman(deliveryman).setFood(updatedFood)
+                .setCompleted(isCompleted).completeOrder();
     }
 
     public static LinkedList<Prefix> getPrefixesList() {

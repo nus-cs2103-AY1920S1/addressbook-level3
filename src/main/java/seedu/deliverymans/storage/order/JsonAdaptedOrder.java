@@ -125,9 +125,9 @@ public class JsonAdaptedOrder {
             throw new IllegalValueException("Invalid boolean detected for completion status of Order object");
         }
 
-        Order order = new Order.OrderBuilder().setOrderName(modelOrderName).setCustomer(modelCustomer).
-                setRestaurant(modelRestaurant).setDeliveryman(modelDeliveryman).setFood(modelFoodMap).
-                setCompleted(bool).completeOrder();
+        Order order = new Order.OrderBuilder().setOrderName(modelOrderName).setCustomer(modelCustomer)
+                .setRestaurant(modelRestaurant).setDeliveryman(modelDeliveryman).setFood(modelFoodMap)
+                .setCompleted(bool).completeOrder();
         return order;
     }
 }

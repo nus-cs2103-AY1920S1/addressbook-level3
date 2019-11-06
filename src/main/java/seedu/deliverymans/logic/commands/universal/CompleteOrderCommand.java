@@ -51,8 +51,8 @@ public class CompleteOrderCommand extends Command {
             throw new CommandException(MESSAGE_ALREADY_COMPLETED);
         }
 
-        Order order = new Order.OrderBuilder().setOrderName(orderToComplete.getOrderName()).
-                setCustomer(orderToComplete.getCustomer())
+        Order order = new Order.OrderBuilder().setOrderName(orderToComplete.getOrderName())
+                .setCustomer(orderToComplete.getCustomer())
                 .setDeliveryman(orderToComplete.getDeliveryman())
                 .setRestaurant(orderToComplete.getRestaurant())
                 .setFood(orderToComplete.getFoodList()).setCompleted(true).completeOrder();

@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.universal.EditOrderCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
