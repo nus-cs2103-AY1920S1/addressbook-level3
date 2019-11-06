@@ -14,6 +14,7 @@ import com.typee.logic.commands.CurrentCommand;
 import com.typee.logic.commands.DeleteCommand;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.HelpCommand;
+import com.typee.logic.commands.PdfCommand;
 import com.typee.logic.commands.RedoCommand;
 import com.typee.logic.commands.SortCommand;
 import com.typee.logic.commands.TabCommand;
@@ -29,6 +30,7 @@ import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
+import com.typee.logic.interactive.parser.state.pdfmachine.PdfIndexState;
 import com.typee.logic.interactive.parser.state.redomachine.RedoState;
 import com.typee.logic.interactive.parser.state.sortmachine.PropertyState;
 import com.typee.logic.interactive.parser.state.tabmachine.TabState;
@@ -244,6 +246,10 @@ public class Parser implements InteractiveParser {
 
         case ClearCommand.COMMAND_WORD:
             currentState = new ClearState(new ArgumentMultimap());
+            break;
+
+        case PdfCommand.COMMAND_WORD:
+            currentState = new PdfIndexState(new ArgumentMultimap());
             break;
 
         default:
