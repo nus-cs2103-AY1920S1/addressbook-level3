@@ -27,6 +27,7 @@ import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.RecipeBook;
+import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
 import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.testutil.Assert;
@@ -35,6 +36,7 @@ import dukecooks.testutil.diary.DiaryRecordBuilder;
 import dukecooks.testutil.exercise.WorkoutPlannerBuilder;
 import dukecooks.testutil.profile.UserProfileBuilder;
 import dukecooks.testutil.recipe.RecipeBookBuilder;
+import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class ModelManagerTest {
 
@@ -105,6 +107,19 @@ public class ModelManagerTest {
     @Test
     public void setRecipesFilePath_nullPath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> modelManager.setRecipesFilePath(null));
+    }
+
+    @Test
+    public void retrieveRecipe_nullRecipe_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.retrieveRecipe(null));
+    }
+
+    @Test
+    public void retrieveRecipesFilePathSuccess() {
+        modelManager.addRecipe(new RecipeBuilder().build());
+        Recipe recipe = new RecipeBuilder().build();
+        modelManager.retrieveRecipe(recipe);
+        assertEquals(recipe, modelManager.retrieveRecipe(recipe));
     }
 
     @Test
@@ -220,7 +235,6 @@ public class ModelManagerTest {
         modelManager.addRecipe(OMELETTE);
         assertTrue(modelManager.hasRecipe(OMELETTE));
     }
-    //TODO: finish mealplan testutil
 
     @Test
     public void hasDashboard_dashboardInDukeCooks_returnsTrue() {

@@ -3,6 +3,7 @@ package dukecooks.storage;
 import static dukecooks.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
 import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 import static dukecooks.testutil.health.TypicalRecords.getTypicalHealthRecords;
+import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlanBook;
 import static dukecooks.testutil.profile.TypicalProfiles.getTypicalProfiles;
 import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,6 +21,8 @@ import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.health.HealthRecords;
 import dukecooks.model.health.ReadOnlyHealthRecords;
+import dukecooks.model.mealplan.MealPlanBook;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
@@ -92,6 +95,11 @@ public class StorageManagerTest {
         storageManager.saveRecipeBook(originalRecipeBook);
         ReadOnlyRecipeBook retrievedRecipeBook = storageManager.readRecipeBook().get();
         assertEquals(originalRecipeBook, new RecipeBook(retrievedRecipeBook));
+
+        MealPlanBook originalMealPlanBook = getTypicalMealPlanBook();
+        storageManager.saveMealPlanBook(originalMealPlanBook);
+        ReadOnlyMealPlanBook retrievedMealPlanBook = storageManager.readMealPlanBook().get();
+        assertEquals(originalMealPlanBook, new MealPlanBook(retrievedMealPlanBook));
 
         HealthRecords originalHealthRecords = getTypicalHealthRecords();
         storageManager.saveHealthRecords(originalHealthRecords);

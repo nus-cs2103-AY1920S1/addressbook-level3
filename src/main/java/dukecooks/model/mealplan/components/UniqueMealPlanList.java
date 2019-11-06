@@ -68,11 +68,6 @@ public class UniqueMealPlanList implements Iterable<MealPlan> {
         internalList.set(index, editedMealPlan);
     }
 
-    public void setMealPlan(UniqueMealPlanList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
     /**
      * Removes the equivalent meal plan from the list.
      * The meal plan must exist in the list.
