@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SetPictureCommand;
 import seedu.address.logic.commands.util.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Picture;
 
 /**
  * Parses input arguments and creates a new SetPictureCommand object
@@ -19,7 +20,8 @@ public class SetPictureCommandParser implements Parser<SetPictureCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SetPictureCommand
      * and returns an SetPictureCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected format or if the file does
+     * not exist.
      */
     public SetPictureCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -38,7 +40,7 @@ public class SetPictureCommandParser implements Parser<SetPictureCommand> {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         if (argMultimap.getValue(PREFIX_PICTURE).isPresent()) {
-
+            Picture pictureToSet = ParserUtil.parsePicture(argMultimap.getValue(PREFIX_PICTURE).get());
             File imageTest = new File(argMultimap.getValue(PREFIX_PICTURE).get());
 
             if (!imageTest.exists()) {
@@ -46,7 +48,7 @@ public class SetPictureCommandParser implements Parser<SetPictureCommand> {
                     + "and is in the same directory as TutorAid!"));
             }
 
-            editPersonDescriptor.setPicture(ParserUtil.parsePicture(argMultimap.getValue(PREFIX_PICTURE).get()));
+            editPersonDescriptor.setPicture(pictureToSet);
         } else {
             throw new ParseException(SetPictureCommand.MESSAGE_NOT_EDITED);
         }
