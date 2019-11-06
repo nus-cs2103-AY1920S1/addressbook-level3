@@ -3,13 +3,16 @@ hide circle
 title Class Diagram for Autocomplete
 class MainWindow
 class CommandBox
-class Autocomplete
+class AutocompleteTextField
+class ModulePlannerAutocompleteSearch
 class TextField
 class ReadOnlyModulePlanner
 
-TextField <|-- Autocomplete
-CommandBox *- Autocomplete
+TextField <|-- AutocompleteTextField
+CommandBox *- AutocompleteTextField
 MainWindow *- CommandBox
-ReadOnlyModulePlanner -- Autocomplete
+AutocompleteTextField *- ModulePlannerAutocompleteSearch
+ReadOnlyModulePlanner -- AutocompleteTextField
+ReadOnlyModulePlanner -- ModulePlannerAutocompleteSearch
 
 @enduml

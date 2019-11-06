@@ -221,22 +221,33 @@ Example:
 * `help newplan`
 
 ==== Autocompleting: `tab`
-Autocompletes command/module code if there is only one option left. +
-Shows a dropdown for selection if there is more than one option left. This is done through the tab key.
+When the user presses `tab`, the command word, or module code, or semester,
+or tag name will be autocompleted.
+If there is only one possible completion, it will be filled immediately.
+If there is more than one possible completion, a menu of possible autocompletions
+is drawn that can be selected with the up and down buttons.
 
-==== Expanding a semester: `expand` `[coming in v2.0]`
+==== Expanding a semester: `expand`
 Expands a semester so that more details can be seen. +
 Format: `expand SEMESTER` +
 Example:
 
 * `expand y1s1`
 
-==== Collapsing a semester: `collapse` `[coming in v2.0]`
+==== Expanding all semesters: `expandall`
+Expands all semesters so that more details can be seen. +
+Format: `expandall`
+
+==== Collapsing a semester: `collapse`
 Collapses a semester so that most details are hidden. +
 Format: `collapse SEMESTER` +
 Example:
 
 * `collapse y1s1`
+
+==== Collapsing all semesters: `collapseall`
+Collapses all semesters so that most details are hidden. +
+Format: `collapseall`
 
 === Command Line Interface
 

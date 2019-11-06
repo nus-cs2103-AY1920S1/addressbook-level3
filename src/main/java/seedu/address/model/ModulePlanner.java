@@ -133,6 +133,14 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
+     * Returns the current active semester names as Strings.
+     */
+    @Override
+    public List<String> getActiveListOfSemesterNames() {
+        return activeStudyPlan.getListOfSemesterNames();
+    }
+
+    /**
      * Returns the current active tags.
      */
     public UniqueTagList getActiveTags() {

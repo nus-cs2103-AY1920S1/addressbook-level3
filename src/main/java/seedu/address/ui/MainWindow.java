@@ -20,8 +20,6 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.exceptions.InvalidResultViewTypeException;
 
-//import seedu.address.model.versiontracking.Commit;
-
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.

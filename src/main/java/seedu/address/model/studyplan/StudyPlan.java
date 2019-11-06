@@ -175,6 +175,10 @@ public class StudyPlan implements Cloneable {
         this.studyPlanTags = studyPlanTags;
     }
 
+    public List<String> getListOfSemesterNames() {
+        return semesters.asListOfStrings();
+    }
+
     public SemesterName getCurrentSemester() {
         return currentSemester;
     }

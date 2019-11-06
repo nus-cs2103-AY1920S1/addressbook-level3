@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -99,6 +100,14 @@ public class UniqueSemesterList implements Iterable<Semester>, Cloneable {
      */
     public ObservableList<Semester> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns a list of semester names in String.
+     */
+    public List<String> asListOfStrings() {
+        return asUnmodifiableObservableList().stream().map(sem -> sem.getSemesterName().toString())
+            .collect(Collectors.toList());
     }
 
     /**

@@ -32,28 +32,28 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private StackPane commandBox;
 
-    private Autocomplete autocomplete;
+    private AutocompleteTextField autocompleteTextField;
 
     public CommandBox(CommandExecutor commandExecutor, ReadOnlyModulePlanner modulePlanner) {
         super(FXML);
         requireNonNull(commandExecutor);
         requireNonNull(modulePlanner);
         this.commandExecutor = commandExecutor;
-        autocomplete = new Autocomplete(modulePlanner);
+        autocompleteTextField = new AutocompleteTextField(modulePlanner);
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        autocomplete.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        autocomplete.setId("commandTextField");
-        autocomplete.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        autocompleteTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        autocompleteTextField.setId("commandTextField");
+        autocompleteTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 logger.info("Command entered.");
                 handleCommandEntered();
             } else if (keyEvent.getCode() == KeyCode.TAB) {
                 logger.info("Autocomplete requested.");
-                autocomplete.handleAutocomplete();
+                autocompleteTextField.handleAutocomplete();
                 keyEvent.consume();
             }
         });
-        commandBox.getChildren().add(autocomplete);
+        commandBox.getChildren().add(autocompleteTextField);
     }
 
     /**
@@ -62,8 +62,8 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(autocomplete.getText());
-            autocomplete.setText("");
+            commandExecutor.execute(autocompleteTextField.getText());
+            autocompleteTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
@@ -73,14 +73,14 @@ public class CommandBox extends UiPart<Region> {
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
-        autocomplete.getStyleClass().remove(ERROR_STYLE_CLASS);
+        autocompleteTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
     /**
      * Sets the command box style to indicate a failed command.
      */
     private void setStyleToIndicateCommandFailure() {
-        ObservableList<String> styleClass = autocomplete.getStyleClass();
+        ObservableList<String> styleClass = autocompleteTextField.getStyleClass();
 
         if (styleClass.contains(ERROR_STYLE_CLASS)) {
             return;
@@ -106,6 +106,6 @@ public class CommandBox extends UiPart<Region> {
      * Resets the autocomplete when there is a change in active study plan.
      */
     public void handleChangeOfActiveStudyPlan() {
-        autocomplete.handleChangeOfActiveStudyPlan();
+        autocompleteTextField.handleChangeOfActiveStudyPlan();
     }
 }

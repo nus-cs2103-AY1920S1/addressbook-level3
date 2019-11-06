@@ -1,23 +1,25 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Side;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.cli.AddModuleCommand;
 import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.DeleteModuleCommand;
+import seedu.address.logic.commands.cli.RedoCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.UnblockCurrentSemesterCommand;
+import seedu.address.logic.commands.cli.UndoCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
+import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
@@ -57,101 +59,26 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A text field that can handle autocompletion.
+ * Handles autocompletion searching.
  */
-public class Autocomplete extends TextField {
-    public static final int MAX_ENTRIES = 10;
+public class ModulePlannerAutocompleteSearch {
+    public static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
+
+    private final ReadOnlyModulePlanner modulePlanner;
+
     private SortedSet<String> commandKeywords;
     private SortedSet<String> argumentKeywords;
     private UniqueTagList tags;
-    private ContextMenu keywordMenu;
-    private ReadOnlyModulePlanner modulePlanner;
 
-    /**
-     * Constructs a textfield that can handle autocompletion.
-     */
-    public Autocomplete(ReadOnlyModulePlanner modulePlanner) {
+    public ModulePlannerAutocompleteSearch(ReadOnlyModulePlanner modulePlanner) {
         super();
+        requireNonNull(modulePlanner);
         this.modulePlanner = modulePlanner;
         tags = modulePlanner.getActiveTags();
         tags.asUnmodifiableObservableList().addListener((ListChangeListener<Tag>) change
             -> generateArgumentKeywords());
         generateCommandKeywords();
         generateArgumentKeywords();
-        keywordMenu = new ContextMenu();
-        focusedProperty().addListener((unused0, unused1, unused2) -> keywordMenu.hide());
-        textProperty().addListener((unused0, unused1, unused2) -> keywordMenu.hide());
-    }
-
-    /**
-     * Populate the entry set with the given search results.
-     *
-     * @param searchResult The list of matching strings.
-     */
-    private void populateMenu(List<String> searchResult) {
-        ArrayList<CustomMenuItem> menuItems = new ArrayList<>();
-        int noOfEntries = Math.min(searchResult.size(), MAX_ENTRIES);
-        for (int i = 0; i < noOfEntries; i++) {
-            final String result = searchResult.get(i);
-            Label entryLabel = new Label(result);
-            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-            item.setOnAction(unused -> {
-                setAutocompleteText(result);
-                keywordMenu.hide();
-            });
-            menuItems.add(item);
-        }
-        keywordMenu.getItems().clear();
-        keywordMenu.getItems().addAll(menuItems);
-    }
-
-    /**
-     * Handles the autocomplete process.
-     */
-    public void handleAutocomplete() {
-        if (getText().length() == 0) {
-            keywordMenu.hide();
-        } else {
-            String input = getText();
-            input = input.trim();
-            String[] inputArray = input.split(" ");
-            if (inputArray.length == 1) {
-                completeInput(inputArray[0], commandKeywords, " ");
-            } else if (inputArray[0].equals(HelpCommand.COMMAND_WORD)) {
-                // The Help command uses commands as arguments.
-                completeInput(inputArray[inputArray.length - 1], commandKeywords, HelpCommand.COMMAND_WORD + " ");
-            } else {
-                StringBuilder finalText = new StringBuilder();
-                for (int i = 0; i < inputArray.length - 1; i++) {
-                    finalText.append(inputArray[i]);
-                    finalText.append(" ");
-                }
-                completeInput(inputArray[inputArray.length - 1], argumentKeywords, finalText.toString());
-            }
-        }
-    }
-
-    /**
-     * Completes the input in the textfield.
-     *
-     * @param input       The user's input to be autocompleted.
-     * @param keywords    The sorted set of keywords for autocompletion.
-     * @param currentText The current text that has been completed.
-     */
-    private void completeInput(String input, SortedSet<String> keywords, String currentText) {
-        ArrayList<String> searchResult = new ArrayList<>(keywords.subSet(input,
-                input + Character.MAX_VALUE));
-        if (searchResult.size() == 1) {
-            setAutocompleteText(searchResult.get(0));
-        } else if (searchResult.size() > 1) {
-            populateMenu(searchResult);
-            if (!keywordMenu.isShowing()) {
-                keywordMenu.show(Autocomplete.this, Side.BOTTOM, 15, 0);
-            }
-            keywordMenu.getSkin().getNode().lookup(".menu-item").requestFocus();
-        } else {
-            keywordMenu.hide();
-        }
     }
 
     /**
@@ -200,6 +127,10 @@ public class Autocomplete extends TextField {
         commandKeywords.add(ExpandCommand.COMMAND_WORD);
         commandKeywords.add(CollapseAllCommand.COMMAND_WORD);
         commandKeywords.add(ExpandAllCommand.COMMAND_WORD);
+        commandKeywords.add(UndoCommand.COMMAND_WORD);
+        commandKeywords.add(RedoCommand.COMMAND_WORD);
+        commandKeywords.add(RemoveAllTagsCommand.COMMAND_WORD);
+        commandKeywords.add(ExitCommand.COMMAND_WORD);
     }
 
     /**
@@ -211,6 +142,7 @@ public class Autocomplete extends TextField {
             argumentKeywords.addAll(tags.asListOfStrings());
         }
         argumentKeywords.addAll(modulePlanner.getModuleCodes());
+        argumentKeywords.addAll(modulePlanner.getActiveListOfSemesterNames());
     }
 
     /**
@@ -223,16 +155,38 @@ public class Autocomplete extends TextField {
         generateArgumentKeywords();
     }
 
-    private void setAutocompleteText(String s) {
-        int lastIndex = getText().lastIndexOf(" ");
-        String finalText;
-        if (lastIndex < 0) {
-            finalText = s;
+    /**
+     * Gets a list of search results based on an input, according to the Module Planner implementation.
+     * @param input User input.
+     * @return A list of search results.
+     */
+    public List<String> getSearchResults(String input) {
+        requireNonNull(input);
+        // Splits the input into an array including the delimiter " ".
+        // Example:
+        // "addmod CS1101S CS2030 " becomes ["addmod", " ", "CS1101S", " ", "CS2030", " "]
+        // This avoids situations where the user tries to autocomplete on a space.
+        String[] inputArray = input.split(String.format(WITH_DELIMITER, " "));
+        if (inputArray.length == 1) {
+            return performSearch(inputArray[0], commandKeywords);
+        } else if (inputArray[0].equals(HelpCommand.COMMAND_WORD)) {
+            // The Help command uses commands as arguments.
+            return performSearch(inputArray[inputArray.length - 1], commandKeywords);
         } else {
-            finalText = getText().substring(0, lastIndex)
-                    + " " + s;
+            return performSearch(inputArray[inputArray.length - 1], argumentKeywords);
         }
-        setText(finalText);
-        positionCaret(finalText.length());
+    }
+
+    /**
+     * Performs a search based on the input.
+     * @param input One user input word.
+     * @param keywords Set of keywords to do searching on.
+     * @return A list of matching keywords.
+     */
+    private List<String> performSearch(String input, SortedSet<String> keywords) {
+        requireAllNonNull(input, keywords);
+        List<String> searchResults = new ArrayList<>(keywords.subSet(input,
+                input + Character.MAX_VALUE));
+        return searchResults;
     }
 }

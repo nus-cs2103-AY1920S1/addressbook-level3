@@ -42,4 +42,6 @@ public interface ReadOnlyModulePlanner {
     UniqueTagList getActiveTags();
 
     List<String> getModuleCodes();
+
+    List<String> getActiveListOfSemesterNames();
 }

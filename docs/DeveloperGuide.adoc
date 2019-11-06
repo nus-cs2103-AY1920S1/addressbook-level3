@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/modulePlanner-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F09-3/main
 
 image::title.png[width="600"]
 
@@ -81,7 +81,9 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.
+`SemesterListPanel`, `ResultDisplay`, `CommandBox`, `StudyPlanTagPanel`, etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -498,59 +500,80 @@ the necessary information.
 
 image::AutocompleteClassDiagram.png[width="600"]
 
-The autocompletion of keywords is facilitated by `Autocomplete`, which inherits from `Textfield`.
+The autocompletion of keywords is facilitated by `AutocompleteTextField`, which inherits from `Textfield`,
+and `ModulePlannerAutocompleteSearch`.
+`AutocompleteTextField` handles user input and changing the text in the text field.
+`ModulePlannerAutocompleteSearch` handles the autocorrect searching for keywords.
+
 When the `MainWindow` is created, a `CommandBox` is created and added to the GUI.
-The `CommandBox` holds an `Autocomplete`.
-`CommandBox` attaches a `keyEvent` listener to `Autocomplete` that listens for the `TAB` key press,
+The `CommandBox` creates an `AutocompleteTextField` and it is added to the GUI.
+The `AutocompleteTextField` holds a `ModulePlannerAutocompleteSearch`.
+
+`CommandBox` attaches a `keyEvent` listener to `AutocompleteTextField` that listens for the `TAB` key press,
 which starts the autocomplete process.
 
-`Autocomplete` holds two sets of keywords, a set for commands and a set for arguments.
+`ModulePlannerAutocompleteSearch` holds two sets of keywords, a set for commands and a set for arguments.
 These keywords are represented as `SortedSet<String>`.
 Within each input, the first word will be autocompleted with the set for commands,
 while subsequent words (separated by spaces) will be autocompleted with the set for arguments.
 An exception is the `help` command, in which the subsequent words will be autocompleted with the
 set for commands.
 
-`Autocomplete` is constructed with a `ReadOnlyModulePlanner`.
+`ModulePlannerAutocompleteSearch` is constructed with a `ReadOnlyModulePlanner`.
 It is used to create the keyword sets.
+Hence, `AutocompleteTextField` is also constructed with a `ReadOnlyModulePlanner` to pass this down.
 
 The following sequence diagram shows the creation of Autocomplete:
 
 image::AutocompleteSequenceDiagram.png[]
 
-`Autocomplete` holds the following public operations:
+`AutocompleteTextField` holds the following public operations:
 
-- `Autocomplete#handleAutocomplete` -- Handles the entire autocomplete process based on the current text.
+- `AutocompleteTextField#handleAutocomplete` -- Handles the entire autocomplete process based on the current text.
 
-- `Autocomplete#handleChangeOfActiveStudyPlan` -- Resets the argument keywords when there is a
+- `AutocompleteTextField#handleChangeOfActiveStudyPlan` -- Resets the argument keywords when there is a
 change in the active study plan.
 
-Given below is an example usage scenario of the `Autocomplete#handleAutocomplete()` operation
+`ModulePlannerAutocompleteSearch` is never accessed by any external classes.
+
+Given below is an example usage scenario of the `AutocompleteTextField#handleAutocomplete()` operation
 and how the autocomplete mechanism behaves at each step for commands.
 
 Step 1. The user enters the beginning of a command into the GUI text field, for example "addt" for `addtag`.
 The user then presses the activation key `TAB` with begins the autocomplete process.
-The `KeyEvent` listener calls the `Autocomplete#handleAutocomplete()` operation.
+The `KeyEvent` listener calls the `AutocompleteTextField#handleAutocomplete()` operation.
 
-Step 2: The text in the text field is checked.
+Step 2: `AutocompleteTextField` passes the input to `ModulePlannerAutocompleteSearch`, by calling
+`ModulePlannerAutocompleteSearch#getSearchResults(String input)`.
+In `ModulePlannerAutocompleteSearch`, the text in the text field is checked.
 As it is the first word, the keywords set for commands is used.
-`Autocomplete#completeInput(String input, SortedSet<String> keywords, String currentText)` is called to proceed with the
-completion of input.
+`ModulePlannerAutocompleteSearch#performSearch(String input, SortedSet<String> keywords)`
+is called to proceed with the search.
 
 Step 3: This method finds search results, which is a subset from the keywords set for commands that begin with the input.
+This result is returned back through `ModulePlannerAutocompleteSearch#getSearchResults(String input)`.
+`AutocompleteTextField#handleAutocomplete()` uses the search results to proceed.
 There are two possible scenarios that are described in Steps 4 and 5.
 
-Step 4: If there is only one search result, the input text is changed to the search result
-and the caret is positioned at the end of the line.
+Step 4: If there is only one search result,
+`AutocompleteTextField#setAutocompleteText(String searchResult)` is called. Proceed to Step 6.
 
 Step 5: If there is more than one search result, a menu will be created for the user to make a selection.
 This method will call the `populateMenu(List<String> searchResult)` method, and then show the menu if it is not showing.
 Then, focus will be requested from the first menu item in the menu. The `populateMenu(List<String> searchResult)`
 populates a `ContextMenu` with `CustomMenuItem`, which correspond to each search result.
 On action of the menu item, either through clicking or pressing the key `ENTER` while it is focused,
-the input text is changed to the search result and the caret is positioned at the end of the line.
+`AutocompleteTextField#setAutocompleteText(String searchResult)` is called. Proceed to Step 6.
+
+Step 6: `AutocompleteTextField#setAutocompleteText(String searchResult)`
+causes the input text to be changed to the search result and the caret
+positioned at the end of the line.
 
 The autocomplete mechanism behaves similarly for arguments, except the argument set of keywords will be used.
+Furthermore, `AutocompleteTextField#setAutocompleteText(String searchResult)` will cause
+the input text to be changed to the text before the space concatenated with a space and the search result
+and the caret is positioned at the end of the line.
+This change replicates autocompleting only the last word without erasing previous terms.
 
 The following activity diagram shows how the autocomplete works:
 
@@ -558,15 +581,26 @@ image::AutocompleteActivityDiagram.png[width="600"]
 
 ==== Design Considerations
 
+===== Aspect: How autocompletion is broken down
+* **Alternative 1 (current choice)**: One class for handling the text field, one class for handling the querying.
+
+** Pros: Easier for testing. More cohesion.
+** Cons: More classes written.
+
+* **Alternative 2 **: One class to handle everything.
+
+** Pros: Easier to code.
+** Cons: Harder to test.
+
 ===== Aspect: How arguments are completed
 
-* **Alternative 1 (current choice)**: All arguments including tags and module codes are checked for
+* **Alternative 1 (current choice)**: All arguments including semester names, tags and module codes are checked for
 together.
 
 ** Pros: Easy to implement.
 ** Cons: User may want to only be autocompleting for tags, but module codes appear as well.
 
-* **Alternative 2**: Arguments are identified as tags or module codes and  autocompleted based on
+* **Alternative 2**: Arguments are identified as tags or module codes and autocompleted based on
 the command.
 ** Pros: User can autocomplete without undesired suggestions.
 ** Cons: The command will have to be parsed upon autocomplete call, which will

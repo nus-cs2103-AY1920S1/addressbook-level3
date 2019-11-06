@@ -6,15 +6,19 @@ skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
-Class "{abstract}\nUiPart" as UiPart
+Class "{abstract}\n UiPart  " as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
+Class StudyPlanTagPanel
+Class SemesterListPanel
+Class SemesterCard
+Class ModuleCard
+Class ModulePill
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
 Class CommandBox
+class TagListPanel
+class ModuleListPanel
+class SimpleSemesterListPanel
 }
 
 package Model <<Rectangle>> {
@@ -29,32 +33,46 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
-UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+UiManager --> MainWindow
+MainWindow *--> CommandBox
+MainWindow *--> StudyPlanTagPanel
+MainWindow *--> SemesterListPanel
+MainWindow *--> ResultDisplay
 
-PersonListPanel -down-> PersonCard
+SemesterListPanel --> SemesterCard
 
-MainWindow -left-|> UiPart
+SemesterCard --> ModuleCard
+SemesterCard --> ModulePill
+
+ResultDisplay --> TagListPanel
+ResultDisplay --> ModuleListPanel
+ResultDisplay --> SimpleSemesterListPanel
+
+MainWindow --|> UiPart
 
 ResultDisplay --|> UiPart
+StudyPlanTagPanel --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+SemesterListPanel --|> UiPart
+SemesterCard --|> UiPart
+ModuleCard --|> UiPart
+ModulePill --|> UiPart
+TagListPanel --|> UiPart
+ModuleListPanel --|> UiPart
+SimpleSemesterListPanel --|> UiPart
 
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
+SemesterCard ..> Model
+ModuleCard ..> Model
+ModulePill ..> Model
+UiManager --> Logic
+MainWindow --> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+ModuleListPanel -[hidden]left-> SimpleSemesterListPanel
+TagListPanel -[hidden]left-> SimpleSemesterListPanel
 
-MainWindow -[hidden]-|> UiPart
+
+ResultDisplay -[hidden]right-> StudyPlanTagPanel
+StudyPlanTagPanel -[hidden]right-> CommandBox
+CommandBox -[hidden]right-> SemesterListPanel
+
 @enduml
