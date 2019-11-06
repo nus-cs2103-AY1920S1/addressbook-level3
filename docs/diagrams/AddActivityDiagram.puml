@@ -1,0 +1,21 @@
+@startuml
+start
+:User executes add command;
+
+if () then ([is valid and present datetime])
+    if() then ([is valid and present record type and related fields])
+        if() then ([is unique record in record list])
+        :Create new record of specific type;
+        :Save new record list into Storage;
+        :Display updated list of records to user;
+        else ([else])
+        :Display duplicate record error message;
+        endif
+    else ([else])
+    :Display record-type specific error message;
+    endif
+else ([else])
+:Display general format or date-time error message;
+endif
+stop
+@enduml

@@ -3,54 +3,108 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant ":SugarMummyParser" as SugarMummyParser LOGIC_COLOR
+participant "a:AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "bs:BloodSugar" as BloodSugar LOGIC_COLOR
+participant "ac:AddCommand" as AddCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-participant ":ModelManager" as ModelManager MODEL_COLOR
-participant ":UniqueRecordList" as UniqueRecordList MODEL_COLOR
+participant "m:Model" as Model MODEL_COLOR
 end box
-[-> LogicManager : execute(add)
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("add rt/BLOODSUGAR\n con/10 dt/2019-09-09 12:12")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(add)
-activate AddressBookParser
+LogicManager -> SugarMummyParser : parseCommand("add rt/BLOODSUGAR\n con/10 dt/2019-09-09 12:12")
+activate SugarMummyParser
+
+create AddCommandParser
+SugarMummyParser -> AddCommandParser
+activate AddCommandParser
+AddCommandParser --> SugarMummyParser
+deactivate AddCommandParser
+
+SugarMummyParser -> AddCommandParser : parse("rt/BLOODSUGAR\n con/10 dt/2019-09-09 12:12")
+activate AddCommandParser
+
+AddCommandParser -> ParserUtil : parseRecordType("BLOODSUGAR")
+activate ParserUtil
+
+ParserUtil --> AddCommandParser
+deactivate ParserUtil
+
+AddCommandParser -> ParserUtil : parseDateTime("2019-09-09 12:12")
+activate ParserUtil
+
+ParserUtil --> AddCommandParser : dt:DateTime
+deactivate ParserUtil
+
+AddCommandParser -> ParserUtil : parseConcentration("10")
+activate ParserUtil
+
+ParserUtil --> AddCommandParser : c:Concentration
+deactivate ParserUtil
+
+create BloodSugar
+AddCommandParser -> BloodSugar : new BloodSugar(c, dt)
+activate BloodSugar
+BloodSugar --> AddCommandParser : bs
+deactivate BloodSugar
 
 create AddCommand
-AddressBookParser -> AddCommand
+AddCommandParser -> AddCommand : new AddCommand(c, dt)
 activate AddCommand
-
-AddCommand --> AddressBookParser : record:Bmi
+AddCommand --> AddCommandParser : ac
 deactivate AddCommand
 
-AddressBookParser --> LogicManager : command
-deactivate AddressBookParser
+AddCommandParser --> SugarMummyParser : ac
+deactivate AddCommandParser
 
-LogicManager -> Model : execute(sugarmummy.recmfood.model)
+SugarMummyParser --> LogicManager : ac
+deactivate SugarMummyParser
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+AddCommand -> Model : addRecord()
 activate Model
 
-Model -> ModelManager : addRecord(record)
-activate ModelManager
-
-ModelManager -> UniqueRecordList : add(record)
-activate UniqueRecordList
-
-UniqueRecordList -> UniqueRecordList :contains(record)
-UniqueRecordList -> UniqueRecordList :add(record)
-UniqueRecordList --> ModelManager :
-deactivate UniqueRecordList
-
-ModelManager --> Model
-deactivate ModelManager
-
-Model --> LogicManager
+Model --> AddCommand
 deactivate Model
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+CommandResult --> AddCommand
+deactivate CommandResult
+
+AddCommand --> LogicManager : commandResult
+deactivate AddCommand
 
 AddCommand -[hidden]-> LogicManager : result
 destroy AddCommand
 
-[<--LogicManager
+LogicManager -> Model : getUniqueRecordListObject()
+activate Model
+
+Model --> LogicManager : uniqueRecordListObject
+deactivate Model
+
+LogicManager -> Storage : saveRecordList(uniqueRecordListObject)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+
+
+[<--LogicManager : commandResult
 deactivate LogicManager
 @enduml

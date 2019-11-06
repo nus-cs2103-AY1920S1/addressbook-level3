@@ -380,28 +380,58 @@ The current food models can be utilized to help record daily diets. This would a
 // end::recmf[]
 
 //tag::datalogDG[]
-=== [Proposed] Data log feature
-==== Proposed Implementation
+=== Data log feature
+==== Implementation
 The multi-record data logging mechanism is facilitated by a new Record package containing  BloodSugar and Bmi classes that extend an abstract Record class. Add, list and delete command classes and parsers are modified to accommodate multiple record types. Multi-record data is stored internally as a recordList where members are Records.
 
-It implements the following operations:
-* `Model#addRecord()` — Adds a record to the record list. 
-* `Model#deleteRecord()` — Deletes a record from the record list. 
-* `Model#getUniqueRecordListObject()` — Retrieves all records in record list. 
-These operations are exposed in the `Model` interface as `Model#addRecord()`, `Model#deleteRecord()` and `Model#getUniqueRecordListObject()` respectively.
-Given below is an example usage scenario and how the data log feature behaves at each step.
-Step 1. The user launches the application for the first time. If `recordList.json` is not found in `/data`, a `recordList.json` will be produced from `SampleRecordDataUtil#getSampleRecords()`. Otherwise, the recordList will be loaded from `recordList.json` using `UniqueRecordList#setRecord(<List>)` and checked for inconsistencies e.g. missing fields, invalid fields. If invalid fields or missing consequential fields that must be used (e.g. `BloodSugar`’s `Concentration` field is consequential while its `Height` and `Weight` fields are not) are detected, an Exception is thrown and `recordList.json` start from scratch. Otherwise, inconsequential fields will be automatically repopulated on saving to the `recordList.json` in any command.
+It modifies the following operations:
+* `SugarMummy#add()` — Adds a record to the record list. 
+* `SugarMummy#delete()` — Deletes a record from the record list. 
+* `SugarMummy#list()` — Retrieves all records in record list. 
 
-Step 2. The user executes list command to list all records. `Model#getUniqueRecordListObject()` is called and `DisplayPaneType` is set to LIST. `MainDisplayPane#get()` determines the type of window to show based on `DisplayPaneType`. A new `RecordListPanel` is created and populates each `ListViewCell` with `BloodSugarRecordCard` and `BmiRecordCard`. Data used to populate the `RecordCards` is passed in through `RecordListPanel`’s constructor, as an `ObservableList` containing `BloodSugar` and `Bmi` objects.
+These operations are exposed in the `Model` interface as `Model#addRecord()`, `Model#deleteRecord()`
+and `Model#getUniqueRecordListObject()` respectively.
 
-Step 3. The user executes `add rt/BMI h/1 w/1 dt/2019-09-09 12:12` command to create a `Bmi` record with height 1, weight 1 at date 2019-09-09 and time 12:12. The add command is first parsed by `AddressBookParser` then parsed by `AddCommandParser`. In `AddCommandParser`, we first parse for standard `Record`-class-level field like `DateTime` before parsing for the relevant `Bmi`-related CLI-arguments defined in `CliSyntax`. Individual field parsing is done inside `ParserUtil`. Either a complete `BloodSugar` or `Bmi` Object is returned otherwise a `ParseException` will be thrown. Note that `BloodSugar` and `Bmi` Objects are `Record` Objects. In `AddCommand`, this `Record` Object is first checked against the model whether the model contains such a `Record` (defined as same date time in `Record.java`). If there is no duplicate, it is added to the `Model#addRecord()` in turn calling `ModelManager#addRecord()` to call `add()` operation on the list. We reuse similar code to step 2 to display the result of the add.
+The internal data structure contains an ObservableList<Record> that the UI can observe to display the record list.
+
+image::RecordsClassDiagram.png[]
+
+Below is an example usage scenario of how the data log feature behaves at each step.
+
+Step 1. The user launches the application for the first time.
+If `/data/recordList.json` is not found, it will be produced from `SampleRecordDataUtil#getSampleRecords()`.
+If `/data/recordList.json` is found, the recordList will be loaded from there using `UniqueRecordList#setRecord()`
+and checked for inconsistencies e.g. missing fields, invalid fields.
+If inconsistencies are detected, an Exception is thrown and existing `recordList.json` is erased.
+
+Step 2. The user lists all records.
+A new `RecordListPanel` is created and populates each `ListViewCell` with `BloodSugarRecordCard` and `BmiRecordCard`.
+`ObservableList<Record>` is used to populate the `ListViewCell`.
+
+Step 3. The user executes `add rt/BMI h/1 w/1 dt/2019-09-09 12:12` command.
+The add command parameters are parsed for validity.
+This job is delegated to the following classes:
+`SugarMummyParser`,`AddCommandParser` and `ParserUtil.
+This is illustrated in SequenceDiagram below.
+After parsing is completed, either a complete `BloodSugar` or `Bmi` Object is returned otherwise a `ParseException` will be thrown.
+The `Record` is checked against the model for uniqueness.
+If it is unique, it is added to the Model via `Model#addRecord()` (illustrated by the red portion of the sequence diagram below)
+
+image::AddActivityDiagram.png[]
+The above activity diagram illustrates step 3.
 
 image::AddSequenceDiagram.png[]
+The above sequence diagram provides a in-depth look at how parsing is delegated to various classes within the blue Logic component.
+The calls to the red model component illustrates Step 3 adding records to the model.
+The final call to the yellow storage component illustrates step 5.
 
-Step 4. The user now decides that adding the record was a mistake, and decides to delete that record. The delete command is first parsed by `AddressBookParser` then parsed by `DeleteCommandParser`. In `DeleteCommandParser`, we use `ParseUtil` to check whether the index is a positive number, otherwise a `ParseException` will be thrown. `DeleteCommand` receives the positive index and checks whether the positive index indices a record. `DeleteCommand` will call `Model#deleteRecord()`, which will call `Model#deleteRecord()` and call `ModelManager#deleteRecord()` performing a `remove()` operation on the list.
+Step 4. The user decides to delete a record.
+The delete command is parsed for validity by `SugarMummyParser`, `DeleteCommandParser` and `ParserUtil`.
+`ParseUtil` checks whether the index is a positive number, otherwise a `ParseException` will be thrown.
+`DeleteCommand` checks whether the positive index points to a valid record.
+`DeleteCommand` will call `Model#deleteRecord()` to remove the record from the list.
 
-Step 5. After command has executed in `LogicManager`, we attempt to write the recordList in memory to `recordList.json` on disk using `Storage#saveRecordList()`. The command result is returned to `MainWindow` which calls `MainDisplayPane` in step 2 using `MainWindow#switchToMainDisplayPane()`. This lists out the updated record list in the UI (step 2).
-
+Step 5. After add or delete commands have been executed in `LogicManager`, the Model's recordList is written to `recordList.json` using `Storage#saveRecordList()`.
 
 ==== Design Considerations
 ==== Aspect: Commands and parsers implementation
