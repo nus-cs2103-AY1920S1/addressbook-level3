@@ -217,7 +217,7 @@ public class MainWindow extends UiPart<Stage> {
         String calendarCommandType = commandResult.getCalendarCommandType();
         switch (calendarCommandType) {
         case "opendisplay":
-            calendarWindow.display(commandResult.getCalendarDate());
+            calendarWindow.openSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
             break;
         case "nextmonth":
             calendarWindow.populateCalendarWithNextMonth();
