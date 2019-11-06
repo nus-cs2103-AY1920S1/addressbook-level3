@@ -6,12 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarks;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.predicates.BookmarkPredicate;
@@ -24,7 +24,8 @@ class AutotagControllerTest {
     private static final SelectiveBookmarkTagger TAGGER_WORLD = new SelectiveBookmarkTagger(
             new Tag("World"), new BookmarkPredicate().withNameKeywords(Collections.singletonList("world")));
     private static final SelectiveBookmarkTagger TAGGER_URL_EXAMPLE = new SelectiveBookmarkTagger(
-            new Tag("exampleTag"), new BookmarkPredicate().withUrlKeywords(Collections.singletonList("example")));
+            new Tag("exampleTag"),
+            new BookmarkPredicate().withUrlKeywords(Collections.singletonList("example")));
 
     private static final Bookmark BOOKMARK_HELLO = new BookmarkBuilder().withName("Hello World")
             .withUrl("https://hello-world.org").build();
@@ -33,7 +34,7 @@ class AutotagControllerTest {
     public void addTagger_validValue_success() {
         AutotagController controller = new AutotagController();
         controller.addTagger(TAGGER_HELLO);
-        assertEquals(controller, new AutotagController(Arrays.asList(TAGGER_HELLO)));
+        assertEquals(controller, new AutotagController(FXCollections.observableArrayList(TAGGER_HELLO)));
     }
 
     @Test
@@ -44,27 +45,28 @@ class AutotagControllerTest {
 
     @Test
     public void applyTaggers_noTaggersMatch_notTagged() {
-        AutotagController controller = new AutotagController(Arrays.asList(TAGGER_URL_EXAMPLE));
+        AutotagController controller = new AutotagController(FXCollections.observableArrayList(TAGGER_URL_EXAMPLE));
         assertEquals(controller.applyTaggers(BOOKMARK_HELLO), BOOKMARK_HELLO);
     }
 
     @Test
     public void applyTaggers_oneTaggerMatches_tagged() {
-        AutotagController controller = new AutotagController(Arrays.asList(TAGGER_HELLO));
+        AutotagController controller = new AutotagController(FXCollections.observableArrayList(TAGGER_HELLO));
         Bookmark expectedBookmark = new BookmarkBuilder(BOOKMARK_HELLO).withTags("Hello").build();
         assertEquals(controller.applyTaggers(BOOKMARK_HELLO), expectedBookmark);
     }
 
     @Test
     public void applyTaggers_multipleTaggersMatch_tagged() {
-        AutotagController controller = new AutotagController(Arrays.asList(TAGGER_HELLO, TAGGER_WORLD));
+        AutotagController controller = new AutotagController(
+                FXCollections.observableArrayList(TAGGER_HELLO, TAGGER_WORLD));
         Bookmark expectedBookmark = new BookmarkBuilder(BOOKMARK_HELLO).withTags("Hello", "World").build();
         assertEquals(controller.applyTaggers(BOOKMARK_HELLO), expectedBookmark);
     }
 
     @Test
     public void applyTaggersToList_taggersMatchAllBookmarks_allBookmarksTagged() {
-        AutotagController controller = new AutotagController(Arrays.asList(TAGGER_URL_EXAMPLE));
+        AutotagController controller = new AutotagController(FXCollections.observableArrayList(TAGGER_URL_EXAMPLE));
         List<Bookmark> expectedBookmarks = tagBookmarks(getTypicalBookmarks(), TAGGER_URL_EXAMPLE);
         assertEquals(controller.applyTaggersToList(getTypicalBookmarks()), expectedBookmarks);
     }
@@ -85,16 +87,16 @@ class AutotagControllerTest {
     @Test
     public void equals() {
         // same object -> returns true
-        AutotagController controller = new AutotagController(Arrays.asList(TAGGER_HELLO));
+        AutotagController controller = new AutotagController(FXCollections.observableArrayList(TAGGER_HELLO));
         assertTrue(controller.equals(controller));
 
         // same values -> returns true
-        assertTrue(controller.equals(new AutotagController(Arrays.asList(TAGGER_HELLO))));
+        assertTrue(controller.equals(new AutotagController(FXCollections.observableArrayList(TAGGER_HELLO))));
 
         // null -> returns false
         assertFalse(controller.equals(null));
 
         // different taggers -> returns false
-        assertFalse(controller.equals(new AutotagController(Arrays.asList(TAGGER_URL_EXAMPLE))));
+        assertFalse(controller.equals(new AutotagController(FXCollections.observableArrayList(TAGGER_URL_EXAMPLE))));
     }
 }

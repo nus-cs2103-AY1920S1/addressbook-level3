@@ -50,7 +50,7 @@ public class Mark implements ReadOnlyMark {
 
         reminders = reminderAssociation.getReminderList();
 
-        autotagController = new AutotagController(new ArrayList<>());
+        autotagController = new AutotagController(FXCollections.observableList(new ArrayList<>()));
 
         annotatedDocument = FXCollections.observableList(new ArrayList<>());
     }
@@ -302,6 +302,11 @@ public class Mark implements ReadOnlyMark {
     @Override
     public AutotagController getAutotagController() {
         return autotagController;
+    }
+
+    @Override
+    public ObservableList<SelectiveBookmarkTagger> getAutotags() {
+        return autotagController.getTaggers();
     }
 
     @Override

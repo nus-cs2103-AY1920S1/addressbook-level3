@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.autotag.AutotagController;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
@@ -123,6 +124,11 @@ public class MarkTest {
 
         @Override
         public AutotagController getAutotagController() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<SelectiveBookmarkTagger> getAutotags() {
             throw new AssertionError("This method should not be called.");
         }
 

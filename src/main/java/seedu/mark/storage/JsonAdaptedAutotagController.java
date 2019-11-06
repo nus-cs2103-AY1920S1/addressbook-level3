@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javafx.collections.FXCollections;
 import seedu.mark.model.autotag.AutotagController;
 
 /**
@@ -45,7 +46,7 @@ public class JsonAdaptedAutotagController {
     public AutotagController toModelType() {
         return new AutotagController(
                 taggers.stream().map(JsonAdaptedSelectiveBookmarkTagger::toModelType)
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toCollection(FXCollections::observableArrayList)));
     }
 
     @Override

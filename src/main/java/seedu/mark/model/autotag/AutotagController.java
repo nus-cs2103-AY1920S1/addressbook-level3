@@ -7,19 +7,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
  * Manages {@link SelectiveBookmarkTagger}s in Mark.
  */
 public class AutotagController {
-    private final List<SelectiveBookmarkTagger> taggers;
+    private final ObservableList<SelectiveBookmarkTagger> taggers;
 
     /**
      * Creates a new {@code AutotagController} with an empty list of taggers.
      */
     public AutotagController() {
-        this.taggers = new ArrayList<>();
+        this.taggers = FXCollections.observableList(new ArrayList<>());
     }
 
     /**
@@ -27,7 +29,7 @@ public class AutotagController {
      *
      * @param taggers List of {@link SelectiveBookmarkTagger}s to manage.
      */
-    public AutotagController(List<SelectiveBookmarkTagger> taggers) {
+    public AutotagController(ObservableList<SelectiveBookmarkTagger> taggers) {
         this.taggers = taggers;
     }
 
@@ -35,8 +37,8 @@ public class AutotagController {
      * Returns a shallow copy of the {@link SelectiveBookmarkTagger} list
      * used by this {@code AutotagController}.
      */
-    public List<SelectiveBookmarkTagger> getTaggers() {
-        return new ArrayList<>(this.taggers);
+    public ObservableList<SelectiveBookmarkTagger> getTaggers() {
+        return FXCollections.observableList(this.taggers);
     }
 
     /**
