@@ -119,7 +119,7 @@ public class AnswerChecker {
      * @param correctAnswerList the correct answer to the question
      * @return true or false
      */
-    public static boolean check(String userInput, List<Answer> correctAnswerList) {
+    public static boolean check(String userInput, ArrayList<Answer> correctAnswerList) {
 
         userInput = processString(userInput);
 
