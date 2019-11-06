@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -27,6 +28,11 @@ public class ViewActivityCommand extends ViewCommand {
                     + " the contact side panel",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " [INDEX]",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "INDEX"
     );
 
     public static final String MESSAGE_SUCCESS = "Opened the activity tab!";

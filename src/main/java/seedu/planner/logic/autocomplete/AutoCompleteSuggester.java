@@ -1,8 +1,6 @@
-package seedu.planner.logic.commands.autocomplete;
+package seedu.planner.logic.autocomplete;
 
-import seedu.planner.logic.commands.AddActivityCommand;
-import seedu.planner.logic.parser.Prefix;
-import seedu.planner.logic.commands.autocomplete.exceptions.CommandNotFoundException;
+import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,11 +9,70 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.planner.logic.autocomplete.exceptions.CommandNotFoundException;
+import seedu.planner.logic.commands.AddAccommodationCommand;
+import seedu.planner.logic.commands.AddActivityCommand;
+import seedu.planner.logic.commands.AddContactCommand;
+import seedu.planner.logic.commands.AddDayCommand;
+import seedu.planner.logic.commands.AutoScheduleCommand;
+import seedu.planner.logic.commands.ClearCommand;
+import seedu.planner.logic.commands.DeleteAccommodationCommand;
+import seedu.planner.logic.commands.DeleteActivityCommand;
+import seedu.planner.logic.commands.DeleteContactCommand;
+import seedu.planner.logic.commands.DeleteDayCommand;
+import seedu.planner.logic.commands.EditAccommodationCommand;
+import seedu.planner.logic.commands.EditActivityCommand;
+import seedu.planner.logic.commands.EditContactCommand;
+import seedu.planner.logic.commands.ExitCommand;
+import seedu.planner.logic.commands.HelpCommand;
+import seedu.planner.logic.commands.InitCommand;
+import seedu.planner.logic.commands.ListAccommodationCommand;
+import seedu.planner.logic.commands.ListActivityCommand;
+import seedu.planner.logic.commands.ListContactCommand;
+import seedu.planner.logic.commands.OptimiseCommand;
+import seedu.planner.logic.commands.RedoCommand;
+import seedu.planner.logic.commands.UndoCommand;
+import seedu.planner.logic.commands.ViewAccommodationCommand;
+import seedu.planner.logic.commands.ViewActivityCommand;
+import seedu.planner.logic.commands.ViewContactCommand;
+import seedu.planner.logic.commands.ViewHelpCommand;
+import seedu.planner.logic.commands.ViewInfoCommand;
+import seedu.planner.logic.commands.ViewItineraryCommand;
+import seedu.planner.logic.parser.Prefix;
 
+/**
+ * Makes suggestions based on the text in the command box.
+ */
 public class AutoCompleteSuggester {
     private CommandInformation[] allCommandInformation = new CommandInformation[] {
-            AddActivityCommand.COMMAND_INFORMATION
+        AddActivityCommand.COMMAND_INFORMATION,
+        AddAccommodationCommand.COMMAND_INFORMATION,
+        AddContactCommand.COMMAND_INFORMATION,
+        AddDayCommand.COMMAND_INFORMATION,
+        EditAccommodationCommand.COMMAND_INFORMATION,
+        EditActivityCommand.COMMAND_INFORMATION,
+        EditContactCommand.COMMAND_INFORMATION,
+        DeleteAccommodationCommand.COMMAND_INFORMATION,
+        DeleteActivityCommand.COMMAND_INFORMATION,
+        DeleteContactCommand.COMMAND_INFORMATION,
+        DeleteDayCommand.COMMAND_INFORMATION,
+        ClearCommand.COMMAND_INFORMATION,
+        HelpCommand.COMMAND_INFORMATION,
+        InitCommand.COMMAND_INFORMATION,
+        ExitCommand.COMMAND_INFORMATION,
+        AutoScheduleCommand.COMMAND_INFORMATION,
+        OptimiseCommand.COMMAND_INFORMATION,
+        UndoCommand.COMMAND_INFORMATION,
+        RedoCommand.COMMAND_INFORMATION,
+        ListAccommodationCommand.COMMAND_INFORMATION,
+        ListActivityCommand.COMMAND_INFORMATION,
+        ListContactCommand.COMMAND_INFORMATION,
+        ViewAccommodationCommand.COMMAND_INFORMATION,
+        ViewActivityCommand.COMMAND_INFORMATION,
+        ViewContactCommand.COMMAND_INFORMATION,
+        ViewHelpCommand.COMMAND_INFORMATION,
+        ViewInfoCommand.COMMAND_INFORMATION,
+        ViewItineraryCommand.COMMAND_INFORMATION
     };
 
     private List<String> allCommandWords;
@@ -81,6 +138,9 @@ public class AutoCompleteSuggester {
         return listOfPossiblePrefixWithDescription;
     }
 
+    /**
+     * Removes the prefix from the list.
+     */
     private List<String> removeMatchingPrefixFromList(List<String> ls, Prefix prefix) {
         List<String> copiedList = new ArrayList<>(ls);
         Iterator<String> copiedListIterator = copiedList.iterator();
@@ -97,7 +157,10 @@ public class AutoCompleteSuggester {
         return Pattern.compile("\\b" + prefix.toString()).matcher(stringToTest).find();
     }
 
-    private CommandInformation findMatchingCommandInformation(String command) {
+    /**
+     * Finds command information based on the command typed in the command box.
+     */
+    private CommandInformation findMatchingCommandInformation(String command) throws CommandNotFoundException {
         CommandInformation matchingCommandInformation = null;
         for (CommandInformation commandInformation : allCommandInformation) {
             if (commandInformation.getCommand().equals(command)) {

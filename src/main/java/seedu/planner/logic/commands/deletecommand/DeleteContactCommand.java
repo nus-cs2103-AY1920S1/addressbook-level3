@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -28,6 +29,11 @@ public class DeleteContactCommand extends DeleteCommand {
                     + "number used in the displayed contact list.",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX(must be a positive integer)",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "<INDEX>"
     );
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";

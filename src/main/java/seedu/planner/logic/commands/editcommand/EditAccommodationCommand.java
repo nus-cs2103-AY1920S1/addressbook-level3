@@ -9,6 +9,8 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.planner.model.Model.PREDICATE_SHOW_ALL_ACCOMMODATIONS;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.Set;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.CollectionUtil;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -51,6 +54,16 @@ public class EditAccommodationCommand extends EditCommand {
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1 "
                     + PREFIX_PHONE + "91234567 "
     );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "INDEX",
+            new ArrayList<>(),
+            new ArrayList<>(),
+            Arrays.asList(PREFIX_NAME.toString(), PREFIX_ADDRESS.toString(), PREFIX_PHONE.toString()),
+            Arrays.asList(PREFIX_TAG.toString())
+    );
+
 
     public static final String MESSAGE_EDIT_ACCOMMODATION_SUCCESS = "Edited Accommodation: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

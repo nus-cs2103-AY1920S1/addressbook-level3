@@ -1,19 +1,4 @@
-package seedu.planner.logic.commands.autocomplete;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.geometry.Side;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import seedu.planner.logic.commands.autocomplete.exceptions.CommandWordNotFoundException;
-import seedu.planner.logic.commands.autocomplete.exceptions.PreambleNotFoundException;
-import seedu.planner.logic.parser.Prefix;
+package seedu.planner.logic.autocomplete;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,10 +7,24 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Side;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+import seedu.planner.logic.autocomplete.exceptions.CommandWordNotFoundException;
+import seedu.planner.logic.autocomplete.exceptions.PreambleNotFoundException;
+import seedu.planner.logic.parser.Prefix;
+
 /**
- * This class is a TextField which implements an "autocomplete" functionality, based on a supplied list of entries.
+ * This class is a TextField which implements an "autocomplete" functionality, based on AutoCompleteSuggester.
  *
- * @author Caleb Brinkman
+ * @author Leong Sheu Xiang
  */
 public class AutoCompleteTextField extends TextField {
     /**
@@ -65,7 +64,8 @@ public class AutoCompleteTextField extends TextField {
 
         focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean aBoolean2) {
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean,
+                                Boolean aBoolean2) {
                 entriesPopup.hide();
             }
         });
@@ -142,6 +142,10 @@ public class AutoCompleteTextField extends TextField {
         entriesPopup.getItems().addAll(menuItems);
     }
 
+    /**
+     * Replaces the input with the given replacement.
+     * Ensures that any half written part of replacement is removed before adding replacement.
+     */
     private String replaceFromBack(String input, String replacement) {
         String[] splitWords = input.split(" ");
         String match = "";

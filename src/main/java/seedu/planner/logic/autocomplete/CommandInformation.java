@@ -1,12 +1,15 @@
-package seedu.planner.logic.commands.autocomplete;
+package seedu.planner.logic.autocomplete;
+
+import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
 
-import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * CommandInformation represents the format of a command.
+ */
 public class CommandInformation {
     private final String command;
     private final String preamble;
@@ -49,6 +52,14 @@ public class CommandInformation {
                 requiredPrefixWithDescriptionMultipleTime,
                 optionalPrefixWithDescriptionSingleTime,
                 optionalPrefixWithDescriptionMultipleTime);
+    }
+
+    public CommandInformation(String command, String preamble) {
+        this(command, preamble, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    }
+
+    public CommandInformation(String command) {
+        this(command, null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     public String getCommand() {
@@ -107,6 +118,9 @@ public class CommandInformation {
         return optionalPrefixWithDescriptionMultipleTime.size() > 0;
     }
 
+    /**
+     * Returns a list of the original list but with every element preceding with an extra space.
+     */
     private List<String> addSpaceAtStartOfEveryElement(List<String> ls) {
         List<String> copiedList = new ArrayList<>(ls);
         ListIterator<String> iterator = copiedList.listIterator();

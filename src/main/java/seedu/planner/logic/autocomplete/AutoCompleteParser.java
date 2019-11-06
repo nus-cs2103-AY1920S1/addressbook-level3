@@ -1,4 +1,4 @@
-package seedu.planner.logic.commands.autocomplete;
+package seedu.planner.logic.autocomplete;
 
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_COST;
@@ -12,6 +12,14 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import seedu.planner.logic.autocomplete.exceptions.CommandWordNotFoundException;
+import seedu.planner.logic.autocomplete.exceptions.PreambleNotFoundException;
+import seedu.planner.logic.autocomplete.exceptions.WordNotFoundException;
 import seedu.planner.logic.commands.AddCommand;
 import seedu.planner.logic.commands.AutoScheduleCommand;
 import seedu.planner.logic.commands.ClearCommand;
@@ -27,23 +35,23 @@ import seedu.planner.logic.commands.ScheduleCommand;
 import seedu.planner.logic.commands.UndoCommand;
 import seedu.planner.logic.commands.UnscheduleCommand;
 import seedu.planner.logic.commands.ViewCommand;
-import seedu.planner.logic.commands.autocomplete.exceptions.CommandWordNotFoundException;
-import seedu.planner.logic.commands.autocomplete.exceptions.PreambleNotFoundException;
-import seedu.planner.logic.commands.autocomplete.exceptions.WordNotFoundException;
 import seedu.planner.logic.parser.Prefix;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
-
-
+/**
+ * Parses text in CommandBox into parts of a command input.
+ */
 public class AutoCompleteParser {
     private final List<Prefix> listOfUsablePrefix = Arrays.asList(
             PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_DAY,
             PREFIX_START_DATE, PREFIX_START_TIME, PREFIX_DURATION, PREFIX_PRIORITY, PREFIX_COST
     );
 
+    /**
+     * Parses the command word of a command input.
+     * @param input the text in the command box
+     * @return the command word
+     * @throws CommandWordNotFoundException
+     */
     public String parseCommandWord(String input) throws CommandWordNotFoundException {
         try {
             String firstWord = getWord(input, 0);
@@ -61,6 +69,12 @@ public class AutoCompleteParser {
         throw new CommandWordNotFoundException();
     }
 
+    /**
+     * Parses the preamble of a command input.
+     * @param input the text in the command box
+     * @param commandWord the command word
+     * @return the preamble of the command
+     */
     public String parsePreamble(String input, String commandWord) {
         String afterCommand = input.substring(commandWord.length() + 1);
         String[] splitAfterCommand = afterCommand.split(" ");
@@ -71,6 +85,11 @@ public class AutoCompleteParser {
         }
     }
 
+    /**
+     * Parses the prefixes of a command input.
+     * @param input the text in the command box
+     * @return a list of prefixes present in the input
+     */
     public List<Prefix> parsePrefix(String input) {
         List<Prefix> listOfPrefixPresent = new ArrayList<>();
         for (Prefix p : listOfUsablePrefix) {
@@ -85,6 +104,9 @@ public class AutoCompleteParser {
         return Pattern.compile("\\b" + p.toString()).matcher(input).find();
     }
 
+    /**
+     * Gets the first word starting from the index {@code from}.
+     */
     private String getWord(String input, int from) throws WordNotFoundException {
         int whitespaceIndex = input.indexOf(' ', from);
         if (whitespaceIndex == -1) {
@@ -93,6 +115,9 @@ public class AutoCompleteParser {
         return input.substring(from, whitespaceIndex);
     }
 
+    /**
+     * Checks if the word is part of a two word command.
+     */
     private boolean isTwoWordCommand(String commandWord) {
         switch(commandWord) {
         case AddCommand.COMMAND_WORD:
@@ -106,6 +131,9 @@ public class AutoCompleteParser {
         }
     }
 
+    /**
+     * Checks if the word is part of a one word command.
+     */
     private boolean isOneWordCommand(String commandWord) {
         switch(commandWord) {
         case ExitCommand.COMMAND_WORD:

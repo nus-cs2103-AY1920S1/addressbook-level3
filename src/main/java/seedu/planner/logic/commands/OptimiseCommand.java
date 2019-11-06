@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
@@ -32,6 +33,11 @@ public class OptimiseCommand extends UndoableCommand {
             "Optimises the day based on the total cost of activities in a day.",
             COMMAND_WORD + " DAY_INDEX (must be a positive integer)",
             COMMAND_WORD + " 1"
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD,
+            "<INDEX>"
     );
 
     private final Index dayIndex;

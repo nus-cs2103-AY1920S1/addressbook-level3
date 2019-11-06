@@ -11,20 +11,20 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
-import seedu.planner.logic.commands.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.field.Cost;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Adds an activity to the itinerary.

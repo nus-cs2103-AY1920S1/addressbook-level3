@@ -2,7 +2,6 @@ package seedu.planner.logic.commands.util;
 
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
 import java.util.Objects;
 
 /**

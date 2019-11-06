@@ -8,7 +8,11 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -35,6 +39,14 @@ public class AddAccommodationCommand extends AddCommand {
                     + PREFIX_NAME + "Hotel 81 "
                     + PREFIX_ADDRESS + "Geylang "
                     + PREFIX_TAG + "cheap"
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            Arrays.asList(PREFIX_NAME.toString(), PREFIX_ADDRESS.toString()),
+            new ArrayList<>(),
+            Arrays.asList(PREFIX_PHONE.toString()),
+            Arrays.asList(PREFIX_TAG.toString())
     );
 
     public static final String MESSAGE_SUCCESS = "New accommodation added: %1s";

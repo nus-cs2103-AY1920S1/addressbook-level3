@@ -9,7 +9,11 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -31,8 +35,8 @@ public class AddContactCommand extends AddCommand {
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
                     + PREFIX_NAME + "NAME "
                     + PREFIX_PHONE + "PHONE "
-                    + PREFIX_EMAIL + "EMAIL "
-                    + PREFIX_ADDRESS + "ADDRESS "
+                    + "[" + PREFIX_EMAIL + "EMAIL] "
+                    + "[" + PREFIX_ADDRESS + "ADDRESS] "
                     + "[" + PREFIX_TAG + "TAG]...",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
                     + PREFIX_NAME + "John Doe "
@@ -41,6 +45,14 @@ public class AddContactCommand extends AddCommand {
                     + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
                     + PREFIX_TAG + "friends "
                     + PREFIX_TAG + "owesMoney "
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            Arrays.asList(PREFIX_NAME.toString(), PREFIX_PHONE.toString()),
+            new ArrayList<>(),
+            Arrays.asList(PREFIX_ADDRESS.toString(), PREFIX_EMAIL.toString()),
+            Arrays.asList(PREFIX_TAG.toString())
     );
 
     public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
