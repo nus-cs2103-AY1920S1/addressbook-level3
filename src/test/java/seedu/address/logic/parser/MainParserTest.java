@@ -42,11 +42,11 @@ public class MainParserTest {
 
     @Test
     public void parseCommand_split() throws Exception {
-        assertTrue(parser.parseCommand(SplitCommand.COMMAND_WORD + " $/69 n/John") instanceof SplitCommand);
+        assertTrue(parser.parseCommand(SplitCommand.COMMAND_WORD + " $/69 n/John a/desc") instanceof SplitCommand);
         assertTrue(parser.parseCommand(
-            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/2 s/3") instanceof SplitCommand);
+            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/2 s/3 a/desc") instanceof SplitCommand);
         assertTrue(parser.parseCommand(
-            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/1 s/2 s/3") instanceof SplitCommand);
+            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/1 s/2 s/3 a/desc") instanceof SplitCommand);
     }
 
     @Test
