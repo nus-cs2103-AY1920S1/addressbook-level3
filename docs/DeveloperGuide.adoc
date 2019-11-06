@@ -825,40 +825,6 @@ Since no two `Notes` are allowed to have the same `Title`, it is a unique identi
 *** Pros: Command will run faster, since no new `Note` object needs to be created.
 *** Cons: Is not defensively programmed, as `Notes` should be immutable.
 
-=== Deletion prompting feature
-Upon deletion of any StudyBuddyItem, the user will be prompted once before they can
-successfully delete the specified item.
-
-==== Implementation
-
-[NOTE]
-The deletion prompting applies to all three modes in StudyBuddyPro.
-
-The activity diagram below shows how the user is prompted upon calling a delete command.
-
-image::kaibindiagrams/activitydiagramdeleteprompt.png[]
-Diagram 20 : Activity Diagram for prompting user upon deletion.
-
-* The marked index has to be constantly tracked, to prevent the user from successfully deleting a different indexed item without any prompts.
-
-==== Usage of deletion prompts
-* Upon entering a delete command, e.g. `delete 6`, the item that is to be deleted will be displayed to the user, and they will be required to confirm their deletion.
-* The user only needs to hit enter once more to successfully delete the item.
-
-==== Design considerations
-Aspect : Deletion prompts versus Undo feature.
-
-Current Implementation (prompting user before delete)
-
-* Pros
-** Much easier to implement as compared to undo feature.
-** Hitting enter once more to delete is highly convenient for the user, as
-compared to perhaps asking the user to input a 'yes' or 'no' to confirm their deletion.
-
-* Cons
-** Less versatile than the undo feature.
-** User might still accidentally delete the wrong item.
-
 == Documentation
 
 Please do refer to the guide <<Documentation#, here>> for more information about this section!
