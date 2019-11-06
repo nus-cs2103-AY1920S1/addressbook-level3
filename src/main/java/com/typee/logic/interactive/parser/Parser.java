@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
+import com.typee.logic.commands.CalendarCommand;
 import com.typee.logic.commands.ClearCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
@@ -203,8 +204,6 @@ public class Parser implements InteractiveParser {
         }
         if (!argumentMultimap.getPreamble().isBlank()) {
             throw new ParseException(String.format(MESSAGE_MISSING_PREFIX, currentState.getPrefix()));
-        } else {
-            argumentMultimap.clearValues(new Prefix(""));
         }
         try {
             while (!argumentMultimap.isEmpty() && !currentState.isEndState()) {
@@ -250,6 +249,10 @@ public class Parser implements InteractiveParser {
 
         case PdfCommand.COMMAND_WORD:
             currentState = new PdfIndexState(new ArgumentMultimap());
+            break;
+
+        case CalendarCommand.COMMAND_WORD:
+            currentState = new CalendarState(new ArgumentMultimap());
             break;
 
         default:
