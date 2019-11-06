@@ -60,6 +60,9 @@ public class RuleEngine {
     public static final String TYPE_AMOUNT = "AMOUNT";
     public static final String TYPE_DATE = "DATE";
     public static final String TYPE_BLANK = "BLANK";
+
+    public static final String MESSAGE_INVALID_VALUE = "Invalid value provided.";
+
     private static final HashMap<Operator, BiFunction<Attribute, Value, TestableExpression>> testableMap;
     private static final HashMap<Operator, Function<Value, PerformableExpression>> performableMap;
 
@@ -162,8 +165,14 @@ public class RuleEngine {
         requireAllNonNull(typeName, value);
         switch (typeName) {
         case TYPE_CATEGORY:
+            if (value.toString().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_VALUE);
+            }
             return CommandParserUtil.parseCategory(value.toString());
         case TYPE_DESC:
+            if (value.toString().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_VALUE);
+            }
             return CommandParserUtil.parseDescription(value.toString());
         case TYPE_AMOUNT:
             return CommandParserUtil.parseAmount(value.toString());

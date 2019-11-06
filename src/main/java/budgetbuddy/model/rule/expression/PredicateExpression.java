@@ -67,10 +67,13 @@ public class PredicateExpression extends RulePredicate {
         return operator.getExpectedTypes()
                 .stream()
                 .anyMatch(type -> {
+                    System.out.println("TEST: " + type);
                     try {
                         convertValue(type, value);
+                        System.out.println(type);
                         return type.equals(attribute.getEvaluatedType());
                     } catch (ParseException e) {
+                        System.out.println(e.getMessage());
                         return false;
                     }
                 });
