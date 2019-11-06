@@ -54,8 +54,4 @@ public abstract class VariableArguments<T> {
     }
 
     abstract T parse(String userInput) throws ParseException;
-
-    List<T> getValues() {
-        return this.values;
-    }
 }

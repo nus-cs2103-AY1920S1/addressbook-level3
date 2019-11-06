@@ -11,13 +11,16 @@ public class Messages {
         + " Please open a bug report.";
     public static final String MESSAGE_REQUIRED_COMMAND_ARGUMENT = "Argument '%s' is required!";
 
-    public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date or format! Please enter in '%s' format.";
-    public static final String MESSAGE_INVALID_CALENDAR_DATE = "Invalid calendar date! Please enter in '%s' format.";
+    public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date or format!"
+        + " Please enter in 'DD/MM/YYYY hh:mm' format.";
+    public static final String MESSAGE_INVALID_CALENDAR_DAY = "Invalid date or format!"
+        + " Please enter in 'DD/MM/YYYY' format.";
+    public static final String MESSAGE_INVALID_CALENDAR_MONTH = "Invalid month, year or format!"
+        + " Please enter in 'MM/YYYY' format.";
+
     public static final String MESSAGE_INVALID_INDEX = "Invalid index! Please enter an integer.";
     public static final String MESSAGE_INVALID_EVENT_INDEX = "Invalid index! Event with index '%s' does not exist.";
     public static final String MESSAGE_INVALID_TASK_INDEX = "Invalid index! Task with index '%s' does not exist.";
-    public static final String MESSAGE_INVALID_MONTH_YEAR = "Invalid given date! Please ensure the month is within "
-            + "1 - 12, and year is within this millennium.";
 
     public static final String MESSAGE_EXIT_SUCCESS = "Exiting Horo!";
 

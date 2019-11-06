@@ -12,15 +12,9 @@ public abstract class VariableArgumentsBuilder<T> {
     private final String description;
     private final Consumer<List<T>> promise;
 
-    private VariableArguments<T> argument;
-
     VariableArgumentsBuilder(String description, Consumer<List<T>> promise) {
         this.description = description;
         this.promise = promise;
-    }
-
-    public List<T> getValues() {
-        return this.argument.getValues();
     }
 
     /**
@@ -28,8 +22,7 @@ public abstract class VariableArgumentsBuilder<T> {
      * @return the built variable arguments
      */
     public VariableArguments<T> build() {
-        this.argument = argumentBuild();
-        return this.argument;
+        return argumentBuild();
     }
 
     abstract VariableArguments<T> argumentBuild();

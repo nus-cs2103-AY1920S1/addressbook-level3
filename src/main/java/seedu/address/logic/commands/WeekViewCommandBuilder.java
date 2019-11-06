@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Map;
 
 import seedu.address.logic.UiManager;
-import seedu.address.logic.commands.arguments.DayMonthYearArgument;
+import seedu.address.logic.commands.arguments.CalendarDayArgument;
 import seedu.address.logic.commands.arguments.list.ArgumentList;
 import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
 import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
@@ -26,7 +26,7 @@ class WeekViewCommandBuilder extends CommandBuilder {
     @Override
     protected RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
-                .addArgument(DayMonthYearArgument.newBuilder(ARGUMENT_START_DATE_TIME, o -> this.start = o));
+                .addArgument(CalendarDayArgument.newBuilder(ARGUMENT_START_DATE_TIME, o -> this.start = o));
     }
 
     @Override
