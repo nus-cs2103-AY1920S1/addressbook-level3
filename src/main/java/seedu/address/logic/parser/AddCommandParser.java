@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INEXISTENT_FRIDGE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FRIDGE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
@@ -34,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
@@ -160,13 +160,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         String religion = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
         String relationship = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELATIONSHIP)
             .orElse(""));
-        IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
+        Index fridgeIdNum = ParserUtil.parseIndex(
             argMultimap.getValue(PREFIX_FRIDGE_ID).orElse(""));
-        if (fridgeId != null) {
-            if (!fridgeId.getTypeOfEntity().equalsIgnoreCase("f")) {
-                throw new ParseException(MESSAGE_INVALID_FRIDGE_ID);
-            }
-            if (!IdentificationNumber.isExistingIdentificationNumber(fridgeId.toString())) {
+        IdentificationNumber fridgeId = null;
+        if (fridgeIdNum != null) {
+            fridgeId = IdentificationNumber.customGenerateId("F", fridgeIdNum.getOneBased());
+            if (!IdentificationNumber.isExistingIdentificationNumber(fridgeId)) {
                 throw new ParseException(MESSAGE_INEXISTENT_FRIDGE);
             }
         }

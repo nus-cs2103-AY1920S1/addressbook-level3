@@ -25,7 +25,7 @@ public class WorkerBuilder {
     public static final String DEFAULT_DATE_JOINED = "01/01/2019";
     public static final String DEFAULT_DESIGNATION = "technician";
     public static final String DEFAULT_EMPLOYMENT_STATUS = "cleaning";
-    public static final String DEFAULT_PHOTO_PATH = "src/main/resources/images/ExamplePhoto.jpg";
+    public static final String DEFAULT_PHOTO_PATH = Photo.PATH_TO_EXAMPLE_PHOTO;
 
 
     private Name name;

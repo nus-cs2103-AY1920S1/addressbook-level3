@@ -11,7 +11,8 @@
 :toclevels: 3
 :experimental:
 ifdef::env-github[]
-:tip-caption: :💡
+:tip-caption: 💡
+:bulb: 💡
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T13-2/main
@@ -50,7 +51,7 @@ Type the command in the command box and press kbd:[Enter] to execute it. +
 The following are examples of some commands you can try:
 
 * *`list -b`* : lists all bodies
-* **`add -w`**`/name John Doe /sex male /dateJoined 12-12-2012` :
+* **`add -w`**`/name John Doe /sex male /dateJoined 12/12/2019` :
 adds a worker named John Doe to the management system.
 * **`delete -w`**`1` : deletes the worker with worker ID W000001
 * *`exit`* : exits the app
@@ -148,7 +149,7 @@ add -w +
 /dateJoined dateJoined +
 (/designation designation) +
 (/employmentStatus employmentStatus) +
-(/phoneNo phoneNumber) +
+(/phone phoneNumber) +
 (/dob dateOfBirth) +
 (/photo pathToPhoto)
 
@@ -172,9 +173,9 @@ add -b +
 (/status status) +
 (/nric nricNumber) +
 (/religion religion) +
-(/nameNOK nameOfNextOfKin) +
+(/NOKname nameOfNextOfKin) +
 (/relationship relationshipOfNextOfKin) +
-(/phoneNOK phoneOfNextOfKin) +
+(/NOKphone phoneOfNextOfKin) +
 (/cod causeOfDeath) +
 (/organsForDonation organsForDonation) +
 (/fridgeId fridgeId)
@@ -202,49 +203,46 @@ Example:
 | Command | Expected Output
 
 a|
-[source,java]
-add -w
-/name Mary
-/phoneNo 87654321
-/sex female
-/dateJoined 18/08/2019
-/designation Autopsy Technician
+`add -w
+ /name Mary
+ /phone 87654321
+ /sex female
+ /dateJoined 18/08/2019
+ /designation Autopsy Technician`
 
 ---
 
 | Worker added
 
 a|
-[source,java]
-add -b
+`add -b
 /name John Doe
 /sex male
 /dob 12/12/1984
 /dod 12/08/2019 2358
 /doa 13/08/2019 0200
-/status contactedNOK
+/status claimed
 /nric S8456372C
 /religion Catholic
-/nameNOK Jack Smith
+/NOKname Jack Smith
 /relationship Husband
-/phoneNOK 83462756
+/NOKphone 83462756
 /cod Car Accident
 /details Heavy bleeding and head injury
-/organsForDonation NIL
-/fridgeId 2
+/organsForDonation NIL`
 
 ---
 | Body added
 
 a|
-[source,java]
-add -f
+`add -f`
+{nbsp} +
+
 
 
 | Fridge added
 
 |===
-
 // end::add[]
 
 // tag::update[]
@@ -256,24 +254,24 @@ This command allows you to update the attributes of a body or worker.
 
 You have to indicate the entity type you want to update with a flag, as described in <<Features>>.
 [TIP]
-`-f` is not a valid flag for this command. Fridges will be automatically updated when bodies are assigned or removed.
+`-f` is not a valid flag for this command. Fridges are automatically updated when bodies are assigned or removed.
 
 You can specify one or more attributes to change, but at least one valid attribute must be provided.
 
-Format: `update -flag /id id [/attributeName attributeValue ...]`
+Format: `update -FLAG /id id [/attributeName attributeValue ...]`
 
 
 |===
 | :bulb: a|
-When the `fridgeId` of a `body` is updated, changes to the fridges will be made as follows:
+When you update the `fridgeId` of a `Body`, changes to the fridges will be made as follows:
 
-* Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `body`.
+* Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `Body`.
 
-* New fridge's status is set to `OCCUPIED` and is assigned this `body`.
+* New fridge's status is set to `OCCUPIED` and is assigned this `Body`.
 
-When you update the `CONTACT_POLICE` status of a `body`, the associated `notif` will be automatically deleted.
+When you update the status of a `Body` to `CONTACT_POLICE`, the `Notif` associated with the `Body` will be automatically deleted.
 
-When you update `bodyStatus` to `ARRIVED`, a `notif` pop-up will be shown after 10 seconds.
+When you update `bodyStatus` to `ARRIVED`, a `Notif` pop-up will be shown after 10 seconds.
 
 |===
 
@@ -295,9 +293,9 @@ Date of Death `/dod` +
 Date of Admission `/doa` +
 Status `/status` +
 Religion `/religion` +
-Name of Next-of-Kin `/nameNOK` +
+Name of Next-of-Kin `/NOKname` +
 Relationship `/relationship` +
-Phone Number of Next-of-Kin `/phoneNOK` +
+Phone Number of Next-of-Kin `/NOKphone` +
 Cause of Death `/cod` +
 Details `/details` +
 Organs For Donation `/organsForDonation` +
@@ -305,7 +303,7 @@ Fridge ID `/fridgeId` +
 
 | Worker
 a|
-Phone Number `/phoneNo` +
+Phone Number `/phone` +
 Sex `/sex` +
 Date of Birth `/dob` +
 Date Joined `/dateJoined` +
@@ -327,8 +325,7 @@ and her new designation. You see that her ID number is W00001.
 
 | Command | Expected Output
 
-|
-`update -w /id 1 /designation Senior Autopsy Technician`
+| `update -w /id 1 /designation Senior Autopsy Technician`
 
 | Designation of Jane Doe changed to Senior Autopsy Technician.
 
@@ -351,6 +348,7 @@ Format: `find (flag) (keyword)...`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+|===
 
 Format: `find -FLAG [keyword...]`
 
@@ -368,28 +366,16 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 ==== Deleting a person : `delete`
 
-You can delete a body, worker or fridge entry, using its id number. +
-Format: `delete -flag  id`
+You can delete a body, worker or fridge entry, using its Identification Number. +
+
+Format: `delete -FLAG  id`
 
 |===
-| :bulb: a|
-When you delete a body, its associated notifications will also be deleted.
-
-If a fridge is occupied by a body, you cannot delete it.
-
-You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
-in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a body, worker or fridge entry respectively.
+| :bulb: a| When you delete a body, its associated notifications will also be deleted. If a fridge is occupied by a body, you cannot delete it.
 |===
 
-****
-* Deletes the body, worker or fridge entry with t
-he specified identification number.
 
-* The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
-body, worker or fridge entry respectively.
-X represents any digit.
-* You only need to specify the number portion of the ID, without leading zeroes.
-****
+* Deletes the body, worker or fridge entry with the specified identification number.
 
 Examples:
 
@@ -408,31 +394,12 @@ Format: `clear`
 
 // end::clear[]
 
-// tag::view[]
-
-====  View an entry: `view`
-View a single entry of a body, worker, fridge.
-
-Format: `view -flag /id id`
-
-|===
-| Flags | Usage
-| -b | View the body with the given ID.
-| -w | View the worker with the given ID.
-| -f | View the fridge with the given ID.
-|===
-
-Example: `view -b /id 91` +
-View a body with the ID B00000091.
-
-// end::view[]
-
 // tag::list[]
 
 ==== List all entries: `list`
 List all entries of bodies, workers, or fridges.
 
-Format: `list -flag`
+Format: `list -FLAG`
 
 |===
 | Flags | Usage
@@ -446,22 +413,24 @@ Lists all bodies currently in Mortago.
 
 // end::list[]
 
+// tag::select[]
+
+====  Selecting a body: `select`
+
+You can select a body and view its full details by entering a select command.
+
+Format: `select id`
+
+Example: `select 1` +
+View a body with the ID B00000001.
+
+// end::select[]
+
 === General
-
-// tag::dashboard[]
-
-==== Display dashboard: `dashboard`
-
-Brings up the dashboard to the front of the application. +
-The dashboard provides a compact view of all bodies, workers and fridges, as well as several important statistics that may be useful to you.
-
-Format: `dashboard`
-
-// end::dashboard[]
 
 // tag::notifs[]
 
-==== View notifs panel: `notifs`
+==== View notifs panel: `showNotifs`
 View all notifications.
 
 A `notif` is automatically created when you could not contact the next of kin within 24 hours from the time
@@ -469,9 +438,10 @@ of arrival of the body. For the purpose of testing, this period is set to 10 sec
 The `bodyStatus` will be automatically changed to `CONTACT_POLICE` if it is `ARRVIED` after the 10 second period.
 A pop-up window to remind you to contact the police will be shown so that they can search for the body's next of kin.
 
-Once you change the `bodyStatus`, the `notif` will be be deleted.
+Once you change the `bodyStatus` to any of the possible bodyStatus instead of `ARRIVED`, the `notif` will be be deleted.
+If you change the `bodyStatus` to `ARRIVED`, the associated `notif` for the body will be added and the timer will start from the point in time it is changed.
 
-Format: `notifs`
+Format: `showNotifs`
 
 // end::notifs[]
 
@@ -522,12 +492,13 @@ Format: `undo` or `u`
 
 |===
 |:bulb: a|
-Only commands that change Mortago's data can be undone. For example, `add`, `update`, `clear`, and `delete` can be undone while
-`list` or `find` cannot be undone.
+Only commands that change Mortago's data can be undone. The `add`, `update`, `clear`, and `delete` commands can be undone.
+Commands like `list` or `find` cannot be undone.
 
 You can `undo` a `clear` command, but note that you cannot redo any past undone commands after that.
 
-Automated commands can be undone after they are executed as well.
+Automated commands like changes caused by a `Notif` can be undone and redone. For example, the automatic
+status change of a `Body` from `ARRIVED` to `CONTACT_POLICE` can be undone.
 
 
 |===
@@ -543,9 +514,9 @@ To undo:
 
 
 ==== Redoing a command: `redo`
-This command redoes the effects of the last command you undid. (See <<Undoing a command: `undo`>> for how `undo` can be used.)
+This command redoes the effects of the last command you undid.
 You can redo up to 10 of your most recent undone commands.
-Only commands that change Mortago's data can be redone. For example, `add`, `update`, and `delete` can be redone, but `list` cannot be redone.
+All commands that can be undone can be redone. (See <<Undoing a command: `undo`>> for how `undo` can be used.)
 
 Format: `redo` or `r`
 
@@ -574,39 +545,55 @@ Format: `exit`
 
 // end::exit[]
 
+// tag::documentGeneration[]
 === Document Generation
+This section showcases three commands you can use to generate different kinds of reports.
 
 // tag::genReport[]
 
 ==== Generate report for a specific body: `genReport`
-Generate an individual report in a PDF filename `Report <body_ID>.pdf` located in `Mortago` file.
+This command allows you to generate an individual report in a PDF filename `Report <body_ID>.pdf` located in the folder containing the jar file.
 
-Format: `genReport bodyId`
+image::reportlocation.png[width="790"]
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReport bodyId (yourSignatureName)`
 
 Example:
 
-* `genReport B123` +
-Outputs the report PDF for body ID B00000123
+* `genReport 123 John Doe` +
+Outputs the report PDF for body ID B00000123 in the folder containing the jar file. The report contains signature of John Doe.
 
 // end::genReport[]
 
 // tag::genReports[]
 
 ==== Generate reports for all bodies: `genReports`
-Generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in `Mortago` file.
+This command allows you to generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in the folder containing the jar file.
 
-Format: `genReports`
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReports (yourSignatureName)`
+
+Example:
+
+* `genReports John Doe` +
+Outputs the PDF containing reports for all bodies in the folder containing the jar file. The report contains signature of John Doe.
 
 // end::genReports[]
 
 // tag::genReportSummary[]
 
 ==== Generate summary report for all bodies: `genReportSummary`
-Generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in `Mortago` file.
+This command allows you to generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in the folder containing the jar file.
 
-Format: `genReportSummary`
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReportSummary (yourSignatureName)`
 
 // end::genReportSummary[]
+
+// end::documentGeneration[]
 
 === Administrative
 ==== View admission statistics: `stats`
@@ -633,8 +620,8 @@ Archive old or irrelevant entries. One entry can be archived at a time, or all e
 
 Format:
 
-* `archive -flag /id id`
-* `archive -flag /status status`
+* `archive -FLAG /id id`
+* `archive -FLAG /status status`
 
 Example:
 
@@ -646,7 +633,7 @@ Archives all entries of workers who are inactive
 ==== View archived entries: `archives` `[coming in v2.0]`
 Display all archived entries.
 
-Format: `archives -flag`
+Format: `archives -FLAG`
 
 Example:
 
@@ -694,7 +681,7 @@ Assigns worker with worker ID W00001 to body with ID B00000002 with a task descr
 ==== View all commands: `help` `[coming in v2.0]`
 View a summary of all available commands and their flags. Use the `-v` flag to view the detailed description of all commands and their flags.
 
-Format: `help -flag`
+Format: `help -FLAG`
 
 Example: `help -v` +
 Shows a link to the User Guide.
@@ -731,7 +718,7 @@ Lists emergency help hotlines.
     ** Add a new worker, body, or fridge with the
 `add -FLAG [/attributeName attributeValue...]`
 * *Update* an entry: `update`
-    ** Update the status of each worker, body, or fridge with the `update -flag (/attributeName attributeValue)`
+    ** Update the status of each worker, body, or fridge with the `update -FLAG (/attributeName attributeValue)`
 * *Find* : `find [keyword...]` +
     ** Find entries using a keyword. +
     Format: `find keyword`
@@ -739,13 +726,11 @@ Lists emergency help hotlines.
     ** Delete a body, worker or fridge entry, indicated by its id number. +
     Format: `delete -FLAG id`
 * *Clear* : `clear`
-* *View* : `view -FLAG /id id`
-* *List* : `list -flag`
+* *Select* : `select id`
+* *List* : `list -FLAG`
 
-* *View dashboard* : `dashboard`
-    ** Brings the dashboard to the front of the app.
-* *View notifs* : `notifs`
-    ** View all notifs brought up by the app.
+* *View notifs* : `showNotifs`
+    ** View all notifications brought up by the app.
 * *Sort* : `sort`
     ** Sort all displayed entries according to a given order. +
     Format: `sort /order order (/idOrder idOrder)`
@@ -772,10 +757,10 @@ Lists emergency help hotlines.
 
 * *Archive entries* : `archive` `[coming in v2.0]`
     ** Archive old or irrelevant entries.
-    Format: `archive -flag /id id`, `archive -flag /status status`
+    Format: `archive -FLAG /id id`, `archive -FLAG /status status`
 * *View archived entries* : `archives` `[coming in v2.0]`
     ** Display all archived entries.
-    Format: `archives -flag`
+    Format: `archives -FLAG`
 * *Give and view feedback* : `feedback` `[coming in v2.0]`
     * Give workers feedback and displays a history of all feedback entered.
     Format: `feedback /workerId workerId /notes notes`, feedback`
@@ -784,7 +769,7 @@ Lists emergency help hotlines.
     Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 * *Help summary*: `help` `[coming in v2.0]`
     ** Get information about the commands
-    Format: `help -flag` `[coming in v2.0]`
+    Format: `help -FLAG` `[coming in v2.0]`
 * *Help for specific command* : `help command` `[coming in v2.0]`
 * *Help hotlines* : `hotlines` `[coming in v2.0]`
 
