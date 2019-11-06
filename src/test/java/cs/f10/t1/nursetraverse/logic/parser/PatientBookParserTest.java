@@ -109,18 +109,18 @@ public class PatientBookParserTest {
 
     @Test
     public void parseCommand_cancelOngoingVisit() throws Exception {
-        assertTrue(parser.parseCommand(CancelOngoingVisitCommand.COMMAND_WORD, ModelState.VISIT_ONGOING)
+        assertTrue(parser.parseCommand(CancelOngoingVisitCommand.COMMAND_WORD, ModelState.NORMAL)
                 instanceof CancelOngoingVisitCommand);
-        assertTrue(parser.parseCommand(CancelOngoingVisitCommand.COMMAND_WORD + " 3",
-                ModelState.VISIT_ONGOING) instanceof CancelOngoingVisitCommand);
+        assertTrue(parser.parseCommand(CancelOngoingVisitCommand.COMMAND_WORD + " 3", ModelState.NORMAL)
+                instanceof CancelOngoingVisitCommand);
     }
 
     @Test
     public void parseCommand_finishOngoingVisit() throws Exception {
-        assertTrue(parser.parseCommand(FinishOngoingVisitCommand.COMMAND_WORD, ModelState.VISIT_ONGOING)
+        assertTrue(parser.parseCommand(FinishOngoingVisitCommand.COMMAND_WORD, ModelState.NORMAL)
                 instanceof FinishOngoingVisitCommand);
-        assertTrue(parser.parseCommand(FinishOngoingVisitCommand.COMMAND_WORD + " 3",
-                ModelState.VISIT_ONGOING) instanceof FinishOngoingVisitCommand);
+        assertTrue(parser.parseCommand(FinishOngoingVisitCommand.COMMAND_WORD + " 3", ModelState.NORMAL)
+                instanceof FinishOngoingVisitCommand);
     }
 
     @Test
