@@ -1,10 +1,9 @@
 package io.xpire.ui;
 
-import java.util.Optional;
+import static io.xpire.model.item.ExpiryDate.DATE_FORMAT;
 
 import io.xpire.commons.util.DateUtil;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.ReminderDate;
 import io.xpire.model.item.XpireItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -19,6 +18,12 @@ import javafx.scene.layout.StackPane;
 public class ItemCard extends UiPart<Region> {
 
     private static final String FXML = "ItemCard.fxml";
+    private static final String EXPIRED = "expired";
+    private static final String REMIND = "remind";
+    private static final String HEALTHY = "healthy";
+    private static final String EXPIRY_DATE = "Expiry date: ";
+    private static final String QUANTITY = "Quantity: ";
+    private static final String REMINDER = "Reminder: ";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -56,12 +61,10 @@ public class ItemCard extends UiPart<Region> {
         this.xpireItem = item;
         this.id.setText(displayedIndex + ". ");
         this.name.setText(item.getName().toString());
-        this.expiryDate.setText("Expiry date: " + item.getExpiryDate().toString());
-        this.quantity.setText("Quantity: " + item.getQuantity().toString());
-        Optional<ReminderDate> reminderDate = DateUtil.getReminderDate(
-                item.getExpiryDate().getDate(), item.getReminderThreshold().getValue());
-        if (reminderDate.isPresent()) {
-            this.reminder.setText("Reminder: " + reminderDate.get().toString());
+        this.expiryDate.setText(EXPIRY_DATE + item.getExpiryDate().toString());
+        this.quantity.setText(QUANTITY + item.getQuantity().toString());
+        if (item.hasReminderThreshold()) {
+            this.reminder.setText(REMINDER + getReminderDate());
         } else {
             this.reminder.setVisible(false);
         }
@@ -70,10 +73,10 @@ public class ItemCard extends UiPart<Region> {
 
         this.status.setText(item.getExpiryDate().getStatus());
 
-        box.setOnMouseClicked(e -> box.requestFocus());
+        this.box.setOnMouseClicked(e -> this.box.requestFocus());
         this.setColor();
     }
-
+    //@@author febee99
     public ItemCard(Item replenishItem, int displayedIndex) {
         super(FXML);
         this.replenishItem = replenishItem;
@@ -85,18 +88,27 @@ public class ItemCard extends UiPart<Region> {
         this.status.setVisible(false);
         this.replenishItem.getTags()
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
-        box.setOnMouseClicked(e -> box.requestFocus());
+        this.box.setOnMouseClicked(e -> box.requestFocus());
     }
 
+    private String getReminderDate() {
+        return DateUtil.convertDateToString(
+                DateUtil.getPreviousDate(
+                        this.xpireItem.getExpiryDate().getDate(),
+                        this.xpireItem.getReminderThreshold().getValue()),
+                DATE_FORMAT);
+    }
+
+    //@@author xiaoyu-nus
     private void setColor() {
         long remainingDays = Long.parseLong(xpireItem.getExpiryDate().getStatus());
         int reminderThreshold = xpireItem.getReminderThreshold().getValue();
         if (xpireItem.isExpired()) {
-            days.getStyleClass().add("expired");
-        } else if (xpireItem.hasReminderThreshold() && remainingDays < reminderThreshold) {
-            days.getStyleClass().add("remind");
+            days.getStyleClass().add(EXPIRED);
+        } else if (remainingDays <= reminderThreshold) {
+            days.getStyleClass().add(REMIND);
         } else {
-            days.getStyleClass().add("healthy");
+            days.getStyleClass().add(HEALTHY);
         }
     }
 

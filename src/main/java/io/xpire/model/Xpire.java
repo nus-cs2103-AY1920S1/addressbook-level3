@@ -4,7 +4,6 @@ import static io.xpire.model.tag.Tag.EXPIRED_TAG;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -39,7 +38,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
      * Replaces the contents of the xpireItem list with {@code xpireItems}.
      * {@code xpireItems} must not contain duplicate xpireItems.
      */
-    public void setItems(List<XpireItem> xpireItems) {
+    public void setItems(ObservableList<XpireItem> xpireItems) {
         this.items.setItems(xpireItems);
     }
 
@@ -85,6 +84,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
         this.items.remove(key);
     }
 
+    //@@author febee99
     /**
      * Set method of sorting.
      */
@@ -92,7 +92,16 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
         this.items.setXpireMethodOfSorting(method);
     }
 
+    /**
+     * Retrieves method of sorting.
+     *
+     * @return Xpire method of sorting.
+     */
+    public XpireMethodOfSorting getMethodOfSorting() {
+        return this.items.getXpireMethodOfSorting();
+    }
 
+    //@@author liawsy
     /**
      * Checks expiry date of every item in xpire.
      */
@@ -112,7 +121,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
     }
 
     /**
-     * Updates tags of item specified.
+     * Updates tags of item specified.U
      * @param item The item to update tags for.
      */
     public void updateItemTag(XpireItem item) {

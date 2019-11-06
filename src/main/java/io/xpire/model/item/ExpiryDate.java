@@ -13,11 +13,14 @@ import io.xpire.commons.util.DateUtil;
  */
 public class ExpiryDate {
     public static final String DATE_FORMAT = "d/M/yyyy";
-    public static final String MESSAGE_CONSTRAINTS_RANGE = "Only Expiry dates that have not yet passed are accepted";
+    public static final String MESSAGE_CONSTRAINTS_LOWER = "Only Expiry dates that have not yet passed are accepted";
+    public static final String MESSAGE_CONSTRAINTS_UPPER = "Only Expiry dates strictly within 100 years are accepted";
+
     public static final String MESSAGE_CONSTRAINTS_FORMAT =
             "Expiry dates should only contain numbers, in the format " + DATE_FORMAT;
     private static final String EXPIRED = "Expired!";
     private static final String DAYS_LEFT = "%d day%s left";
+    private static final LocalDate CENTURY_LATER = DateUtil.getCurrentDate().plusYears(100);
     private final LocalDate date;
 
 
@@ -39,12 +42,22 @@ public class ExpiryDate {
         return DateUtil.convertStringToDate(date, DATE_FORMAT) != null;
     }
 
+    //@@author febee99
     /**
      * Returns true if a given string is a valid expiry date that has not yet passed.
      */
-    public static boolean isValidRangeExpiryDate(String date) {
+    public static boolean isValidLowerRangeExpiryDate(String date) {
         LocalDate d = DateUtil.convertStringToDate(date, DATE_FORMAT);
         return d.isAfter(DateUtil.getCurrentDate());
+    }
+
+    //@@author
+    /**
+     * Returns true if a given string is a valid expiry date within a hundred years.
+     */
+    public static boolean isValidUpperRangeExpiryDate(String date) {
+        LocalDate d = DateUtil.convertStringToDate(date, DATE_FORMAT);
+        return d.isBefore(CENTURY_LATER);
     }
 
     /**

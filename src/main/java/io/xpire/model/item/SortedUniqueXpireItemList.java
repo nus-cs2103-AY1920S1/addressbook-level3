@@ -14,7 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
-
+//@@author febee99
 /**
  * A list of items that enforces uniqueness between its elements and does not allow nulls.
  * An xpireItem is considered unique by comparing using {@code XpireItem#isSameItem(XpireItem)}. As such, adding and
@@ -54,6 +54,15 @@ public class SortedUniqueXpireItemList implements Iterable<XpireItem> {
         }
         this.internalList.add(toAdd);
         xpireMethodOfSorting = new XpireMethodOfSorting("name");
+    }
+
+    /**
+     * Retrieves method of sorting for Xpire.
+     *
+     * @return Xpire method of sorting.
+     */
+    public XpireMethodOfSorting getXpireMethodOfSorting() {
+        return xpireMethodOfSorting;
     }
 
     /**
@@ -109,7 +118,7 @@ public class SortedUniqueXpireItemList implements Iterable<XpireItem> {
      */
     public void setXpireMethodOfSorting(XpireMethodOfSorting method) {
         this.xpireMethodOfSorting = method;
-        this.sortedInternalList.setComparator(xpireMethodOfSorting.getComparator());
+        this.sortedInternalList.setComparator(this.xpireMethodOfSorting.getComparator());
     }
 
     /**

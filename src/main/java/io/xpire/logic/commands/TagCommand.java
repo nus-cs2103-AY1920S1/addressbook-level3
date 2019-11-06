@@ -14,15 +14,19 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.ModifiedState;
+import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 import io.xpire.model.tag.TagItemDescriptor;
 
-
+//@@author Kalsyc
 /**
  * Adds tag(s) to xpireItem identified using its displayed index from the expiry date tracker.
  */
 public class TagCommand extends Command {
+
+
 
     /**
      * Private enum to indicate whether command shows all tags or tags and xpireItem
@@ -30,20 +34,29 @@ public class TagCommand extends Command {
     enum TagMode { SHOW, TAG }
 
     public static final String COMMAND_WORD = "tag";
+    public static final String COMMAND_SHORTHAND = "t";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Tags the xpireItem identified by the index number used in the displayed xpireItem list.\n"
-            + "Format: <index>|<tag>[<other tags>]...\n"
+
+            + ": Tags the xpireItem identified by the index number used in the displayed item list.\n"
+            + "Note that only 5 tags are allowed per item. \n"
+            + "Format: tag|<index>|<tag>[<other tags>]...\n"
             + "(index must be a positive integer; each tag must be prefixed with a '#')\n"
             + "Example: " + COMMAND_WORD + "|1|#Food #Fruit";
 
-    public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged xpireItem: %1$s";
-    public static final String MESSAGE_TAG_SHOW_SUCCESS = "All xpireItem tags:";
+    public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged item: %1$s";
+    public static final String MESSAGE_TAG_SHOW_SUCCESS = "All item tags:";
     public static final String MESSAGE_TAG_SHOW_FAILURE = "There are no tags.";
+    private static final String MESSAGE_TOO_MANY_TAGS = "Only 5 tags are allowed per item.";
+    private static final String MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING = "Warning! "
+            + "Some tag(s) have been truncated. Maximum tag length accepted is 20.\nTagged item: %1$s";
 
     private final Index index;
     private final TagItemDescriptor tagItemDescriptor;
     private final TagMode mode;
+    private boolean containsLongTags = false;
+    private Item item = null;
+    private String result = "";
 
 
 
@@ -71,7 +84,7 @@ public class TagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
         List<? extends Item> lastShownList = model.getCurrentFilteredItemList();
 
@@ -81,12 +94,25 @@ public class TagCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
             XpireItem xpireItemToTag = (XpireItem) lastShownList.get(this.index.getZeroBased());
+            this.item = xpireItemToTag;
             XpireItem taggedXpireItem = createTaggedItem(xpireItemToTag, this.tagItemDescriptor);
+            if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
+                this.containsLongTags = true;
+            }
+            stateManager.saveState(new ModifiedState(model));
             model.setItem(xpireItemToTag, taggedXpireItem);
-            return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedXpireItem));
+            if (containsLongTags) {
+                this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedXpireItem);
+                setShowInHistory(true);
+                return new CommandResult(this.result);
+            }
+            this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedXpireItem);
+            setShowInHistory(true);
+            return new CommandResult(this.result);
+
         case SHOW:
             Set<Tag> tagSet = new TreeSet<>(new TagComparator());
-            List<XpireItem> xpireItemList = model.getAllItemList();
+            List<XpireItem> xpireItemList = model.getXpire().getItemList();
             xpireItemList.forEach(item -> tagSet.addAll(item.getTags()));
             if (tagSet.isEmpty()) {
                 return new CommandResult(MESSAGE_TAG_SHOW_FAILURE);
@@ -118,9 +144,13 @@ public class TagCommand extends Command {
      * Creates and returns a {@code XpireItem} with the details of {@code xpireItemToTag}
      * edited with {@code tagItemDescriptor}.
      */
-    private static XpireItem createTaggedItem(XpireItem xpireItemToTag, TagItemDescriptor tagItemDescriptor) {
+    private static XpireItem createTaggedItem(XpireItem xpireItemToTag, TagItemDescriptor tagItemDescriptor)
+            throws CommandException {
         assert xpireItemToTag != null;
         Set<Tag> updatedTags = updateTags(xpireItemToTag, tagItemDescriptor);
+        if (updatedTags.size() >= 6) {
+            throw new CommandException(MESSAGE_TOO_MANY_TAGS);
+        }
         return new XpireItem(xpireItemToTag.getName(), xpireItemToTag.getExpiryDate(), xpireItemToTag.getQuantity(),
                 updatedTags, xpireItemToTag.getReminderThreshold());
     }
@@ -176,5 +206,9 @@ public class TagCommand extends Command {
                 && mode.equals(e.mode);
     }
 
+    @Override
+    public String toString() {
+        return "the following Tag command:\n" + this.result;
+    }
 
 }

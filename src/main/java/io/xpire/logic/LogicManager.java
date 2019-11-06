@@ -8,6 +8,8 @@ import io.xpire.commons.core.GuiSettings;
 import io.xpire.commons.core.LogsCenter;
 import io.xpire.logic.commands.Command;
 import io.xpire.logic.commands.CommandResult;
+import io.xpire.logic.commands.RedoCommand;
+import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.Parser;
 import io.xpire.logic.parser.ReplenishParser;
@@ -15,9 +17,13 @@ import io.xpire.logic.parser.XpireParser;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
+import io.xpire.model.history.CommandHistory;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.StateManager;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * The main LogicManager of the app.
@@ -31,6 +37,8 @@ public class LogicManager implements Logic {
     private Parser parser;
     private final XpireParser xpireParser = new XpireParser();
     private final ReplenishParser replenishParser = new ReplenishParser();
+    private final StateManager stateManager = new StateManager();
+    private final CommandHistory commandHistory = new CommandHistory();
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -38,6 +46,7 @@ public class LogicManager implements Logic {
         this.parser = xpireParser;
     }
 
+    //@@author febee99
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -49,7 +58,7 @@ public class LogicManager implements Logic {
             this.parser = replenishParser;
         }
         Command command = this.parser.parse(commandText);
-        commandResult = command.execute(this.model);
+        commandResult = command.execute(this.model, this.stateManager);
 
         try {
             this.storage.saveList(this.model.getLists());
@@ -57,17 +66,37 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        if (command instanceof UndoCommand) {
+            Command previousCommand = commandHistory.retrievePreviousCommand();
+            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(), previousCommand));
+        } else if (command instanceof RedoCommand) {
+            Command nextCommand = commandHistory.retrieveNextCommand();
+            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(), nextCommand));
+        } else if (command.isShowInHistory()) {
+            commandHistory.addCommand(command);
+        }
         return commandResult;
     }
 
+    //@@author liawsy
     @Override
     public ReadOnlyListView<? extends Item>[] getLists() {
         return this.model.getLists();
     }
 
     @Override
-    public ObservableList<? extends Item> getCurrentFilteredItemList() {
+    public FilteredList<? extends Item> getCurrentFilteredItemList() {
         return this.model.getCurrentFilteredItemList();
+    }
+
+    @Override
+    public ObservableList<XpireItem> getXpireItemList() {
+        return this.model.getFilteredXpireItemList();
+    }
+
+    @Override
+    public ObservableList<Item> getReplenishItemList() {
+        return this.model.getFilteredReplenishItemList();
     }
 
     @Override

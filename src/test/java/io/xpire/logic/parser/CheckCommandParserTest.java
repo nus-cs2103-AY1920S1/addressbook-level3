@@ -16,7 +16,7 @@ public class CheckCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsCheckCommand() {
-        assertEqualsParseSuccess(parser, " 1", new CheckCommand(new ExpiringSoonPredicate(1)));
+        assertEqualsParseSuccess(parser, " 1", new CheckCommand(new ExpiringSoonPredicate(1), 1));
         assertEqualsParseSuccess(parser, "", new CheckCommand(new ReminderThresholdExceededPredicate()));
         assertEqualsParseSuccess(parser, " ", new CheckCommand(new ReminderThresholdExceededPredicate()));
     }
@@ -30,7 +30,7 @@ public class CheckCommandParserTest {
         assertParseFailure(parser, "1.5",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE)); // non-integer number
         assertParseFailure(parser, (CheckCommandParser.MAX_VALUE + 1) + "",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE)); // exceeding max number
+                CheckCommand.MESSAGE_EXCEEDED_MAX); // exceeding max number
     }
 
 }

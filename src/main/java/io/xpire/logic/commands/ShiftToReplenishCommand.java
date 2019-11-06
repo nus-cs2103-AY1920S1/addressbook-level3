@@ -14,16 +14,20 @@ import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.exceptions.ItemNotFoundException;
+import io.xpire.model.state.ModifiedState;
+import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
-
+//@@author liawsy
 /**
  * Shifts a {@code XpireItem} to the Replenish List.
  */
 public class ShiftToReplenishCommand extends Command {
 
     public static final String COMMAND_WORD = "shift";
+    public static final String COMMAND_SHORTHAND = "sh";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Moves the item identified by the index number to the replenish list.\n"
             + "Format: shift|<index> (index must be a positive integer)\n"
@@ -34,15 +38,17 @@ public class ShiftToReplenishCommand extends Command {
 
     private Item replenishItem;
     private final Index targetIndex;
+    private String result = "";
 
     public ShiftToReplenishCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
 
         requireNonNull(model);
+        stateManager.saveState(new ModifiedState(model));
         List<XpireItem> lastShownList = model.getFilteredXpireItemList();
 
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -62,7 +68,9 @@ public class ShiftToReplenishCommand extends Command {
             model.addReplenishItem(this.replenishItem);
             model.deleteItem(targetItem);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, replenishItem.getName()));
+        this.result = String.format(MESSAGE_SUCCESS, replenishItem.getName());
+        setShowInHistory(true);
+        return new CommandResult(this.result);
     }
 
     /**
@@ -80,5 +88,10 @@ public class ShiftToReplenishCommand extends Command {
             }
         }
         return new Item(itemName, newTags);
+    }
+
+    @Override
+    public String toString() {
+        return "the following Shift command:\n" + this.result;
     }
 }

@@ -30,27 +30,6 @@ public class QuantityTest {
     }
 
     @Test
-    public void isValidInputQuantity() {
-        //input is positive integer -> returns true
-        assertTrue(Quantity.isValidInputQuantity("2"));
-
-        //input is negative integer -> returns false
-        assertFalse(Quantity.isValidInputQuantity("-4"));
-
-        //input is positive double -> returns false
-        assertFalse(Quantity.isValidInputQuantity("-3.14159265"));
-
-        //input is zero -> returns false
-        assertFalse(Quantity.isValidInputQuantity("0"));
-
-        //input is a character -> returns false
-        assertFalse(Quantity.isValidInputQuantity("a"));
-
-        //input is greater than maximum allowed value
-        assertFalse(Quantity.isValidInputQuantity("100001"));
-    }
-
-    @Test
     public void isValidQuantity() {
         //input is positive integer -> returns true
         assertTrue(Quantity.isValidQuantity("2"));

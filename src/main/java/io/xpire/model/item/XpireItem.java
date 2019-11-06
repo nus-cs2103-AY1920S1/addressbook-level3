@@ -193,12 +193,12 @@ public class XpireItem extends Item {
                     .append(String.format("Expiry date: %s (%s)\n",
                             this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())))
                     .append("Tags: ");
+            this.getTags().forEach(builder::append);
         } else {
             builder.append(this.name).append("\n")
-                    .append(String.format("Expiry date: %s (%s)\n",
+                    .append(String.format("Expiry date: %s (%s)",
                             this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())));
         }
-        this.getTags().forEach(builder::append);
         return builder.toString();
     }
 }

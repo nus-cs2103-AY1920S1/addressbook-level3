@@ -11,8 +11,9 @@ import io.xpire.model.item.ListToView;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
+import io.xpire.model.state.State;
 import io.xpire.model.tag.Tag;
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * The API of the Model component.
@@ -72,7 +73,7 @@ public interface Model {
     /**
      * Returns an Xpire object.
      */
-    ReadOnlyListView<XpireItem> getXpire();
+    Xpire getXpire();
 
     /**
      * Returns true if an xpireItem with the same identity as {@code xpireItem} exists in xpire.
@@ -117,17 +118,10 @@ public interface Model {
     Set<Tag> getAllItemTags();
 
     /** Returns an unmodifiable view of the filtered xpireItem list. */
-    ObservableList<XpireItem> getFilteredXpireItemList();
+    FilteredList<XpireItem> getFilteredXpireItemList();
 
     /** Returns an unmodifiable view of the current item list.*/
-    ObservableList<? extends Item> getCurrentFilteredItemList();
-
-    /**
-     * Returns a list of all the xpire items.
-     *
-     * @return List of all xpire items.
-     */
-    List<XpireItem> getAllItemList();
+    FilteredList<? extends Item> getCurrentFilteredItemList();
 
     /**
      * Updates the filter of the filtered Item list to filter by the given {@code predicate}.
@@ -148,6 +142,11 @@ public interface Model {
     void setCurrentFilteredItemList(ListToView list);
 
     /**
+     * Sets current filtered list view to the specified list.
+     */
+    void setCurrentFilteredItemList(FilteredList<? extends Item> list);
+
+    /**
      * Replaces replenish list data with the data in {@code replenishList}.
      */
     void setReplenishList(ReadOnlyListView<Item> replenishList);
@@ -155,7 +154,7 @@ public interface Model {
     /**
      * Returns a ReplenishList object.
      */
-    ReadOnlyListView<Item> getReplenishList();
+    ReplenishList getReplenishList();
 
     /**
      * Returns true if an item with the same identity as {@code Item} exists in replenish list.
@@ -181,11 +180,15 @@ public interface Model {
      */
     void setReplenishItem(Item target, Item editedItem);
 
+    void setFilteredXpireItems(FilteredList<XpireItem> list);
+
+    void setFilteredReplenishItems(FilteredList<Item> list);
+
     Set<Tag> getAllReplenishItemTags();
 
     Set<Name> getAllReplenishItemNames();
 
-    ObservableList<Item> getFilteredReplenishItemList();
+    FilteredList<Item> getFilteredReplenishItemList();
 
     void updateFilteredReplenishItemList(Predicate<Item> predicate);
 
@@ -198,5 +201,10 @@ public interface Model {
 
     void shiftItemToReplenishList(XpireItem xpireItem);
 
+    void update(State state);
+
+    void update(ListToView listToView);
+
+    ListToView getListToView();
 
 }

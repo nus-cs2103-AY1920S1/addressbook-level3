@@ -15,7 +15,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
 /**
+ * A list of items that enforces uniqueness between its elements and does not allow nulls.
+ * An itm is considered unique by comparing using {@code Item#isSameItem(Item)}. As such, adding and
+ * updating of items uses Item#isSameItem(Item) for equality so as to ensure that the Item being added
+ * or updated is unique in terms of identity in the SortedUniqueList. However, the removal of an item uses
+ * Item#equals(Object) so as to ensure that the Item with exactly the same fields will be removed.
  *
+ * Supports a minimal set of list operations.
+ *
+ * @see Item#isSameItem(Item)
  */
 public class SortedUniqueReplenishItemList implements SortedUniqueList<Item> {
 

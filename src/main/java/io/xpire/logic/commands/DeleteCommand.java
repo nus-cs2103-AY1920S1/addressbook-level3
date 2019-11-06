@@ -15,6 +15,8 @@ import io.xpire.model.Model;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.ModifiedState;
+import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -29,31 +31,31 @@ public class DeleteCommand extends Command {
     private enum DeleteMode { ITEM, QUANTITY, TAGS }
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_SHORTHAND = "d";
 
     public static final String MESSAGE_USAGE =
             "Three formats available for " + COMMAND_WORD + ":\n"
-            + "1) Deletes the xpireItem identified by the index number.\n"
+            + "1) Deletes the item identified by the index number.\n"
             + "Format: delete|<index> (index must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + "|1" + "\n"
-            + "2) Deletes all tags in the xpireItem identified by the index number.\n"
+            + "2) Deletes all tags in the item identified by the index number.\n"
             + "Format: delete|<index>|<tag>[<other tags>]...\n"
             + "Example: " + COMMAND_WORD + "|1" + "|#Fruit #Food"
-            + "3) Reduces the quantity in the xpireItem identified by the index number. \n"
-            + "Format: delete|<index>|<quantity> (quantity must be positive and less than xpireItem's quantity.\n";
+            + "3) Reduces the quantity in the item identified by the index number. \n"
+            + "Format: delete|<index>|<quantity> (quantity must be positive and less than item's quantity.\n";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted item: %s";
     public static final String MESSAGE_DELETE_TAGS_SUCCESS = "Deleted tags from item: %s";
-    public static final String MESSAGE_DELETE_TAGS_FAILURE = "Did not manage to delete any tags.\n"
-            + "You have specified tag(s) that are not found in item: %s";
     public static final String MESSAGE_DELETE_QUANTITY_SUCCESS = "Reduced quantity by %s from item: %s";
     public static final String MESSAGE_DELETE_QUANTITY_FAILURE = "Invalid quantity specified. \n"
             + "Quantity must be positive and less than item's quantity.";
-    public static final String MESSAGE_DELETE_FAILURE = "Did not manage to delete anything";
 
     private final Index targetIndex;
     private final Set<Tag> tagSet;
     private final Quantity quantity;
     private final DeleteMode mode;
+    private XpireItem item = null;
+    private String result = "";
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -77,8 +79,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, ParseException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException, ParseException {
         requireNonNull(model);
+        stateManager.saveState(new ModifiedState(model));
         List<XpireItem> lastShownList = model.getFilteredXpireItemList();
 
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -86,27 +89,37 @@ public class DeleteCommand extends Command {
         }
 
         XpireItem targetXpireItem = lastShownList.get(this.targetIndex.getZeroBased());
+        this.item = targetXpireItem;
+
         switch(this.mode) {
         case ITEM:
             model.deleteItem(targetXpireItem);
-            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, targetXpireItem));
+            this.result = String.format(MESSAGE_DELETE_ITEM_SUCCESS, targetXpireItem);
+            setShowInHistory(true);
+            return new CommandResult(this.result);
         case TAGS:
             assert this.tagSet != null;
-            XpireItem newTaggedXpireItem = removeTagsFromItem(targetXpireItem, this.tagSet);
+            XpireItem newTaggedXpireItem = removeTagsFromItem(new XpireItem(targetXpireItem), this.tagSet);
             model.setItem(targetXpireItem, newTaggedXpireItem);
-            return new CommandResult(String.format(MESSAGE_DELETE_TAGS_SUCCESS, targetXpireItem));
+            this.result = String.format(MESSAGE_DELETE_TAGS_SUCCESS, newTaggedXpireItem);
+            setShowInHistory(true);
+            return new CommandResult(this.result);
         case QUANTITY:
             assert this.quantity != null;
-            XpireItem newQuantityXpireItem = reduceItemQuantity(targetXpireItem, quantity);
+            XpireItem newQuantityXpireItem = reduceItemQuantity(new XpireItem(targetXpireItem), this.quantity);
             Name itemName = newQuantityXpireItem.getName();
             model.setItem(targetXpireItem, newQuantityXpireItem);
             // transfer item to replenish list
             if (Quantity.quantityIsZero(newQuantityXpireItem.getQuantity())) {
-                model.shiftItemToReplenishList(targetXpireItem);
-                return new CommandResult(String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, itemName));
+                model.shiftItemToReplenishList(newQuantityXpireItem);
+                this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetXpireItem)
+                        + "\n" + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, itemName);
+                setShowInHistory(true);
+                return new CommandResult(this.result);
             }
-            return new CommandResult(
-                    String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetXpireItem));
+            this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetXpireItem);
+            setShowInHistory(true);
+            return new CommandResult(this.result);
         default:
             throw new CommandException(Messages.MESSAGE_UNKNOWN_DELETE_MODE);
         }
@@ -169,5 +182,10 @@ public class DeleteCommand extends Command {
     @Override
     public int hashCode() {
         return this.targetIndex.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "the following Delete command:\n" + this.result;
     }
 }

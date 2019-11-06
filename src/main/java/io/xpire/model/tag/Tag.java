@@ -14,6 +14,7 @@ public class Tag {
     private static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     private final String tagName;
+    private boolean isTruncated = false;
 
     /**
      * Constructs a {@code Tag}.
@@ -23,7 +24,15 @@ public class Tag {
     public Tag(String tagName) {
         requireNonNull(tagName);
         AppUtil.checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        if (tagName.length() > 20) {
+            tagName = tagName.substring(0, 20);
+            isTruncated = true;
+        }
         this.tagName = tagName;
+    }
+
+    public boolean isTruncated() {
+        return isTruncated;
     }
 
     public String getTagName() {

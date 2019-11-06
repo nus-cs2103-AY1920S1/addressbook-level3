@@ -10,10 +10,11 @@
 = Xpire - User Guide
 :site-section: UserGuide
 :toc:
-:toclevels: 3
+:toclevels: 4
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -22,7 +23,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F11-2/main
 
 By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -45,11 +46,71 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * `*view*|main` : views all items in the main list
 * `*check*|20` : views items that are going to expire within 20 days
-* `*add*|Banana|25/9/2019` : adds an item named `Banana` with expiry date `25/9/2019` to list
+* `*add*|Banana|25/9/2020` : adds an item named `Banana` with expiry date `25/9/2020` to list
 * `*delete*|3` : deletes the 3rd item shown in the current list
 * `*exit*` : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list). You can move your items from the
+tracking list to the replenish list once they are consumed or expired.
+* `*shift*|1` : moves the 1st item from the tracking list (main list) to the replenish list
+
+.  Some commands are only applicable for items in the tracking list. Refer to <<Features>> for details of each command.
+
+== Graphic User Interface
+
+image::GUI.png[width="790"]
+
+There are two lists shown on the Graphic User Interface(GUI), `View` and `All Items`. On the left is the `View` list.
+This is an active list that shows you the current view of items. As you manipulate the items using
+`search`, or `check`, `View` list will change accordingly to show you only the items you want to see.
+
+image::ItemCard.png[width="710"]
+
+This is how your item will look like in the `View` list. The number on the right is the number of days left before the item expires.
+
+The colour of the item card changes according to
+the status of your item. +
+
+* An *expired* item will be red. +
+
+image::Expired.png[width="500]
+
+* An item that is *expiring soon* will be yellow. You can set when to mark an item yellow based
+on individual cases. See more information here: <<Reminder>>.
+
+image::ReminderCard.png[width="500]
+
+* An item that has *not expired* and is not going to expire soon will be green.
+
+image::ItemCard.png[width="710"]
+
+If the name or other details of the item is shortened with `...`, you can click on the card to expand it.
+
+image::ShortenedCard.png[width="500"]
+image::ExpandCard.png[width="500"]
+
+
+You can find all your items on the right, in the `All Items` list.
+
+image::AllItems.png[width="300"]
+
+The `All Items` list provides you with a static view of all your items in the app in alphabetical order. Here items are categorized into tracked items and to-buy items. You can click on the list
+name to view items in the list, or click again to collapse the list. Clicking on the item name will show you the
+expiry date of the item if it has one.
+
+Below the `View` list panel, you can find a rectangle box which acts like a "feedback window".
+
+image::FeedbackBox.png[width="500"]
+
+Any feedback on
+the successful execution of the command will be displayed in this box. If an illegal command is entered, you will
+also be able to see a failure message and relevant suggestions in the box.
+
+Finally, at the very bottom, you can find a small rounded rectangle box that says "Enter command here...".
+
+image::CommandBox.png[width="500"]
+
+This is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], and you will see it appears in your `View` list!
 
 [[Features]]
 == Features
@@ -59,26 +120,41 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
 * Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
-* Optional parameters with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|[<tag>]...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit`.
+* Optional parameters with `…`​ after them can be used multiple times including zero times. For example, for [<other tags>]..., the following format for Tag Command: `tag|<index>|<tag>[<other tags>]...` can be used as `tag|1|#Fruit #Frozen #Cold` or `tag|1|#Fruit`.
 * Trailing `|` (s) are allowed. e.g. `add|banana|2/2/2020|||` or `sort|name|`.
 ====
 
+=== Common features
+
 // tag::help[]
-=== Opening the help window: `help`
+==== Opening the help window: `help`
+
+.Help window
+image::help.png[width="790"]
 
 Displays the help window. +
 Format: `help`
 // end::help[]
 
 // tag::view[]
-=== Viewing all items : `view`
+==== Viewing all items : `view`
 
-==== Viewing all items in the current list
+===== Viewing all items in the current list
+
+.Items in current list viewed
+image::view-current.png[width="790"]
 Shows all items in the current list, which is the main list by default, or the replenish list if otherwise specified. +
 All items are sorted by both name (lexicographical order) and date (chronological order). +
 Format: `view`
 
-==== Viewing all items in another list
+===== Viewing all items in another list
+
+.Items in main tracking list viewed
+image::view-main.png[width="790"]
+
+.Items in replenish list viewed
+image::view-replenish.png[width="790"]
+
 Changes the list to be displayed. +
 You can toggle between the main list and the list of items to be replenished with this command. +
 Format: `view|<list to view>`
@@ -93,7 +169,11 @@ Displays all items in the replenish list.
 // end::view[]
 
 // tag::search[]
-=== Searching for item(s) by their name and/or tag: `search`
+==== Searching for item(s) by their name and/or tag: `search`
+
+.Items matching #fruit or #chicken shown
+image::search.png[width="790"]
+
 Searches for items whose names or tag(s) contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
 
@@ -117,8 +197,87 @@ Returns `Chicken Ham`
 Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 // end::search[]
 
+// tag::shift[]
+==== Shifting an item from one list to another: `shift`
+Transfers items from main list to replenish list, or from replenish list to main list.
+
+===== Shifting an item from the main list to the replenish list
+
+[TIP]
+Use this to shift any expired items (tagged as `#Expired`  by the system) to the replenish list.
+
+
+Format: `shift|<index>`
+
+Example:
+
+* `shift|2` +
+Transfers the 2nd item in the main list to the replenish list.
+
+===== Shifting an item from the replenish list to the main list
+Format: `shift|<index>|<expiry date>[|quantity]`
+
+Examples:
+
+* `shift|3|29/3/2020` (without quantity) +
+Transfers the 3rd item from the replenish list to the main list with expiry date `29/3/2020` and quantity `1`
+
+* `shift|2|11/2/2020|4` +
+Transfers the 2nd item from the replenish list to the main list with expiry date `11/2/2020` and quantity `4`
+
+
+****
+* Item quantity **must be a positive integer** 1,2,3...
+* When not specified, the item quantity is assumed to be 1.
+****
+
+
+[TIP]
+For items with single quantity, you can save time by keying in only the item name and expiry date.
+
+
+// end::shift[]
+
+
+// tag::clear[]
+==== Clearing all entries : `clear`
+
+Clears all entries from the current list that is displayed. +
+Format: `clear`
+// end::clear[]
+
+// tag::export[]
+==== Exporting data (multi-platform) : `export`
+
+.Items in current list exported to QR code
+image::export.png[width="790"]
+
+Exports the current list of items through a QR code. +
+Any device with a QR code reader will be able to download the list of items. +
+Format: `export`
+
+// end:export[]
+
+// tag::exit[]
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+// end::exit[]
+
+==== Saving the data
+
+Items are saved in the hard disk automatically after any command that modifies the list. +
+There is no need to save manually.
+
+=== Main tracking list features only
+
 // tag::add[]
-=== Adding an item: `add` (Only permitted in the main list)
+==== Adding an item: `add`
+
+.New item added to main tracking list
+image::add.png[width="790"]
+
 Adds an item to your tracker. +
 Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
 Format: `add|<item name>|<expiry date>[|<quantity>]`
@@ -134,25 +293,17 @@ Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
 ****
 * Item quantity **must be a positive integer** 1,2,3...
 * When not specified, the item quantity is assumed to be 1.
+* The furthest date allowed as expiry date is 100 years from current date.
 ****
 
 [TIP]
 For items with single quantity, you can save time by keying in only the item name and expiry date.
 // end::add[]
 
-// tag::shift[]
-//TODO: update shift command
-=== Shifting an item from one list to another: `shift`
-
-==== Shifting an item from the main list to the replenish list
-
-==== Shifting an item from the replenish list to the main list
-// end::shift[]
-
 // tag::delete[]
-=== Deleting variable(s): `delete` (Only permitted in the main list)
+==== Deleting variable(s): `delete`
 
-==== Deleting an item
+===== Deleting an item
 Deletes the specified item from your list. +
 Format: `delete|<index>` +
 
@@ -168,7 +319,7 @@ Deletes the 3rd item in the sorted main list.
 `delete|1` +
 Deletes the 1st item in the results of the `search` command.
 
-==== Deleting certain tags from an item
+===== Deleting certain tags from an item
 Deletes tag(s) from the specified item. +
 Format: `delete|<index>|<tag>[<other tags>]...` +
 
@@ -178,7 +329,11 @@ Examples:
 `delete|3|#Fruit #Food` +
 Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
 
-==== Reducing the quantity of an item
+===== Reducing the quantity of an item
+
+.Item at index 4 reduced in quantity by 1
+image::delete-quantity.png[width="790"]
+
 Reduces item quantity by the specified quantity. +
 Format `delete|<index>|<quantity>`
 
@@ -199,13 +354,17 @@ Reduces the quantity of the 4th item by 1.
 // end::delete[]
 
 // tag::tag[]
-=== Tagging an item : `tag` (Only permitted in the main list)
+==== Tagging an item : `tag`
 
-==== Display all tags created
+===== Display all tags created
 Shows all the tags you have created.
 Format: `tag`
 
-==== Add new tag(s) to an item
+===== Add new tag(s) to an item
+
+.Item at index 4 tagged with #Fruit and #Yellow
+image::tag.png[width="790"]
+
 [TIP]
 An item can have any number of tags (including 0)
 
@@ -217,6 +376,8 @@ Format: `tag|<index>|<tag>[<other tags>]...`
 * The index refers to the index number shown in the list.
 * The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
 * Tags must be prefixed with a '#'.
+* Only a maximum of 5 tags allowed per item.
+* Tag lengths are restricted to 20 characters. So make use of those 20 characters wisely!
 * Tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
 ****
 
@@ -228,19 +389,28 @@ Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
 // end::tag[]
 
 // tag::set reminder[]
-=== Setting reminder for an item: `set reminder` (Only permitted in the main list)
+[[Reminder]]
+==== Setting reminder for an item: `set reminder`
 
-==== Setting the number of days before an item's expiry date to start reminding you
-Sets a reminder threshold for your item. +
+===== Setting the number of days before an item's expiry date to start reminding you
+.Reminder set for item at index 4
+image::set-reminder.png[width="790"]
+
+Sets a reminder for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
 
-This allows the check command to quickly find the item once the reminder threshold is exceeded.
+Reminder threshold refers to *the number of days before the item's expiry date*. By setting the reminder threshold
+of an item to n days, the app will start reminding you of this items n days before its expiry date.
+
+This allows the check command to quickly find the item once the reminder threshold is exceeded, and also
+allows the item to be marked as yellow in `View`.
 
 ****
-* Reminder threshold refers to *the number of days before the item's expiry date* to activate the reminder.
 * All items have their default reminder threshold set to 0.
 * To reset a reminder threshold, simply write over the old one.
-* To delete a reminder, reset the reminder threshold to 0.
+* A reminder cannot be set to be before the current date. For example, if the current date is 20/9/2019
+, it is not possible to set the reminder on 19/9/2019. In other words, if an item is expiring in 4 days, we cannot start the reminder 5 days before its expiry date. Instead, the app understands that you want the reminder to
+be activated immediately, and will start the reminder on the current date.
 ****
 
 Examples:
@@ -248,8 +418,7 @@ Examples:
 * `set reminder|2|4` +
 Sets a reminder for the second item in the list 4 days before its expiry date.
 
-
-==== Removing the reminder for an item
+===== Removing the reminder for an item
 Removes the reminder set for your item.
 Format: `set reminder|<index>|0`
 
@@ -260,13 +429,17 @@ Removes the reminder for the first item in the list.
 // end::set reminder[]
 
 // tag::check[]
-=== Listing expiring items: `check` (Only permitted in the main list)
+==== Listing expiring items: `check`
 
-==== Listing all expiring items with activated reminders
+===== Listing all expiring items with activated reminders
+.Items expiring soon listed
+image::check.png[width="790"]
+
 Lists items whose reminder has been activated. +
 Format: `check`
 
-==== Listing items that will expire within a certain number of days
+===== Listing items that will expire within a certain number of days
+
 Lists items that will expire within the specified number of days in your tracker. +
 Format: `check|<days>`
 
@@ -284,46 +457,44 @@ Lists items expiring in the next 20 days.
 // end::check[]
 
 // tag::sort[]
-=== Sorting all items : `sort` (Only permitted in the main list)
+==== Sorting all items : `sort`
 Sorts all items in your list by their name or date. +
 Format: `sort|<key>`
 
 ****
 * Items can be sorted by either name or date.
-* For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
+* For example, Apple will sort ahead of Banana, while 1/1/790 will sort ahead of 1/1/2001.
 ****
-
-==== Sorting all items by their name
+===== Sorting all items by their name
 Format: `sort|name`
 
-==== Sorting all items by their date
+===== Sorting all items by their date
+.Items sorted by their date
+image::sort-date.png[width="790"]
+
 Format: `sort|date`
 // end::sort[]
-
-// tag::clear[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the current list that is displayed. +
-Format: `clear`
-// end::clear[]
-
-// tag::exit[]
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-// end::exit[]
-
-=== Saving the data
-
-Items are saved in the hard disk automatically after any command that modifies the list. +
-There is no need to save manually.
 
 // tag::dataencryption[]
 //=== Encrypting data files `[coming in v2.0]`
 
 //_{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+==== Undo previous command : `undo`
+Undo the previous command that you have entered in. +
+Format: `undo`
+
+[TIP]
+`undo` only works on commands that alter your items or the current view list. +
+Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view list. +
+Also, `undo` only works for the last 10 commands. Therefore, use the application wisely!
+
+==== Redo an earlier command : `redo`
+Redo an earlier command that you have entered in. +
+Format: `redo`
+
+This command works in the opposite direction as `undo`, it will redo any command that you have undid so that you are able to see the changes.
 
 == FAQ
 
@@ -334,15 +505,21 @@ There is no need to save manually.
 
 // tag::tablesummary[]
 === Table Summary
-Rows highlighted in light blue represent commands that can only be used in the main list and not the replenish list.
+
+The table below summarises the common commands available for use in both lists.
 [cols=".<2,.^4,.^4", options="header"]
 
 |===
 |Command |Format |Example
 
-
 |*Help*
 |`help`|
+
+|*Undo*
+|`undo`|
+
+|*Redo*
+|`redo`|
 
 1.2+|*View*
 1.2+|`view\|<list>`
@@ -357,33 +534,37 @@ Rows highlighted in light blue represent commands that can only be used in the m
 |`search\|#fruit #sweet`
 
 
+|*Clear*
+|`clear`|
 
-1.2+|{set:cellbgcolor:	#F0F8FF}
-*Add*
+|*Export*
+|`export`|
+
+|*Exit*|`exit`||{set:cellbgcolor!}
+
+|===
+
+The table below summarises the commands only available for use in the main list.
+[cols=".<2,.^4,.^4", options="header"]
+|===
+|Command |Format |Example
+
+1.2+|*Add*
 |`add\|<item name>\|<expiry date>`
 |`add\|durian\|30/9/2019`
 
 |`add\|<item name>\|<expiry date>\|<quantity>`
 |`add\|durian\|30/9/2019\|8`
 
-1.2+|{set:cellbgcolor!}
-*Shift*
-|`shift\|<index>`
-|`shift\|2`
-|`shift\|<index>\|<expiry date>\|<quantity>`
-|`shift\|2\|1/1/2020\|2`
-
-
-
-1.3+|{set:cellbgcolor:#F0F8FF}
+1.3+|
 *Delete*
 |`delete\|<index>`
 |`delete\|3`
 
-|`delete\|<index>\|<tag>]`
+|`delete\|<index>\|<tag>`
 |`delete\|3\|#fruit`
 
-|`delete\|<index>\|[<quantity>]`
+|`delete\|<index>\|<quantity>`
 |`delete\|3\|2`
 
 1.2+|*Tag*
@@ -397,44 +578,44 @@ Rows highlighted in light blue represent commands that can only be used in the m
 |`set reminder\|<index>\|<reminder threshold>`
 |`set reminder\|1\|7`
 
+
 1.2+|*Check*
 |`check`
 |
 
-|`check[\|<days>]`
+|`check\|<days>`
 |`check\|20`
+
+|*Shift*
+|`shift\|<index>`
+|`shift\|2`
 
 1.2+|*Sort*
 1.2+|`sort\|<key>`
 |`sort\|name`
 |`sort\|date`
 
-|{set:cellbgcolor!}
-*Clear*
-|`clear`|
-
-|*Exit*|`exit`||{set:cellbgcolor!}
-
 |===
 // end::tablesummary[]
 
-=== List Summary
-* *Help* : `help`
-* *View* : `view|<list>`
-* *Search* : `search|<keyword>[|<other keywords>]...` +
-e.g. `search|milk|tea|pearls`
-* *Add* `add|<item name>|<expiry date>[|<quantity>]...` +
-e.g. `add|durian|30/9/2019`
-* *Delete* : `delete|<index>[|<tag> or <quantity>]` +
-e.g. `delete|3`
-* *Tag* : `tag|<index>|[<tag>]...`
-* *Set reminder* : `set reminder|<index>|<reminder threshold>` +
-e.g. `set reminder|1|7`
-* *Check* : `check[|<days>]` +
-e.g. `check|20`
-* *Sort* : `sort|<key>` +
-e.g. `sort|date`
-* *Clear* : `clear`
-* *Exit* : `exit`
+== Command Shorthands
 
+Commands also come with command shorthands which can be used in place of the full command word. For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
 
+Below is a list of commands and their corresponding command shorthands:
+
+* `help` : `h`
+* `add` : `a`
+* `view` : `v`
+* `set reminder` : `sr`
+* `shift` : `sh`
+* `check` : `ch`
+* `sort` : `so`
+* `search` : `se`
+* `delete` : `d`
+* `tag` : `t`
+* `clear` : `cl`
+* `undo` : `u`
+* `redo` : `r`
+* `export` : `ex`
+* `exit` : `x`

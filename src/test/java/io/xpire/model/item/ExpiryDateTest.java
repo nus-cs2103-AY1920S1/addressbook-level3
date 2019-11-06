@@ -37,10 +37,14 @@ public class ExpiryDateTest {
     public void isValidRangeExpiryDate() {
 
         // date after Y2S1 (will fail after 11/2/2020)
-        assertTrue(ExpiryDate.isValidRangeExpiryDate("11/2/2020"));
+        assertTrue(ExpiryDate.isValidLowerRangeExpiryDate("11/2/2020"));
+        assertTrue(ExpiryDate.isValidUpperRangeExpiryDate("11/2/2020"));
 
         // date before current date
-        assertFalse(ExpiryDate.isValidRangeExpiryDate("24/06/1999"));
+        assertFalse(ExpiryDate.isValidLowerRangeExpiryDate("24/06/1999"));
+
+        // date after 200 years
+        assertFalse(ExpiryDate.isValidUpperRangeExpiryDate("24/06/4000"));
 
     }
 

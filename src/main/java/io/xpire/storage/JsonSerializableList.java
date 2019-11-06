@@ -15,6 +15,7 @@ import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 
+//@@author febee99
 /**
  * An Immutable Xpire that is serializable to JSON format.
  */

@@ -7,6 +7,7 @@ import java.util.Comparator;
 import io.xpire.commons.util.AppUtil;
 import io.xpire.model.item.XpireItem;
 
+//@@author febee99
 /**
  * Represents a XpireMethodOfSorting in the expiry date tracker.
  * Guarantees: immutable
@@ -19,6 +20,7 @@ public class XpireMethodOfSorting implements MethodOfSorting<XpireItem> {
     private final Comparator<XpireItem> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
             Comparator.nullsFirst(Comparator.naturalOrder()));
     private final Comparator<XpireItem> nameThenDateSorter = nameSorter.thenComparing(dateSorter);
+    private final Comparator<XpireItem> dateThenNameSorter = dateSorter.thenComparing(nameSorter);
     private final String method;
 
     /**
@@ -38,7 +40,7 @@ public class XpireMethodOfSorting implements MethodOfSorting<XpireItem> {
     public Comparator<XpireItem> getComparator() {
         switch (method) {
         case "date":
-            return dateSorter;
+            return dateThenNameSorter;
         default:
             return nameThenDateSorter;
         }

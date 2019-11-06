@@ -47,6 +47,9 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
         this.reminderThreshold = reminderThreshold;
         if (tags != null) {
             this.tags.addAll(tags);
+            while (this.tags.size() > 5) {
+                this.tags.remove(5);
+            }
         }
     }
 
@@ -96,7 +99,7 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Quantity.class.getSimpleName()));
         }
-        if (!Quantity.isValidInputQuantity(this.quantity)) {
+        if (!Quantity.isValidQuantity(this.quantity)) {
             throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS);
         }
         final Quantity modelQuantity = new Quantity(this.quantity);

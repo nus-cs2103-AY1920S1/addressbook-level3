@@ -14,12 +14,15 @@ import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.Command;
 import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.commands.ExitCommand;
+import io.xpire.logic.commands.ExportCommand;
 import io.xpire.logic.commands.HelpCommand;
+import io.xpire.logic.commands.RedoCommand;
 import io.xpire.logic.commands.SearchCommand;
 import io.xpire.logic.commands.SetReminderCommand;
 import io.xpire.logic.commands.ShiftToReplenishCommand;
 import io.xpire.logic.commands.SortCommand;
 import io.xpire.logic.commands.TagCommand;
+import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 
@@ -55,46 +58,86 @@ public class XpireParser implements Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+            //fallthrough
+        case AddCommand.COMMAND_SHORTHAND:
             return new AddCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+            //fallthrough
+        case DeleteCommand.COMMAND_SHORTHAND:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            //fallthrough
+        case ClearCommand.COMMAND_SHORTHAND:
             return new ClearCommand("main");
 
         case SearchCommand.COMMAND_WORD:
+            //fallthrough
+        case SearchCommand.COMMAND_SHORTHAND:
             return new SearchCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
+            //fallthrough
+        case ViewCommand.COMMAND_SHORTHAND:
             return new ViewCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
+            //fallthrough
+        case ExitCommand.COMMAND_SHORTHAND:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            //fallthrough
+        case HelpCommand.COMMAND_SHORTHAND:
             return new HelpCommand();
 
         case SortCommand.COMMAND_WORD:
+            //fallthrough
+        case SortCommand.COMMAND_SHORTHAND:
             return new SortCommandParser().parse(arguments);
 
         case CheckCommand.COMMAND_WORD:
+            //fallthrough
+        case CheckCommand.COMMAND_SHORTHAND:
             return new CheckCommandParser().parse(arguments);
 
         case SetReminderCommand.COMMAND_WORD:
+            //fallthrough
+        case SetReminderCommand.COMMAND_SHORTHAND:
             return new SetReminderCommandParser().parse(arguments);
 
         case TagCommand.COMMAND_WORD:
+            //fallthrough
+        case TagCommand.COMMAND_SHORTHAND:
             return new TagCommandParser().parse(arguments);
 
+        case UndoCommand.COMMAND_WORD:
+            //fallthrough
+        case UndoCommand.COMMAND_SHORTHAND:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            //fallthrough
+        case RedoCommand.COMMAND_SHORTHAND:
+            return new RedoCommand();
+
         case ShiftToReplenishCommand.COMMAND_WORD:
+            //fallthrough
+        case ShiftToReplenishCommand.COMMAND_SHORTHAND:
             return new ShiftToReplenishCommandParser().parse(arguments);
+
+        case ExportCommand.COMMAND_WORD:
+            //fallthrough
+        case ExportCommand.COMMAND_SHORTHAND:
+            return new ExportCommand();
 
         default:
             return parseUnknownCommandWord(commandWord);
         }
     }
 
+    //@@author febee99
     /**
      * Parses invalid command words to check if there were any possible input mistakes.
      *
@@ -111,7 +154,8 @@ public class XpireParser implements Parser {
             ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD, SortCommand.COMMAND_WORD,
             SetReminderCommand.COMMAND_WORD, TagCommand.COMMAND_WORD,
-            CheckCommand.COMMAND_WORD, ShiftToReplenishCommand.COMMAND_WORD
+            CheckCommand.COMMAND_WORD, ShiftToReplenishCommand.COMMAND_WORD,
+            ExportCommand.COMMAND_WORD
         };
         Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
         sb.append(StringUtil.findSimilar(command, allCommandsSet, 1));

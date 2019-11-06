@@ -6,6 +6,8 @@ import io.xpire.commons.core.Messages;
 import io.xpire.commons.util.StringUtil;
 import io.xpire.model.Model;
 import io.xpire.model.item.ContainsKeywordsPredicate;
+import io.xpire.model.state.FilteredState;
+import io.xpire.model.state.StateManager;
 
 /**
  * Searches and displays all items whose name contains any of the argument keywords.
@@ -14,6 +16,7 @@ import io.xpire.model.item.ContainsKeywordsPredicate;
 public class SearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
+    public static final String COMMAND_SHORTHAND = "se";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches and displays all items whose names "
             + "or tag(s) contain any of the specified keywords (case-insensitive).\n"
@@ -28,11 +31,13 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
+        stateManager.saveState(new FilteredState(model));
         model.updateFilteredItemList(this.predicate);
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
                 model.getCurrentFilteredItemList().size()));
+        //@@author febee99
         if (model.getCurrentFilteredItemList().size() == 0) {
             predicate.getKeywords().forEach(s -> {
                 if (s.startsWith("#")) {
@@ -42,6 +47,8 @@ public class SearchCommand extends Command {
                 }
             });
         }
+        //@@author
+        setShowInHistory(true);
         return new CommandResult(sb.toString());
     }
 
@@ -60,5 +67,10 @@ public class SearchCommand extends Command {
     @Override
     public int hashCode() {
         return this.predicate.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Search command";
     }
 }

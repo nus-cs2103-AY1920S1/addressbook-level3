@@ -1,15 +1,20 @@
 package io.xpire.logic.commands;
+
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.model.Model;
 import io.xpire.model.item.ListToView;
+import io.xpire.model.state.FilteredState;
+import io.xpire.model.state.StateManager;
 
+//@@author febee99
 /**
  * Display all items to the user.
  */
 public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
+    public static final String COMMAND_SHORTHAND = "v";
 
     public static final String MESSAGE_SUCCESS = "Displayed all items in %s list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views all items in tracking or toReplenish list.\n"
@@ -28,18 +33,25 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
+        stateManager.saveState(new FilteredState(model));
         String output = String.format(MESSAGE_SUCCESS, "the");
         if (list != null) {
             output = String.format(MESSAGE_SUCCESS, list);
             model.setCurrentFilteredItemList(list);
         }
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
+        setShowInHistory(true);
         return new CommandResult(output);
     }
 
     public ListToView getList() {
         return this.list;
+    }
+
+    @Override
+    public String toString() {
+        return "View command";
     }
 }

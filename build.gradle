@@ -66,10 +66,12 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
     compile 'com.jfoenix:jfoenix:9.0.8'
+    compile 'com.google.zxing:core:3.4.0'
+    compile 'com.google.zxing:javase:3.4.0'
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'xpire.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -152,5 +154,13 @@ task copyStylesheets(type: Copy) {
     into "${asciidoctor.outputDir}/html5/stylesheets"
 }
 asciidoctor.dependsOn copyStylesheets
+
+/*
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked"
+    }
+}
+*/
 
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
