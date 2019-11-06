@@ -61,7 +61,8 @@ public class DeleteCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         // no space in between flag and argument
         assertParseFailure(
-            parser, FLAG_PERSON + VALID_INDEX, String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            parser, FLAG_PERSON + VALID_INDEX,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         assertParseFailure(
             parser,
             FLAG_EVENT + VALID_EVENT, String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
