@@ -121,15 +121,15 @@ public class FontColourCommand extends Command {
                 if ((this.fontColour != null && ((FontColourCommand) other).fontColour == null)
                         || (this.fontColour == null && ((FontColourCommand) other).fontColour != null)
                         || (this.backgroundCommand != null && ((FontColourCommand) other).backgroundCommand == null)
-                        || (this.backgroundCommand == null && ((FontColourCommand) other).backgroundCommand != null) ) {
+                        || (this.backgroundCommand == null && ((FontColourCommand) other).backgroundCommand != null)) {
                     return false;
                 }
 
                 if ((this.fontColour != null && ((FontColourCommand) other).fontColour != null)
-                        && this.backgroundCommand == null &&  ((FontColourCommand) other).backgroundCommand == null) {
+                        && this.backgroundCommand == null && ((FontColourCommand) other).backgroundCommand == null) {
                     return this.fontColour.equals(((FontColourCommand) other).fontColour);
                 } else if ((this.fontColour == null && ((FontColourCommand) other).fontColour == null)
-                        && this.backgroundCommand != null &&  ((FontColourCommand) other).backgroundCommand != null) {
+                        && this.backgroundCommand != null && ((FontColourCommand) other).backgroundCommand != null) {
                     return this.backgroundCommand.equals(((FontColourCommand) other).backgroundCommand);
                 }
 
@@ -153,7 +153,7 @@ public class FontColourCommand extends Command {
                                 ? fontColour.hashCode()
                                 : Objects.hash(fontColour, backgroundCommand);
     }
-    
+
     @Override
     public String toString() {
         return "FontColourCommand with attributes:\n"

@@ -28,7 +28,7 @@ import seedu.sugarmummy.model.bio.User;
 class AddBioCommandParserTest {
 
     private AddBioCommandParser parser = new AddBioCommandParser();
-    
+
     @Test
     public void parseFailure_missingName() {
         assertParseFailure(parser, " p/12345 e/23456 m/Type II Diabetes",
@@ -78,7 +78,7 @@ class AddBioCommandParserTest {
     }
 
     @Test
-    public void parseFailure_multipleNRICs() {
+    public void parseFailure_multipleNrics() {
         assertParseFailure(parser, " n/Bob nric/s1234567a nric/s2345678b p/12345 e/23456 m/Type II Diabetes",
                 MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR + "[nric/]");
     }
@@ -106,7 +106,7 @@ class AddBioCommandParserTest {
         assertParseFailure(parser, " n/Bob o/other info o/more other info p/12345 e/23456 m/Type II Diabetes",
                 MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR + "[o/]");
     }
-    
+
     @Test
     public void parseSuccess_minimal() {
         User user = new User(new Name("Bob"), new DisplayPicPath(""), new ProfileDesc(""), new Nric(""),

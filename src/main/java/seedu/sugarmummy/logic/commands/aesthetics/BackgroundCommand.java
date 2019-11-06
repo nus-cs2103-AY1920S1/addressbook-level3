@@ -169,15 +169,15 @@ public class BackgroundCommand extends Command {
                 if ((this.background != null && ((BackgroundCommand) other).background == null)
                         || (this.background == null && ((BackgroundCommand) other).background != null)
                         || (this.fontColourCommand != null && ((BackgroundCommand) other).fontColourCommand == null)
-                        || (this.fontColourCommand == null && ((BackgroundCommand) other).fontColourCommand != null) ) {
+                        || (this.fontColourCommand == null && ((BackgroundCommand) other).fontColourCommand != null)) {
                     return false;
                 }
 
                 if ((this.background != null && ((BackgroundCommand) other).background != null)
-                        && this.fontColourCommand == null &&  ((BackgroundCommand) other).fontColourCommand == null) {
+                        && this.fontColourCommand == null && ((BackgroundCommand) other).fontColourCommand == null) {
                     return this.background.equals(((BackgroundCommand) other).background);
                 } else if ((this.background == null && ((BackgroundCommand) other).background == null)
-                        && this.fontColourCommand != null &&  ((BackgroundCommand) other).fontColourCommand != null) {
+                        && this.fontColourCommand != null && ((BackgroundCommand) other).fontColourCommand != null) {
                     return this.fontColourCommand.equals(((BackgroundCommand) other).fontColourCommand);
                 }
 

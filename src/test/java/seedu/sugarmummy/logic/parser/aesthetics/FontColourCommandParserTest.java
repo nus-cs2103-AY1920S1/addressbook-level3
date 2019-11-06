@@ -38,7 +38,7 @@ class FontColourCommandParserTest {
     }
 
     @Test
-    public void parseSuccess_FontColourArgs() {
+    public void parseSuccess_fontColourArgs() {
         Background background = new Background("black");
         background.setBgSize("");
         background.setBgRepeat("");

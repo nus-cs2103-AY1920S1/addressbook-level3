@@ -17,7 +17,7 @@ class BackgroundTest {
     }
 
     @Test
-    public void isValidBackgroundPicPath_EmptyString() {
+    public void isValidBackgroundPicPath_emptyString() {
         assertTrue(Background.isValidBackgroundPicPath(""));
     }
 
@@ -30,7 +30,7 @@ class BackgroundTest {
     public void isValidBackgroundSize_secondValue() {
         assertTrue(Background.isValidBackgroundSize(BackgroundImageArgs.BACKGROUND_SIZE_VALUES.get(1)));
     }
-    
+
     @Test
     public void isValidBackgroundSize_thirdValue() {
         assertTrue(Background.isValidBackgroundSize(BackgroundImageArgs.BACKGROUND_SIZE_VALUES.get(2)));
@@ -40,7 +40,7 @@ class BackgroundTest {
     public void isValidBackgroundSize_emptyStringInvalidValue() {
         assertTrue(Background.isValidBackgroundSize(""));
     }
-    
+
     @Test
     public void isValidBackgroundSize_firstInvalidValue() {
         assertFalse(Background.isValidBackgroundSize("big"));
@@ -50,7 +50,7 @@ class BackgroundTest {
     public void isValidBackgroundSize_secondInvalidValue() {
         assertFalse(Background.isValidBackgroundSize("200"));
     }
-    
+
     @Test
     public void isValidBackgroundSize_thirdInvalidValue() {
         assertFalse(Background.isValidBackgroundSize("tiny"));
@@ -65,22 +65,22 @@ class BackgroundTest {
     public void isValidBackgroundRepeat_secondValue() {
         assertTrue(Background.isValidBackgroundRepeat(BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.get(1)));
     }
-    
+
     @Test
     public void isValidBackgroundRepeat_thirdValue() {
         assertTrue(Background.isValidBackgroundRepeat(BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.get(2)));
     }
-    
+
     @Test
     public void isValidBackgroundRepeat_fourthValue() {
         assertTrue(Background.isValidBackgroundRepeat(BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.get(3)));
     }
-    
+
     @Test
     public void isValidBackgroundRepeat_fifthValue() {
         assertTrue(Background.isValidBackgroundRepeat(BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.get(4)));
     }
-    
+
     @Test
     public void isValidBackgroundRepeat_sixthValidValue() {
         assertTrue(Background.isValidBackgroundRepeat(BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.get(5)));
@@ -105,7 +105,7 @@ class BackgroundTest {
     public void isValidBackgroundRepeat_thirdInvalidValue() {
         assertFalse(Background.isValidBackgroundRepeat("twice"));
     }
-    
+
     @Test
     public void isBackgroundColour() {
         assertTrue((new Background("yellow")).isBackgroundColour());
@@ -122,24 +122,24 @@ class BackgroundTest {
         firstBackground.setBgSize("cover");
         Background secondBackground = new Background("/Users/bg.png");
         secondBackground.setBgRepeat("no-repeat");
-        
+
         Background expectedBackground = new Background("/Users/bg.png");
         expectedBackground.setBgSize("cover");
         expectedBackground.setBgRepeat("no-repeat");
-        
+
         firstBackground.merge(secondBackground);
 
         assertEquals(firstBackground, expectedBackground);
     }
 
     @Test
-    public void getBgSize_Null() {
+    public void getBgSize_null() {
         Background background = new Background("/Users/bg.png");
         assertNull(background.getBgSize());
     }
 
     @Test
-        public void getBgSize_EmptyString() {
+    public void getBgSize_emptyString() {
         Background background = new Background("/Users/bg.png");
         background.setBgSize("");
         assertEquals("", background.getBgSize());
@@ -171,13 +171,13 @@ class BackgroundTest {
 
 
     @Test
-    public void getBgRepeat_Null() {
+    public void getBgRepeat_null() {
         Background background = new Background("/Users/bg.png");
         assertNull(background.getBgRepeat());
     }
 
     @Test
-    public void getBgRepeat_EmptyString() {
+    public void getBgRepeat_emptyString() {
         Background background = new Background("/Users/bg.png");
         background.setBgRepeat("");
         assertEquals("", background.getBgRepeat());
@@ -210,7 +210,7 @@ class BackgroundTest {
 
 
     @Test
-    public void getBgColour_EmptyString() {
+    public void getBgColour_emptyString() {
         Background background = new Background("");
         assertNull(background.getBackgroundColour());
     }
@@ -223,7 +223,7 @@ class BackgroundTest {
 
 
     @Test
-    public void getBgPicPath_EmptyString() {
+    public void getBgPicPath_emptyString() {
         Background background = new Background("");
         assertEquals("", background.getBackgroundPicPath());
     }
@@ -233,7 +233,6 @@ class BackgroundTest {
         Background background = new Background("/Users/bg.png");
         assertEquals("/Users/bg.png", background.getBackgroundPicPath());
     }
-
 
 
     @Test
@@ -258,7 +257,7 @@ class BackgroundTest {
     }
 
     @Test
-    public void isEmpty_Test() {
+    public void isEmpty_test() {
         Background background = new Background("");
         assertTrue(background.isEmpty());
     }
@@ -291,56 +290,112 @@ class BackgroundTest {
     public void testEquals_emptyBackground() {
         Background firstBackground = new Background("");
         Background secondBackground = new Background("");
-        assertTrue(firstBackground.equals(secondBackground));
+        assertEquals(firstBackground, secondBackground);
     }
 
     @Test
     public void testEquals_colour() {
         Background firstBackground = new Background("yellow");
         Background secondBackground = new Background("yellow");
-        assertTrue(firstBackground.equals(secondBackground));
+        assertEquals(firstBackground, secondBackground);
     }
 
     @Test
     public void testEquals_pic() {
         Background firstBackground = new Background("/Users/bg.png");
         Background secondBackground = new Background("/Users/bg.png");
-        assertTrue(firstBackground.equals(secondBackground));
+        assertEquals(firstBackground, secondBackground);
     }
 
     @Test
     public void testEquals_colourAndEmptyBackground() {
         Background firstBackground = new Background("yellow");
         Background secondBackground = new Background("");
-        assertFalse(firstBackground.equals(secondBackground));
+        assertNotEquals(firstBackground, secondBackground);
     }
 
     @Test
     public void testEquals_picAndEmptyBackground() {
         Background firstBackground = new Background("/Users/bg.png");
         Background secondBackground = new Background("");
-        assertFalse(firstBackground.equals(secondBackground));
+        assertNotEquals(firstBackground, secondBackground);
     }
 
     @Test
     public void testEquals_picAndColour() {
         Background firstBackground = new Background("/Users/bg.png");
         Background secondBackground = new Background("yellow");
-        assertFalse(firstBackground.equals(secondBackground));
+        assertNotEquals(firstBackground, secondBackground);
     }
 
     @Test
     public void testEquals_differentColours() {
         Background firstBackground = new Background("red");
         Background secondBackground = new Background("yellow");
-        assertFalse(firstBackground.equals(secondBackground));
+        assertNotEquals(firstBackground, secondBackground);
     }
 
     @Test
     public void testEquals_differentFilePaths() {
         Background firstBackground = new Background("/Users/bg.png");
         Background secondBackground = new Background("/Users/bg2.png");
-        assertFalse(firstBackground.equals(secondBackground));
+        assertNotEquals(firstBackground, secondBackground);
+    }
+
+    @Test
+    public void testHashCode_emptyBackground() {
+        Background firstBackground = new Background("");
+        Background secondBackground = new Background("");
+        assertEquals(firstBackground.hashCode(), secondBackground.hashCode());
+    }
+
+    @Test
+    public void testHashCode_colour() {
+        Background firstBackground = new Background("yellow");
+        Background secondBackground = new Background("yellow");
+        assertEquals(firstBackground.hashCode(), secondBackground.hashCode());
+    }
+
+    @Test
+    public void testHashCode_pic() {
+        Background firstBackground = new Background("/Users/bg.png");
+        Background secondBackground = new Background("/Users/bg.png");
+        assertEquals(firstBackground.hashCode(), secondBackground.hashCode());
+    }
+
+    @Test
+    public void testHashCode_colourAndEmptyBackground() {
+        Background firstBackground = new Background("yellow");
+        Background secondBackground = new Background("");
+        assertNotEquals(firstBackground.hashCode(), secondBackground.hashCode());
+    }
+
+    @Test
+    public void testHashCode_picAndEmptyBackground() {
+        Background firstBackground = new Background("/Users/bg.png");
+        Background secondBackground = new Background("");
+        assertNotEquals(firstBackground.hashCode(), secondBackground.hashCode());
+    }
+
+    @Test
+    public void testHashCode_picAndColour() {
+        Background firstBackground = new Background("/Users/bg.png");
+        Background secondBackground = new Background("yellow");
+        assertNotEquals(firstBackground.hashCode(), secondBackground.hashCode());
+    }
+
+    @Test
+    public void testHashCode_differentColours() {
+        Background firstBackground = new Background("red");
+        Background secondBackground = new Background("yellow");
+        assertNotEquals(firstBackground.hashCode(), secondBackground.hashCode());
+    }
+
+    @Test
+    public void testHashCode_differentFilePaths() {
+        Background firstBackground = new Background("/Users/bg.png");
+        Background secondBackground = new Background("/Users/bg2.png");
+        assertNotEquals(firstBackground.hashCode(), secondBackground.hashCode());
     }
 
 }

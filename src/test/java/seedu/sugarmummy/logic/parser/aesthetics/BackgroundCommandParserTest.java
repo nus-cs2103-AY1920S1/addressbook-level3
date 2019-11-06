@@ -42,7 +42,7 @@ class BackgroundCommandParserTest {
     }
 
     @Test
-    public void parseSuccess_FontColourArgs() {
+    public void parseSuccess_fontColourArgs() {
         Background background = new Background("black");
         background.setBgSize("");
         background.setBgRepeat("");
@@ -59,7 +59,7 @@ class BackgroundCommandParserTest {
     }
 
     @Test
-    public void parse_FontColourArgs_colourWithImageArgs() {
+    public void parse_fontColourArgs_colourWithImageArgs() {
         assertParseFailure(parser, "black fontcolour/yellow s/cover", String
                 .format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT,
                 BackgroundCommand.MESSAGE_USAGE));
