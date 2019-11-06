@@ -18,7 +18,8 @@ public class ClashCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ",
+        assertParseFailure(parser,
+                "     ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
     }
 
@@ -33,30 +34,37 @@ public class ClashCommandParserTest {
     public void parse_someIrrelevantPrefixesPresent_throwParseException() {
 
         // irrelevant prefix without input
-        assertParseFailure(parser, " a/1 t/",
+        assertParseFailure(parser,
+                " a/1 t/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
         // irrelevant prefix with input
-        assertParseFailure(parser, " s/1 t/1 y/1",
+        assertParseFailure(parser,
+                " s/1 t/1 y/1",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_emptyFields_throwParseException() {
         // single prefix
-        assertParseFailure(parser, " a/",
+        assertParseFailure(parser,
+                " a/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " m/",
+        assertParseFailure(parser,
+                " m/",
                 ClashCommand.MESSAGE_NEED_TWO_MODULES);
-        assertParseFailure(parser, " s/",
+        assertParseFailure(parser,
+                " s/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
         // multiple prefixes
-        assertParseFailure(parser, " s/ m/ a/",
+        assertParseFailure(parser,
+                " s/ m/ a/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
         // some empty fields
-        assertParseFailure(parser, " s/1 m/ ",
+        assertParseFailure(parser,
+                " s/1 m/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
     }
 
@@ -64,27 +72,34 @@ public class ClashCommandParserTest {
     public void parse_invalidFields_throwParseException() {
 
         // negative index
-        assertParseFailure(parser, " a/-2",
+        assertParseFailure(parser,
+                " a/-2",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
-        assertParseFailure(parser, " s/-2",
+        assertParseFailure(parser,
+                " s/-2",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
-        assertParseFailure(parser, " m/-5 m/-1",
+        assertParseFailure(parser,
+                " m/-5 m/-1",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
         // trailing invalid characters behind valid indexes
-        assertParseFailure(parser, " a/4 sdfsdferggdsss",
+        assertParseFailure(parser,
+                " a/4 sdfsdferggdsss",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
-        assertParseFailure(parser, " s/1 1",
+        assertParseFailure(parser,
+                " s/1 1",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
         // invalid integer or integer overflow
-        assertParseFailure(parser, " a/0",
+        assertParseFailure(parser,
+                " a/0",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
-        assertParseFailure(parser, " s/222222222222222222222222222",
+        assertParseFailure(parser,
+                " s/222222222222222222222222222",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
     }

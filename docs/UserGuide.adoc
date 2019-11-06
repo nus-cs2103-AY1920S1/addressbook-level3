@@ -171,10 +171,12 @@ Tags can be in any sequence. User may enter multiple keywords after a tag.
 ====
 *Searching Criteria*
 
+* `find` supports searching in multiple lists for multiple keywords. All items contains the keyword as a word or a part of word (See examples for more details).
+* Searching is case-insensitive.
 * In Appeal list, items that contains any of the keywords in Appeal Type, Appeal ID, Status(resolved/unresolved),
-or Modules Requested will be displayed.
+Module Requested or Module to Drop will be displayed.
 * In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description wil be displayed.
-* In Student list, items that contains any of the keywords in Student Name will be displayed.
+* In Student list, items that contains any of the keywords in Student Name or Matric ID will be displayed.
 ====
 
 [NOTE]
@@ -187,19 +189,38 @@ Examples:
 
 Sample Output:
 
+All items containing "larry" in Student list and all items containing "programming" are displayed.
+
 image::FindDemoSingleKeyword.png[width="790"]
 
 * `find a/add drop`
 
 Sample Output:
 
+All items containing "add" or "drop" in Appeal list are displayed.
+
 image::FindDemoMultipleKeywords.png[width="790"]
+
+* `find m/cs10`
+
+Sample Output:
+
+All items containing "cs10" in Module list are displayed. (i.e. CS1010, CS1020, CS2030)
+
+[NOTE]
+CS2030 is also displayed since it contains "cs10" in its module description.
+
+image::FindDemoModuleSearch.png[width="790"]
 
 === Show clashes: `clash`
 
+[NOTE]
+If you execute `clash` command by index, the index will refer for the current index in the current showing list. Please
+use `list` command to go back to the full list if your target appeal/module/student is not shown in the current list.
+
 ==== Show clashes in an appeal
 
-Checks if the module a student is requesting for clashes with his/her current existing modules.
+Checks if there is clash between the module which a student is requesting to add or drop and his/her current modules.
 Only appeals requesting to add or drop module will need for clash checks. If the target appeal is not of any of the two
 types, a reminder message will be shown.
 
