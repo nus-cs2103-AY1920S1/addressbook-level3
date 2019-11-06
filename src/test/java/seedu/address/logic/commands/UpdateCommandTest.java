@@ -37,7 +37,7 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTRY_SUCCESS, editedTransaction);
         Model expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
         BankAccountOperation txn = model.getFilteredTransactionList().get(0);
-        expectedModel.setTransaction(txn, editedTransaction);
+        expectedModel.set(txn, editedTransaction);
         // assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
@@ -59,7 +59,7 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTRY_SUCCESS, editedTransaction);
 
         Model expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
-        expectedModel.setTransaction(lastTransaction, editedTransaction);
+        expectedModel.set(lastTransaction, editedTransaction);
 
         // assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }

@@ -95,11 +95,11 @@ public class DeleteCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, projectionToDelete),
                     false, false, Tab.PROJECTION);
             // delete command for Split
-        } else if (this.type.equals("s")) {
+        } else if (this.type.equals("l")) {
             ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_INDEX);
             }
 
             LedgerOperation ledgerToDelete = lastShownList.get(targetIndex.getZeroBased());
