@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import dream.fcard.logic.stats.Session;
@@ -17,7 +18,7 @@ public class SessionListUtilTest {
         LocalDateTime.of(2019, 7, 24, 0, 5)
     );
 
-    private Session sessionTwo =new Session(
+    private Session sessionTwo = new Session(
         LocalDateTime.of(2019, 8, 15, 6, 7),
         LocalDateTime.of(2019, 8, 15, 8, 12)
     );

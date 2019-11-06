@@ -20,11 +20,11 @@ public class Session implements JsonInterface {
     /** The start time of the session, in the user's local time zone. */
     protected LocalDateTime sessionStart;
 
-    /** The start time of the session, as a String for rendering in the GUI. */
-    private String sessionStartString;
-
     /** The end time of the session, in the user's local time zone. */
     protected LocalDateTime sessionEnd;
+
+    /** The start time of the session, as a String for rendering in the GUI. */
+    private String sessionStartString;
 
     /** The start time of the session, as a String for rendering in the GUI. */
     private String sessionEndString;
@@ -34,7 +34,6 @@ public class Session implements JsonInterface {
 
     /** The duration of the session, as a String for rendering in the GUI. */
     private String durationString;
-
     /**
      * Constructs a new instance of Session and sets the session's start time to the present.
      */

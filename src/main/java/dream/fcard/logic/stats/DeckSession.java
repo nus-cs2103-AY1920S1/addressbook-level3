@@ -27,6 +27,10 @@ public class DeckSession extends Session {
         super.endSession();
     }
 
+    /**
+     * Ends the session, and sets the result to the given value.
+     * @param result Result of the session.
+     */
     public void endSession(String result) {
         this.endSession();
         this.setResult(result);
