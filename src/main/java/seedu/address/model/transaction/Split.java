@@ -1,9 +1,11 @@
 package seedu.address.model.transaction;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
@@ -15,23 +17,34 @@ import seedu.address.model.util.Date;
  */
 public class Split extends Transaction implements UndoableAction, LedgerOperation {
 
+    public static final String SHARE_CONSTRAINTS = "number of shares must be one more than people involved";
+
+    private final List<Integer> shares;
     private final List<Amount> splitAmounts;
     private final UniquePersonList peopleInvolved;
 
     public Split(Amount amount, Date date, Description description, List<Integer> shares, UniquePersonList people) {
         super(amount, date, description);
         requireAllNonNull(amount, date, shares, people);
+        checkArgument(isValidSharesLength(shares, people), SHARE_CONSTRAINTS);
         this.peopleInvolved = people;
+        this.shares = shares;
         int denominator = shares.stream().mapToInt(i -> i).sum();
         List<Amount> amounts = shares.stream()
-                .map(share -> amount.byShare((double) share / denominator))
-                .collect(Collectors.toList());
+            .map(share -> amount.byShare((double) share / denominator))
+            .collect(Collectors.toList());
+        amounts.remove(0); // share to user no longer useful
         splitAmounts = rebalanceAmounts(amount, amounts);
+    }
+
+    public static boolean isValidSharesLength(List<Integer> shares, UniquePersonList people) {
+        return shares.size() == people.size() + 1;
     }
 
     /**
      * Adds missing amount to the first Amount in List due to rounding errors in division
-     * @param amount Amount that list to sum to
+     *
+     * @param amount  Amount that list to sum to
      * @param amounts List of Amounts
      * @return List of Amounts that sum to amount
      */
@@ -47,10 +60,10 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     /**
      * Modifies balance of each Person involved in Split. Person is added
      * into Ledger's personList if not already inside.
-     * @param balance initial balance in the Ledger
+     *
+     * @param balance        initial balance in the Ledger
      * @param peopleInLedger UniqueList of people involved in the Split
      * @return updated balance after splitting
-     *
      */
     @Override
     public Amount handleBalance(Amount balance, UniquePersonList peopleInLedger) {
@@ -67,15 +80,20 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     }
 
     @Override
+    public boolean isSameLedgerOperation(LedgerOperation ledgerOperation) {
+        return equals(ledgerOperation);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         } else if (obj instanceof Split) {
             Split splitObj = (Split) obj;
             return this.amount.equals(splitObj.amount)
-                    && this.date.equals(splitObj.date)
-                    && peopleInvolved.equals(splitObj.peopleInvolved)
-                    && splitAmounts == splitObj.splitAmounts;
+                && this.date.equals(splitObj.date)
+                && peopleInvolved.equals(splitObj.peopleInvolved)
+                && splitAmounts == splitObj.splitAmounts;
         } else {
             return false;
         }
@@ -94,5 +112,10 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     @Override
     public UniquePersonList getPeopleInvolved() {
         return peopleInvolved;
+    }
+
+    @Override
+    public Optional<List<Integer>> getShares() {
+        return Optional.of(shares);
     }
 }

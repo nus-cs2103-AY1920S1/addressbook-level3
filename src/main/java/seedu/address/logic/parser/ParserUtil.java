@@ -44,15 +44,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * Parses {@code type} into an {@code String} and returns it. Leading
      * and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the specified index is invalid (not non-zero
-     *                        unsigned integer).
      */
-    public static String parseType(String oneBasedIndex) throws ParseException {
-        String trimmedType = oneBasedIndex.trim().substring(0, 1);
-        return trimmedType;
+    public static String parseType(String type) throws ParseException {
+        requireNonNull(type);
+        try {
+            String trimmedType = type.trim().substring(0, 1);
+            return trimmedType;
+        } catch (StringIndexOutOfBoundsException ex) {
+            throw new ParseException(ex.getMessage());
+        }
     }
 
     /**
@@ -140,8 +142,11 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!Date.isValidDate(trimmedDate) && !Date.isValidDate(trimmedDate)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        if (!trimmedDate.matches(Date.DATE_FORMAT)) {
+            throw new ParseException(Date.MESSAGE_FORMAT_CONSTRAINTS);
+        }
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_DATE_INVALID);
         }
         return new Date(trimmedDate);
     }
@@ -200,10 +205,13 @@ public class ParserUtil {
         final List<Integer> intShares = new ArrayList<>();
         for (String share : shares) {
             try {
+                int shareInt = Integer.parseInt(share.trim());
+                if (shareInt < 0) {
+                    throw new ParseException(Amount.SHARE_CONSTRAINTS);
+                }
                 intShares.add(Integer.parseInt(share.trim()));
             } catch (NumberFormatException ex) {
-                // TODO: CORRECT?
-                throw new ParseException(Amount.SHARE_CONSTRAINTS);
+                throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
             }
 
         }
@@ -222,8 +230,24 @@ public class ParserUtil {
             return new Amount(Double.parseDouble(s));
         } catch (NumberFormatException ex) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(ex.getMessage());
         }
-
     }
 
+    /**
+     * Parse Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @return {@code Index} representing the budget's index
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index parseBudgetIndex(String oneBasedIndex) throws ParseException {
+        requireNonNull(oneBasedIndex);
+        String trimmedIndex = oneBasedIndex.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
 }

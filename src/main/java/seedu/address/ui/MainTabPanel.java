@@ -23,22 +23,41 @@ public class MainTabPanel extends UiPart<Region> {
     private StackPane budgetListPanelPlaceholder;
 
     @FXML
+    private StackPane ledgerListPanelPlaceholder;
+
+    @FXML
+    private StackPane projectionGraphPlaceholder;
+
+    @FXML
     private TabPane mainTabPanel;
 
-    public MainTabPanel(TransactionListPanel transactionListPanel, BudgetListPanel budgetListPanel) {
+    public MainTabPanel(TransactionListPanel transactionListPanel, BudgetListPanel budgetListPanel,
+                        LedgerListPanel ledgerListPanel, ProjectionListPanel projectionListPanel) {
         super(FXML);
 
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
         budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
 
+        ledgerListPanelPlaceholder.getChildren().add(ledgerListPanel.getRoot());
+
+        projectionGraphPlaceholder.getChildren().add(projectionListPanel.getRoot());
     }
 
+    //  TODO: remove
     protected void switchToTransactionTab() {
         this.mainTabPanel.getSelectionModel().select(0);
     }
 
     protected void switchToBudgetTab() {
         this.mainTabPanel.getSelectionModel().select(1);
+    }
+
+    protected void switchToLedgerTab() {
+        this.mainTabPanel.getSelectionModel().select(2);
+    }
+
+    protected void switchToProjectionTab() {
+        this.mainTabPanel.getSelectionModel().select(3);
     }
 }

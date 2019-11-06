@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -18,20 +20,12 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
-        expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
+        model = new ModelManager(getTypicalUserState(), new UserPrefs());
+        expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
     }
 
-    /*
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
-
-    @Test
-    public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_TRANSACTION);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-     */
 }

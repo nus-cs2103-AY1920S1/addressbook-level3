@@ -1,5 +1,8 @@
 package seedu.address.model.transaction;
 
+import java.util.List;
+import java.util.Optional;
+
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
@@ -24,14 +27,24 @@ public class ReceiveMoney extends Payment {
     }
 
     @Override
+    public boolean isSameLedgerOperation(LedgerOperation ledgerOperation) {
+        return this.equals(ledgerOperation);
+    }
+
+    @Override
+    public Optional<List<Integer>> getShares() {
+        return Optional.empty();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         } else if (obj instanceof ReceiveMoney) {
             ReceiveMoney payment = (ReceiveMoney) obj;
             return this.amount.equals(payment.amount)
-                    && this.date.equals(payment.date)
-                    && this.person.equals(payment.person);
+                && this.date.equals(payment.date)
+                && this.person.equals(payment.person);
         } else {
             return false;
         }

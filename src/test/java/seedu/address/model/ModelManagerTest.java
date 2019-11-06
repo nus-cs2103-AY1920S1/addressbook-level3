@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTransactions.ALICE;
 import static seedu.address.testutil.TypicalTransactions.BENSON;
+import static seedu.address.testutil.TypicalTransactions.getTypicalTransactions;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,8 +17,19 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.projection.Projection;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.LendMoney;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
-import seedu.address.testutil.BankAccountBuilder;
+import seedu.address.model.util.Date;
+import seedu.address.testutil.BankOperationBuilder;
+import seedu.address.testutil.UserStateBuilder;
 
 
 public class ModelManagerTest {
@@ -29,7 +41,31 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new VersionedUserState(new UserState()), modelManager.getUserState());
         assertEquals(new BankAccount(), new BankAccount(modelManager.getBankAccount()));
+    }
+
+    @Test
+    public void setUserState() {
+        UserState userState = new UserState();
+        VersionedUserState versionedUserState = new VersionedUserState(userState);
+
+        BankAccountOperation op = new BankOperationBuilder()
+            .withDescription("milk")
+            .withAmount("69")
+            .withDate("19112019")
+            .withCategories("Uncategorised")
+            .build();
+
+        versionedUserState.add(op);
+
+        modelManager.setUserState(versionedUserState);
+
+        VersionedUserState expectedVersionedUserState = new VersionedUserState(new UserState());
+        expectedVersionedUserState.add(op);
+
+        VersionedUserState actualVersionedUserState = (VersionedUserState) modelManager.getUserState();
+        assertEquals(expectedVersionedUserState, actualVersionedUserState);
     }
 
     @Test
@@ -40,14 +76,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setBankAccountFilePath(Paths.get("bank/account/file/path"));
+        userPrefs.setUserStateFilePath(Paths.get("bank/account/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setBankAccountFilePath(Paths.get("new/bank/account/file/path"));
+        userPrefs.setUserStateFilePath(Paths.get("new/bank/account/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -65,31 +101,125 @@ public class ModelManagerTest {
 
     @Test
     public void setBankAccountFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setBankAccountFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setUserStateFilePath(null));
     }
 
     @Test
     public void setBankAccountFilePath_validPath_setsBankAccountFilePath() {
         Path path = Paths.get("bank/account/file/path");
-        modelManager.setBankAccountFilePath(path);
-        assertEquals(path, modelManager.getBankAccountFilePath());
+        modelManager.setUserStateFilePath(path);
+        assertEquals(path, modelManager.getUserStateFilePath());
     }
 
     @Test
     public void hasTransaction_nullTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasTransaction(null));
+        assertThrows(NullPointerException.class, () -> modelManager.has((BankAccountOperation) null));
     }
 
     @Test
     public void hasTransaction_transactionNotInBankAccount_returnsFalse() {
-        assertFalse(modelManager.hasTransaction(ALICE));
+        assertFalse(modelManager.has(ALICE));
     }
 
     @Test
     public void hasTransaction_transactionInBankAccount_returnsTrue() {
-        modelManager.handleOperation(ALICE);
-        assertTrue(modelManager.hasTransaction(ALICE));
+        modelManager.add(ALICE);
+        assertTrue(modelManager.has(ALICE));
     }
+
+    @Test
+    public void hasBudget_nullBudget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.has((Budget) null));
+    }
+
+    @Test
+    public void hasBudget_budgetNotInBankAccount_returnsFalse() {
+        Budget falseBudget = new Budget(new Amount(700), new Date("19112019"));
+        assertFalse(modelManager.has(falseBudget));
+    }
+
+    @Test
+    public void hasBudget_budgetInBankAccount_returnsTrue() {
+        Budget budget = new Budget(new Amount(700), new Date("19112019"));
+        modelManager.add(budget);
+        assertTrue(modelManager.has(budget));
+    }
+
+    @Test
+    public void hasLedgerOperation_nullLedgerOperation_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.has((LedgerOperation) null));
+    }
+
+    @Test
+    public void hasLedgerOperation_ledgerOperationNotInUserState_returnsFalse() {
+        LedgerOperation falseLedger = new LendMoney(
+            new Person(new Name("John")), new Amount(700),
+            new Date("19112019"), new Description("loanshark"));
+        assertFalse(modelManager.has(falseLedger));
+    }
+
+    @Test
+    public void hasLedgerOperation_ledgerOperationInUserState_returnsTrue() {
+        LedgerOperation ledger = new LendMoney(
+            new Person(new Name("John")), new Amount(700),
+            new Date("19112019"), new Description("loanshark"));
+        modelManager.add(ledger);
+        assertTrue(modelManager.has(ledger));
+    }
+
+    @Test
+    public void hasProjection_nullProjection_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.has((Projection) null));
+    }
+
+    @Test
+    public void hasProjection_projectionNotInUserState_returnsFalse() {
+        Model falseModel = new ModelManager();
+        falseModel.setTransactions(getTypicalTransactions());
+        Projection projection = new Projection(falseModel.getFilteredTransactionList(), new Date("19112019"));
+        assertFalse(modelManager.has(projection));
+    }
+
+    @Test
+    public void hasProjection_projectionInUserState_returnsTrue() {
+        Model stubModel = new ModelManager();
+        stubModel.setTransactions(getTypicalTransactions());
+        Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"));
+        modelManager.add(projection);
+        assertTrue(modelManager.has(projection));
+    }
+
+    @Test
+    public void deleteTransaction_transactionInBankAccount_returnsTrue() {
+        modelManager.add(ALICE);
+        assertTrue(modelManager.has(ALICE));
+
+        modelManager.deleteTransaction(ALICE);
+        assertFalse(modelManager.has(ALICE));
+    }
+
+    @Test
+    public void deleteBudget_budgetInBankAccount_returnsTrue() {
+        Budget budget = new Budget(new Amount(700), new Date("19112019"));
+        modelManager.add(budget);
+        assertTrue(modelManager.has(budget));
+
+        modelManager.deleteBudget(budget);
+        assertFalse(modelManager.has(budget));
+    }
+
+    @Test
+    public void deleteProjection_projectionInUserState_returnsTrue() {
+        Model stubModel = new ModelManager();
+        stubModel.setTransactions(getTypicalTransactions());
+        Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"));
+        modelManager.add(projection);
+        assertTrue(modelManager.has(projection));
+
+        modelManager.deleteProjection(projection);
+        assertFalse(modelManager.has(projection));
+    }
+
 
     @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
@@ -98,14 +228,55 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredBudgetList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager
+            .getFilteredBudgetList().remove(0));
+    }
+
+    @Test
+    public void getFilteredLedgerOperationsList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager
+            .getFilteredLedgerOperationsList().remove(0));
+    }
+
+    @Test
+    public void getFilteredProjectionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager
+            .getFilteredProjectionsList().remove(0));
+    }
+
+    @Test
+    public void canUndo_noUndo_returnsFalse() {
+        assertFalse(modelManager.canUndoUserState());
+    }
+
+    @Test
+    public void canUndo_gotUndo_returnsFalse() {
+        modelManager.commitUserState();
+        assertTrue(modelManager.canUndoUserState());
+    }
+
+    @Test
+    public void canRedo_noRedo_returnsFalse() {
+        assertFalse(modelManager.canRedoUserState());
+    }
+
+    @Test
+    public void canRedo_gotRedo_returnsFalse() {
+        modelManager.commitUserState();
+        modelManager.undoUserState();
+        assertTrue(modelManager.canRedoUserState());
+    }
+
+    @Test
     public void equals() {
-        BankAccount bankAccount = new BankAccountBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
-        BankAccount differentBankAccount = new BankAccount();
+        UserState userState = new UserStateBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
+        UserState differentUserState = new UserState();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(bankAccount, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(bankAccount, userPrefs);
+        modelManager = new ModelManager(userState, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(userState, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -118,7 +289,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different bankAccount -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentBankAccount, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentUserState, userPrefs)));
 
 
         // different filteredList -> returns false
@@ -128,7 +299,7 @@ public class ModelManagerTest {
             .map(category -> category.getCategoryName())
             .collect(Collectors.toList());
         modelManager.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories));
-        assertFalse(modelManager.equals(new ModelManager(bankAccount, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(userState, userPrefs)));
 
 
         // resets modelManager to initial state for upcoming tests
@@ -136,7 +307,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setBankAccountFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(bankAccount, differentUserPrefs)));
+        differentUserPrefs.setUserStateFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(userState, differentUserPrefs)));
     }
 }

@@ -1,5 +1,8 @@
 package seedu.address.model.transaction;
 
+import java.util.List;
+import java.util.Optional;
+
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
 
@@ -9,7 +12,7 @@ import seedu.address.model.util.Date;
 public interface LedgerOperation {
     Amount handleBalance(Amount balance, UniquePersonList peopleInLedger);
 
-    boolean isSameTransaction(BankAccountOperation transaction);
+    boolean isSameLedgerOperation(LedgerOperation ledgerOperation);
 
     Date getDate();
 
@@ -18,4 +21,6 @@ public interface LedgerOperation {
     UniquePersonList getPeopleInvolved();
 
     Description getDescription();
+
+    Optional<List<Integer>> getShares();
 }

@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -56,6 +58,25 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String VALID_AMOUNT_ALICE = "100";
+    public static final String VALID_DATE_ALICE = "10112019";
+    public static final String VALID_DESCRIPTION_ALICE = "milk";
+    public static final String VALID_CATEGORY_ALICE = "food";
+
+    public static final String AMOUNT_DESC_ALICE = " " + PREFIX_AMOUNT + VALID_AMOUNT_ALICE;
+    public static final String DATE_DESC_ALICE = " " + PREFIX_DATE + VALID_DATE_ALICE;
+    public static final String DESCRIPTION_DESC_ALICE = " " + PREFIX_NAME + VALID_DESCRIPTION_ALICE;
+    public static final String CATEGORY_DESC_ALICE = " " + PREFIX_CATEGORY + VALID_CATEGORY_ALICE;
+
+    public static final String INVALID_AMOUNT_ZERO_DESC = " " + PREFIX_AMOUNT + "0";
+    public static final String INVALID_AMOUNT_RANGE_DESC = " " + PREFIX_AMOUNT + "10000000";
+    public static final String INVALID_AMOUNT_TYPE_DESC = " " + PREFIX_AMOUNT + "10.002";
+    public static final String INVALID_AMOUNT_OVERFLOW_DESC = " " + PREFIX_AMOUNT + "100000000";
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "10";
+    public static final String INVALID_DATETYPE_DESC = " " + PREFIX_DATE + "40402019";
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_NAME + "Milk@";
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "Work*";
 
     // TODO: FIX
     //
@@ -124,10 +145,10 @@ public class CommandTestUtil {
         BankAccountOperation transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
 
         final List<String> categories = transaction
-                .getCategories()
-                .stream()
-                .map(category -> category.getCategoryName())
-                .collect(Collectors.toList());
+            .getCategories()
+            .stream()
+            .map(category -> category.getCategoryName())
+            .collect(Collectors.toList());
         model.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories));
 
         assertEquals(1, model.getFilteredTransactionList().size());
@@ -139,7 +160,7 @@ public class CommandTestUtil {
     public static void deleteFirstTransaction(Model model) {
         BankAccountOperation firstTransaction = model.getFilteredTransactionList().get(0);
         model.deleteTransaction(firstTransaction);
-        model.commitBankAccount();
+        model.commitUserState();
     }
 
 }

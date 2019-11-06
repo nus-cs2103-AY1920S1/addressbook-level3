@@ -7,9 +7,10 @@ import java.util.List;
 
 import seedu.address.model.Model;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.ui.tab.Tab;
 
 /**
- * Lists all persons in the address book to the user.
+ * Sorts all transactions in the bank account to the user.
  */
 public class SortCommand extends Command {
 
@@ -36,8 +37,8 @@ public class SortCommand extends Command {
         List<BankAccountOperation> sortedTransactionHistory =
             model.getBankAccount().getSortedTransactionHistory(comparator);
         model.setTransactions(sortedTransactionHistory);
-        model.commitBankAccount();
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.commitUserState();
+        return new CommandResult(MESSAGE_SUCCESS, false, false, Tab.TRANSACTION);
     }
 
     @Override

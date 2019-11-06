@@ -24,10 +24,14 @@ public class ViewCommandParser implements Parser<ViewCommand> {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
 
-        if (trimmedArgs.equals("transaction")) {
+        if (trimmedArgs.toLowerCase().equals("transaction")) {
             return new ViewCommand(Tab.TRANSACTION);
-        } else if (trimmedArgs.equals("budget")) {
+        } else if (trimmedArgs.toLowerCase().equals("budget")) {
             return new ViewCommand(Tab.BUDGET);
+        } else if (trimmedArgs.toLowerCase().equals("ledger")) {
+            return new ViewCommand(Tab.LEDGER);
+        } else if (trimmedArgs.toLowerCase().equals("projection")) {
+            return new ViewCommand(Tab.PROJECTION);
         } else {
             throw new ParseException(
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));

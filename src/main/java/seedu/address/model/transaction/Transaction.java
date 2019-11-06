@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Person;
 import seedu.address.model.util.Date;
 
 /**
@@ -16,10 +15,9 @@ public abstract class Transaction implements UndoableAction {
     protected Amount amount;
     protected Date date;
     protected Description description;
-    protected Person peopleInvolved;
 
     // Data fields
-    private final Set<Category> categories = new HashSet<>();
+    protected final Set<Category> categories = new HashSet<>();
 
     public Transaction(Amount amount, Date date, Description description) {
         this.amount = amount;
@@ -31,19 +29,6 @@ public abstract class Transaction implements UndoableAction {
         this(amount, date, description);
         this.categories.addAll(categories);
     }
-
-    public Transaction(Amount amount, Date date, Description description, Person personInvolved) {
-        this(amount, date, description);
-        this.peopleInvolved = personInvolved;
-    }
-
-    public Transaction(Amount amount, Date date, Description description,
-                       Set<Category> categories, Person personInvolved) {
-        this(amount, date, description);
-        this.categories.addAll(categories);
-        this.peopleInvolved = personInvolved;
-    }
-
 
     public Amount getAmount() {
         return amount;

@@ -17,8 +17,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.ui.tab.Tab;
 
 /**
@@ -38,8 +40,11 @@ public class MainWindow extends UiPart<Stage> {
     private MainTabPanel mainTabPanel;
     private TransactionListPanel transactionListPanel;
     private BudgetListPanel budgetListPanel;
+    private LedgerListPanel ledgerListPanel;
+    private ProjectionListPanel projectionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -61,6 +66,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane budgetListPanelPlaceholder;
+
+    @FXML
+    private StackPane ledgerListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -130,19 +138,25 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ObservableList<BankAccountOperation> list = logic.getTransactionList();
-        transactionListPanel = new TransactionListPanel(list);
+        ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+        transactionListPanel = new TransactionListPanel(transactionList);
 
         ObservableList<Budget> budgetList = logic.getBudgetList();
         budgetListPanel = new BudgetListPanel(budgetList);
 
-        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel);
+        ObservableList<LedgerOperation> ledgerOperationsList = logic.getLedgerOperationsList();
+        ledgerListPanel = new LedgerListPanel(ledgerOperationsList);
+
+        ObservableList<Projection> projectionsList = logic.getProjectionList();
+        projectionListPanel = new ProjectionListPanel(projectionsList);
+
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getBankAccountFilePath());
+        statusBarFooter = new StatusBarFooter(logic.getUserStateFilePath(), transactionList);
         statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -196,16 +210,20 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchTab(Tab tab) {
         switch (tab) {
-
         case TRANSACTION:
             showTransactionTab();
             break;
         case BUDGET:
             showBudgetTab();
             break;
+        case LEDGER:
+            showLedgerTab();
+            break;
+        case PROJECTION:
+            showProjectionTab();
+            break;
         default:
             break;
-
         }
     }
 
@@ -232,9 +250,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitchTab() != null) {
-                handleSwitchTab(commandResult.isSwitchTab());
+            if (commandResult.isSwitchTab()) {
+                handleSwitchTab(commandResult.getTab());
             }
+
+            ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+            statusBarFooter.setBalance(transactionList);
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -256,6 +277,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showBudgetTab() {
         mainTabPanel.switchToBudgetTab();
+    }
+
+    /**
+     * Switch to ledger tab.
+     */
+    private void showLedgerTab() {
+        mainTabPanel.switchToLedgerTab();
+    }
+
+    private void showProjectionTab() {
+        mainTabPanel.switchToProjectionTab();
     }
 
 }

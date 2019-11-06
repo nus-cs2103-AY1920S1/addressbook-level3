@@ -42,13 +42,19 @@ public class SetCommandParser implements Parser<SetCommand> {
 
         }
 
-        /* handles amount above 1billion */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH) {
+        /* handles overflow value */
+        if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
             throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
 
         Amount budget = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+
+        if (date.isPast()) {
+            throw new ParseException(String.format(SetCommand.MESSAGE_DATE_PAST));
+        }
+
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         Budget newBudget = new Budget(budget, date, categoryList);

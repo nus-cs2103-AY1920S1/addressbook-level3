@@ -3,6 +3,8 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
+
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserState;
 
 
 public class StorageManagerTest {
@@ -22,9 +26,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonBankAccountStorage bankAccountStorage = new JsonBankAccountStorage(getTempFilePath("ab"));
+        JsonUserStateStorage userStateStorage = new JsonUserStateStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(bankAccountStorage, userPrefsStorage);
+        storageManager = new StorageManager(userStateStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -47,24 +51,22 @@ public class StorageManagerTest {
 
     /*
      * Note: This is an integration test that verifies the StorageManager is properly wired to the
-     * {@link JsonBankAccountStorage} class.
-     * More extensive testing of UserPref saving/reading is done in {@link JsonBankAccountStorageTest} class.
+     * {@link JsonUserStateStorage} class.
+     * More extensive testing of UserPref saving/reading is done in {@link JsonUserStateStorageTest} class.
      */
-    /*
     @Test
-    public void bankAccountReadSave() throws Exception {
+    public void userStateReadSave() throws Exception {
 
-        BankAccount original = getTypicalBankAccount();
-        storageManager.saveBankAccount(original);
-        ReadOnlyBankAccount retrieved = storageManager.readBankAccount().get();
-        assertEquals(original, new BankAccount(retrieved));
+        UserState original = getTypicalUserState();
+        storageManager.saveUserState(original);
+        ReadOnlyUserState retrieved = storageManager.readUserState().get();
+        assertEquals(original, new UserState(retrieved));
     }
-     */
 
 
     @Test
-    public void getBankAccountFilePath() {
-        assertNotNull(storageManager.getBankAccountFilePath());
+    public void getUserStateFilePath() {
+        assertNotNull(storageManager.getUserStateFilePath());
     }
 
 }

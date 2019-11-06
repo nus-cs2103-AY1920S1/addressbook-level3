@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 import static seedu.address.testutil.TypicalTypes.TYPE_TRANSACTION;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,21 +26,22 @@ import seedu.address.model.transaction.BankAccountOperation;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalUserState(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         BankAccountOperation transactionToDelete = model
-                .getFilteredTransactionList()
-                .get(INDEX_FIRST_TRANSACTION.getZeroBased());
+            .getFilteredTransactionList()
+            .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
         expectedModel.deleteTransaction(transactionToDelete);
-        expectedModel.commitBankAccount();
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        expectedModel.commitUserState();
+        assertCommandSuccess(deleteCommand, model,
+            new CommandResult(expectedMessage, false, false, Tab.TRANSACTION), expectedModel);
     }
 
     @Test
@@ -55,17 +57,18 @@ public class DeleteCommandTest {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
         BankAccountOperation transactionToDelete = model
-                .getFilteredTransactionList()
-                .get(INDEX_FIRST_TRANSACTION.getZeroBased());
+            .getFilteredTransactionList()
+            .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete);
 
-        Model expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
         expectedModel.deleteTransaction(transactionToDelete);
         showNoTransaction(expectedModel);
-        expectedModel.commitBankAccount();
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        expectedModel.commitUserState();
+        assertCommandSuccess(deleteCommand, model,
+            new CommandResult(expectedMessage, false, false, Tab.TRANSACTION), expectedModel);
     }
 
     @Test

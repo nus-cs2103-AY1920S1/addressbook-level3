@@ -4,13 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import seedu.address.model.category.Category;
+import seedu.address.model.projection.Projection;
+import seedu.address.model.projection.UniqueProjectionList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.UniqueTransactionList;
@@ -22,11 +25,13 @@ public class BankAccount implements ReadOnlyBankAccount {
     private Amount balance;
     private UniqueBudgetList budgets;
     private UniqueTransactionList transactions;
+    private UniqueProjectionList projections;
 
     public BankAccount() {
         balance = Amount.zero();
         budgets = new UniqueBudgetList();
         transactions = new UniqueTransactionList();
+        projections = new UniqueProjectionList();
     }
 
     public BankAccount(ReadOnlyBankAccount bankAccount) {
@@ -42,6 +47,7 @@ public class BankAccount implements ReadOnlyBankAccount {
         setBalance(newData.getBalance());
         setTransactions(newData.getTransactionHistory());
         setBudgets(newData.getBudgetHistory());
+        setProjections(newData.getProjectionHistory());
     }
 
     public void setBalance(Amount balance) {
@@ -54,6 +60,10 @@ public class BankAccount implements ReadOnlyBankAccount {
 
     public void setBudgets(List<Budget> budgetHistory) {
         this.budgets.setBudgets(budgetHistory);
+    }
+
+    public void setProjections(List<Projection> projectionHistory) {
+        this.projections.setProjections(projectionHistory);
     }
 
     /**
@@ -86,7 +96,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      *
      * @param txn Transaction to be added to bank account.
      */
-    public void addTransaction(BankAccountOperation txn) {
+    public void add(BankAccountOperation txn) {
         transactions.add(txn);
         updateBudgets(txn);
         Amount newBalance = txn.handleBalance(this.balance);
@@ -99,15 +109,25 @@ public class BankAccount implements ReadOnlyBankAccount {
      *
      * @param bud Budget to be added to bank account.
      */
-    public void addBudget(Budget bud) {
+    public void add(Budget bud) {
         budgets.add(bud);
+    }
+
+    /**
+     * Adds a transaction to the bank account.
+     * Updates {@code projections}.
+     *
+     * @param projection Projection to be added to bank account.
+     */
+    public void add(Projection projection) {
+        projections.add(projection);
     }
 
     /**
      * Removes {@code key} from this {@code BankAccount}.
      * {@code key} must exist in the bank account.
      */
-    public void removeTransaction(BankAccountOperation key) {
+    public void remove(BankAccountOperation key) {
         transactions.remove(key);
         this.balance = this.balance.subtractAmount(key.getAmount());
     }
@@ -116,7 +136,15 @@ public class BankAccount implements ReadOnlyBankAccount {
      * Removes {@code key} from this {@code BankAccount}.
      * {@code key} must exist in the bank account.
      */
-    public void removeBudget(Budget key) {
+    public void remove(Projection key) {
+        projections.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code BankAccount}.
+     * {@code key} must exist in the bank account.
+     */
+    public void remove(Budget key) {
         budgets.remove(key);
     }
 
@@ -126,7 +154,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      * @param transaction Transaction to be checked.
      * @return true if transaction is in bank account, else otherwise.
      */
-    public boolean hasTransaction(BankAccountOperation transaction) {
+    public boolean has(BankAccountOperation transaction) {
         requireNonNull(transaction);
         return transactions.contains(transaction);
     }
@@ -134,20 +162,31 @@ public class BankAccount implements ReadOnlyBankAccount {
     /**
      * Checks if budget exists in bank account.
      */
-    public boolean hasBudget(Budget budget) {
+    public boolean has(Budget budget) {
         requireNonNull(budget);
         return budgets.contains(budget);
     }
 
     /**
+     * Checks if projection exists in bank account.
+     */
+    public boolean has(Projection projection) {
+        requireNonNull(projection);
+        return projections.contains(projection);
+    }
+
+    /**
      * Updates each budget in {@code budgets} when OutTransaction is made.
      *
-     * @payram txn Transaction can be either InTransaction or OutTransaction.
+     * @param txn Transaction can be either InTransaction or OutTransaction.
      */
     private void updateBudgets(BankAccountOperation txn) {
         if (txn instanceof OutTransaction) {
+            Amount outAmount = txn.getAmount();
+            Set<Category> outCategories = txn.getCategories();
             for (Budget bd : budgets) {
-                bd.updateBudget(txn.getAmount());
+                Budget newBd = bd.updateBudget(outAmount, outCategories);
+                setBudget(bd, newBd);
             }
         }
     }
@@ -160,6 +199,11 @@ public class BankAccount implements ReadOnlyBankAccount {
     @Override
     public ObservableList<Budget> getBudgetHistory() {
         return budgets.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Projection> getProjectionHistory() {
+        return projections.asUnmodifiableObservableList();
     }
 
     @Override
@@ -183,13 +227,8 @@ public class BankAccount implements ReadOnlyBankAccount {
         }
 
         BankAccount otherBankAccount = (BankAccount) other;
-        return this.transactions.equals(otherBankAccount.transactions)
-            && this.budgets.equals(otherBankAccount.budgets)
-            && this.balance.equals(otherBankAccount.balance);
-    }
-
-    // TODO: remove after implementing VersionedUserState
-    public void addLoan(LedgerOperation operation) {
-        // stub
+        return this.budgets.equals(otherBankAccount.budgets)
+            && this.balance.equals(otherBankAccount.balance)
+            && this.transactions.equals(otherBankAccount.transactions);
     }
 }

@@ -6,24 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+import com.sun.javafx.collections.ObservableListWrapper;
 
-import seedu.address.commons.core.GuiSettings;
+import javafx.collections.ObservableList;
+
 import seedu.address.model.BankAccount;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
-import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.projection.Projection;
+import seedu.address.model.stubs.ModelStub;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.BankOperationBuilder;
@@ -64,11 +60,13 @@ public class InCommandTest {
                 .withAmount("100")
                 .withDate("10102019")
                 .build();
+
         BankAccountOperation secondTransaction = new BankOperationBuilder()
                 .withCategories("Drinks")
                 .withAmount("80")
                 .withDate("10102019")
                 .build();
+
         InCommand addFirstCommand = new InCommand(firstTransaction);
         InCommand addSecondCommand = new InCommand(secondTransaction);
 
@@ -89,147 +87,6 @@ public class InCommandTest {
         assertFalse(addFirstCommand.equals(addSecondCommand));
     }
 
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getBankAccountFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setBankAccountFilePath(Path bankAccountFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void handleOperation(BankAccountOperation transaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void handleOperation(LedgerOperation operation) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addBudget(Budget budget) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addTransaction(BankAccountOperation transaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setBankAccount(ReadOnlyBankAccount newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyBankAccount getBankAccount() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoBankAccount() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoBankAccount() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoBankAccount() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoBankAccount() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitBankAccount() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setTransactions(List<BankAccountOperation> transactionHistory) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasBudget(Budget budget) {
-            throw new AssertionError("This method should not be calld.");
-        }
-
-        @Override
-        public void deleteTransaction(BankAccountOperation target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setBudget(Budget budgetTarget, Budget budgetEdit) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public FilteredList<BankAccountOperation> getFilteredTransactionList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Budget> getFilteredBudgetList() {
-            return null;
-        }
-
-        @Override
-        public void deleteBudget(Budget budgetToDelete) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
     /**
      * A Model stub that contains a single transaction.
      */
@@ -242,7 +99,7 @@ public class InCommandTest {
         }
 
         @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
+        public boolean has(BankAccountOperation transaction) {
             requireNonNull(transaction);
             return this.transaction.isSameTransaction(transaction);
         }
@@ -251,39 +108,38 @@ public class InCommandTest {
     /**
      * A Model stub that always accept the transaction being added.
      */
-    private class ModelStubAcceptingTransactionAdded extends ModelStub {
+    private static class ModelStubAcceptingTransactionAdded extends ModelStub {
         final ArrayList<BankAccountOperation> transactionsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
+        public boolean has(BankAccountOperation transaction) {
             requireNonNull(transaction);
             return transactionsAdded.stream().anyMatch(transaction::isSameTransaction);
         }
 
         @Override
-        public void handleOperation(LedgerOperation operation) {
+        public void add(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void handleOperation(BankAccountOperation transaction) {
-            addTransaction(transaction);
-        }
-
-        @Override
-        public void addTransaction(BankAccountOperation transaction) {
+        public void add(BankAccountOperation transaction) {
             requireNonNull(transaction);
             transactionsAdded.add(transaction);
         }
 
         @Override
-        public void commitBankAccount() {
-
+        public void commitUserState() {
         }
 
         @Override
         public ReadOnlyBankAccount getBankAccount() {
             return new BankAccount();
+        }
+
+        @Override
+        public ObservableList<Projection> getFilteredProjectionsList() {
+            return new ObservableListWrapper<>(new ArrayList<>());
         }
     }
 

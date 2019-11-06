@@ -1,0 +1,33 @@
+{
+  "transactions": [
+    {
+      "description": "food",
+      "amount": "500.00",
+      "date": "24022019",
+      "tagged": [
+        "owesMoney",
+        "friends"
+      ]
+    },
+    {
+      "description": "drink",
+      "amount": "160.00",
+      "date": "24022019",
+      "tagged": [
+        "owesMoney",
+        "friends"
+      ]
+    },
+    {
+      "description": "lunch",
+      "amount": "100.00",
+      "date": "2/40/22019",
+      "tagged": [
+        "owesMoney",
+        "friends"
+      ]
+    }
+  ],
+  "budgets": [],
+  "ledgers": []
+}

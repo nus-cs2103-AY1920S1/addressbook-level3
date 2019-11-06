@@ -18,6 +18,7 @@ public class Budget {
     private Amount amount;
     private Date deadline;
     private boolean valid;
+    private int between;
 
     private final Set<Category> categories = new HashSet<>();
 
@@ -34,6 +35,7 @@ public class Budget {
         this.deadline = date;
         this.categories.add(new Category("general"));
         this.valid = true;
+        this.between = calculateRemaining();
     }
 
     public Budget(Amount amount, Date date, Set<Category> categories) {
@@ -41,12 +43,14 @@ public class Budget {
         this.deadline = date;
         this.categories.addAll(categories);
         this.valid = true;
+        this.between = calculateRemaining();
     }
 
     public Budget(Amount amount, int duration) {
         this.amount = amount;
         this.deadline = calculateDeadline(duration);
         this.valid = true;
+        this.between = calculateRemaining();
     }
 
     public Amount getBudget() {
@@ -61,20 +65,34 @@ public class Budget {
         return Collections.unmodifiableSet(categories);
     }
 
+    public String getBetween() {
+        return String.format("%d more days", this.between);
+    }
 
     public boolean isValid() {
         return this.valid;
     }
 
     /**
-     * Updates the amount of this budget given a new amount.
+     * Updates the amount of this budget given a new amount if the Transaction is of the same category.
      *
      * @param amount
      * @return
      */
-    public Budget updateBudget(Amount amount) {
-        Amount newBudget = this.amount.subtractAmount(amount);
-        this.amount = newBudget;
+    public Budget updateBudget(Amount amount, Set<Category> categories) {
+        boolean isSameCategory = false;
+
+        for (Category ct : categories) {
+            if (this.categories.contains(ct)) {
+                isSameCategory = true;
+                break;
+            }
+        }
+
+        if (isSameCategory) {
+            Amount newBudget = this.amount.addAmount(amount);
+            this.amount = newBudget;
+        }
         return this;
     }
 
@@ -94,18 +112,26 @@ public class Budget {
     }
 
     /**
+     * Calculates the number of days between budget's deadline and Today.
+     *
+     * @return int number of days between budget deadline and today
+     */
+    public int calculateRemaining() {
+        return Date.daysBetween(Date.TODAY, deadline);
+    }
+
+    /**
      * Checks if the given budget is the same Budget object as this budget.
      *
      * @param otherBudget
-     * @return
      */
     public boolean isSameBudget(Budget otherBudget) {
         if (otherBudget == this) {
             return true;
         }
-
         return otherBudget != null
             && otherBudget.getBudget().equals(getBudget())
+            && otherBudget.getCategories().equals(getCategories())
             && otherBudget.getDeadline().equals(getDeadline());
     }
 
@@ -117,6 +143,7 @@ public class Budget {
             Budget inObj = (Budget) obj;
             return amount.equals(inObj.amount)
                 && deadline.equals(inObj.deadline)
+                && categories.equals(inObj.categories)
                 && valid == inObj.valid;
         } else {
             return false;
@@ -127,5 +154,4 @@ public class Budget {
     public String toString() {
         return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
     }
-
 }

@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -17,13 +17,12 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private BankAccountStorage bankAccountStorage;
+    private UserStateStorage userStateStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
-    public StorageManager(BankAccountStorage bankAccountStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(UserStateStorage userStateStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.bankAccountStorage = bankAccountStorage;
+        this.userStateStorage = userStateStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -48,30 +47,30 @@ public class StorageManager implements Storage {
     // ================ BankAccount methods ==============================
 
     @Override
-    public Path getBankAccountFilePath() {
-        return bankAccountStorage.getBankAccountFilePath();
+    public Path getUserStateFilePath() {
+        return userStateStorage.getUserStateFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyBankAccount> readBankAccount() throws DataConversionException, IOException {
-        return readBankAccount(bankAccountStorage.getBankAccountFilePath());
+    public Optional<ReadOnlyUserState> readUserState() throws DataConversionException, IOException {
+        return readUserState(userStateStorage.getUserStateFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyBankAccount> readBankAccount(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyUserState> readUserState(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return bankAccountStorage.readBankAccount(filePath);
+        return userStateStorage.readUserState(filePath);
     }
 
     @Override
-    public void saveBankAccount(ReadOnlyBankAccount bankAccount) throws IOException {
-        saveBankAccount(bankAccount, bankAccountStorage.getBankAccountFilePath());
+    public void saveUserState(ReadOnlyUserState userState) throws IOException {
+        saveUserState(userState, userStateStorage.getUserStateFilePath());
     }
 
     @Override
-    public void saveBankAccount(ReadOnlyBankAccount bankAccount, Path filePath) throws IOException {
+    public void saveUserState(ReadOnlyUserState userState, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        bankAccountStorage.saveBankAccount(bankAccount, filePath);
+        userStateStorage.saveUserState(userState, filePath);
     }
 
 }
