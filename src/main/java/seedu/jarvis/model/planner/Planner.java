@@ -17,6 +17,7 @@ import seedu.jarvis.model.planner.tasks.Task;
  */
 public class Planner {
     private TaskList taskList;
+    private FilteredList<Task> unfilteredTaskList;
     private FilteredList<Task> filteredTaskList;
     private FilteredList<Task> tasksToday;
     private FilteredList<Task> tasksThisWeek;
@@ -30,6 +31,8 @@ public class Planner {
      */
     {
         this.taskList = new TaskList();
+        unfilteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
+                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
         filteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
             PlannerModel.PREDICATE_SHOW_ALL_TASKS);
         tasksToday = new FilteredList<>(FXCollections.observableList(getTasks()),
@@ -203,12 +206,20 @@ public class Planner {
     }
 
     /**
+     * Updates the list of tasks according to changes made in the planner
+     */
+    public void updateUnfilteredTaskList() {
+        unfilteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
+                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
      * {@code Planner}
      * @return a list of all the {@code Task} in the {@code Planner}
      */
     public ObservableList<Task> getUnfilteredTaskList() {
-        return FXCollections.observableList(getTasks());
+        return unfilteredTaskList;
     }
 
     /**

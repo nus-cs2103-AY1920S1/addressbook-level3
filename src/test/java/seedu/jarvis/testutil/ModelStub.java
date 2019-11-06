@@ -238,6 +238,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public String getRemainingAmount() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean containsCca(Cca cca) {
         throw new AssertionError("This method should not be called.");
     }
@@ -377,6 +382,11 @@ public class ModelStub implements Model {
 
     @Override
     public void updateSchedule() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateUnfilteredTaskList() {
         throw new AssertionError("This method should not be called.");
     }
 
