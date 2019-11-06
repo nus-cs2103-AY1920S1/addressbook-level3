@@ -8,6 +8,7 @@ import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.exceptions.AccountNotFoundException;
+import budgetbuddy.model.account.exceptions.AccountUnchangedException;
 import budgetbuddy.model.account.exceptions.DuplicateAccountException;
 import budgetbuddy.model.attributes.Name;
 import javafx.collections.FXCollections;
@@ -33,11 +34,11 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
-     * Returns true if the list contains an equivalent account as the given argument.
+     * Returns true if the list contains an account with the same name as the given argument.
      */
     public boolean contains(Account toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(acc -> accountsAreEquivalent(toCheck, acc));
+        return internalList.stream().anyMatch(acc -> accountsHaveSameName(toCheck, acc));
     }
 
     /**
@@ -64,9 +65,15 @@ public class UniqueAccountList implements Iterable<Account> {
         if (index == -1) {
             throw new AccountNotFoundException();
         }
-
-        if (!accountsAreEquivalent(target, editedAccount) && contains(editedAccount)) {
-            throw new DuplicateAccountException();
+        if (accountsAreEquivalent(target, editedAccount)) {
+            throw new AccountUnchangedException();
+        }
+        if (!accountsHaveSameName(target, editedAccount)) {
+            //the name of the edited account is changed, so we have to check if another account already
+            //has the same name as the edited account.
+            if (contains(editedAccount)) {
+                throw new DuplicateAccountException();
+            }
         }
 
         internalList.set(index, editedAccount);
@@ -207,14 +214,26 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
-     * Returns true if the two accounts are identical, or have the same name.
+     * Returns true if the two accounts are identical, or have the same name and description.
      */
     public static boolean accountsAreEquivalent(Account a1, Account a2) {
         if (a1 == null && a2 != null || a1 != null && a2 == null) {
             return false;
         }
 
-        return a1 == a2 || a1.getName().equals(a2.getName());
+        return a1 == a2 || (a1.getName().equals(a2.getName())
+                && a1.getDescription().equals(a2.getDescription()));
+    }
+
+    /**
+     * Returns true if the two accounts are identical, or share the same name.
+     */
+    public static boolean accountsHaveSameName(Account a1, Account a2) {
+        if (a1 == null && a2 != null || a1 != null && a2 == null) {
+            return false;
+        }
+
+        return a1 == a2 || (a1.getName().equals(a2.getName()));
     }
 }
 

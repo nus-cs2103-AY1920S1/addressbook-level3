@@ -34,9 +34,9 @@ public class AccountSwitchCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getAccountsManager());
-        if (model.getAccountsManager().getFilteredAccountList().size() >= targetAccountIndex.getOneBased()) {
-            model.getAccountsManager().setActiveAccount(targetAccountIndex);
-        } else {
+        try {
+            model.getAccountsManager().switchActiveAccount(targetAccountIndex);
+        } catch (IndexOutOfBoundsException e) {
             return new CommandResult(MESSAGE_INVALID_DISPLAYED_INDEX, CommandCategory.ACCOUNT);
         }
         String resultMessage = String.format(MESSAGE_SUCCESS, model.getAccountsManager().getActiveAccount());
