@@ -37,6 +37,7 @@ import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 import seedu.scheduler.ui.RefreshListener;
+import seedu.scheduler.ui.TabListener;
 
 
 /**
@@ -56,6 +57,7 @@ public class ModelManager implements Model {
     private final FilteredList<Interviewer> filteredInterviewers; // if we want to display all inteviewers on UI
 
     private RefreshListener refreshListener;
+    private TabListener tabListener;
 
     /**
      * Initializes a ModelManager with the given intervieweeList, interviewerList, userPrefs and schedulesList.
@@ -331,6 +333,9 @@ public class ModelManager implements Model {
     public void addRefreshListener(RefreshListener listener) {
         this.refreshListener = listener;
     }
+    public void addTabListener(TabListener tabListener) {
+        this.tabListener = tabListener;
+    }
 
     //=========== Schedule ================================================================================
     public void setEmptyScheduleList() throws ParseException {
@@ -452,6 +457,27 @@ public class ModelManager implements Model {
             refreshListener.scheduleDataUpdated();
         }
         logger.fine("Schedules list is reset");
+    }
+
+    @Override
+    public void intervieweeTabChange() {
+        if (tabListener != null) {
+            tabListener.changeTabInterviewee();
+        }
+    }
+
+    @Override
+    public void interviewerTabChange() {
+        if (tabListener != null) {
+            tabListener.changeTabInterviewer();
+        }
+    }
+
+    @Override
+    public void scheduleTabChange() {
+        if (tabListener != null) {
+            tabListener.changeTabSchedule();
+        }
     }
 
     /**

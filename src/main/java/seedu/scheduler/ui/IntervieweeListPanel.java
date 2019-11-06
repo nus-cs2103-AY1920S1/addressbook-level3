@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import javafx.scene.layout.Region;
 
 import seedu.scheduler.commons.core.LogsCenter;
@@ -21,7 +23,8 @@ public class IntervieweeListPanel extends UiPart<Region> {
     private ObservableList<Interviewee> intervieweeList;
 
     @FXML
-    private TableView<Interviewee> intervieweeTableView;
+    private TableView intervieweeTableView;
+
 
     IntervieweeListPanel(ObservableList<Interviewee> intervieweeList) {
         super(FXML);
@@ -34,7 +37,7 @@ public class IntervieweeListPanel extends UiPart<Region> {
      */
     private void initialise() {
         setTableColumn();
-        this.intervieweeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        this.intervieweeTableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         this.intervieweeTableView.setItems(this.intervieweeList);
     }
 
@@ -42,26 +45,52 @@ public class IntervieweeListPanel extends UiPart<Region> {
      * Set the table columns.
      */
     private void setTableColumn() {
-        createNewTableColumn("Full Name");
-        createNewTableColumn("NUS Email");
-        createNewTableColumn("Personal Email");
-        createNewTableColumn("Mobile");
-        createNewTableColumn("Faculty/School");
-        createNewTableColumn("Acad Year");
-        createNewTableColumn("Choice of Department");
-        createNewTableColumn("Time Slots");
+        TableColumn<ObservableList<String>, String> nameTitle =
+                new TableColumn<ObservableList<String>, String>("Name");
+        nameTitle.setCellValueFactory(new PropertyValueFactory<ObservableList<String>, String>("Name"));
+        editTableColumn(nameTitle);
+        TableColumn<ObservableList<String>, String> phoneTitle =
+                new TableColumn<ObservableList<String>, String>("Phone");
+        phoneTitle.setCellValueFactory(new PropertyValueFactory<ObservableList<String>, String>("phoneTitle"));
+        editTableColumn(phoneTitle);
+        TableColumn<ObservableList<String>, String> emailTitle =
+                new TableColumn<ObservableList<String>, String>("Emails");
+        emailTitle.setCellValueFactory(new PropertyValueFactory<ObservableList<String>, String>("Emails"));
+        editTableColumn(emailTitle);
+        TableColumn<ObservableList<String>, String> facultyTitle =
+                new TableColumn<ObservableList<String>, String>("Faculty");
+        facultyTitle.setCellValueFactory(new PropertyValueFactory<ObservableList<String>, String>("Faculty"));
+        editTableColumn(facultyTitle);
+        TableColumn<ObservableList<String>, String> yearTitle =
+                new TableColumn<ObservableList<String>, String>("Academic Year");
+        yearTitle.setCellValueFactory(new PropertyValueFactory<ObservableList<String>, String>("yearOfStudy"));
+        editTableColumn(yearTitle);
+        TableColumn<ObservableList<String>, String> departmentTitle =
+                new TableColumn<ObservableList<String>, String>("Department Choices");
+        departmentTitle.setCellValueFactory(
+                new PropertyValueFactory<ObservableList<String>, String>("DepartmentChoices"));
+        editTableColumn(departmentTitle);
+        TableColumn<ObservableList<String>, String> timeSlotTitle =
+                new TableColumn<ObservableList<String>, String>("Time Slots");
+        timeSlotTitle.setCellValueFactory(
+                new PropertyValueFactory<ObservableList<String>, String>("AvailableTimeslots"));
+        editTableColumn(timeSlotTitle);
+        TableColumn<ObservableList<String>, String> tagTitle =
+                new TableColumn<ObservableList<String>, String>("Tags");
+        tagTitle.setCellValueFactory(new PropertyValueFactory<ObservableList<String>, String>("Tags"));
+        editTableColumn(tagTitle);
+
+        intervieweeTableView.getColumns().addAll(nameTitle, emailTitle, facultyTitle, yearTitle,
+                departmentTitle, timeSlotTitle, tagTitle);
     }
 
     /**
      * Create a new TableColumn object.
-     * @param titles The titles for each columns.
+     * @param tableColumn The titles for each columns.
      */
-    private void createNewTableColumn(String titles) {
-        TableColumn columnTitle = new TableColumn(titles);
-        columnTitle.setReorderable(false);
-        columnTitle.setMinWidth(80);
-
-        intervieweeTableView.getColumns().add(columnTitle);
+    private void editTableColumn(TableColumn tableColumn) {
+        tableColumn.setReorderable(false);
+        tableColumn.setMinWidth(80);
     }
 
     protected void listUpdated(ObservableList<Interviewee> newIntervieweeList) {

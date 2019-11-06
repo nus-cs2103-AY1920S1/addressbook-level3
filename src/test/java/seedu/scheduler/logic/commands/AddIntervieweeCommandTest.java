@@ -35,6 +35,7 @@ import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 import seedu.scheduler.ui.RefreshListener;
+import seedu.scheduler.ui.TabListener;
 
 class AddIntervieweeCommandTest {
 
@@ -291,6 +292,26 @@ class AddIntervieweeCommandTest {
 
         @Override
         public void addRefreshListener(RefreshListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTabListener(TabListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void scheduleTabChange() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void intervieweeTabChange() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void interviewerTabChange() {
             throw new AssertionError("This method should not be called.");
         }
 
