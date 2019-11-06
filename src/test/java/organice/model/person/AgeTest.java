@@ -42,14 +42,12 @@ public class AgeTest {
         assertFalse(Age.isValidAge("0.8")); //decimals
         assertFalse(Age.isValidAge("1.9")); //decimals
         assertFalse(Age.isValidAge("-82.9")); //negative decimals
-        assertFalse(Age.isValidAge(AGE_MIN.toString())); //min valid age
-        assertFalse(Age.isValidAge(AGE_MAX.toString())); //max valid age
         assertFalse(Age.isValidAge(AGE_MAX_ONE_MORE.toString())); //max age + 1
         assertFalse(Age.isValidAge(AGE_MAX_TEN_MORE.toString())); //max age + 10
         assertFalse(Age.isValidAge(AGE_MIN_ONE_LESS.toString())); //min age - 1
 
         // valid age
-        for (int age = AGE_MIN + 1; age < AGE_MAX; age++) {
+        for (int age = AGE_MIN; age <= AGE_MAX; age++) {
             Integer currentAge = age;
             assertTrue(Age.isValidAge(currentAge.toString()));
         }

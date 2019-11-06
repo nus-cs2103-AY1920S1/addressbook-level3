@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 
+import java.util.List;
+
 import organice.logic.commands.MatchCommand;
 import organice.logic.parser.exceptions.ParseException;
 import organice.model.person.Nric;
@@ -26,7 +28,8 @@ public class MatchCommandParser implements Parser<MatchCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NRIC);
         String inputValue;
 
-        if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
+        List<String> nricInputs = argMultimap.getAllValues(PREFIX_NRIC);
+        if (nricInputs.size() == 1) {
             inputValue = argMultimap.getValue(PREFIX_NRIC).get();
             checkInputArgument(inputValue);
         } else {

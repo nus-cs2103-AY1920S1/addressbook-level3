@@ -118,7 +118,7 @@ public class MatchedPatientTest {
     public void toStringTest() {
         MatchedPatient irene = new MatchedPatient(PATIENT_IRENE);
         assertEquals("Irene Person Type: patient Nric: S1111112A Phone: 85355255 "
-                + "Age: 21 Priority: high Blood Type: O Tissue Type: 1,4,7,10,11,12 "
+                + "Age: 21 Priority: high Blood Type: O+ Tissue Type: 1,4,7,10,11,12 "
                 + "Organ: kidney Doctor In Charge: S1231231B "
                 + "Status: not processing", irene.toString());
     }

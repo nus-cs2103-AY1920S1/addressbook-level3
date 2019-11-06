@@ -25,16 +25,8 @@ public class MatchCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NRIC_DESC_PATIENT_IRENE,
                         new MatchCommand(VALID_NRIC_PATIENT_IRENE));
 
-        // multiple nrics -- last one accepted
-        assertParseSuccess(parser, NRIC_DESC_DOCTOR_AMY + NRIC_DESC_PATIENT_IRENE,
-                        new MatchCommand(VALID_NRIC_PATIENT_IRENE));
-
         // white space only preamble -- all
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_MATCHCOMMAND_ALL,
-                new MatchCommand(MatchCommandParser.ALL));
-
-        // multiple all inputs -- last one accepted
-        assertParseSuccess(parser, VALID_MATCHCOMMAND_ALL + VALID_MATCHCOMMAND_ALL,
                 new MatchCommand(MatchCommandParser.ALL));
     }
 
@@ -57,5 +49,18 @@ public class MatchCommandParserTest {
 
         // wrongly typed all
         assertParseFailure(parser, INVALID_MATCHCOMMAND_ALL, MatchCommandParser.MESSAGE_INVALID_INPUTS);
+    }
+
+    @Test
+    public void parse_multipleValues_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MatchCommand.MESSAGE_USAGE);
+
+        // multiple nrics -- throws error
+        assertParseFailure(parser, NRIC_DESC_DOCTOR_AMY + NRIC_DESC_PATIENT_IRENE,
+                expectedMessage);
+
+        // multiple 'all' inputs -- throws error
+        assertParseFailure(parser, VALID_MATCHCOMMAND_ALL + VALID_MATCHCOMMAND_ALL,
+                expectedMessage);
     }
 }

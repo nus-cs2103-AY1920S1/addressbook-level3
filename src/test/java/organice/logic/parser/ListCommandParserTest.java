@@ -21,38 +21,38 @@ public class ListCommandParserTest {
 
         // no leading and trailing whitespaces -- no argument given
         ListCommand expectedListCommand = new ListCommand(null);
-        assertParseSuccess(parser, "list", expectedListCommand);
+        assertParseSuccess(parser, "", expectedListCommand);
 
         // no leading and trailing whitespaces -- patient
         expectedListCommand = new ListCommand(TYPE_PATIENT);
-        assertParseSuccess(parser, "list t/patient", expectedListCommand);
+        assertParseSuccess(parser, " t/patient", expectedListCommand);
 
         // no leading and trailing whitespaces -- donor
         expectedListCommand = new ListCommand(TYPE_DONOR);
-        assertParseSuccess(parser, "list t/donor", expectedListCommand);
+        assertParseSuccess(parser, " t/donor", expectedListCommand);
 
         // no leading and trailing whitespaces -- doctor
         expectedListCommand = new ListCommand(TYPE_DOCTOR);
-        assertParseSuccess(parser, "list t/doctor", expectedListCommand);
+        assertParseSuccess(parser, " t/doctor", expectedListCommand);
 
         // leading and trailing whitespaces -- no argument given
         expectedListCommand = new ListCommand(null);
-        assertParseSuccess(parser, "list   ", expectedListCommand);
+        assertParseSuccess(parser, "   ", expectedListCommand);
 
         // leading and trailing whitespaces -- patient
         expectedListCommand = new ListCommand(TYPE_PATIENT);
-        assertParseSuccess(parser, "list    t/patient", expectedListCommand);
+        assertParseSuccess(parser, "   t/patient", expectedListCommand);
 
         // leading and trailing whitespaces -- donor
         expectedListCommand = new ListCommand(TYPE_DONOR);
-        assertParseSuccess(parser, "list    t/donor", expectedListCommand);
+        assertParseSuccess(parser, "    t/donor", expectedListCommand);
 
         // leading and trailing whitespaces -- doctor
         expectedListCommand = new ListCommand(TYPE_DOCTOR);
-        assertParseSuccess(parser, "list      t/doctor", expectedListCommand);
+        assertParseSuccess(parser, "      t/doctor", expectedListCommand);
 
         // wrong type specified
-        assertParseFailure(parser, "list t/student", Type.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " t/student", Type.MESSAGE_CONSTRAINTS);
     }
 
 }

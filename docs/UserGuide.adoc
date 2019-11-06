@@ -115,7 +115,7 @@ a person and the criteria for valid inputs:
 
 * a/**AGE** - age of a person
 ** Applicable to: patients and donors
-** Valid input: a number
+** Valid input: a number from 0 (inclusive) to 150 (inclusive)
 
 * d/**DOCTOR** - doctor in charge of a patient
 ** Applicable to: patients
