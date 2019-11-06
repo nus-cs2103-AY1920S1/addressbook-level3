@@ -36,7 +36,7 @@ public class AthleteRecords extends UiPart<Region> {
      * Retrieves the chart from RecordDetails.
      */
     private void getChart() {
-        RecordDetails recordDetails = new RecordDetails(person.getName().fullName, records);
-        athleteStatBox.getChildren().add(recordDetails.getRoot());
+        RecordLineChart recordLineChart = new RecordLineChart(person.getName().fullName, records);
+        athleteStatBox.getChildren().add(recordLineChart.getRoot());
     }
 }

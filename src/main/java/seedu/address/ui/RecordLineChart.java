@@ -13,9 +13,9 @@ import seedu.address.model.performance.Record;
 /**
  * Contains details of an athlete's record for a certain event.
  */
-public class RecordDetails extends UiPart<Region> {
+public class RecordLineChart extends UiPart<Region> {
 
-    private static final String FXML = "RecordDetails.fxml";
+    private static final String FXML = "RecordLineChart.fxml";
     private List<Record> records;
     private String name;
 
@@ -28,7 +28,7 @@ public class RecordDetails extends UiPart<Region> {
     @FXML
     private NumberAxis yAxis;
 
-    public RecordDetails(String name, List<Record> records) {
+    public RecordLineChart(String name, List<Record> records) {
         super(FXML);
         this.name = name;
         this.records = records;
