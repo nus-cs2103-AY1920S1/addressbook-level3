@@ -40,7 +40,11 @@ A `Patient` 's `Visit` s, `VisitTodo` are displayed together with his details on
 
 An ongoing `Visit` is displayed in another tab named "Current Visit" using  `OngoingVisitListPanel` containing `OngoingVisitCard` which contains `VisitTaskTableView`. Likewise, in `pat-list` and `pat-find` use `FinishedVisitCard` s each containing a `VisitTaskTableView` to display the `Visit` s and `VisitTask` s.
 
-There is also some consideration on how to implement the changing of tabs programmatically (e.g. when someone executes the command to begin a visit), which necessitates some additional coupling between `Model` and `Ui`. The proposed implementation may be to use the Observer pattern: `Model` would contain a subject that would notify its observers whenever a component (e.g. `Patient` or `Visit`) is listed/added/updated/deleted/etc, and `Ui` could observer this subject and update itself accordingly.
+===== Changing of tabs on running the appropriate command
+
+The application currently does not change tabs when an appropriate command is run (e.g. if you're on the Patient tab and you run visit-now-update, it will stay on the Patient tab). This is actually by design as it allows users to multitask across tabs.
+
+If in future iterations there is a need to change the tab on running an appropriate command, there are some consideration on how to implement the changing of tabs programmatically (e.g. when someone executes the command to begin a visit), which necessitates some additional coupling between `Model` and `Ui`. The proposed implementation may be to use the Observer pattern: `Model` would contain a subject that would notify its observers whenever a component (e.g. `Patient` or `Visit`) is listed/added/updated/deleted/etc, and `Ui` could observer this subject and update itself accordingly.
 
 ==== UI Design Considerations
 

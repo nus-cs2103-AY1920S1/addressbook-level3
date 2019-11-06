@@ -27,6 +27,8 @@ Bug Hunting: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/182[#182
 * *Other contributions*:
 ** Project management:
 *** Setup initial https://github.com/AY1920S1-CS2103-F10-1/main/projects/1[Project Management Board]
+*** Setup https://github.com/AY1920S1-CS2103-F10-1/main/pull/94[v1.2.1 release], v1.4 Issues for team (See issues #182-#186)
+*** Helped coordinate team and help teammates debug code (offline, no documentation)
 ** Enhancements to existing features:
 *** Modified relative to absolute indexing for Person list, find and edit (Pull Request https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69]) which was required for this feature and some other features e.g. Appointment Management
 *** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77])
