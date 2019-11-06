@@ -9,14 +9,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Word {
 
-    /** Maximum length of Word's string is set at 150 characters to ensure Hints showing properly. */
-    private static final int MAX_LEN = 150;
+    /** Maximum length of Word's string is set at 80 characters to ensure Hints showing properly. */
+    private static final int MAX_LEN = 80;
 
     public static final String MESSAGE_CONSTRAINTS =
             "Words should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
 
     /*
-     * The word should contain 1-150 characters, and not all are white spaces.
+     * The word should contain 1-80 characters, and not all are white spaces.
      */
     private static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN + "}$";
 

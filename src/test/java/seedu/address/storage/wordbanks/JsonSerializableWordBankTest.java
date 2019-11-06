@@ -14,7 +14,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.testutil.TypicalCards;
 
-public class JsonSerializableWordBankTest {
+class JsonSerializableWordBankTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test",
             "data", "JsonSerializableWordBankTest");
@@ -24,7 +24,7 @@ public class JsonSerializableWordBankTest {
             TEST_DATA_FOLDER.resolve("duplicateCardsInWordBank.json");
 
     @Test
-    public void toModelType_typicalWordBankFile_success() throws Exception {
+    void toModelType_typicalWordBankFile_success() throws Exception {
         JsonSerializableWordBank dataFromFile = JsonUtil.readJsonFile(TYPICAL_WORD_BANK_FILE,
                 JsonSerializableWordBank.class).get();
         WordBank wordBankFromFile = dataFromFile.toModelTypeWithName("sample");
@@ -33,14 +33,14 @@ public class JsonSerializableWordBankTest {
     }
 
     @Test
-    public void toModelType_invalidWordBankFile_throwsIllegalValueException() throws Exception {
+    void toModelType_invalidWordBankFile_throwsIllegalValueException() throws Exception {
         JsonSerializableWordBank dataFromFile = JsonUtil.readJsonFile(INVALID_WORD_BANK_FILE,
                 JsonSerializableWordBank.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_duplicateCardsInWordBank_throwsIllegalValueException() throws Exception {
+    void toModelType_duplicateCardsInWordBank_throwsIllegalValueException() throws Exception {
         JsonSerializableWordBank dataFromFile = JsonUtil.readJsonFile(DUPLICATE_CARDS_IN_WORD_BANK_FILE,
                 JsonSerializableWordBank.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);

@@ -5,7 +5,6 @@ box UI UI_COLOR_T1
 participant ":MainWindow" as MainWindow UI_COLOR
 end box
 
-
 box AppManager APPMANAGER_COLOR_T1
 participant ":AppManager" as AppManager APPMANAGER_COLOR
 end box
@@ -14,7 +13,6 @@ box Timer TIMER_COLOR_T1
 participant ":GameTimer" as GameTimer TIMER_COLOR
 
 end box
-
 
 [-> MainWindow : initialize
 activate MainWindow
@@ -25,25 +23,25 @@ deactivate AppManager
 
 deactivate MainWindow
 
-
-AppManager -> AppManager : create new \nGameTimer instance
+AppManager -> AppManager : set GameTimer
 activate AppManager
 
-AppManager -> GameTimer : resgister callback methods
+AppManager -> GameTimer** : get instance and register callbacks
 activate GameTimer
 GameTimer --> AppManager
 deactivate GameTimer
+
 AppManager --> AppManager
 deactivate AppManager
 
-AppManager -> GameTimer : run()
+AppManager -> GameTimer : start GameTimer
 activate GameTimer
 
-GameTimer -> AppManager : Callback to\n update timestamp
-note right: Time elapsed, GameTimer \n performs a call-back \n to AppManager
+GameTimer -> AppManager : callback to\n update timestamp
+note right: Periodically GameTimer \n performs several callbacks \n to AppManager
 
 activate AppManager
-AppManager -> MainWindow : Callback to\n update timestamp
+AppManager -> MainWindow : callback to\n update timestamp
 note right: AppManager performs\na call-back to MainWindow
 
 activate MainWindow
@@ -57,5 +55,6 @@ deactivate  AppManager
 
 GameTimer --> AppManager
 deactivate GameTimer
+note right: GameTimer instance finished \nrunning or is aborted.
 
 @enduml

@@ -27,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
+import seedu.address.model.card.Meaning;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -159,20 +160,39 @@ public class LogicManager implements Logic, UiLogicHelper {
         } catch (DuplicateWordBankException e) {
             logger.info("Revision bank already exist");
         }
+
         List<Card> wrongCards = gameStatistics.getWrongCards();
         List<Card> correctCards = gameStatistics.getCorrectCards();
         WordBank revisionBank = storage.getWordBankFromName("revision");
-        for (Card c : wrongCards) {
-            if (!revisionBank.hasCard(c)) {
-                revisionBank.addCard(c);
+
+        if (gameStatistics.getTitle().equals("revision")) {
+            for (Card c : correctCards) {
+                if (revisionBank.hasCard(c)) {
+                    revisionBank.removeCard(c);
+                }
             }
-        }
-        for (Card c : correctCards) {
-            if (revisionBank.hasCard(c)) {
-                revisionBank.removeCard(c);
+            storage.updateWordBank(revisionBank);
+        } else {
+            for (Card c : wrongCards) {
+                Meaning newMeaning = new Meaning(c.getMeaning().getValue()
+                        + " [Word Bank: " + gameStatistics.getTitle() + "]", true);
+                Card toAdd = Card.createNewCard(c.getWord(), newMeaning, c.getTags());
+                if (!revisionBank.hasCard(toAdd)) {
+                    revisionBank.addCard(toAdd);
+                }
             }
+
+            for (Card c : correctCards) {
+                Meaning newMeaning = new Meaning(c.getMeaning().getValue()
+                        + " [Word Bank: " + gameStatistics.getTitle() + "]", true);
+                Card toRemove = Card.createNewCard(c.getWord(), newMeaning, c.getTags());
+                if (revisionBank.hasCard(toRemove)) {
+                    Card cardInRevisionBank = revisionBank.getCard(toRemove.getMeaning());
+                    revisionBank.removeCard(cardInRevisionBank);
+                }
+            }
+            storage.updateWordBank(revisionBank);
         }
-        storage.updateWordBank(revisionBank);
     }
 
     /**

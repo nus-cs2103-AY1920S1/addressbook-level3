@@ -36,9 +36,11 @@ public class ModelManager implements Model {
     private boolean hasBank = false;
 
     private WordBank currentWordBank = SampleDataUtil.getPokemonWordBank();
+
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
+
     private final WordBankStatisticsList wordBankStatisticsList;
 
     private final GlobalStatistics globalStatistics;

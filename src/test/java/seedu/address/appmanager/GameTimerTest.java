@@ -17,7 +17,10 @@ import javafx.stage.Stage;
 import seedu.address.appmanager.timer.GameTimer;
 
 /**
- * Test class for the GameTimer and its GameTimerManager implementation
+ * Test class for the GameTimer and its GameTimerManager implementation. Before every test, the JavaFX Application
+ * Thread is started and made available so that GameTimerManager can run its tasks on that Thread. CountDownLatches
+ * are used to block test-worker Threads while tasks are still running on JavaFX Application Thread. This is necessary
+ * to prevent concurrency problems resulting in NullPointerExceptions and unpredictable test results.
  *
  * @author kohyida1997
  */
@@ -32,7 +35,7 @@ public class GameTimerTest {
      */
     @Start
     public void start(Stage stage) {
-
+        // JavaFX Application Thread is initialized.
     }
 
     @Test
@@ -46,11 +49,12 @@ public class GameTimerTest {
             GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    10, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+                    50, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
             appManagerStub.setCountDownLatch(cd);
             dummyTimer.run();
         });
         try {
+            // Blocking test-worker thread.
             cd.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -75,6 +79,7 @@ public class GameTimerTest {
             dummyTimer.run();
         });
         try {
+            // Blocking test-worker thread.
             cd.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -100,6 +105,7 @@ public class GameTimerTest {
             dummyTimer.run();
         });
         try {
+            // Blocking test-worker thread.
             cd.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -120,7 +126,8 @@ public class GameTimerTest {
             GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    10, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+                    500, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            dummyTimer.run();
             dummyTimer.abortTimer();
             // abortTimer() is supposed to pass timeLeft = 0 to the timerDisplay.
             assertTrue(appManagerStub.timeLeftIsZero);
@@ -144,6 +151,7 @@ public class GameTimerTest {
             dummyTimer.run();
         });
         try {
+            // Blocking test-worker thread.
             cd.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -152,6 +160,63 @@ public class GameTimerTest {
         assertTrue(appManagerStub.skipCalled);
         assertTrue(appManagerStub.timerDisplayUpdated);
     }
+
+    @Test
+    public void run_withOneHint_hintsUpdated() {
+        CountDownLatch cd = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            appManagerStub = new AppManagerStub();
+
+            GameTimer.SkipOverCallBack dummySkipCallBack = appManagerStub::skipOver;
+            GameTimer.UpdateTimerCallBack dummyTimerCallBack = appManagerStub::updateTimer;
+            GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
+
+            // Last hint is always displayed at 50ms
+            dummyTimer = GameTimer.getInstance("Dummy Message",
+                    50, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            dummyTimer.initHintTimingQueue(1, 50);
+            appManagerStub.setCountDownLatch(cd);
+            dummyTimer.run();
+        });
+        try {
+            // Blocking test-worker thread.
+            cd.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(appManagerStub.hintsUpdated);
+        assertTrue(appManagerStub.skipCalled);
+        assertTrue(appManagerStub.timerDisplayUpdated);
+    }
+
+    @Test
+    public void run_withOneHint_hintsNotUpdated() {
+        CountDownLatch cd = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            appManagerStub = new AppManagerStub();
+
+            GameTimer.SkipOverCallBack dummySkipCallBack = appManagerStub::skipOver;
+            GameTimer.UpdateTimerCallBack dummyTimerCallBack = appManagerStub::updateTimer;
+            GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
+
+            // Last hint is always displayed at 50ms
+            dummyTimer = GameTimer.getInstance("Dummy Message",
+                    49, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            dummyTimer.initHintTimingQueue(1, 49);
+            appManagerStub.setCountDownLatch(cd);
+            dummyTimer.run();
+        });
+        try {
+            // Blocking test-worker thread.
+            cd.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertFalse(appManagerStub.hintsUpdated);
+        assertTrue(appManagerStub.skipCalled);
+        assertTrue(appManagerStub.timerDisplayUpdated);
+    }
+
 
     @Test
     public void getElapsedMillis() {
@@ -164,16 +229,18 @@ public class GameTimerTest {
             GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    70, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+                    123, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
             appManagerStub.setCountDownLatch(cd);
             dummyTimer.run();
         });
         try {
+            // Blocking test-worker thread.
             cd.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        assertEquals(dummyTimer.getElapsedMillis(), 70);
+
+        assertEquals(dummyTimer.getElapsedMillis(), 123);
     }
 
 
@@ -181,12 +248,13 @@ public class GameTimerTest {
     // Stub Class for AppManager's methods that will be called from GameTimer
     private class AppManagerStub {
 
+        /** Booleans to check that GameTimer is performing call-backs successfully. */
         private boolean skipCalled = false;
         private boolean hintsUpdated = false;
         private boolean timerDisplayUpdated = false;
         private boolean timeLeftIsZero = false;
 
-        /** Utility to ensure that all timerTasks within a dummyTimer (on the JavaFX Application Thread)
+        /** Utility to ensure that all TimerTasks within a GamerTimer (on the JavaFX Application Thread)
          *  are run before test worker thread is allowed to progress. */
         private CountDownLatch countDownLatch;
 

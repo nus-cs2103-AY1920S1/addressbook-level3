@@ -242,6 +242,8 @@ Examples:
 * `start`
 * `start easy`
 
+NOTE: Entering the start command after wordbank is selected will enter game mode. In event that there are fewer than 3 flash cards, the game would not run. You would have to go to `open` mode to add flash cards.
+
 ==== Customise game play: `settings`
 Enters settings page, so that the user can customise the game play.
 
