@@ -4,6 +4,10 @@ import seedu.address.achievements.logic.AchievementsLogic;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
+import seedu.address.financialtracker.logic.FinancialTrackerLogic;
+import seedu.address.itinerary.logic.ItineraryLogic;
+import seedu.address.storage.Storage;
+
 
 /**
  * API of the AddressBookLogic component
@@ -11,11 +15,17 @@ import seedu.address.diaryfeature.logic.DiaryBookLogic;
 
 public interface Logic extends GuiSettingsLogic {
 
-    public AddressBookLogic getAddressBookLogic();
+    Storage getStorage();
 
-    public AchievementsLogic getAchievementsLogic();
+    AddressBookLogic getAddressBookLogic();
 
-    public DiaryBookLogic getDiaryLogic();
+    AchievementsLogic getAchievementsLogic();
+
+    DiaryBookLogic getDiaryLogic();
+
+    ItineraryLogic getItineraryLogic();
+
+    FinancialTrackerLogic getFinancialTrackerLogic();
 
     public MainLogic getMainLogic();
 

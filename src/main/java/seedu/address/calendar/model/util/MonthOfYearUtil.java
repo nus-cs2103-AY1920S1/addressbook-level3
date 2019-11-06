@@ -6,18 +6,14 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class MonthOfYearUtil {
-    private static int NUM_MONTHS_IN_YEAR = 12;
-
-    static int getNumMonthsInYear() {
-        return NUM_MONTHS_IN_YEAR;
-    }
+    public static int NUM_MONTHS_IN_YEAR = 12;
 
     static MonthOfYear convertJavaMonth(int javaMonth) {
         return MonthOfYear.values()[javaMonth];
     }
 
     static boolean isValidMonthNum(int monthNum) {
-        return monthNum < MonthOfYear.values().length && monthNum > 0;
+        return monthNum < MonthOfYear.values().length && monthNum >= 0;
     }
 
     static MonthOfYear convertNumToMonth(int monthNum) {

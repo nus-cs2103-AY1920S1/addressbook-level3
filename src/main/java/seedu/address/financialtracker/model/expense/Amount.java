@@ -15,12 +15,27 @@ public class Amount {
 
     public Amount(String amount) {
         requireNonNull(amount);
-        this.value = amount;
+        this.value = amountFormat(amount);
         this.numericalValue = Double.parseDouble(amount);
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Format the amount string such that it always has tailing 2 decimal zeros.
+     */
+    public String amountFormat(String amount) {
+        int dotIndex = amount.indexOf('.');
+        if (dotIndex == -1) {
+            amount += ".00";
+        } else {
+            if ((amount.length() - dotIndex) != 3) {
+                amount += "0";
+            }
+        }
+        return amount;
+    }
+
+    /**
+     * Returns true if a given string is a valid amount.
      */
     public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);

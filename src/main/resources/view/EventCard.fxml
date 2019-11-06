@@ -13,7 +13,7 @@
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@Itinerary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <VBox id="indexBox">
       <children>
-     <Label id="index" fx:id="id" alignment="CENTER" prefHeight="86.0" prefWidth="127.0">
+     <Label id="index" fx:id="id" alignment="CENTER" prefHeight="86.0" prefWidth="108.0">
        <minWidth>
          <!-- Ensures that the label text is never truncated -->
          <Region fx:constant="USE_PREF_SIZE" />
@@ -24,7 +24,8 @@
      </Label>
       </children>
    </VBox>
-   <BorderPane>
+   <VBox prefWidth="1.0" style="-fx-background-color: darkorchid;" />
+   <BorderPane HBox.hgrow="ALWAYS">
       <top>
       <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
         <ImageView fx:id="checkBox" fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -146,4 +147,5 @@
          </HBox>
       </center>
    </BorderPane>
+   <VBox prefWidth="10.0" style="-fx-background-color: deeppink;" />
 </HBox>

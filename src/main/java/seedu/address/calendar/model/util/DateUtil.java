@@ -8,12 +8,10 @@ import seedu.address.calendar.model.date.Year;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class DateUtil {
-    private static int FIRST_DAY_OF_MONTH = 1;
+    public static final int FIRST_DAY_OF_MONTH = 1;
 
     /* The following is used for day-related purposes. */
     public static DayOfWeek toDayOfWeek(int dayAsInt) {
@@ -35,14 +33,17 @@ public class DateUtil {
     }
 
     public static Date getFirstDateInMonth(MonthOfYear monthOfYear, Year year) {
-        Day firstDay = getDay(FIRST_DAY_OF_MONTH, monthOfYear, year);
+        assert Day.isValidDayOfMonth(FIRST_DAY_OF_MONTH, monthOfYear, year) : Day.MESSAGE_INVALID_DAY_RANGE_ERROR;
+        Day firstDay = Day.getDay(FIRST_DAY_OF_MONTH, monthOfYear, year);
 
         return new Date(firstDay, monthOfYear, year);
     }
 
     public static Date getLastDateInMonth(MonthOfYear monthOfYear, Year year) {
         int lastDayOfMonth = monthOfYear.getNumDaysInMonth(year);
-        Day lastDay = getDay(lastDayOfMonth, monthOfYear, year);
+
+        assert Day.isValidDayOfMonth(lastDayOfMonth, monthOfYear, year) : Day.MESSAGE_INVALID_DAY_RANGE_ERROR;
+        Day lastDay = Day.getDay(lastDayOfMonth, monthOfYear, year);
 
         return new Date(lastDay, monthOfYear, year);
     }
@@ -51,7 +52,8 @@ public class DateUtil {
         MonthOfYear monthOfYear = startDate.getMonth();
         Year year = startDate.getYear();
 
-        Day firstDay = getDay(FIRST_DAY_OF_MONTH, monthOfYear, year);
+        assert Day.isValidDayOfMonth(FIRST_DAY_OF_MONTH, monthOfYear, year) : Day.MESSAGE_INVALID_DAY_RANGE_ERROR;
+        Day firstDay = Day.getDay(FIRST_DAY_OF_MONTH, monthOfYear, year);
 
         return new Date(firstDay, monthOfYear, year);
     }
@@ -61,7 +63,8 @@ public class DateUtil {
         Year year = startDate.getYear();
         int lastDayOfMonth = monthOfYear.getNumDaysInMonth(year);
 
-        Day lastDay = getDay(lastDayOfMonth, monthOfYear, year);
+        assert Day.isValidDayOfMonth(lastDayOfMonth, monthOfYear, year) : Day.MESSAGE_INVALID_DAY_RANGE_ERROR;
+        Day lastDay = Day.getDay(lastDayOfMonth, monthOfYear, year);
 
         return new Date(lastDay, monthOfYear, year);
     }
@@ -99,38 +102,15 @@ public class DateUtil {
     /* The following is used for more specific month-and-day-related purposes. */
 
     public static List<Day> getDaysOfMonth(MonthOfYear monthOfYear, Year year) {
-        int monthOfYearAsInt = monthOfYear.getNumericalVal();
-        int yearAsInt = year.getNumericalValue();
-        int firstDayOfWeekAsNum = findFirstDayOfWeekAsNum(monthOfYearAsInt, yearAsInt);
-        int daysInMonth = monthOfYear.getNumDaysInMonth(year);
-        List<Day> daysOfMonth = new ArrayList<>();
-
-        IntStream.range(0, daysInMonth)
-                .mapToObj(dayOfMonth -> getDayGivenFirstDayOfWeek(firstDayOfWeekAsNum, dayOfMonth))
-                .forEach(day -> daysOfMonth.add(day));
-        return daysOfMonth;
-    }
-
-    public static Day getDay(int dayOfMonthOneBased, MonthOfYear monthOfYear, Year year) {
-        int monthOfYearAsInt = monthOfYear.getNumericalVal();
-        int yearAsInt = year.getNumericalValue();
-        int firstDayOfWeekAsNum = findFirstDayOfWeekAsNum(monthOfYearAsInt, yearAsInt);
-        int dayOfMonth = dayOfMonthOneBased - 1;
-        return getDayGivenFirstDayOfWeek(firstDayOfWeekAsNum, dayOfMonth);
-    }
-
-    private static Day getDayGivenFirstDayOfWeek(int firstDayOfWeekAsNum, int dayOfMonth) {
-        int dayOfWeekAsNum = (firstDayOfWeekAsNum + dayOfMonth) % 7;
-        DayOfWeek dayOfWeek = DayOfWeekUtil.of(dayOfWeekAsNum);
-        return Day.getOneBased(dayOfWeek, dayOfMonth);
+        return Day.getDaysOfMonth(monthOfYear, year);
     }
 
     /**
      * Computes which day (of week) {@code} month starts on
      *
-     * @return day (of week) {@code this} month starts on
+     * @return Day (of week) {@code this} month starts on
      */
-    private static int findFirstDayOfWeekAsNum(int monthOfYear, int year) {
+    public static int findFirstDayOfWeekAsNum(int monthOfYear, int year) {
         int monthNumerical = monthOfYear;
         int zellerMonth = findZellerMonth(monthNumerical);
         int zellerYear = findZellerYear(zellerMonth, year);
@@ -148,20 +128,21 @@ public class DateUtil {
     /**
      * Computes the numerical value of {@code this} month such that it can be easily used with Zeller's rule.
      *
-     * @param monthNumerical numerical representation of {@code this} month
-     * @return numerical value of {@code this} month such that it can be easily used with Zeller's rule
+     * @param monthNumerical Numerical representation of {@code this} month
+     * @return Numerical value of {@code this} month such that it can be easily used with Zeller's rule.
+     *          The value should be between 1 and 12 (inclusive).
      */
     private static int findZellerMonth(int monthNumerical) {
-        int shiftedMonth = ((monthNumerical - 2) + MonthOfYearUtil.getNumMonthsInYear())
-                % MonthOfYearUtil.getNumMonthsInYear();
-        return shiftedMonth;
+        int shiftedMonth = ((monthNumerical - 2) + MonthOfYearUtil.NUM_MONTHS_IN_YEAR)
+                % MonthOfYearUtil.NUM_MONTHS_IN_YEAR;
+        return shiftedMonth == 0 ? MonthOfYearUtil.NUM_MONTHS_IN_YEAR : shiftedMonth; // since return val > 0 and <= 12
     }
 
     /**
      * Computes the year such that it can be easily used with Zeller's rule.
      *
      * @param zellerMonth {@code this} month such that it can be easily used with Zeller's rule
-     * @return year such that it can be easily used with Zeller's rule.
+     * @return Year such that it can be easily used with Zeller's rule.
      */
     private static int findZellerYear(int zellerMonth, int year) {
         return zellerMonth > 10 ? (year - 1) : year;

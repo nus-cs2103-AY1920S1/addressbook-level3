@@ -83,8 +83,8 @@ public class MainWindow extends UiPart<Stage> {
         addressBookPage = new AddressBookPage(logic.getAddressBookLogic());
         calendarPage = new CalendarPage();
         diaryPage = new DiaryPage(logic.getDiaryLogic());
-        financialTrackerPage = new FinancialTrackerPage();
-        itineraryPage = new ItineraryPage(primaryStage);
+        financialTrackerPage = new FinancialTrackerPage(logic.getFinancialTrackerLogic());
+        itineraryPage = new ItineraryPage(logic.getItineraryLogic());
         mainPage = new MainPage(logic.getMainLogic());
 
         commonScene.setRoot(mainPage.getParent());

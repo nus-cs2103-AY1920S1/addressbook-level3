@@ -1,0 +1,97 @@
+= Welcome to TravEzy!
+
+---
+
+=== Introduction
+
+===== TravEzy Team
+
+For my CS2103T module in NUS, we developed a software project in teams. My team consisted of Hon Hao Chen, Ong Bing Jue, Poh Lin Wei, Tishya Khanna, and I.
+
+===== About TravEzy
+
+We have collectively decided to morph the basic command line interface desktop addressbook application into a Traveller's Diary called TravEzy. TravEzy boasts a plethora of features such as a financial tracker, diary and calendar in a single package. Hence, TravEzy is definitely your go to all-in-one solution to planning your trip, tracking your expense and reliving your best moments.
+
+Here is a sneak peek on what our project looks like:
+
+(Put in a screenshot here.)
+
+Figure 1. The graphical user interface (GUI) for TravEzy
+
+Based on Figure 1, TravEzy GUI contains the menu bar which provides you the convenience to access the most pivotal commands to using TravEzy. It also includes the *Window Pane*, *Result Display* and *Command Box* which worked in tandem with each other.
+
+===== My contributions
+
+I was tasked to implement the itinerary feature for TravEzy. The itinerary helps users to organize their busy schedule through inputting of timed events. The following sections illustrate these implementations in more detail, as well as the relevant documnetation I have added to the user and developere guides in relation to these enhancements.
+
+Here is a preview on what the itinerary feature entails:
+
+(Put in a screenshot here.)
+
+Figure 2. The GUI for itinerary page
+
+Likewise, the GUI for the itinerary page includes the menu bar followed by the *Window Pane*, *Result Display* and *Command Box* which helps to keep track of your various events.
+
+===== Additional Information
+
+Do take note of some of the annontations that you might encounter while reading the Project Portfolio Page as indicated below:
+
+[TIP]
+The symbol indicates important information
+
+[IMPORTANT]
+Indicates crucial steps that are needed during the implementation needed for this feature.
+
+
+=== Summary of contributions
+
+In this section, I will delve into the 
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+But wait there's more! On top of the itinerary feature, I have also made contributions to the following (Have to add the various pull request links here):
+
+. Enhancement of existing features
+
+. Designing the TravEzy Logo
+
+. Enhancing the Graphical User Interface of TravEzy
+
+. User and Developer guide
+
+=== Contributions to the User guide
+
+The following are the contributions that I have made in the TravEzy user guide. 
+It will include excerpt from our TravEzy user guide with accompanying screenshots, showing additions that I have made for the itinerary feature.
+
+Let's say you are on a trip to Japan and you plan to visit Tokyo Disneyland the next day. Here are some ways you can use the itinerary feature to plan your day there.
+
+===== Add Command
+
+Kick starting the itinerary event list by adding some cool rides that you want to take while in Disneyland:
+
+Add -> Edit -> Done -> Delete -> Sort -> Search
+
+===== Delete Command
+
+===== Edit Command
+
+===== Done Command
+
+===== Sort Commamd
+
+===== Search Command
+
+===== Clear Command
+
+[Important]
+Do take note that the clear command is irreversible. Hence, use it with caution.
+
+=== Contributions to the Developer Guide
+
+I have also made contributions to the TravEzy Developer Guide which show case my expetise in documenting the techinal aspect of the itinerary feature.
+
+. Plan to add in some UML diagrams with explaination (Step by step guide on how to do it)
+. Design consideration / Other alternatives on how to do the application.
+
+---
