@@ -345,6 +345,15 @@ public class Deck implements JsonInterface {
         return this.testSessionList.getNumberOfSessions();
     }
 
+    /**
+     *
+     *
+     * @return
+     */
+    public int getSize() {
+        return cards.size();
+    }
+
     /** Get the average score for the sessions has engaged in pertaining to this deck. */
     //public Double getAverageScore() {
     //    return this.deckStats.getAverageScore();
