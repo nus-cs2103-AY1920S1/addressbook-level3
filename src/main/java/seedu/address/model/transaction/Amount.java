@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
  */
 public class Amount implements Comparable<Amount> {
 
-    public static final int UNSIGNED_INT_LIMIT = 100000000;
+    public static final int UNSIGNED_INT_LIMIT = 1000000000;
 
     public static final String MESSAGE_CONSTRAINTS =
         "Amounts should only be in integer or double, and it should not be blank";
