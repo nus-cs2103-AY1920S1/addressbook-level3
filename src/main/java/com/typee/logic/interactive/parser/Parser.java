@@ -49,8 +49,10 @@ public class Parser implements InteractiveParser {
     private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
             + " Please enter another command to get started!";
     private static final String MESSAGE_IDLE_STATE = "No command is being executed currently.";
-    public static final String REGEX_PATTERN_COMMAND_WORD = "^[a-zA-z]+";
+    public static final String REGEX_PATTERN_COMMAND_WORD = "[a-zA-Z]+";
+    private static final String REGEX_PATTERN_PREFIX = "[a-z]/";
     private static final String MESSAGE_BLANK = "The command entered cannot be blank!";
+
 
     private State currentState;
     private State temporaryState;
@@ -290,13 +292,24 @@ public class Parser implements InteractiveParser {
     }
 
     private List<String> getAllCommandWords(String trimmedCommandText) {
+        int boundary = findBoundary(trimmedCommandText);
         Pattern pattern = Pattern.compile(REGEX_PATTERN_COMMAND_WORD);
-        Matcher matcher = pattern.matcher(trimmedCommandText);
+        Matcher matcher = pattern.matcher(trimmedCommandText.substring(0, boundary));
         List<String> commandWords = new ArrayList<>();
         while (matcher.find()) {
             commandWords.add(matcher.group());
         }
         return commandWords;
+    }
+
+    private int findBoundary(String trimmedCommandText) {
+        Pattern pattern = Pattern.compile(REGEX_PATTERN_PREFIX);
+        Matcher matcher = pattern.matcher(trimmedCommandText);
+        boolean prefixExists = matcher.find();
+        if (prefixExists) {
+            return matcher.start();
+        }
+        return trimmedCommandText.length();
     }
 
     private String addBufferTo(String string) {
