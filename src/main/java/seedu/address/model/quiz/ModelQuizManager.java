@@ -28,11 +28,11 @@ public class ModelQuizManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelQuizManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelQuizManager(ReadOnlyQuizBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with quiz book: " + addressBook + " and user prefs " + userPrefs);
 
         this.showAnswer = true;
         versionedQuizBook = new VersionedQuizBook(addressBook);
@@ -82,12 +82,12 @@ public class ModelQuizManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyQuizBook addressBook) {
         this.versionedQuizBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyQuizBook getAddressBook() {
         return versionedQuizBook;
     }
 
@@ -166,6 +166,10 @@ public class ModelQuizManager implements Model {
 
     //=========== Filtered Question List Accessors =============================================================
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
+     * {@code versionedQuizBook}
+     */
     @Override
     public ObservableList<Question> getFilteredShowQuestionList() {
         return versionedQuizBook.getShowQuestionList();
@@ -173,7 +177,7 @@ public class ModelQuizManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
-     * {@code versionedQuizBook}
+     * {@code addressQuizBook}
      */
     @Override
     public ObservableList<Question> getFilteredQuestionList() {
