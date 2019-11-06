@@ -1,4 +1,4 @@
-package seedu.planner.ui.autocomplete.exceptions;
+package seedu.planner.logic.commands.autocomplete.exceptions;
 
 /**
  * Signals that the operation is unable to find the command.

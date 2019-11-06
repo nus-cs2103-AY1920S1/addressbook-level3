@@ -1,15 +1,14 @@
-package seedu.planner.ui.autocomplete;
+package seedu.planner.logic.commands.autocomplete;
 
 import seedu.planner.logic.commands.AddActivityCommand;
-import seedu.planner.logic.commands.util.CommandInformation;
 import seedu.planner.logic.parser.Prefix;
-import seedu.planner.ui.autocomplete.exceptions.CommandNotFoundException;
+import seedu.planner.logic.commands.autocomplete.exceptions.CommandNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class AutoCompleteAnalyser {
+public class AutoCompleteSuggester {
     private CommandInformation[] allCommandInformation = new CommandInformation[] {
             AddActivityCommand.COMMAND_INFORMATION
     };
@@ -39,6 +38,8 @@ public class AutoCompleteAnalyser {
             return possibilities;
         }
     }
+
+
 
     private List<String> getPossibleOptionalPrefixMultiple(CommandInformation commandInformation) {
         return commandInformation.getOptionalPrefixWithDescriptionMultipleTime();

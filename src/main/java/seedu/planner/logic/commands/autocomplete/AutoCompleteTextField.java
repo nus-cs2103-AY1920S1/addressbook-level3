@@ -1,4 +1,4 @@
-package seedu.planner.ui.autocomplete;
+package seedu.planner.logic.commands.autocomplete;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

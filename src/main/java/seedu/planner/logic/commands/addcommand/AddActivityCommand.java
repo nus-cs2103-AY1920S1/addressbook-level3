@@ -16,7 +16,7 @@ import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
-import seedu.planner.logic.commands.util.CommandInformation;
+import seedu.planner.logic.commands.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;

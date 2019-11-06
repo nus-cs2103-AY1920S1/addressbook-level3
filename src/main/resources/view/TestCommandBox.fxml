@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import seedu.planner.ui.autocomplete.AutoCompleteTextField?>
+<?import seedu.planner.logic.commands.autocomplete.AutoCompleteTextField?>
 <?import javafx.scene.layout.StackPane?>
 
 <StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">

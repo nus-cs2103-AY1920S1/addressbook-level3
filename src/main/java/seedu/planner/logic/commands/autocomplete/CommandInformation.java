@@ -1,4 +1,4 @@
-package seedu.planner.logic.commands.util;
+package seedu.planner.logic.commands.autocomplete;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@ import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.logic.parser.exceptions.ParseException;
-import seedu.planner.ui.autocomplete.AutoCompleteTextField;
+import seedu.planner.logic.commands.autocomplete.AutoCompleteTextField;
 
 import java.util.Arrays;
 

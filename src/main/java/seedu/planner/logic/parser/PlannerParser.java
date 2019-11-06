@@ -12,13 +12,13 @@ import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.FindCommand;
 import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.commands.InitCommand;
+import seedu.planner.logic.commands.listcommand.ListCommand;
 import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
 import seedu.planner.logic.commands.UndoCommand;
 import seedu.planner.logic.commands.addcommand.AddCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteCommand;
 import seedu.planner.logic.commands.editcommand.EditCommand;
-import seedu.planner.logic.commands.listcommand.ListContactCommand;
 import seedu.planner.logic.commands.schedulecommand.AutoScheduleCommand;
 import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
 import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
@@ -67,7 +67,7 @@ public class PlannerParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListContactCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
