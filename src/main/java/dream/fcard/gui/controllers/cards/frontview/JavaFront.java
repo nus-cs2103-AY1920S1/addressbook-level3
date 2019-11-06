@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.jsjava.JavaTestRunnerApplication;
 import dream.fcard.gui.controllers.windows.MainWindow;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.JavaCard;
 import dream.fcard.util.datastructures.Pair;
@@ -29,10 +30,8 @@ public class JavaFront extends AnchorPane {
     private JavaCard card;
     private Application javaEditor;
     private Consumer<Pair<String, ArrayList<TestCase>>> getResult = this::receiveResult;
-    private Consumer<String> updateUserAttempt;
-    private Consumer<Boolean> getScore;
 
-    public JavaFront(JavaCard card, Consumer<String> updateUserAttempt, Consumer<Boolean> getScore) {
+    public JavaFront(JavaCard card) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                     .getResource("/view/Cards/Front/JavaFront.fxml"));
@@ -40,8 +39,6 @@ public class JavaFront extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.card = card;
-            this.getScore = getScore;
-            this.updateUserAttempt = updateUserAttempt;
             questionTextLabel.setText(card.getFront());
             openCoderButton.setOnAction(e -> startCoding());
         } catch (IOException e) {
@@ -96,15 +93,15 @@ public class JavaFront extends AnchorPane {
         if (failed == 0) {
             card.editFront(front + pass);
             questionTextLabel.setText(front + pass);
-            getScore.accept(true);
+            Consumers.doTask("GET_SCORE", true);
         } else if (compileWrong) {
             card.editFront(front + err);
             questionTextLabel.setText(front + err);
-            getScore.accept(false);
+            Consumers.doTask("GET_SCORE", false);
         } else {
             card.editFront(front + fail);
             questionTextLabel.setText(front + fail);
-            getScore.accept(false);
+            Consumers.doTask("GET_SCORE", false);
         }
     }
 }

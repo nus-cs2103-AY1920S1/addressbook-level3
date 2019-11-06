@@ -2,8 +2,19 @@ package dream.fcard.logic.exam;
 
 import java.util.ArrayList;
 
+import dream.fcard.gui.controllers.cards.backview.McqCardBack;
+import dream.fcard.gui.controllers.cards.backview.SimpleCardBack;
+import dream.fcard.gui.controllers.cards.frontview.BasicFrontBackCard;
+import dream.fcard.gui.controllers.cards.frontview.JavaFront;
+import dream.fcard.gui.controllers.cards.frontview.JsCard;
+import dream.fcard.gui.controllers.cards.frontview.McqCard;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.cards.JavaCard;
+import dream.fcard.model.cards.JavascriptCard;
+import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * Untimed Exam mode.
@@ -80,5 +91,40 @@ public class UntimedExam implements Exam {
     @Override
     public int getDuration() {
         return this.durationInSeconds;
+    }
+
+    @Override
+    public AnchorPane getCardDisplayFront() {
+        FlashCard cardOnDisplay = getCurrentCard();
+        String typeOfCard = cardOnDisplay.getClass().getSimpleName();
+        switch (typeOfCard) {
+        case "FrontBackCard":
+            return new BasicFrontBackCard(cardOnDisplay);
+        case "MultipleChoiceCard":
+            return new McqCard((MultipleChoiceCard) cardOnDisplay);
+        case "JavascriptCard":
+            Consumers.doTask("CLEAR_CARD_DISPLAY", true);
+            return new JsCard((JavascriptCard) cardOnDisplay);
+        case "JavaCard":
+            Consumers.doTask("CLEAR_CARD_DISPLAY", true);
+            return new JavaFront((JavaCard) cardOnDisplay);
+        default:
+            return new AnchorPane();
+        }
+    }
+
+    @Override
+    public AnchorPane getCardDisplayBack() {
+        FlashCard card = getCurrentCard();
+        Consumers.doTask("CLEAR_DECK_DISPLAY", true);
+        String typeOfCard = card.getClass().getSimpleName();
+        if (typeOfCard.equals("FrontBackCard")) {
+            String back = card.getBack();
+            return new SimpleCardBack(back);
+        } else if (typeOfCard.equals("MultipleChoiceCard")) {
+            return new McqCardBack((MultipleChoiceCard) card);
+        } else {
+            return new AnchorPane();
+        }
     }
 }

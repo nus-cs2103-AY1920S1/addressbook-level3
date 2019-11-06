@@ -41,6 +41,7 @@ public class FrontBackCard extends FlashCard {
         back = backString;
         front = frontString;
         priority = priorityLevel;
+        cardResult = -1;
     }
 
     /**
@@ -115,4 +116,10 @@ public class FrontBackCard extends FlashCard {
             this.cardResult = 0;
         }
     }
+
+    @Override
+    public int getCardResult() {
+        return this.cardResult;
+    }
+
 }

@@ -33,7 +33,7 @@ public class McqCard extends AnchorPane {
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
-    public McqCard(MultipleChoiceCard mcqCard, Consumer<Boolean> seeBackOfMcqCard) {
+    public McqCard(MultipleChoiceCard mcqCard) {
         //if userAttempt in the card is -1, it means that the user has not done this card before in this session.
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
@@ -50,7 +50,7 @@ public class McqCard extends AnchorPane {
                     RadioButton chosen = (RadioButton) toggleGroup.getSelectedToggle();
                     int selectedAnswer = toggleGroup.getToggles().indexOf(chosen) + 1;
                     mcqCard.setUserAttempt(selectedAnswer);
-                    seeBackOfMcqCard.accept(true);
+                    Consumers.doTask("SEE_BACK", true);
                 }
             });
         } catch (IOException e) {

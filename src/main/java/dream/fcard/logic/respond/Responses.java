@@ -10,6 +10,7 @@ import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.HelpCommand;
 import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.model.Deck;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
@@ -17,6 +18,7 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.RegexUtil;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * The enums are composed of three properties:
@@ -322,37 +324,35 @@ public enum Responses {
             RegexUtil.commandFormatRegex("test", new String[]{"deck/", "duration/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    StateHolder.getState().setCurrState(StateEnum.TEST);
                     ArrayList<ArrayList<String>> res =
                             RegexUtil.parseCommandFormat("test", new String[]{"deck/", "duration/"}, i);
-                    // Note to Shawn:
                     // res.get(0) returns the ArrayList of Deck Names (should only have one)
+                    String deckName = res.get(0).get(0);
                     // res.get(1) returns the ArrayList of duration in seconds (should have zero or one).
+                    String durationString = res.get(1).get(0);
                     // Duration is a String.
-
+                    try {
+                        Deck initDeck = StateHolder.getState().getDeck(deckName);
+                        ArrayList<FlashCard> testDeck = initDeck.getSubsetForTest();
+                        int duration = Integer.parseInt(durationString);
+                        ExamRunner.createExam(testDeck, duration);
+                        Exam currExam = ExamRunner.getCurrentExam();
+                        if (currExam.getDuration() == 0) {
+                            TestDisplay testDisplay = new TestDisplay(currExam);
+                            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+                        }
+                        if (currExam.getDuration() > 0) {
+                            TimedTestDisplay timedTestDisplay = new TimedTestDisplay(currExam);
+                            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
+                        }
+                    } catch (DeckNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     return true;
                 }
     ),
-    START_TEST(
-            RegexUtil.commandFormatRegex("test", new String[]{"deck/"}),
-            new ResponseGroup[]{ResponseGroup.DEFAULT},
-                i -> {
-                    StateHolder.getState().setCurrState(StateEnum.TEST);
-                    //pull out name of deck -> get stateholder to find the deck and get the correct subset
-                    ArrayList<FlashCard> testArrayListOfCards =
-                            StateHolder.getState().getDecks().get(0).getSubsetForTest();
-                    ExamRunner.createExam(testArrayListOfCards, 10);
-                    Exam exam = ExamRunner.getCurrentExam();
-                    if (exam.getDuration() == 0) {
-                        TestDisplay testDisplay = new TestDisplay(exam);
-                        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
-                    }
-                    if (exam.getDuration() > 0) {
-                        TimedTestDisplay timedTestDisplay = new TimedTestDisplay(exam);
-                        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
-                    }
-                    return true;
-                } //todo
-    ),
+
     START_TEST_ERROR(
             "^((?i)test).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -370,10 +370,16 @@ public enum Responses {
             new ResponseGroup[]{
                 ResponseGroup.TEST,
                 ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_FBCARD_BACK,
                 ResponseGroup.TEST_JSJAVA,
-                ResponseGroup.TEST_MCQ},
+                ResponseGroup.TEST_MCQ,
+                ResponseGroup.TEST_MCQ_BACK},
                 i -> {
-
+                    Exam exam = ExamRunner.getCurrentExam();
+                    exam.upIndex();
+                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
+                    Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
                 }
     ),
@@ -382,10 +388,16 @@ public enum Responses {
             new ResponseGroup[]{
                 ResponseGroup.TEST,
                 ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_FBCARD_BACK,
                 ResponseGroup.TEST_JSJAVA,
-                ResponseGroup.TEST_MCQ},
+                ResponseGroup.TEST_MCQ,
+                ResponseGroup.TEST_MCQ_BACK},
                 i -> {
-
+                    Exam exam = ExamRunner.getCurrentExam();
+                    exam.downIndex();
+                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
+                    Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
                 }
     ),
@@ -395,10 +407,17 @@ public enum Responses {
             new ResponseGroup[]{
                 ResponseGroup.TEST,
                 ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_FBCARD_BACK,
                 ResponseGroup.TEST_JSJAVA,
-                ResponseGroup.TEST_MCQ},
+                ResponseGroup.TEST_MCQ,
+                ResponseGroup.TEST_MCQ_BACK},
                 i -> {
-
+                    Consumers.doTask("STOP_TIMELINE", true);
+                    if (ExamRunner.getCurrentExam() != null) {
+                        ExamRunner.terminateExam();
+                    }
+                    Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+                    Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
                     return true;
                 }
     ),
@@ -407,9 +426,14 @@ public enum Responses {
 
     FB_FRONT(
             "^((?i)front)\\s*",
-            new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
+            new ResponseGroup[]{
+                    ResponseGroup.TEST_FBCARD,
+                    ResponseGroup.TEST_FBCARD_BACK},
                 i -> {
-
+                    StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
+                    Exam exam = ExamRunner.getCurrentExam();
+                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }
     ),
@@ -417,23 +441,36 @@ public enum Responses {
             "^((?i)back)\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
                 i -> {
-
+                    StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD_BACK);
+                    Exam exam = ExamRunner.getCurrentExam();
+                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
     ),
     FB_CORRECT(
             "^((?i)correct)\\s*",
-            new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
+            new ResponseGroup[]{ResponseGroup.TEST_FBCARD_BACK},
                 i -> {
-
+                    Consumers.doTask("GET_SCORE", true);
+                    Exam exam = ExamRunner.getCurrentExam();
+                    exam.upIndex();
+                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
+                    Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
                 }
     ),
     FB_WRONG(
             "^((?i)wrong)\\s*",
-            new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
+            new ResponseGroup[]{ResponseGroup.TEST_FBCARD_BACK},
                 i -> {
-
+                    Consumers.doTask("GET_SCORE", false);
+                    Exam exam = ExamRunner.getCurrentExam();
+                    exam.upIndex();
+                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
+                    Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
                 }
     ),
@@ -444,13 +481,13 @@ public enum Responses {
             "^((?i)(\\d)+\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_MCQ},
                 i -> {
-
+                    
                     return true;
                 }
     ),
     MCQ_FRONT(
             "^((?i)front)\\s*",
-            new ResponseGroup[]{ResponseGroup.TEST_MCQ},
+            new ResponseGroup[]{ResponseGroup.TEST_MCQ_BACK},
                 i -> {
 
                     return true;

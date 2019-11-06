@@ -14,6 +14,8 @@ import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
+import dream.fcard.model.StateEnum;
+import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
@@ -60,8 +62,8 @@ public class TestDisplay extends AnchorPane {
      * Consumers used to allow the front view of any card (which is a child component of TestDisplay)
      * to trigger TestDisplay to render a back view of the same card.
      */
-    private Consumer<Boolean> seeFrontOfCurrentCard = b -> seeFront();
-    private Consumer<Boolean> seeBackOfCurrentCard = b -> seeBack();
+//    private Consumer<Boolean> seeFrontOfCurrentCard = b -> seeFront();
+//    private Consumer<Boolean> seeBackOfCurrentCard = b -> seeBack();
 
     /**
      * Consumer for cards to update the score attained for each card by the user. This consumer
@@ -92,6 +94,20 @@ public class TestDisplay extends AnchorPane {
         onShowNext();
     };
 
+    @SuppressWarnings("unchecked")
+    private Consumer<FlashCard> changeTestState = currCard -> {
+        if (currCard.getClass().getSimpleName().equals("FrontBackCard")) {
+            StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
+        } else if (currCard.getClass().getSimpleName().equals("MultipleChoiceCard")) {
+            StateHolder.getState().setCurrState(StateEnum.TEST_MCQ);
+        } else if (currCard.getClass().getSimpleName().equals("JavaCard")
+                || currCard.getClass().getSimpleName().equals("JavascriptCard")) {
+            StateHolder.getState().setCurrState(StateEnum.TEST_JSJAVA);
+        } else {
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+        }
+    };
+
     public TestDisplay(Exam exam) {
         try {
             Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
@@ -107,7 +123,8 @@ public class TestDisplay extends AnchorPane {
             Consumers.addConsumer("UPDATE_MCQ_ATTEMPT", updateMcqUserAttempt);
             Consumers.addConsumer("UPDATE_STRING_ATTEMPT", updateStringUserAttempt);
             Consumers.addConsumer("SHOW_NEXT", nextCard);
-            seeFront();
+            Consumers.addConsumer("UPDATE_TEST_STATE", changeTestState);
+            Consumers.doTask("UPDATE_TEST_STATE", cardOnDisplay);
             prevButton.setOnAction(e -> onShowPrevious());
             endSessionButton.setOnAction(e -> onEndSession());
             nextButton.setOnAction(e -> onShowNext());
@@ -121,45 +138,45 @@ public class TestDisplay extends AnchorPane {
      * If MCQ card or code cards have already been attempted (i.e. scored), their constructors will repopulate
      * the mcq options / code editors with the user's attempt.
      */
-    private void seeFront() {
-        FlashCard card = cardOnDisplay;
-        cardDisplay.getChildren().clear();
-        String typeOfCard = card.getClass().getSimpleName();
-        if (typeOfCard.equals("FrontBackCard")) {
-            BasicFrontBackCard frontBackCard = new BasicFrontBackCard(cardOnDisplay, seeBackOfCurrentCard);
-            cardDisplay.getChildren().add(frontBackCard);
-        } else if (typeOfCard.equals("MultipleChoiceCard")) {
-            McqCard mcqCard = new McqCard((MultipleChoiceCard) cardOnDisplay, seeBackOfCurrentCard);
-            cardDisplay.getChildren().add(mcqCard);
-        } else if (typeOfCard.equals("JavascriptCard")) {
-            cardDisplay.getChildren().clear();
-            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateStringUserAttempt, getScore);
-            cardDisplay.getChildren().add(jsCard);
-        } else if (typeOfCard.equals("JavaCard")) {
-            cardDisplay.getChildren().clear();
-            JavaFront javaFront = new JavaFront((JavaCard) cardOnDisplay, updateStringUserAttempt, getScore);
-            cardDisplay.getChildren().add(javaFront);
-        }
-
-    }
+//    private void seeFront() {
+//        FlashCard card = cardOnDisplay;
+//        cardDisplay.getChildren().clear();
+//        String typeOfCard = card.getClass().getSimpleName();
+//        if (typeOfCard.equals("FrontBackCard")) {
+//            BasicFrontBackCard frontBackCard = new BasicFrontBackCard(cardOnDisplay, seeBackOfCurrentCard);
+//            cardDisplay.getChildren().add(frontBackCard);
+//        } else if (typeOfCard.equals("MultipleChoiceCard")) {
+//            McqCard mcqCard = new McqCard((MultipleChoiceCard) cardOnDisplay, seeBackOfCurrentCard);
+//            cardDisplay.getChildren().add(mcqCard);
+//        } else if (typeOfCard.equals("JavascriptCard")) {
+//            cardDisplay.getChildren().clear();
+//            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateStringUserAttempt, getScore);
+//            cardDisplay.getChildren().add(jsCard);
+//        } else if (typeOfCard.equals("JavaCard")) {
+//            cardDisplay.getChildren().clear();
+//            JavaFront javaFront = new JavaFront((JavaCard) cardOnDisplay, updateStringUserAttempt, getScore);
+//            cardDisplay.getChildren().add(javaFront);
+//        }
+//
+//    }
 
     /**
      * A method to render the back of the current card on display.
      */
-    private void seeBack() {
-        FlashCard card = cardOnDisplay;
-        cardDisplay.getChildren().clear();
-        String typeOfCard = card.getClass().getSimpleName();
-        if (typeOfCard.equals("FrontBackCard")) {
-            String back = cardOnDisplay.getBack();
-            SimpleCardBack backOfCard = new SimpleCardBack(back, seeFrontOfCurrentCard, getScore, nextCard);
-            cardDisplay.getChildren().add(backOfCard);
-        } else if (typeOfCard.equals("MultipleChoiceCard")) {
-            McqCardBack backCard = new McqCardBack((MultipleChoiceCard) cardOnDisplay,
-                    seeFrontOfCurrentCard, getScore, updateMcqUserAttempt);
-            cardDisplay.getChildren().add(backCard);
-        }
-    }
+//    private void seeBack() {
+//        FlashCard card = cardOnDisplay;
+//        cardDisplay.getChildren().clear();
+//        String typeOfCard = card.getClass().getSimpleName();
+//        if (typeOfCard.equals("FrontBackCard")) {
+//            String back = cardOnDisplay.getBack();
+//            SimpleCardBack backOfCard = new SimpleCardBack(back, seeFrontOfCurrentCard, getScore, nextCard);
+//            cardDisplay.getChildren().add(backOfCard);
+//        } else if (typeOfCard.equals("MultipleChoiceCard")) {
+//            McqCardBack backCard = new McqCardBack((MultipleChoiceCard) cardOnDisplay,
+//                    seeFrontOfCurrentCard, getScore, updateMcqUserAttempt);
+//            cardDisplay.getChildren().add(backCard);
+//        }
+//    }
 
 
 
@@ -169,7 +186,7 @@ public class TestDisplay extends AnchorPane {
     private void onShowPrevious() {
         exam.downIndex();
         cardOnDisplay = exam.getCurrentCard();
-        seeFront();
+//        seeFront();
     }
 
     /**
@@ -179,7 +196,7 @@ public class TestDisplay extends AnchorPane {
         try {
             exam.upIndex();
             cardOnDisplay = exam.getCurrentCard();
-            seeFront();
+//            seeFront();
         } catch (IndexOutOfBoundsException e) {
             //code for a result popup
             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You've ran out of cards in this test!");

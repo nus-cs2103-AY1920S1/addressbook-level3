@@ -86,4 +86,6 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
 
     public abstract void updateScore(Boolean isCorrect);
 
+    public abstract int getCardResult();
+
 }

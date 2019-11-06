@@ -26,6 +26,7 @@ public class JavaCard extends FlashCard {
     public JavaCard(String question, ArrayList<TestCase> testCases) {
         this.question = question;
         this.testCases = testCases;
+        cardResult = -1;
     }
 
     @Override
@@ -92,6 +93,11 @@ public class JavaCard extends FlashCard {
         } else {
             this.cardResult = 0;
         }
+    }
+
+    @Override
+    public int getCardResult() {
+        return this.cardResult;
     }
 
     public ArrayList<TestCase> getTestCases() {

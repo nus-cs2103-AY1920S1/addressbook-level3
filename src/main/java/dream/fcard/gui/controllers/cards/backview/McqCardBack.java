@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
+import dream.fcard.logic.exam.Exam;
+import dream.fcard.logic.exam.ExamRunner;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
@@ -24,20 +27,14 @@ public class McqCardBack extends AnchorPane {
     @FXML
     private Label correctAnswerLabel;
 
-    private Consumer<Boolean> updateScore;
-    private Consumer<Integer> updateUserInput;
-
-    public McqCardBack(MultipleChoiceCard card, Consumer<Boolean> seeFrontOfMcqCard,
-                       Consumer<Boolean> updateScore, Consumer<Integer> updateUserInput) {
+    public McqCardBack(MultipleChoiceCard card) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                     .getResource("/view/Cards/Back/MCQCardBack.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            this.updateScore = updateScore;
-            this.updateUserInput = updateUserInput;
-            seeFrontButton.setOnAction(e -> seeFrontOfMcqCard.accept(true));
+            seeFrontButton.setOnAction(e ->seeFront());
             correctOrWrongLabel.setText(checkAnswer(card));
             setColourOfLabel();
             int correctAnswer = card.getDisplayChoicesAnswerIndex();
@@ -57,11 +54,11 @@ public class McqCardBack extends AnchorPane {
     private String checkAnswer(MultipleChoiceCard card) throws IndexNotFoundException {
         boolean isCorrect = card.evaluate(Integer.toString(card.getUserAttempt()));
         if (isCorrect) {
-            updateScore.accept(true);
+            Consumers.doTask("GET_SCORE", true);
         } else {
-            updateScore.accept(false);
+            Consumers.doTask("GET_SCORE", false);
         }
-        updateUserInput.accept(card.getUserAttempt());
+        Consumers.doTask("UPDATE_MCQ_ATTEMPT", card.getUserAttempt());
         return isCorrect ? "Correct!" : "Wrong...";
     }
 
@@ -71,5 +68,11 @@ public class McqCardBack extends AnchorPane {
         } else {
             correctOrWrongLabel.setTextFill(Paint.valueOf("#dc0b0b"));
         }
+    }
+
+    private void seeFront() {
+        Exam exam = ExamRunner.getCurrentExam();
+        AnchorPane cardFront = exam.getCardDisplayFront();
+        Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
     }
 }
