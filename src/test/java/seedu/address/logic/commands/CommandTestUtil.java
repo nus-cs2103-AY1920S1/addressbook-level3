@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AVAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -10,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VTYPE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -50,6 +52,9 @@ public class CommandTestUtil {
     public static final String VALID_CALLER = "91234567";
     public static final String VALID_DESCRIPTION = "This is a valid description.";
 
+    public static final String VALID_VTYPE = "Ambulance";
+    public static final String VALID_AVAILABILITY = "Available";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -62,9 +67,13 @@ public class CommandTestUtil {
     public static final String PASSWORD_DESC_BOB = " " + PREFIX_PASSWORD + VALID_PASSWORD_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_ADMIN;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
     public static final String DISTRICT_DESC = " " + PREFIX_DISTRICT + VALID_DISTRICT;
     public static final String CALLER_DESC = " " + PREFIX_PHONE + VALID_CALLER;
     public static final String DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
+
+    public static final String VTYPE_DESC = " " + PREFIX_VTYPE + VALID_VTYPE;
+    public static final String AVAIL_DESC = " " + PREFIX_AVAIL + VALID_AVAILABILITY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -72,7 +81,11 @@ public class CommandTestUtil {
     public static final String INVALID_USERNAME_DESC = " " + PREFIX_USERNAME + " "; // empty string not allowed
     public static final String INVALID_PASSWORD_DESC = " " + PREFIX_PASSWORD + " "; // empty string not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_DISTRICT_DESC = " " + PREFIX_DISTRICT + "30";
+
+    public static final String INVALID_DISTRICT_DESC = " " + PREFIX_DISTRICT + "30"; //district only from 1-28
+    public static final String INVALID_VTYPE_DESC = " " + PREFIX_VTYPE + "Limousine";
+    public static final String INVALID_AVAIL_DESC = " " + PREFIX_AVAIL + "Standby";
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 

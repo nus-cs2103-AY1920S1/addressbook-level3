@@ -161,8 +161,8 @@ public class EditVehicleCommand extends Command {
             }
 
             EditVehicle e = (EditVehicle) other;
-            return e.vehicleType.equals(this.vehicleType)
-                    && e.vehicleDistrict.equals(this.vehicleDistrict);
+            return getVehicleType().equals(e.getVehicleType())
+                    && getVehicleDistrict().equals(e.getVehicleDistrict());
         }
     }
 
