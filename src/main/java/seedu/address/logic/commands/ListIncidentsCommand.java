@@ -60,6 +60,7 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleAllIncidents(Model model, FilteredList<Incident> incidents) {
+        assert this.predicate.equals(PREDICATE_SHOW_ALL_INCIDENTS);
         model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
             return Messages.MESSAGE_NO_INCIDENTS_LISTED;
@@ -75,6 +76,7 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleDraftIncidents(Model model, FilteredList<Incident> incidents) {
+        assert this.predicate.equals(PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS);
         model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
             return Messages.MESSAGE_NO_DRAFTS_LISTED;
@@ -90,6 +92,7 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleCompleteIncidents(Model model, FilteredList<Incident> incidents) {
+        assert this.predicate.equals(PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS);
         model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
             return Messages.MESSAGE_NO_INCIDENT_TO_SUBMIT;
@@ -105,6 +108,7 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleSubmittedIncidents(Model model, FilteredList<Incident> incidents) {
+        assert this.predicate.equals(PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS);
         model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
             return Messages.MESSAGE_NO_INCIDENT_TO_EDIT;

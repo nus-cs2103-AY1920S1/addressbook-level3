@@ -104,7 +104,7 @@ public class UpdateCommand extends Command {
 
         // Admins cannot remove themselves as admins, updates status bar if username changed
         boolean changeStatus = false;
-        if (personToUpdate.equals(model.getLoggedInPerson())) {
+        if (personToUpdate.isSamePerson(model.getLoggedInPerson())) {
             if (!Person.isNotAdmin(model.getLoggedInPerson()) && Person.isNotAdmin(updatedPerson)) {
                 throw new CommandException(MESSAGE_ADMIN_REVOKE);
             }

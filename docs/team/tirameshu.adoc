@@ -1,47 +1,39 @@
-= John Doe - Project Portfolio
+= Wang Xinman - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: IncidentManager - Level 3
-
-'''
+== PROJECT:  Incident Management System
 
 == Overview
 
-IncidentManager - Level 3 is a desktop incident Manager application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The Incident Management System is a desktop application used for managing incidents and dispatching vehicles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement* : Implemented *Vehicle Assignment Command*
+** What it does: Dispatches nearby vehicles to newly created incidents.
+** Justification: Whenever new incidents are reported, vehicles in the area need to be dispatched to respond to the emergency.
+** Highlights: This enhancement supports both automatic and manual vehicle dispatchment to incident sites, resulting in a multitude of considerations in the algorithm design for both vehicle assignment command and its associated new command. It required an in-depth analysis of the nature of vehicle dispatchment and design alternatives. The implementation too was challenging as many validity checks have to be conducted to handle a range of exceptions.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Medium enhancement*: Implemented *Find Vehicles Command*
+** What it does: Searches for vehicles by district number, vehicle type or vehicle number in the existing list of vehicles.
+** Justification: This feature helps operators check the status of vehicles present in a given district, both available and already dispatched. Searching by vehicle type also shows operators the vehicles of a specific type that are present, for them to make relevant judgements and decisions. Searching for vehicles by their vehicle numbers allows operators to locate a vehicle even if they only remember one character in its vehicle number.
+** Highlights: This enhancement significantly increases flexibility in vehicle searching beyond exact matches, which added complexity in the implementation.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Implemented the *Vehicle Model* and *New Command*, allowing for new incident creation and vehicle actions.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tirameshu[View on RepoSense]]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Detects irrelevant prefixes in user input (Pull request https://github.com/AY1920S1-CS2103-T11-1/main/pull/270[#270])
+*** Allow for case insensitivity of vehicle searches (Pull request https://github.com/AY1920S1-CS2103-T11-1/main/pull/260[#260])
+*** Removed repetitive prefixes (Pull request https://github.com/AY1920S1-CS2103-T11-1/main/pull/286[#286])
+*** Wrote tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103-T11-1/main/pull/178[#178], https://github.com/AY1920S1-CS2103-T11-1/main/pull/292[#292])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Peer-reviewed and standardised formatting for Developer Guide and User Guide (Pull requests https://github.com/AY1920S1-CS2103-T11-1/main/pull/280[#280], https://github.com/AY1920S1-CS2103-T11-1/main/pull/281[#281])
 
 == Contributions to the User Guide
 
@@ -50,9 +42,13 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=new]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=list-v]
+
+include::../UserGuide.adoc[tag=find-v]
+
+include::../UserGuide.adoc[tag=newincidentwithoutvehicle]
 
 == Contributions to the Developer Guide
 
@@ -60,9 +56,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=incidentdraftcreation]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=vehiclesearch]
 
 
 == PROJECT: PowerPointLabs

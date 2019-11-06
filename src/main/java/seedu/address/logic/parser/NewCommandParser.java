@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DID_YOU_MEAN_TO_ADD_ANOTHER_PREFIX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX_OF_V;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_ONE_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
@@ -39,7 +41,12 @@ public class NewCommandParser implements Parser<NewCommand> {
         if (districts.size() != 1) {
             throw new ParseException(MESSAGE_NOT_ONE_DISTRICT);
         }
-        boolean isAuto = ParserUtil.parseAuto(argMultimap.getValue(PREFIX_AUTO).get());
+        String autoInput = argMultimap.getValue(PREFIX_AUTO).get();
+
+        if (autoInput.contains(" ")) {
+            throw new ParseException(MESSAGE_DID_YOU_MEAN_TO_ADD_ANOTHER_PREFIX);
+        }
+        boolean isAuto = ParserUtil.parseAuto(autoInput);
 
         if (isAuto) {
             return new NewCommand(districts.get(0), true, 0);
@@ -51,9 +58,16 @@ public class NewCommandParser implements Parser<NewCommand> {
                 return new NewCommand(districts.get(0), false, -1);
             }
 
-            String v = vArgMap.getValue(PREFIX_VEHICLE).get();
-            int indexOfV = Integer.valueOf(v);
-            return new NewCommand(districts.get(0), false, indexOfV);
+            try {
+                String v = vArgMap.getValue(PREFIX_VEHICLE).get();
+                int indexOfV = Integer.valueOf(v);
+                if (indexOfV < 1) {
+                    throw new ParseException(MESSAGE_INVALID_INDEX_OF_V);
+                }
+                return new NewCommand(districts.get(0), false, indexOfV);
+            } catch (NumberFormatException e) {
+                throw new ParseException(MESSAGE_INVALID_INDEX_OF_V);
+            }
         }
     }
 

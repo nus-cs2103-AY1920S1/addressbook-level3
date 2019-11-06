@@ -1,5 +1,6 @@
 package seedu.address.model.incident;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.vehicle.Availability.VEHICLE_BUSY_TAG;
 
 import java.util.Arrays;
@@ -65,14 +66,15 @@ public class Incident {
         }
     }
 
-    // TODO delete this field once all constructors accept status as attribute.
-    private Status status = Status.INCOMPLETE_DRAFT; // default is draft
+    /** The status of this incident. */
+    private Status status; // default is draft
 
     /** Constructor for generating an incident draft according to 'new' command i.e. fills auto-filled fields.
      * @param operator operator generating the new incident report.
      * @param district district number where the incident occurred.
      */
     public Incident (Person operator, District district) {
+        requireAllNonNull();
         this.operator = operator;
         this.district = district;
 
@@ -88,17 +90,18 @@ public class Incident {
 
     /**
      * Constructor that takes in all attributes of incident. Only called when loading data.
-     * @param operator
-     * @param district
-     * @param incidentDateTime
-     * @param incidentId
-     * @param callerNumber
-     * @param description
-     * @param status
-     * @param vehicle
+     * @param operator operator generating the new incident report.
+     * @param district district number where the incident occurred.
+     * @param incidentDateTime date and time of creation of the incident.
+     * @param incidentId unique id used to identify the incident.
+     * @param callerNumber phone number of the caller who reported the incident.
+     * @param description description of the incident.
+     * @param status draft/submit status of the incident.
+     * @param vehicle vehicle dispatched to investigate the incident.
      */
     public Incident(Person operator, District district, IncidentDateTime incidentDateTime, IncidentId incidentId,
                     CallerNumber callerNumber, Description description, Status status, Vehicle vehicle) {
+        requireAllNonNull();
         this.operator = operator;
         this.district = district;
         this.incidentDateTime = incidentDateTime;
@@ -156,6 +159,7 @@ public class Incident {
      * @return true if incident is a draft, false otherwise.
      */
     public boolean isDraft() {
+        assert this.status != null;
         return this.status.equals(Status.COMPLETE_DRAFT) || this.status.equals(Status.INCOMPLETE_DRAFT);
     }
 
@@ -164,7 +168,18 @@ public class Incident {
      * @return true if incident is a complete draft, false otherwise.
      */
     public boolean isCompleteDraft() {
+        assert this.status != null;
         return this.status.equals(Status.COMPLETE_DRAFT);
+    }
+
+    /**
+     * Checks if all required fields in this incident are 'filled' i.e. not null.
+     * @return true if all required incident fields are non-null, false otherwise.
+     */
+    public boolean areAllFieldsFilled() {
+        // method can be extended if new compulsory incident fields are added
+        return this.operator != null && this.district != null && this.incidentDateTime != null && this.id != null
+                && this.callerNumber != null && this.description != null && this.vehicle != null;
     }
 
     /**
@@ -172,6 +187,7 @@ public class Incident {
      * @return true if incident is a incomplete draft, false otherwise.
      */
     public boolean isIncompleteDraft() {
+        assert this.status != null;
         return this.status.equals(Status.INCOMPLETE_DRAFT);
     }
 
@@ -180,6 +196,7 @@ public class Incident {
      * @return true if incident has been submitted, false otherwise.
      */
     public boolean isSubmitted() {
+        assert this.status != null;
         return this.status.equals(Status.SUBMITTED_REPORT);
     }
 
@@ -201,7 +218,7 @@ public class Incident {
 
     /**
      * Assigns vehicle to incident.
-     * @param vehicle
+     * @param vehicle vehicle to be assigned to investigate the incident.
      */
     public void addVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
