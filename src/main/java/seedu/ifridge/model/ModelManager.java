@@ -740,6 +740,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return groceryList.equals(other.groceryList)
                 && templateList.equals(other.templateList)
+                && wasteList.equals(other.wasteList)
+                && shoppingList.equals(other.shoppingList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredGroceryItems.equals(other.filteredGroceryItems)
                 && filteredTemplateList.equals(other.filteredTemplateList)
