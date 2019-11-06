@@ -21,7 +21,7 @@
         <Image url="@/images/guiltTrip()_32.png" />
     </icons>
     <scene>
-        <Scene>
+        <Scene fx:id="scene">
             <stylesheets>
                 <URL value="@LightTheme.css" />
                 <URL value="@ExtensionsLight.css" />
@@ -47,11 +47,12 @@
                         </padding>
                     </StackPane>
 
-                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="5">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="expenseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="IncomeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
                     <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
