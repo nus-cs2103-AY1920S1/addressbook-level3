@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moneygowhere.testutil.SpendingBuilder;
 
+//@author Nanosync
 public class TagPredicateTest {
 
     @Test

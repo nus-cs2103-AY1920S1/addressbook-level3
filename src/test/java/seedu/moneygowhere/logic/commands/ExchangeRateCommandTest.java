@@ -10,6 +10,7 @@ import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@author Nanosync
 public class ExchangeRateCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();

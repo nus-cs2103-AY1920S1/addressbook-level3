@@ -25,6 +25,7 @@ import seedu.moneygowhere.model.UserPrefs;
 import seedu.moneygowhere.model.spending.NameContainsKeywordsPredicate;
 import seedu.moneygowhere.model.spending.Spending;
 
+//@author Nanosync
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */

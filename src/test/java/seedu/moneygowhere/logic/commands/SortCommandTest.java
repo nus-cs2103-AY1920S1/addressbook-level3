@@ -22,7 +22,9 @@ import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.SortUtil;
 import seedu.moneygowhere.testutil.SpendingBuilder;
 
+//@author Nanosync
 class SortCommandTest {
+
     private Model model;
     private Model expectedModel;
 
