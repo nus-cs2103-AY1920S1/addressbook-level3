@@ -47,6 +47,8 @@ public class EditAnnotationCommand extends AnnotationCommand {
     public static final String MESSAGE_CANNOT_MOVE_TO_SAME_PARA = "Please specify a different paragraph to move "
             + "annotation to.";
     public static final String MESSAGE_NOTHING_TO_EDIT = "Paragraph %1$s has no annotations to edit.";
+    public static final String MESSAGE_NO_EDITS_GIVEN = "It seems you forgot to indicate the note or highlight to "
+            + "change! Otherwise there is nothing for me to edit. D:";
     public static final String MESSAGE_SUCCESS = "Annotation at paragraph %1$s successfully modified:\n%2$s";
     public static final String MESSAGE_MOVED_TO = "This has been moved to paragraph %s";
 
@@ -78,11 +80,15 @@ public class EditAnnotationCommand extends AnnotationCommand {
         Paragraph originalP;
         Paragraph newP = null;
 
+        if (newPid == null && newNote == null && newHighlight == null) {
+            throw new CommandException(MESSAGE_NO_EDITS_GIVEN);
+        }
+
         if (newPid != null && newPid.isStray()) {
             throw new CommandException(MESSAGE_TARGET_NO_PHANTOM);
         }
 
-        if (newNote == null && newPid == null && getPid().isStray()) {
+        if (isOnlyHighlightPhantom(newNote, newPid)) {
             throw new CommandException(MESSAGE_PHANTOM_CANNOT_HIGHLIGHT);
         }
 
@@ -119,6 +125,10 @@ public class EditAnnotationCommand extends AnnotationCommand {
         saveState(model, oldBkmark, newBkmark, doc, savedMsg);
 
         return new OfflineCommandResult(savedMsg);
+    }
+
+    private boolean isOnlyHighlightPhantom(AnnotationNote newNote, ParagraphIdentifier newPid) {
+        return newNote == null && newPid == null && getPid().isStray();
     }
 
     private Annotation getNewAnnotation(Paragraph originalP) {
