@@ -12,7 +12,7 @@ public class VNumKeywordsPredicate implements Predicate<Vehicle> {
 
     /**
      * Only used for Vehicle Search.
-     * Takes in string to support substring search in vtype.
+     * Takes in string to support substring search in vnum.
      * @param vNumKeywords
      */
     public VNumKeywordsPredicate(String vNumKeywords) {
