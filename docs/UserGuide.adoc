@@ -51,6 +51,9 @@ NUMBER_IN_SUGGESTED_MEAL_LIST is the number that corresponds to the meal in sugg
 You can also add multiple meals at one go using the indexes. This can be done by separating the numbers with a space.
 e.g. `add 1 2 3`
 
+[NOTE]
+MEAL_NAME can only be a maximum of 30 characters to ensure it displays correctly for you.
+
 Examples usage: +
 It is lunchtime and you are about to go have some Mushroom Soup.
 You would like to add the meal into CaloFit to record it down. What do you do?
@@ -125,6 +128,8 @@ Examples:
 
 Suggest possible meals based on user calorie intake budget. +
 The available meals will be shown under the "Suggested Meals" section of the application. +
+The suggest feature can be toggled back by typing the "suggest" command. +
+
 Format: `suggest`
 
 === Setting calorie intake budget: `set`

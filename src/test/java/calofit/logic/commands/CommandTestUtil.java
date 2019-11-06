@@ -36,6 +36,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " "
             + CliSyntax.PREFIX_NAME + "Duck Noodles&"; // '&' not allowed in names
+    public static final String INVALID_NAME_LENGTH = " "
+            + CliSyntax.PREFIX_NAME + "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii";
     public static final String INVAID_CALORIES_NEGATIVE = " " + CliSyntax.PREFIX_CALORIES + "-1000";
     public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "bland*"; // '*' not allowed in tags
 
