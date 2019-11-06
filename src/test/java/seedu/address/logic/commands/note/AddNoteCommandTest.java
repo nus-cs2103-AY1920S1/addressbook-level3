@@ -41,13 +41,26 @@ public class AddNoteCommandTest {
     }
 
     @Test
-    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_noteWithNoNoteFragments_addSuccessful() throws Exception {
         ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
         Note validNote = new NoteBuilder().build();
 
         CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
 
-        assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote.toStringWithNoteFragments()),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
+    }
+
+    @Test
+    public void execute_noteWithMultipleNoteFragments_addSuccessful() throws Exception {
+        ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
+        Note validNote = new NoteBuilder().withContent(NoteBuilder.EXTRA_CONTENT).build();
+
+        CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
+
+        assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote.toStringWithNoteFragments()),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
 
@@ -336,7 +349,7 @@ public class AddNoteCommandTest {
     }
 
     /**
-     * A Model stub that always accept the note being added.
+     * A Model stub that always accepts the note being added.
      */
     private class ModelStubAcceptingNoteAdded extends ModelStub {
         final ArrayList<Note> notesAdded = new ArrayList<>();
