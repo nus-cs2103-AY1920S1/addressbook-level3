@@ -22,7 +22,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         }
         try {
             importedTutorials = NusModsParser.urlToTutorials(args);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new ParseException(ImportCommand.MESSAGE_IMPORT_FAILURE);
         }
         return new ImportCommand(importedTutorials);

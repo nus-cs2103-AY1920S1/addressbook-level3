@@ -18,7 +18,7 @@ import seedu.tarence.storage.Storage;
 public class ImportCommand extends Command {
     public static final String MESSAGE_IMPORT_SUCCESS = "Import success";
     public static final String MESSAGE_IMPORT_FAILURE = "Import failed: Check if the url is formatted correctly."
-            + "Otherwise, the tutorials cannot be found.";
+            + " Otherwise, the tutorials cannot be found.";
     public static final String COMMAND_WORD = "import";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "importtutorials",

@@ -10,13 +10,14 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 public class TutName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Tutorial name should not be blank and should contain only alphanumeric characters.";
+            "Tutorial name should not be blank.";
 
     /*
      * The first character of the tutorial name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "(.|\\s)*\\S(.|\\s)*";
+
 
     public final String tutName;
 

@@ -82,6 +82,7 @@ public class NusModsParser {
                         tutorial);
                 } catch (ParseException | DateTimeParseException | IllegalArgumentException e) {
                     System.out.println(modObject.moduleCode);
+                    System.out.println(lesson.lessonType + " " + lesson.classNo);
                     System.out.println(e);
                 }
             }
