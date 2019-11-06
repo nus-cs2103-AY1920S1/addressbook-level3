@@ -23,6 +23,7 @@ import seedu.jarvis.commons.util.StringUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.TaskType;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
@@ -170,7 +171,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into a {@code Calendar date} for tasks
+     * Parses a {@code String date} into a {@code LocalDate} for tasks
      * @param date the date to be parsed
      * @return an array of Calendars to be added into the Task objects
      */
