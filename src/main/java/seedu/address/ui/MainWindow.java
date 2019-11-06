@@ -29,7 +29,7 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private static final String NO_ACTIVE_STUDY_PLAN = "You have no remaining study plans.";
-    private static final String STUDY_PLAN_ID = "[ID:%d]";
+    private static final String STUDY_PLAN_ID = "(ID: %d)";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -75,6 +75,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        initialiseMode(logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
@@ -142,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         logger.info("Main Window closing.");
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getGuiSettings().getMode());
         logic.setGuiSettings(guiSettings);
         primaryStage.hide();
     }
@@ -164,6 +165,7 @@ public class MainWindow extends UiPart<Stage> {
             mcCount.setText(sp == null ? "" : sp.getMcCountString());
 
             if (commandResult.isChangesActiveStudyPlan()) {
+                changeMode(logic.getGuiSettings());
                 logger.info("Study plan has been changed. Refreshing display.");
                 if (sp == null) {
                     NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
@@ -238,6 +240,23 @@ public class MainWindow extends UiPart<Stage> {
         default:
             throw new InvalidResultViewTypeException(resultViewType.name());
         }
+    }
+
+    /**
+     * Sets the initialised GUI mode based on {@code guiSettings}.
+     */
+    private void initialiseMode(GuiSettings guiSettings) {
+        ObservableList<String> styles = primaryStage.getScene().getStylesheets();
+        styles.add(guiSettings.getMode().getCssString());
+    }
+
+    /**
+     * Changes the current GUI mode based on {@code guiSettings}.
+     */
+    private void changeMode(GuiSettings guiSettings) {
+        ObservableList<String> styles = primaryStage.getScene().getStylesheets();
+        styles.remove(styles.size() - 1);
+        styles.add(guiSettings.getMode().getCssString());
     }
 
 }

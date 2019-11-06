@@ -15,7 +15,7 @@ import seedu.address.model.module.Module;
  * An UI component that displays information of an expanded {@code Module}.
  */
 public class ModuleCard extends UiPart<Region> {
-
+    private static final String PREREQS_NOT_MET_STYLE_CLASS = "prereqsNotMet";
     private static final String FXML = "ModuleListCard.fxml";
 
     /**
@@ -45,8 +45,13 @@ public class ModuleCard extends UiPart<Region> {
         this.module = module;
         name.setText(module.getModuleCode().value + " " + module.getName().fullName);
         mcCount.setText(Integer.toString(module.getMcCount()));
-        prereqs.setText("NEEDS: " + module.getPrereqString());
-        prereqs.setVisible(!module.getPrereqsSatisfied());
+        if (!module.getPrereqsSatisfied()) {
+            prereqs.setText("Needs: " + module.getPrereqString());
+            moduleCardPane.getStyleClass().add(PREREQS_NOT_MET_STYLE_CLASS);
+        } else {
+            prereqs.setVisible(false);
+            prereqs.setManaged(false);
+        }
         module.getTags().asUnmodifiableObservableList().stream()
                 .sorted(Comparator.comparing(tag -> tag.getTagName()))
                 .forEach(tag -> {

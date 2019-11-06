@@ -19,7 +19,6 @@
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@LightTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
 
@@ -53,16 +52,13 @@
                                     </padding>
                                 </Label>
                                 <Label fx:id="title" styleClass="cell_big_label" text="\$first">
-                                    <padding>
-                                        <Insets left="5" />
-                                    </padding>
                                 </Label>
                                 <Label fx:id="mcCount" styleClass="cell_small_label" text="\$mcCount" />
                                 <StackPane fx:id="studyPlanTagsPlaceholder" prefHeight="35.0" prefWidth="189.0" />
                             </HBox>
                             <VBox fx:id="semesterList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                                 <padding>
-                                    <Insets bottom="5" left="5" right="5" top="5" />
+                                    <Insets bottom="5" left="5" right="5" />
                                 </padding>
                                 <StackPane fx:id="semesterListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                             </VBox>

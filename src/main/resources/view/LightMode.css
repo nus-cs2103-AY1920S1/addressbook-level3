@@ -143,7 +143,7 @@
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: black
 }
 
 .status-bar .label {
@@ -472,13 +472,11 @@
 }
 
 #semesterCardPane.currentSemester {
-    -fx-background-color: #c4c4c4
-}
-
-#currentSemesterCardPane {
-    -fx-background-color: #A4A4A4;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: #c4c4c4;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-color: #454545;
+    -fx-border-width: 1;
 }
 
 .prereqsNotMet .label {
@@ -492,7 +490,7 @@
 }
 
 #tagListView {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
 }
 
 #tagCardPane {
@@ -516,8 +514,10 @@
     -fx-text-fill: #010504;
 }
 
-#modulePill.prereqsNotMet {
+#modulePill.prereqsNotMet, #moduleCardPane.prereqsNotMet {
     -fx-background-color: #ffbfba;
+    -fx-border-color: #450700;
+    -fx-border-width: 1;
 }
 
 .prereqsNotMet .label {
@@ -553,9 +553,9 @@
 #prereqs {
     -fx-text-fill: white;
     -fx-background-color: #cd0000;
-    -fx-padding: 2 4 2 4;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
+    -fx-padding: 1 4 1 4;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
     -fx-font-size: 12;
     -fx-font-family: "Segoe UI Semibold";
 }

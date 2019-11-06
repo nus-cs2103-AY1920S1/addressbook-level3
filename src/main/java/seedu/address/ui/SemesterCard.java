@@ -20,7 +20,7 @@ import seedu.address.model.semester.Semester;
 public class SemesterCard extends UiPart<Region> {
     private static final String FXML = "SemesterListCard.fxml";
     private static final String CURRENT_SEM_CLASS = "currentSemester";
-    private static final String CURRENT_SEM_TEXT = "(Current Semester)";
+    private static final String CURRENT_SEM_TEXT = "(Current Sem)";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords

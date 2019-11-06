@@ -13,7 +13,7 @@ import seedu.address.model.module.Module;
  */
 public class ModulePill extends UiPart<Region> {
 
-    public static final String PREREQS_NOT_MET_STYLE_CLASS = "prereqsNotMet";
+    private static final String PREREQS_NOT_MET_STYLE_CLASS = "prereqsNotMet";
 
     private static final String FXML = "ModulePill.fxml";
 

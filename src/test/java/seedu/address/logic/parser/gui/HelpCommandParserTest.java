@@ -27,6 +27,7 @@ import seedu.address.logic.commands.datamanagement.ViewAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewDefaultTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
+import seedu.address.logic.commands.gui.ChangeModeCommand;
 import seedu.address.logic.commands.gui.CollapseAllCommand;
 import seedu.address.logic.commands.gui.CollapseCommand;
 import seedu.address.logic.commands.gui.ExpandAllCommand;
@@ -194,6 +195,9 @@ class HelpCommandParserTest {
 
         expectedHelpCommand = new HelpCommand(CollapseAllCommand.COMMAND_WORD);
         assertEquals(new HelpCommandParser().parse(CollapseAllCommand.COMMAND_WORD), expectedHelpCommand);
+
+        expectedHelpCommand = new HelpCommand(ChangeModeCommand.COMMAND_WORD);
+        assertEquals(new HelpCommandParser().parse(ChangeModeCommand.COMMAND_WORD), expectedHelpCommand);
     }
 
     @Test

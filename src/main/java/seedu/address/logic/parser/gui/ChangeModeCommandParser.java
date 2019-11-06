@@ -1,23 +1,22 @@
 package seedu.address.logic.parser.gui;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.SEMESTER_PATTERN;
+import static seedu.address.logic.parser.CliSyntax.GUI_MODE_PATTERN;
 
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.gui.CollapseCommand;
+import seedu.address.commons.core.GuiMode;
+import seedu.address.logic.commands.gui.ChangeModeCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.semester.SemesterName;
 
 /**
- * Parses input arguments and creates a new CollapseCommand object
+ * Parses input arguments and creates a new ChangeModeCommand object
  */
-public class CollapseCommandParser implements Parser<CollapseCommand> {
+public class ChangeModeCommandParser implements Parser<ChangeModeCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -33,17 +32,22 @@ public class CollapseCommandParser implements Parser<CollapseCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public CollapseCommand parse(String args) throws ParseException {
+    public ChangeModeCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, SEMESTER_PATTERN);
+                ArgumentTokenizer.tokenize(args, GUI_MODE_PATTERN);
 
-        if (!arePatternsPresent(argMultimap, SEMESTER_PATTERN)
-                || argMultimap.getNumberOfArgsForPattern(SEMESTER_PATTERN) != 1) {
+        if (!arePatternsPresent(argMultimap, GUI_MODE_PATTERN)
+                || argMultimap.getNumberOfArgsForPattern(GUI_MODE_PATTERN) != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CollapseCommand.MESSAGE_USAGE));
+                    ChangeModeCommand.MESSAGE_USAGE));
         }
-        SemesterName semesterName = ParserUtil.parseSemester(args);
-
-        return new CollapseCommand(semesterName);
+        String input = argMultimap.getValue(GUI_MODE_PATTERN).get().toLowerCase();
+        for (GuiMode guiMode : GuiMode.values()) {
+            if (guiMode.getModeName().equals(input)) {
+                return new ChangeModeCommand(guiMode);
+            }
+        }
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            ChangeModeCommand.MESSAGE_USAGE));
     }
 }

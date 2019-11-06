@@ -17,16 +17,20 @@ public class GuiSettings implements Serializable {
     private final double windowHeight;
     private final Point windowCoordinates;
 
+    private final GuiMode mode;
+
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
+        mode = GuiMode.LIGHT;
     }
 
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, GuiMode mode) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
+        this.mode = mode;
     }
 
     public double getWindowWidth() {
@@ -39,6 +43,10 @@ public class GuiSettings implements Serializable {
 
     public Point getWindowCoordinates() {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
+    }
+
+    public GuiMode getMode() {
+        return mode;
     }
 
     @Override

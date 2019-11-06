@@ -103,6 +103,7 @@ public class HelpCommand extends Command {
             + CheckCommand.HELP_MESSAGE + "\n"
             + ClearInvalidModsCommand.HELP_MESSAGE + "\n"
             + "\nGUI:\n"
+            + ChangeModeCommand.HELP_MESSAGE + "\n"
             + ExpandCommand.HELP_MESSAGE + "\n"
             + CollapseCommand.HELP_MESSAGE + "\n"
             + ExpandAllCommand.HELP_MESSAGE + "\n"
@@ -259,6 +260,9 @@ public class HelpCommand extends Command {
 
         case CollapseAllCommand.COMMAND_WORD:
             return new CommandResult(CollapseAllCommand.MESSAGE_USAGE, false, false);
+
+        case ChangeModeCommand.COMMAND_WORD:
+            return new CommandResult(ChangeModeCommand.MESSAGE_USAGE, false, false);
 
         case "":
             return new CommandResult(SHOWING_HELP_MESSAGE, false, false);

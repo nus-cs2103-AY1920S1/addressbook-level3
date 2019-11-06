@@ -40,6 +40,7 @@ public class CommandBox extends UiPart<Region> {
         requireNonNull(modulePlanner);
         this.commandExecutor = commandExecutor;
         autocompleteTextField = new AutocompleteTextField(modulePlanner);
+        autocompleteTextField.setPromptText("Type here...");
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         autocompleteTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         autocompleteTextField.setId("commandTextField");
