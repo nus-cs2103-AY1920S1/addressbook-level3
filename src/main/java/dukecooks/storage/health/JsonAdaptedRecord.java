@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.commons.util.StringUtil;
 import dukecooks.model.health.components.Record;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
@@ -36,7 +37,7 @@ class JsonAdaptedRecord {
      * Converts a given {@code Record} into this class for Jackson use.
      */
     public JsonAdaptedRecord(Record source) {
-        type = source.getType().type;
+        type = source.getType().toString();
         value = String.valueOf(source.getValue().value);
         timestamp = source.getTimestamp().toString();
     }
@@ -52,15 +53,20 @@ class JsonAdaptedRecord {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
         }
         if (!Type.isValidType(type)) {
-            throw new IllegalValueException(Type.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Type.messageConstraints());
         }
-        final Type modelType = new Type(type);
+
+        String formattedType = StringUtil.capitalizeFirstLetterOnly(type);
+        final Type modelType = Type.valueOf(formattedType);
 
         if (value == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Value.class.getSimpleName()));
         }
         if (!Value.isValidNumber(value)) {
             throw new IllegalValueException(Value.MESSAGE_CONSTRAINTS);
+        }
+        if (!Type.isValidNumber(formattedType, Double.parseDouble(value))) {
+            throw new IllegalValueException(modelType.messageInflatedValue());
         }
         final Value modelValue = new Value(value);
 

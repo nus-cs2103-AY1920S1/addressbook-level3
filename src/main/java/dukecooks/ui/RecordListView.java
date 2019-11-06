@@ -37,7 +37,7 @@ public class RecordListView extends UiPart<Region> {
         this.record = record;
         id.setText(displayedIndex + ". ");
         timestamp.setText(record.getTimestamp().toString());
-        value.setText(record.getValue().value + record.getType().unit);
+        value.setText(record.getValue().value + record.getType().getUnit());
     }
 
     @Override

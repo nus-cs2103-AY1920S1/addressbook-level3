@@ -72,6 +72,12 @@ public class EditRecordCommand extends EditCommand {
             throw new CommandException(MESSAGE_DUPLICATE_RECORD);
         }
 
+        Type type = editedRecord.getType();
+        double value = editedRecord.getValue().value;
+        if (!type.isValidNumber(type.toString(), value)) {
+            throw new CommandException(type.messageInflatedValue());
+        }
+
         model.setRecord(recordToEdit, editedRecord);
         return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
     }

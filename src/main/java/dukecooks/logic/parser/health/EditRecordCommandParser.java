@@ -54,8 +54,6 @@ public class EditRecordCommandParser implements Parser<EditRecordCommand> {
             throw new ParseException(EditRecordCommand.MESSAGE_NOT_EDITED);
         }
 
-
-
         return new EditRecordCommand(index, editRecordDescriptor);
     }
 

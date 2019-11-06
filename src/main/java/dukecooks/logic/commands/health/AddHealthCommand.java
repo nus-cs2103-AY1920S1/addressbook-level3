@@ -7,6 +7,7 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.Type;
 
 /**
  * Adds a record to Duke Cooks.
@@ -37,6 +38,12 @@ public class AddHealthCommand extends AddCommand {
 
         if (model.hasRecord(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECORD);
+        }
+
+        Type type = toAdd.getType();
+        double value = toAdd.getValue().value;
+        if (!type.isValidNumber(type.toString(), value)) {
+            throw new CommandException(type.messageInflatedValue());
         }
 
         model.addRecord(toAdd);

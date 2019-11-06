@@ -168,7 +168,7 @@ public class SampleDataUtil {
     public static Record[] getSampleRecords () {
         return new Record[]{
             new Record(
-            new Type("glucose"),
+            Type.Glucose,
             new Value("90"),
             new Timestamp("14/10/2019 01:10"))
         };

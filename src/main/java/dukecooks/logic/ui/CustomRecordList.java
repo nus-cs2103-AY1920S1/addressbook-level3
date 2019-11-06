@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import dukecooks.logic.parser.DateParser;
 import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.model.health.components.Record;
-import dukecooks.model.health.components.util.TypeUtil;
+import dukecooks.model.health.components.Type;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -24,9 +24,9 @@ public class CustomRecordList {
      * Filters records to show only the most recent record for each health data type.
      */
     public static ObservableList<Record> filterSummary(ObservableList<Record> recordList) {
-        List<Record> result = TypeUtil.TYPE_LIST.entrySet().stream()
+        List<Record> result = Type.getTypeSet().stream()
                 .map(x -> recordList.stream()
-                        .filter(c -> c.getType().type.equals(x.getKey()))
+                        .filter(c -> c.getType().toString().equals(x.getType()))
                         .max(new TimestampComparator())
                         .orElse(null))
                 .filter(Objects::nonNull)

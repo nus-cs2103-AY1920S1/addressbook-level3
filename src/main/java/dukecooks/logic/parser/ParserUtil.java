@@ -344,6 +344,10 @@ public class ParserUtil {
         if (!Timestamp.isValidDateTime(upperTimestamp)) {
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
         }
+
+        if (!Timestamp.isValidDateTimePeriod(upperTimestamp)) {
+            throw new ParseException(Timestamp.MESSAGE_DATETIME_GREATER_THAN_NOW);
+        }
         return new Timestamp(upperTimestamp);
     }
 
@@ -448,9 +452,10 @@ public class ParserUtil {
         requireNonNull(type);
         String trimmedType = type.trim();
         if (!Type.isValidType(trimmedType)) {
-            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Type.messageConstraints());
         }
-        return new Type(trimmedType);
+        String formattedType = StringUtil.capitalizeFirstLetterOnly(trimmedType);
+        return Type.valueOf(formattedType);
     }
 
     /**

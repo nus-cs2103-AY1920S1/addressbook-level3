@@ -45,6 +45,7 @@ public class ListRecordCommandParser implements Parser<ListCommand> {
 
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         predicate = x -> x.getType().equals(type);
+        ListHealthByTypeCommand.setCurrentTypeView(type);
         return new ListHealthByTypeCommand(predicate);
     }
 

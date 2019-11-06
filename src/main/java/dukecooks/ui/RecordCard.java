@@ -38,8 +38,8 @@ public class RecordCard extends UiPart<Region> {
         super(FXML);
         this.record = record;
         timestamp.setText(record.getTimestamp().toString());
-        type.setText(record.getType().type);
-        value.setText(record.getValue().value + record.getType().unit);
+        type.setText(record.getType().toString());
+        value.setText(record.getValue().value + record.getType().getUnit());
     }
 
     @Override
