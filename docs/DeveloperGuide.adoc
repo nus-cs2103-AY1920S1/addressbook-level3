@@ -390,28 +390,32 @@ The charts will be small and condensed making it difficult to see the data at fi
 
 === Add revision task
 ==== Implementation
-`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `radd`. It extends `Command` class and adds a
-`Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data.
+`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `rn`. It extends `Command` class and adds a
+`Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data. Similarly,
+`AddTaskForQuestionCommand` is implemented to add a task for question notes.
 
 The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
 exposed to `AppData#addTask(Task)`.
 
-The following sequence diagram illustrates how `radd` command is executed:
+The following sequence diagram illustrates how `rn` command is executed (adding a task for question is similar, but with different user command):
 
-image::AddTaskSequenceDiagram.png[]
+.Sequence diagram for adding a task for note
+image::task/AddTaskForNoteSequenceDiagram.png[]
+
 
 ==== Design considerations
 ===== Aspect: Design of `Task`
-* **Alternative 1 (current implementation):** implement `Task` as abstract class with two subclasses to support task for
+* **Alternative 1 (current implementation):** implement `Task` as a concrete class with two subclasses to support task for
 notes and questions respectively.
-** Pros: It allows polymorphism to support different behaviours of task for `Note` and task for `Question`. Fields and
-methods in common are concretely implemented to reduce duplicate code snippets.
+** Pros: It supports different behaviours of task for `Note` and task for `Question` by polymorphism. The concrete `Task`
+class will also allow adding of general tasks in *v2.0*.
 ** Cons: We need to implement two different `AddTask` commands to support addition of the two different types of tasks.
-
+Hence we need to write more pieces of code.
 
 The class diagram below illustrates how `Task` class is designed:
 
-image::TaskClassDiagram.png[]
+.Design for `Task` class
+image::task/TaskClassDiagram.png[]
 
 * **Alternative 2:** design `Task` as an interface to be implemented by two different classes.
 ** Pros: More flexible design. Less exposure of internal properties of Task to client.
@@ -479,7 +483,7 @@ Priorities:
 
 * High (must have) – `* * *`
 * Medium (nice to have) – `* *`
-* Low (unlikely to have) – `*`
+* Low (will be implemented in *v2.0*) – `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%,<30%",options="header",]
 |=======================================================================
@@ -495,23 +499,23 @@ Priorities:
 
 |`*`|quizmaster|quiz contestants about their knowledge using the app|the contestants can have as much fun as possible|Jeremy
 
-|`* * *`|student|view my revision plan| be more clear on the big picture of my revision and check whatever is left to do when I forget|Shui Yao
-
-|`* * *`|student|set a revision plan|I can be more organised in my revision and will not lose my focus|Shui Yao
+|`* * *`|student|set a revision plan and add tasks to my plan|I can be more organised in my revision and will not lose my focus|Shui Yao
 
 |`* * *`|student|remove a revision task|I can remove accidentally added revision task or remove a revision task should there be a change of plan|Shui Yao
 
-|`* *`|student|edit the revision task|I can modify the details of a particular revision task|Shui Yao
+|`* * *`|student|edit the revision task|I can modify the details of a particular revision task in case I messed up some information|Shui Yao
 
 |`* *`|student|mark a task as done|I can update the status of my revision plan and have greater motivation to move on|Shui Yao
 
+|`* * *`|student|view my revision plan| be more clear on the big picture of my revision and check whatever is left to do when I forget|Shui Yao
+
 |`* *`|student|view unfinished tasks|I can have a easy overview of what I need to to next|Shui Yao
 
-|`*`|student|view overdue tasks|I can re-schedule my revision and be more careful with the workload in my next planning|Shui Yao
+|`* *`|student|view overdue tasks|I can re-schedule my revision and be more careful with the workload in my next planning|Shui Yao
 
-|`* *`|student|get notified when a revision task is about to start|I can finish up whatever stuff at hand and get ready for revision|Shui Yao
+|`*`|student|get notified when a revision task is about to start|I can finish up whatever stuff at hand and get ready for revision|Shui Yao
 
-|`* *`|student|disable notification|I will not be bothered in some important events|Shui Yao
+|`*`|student|disable notification|I will not be bothered in some important events|Shui Yao
 
 |`* * *`|student|change the difficulty level of questions|I can customize the difficulty level of the questions as I progress along the time|Xueting
 

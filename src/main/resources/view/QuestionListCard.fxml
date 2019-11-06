@@ -26,9 +26,9 @@
                 </Label>
                 <Label fx:id="questionBody" text="\$first" styleClass="cell_big_label" wrapText="true"/>
             </HBox>
-            <Label fx:id="answer" styleClass="cell_small_label" text="\$answer"/>
-            <Label fx:id="subject" styleClass="cell_small_label" text="\$subject"/>
-            <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty"/>
+            <Label fx:id="answer" styleClass="cell_small_label" text="\$answer" wrapText="true"/>
+            <Label fx:id="subject" styleClass="cell_small_label" text="\$subject" wrapText="true"/>
+            <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" wrapText="true"/>
         </VBox>
     </GridPane>
 </HBox>
