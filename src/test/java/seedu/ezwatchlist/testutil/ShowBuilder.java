@@ -24,7 +24,7 @@ public class ShowBuilder {
     public static final String DEFAULT_NAME = "Inception";
     public static final String DEFAULT_TYPE = "movie";
     public static final String DEFAULT_DATE = "16 July 2010";
-    public static final boolean DEFAULT_ISWATCHED = true;
+    public static final String DEFAULT_ISWATCHED = "true";
     public static final String DEFAULT_DESCRIPTION = "A thief who steals corporate secrets through the use "
             + " of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.";
     public static final int DEFAULT_RUNNINGTIME = 148;
@@ -95,7 +95,7 @@ public class ShowBuilder {
     /**
      * Sets the {@code IsWatched} of the {@code Show} that we are building.
      */
-    public ShowBuilder withIsWatched(boolean isWatched) {
+    public ShowBuilder withIsWatched(String isWatched) {
         this.isWatched = new IsWatched(isWatched);
         return this;
     }

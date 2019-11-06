@@ -27,7 +27,8 @@ public class ShowTest {
         assertFalse(AVENGERSENDGAME.isSameShow(null));
 
         // different isWatched and RunningTime -> returns false
-        Show editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withRunningTime(122).build();
+        Show editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME)
+                .withIsWatched("true").withRunningTime(122).build();
         //assertFalse(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
 
         // different name -> returns false
@@ -35,17 +36,17 @@ public class ShowTest {
         assertFalse(AVENGERSENDGAME.isSameShow(editedAvengersEndGame));
 
         // same name, same description, different attributes -> returns true
-        editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withDateOfRelease("2019")
+        editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched("true").withDateOfRelease("2019")
                 .withRunningTime(122).build();
         //assertTrue(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
 
         // same name, same dateofrelease, different attributes -> returns true
         editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withRunningTime(122).withDescription("DESCRIPTION")
-                .withIsWatched(true).withType("Movie").build();
+                .withIsWatched("true").withType("Movie").build();
         assertTrue(AVENGERSENDGAME.isSameShow(editedAvengersEndGame));
 
         // same name, same dateofrelease, same description, different attributes -> returns true
-        editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withRunningTime(122).build();
+        editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched("true").withRunningTime(122).build();
         assertTrue(AVENGERSENDGAME.isSameShow(editedAvengersEndGame));
     }
 
@@ -76,7 +77,7 @@ public class ShowTest {
         assertFalse(AVENGERSENDGAME.equals(editedAvengersendgame));
 
         // different iswatched -> returns false
-        editedAvengersendgame = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).build();
+        editedAvengersendgame = new ShowBuilder(AVENGERSENDGAME).withIsWatched("true").build();
         assertFalse(AVENGERSENDGAME.equals(editedAvengersendgame));
 
         // different dateofrelease -> returns false

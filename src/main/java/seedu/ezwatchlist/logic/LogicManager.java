@@ -2,6 +2,7 @@ package seedu.ezwatchlist.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -58,10 +59,14 @@ public class LogicManager implements Logic {
         return model;
     }
 
-
     @Override
     public ReadOnlyWatchList getWatchList() {
         return model.getWatchList();
+    }
+
+    @Override
+    public ObservableList<Show> getUnWatchedList() {
+        return model.getUnWatchedShowList();
     }
 
     @Override
@@ -72,6 +77,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Show> getFilteredShowList() {
         return model.getFilteredShowList();
+    }
+
+    @Override
+    public void updateFilteredShowList(Predicate<Show> predicate) {
+        model.updateFilteredShowList(predicate);
     }
 
     @Override
