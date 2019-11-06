@@ -150,6 +150,11 @@ public class Budget {
         return String.format("$%s out of $%s remaining", this.amount.toString(), this.initialAmount.toString());
     }
 
+    /**
+     * Displays the percentage of budget remaining out of initial budget set.
+     *
+     * @return String representing the float percentage of remaining budget
+     */
     public String displayPercentage() {
         double percentage = this.amount.divideAmount(this.initialAmount) * 100;
         return String.format("%.2f%% remaining", percentage);

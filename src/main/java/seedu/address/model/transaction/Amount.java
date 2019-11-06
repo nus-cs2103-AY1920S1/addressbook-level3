@@ -125,7 +125,7 @@ public class Amount implements Comparable<Amount> {
      */
     public double divideAmount(Amount amount) {
         checkArgument(amount.amount != 0.00, DIVIDE_CONSTRAINTS);
-        final double newAmount = (double)this.amount / amount.amount;
+        final double newAmount = (double) this.amount / amount.amount;
         return newAmount;
     }
 

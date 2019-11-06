@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.commons.exceptions.IllegalValueException;
-
 
 public class AmountTest {
     private static final Amount ZERO = new Amount(0);
