@@ -6,6 +6,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_LOGISTIC
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_PROJECTCLAIMS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_SCHOOLCLAIMS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_SHIRTSALES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTOCORRECTSUGGESTION_CLAIMJOSHUA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMANDTASK_ADDCONTACT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMANDTASK_DELETEINCOME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMANDWORD_ADD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMANDWORD_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AFTERMONTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BEFOREMONTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_DURINGMONTH;
@@ -35,7 +40,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.FinSec;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 
@@ -118,6 +125,21 @@ public class TypicalObjects {
     public static final Claim CLAIM_8 = new ClaimBuilder().withName(VALID_NAME_BOB)
             .withDescription(VALID_DESCRIPTION_TEST5).withAmount(VALID_AMOUNT_SCHOOLCLAIMS)
             .withDate(VALID_DATE_DURINGMONTH2).buildApproved();
+
+
+    public static final AutocorrectSuggestion SUGGESTION_1 = new AutocorrectSuggestionBuilder()
+            .withSuggestion(VALID_AUTOCORRECTSUGGESTION_CLAIMJOSHUA).build();
+
+    public static final AutocorrectSuggestion SUGGESTION_2 = new AutocorrectSuggestionBuilder()
+            .withSuggestion(VALID_AUTOCORRECTSUGGESTION_CLAIMJOSHUA).build();
+
+
+    public static final CommandItem COMMAND_ITEM_1 = new CommandItemBuilder().withCommandWord(VALID_COMMANDWORD_ADD)
+            .withCommandTask(VALID_COMMANDTASK_ADDCONTACT).build();
+
+    public static final CommandItem COMMAND_ITEM_2 = new CommandItemBuilder().withCommandWord(VALID_COMMANDWORD_DELETE)
+            .withCommandTask(VALID_COMMANDTASK_DELETEINCOME).build();
+
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

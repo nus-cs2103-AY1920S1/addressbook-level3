@@ -104,31 +104,6 @@ This opens up a page in your browser and brings you right here! :smiley:
 .FinSec giving a brief description of the `add_contact` command
 image::UG-HelpExample.PNG[width="800"]
 
-=== Changing Views : `goto`
-
-This command changes the displayed list to show Contacts, Claims or Incomes. Such a command allows users to switch
-between the 3 lists easily. This feature has also been enhanced with the addition of tabs below the Command Result panel.
-These tabs give the same functionality as this goto feature so users can choose to type or click on the tabs. +
-
-<<UG-GotoExample>> shows the command result panel after the `goto contacts` command has been entered
-as well as the tabs that are below this panel.
-[[UG-GotoExample]]
-[reftext="Figure 3.2.1"]
-[caption="Figure 3.2.1: "]
-.FinSec giving a brief description of the `goto` command
-image::UG-GotoExample.png[width="800"]
-
-Keyword: `goto` +
-
-Additional Parameters: claims, contacts, incomes +
-
-Format: `goto (parameter)`
-
-Example:
-`goto contacts`
-`goto claims`
-`goto incomes`
-
 === Adding a person `add_contact`
 
 Adds a contact to the contacts list list +
@@ -543,9 +518,56 @@ image::warning.png[width = "20", float = "left"]
 ====
 
 //@@author {lawncegoh}
-=== Checking a Person or Claim : `check`
+---
+The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively.
+They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once
+you have input objects like `claim`, `income` into FinSec. +
+You would then be able to switch between the different "tabs" that
+we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can
+`sort` or `reverse` this list. The list will then be sorted into a more organised manner for you. Once you have
+sorted the list, you can then use the `check` feature in the `contact` or `claim` View to sieve out a specific
+contact or claim that interests you. +
+Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature
 
-Displays the details of the Person or Claim
+=== Changing Views : `goto`
+
+This command changes the displayed list to show Contacts, Claims or Incomes. Such a command allows users to switch
+between the 3 lists easily. This feature has also been enhanced with the addition of tabs below the Command Result panel.
+These tabs give the same functionality as this goto feature so users can choose to type or click on the tabs. +
+
+<<UG-GotoExample>> shows the command result panel after the `goto contacts` command has been entered
+as well as the tabs that are below this panel.
+[[UG-GotoExample]]
+[reftext="Figure 3.2.1"]
+[caption="Figure 3.2.1: "]
+.FinSec giving a brief description of the `goto` command
+image::UG-GotoExample.png[width="800"]
+
+Keyword: `goto` +
+
+Additional Parameters: claims, contacts, incomes +
+
+Format: `goto (parameter)`
+
+Example:
+`goto contacts`
+`goto claims`
+`goto incomes`
+
+//@@author {lawncegoh}
+=== Checking a Contact or Claim : `check`
+
+You can check an individual `Contact` or `Claim` in either lists. This will give you a clearer view of the 2 different objects
+that you need. This function in the contacts list will give you a pop-up of the contact and show you the basic details of this
+contact and most importantly, the claims that are under this contact. +
+
+As for the check in the claims list, it will show you the details of the claim in a pop-up too. There is however a difference that
+you should take note of:
+
+* The index used in this check in claims list is actually referring to the claimID of the `claim`.
+* From the contacts page, you can check the claimIDs that belong to a certain contact that you want to check.
+* You can then go to the claims list and enter `check CLAIMID` with this `CLAIMID` parameter as the specific claim
+that you want to see in clearer view.
 
 Keyword: `check`
 
@@ -555,12 +577,12 @@ Examples:
 
 ****
 * check 1 (in contacts page, show details of the person in index 1)
-* check 2 (in claims page, show details of the claim in index 2)
+* check 13 (in claims page, show details of the claim that has the claimID of 13)
 ****
 //@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list by Contact's Name
 
-This feature sorts the various lists according to the contact's name in lexicographical order. The command
+This feature allows you to sort the various lists according to the contact's name in lexicographical order. The command
 is the same in all 3 lists and the objects are sorted based on the contact's name. In Claims, it
 is the description of the claim. In Incomes, it is the entity who provided the income.
 
@@ -571,42 +593,57 @@ Format: `sort name`
 Examples:
 * `sort name`
 //@@author {lawncegoh}
-=== Sorting the Contacts/Claims/Incomes list by Date
+=== Sorting the Claims/Incomes list by Date
 
-This feature sorts the various lists according to the date from the oldest to newest entry.
+This feature allows you to sort the various lists according to the date from the oldest to newest entry.
 
 Keyword: `sort date`
 
 Format: `sort date`
+
+//@@author {lawncegoh}
+=== Sorting the Claims list by Status
+
+This feature allows you to sort the claims list according to the 3 different `status`. They are mainly APPROVED, REJECTED
+and PENDING. Once you enter this command, the claims list will be sorted with PENDING at the top of the list, followed by
+APPROVED and lastly REJECTED.
+
+Keyword: `sort status`
+
+Format: `sort status`
 
 Examples:
 * `sort date`
 //@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list in reverse order
 
-This feature sorts the various lists according to the contact's name in reverse lexicographical order. This command
+This feature allows you to sort the various lists according to the contact's name in reverse lexicographical order. This command
 is not applicable in the contacts page.
 
 Keyword: `reverse name`
 
 Format: `reverse name`
 
-Examples:
-
-* `reverse date`
 //@@author {lawncegoh}
-=== Sorting the Contacts/Claims/Incomes list in reverse order by Date
+=== Sorting the Claims/Incomes list in reverse order by Date
 
-This feature sorts the various lists according to the date from the newest to oldest entry. This command is not
+This feature allows you to sort the various lists according to the date from the newest to oldest entry. This command is not
 applicable in the contacts' page
 
 Keyword: `reverse date`
 
 Format: `reverse date`
 
-Examples:
+//@@author {lawncegoh}
+=== Sorting the Claims list in reverse order by Status
 
-* `reverse name`
+This feature allows you to sort the claims list according to the 3 different `status` in reverse order.
+Once you enter this command, the claims list will be sorted by the reverse of the sort command. The claims
+will be sorted as REJECTED at the top, followed by APPROVED then PENDING.
+
+Keyword: `reverse status`
+
+Format: `reverse status`
 
 === Deleting a Contact : `delete_contact`
 
@@ -645,7 +682,10 @@ image::UG-BudgetExample.PNG[width="800"]
 
 === Clearing all data : `clear`
 
-Wipes all data from FinSec to allow you to start over or to safely dispose of data.
+This command wipes all data from the FinSec and starts with a new FinSec. This feature is also updated from addressbook
+to includes a second prompt function. The application will prompt you with a warning upon entering of the `clear` command.
+The clearing of data will only go through if you type in a `Y` for the second prompt. The input of `N` on the second prompt
+will abort the clear command. You can then continue with your tasks.
 
 Format: `clear`
 
