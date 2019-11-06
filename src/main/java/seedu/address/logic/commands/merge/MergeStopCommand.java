@@ -2,6 +2,9 @@ package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
@@ -19,6 +22,8 @@ public class MergeStopCommand extends Command {
 
     public static final String MESSAGE_MERGE_STOPPED = "Merging has been stopped.\n%1$s";
 
+    private static final Logger logger = LogsCenter.getLogger(MergeStopCommand.class);
+
     private MergeCommand previousMergeCommand;
     private String mergeType;
 
@@ -34,6 +39,7 @@ public class MergeStopCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws DuplicatePersonWithMergeException {
         requireNonNull(model);
+        logger.info("Merge stopping...");
         if (mergeType.equals(AddressBookParser.MERGE_PERSON)) {
             Person currentPerson = ((MergePersonCommand) previousMergeCommand).getOriginalPerson();
             return new CommandResult(String.format(MESSAGE_MERGE_STOPPED, currentPerson));

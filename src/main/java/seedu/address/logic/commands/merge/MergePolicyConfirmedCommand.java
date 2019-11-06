@@ -2,6 +2,9 @@ package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditPolicyCommand;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
@@ -19,6 +22,8 @@ import seedu.address.model.policy.StartAge;
 public class MergePolicyConfirmedCommand extends MergeConfirmedCommand {
 
     public static final String MESSAGE_MERGE_FIELD_SUCCESS = "Successfully updated %1$s";
+
+    private static final Logger logger = LogsCenter.getLogger(MergePolicyConfirmedCommand.class);
 
     private MergePolicyCommand previousMergeCommand;
 
@@ -38,6 +43,7 @@ public class MergePolicyConfirmedCommand extends MergeConfirmedCommand {
         Policy inputPolicy = previousMergeCommand.getInputPolicy();
         String fieldType = previousMergeCommand.getNextMergeFieldType();
         EditPolicyCommand.EditPolicyDescriptor editPolicyDescriptor = new EditPolicyCommand.EditPolicyDescriptor();
+        logger.info("Executing merge: editing " + fieldType);
         switch(fieldType) {
         case Description.DATA_TYPE:
             editPolicyDescriptor.setDescription(inputPolicy.getDescription());
