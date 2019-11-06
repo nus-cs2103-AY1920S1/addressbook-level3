@@ -21,6 +21,7 @@ import seedu.revision.model.ModelManager;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.UserPrefs;
+import seedu.revision.model.answerable.Pipeline;
 import seedu.revision.model.util.SampleDataUtil;
 import seedu.revision.storage.AddressBookStorage;
 import seedu.revision.storage.JsonAddressBookStorage;
@@ -66,6 +67,8 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        Pipeline.getPipeline();
     }
 
     /**
