@@ -186,8 +186,8 @@ public class IcsParser {
         DateTime eventStart = null;
         DateTime eventEnd = null;
         for (String line : lines) {
-            if (line.startsWith("DESCRIPTION:")) {
-                description = line.replaceFirst("DESCRIPTION:", "");
+            if (line.startsWith("SUMMARY:")) {
+                description = line.replaceFirst("SUMMARY:", "");
                 if (description.equals("")) {
                     description = "<empty>";
                 }
