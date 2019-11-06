@@ -277,6 +277,14 @@ Format: none, saving data will be done automatically
 
 //end::save[]
 
+//tag::clear[]
+=== Clearing data
+
+Clears all the data in the notebook and start from a new notebook. +
+Format: clear
+
+//end::clear[]
+
 //tag::exit[]
 === Exiting the programme: exit
 
