@@ -3,7 +3,6 @@ package seedu.address.model.transaction;
 import java.util.Set;
 
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Person;
 import seedu.address.model.util.Date;
 
 /**
