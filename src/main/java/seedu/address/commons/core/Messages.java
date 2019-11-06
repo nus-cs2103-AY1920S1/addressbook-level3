@@ -22,6 +22,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_EVENT_INDEX = "Invalid index! Event with index '%s' does not exist.";
     public static final String MESSAGE_INVALID_TASK_INDEX = "Invalid index! Task with index '%s' does not exist.";
 
+    public static final String MESSAGE_INVALID_EVENT_END_DATE = "Event 'END_DATE' must be after 'START_DATE'!";
+    public static final String MESSAGE_INVALID_EVENT_REMIND_DATE = "Event 'REMIND_DATE' cannot be after 'START_DATE'!";
+
     public static final String MESSAGE_EXIT_SUCCESS = "Exiting Horo!";
 
     /* Events & Tasks */

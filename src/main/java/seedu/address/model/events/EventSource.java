@@ -1,5 +1,7 @@
 package seedu.address.model.events;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_END_DATE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_REMIND_DATE;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -7,6 +9,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.model.DateTime;
+import seedu.address.model.exceptions.InvalidEventSourceException;
 
 /**
  * Represents an EventSource in Horo.
@@ -37,6 +40,15 @@ public class EventSource {
             this.tags = builder.getTags();
         }
         this.remind = builder.getRemind();
+
+        // Ensure EventSource date time are valid
+        if (this.end != null && this.start.compareTo(this.end) >= 0) {
+            throw new InvalidEventSourceException(MESSAGE_INVALID_EVENT_END_DATE);
+        }
+
+        if (this.remind != null && this.start.compareTo(this.remind) < 0) {
+            throw new InvalidEventSourceException(MESSAGE_INVALID_EVENT_REMIND_DATE);
+        }
     }
 
     /**
