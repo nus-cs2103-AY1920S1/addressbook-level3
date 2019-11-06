@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import mams.commons.core.index.Index;
-import mams.commons.util.CollectionUtil;
 import mams.logic.commands.exceptions.CommandException;
 import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
