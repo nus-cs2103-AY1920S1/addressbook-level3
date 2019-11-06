@@ -1,9 +1,9 @@
 package seedu.ezwatchlist.commons.core.messages;
 
 public class SearchMessages {
-    public static final String COMMAND_WORD = "search";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Searches for shows whose names contain any of the given keywords from the watchlist, "
+
+    public static final String MESSAGE_USAGE =
+            "Search : Searches for shows whose names contain any of the given keywords from the watchlist, "
             + "watched list and online.\n"
             + "- by name: search n/SHOW_NAME… [g/GENRE]… [a/ACTOR_NAME]… [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]\n"
             + "- by genre: search g/GENRE… [n/SHOW_NAME]… [a/ACTOR_NAME]… [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]\n"

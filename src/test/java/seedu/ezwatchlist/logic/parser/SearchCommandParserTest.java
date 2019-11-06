@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 
 public class SearchCommandParserTest {
@@ -18,7 +19,7 @@ public class SearchCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchMessages.MESSAGE_USAGE));
     }
 
     @Test

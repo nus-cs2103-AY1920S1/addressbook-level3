@@ -30,6 +30,8 @@ import seedu.ezwatchlist.model.show.Type;
  * Keyword matching is case insensitive.
  */
 public class SearchCommand extends Command {
+    public static final String COMMAND_WORD = "search";
+
     private static final String INPUT_TRUE = "true";
     private static final String INPUT_YES = "yes";
     private static final String INPUT_FALSE = "false";
