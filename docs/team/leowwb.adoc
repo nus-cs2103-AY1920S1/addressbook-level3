@@ -52,30 +52,38 @@ CAUTION: A cautionary piece of advice
 * *Other contributions*
 
 ** Project management
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+*** Updated the project website with the team's details (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/24[#24]
+    )
 ** Documentation
-*** Wrote the User Guide and Developer Guide content pertaining to the exporting and importing of flashcards https://github.com[#14]
-*** TODO wrote the qna? what else ah https://github.com[#14]
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Created the general framework that would be used by the User Guide (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
+    )
+*** Wrote the FAQ and an early version of the Command Summary section for the User Guide (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
+    )
+*** Wrote the User Guide and Developer Guide content pertaining to the exporting and importing of flashcards (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/137[#137],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/141[#141],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/151[#151],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/221[#221],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/224[#224]
+    )
 ** Community
 *** PRs reviewed (with non-trivial review comments):
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/98[#98],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/154[#154]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:
     https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53[1],
-    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[2],
-    TODO the one reviewed for mock PE?
+    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[2]
     )
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools
-*** Integrated a third party library (Apache POI) to the project (https://github.com/AY1920S1-CS2103T-T12-4/main/pull/44[#44])
+*** Integrated a third party library (Apache POI) to the project (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/44[#44]
+    )
 *** Integrated new Github plugins (Travis CI, Appveyor, Coveralls) to the team repository
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
