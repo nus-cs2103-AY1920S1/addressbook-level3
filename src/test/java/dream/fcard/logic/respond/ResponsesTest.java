@@ -56,7 +56,7 @@
 //        // test import
 //
 //        try {
-//            assertEquals(deckName, s.getDeck(deckName).getName());
+//            assertEquals(deckName, s.getDeck(deckName).getDeckName());
 //            assertEquals(d.toJson().toString(), s.getDeck(deckName).toJson().toString());
 //        } catch (DeckNotFoundException e) {
 //            fail();

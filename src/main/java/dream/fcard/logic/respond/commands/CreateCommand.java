@@ -88,12 +88,14 @@ public class CreateCommand extends Command {
      * @throws DuplicateInChoicesException
      */
     public static boolean createMcqFrontBack(ArrayList<ArrayList<String>> command, State state)
-            throws DuplicateInChoicesException {
+        throws DuplicateInChoicesException {
         // Checks if deckName matches any deck in the State.
         boolean deckExistsInState = false;
         Deck currDeck = null;
-        for (Deck curr : state.getAllDecks()) {
-            if (curr.getName().equals(command.get(0))) {
+        for (Deck curr : state.getDecks()) {
+
+            if (curr.getDeckName().equals(command.get(0))) {
+                // todo: @PhireHandy -- equals() between String and ArrayList<String>
                 deckExistsInState = true;
                 currDeck = curr;
                 break;
@@ -106,7 +108,7 @@ public class CreateCommand extends Command {
 
         // Checks if priority level matches high or low
         if (!command.get(1).get(0).equalsIgnoreCase("high")
-                && !command.get(1).get(0).equalsIgnoreCase("low")) {
+            && !command.get(1).get(0).equalsIgnoreCase("low")) {
             return false;
         }
 
@@ -166,4 +168,3 @@ public class CreateCommand extends Command {
         return Priority.LOW_PRIORITY;
     }
 }
-

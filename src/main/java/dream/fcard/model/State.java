@@ -11,11 +11,9 @@ import dream.fcard.model.exceptions.DeckNotFoundException;
  * It should not execute logic or parsing, simply a data store object.
  */
 public class State {
-    private static State state;
     private ArrayList<Deck> decks;
     private StateEnum currState;
     private Deck currentDeck;
-
 
     /**
      * Constructor to create a State object with no Deck objects.
@@ -48,7 +46,6 @@ public class State {
         return decks;
     }
 
-
     /**
      * Adds a new empty Deck object to decks list.
      */
@@ -66,15 +63,6 @@ public class State {
     public void addDeck(Deck deck) {
         decks.add(deck);
         this.currentDeck = deck;
-    }
-
-    /**
-     * Getter for the ArrayList of all decks.
-     *
-     * @return The ArrayList of all the decks.
-     */
-    public ArrayList<Deck> getAllDecks() {
-        return this.decks;
     }
 
     /**
@@ -103,7 +91,6 @@ public class State {
         return decks.get(indexOfDeck);
     }
 
-
     /**
      * Returns the index of a deck given the deck name, if a deck with matching name exists.
      * Else, return -1 if no deck with matching name is found.
@@ -116,7 +103,7 @@ public class State {
     private int getDeckIndex(String name) {
         for (int i = 0; i < decks.size(); i++) {
             Deck currentDeck = decks.get(i);
-            boolean isUserInputMatchDeckName = currentDeck.getName().equals(name);
+            boolean isUserInputMatchDeckName = currentDeck.getDeckName().equals(name);
 
             if (isUserInputMatchDeckName) {
                 return i;
@@ -140,5 +127,19 @@ public class State {
      */
     public StateEnum getCurrState() {
         return currState;
+    }
+
+    /**
+     * Checks whether a deck with the given name exists. To prevent duplicates.
+     * @param name
+     * @return the index.
+     */
+    public int hasDeckName(String name) {
+        for (int i = 0; i < decks.size(); i++) {
+            if (decks.get(i).getDeckName() == name) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

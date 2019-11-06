@@ -2,12 +2,19 @@ package dream.fcard.logic.respond;
 
 import java.util.ArrayList;
 
+import dream.fcard.core.commons.core.LogsCenter;
+import dream.fcard.gui.controllers.displays.test.TestDisplay;
+import dream.fcard.gui.controllers.displays.test.TimedTestDisplay;
+import dream.fcard.logic.exam.Exam;
+import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.HelpCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
+import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.RegexUtil;
 
@@ -26,10 +33,13 @@ import dream.fcard.util.RegexUtil;
  * In no other class should they take the responsibility.
  */
 public enum Responses {
-    HELP_W_COMMAND(
+    HELP_WITH_COMMAND(
             RegexUtil.commandFormatRegex("", new String[]{"command/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
+
+
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
                             new String[]{"command/"},
                             i);
@@ -37,21 +47,25 @@ public enum Responses {
                     boolean validCommand = false;
 
                     for (String curr : HelpCommand.getAllCommands()) {
-                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, curr);
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, curr);
                         validCommand = true;
                     }
 
                     if (!validCommand) {
-                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command!"
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command!"
                                 + "Type 'help' for the UserGuide'.");
                     }
                     return true;
                 }
     ),
     HELP(
-            "^((?i)help)(.)*",
+            "^((?i)help)(\\s*)$",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: HELP");
+
+
                     //TODO open a window to UserGuide.html (by Taha)
                     return true;
                 }
@@ -95,18 +109,31 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     String deckName = i.split("(?i)deck/\\s*")[1];
-                    StateHolder.getState().addDeck(deckName);
-                    Consumers.accept(ConsumerSchema.CREATE_NEW_DECK_W_NAME, deckName);
+                    if (StateHolder.getState().hasDeckName(deckName) == -1) {
+                        StateHolder.getState().addDeck(deckName);
+                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder
+                                .getState().getDecks().size());
+                        try {
+                            StorageManager.writeDeck(StateHolder.getState().getDeck(deckName));
+                        } catch (DeckNotFoundException e) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try"
+                                    + " again when you shut me down.");
+                        }
+
+                    } else {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "That name is in use.");
+                    }
                     return true;
-                }
+                } //done
     ),
     CREATE_ERROR(
             "^((?i)create).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck name.");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck name.");
                     return true;
-                }
+                } //done
     ),
     // ADD_CARD regex format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK [choice/CHOICE]
     // Only used for MCQ and FrontBack cards
@@ -127,7 +154,7 @@ public enum Responses {
                     try {
                         return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
                     } catch (DuplicateInChoicesException dicExc) {
-                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
                         return true;
                     }
                 }
@@ -136,7 +163,7 @@ public enum Responses {
             "^((?i)(add).*",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
                             + "format of the Add command, type 'help command/add'");
                     return true;
                 }
@@ -168,7 +195,7 @@ public enum Responses {
                     // Checks if choiceIndex and choice are both given or both not given.
                     if ((res.get(4).size() == 0 && res.get(5).size() != 0)
                             || (res.get(4).size() != 0 && res.get(5).size() == 0)) {
-                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Choice and ChoiceIndex must be supplied"
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Choice and ChoiceIndex must be supplied"
                                 + "together or not supplied at all!");
                         return true;
                     }
@@ -176,7 +203,7 @@ public enum Responses {
                     // Checks if nothing is being edited
                     if (res.get(2).size() == 0 && res.get(3).size() == 0 && res.get(4).size() == 0
                             && res.get(5).size() == 0) {
-                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "No field is supplied to be edited!");
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "No field is supplied to be edited!");
                         return true;
                     }
 
@@ -188,7 +215,7 @@ public enum Responses {
             "^((?i)(edit).*",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
                             + "format of the Edit command, type 'help command/edit'");
                     return true;
                 }
@@ -203,7 +230,7 @@ public enum Responses {
 
                     // Checks if "deck/" and "index/" are supplied.
                     if (res.get(0).size() == 0 || res.get(1).size() == 0) {
-                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
                                 + "correct format of the Delete command, type 'help command/delete'");
                         return true;
                     }
@@ -217,15 +244,15 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     int num = Integer.parseInt(i.split("^(?i)view\\s+")[1]);
-                    Consumers.accept(ConsumerSchema.SEE_SPECIFIC_DECK, num);
+                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, num);
                     return true;
-                }
+                } //done
     ),
     SEE_SPECIFIC_DECK_ERROR(
             "^((?i)view).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck number.");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck number.");
                     return true;
                 }
     ),
@@ -234,16 +261,16 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.DEFAULT);
-                    Consumers.accept(ConsumerSchema.EXIT_CREATE, true);
+                    Consumers.doTask(ConsumerSchema.EXIT_CREATE, true);
                     return true;
-                }
+                } //done
     ),
     PROCESS_INPUT_FRONT_BACK(
             RegexUtil.commandFormatRegex("", new String[]{"front/", "back/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res =
-                        RegexUtil.parseCommandFormat("", new String[]{"front/", "back/"}, i);
+                            RegexUtil.parseCommandFormat("", new String[]{"front/", "back/"}, i);
                     if (res.get(0).size() > 0 && res.get(1).size() > 0) {
                         FrontBackCard card = new FrontBackCard(res.get(0).get(0), res.get(1).get(0));
                         StateHolder.getState().getCurrentDeck().addNewCard(card);
@@ -251,10 +278,10 @@ public enum Responses {
                         // dispatch card to CreateDeckDisplay to be added to tempDeck
                         // make editing window dispatches
                     } else {
-                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Error. Front/back fields cannot be blank.");
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Front/back fields cannot be blank.");
                     }
                     return true;
-                }
+                } //todo
     ),
     STATS(
             RegexUtil.commandFormatRegex("stats", new String[]{"deck/"}),
@@ -267,15 +294,22 @@ public enum Responses {
                     boolean hasDeckName = res.get(0).size() > 0;
 
                     if (res.get(0).size() > 1) {
-                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Only 1 Deck at a time, please!");
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Only 1 Deck at a time, please!");
                         return true;
                     }
 
                     if (hasDeckName) {
-                        // Todo: Show Stats for Deck
+                        // Todo: Show Stats for Deck @nattanyz
                         return true;
                     } else {
-                        // Todo: Show Stats for Application
+                        // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
+                        //try {
+                        //    // show stats for the application
+                        //    StatisticsWindow statisticsWindow = new StatisticsWindow();
+                        //    Consumers.doTask(ConsumerSchema.OPEN_WINDOW, statisticsWindow);
+                        //} catch (Exception e) {
+                        //    e.printStackTrace();
+                        //}
                         return true;
                     }
                 }
@@ -295,6 +329,36 @@ public enum Responses {
                     return true;
                 }
     ),
+    START_TEST(
+            RegexUtil.commandFormatRegex("test", new String[]{"deck/"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    StateHolder.getState().setCurrState(StateEnum.TEST);
+                    //pull out name of deck -> get stateholder to find the deck and get the correct subset
+                    ArrayList<FlashCard> testArrayListOfCards =
+                            StateHolder.getState().getDecks().get(0).getSubsetForTest();
+                    ExamRunner.createExam(testArrayListOfCards, 10);
+                    Exam exam = ExamRunner.getCurrentExam();
+                    if (exam.getDuration() == 0) {
+                        TestDisplay testDisplay = new TestDisplay(exam);
+                        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+                    }
+                    if (exam.getDuration() > 0) {
+                        TimedTestDisplay timedTestDisplay = new TimedTestDisplay(exam);
+                        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
+                    }
+                    return true;
+                } //todo
+    ),
+    START_TEST_ERROR(
+            "^((?i)test).*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to specify a deck.");
+                    return true;
+                } //todo
+    ),
+
 
     // DEFAULT GROUP ----------------------------------------------------------
 
@@ -407,18 +471,18 @@ public enum Responses {
             "^((?i)quit)\\s*$",
             new ResponseGroup[]{ResponseGroup.MATCH_ALL},
                 i -> {
-                    Consumers.accept(ConsumerSchema.QUIT_PROGRAM, true);
+                    Consumers.doTask(ConsumerSchema.QUIT_PROGRAM, true);
                     return false;
-                }
+                } //done
     ),
 
-    UNKNOWN (
+    UNKNOWN(
             ".*",
             new ResponseGroup[]{ResponseGroup.MATCH_ALL},
                 i -> {
-                    Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "I did not understand that command.");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I did not understand that command.");
                     return true;
-                }
+                } //done
     );
 
     // MATCH ALL GROUP --------------------------------------------------------

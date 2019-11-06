@@ -11,6 +11,7 @@ import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
+import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
@@ -61,7 +62,7 @@ public class CardCreatingWindow extends VBox {
     private Consumer<Integer> incrementCounterInParent;
 
 
-    public CardCreatingWindow(Consumer<Integer> incrementCounterInParent) {
+    public CardCreatingWindow(Consumer<Integer> incrementCounterInParent, Consumer<FlashCard> saveToDeck) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                     .getResource("/view/Windows/CardCreatingWindow.fxml"));
@@ -77,7 +78,7 @@ public class CardCreatingWindow extends VBox {
                 }
             });
             cardTypeSelector.setValue(frontBack);
-            onAddQuestion.setOnAction(e -> addCardToDeck());
+            onAddQuestion.setOnAction(e -> addCardToDeck(saveToDeck));
             this.incrementCounterInParent = incrementCounterInParent;
         } catch (IOException e) {
             e.printStackTrace();
@@ -114,7 +115,7 @@ public class CardCreatingWindow extends VBox {
      * Adds a card to the temporary deck inside CardCreatingWindow.
      *
      */
-    void addCardToDeck() {
+    void addCardToDeck(Consumer<FlashCard> saveToDeck) {
         if (cardType.equals(mcq)) {
             //validation - non-empty question, at least one non-empty option, and a designated right answer
             if (questionField.getText().isBlank()) {
@@ -141,7 +142,7 @@ public class CardCreatingWindow extends VBox {
             }
 
             MultipleChoiceCard mcqCard = new MultipleChoiceCard(front, back, choices);
-            tempDeck.addNewCard(mcqCard);
+            saveToDeck.accept(mcqCard);
         } else if (cardType.equals(frontBack)) {
             // validation - non-empty fields
             if (questionField.getText().isBlank()) {
@@ -155,7 +156,7 @@ public class CardCreatingWindow extends VBox {
             String front = questionField.getText();
             String back = frontBackTextArea.getText();
             FrontBackCard card = new FrontBackCard(front, back);
-            tempDeck.addNewCard(card);
+            saveToDeck.accept(card);
         } else if (cardType.equals(js)) {
             if (questionField.getText().isBlank()) {
                 Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
@@ -169,7 +170,7 @@ public class CardCreatingWindow extends VBox {
             String testCases = jsTestCaseInputTextArea.getAssertions();
             String front = questionField.getText();
             JavascriptCard card = new JavascriptCard(front, testCases);
-            tempDeck.addNewCard(card);
+            saveToDeck.accept(card);
 
         } else if (cardType.equals(java)) {
             if (questionField.getText().isBlank()) {
@@ -184,7 +185,7 @@ public class CardCreatingWindow extends VBox {
             String front = questionField.getText();
             ArrayList<TestCase> testCases = javaTestCaseInputBox.getTestCases();
             JavaCard card = new JavaCard(front, testCases);
-            tempDeck.addNewCard(card);
+            saveToDeck.accept(card);
         }
         incrementCounterInParent.accept(1);
         clearFields();
@@ -193,7 +194,7 @@ public class CardCreatingWindow extends VBox {
     /**
      * Wipe user input from existing input fields to make way for a new card.
      */
-    void clearFields() {
+    private void clearFields() {
         questionField.setText("");
         if (frontBackTextArea != null) {
             frontBackTextArea.setText("");
@@ -215,48 +216,4 @@ public class CardCreatingWindow extends VBox {
         }
     }
 
-    /**
-     * A deck that keeps all the cards that were made inside CardCreatingWindow. CreateDeckDisplay
-     * will pull out this deck when the user is done making a new deck.
-     *
-     * @return the deck of all newly created cards.
-     */
-    public Deck getTempDeck() {
-        return tempDeck;
-    }
-
-    public void setCardType(String s) {
-        this.cardType = s;
-    }
-
-    public void setQuestionFieldText(String s) {
-        this.questionField.setText(s);
-    }
-
-    public void setAnswerFieldText(String s) {
-        this.frontBackTextArea.setText(s);
-    }
-
-    public void setTestCases (String s) {
-        this.testCases = s;
-    }
-
-    /**
-     * Allows public access to the addCardToDeck method.
-     */
-    public void publicAddCard() {
-        addCardToDeck();
-    }
-
-    public void publicChangeInputBox(String type) {
-        changeInputBox(type);
-    }
-
-    public McqOptionsSetter getMcqOptionsSetter() {
-        return this.mcqOptionsSetter;
-    }
-
-    public String getCardType() {
-        return cardType;
-    }
 }
