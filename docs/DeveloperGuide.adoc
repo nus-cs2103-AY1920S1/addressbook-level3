@@ -627,7 +627,9 @@ described above.  Validation within parsers are done via the `ParserUtil` class.
 The aesthetics aspects of the application help to support the feature of personalised user experience and are
 implemented using the command words `fontcolour` and `bg` respectively.
 //end::personalisedUserExperienceDgAestheticsPppPart1[]
+
 * Possible valid usages are as follows:
+
 ** Scenario 1: User keys in `fontcolour`
 ** Scenario 2: User keys in `fontcolour white`
 ** Scenario 3: User keys in `fontcolour #FFFF00`
