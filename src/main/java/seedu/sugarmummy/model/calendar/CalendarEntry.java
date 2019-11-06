@@ -40,6 +40,11 @@ public abstract class CalendarEntry implements Comparable<CalendarEntry> {
      */
     public abstract boolean isSameCalendarEntry(CalendarEntry calendarEntry);
 
+    public abstract boolean isSubsetCalendarEntryOf(CalendarEntry calendarEntry);
+
+    public abstract boolean overlaps(CalendarEntry calendarEntry);
+
+    public abstract boolean conflicts(CalendarEntry calendarEntry);
     /**
      * Returns the day of week of the date in the entry.
      *
