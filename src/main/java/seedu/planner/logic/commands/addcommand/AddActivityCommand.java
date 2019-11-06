@@ -4,11 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.planner.logic.commands.util.CommandUtil.findIndexOfActivity;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -39,6 +46,14 @@ public class AddActivityCommand extends AddCommand {
                     + PREFIX_ADDRESS + "Mount Fuji "
                     + PREFIX_DURATION + "120 "
                     + PREFIX_TAG + "sightseeing"
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            Arrays.asList(PREFIX_NAME.toString(), PREFIX_ADDRESS.toString(), PREFIX_DURATION.toString()),
+            new ArrayList<>(),
+            Arrays.asList(PREFIX_PHONE.toString(), PREFIX_COST.toString(), PREFIX_PRIORITY.toString()),
+            Arrays.asList(PREFIX_TAG.toString())
     );
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1s";

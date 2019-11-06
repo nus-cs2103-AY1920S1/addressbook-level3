@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
@@ -23,6 +24,11 @@ public class AddDayCommand extends AddCommand {
             "Adds the number of days specified to the itinerary.",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " NUMBER OF DAYS",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 5"
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "<NUM_DAYS>"
     );
 
     public static final String MESSAGE_SUCCESS = "%d day(s) added";

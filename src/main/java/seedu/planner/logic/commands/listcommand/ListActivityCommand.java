@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
@@ -19,6 +20,9 @@ public class ListActivityCommand extends ListCommand {
     public static final String SECOND_COMMAND_WORD = "activity";
 
     public static final String MESSAGE_SUCCESS = "Listed all activities";
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD + " "
+            + SECOND_COMMAND_WORD);
 
     @Override
     public CommandResult execute(Model model) {

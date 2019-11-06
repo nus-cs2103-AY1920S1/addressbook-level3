@@ -3,6 +3,7 @@ package seedu.planner.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.planner.logic.CommandHistory;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.util.HelpExplanation;
@@ -24,6 +25,8 @@ public class UndoCommand extends Command {
             COMMAND_WORD,
             COMMAND_WORD
     );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD);
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

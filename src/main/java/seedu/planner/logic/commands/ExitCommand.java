@@ -1,5 +1,6 @@
 package seedu.planner.logic.commands;
 
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
@@ -18,6 +19,8 @@ public class ExitCommand extends Command {
             COMMAND_WORD,
             COMMAND_WORD
     );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD);
 
     @Override
     public CommandResult execute(Model model) {

@@ -9,6 +9,8 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.planner.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.Set;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.CollectionUtil;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -53,6 +56,16 @@ public class EditContactCommand extends EditCommand {
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 3 "
                     + PREFIX_PHONE + "91234567 "
                     + PREFIX_EMAIL + "johndoe@example.com"
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "INDEX",
+            new ArrayList<>(),
+            new ArrayList<>(),
+            Arrays.asList(PREFIX_NAME.toString(), PREFIX_PHONE.toString(), PREFIX_EMAIL.toString(),
+                    PREFIX_ADDRESS.toString()),
+            Arrays.asList(PREFIX_TAG.toString())
     );
 
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";

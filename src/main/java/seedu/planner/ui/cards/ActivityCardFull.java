@@ -1,4 +1,4 @@
-package seedu.planner.ui;
+package seedu.planner.ui.cards;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
+import seedu.planner.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Contact}.

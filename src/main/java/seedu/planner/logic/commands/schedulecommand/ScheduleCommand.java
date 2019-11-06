@@ -9,10 +9,13 @@ import static seedu.planner.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
@@ -43,6 +46,15 @@ public class ScheduleCommand extends UndoableCommand {
             COMMAND_WORD + " 1 "
             + PREFIX_START_TIME + "1100 "
             + PREFIX_DAY + "2 ");
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD,
+            "INDEX",
+            Arrays.asList(PREFIX_START_TIME.toString(), PREFIX_DAY.toString()),
+            new ArrayList<>(),
+            new ArrayList<>(),
+            new ArrayList<>()
+    );
 
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to day %d";
     public static final String MESSAGE_END_TIME_EXCEEDS_LAST_DAY = "Activity will end after the end of the itinerary.";

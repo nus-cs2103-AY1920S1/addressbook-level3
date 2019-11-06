@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ import java.util.stream.IntStream;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
@@ -57,6 +59,15 @@ public class AutoScheduleCommand extends UndoableCommand {
                     + PREFIX_NAME + "Disneyland 1400 " + PREFIX_TAG + "Dining "
                     + PREFIX_ADDRESS + "Tokyo " + PREFIX_DAY + "1 4 5"
     );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD,
+            new ArrayList<>(),
+            Arrays.asList(PREFIX_TAG.toString(), PREFIX_NAME.toString()),
+            Arrays.asList(PREFIX_DAY.toString(), PREFIX_ADDRESS.toString()),
+            new ArrayList<>()
+    );
+
     private List<NameOrTagWithTime> draftSchedule;
     private Optional<Address> address;
     private List<Index> days;

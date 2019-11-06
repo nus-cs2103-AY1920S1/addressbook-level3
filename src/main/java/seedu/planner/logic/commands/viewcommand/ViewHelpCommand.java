@@ -2,6 +2,7 @@ package seedu.planner.logic.commands.viewcommand;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
@@ -19,6 +20,10 @@ public class ViewHelpCommand extends ViewCommand {
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
             "Opens the help tab.",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD
+    );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD
     );
 

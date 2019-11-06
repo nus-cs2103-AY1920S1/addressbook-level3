@@ -5,10 +5,13 @@ import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.planner.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
@@ -33,6 +36,15 @@ public class UnscheduleCommand extends UndoableCommand {
             COMMAND_WORD
             + " 2 "
             + PREFIX_DAY + "3");
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
+            COMMAND_WORD,
+            "INDEX",
+            Arrays.asList(PREFIX_DAY.toString()),
+            new ArrayList<>(),
+            new ArrayList<>(),
+            new ArrayList<>()
+    );
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity %d unscheduled from Day %d";
 

@@ -56,6 +56,13 @@ import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
+import seedu.planner.ui.cards.AccommodationCardFull;
+import seedu.planner.ui.cards.ActivityCardFull;
+import seedu.planner.ui.cards.ContactCardFull;
+import seedu.planner.ui.cards.HelpCard;
+import seedu.planner.ui.panels.AccommodationListPanel;
+import seedu.planner.ui.panels.ActivityListPanel;
+import seedu.planner.ui.panels.ContactListPanel;
 
 /**
  * A ui for the split window that is displayed at the center of the application.
