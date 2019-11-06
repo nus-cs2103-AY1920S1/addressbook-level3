@@ -76,7 +76,8 @@ public class CompleteOrderCommand extends Command {
         }
 
         String MESSAGE_ASSIGN_NEXT_ORDER;
-        Order unassigned = model.getUnassignedOrder();
+        model.assignUnassignedOrder();
+        /*
         if (unassigned == null) {
             MESSAGE_ASSIGN_NEXT_ORDER = "Great job! No other orders to assign.";
         } else {
@@ -85,7 +86,8 @@ public class CompleteOrderCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS + "\n"
-                + MESSAGE_ASSIGN_NEXT_ORDER, orderToComplete));
+                + MESSAGE_ASSIGN_NEXT_ORDER, orderToComplete)); */
+        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS + "\n", orderToComplete));
     }
 
     public static LinkedList<Prefix> getPrefixesList() {

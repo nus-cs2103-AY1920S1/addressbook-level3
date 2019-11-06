@@ -330,7 +330,7 @@ public class ModelManager implements Model {
 
     @Override
     public void signalNewAvailableDeliveryman() {
-        // method to be added
+        assignUnassignedOrder();
     }
 
     //=========== Order Methods =============================================================
@@ -445,16 +445,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Order getUnassignedOrder() {
+    public void assignUnassignedOrder() {
         LinkedList<Order> sortedList = getFilteredOrderList().stream().sorted((o1, o2)
                 -> o1.getOrderName().fullName.compareToIgnoreCase(o2.getOrderName().fullName))
                 .collect(Collectors.toCollection(LinkedList::new));
         for (Order order : sortedList) {
             if (order.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
-                return order;
+                try {
+                    Name newDeliveryman = getOneAvailableDeliveryman();
+                    Order assignedOrder = new Order.OrderBuilder().setOrderName(order.getOrderName())
+                            .setCustomer(order.getCustomer()).setRestaurant(order.getRestaurant())
+                            .setFood(order.getFoodList()).setDeliveryman(newDeliveryman).completeOrder();
+                    updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+                    setOrder(order, assignedOrder);
+                } catch (NoMoreAvailableDeliverymanException e) {
+                    break;
+                }
             }
         }
-        return null;
     }
 
     //=========== Undo ================================================================================
