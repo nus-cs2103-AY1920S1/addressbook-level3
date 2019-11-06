@@ -61,10 +61,6 @@ public class Order {
         return deliveryman;
     }
 
-    public void setDeliveryman(Name man) {
-        this.deliveryman = man;
-    }
-
     /**
      * Returns an immutable food map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

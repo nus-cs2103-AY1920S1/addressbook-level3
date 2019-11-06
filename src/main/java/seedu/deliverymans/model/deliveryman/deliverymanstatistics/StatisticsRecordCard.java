@@ -63,10 +63,10 @@ public class StatisticsRecordCard {
         StringBuilder sb = new StringBuilder();
         switch (utilisationState) {
         case LOW:
-            sb.append("You have too much manpower\nthat is not utilized!\n");
+            sb.append("You have too much manpower that is not utilized!\n");
             break;
         case HIGH:
-            sb.append("Watch out!\nYou are running out of \navailable deliverymen!\n");
+            sb.append("Watch out!You are running out of available deliverymen!\n");
             break;
         case MODERATE:
             sb.append("All is well. Your deliverymen are balanced.\n");

@@ -14,7 +14,6 @@ import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 
 /**
  * Represents a deliveryman
- * Allow deliveryman to update status? or admin is responsible for that when order is complete?
  */
 public class Deliveryman {
 

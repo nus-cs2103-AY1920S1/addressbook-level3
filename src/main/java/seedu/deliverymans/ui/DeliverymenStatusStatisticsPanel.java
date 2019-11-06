@@ -34,6 +34,8 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
     private TextArea resultDisplay;
     @FXML
     private TextArea adviceDisplay;
+    @FXML
+    private Label caption;
 
     private StatisticsRecordCard recordCard;
 
@@ -41,7 +43,7 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
     private ObservableList<PieChart.Data> pieChartData;
 
     // Data fields
-    private Integer availableListSize;
+    private int availableListSize;
     private int unavailableListSize;
     private int deliveringListSize;
     private int totalListSize;

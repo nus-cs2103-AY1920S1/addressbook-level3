@@ -24,6 +24,7 @@ import seedu.deliverymans.logic.commands.restaurant.EditDetailsCommand;
 import seedu.deliverymans.logic.commands.restaurant.EditModeCommand;
 import seedu.deliverymans.logic.commands.restaurant.ExitEditCommand;
 import seedu.deliverymans.logic.commands.universal.AddOrderCommand;
+import seedu.deliverymans.logic.commands.universal.AssignOrderCommand;
 import seedu.deliverymans.logic.commands.universal.CompleteOrderCommand;
 import seedu.deliverymans.logic.commands.universal.DeleteOrderCommand;
 import seedu.deliverymans.logic.commands.universal.EditOrderCommand;
@@ -102,6 +103,7 @@ class TrieManager {
      */
     private void addUniversalCommands() {
         insertCommandToAllTries(AddOrderCommand.COMMAND_WORD, AddOrderCommand.getPrefixesList());
+        insertCommandToAllTries(AssignOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(CompleteOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(DeleteOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(EditOrderCommand.COMMAND_WORD, EditOrderCommand.getPrefixesList());
