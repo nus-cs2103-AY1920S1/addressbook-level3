@@ -9,10 +9,10 @@ import seedu.elisa.commons.core.item.Item.ItemBuilder;
 import seedu.elisa.commons.core.item.ItemDescription;
 import seedu.elisa.commons.core.item.Priority;
 import seedu.elisa.commons.core.item.Reminder;
+import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.logic.parser.ParserUtil;
 import seedu.elisa.logic.parser.exceptions.ParseException;
-import seedu.elisa.model.tag.Tag;
-import seedu.elisa.model.util.SampleDataUtil;
+//import seedu.elisa.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Item objects.
@@ -69,8 +69,9 @@ public class TestItemBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Item} that we are building.
      */
+
     public TestItemBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        //this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
