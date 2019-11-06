@@ -33,7 +33,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      * */
 
     public void addToIndex(int targetIndex, Item item) {
-        if (hasItem(item)) {
+        if (hasItem(item) || !belongToList(item)) {
             return;
         } else {
             super.add(targetIndex, item);
