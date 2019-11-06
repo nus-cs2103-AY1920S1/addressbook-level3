@@ -9,7 +9,7 @@
 
 This project portfolio showcases the contributions I have made to the software project, Mortago.
 
-Purpose 
+Purpose
 Team
 As a team of 5 software engineering students
 Project
