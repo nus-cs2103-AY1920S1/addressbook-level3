@@ -234,13 +234,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::CommitActivityDiagram.png[]
 
-The addition of undo redo complicates certain commands. An example of this complication is when undoing add or delete commands. Originally, deleting a Meme will delete the corresponding image file on the disk. However, this means it is not possible to retrieve the file afterwards. Hence, the current implementation is to delete the Meme Entry in the json, but keep the original image file until Weme is closed. When Weme is closed, a thread will clean up all unreferenced image files in the image folder. This is part of the reason why certain commands such as `load` are not supported.
+The addition of undo redo complicates certain commands. An example of this complication is when undoing add or delete commands. Originally, deleting a Meme will delete the corresponding image file on the disk. However, this means it is not possible to retrieve the file afterwards when attempting to undo. Hence, the current implementation is to delete the Meme entry in the json, but keep the original image file until Weme is closed. When Weme is closed, a thread will clean up all unreferenced image files in the image folder. This is part of the reason why certain commands such as `load` are not supported.
 
 The following sequence diagram shows how the clean up works:
 
 image::CleanUpSequenceDiagram.png[]
 
-When the handleExit command is called, MainWindow will create a Thread to call `logic.cleanUp()` to prevent the GUI from slowing down. The thread then further spawns other threads to clean up the files in the data folder, deleting those images that are not found in the memes and templates list stored on Weme.
+When the handleExit command is called, MainWindow will create a Thread to call `logic.cleanUp()` to prevent the GUI from slowing down. The thread then further spawns other threads to clean up the files in the data folder, deleting those images that are not found in the memes and templates list stored on Weme. The `cleanTemplateStorage()` part of the UML diagram has been truncated as it is similar to `cleanMemeStorage()`.
 
 ==== Design Considerations
 
@@ -288,7 +288,7 @@ When the handleExit command is called, MainWindow will create a Thread to call `
 * **Alternative 2:** Implement a recycle bin to move files to/from on command.
 ** Pros: Commands do what they are fully expected to do (Delete deletes the image as well).
 ** Cons: Heavily complicates the logic with a need to copy and paste when undoing and redoing. Very difficult to understand and error-prone. Still needs to eventually clear the recycle bin on exit. Repeated work.
-* **Alternative 3:** Make file commands undoable.
+* **Alternative 3:** Make file-related commands undoable.
 ** Pros: No need to deal with file manipulation.
 ** Cons: Makes undo redo feature a lot more useless as it loses support for certain key commands.
 // end::undoredo[]
