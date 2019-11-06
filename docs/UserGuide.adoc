@@ -57,9 +57,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 . A list of books will be displayed at the left column but not a list of borrowers as a list of borrowers
-    will not be very useful. The borrowers will need to provide their `borrowerId`
-    when they borrower books. Thus, to borrow books or check a borrower's information,
-    simply enter the serve mode with the borrower's `borrowerId`.
+    will not be very useful. Serving a borrower require the borrower's `borrowerId` instead browsing
+    the app until the borrower's name/id is found.
 // end::quickStart[]
 
 [[Features]]
