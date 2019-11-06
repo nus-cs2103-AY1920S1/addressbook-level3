@@ -25,6 +25,9 @@ public class Amount implements Comparable<Amount> {
     public static final String SHARE_CONSTRAINTS =
         "Shares cannot be negative";
 
+    public static final String DIVIDE_CONSTRAINTS =
+            "You cannot divide by $0";
+
     public static final DecimalFormat AMOUNT_DOUBLE_FORMAT = new DecimalFormat("#.00");
 
     private int amount;
@@ -117,10 +120,11 @@ public class Amount implements Comparable<Amount> {
     /**
      * divides this.amount by amount.
      *
-     * @param amount Amount to be divided.
+     * @param amount Amount to be divided. It cannot be of ZERO value.
      * @return double after division.
      */
     public double divideAmount(Amount amount) {
+        checkArgument(amount.amount != 0.00, DIVIDE_CONSTRAINTS);
         final double newAmount = (double)this.amount / amount.amount;
         return newAmount;
     }
