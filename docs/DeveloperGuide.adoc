@@ -348,22 +348,23 @@ The undo command enables users to undo their previous commands while the redo fe
 
 ==== Undo Implementation
 
-The undo feature is facilitated by the HistoryManager. The commands stack and the addressBooks stack in the HistoryManager class are used to govern the undo feature.
+The undo feature is facilitated by the `HistoryManager`. The `commands` stack and the `addressBooks` stack in the `HistoryManager` class are used to govern the undo feature.
 
-The static commands stack keeps track of all the commands that have been executed by the user while the static addressBooks stack keeps track of the corresponding state of the address book following the executed command.
+The static `commands` stack keeps track of all the commands that have been executed by the user while the static `addressBooks` stack keeps track of the corresponding state of the address book following the executed command.
 
 Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The HistoryManager will be initialised with the initial address book state pushed to the addressBook stack.
+Step 1. The user launches the application for the first time. The `HistoryManager` will be initialised with the
+initial address book state pushed to the `addressBooks` stack.
 
 image::initialStack.png[width=450]
 
-Step 2. The user executes the delete 3 command to delete the 3rd person in the Athletick list. The delete command will be pushed into the commands stack in and the new state of the address book (after executing the delete command) will be pushed to the addressBooks stack as well.
+Step 2. The user executes the delete 3 command to delete the 3rd person in the Athletick list. The delete command will be pushed into the `commands` stack in and the new state of the address book (after executing the delete command) will be pushed to the `addressBooks` stack as well.
 
 image::afterUndoStack.png[width=450]
 
-Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action by executing the undo command. The undo command calls the undo method in the ModelManager which pops the latest Command from the commands stack and
-the latest Address Book from the addressBooks stack. This removes the latest action caused by the command that wants to be undone. It then continues to peek at the addressBooks stack to retrieve the Address Book state before the undone Command was executed.
+Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action by executing the `undo` command. The `undo` command calls the undo method in the `ModelManager` which pops the latest Command from the `commands` stack and
+the latest Address Book from the `addressBooks` stack. This removes the latest action caused by the command that wants to be undone. It then continues to peek at the `addressBooks` stack to retrieve the Address Book state before the undone Command was executed.
 
 image::initialStack.png[width=450]
 
@@ -374,11 +375,14 @@ Figure 1. Sequence diagram for undo feature
 
 ==== Redo Implementation
 
-The redo feature is also facilitated by the HistoryManager. The undoneCommands stack and the undoneAddressBooks stack in the HistoryManager class are used to govern the redo feature.
+The redo feature is also facilitated by the `HistoryManager`. The `undoneCommands` stack and the `undoneAddressBooks` stack in the `HistoryManager` class are used to govern the redo feature.
 
-The undoneCommands stack keeps track of commands that have been undone by the user while the undoneAddressBooks stack keeps track of the corresponding state of the address book following the undone command.
+The `undoneCommands` stack keeps track of commands that have been undone by the user while the `undoneAddressBooks` stack keeps track of the corresponding state of the address book following the undone command.
 
-How the redo feature works is very similar to how to undo feature work. The difference is that redo utilises the undoneCommands stack and the undoneAddressBook stack. As such, you can also refer to the diagrams in the Undo Implementation.
+How the redo feature works is very similar to how the undo feature works. The difference is that redo utilises the
+`undoneCommands` stack and the `undoneAddressBooks` stack. As such, you can also refer to the diagrams in the
+link:https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/docs/DeveloperGuide.adoc#undo-redo-feature[Undo
+Implementation.]
 
 
 ==== Design Considerations
@@ -391,13 +395,18 @@ This section describes the pros and cons of the current and other alternative im
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command is correct.
 
 ====== Reason why we chose alternative 1:
-Even though the memory usage of Alternative 2 is lesser, we do not feel that the benefit of the usage of lesser memory outweigh the cost of implementing the alternative.
+Even though the memory usage of Alternative 2 is lesser, we do not feel this benefit of lesser memory usage
+outweighs the tedious cost of implementing the alternative.
 
-Furthermore, as we realise that each time the application starts, the memory of the states of the address book in both alternatives are cleared.
-This means that the cost of having alternative 1 is significantly cheaper. As such, we decided to go with the first alternative.
+Furthermore, as we realise that each time the application starts, the memory of the address books states
+are cleared.
+This means that the cost of having alternative 1 is significantly lesser, as the memory of the address
+book states does not accumulate. As such, we
+decided to
+go with the first alternative.
 
 
 === Adding/editing photo feature

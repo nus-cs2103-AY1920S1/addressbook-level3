@@ -61,6 +61,7 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
     ReadOnlyAddressBook getAddressBookDeepCopy();
+    List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
     Command undo();
     Command redo();
 
@@ -114,7 +115,7 @@ public interface Model {
     /**
      * Removes training on {@code date}
      */
-    void deleteTrainingOnDate(AthletickDate date);
+    Training deleteTrainingOnDate(AthletickDate date);
 
     /**
      * Gets a list of AttendanceEntry on {@code date}, where each entry indicates whether a person was present.

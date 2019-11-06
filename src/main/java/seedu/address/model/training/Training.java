@@ -77,4 +77,8 @@ public class Training {
         }
         return listOfAbsentees;
     }
+    @Override
+    public String toString(){
+        return "Training on " + date;
+    }
 }

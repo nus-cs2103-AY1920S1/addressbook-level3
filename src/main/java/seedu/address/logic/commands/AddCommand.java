@@ -76,6 +76,6 @@ public class AddCommand extends Command {
     }
     @Override
     public String toString() {
-        return "Add Person Command";
+        return "Add '" + toAdd + "' Command";
     }
 }

@@ -11,7 +11,7 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_SUCCESS = "Redo ";
     public static final String MESSAGE_FAILURE_EMPTY_STACK = "Redo Command Failure: No available "
-        + "commands to be redone.";
+        + "commands to redo.";
     public static final String MESSAGE_FAILURE = "Redo Command Failure:"
         + " Redo command can only be executed after a undo Command.";
     @Override
@@ -26,6 +26,9 @@ public class RedoCommand extends Command {
             if (redoneCommand instanceof TrainingCommand) {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
                     + " Success!", ((TrainingCommand) redoneCommand).getDate(), model);
+            } else if (redoneCommand instanceof DeleteTrainingCommand) {
+                return new CommandResult(MESSAGE_SUCCESS + redoneCommand
+                    + " Success!", ((DeleteTrainingCommand) redoneCommand).getDate(), model);
             } else {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
                     + " Success!");

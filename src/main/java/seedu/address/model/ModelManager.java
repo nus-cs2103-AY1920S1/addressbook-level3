@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteTrainingCommand;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
@@ -40,7 +41,6 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private ReadOnlyAddressBook readOnlyAddressBook;
     private Person selectedPerson;
-    private HistoryManager history = new HistoryManager();
 
 
     /**
@@ -118,20 +118,27 @@ public class ModelManager implements Model {
         deepCopy.getPersons().setPersons(persons);
         return deepCopy;
     }
-
+    @Override
+    public List<Training> getTrainingsDeepCopy(List<Training> trainingsList) {
+        List<Training> trainingsDeepCopy = new ArrayList<>();
+        trainingsDeepCopy.addAll(trainingsList);
+        return trainingsDeepCopy;
+    }
+    
     @Override
     public Command undo() {
         Command undoneCommand = HistoryManager.getCommands().pop();
         ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
         HistoryManager.getUndoneCommands().push(undoneCommand);
         HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
-        //undo add training command
-        if (undoneCommand instanceof TrainingCommand) {
-            AthletickDate dateOfTraining = ((TrainingCommand) undoneCommand).getDate();
-            Training undoneTraining = this.attendance.getTrainingOnDate(dateOfTraining);
-            this.attendance.getTrainings().remove(undoneTraining);
-            HistoryManager.getUndoneTrainingLists().push(undoneTraining);
-        //undo normal commands
+        //undo add/delete training command
+        if (undoneCommand instanceof TrainingCommand || undoneCommand instanceof DeleteTrainingCommand) {
+            List<Training> undoneTrainingList = this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().pop());
+            HistoryManager.getUndoneTrainingLists().push(undoneTrainingList);
+            List<Training> afterUndoneTrainingList =
+                this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().peek());
+            Attendance.resetTrainingList(afterUndoneTrainingList);
+            //undo normal addressbook commands
         } else {
             ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
             addressBook.resetData(afterUndoneState);
@@ -145,9 +152,10 @@ public class ModelManager implements Model {
         ReadOnlyAddressBook redoneAddressBook = HistoryManager.getUndoneAddressBooks().pop();
         HistoryManager.getCommands().push(redoneCommand);
         HistoryManager.getAddressBooks().push(redoneAddressBook);
-        if (redoneCommand instanceof TrainingCommand) {
-            Training redoneTraining = HistoryManager.getUndoneTrainingLists().pop();
-            this.attendance.getTrainings().add(redoneTraining);
+        if (redoneCommand instanceof TrainingCommand || redoneCommand instanceof DeleteTrainingCommand) {
+            List<Training> redoneTrainingLists = getTrainingsDeepCopy(HistoryManager.getUndoneTrainingLists().pop());
+            HistoryManager.getTrainingLists().push(redoneTrainingLists);
+            Attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
         } else {
             addressBook.resetData(redoneAddressBook);
         }
@@ -239,8 +247,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteTrainingOnDate(AthletickDate date) {
-        this.attendance.deleteTrainingOnDate(date);
+    public Training deleteTrainingOnDate(AthletickDate date) {
+        return this.attendance.deleteTrainingOnDate(date);
     }
 
     @Override

@@ -14,10 +14,10 @@ import seedu.address.model.training.Training;
  */
 public class Attendance {
 
-    private List<Training> trainings;
+    private static List<Training> trainings;
 
     public Attendance() {
-        this.trainings = new ArrayList<>();
+        trainings = new ArrayList<>();
     }
 
     public Attendance(List<Training> trainings) {
@@ -27,8 +27,8 @@ public class Attendance {
     /**
      * Resets all data in the Attendance.
      */
-    public void resetAttendance() {
-        this.trainings = new ArrayList<>();
+    public static void resetAttendance() {
+        trainings = new ArrayList<>();
     }
 
     /**
@@ -77,7 +77,7 @@ public class Attendance {
      * Removes a training on the specified date.
      * @param date Training that occurred on this date will be removed.
      */
-    public void deleteTrainingOnDate(AthletickDate date) {
+    public Training deleteTrainingOnDate(AthletickDate date) {
         assert(hasTrainingOnDate(date));
         int index = 0;
         while (index < trainings.size()) {
@@ -87,10 +87,11 @@ public class Attendance {
             }
             index++;
         }
-        trainings.remove(index);
+        Training trainingToBeDeleted = trainings.remove(index);
+        return trainingToBeDeleted;
     }
 
-    public List<Training> getTrainings() {
+    public static List<Training> getTrainings() {
         return trainings;
     }
 
@@ -163,5 +164,8 @@ public class Attendance {
             }
         }
         return null; // With assertion, code should not reach here.
+    }
+    public static void resetTrainingList(List<Training> newTrainingList) {
+        trainings = newTrainingList;
     }
 }

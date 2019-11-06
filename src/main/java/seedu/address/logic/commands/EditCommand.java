@@ -59,6 +59,7 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
+    private Person editedPerson;
     /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
@@ -82,6 +83,7 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        this.editedPerson = editedPerson;
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -256,6 +258,6 @@ public class EditCommand extends Command {
     }
     @Override
     public String toString() {
-        return "Edit Command";
+        return "Edit '" + editedPerson + "' Command";
     }
 }
