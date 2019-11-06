@@ -14,8 +14,8 @@ import static seedu.sugarmummy.model.achievements.AchievementLevel.SILVER;
 import static seedu.sugarmummy.model.achievements.AchievementState.ACHIEVED;
 import static seedu.sugarmummy.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
 import static seedu.sugarmummy.model.achievements.AchievementState.YET_TO_ACHIEVE;
-import static seedu.sugarmummy.model.record.RecordType.BLOODSUGAR;
-import static seedu.sugarmummy.model.record.RecordType.BMI;
+import static seedu.sugarmummy.model.records.RecordType.BLOODSUGAR;
+import static seedu.sugarmummy.model.records.RecordType.BMI;
 
 import java.util.Iterator;
 import java.util.List;
