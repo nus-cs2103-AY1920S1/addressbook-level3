@@ -23,7 +23,8 @@ public class RegisterAccountCommand extends Command {
 
     public static final String COMMAND_WORD = "register";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Registers a new account. " + "\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Registers a new account. Username and password should not contain any spaces" + "\n"
 
             + "Parameters: "
             + PREFIX_USERNAME + "USERNAME "

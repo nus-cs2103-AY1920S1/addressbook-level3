@@ -16,7 +16,7 @@ public class TotalEarningsCommand extends Command {
 
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Good Job! This is how much you have earned: ";
+    public static final String MESSAGE_SUCCESS = "Good Job! This is how much you have earned: $";
     public static final String MESSAGE_FAILURE =
             "Unable to get total earnings. Please try again.";
 

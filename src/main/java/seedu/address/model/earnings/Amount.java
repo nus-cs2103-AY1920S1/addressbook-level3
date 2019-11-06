@@ -10,8 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amount numbers should only contain numbers, and it should have only 2 decimal points";
-    public static final String VALIDATION_REGEX = "^\\d+(\\.\\d{2})?$";
+            "Amount numbers should only contain positive numbers with only 2 decimal points,"
+                    + " and it must be lesser than 1 000 000.00";
+    public static final String VALIDATION_REGEX = "^\\d{1,3}(,?\\d{3})?(\\.\\d{2})?$";
+    private static final double MAX_VALUE = 1000000.00;
 
     public final String amount;
 
@@ -22,7 +24,6 @@ public class Amount {
      */
     public Amount(String amt) {
         requireNonNull(amt);
-        System.out.println(amt);
         checkArgument(isValidAmount(amt), MESSAGE_CONSTRAINTS);
         amount = amt;
     }
@@ -34,9 +35,21 @@ public class Amount {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if amount is more than max value.
+     */
+    public static boolean moreThanMaxValue(String amount) {
+        double amt = Double.parseDouble(amount);
+        return amt >= MAX_VALUE;
+    }
+
     @Override
     public String toString() {
         return amount;
+    }
+
+    public Double doubleValue() {
+        return Double.parseDouble(amount);
     }
 
     @Override
@@ -51,18 +64,4 @@ public class Amount {
         return amount.hashCode();
     }
 
-    /**
-     * Adds every amount created into total earnings.
-     *
-     * @param amt Amount to be added into total earnings.
-     * @return New total earnings.
-     */
-    public Amount addAmount(Amount amt) {
-        double localAmt = Double.parseDouble(this.amount);
-        System.out.println(localAmt);
-        double variableAmt = Double.parseDouble(amt.amount);
-        System.out.println(variableAmt);
-        double totalAmt = localAmt + variableAmt;
-        return new Amount(String.format("%.2f", totalAmt));
-    }
 }

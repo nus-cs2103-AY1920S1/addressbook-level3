@@ -29,7 +29,7 @@ public class UpdateEarningsCommand extends Command {
     public static final String COMMAND_WORD = "update_earnings";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits/Updates the earnings of the user "
-            + "by the index number used in the displayed person list. \n"
+            + "by the index number used in the displayed earnings list. \n"
             + "Existing values will be overwritten by the input values.\n"
 
             + "Parameters: INDEX (must be a positive integer) "
@@ -147,7 +147,7 @@ public class UpdateEarningsCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(date, classId, amount);
+            return CollectionUtil.isAnyNonNull(date, classId, amount, type);
         }
 
         public void setDate(Date date) {
