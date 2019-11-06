@@ -281,7 +281,7 @@ public class StorageManager {
             // load login session
         } catch (FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");
-        } catch (JsonFormatException e) {
+        } catch (JsonFormatException | NullPointerException e) {
             System.out.println("STATS JSON IS ILL FORMED\n" + e.getMessage());
         } catch (JsonWrongValueException e) {
             System.out.println("UNEXPECTED JSON FORMAT FOR STATS\n" + e.getMessage());
