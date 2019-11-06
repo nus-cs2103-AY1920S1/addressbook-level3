@@ -1,5 +1,5 @@
 //@@author nattanyz
-package dream.fcard.util;
+package dream.fcard.util.stats;
 
 import java.util.ArrayList;
 

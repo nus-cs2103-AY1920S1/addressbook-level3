@@ -5,7 +5,7 @@ import java.io.IOException;
 import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.model.Deck;
-//import dream.fcard.util.StatsDisplayUtil;
+//import dream.fcard.util.stats.StatsDisplayUtil;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
