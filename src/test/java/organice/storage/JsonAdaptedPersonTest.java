@@ -30,7 +30,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_TYPE = "student";
     private static final String INVALID_AGE = "-28";
     private static final String INVALID_PRIORITY = "hgh";
-    private static final String INVALID_BLOOD_TYPE = "AB-";
+    private static final String INVALID_BLOOD_TYPE = "AB";
     private static final String INVALID_TISSUE_TYPE = "1,1,2,3,4,5";
     private static final String INVALID_ORGAN = "heart";
     private static final String INVALID_DOCTOR_IN_CHARGE = "S123A";

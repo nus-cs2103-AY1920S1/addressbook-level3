@@ -17,7 +17,7 @@ import organice.model.person.Type;
  */
 public class DonorBuilder extends PersonBuilder {
     public static final String DEFAULT_AGE = "60";
-    public static final String DEFAULT_BLOOD_TYPE = "A";
+    public static final String DEFAULT_BLOOD_TYPE = "A+";
     public static final String DEFAULT_TISSUE_TYPE = "1,2,3,4,5,6";
     public static final String DEFAULT_ORGAN = "kidney";
     public static final String DEFAULT_ORGAN_EXPIRY_DATE = "01-Jan-2020";

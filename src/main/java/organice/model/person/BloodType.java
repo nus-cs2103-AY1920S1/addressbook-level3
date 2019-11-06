@@ -14,18 +14,23 @@ import java.util.HashSet;
 public class BloodType {
 
     public static final HashSet<String> BLOOD_TYPES =
-            new HashSet<>(Arrays.asList("A", "B", "AB", "O"));
+            new HashSet<>(Arrays.asList("A+", "B+", "AB+", "O+", "A-", "B-", "AB-", "O-"));
 
-    public static final BloodType BLOODTYPE_A = new BloodType("A");
-    public static final BloodType BLOODTYPE_B = new BloodType("B");
-    public static final BloodType BLOODTYPE_AB = new BloodType("AB");
-    public static final BloodType BLOODTYPE_O = new BloodType("O");
+    public static final BloodType BLOODTYPE_A_PLUS = new BloodType("A+");
+    public static final BloodType BLOODTYPE_B_PLUS = new BloodType("B+");
+    public static final BloodType BLOODTYPE_AB_PLUS = new BloodType("AB+");
+    public static final BloodType BLOODTYPE_O_PLUS = new BloodType("O+");
 
+    public static final BloodType BLOODTYPE_A_MINUS = new BloodType("A-");
+    public static final BloodType BLOODTYPE_B_MINUS = new BloodType("B-");
+    public static final BloodType BLOODTYPE_AB_MINUS = new BloodType("AB-");
+    public static final BloodType BLOODTYPE_O_MINUS = new BloodType("O-");
 
     public static final HashMap<BloodType, HashSet<BloodType>> BLOOD_TYPES_MATCHES = BloodType.getBloodTypeMatches();
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Blood type should only have A, B, O or AB. Inputs should not be blank";
+            "Valid blood type inputs are: 'A+', 'B+', 'O+', 'AB+', 'A-', 'B-', 'O-', 'AB-'.\n"
+            + "Inputs should not be blank";
 
 
 
@@ -43,14 +48,30 @@ public class BloodType {
         value = bloodType.toUpperCase();
     }
 
+    /**
+     * Returns a hashmap where a blood type maps to a list of blood types that can be donated to.
+     * @return
+     */
     public static HashMap<BloodType, HashSet<BloodType>> getBloodTypeMatches() {
         HashMap hashMap = new HashMap<BloodType, HashSet<BloodType>>();
 
-        hashMap.put(BLOODTYPE_A, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O, BLOODTYPE_A)));
-        hashMap.put(BLOODTYPE_B, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O, BLOODTYPE_B)));
-        hashMap.put(BLOODTYPE_AB, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_B, BLOODTYPE_A, BLOODTYPE_O,
-                BLOODTYPE_AB)));
-        hashMap.put(BLOODTYPE_O, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O)));
+        // positive blood types
+        hashMap.put(BLOODTYPE_A_PLUS, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O_PLUS, BLOODTYPE_A_PLUS,
+                BLOODTYPE_O_MINUS, BLOODTYPE_A_MINUS)));
+        hashMap.put(BLOODTYPE_B_PLUS, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O_PLUS, BLOODTYPE_B_PLUS,
+                BLOODTYPE_O_MINUS, BLOODTYPE_B_MINUS)));
+        hashMap.put(BLOODTYPE_AB_PLUS, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_B_PLUS, BLOODTYPE_A_PLUS,
+                BLOODTYPE_O_PLUS, BLOODTYPE_AB_PLUS, BLOODTYPE_B_MINUS, BLOODTYPE_A_MINUS,
+                BLOODTYPE_O_MINUS, BLOODTYPE_AB_MINUS)));
+        hashMap.put(BLOODTYPE_O_PLUS, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O_PLUS, BLOODTYPE_O_MINUS)));
+
+        // negative blood types
+        hashMap.put(BLOODTYPE_A_MINUS, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O_MINUS, BLOODTYPE_A_MINUS)));
+        hashMap.put(BLOODTYPE_B_MINUS, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O_MINUS, BLOODTYPE_B_MINUS)));
+        hashMap.put(BLOODTYPE_AB_MINUS, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_B_MINUS, BLOODTYPE_A_MINUS,
+                BLOODTYPE_O_MINUS, BLOODTYPE_AB_MINUS)));
+        hashMap.put(BLOODTYPE_O_MINUS, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O_MINUS)));
+
         return hashMap;
     }
 
@@ -62,12 +83,16 @@ public class BloodType {
     }
 
     /**
-     * Returns true if a {@code BloodType} matches this blood type.
+     * Checks if the blood of a {@code Donor} can be donated to a {@code Patient}.
+     * This article explains what blood types can patients receive:
+     * https://www.kidney.org/transplantation/livingdonors/what-blood-types-match
+     * @param donorBloodType BloodType of a {@code Donor}
+     * @return true if donorBloodType can be donated to the patient.
      */
-    public boolean isBloodTypeMatch(BloodType match) {
+    public boolean isCompatibleBloodType(BloodType donorBloodType) {
         HashSet<BloodType> matchingBloodTypes = BLOOD_TYPES_MATCHES.get(this);
 
-        if (matchingBloodTypes.contains(match)) {
+        if (matchingBloodTypes.contains(donorBloodType)) {
             return true;
         } else {
             return false;

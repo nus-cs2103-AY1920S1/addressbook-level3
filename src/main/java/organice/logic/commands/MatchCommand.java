@@ -58,7 +58,7 @@ public class MatchCommand extends Command {
 
         Double successRate = donorTissueType.getPercentageMatch(patientTissueType);
 
-        if (patientBloodType.isBloodTypeMatch(donorBloodType) && successRate >= SUCCESSFUL_PERCENTAGE) {
+        if (patientBloodType.isCompatibleBloodType(donorBloodType) && successRate >= SUCCESSFUL_PERCENTAGE) {
             Donor donorToSet = (Donor) donor;
             donorToSet.addMatchResult(patient.getNric(), successRate);
             donorToSet.setSuccessRate(patient.getNric());

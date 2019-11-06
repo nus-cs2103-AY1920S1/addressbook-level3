@@ -63,9 +63,9 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_PATIENT_IRENE = "high";
     public static final String VALID_PRIORITY_PATIENT_BOB = "medium";
 
-    public static final String VALID_BLOOD_TYPE_DONOR_JOHN = "A";
-    public static final String VALID_BLOOD_TYPE_PATIENT_BOB = "B";
-    public static final String VALID_BLOOD_TYPE_PATIENT_IRENE = "O";
+    public static final String VALID_BLOOD_TYPE_DONOR_JOHN = "A+";
+    public static final String VALID_BLOOD_TYPE_PATIENT_BOB = "B-";
+    public static final String VALID_BLOOD_TYPE_PATIENT_IRENE = "O+";
 
     public static final String VALID_TISSUE_TYPE_DONOR_JOHN = "1,2,3,4,5,6";
     public static final String VALID_TISSUE_TYPE_PATIENT_BOB = "7,8,9,10,11,12";
