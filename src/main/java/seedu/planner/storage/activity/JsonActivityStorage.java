@@ -31,6 +31,11 @@ public class JsonActivityStorage implements ActivityStorage {
         return filePath;
     }
 
+    public void setActivityFilePath(Path activityFilePath) {
+        requireNonNull(activityFilePath);
+        filePath = activityFilePath;
+    }
+
     @Override
     public Optional<ReadOnlyActivity> readActivity() throws DataConversionException {
         return readActivity(filePath);

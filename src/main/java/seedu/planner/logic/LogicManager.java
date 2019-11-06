@@ -60,6 +60,11 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
+            storage.setAccommodationFilePath(model.getAccommodationFilePath());
+            storage.setActivityFilePath(model.getActivityFilePath());
+            storage.setContactFilePath(model.getContactFilePath());
+            storage.setItineraryFilePath(model.getItineraryFilePath());
+
             storage.saveAccommodation(model.getAccommodations());
             storage.saveActivity(model.getActivities());
             storage.saveContact(model.getContacts());
@@ -124,6 +129,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getContactFilePath() {
         return model.getContactFilePath();
+    }
+
+    @Override
+    public String getFolderName() {
+        return model.getFolderName();
     }
 
     @Override

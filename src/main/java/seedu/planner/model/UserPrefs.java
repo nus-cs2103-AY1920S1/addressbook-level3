@@ -14,10 +14,11 @@ import seedu.planner.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path accommodationFilePath = Paths.get("data" , "accommodation.json");
-    private Path activityFilePath = Paths.get("data" , "activity.json");
-    private Path contactFilePath = Paths.get("data" , "contact.json");
-    private Path itineraryFilePath = Paths.get("data" , "itinerary.json");
+    private String folderName = "Sample";
+    private Path accommodationFilePath = Paths.get("data" , folderName, "accommodation.json");
+    private Path activityFilePath = Paths.get("data" , folderName, "activity.json");
+    private Path contactFilePath = Paths.get("data" , folderName, "contact.json");
+    private Path itineraryFilePath = Paths.get("data" , folderName, "itinerary.json");
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -77,6 +78,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setContactFilePath(Path contactFilePath) {
         requireNonNull(contactFilePath);
         this.contactFilePath = contactFilePath;
+    }
+
+    public String getFolderName() {
+        return folderName;
+    }
+
+    public void setFolderName(String folderName) {
+        requireNonNull(folderName);
+        this.folderName = folderName;
+        accommodationFilePath = Paths.get("data" , this.folderName, "accommodation.json");
+        activityFilePath = Paths.get("data" , this.folderName, "activity.json");
+        contactFilePath = Paths.get("data" , this.folderName, "contact.json");
+        itineraryFilePath = Paths.get("data" , this.folderName, "itinerary.json");
     }
 
     public Path getItineraryFilePath() {

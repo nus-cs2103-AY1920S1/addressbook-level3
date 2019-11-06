@@ -31,6 +31,11 @@ public class JsonAccommodationStorage implements AccommodationStorage {
         return filePath;
     }
 
+    public void setAccommodationFilePath(Path accommodationFilePath) {
+        requireNonNull(accommodationFilePath);
+        filePath = accommodationFilePath;
+    }
+
     @Override
     public Optional<ReadOnlyAccommodation> readAccommodation() throws DataConversionException {
         return readAccommodation(filePath);

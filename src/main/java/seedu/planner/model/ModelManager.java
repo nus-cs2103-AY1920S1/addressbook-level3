@@ -470,6 +470,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String getFolderName() {
+        return userPrefs.getFolderName();
+    }
+
+    @Override
+    public void setFolderName(Name folderName) {
+        requireNonNull(folderName);
+        userPrefs.setFolderName(folderName.toString());
+    }
+
+    @Override
     public Path getItineraryFilePath() {
         return userPrefs.getItineraryFilePath();
     }
@@ -806,6 +817,7 @@ public class ModelManager implements Model {
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
+
         if (obj == this) {
             return true;
         }
@@ -817,6 +829,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
         return accommodations.equals(other.accommodations)
                 && activities.equals(other.activities)
                 && contacts.equals(other.contacts)

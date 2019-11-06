@@ -36,7 +36,7 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     public Itinerary() {
-        this.nameProperty = new SimpleObjectProperty<>(new Name("Untitled"));
+        this.nameProperty = new SimpleObjectProperty<>(new Name("Sample"));
         this.startDateProperty = new SimpleObjectProperty<>(LocalDate.now());
     }
 
