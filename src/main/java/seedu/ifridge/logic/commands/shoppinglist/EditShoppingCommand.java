@@ -80,6 +80,17 @@ public class EditShoppingCommand extends Command {
         return commandResult;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof EditShoppingCommand)) {
+            return false;
+        } else {
+            return this.index.equals(((EditShoppingCommand) o).index) && this.editShoppingItemDescriptor.equals(((EditShoppingCommand) o).editShoppingItemDescriptor);
+        }
+    }
+
     /**
      * Creates and returns a {@code ShoppingItem} with the details of {@code shoppingItemToEdit}
      * edited with {@code editPersonDescriptor}.

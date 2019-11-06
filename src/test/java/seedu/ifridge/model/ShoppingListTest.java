@@ -119,6 +119,11 @@ public class ShoppingListTest {
         public ObservableList<ShoppingItem> getShoppingList() {
             return foods;
         }
+
+        @Override
+        public boolean hasShoppingItem(ShoppingItem shoppingItem) {
+            return foods.contains(shoppingItem);
+        }
     }
 
 }

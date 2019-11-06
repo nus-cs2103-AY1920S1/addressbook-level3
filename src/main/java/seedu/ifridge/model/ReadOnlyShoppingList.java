@@ -14,4 +14,9 @@ public interface ReadOnlyShoppingList {
      */
     ObservableList<ShoppingItem> getShoppingList();
 
+    /**
+     * Indicates if the shopping list has the particular shopping item.
+     */
+    boolean hasShoppingItem(ShoppingItem shoppingItem);
+
 }
