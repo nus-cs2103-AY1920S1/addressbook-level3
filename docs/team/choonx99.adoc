@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: MyMorise
+== PROJECT: MYMorise
 
 ---
 
@@ -13,20 +13,19 @@ include::overview.adoc[]
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added the ability to create/edit and delete budgets
+** What it does: allows the user to better manage their expenses by having customizable budgets to track their expenses for them.
+** Justification: This feature is fundamental in an application that tracks expenses.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis on every aspect of the app and design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: AddressBook Level 3
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancements*: Updated certain existing commands to work well with the major enhancement without creating separate commands. Example: Delete command will be able to delete an expense or a budget depending on what the user is viewing instead of creating a separate DeleteBudget command.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
@@ -64,9 +63,3 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
