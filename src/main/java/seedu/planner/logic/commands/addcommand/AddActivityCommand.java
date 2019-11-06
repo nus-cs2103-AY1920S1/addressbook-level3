@@ -52,9 +52,9 @@ public class AddActivityCommand extends AddCommand {
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
             "<INDEX>",
             new ArrayList<>(),
-            Arrays.asList(PREFIX_NAME + " <NAME>", PREFIX_ADDRESS + " <ADDRESS>", PREFIX_DURATION + " <DURATION>"),
-            Arrays.asList(PREFIX_PHONE + " <PHONE>", PREFIX_COST + " <COST>", PREFIX_PRIORITY + " <PRIORITY>"),
-            Arrays.asList(PREFIX_TAG + " <TAG>")
+            Arrays.asList(PREFIX_NAME + "<NAME>", PREFIX_ADDRESS + "<ADDRESS>", PREFIX_DURATION + "<DURATION>"),
+            Arrays.asList(PREFIX_PHONE + "<PHONE>", PREFIX_COST + "<COST>", PREFIX_PRIORITY + "<PRIORITY>"),
+            Arrays.asList(PREFIX_TAG + "<TAG>")
     );
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1s";

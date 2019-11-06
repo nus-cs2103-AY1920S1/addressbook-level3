@@ -45,8 +45,8 @@ public class AutoCompleteParser {
     );
 
     public String parseCommandWord(String input) throws CommandWordNotFoundException {
-        String firstWord = getWord(input, 0);
         try {
+            String firstWord = getWord(input, 0);
             if (isOneWordCommand(firstWord)) {
                 return firstWord;
             }

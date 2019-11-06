@@ -27,7 +27,7 @@ public class TestCommandBox extends UiPart<Region> {
     public TestCommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        commandTextField.getEntries().addAll(Arrays.asList("add activity", "AB", "ABC"));
+//        commandTextField.getEntries().addAll(Arrays.asList("add activity", "AB", "ABC"));
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         // commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
