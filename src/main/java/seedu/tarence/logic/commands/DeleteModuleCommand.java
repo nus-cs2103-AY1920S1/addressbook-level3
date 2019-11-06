@@ -70,7 +70,7 @@ public class DeleteModuleCommand extends Command {
 
         if (targetIndex.isPresent()) {
             if (targetIndex.get().getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_INDEX_BEYOND_RANGE);
             }
             moduleToDelete = lastShownList.get(targetIndex.get().getZeroBased());
         } else {

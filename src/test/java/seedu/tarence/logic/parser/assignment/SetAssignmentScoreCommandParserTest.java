@@ -1,6 +1,7 @@
 package seedu.tarence.logic.parser.assignment;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_INDEX_NON_POSITIVE;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.tarence.logic.parser.ParserTestUtils.INDEX_DESC;
@@ -14,7 +15,6 @@ import static seedu.tarence.logic.parser.ParserTestUtils.VALID_INDEX;
 import static seedu.tarence.logic.parser.ParserTestUtils.VALID_MOD_CODE;
 import static seedu.tarence.logic.parser.ParserTestUtils.VALID_SCORE;
 import static seedu.tarence.logic.parser.ParserTestUtils.VALID_TUT_NAME;
-import static seedu.tarence.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +48,7 @@ public class SetAssignmentScoreCommandParserTest {
     @Test
     void parse_invalidTutIndex_throwsParseException() {
         assertParseFailure(parser, INVALID_INDEX_DESC + INDEX_DESC + INDEX_DESC + SCORE_DESC,
-                MESSAGE_INVALID_INDEX);
+                MESSAGE_INVALID_INDEX_NON_POSITIVE);
     }
 
     @Test

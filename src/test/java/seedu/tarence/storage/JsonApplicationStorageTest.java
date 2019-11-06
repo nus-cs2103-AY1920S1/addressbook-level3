@@ -1,12 +1,9 @@
 package seedu.tarence.storage;
 
 //import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.tarence.testutil.Assert.assertThrows;
-//import static seedu.tarence.testutil.TypicalPersons.ALICE;
-//import static seedu.tarence.testutil.TypicalPersons.HOON;
-//import static seedu.tarence.testutil.TypicalPersons.IDA;
-//import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,6 +15,11 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.tarence.commons.exceptions.DataConversionException;
 import seedu.tarence.model.Application;
 import seedu.tarence.model.ReadOnlyApplication;
+
+//import static seedu.tarence.testutil.TypicalPersons.ALICE;
+//import static seedu.tarence.testutil.TypicalPersons.HOON;
+//import static seedu.tarence.testutil.TypicalPersons.IDA;
+//import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 public class JsonApplicationStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonApplicationStorageTest");

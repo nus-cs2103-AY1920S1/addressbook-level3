@@ -1,5 +1,6 @@
 package seedu.tarence.ui;
 
+import static javafx.geometry.Pos.BASELINE_LEFT;
 import static javafx.geometry.Pos.BASELINE_RIGHT;
 
 import javafx.collections.ObservableList;
@@ -190,8 +191,10 @@ public class CommandBox extends UiPart<Region> {
             handleNextSuggestion();
         } else if (keyEvent.getCode().equals(KeyCode.UP) || keyEvent.getCode().equals(KeyCode.DOWN)) {
             handlePastInput(keyEvent.getCode());
+        } else if (keyEvent.getCode().equals(KeyCode.BACK_SPACE)) {
+            commandTextField.setAlignment(BASELINE_LEFT);
         } else {
-            handleOtherInput();
+            commandTextField.setAlignment(BASELINE_RIGHT);
         }
 
     }

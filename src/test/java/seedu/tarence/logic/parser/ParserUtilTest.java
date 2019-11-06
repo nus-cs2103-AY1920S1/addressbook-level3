@@ -1,7 +1,7 @@
 package seedu.tarence.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.tarence.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_INDEX_NON_POSITIVE;
 import static seedu.tarence.testutil.Assert.assertThrows;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 
@@ -27,7 +27,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_NON_POSITIVE, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 

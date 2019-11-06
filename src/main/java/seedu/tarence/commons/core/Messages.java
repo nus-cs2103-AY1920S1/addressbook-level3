@@ -12,7 +12,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_FILE = "Invalid file";
-    public static final String MESSAGE_INVALID_MODULE_DISPLAYED_INDEX = "The module index provided is invalid";
+    public static final String MESSAGE_INVALID_INDEX_NON_POSITIVE = "The index(es) provided must be greater than 0.";
+    public static final String MESSAGE_INVALID_INDEX_BEYOND_RANGE = "The index provided is invalid (exceeds range).";
+    public static final String MESSAGE_INVALID_MODULE_DISPLAYED_INDEX = "The module index provided is invalid.";
     public static final String MESSAGE_INVALID_MODULE_IN_APPLICATION = "No module of this code exists!";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_STUDENT_IN_TUTORIAL = "No such student in this tutorial!";

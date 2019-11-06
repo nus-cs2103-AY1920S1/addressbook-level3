@@ -1,6 +1,7 @@
 package seedu.tarence.logic.parser;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_INDEX_NON_POSITIVE;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
@@ -26,7 +27,7 @@ class DeleteModuleCommandParserTest {
 
     @Test
     void parse_invalidIndex_throwsParseException() {
-        assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_INDEX_NON_POSITIVE,
                 DeleteModuleCommand.MESSAGE_USAGE));
     }
 

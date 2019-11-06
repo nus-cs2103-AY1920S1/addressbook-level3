@@ -2,7 +2,6 @@ package seedu.tarence.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-//import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import java.nio.file.Path;
 
@@ -11,9 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.tarence.commons.core.GuiSettings;
+import seedu.tarence.model.UserPrefs;
+
+//import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 //import seedu.tarence.model.Application;
 //import seedu.tarence.model.ReadOnlyApplication;
-import seedu.tarence.model.UserPrefs;
 
 public class StorageManagerTest {
 

@@ -1,6 +1,7 @@
 package seedu.tarence.logic.parser.assignment;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_INDEX_NON_POSITIVE;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.tarence.logic.parser.ParserTestUtils.ASSIGN_NAME_DESC;
@@ -21,7 +22,6 @@ import static seedu.tarence.logic.parser.ParserTestUtils.VALID_MOD_CODE;
 import static seedu.tarence.logic.parser.ParserTestUtils.VALID_SCORE;
 import static seedu.tarence.logic.parser.ParserTestUtils.VALID_START_DATE;
 import static seedu.tarence.logic.parser.ParserTestUtils.VALID_TUT_NAME;
-import static seedu.tarence.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,13 +69,13 @@ public class DeleteAssignmentCommandParserTest {
     @Test
     void parse_invalidTutIndex_throwsParseException() {
         assertParseFailure(parser, INVALID_INDEX_DESC + INDEX_DESC,
-                MESSAGE_INVALID_INDEX);
+                MESSAGE_INVALID_INDEX_NON_POSITIVE);
     }
 
     @Test
     void parse_invalidAssignIndex_throwsParseException() {
         assertParseFailure(parser, INDEX_DESC + INVALID_INDEX_DESC,
-                MESSAGE_INVALID_INDEX);
+                MESSAGE_INVALID_INDEX_NON_POSITIVE);
     }
 
     @Test

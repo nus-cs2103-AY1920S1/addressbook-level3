@@ -1,6 +1,7 @@
 package seedu.tarence.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_INDEX_NON_POSITIVE;
 import static seedu.tarence.logic.parser.ArgumentPatterns.PATTERN_WEEKRANGE;
 
 import java.time.DayOfWeek;
@@ -13,6 +14,7 @@ import java.util.regex.Matcher;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.commons.util.StringUtil;
+import seedu.tarence.logic.parser.exceptions.NegativeIndexException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.person.Email;
@@ -41,7 +43,9 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+        if (StringUtil.isNonPositiveInteger(trimmedIndex)) {
+            throw new NegativeIndexException(MESSAGE_INVALID_INDEX_NON_POSITIVE);
+        } else if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));

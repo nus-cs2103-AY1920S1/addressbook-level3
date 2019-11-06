@@ -18,10 +18,10 @@ By: `AY1920S1-CS2103-T14-2`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-T.A.rence is for Teaching Assistants (TAs) who prefer to use a desktop app for managing their TA responsibilities.
-T.A.rence is *optimized for those who prefer to work with a Command Line Interface* (CLI)
+T.A.rence is a desktop app for university Teaching Assistants (TAs) to manage their classes and students.
+T.A.rence is *optimized for users who prefer to work with a Command Line Interface* (CLI)
 while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, T.A.rence can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+If you can type fast, T.A.rence can get your teaching management tasks done faster than traditional GUI apps.
 
 
 
@@ -722,6 +722,10 @@ Entering the number 1 runs the command `addTutorial tn/Tut01 m/GER1000 ...`.
 T.A.rence generates and displays real-time suggestions for command words and user data from the application (e.g. module codes and tutorial names), depending on the field the user is currently entering.  Similar to other CLI programs such as Windows' Command Prompt and MacOS' Terminal, pressing the "TAB" key will autofill the input box with the current suggestion. Pressing "CTRL" cycles through the different available suggestions.
 
 E.g.: with `addTutorial m/GE` in the input box, pressing "CTRL" changes the displayed suggestion to `R1000`, `Q1000`, etc., depending on which modules beginning with "GE" were previously added to the application. Pressing "TAB" then changes the input box value to `addTutorial m/GE_1000`.
+
+=== Command History
+
+Every command entered into T.A.rence is saved. Press the "UP" key to bring up older commands and the "DOWN" key to move back to more recent ones.
 
 == FAQ
 

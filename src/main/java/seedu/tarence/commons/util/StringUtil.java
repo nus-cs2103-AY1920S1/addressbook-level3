@@ -49,6 +49,22 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if {@code s} represents a negative integer. <br>
+     * Will return false for any other non-null string input
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static boolean isNonPositiveInteger(String s) {
+        requireNonNull(s);
+
+        try {
+            int value = Integer.parseInt(s);
+            return value <= 0; // "+1" is successfully parsed by Integer#parseInt(String)
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    /**
      * Returns true if {@code s} represents a non-zero unsigned integer
      * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>
      * Will return false for any other non-null string input

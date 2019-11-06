@@ -5,6 +5,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.DeleteModuleCommand;
+import seedu.tarence.logic.parser.exceptions.NegativeIndexException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 
@@ -34,6 +35,8 @@ public class DeleteModuleCommandParser extends CommandParser<DeleteModuleCommand
                 ModCode modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
                 return new DeleteModuleCommand(modCode);
             }
+        } catch (NegativeIndexException nie) {
+            throw nie;
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE), pe);

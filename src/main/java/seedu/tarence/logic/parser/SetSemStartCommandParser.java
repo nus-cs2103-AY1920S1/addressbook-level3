@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import seedu.tarence.logic.commands.SetSemStartCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
-import seedu.tarence.model.tutorial.Tutorial;
 
 /**
  * Parses input arguments and creates a new SetSemStartCommand object
@@ -31,12 +30,12 @@ public class SetSemStartCommandParser implements Parser<SetSemStartCommand> {
         }
 
         argMultimap.getValue(PREFIX_START_DATE).get();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(Tutorial.DATE_FORMAT);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(SetSemStartCommand.DATE_FORMAT);
         Date startDate;
         try {
             startDate = dateFormatter.parse(argMultimap.getValue(PREFIX_START_DATE).get());
         } catch (java.text.ParseException e) {
-            throw new ParseException(String.format("Format should be %s", Tutorial.DATE_FORMAT));
+            throw new ParseException(String.format("Format should be %s", SetSemStartCommand.DATE_FORMAT));
         }
 
         return new SetSemStartCommand(startDate);

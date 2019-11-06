@@ -21,6 +21,7 @@ import seedu.tarence.storage.Storage;
  */
 public class SetSemStartCommand extends Command {
 
+    public static final String DATE_FORMAT = "dd-MM-yyyy";
     public static final String MESSAGE_SET_SEM_START_SUCCESS = "Start of semester is: %s";
     public static final String COMMAND_WORD = "setSemStart";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "setstart", "setst", "setsem"};
@@ -59,7 +60,7 @@ public class SetSemStartCommand extends Command {
 
         Module.setSemStart(semStart);
 
-        DateFormat dateFormat = new SimpleDateFormat(Tutorial.DATE_FORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         return new CommandResult(
                 String.format(MESSAGE_SET_SEM_START_SUCCESS + "\n",
                 dateFormat.format(semStart)));
