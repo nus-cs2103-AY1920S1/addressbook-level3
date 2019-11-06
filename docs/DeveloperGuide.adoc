@@ -241,11 +241,11 @@ image::CommitActivityDiagram.png[]
 The timeslot generator is used to suggest meeting timings by making use of team members' timetable.
 
 [NOTE]
-This feature makes heavy use of the class `TimeRange`, which represents a period of time in a week, e.g. Monday 1000 -- Monday 1200.
+This feature makes heavy use of the class `TimeRange`, which represents a period of time in a week, e.g. MONDAY 1000 -- MONDAY 1200.
 
 The main logic of this feature is contained within the `TimeSlotGenerator` class:
 
-TimeSlotGenerator(members, desiredMeetingDuration, restrictedTimeRange)`
+`TimeSlotGenerator(members, desiredMeetingDuration, restrictedTimeRange)`
 
 * `members`: `List<TimeTable>` of members of the checked-out `Project`
 * `desiredMeetingDuration`: How long the meeting would last in hour, expressed as a positive integer
@@ -281,14 +281,12 @@ If `generate()` returns an empty `List<TimeRange>`, the program should automatic
 
 The following activity diagram summarizes the general flow of the command `generate`:
 
-.`Generate` command tries to provide best possible meeting timeslot
+.`generate` command tries to provide best possible meeting timeslot
 image::GenerateSlotActivityDiagram.png[]
 
 ==== Algorithm Used
 
 ===== `TimeSlotGenerator#generate()`
-
-This algorithm goes through several stages:
 
 . Combine all the given `TimeTable` into a single `List<TimeRange> combined`
 . `combined` is then processed further by merging overlapping `TimeRange` into a single `TimeRange`. E.g. `TimeRange(MONDAY, 1000, MONDAY, 1200)` and `TimeRange(MONDAY, 1200, MONDAY,1400)` are merged together to form a single `TimeRange(MONDAY, 1000, MONDAY, 1400)`. `List<TimeRange> merged` is then passed on to the next stage.

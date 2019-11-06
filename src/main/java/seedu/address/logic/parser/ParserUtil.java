@@ -246,7 +246,10 @@ public class ParserUtil {
     }
 
     /**
-     *
+     * Parse newline separated TimeRanges, return their Timetable representation
+     * @param timeTableString Newline separated TimeRanges
+     * @return Timetable representation of the TimeRanges
+     * @throws ParseException
      */
     public static Timetable parseTimeTable(String timeTableString) throws ParseException {
         String[] splitted = timeTableString.split("\n");

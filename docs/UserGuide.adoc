@@ -114,12 +114,12 @@ Example:
 
 * `addFromContacts 1`
 
-==== 4. Add a timetable: `addTimeTable`
+==== 4. Add a timetable: `addTimetable`
 
-Adds a timetable for the specified person, to record down their schedule.
+Need to keep track of your team members' schedule? Use this command to record down their timetable easily!
 
 [TIP]
-Timetable added is later used to generate avaiable meeting timeslots using the command `generate`
+Timetable added can be used to generate avaiable meeting timeslots using the command `generate`
 
 Format:
 
@@ -129,6 +129,13 @@ Example:
 
 * `addTimetable 3 f//home/john/Desktop/aliceTimetable.txt` +
 Add Alice's timetable to Alice, who has index 3 in the list of persons.
+
+[NOTE]
+File should be formatted as a newline separated list of time ranges, e.g: +
+MONDAY 1000 MONDAY 1200 +
+MONDAY 1400 MONDAY 1600 +
+TUESDAY 1100 TUESDAY 1500
+
 * `addTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27` +
 Add timetable to the person with index 2 on the list of persons.
 
@@ -285,10 +292,14 @@ associated with this functionality.
 
 ==== 1. Generate meeting timing: `generate` [Checkout]
 
-=======
 Generates possible meeting timeslots for which everyone is available.
+=======
+Need to decide on a meeting timing, but having trouble finding a time where all members are free? This command can help suggest meeting timings!
 
 * Prerequisite: Timetables have been assigned to the members with the command `addTimetable`
+
+[NOTE]
+`generate` would still work even if some members do not have timetable assigned to them. Make sure that you have done `addTimetable` for each of the members  in the project.
 
 Format: `generate d/DURATION [r/TIMERANGE]`
 
@@ -298,6 +309,7 @@ Example:
 Generates all possible meeting timeslots that lasts at least 2 hours, within the time frame of Monday 9am to Monday 6pm.
 
 =======
+
 
 ==== 2. Send reminder: `sendReminder`
 

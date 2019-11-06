@@ -21,7 +21,7 @@ public class TimeTableInput {
     }
 
     /**
-     *
+     * Return retreived timetable from NUSMods
      * @param url URL of NUSMods shared timetable
      * @return Retrieved {@code TimeTable}
      * @throws IOException URL parsing error
@@ -29,7 +29,7 @@ public class TimeTableInput {
      */
     public Timetable getTimetableFromUrl(URL url) throws IOException, IllegalValueException {
         String urlString = url.toString();
-        int semMatch = urlString.toString().indexOf("sem-");
+        int semMatch = urlString.indexOf("sem-");
         int sem = Integer.parseInt(urlString.substring(semMatch + 4, semMatch + 5));
 
         List<TimeRange> timeRanges = new ArrayList<>();
@@ -75,7 +75,7 @@ public class TimeTableInput {
         JsonNode root = objectMapper.readTree(url);
         List<TimeRange> timeRanges = new ArrayList<>();
         for (int i = 0; i < groups.size(); i++) {
-            timeRanges.addAll(getTimeRangeFromEntry(root, groups.get(i), lessonTypes.get(i), sem));
+            timeRanges.addAll(getTimeRangeFromEntry(root, groups.get(i), lessonTypes.get(i), sem, moduleCode.toUpperCase()));
         }
         return timeRanges;
     }
@@ -87,7 +87,7 @@ public class TimeTableInput {
      * @param lessonType Type of lession. Can be found on left side of mapping in {@code LessonTypeMapping.java}
      * @param sem either 1 or 2
      */
-    public List<TimeRange> getTimeRangeFromEntry(JsonNode moduleNode, String group, String lessonType, int sem) throws IllegalValueException, JsonProcessingException {
+    public List<TimeRange> getTimeRangeFromEntry(JsonNode moduleNode, String group, String lessonType, int sem, String moduleCode) throws IllegalValueException, JsonProcessingException {
         List<JsonNode> targets = new ArrayList<>();
         moduleNode.path("semesterData")
                 .path(sem - 1) // Sem 1
@@ -99,7 +99,7 @@ public class TimeTableInput {
                 });
         if (targets.size() < 1) {
             // System.out.println(String.format("Group:%s,LessonType:%s,sem:%d", group, lessonType, sem));
-            throw new IllegalValueException("No such lesson exists");
+            throw new IllegalValueException("No such lesson exists: " + String.format("Module:%s, Group: %s, LessonType:%s, Sem:%d", moduleCode, group, lessonType, sem));
         }
 
         // Possible to have more than

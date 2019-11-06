@@ -32,6 +32,9 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
             return new AddTimetableCommand(index, absoluteFilepath);
         } else if (argMultimap.getValue(AddTimetableCommand.PREFIX_NUSMODS_URL).isPresent()) {
             try {
+                if (!isValidUrl(argMultimap.getValue(AddTimetableCommand.PREFIX_NUSMODS_URL).get())) {
+                    throw new ParseException(AddTimetableCommand.MESSAGE_INVALID_URL);
+                }
                 url = new URL(argMultimap.getValue(AddTimetableCommand.PREFIX_NUSMODS_URL).get());
                 return new AddTimetableCommand(index, url);
             } catch (MalformedURLException e) {
@@ -40,5 +43,9 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
         } else {
             throw new ParseException(AddTimetableCommand.MESSAGE_NO_TIMETABLE_SOURCE);
         }
+    }
+
+    public static boolean isValidUrl(String url) {
+        return url.matches(AddTimetableCommand.VALIDATION_REGEX);
     }
 }

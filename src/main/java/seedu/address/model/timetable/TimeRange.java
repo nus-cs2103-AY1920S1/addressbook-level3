@@ -6,6 +6,9 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 public class TimeRange implements Comparable<TimeRange> {
     private final WeekTime start;
     private final WeekTime end;
@@ -63,15 +66,18 @@ public class TimeRange implements Comparable<TimeRange> {
         return this.start.compareTo(other.start);
     }
 
-    public boolean overlap(TimeRange timeRange) {
-        return this.start.compareTo(timeRange.end) < 0 && this.end.compareTo(timeRange.start) > 0;
+    public boolean overlap(TimeRange other) {
+        requireNonNull(other);
+        return this.start.compareTo(other.end) < 0 && this.end.compareTo(other.start) > 0;
     }
 
     public boolean overlapInclusive(TimeRange other) {
+        requireNonNull(other);
         return this.overlap(other) || this.getEnd().equals(other.getStart()) || this.getStart().equals(other.getEnd());
     }
 
     private static boolean rangeIsValid(WeekTime start, WeekTime end) {
+        requireAllNonNull(start, end);
         return start.compareTo(end) < 0;
     }
 

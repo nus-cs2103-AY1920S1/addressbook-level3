@@ -3,6 +3,10 @@ package seedu.address.model.timetable;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Wrapper class to wrap timetables and the corresponding generated timeRange
+ * isEmpty represents whether there is a valid generated timeRange to be returned to the user
+ */
 public class TimeSlotsAvailable {
     private final Collection<Timetable> timetables;
     private final List<TimeRange> timeRanges;

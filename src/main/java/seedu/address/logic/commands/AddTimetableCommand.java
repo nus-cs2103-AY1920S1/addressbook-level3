@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -7,13 +8,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.timetable.Timetable;
 import seedu.address.model.timetable.TimeTableInput;
 import seedu.address.model.timetable.TimeTableVisualization;
+import seedu.address.model.timetable.Timetable;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -27,6 +29,8 @@ public class AddTimetableCommand extends Command {
 
     public static final Prefix PREFIX_FILEPATH = new Prefix("f/");
     public static final Prefix PREFIX_NUSMODS_URL = new Prefix("n/");
+    private static final Logger logger = LogsCenter.getLogger(AddTimetableCommand.class);
+
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add timetable to the person identified "
             + "by the index number used in the displayed person list. "
@@ -38,10 +42,13 @@ public class AddTimetableCommand extends Command {
             + COMMAND_WORD + " 1 " + PREFIX_FILEPATH + "/path/to/timetable/file\n"
             + COMMAND_WORD + " 1 " + PREFIX_NUSMODS_URL + "https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27";
 
-    public static final String MESSAGE_ADD_TIMETABLE_SUCCESS = "Added timetable to Person: %s\n%s";
+    public static final String MESSAGE_ADD_TIMETABLE_SUCCESS = "Added timetable to: %s\n%s";
     public static final String MESSAGE_INVALID_FILEPATH = "Please provide a proper absolute filepath to the timetable file";
-    public static final String MESSAGE_INVALID_URL = "URL invalid. Please provide a proper URL to NUSMODs";
-    public static final String MESSAGE_NO_TIMETABLE_SOURCE = "Please provide either an NUSMods URL or a filepath to a timetable time";
+    public static final String MESSAGE_INVALID_URL = "Invalid URL. Please provide a proper URL to NUSMODs";
+    public static final String MESSAGE_INVALID_URL_OR_INTERNET_ERROR = "Unable to reach URL. Please check your internet connection and ensure that you have entered a proper NUSMods link";
+    public static final String MESSAGE_NO_TIMETABLE_SOURCE = "Please provide either an NUSMods URL or a filepath to a timetable time\n"
+            + MESSAGE_USAGE;
+    public static final String VALIDATION_REGEX = "https:\\/\\/nusmods.com\\/timetable\\/sem-[1,2]\\/share\\?(\\w+=(\\w+:\\w+,?)*&?)+";
 
     private final Index index;
     private final String absoluteFilepath;
@@ -53,10 +60,14 @@ public class AddTimetableCommand extends Command {
      */
     public AddTimetableCommand(Index index, String absoluteFilepath) {
         this(index, absoluteFilepath, null);
+        requireNonNull(absoluteFilepath);
+        logger.info("Creating AddTimetableCommand using absoluteFilepath: " + absoluteFilepath);
     }
 
     public AddTimetableCommand(Index index, URL url) {
         this(index, null, url);
+        requireNonNull(url);
+        logger.info("Creating AddTimetableCommand using NUSMods URL: " + url.toString());
     }
 
     public AddTimetableCommand(Index index, String absoluteFilepath, URL url) {
@@ -88,7 +99,7 @@ public class AddTimetableCommand extends Command {
             try {
                 timeTable = new TimeTableInput().getTimetableFromUrl(url);
             } catch (IOException e) {
-                throw new CommandException(MESSAGE_INVALID_URL);
+                throw new CommandException(MESSAGE_INVALID_URL_OR_INTERNET_ERROR);
             }
         }
 
@@ -97,7 +108,7 @@ public class AddTimetableCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_TIMETABLE_SUCCESS, editedPerson, new TimeTableVisualization(timeTable).visualize()), COMMAND_WORD);
+        return new CommandResult(String.format(MESSAGE_ADD_TIMETABLE_SUCCESS, editedPerson.getName().toString(), new TimeTableVisualization(timeTable).visualize()), COMMAND_WORD);
     }
 
     @Override

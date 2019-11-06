@@ -18,7 +18,7 @@ public class GenerateSlotCommandParser implements Parser<GenerateSlotCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_DURATION, PREFIX_TIMERANGE);
-        if (argMultimap.getValue(PREFIX_DURATION).isEmpty()) {
+        if (argMultimap.getValue(PREFIX_DURATION).isEmpty() || !isValidDuration(argMultimap.getValue(PREFIX_DURATION).get())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenerateSlotCommand.MESSAGE_USAGE));
         }
         TimeRange timeRangeSpecified;
@@ -35,5 +35,9 @@ public class GenerateSlotCommandParser implements Parser<GenerateSlotCommand> {
         return new GenerateSlotCommand(
                 Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()),
                 timeRangeSpecified);
+    }
+
+    public static boolean isValidDuration(String test) {
+        return test.matches(DURATION_VALIDATION_REGEX) && Integer.parseInt(test) < 25 && Integer.parseInt(test) > 0;
     }
 }
