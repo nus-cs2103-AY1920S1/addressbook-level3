@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
+import static seedu.moneygowhere.testutil.TypicalSpendings.getSpendingSum;
+import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.time.LocalDate;
 
@@ -22,9 +24,13 @@ class BudgetTest {
 
     @BeforeEach
     public void setUp() {
-        oldBudget = new Budget(100, 10, "01/2010");
-        oldDate = LocalDate.of(2010, 01, 01);
-        newBudget = new Budget(123, 12, "12/2020");
+        oldBudget = new Budget(100, "01/2010");
+        newBudget = new Budget(123, "12/2020");
+
+        // oldDate is date of spendings in TypicalSPendingBook
+        oldDate = LocalDate.of(2019, 01, 01);
+
+        // newDate is not in typicalSpendingBook
         newDate = LocalDate.of(2020, 12, 01);
     }
 
@@ -40,17 +46,7 @@ class BudgetTest {
     }
 
     @Test
-    public void isValidBudget() {
-        // null tag name
-        assertThrows(NullPointerException.class, () -> Budget.isValidBudget(null));
-
-        //invalid Budgets
-        assertFalse(Budget.isValidBudget("")); // empty string
-        assertFalse(Budget.isValidBudget(" ")); // spaces only
-        assertFalse(Budget.isValidBudget("incorrect")); // strings need to be numbers
-        assertFalse(Budget.isValidBudget("-1")); //  numeric strings need to be positive
-        assertFalse(Budget.isValidBudget(-1)); //  cannot be negative
-
+    public void isValidBudget_validInput_success() {
         //valid Budget
         assertTrue(Budget.isValidBudget("0"));
         assertTrue(Budget.isValidBudget("0.123"));
@@ -61,26 +57,33 @@ class BudgetTest {
     }
 
     @Test
-    public void update_oldMonth_noUpdate() {
-        Budget temp = new Budget(123, 12, "12/2020");
-        temp.update(oldDate);
-        assertEquals(temp, newBudget);
+    public void isValidBudget_invalidInput_false() {
+        // null tag name
+        assertThrows(NullPointerException.class, () -> Budget.isValidBudget(null));
+
+        //invalid Budgets
+        assertFalse(Budget.isValidBudget("")); // empty string
+        assertFalse(Budget.isValidBudget(" ")); // spaces only
+        assertFalse(Budget.isValidBudget("incorrect")); // strings need to be numbers
+        assertFalse(Budget.isValidBudget("-1")); //  numeric strings need to be positive
+        assertFalse(Budget.isValidBudget(-1)); //  cannot be negative
     }
 
     @Test
-    public void update_sameMonth_noUpdate() {
-        Budget temp = new Budget(123, 12, "12/2020");
-        temp.update(newDate);
-        assertEquals(temp, newBudget);
-    }
+    public void initialize_validInput_success() {
+        Budget temp = new Budget(100, "01/2010");
+        temp.initialize(newDate, getTypicalSpendingBook().getSpendingList());
+        assertEquals(100, temp.getValue());
+        assertEquals((new BudgetMonth(newDate)).toString(), temp.getMonthString());
+        assertEquals(0, temp.getSum());
 
-    @Test
-    public void update_differentMonth_update() {
-        Budget cleanBudget = new Budget(100, 0, "12/2020");
-        Budget temp = new Budget(100, 10, "01/2010");
+        temp = new Budget(1000, "01/2010");
+        temp.initialize(oldDate, getTypicalSpendingBook().getSpendingList());
+        assertEquals(1000, temp.getValue());
+        assertEquals((new BudgetMonth(oldDate)).toString(), temp.getMonthString());
+        assertEquals(getSpendingSum(), temp.getSum());
 
-        temp.update(newDate);
-        assertEquals(temp, cleanBudget);
+
     }
 
     @Test
@@ -91,19 +94,19 @@ class BudgetTest {
     }
 
     @Test
-    public void addSpending_wrongDate_noAdd() {
+    public void addSpending_differentDate_noAdd() {
         Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
-        Budget newBudgetTemp = new Budget(123, 12, "12/2020");
+        Budget newBudgetTemp = new Budget(123, "12/2020");
         newBudgetTemp.addSpending(temp);
-        assertEquals(newBudget, newBudgetTemp);
+        assertEquals(0, newBudgetTemp.getSum());
     }
 
     @Test
     public void addSpending_validDate_success() {
         Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
-        Budget oldBudgetTemp = new Budget(100, 10, "01/2010");
+        Budget oldBudgetTemp = new Budget(100, "01/2010");
         oldBudgetTemp.addSpending(temp);
-        assertEquals(oldBudget.getSum() + 10, oldBudgetTemp.getSum());
+        assertEquals(10, oldBudgetTemp.getSum());
     }
 
     @Test
