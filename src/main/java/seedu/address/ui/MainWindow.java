@@ -84,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         visitWindow = new VisitRecordWindow(windowEvent -> {
             resultDisplay.setFeedbackToUser(visitWindow.getMessage());
+            visitWindow.clearFields();
         });
         visitListPanel = new VisitListPanel();
         emptyVisitList = new EmptyVisitList();
@@ -239,6 +240,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleShowVisitList() {
         if (!visitListPanel.isShowing()) {
             visitListPanel.show();
+            primaryStage.requestFocus();
         } else {
             visitListPanel.focus();
         }

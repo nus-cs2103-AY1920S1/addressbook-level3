@@ -28,51 +28,53 @@ public class CommandResult {
     private Person profilePerson;
 
     /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    private final boolean isShowHelp;
 
-    /** The application should addVisit. */
-    private final boolean addVisit;
+    /** The application should AddVisit. */
+    private final boolean isAddVisit;
 
-    /** The application should showVisitList. */
-    private final boolean showVisitList;
+    /** The application should ShowVisitList. */
+    private final boolean isShowVisitList;
 
-    /** The application should editVisit. */
-    private final boolean editVisit;
+    /** The application should EditVisit. */
+    private final boolean isEditVisit;
 
     /** The application should show the Profile */
-    private final boolean profile;
+    private final boolean isProfile;
 
-    /** The application should exit. */
+    /** The application should Exit. */
     private final boolean exit;
 
     /** Display reminders and follow-up motd */
-    private final boolean showMotd;
+    private final boolean isShowMotd;
 
     /** Display list of existing user-defined aliases*/
-    private final boolean showAliasList;
+    private final boolean isShowAliasList;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean showVisitList,
-                         boolean editVisit, boolean profile, boolean exit, boolean showMotd, boolean showAliasList) {
+    public CommandResult(String feedbackToUser, boolean isShowHelp, boolean isAddVisit, boolean isShowVisitList,
+                         boolean isEditVisit, boolean isProfile, boolean exit,
+                         boolean isShowMotd, boolean isShowAliasList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.addVisit = addVisit;
-        this.showVisitList = showVisitList;
-        this.editVisit = editVisit;
-        this.profile = profile;
+        this.isShowHelp = isShowHelp;
+        this.isAddVisit = isAddVisit;
+        this.isShowVisitList = isShowVisitList;
+        this.isEditVisit = isEditVisit;
+        this.isProfile = isProfile;
         this.exit = exit;
-        this.showMotd = showMotd;
-        this.showAliasList = showAliasList;
+        this.isShowMotd = isShowMotd;
+        this.isShowAliasList = isShowAliasList;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean showVisitList,
-                         boolean editVisit, boolean profile, boolean exit, boolean showMotd) {
-        this(feedbackToUser, showHelp, addVisit, showVisitList, editVisit, profile, exit, showMotd, false);
+    public CommandResult(String feedbackToUser, boolean isShowHelp, boolean isAddVisit, boolean isShowVisitList,
+                         boolean isEditVisit, boolean isProfile, boolean exit, boolean isShowMotd) {
+        this(feedbackToUser, isShowHelp, isAddVisit, isShowVisitList, isEditVisit,
+                isProfile, exit, isShowMotd, false);
     }
 
     public CommandResult(String feedbackToUser, int idx) {
@@ -141,11 +143,11 @@ public class CommandResult {
         return this.oldReport;
     }
     public boolean isShowHelp() {
-        return showHelp;
+        return isShowHelp;
     }
 
     public boolean isShowMotd() {
-        return showMotd;
+        return isShowMotd;
     }
 
     public boolean isExit() {
@@ -153,23 +155,23 @@ public class CommandResult {
     }
 
     public boolean isAddVisit() {
-        return addVisit;
+        return isAddVisit;
     }
 
     public boolean isShowVisitList() {
-        return showVisitList;
+        return isShowVisitList;
     }
 
     public boolean isEditVisit() {
-        return editVisit;
+        return isEditVisit;
     }
 
     public boolean isShowProfile() {
-        return profile;
+        return isProfile;
     }
 
     public boolean isShowAliasList() {
-        return showAliasList;
+        return isShowAliasList;
     }
 
     public Person getProfilePerson() {
@@ -189,19 +191,19 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && addVisit == otherCommandResult.addVisit
-                && editVisit == otherCommandResult.editVisit
-                && showVisitList == otherCommandResult.showVisitList
-                && profile == otherCommandResult.profile
+                && isShowHelp == otherCommandResult.isShowHelp
+                && isAddVisit == otherCommandResult.isAddVisit
+                && isEditVisit == otherCommandResult.isEditVisit
+                && isShowVisitList == otherCommandResult.isShowVisitList
+                && isProfile == otherCommandResult.isProfile
                 && exit == otherCommandResult.exit
-                && showMotd == otherCommandResult.showMotd
-                && showAliasList == otherCommandResult.showAliasList;
+                && isShowMotd == otherCommandResult.isShowMotd
+                && isShowAliasList == otherCommandResult.isShowAliasList;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, addVisit, profile, exit);
+        return Objects.hash(feedbackToUser, isShowHelp, isAddVisit, isProfile, exit);
     }
 
 

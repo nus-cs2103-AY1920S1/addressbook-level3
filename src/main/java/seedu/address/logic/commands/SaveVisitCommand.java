@@ -16,7 +16,7 @@ import seedu.address.model.person.VisitReport;
  */
 public class SaveVisitCommand extends Command {
     public static final String MESSAGE_SAVE_VISIT_SUCCESS = "Saved visit report to Person: %1$s";
-    private static final int INVALID_REPORT_INDEX = -1;
+    private static final int NEW_REPORT = -1;
 
     private final Index index;
     private final VisitReport visitReport;
@@ -48,7 +48,7 @@ public class SaveVisitCommand extends Command {
         visitReport.setName(personToEdit.getName());
         visitReport.setDetails(medication, diagnosis, remarks);
         Person editedPerson = null;
-        if (reportIdx == INVALID_REPORT_INDEX) {
+        if (reportIdx == NEW_REPORT) {
             editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                     personToEdit.getAddress(), personToEdit.getVisitList().addRecord(visitReport),
                     personToEdit.getTags());

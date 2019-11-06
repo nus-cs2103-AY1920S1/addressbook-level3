@@ -23,6 +23,7 @@ public class AddVisitCommand extends Command {
             + "Calls window popup for user to fill in details.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_VISIT + "[DATE i.e. DD/MM/YYYY]\n"
+            + "Only dates from year 19xx to 2xxx are accepted\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_VISIT + "01/01/2019";
 

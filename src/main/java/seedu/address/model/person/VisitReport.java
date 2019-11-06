@@ -55,13 +55,20 @@ public class VisitReport implements Comparable<VisitReport> {
      */
     public static boolean isValidVisitDate(String test) {
 
-        //make sure month and day are valid and year is 2xxx
-        DateTimeFormatter dateFormatter =
+        //make sure month and day are valid and year is 2xxx or 19xx
+        DateTimeFormatter dateFormatter1 =
                 DateTimeFormatter.ofPattern("dd/MM/2uuu").withResolverStyle(ResolverStyle.STRICT);
+
+        DateTimeFormatter dateFormatter2 =
+                DateTimeFormatter.ofPattern("dd/MM/19uu").withResolverStyle(ResolverStyle.STRICT);
         try {
-            LocalDate.parse(test, dateFormatter);
+            LocalDate.parse(test, dateFormatter1);
         } catch (DateTimeParseException e) {
-            return false;
+            try {
+                LocalDate.parse(test, dateFormatter2);
+            } catch (DateTimeParseException e2) {
+                return false;
+            }
         }
         return true;
     }

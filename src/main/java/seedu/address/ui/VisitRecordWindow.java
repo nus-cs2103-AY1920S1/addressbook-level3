@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import javafx.stage.WindowEvent;
@@ -90,6 +92,11 @@ public class VisitRecordWindow extends UiPart<Stage> {
         logger.fine("Showing Visit Record Window.");
         getRoot().show();
         getRoot().centerOnScreen();
+        getRoot().addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+            if (KeyCode.ESCAPE == event.getCode()) {
+                this.hide();
+            }
+        });
     }
 
     /**
@@ -104,6 +111,15 @@ public class VisitRecordWindow extends UiPart<Stage> {
      */
     public void hide() {
         getRoot().hide();
+    }
+
+    /**
+     * Clears all text in textareas.
+     */
+    public void clearFields() {
+        medicine.clear();
+        diagnosis.clear();
+        remarks.clear();
     }
 
     /**
@@ -124,11 +140,9 @@ public class VisitRecordWindow extends UiPart<Stage> {
 
         CommandResult commandResult = logic.execute(save);
         this.msg = commandResult.getFeedbackToUser();
-        medicine.clear();
-        diagnosis.clear();
-        remarks.clear();
         this.hide();
         this.msg = "";
+
     }
 
 

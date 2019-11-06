@@ -380,6 +380,7 @@ Given below is an example usage scenario and how every component of the Visitati
 
 Step 1. The user executes `addvisit 5 v/12/12/2019` command to add a visit report to the visitlist of the 5th person in the address book. This returns a  `CommandResult` which has the attribute `date` set as String `12/12/2019`. `MainWindow#executeCommand()` is called and the check for `CommandResult#isAddVisit()` passes, calling  `VisitRecordWindow#setReportInfo()` to pass the `index` of the person, the `date`, and a `Logic` object to initialize the respective attributes in the `VisitRecordWindow` class. `MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
 
+.Activity diagram to illustrate all possible variations of Step 1
 image::AddVisit0.png[]
 
 [NOTE]
@@ -389,19 +390,22 @@ Step 2. The user fills in the form and presses `f2` on the keyboard or clicks th
 
 Step 3. The user decides to edit the report and executes the `editvisit 1 i/1` command.`MainWindow#executeCommand()` is called and the check for `CommandResult#isEditVisit()` passes, calling  `VisitRecordWindow#setOldReportInfo()` which initializes the respective attributes of `VisitRecordWindow` and populate the form with the content of the `VisitReport` from  `CommandResult#getOldReport()` .`MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
 
+.Activity diagram to illustrate all possible variations of Step 3
 image::EditVisit0.png[]
 
-[NOTE]
-If the user executes `editvisit 1` instead, a `CommandResult` with a `ObservableList<VisitReport>` object will be returned. `MainWindow#executeCommand()` runs and the check for `CommandResult#isEditVisit()` fails while the check for `CommandResult#isShowVisitList()` passes, calling `VisitListPanel#setup()` which populates the `VisitListPanel` with the contents of the `ObservableList<VisitReport>` object from `CommandResult#getObservableVisitList()`.`MainWindow#handleShowVisitList()` is then called to display a pop up list showing an indexed list of all visitation records of the person.
 
-Step 4. The user edits the form and presses `f2` on the keyboard or clicks the `submit` button to save the changes. The same mechanism mentioned in `Step 2` is used to update the contents of the edited visit report.
+As shown in the figure above, if the user executes `editvisit 1` instead, a `CommandResult` with a `ObservableList<VisitReport>` object will be returned. `MainWindow#executeCommand()` 's check for `CommandResult#isShowVisitList()` passes, calling `VisitListPanel#setup()` which populates the `VisitListPanel` with the contents of the `ObservableList<VisitReport>` object from `CommandResult#getObservableVisitList()`. Instead of displaying the pop-up form, `MainWindow#handleShowVisitList()` is called to display a pop up list showing an indexed list of all visitation records of the person.
+
+Step 4. The user edits the form and presses `F3` on the keyboard or clicks the `submit` button to save the changes. The same mechanism mentioned in `Step 2` is used to update the contents of the edited visit report.
 
 The sequence diagram below shows how Step 3 and Step 4 works.
 
+.`EditVisitCommand` and `SaveVisitCommand` sequence diagram
 image::EditVisit1.png[]
 
 Step 5. The user then decides that the report was beyond salvaging and decides to delete it. Executing the command `deletevisit 1 d/1`, `VisitList#deleteRecord()` deletes the entry from the arraylist and `Model#setPerson()` updates the person with the new `VisitList`. The `CommandResult#isShowVisitList()` check in  `MainWindow#executeCommand()` passes and a pop up list showing an indexed list of all visitation records of the person is displayed.
 
+.Activity diagram to illustrate all possible variations of Step 5
 image::DeleteVisit0.png[]
 
 [NOTE]
@@ -410,18 +414,23 @@ If the user executes `deletevisit 1` instead, the index value will be set to `-1
 
 ==== Design Considerations
 
-===== Aspect: How SaveVisitCommand/DeleteVisitCommand executes
+===== Aspect: Range of acceptable dates for `addvisit`
 
-* Creates a new `Person` object each time and using `Model#setPerson()` to replace the original person for every change in `VisitList `
-** Pros: Easy to implement and reuses existing code.
-** Cons: May have performance issues in terms of memory usage.
+* **Alternative 1 (current choice):** Only allow dates with years 19xx or 2xxx
+** Pros: Prevents user from keying in rubbish dates like year 9999 or 0000
+** Cons: Must conduct 2 checks for date in parser, one for the format dd/MM/19yy and one for the format dd/MM/2yyy.
+* **Alternative 2:** Place no restriction on valid years
+** Pros: Only one check for dd/MM/yyyy format is required.
+** Cons: User can key in rubbish values like dd/MM/9102 or dd/MM/0192
 
+===== Aspect: Keyboard binding to save report
 
-===== Aspect: Data structure to support the addvisit/deletevisit/editvisit commands
-
-*  Use a arraylist to store the `VisitReport` objects in `VisitList` object
-** Pros: Fast retrieval by index.
-** Cons: Need to handle index out of bound errors.
+* **Alternative 1 (current choice):** `F2` key
+** Pros: No conflict with any other functions.
+** Cons: Not the most intuitive choice for users.
+* **Alternative 2:** `Enter` key
+** Pros: Very intuitive choice for saving.
+** Cons: It's also used to get to the next line, thus using it as the save button means users can no longer press `Enter` for next line
 // end::visitationreport[]
 
 [[uiImplementation]]
