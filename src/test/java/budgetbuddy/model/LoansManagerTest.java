@@ -150,7 +150,7 @@ public class LoansManagerTest {
     public void addLoan_addAfterFilter_filteredLoansShowsAllLoan() {
         int targetSize = loansManager.getLoansCount();
         loansManager.updateFilteredList(LoanFilters.getStatusPredicate(Status.PAID));
-        loansManager.addLoan(TypicalLoans.JOHN_OUT_UNPAID);
+        loansManager.addLoan(new LoanBuilder().build());
         assertEquals(targetSize + 1, loansManager.getFilteredLoans().size());
     }
 
