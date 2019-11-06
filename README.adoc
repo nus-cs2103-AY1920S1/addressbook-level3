@@ -24,6 +24,7 @@ intuitive than searching through multiple menus for a command.
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
+* https://github.com/AY1920S1-CS2103-T14-3/main[View on Github]
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
