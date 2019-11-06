@@ -30,13 +30,6 @@ public class JsonAdaptedLesson {
         this.startTime = startTime;
         this.endTime = endTime;
         this.isRepeat = isRepeat;
-//        if (isRepeat != null) {
-//            System.out.println("if");
-//            this.isRepeat = isRepeat;
-//        } else {
-//            System.out.println("else");
-//            this.isRepeat = "Not repeated";
-//        }
     }
 
     /**
