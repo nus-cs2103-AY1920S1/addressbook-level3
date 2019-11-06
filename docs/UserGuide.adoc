@@ -215,8 +215,8 @@ Examples: +
 
 ==== Undone assignments
 
-Finds all the undone assignments in the current classroom. +
-Format: getgrades undone
+Finds all the unsubmitted assignments in the current classroom. +
+Format: getunsubmitted
 
 
 //end::get[]
@@ -335,9 +335,9 @@ e.g. liststudents +
 e.g. listassignments
 * Find: findstudent STUDENT_NAME +
 e.g. findstudent John Doe
-* Get: getgrades STUDENT_INDEX OR getgrades undone +
+* Get: getgrades STUDENT_INDEX OR getunsubmitted +
 e.g. getgrades 2 +
-e.g. getgrades undone
+e.g. getunsubmitted
 * Delete Student: deletestudent STUDENT_INDEX +
 e.g. deletestudent 3
 * Delete Assignment: deleteassignment ASSIGNMENT_INDEX +
