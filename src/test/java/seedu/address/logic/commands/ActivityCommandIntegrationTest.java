@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_WARNING;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
@@ -52,7 +53,6 @@ public class ActivityCommandIntegrationTest {
         Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
         expectedModel.setContext(newContext);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel, newContext);
@@ -69,7 +69,8 @@ public class ActivityCommandIntegrationTest {
                 searchTerm,
                 2);
         String successMessage = String.format(
-                ActivityCommand.MESSAGE_SUCCESS,
+                ActivityCommand.MESSAGE_SUCCESS
+                + MESSAGE_WARNING,
                 validActivity,
                 "",
                 warningMessage);
@@ -81,7 +82,7 @@ public class ActivityCommandIntegrationTest {
         Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
         expectedModel.setContext(newContext);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
+
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel, newContext);
     }
@@ -97,7 +98,8 @@ public class ActivityCommandIntegrationTest {
                 searchTerm,
                 0);
         String successMessage = String.format(
-                ActivityCommand.MESSAGE_SUCCESS,
+                ActivityCommand.MESSAGE_SUCCESS
+                + MESSAGE_WARNING,
                 validActivity,
                 "",
                 warningMessage);
@@ -109,7 +111,6 @@ public class ActivityCommandIntegrationTest {
         Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
         expectedModel.setContext(newContext);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel, newContext);

@@ -35,7 +35,7 @@ public class ContextTest {
 
     @Test
     public void getType_allTypes_returnsCorrectType() {
-        assertEquals(new Context().getType(), ContextType.MAIN);
+        assertEquals(new Context().getType(), ContextType.LIST_CONTACT);
         assertEquals(new Context(TypicalPersons.ALICE).getType(), ContextType.VIEW_CONTACT);
         assertEquals(new Context(TypicalActivities.BREAKFAST).getType(), ContextType.VIEW_ACTIVITY);
         assertEquals(Context.newListActivityContext().getType(), ContextType.LIST_ACTIVITY);

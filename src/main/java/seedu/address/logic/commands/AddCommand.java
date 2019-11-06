@@ -33,8 +33,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This contact already exists in the address book";
-    public static final String MESSAGE_DUPLICATE_NAME = "There already exists a name with the exact same name";
+    public static final String MESSAGE_DUPLICATE_NAME = "There already exists a contact with the exact same name";
 
     private final Person toAdd;
 
@@ -50,9 +49,6 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
         if (model.findPersonByName(toAdd.getName().fullName).isPresent()) {
             throw new CommandException(MESSAGE_DUPLICATE_NAME);
         }

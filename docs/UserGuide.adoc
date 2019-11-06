@@ -21,9 +21,8 @@ By: `Vortex`      Since: `Sep 2019`      Licence: `MIT`
 Ever did group activities where everyone paid different amounts, and it became so troublesome and confusing to figure out how to redistribute costs evenly? Fret no more because with *SplitWiser* is here! *SplitWiser* is a free tool for friends and roommates to track bills and other shared expenses, so that everyone gets paid back, and everyone is happy.
 
 Coming in v2.0:
-+
-image::minified-mockups/main.png[width="251"]
-+
+
+image::./minified-mockups/main.png[width="251"]
 
 == Getting Started
 
@@ -64,22 +63,16 @@ No need receipt-collecting and number-crunching anymore -- SplitWiser does it al
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact n/CONTACT_NAME`, `CONTACT_NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact n/CONTACT_NAME`, `CONTACT_NAME` is a parameter which can be used as `contact n/John Doe`.
 * Parameters in square brackets are optional e.g `n/ACTIVITY_NAME [p/PERSON_1]` can be used as `n/Drinks p/John Doe` or as `n/Drinks`.
-* Parameters with `…`​ may be supplied multiple times, including 0 times for optional parameters, e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters with `…`​ may be supplied multiple times, including 0 times for optional parameters, e.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family` etc.
 * Parameters may be supplied in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-* Everything is case sensitive unless otherwise stated.
 ====
 
 === Viewing help : `help`
 Brings up the help dialog. +
 
 Format: `help`
-
-=== Show main screen : `main`
-Brings up the main screen which shows the aggregated amounts of debt. +
-
-Format: `main`
 
 === List all contacts or activities : `list`
 
@@ -115,7 +108,7 @@ Creates a new contact with a name and phone number. Each contact will be assigne
 * Phone numbers must be between 3 to 20 digits long.
 ****
 
-Format: `contact n/CONTACT_NAME p/PHONE_NUMBER [e/EMAIL] [t/TAG] [a/ADDRESS]`
+Format: `contact n/CONTACT_NAME p/PHONE_NUMBER [e/EMAIL] [tag/TAG] [a/ADDRESS]`
 
 Examples:
 
@@ -126,7 +119,6 @@ Creates a new contact with name John Doe and mobile number 98765432.
 
 Creates a new activity with a title, contacts (optional) and no expenses.
 ****
-* The user creating the activity will be included automatically.
 * Additional contacts to add to the activity can be specified by using `p/` prefix.
 ** Initially, the application will search for contact with exact matching name.
 ** If no exact match is found, keyword matching is used instead. Refer to <<Finding contacts or activities: `find`>> for more details.
@@ -140,7 +132,7 @@ Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
 Examples:
 
 * `activity t/Chalet p/John Doe` +
-Creates a new activity with title 'Chalet' and the user and John Doe as participants.
+Creates a new activity with title 'Chalet' John Doe as participants.
 
 * `activity t/Breakfast p/David Li p/Bernice Yu` +
 Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
@@ -178,7 +170,7 @@ Removes John Doe and Mary from the current activity. If any one of them are invo
 // tag::expense[]
 === Add expenses to an activity : `expense`
 
-Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. +
+Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored. +
 
 If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money. +
 
@@ -200,19 +192,24 @@ If no activity is currently viewed, an error will occur as there is no descripti
 * `expense p/Mary e/100 p/Joseph p/Silva d/Drinks` +
 Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named `Drinks`. If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
 Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
+
+NOTE: It is in fact possible to add an expense where no one else is involved in by specifying that the people involved only include the person who is paying, +
+e.g. `expense p/John Doe e/15 p/John Doe d/Cab` +
+This adds an expense of $15 by John Doe called `Cab` where only John himself is involved, thus no one owes anyone anything. This can be used to add an expense simply for recording purposes if desired, though it is not an intended use case for SplitWiser since there is no debt to calculate and resolve.
 // end::expense[]
 
+// tag::edit[]
 === Edit an existing contact or activity : `edit`
 
-Edits some details of the current contact or activity in view. +
+Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
 
-Format: `edit INDEX [n/NAME] [p/PHONE] ...` for contacts OR `edit [t/ACTIVITY_TITLE] ...` for activities.
+Format: `edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG] ...` for contacts OR `edit [t/ACTIVITY_TITLE]` for activities.
 
 ****
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Irrelevant parameters will be ignored. For example, `edit p/999 t/new title` when viewing an activity will only update the title to `new title`, and `p/999` will be ignored.
 * Expenses cannot be edited.
-* Editing activities is not presently available (coming in v1.4)
 ****
 
 Examples:
@@ -221,14 +218,17 @@ Examples:
 Edits the phone number of the current contact in view to `999`. No changes are made if a contact is not being viewed.
 * `edit t/BBQ` +
 Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
+// end::edit[]
 
-=== Finding contacts or activities (v1.4): `find`
+=== Finding contacts or activities: `find`
 
 Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
 
 Format: `find KEYWORD ...`
 
 ****
+* Find command can only be used when viewing list of activities or contacts.
+* Find command will search for activities if used under list activity view. If used under list contact view, the find command will search for contacts.
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name of contacts and title of activities are searched.
@@ -239,9 +239,8 @@ Format: `find KEYWORD ...`
 Examples:
 
 * `find John` +
-Returns contacts (e.g. `john` and `John Doe`) and activities (e.g. `John birthday party`).
-* `find Betsy Tim John` +
-Returns any contact or activity whose name or title contains the word `Betsy`, `Tim`, or `John`.
+If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
+If currently viewing list of activities, returns activities (e.g `lunch with john`).
 
 === Deleting a contact, activity or expense (v1.4) : `delete`
 
@@ -288,7 +287,7 @@ If viewing an activity with title 'Family trip', assigns the activities with IDs
 
 === Update an activity as resolved: `close` (*v2.0 only*)
 
-Marks an activity as resolved, clearing (removing) the debts within from each contact and the aggregated debt on the main screen.
+Marks an activity as resolved, clearing (removing) the debts within from each contact.
 
 Multiple activities can be resolved at once.
 
@@ -309,6 +308,7 @@ Format: `exit`
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the application on the other computer and overwrite the empty data file it creates with the data file contained in your current SplitWiser folder.
 
+// tag::poweruser[]
 == Powerusers
 
 Certain features are not included intentionally, as some of them may potentially result in undefined behavior.
@@ -344,3 +344,4 @@ Ensure the application is closed, then find the activity in question in the `jso
 After restarting you will see that the person is permanantly removed from the activity.
 
 CAUTION: This operation is very dangerous! The person might be included in expenses or other activities -- in that case, an error will be generated and the application will reset.
+// end::poweruser[]

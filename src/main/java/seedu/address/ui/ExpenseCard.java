@@ -58,7 +58,7 @@ public class ExpenseCard extends UiPart<Region> {
 
         Person expenseOwner = expenseOwnerOpt.get();
         // Expense owner's label always appears first in the FlowPane and is coloured differently
-        paidBy.setText(String.format("Paid: %s", expenseOwner.getName().toString()));
+        paidBy.setText(String.format("Paid by: %s", expenseOwner.getName().toString()));
 
         Set<Integer> involvedIds = Arrays.stream(expense.getInvolved())
                 .boxed()
