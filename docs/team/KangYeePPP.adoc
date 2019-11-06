@@ -193,7 +193,7 @@ This command allows you to delete either all transactions of a person or a singl
 * Steps for Deleting by ID
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
 
-image::homeUG/HomeDeleteStep1cr.png[width = "700"]
+image::homeUG/HomeDeleteStep1cr.png[width = "750"]
 
 
 [start = 2]
