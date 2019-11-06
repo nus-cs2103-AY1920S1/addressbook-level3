@@ -1,21 +1,15 @@
 package seedu.address.logic.commands.note;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_MATCHING_NOTE_FOUND;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_MATCHING_NOTE_FOUND;
 import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_VIEW_SAMPLE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showNoteAtIndex;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_NOTE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_NOTE;
-import static seedu.address.testutil.TypicalNotes.POTATO;
 import static seedu.address.testutil.TypicalNotes.getTypicalNoteList;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -23,13 +17,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.commandresults.NoteCommandResult;
-import seedu.address.logic.commands.note.ViewNoteCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.NoteContainsTagPredicate;
-import seedu.address.model.note.NoteTitleContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ViewNoteCommand}.
@@ -58,20 +49,21 @@ public class ViewRawNoteCommandTest {
         assertCommandFailure(viewNoteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
     }
 
-//    @Test
-//    public void execute_validIndexFilteredList_success() {
-//        showNoteAtIndex(model, INDEX_FIRST_NOTE);
-//
-//        Note noteToView = model.getFilteredNoteList().get(INDEX_FIRST_NOTE.getZeroBased());
-//        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_NOTE);
-//
-//        String expectedMessage = String.format(EXPECTED_VIEW_SAMPLE, noteToView);
-//
-//        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
-//
-//        assertCommandSuccess(viewNoteCommand, model, new NoteCommandResult(expectedMessage, Optional.of(noteToView)),
-//                expectedModel);
-//    }
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showNoteAtIndex(model, INDEX_FIRST_NOTE);
+
+        Note noteToView = model.getFilteredNoteList().get(INDEX_FIRST_NOTE.getZeroBased());
+        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_NOTE);
+
+        String expectedMessage = String.format(EXPECTED_VIEW_SAMPLE, noteToView);
+
+        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
+        showNoteAtIndex(expectedModel, INDEX_FIRST_NOTE);
+
+        assertCommandSuccess(viewNoteCommand, model, new NoteCommandResult(expectedMessage, Optional.of(noteToView)),
+                expectedModel);
+    }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
