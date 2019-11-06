@@ -103,9 +103,9 @@ specified.
 f/CS2103T r/Contains textbook & important deadlines` +
 Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
 The new bookmark's remark is `Contains textbook & important deadlines`.
-* `*add* u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
+* `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
 Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
-`video` and `watch-later`.
+`video` and `watchLater`.
 
 [[folder]]
 === Adding a new folder: *`folder`*
@@ -321,6 +321,7 @@ Format: `*export* [FILENAME]`
 +
 `FILENAME` should not include the file extension. E.g. `myBookmarks` and not
 `myBookmarks.json`
+* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
 * The data file is saved at `[applicationHome]/data/bookmarks/FILENAME.json`.
 If the given file already exists, it is overwritten.
 ****
@@ -346,6 +347,7 @@ Format: `*import* FILENAME`
 ****
 * `FILENAME` is case sensitive and should not include the file extension. E.g.
 `myBookmarks` and not `myBookmarks.json`
+* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
 * `FILENAME.json` should be a file stored in the folder
 `[applicationHome]/data/bookmarks/`.
 * The file corresponding to `FILENAME` should have a valid format, identical

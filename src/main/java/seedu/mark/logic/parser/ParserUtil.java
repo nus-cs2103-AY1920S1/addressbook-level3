@@ -30,6 +30,10 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_BOOL = "Boolean options should be spelt either true or false.";
+    public static final String MESSAGE_INVALID_FILE_NAME =
+            "FILENAME should only contain alphanumeric characters, hyphens '-', or underscores '_'.";
+    public static final String MESSAGE_FILE_NAME_INCLUDES_EXTENSION =
+            "FILENAME should not include the file extension '.json'";
 
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
     protected static final String MESSAGE_INVALID_TIME_FORMAT =
@@ -243,6 +247,17 @@ public class ParserUtil {
     }
 
     /**
+     * Checks whether the given {@code String} is a valid filename i.e. consists
+     * of only alphanumeric characters, hyphens, and/or underscores.
+     *
+     * @param name String representing filename to be checked
+     * @return {@code true} if {@code name} is a valid filename and {@code false} otherwise.
+     */
+    public static boolean isValidFilename(String name) {
+        return name.matches("[\\p{Alnum}\\-_]+");
+    }
+
+    /**
      * Ensures that a {@code Command} of type {@code T} not accepting arguments does not have arguments.
      */
     public static class NoArgumentParser<T extends Command> implements Parser<T> {
@@ -261,5 +276,6 @@ public class ParserUtil {
             }
             return commandSupplier.get();
         }
+
     }
 }
