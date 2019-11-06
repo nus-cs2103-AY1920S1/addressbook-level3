@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -76,9 +74,6 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        helpWindow = new HelpWindow();
-        codeWindow = new CodeWindow();
-
         achievementsPage = new AchievementsPage(logic.getAchievementsLogic());
         addressBookPage = new AddressBookPage(logic.getAddressBookLogic());
         calendarPage = new CalendarPage();
@@ -116,15 +111,7 @@ public class MainWindow extends UiPart<Stage> {
      */
 
     public void exit() {
-        TimerTask myDelay = new TimerTask() {
-            @Override
-            public void run() {
-                helpWindow.hide();
-                primaryStage.hide();
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(myDelay, 350);
+        primaryStage.hide();
     }
 
     void show() {
@@ -136,8 +123,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight(),
-                (int) primaryStage.getScene().getX(), (int) primaryStage.getScene().getY());
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         exit();
     }
