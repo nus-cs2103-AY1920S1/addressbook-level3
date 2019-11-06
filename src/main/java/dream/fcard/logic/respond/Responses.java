@@ -194,12 +194,12 @@ public enum Responses {
     ),
     EDIT_CARD(
             RegexUtil.commandFormatRegex("edit", new String[]{
-                    "deck/",
-                    "index/",
-                    "front/",
-                    "back/",
-                    "choiceIndex/",
-                    "choice/"}),
+                "deck/",
+                "index/",
+                "front/",
+                "back/",
+                "choiceIndex/",
+                "choice/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
@@ -326,14 +326,14 @@ public enum Responses {
                         // Todo: Show Stats for Deck @nattanyz
                         return true;
                     } else {
-                    // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
-                    //try {
-                    //    // show stats for the application
-                    //    StatisticsWindow statisticsWindow = new StatisticsWindow();
-                    //    Consumers.doTask(ConsumerSchema.OPEN_WINDOW, statisticsWindow);
-                    //} catch (Exception e) {
-                    //    e.printStackTrace();
-                    //}
+                        // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
+                        //try {
+                        //    // show stats for the application
+                        //    StatisticsWindow statisticsWindow = new StatisticsWindow();
+                        //    Consumers.doTask(ConsumerSchema.OPEN_WINDOW, statisticsWindow);
+                        //} catch (Exception e) {
+                        //    e.printStackTrace();
+                        //}
                         return true;
                     }
                 }
@@ -372,7 +372,7 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
                     }
                     return true;
-                    } //todo
+            } //todo
     ),
     START_TEST_ERROR(
             "^((?i)test).*",
@@ -389,10 +389,10 @@ public enum Responses {
     TEST_NEXT(
             "^((?i)next)\\s*",
             new ResponseGroup[]{
-                    ResponseGroup.TEST,
-                    ResponseGroup.TEST_FBCARD,
-                    ResponseGroup.TEST_JSJAVA,
-                    ResponseGroup.TEST_MCQ},
+                ResponseGroup.TEST,
+                ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_JSJAVA,
+                ResponseGroup.TEST_MCQ},
                 i -> {
 
                     return true;
@@ -401,10 +401,10 @@ public enum Responses {
     TEST_PREV(
             "^((?i)prev(ious)?)\\s*",
             new ResponseGroup[]{
-                    ResponseGroup.TEST,
-                    ResponseGroup.TEST_FBCARD,
-                    ResponseGroup.TEST_JSJAVA,
-                    ResponseGroup.TEST_MCQ},
+                ResponseGroup.TEST,
+                ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_JSJAVA,
+                ResponseGroup.TEST_MCQ},
                 i -> {
 
                     return true;
@@ -414,10 +414,10 @@ public enum Responses {
     TEST_EXIT(
             "^((?i)exit)\\s*",
             new ResponseGroup[]{
-                    ResponseGroup.TEST,
-                    ResponseGroup.TEST_FBCARD,
-                    ResponseGroup.TEST_JSJAVA,
-                    ResponseGroup.TEST_MCQ},
+                ResponseGroup.TEST,
+                ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_JSJAVA,
+                ResponseGroup.TEST_MCQ},
                 i -> {
 
                     return true;
