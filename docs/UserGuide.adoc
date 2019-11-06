@@ -168,7 +168,7 @@ Format: 'snooze [INDEX] [-s SNOOZE_DURATION]' +
 Examples:
 * `snooze 1`
 * `snooze 3 -s 10.min.later`
-* `snooze -s 10/10/2020`
+* `snooze -s 10/10/2020 1400`
 
 [NOTE]
 1. It is possible to snooze the same reminder multiple times if you wish. +
