@@ -222,13 +222,13 @@ Likewise for json array values.
 [NOTE]
 If all parsing types fail, there must be an error with the string input, thus a JsonFormatException is thrown.
 
-==== Design Considerations
+=== Design Considerations
 
 The JsonParser is designed to be a utility class with a pure function without any mutation of state.
 Thus it should be self contained within a single function call.
 
-=== [Proposed] Saving User Statistics feature
-==== Proposed Implementation
+== [Proposed] Saving User Statistics feature
+=== Proposed Implementation
 
 ==== Design Considerations
 
@@ -577,7 +577,7 @@ Use case ends.
 5. System displays the front of card and choices.
 6. User enters the choice of correct answer.
 7. System evaluates the answer.
-8  System shows the correctness of the answer.
+8.  System shows the correctness of the answer.
 9. System moves to next card.
 +
 Steps 4-9 are repeated until there are no more cards in the test set.
