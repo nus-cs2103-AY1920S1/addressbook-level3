@@ -58,7 +58,7 @@ public class DeleteCommandTest {
         expectedModel.deleteEngagement(engagementToDelete);
         expectedModel.saveEngagementList();
         showNoEngagement(expectedModel);
-        //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -71,8 +71,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        //CommandTestUtil
-        // .assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENGAGEMENT_DISPLAYED_INDEX);
+        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENGAGEMENT_DISPLAYED_INDEX);
     }
 
     @Test

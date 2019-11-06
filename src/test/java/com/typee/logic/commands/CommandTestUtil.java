@@ -99,16 +99,17 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the engagement at the given {@code targetIndex} in the
-     * {@code model}'s engagement list.
+     * {@code model}'s engagement list based on the engagement description of the first engagement.
      */
     public static void showEngagementAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEngagementList().size());
 
         Engagement engagement = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
         final String[] splitDescription = engagement.getDescription().split("\\s+");
-        model.updateFilteredEngagementList(new EngagementPredicate());
-
-        assertEquals(3, model.getFilteredEngagementList().size());
+        EngagementPredicate predicate = new EngagementPredicate();
+        predicate.setDescription(splitDescription[0]);
+        model.updateFilteredEngagementList(predicate);
+        assertEquals(1, model.getFilteredEngagementList().size());
     }
 
 }
