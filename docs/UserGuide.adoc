@@ -897,6 +897,7 @@ have worked towards their goal(s)). Users may also set reminders to remind them 
 feedback.
 //end::personalisedUserExperience[]
 
+// tag::average[]
 === DATA SUMMARY/ANALYSIS
 
 ==== Displays the daily/weekly/monthly average of records in a line graph: `average`
@@ -939,6 +940,7 @@ easily. Note that this feature will work well only if
 
 Need to share your records with your doctor or others? With SugarMummy export function,
 you can save any graphs and plots generated in a pdf file.
+// end::average[]
 
 === Food Recommendation
 
