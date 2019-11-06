@@ -567,6 +567,9 @@ Examples:
 `pay 2 f/20082019 t/20102019` +
 Generates the payslip of employee 2 from the 20th August - 20th October.
 
+
+
+
 //tag::Schedule[]
 === Schedule Management
 Welcome to Schedule! Looking for a way to display and see what events you have on a specific Date or Month?
@@ -578,6 +581,8 @@ just simply type in any Schedule-related commands and AddMin+ will bring you the
 
 ._User Interface (UI) of the Schedule Feature_
 image::ScheduleUiDetailed.png[]
+
+---
 
 ==== Display Schedule for a specific date: `display_schedule_date`
 Want to check if you have any events on a specific date. Instead of looking through the list of events you have, you
@@ -610,14 +615,16 @@ image::ScheduleUiStep2.png[]
 
 image::ScheduleUiStep3.png[]
 
-[TIP]
+[NOTE]
 The event list will be empty and not display anything if there is no event on the specified date.
 
-==== Display Schedule for a specific Month and Year: `display_schedule`
-Now you would want to see all the events you have on a specific month and year. Instead of looking through the list of events you have, you
-could use the `display_schedule` command to do it!
+---
 
-Format: `display_schedule for/MM/yyyy`
+==== Display Schedule for a specific Month and Year: `display_schedule_month`
+Now you would want to see all the events you have on a specific month and year. Instead of looking through the list of events you have, you
+could use the `display_schedule_month` command to do it!
+
+Format: `display_schedule_month for/MM/yyyy`
 
 ****
 * for/ represents the month and year in MM/yyyy that the user wants to display
@@ -626,7 +633,7 @@ Format: `display_schedule for/MM/yyyy`
 
 **Example: To display schedule for a specific Month and Year (11/2019):**
 
-**Step 1**.  Either type `display_schedule for/11/2019` into the command box or click on the month year picker buttons to
+**Step 1**.  Either type `display_schedule_month for/11/2019` into the command box or click on the month year picker buttons to
 navigate to the specific month and year.
 
 image::ScheduleUiMonthStep1.png[]
@@ -641,8 +648,10 @@ that is on 11/2019 which is "Talk by DEF Company" and "Birthday Party".
 
 image::ScheduleUiMonthStep3.png[]
 
-[TIP]
+[NOTE]
 The event list will be empty and not display anything if there is no event on the specified month, year.
+
+---
 
 ==== Generate Entire Schedule: `generate_schedule`
 Looking for a way to have an overview of all the dates that has an event? Use the `generate_schedule` command to do so.
@@ -672,10 +681,12 @@ image::ScheduleUiGenerateStep2.png[]
 
 image::ScheduleUiGenerateStep3.png[]
 
-[TIP]
+[NOTE]
 The generated list will be empty and not display anything if there is no event in the current event list.
 
 //end::Schedule[]
+
+---
 
 ==== Display Schedule between two specific dates: `display_schedule_between`
 
@@ -795,7 +806,8 @@ such as the location, budget, and date.
 | *Clear DateTime from an Event*| `clear_ev_dt EVENT_INDEX`
 | `clear_ev_dt 2`
 | *Display Schedule for specific date*| `display_schedule_date on/DDMMYYYY` | `display_schedule_date on/02/12/2019`
-| *Display Schedule for specific month*| `display_schedule for/MMYYYY` | `display_schedule for/02/12/2019`
+| *Display Schedule for specific month*| `display_schedule_month for/MMYYYY` | `display_schedule_month for/02/12/2019`
+| *Display Schedule for between 2 dates*| `display_schedule_between start/DDMMYYYY end/DDMMYYYY` | `display_schedule_between start/02/12/2019 end/05/12/2019`
 | *Generate Entire Schedule*| `generate_schedule` | `generate_schedule`
 | *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
 | *Generate Pay [coming in v2.0]* | `pay` | `pay 1...`

@@ -334,19 +334,6 @@ public class MainWindow extends UiPart<Stage> {
                 finance.updateCards();
             }
 
-            if (!commandResult.getType().equals("Finance")) {
-                selectionModel.select(0);
-            }
-
-
-            /*if (commandResult.isFetch()) {
-                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(),
-                        logic.getFilteredEventList(), logic.getFilteredEventList().get(0));
-                listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
-            } else {
-                listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
-                listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
-            }*/
             if (commandResult.getType().equals("Main_Tab")) {
                 selectionModel.select(0);
             }
