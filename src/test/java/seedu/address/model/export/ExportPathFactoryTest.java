@@ -11,27 +11,27 @@ import org.junit.jupiter.api.Test;
 public class ExportPathFactoryTest {
 
     private String[] filePathsNoExtensions = {
-            "cheat_sheet",
-            "cheat-sheet",
-            "directory/cheatsheet",
-            "ChEAtShEAT",
-            "../cheatsheet",
-            "~/Desktop/[CS2105] Midterm Cheat Sheet (v3)"
+        "cheat_sheet",
+        "cheat-sheet",
+        "directory/cheatsheet",
+        "ChEAtShEAT",
+        "../cheatsheet",
+        "~/Desktop/[CS2105] Midterm Cheat Sheet (v3)"
     };
 
     private String[] validExtensions = {
-            ".json",
-            ".docx",
-            ".JsOn",
-            ".DocX"
+        ".json",
+        ".docx",
+        ".JsOn",
+        ".DocX"
     };
 
     private String[] invalidExtensions = {
-            ".html",
-            ".png",
-            ".txt",
-            ".jsonn",
-            "."
+        ".html",
+        ".png",
+        ".txt",
+        ".jsonn",
+        "."
     };
 
     @Test
@@ -42,18 +42,18 @@ public class ExportPathFactoryTest {
                 ExportPath exportPath = ExportPathFactory.getExportPath(filePath);
 
                 switch (validExtension.toLowerCase()) {
-                    case ".docx":
-                        assertTrue(
-                                exportPath instanceof DocumentPath
-                        );
-                        break;
-                    case ".json":
-                        assertTrue(
-                                exportPath instanceof JsonExportPath
-                        );
-                        break;
-                    default:
-                        fail("Valid export path not recognized as valid: " + filePath);
+                case ".docx":
+                    assertTrue(
+                            exportPath instanceof DocumentPath
+                    );
+                    break;
+                case ".json":
+                    assertTrue(
+                            exportPath instanceof JsonExportPath
+                    );
+                    break;
+                default:
+                    fail("Valid export path not recognized as valid: " + filePath);
                 }
             }
         }
@@ -81,18 +81,18 @@ public class ExportPathFactoryTest {
             ExportPath exportPath = ExportPathFactory.getExportPath(filePath);
 
             switch (validExtension.toLowerCase()) {
-                case ".docx":
-                    assertTrue(
-                            exportPath instanceof DocumentPath
-                    );
-                    break;
-                case ".json":
-                    assertTrue(
-                            exportPath instanceof JsonExportPath
-                    );
-                    break;
-                default:
-                    fail("Valid export path not recognized as valid: " + filePath);
+            case ".docx":
+                assertTrue(
+                        exportPath instanceof DocumentPath
+                );
+                break;
+            case ".json":
+                assertTrue(
+                        exportPath instanceof JsonExportPath
+                );
+                break;
+            default:
+                fail("Valid export path not recognized as valid: " + filePath);
             }
         }
     }
