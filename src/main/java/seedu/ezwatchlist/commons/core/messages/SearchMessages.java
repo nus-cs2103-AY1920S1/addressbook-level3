@@ -7,9 +7,9 @@ public class SearchMessages {
     public static final String MESSAGE_USAGE =
             "Search : Searches for shows whose names contain any of the given keywords from the watchlist, "
             + "watched list and online.\n"
-            + "- by name: search n/SHOW_NAME… [g/GENRE]… [a/ACTOR_NAME]… [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]\n"
-            + "- by genre: search g/GENRE… [n/SHOW_NAME]… [a/ACTOR_NAME]… [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]\n"
-            + "- by actor (from watchlist): search a/ACTOR_NAME… [n/SHOW_NAME]… [g/GENRE]… [t/TYPE] [w/IS_WATCH]\n"
+            + "- by name: search n/SHOW_NAME… [g/GENRE]… [a/ACTOR_NAME]… [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]\n"
+            + "- by genre: search g/GENRE… [n/SHOW_NAME]… [a/ACTOR_NAME]… [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]\n"
+            + "- by actor (from watchlist): search a/ACTOR_NAME… [n/SHOW_NAME]… [g/GENRE]… [t/TYPE] [w/HAS_WATCHED]\n"
             + "Enter 'help' command for more detailed examples.";
 
     public static final String MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW = "%1$d shows listed!"

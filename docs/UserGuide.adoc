@@ -213,7 +213,7 @@ Edits the name and actor name of the 1st show in the list to be `Titanic` and `J
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
-==== Search for a show by name: `search`
+==== Search for a show: `search`
 ====
 Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
 ====
@@ -221,14 +221,15 @@ Note: Search results will appear in the Search Page, click kbd:[3] to go straigh
 Searches for shows whose names contain any of the given keywords from the watchlist, watched list and online. +
 Format:
 
-* by name: `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]`
-* by genre: `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]`
-* by actor (from watchlist): `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]`
+* by name: `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+* by genre: `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+* by actor (from watchlist): `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/HAS_WATCHED]`
 
 ****
 * The search is case insensitive. e.g "avengers" will match "Avengers"
 * The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris"
 * Not only full words will be matched. e.g. "Joke" will also match with "Joker"
+* For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted.
 * When searching based on actor, only shows from the watchlist will be searched.
 * When searching based on genre online, only movies will be searched.
 ****
