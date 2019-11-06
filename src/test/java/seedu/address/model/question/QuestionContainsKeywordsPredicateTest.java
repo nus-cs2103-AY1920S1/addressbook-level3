@@ -19,8 +19,10 @@ class QuestionContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        QuestionContainsKeywordsPredicate firstPredicate = new QuestionContainsKeywordsPredicate(firstPredicateKeywordList);
-        QuestionContainsKeywordsPredicate secondPredicate = new QuestionContainsKeywordsPredicate(secondPredicateKeywordList);
+        QuestionContainsKeywordsPredicate firstPredicate =
+                new QuestionContainsKeywordsPredicate(firstPredicateKeywordList);
+        QuestionContainsKeywordsPredicate secondPredicate =
+                new QuestionContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertEquals(firstPredicate, firstPredicate);
@@ -72,7 +74,7 @@ class QuestionContainsKeywordsPredicateTest {
 
         // Keywords match answer, subject and difficulty, but does not match question body
         predicate = new QuestionContainsKeywordsPredicate(Arrays.asList("12345", "person", "Main", "Street"));
-        assertFalse(predicate.test(new QuestionBuilder()
+        assertTrue(predicate.test(new QuestionBuilder()
                 .withQuestionBody("Alice")
                 .withAnswer("12345")
                 .withSubject("person")

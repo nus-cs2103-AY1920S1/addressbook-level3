@@ -17,8 +17,8 @@ public class QuestionContainsKeywordsPredicate implements Predicate<Question> {
     public boolean test(Question question) {
         String body = question.getQuestionBody().body;
         String answer = question.getAnswer().answer;
-        return keywords.stream().anyMatch(s -> body.toLowerCase().contains(s.toLowerCase()) ||
-                answer.toLowerCase().contains(s.toLowerCase()));
+        return keywords.stream().anyMatch(s -> body.toLowerCase().contains(s.toLowerCase())
+                || answer.toLowerCase().contains(s.toLowerCase()));
     }
 
     @Override
