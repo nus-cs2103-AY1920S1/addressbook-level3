@@ -11,12 +11,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
+import static seedu.address.testutil.scheduleutil.TypicalEvents.EVENT_NAME1;
+import static seedu.address.testutil.scheduleutil.TypicalEvents.EVENT_NAME2;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.testutil.personutil.PersonBuilder;
@@ -114,13 +116,45 @@ public class PersonTest {
     }
 
     @Test
-    void addEvent() throws EventClashException, DuplicateEventException {
-        alice.addEvent(TypicalEvents.generateTypicalEvent1());
+    void addEvent() {
+        try {
+            alice.addEvent(TypicalEvents.generateTypicalEvent1());
+        } catch (EventClashException e) {
+            e.printStackTrace();
+        }
         Schedule schedule = alice.getSchedule();
         assertNotNull(schedule);
         Event event = schedule.getEvents().get(0);
         assertNotNull(event);
         assertTrue(event.equals(TypicalEvents.generateTypicalEvent1()));
+    }
+
+    @Test
+    void deleteEvent() {
+        try {
+            alice.addEvent(TypicalEvents.generateTypicalEvent1());
+        } catch (EventClashException e) {
+            e.printStackTrace();
+        }
+
+        Schedule schedule = alice.getSchedule();
+        assertNotNull(schedule);
+        Event event = schedule.getEvents().get(0);
+        assertNotNull(event);
+
+        try {
+            alice.deleteEvent(EVENT_NAME1);
+        } catch (EventNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertNotNull(schedule);
+        assertThrows(IndexOutOfBoundsException.class, () -> schedule.getEvents().get(0));
+    }
+
+    @Test
+    void deleteEvent_eventNotFound() {
+        assertThrows(EventNotFoundException.class, () -> alice.deleteEvent(EVENT_NAME1));
+        assertThrows(EventNotFoundException.class, () -> benson.deleteEvent(EVENT_NAME2));
     }
 
     @Test

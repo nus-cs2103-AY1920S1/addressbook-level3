@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP2;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ class GroupListTest {
     @Test
     void deleteGroup() throws GroupNotFoundException, DuplicateGroupException {
         groupList = TypicalGroups.generateTypicalGroupList();
-        Group group = groupList.findGroup(GROUPNAME1);
+        Group group = groupList.findGroup(GROUP_NAME1);
         assertNotNull(group);
 
         assertDoesNotThrow(() -> groupList.deleteGroup(group.getGroupId()));

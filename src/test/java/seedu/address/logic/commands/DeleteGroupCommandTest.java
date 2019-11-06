@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME0;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME2;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,10 +38,10 @@ class DeleteGroupCommandTest {
     void execute_success() throws CommandException {
 
         CommandResult actualCommandResult =
-                new DeleteGroupCommand(GROUPNAME1).execute(model);
+                new DeleteGroupCommand(GROUP_NAME1).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(String.format(DeleteGroupCommand.MESSAGE_SUCCESS, GROUPNAME1.toString()));
+                new CommandResult(String.format(DeleteGroupCommand.MESSAGE_SUCCESS, GROUP_NAME1.toString()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -47,12 +50,41 @@ class DeleteGroupCommandTest {
     void execute_failure() throws CommandException {
 
         CommandResult actualCommandResult =
-                new DeleteGroupCommand(GROUPNAME0).execute(model);
+                new DeleteGroupCommand(GROUP_NAME0).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(String.format(DeleteGroupCommand.MESSAGE_FAILURE,
                         DeleteGroupCommand.MESSAGE_GROUP_NOT_FOUND));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
+    }
+
+    @Test
+    void equals_null() {
+        assertFalse(new DeleteGroupCommand(GROUP_NAME1).equals(null));
+    }
+
+    @Test
+    void equals_otherCommand() {
+        assertFalse(new DeleteGroupCommand(GROUP_NAME1)
+                .equals(new AddPersonCommand(ALICE)));
+    }
+
+    @Test
+    void equals_differentGroupName() {
+        assertFalse(
+                new DeleteGroupCommand(GROUP_NAME1).equals(
+                        new DeleteGroupCommand(GROUP_NAME2)
+                )
+        );
+    }
+
+    @Test
+    void equals() {
+        assertTrue(
+                new DeleteGroupCommand(GROUP_NAME1).equals(
+                        new DeleteGroupCommand(GROUP_NAME1)
+                )
+        );
     }
 }

@@ -55,16 +55,6 @@ public class Group {
         return output;
     }
 
-    /**
-     * Prints out all details of the group.
-     *
-     * @return String
-     */
-    public String details() {
-        String output = "";
-        output += this.toString() + "\n";
-        return output;
-    }
 
     /**
      * Checks if other group has the same details.

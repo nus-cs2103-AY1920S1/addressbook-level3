@@ -27,7 +27,6 @@ import seedu.address.model.module.NusModsShareLink;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -49,7 +48,6 @@ public class AddNusModsCommand extends Command {
     public static final String MESSAGE_MODULE_NOT_FOUND = "invalid module %s in link";
     public static final String MESSAGE_EVENTS_CLASH = "there's a timing clash somewhere "
             + "between the modules you're adding and the person's schedule!";
-    public static final String MESSAGE_DUPLICATE_EVENT = "module already exists in the schedule";
 
     private final Name name;
     private final NusModsShareLink link;
@@ -87,8 +85,6 @@ public class AddNusModsCommand extends Command {
 
         try {
             addEventsToPerson(person, eventsToAdd);
-        } catch (DuplicateEventException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_EVENT));
         } catch (EventClashException e) {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_EVENTS_CLASH));
         }
@@ -132,10 +128,9 @@ public class AddNusModsCommand extends Command {
      * @param person person to add events to.
      * @param eventsToAdd events to add to schedule.
      * @throws EventClashException if there is a clash in event to add and person's schedule.
-     * @throws DuplicateEventException if there is a duplicate event already in person's schedule.
      */
     private void addEventsToPerson(Person person, List<Event> eventsToAdd)
-            throws EventClashException, DuplicateEventException {
+            throws EventClashException {
         if (checkClashingModuleEvents(eventsToAdd)) {
             throw new EventClashException();
         }
