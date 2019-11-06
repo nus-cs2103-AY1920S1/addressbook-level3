@@ -48,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statisticsPlaceholder;
-  
+
     @FXML
     private StackPane financePlaceholder;
 
@@ -145,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
 
         statisticsBox = new StatisticsBox(logic.getFilteredScheduledEventList(), logic, this);
         statisticsPlaceholder.getChildren().add(statisticsBox.getRoot());
-      
+
         finance = new Finance(logic.getFilteredEmployeeList(), logic, this);
         financePlaceholder.getChildren().add(finance.getRoot());
 
