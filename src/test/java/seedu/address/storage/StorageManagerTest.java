@@ -2,8 +2,12 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,11 +15,12 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiMode;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ModulePlanner;
+import seedu.address.model.ModulesInfo;
+import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.UserPrefs;
 
-//import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
-//import seedu.address.model.ModulePlanner;
-//import seedu.address.model.ReadOnlyModulePlanner;
 
 public class StorageManagerTest {
 
@@ -23,13 +28,17 @@ public class StorageManagerTest {
     public Path testFolder;
 
     private StorageManager storageManager;
+    private ModulesInfo modulesInfo;
 
     @BeforeEach
     public void setUp() {
         JsonModulePlannerStorage modulePlannerStorage = new JsonModulePlannerStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(getTempFilePath("modsInfo"));
-        storageManager = new StorageManager(modulePlannerStorage, userPrefsStorage, modulesInfoStorage);
+        JsonModulesInfoStorage jsonModulesInfoStorage =
+                new JsonModulesInfoStorage(getTempFilePath("modsInfo"));
+        storageManager = new StorageManager(modulePlannerStorage, userPrefsStorage, jsonModulesInfoStorage);
+        ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(Paths.get("modules_cs.json"));
+        modulesInfo = initModulesInfo(modulesInfoStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -50,7 +59,6 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
-    //TODO implement
     @Test
     public void modulePlannerReadSave() throws Exception {
         /*
@@ -58,17 +66,31 @@ public class StorageManagerTest {
          * {@link JsonModulePlannerStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonModulePlannerStorageTest} class.
          */
-        /*
         ModulePlanner original = getTypicalModulePlanner();
         storageManager.saveModulePlanner(original);
-        ReadOnlyModulePlanner retrieved = storageManager.readModulePlanner().get();
-        assertEquals(original, new ModulePlanner(retrieved));
-        */
+        ReadOnlyModulePlanner retrieved = storageManager.readModulePlanner(modulesInfo).get();
+        assertEquals(original, new ModulePlanner(retrieved, modulesInfo));
     }
 
     @Test
     public void getModulePlannerFilePath() {
         assertNotNull(storageManager.getModulePlannerFilePath());
+    }
+
+    /**
+     * Initialises modules info from storage.
+     */
+    protected ModulesInfo initModulesInfo(ModulesInfoStorage storage) {
+        ModulesInfo initializedModulesInfo;
+        try {
+            Optional<ModulesInfo> prefsOptional = storage.readModulesInfo();
+            initializedModulesInfo = prefsOptional.orElse(new ModulesInfo());
+        } catch (DataConversionException e) {
+            initializedModulesInfo = new ModulesInfo();
+        } catch (IOException e) {
+            initializedModulesInfo = new ModulesInfo();
+        }
+        return initializedModulesInfo;
     }
 
 }

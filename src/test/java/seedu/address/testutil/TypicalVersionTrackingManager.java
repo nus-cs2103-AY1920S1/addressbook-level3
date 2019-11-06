@@ -22,22 +22,6 @@ public class TypicalVersionTrackingManager {
     public static final String SAMPLE_COMMIT_MESSAGE_2 = "second commit";
     public static final String SAMPLE_COMMIT_MESSAGE_3 = "third commit";
 
-    // committed study plans
-    private StudyPlan clonedSp1 = SP_1.clone();
-    private StudyPlan clonedSp2 = SP_2.clone();
-    private StudyPlan clonedSp3 = SP_3.clone();
-
-    public TypicalVersionTrackingManager() throws CloneNotSupportedException {
-        /*
-        // add a module
-        SP_1.addModuleToSemester(new ModuleCode("MA1101R"), SemesterName.Y2S2);
-        // add a tag
-        SP_2.addTag(new UserTag("difficult module"), "CS3230");
-        // change the title
-        SP_3.setTitle(new Title("New Title"));
-         */
-    }
-
     /**
      * Returns a typical commit for testing.
      */

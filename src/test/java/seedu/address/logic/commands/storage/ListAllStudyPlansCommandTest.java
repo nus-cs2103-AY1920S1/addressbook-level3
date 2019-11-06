@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.storage;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalModulesInfo.getTypicalModulesInfo;
 import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
@@ -37,6 +39,24 @@ public class ListAllStudyPlansCommandTest {
         }
         CommandResult expectedResult = new CommandResult(toReturn.toString());
         assertCommandSuccess(command, model, expectedResult, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        ListAllStudyPlansCommand command1 = new ListAllStudyPlansCommand();
+        ListAllStudyPlansCommand command2 = new ListAllStudyPlansCommand();
+
+        // same object --> true
+        assertTrue(command1.equals(command1));
+
+        // same command --> true
+        assertTrue(command1.equals(command2));
+
+        // different types --> false
+        assertFalse(command1.equals(1));
+
+        // null --> false
+        assertFalse(command1.equals(null));
     }
 
 }

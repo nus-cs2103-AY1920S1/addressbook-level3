@@ -35,6 +35,8 @@ import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
+import seedu.address.logic.commands.storage.AddSemesterCommand;
+import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
 import seedu.address.logic.commands.storage.DeleteCommitCommand;
@@ -45,6 +47,7 @@ import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
+import seedu.address.logic.commands.storage.ViewStudyPlanCommand;
 import seedu.address.logic.commands.verification.DescriptionCommand;
 import seedu.address.logic.commands.verification.ValidModsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -214,6 +217,24 @@ public class ModulePlannerParserTest {
     public void parseCommand_activateStudyPlan() throws Exception {
         ActivateStudyPlanCommand command = new ActivateStudyPlanCommand(1);
         assertEquals(parser.parseCommand(ActivateStudyPlanCommand.COMMAND_WORD + " " + 1), command);
+    }
+
+    @Test
+    public void parseCommand_addSemester() throws Exception {
+        AddSemesterCommand command = new AddSemesterCommand(SemesterName.Y1ST1);
+        assertEquals(parser.parseCommand(AddSemesterCommand.COMMAND_WORD + " " + "y1st1"), command);
+    }
+
+    @Test
+    public void parseCommand_commitStudyPlan() throws Exception {
+        CommitStudyPlanCommand command = new CommitStudyPlanCommand("message");
+        assertEquals(parser.parseCommand(CommitStudyPlanCommand.COMMAND_WORD + " " + "message"), command);
+    }
+
+    @Test
+    public void parseCommand_viewStudyPlan() throws Exception {
+        ViewStudyPlanCommand command = new ViewStudyPlanCommand(1);
+        assertEquals(parser.parseCommand(ViewStudyPlanCommand.COMMAND_WORD + " " + 1), command);
     }
 
     @Test

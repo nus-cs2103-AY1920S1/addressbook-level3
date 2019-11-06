@@ -42,4 +42,10 @@ public class ViewCommitHistoryCommand extends Command {
             throw new CommandException(MESSAGE_NO_COMMIT_HISTORY);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ViewCommitHistoryCommand;
+    }
+
 }

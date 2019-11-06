@@ -18,18 +18,6 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.address.testutil.Assert.assertThrows;
-//import java.util.Arrays;
-//import seedu.address.commons.core.index.Index;
-//import seedu.address.model.studyplan.NameContainsKeywordsPredicate;
-//import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
-
 /**
  * Contains helper methods for testing commands.
  */
@@ -64,6 +52,9 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
+
+            System.out.println(result.getFeedbackToUser());
+            System.out.println(expectedCommandResult.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -101,20 +92,5 @@ public class CommandTestUtil {
         assertEquals(expectedModulePlanner, actualModel.getModulePlanner());
         assertEquals(expectedFilteredList, actualModel.getFilteredStudyPlanList());
     }
-    /**
-     * Updates {@code model}'s filtered list to show only the studyPlan at the given {@code targetIndex} in the
-     * {@code model}'s module planner.
-     */
-    /*
-    public static void showStudyPlanAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredStudyPlanList().size());
-
-        StudyPlan studyPlan = model.getFilteredStudyPlanList().get(targetIndex.getZeroBased());
-        final String[] splitName = studyPlan.getTitle().toString().split("\\s+");
-        model.updateFilteredStudyPlanList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredStudyPlanList().size());
-    }
-     */
 
 }

@@ -75,7 +75,7 @@ import seedu.address.logic.parser.gui.ExpandCommandParser;
 import seedu.address.logic.parser.gui.HelpCommandParser;
 import seedu.address.logic.parser.storage.ActivateStudyPlanParser;
 import seedu.address.logic.parser.storage.AddSemesterCommandParser;
-import seedu.address.logic.parser.storage.CommitStudyPlanEditsParser;
+import seedu.address.logic.parser.storage.CommitStudyPlanCommandParser;
 import seedu.address.logic.parser.storage.CreateStudyPlanCommandParser;
 import seedu.address.logic.parser.storage.DeleteCommitCommandParser;
 import seedu.address.logic.parser.storage.DeleteSemesterCommandParser;
@@ -141,7 +141,7 @@ public class ModulePlannerParser {
             return new ValidModsCommandParser().parse(arguments);
 
         case CommitStudyPlanCommand.COMMAND_WORD:
-            return new CommitStudyPlanEditsParser().parse(arguments);
+            return new CommitStudyPlanCommandParser().parse(arguments);
 
         case CheckCommand.COMMAND_WORD:
             return new CheckCommand();

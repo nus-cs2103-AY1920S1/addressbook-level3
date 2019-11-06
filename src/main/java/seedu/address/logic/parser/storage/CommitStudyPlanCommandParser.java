@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new CommitStudyPlanCommand object
  */
-public class CommitStudyPlanEditsParser implements Parser<CommitStudyPlanCommand> {
+public class CommitStudyPlanCommandParser implements Parser<CommitStudyPlanCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
      * CommitStudyPlanCommand and returns an CommitStudyPlanCommand object for

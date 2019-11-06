@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalModulesInfo.getTypicalModulesInfo;
+import static seedu.address.testutil.TypicalStudyPlans.SP_1;
+import static seedu.address.testutil.TypicalStudyPlans.SP_2;
 import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,58 +20,63 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.testutil.StudyPlanBuilder;
 import seedu.address.ui.ResultViewType;
 
 
 /**
- * Contains integration tests (interaction with the Model) for {@code ViewStudyPlanCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ViewCommitCommand}.
  */
-public class ViewStudyPlanCommandTest {
+public class ViewCommitCommandTest {
 
-    private static final int INVALID_STUDY_PLAN_INDEX = 100;
+    private static final String COMMIT_MESSAGE = "commit message";
 
     private Model model;
-    private StudyPlan validStudyPlan = new StudyPlanBuilder().build();
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
-        model.addStudyPlan(validStudyPlan);
+        model.commitActiveStudyPlan(COMMIT_MESSAGE);
     }
 
     @Test
-    public void execute_viewValidStudyPlan_success() {
-        int studyPlanIndex = validStudyPlan.getIndex();
-
+    public void execute_viewValidCommit_success() {
         Model expectedModel = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
-        expectedModel.addStudyPlan(validStudyPlan);
+        expectedModel.commitActiveStudyPlan(COMMIT_MESSAGE);
 
-        ObservableList<Semester> expectedSemesters = validStudyPlan.getSemesters().asUnmodifiableObservableList();
-        String expectedText = String.format(ViewStudyPlanCommand.MESSAGE_SUCCESS, studyPlanIndex,
-                validStudyPlan.getTitle().toString());
-        ViewStudyPlanCommand command = new ViewStudyPlanCommand(studyPlanIndex);
+        int expectedActiveStudyPlanIndex = expectedModel.getActiveStudyPlan().getIndex();
+        StudyPlan expectedCommittedPlan =
+                expectedModel.getCommitListByStudyPlanIndex(expectedActiveStudyPlanIndex)
+                        .getCommitByIndex(0).getStudyPlan();
+        ObservableList<Semester> expectedSemesters =
+                expectedCommittedPlan.getSemesters().asUnmodifiableObservableList();
+        ViewCommitCommand command = new ViewCommitCommand(SP_1.getIndex(), 0);
         CommandResult<Semester> expectedResult =
-                new CommandResult<>(expectedText, ResultViewType.SEMESTER, expectedSemesters);
+                new CommandResult<>(ViewCommitCommand.MESSAGE_SUCCESS, ResultViewType.SEMESTER, expectedSemesters);
         assertCommandSuccess(command, model, expectedResult, expectedModel);
     }
 
     @Test
-    public void execute_viewInvalidStudyPlan_throwsCommandException() {
-        ViewStudyPlanCommand command = new ViewStudyPlanCommand(INVALID_STUDY_PLAN_INDEX);
+    public void execute_wrongActiveStudyPlanIndex_throwsCommandException() {
+        ViewCommitCommand command = new ViewCommitCommand(SP_2.getIndex(), 0);
+        assertThrows(CommandException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void execute_commitIndexOutOfBounds_throwsCommandException() {
+        ViewCommitCommand command = new ViewCommitCommand(SP_1.getIndex(), 100);
         assertThrows(CommandException.class, () -> command.execute(model));
     }
 
     @Test
     public void equals() {
-        ViewStudyPlanCommand command1 = new ViewStudyPlanCommand(1);
-        ViewStudyPlanCommand command2 = new ViewStudyPlanCommand(2);
+        ViewCommitCommand command1 = new ViewCommitCommand(SP_1.getIndex(), 0);
+        ViewCommitCommand command2 = new ViewCommitCommand(SP_2.getIndex(), 1);
 
         // same object -> returns true
         assertTrue(command1.equals(command1));
 
         // same values -> returns true
-        ViewStudyPlanCommand command3 = new ViewStudyPlanCommand(1);
+        ViewCommitCommand command3 = new ViewCommitCommand(SP_1.getIndex(), 0);
         assertTrue(command1.equals(command3));
 
         // different types -> returns false
@@ -78,7 +85,7 @@ public class ViewStudyPlanCommandTest {
         // null -> returns false
         assertFalse(command1.equals(null));
 
-        // different commit messages -> returns false
+        // different commits -> returns false
         assertFalse(command1.equals(command2));
     }
 

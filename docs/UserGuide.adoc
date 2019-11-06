@@ -76,11 +76,14 @@ Example:
 * `removeplan 4`
 
 ==== Committing edits to a study plan: `commit`
-Saves changes to a study plan with a short commit message.
+Saves changes to a study plan with a short commit message. Each commit is assigned an index of the format
+`[PLAN_ID].[COMMIT_INDEX]` such as `4.0`, where `PLAN_ID` is the study plan ID associated with the commit, and `COMMIT_INDEX`
+depends on the position of this commit in the commit list of this study plan. The commit index may change
+(shift forward) if another commit prior to it gets deleted.
 
 [NOTE]
 Even without committing, the module planner is automatically saved to storage after every command is
-executed successfully. However, commits allow the user to revert to a previous state of the study plan.
+executed successfully. However, commits allow the user to possibly revert to a previous state of the study plan in the future.
 
 [TIP]
 The user is allowed, but not recommended, to commit a study plan even when there are no changes

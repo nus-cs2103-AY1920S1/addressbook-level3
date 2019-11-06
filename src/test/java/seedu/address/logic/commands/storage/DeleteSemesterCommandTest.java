@@ -30,6 +30,7 @@ public class DeleteSemesterCommandTest {
         model = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
         UniqueSemesterList semesters = new UniqueSemesterList();
         semesters.add(new Semester(SemesterName.Y1S1));
+        semesters.add(new Semester(SemesterName.Y1ST1));
         StudyPlan studyPlan = new StudyPlanBuilder().withSemesters(semesters).build();
         model.addStudyPlan(studyPlan);
         model.activateStudyPlan(studyPlan.getIndex());
@@ -43,7 +44,7 @@ public class DeleteSemesterCommandTest {
 
         Model expectedModel = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
         UniqueSemesterList semesters = new UniqueSemesterList();
-        semesters.add(new Semester(SemesterName.Y1S1));
+        semesters.add(new Semester(semesterName));
         StudyPlan studyPlan = new StudyPlanBuilder().withSemesters(semesters).build();
         expectedModel.addStudyPlan(studyPlan);
         expectedModel.activateStudyPlan(studyPlan.getIndex());
@@ -53,6 +54,34 @@ public class DeleteSemesterCommandTest {
         CommandResult expectedResult =
                 new CommandResult(String.format(DeleteSemesterCommand.MESSAGE_DELETE_MAINSTREAM_SEMESTER_SUCCESS,
                         semesterName));
+        CommandResult actualResult = command.execute(model);
+
+        // check command result
+        assertEquals(expectedResult, actualResult);
+
+        // check semesters
+        UniqueSemesterList expectedSemesters = expectedModel.getActiveStudyPlan().getSemesters();
+        UniqueSemesterList actualSemesters = model.getActiveStudyPlan().getSemesters();
+        assertEquals(expectedSemesters, actualSemesters);
+    }
+
+    @Test
+    public void execute_deleteNonMainstreamSemester_success() throws CommandException {
+        // a non-mainstream semester is a special term or a Year 5 semester
+        SemesterName specialSemesterName = SemesterName.Y1ST1;
+
+        Model expectedModel = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
+        UniqueSemesterList semesters = new UniqueSemesterList();
+        semesters.add(new Semester(specialSemesterName));
+        StudyPlan studyPlan = new StudyPlanBuilder().withSemesters(semesters).build();
+        expectedModel.addStudyPlan(studyPlan);
+        expectedModel.activateStudyPlan(studyPlan.getIndex());
+        expectedModel.deleteSemester(specialSemesterName);
+
+        DeleteSemesterCommand command = new DeleteSemesterCommand(specialSemesterName);
+        CommandResult expectedResult =
+                new CommandResult(String.format(DeleteSemesterCommand.MESSAGE_DELETE_SPECIAL_SEMESTER_SUCCESS,
+                        specialSemesterName));
         CommandResult actualResult = command.execute(model);
 
         // check command result
