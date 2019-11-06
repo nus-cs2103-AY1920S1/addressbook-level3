@@ -14,7 +14,7 @@ Class UserRecommendations
 
 RecommendationSystem ..|> Recommender
 
-RecommendationSystem *-right-> UserRecommendations
+RecommendationSystem *--> "0..1  " UserRecommendations
 
 UserRecommendations ..|> Recommendations
 

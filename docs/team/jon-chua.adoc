@@ -48,7 +48,7 @@ spicy food accordingly and the overall recommendations would contain less spicy 
 ==== Justification
 
 NUS students might not want to eat the same food on multiple occasions. This feature allows money-conscious students
-to discover food matching their palate that they might not have tried before while considering their budget.
+to discover food matching their palate that they might not have tried before, while considering their budget.
 
 ==== Highlights
 
@@ -60,12 +60,17 @@ resulting in more accurate recommendations.
 Storage functionality for the user's preferences were also implemented. This means that the user's likes and dislikes
 are conveniently saved into their hard disk and persist even after the application is closed and restarted.
 
-Furthermore, I had to link the `Budget` and `PurchaseHistory` class into my recommendation system. It would be useful if
-the recommendation system takes into account the user's budget and purchase history. For example, the system filters out
-any item that is currently out of the user's budget. Furthermore, it tries not to recommend items that are recently
-purchased by the user, assuming that the user wants a variety of foods to enjoy.
+Furthermore, I had to link the `Budget` and `PurchaseHistory` class into my recommendation system, which was implemented
+by other team members. It would be useful if the recommendation system takes into account the user's budget and purchase
+history. For example, the system filters out any item that is currently out of the user's budget. Furthermore, it tries
+not to recommend items that are recently purchased by the user, assuming that the user wants a variety of foods to enjoy.
 
 In this way, the user benefits from the recommendation system which provides more relevant and accurate recommendations.
+
+=== Code contributed
+
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jon-chua&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-11-05[[Project Code Dashboard]]
+| https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?q=is%3Apr+author%3Ajon-chua+is%3Aclosed[[Pull Requests]]
 
 === Other contributions
 
@@ -105,11 +110,22 @@ https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestrev
 
 This section shows the contributions that I have made to the recommendation feature of the User Guide.
 
+|===
+| _I wrote the commands for `recommend`, `like`, `dislike`, `removelike` and `removedislike`.
+The commands are shown below while the full user guide can be found
+https://ay1920s1-cs2103t-f13-2.github.io/main/UserGuide.html[here]._
+|===
+
 include::../UserGuide.adoc[tag=recommendations]
 
 == Contributions to the Developer Guide
 
 This section shows the additions that I have made to the recommendation feature of the Developer Guide.
+
+|===
+| _I wrote the recommendation system section of the Developer Guide. The full Developer Guide can be found
+https://ay1920s1-cs2103t-f13-2.github.io/main/DeveloperGuide.html[here]._
+|===
 
 include::../DeveloperGuide.adoc[tag=recommendations1]
 
