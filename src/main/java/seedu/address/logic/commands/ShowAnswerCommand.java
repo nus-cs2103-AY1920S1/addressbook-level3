@@ -12,6 +12,8 @@ import seedu.address.model.Model;
 public class ShowAnswerCommand extends Command {
 
     public static final String COMMAND_WORD = "ans";
+    public static final String ERROR_MESSAGE = "Answer has already been displayed!\n"
+            + "Next available command: rate, end";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 

@@ -29,6 +29,7 @@ import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SearchQuestionCommand;
 import seedu.address.logic.commands.SetThemeCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
+import seedu.address.logic.commands.SkipCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.StatsCommand;
 
@@ -85,14 +86,27 @@ public class KeyboardFlashCardsParser {
     private Command parseTestCommand(Matcher matcher) throws ParseException {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        if (commandWord.equals(EndTestCommand.COMMAND_WORD)) {
+        switch (commandWord) {
+        case EndTestCommand.COMMAND_WORD:
             return new EndTestCommand(this);
-        } else if (commandWord.equals(ShowAnswerCommand.COMMAND_WORD) && isAwaitingAnswer) {
-            return new ShowAnswerCommand(this);
-        } else if (commandWord.equals(RateQuestionCommand.COMMAND_WORD) && !isAwaitingAnswer) {
-            return new RateQuestionCommandParser(this).parse(arguments);
+        case ShowAnswerCommand.COMMAND_WORD:
+            if (isAwaitingAnswer) {
+                return new ShowAnswerCommand(this);
+            }
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_TEST_COMMAND, ShowAnswerCommand.ERROR_MESSAGE));
+        case RateQuestionCommand.COMMAND_WORD:
+            if (!isAwaitingAnswer) {
+                return new RateQuestionCommandParser(this).parse(arguments);
+            }
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_TEST_COMMAND, RateQuestionCommand.ERROR_MESSAGE));
+        case SkipCommand.COMMAND_WORD:
+            if (isAwaitingAnswer) {
+                return new SkipCommand(this);
+            }
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_TEST_COMMAND, SkipCommand.ERROR_MESSAGE));
+        default:
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_TEST_COMMAND, ""));
         }
-        throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
     }
 
     //@@author

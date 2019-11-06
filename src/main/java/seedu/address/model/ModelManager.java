@@ -264,6 +264,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void endFlashCardTest() {
+        showFlashCardList();
+    }
+
+    @Override
     public FlashCard getCurrentTestFlashCard() {
         return flashCardTestModel.getCurrentFlashCard();
     }
@@ -271,6 +276,11 @@ public class ModelManager implements Model {
     /** Hides the list of flashcards during test mode. */
     private void hideFlashCardList() {
         updateFilteredFlashCardList(pred -> false);
+    }
+
+    /** Shows the entire list of flashcards. */
+    private void showFlashCardList() {
+        updateFilteredFlashCardList(pred -> true);
     }
 
     //@@author LeowWB
