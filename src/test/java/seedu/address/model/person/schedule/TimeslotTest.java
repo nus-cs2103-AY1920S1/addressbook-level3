@@ -14,6 +14,7 @@ import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE2;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE3;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.scheduleutil.TypicalTimeslots;
 
 class TimeslotTest {
