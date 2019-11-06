@@ -29,11 +29,14 @@ public class JsonAdaptedLesson {
         this.className = className;
         this.startTime = startTime;
         this.endTime = endTime;
-        if (isRepeat != null) {
-            this.isRepeat = isRepeat;
-        } else {
-            this.isRepeat = "Not repeated";
-        }
+        this.isRepeat = isRepeat;
+//        if (isRepeat != null) {
+//            System.out.println("if");
+//            this.isRepeat = isRepeat;
+//        } else {
+//            System.out.println("else");
+//            this.isRepeat = "Not repeated";
+//        }
     }
 
     /**
@@ -79,7 +82,7 @@ public class JsonAdaptedLesson {
 
         Lesson lesson = new Lesson(modelStartTime, modelEndTime, modelClassName);
 
-        if (isRepeat != null) {
+        if (isRepeat.equals("Repeated weekly")) {
             lesson.setRepeat();
         }
         return lesson;

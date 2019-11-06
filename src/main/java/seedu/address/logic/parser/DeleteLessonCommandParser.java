@@ -28,7 +28,6 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
         Index day;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DAY) || argMultimap.getPreamble().isEmpty()) {
-            System.out.println("prefix not present");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
         }
         try {
@@ -36,7 +35,6 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
             day = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
             return new DeleteLessonCommand(index, day);
         } catch (ParseException pe) {
-            System.out.println("index error");
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE), pe);
         }
