@@ -205,7 +205,7 @@ Note: S1 means the 1st attempted weight for the Squat and so on.
 ==== Listing all persons who are participating in all competitions or for one competition: `listParticipation`
 Note that the user can choose to provide a competition name or not.
 
-Format: `listParticipation [COMPETITION NAME]`
+Format: `listParticipation c/COMPETITION_NAME`
 
 Example:
 To display all persons for all competitions:
@@ -214,7 +214,7 @@ To display all persons for all competitions:
 
 To display all persons for NUS 2022 competition only:
 
-* `listParticipation NUS 2022`
+* `listParticipation c/NUS 2022`
 
 ==== Deleting an existing participation: `deleteParticipation`
 Deletes the participation identified by the index number, used in Participation list (shown in the GUI).

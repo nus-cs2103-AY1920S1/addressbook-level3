@@ -24,7 +24,7 @@ image::HoWeiChin.png[width="180", align="left"]
 
 Role: Team Lead +
 Responsibilities: Deliverable, Tracking, User Interface +
-Component IC: Athletes
+Component IC: Person, Competition
 
 '''
 
@@ -34,7 +34,7 @@ image::ooimingsheng.png[width="180", align="left"]
 
 Role: Developer +
 Responsibilities: Integration, Code Quality +
-Component IC: Leaderboard
+Component IC: Storage, Context-Switching
 
 '''
 
@@ -43,8 +43,8 @@ image::shawnkoh.png[width="180", align="left"]
 {empty}[https://github.com/shawnkoh[github]] [<<shawnkoh#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Project Workflow, User interface, Code Quality +
-Component IC: Competitions Overview
+Responsibilities: Project Workflow, User interface +
+Component IC: Leaderboard
 
 '''
 
@@ -53,7 +53,7 @@ image::belbel98.png[width="180", align="left"]
 {empty}[https://github.com/belbel98[github]] [<<christabelteo#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation, Testing +
-Component IC: Session Handling
+Responsibilities: Documentation, Deliverable, Deadlines +
+Component IC: Session Handling, Participation
 
 '''

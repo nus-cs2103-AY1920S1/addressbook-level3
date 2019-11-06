@@ -41,91 +41,10 @@ To get involved, start by reading <<SettingUp#, Section 2, “Setting up”>>.
 
 == Setting up
 
-This section includes the instructions to set up your development environment.
-
-=== Prerequisites
-
-Prior to setting up the project proper, make sure you have the following.
-
-. *JDK `11`* or above
-. *IntelliJ* IDE
-+
-[NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
-Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+Refer to the guide <<SettingUp#, here>>.
 
 
-=== Setting up the project in your computer
-
-To setup the project in IntelliJ, follow the steps below.
-
-. Fork this repo, and clone the fork to your computer.
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close
-the existing project dialog first).
-. Set up the correct JDK version for Gradle.
-.. Click `Configure` > `Project Defaults` > `Project Structure`.
-.. Click `New...` and find the directory of the JDK.
-. Click `Import Project`.
-. Locate the `build.gradle` file and select it. Click `OK`.
-. Click `Open as Project`.
-. Click `OK` to accept the default settings.
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
-It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
-
-=== Verifying the setup
-
-To verify that the setup is completed successfully, you should:
-
-. Run the `seedu.address.MainApp` and try a few commands.
-. <<Testing,Run the tests>> to ensure they all pass.
-
-=== Configurations to do before writing code
-
-This subsection includes configurations that you may find necessary or useful as you work on this project.
-We recommend that you make these configuration changes and additions before you start writing code.
-
-==== Configurations to do before writing code
-
-This subsection includes configurations that you may find necessary or useful as you work on this project.
-We recommend that you make these configuration changes and additions before you start writing code.
-
-==== Configuring the coding style
-
-This project follows
-https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards].
-IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours.
-Follow the instructions below to rectify this.
-
-. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
-. Select `Editor` > `Code Style` > `Java`.
-. Click on the `Imports` tab to set the order.
-
-* For `Class count to use import with '\*'` and `Names count to use static import with '*'`:
-Set to `999` to prevent IntelliJ from contracting the import statements.
-
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`,
-`import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`.
-
-Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure
-Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level3` repo.
-If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level3`) ,
-you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the
-URL of your fork.
-
-==== Setting up CI
-
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to l
-earn how to set it up.
-
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#,
-UsingCoveralls.adoc>>).
-
-== Design (Not finished)
+== Design
 
 This section documents the design and interaction of components in Powerlifting Competition Coordinator.
 Please take a moment to understand the different components before making any code changes.
@@ -221,7 +140,7 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
-=== Model component
+=== Model component (needs to change)
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -253,257 +172,137 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Context-Switching feature between sessions
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+===== Overview
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+Our features are mainly split into 2 contexts. An in-competition, and an out-of-competition session mode.
+A session is started when the user wants to start an existing competition to call lifters to perform their attempt,
+record them, and finally to view the ranking leader board for the competition, all within in-session mode.
+On the other hand, an out-session mode, when the user exits the competition session mode,
+is where all create, read, update delete of the Person, Competition, and Participation is done.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The reason for this context-switching feature is to prevent users from using out-session commands that are strictly for
+in-session mode and vice versa.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+.Activity Diagram for average user flow from out to in-session.
+image::ActivityDiagram.png[]
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Figure 9 shows the average user flow of how the user can go in-session,
+and also distinctly shows the commands that can be done in each state.
+However, the end of every competition session does not signify the end of a user's activity.
+The user can still go in and out of the competition session (start and end), to perform the different commands
+from the different states.
 
-image::UndoRedoState0.png[]
+===== How it is being implemented (mingsheng)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+=== In-Session
+In-Session is the state where the user enters competition mode, where users can command the app to generate
+the next lifter, as well as record any attempt. At the end of the competition, the rank of the participants
+and competition can be viewed too.
 
-image::UndoRedoState1.png[]
+To handle the state of the competition, we have created a new `Session` class that is packaged into model and
+managed by the ModelManager. The `Session` class is a singleton class, and only has one instance in the ModelManager.
+The reason behind the use of a singleton class to handle sessions, is that we only want one ongoing session at any
+point in time.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+.Class Diagram of the Session package in the Model
+image::SessionClassDiagram.png[]
 
-image::UndoRedoState2.png[]
+==== Next feature
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+==== Lift feature
 
-image::UndoRedoState3.png[]
+==== Rank feature
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+==== RankList feature
 
-The following sequence diagram shows how the undo operation works:
+==== End session feature
+This feature ends the session, and shifts the user back to the out-session state.
+All data stored in the session will be reset to default.
 
-image::UndoSequenceDiagram.png[]
+Format: `endSession`
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+When we first implemented the session feature, the session can only be ended when a competition has ended,
+which means there are no more attempts to be made. However, we have now made it such that the user can switch
+between sessions as and when, even in the middle of the competition. This gives users more flexibility to switch between
+session states, without worrying about the state of the competition.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+=== Out-Session
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+==== Start Session feature
+The start session feature is a command to start a new competition session, when a user is not in competition state.
 
-image::UndoRedoState4.png[]
+Format: `startSession`
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+==== Competition features
 
-image::UndoRedoState5.png[]
+==== Participation features
+A Participation is an association class we have created for every Person who has participation in a particular
+Competition. A person can take part in many competitions, and for each competition he/she takes part in, there will be a
+corresponding Participation class associated to that Person and Competition instance.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+===== Create a new Participation
+To create a new Participation, the associated Person and Competition must exist. If either doesnt,
+an exception will be thrown to the user through the result box to prompt the user to input an existing one.
 
-image::CommitActivityDiagram.png[]
+Format: `addParticipation n/Athlete Name c/Competition Name s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
 
-==== Design Considerations
+Note: S1 means the 1st attempted weight for the Squat and so on.
 
-===== Aspect: How undo & redo executes
+===== List Participation
+The list participation feature allows the user to filter the participation list on the PCC app based on a particular
+competition. If no parameters (competition name) are taken in,
+the command will list out all of the participations stored in the system.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+Format: `listParticipation` or `listParticipation c/COMPETITION_NAME`
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Delete Existing Participation
+The user can delete an existing participation, maybe in the case he/she has withdrawn or is disqualified
+from that competition.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+Format: `deleteParticipation INDEX`
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+We have decided to use the index of the participation in the list to delete a participation instead of
+other parameter types, like the name or competition of the participation. The main reason is because,
+there may exist more than one participation with the same name and different competition,
+or different name and same competition.
 
-_{Explain here how the data encryption feature will be implemented}_
+Pros:
 
-// end::dataencryption[]
+* Takes in less parameters, user can type less.
 
-=== Logging
+* Avoid complications between unmatched name and competition.
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+* Easy to implement.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+Cons:
 
-*Logging Levels*
+* User will have to scroll through the participation list on the app to type in the index.
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
-=== Configuration
+==== (Any other features yall want to include)
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
-We use asciidoc for writing documentation.
-
-[NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
-
-=== Editing Documentation
-
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
-Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
-
-=== Publishing Documentation
-
-See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
-
-=== Converting Documentation to PDF format
-
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
-
-Here are the steps to convert the project documentation files to PDF format.
-
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
-.  Within Chrome, click on the `Print` option in Chrome's menu. You should see a pop-up similar to Figure 12 below.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, follow the settings as indicated in Figure 12.
-
-.Saving documentation as PDF files in Chrome
-
-image::chrome_save_as_pdf.png[width="300"]
+Refer to the guide <<Documentation#, here>>.
 
 [[Testing]]
-== Testing (Check this section at end of project!)
+== Testing
 
-This section includes some information that may be useful for testing the project.
-
-=== Running Tests
-
-There are three ways to run tests.
-
-[TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests
-due to platform/resolution-specific idiosyncrasies.
-
-*Method 1: Using IntelliJ JUnit test runner*
-
-* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`.
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-`Run 'ABC'`.
-
-*Method 2: Using Gradle*
-
-* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`).
-
-[NOTE]
-See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
-
-*Method 3: Using Gradle (headless)*
-
-Thanks to the https://github.com/TestFX/TestFX[TestFX, window="_blank"_] library we use, our
-GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen.
-That means the developer can do other things on the Computer while the tests are running.
-
-To run tests in headless mode, open a console and run the command `gradlew clean headless allTests`
-(Mac/Linux: `./gradlew clean headless allTests`).
-
-=== Types of tests
-
-We have two types of tests:
-
-.  *GUI Tests* - These are tests involving the GUI. They include:
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the
-`systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include:
-..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
-..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
-
-
-=== Troubleshooting Testing
-**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
-
-* Reason: One of its dependencies, `UserGuide.html` in `src/main/resources/docs` is missing.
-* Solution: Execute Gradle task `processResources`.
-
-**Problem: `AddCommandSystemTest` or `SearchCommandSystemTest` fails with a `GuiRobot$EventTimeoutException`.**
-
-* Reason: The required data could not be fetched from the online service within 10s. The service could be down at the moment.
-* Solution: Check that you are connected to the Internet, or if you are, try again later.
+Refer to the guide <<Testing#, here>>.
 
 == Dev Ops
 
-This section contains some information or tools that may be useful for managing the project.
-
-=== Build Automation
-
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
-
-=== Continuous Integration
-
-We use https://circleci.com/[CircleCI, window="_blank"], https://travis-ci.org/[Travis CI, window="_blank"], and https://www.appveyor.com/[AppVeyor, window="_blank"_] to perform _Continuous Integration_ on our projects.
-See <<UsingCircleCI#, UsingCircleCI.adoc>>, <<UsingTravis#, UsingTravis.adoc>>, and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
-
-=== Coverage Reporting
-
-We use https://coveralls.io/[Coveralls, window="_blank"] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
-
-=== Documentation Previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify, window="_blank"] to see a preview of how the
-HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
-
-=== Making a Release
-
-Here are the steps to create a new release.
-
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`, window="_blank"].
-.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
-.  Tag the repo with the version number, e.g. `v0.1`.
-.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub, window="_blank"] and upload the JAR file you created.
-
-=== Managing Dependencies (Check this!!!)
-
-A project often depends on third-party libraries. For example, PowerLifting Competition Coordinator depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library, window="_blank"_] for XML parsing.
-We make use of Gradle to manage the project dependencies. Gradle can automate the downloading of these dependencies, saving us time and effort.
-
-While strongly discouraged by us, you can nevertheless opt for one of the following alternatives.
-
-* Include those libraries in the repo (though this bloats the repo size).
-* Download those libraries manually (though this creates extra work for you).
+Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
@@ -533,21 +332,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` | event organizer | create a new competition |
 start and organize a new competition
 
-|`* * *` | event organizer |find athletes according to their weight class |
-see which athletes are in the same competition
-
-|`* * *` | event organizer |sort athletes according to their attempted weights for different lifting events |
+|`* * *` | event organizer | sort athletes according to their attempted weights for different lifting events |
 adjust the weight on stage call for the next athlete to come and attempt their lift
 
-|`* * *` | event organizer |find which athletes are currently in the lead (individual lifts and aggregate score) |
+|`* * *` | event organizer | find which athletes are currently in the lead (individual lifts and aggregate score) |
 so that I can let the competitors know who is in the lead for their resepective weight classes and  let them calculate
 what they need to do to win the competition
 
-|`* * *` | event organizer |the relative position of an athlete as compared to other athletes in their weight class |
+|`* * *` | event organizer | the relative position of an athlete as compared to other athletes in their weight class |
 see which athletes are in the same competition
 
-|`* * *` | event organizer | edit the weight of a lifting attempt for an athlete |
-so that the lifting order of athletes can be updated
+|`* * *` | event organizer | create participation between a person and a competition |
+so as to know the participants for the respective competitions
 
 |`* * *` | event organizer | update an athlete’s score after a successful lift |
 so that the ranking of the athletes can be updated
@@ -555,18 +351,9 @@ so that the ranking of the athletes can be updated
 |`* * *` | event organizer | edit an athlete's name |
 update the athlete's name in case the athletes have change their names or they were inputted incorrectly previously
 
-|`* * *` | event organizer | input/edit an athlete's body weight |
-update the athlete's weight so the athelete is taking part in the correct weight class
-
 |`* * *` | event organizer | record when a lifter fails/succeed in his/her lift |
 update the athlete's score and ranking accordingly and to keep a record for how each athlete's
 score was derived
-
-|`* *` |event organizer | input/edit an athlete's country/club |
-which country/club the athlete is representing
-
-|`* * *` |event organizer | know the rack height for bench press/squat |
-the racks can be prepared before the athletes make their lifting attempt and save time
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
