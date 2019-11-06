@@ -1,11 +1,7 @@
 package seedu.deliverymans.logic.commands.universal;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
 import java.util.LinkedList;
 import java.util.List;
