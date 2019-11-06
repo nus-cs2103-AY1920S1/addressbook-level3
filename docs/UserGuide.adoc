@@ -66,7 +66,7 @@ As a CLI application, most commands are executed by typing your commands on the 
 
 Commands start with a single string (which may include underscores) such as `add_em` or `free`. Subsequently, you supply the prefix, for example `n/` and then the necessary parameter. It is alright if there is spacing within your parameter. The prefixes and parameters will be stated for each command.
 
-* Words in `UPPER_CASE` are the *compulsory* parameters to be supplied by the user e.g. in `add_em n/NAME`, `NAME` is a parameter which can be used as `add_em n/John Doe`. 
+* Words in `UPPER_CASE` are the *compulsory* parameters to be supplied by the user e.g. in `add_em n/NAME`, `NAME` is a parameter which can be used as `add_em n/John Doe`.
 * Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME no/PHONE_NUMBER`, `no/PHONE_NUMBER n/NAME` is also acceptable.
@@ -76,7 +76,7 @@ Commands start with a single string (which may include underscores) such as `add
 [[Constraints]]
 *Parameter Constraints*
 
-Our application requires the strict adhering of parameters to certain constraints to prevent feature flaws and functionality bugs. 
+Our application requires the strict adhering of parameters to certain constraints to prevent feature flaws and functionality bugs.
 Listed below are category of parameter, the prefixes utilizing them and their constraints.
 
 [cols="20%,20%,60%"]
@@ -84,15 +84,15 @@ Listed below are category of parameter, the prefixes utilizing them and their co
 | *Type & Format* | *Utilizing Prefixes* | *Constraints*
 | *Index*
 | _No Prefix_
-a| 
+a|
 * The index refer to the index number of an *existing* employee/event in the displayed employee/event list, starting from 1.
 * It *must be a positive integer*
-| *Date* + 
-`DD/MM/YYYY` + 
-`MM/yyyy` 
+| *Date* +
+`DD/MM/YYYY` +
+`MM/yyyy`
 | `on/` `till/` `for/` +
 `/start` `/end`
-a| 
+a|
 * It must be a valid calendar date. E.g. `31/02/2019` is not allowed
 * Dates cannot be more than 10 years ago.
 | *Time Period* +
@@ -117,17 +117,17 @@ a|
 | `e/` +
 a|
 * Email must be a valid email that adheres to the https://www.ietf.org/rfc/rfc5322.txt[RFC 5322 Standard]
-| *Phone Number* + 
+| *Phone Number* +
 `65162727`
 | `no/` +
-a| 
+a|
 * Between 7 - 15 digits long
 * Adhere to the https://en.wikipedia.org/wiki/E.164[E.164 ITU-T Recommendation Standard]
 | *Integer*
 | `m/` `n/`
 a|
-* Must be a positive integer. Floating Numbers/Decimals are strictly not accepted 
-| *Money* 
+* Must be a positive integer. Floating Numbers/Decimals are strictly not accepted
+| *Money*
 | `s/` `p/` +
 a|
 * Must be a postive number. Floating Numbers/Decimals are acceptable.
@@ -213,7 +213,7 @@ Event Format: `add_ev n/NAME at/VENUE m/MANPOWER_NEEDED on/START_DATE till/END_D
 
 ****
 * Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
-* Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*. 
+* Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
 * An events's identity is uniquely identified by its name, start date, and end date. You cannot add an event which is identical to another event already insid
 ****
 
@@ -251,7 +251,7 @@ Event Format Format: `edit_ev INDEX [n/EVENT_NAME] [at/VENUE] [m/MANPOWER_NEEDED
 
 ****
 * Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
-* Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*. 
+* Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
 * An events's identity is uniquely identified by its name, start date, and end date. You cannot edit an event which is identical to another event already inside the Event List.
 * This command will flush the current manpower allocated list and replace it with a new allocation list.
 * The parameters provided will affect the functionality of the `edit_ev` Command. If the START_DATE and/or END_DATE is modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
