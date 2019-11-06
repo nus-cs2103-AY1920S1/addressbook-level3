@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -37,6 +38,8 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    public static final String SPACE = " ";
 
     public static final String VALID_QUESTION_ONE = "What is the IntelliJ keyboard shortcut to find a class, file or "
             + "symbol?";
@@ -96,6 +99,21 @@ public class CommandTestUtil {
     public static final String VALID_CONTENT_SAMPLE = "Sample Content";
     public static final String VALID_CONTENT_PIPELINE = "Pipelining is the process of making a single processor run "
             + "multiple instructions simultaneously.";
+    public static final String VALID_TAG_CS2100 = "CS2100";
+    public static final String VALID_TAG_MIDTERMS = "Midterms";
+
+    public static final String VALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + VALID_TITLE_PIPELINE;
+    public static final String VALID_NOTE_CONTENT_PIPELINE = SPACE + PREFIX_CONTENT + VALID_CONTENT_PIPELINE;
+    public static final String VALID_NOTE_TAG_1_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_CS2100;
+    public static final String VALID_NOTE_TAG_2_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_MIDTERMS;
+
+    public static final String INVALID_NOTE_TITLE = "*";
+    public static final String INVALID_NOTE_CONTENT = " ";
+    public static final String INVALID_NOTE_TAG = "Two words";
+
+    public static final String INVALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + INVALID_NOTE_TITLE;
+    public static final String INVALID_NOTE_CONTENT_PIPELINE = SPACE + PREFIX_CONTENT + INVALID_NOTE_CONTENT;
+    public static final String INVALID_NOTE_TAG_PIPELINE = SPACE + PREFIX_TAG + INVALID_NOTE_TAG;
 
     public static final String EXPECTED_VIEW_SAMPLE = "Viewing note: \n\tTitle: Sample Title\n\tContent: Sample "
             + "Content\n\tTags: [sampletag2][sampletag1]";
