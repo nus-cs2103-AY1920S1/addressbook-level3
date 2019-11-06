@@ -706,18 +706,24 @@ Feedback box will show:
 ```
  We could not find a common location because all places cannot be found in NUS. The locations are:
 ```
+
 - `Error` when all the group members are not in school before the free time slot, a popup will not appear.
+
  Feedback box will show:
 ```
 We could not find a common location because:
 Everyone has not started their schedule yet. Feel free to meet up any time.
 ```
+
 - `Error` when invalid free time slot `ID` entered.
+
 Feedback box will show:
 ```
 Invalid time slot ID: 0. Please enter a valid id as shown in the GUI.
 ```
+
 - `Error` when invalid `GROUP_NAME` entered.
+
 Feedback box will show:
 ```
 Cannot recognise GROUP_NAME. Make sure you entered the correct value.
