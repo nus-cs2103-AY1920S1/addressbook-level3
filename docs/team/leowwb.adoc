@@ -8,12 +8,12 @@
 This document details the various contributions that I have made to my team project, _KeyboardFlashCards_. Done as part of a second-year software engineering module,
 the project requires that students work in teams to morph a desktop addressbook application into another product. The
 project is required to conform to a number of constraints, the most significant being that the product must have primarily utilize a CLI (command-line interface); this
-means that the primary means of user input to the product must be through the typing of commands. 
+means that the primary means of user input to the product must be through the typing of commands.
 
 This project was the result of six weeks of hard work by my team, which comprises two final-year Computer Engineering students and three sophomore Computer Science
 students (including myself). All are students in the National University of Singapore (NUS).
 
-Our final product is _KeyboardFlashCards_ - a flashcard manager application targeted at computing students (in particular, NUS School of Computing students),  
+Our final product is _KeyboardFlashCards_ - a flashcard manager application targeted at computing students (in particular, NUS School of Computing students),
 who will be able to use it to enhance their learning experience. It does this by simulating a real deck of flashcards, complete with features including creation, editing,
 deletion, revision, and sharing of flashcards. This application is written in the Java programming language, and has a GUI (graphical user interface) created with the JavaFX library.
 It has roughly 17 KLoC, up from the original addressbook application's 10 KLoC.
@@ -43,7 +43,7 @@ TODO
 ** What it does: It allows the user to import flashcards from JSON format (files that end in '.json').
 ** Justification: A user could previously import '.json' files that were previously exported, by copying and pasting the file over their existing save file. This feature allows users to do the same from the convenience of the application's CLI, Furthermore, importing flashcards in this manner will not result in any loss to their original data.
 ** Highlights: TODO
-** Credits: TODO 
+** Credits: TODO
 
 //* *Minor enhancement*: ???
 
