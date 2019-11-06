@@ -12,8 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.exceptions.DuplicateEventException;
-import seedu.address.model.person.Person;
 import seedu.address.model.performance.exceptions.NoEventException;
+import seedu.address.model.person.Person;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
