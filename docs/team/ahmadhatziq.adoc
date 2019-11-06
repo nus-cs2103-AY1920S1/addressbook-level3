@@ -47,8 +47,8 @@ their previous commands.
 * Highlights:
 ** This enhancement affects existing commands and commands to be added in the future. +
 Given the storage is dependant on the underlying structure of the model,
-+ collaboration with other components of the application was highly needed.
-n-depth analysis of display formats and design alternatives were
++ Collaboration with other components of the application was highly needed.
+In-depth analysis of display formats and design alternatives were
 considered in the process.
 ** The implementation too was challenging as it required to work with a variety of data structures, so as to maintain the efficiency and effectiveness of data processing.
 ** Given the many layers of information contained within T.A.rence, information had to carefully extracted without compromising other related systems.

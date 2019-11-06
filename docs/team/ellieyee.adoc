@@ -73,7 +73,7 @@ https://coveralls.io/github/AY1920S1-CS2103-T14-2/main?branch=master[Coveralls] 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-module-deletemodule[deletemodule]
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-module-deletemodule[deleteModule]
 
 include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-tutorial-deletetutorial[deleteTutorial]
 

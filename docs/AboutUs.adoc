@@ -20,7 +20,7 @@ Responsibilities: UI
 
 === Yew Kai Zhe
 image::zihawkeye.png[width="150", align="left"]
-{empty}[https://github.com/ZiHawkEye[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ZiHawkEye[github]] [<<zihawkeye#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Model
@@ -29,7 +29,7 @@ Responsibilities: Model
 
 === Ahmad Hatziq Bin Mohamad
 image::ahmadhatziq.png[width="150", align="left"]
-{empty}[https://github.com/AhmadHatziq[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/AhmadHatziq[github]] [<<ahmadhatziq#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage
@@ -38,7 +38,7 @@ Responsibilities: Storage
 
 === Tan YuGin
 image::lumos309.png[width="150", align="left"]
-{empty}[https://github.com/lumos309[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/lumos309[github]] [<<lumos309#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic

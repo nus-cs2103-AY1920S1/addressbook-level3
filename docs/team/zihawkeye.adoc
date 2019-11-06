@@ -1,0 +1,85 @@
+= Yew Kai Zhe - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103-T14-2/main
+:prURL: {repoURL}/pull
+
+== PROJECT: T.A.rence
+
+I'm _Kai Zhe_. I'm currently pursuing a major in Computer Science at the National University of Singapore(NUS).
+
+== Overview
+
+T.A.rence is a class management system for teaching assistants in NUS. Designed for the 'super TA',
+it helps keep track of all classes taught by the TA and all relevant information pertaining to each class, such as upcoming events,
+student participation, assignment scores and the number of hours taught for each module.
+
+== Summary of contributions
+
+=== *Major Enhancements*: added *Model skeleton and ImportTutorialsCommand, Attendance/Assignment/Event-related logic commands*
+
+==== Most of the model classes in T.A.rence, ImportTutorialsCommand, MarkAttendanceCommand and ExportAttendanceCommand, add/delete Assignments and SetAssignmentScoreCommand, add/delete/edit/list Events
+
+* Summary of the features:
+** Created most of the model classes used in the T.A.rence application (Modules, Tutorials, Students, etc.)
+** Enables the user to record students' participation, tutorial assignments, upcoming events and hours logged for a tutorial.
+** ImportTutorialsCommand makes use of NUSMods data to automatically import modules based on the NUSMods url.
+
+* Justification:
+** Tracking participation, tutorial assignments, upcoming events as well as compatibility with NUSMods
+are essential features that cater to any TA in NUS.
+
+* Highlights:
+** Many of the features are interdependent on each other and do not need explicit input from the user
+- eg. Tutorial lessons are added to the Events automatically if the semester start date is defined,
+so hours logged for each Tutorial can be updated automatically based on the current date.
+** The interdependence, while useful feature-wise, also leads to high coupling and it was challenging to maintain consistency within
+the different models/data structures.
+** The application relies on precached NUSMods data of all existing tutorials in AY 2019-2020, hence it does not rely on a internet connection.
+Even then, the loading of the all the data into T.A.rence at initialization is not too computationally/memory intensive, without significant lag.
+This is partly because extraneous elements (Lectures, Venues) have been filtered out in the cached data to reduce file size.
+
+* Credits:
+** NUS modules and tutorials data was retrieved from NUSMods database {https://api.nusmods.com/v2/2019-2020/}
+
+* *Minor enhancement*:
+** Added ability for the user to enter multiple commands separated by the "+" delimiter in a single input (eg. command1 + command2 + command3)
+
+* *Code contributed*:
+* [link:{repoURL}/commits?author=zihawkeye[Commits]] [link:{repoURL}/pulls?q=is%3Apr+author%3AZiHawkEye+is%3Aclosed[Pull Requests]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zihawkeye&sort=totalCommits%20dsc&sortWithin=totalCommits%20dsc&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ZiHawkEye&tabRepo=AY1920S1-CS2103-T14-2%2Fmain%5Bmaster%5D[RepoSense Code Contribution Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Added issues on Github for milestones, bugs
+
+** Documentation:
+*** Edited User Guide: link:{prURL}/120[#120], link:{prURL}/162[#162]
+*** Edited Developer guide: link:{prURL}/94[#94]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#import-tutorials-via-nusmods-url-import[importTutorials]
+
+include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#marks-attendance-of-a-tutorial-markattendance[markAttendance]
+
+include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#exports-attendance-of-a-tutorial-to-csv-exportattendance[exportAttendance]
+
+include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#adding-an-assignment-addassignment[addAssignment]
+
+include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#adding-an-event-addevent[addEvent]
+
+include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#set-start-of-semester-setsemstart[setSemStart]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include:: https://github.com/ZiHawkEye/main/blob/master/docs/DeveloperGuide.adoc#mark-attendance-feature[markAttendance]

@@ -354,7 +354,7 @@ Example:
 
 === Import tutorials via NUSMods url: `import`
 
-Imports tutorials via NUSMods url.
+Imports tutorials via NUSMods url. Does not require an internet connection.
 
 Format: `import` [URL]
 
