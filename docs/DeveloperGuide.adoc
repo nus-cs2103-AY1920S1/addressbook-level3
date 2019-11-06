@@ -132,8 +132,8 @@ image::PriorityFlashCardTestSetSequenceDiagram.png[]
 * Step 4 - 10: Return a set of cards with both `HIGH_PRIORITY` and `LOW_PRIORITY` cards, which the proportion is weighted at 60% to 40% ratio respectively.
 * Step 11: `Deck` returns the test set to `ExamRunner`.
 
-==== Design Considerations
-===== Aspect: how to store and select the `HIGH_PRIORITY` and `LOW_PRIORITY` cards
+=== Design Considerations
+==== Aspect: how to store and select the `HIGH_PRIORITY` and `LOW_PRIORITY` cards
 * **Alternative 1:** Use a priority queue to store the cards
 ** Pros: Allows the user to test the cards according to `HIGH_PRIORITY` cards first, effectively choosing only `HIGH_PRIORITY` cards first, then `LOW_PRIORITY` cards.
 ** Cons: Certain `LOW_PRIORITY` cards may not be tested if the test set size is smaller than the number of `HIGH_PRIORITY` cards
@@ -200,13 +200,8 @@ To be implemented: An in-app Flashcard Pro compiler and debugger for JS and Java
 
 Classes used by multiple components are in the `dream.fcard.datastructures` package and root of `dream.fcard.util`
 
-== Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
-
 // tag::parsejson[]
-==== Implementation
+== Implementation
 
 The parsing is done by `JsonParser`.
 It takes a string and attempts to read it as one of a `JsonValueTypes` and create its corresponding object wrapped in `JsonValue`.
@@ -555,7 +550,7 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
+
 === Use case: Creating a deck of cards
 *MSS*
 
@@ -626,7 +621,7 @@ Steps 6a1-6a3 repeats until the User enters a valid choice.
 5. System displays the front of card and choices.
 6. User enters the choice of correct answer.
 7. System evaluates the answer.
-8  System shows the correctness of the answer.
+8.  System shows the correctness of the answer.
 9. System moves to next card.
 +
 Steps 4-9 are repeated until there are no more cards in the test set.

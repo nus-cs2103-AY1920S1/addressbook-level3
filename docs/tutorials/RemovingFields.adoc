@@ -104,14 +104,5 @@ While keeping the `address` field in the json files does not cause the tests to 
 
 .invalidPersonAddressBook.json
 [source, json]
-```
-{
-  "persons": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
-  } ]
-}
-```
+
 You can go through each individual `json` file and manually remove the `address` field.
