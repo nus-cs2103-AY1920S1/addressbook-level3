@@ -1,5 +1,7 @@
 package seedu.address.model.password;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Date;
 
 import seedu.address.model.util.DateUtil;
@@ -17,6 +19,7 @@ public class PasswordModifiedAt {
      * @param modifiedAt the date and time the password was modified at.
      */
     public PasswordModifiedAt(Date modifiedAt) {
+        requireNonNull(modifiedAt);
         value = modifiedAt;
     }
 

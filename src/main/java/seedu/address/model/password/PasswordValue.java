@@ -11,13 +11,15 @@ import seedu.address.commons.util.StringUtil;
  */
 public class PasswordValue {
     public static final String MESSAGE_CONSTRAINTS =
-            "Password can contain any strings and "
+            "Password can contain alphabets, numbers and special characters and "
             + "adhere to the following constrains: \n"
-            + "1) Should not have spaces at the start or end\n"
+            + "1) Should not have spaces. Any leading or trailing spaces will be ignored\n"
             + "2) Be between 2 characters to 25 characters long\n"
+            + "3) Special characters are listed as ~`!@#$%^&*()-_+=[{]}|\\\'\";:?/.><,"
             + "Password is case-sensitive";
 
-    private static final String VALIDATION_REGEX = "^(?![ ])([^\\s].{1,24})(?<![ ])$";
+    private static final String VALIDATION_REGEX =
+            "^(?![ ])([A-Za-z0-9~`!@#$%^&*()-_+=\\[{\\]}|\\\\'\";:?\\/.><,]{2,25})(?<![ ])$";
 
     public final String value;
 
