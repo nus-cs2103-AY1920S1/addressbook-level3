@@ -21,7 +21,7 @@ public class BudgetPanel extends UiPart<Region> {
     private Label remainingBudget;
 
     @FXML
-    private Label budgetRemark;
+    private Label titleText;
 
     @FXML
     private Label budgetAmount;
@@ -43,8 +43,9 @@ public class BudgetPanel extends UiPart<Region> {
      */
     private void update() {
         remainingBudget.setText(getRemainingBudgetText());
-        budgetRemark.setText(getBudgetRemark());
         budgetAmount.setText(getBudgetAmount());
+
+        updateTitleText();
     }
 
     /**
@@ -81,13 +82,11 @@ public class BudgetPanel extends UiPart<Region> {
         return defaultOutput;
     }
 
-    private String getBudgetRemark() {
+    private void updateTitleText() {
         if (amount - sum < 0) {
-            budgetRemark.setTextFill(Color.web("#FF0000"));
-            return "Your money go where ahh?";
+            titleText.setTextFill(Color.web("#FF0000"));
         } else {
-            budgetRemark.setTextFill(Color.web("#00FF00"));
-            return "";
+            titleText.setTextFill(Color.web("#00FF00"));
         }
     }
 
