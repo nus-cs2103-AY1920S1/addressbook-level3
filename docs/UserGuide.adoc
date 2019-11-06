@@ -325,7 +325,7 @@ now your next step is to get those FlashCards into your copy of KFC. Here's how 
 image::ImportDemo1.png[width="600"]
 
 . Press **Enter** to execute the command. The results box will display a success message similar to the one shown in the screenshot below.
-Furthermore, the category panel on the left will now display the category of the newly-imported FlashCards!
+Furthermore, the category list on the left will now display the category of the newly-imported FlashCards!
 +
 image::ImportDemo2.png[width="600"]
 
