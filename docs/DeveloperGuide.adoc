@@ -249,7 +249,9 @@ image::CommitActivityDiagram.png[]
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+Since the current FlashMind uses scores to helps the user see his progress, we found that the user can easily access
+the scores saved in the json files and change them, so the scoree will no longer be accurate. Therefore, it is suggestible
+to use some encryption on the scores saved in the json file to avoid the user manually change them.
 
 // end::dataencryption[]
 
@@ -744,9 +746,9 @@ _{ more test cases ... }_
 . Deleting a flashcard  while all flashcards (in a tagged set/in the all-flashcard list) are listed
 
 .. Prerequisites: List all flashcards using the `list` command. Multiple flashcards in the list.
-.. Test case: `delete 000001` +
+.. Test case: `delete 1` +
    Expected: First flashcard with ID 1 is deleted from the list.
-.. Test case: `delete 000000` +
+.. Test case: `delete 0` +
    Expected: No flashcard is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or ID number is negative)
    Expected: Similar to previous.

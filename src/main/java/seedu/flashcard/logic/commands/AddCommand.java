@@ -28,10 +28,11 @@ public class AddCommand extends Command {
             + "[" + PREFIX_ANSWER + "ANSWER]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "Refactor "
-            + PREFIX_CHOICE + "Make the codes be in a neater style without changing its functions. "
+            + PREFIX_DEFINITION + "An important concept for professional programmers "
+            + PREFIX_CHOICE + "Make codes neater "
             + PREFIX_CHOICE + "Test for for bugs in the system "
             + PREFIX_CHOICE + "Change a mathematical formula "
-            + PREFIX_ANSWER + "Make the codes be in a neater style without changing its functions. "
+            + PREFIX_ANSWER + "Make codes neater "
             + PREFIX_TAG + "Software Engineering ";
 
     public static final String MESSAGE_SUCCESS = "New flashcard added.";
