@@ -136,7 +136,7 @@ exists currently in the database.
 {nbsp} +
 
 ==== Completing an order: `-complete_order`
-This command allows you to complete an order in the database by its index.
+This command allows you to complete an order in the database by its order name.
 
 Format: `-complete_order ORDERNAME`
 
@@ -161,13 +161,13 @@ image::userguide\CompleteOrder3.png[width="790"]
 
 * A deliveryman must already be assigned to the order before it can be completed.
 
-* The `ORDERNAME` must exist in the order list.
+* The order name `ORDERNAME` must exist in the order list.
 ====
 
 {nbsp} +
 
 ==== Editing an order: `-edit_order`
-This command enables you to edit an order. The order to edit will have to be specified by its index when you are entering the command.
+This command enables you to edit an order. The order to edit will have to be specified by its order name when you are entering the command.
 
 You can change:
 
@@ -175,11 +175,11 @@ You can change:
 
 * The restaurant `r/RESTAURANT` which the order was made from
 
-* The food `f/FOOD` ordered as well as its quantity ``q/QUANTITY
+* The food `f/FOOD` ordered as well as its quantity `q/QUANTITY`
 
-Format: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
+Format: `-edit_order n/ORDERNAME [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
 
-Example: `-edit_order i/1337 c/John Doe`
+Example: `-edit_order n/Order 1337 c/John Doe`
 
 [start]
 .Example use case
@@ -198,7 +198,7 @@ image::userguide\EditOrder3.png[width="790"]
 
 .Requirements
 
-* The `ORDERNAME` must exist in the order list.
+* The order name `n/ORDERNAME` must exist in the order list.
 
 * A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
 
@@ -208,7 +208,7 @@ image::userguide\EditOrder3.png[width="790"]
 {nbsp} +
 
 ==== Deleting an order: `-delete_order`
-This command enables you to delete an unwanted/cancelled order in the database by its index.
+This command enables you to delete an unwanted/cancelled order in the database by its order name.
 
 Format: `-delete_order ORDERNAME`
 
@@ -230,7 +230,7 @@ image::userguide\DeleteOrder3.png[width="790"]
 ====
 
 .Requirements
-* The `ORDERNAME` must exist in the order list.
+* The order name `ORDERNAME` must exist in the order list.
 ====
 
 {nbsp} +
@@ -661,7 +661,7 @@ Example: `enter 1`
 - Add order: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
 - Complete order: `-complete_order ORDERNAME`
 - Edit order: `-edit_order n/ORDERNAME [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
-- Delete order: `-delete_order INDEX`
+- Delete order: `-delete_order ORDERNAME`
 - List orders: `-list_orders`
 - Switch to restaurant context: `-restaurant`
 - Switch to customer context: `-customer`
