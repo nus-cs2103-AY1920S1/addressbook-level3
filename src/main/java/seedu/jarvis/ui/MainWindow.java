@@ -179,6 +179,7 @@ public class MainWindow extends UiPart<Stage> {
 
         model.updateSchedule();
         model.updateUnfilteredTaskList();
+        helpDeskWindow.setPlannerText();
         pw.fillPage();
         plannerContentPlaceholder.getChildren().add(pw.getRoot());
 
