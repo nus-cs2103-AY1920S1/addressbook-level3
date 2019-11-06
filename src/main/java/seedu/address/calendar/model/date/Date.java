@@ -25,13 +25,13 @@ public class Date implements IntervalPart<Date> {
     private static final String MONTH_KEY= "month";
     private static final String YEAR_KEY = "year";
     private static final String DATE_PATTERN= "(?<" + DAY_OF_WEEK_KEY + ">\\S{3})\\,\\s(?<" + DAY_OF_MONTH_KEY + ">"
-            + "\\d{1,3})\\s(?<" + MONTH_KEY + ">\\S{3,})\\s(?<" + YEAR_KEY + ">\\d{4})";
+            + "\\d{1,2})\\s(?<" + MONTH_KEY + ">\\S{3,})\\s(?<" + YEAR_KEY + ">\\d{4})";
     private static final Pattern DATE_FORMAT = Pattern.compile(DATE_PATTERN);
 
     public static final String MESSAGE_CONSTRAINTS = "Date must be represented in the following format: "
             + "DDD, dd MMM... yyyy\n" + "where D stands for the letters in a day of week (there must be 3), "
             + "d stands for the digit in the day of month (there must be 1 to 2), "
-            + "m stands for the letters in a day of month (there must be at least 3) and y stands for "
+            + "M stands for the letters in a day of month (there must be at least 3) and y stands for "
             + "the digits in a year (there must be 4)";
     private static final String MESSAGE_DATE_CONSTRAINT = "Date's fields must be consistent";
 
@@ -48,7 +48,6 @@ public class Date implements IntervalPart<Date> {
      * @param year The specified year
      */
     public Date(Day day, MonthOfYear month, Year year) {
-        // todo: check for exceptions/validity
         requireNonNull(day);
         requireNonNull(month);
         requireNonNull(year);
@@ -123,7 +122,8 @@ public class Date implements IntervalPart<Date> {
      * @throws IllegalValueException if {@code dateString} doesn't represent a {@code Date} instance correctly
      */
     public static Date getInstanceFromString(String dateString) throws IllegalValueException {
-        final Matcher matcher = DATE_FORMAT.matcher(dateString.trim());
+        String dateStringTrimmed = dateString.trim();
+        final Matcher matcher = DATE_FORMAT.matcher(dateStringTrimmed);
         if (!matcher.matches()) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
@@ -155,6 +155,7 @@ public class Date implements IntervalPart<Date> {
     /**
      * Gets a {@code Date} instance when given a representative day of week {@code String}, day of month {@code String},
      * month {@code String} and year {@code String}.
+     * Guarantees: None of the parameters are {@code null}
      *
      * @param dayOfWeek The representative day of week {@code String}
      * @param dayOfMonth The representative day of month {@code String}
@@ -162,13 +163,22 @@ public class Date implements IntervalPart<Date> {
      * @param year The representative year {@code String}
      * @return A {@code Date} instance that is represented by the {@code String}s
      */
-    private static Date getSpecifiedDate(String dayOfWeek, String dayOfMonth, String month, String year) {
+    private static Date getSpecifiedDate(String dayOfWeek, String dayOfMonth, String month, String year) throws
+            IllegalValueException {
+        requireNonNull(dayOfWeek);
+        requireNonNull(dayOfMonth);
+        requireNonNull(month);
+        requireNonNull(year);
         DayOfWeek dayOfWeekVal = DayOfWeek.valueOf(dayOfWeek);
         MonthOfYear monthVal = MonthOfYear.valueOf(month);
         Year yearVal = new Year(Integer.parseInt(year));
         int dayOfMonthVal = Integer.parseInt(dayOfMonth);
 
-        // todo: check if exception needs to be explicitly thrown
+        if (!Day.isValidDayOfMonth(dayOfMonthVal, monthVal, yearVal)) {
+            throw new IllegalValueException(Day.MESSAGE_INVALID_DAY_RANGE_ERROR);
+        } else if (!Day.isValidDay(dayOfWeekVal, dayOfMonthVal, monthVal, yearVal)) {
+            throw new IllegalValueException(Day.MESSAGE_MISMATCH);
+        }
 
         Day givenDay = new Day(dayOfWeekVal, dayOfMonthVal, monthVal, yearVal);
 
@@ -226,6 +236,7 @@ public class Date implements IntervalPart<Date> {
      * @return An instance of {@code Date} which represents {@code javaDate}
      */
     private static Date fromJavaDate(GregorianCalendar javaDate) {
+        requireNonNull(javaDate);
         int yearInt = javaDate.get(Calendar.YEAR);
         int monthInt = javaDate.get(Calendar.MONTH);
         int dayOfMonth = javaDate.get(Calendar.DAY_OF_MONTH);
