@@ -94,7 +94,8 @@ public class Question {
 
         return otherQuestion != null
                 && otherQuestion.getName().equals(getName())
-                && (otherQuestion.getAnswer().equals(getAnswer()) || otherQuestion.getCategory().equals(getCategory()));
+                && otherQuestion.getAnswer().equals(getAnswer())
+                && otherQuestion.getCategory().equals(getCategory());
     }
 
     /**

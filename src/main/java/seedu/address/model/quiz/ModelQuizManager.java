@@ -166,6 +166,10 @@ public class ModelQuizManager implements Model {
 
     //=========== Filtered Question List Accessors =============================================================
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
+     * {@code versionedQuizBook}
+     */
     @Override
     public ObservableList<Question> getFilteredShowQuestionList() {
         return versionedQuizBook.getShowQuestionList();
@@ -173,7 +177,7 @@ public class ModelQuizManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
-     * {@code versionedQuizBook}
+     * {@code addressQuizBook}
      */
     @Override
     public ObservableList<Question> getFilteredQuestionList() {

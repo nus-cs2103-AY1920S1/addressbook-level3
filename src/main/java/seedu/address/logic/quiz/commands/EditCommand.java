@@ -38,39 +38,34 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the question identified "
             + "by the index number used in the displayed question list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: " + COMMAND_WORD + " CATEGORY, "
-            + "INDEX(must be a positive integer) "
+            + "Parameters: " + COMMAND_WORD
+            + " INDEX(must be a positive integer) "
             + PREFIX_QUESTION + "NAME "
             + PREFIX_ANSWER + "PHONE "
             + PREFIX_CATEGORY + "EMAIL "
             + PREFIX_TYPE + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG] \n"
-            + "Example: " + COMMAND_WORD + " CS2131, 1 "
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_QUESTION + "How many mammals are there in the universe? "
             + PREFIX_TYPE + "low";
 
     public static final String MESSAGE_STRING_LIMIT_EXCEEDED = "String limit exceeded";
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
-    public static final String CATEGORY_MISMATCH = "Wrong category mention with the desired question.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the modulo quiz.";
-    public static final String MESSAGE_INVALID_EDIT_COMMAND = "Invalid category, question index or instruction.\n"
-            + "Format: edit [CATEGORY], [INDEX] [QUESTION_INSTRUCTION]";
 
     private final Index index;
-    private final String category;
     private final EditQuestionDescriptor editQuestionDescriptor;
 
     /**
      * @param index of the question in the filtered question list to edit
      * @param editQuestionDescriptor details to edit the question with
      */
-    public EditCommand(Index index, String category, EditQuestionDescriptor editQuestionDescriptor) {
+    public EditCommand(Index index, EditQuestionDescriptor editQuestionDescriptor) {
         requireNonNull(index);
         requireNonNull(editQuestionDescriptor);
 
         this.index = index;
-        this.category = category;
         this.editQuestionDescriptor = new EditQuestionDescriptor(editQuestionDescriptor);
     }
 
@@ -85,11 +80,6 @@ public class EditCommand extends Command {
 
         Question questionToEdit = lastShownList.get(index.getZeroBased());
         Question editedQuestion = createEditedQuestion(questionToEdit, editQuestionDescriptor);
-
-        String currentQuestionCategory = questionToEdit.getCategory().value;
-        if (!currentQuestionCategory.toLowerCase().equals(category.toLowerCase())) {
-            throw new CommandException(CATEGORY_MISMATCH);
-        }
 
         if (!questionToEdit.isSameQuestion(editedQuestion) && model.hasQuestion(editedQuestion)) {
             throw new CommandException(MESSAGE_DUPLICATE_QUESTION);

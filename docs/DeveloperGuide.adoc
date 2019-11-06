@@ -218,7 +218,7 @@ command to add a question with the question name: _What is always coming, but ne
 The `add` command calls `Model#addQuestion()`, causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and shown in the UI.
 
 *Step 3.* If the user realized that they have typed the wrong answer for a particular question, then the user can executes
-`*edit CS2131, 1 <ans>* _Tomorrow_` command to replace the previous answer with the new answer with the given category and index prepend behind. The `edit` command calls `Model#setQuestion()`,
+`*edit 1 <ans>* _Tomorrow_` command to replace the previous answer with the new answer with the given index prepend behind. The `edit` command calls `Model#setQuestion()`,
 causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and updated in the UI.
 
 *Step 4.* _[Addtional]_ The user can execute `*comment 1 <val>* _The explanation is in pg 194 textbook_` if he/she now decide to add a comment or explanation of a quiz question at index 1.

@@ -21,7 +21,7 @@ import seedu.address.model.quiz.person.Question;
 @JsonRootName(value = "addressbook")
 class JsonQuizSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Questions list contains duplicate question(s).";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "Questions list contains duplicate question(s).";
 
     private final List<JsonQuizAdaptedQuestion> questions = new ArrayList<>();
 
@@ -55,7 +55,7 @@ class JsonQuizSerializableAddressBook {
         for (JsonQuizAdaptedQuestion jsonAdaptedQuestion : questions) {
             Question question = jsonAdaptedQuestion.toModelType();
             if (addressBook.hasQuestion(question)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_QUESTION);
             }
             addressBook.addQuestion(question);
         }
