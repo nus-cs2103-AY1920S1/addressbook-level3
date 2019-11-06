@@ -89,7 +89,6 @@ public class ExpenseList implements Iterable<Expense> {
      */
     public void setEntries(List<Expense> entries) {
         requireAllNonNull(entries);
-
         internalList.setAll(entries);
     }
 

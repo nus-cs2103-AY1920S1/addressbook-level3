@@ -13,7 +13,7 @@
 //
 //public class FindCommandParserTest {
 //
-//    private FindExpenseCommandParser parser = new FindExpenseCommandParser();
+//    private FindExpenseCommandParserTest parser = new FindExpenseCommandParserTest();
 //
 //    @Test
 //    public void parse_emptyArg_throwsParseException() {
