@@ -369,6 +369,9 @@ Examples:
 * `create d/sleep or code t/soc t/cs2103` +
 Creates a new meme from the current meme creation session, giving it a description `sleep or code` and tags `soc` and `cs2103`.
 
+
+// tag::export/import[]
+
 === Export Tab
 
 ==== Unstaging a meme: `unstage`
@@ -433,6 +436,9 @@ with `.jpg` extension).
 
 Clears all the memes in the import tab. +
 Format: `clear`
+
+
+// end::export/import[]
 
 === Statistics Tab
 

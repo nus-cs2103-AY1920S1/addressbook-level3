@@ -482,7 +482,7 @@ extracted in runtime.
 
 // end::stats2[]
 
-// tag::export/import
+// tag::export/import[]
 
 === Export/Import feature
 
