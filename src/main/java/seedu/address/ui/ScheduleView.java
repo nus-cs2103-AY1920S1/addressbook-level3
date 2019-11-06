@@ -216,10 +216,11 @@ public class ScheduleView extends UiPart<Region> {
                 Region freeTimeslot = new Block(timeUntilBusy).makeEmptyBlock();
                 timeslotContainer.getChildren().add(freeTimeslot);
             }
-            String locationText = timeslot.getVenue().getVenue().trim().equals("") ? "" : " at " + timeslot.getVenue().getVenue();
+            String locationText = timeslot.getVenue().getVenue().trim().equals("") ? "" : " at " + timeslot.getVenue();
             Region busyTimeslot = new Block(getTimeDifference(startTime, endTime))
                     .makeColouredBlockWithText(color, timeslot.getEventName(),
-                            timeslot.getEventName() + " " + timeslot.getStartTime() + " - " + timeslot.getEndTime() + locationText);
+                            timeslot.getEventName() + " " + timeslot.getStartTime() + " - "
+                                    + timeslot.getEndTime() + locationText);
             timeslotContainer.getChildren().add(busyTimeslot);
             originalTimeStamp = endTime;
         }
