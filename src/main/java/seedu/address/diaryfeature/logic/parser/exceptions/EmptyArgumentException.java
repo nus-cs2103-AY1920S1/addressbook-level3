@@ -1,13 +1,13 @@
 package seedu.address.diaryfeature.logic.parser.exceptions;
 
+
 /**
  * Generic Empty Exception if the user leaves the argument blank
  */
 public class EmptyArgumentException extends Exception {
         private String parserName;
-        private String filler = "Cant have the arguments for the ";
-        private String second = " command empty!!!";
-        private String usage;
+        private static String filler = "Something is wrong with the ";
+        private  String usage;
 
     /**
      * Generates EmptyArgumentException with the specific parser and how to use it
@@ -35,7 +35,7 @@ public class EmptyArgumentException extends Exception {
      * @return String representation of the Error message
      */
     public String toString() {
-            return filler + parserName + second + "\n" + usage;
+            return filler + parserName + " command" +  "\n" + usage;
         }
     }
 

@@ -5,8 +5,8 @@ package seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions;
  */
 public class PlaceParseException extends DiaryEntryParseException {
         private final String ERROR_MESSAGE =
-        "In particular, something is wrong with the place! Either don't put in the p/ prefix\n" +
-                "or put in a place which is not empty!!!";
+        "In particular, something is wrong with the place.\nEither don't put in the p/ prefix\n" +
+                "Or put in a place which is not empty.";
 
         /**
          *

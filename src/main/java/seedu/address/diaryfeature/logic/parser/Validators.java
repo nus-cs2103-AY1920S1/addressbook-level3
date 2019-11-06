@@ -1,5 +1,6 @@
 package seedu.address.diaryfeature.logic.parser;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import seedu.address.diaryfeature.model.details.Username;
@@ -121,7 +122,7 @@ class Validators {
         String dayAsString = dates[0];
         String monthAsString = dates[1];
         String yearAsString = dates[2];
-        return (isValidNumber(hourAsString, HOUR_LOWER_RANGE, HOUR_UPPER_RANGE)
+        boolean firstCheck = (isValidNumber(hourAsString, HOUR_LOWER_RANGE, HOUR_UPPER_RANGE)
                 &&
                 isValidNumber(minAsString, MIN_LOWER_RANGE, MIN_UPPER_RANGE)
                 &&
@@ -131,7 +132,38 @@ class Validators {
                 &&
                 isValidNumber(yearAsString, YEAR_LOWER_RANGE, YEAR_UPPER_RANGE)
         );
+
+        boolean secondCheck = isValidDayMonthYear(getInt(dayAsString),
+                getInt(monthAsString), getInt(yearAsString));
+        return firstCheck && secondCheck;
+
     }
+
+
+    private static boolean isValidDayMonthYear(int day ,int month,int year) {
+        int[] oddMonth = {1,3,5,7,8,10,12}; //31 days
+        int[] evenMonth = {2,4,6,9,11}; //30 days
+        if(Arrays.stream(evenMonth)
+                 .anyMatch(x -> x == month) && day == 31) {
+            return false;
+        } else if(month == 2) {
+            if(isLeapYear(year) && day == 29) {
+                return true;
+            } else if(day == 28) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    private static boolean isLeapYear(int year) {
+        return year%4 == 0;
+    }
+
 
     /**
      * Change string to int
