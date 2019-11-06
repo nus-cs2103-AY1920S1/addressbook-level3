@@ -220,10 +220,6 @@ Archiving expenses allows you to de-clutter your current list of expenses after 
 This feature offers greater flexibility in terms of expense organisation as it allows you to create *multiple archives* with
 the archive name of your choice so that you would be able to appropriately group your archived expenses.
 
-For example, if you still have the expense records of your weekly grocery shopping trips since several months ago in your main
-list of expenses, you could archive them as "Groceries". This way, you would get rid of them from your main list of
-expenses and at the end of the year, you would still be able to retrieve them if you want to account for your total annual grocery expenditure.
-
 NOTE: *Archived expenses cannot be edited.* +
 Archived expenses are not considered current and "active" expenses so you are unable to edit them. +
 You would need to unarchive an expense first before you would be able to perform expense editing commands on it such as
