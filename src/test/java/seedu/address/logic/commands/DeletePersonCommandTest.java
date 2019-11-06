@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ZACK;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -54,5 +56,34 @@ class DeletePersonCommandTest {
                         DeletePersonCommand.MESSAGE_PERSON_NOT_FOUND));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
+    }
+
+    @Test
+    void equals_null() {
+        assertFalse(new DeletePersonCommand(ALICE.getName()).equals(null));
+    }
+
+    @Test
+    void equals_otherCommand() {
+        assertFalse(new DeletePersonCommand(ALICE.getName())
+                .equals(new AddPersonCommand(ALICE)));
+    }
+
+    @Test
+    void equals_differentName() {
+        assertFalse(
+                new DeletePersonCommand(ALICE.getName()).equals(
+                        new DeletePersonCommand(BENSON.getName())
+                )
+        );
+    }
+
+    @Test
+    void equals() {
+        assertTrue(
+                new DeletePersonCommand(ALICE.getName()).equals(
+                        new DeletePersonCommand(ALICE.getName())
+                )
+        );
     }
 }

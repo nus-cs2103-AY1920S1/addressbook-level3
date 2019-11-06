@@ -55,7 +55,7 @@ public class TypicalPersonDescriptor {
     public static final PersonDescriptor USER = new PersonDescriptorBuilder()
             .withName("User").withPhone("99999999")
             .withEmail("user@gmail.com").withAddress("bla bla")
-            .withRemark("me").withTags("me").build();
+            .withRemark("me").build();
 
     /**
      * Generates a typical PersonList.

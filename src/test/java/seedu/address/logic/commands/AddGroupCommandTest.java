@@ -1,11 +1,15 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP0;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP2;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +48,7 @@ class AddGroupCommandTest {
         CommandResult expectedCommandResult = new CommandResult(String.format(AddGroupCommand.MESSAGE_SUCCESS,
                 group.getGroupName().toString()));
 
-        assertTrue(expectedCommandResult.equals(actualCommandResult));
+        assertEquals(expectedCommandResult, actualCommandResult);
     }
 
     @Test
@@ -53,7 +57,33 @@ class AddGroupCommandTest {
         CommandResult actualCommandResult = new AddGroupCommand(GROUP1).execute(model);
         CommandResult expectedCommandResult = new CommandResult(String.format(AddGroupCommand.MESSAGE_FAILURE,
                 AddGroupCommand.MESSAGE_DUPLICATE_GROUP));
-        assertTrue(expectedCommandResult.equals(actualCommandResult));
+        assertEquals(expectedCommandResult, actualCommandResult);
+    }
+
+    @Test
+    void equals_null() {
+        assertFalse(new AddGroupCommand(GROUP1).equals(null));
+    }
+
+    @Test
+    void equals_otherCommand() {
+        assertFalse(new AddGroupCommand(GROUP1)
+                .equals(new AddPersonCommand(ALICE)));
+    }
+
+    @Test
+    void equals_differentDescriptor() {
+        assertFalse(
+                new AddGroupCommand(GROUP1).equals(new AddGroupCommand(GROUP2))
+        );
+    }
+
+
+    @Test
+    void equals_sameDescriptor() {
+        assertTrue(
+                new AddGroupCommand(GROUP1).equals(new AddGroupCommand(GROUP1))
+        );
     }
 
 

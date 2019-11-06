@@ -1,15 +1,52 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import seedu.address.model.ModelManager;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.testutil.modelutil.TypicalModel;
 
 public class HelpCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
 
-    /*@Test
+    private ModelManager model;
+
+    @BeforeEach
+    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
+        model = TypicalModel.generateTypicalModel();
+    }
+
+    @Test
     public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
-        assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
-    }*/
+        CommandResult actualCommandResult =
+                new HelpCommand().execute(model);
+
+        CommandResult expectedCommandResult =
+                new CommandResult(HelpCommand.SHOWING_HELP_MESSAGE, true, false);
+
+        assertEquals(actualCommandResult, expectedCommandResult);
+    }
+
+    @Test
+    void equals_null() {
+        assertFalse(new HelpCommand().equals(null));
+    }
+
+    @Test
+    void equals_otherCommand() {
+        assertFalse(new HelpCommand()
+                .equals(new AddPersonCommand(ALICE)));
+    }
+
+    @Test
+    void equals() {
+        assertTrue(new HelpCommand().equals(new HelpCommand()));
+    }
 }

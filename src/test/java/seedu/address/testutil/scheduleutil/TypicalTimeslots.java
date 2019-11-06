@@ -10,6 +10,11 @@ import seedu.address.model.person.schedule.Venue;
  */
 public class TypicalTimeslots {
 
+    public static final String TIMING1 = "03122007-1030-1130-venue1";
+    public static final String EMPTY_VENUE = "03122007-1030-1130";
+    public static final String INVALID_DATE = "21212007-1030-1130-venue1";
+    public static final String INVALID_TIMING = "03122007-1230-1130-venue1";
+
     public static final String STARTTIMETEXT1 = "03122007:1030-";
     public static final String ENDTIMETEXT1 = "03122007:1130-";
 
@@ -19,6 +24,10 @@ public class TypicalTimeslots {
 
     public static final Timeslot TIME_SLOT1 = new Timeslot(
             START_TIME1, END_TIME1, VENUE1
+    );
+
+    public static final Timeslot EMPTY_VENUE_TIME_SLOT1 = new Timeslot(
+            START_TIME1, END_TIME1, Venue.emptyVenue()
     );
 
     public static final LocalDateTime START_TIME2 = LocalDateTime.parse("2007-12-03T12:30:00");

@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME2;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,5 +57,34 @@ class DeleteGroupCommandTest {
                         DeleteGroupCommand.MESSAGE_GROUP_NOT_FOUND));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
+    }
+
+    @Test
+    void equals_null() {
+        assertFalse(new DeleteGroupCommand(GROUP_NAME1).equals(null));
+    }
+
+    @Test
+    void equals_otherCommand() {
+        assertFalse(new DeleteGroupCommand(GROUP_NAME1)
+                .equals(new AddPersonCommand(ALICE)));
+    }
+
+    @Test
+    void equals_differentGroupName() {
+        assertFalse(
+                new DeleteGroupCommand(GROUP_NAME1).equals(
+                        new DeleteGroupCommand(GROUP_NAME2)
+                )
+        );
+    }
+
+    @Test
+    void equals() {
+        assertTrue(
+                new DeleteGroupCommand(GROUP_NAME1).equals(
+                        new DeleteGroupCommand(GROUP_NAME1)
+                )
+        );
     }
 }

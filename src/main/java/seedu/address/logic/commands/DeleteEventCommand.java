@@ -68,6 +68,15 @@ public class DeleteEventCommand extends Command {
 
     @Override
     public boolean equals(Command command) {
-        return false;
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof DeleteEventCommand)) {
+            return false;
+        } else if (((DeleteEventCommand) command).name.equals(this.name)
+                && ((DeleteEventCommand) command).eventName.equals(this.eventName)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

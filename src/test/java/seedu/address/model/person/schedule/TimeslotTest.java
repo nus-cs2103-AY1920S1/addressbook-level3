@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.END_TIME1;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.END_TIME2;
+import static seedu.address.testutil.scheduleutil.TypicalTimeslots.END_TIME3;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.START_TIME1;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.START_TIME2;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIME_SLOT1;
@@ -19,6 +20,33 @@ class TimeslotTest {
     void testEquals() {
         assertTrue(TIME_SLOT1.equals(TIME_SLOT1));
         assertFalse(TIME_SLOT1.equals(TIME_SLOT2));
+    }
+
+    @Test
+    void equals_differentStartTime() {
+        assertFalse(
+                new Timeslot(START_TIME1, END_TIME3, VENUE1).equals(
+                        new Timeslot(START_TIME2, END_TIME3, VENUE1)
+                )
+        );
+    }
+
+    @Test
+    void equals_differentEndTime() {
+        assertFalse(
+                new Timeslot(START_TIME1, END_TIME2, VENUE1).equals(
+                        new Timeslot(START_TIME1, END_TIME3, VENUE1)
+                )
+        );
+    }
+
+    @Test
+    void equals_differentVenue() {
+        assertFalse(
+                new Timeslot(START_TIME1, END_TIME2, VENUE1).equals(
+                        new Timeslot(START_TIME1, END_TIME2, VENUE2)
+                )
+        );
     }
 
     @Test

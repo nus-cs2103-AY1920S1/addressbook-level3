@@ -83,6 +83,15 @@ public class DeleteFromGroupCommand extends Command {
 
     @Override
     public boolean equals(Command command) {
-        return false;
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof DeleteFromGroupCommand)) {
+            return false;
+        } else if (((DeleteFromGroupCommand) command).name.equals(this.name)
+                && ((DeleteFromGroupCommand) command).groupName.equals(this.groupName)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
