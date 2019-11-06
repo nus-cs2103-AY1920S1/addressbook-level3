@@ -15,18 +15,9 @@
       "tagged" : [ "health insurance" ],
       "startAge" : "30",
       "endAge" : "75"
-    }, {
-      "name" : "Fire Insurance",
-      "description" : "Insurance for fire",
-      "coverage" : "days/30 months/12",
-      "price" : "$7500",
-      "criteria" : [ "public housing" ],
-      "tagged" : [ "home insurance" ],
-      "startAge" : "0",
-      "endAge" : "85"
     } ],
     "tagged" : [ "diabetic", "high blood pressure" ],
-    "dateOfBirth" : "12.12.1992"
+    "dateOfBirth" : "12.12.1982"
   }, {
     "name" : "Benson Meier",
     "nric" : "S0000002J",
@@ -44,8 +35,8 @@
       "startAge" : "21",
       "endAge" : "80"
     } ],
-    "tagged" : [ "smoker", "disabled" ],
-    "dateOfBirth" : "12.12.1922"
+    "tagged" : [ "smoker", "high blood pressure", "disabled" ],
+    "dateOfBirth" : "12.12.1942"
   }, {
     "name" : "Carl Kurz",
     "nric" : "S0000003J",
@@ -54,7 +45,7 @@
     "address" : "wall street",
     "gender" : "Male",
     "policies" : [ ],
-    "tagged" : [ ],
+    "tagged" : [ "asthmatic" ],
     "dateOfBirth" : "6.6.1996"
   }, {
     "name" : "Daniel Meier",
@@ -64,7 +55,7 @@
     "address" : "10th street",
     "gender" : "Male",
     "policies" : [ ],
-    "tagged" : [ ],
+    "tagged" : [ "tuberculosis" ],
     "dateOfBirth" : "14.2.2019"
   }, {
     "name" : "Elle Meyer",
@@ -74,7 +65,7 @@
     "address" : "michegan ave",
     "gender" : "Male",
     "policies" : [ ],
-    "tagged" : [ ],
+    "tagged" : [ "myopic" ],
     "dateOfBirth" : "17.5.2000"
   }, {
     "name" : "Fiona Kunz",
@@ -84,7 +75,7 @@
     "address" : "little tokyo",
     "gender" : "Female",
     "policies" : [ ],
-    "tagged" : [ ],
+    "tagged" : [ "pregnant" ],
     "dateOfBirth" : "15.8.2008"
   }, {
     "name" : "George Best",
@@ -94,7 +85,7 @@
     "address" : "4th street",
     "gender" : "Male",
     "policies" : [ ],
-    "tagged" : [ ],
+    "tagged" : [ "glaucoma" ],
     "dateOfBirth" : "5.5.2015"
   } ],
   "policies" : [ {
