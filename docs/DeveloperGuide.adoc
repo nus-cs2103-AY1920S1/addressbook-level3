@@ -246,10 +246,90 @@ _{Explain here how the data encryption feature will be implemented}_
 
 ==== Implementation
 
+Color coding for grocery list is based on the default number of days set in the iFridge settings in the user prefs.
+Changing the default reminder number of days will update the color coding in the grocery list accordingly. It will also
+be saved when the app is closed and used again when the app is relaunched.
+
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remDefault r/3")` API call.
 
 .Interactions Inside the Logic Component for the `remDefault r/3` Command
 image::RemDefault.png[]
+
+=== General Undo/Redo Feature
+
+==== Implementation
+
+There are 3 types of undo/redo feature, glist undo/redo for grocery list, slist undo/redo for shopping list,
+and tlist undo/redo for template list.
+
+==== Design Considerations
+Aspect: How undo/redo is implemented
+
+**Alternative 1 (current choice)**: Create undo/redo separately for different lists.
+
+* Pros: More flexibility for user in choosing which list to undo.
+* Cons: Does not support commands which connects between the different lists which has an undo/redo feature of its own
+(eg. mergebought command which links shopping list and grocery list cannot be undone, as both shopping list and grocery list
+have their own undo/redo feature and complications may occur due to the interdependency between the different lists)
+
+**Alternative 2**: Implement undo/redo universally so undo/redo will undo/redo any type of the last command executed.
+
+* Pros: Supports undoing/redoing commands which connects between different lists as there will be no complications arising
+from the interdependency of the list.
+* Cons: Less flexibility to choose which list to undo.
+
+=== Grocery Undo/Redo Feature
+
+==== Implementation
+
+Versioned Grocery List extends Grocery List and contains different states of grocery list.
+Versioned Waste List extends Waste List and contains different states of waste list.
+It supports any kinds of grocery command which modifies the content of the grocery list. Since the delete
+grocery command modifies both grocery list and waste list, each grocery command will call
+`Model#commitGroceryList` and `Model#commitWasteList` so that undoing/redoing a grocery delete command will update both
+grocery list and waste list, while the other commands will only modify the grocery list.
+
+=== Shopping Undo/Redo Feature
+
+==== Implementation
+
+Versioned Shopping List extends Shopping List and contains different states of shopping list.
+Versioned Bought List extends Grocery List and contains different states of bought list.
+It supports any kinds of shopping command which modifies the content of the shopping list except for mergebought command.
+Since the bought shopping command modifies both shopping list and bought list, each shopping command excluding mergebought command
+will call `Model#commitShoppingList` and `Model#commitBoughtList` so that undoing/redoing a bought shopping command will update both
+shopping list and bought list, while the other commands will only modify the shopping list.
+
+=== Template Undo/Redo Feature
+
+==== Implementation
+
+Versioned Template List extends Template List and contains different states of template list, previous templates, new templates, and index list.
+It supports template list command undo/redo, and template item command undo/redo. Each template command will call `Model#commitTemplateList`
+which updates the corresponding lists in the versioned template list.
+
+.The following activity diagram shows what happens when the user enters an undo template command
+image::UndoTemplateActivityDiagram.png[]
+
+When a template list command is undone/redone, the user interface will update the template list panel and clear the template item panel.
+When a template item command is undone/redone, the user interface will update the template item panel with the corresponding updated template
+from the prevTemplate/newTemplate list respectively.
+The index list is used to determine whether a template list command or a template item command is being undone/redone.
+If the current index is -1, the current state pointer is pointing to a template list command, else, it is pointing to a template item command.
+
+==== Design Considerations
+Aspect: How template undo/redo is implemented
+
+**Alternative 1 (current choice)**: Template undo/redo feature covers both template list command and template item command
+
+* Pros: Prevents issues surfacing from interdependency between template list and template item command
+* Cons: Less flexibility for users in choosing to undo/redo which list
+
+**Alternative 2**: Create undo/redo separately for template list command and template item command
+
+* Pros: More flexibility as users can choose which list to undo/redo
+* Cons: Harder to implement as we need to check for interdependency between the two list and how it affects the other list' state
+before performing the corresponding undo/redo
 
 === Waste Report Feature
 
