@@ -6,10 +6,9 @@ import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.AnnotationCommand;
 import seedu.mark.logic.commands.EditAnnotationCommand;
-
-import seedu.mark.commons.core.index.Index;
 import seedu.mark.model.annotation.AnnotationNote;
 import seedu.mark.model.annotation.Highlight;
 import seedu.mark.model.annotation.ParagraphIdentifier;
