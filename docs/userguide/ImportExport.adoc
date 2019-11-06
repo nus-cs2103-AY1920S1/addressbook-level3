@@ -88,7 +88,7 @@ each element is to be separated with a newline.
 	, and ;
 
 =====
-An example of a valid .csv can be seen link:ExampleCsv.png[here]
+An example of a valid .csv can be seen link:samplecsvs/importsample.csv[here]
 
 === Exporting data into a CSV file: `app-export`
 
