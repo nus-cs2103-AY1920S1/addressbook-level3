@@ -169,13 +169,23 @@ Additionally, it implements the following operations:
 These operations are exposed in the `Model` interface as `Model#commitWeme()`, `Model#undoWeme()` and `Model#redoWeme()` respectively.
 
 [NOTE]
-Only state changes on the internal structure of Weme are undoable. Commands such as `list`, `find` that only change the user interface as well as commands such as `stage`, `load` that modify the staging / import list are not undoable.
+Only state changes on the internal structure of Weme are undoable.
+
+// tag::undoable[]
+
+Commands such as `list`, `find` that only change the user interface, commands such as `export` and `load` that are related to external files, as well as commands such as `edit` and `delete` that modify the import list are not supported.
 
 These are the list of commands that support undo / redo operations:
-* Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`
+
+* Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`, `dislike`, `stage`
 * Template Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
-* Create Tab: `add`, `abort`, `create`
+* Create Tab: `add`, `edit`, `delete`, `abort`, `create`
+* Export Tab: `unstage`, `clear`
 * Import Tab: `import`
+
+`undo` and `redo` works between tabs. This means that if you make a change in the Memes tab, by editing a meme, and then you switch to the Templates tab, when you execute `undo`, it reverts the change in the Memes tab as well.
+
+// end::undoable[]
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
@@ -241,7 +251,7 @@ When the handleExit command is called, MainWindow will create a Thread to call `
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the meme being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command are correct. This gets complicated when dealing with files.
 
 ===== Aspect: Types of commands to undo
 
@@ -259,13 +269,13 @@ When the handleExit command is called, MainWindow will create a Thread to call `
 ** Cons: User might expect to undo only when they are in the same context. i.e. Undo Meme commands in Meme context.
 * **Alternative 2:** Restrict undoing to its own context
 ** Pros: More user intuitive. Commands will only affect their own context.
-** Cons: Heavily complicates the model. Model will then need to keep track of a versioning of every single context.
+** Cons: Heavily complicates the model. Model will then need to keep track of a versioning of every single context. Does not allow for commands such as `create` which affects the Creation tab and Meme tab without many modifications to the existing structure.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of past states.
 ** Pros: Easy to understand and adjust according to needs. Undo and redo simply moves along the list to change the state.
-** Cons: Each individual type (in this case, StatsEngine and Weme) will need to keep track of it's own versions.
+** Cons: Clutters up the `Weme` class.
 * **Alternative 2:** Use a wrapper class
 ** Pros: Everything will be handled within a single UndoRedoManager class.
 ** Cons: Might introduce complications as managing states now needs to go through another class instead of just the model.
@@ -273,11 +283,14 @@ When the handleExit command is called, MainWindow will create a Thread to call `
 ===== Aspect: Handling file changes
 
 * **Alternative 1 (current choice):** Remove files only on exit.
-** Pros: No need to deal with files when managing commands. Easy to execute add and delete commands without an issue.
-** Cons: Might take a while to delete if we had a lot of images.
+** Pros: No need to deal with files when managing commands. Easy to execute add and delete commands without an issue without worrying whether a file is present.
+** Cons: Might take a while to delete if we had a lot of images. (Resolved with threads)
 * **Alternative 2:** Implement a recycle bin to move files to/from on command.
 ** Pros: Commands do what they are fully expected to do (Delete deletes the image as well).
-** Cons: Heavily complicates the logic with a need to copy and paste when undoing and redoing. Very difficult to understand and error-prone.
+** Cons: Heavily complicates the logic with a need to copy and paste when undoing and redoing. Very difficult to understand and error-prone. Still needs to eventually clear the recycle bin on exit. Repeated work.
+* **Alternative 3:** Make file commands undoable.
+** Pros: No need to deal with file manipulation.
+** Cons: Makes undo redo feature a lot more useless as it loses support for certain key commands.
 // end::undoredo[]
 
 // tag::templates[]

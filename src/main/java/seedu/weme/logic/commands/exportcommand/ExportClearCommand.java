@@ -23,6 +23,7 @@ public class ExportClearCommand extends Command {
 
         model.clearExportList();
         CommandResult result = new CommandResult(MESSAGE_SUCCESS);
+        model.commitWeme(result.getFeedbackToUser());
 
         return result;
     }

@@ -96,6 +96,7 @@ public class Weme implements ReadOnlyWeme {
         updateStats(newData.getMemeList());
         setRecords(newData.getRecords());
         setMemeCreation(newData.getMemeCreation());
+        setStagedMemes(newData.getStagedMemeList());
     }
 
     /**
@@ -126,6 +127,14 @@ public class Weme implements ReadOnlyWeme {
      */
     public void setTemplates(List<Template> templates) {
         this.templates.setTemplates(templates);
+    }
+
+    /**
+     * Replaces the contents of the export list with {@code memes}.
+     * {@code memes} must not contain duplicate memes.
+     */
+    public void setStagedMemes(List<Meme> memes) {
+        this.exportList.setMemes(memes);
     }
 
     public void startMemeCreation(Template template) throws IOException {

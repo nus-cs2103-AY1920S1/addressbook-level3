@@ -56,8 +56,10 @@ public class MemeStageCommand extends Command {
             throw new CommandException(MESSAGE_MEME_ALREADY_STAGED);
         }
         model.stageMeme(memeToStage);
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, memeToStage));
+        model.commitWeme(result.getFeedbackToUser());
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, memeToStage));
+        return result;
     }
 
     @Override

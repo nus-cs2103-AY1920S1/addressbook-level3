@@ -74,14 +74,9 @@ Format: `redo` +
 Example: `redo`
 
 ****
-`undo` and `redo` only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable. The following are the commands that are undoable in each tab:
 
-* Memes Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`, `dislike`
-* Templates Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
-* Create Tab: `add`, `abort`, `create`, `edit`, `delete`
-* Import Tab: `import`
+include::./DeveloperGuide.adoc[tag=undoable]
 
-`undo` and `redo` are also global actions. This means that if you made a change in the memes tab, and changed to the templates tab, when `undo` is entered, it will undo the change done in the memes tab.
 ****
 
 ==== Switching tabs : `tab`
