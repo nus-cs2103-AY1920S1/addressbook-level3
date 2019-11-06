@@ -5,8 +5,7 @@
 :stylesDir: stylesheets
 
 Teacher's Notebook was developed by Team https://github.com/orgs/AY1920S1-CS2103-T14-1/people. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -21,7 +20,7 @@ Role: Project Advisor
 
 === Loh Wei Kiat
 image::weikiat97.png[width="150", align="left"]
-{empty}[https://github.com/weikiat97[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/weikiat97[github]] [<<weikiat97#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -42,7 +41,7 @@ image::sheryltay28.png[width="150", align="left"]
 {empty}[https://github.com/sheryltay28[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Data
 
 '''
 
