@@ -20,8 +20,10 @@ class JsonAdaptedBookmarkPredicateTest {
 
     private static final String MATCHING_NAME = "First Bookmark";
     private static final String MATCHING_URL = "https://first-website.com";
+    private static final String MATCHING_FOLDER = "first";
     private static final String NON_MATCHING_NAME = "Second Bookmark";
     private static final String NON_MATCHING_URL = "https://second-website.com";
+    private static final String NON_MATCHING_FOLDER = "second";
 
     @Test
     public void toModelType_validBookmarkPredicateDetails_returnsBookmarkPredicate() {
@@ -42,23 +44,27 @@ class JsonAdaptedBookmarkPredicateTest {
     void toModelType_validKeywords_success() {
         BookmarkPredicate bookmarkPredicate = new JsonAdaptedBookmarkPredicate(
                 KEYWORD_LIST_MULTIPLE, KEYWORD_LIST_SINGLE,
+                KEYWORD_LIST_MULTIPLE, KEYWORD_LIST_SINGLE,
                 KEYWORD_LIST_MULTIPLE, KEYWORD_LIST_SINGLE).toModelType();
 
         assertEquals(bookmarkPredicate,
                 new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE)
                         .withoutNameKeywords(KEYWORD_LIST_SINGLE).withUrlKeywords(KEYWORD_LIST_MULTIPLE)
-                        .withoutUrlKeywords(KEYWORD_LIST_SINGLE));
+                        .withoutUrlKeywords(KEYWORD_LIST_SINGLE).withFolder(KEYWORD_LIST_MULTIPLE)
+                        .withoutFolder(KEYWORD_LIST_SINGLE));
 
         // check whether predicate works
         assertTrue(bookmarkPredicate.test(new BookmarkBuilder().withName(MATCHING_NAME)
-                .withUrl(MATCHING_URL).build()));
+                .withUrl(MATCHING_URL).withFolder(MATCHING_FOLDER).build()));
         assertFalse(bookmarkPredicate.test(new BookmarkBuilder().withName(NON_MATCHING_NAME)
-                .withUrl(MATCHING_URL).build()));
+                .withUrl(MATCHING_URL).withFolder(MATCHING_FOLDER).build()));
         assertFalse(bookmarkPredicate.test(new BookmarkBuilder().withName(MATCHING_NAME)
-                .withUrl(NON_MATCHING_URL).build()));
+                .withUrl(NON_MATCHING_URL).withFolder(MATCHING_FOLDER).build()));
+        assertFalse(bookmarkPredicate.test(new BookmarkBuilder().withName(MATCHING_NAME)
+                .withUrl(MATCHING_URL).withFolder(NON_MATCHING_FOLDER).build()));
         assertFalse(bookmarkPredicate.test(new BookmarkBuilder().withName(NON_MATCHING_NAME)
-                .withUrl(NON_MATCHING_URL).build()));
+                .withUrl(NON_MATCHING_URL).withFolder(NON_MATCHING_FOLDER).build()));
         assertFalse(bookmarkPredicate.test(new BookmarkBuilder().withName("Random Name")
-                .withUrl("http://random").build()));
+                .withUrl("http://random").withFolder("Random").build()));
     }
 }
