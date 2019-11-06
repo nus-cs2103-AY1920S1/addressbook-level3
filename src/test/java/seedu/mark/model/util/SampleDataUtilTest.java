@@ -10,6 +10,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.model.ReadOnlyMark;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
 
 public class SampleDataUtilTest {
@@ -35,5 +37,12 @@ public class SampleDataUtilTest {
     public void getTagSet() {
         assertEquals(SampleDataUtil.getTagSet(VALID_TAG_HUSBAND, VALID_TAG_FRIEND),
                 Set.of(new Tag(VALID_TAG_FRIEND), new Tag(VALID_TAG_HUSBAND)));
+    }
+
+    @Test
+    public void getTagger() {
+        BookmarkPredicate predicate = new BookmarkPredicate();
+        assertEquals(SampleDataUtil.getTagger(VALID_TAG_FRIEND, predicate),
+                new SelectiveBookmarkTagger(new Tag(VALID_TAG_FRIEND), predicate));
     }
 }
