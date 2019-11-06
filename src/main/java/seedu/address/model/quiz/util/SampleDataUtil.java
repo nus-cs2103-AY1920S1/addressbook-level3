@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.quiz.AddressQuizBook;
-import seedu.address.model.quiz.ReadOnlyAddressBook;
+import seedu.address.model.quiz.ReadOnlyQuizBook;
 import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Category;
 import seedu.address.model.quiz.person.Comment;
@@ -37,7 +37,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyQuizBook getSampleAddressBook() {
         AddressQuizBook sampleAb = new AddressQuizBook();
         for (Question sampleQuestion : getSampleQuestions()) {
             sampleAb.addQuestion(sampleQuestion);

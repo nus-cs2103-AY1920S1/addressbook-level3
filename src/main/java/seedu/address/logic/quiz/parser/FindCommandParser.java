@@ -29,7 +29,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             trimmedArgs = trimmedArgs.substring(3);
         }
 
-        if (trimmedArgs.isEmpty()) {
+        if (trimmedArgs.isEmpty() || trimmedArgs.length() < 5) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }

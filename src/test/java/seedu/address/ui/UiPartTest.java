@@ -133,22 +133,6 @@ public class UiPartTest {
                 new TestFinanceUiPart<Object>(MISSING_FILE_PATH_FINANCE, new Object()));
     }
 
-    @Test
-    public void constructor_invalidFileName_throwsAssertionError() {
-        assertThrows(AssertionError.class, () -> new TestCalendarUiPart<Object>(INVALID_FILE_PATH));
-        assertThrows(AssertionError.class, () -> new TestCalendarUiPart<Object>(INVALID_FILE_PATH, new Object()));
-
-        assertThrows(AssertionError.class, () -> new TestCapUiPart<Object>(INVALID_FILE_PATH));
-        assertThrows(AssertionError.class, () -> new TestCapUiPart<Object>(INVALID_FILE_PATH, new Object()));
-
-        assertThrows(AssertionError.class, () -> new TestQuizUiPart<Object>(INVALID_FILE_PATH));
-        assertThrows(AssertionError.class, () -> new TestQuizUiPart<Object>(INVALID_FILE_PATH, new Object()));
-
-        //assertThrows(AssertionError.class, () -> new TestFinanceUiPart<Object>(MISSING_FILE_PATH_FINANCE));
-        //assertThrows(AssertionError.class, () ->
-        //        new TestFinanceUiPart<Object>(MISSING_FILE_PATH_FINANCE, new Object()));
-    }
-
     private URL getTestFileUrl(String testFilePath) {
         String testFilePathInView = "/view/" + testFilePath;
         URL testFileUrl = MainApp.class.getResource(testFilePathInView);
