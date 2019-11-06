@@ -114,8 +114,6 @@
                   </Tab>
               </tabs>
             </TabPane>
-
-        <StackPane fx:id="statusbarPlaceholder" prefHeight="0.0" prefWidth="202.0" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>

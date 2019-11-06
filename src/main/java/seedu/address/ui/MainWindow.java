@@ -41,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private FetchEventWindow fetchEventWindow;
     private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
+    private StatisticsWindow statisticsWindow;
     private ScheduleBox scheduleBox;
     private StatisticsBox statisticsBox;
 
@@ -229,6 +230,24 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the statistics window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void generateDetail(String text) {
+        if (statisticsWindow != null) {
+            statisticsWindow.hide();
+        }
+        statisticsWindow = new StatisticsWindow(logic);
+        statisticsWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        statisticsWindow.setLabelText(text);
+        if (!statisticsWindow.isShowing()) {
+            statisticsWindow.show();
+        } else {
+            statisticsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -287,6 +306,11 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().equals("Statistics")) {
                 selectionModel.select(3);
+            }
+
+            if (commandResult.getType().equals("Detail")) {
+                selectionModel.select(3);
+                generateDetail(commandResult.getUiChange());
             }
 
             if (commandResult.getType().equals("Schedule_Update")) {
