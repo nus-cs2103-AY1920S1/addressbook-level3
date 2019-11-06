@@ -106,10 +106,13 @@ public class AddToGroupCommand extends Command {
         } else if (!(command instanceof AddToGroupCommand)) {
             return false;
         } else if (((AddToGroupCommand) command).name.equals(this.name)
-                && ((AddToGroupCommand) command).groupName.equals(this.groupName)) {
+                && ((AddToGroupCommand) command).groupName.equals(this.groupName)
+                && ((AddToGroupCommand) command).role.equals(this.role)) {
             return true;
         } else {
             return false;
         }
     }
+
+
 }

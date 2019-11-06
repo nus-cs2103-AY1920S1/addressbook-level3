@@ -2,6 +2,7 @@ package seedu.address.testutil.personutil;
 
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonList;
+import seedu.address.model.person.User;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
@@ -51,21 +52,28 @@ public class TypicalPersonDescriptor {
             .withEmail("zack@example.com").withAddress("loser street")
             .withRemark("Im not on the list").withTags("blabla").build();
 
+    public static final PersonDescriptor USER = new PersonDescriptorBuilder()
+            .withName("User").withPhone("99999999")
+            .withEmail("user@gmail.com").withAddress("bla bla")
+            .withRemark("me").build();
+
     /**
      * Generates a typical PersonList.
-     *
-     * @return PersonList
+     * All persons will be added except ZACK.
      */
-    public static PersonList generateTypicalPersonList() throws DuplicatePersonException {
-        PersonList personList = new PersonList();
-        personList.addPerson(ALICE);
-        personList.addPerson(BENSON);
-        personList.addPerson(CARL);
-        personList.addPerson(DANIEL);
-        personList.addPerson(ELLE);
-        personList.addPerson(FIONA);
-        personList.addPerson(GEORGE);
-
+    public static PersonList generateTypicalPersonList() {
+        PersonList personList = new PersonList(new User(USER));
+        try {
+            personList.addPerson(ALICE);
+            personList.addPerson(BENSON);
+            personList.addPerson(CARL);
+            personList.addPerson(DANIEL);
+            personList.addPerson(ELLE);
+            personList.addPerson(FIONA);
+            personList.addPerson(GEORGE);
+        } catch (DuplicatePersonException e) {
+            e.printStackTrace();
+        }
         return personList;
     }
 }

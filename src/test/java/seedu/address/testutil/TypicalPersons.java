@@ -59,20 +59,11 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {
-    } // prevents instantiation
-    /*
-    *//**
-     * Returns an {@code AddressBook} with all the typical persons.
-     *//*
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
-        }
-        return ab;
-    }*/
 
+    /**
+     * Generates a list of Typical persons.
+     * All persons will be in the list except Zack.
+     */
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }

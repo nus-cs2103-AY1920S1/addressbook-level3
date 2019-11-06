@@ -54,9 +54,12 @@ public class PersonDescriptor {
      * @return boolean
      */
     public boolean isAnyFieldEdited() {
-        if (this.name.equals(DEFAULT_NAME) && this.phone.equals(DEFAULT_PHONE) && this.email.equals(DEFAULT_EMAIL)
+        if (this.name.equals(DEFAULT_NAME)
+                && this.phone.equals(DEFAULT_PHONE)
+                && this.email.equals(DEFAULT_EMAIL)
                 && this.address.equals(DEFAULT_ADDRESS)
-                && this.remark.equals(DEFAULT_REMARK) && this.tags == null) {
+                && this.remark.equals(DEFAULT_REMARK)
+                && this.tags == null) {
             return false;
         } else {
             return true;

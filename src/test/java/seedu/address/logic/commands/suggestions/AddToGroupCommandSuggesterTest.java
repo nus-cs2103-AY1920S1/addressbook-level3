@@ -20,7 +20,7 @@ class AddToGroupCommandSuggesterTest extends SuggesterImplTester {
     @Test
     void getSuggestion_exactGroupBlankPersonName_allPersonNames() {
         final ArgumentList argumentList = argumentListOf(
-                new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 0, TypicalGroups.GROUPNAME1.toString()),
+                new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 0, TypicalGroups.GROUP_NAME1.toString()),
                 new CommandArgument(CliSyntax.PREFIX_NAME, 1, EMPTY_STRING)
         );
         final List<String> expectedNames = allPersonNames().collect(Collectors.toUnmodifiableList());
@@ -31,7 +31,7 @@ class AddToGroupCommandSuggesterTest extends SuggesterImplTester {
     @Test
     void getSuggestion_exactGroupPartialPersonName_onePersonName() {
         final ArgumentList argumentList = singularArgumentListOfCommandArgument(
-                CliSyntax.PREFIX_GROUPNAME, 0, TypicalGroups.GROUPNAME1.toString()
+                CliSyntax.PREFIX_GROUPNAME, 0, TypicalGroups.GROUP_NAME1.toString()
         );
         final List<String> expectedNames = allPersonNames().limit(1).collect(Collectors.toUnmodifiableList());
         final String expectedName = expectedNames.get(0);

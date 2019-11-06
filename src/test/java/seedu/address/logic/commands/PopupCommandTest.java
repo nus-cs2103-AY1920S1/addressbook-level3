@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME0;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,14 +25,14 @@ class PopupCommandTest {
 
     @Test
     void executeCannotFindGroup() throws CommandException {
-        PopupCommand popupCommand = new PopupCommand(GROUPNAME0, 0, 1);
+        PopupCommand popupCommand = new PopupCommand(GROUP_NAME0, 0, 1);
         assertEquals("Cannot recognise GROUP_NAME. Make sure you entered the correct value.",
                 popupCommand.execute(model).getFeedbackToUser());
     }
 
     @Test
     void executeCannotFindAllNoPreviousLocation() throws CommandException {
-        PopupCommand popupCommand = new PopupCommand(GROUPNAME1, 0, 1);
+        PopupCommand popupCommand = new PopupCommand(GROUP_NAME1, 0, 1);
         assertEquals("We could not find a common location because:\n"
                         + "Everyone has not started their schedule yet. Feel free to meet up any time.",
                 popupCommand.execute(model).getFeedbackToUser());
@@ -40,21 +40,21 @@ class PopupCommandTest {
 
     @Test
     void executeInvalidIdExceedUpperLimit() throws CommandException {
-        PopupCommand popupCommand = new PopupCommand(GROUPNAME1, 3, Integer.MAX_VALUE);
+        PopupCommand popupCommand = new PopupCommand(GROUP_NAME1, 3, Integer.MAX_VALUE);
         assertEquals("Invalid time slot ID: 2147483647. Please enter a valid id as shown in the GUI.",
                 popupCommand.execute(model).getFeedbackToUser());
     }
 
     @Test
     void executeInvalidIdExceedLowerLimit() throws CommandException {
-        PopupCommand popupCommand = new PopupCommand(GROUPNAME1, 3, 0);
+        PopupCommand popupCommand = new PopupCommand(GROUP_NAME1, 3, 0);
         assertEquals("Invalid time slot ID: 0. Please enter a valid id as shown in the GUI.",
                 popupCommand.execute(model).getFeedbackToUser());
     }
 
     @Test
     void testEquals() {
-        PopupCommand popupCommand = new PopupCommand(GROUPNAME1, 0, 1);
+        PopupCommand popupCommand = new PopupCommand(GROUP_NAME1, 0, 1);
         assertTrue(popupCommand.equals(popupCommand));
     }
 }

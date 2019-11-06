@@ -55,7 +55,8 @@ public class GroupDescriptor {
         if (groupDescriptor == null) {
             return false;
         } else if (this.groupName.equals(groupDescriptor.groupName)
-                && this.groupDescription.equals(groupDescriptor.groupDescription)) {
+                && this.groupDescription.equals(groupDescriptor.groupDescription)
+                && this.userRole.equals(groupDescriptor.userRole)) {
             return true;
         } else {
             return false;
