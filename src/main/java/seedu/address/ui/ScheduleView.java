@@ -24,13 +24,15 @@ import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
 
+/**
+ * Class that creates the schedule view for the user to see combined schedules.
+ */
 public class ScheduleView extends UiPart<Region> {
     protected static final double ONE_HOUR_LENGTH = 60;
-    protected static final int PREFERRED_WIDTH = 140;
     protected static final int HALF_HOUR = 30;
     protected static final int START_TIME = 8;
     protected static final int END_TIME = 20;
-    protected static final int blockWidth = 140;
+    protected static final int BLOCK_WIDTH = 140;
     private static final String FXML = "ScheduleView.fxml";
 
     @FXML
@@ -115,7 +117,7 @@ public class ScheduleView extends UiPart<Region> {
                 ArrayList<PersonTimeslot> eventsToday = schedulesShown.get(j).get(now.plusDays(i - 1).getDayOfWeek());
                 VBox individualSchedule = getDayVBoxOfIndividualSchedule(eventsToday, colors.get(j));
                 //Change line 99 for collapsible blocks.
-                individualSchedule.setPrefWidth(blockWidth / schedulesShown.size());
+                individualSchedule.setPrefWidth(BLOCK_WIDTH / schedulesShown.size());
                 combinedSchedules.getChildren().add(individualSchedule);
             }
             dateStackPanes.get(now.plusDays(i - 1)).getChildren().add(combinedSchedules);
@@ -224,7 +226,6 @@ public class ScheduleView extends UiPart<Region> {
     /**
      * Method to append the free times of a group into the group schedule.
      * @param schedule A schedule that contains the available time for all group members.
-     * @return The scheduleView which contains the available time slots indicated.
      */
     public void setFreeTime(FreeSchedule schedule) {
         HashMap<DayOfWeek, ArrayList<FreeTimeslot>> vacantSchedule = schedule.getFreeSchedule();
@@ -294,9 +295,9 @@ public class ScheduleView extends UiPart<Region> {
          */
         private Region makeColouredBlock(String color) {
             Region colouredBlock = new Region();
-            colouredBlock.setPrefSize(blockWidth, heightOfTimeslot);
+            colouredBlock.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
             colouredBlock.setStyle("-fx-background-color: " + getLinearGradient(color)
-                    + "-fx-background-radius: " + (blockWidth / (28.0 * schedulesShown.size())) + ";");
+                    + "-fx-background-radius: " + (BLOCK_WIDTH / (28.0 * schedulesShown.size())) + ";");
             colouredBlock.setId("colouredTimeslot");
             return colouredBlock;
         }
@@ -334,7 +335,7 @@ public class ScheduleView extends UiPart<Region> {
          */
         private Region makeEmptyTimeslot() {
             Region result = new Region();
-            result.setPrefSize(blockWidth, heightOfTimeslot);
+            result.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
             return result;
         }
 
@@ -346,7 +347,7 @@ public class ScheduleView extends UiPart<Region> {
         private StackPane makeFreeTimeslot(String text) {
             StackPane freeTimeslot = new StackPane();
             Label label = new Label(text);
-            label.setPrefSize(blockWidth, heightOfTimeslot);
+            label.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
             Region region = makeColouredBlock("lightgreen");
             region.setId("freeTimeslotBlock");
             freeTimeslot.setId("freeTimeslot");

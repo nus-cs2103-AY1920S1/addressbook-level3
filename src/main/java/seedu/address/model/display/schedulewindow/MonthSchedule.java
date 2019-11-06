@@ -1,11 +1,7 @@
 package seedu.address.model.display.schedulewindow;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 
 /**
  * A class that concatenates 4 week schedules together.
