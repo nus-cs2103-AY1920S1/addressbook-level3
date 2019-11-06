@@ -45,16 +45,19 @@ public abstract class BudgetCard extends UiPart<Region> {
     public BudgetCard(BudgetData budgetData, String fxml) {
         super(fxml);
         this.budgetData = budgetData;
-        setBudgetType(budgetData.getBudgetType());
-        setBudgetTypeValue(budgetData.getBudgetTypeValue());
-        startDate.setText("Start: "
-                + Budget.toStringDate(budgetData.getStartDate()));
-        endDate.setText("End: "
-                + Budget.toStringDate(budgetData.getEndDate()));
+        setText();
+    }
+
+    private void setText() {
+        setBudgetType();
+        setBudgetTypeValue();
+        setStartDate();
+        setEndDate();
         setBalance();
     }
 
-    private void setBudgetType(String type) {
+    private void setBudgetType() {
+        String type = budgetData.getBudgetType();
         switch (type) {
         case "all":
             budgetType.setText("All");
@@ -71,12 +74,23 @@ public abstract class BudgetCard extends UiPart<Region> {
         }
     }
 
-    private void setBudgetTypeValue(String value) {
+    private void setBudgetTypeValue() {
+        String value = budgetData.getBudgetTypeValue();
         if (value == null) {
             budgetTypeValue.setText("");
         } else {
             budgetTypeValue.setText(value);
         }
+    }
+
+    private void setStartDate() {
+        String date = Budget.toStringDate(budgetData.getStartDate());
+        startDate.setText("Start: " + date);
+    }
+
+    private void setEndDate() {
+        String date = Budget.toStringDate(budgetData.getEndDate());
+        startDate.setText("End: " + date);
     }
 
     abstract void setProgressBar();

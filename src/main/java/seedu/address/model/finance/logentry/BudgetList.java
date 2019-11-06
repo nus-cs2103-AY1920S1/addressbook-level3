@@ -67,7 +67,9 @@ public class BudgetList implements Iterable<Budget> {
     }
 
     /**
-     * Replaces the contents of this list with {@code Budgets}.
+     * Replaces the contents of internal list with given list of
+     * {@code Budgets}.
+     * Sorts Budgets by their start dates.
      * {@code Budgets} must not contain duplicate budgets.
      */
     public void setBudgets(List<Budget> budgets) {
