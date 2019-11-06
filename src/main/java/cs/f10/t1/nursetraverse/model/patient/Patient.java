@@ -103,7 +103,7 @@ public class Patient {
         }
 
         return otherPatient != null
-                && otherPatient.getName().equals(getName())
+                && otherPatient.getName().isSameName(getName()) // case insensitive check
                 && (otherPatient.getPhone().equals(getPhone()) || otherPatient.getEmail().equals(getEmail()));
     }
 
