@@ -51,14 +51,76 @@ public class Calendar implements ReadOnlyCalendar {
         setCalendarEntries(newData.getCalendarEntryList());
     }
 
-    //// person-level operations
-
     /**
      * Returns true if a calendar entry with the same identity as {@code calendarEntry} exists in the calendar.
      */
     public boolean hasCalendarEntry(CalendarEntry calendarEntry) {
         requireNonNull(calendarEntry);
         return calendarEntries.contains(calendarEntry);
+    }
+
+    /**
+     * Returns true if any calendar entry in the calendar covers {@code calendarEntry}.
+     */
+    public boolean coversCalendarEntry(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendarEntries.covers(calendarEntry);
+    }
+
+    /**
+     * Returns all calendar entries in the calendar that cover {@code calendarEntry}.
+     */
+    public CalendarEntry getCalendarEntryCovers(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendarEntries.getCalendarEntryCovers(calendarEntry);
+    }
+
+    /**
+     * Returns true if any calendar entry in the calendar is covered by {@code calendarEntry}.
+     */
+    public boolean isAnyCoveredByCalendarEntry(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendarEntries.isAnyCoveredBy(calendarEntry);
+    }
+
+    /**
+     * Returns all calendar entries in the calendar that are covered by {@code calendarEntry}.
+     */
+    public ObservableList<CalendarEntry> getCalendarEntriesCoveredBy(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendarEntries.getCalendarEntriesCoveredBy(calendarEntry);
+    }
+
+    /**
+     * Returns true if any calendar entry in the calendar overlaps {@code calendarEntry}.
+     */
+    public boolean overlapsCalendarEntry(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendarEntries.overlaps(calendarEntry);
+    }
+
+    /**
+     * Returns all calendar entries in the calendar that overlap {@code calendarEntry}.
+     */
+    public ObservableList<CalendarEntry> getCalendarEntryOverlaps(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendarEntries.getCalendarEntryOverlaps(calendarEntry);
+    }
+
+    /**
+     * Returns true if any calendar entry in the calendar and {@code calendarEntry} conflict.
+     */
+    public boolean conflictsCalendarEntry(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendarEntries.conflicts(calendarEntry);
+    }
+
+    /**
+     * Returns all calendar entries in the calendar that are conflicted with {@code calendarEntry}.
+     */
+    public ObservableList<CalendarEntry> getCalendarEntriesConflicts(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendarEntries.getCalendarEntryConflicts(calendarEntry);
     }
 
     /**
@@ -105,6 +167,13 @@ public class Calendar implements ReadOnlyCalendar {
      */
     public void removeCalendarEntry(CalendarEntry key) {
         calendarEntries.remove(key);
+    }
+
+    /**
+     * Removes {@code keys} from this {@code Calendar}. {@code keys} must exist in the calendar.
+     */
+    public void removeAllCalendarEntries(List<CalendarEntry> keys) {
+        calendarEntries.removeAll(keys);
     }
 
     public ObservableList<CalendarEntry> getPastReminderList() {

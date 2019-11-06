@@ -1,5 +1,7 @@
 package seedu.sugarmummy.model.calendar;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -32,7 +34,44 @@ public class Reminder extends CalendarEntry {
 
         return otherReminder != null
                 && otherReminder.getDescription().equals(getDescription())
-                && otherReminder.getDateTime().equals(getDateTime());
+                && otherReminder.getTime().equals(getTime());
+    }
+
+    /**
+     * Returns true if the reminder is a subset of the given reminder.
+     * A reminder is considered to be a subset if the given reminder will occur whenever it occur.
+     */
+    public boolean isSubsetOf(Reminder otherReminder) {
+        requireNonNull(otherReminder);
+        if (!isSameReminder(otherReminder)) {
+            return false;
+        }
+        switch (repetition) {
+        case Once:
+            return otherReminder.isOnDate(getDate());
+        case Daily:
+            switch (otherReminder.getRepetition()) {
+            case Once:
+            case Weekly:
+                return false;
+            case Daily:
+                return otherReminder.isOnDate(getDate());
+            default:
+                return false;
+            }
+        case Weekly:
+            switch (otherReminder.getRepetition()) {
+            case Once:
+                return false;
+            case Daily:
+            case Weekly:
+                return otherReminder.isOnDate(getDate());
+            default:
+                return false;
+            }
+        default:
+            return false;
+        }
     }
 
     /**
@@ -127,6 +166,76 @@ public class Reminder extends CalendarEntry {
     @Override
     public boolean isSameCalendarEntry(CalendarEntry calendarEntry) {
         return calendarEntry instanceof Reminder
-                && isSameReminder((Reminder) calendarEntry);
+                && equals(calendarEntry);
+    }
+
+    @Override
+    public boolean isSubsetCalendarEntryOf(CalendarEntry calendarEntry) {
+        if (calendarEntry == null) {
+            return false;
+        }
+        if (calendarEntry instanceof Reminder) {
+            return isSubsetOf((Reminder) calendarEntry);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if the reminder overlaps the given reminder.
+     * Two reminders are considered overlapping if they will occur on the same day, at the same day and
+     * with the same description.
+     */
+    public boolean overlaps(Reminder otherReminder) {
+        requireNonNull(otherReminder);
+        if (!isSameReminder(otherReminder)) {
+            return false;
+        }
+        switch (repetition) {
+        case Once:
+            return otherReminder.isOnDate(getDate());
+        case Daily:
+            switch (otherReminder.getRepetition()) {
+            case Once:
+                return this.isOnDate(otherReminder.getDate());
+            case Weekly:
+            case Daily:
+                return true;
+            default:
+                return false;
+            }
+        case Weekly:
+            switch (otherReminder.getRepetition()) {
+            case Once:
+                return this.isOnDate(otherReminder.getDate());
+            case Daily:
+                return true;
+            case Weekly:
+                return this.getDayOfWeek().equals(otherReminder.getDayOfWeek());
+            default:
+                return false;
+            }
+        default:
+            return false;
+        }
+    }
+
+    @Override
+    public boolean overlaps(CalendarEntry calendarEntry) {
+        if (calendarEntry == null || !(calendarEntry instanceof Reminder)) {
+            return false;
+        }
+
+        return overlaps((Reminder) calendarEntry);
+    }
+
+    @Override
+    public boolean conflicts(CalendarEntry calendarEntry) {
+        if (calendarEntry == null || !(calendarEntry instanceof Reminder)) {
+            return false;
+        }
+
+        Reminder otherReminder = (Reminder) calendarEntry;
+        return overlaps(otherReminder) && !isSubsetOf(otherReminder) && !otherReminder.isSubsetOf(this);
     }
 }

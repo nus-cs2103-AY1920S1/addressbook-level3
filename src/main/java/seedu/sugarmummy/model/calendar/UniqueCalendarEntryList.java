@@ -36,6 +36,71 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
     }
 
     /**
+     * Returns true if any calendar entries in the list covers the given calendar entry.
+     */
+    public boolean covers(CalendarEntry toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSubsetCalendarEntryOf);
+    }
+
+    /**
+     * Returns the calendar entry in the list that covers the given calendar entry.
+     */
+    public CalendarEntry getCalendarEntryCovers(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        assert covers(calendarEntry);
+        return internalList.filtered(calendarEntry::isSubsetCalendarEntryOf).get(0);
+    }
+
+    /**
+     * Returns true if any calendar entries in the list is covered by the given calendar entry.
+     */
+    public boolean isAnyCoveredBy(CalendarEntry toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(calendarEntry -> calendarEntry.isSubsetCalendarEntryOf(toCheck));
+    }
+
+    /**
+     * Returns all calendar entries in the list that are covered by the given calendar entry.
+     */
+    public ObservableList<CalendarEntry> getCalendarEntriesCoveredBy(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return internalList.filtered(calendarEntry1 -> calendarEntry1.isSubsetCalendarEntryOf(calendarEntry));
+    }
+
+    /**
+     * Returns true if any calendar entries in the list and the given calendar entry overlap.
+     */
+    public boolean overlaps(CalendarEntry toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::overlaps);
+    }
+
+    /**
+     * Returns all calendar entries in the list that overlaps the given calendar entry.
+     */
+    public ObservableList<CalendarEntry> getCalendarEntryOverlaps(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return internalList.filtered(calendarEntry::overlaps);
+    }
+
+    /**
+     * Returns true if any calendar entries in the list and the given calendar entry conflict.
+     */
+    public boolean conflicts(CalendarEntry toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::conflicts);
+    }
+
+    /**
+     * Returns all calendar entries in the list that conflicts the given calendar entry.
+     */
+    public ObservableList<CalendarEntry> getCalendarEntryConflicts(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return internalList.filtered(calendarEntry::conflicts);
+    }
+
+    /**
      * Adds a calendar entry to the list. The calendar entry must not already exist in the list.
      */
     public void add(CalendarEntry toAdd) {
@@ -83,6 +148,14 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
             throw new CalendarEntryNotFoundException();
         }
     }
+
+    /**
+     * Removes the equivalent calendar entries from the list. The calendar entries must exist in the list.
+     */
+    public void removeAll(List<CalendarEntry> toRemove) {
+        internalList.removeAll(toRemove);
+    }
+
 
     public void setCalendarEntries(UniqueCalendarEntryList replacement) {
         requireNonNull(replacement);

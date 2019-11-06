@@ -443,6 +443,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+//tag::calendar[]
 === Calendar feature
 ==== Implementation
 
@@ -510,6 +511,8 @@ image:CalendarSequenceDiagram.png[]
 * **Alternative 2:** Updates scheduler every hour.
 ** Pros: More flexible scheduling without concerning date and less scheduled tasks.
 ** Cons: May cause overhead due to frequently updating.
+
+//end::calendar[]
 
 //tag::personalisedUserExperienceDgPppPart0[]
 === Personalised User Experience Feature

@@ -109,7 +109,52 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean coversCalendarEntry(CalendarEntry calendarEntry) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public CalendarEntry getCalendarEntryCovers(CalendarEntry calendarEntry) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean isAnyCoveredByCalendarEntry(CalendarEntry calendarEntry) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getCalendarEntriesCoveredBy(CalendarEntry calendarEntry) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean overlapsCalendarEntry(CalendarEntry calendarEntry) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getCalendarEntryOverlaps(CalendarEntry calendarEntry) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean conflictsCalendarEntry(CalendarEntry calendarEntry) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getCalendarEntryConflicts(CalendarEntry calendarEntry) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteCalendarEntry(CalendarEntry target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteAllCalendarEntries(List<CalendarEntry> calendarEntries) {
         throw new AssertionError("This method should not be called.");
     }
 

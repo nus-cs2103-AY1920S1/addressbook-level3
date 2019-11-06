@@ -117,6 +117,7 @@ The index refers to the index number shown in the displayed entries list
 ==== Edits a specified data entry from the diabetes tracker app: `edit` `[coming in v2.0]`
 //end::datalog[]
 
+//tag::calendar[]
 === CALENDAR AND REMINDER
 
 ==== Add a reminder: `reminder`
@@ -169,6 +170,7 @@ Search for all entries by providing keyword, time interval, type, venue or peopl
 ==== Delete an entry in calendar `[coming in v2.0]`
 
 Delete an event that you do not want to keep track anymore.
+//end::calendar[]
 
 //tag::personalisedUserExperience[]
 === PERSONALISED USER EXPERIENCE

@@ -243,10 +243,31 @@ public interface Model {
      */
     boolean hasCalendarEntry(CalendarEntry calendarEntry);
 
+    boolean coversCalendarEntry(CalendarEntry calendarEntry);
+
+    CalendarEntry getCalendarEntryCovers(CalendarEntry calendarEntry);
+
+    boolean isAnyCoveredByCalendarEntry(CalendarEntry calendarEntry);
+
+    ObservableList<CalendarEntry> getCalendarEntriesCoveredBy(CalendarEntry calendarEntry);
+
+    boolean overlapsCalendarEntry(CalendarEntry calendarEntry);
+
+    ObservableList<CalendarEntry> getCalendarEntryOverlaps(CalendarEntry calendarEntry);
+
+    boolean conflictsCalendarEntry(CalendarEntry calendarEntry);
+
+    ObservableList<CalendarEntry> getCalendarEntryConflicts(CalendarEntry calendarEntry);
+
     /**
      * Deletes the given calendarEntry. The calendarEntry must exist in the calendar.
      */
     void deleteCalendarEntry(CalendarEntry target);
+
+    /**
+     * Deletes the given calendarEntries. The calendarEntries must exist in the calendar.
+     */
+    void deleteAllCalendarEntries(List<CalendarEntry> calendarEntries);
 
     /**
      * Adds the given calendar entry. {@code calendarEntry} must not already exist in the calendar.
