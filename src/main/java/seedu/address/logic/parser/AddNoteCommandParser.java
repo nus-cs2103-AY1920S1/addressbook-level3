@@ -44,7 +44,7 @@ public class AddNoteCommandParser implements Parser<AddNotesCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Note note = new Note(title, description, tagList, content);
-        return new AddNotesCommand(note);
+        return new AddNotesCommand(note, args);
     }
 
     /**

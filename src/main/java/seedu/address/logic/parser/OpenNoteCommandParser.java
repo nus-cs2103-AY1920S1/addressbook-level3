@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class ReadNoteCommandParser implements Parser<OpenNoteCommand> {
+public class OpenNoteCommandParser implements Parser<OpenNoteCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand

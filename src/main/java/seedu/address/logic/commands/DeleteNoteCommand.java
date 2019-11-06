@@ -29,9 +29,11 @@ public class DeleteNoteCommand extends Command {
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Deleted Note with title: %1$s";
 
     private final Index targetIndex;
+    private final String command;
 
-    public DeleteNoteCommand(Index targetIndex) {
+    public DeleteNoteCommand(Index targetIndex, String commandArgs) {
         this.targetIndex = targetIndex;
+        this.command = COMMAND_WORD + " " + commandArgs;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class DeleteNoteCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
         }
-        model.commitNote();
+        model.commitNote(command);
         Note noteToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteNote(noteToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete.getTitle()));

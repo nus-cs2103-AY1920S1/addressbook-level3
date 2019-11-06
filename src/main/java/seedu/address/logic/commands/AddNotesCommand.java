@@ -30,13 +30,15 @@ public class AddNotesCommand extends Command {
     public static final String MESSAGE_DUPLICATE_NOTE = "A note with this title already exists in the note book";
 
     private final Note toAdd;
+    private final String command;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddNotesCommand(Note note) {
+    public AddNotesCommand(Note note, String commandArgs) {
         requireNonNull(note);
         toAdd = note;
+        this.command = COMMAND_WORD + " " + commandArgs;
     }
 
     @Override
@@ -46,7 +48,7 @@ public class AddNotesCommand extends Command {
         if (model.hasNote(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
-        model.commitNote();
+        model.commitNote(command);
         model.addNote(toAdd);
         model.sortNoteBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

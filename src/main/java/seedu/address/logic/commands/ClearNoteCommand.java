@@ -18,7 +18,7 @@ public class ClearNoteCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.commitNote();
+        model.commitNote("clear");
         model.setNoteBook(new VersionedNoteBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }

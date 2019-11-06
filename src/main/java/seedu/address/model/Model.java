@@ -277,11 +277,11 @@ public interface Model {
 
     void editNoteSortByCond(SortByCond sortByCond);
 
-    void undoNote();
+    String undoNote();
 
-    void redoNote();
+    String redoNote();
 
-    void commitNote();
+    void commitNote(String command);
 
     Index getNoteIndex(Note note);
 

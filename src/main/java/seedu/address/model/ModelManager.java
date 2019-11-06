@@ -441,18 +441,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoNote() {
-        noteBook.undo();
+    public String undoNote() {
+        return noteBook.undo();
     }
 
     @Override
-    public void redoNote() {
-        noteBook.redo();
+    public String redoNote() {
+        return noteBook.redo();
     }
 
     @Override
-    public void commitNote() {
-        noteBook.commit();
+    public void commitNote(String command) {
+        noteBook.commit(command);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class SortNoteCommandParser implements Parser<SortNoteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortNoteCommand.MESSAGE_USAGE));
         }
         SortByCond sortByCond = ParserUtil.parseSortByCond(argMultimap.getValue(PREFIX_SORTBY).get());
-        return new SortNoteCommand(sortByCond);
+        return new SortNoteCommand(sortByCond, args);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

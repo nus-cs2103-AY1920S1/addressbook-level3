@@ -50,17 +50,19 @@ public class EditNoteCommand extends Command {
 
     private final Index index;
     private final EditNoteDescriptor editNoteDescriptor;
+    private final String command;
 
     /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditNoteCommand(Index index, EditNoteDescriptor editPersonDescriptor) {
+    public EditNoteCommand(Index index, EditNoteDescriptor editPersonDescriptor, String commandArgs) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
         this.editNoteDescriptor = new EditNoteDescriptor(editPersonDescriptor);
+        this.command = COMMAND_WORD + " " +  index.getOneBased();
     }
 
     @Override
@@ -79,7 +81,7 @@ public class EditNoteCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
-        model.commitNote();
+        model.commitNote(command);
         model.setNote(noteToEdit, editedNote);
         model.sortNoteBook();
         return CommandResult.builder(String.format("Note opened on the right panel.", editedNote))
