@@ -17,17 +17,54 @@ endif::[]
 By: `Team AY1920S1-CS2103-F09-1`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
-Scheduler is an app that can automate the scheduling of interviews for secretaries in NUS CCAs. It is optimised for
-people who **prefer typing in a Command Line Interface (CLI)** to quickly access the functionalities of an app. +
+Due to vastly different timetables, scheduling interviews that don't clash for applicants to positions in an NUS
+Co-Curricular Activity (CCA) can be difficult. Scheduler is an app that can automate this scheduling of interviews for
+secretaries in NUS CCAs. Given templates adapted from exported NUSync CCA sign-up lists, Scheduler generates an optimal
+matching of interviewees to time slots. Scheduler also supports manual input. It is optimised for people who **prefer
+typing in a Command Line Interface (CLI)** to quickly access the functionalities of an app. +
 
 Click on <<Quick Start, Quick Start>> to get started!
 
 == Quick Start
-This guide shows you how to import your interview schedules into Scheduler to begin managing your interview schedule.
+This guide shows you how to import your interviewee and interviewer schedules into Scheduler to begin managing your interview schedule.
 It also shows you basic tips on how to add or delete and edit interviewers/interviewees based on your changing needs.
 
 === Import your csv file into the application
+To begin, let's download some .csv files with dummy data and import that data into Scheduler.
 
+Click <<Importing existing availabilities `import`, this link>> to import a .csv file of availabilities into Scheduler!
+
+=== Manually add interviewees and interviewers
+Forgot to include some data before importing? No problem!
+
+To add an interviewee, use the `add` command. Here we add an interviewee with the following characteristics:
+
+. *Name* - John Doe
+. *Phone number* - 91234567
+. *Faculty* - School of Computing
+. *Year of study* - 2019
+. *Department of interest* - Marketing
+. *Personal Email* - john_doe@gmail.com
+. *Work email* (should be an NUS email) - john_doe@u.nus.edu
+. *Preferred time slots* - 17/10/2019, 1pm to 2pm
+
+ add r/interviewee n/John Doe p/91234567 f/School of Computing y/2019 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00
+
+* Note that all fields specified above are *compulsory* when adding an interviewee manually.
+
+Similarly, to add an interviewer with the characteristics:
+
+. *Name* - Bohn Coe
+. *Phone number* - 9765421
+. *Work email* (should be an NUS email) - bohn_coe@u.nus.edu
+. *Department* - Marketing
+. *Available time slots* - 17/10/2019, 1pm to 2pm
+
+ add r/interviewer n/Bohn Coe p/97654321 ew/bohn_coe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00
+
+* Again, the fields specified above are *compulsory when adding an interviewer manually.
+
+=== I have an Excel file. How do I import that into Scheduler?
 TIP: Converting your Excel file into .csv format
 
 1) Open Excel and click *File -> Open*.
@@ -65,7 +102,7 @@ If you wish to make changes to the user preferences, do the following steps: +
 The details of each user preference field is explained further in the following sections.
 
 === Working Hours
-Each time slot, that an interviewer or interviewee indicates, must be within the `startTime` and `endTime` of the pre-defined
+Each time slot that an interviewer or interviewee indicates, must be within the `startTime` and `endTime` of the pre-defined
 working hours for it to be displayed in the schedules.
 
 *Format:* +
@@ -76,7 +113,7 @@ working hours for it to be displayed in the schedules.
 `endTime`: "21:00"
 
 === Duration of Time slot
-Each time slot, that an interviewer or interviewee indicates, must be strictly of this pre-defined duration for it to be
+Each time slot that an interviewer or interviewee indicates, must be strictly of this pre-defined duration for it to be
  displayed in the schedules. It is represented by `duration` in the user preference file.
 
 *Format:* +
@@ -85,6 +122,7 @@ Each time slot, that an interviewer or interviewee indicates, must be strictly o
 *Default values:* +
 `duration`: 30
 
+* When adding interviewees or interviewers manually into Scheduler, the `SLOT` input provided must have a duration (in minutes) that matches `duration`.
 
 [[Features]]
 == Features
@@ -157,6 +195,7 @@ Format: `add r/ROLE n/NAME p/PHONE [t/TAG]... [f/FACULTY] [ep/PERSONAL_EMAIL] [e
 
 * A `...` at the end of a field indicates that multiple arguments with those prefixes can be added, such as multiple slots.
 * The command format differs on the `r/ROLE` prefix supplied.
+* The duration of a `s/SLOT` must follow the number of minutes as specified by the value of `duration` in preferences.json.
 ** If `interviewee` is supplied, refer to "Adding a new interviewee" below.
 ** If `interviewer` is supplied, refer to "Adding a new interviewer" below.
 
@@ -172,6 +211,7 @@ Example:
 
 * An interviewee can have multiple `s/SLOT`, `d/DEPARTMENT` and `t/TAG` arguments
 * Slots should be given in the format: `DD/MM/YYYY HH:MM-HH:MM`
+* The duration of a `s/SLOT` must follow the number of minutes as specified by the value of `duration` in preferences.json.
 ** the first `HH:MM` refers to the starting time and the second `HH:MM` is the ending time of availability.
 ** The starting time must be earlier than the ending time.
 

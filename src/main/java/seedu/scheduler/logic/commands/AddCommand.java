@@ -54,7 +54,7 @@ public abstract class AddCommand extends Command {
             + PREFIX_NUS_WORK_EMAIL + DefaultValues.DEFAULT_NUS_WORK_EMAIL + " "
             + PREFIX_DEPARTMENT + DefaultValues.DEFAULT_DEPARTMENT + " "
             + PREFIX_SLOT + DefaultValues.DEFAULT_SLOT + " "
-            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "friends\n"
             + "Example (add interviewer):\n"
             + COMMAND_WORD + " "
             + PREFIX_ROLE + DefaultValues.DEFAULT_INTERVIEWER_ROLE + " "

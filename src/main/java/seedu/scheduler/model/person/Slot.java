@@ -24,7 +24,7 @@ public class Slot implements Comparable<Slot> {
     public static final String STRING_FORMAT = "%s %s-%s";
     public static final String TIMING_FORMAT = "%s-%s";
     public static final String MESSAGE_CONSTRAINTS =
-            "A slot must follow this format: " + String.format(STRING_FORMAT, "dd/mm/yyyy", "hh:mm", "hh:mm") + ".\n"
+            "A slot must follow this format: " + String.format(STRING_FORMAT, "dd/mm/yyyy", "HH:mm", "HH:mm") + ".\n"
             + "Constraints:\n"
             + "The input date dd/mm/yyyy must be valid, i.e 30/02/2019 is an invalid date.\n"
             + "A slot must also have a start time earlier than its end time.\n"
