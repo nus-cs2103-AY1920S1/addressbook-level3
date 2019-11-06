@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fitToHeight="true" fitToWidth="true" stylesheets="@../defaultStyles.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fitToHeight="true" fitToWidth="true" minViewportHeight="400.0" minViewportWidth="600.0" stylesheets="@../defaultStyles.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox prefHeight="400.0" prefWidth="600.0" styleClass="main-content-window">
          <Label fx:id="windowTitle" styleClass="window-title" text="My Statistics" />
@@ -14,11 +14,11 @@
          <Label fx:id="totalDuration" text="Total login duration: 0 hours 0 minutes 0 seconds" />
          <Label styleClass="window-subtitle" text="My Login Sessions" />
          <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="60.0" prefHeight="200.0">
-            <content>
-               <TableView fx:id="sessionsTableView" fixedCellSize="24.0">
-                  <placeholder><Label text="There are no recorded sessions yet!" /></placeholder>
-               </TableView>
-            </content>
+            <!--<content>-->
+            <!--   <TableView fx:id="sessionsTableView" fixedCellSize="24.0">-->
+            <!--      <placeholder><Label text="There are no recorded sessions yet!" /></placeholder>-->
+            <!--   </TableView>-->
+            <!--</content>-->
          </ScrollPane>
          <Label styleClass="helper-text" text="To view statistics for individual decks, type &quot;stats deck/[deckname]&quot;" />
          <Label styleClass="window-subtitle" text="My Statistics by Deck" />

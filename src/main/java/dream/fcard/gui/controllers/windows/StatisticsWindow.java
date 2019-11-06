@@ -26,7 +26,7 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private Label sessionsThisWeek;
     @FXML
-    private TableView<Session> sessionsTableView;
+    private ScrollPane sessionsScrollPane;
     @FXML
     private TableView<Deck> deckTableView;
 
@@ -49,7 +49,9 @@ public class StatisticsWindow extends ScrollPane {
         //ArrayList<Deck> decks = StateHolder.getState().getDecks(); TODO
 
         displaySummaryStats();
-        this.sessionsTableView = StatsDisplayUtil.getSessionsTableView();
+        TableView<Session> sessionsTableView = StatsDisplayUtil.getSessionsTableView();
+        sessionsTableView.setPlaceholder(new Label("There are no recorded login sessions yet!"));
+        this.sessionsScrollPane.setContent(sessionsTableView);
         //this.deckTableView = StatsDisplayUtil.getDeckTableView(StateHolder.getState());
     }
 

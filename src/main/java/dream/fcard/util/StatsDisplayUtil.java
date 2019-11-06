@@ -8,6 +8,7 @@ import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateHolder;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
@@ -21,17 +22,17 @@ public class StatsDisplayUtil {
     /** Creates the TableView object from the given list of sessions. */
     public static TableView<Session> getSessionsTableView() {
         SessionList sessionList = UserStatsHolder.getUserStats().getSessionList();
-        ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
+        ArrayList<Session> sessionsArrayList = sessionList.getSessionArrayList();
         TableView<Session> sessionsTableView = new TableView<>();
 
         // temporary debug
-        //for (Session session : sessionsList) {
-        //    System.out.println("Start: " + session.getSessionStartString());
-        //    System.out.println("End: " + session.getSessionEndString());
-        //    System.out.println("Duration: " + session.getDurationString());
-        //}
+        for (Session session : sessionsArrayList) {
+            System.out.println("Start: " + session.getSessionStartString());
+            System.out.println("End: " + session.getSessionEndString());
+            System.out.println("Duration: " + session.getDurationString());
+        }
 
-        sessionsTableView.setItems(FXCollections.observableArrayList(sessionArrayList));
+        sessionsTableView.setItems(FXCollections.observableArrayList(sessionsArrayList));
 
         TableColumn<Session, String> startColumn = new TableColumn<>("Start");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("sessionStartString"));
@@ -49,10 +50,10 @@ public class StatsDisplayUtil {
         return sessionsTableView;
     }
 
-    /** Creates the TableView object from the given State object, representing the list of decks. */
-    public static TableView<Deck> getDeckTableView(State state) {
+    /** Creates the TableView object representing the list of decks. */
+    public static TableView<Deck> getDeckTableView() {
         // for each deck in list of decks in state, get the DeckStats object
-        ArrayList<Deck> decks = state.getDecks();
+        ArrayList<Deck> decks = StateHolder.getState().getDecks();
 
         TableView<Deck> deckTableView = new TableView<>();
         deckTableView.setItems(FXCollections.observableArrayList(decks));
