@@ -9,10 +9,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAY
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
+import static seedu.address.logic.commands.UpdateCommand.MESSAGE_CANNOT_ASSIGN_FRIDGE;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UNDO_SUCCESS;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
+import static seedu.address.model.entity.fridge.FridgeStatus.OCCUPIED;
+import static seedu.address.model.entity.fridge.FridgeStatus.UNOCCUPIED;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_UPDATE_COMMAND;
@@ -100,7 +103,7 @@ public class UpdateCommandTest {
         f1.setBody(body);
         model.addEntity(body);
 
-        assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
+        assertEquals(f1.getFridgeStatus(), OCCUPIED);
 
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
         descriptor.setFridgeId(f2.getIdNum());
@@ -115,7 +118,7 @@ public class UpdateCommandTest {
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
         assertEquals(f1.getFridgeStatus(), FridgeStatus.UNOCCUPIED);
-        assertEquals(f2.getFridgeStatus(), FridgeStatus.OCCUPIED);
+        assertEquals(f2.getFridgeStatus(), OCCUPIED);
 
     }
 
@@ -140,7 +143,7 @@ public class UpdateCommandTest {
         expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
-        assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
+        assertEquals(f1.getFridgeStatus(), OCCUPIED);
 
     }
 
@@ -154,7 +157,7 @@ public class UpdateCommandTest {
         f1.setBody(body);
         model.addEntity(body);
 
-        assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
+        assertEquals(f1.getFridgeStatus(), OCCUPIED);
 
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
         descriptor.setFridgeId(IdentificationNumber.customGenerateId("F", 10));
@@ -164,7 +167,7 @@ public class UpdateCommandTest {
         String expectedMessage = MESSAGE_FRIDGE_DOES_NOT_EXIST;
         assertCommandFailure(updateCommand, model, expectedMessage);
 
-        assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
+        assertEquals(f1.getFridgeStatus(), OCCUPIED);
     }
 
     @Test
@@ -230,6 +233,58 @@ public class UpdateCommandTest {
         assertEquals(model.getFilteredNotifList().size(), 1);
         model.deleteEntity(body);
         model.deleteNotif(model.getFilteredNotifList().get(0));
+    }
+
+    @Test
+    public void executeBody_removeBodyFromFridge_success() throws CommandException {
+        Fridge f1 = new Fridge();
+        model.addEntity(f1);
+
+        Body body = new BodyBuilder().withStatus("pending police report").build();
+        body.setFridgeId(f1.getIdNum());
+        model.addEntity(body);
+        f1.setBody(body);
+
+        assertEquals(f1.getFridgeStatus(), OCCUPIED);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(CLAIMED);
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        assertEquals(f1.getFridgeStatus(), UNOCCUPIED);
+    }
+
+    @Test
+    public void executeBody_assignFridgeToClaimedBody_failure() throws CommandException {
+        Fridge f1 = new Fridge();
+        model.addEntity(f1);
+
+        Body body = new BodyBuilder().withStatus("claimed").build();
+        model.addEntity(body);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setFridgeId(f1.getIdNum());
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+
+        String expectedMessage = MESSAGE_CANNOT_ASSIGN_FRIDGE;
+        assertCommandFailure(updateCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void executeBody_setBodyStatusToCop_success() throws CommandException {
+        Body body = new BodyBuilder().build();
+        model.addEntity(body);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(CONTACT_POLICE);
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        assertEquals(model.getNumberOfNotifs(), 1);
     }
     //@@author
 

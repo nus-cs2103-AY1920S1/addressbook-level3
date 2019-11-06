@@ -121,12 +121,14 @@ public class NotifCommand extends Command {
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
                     storageManager.saveAddressBook(model.getAddressBook());
+
                 } catch (CommandException | IOException e) {
                     logger.info("Error updating the body and fridge ");
                 }
             }
-            NotificationButton.getInstance(model.getFilteredNotifList())
-                    .updateNotifCount(model.getNumberOfNotifs());
+
+            NotificationButton.getInstance(model.getFilteredActiveNotifList())
+                    .updateNotifCount(model.getNumberOfActiveNotifs());
         });
         ses.schedule(changeUi, period, timeUnit);
     }

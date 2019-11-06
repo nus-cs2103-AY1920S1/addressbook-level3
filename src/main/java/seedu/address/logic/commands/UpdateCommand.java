@@ -24,6 +24,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
+import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.util.ArrayList;
@@ -44,7 +45,6 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
-import seedu.address.model.person.Name;
 
 
 //@@author ambervoong
@@ -88,6 +88,7 @@ public class UpdateCommand extends UndoableCommand {
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid updates to entity: %1$s";
+    public static final String MESSAGE_CANNOT_ASSIGN_FRIDGE = "A fridge cannot be assigned to a claimed fridge";
 
     private final IdentificationNumber id;
     private final UpdateEntityDescriptor updateEntityDescriptor;
@@ -161,7 +162,8 @@ public class UpdateCommand extends UndoableCommand {
                         || (originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
                         && (!updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
                             && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))))) {
-                    handleRemovingNotifs(model, originalBodyDescriptor, updateBodyDescriptor);
+                    // auto-update status to CONTACT_POLICE
+                    handleRemovingNotifs(model);
                 }
 
                 if (!originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
@@ -169,6 +171,22 @@ public class UpdateCommand extends UndoableCommand {
                     addNotificationsForBody(model);
                 }
 
+                if ((updateBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED)))) {
+                    removeBodyFromFridge(model);
+                }
+
+                if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED))
+                        && !updateBodyDescriptor.getFridgeId().equals(Optional.ofNullable(null))
+                        )) {
+                    throw new CommandException(MESSAGE_CANNOT_ASSIGN_FRIDGE);
+                }
+
+                // add notif when a user manually sets the bodyStatus to CONTACT_POLICE
+                if (updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
+                    && !doesNotifExist(model)) {
+                    Notif notif = new Notif((Body) entity);
+                    model.addNotif(notif);
+                }
             }
             //@@author
 
@@ -235,16 +253,13 @@ public class UpdateCommand extends UndoableCommand {
      * Removes all the associated notifs when the status of a body is changed from CONTACT_POLICE.
      *
      * @param model                  refers to the AddressBook model.
-     * @param originalBodyDescriptor refers to the original description of the body.
-     * @param updateBodyDescriptor   refers to the updated description of the body.
      */
-    private void handleRemovingNotifs(Model model, UpdateBodyDescriptor originalBodyDescriptor,
-                                      UpdateBodyDescriptor updateBodyDescriptor) {
+    private void handleRemovingNotifs(Model model) {
         List<Notif> notifList = model.getFilteredNotifList();
         this.toDeleteNotif = new ArrayList<>();
-        Name bodyName = originalBodyDescriptor.getName().get();
+        IdentificationNumber bodyId = entity.getIdNum();
         for (Notif notif : notifList) {
-            if (notif.getBody().getName().equals(bodyName)) {
+            if (notif.getBody().getIdNum().equals(bodyId)) {
                 toDeleteNotif.add(notif);
             }
         }
@@ -255,10 +270,49 @@ public class UpdateCommand extends UndoableCommand {
         model.setEntity(entity, updateEntityDescriptor.apply(entity));
     }
 
+    /**
+     * Adds notification for a body.
+     * @param model                  refers to the AddressBook model.
+     * @throws CommandException if NotifCommand could not be executed.
+     */
     private void addNotificationsForBody(Model model) throws CommandException {
         Body body = (Body) entity;
         NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
         notifCommand.execute(model);
+    }
+
+    /**
+     * Removes body from fridge when it is claimed.
+     *
+     * @param model                  refers to the AddressBook model.
+     */
+    private void removeBodyFromFridge(Model model) {
+        Body body = (Body) entity;
+
+        for (Fridge fridge : model.getFilteredFridgeList()) {
+            if (Optional.of(fridge.getIdNum()).equals(body.getFridgeId())) {
+                fridge.setBody(null);
+            }
+        }
+
+        body.setFridgeId(null);
+    }
+
+    /**
+     * Checks whether the notification for a particular body exists in the model
+     * @param model                  refers to the AddressBook model.
+     * @return whether a notif exists in the model.
+     */
+    private boolean doesNotifExist(Model model) {
+        Body body = (Body) entity;
+
+        for (Notif notif : model.getFilteredNotifList()) {
+            if (notif.getBody().getIdNum().equals(body.getIdNum())) {
+                return true;
+            }
+        }
+
+        return false;
     }
     //@@author
 
