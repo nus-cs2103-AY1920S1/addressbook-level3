@@ -47,11 +47,12 @@ public class Budget {
     }
 
     public double getValueInCurrency(CustomisedCurrency customisedCurrency) {
-        return Double.parseDouble(String.format("%.2f", (customisedCurrency.getRate() * value)));
+        return Double.parseDouble(String.format("%.2f", (customisedCurrency.getRate().getValue() * value)));
     }
 
     public String getValueStringInCurrency(CustomisedCurrency customisedCurrency) {
-        return customisedCurrency.getSymbol() + String.format("%.2f", (customisedCurrency.getRate() * value));
+        return customisedCurrency.getSymbol() + String.format("%.2f", (
+                customisedCurrency.getRate().getValue() * value));
     }
 
     @Override

@@ -38,8 +38,8 @@ public class CurrencyCard extends UiPart<HBox> {
      */
     private void fillExpenditureCardLabels() {
         idLabel.setText(displayedIndex.getOneBased() + ".");
-        nameLabel.setText(currency.getName() + " (" + currency.getSymbol() + ")");
-        rateLabel.setText(String.format("%.2f", currency.getRate()));
+        nameLabel.setText(currency.getName().toString() + " (" + currency.getSymbol().toString() + ")");
+        rateLabel.setText(String.format("%.2f", currency.getRate().getValue()));
     }
     @Override
     public boolean equals(Object other) {

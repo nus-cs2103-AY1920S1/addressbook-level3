@@ -7,9 +7,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.IntStream;
 
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.itinerary.event.exceptions.ClashingEventException;
+import seedu.address.model.itinerary.event.exceptions.DuplicatedEventNameException;
 import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
 
 /**
@@ -38,6 +41,41 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
                 && (event.getEndDate().compareTo(endOfDay) <= 0);
     }
 
+    /**
+     * Updates expenditure of an event.
+     * When an expenditure associated with an event is edited, find the event in the event list and replace
+     * the expenditure field.
+     *
+     * @param expenditure the new expenditure to be used.
+     * @throws EventNotFoundException exception is thrown when the matching event is not found.
+     */
+    public void updateExpenditure(Expenditure expenditure) throws EventNotFoundException {
+        boolean updated = false;
+        for (int i = 0; i < internalList.size(); i++) {
+            Event event = internalList.get(i);
+            if (event.getName().equals(expenditure.getName())) {
+                set(event, new Event(event.getName(),
+                        event.getStartDate(), event.getEndDate(), expenditure, event.getDestination()));
+                updated = true;
+            }
+        }
+        if (!updated) {
+            throw new EventNotFoundException();
+        }
+    }
+
+    /**
+     * Checks if the event list contains an event with the same name.
+     *
+     * @param toCheck the event to be checked.
+     * @return a boolean value representing whether there is an event with the same name.
+     */
+    public boolean containsSameName(Event toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::hasSameName);
+
+    }
+
     @Override
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
@@ -57,6 +95,8 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
         checkArgument(isValidEvent(toAdd), MESSAGE_INVALID_DATETIME);
         if (containsClashing(toAdd)) {
             throw new ClashingEventException();
+        } else if (containsSameName(toAdd)) {
+            throw new DuplicatedEventNameException();
         }
         internalList.add(toAdd);
     }
@@ -69,6 +109,12 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
         if (index == -1) {
             throw new EventNotFoundException();
         }
+        boolean hasSameEventName = IntStream.range(0, internalList.size()).filter(i -> i != index)
+                .anyMatch(i -> internalList.get(i).hasSameName(edited));
+        System.out.println(hasSameEventName);
+        if (hasSameEventName) {
+            throw new DuplicatedEventNameException();
+        }
 
         internalList.set(index, edited);
     }
@@ -79,8 +125,10 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
         if (!areConsecutive(occurrences)) {
             throw new ClashingEventException();
         }
+        if (!areUnique(occurrences)) {
+            throw new DuplicatedEventNameException();
+        }
         internalList.setAll(occurrences);
-
     }
 
     @Override
