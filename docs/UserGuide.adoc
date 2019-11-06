@@ -167,7 +167,8 @@ Examples:
 * `snooze -s 10/10/2020`
 
 [NOTE]
-It is not possible to snooze if no reminder has occurred yet.
+It is not possible to snooze if no reminder has occurred yet. +
+However, if you use the snooze command incorrectly, ELISA will first attempt to correct your usage of the snooze command.
 
 === Show the specified category : `show`
 
