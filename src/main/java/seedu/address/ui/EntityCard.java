@@ -115,7 +115,9 @@ public class EntityCard extends UiPart<Region> {
         this.idIcon.setImage(getImage(MENTOR_ICON));
         Mentor mentor = (Mentor) entity;
         labels.getChildren().add(new Label(mentor.getOrganization().toString()));
-        labels.getChildren().add(new Label(mentor.getSubject().toString()));
+        Label subjectLabel = new Label("Subject: " + mentor.getSubject().toString());
+        subjectLabel.setStyle("-fx-background-color: #58427c");
+        labels.getChildren().add(subjectLabel);
         this.type = PrefixType.M;
     }
 
@@ -133,18 +135,28 @@ public class EntityCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(pt -> pt.getName().toString()))
                 .forEach(p -> participantPane.getChildren().add(new Label(p.getName().toString())));
         Optional<Mentor> teamMentor = team.getMentor();
-        labels.getChildren().add(
-                new Label(
-                        teamMentor.isEmpty()
-                                ? "Mentor not assigned" : "Mentor: " + teamMentor.get().getName().toString()));
-        labels.getChildren().add(new Label("Subject: " + team.getSubject().toString()));
-        labels.getChildren().add(new Label("Type: " + team.getProjectName().toString()));
-        labels.getChildren().add(new Label("Project: " + team.getLocation().toString()));
+        Label mentorLabel = new Label(
+                teamMentor.isEmpty()
+                        ? "Mentor not assigned" : "Mentor: " + teamMentor.get().getName().toString());
+        mentorLabel.setStyle("-fx-background-color: #827f9c");
+        labels.getChildren().add(mentorLabel);
+
+        Label subjectLabel = new Label("Subject: " + team.getSubject().toString());
+        subjectLabel.setStyle("-fx-background-color: #58427c");
+        labels.getChildren().add(subjectLabel);
+        Label projectLabel = new Label("Project Name: " + team.getProjectName().toString());
+        projectLabel.setStyle("-fx-background-color: #483d8b; ");
+        labels.getChildren().add(projectLabel);
+
+        Label locationLabel = new Label("Location: " + team.getLocation().toString());
+        locationLabel.setStyle("-fx-background-color: #26428b");
+        labels.getChildren().add(locationLabel);
         List<Participant> participants = team.getParticipants();
         logger.info("Number of Members in team: " + participants.size());
         membersPane.getChildren().add(new Label("Members: "));
+
         logger.info("Size of membersPane before adding Participants: " + membersPane.getChildren().size());
-        participants.stream().forEach(p -> membersPane.getChildren().add(new Label(p.getName().toString() + ", ")));
+        participants.stream().forEach(p -> membersPane.getChildren().add(new Label(p.getName().toString() + " | ")));
         this.type = PrefixType.T;
         addScoreIcon(team);
     }
@@ -169,7 +181,7 @@ public class EntityCard extends UiPart<Region> {
         icon.setImage(getImage(SCORE_ICON));
         icon.setFitHeight(100.0);
         icon.setFitWidth(130.0);
-        icon.setOpacity(0.65);
+        icon.setOpacity(0.8);
 
         //Initialise scoreIcon StackPane
         scoreIcon.getChildren().add(icon);

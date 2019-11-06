@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane fx:id="internalPane" HBox.hgrow="ALWAYS">
+<HBox id="cardPane" fx:id="cardPane" stylesheets="@EntityCard.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane fx:id="internalPane" style="-fx-background-color: #3F3D48;" stylesheets="@EntityCard.css" HBox.hgrow="ALWAYS">
         <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" minWidth="20.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="20" prefWidth="200" />
          <ColumnConstraints hgrow="SOMETIMES" minWidth="20.0" prefWidth="200.0" />
         </columnConstraints>
-        <StackPane alignment="CENTER">
+        <StackPane alignment="CENTER" stylesheets="@EntityCard.css">
             <children>
-              <VBox id="labels" fx:id="labels" alignment="CENTER_LEFT" maxWidth="520" minHeight="105">
+              <VBox id="labels" fx:id="labels" alignment="CENTER_LEFT" maxWidth="520" minHeight="105" stylesheets="@EntityCard.css">
                   <padding>
                       <Insets bottom="5" left="15" right="5" top="5" />
                   </padding>
                   <HBox id="entity_details" alignment="CENTER_LEFT" spacing="5">
-                      <Label id="index" fx:id="index" />
-                      <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                      <Label id="index" fx:id="index" style="-fx-font-weight: bold; -fx-font-fill: #ffffff;" text="\$index" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font></Label>
+                      <Label fx:id="name" style="-fx-font-weight: bold;" styleClass="cell_big_label" text="\$first" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font></Label>
                   </HBox>
-                  <FlowPane fx:id="membersPane" maxWidth="${labels.width}" />
+                  <FlowPane fx:id="membersPane" maxWidth="${labels.width}" style="-fx-hgap: 7; -fx-vgap: 3;" stylesheets="@EntityCard.css" />
               </VBox>
             </children>
         </StackPane>
@@ -36,10 +37,10 @@
               <children>
             <StackPane prefHeight="150.0" prefWidth="200.0">
                <children>
-                      <ImageView id="idIcon" fx:id="idIcon" fitHeight="70.0" fitWidth="70.0" opacity="0.65" />
+                      <ImageView id="idIcon" fx:id="idIcon" fitHeight="70.0" fitWidth="70.0" />
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                              <Label text="ID:" />
+                              <Label style="-fx-font-weight: bold;" text="ID:" />
                               <Label id="id" fx:id="id" prefHeight="17.0" text="id" />
                      </children>
                   </VBox>

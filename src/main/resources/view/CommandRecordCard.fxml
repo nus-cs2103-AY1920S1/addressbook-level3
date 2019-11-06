@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import java.net.URL?>
-<?import javafx.scene.layout.StackPane?>
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="20" prefWidth="200"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="20" prefWidth="200" />
         </columnConstraints>
-        <VBox id="labels" fx:id="labels" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox id="labels" fx:id="labels" alignment="CENTER_LEFT" minHeight="105" style="-fx-background-color: #3F3D48;" GridPane.columnIndex="0">
             <padding>
-                <Insets top="5" right="5" bottom="5" left="15"/>
+                <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-            <HBox id="details" spacing="5" alignment="CENTER_LEFT">
-                <Label  fx:id="index" id="index"/>
-                <Label fx:id="commandString" text="\$first" styleClass="cell_big_label"/>
+            <HBox id="details" alignment="CENTER_LEFT" spacing="5">
+                <Label id="index" fx:id="index" />
+                <Label fx:id="commandString" styleClass="cell_big_label" text="\$first" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font></Label>
             </HBox>
-            <FlowPane id="tags"/>
+            <FlowPane id="tags" />
         </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 </HBox>

@@ -8,6 +8,8 @@ import java.util.TreeSet;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXTextField;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,51 +17,26 @@ import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.text.TextFlow;
 
 import seedu.address.commons.core.LogsCenter;
 
-
 /**
- * Represents an AutoCompleteTextField that provide command suggestions as user types in command inputs.
+ * Represents an AutoCompleteTextField that provide command suggestions as user
+ * types in command inputs.
  */
-public class AutoCompleteTextField extends TextField {
+public class AutoCompleteTextField extends JFXTextField {
     private SuggestionTemplates suggestionTemplates = new SuggestionTemplates();
     private final Logger logger = LogsCenter.getLogger(AutoCompleteTextField.class);
     /**
      * Represent the list of possible commands users can enter.
      */
     private final SortedSet<String> commandSuggestionSet = new TreeSet<String>();
-    private final List<String> commandSuggestionList = Arrays.asList(
-            "add participant",
-            "add mentor",
-            "add team",
-            "list participants",
-            "list mentors",
-            "list teams",
-            "edit participant",
-            "edit mentor",
-            "edit team",
-            "delete participant",
-            "delete mentor",
-            "delete team",
-            "find participant",
-            "find mentor",
-            "find team",
-            "leaderboard",
-            "getTop",
-            "score add",
-            "score sub",
-            "score set",
-            "history",
-            "undo",
-            "redo",
-            "import",
-            "export",
-            "help"
-    );
-
+    private final List<String> commandSuggestionList = Arrays.asList("add participant", "add mentor", "add team",
+            "list participants", "list mentors", "list teams", "edit participant", "edit mentor", "edit team",
+            "delete participant", "delete mentor", "delete team", "find participant", "find mentor", "find team",
+            "leaderboard", "getTop", "score add", "score sub", "score set", "history", "undo", "redo", "import",
+            "export", "help");
 
     /**
      * Represents a popup for user to select a command that is suggested.
@@ -67,7 +44,8 @@ public class AutoCompleteTextField extends TextField {
     private ContextMenu commandsPopup;
 
     /**
-     * Constructs an AutoCompleteTextField that provide command suggestions as user types in command inputs.
+     * Constructs an AutoCompleteTextField that provide command suggestions as user
+     * types in command inputs.
      */
     public AutoCompleteTextField() {
         super();
@@ -76,16 +54,15 @@ public class AutoCompleteTextField extends TextField {
         textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldString, String newString) {
-                //Guard clause
+                // Guard clause
                 if (getText().length() == 0) {
                     commandsPopup.hide();
                     return;
                 }
 
-                List<String> filteredSuggestionResults = commandSuggestionSet
-                        .stream()
-                        //Only command suggestion that starts with user input will be filtered out
-                        //This is done in a case insensitive manner
+                List<String> filteredSuggestionResults = commandSuggestionSet.stream()
+                        // Only command suggestion that starts with user input will be filtered out
+                        // This is done in a case insensitive manner
                         .filter(suggestion -> suggestion.toLowerCase().startsWith(getText().toLowerCase()))
                         .collect(Collectors.toList());
 
@@ -93,7 +70,7 @@ public class AutoCompleteTextField extends TextField {
                 finalSuggestionResults.addAll(filteredSuggestionResults);
                 logger.info("Number of results:" + finalSuggestionResults.size());
 
-                //Guard clause
+                // Guard clause
                 if (finalSuggestionResults.size() < 1) {
                     commandsPopup.hide();
                     return;
@@ -106,7 +83,7 @@ public class AutoCompleteTextField extends TextField {
             }
         });
 
-        //Set the commandsPopup to be hidden if the text field is out of focus
+        // Set the commandsPopup to be hidden if the text field is out of focus
         // or whenever focus value is changes/clicked.
         focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -119,7 +96,8 @@ public class AutoCompleteTextField extends TextField {
     /**
      * Populate the content of the commandsPopup with elements in List of Strings.
      *
-     * @param finalSuggestionResults List of Strings to populate content of commandsPopup.
+     * @param finalSuggestionResults List of Strings to populate content of
+     *                               commandsPopup.
      */
     private void populatePopup(List<String> finalSuggestionResults) {
         List<CustomMenuItem> menuItems = new LinkedList<>();
@@ -137,13 +115,13 @@ public class AutoCompleteTextField extends TextField {
                 public void handle(ActionEvent event) {
                     setText(SuggestionTemplates.getString(suggestionTemplate));
                     positionCaret(100);
-                    //commandsPopup hides after user picks a suggestion
+                    // commandsPopup hides after user picks a suggestion
                     commandsPopup.hide();
                 }
             });
             menuItems.add(item);
         }
-        //Clears all current menu items in popup, and adds new items.
+        // Clears all current menu items in popup, and adds new items.
         commandsPopup.getItems().clear();
         logger.info("Number of menu items to be added in pop-up box: " + menuItems.size());
         commandsPopup.getItems().addAll(menuItems);
@@ -151,7 +129,7 @@ public class AutoCompleteTextField extends TextField {
     }
 
     private TextFlow getSuggestionTemplate(String suggestion) {
-        //Note that "score' has to be checked for first as "score add" contains "add"
+        // Note that "score' has to be checked for first as "score add" contains "add"
         if (suggestion.contains("score")) {
             return getScoreTemplate(suggestion);
         }
@@ -262,7 +240,6 @@ public class AutoCompleteTextField extends TextField {
         default:
             logger.info("FIND Command Template is null");
             return null;
-
 
         }
     }

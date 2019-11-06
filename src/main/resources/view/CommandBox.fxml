@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import seedu.address.ui.*?>
 
-<?import javafx.scene.control.Button?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.layout.HBox?>
-<?import seedu.address.ui.AutoCompleteTextField?>
-<HBox styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
-  <AutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="What can I do for you?" HBox.hgrow="ALWAYS"/>
-  <Button fx:id="sendButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY"
-          maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-          minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0" onAction="#handleCommandEntered">
-    <graphic>
-      <FontAwesomeIconView fill="#3083cc" glyphName="PAPER_PLANE" size="25"/>
-    </graphic>
-  </Button>
+<HBox style="-fx-background-color: #292734;" styleClass="stack-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+  <AutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandEntered" prefHeight="60" promptText="What can I do for you?" style="-fx-prompt-text-fill: #cef9fb; -fx-text-fill: #cef9fb; -jfx-focus-color: #cef9fb;" stylesheets="@ContextMenu.css" HBox.hgrow="ALWAYS">
+      <font>
+         <Font name="Arial" size="16.0" />
+      </font></AutoCompleteTextField>
 </HBox>
-

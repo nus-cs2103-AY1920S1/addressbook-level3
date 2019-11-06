@@ -69,7 +69,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
     compile "org.mockito:mockito-core:2.+"
-    implementation "de.jensd:fontawesomefx-fontawesome:4.7.0-11"
+    compile "de.jensd:fontawesomefx-fontawesome:4.7.0-11"
     compile 'com.jfoenix:jfoenix:9.0.8'
     compile 'com.jfoenix:jfoenix:8.0.8'
 }
@@ -128,22 +128,22 @@ asciidoctor {
     outputDir "${buildDir}/docs"
 
     options = [
-        template_dirs: [file("${sourceDir}/templates")],
+            template_dirs: [file("${sourceDir}/templates")],
     ]
 
     attributes = [
-        linkcss: true,
-        stylesheet: 'gh-pages.css',
-        'source-highlighter': 'coderay',
-        icons: 'font',
-        experimental: true,
-        sectlinks: true,
-        idprefix: '',  // for compatibility with GitHub preview
-        idseparator: '-',
-        'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'Alfred',
-        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-F11-1/main',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+            linkcss: true,
+            stylesheet: 'gh-pages.css',
+            'source-highlighter': 'coderay',
+            icons: 'font',
+            experimental: true,
+            sectlinks: true,
+            idprefix: '',  // for compatibility with GitHub preview
+            idseparator: '-',
+            'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
+            'site-name': 'Alfred',
+            'site-githuburl': 'https://github.com/AY1920S1-CS2103T-F11-1/main',
+            'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
     options['template_dirs'].each {

@@ -158,13 +158,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-<<<<<<< HEAD
-     * Sets the handlers for the events generated whenever the up and down arrow
-     * keys are pressed.
-=======
-     * Sets the handlers for the events generated whenever the alt modifier key, as well
-     * as the up/down arrow keys are pressed.
->>>>>>> upstream/master
+     * Sets the handlers for the events generated whenever the alt modifier key, as
+     * well as the up/down arrow keys are pressed.
      */
     private void setCommandNavigationHandler() {
         this.commandBoxPlaceholder.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -220,9 +215,9 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-
     /**
-     * Handles the display of Command History in the GUI.
+     * Displays the list of Participants in Model and Storage on Graphical User
+     * Interface.
      */
     private void handleHistory() {
         List<String> undoHistory = logic.getUndoCommandHistory();

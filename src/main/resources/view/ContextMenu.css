@@ -1,0 +1,15 @@
+.context-menu {
+
+    -fx-background-color: #e3f9ff;
+    -fx-background-radius: 0 6 6 6
+
+}
+
+
+.menu-item:focused {
+     -fx-background: -fx-accent;
+     -fx-background-color: #d6f6ff;
+     -fx-text-fill: -fx-selection-bar-text;
+}
+
+
