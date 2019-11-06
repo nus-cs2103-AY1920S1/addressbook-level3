@@ -1,13 +1,11 @@
 package dukecooks.ui;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import dukecooks.commons.core.Event;
 import dukecooks.commons.core.LogsCenter;
-import dukecooks.model.diary.components.Page;
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
@@ -41,7 +39,7 @@ public class MealPlanListPanel extends UiPart<Region> {
 
     @FXML
     private FlowPane mealPlanListView;
-    
+
     @FXML
     private HBox mealPlanViewView;
 
@@ -96,8 +94,8 @@ public class MealPlanListPanel extends UiPart<Region> {
     @FXML
     private ListView<MealPlan> mealPlanIndexListView;
 
-    ObservableList<MealPlan> mealPlanList;
-    ObservableList<Recipe> recipeList;
+    private ObservableList<MealPlan> mealPlanList;
+    private ObservableList<Recipe> recipeList;
 
     public MealPlanListPanel(ObservableList<MealPlan> mealPlanList, ObservableList<Recipe> recipeList) {
         super(FXML);
@@ -175,10 +173,11 @@ public class MealPlanListPanel extends UiPart<Region> {
      */
     Recipe getRecipe(RecipeName name) {
         for (Recipe recipe : recipeList) {
-            if (recipe.getName().equals(name))
+            if (recipe.getName().equals(name)) {
                 return recipe;
+            }
         }
-        
+
         throw new RecipeNotFoundException(name.fullName);
     }
 
@@ -219,6 +218,9 @@ public class MealPlanListPanel extends UiPart<Region> {
 
     }
 
+    /**
+     * Initialize nutritional data for the meal plan given the input dayLists.
+     */
     String initializeMealPlanNutritionalData(ObservableList<Recipe>... dayLists) {
         int calories = 0;
         int carbs = 0;
