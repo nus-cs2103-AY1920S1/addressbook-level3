@@ -31,6 +31,15 @@ public class Budget {
      * Constructor for Budget with no categories given.
      * By default, category is "Uncategorised"
      */
+    public Budget(Amount initialAmount, Amount amount, Date date, Set<Category> categories) {
+        this.initialAmount = initialAmount;
+        this.amount = amount;
+        this.deadline = date;
+        this.categories.addAll(categories);
+        this.valid = true;
+        this.between = calculateRemaining();
+    }
+
     public Budget(Amount amount, Date date) {
         this.initialAmount = amount;
         this.amount = amount;
@@ -61,6 +70,10 @@ public class Budget {
         this.initialAmount = amount;
     }
 
+    public Amount getInitialBudget() {
+        return this.initialAmount;
+    }
+
     public Amount getBudget() {
         return this.amount;
     }
@@ -71,6 +84,10 @@ public class Budget {
 
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public int getBetweenRaw() {
+        return this.between;
     }
 
     public String getBetween() {
@@ -157,6 +174,9 @@ public class Budget {
      */
     public String displayPercentage() {
         double percentage = this.amount.divideAmount(this.initialAmount) * 100;
+        if (percentage < 0.00) {
+            percentage = 0.0;
+        }
         return String.format("%.2f%% remaining", percentage);
     }
 
