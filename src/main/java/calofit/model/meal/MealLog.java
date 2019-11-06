@@ -112,9 +112,11 @@ public class MealLog implements ReadOnlyMealLog {
      * @return the boolean representing whether the Meal is created in this month.
      */
     private boolean isMealThisMonth(Meal meal) {
-        return meal.getTimestamp()
+        return (meal.getTimestamp()
                 .getDateTime().toLocalDate().getMonth()
-                .equals(this.todayProperty.get().getMonth());
+                .equals(LocalDate.now().getMonth())) && (
+                meal.getTimestamp()
+                .getDateTime().toLocalDate().getYear() == LocalDate.now().getYear());
     }
 
     /**
