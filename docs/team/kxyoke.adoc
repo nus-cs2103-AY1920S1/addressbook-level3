@@ -9,11 +9,32 @@
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+//TODO: change *aims to* to sth else? + make last sentence more concise and shorter
+This project portfolio aims to showcase my contributions, as part of my team consisting 5 Year 2 Computer Science students, to our group Software Engineering project, Mark. We were tasked
+with enhancing a basic desktop application, https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)], in short AB3, to solve a problem for a specific target group.
+AB3 uses a Command Line Interface (CLI) where users type their commands to navigate and use the application.
+
+Given 8 weeks to conceptualise and complete the project implemented in Java, we chose to morph AB3 into a bookmark manager application which we named *Mark*.
+Mark aims to improve computing students' productivity by helping them organise their web browsing and note-taking activities. With Mark, computing students can greatly reduce the number of
+tabs left open due to various reasons in their web browsers and provides a one-stop platform to allow them to easily pick up their revision through easy navigation and in-built web page
+annotation when rushing for time.
+
+Mark has a visually appealing graphical user interface (GUI) to visually guide the users around the application. This is what Mark looks like when you open the application:
+//TODO: insert gui pic with well populated data
+//caption?
+
+My role was to design and implement the _annotation_ feature so users can conveniently make notes on
+important web pages instantly while reading them. This feature uses commands that begin with `annotate` and works on the offline version
+of the web pages converted by Mark.
+
+The following sections illustrate my contributions in more detail. The relevant documentation I have added to the User and Developer Guides in relation to this enhancement is also included in this portfolio.
+
+Note the following symbols and formatting used in this document:
+//TODO: symbols/glossary list
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+* *Major enhancement*: added the ability to *annotate offline copies of web pages*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
