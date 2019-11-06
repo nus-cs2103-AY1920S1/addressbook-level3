@@ -28,11 +28,15 @@ public class AnnotationNote {
      */
     public static AnnotationNote makeNote(String content) throws IllegalValueException {
         requireNonNull(content);
-        if (content.isBlank()) {
+        if (isEmptyString(content)) {
             throw new IllegalValueException(MESSAGE_BLANK_NOTE);
         }
 
         return new AnnotationNote(content);
+    }
+
+    private static boolean isEmptyString(String str) {
+        return str.strip().isBlank();
     }
 
     /**

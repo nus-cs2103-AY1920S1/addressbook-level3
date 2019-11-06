@@ -27,6 +27,12 @@ class AnnotationNoteTest {
         assertThrows(IllegalValueException.class, () -> AnnotationNote.makeNote(""), AnnotationNote.MESSAGE_BLANK_NOTE);
         assertThrows(IllegalValueException.class, () -> AnnotationNote.makeNote("   "),
                 AnnotationNote.MESSAGE_BLANK_NOTE);
+        assertThrows(IllegalValueException.class, () -> AnnotationNote.makeNote(" \n  "),
+                AnnotationNote.MESSAGE_BLANK_NOTE);
+        assertThrows(IllegalValueException.class, () -> AnnotationNote.makeNote(" \r  "),
+                AnnotationNote.MESSAGE_BLANK_NOTE);
+        assertThrows(IllegalValueException.class, () -> AnnotationNote.makeNote(" \t  "),
+                AnnotationNote.MESSAGE_BLANK_NOTE);
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.commands.AddAnnotationCommand.MESSAGE_GENERAL_MUST_HAVE_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_HIGHLIGHT;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARAGRAPH;
@@ -34,6 +35,9 @@ public class AddAnnotationCommandParser implements Parser<AddAnnotationCommand> 
         AnnotationNote note = parseAnnotationNote(argMultimap);
 
         if (isAddGeneralNote(argMultimap.getValue(PREFIX_PARAGRAPH).get())) {
+            if (note == null) {
+                throw new ParseException(MESSAGE_GENERAL_MUST_HAVE_NOTE);
+            }
             return new AddAnnotationCommand(index, highlight, note);
         }
 

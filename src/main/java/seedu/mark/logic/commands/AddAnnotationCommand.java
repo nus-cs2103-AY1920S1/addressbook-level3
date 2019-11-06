@@ -42,7 +42,7 @@ public class AddAnnotationCommand extends AnnotationCommand {
 
     public static final String MESSAGE_CANNOT_ANNOTATE_PHANTOM_NO_NOTE = "You cannot annotate phantom paragraphs "
             + "with no note content.";
-    //TODO: change msg to more informative one (what content, to which paragraph, which colour, which bkmark version
+    public static final String MESSAGE_GENERAL_MUST_HAVE_NOTE = "General notes must have a non-empty content.";
     public static final String MESSAGE_SUCCESS = "Annotation successfully added to paragraph %1$s:\n%2$s";
     private static final String MESSAGE_HIGHLIGHT_ADDED = "%s highlight";
     private static final String MESSAGE_NOTE_ADDED = " with note \"%s\"";
@@ -126,7 +126,8 @@ public class AddAnnotationCommand extends AnnotationCommand {
                 && getBookmarkIndex().equals(((AddAnnotationCommand) other).getBookmarkIndex())
                 && getPid().equals(((AddAnnotationCommand) other).getPid())
                 && (this.note == ((AddAnnotationCommand) other).note
-                || note.equals(((AddAnnotationCommand) other).note))
+                || (note != null && ((AddAnnotationCommand) other).note != null
+                && note.equals(((AddAnnotationCommand) other).note)))
                 && highlight.equals(((AddAnnotationCommand) other).highlight)); // state check
     }
 
