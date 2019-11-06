@@ -216,6 +216,7 @@ public class ItemModelManager implements ItemModel {
 
         if (wrapper.getEve() != -1) {
             eventList.addToIndex(wrapper.getEve(), wrapper.getItem());
+            calendarList.addToIndex(wrapper.getEve(), wrapper.getItem());
         }
 
         if (wrapper.getRem() != -1) {
@@ -340,8 +341,10 @@ public class ItemModelManager implements ItemModel {
         if ((index = eventList.indexOf(item)) >= 0) {
             if (newItem.hasEvent()) {
                 eventList.setItem(index, newItem);
+                calendarList.setItem(index, newItem);
             } else {
                 eventList.remove(index);
+                calendarList.remove(index);
             }
         }
 
@@ -406,9 +409,10 @@ public class ItemModelManager implements ItemModel {
      * Clears the 3 lists for re-populating
      * */
     public void emptyLists() {
-        this.taskList.clear();
-        this.eventList.clear();
-        this.reminderList.clear();
+        taskList.clear();
+        eventList.clear();
+        reminderList.clear();
+        calendarList.clear();
     }
 
     /**
