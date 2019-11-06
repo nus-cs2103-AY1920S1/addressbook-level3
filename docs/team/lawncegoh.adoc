@@ -9,27 +9,71 @@
 
 == Overview
 
-FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a CLI app.
+FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of
+Computing so that they would be more likely to like the idea of having a CLI app.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement 1* I added *ability to `goto` a different view, through the different lists*
+** *What it does*: this `goto` feature allows the user to get to the different lists, namely: contacts,
+claims and incomes, changing the state at which the
+user is currently at
+** *Justification*: This feature is the backbone of my next 2 features because the changing of state is the underlying flag or checker
+that ensures that these 3 features will work correctly in the 3 different lists.
+** *Highlights*: This enhancement works well with the current UI design as I created 3 tabs to fit with the current
+File and Help tabs. These tabs are added functions to allow the user to click to `goto` other lists if he/she wants to.
+The tabs become an extra option for the user to do the same thing. The implementation was also challenging because AB3
+only recognised 1 list and that was contacts list. Therefore I not only needed to ensure that the app runs with more than 1 list, but also to
+ensure that this list is able to update to another list when the correct command is entered.
+Also, after implementing the changing of lists, I had to also implement a state in each of these lists to make sure that the state
+changes when a certain view is input as parameter into this `goto` feature.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement 2* I added *ability to `sort` and `reverse` the 3 various lists.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** *What it does*:The user is able to sort the lists according to name, date and status.
+`reverse` on the other hand sorts the lists in the reverse order. This is where the states of the various lists will allow this sort feature to work
+differently. An example will be in the state of claims. Only the `sort status` and `reverse status` will work as status belongs only to claim.
+** *Justification*: The user can now sort the claims based on the most critical ones which are the pending claims. The `reverse`
+feature also gives the user the flexibility to see the claims based on what he already approved. As for the `date` and `name`
+parameters, they help the user filter through the specific date or name that he/she wants to find.
+** *Highlights*: This enhancement is extremely useful in comparison to the usual paper-filed version of claims or incomes
+stored in a physical file for a Financial Secretary. The user can now search through the lists for his pending, approved or rejected
+claims with much more ease now they are filed automatically with just 1 command. He can even find the oldest claim or income inflow
+that he had with just another command. The implementation was also challenging because I had to come up with different comparators for the
+different parameters as well as for `reverse` too which sorts the list in the reverse order of whatever parameter is typed. I had to consider
+what was most important for the user. An example is that I chose to sort the claims list by the description of the claims when the user inputs
+`sort name`. A Financial Secretary would be more likely to need the description of the claims when he wants to check through his claims.
+
+* *Major enhancement 3*: I added *the ability to `check` each individual claim or contact*
+** *What it does*: in contacts page, the `check` feature allows the user to see the claims and details that are linked to the this current contact. In the
+claims page, the check feature allows the user to view a single claim with the most important details on this
+card. Both are shown through a pop-up to show the individual contact or claim. This feature once again makes use of the change of state in the goto
+feature to ensure that the check works differently in both contacts or claims list.
+** *Justification*: Once you have gone to the list of your choice and sorted it, this feature will retrieve the exact claim or contact
+that is of interest to the user in a pop-up that cancels out all interference from the other items. The check in the contacts list will allow the
+user to see the specific claims that are linked to this contact and see the details that tag along with it.
+** *Highlights*: This feature works extremely well with the above 2 features as well as for future implementations. Further implementations can include
+directly going to the specific from the list of claims that pops up during the checking of contact in the contacts' list. Another implementation can be
+the ability to pop up the claims that are of a certain date or status. If the sorting system in the feature is not enough for the user. This example of
+`check November/2019` or `check Pending` in the claims list will give a user-friendly pop up of the filtered claims and display it clearly to the user.
+
+* *Minor enhancement 1*: I tweaked the `clear` feature in the existing AB3 to ensure that before the user is able to clear the list, the application prompts the
+user one more time to ensure that the command was not by accident.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/
+#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=
+commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&
+tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D
+[Code]]_{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Added Travis functionality into the project
+*** There were a total of 5 releases, from version 1.0 to 1.4. I managed releases versions 1.0 and 1.2
 ** Enhancements to existing features:
 *** Updated Mockup for UI of product (Commit https://github.com/AY1920S1-CS2103T-W12-1/main/commit/560d7bdc3c9e4ea835285441bc7cc013f6f90ab2[560d7bdc3c9e4ea835285441bc7cc013f6f90ab2])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the UI of the whole application to suit our general theme of a more pastel-coloured application to allow the user to feel comfortable using it
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
@@ -50,9 +94,13 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=goto]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=check]
+
+include::../UserGuide.adoc[tag=clear]
 
 == Contributions to the Developer Guide
 
@@ -60,9 +108,13 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=goto]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=check]
+
+include::../UserGuide.adoc[tag=clear]
 
 
 == PROJECT: FinSec
