@@ -142,6 +142,7 @@ The `Person`:
 * Represents a user account on the incident manager.
 * Contains the account `Username`, `Password`, `Name`, `Phone`, `Email`
 
+// tag::incident[]
 [[Design-Incident]]
 ==== Incident component
 
@@ -155,6 +156,7 @@ image::IncidentClassDiagram.png[]
 * Contains the attributes `CallerNumber`, `Description`, `IncidentDateTime` and IncidentId`.
 * Also contains a `Person` object representing the 'Operator' who filed the incident, a `District` which represents the location of the incident, and a `Vehicle` representing the vehicle dispatched to investigate this incident.
 * Has three states encapsulated by a `Status` enum - `INCOMPLETE_DRAFT` (report not completely filled and not submitted), `COMPLETE_DRAFT` (report completely filled but not submitted), and `SUBMITTED_REPORT` (report completely filled and submitted).
+// end::incident[]
 
 [[Design-Vehicle]]
 ==== Vehicle component
