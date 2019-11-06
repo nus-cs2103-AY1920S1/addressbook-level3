@@ -27,6 +27,7 @@ public class ModelManager implements Model {
     private final HistoryManager historyManager;
     private final UserPrefs userPrefs;
     private final FilteredList<Engagement> filteredEngagements;
+    private Comparator<Engagement> currentComparator;
 
     /**
      * Initializes a ModelManager with the given engagement list and userPrefs.
@@ -40,6 +41,7 @@ public class ModelManager implements Model {
         this.historyManager = new HistoryManager(engagementList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredEngagements = new FilteredList<>(this.historyManager.getEngagementList());
+        currentComparator = null;
     }
 
     public ModelManager() {
@@ -133,15 +135,32 @@ public class ModelManager implements Model {
         filteredEngagements.setPredicate(predicate);
     }
 
+    //=========== Filtered Engagement List Accessors =============================================================
+
     @Override
-    public void updateSortedEngagementList(Comparator<Engagement> comparator) {
-        requireNonNull(comparator);
-        historyManager.sort(comparator);
+    public void updateSortedEngagementList() {
+        try {
+            requireNonNull(currentComparator);
+            historyManager.sort(currentComparator);
+        } catch (NullPointerException e) {
+            // if no comparator is specified, does not sort
+        }
     }
 
+    /**
+     * Returns an unmodifiable view of the sorted list of {@code Engagement} backed by the internal list of
+     * {@code typee}
+     */
     @Override
     public ObservableList<Engagement> getSortedEngagementList() {
         return FXCollections.unmodifiableObservableList(filteredEngagements);
+    }
+
+    //=========== Filtered Engagement List Accessors =============================================================
+
+    @Override
+    public void setComparator(Comparator<Engagement> comparator) {
+        this.currentComparator = comparator;
     }
 
     //=========== Undo ================================================================================

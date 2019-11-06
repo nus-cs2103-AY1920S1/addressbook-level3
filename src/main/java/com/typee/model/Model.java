@@ -93,7 +93,7 @@ public interface Model {
 
     void updateFilteredEngagementList(Predicate<Engagement> predicate);
 
-    void updateSortedEngagementList(Comparator<Engagement> comparator);
+    void updateSortedEngagementList();
 
     ObservableList<Engagement> getSortedEngagementList();
 
@@ -106,4 +106,6 @@ public interface Model {
     void saveEngagementList();
 
     void redoEngagementList() throws NullRedoableActionException;
+
+    void setComparator(Comparator<Engagement> comparator);
 }
