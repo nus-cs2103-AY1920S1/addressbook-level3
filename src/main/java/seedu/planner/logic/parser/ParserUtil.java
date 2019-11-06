@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.StringUtil;
 import seedu.planner.logic.parser.exceptions.ParseException;
@@ -211,6 +212,10 @@ public class ParserUtil {
         for (int i = 0; i < numOfDays; i++) {
             if (!Day.isValidDayNumber(trimmedDays[i])) {
                 throw new ParseException(Day.MESSAGE_CONSTRAINTS);
+            }
+            Index dayIndex = parseIndex(trimmedDays[i]);
+            if (dayList.indexOf(dayIndex) != -1) {
+                throw new ParseException(Messages.MESSAGE_DUPLICATE_DAY_INDEX);
             }
             dayList.add(parseIndex(trimmedDays[i]));
         }

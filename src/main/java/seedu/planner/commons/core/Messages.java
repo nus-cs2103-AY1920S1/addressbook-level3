@@ -23,6 +23,7 @@ public class Messages {
     public static final String MESSAGE_ACTIVITY_TAG_NOT_FOUND = "Activity with this tag %s not found";
     public static final String MESSAGE_ACTIVITY_NAME_NOT_FOUND = "Activity with this name %s not found";
     public static final String MESSAGE_ADDRESS_NOT_FOUND = "Activities of this address %s not found";
+    public static final String MESSAGE_DUPLICATE_DAY_INDEX = "Duplicate days to schedule found!";
 
 
 }
