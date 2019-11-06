@@ -311,7 +311,9 @@ public class ModelManager implements Model {
     @Override
     public void discardStagedChanges() {
         stagedPatientBook = basePatientBook.deepCopy();
+        stagedAppointmentBook = baseAppointmentBook.deepCopy();
         refreshStagedData();
+        refreshStagedAppointments();
     }
 
     @Override
@@ -340,8 +342,10 @@ public class ModelManager implements Model {
     private void changeBaseTo(PatientBook patientBook, AppointmentBook appointmentBook) {
         basePatientBook = patientBook;
         stagedPatientBook = basePatientBook.deepCopy();
+        baseAppointmentBook = appointmentBook;
         stagedAppointmentBook = baseAppointmentBook.deepCopy();
         refreshStagedData();
+        refreshStagedAppointments();
     }
 
     /**
