@@ -48,6 +48,37 @@ public class MemberListPanel extends UiPart<Region> {
         memberListView.setCellFactory(listView -> new MemberListViewCell());
     }
 
+    public MemberListPanel(ObservableList<Member> filteredMemberList, ObservableList<Member> memberList,
+                           ObservableList<Task> taskList, ObservableList<TasMemMapping> tasMemMappings) {
+        super(FXML);
+        ObservableList<IndivMemberCard> memberCards = FXCollections.observableArrayList();
+
+        for (int i = 0; i < filteredMemberList.size(); i++) {
+            Member memberInvolved = filteredMemberList.get(i);
+
+            int memIndex = 0;
+
+            for (int j=0; j<memberList.size(); j++) {
+                if (memberList.get(j).equals(memberInvolved)) {
+                    memIndex = j;
+                }
+            }
+
+            ArrayList<Task> specificTasks = new ArrayList<>();
+            for (TasMemMapping mapping : tasMemMappings) {
+                if (mapping.hasMember(memIndex)) {
+                    specificTasks.add(taskList.get(mapping.getTaskIndex()));
+                }
+            }
+
+            IndivMemberCard memberCard = new IndivMemberCard(memberInvolved, i+1,  specificTasks);
+            memberCards.add(memberCard);
+        }
+
+        memberListView.setItems(memberCards);
+        memberListView.setCellFactory(listView -> new MemberListViewCell());
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */

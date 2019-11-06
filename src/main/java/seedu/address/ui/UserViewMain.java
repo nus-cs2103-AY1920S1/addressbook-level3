@@ -56,6 +56,16 @@ public class UserViewMain {
     }
 
     /**
+     * Shows the user the list of tasks.
+     *
+     * @return {@code TaskListPanel}
+     */
+    public Pane loadFoundTasks() {
+        userViewNavigator.loadFoundTaskView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    /**
      * Shows the user the list of members.
      *
      * @return {@code MemberListPanel}
@@ -84,6 +94,7 @@ public class UserViewMain {
         userViewNavigator.loadFoundMembersView(logic);
         return userViewController.getCurrentView();
     }
+
 
     public Pane loadSetImage() {
         userViewNavigator.loadSetImageView(logic);

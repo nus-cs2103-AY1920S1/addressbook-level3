@@ -51,7 +51,7 @@ public class UserViewUpdate {
         case "done-task":
 
         case "find-task":
-            paneToRender.getChildren().add(userViewMain.loadTasks());
+            paneToRender.getChildren().add(userViewMain.loadFoundTasks());
             break;
 
         case "add-member":
@@ -62,9 +62,6 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadSetImage());
             break;
 
-        case "find-member":
-            paneToRender.getChildren().add(userViewMain.loadFoundMembers());
-            break;
 
         case "assign":
             paneToRender.getChildren().add(userViewMain.loadAssign());
@@ -77,6 +74,10 @@ public class UserViewUpdate {
         case "edit-member":
 
         case "remove-member":
+
+        case "find-member":
+            paneToRender.getChildren().add(userViewMain.loadFoundMembers());
+            break;
 
         case "list-members":
             paneToRender.getChildren().add(userViewMain.loadMembers());
