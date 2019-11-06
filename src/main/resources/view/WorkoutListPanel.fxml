@@ -15,7 +15,7 @@
       <VBox style="-fx-background-color: snow;">
          <HBox prefHeight="58.0" prefWidth="350.0">
             <children>
-               <Label fx:id="title" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Workout Planner" textFill="#797373">
+               <Label fx:id="title" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" stylesheets="@DarkTheme.css" text="Workout Planner" textFill="#797373">
                   <font>
                      <Font name="Devanagari Sangam MN" size="36.0" />
                   </font>

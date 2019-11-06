@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:500&display=swap');
+
 .background {
     -fx-background-color: snow;
     background-color: snow; /* Used in the default.html file */
@@ -351,13 +353,14 @@
 
 #pageInputHeader {
     -fx-font-size: 36;
+    -fx-font-family: 'Roboto', sans-serif;
     -fx-font-weight: bold;
     -fx-background-color: #f2eee5;
 }
 
 #titleInput, #typeInput, #descriptionInput, #imageInput, #diaryNameInput {
     -fx-font-size: 18;
-    -fx-font-weight: bold;
+    -fx-font-family: 'Raleway', 'sans-serif';
 }
 
 #pageInputPanel .text-field {
@@ -371,7 +374,7 @@
     -fx-background-color: #90caf9;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 8pt;
-    -fx-text-fill: grey;
+    -fx-text-fill: black;
 }
 
 #confirmButton {
@@ -388,8 +391,9 @@
 
 #diaryHeader {
     -fx-font-size: 36;
-    -fx-font-weight: bold;
+    -fx-font-family: 'Roboto', sans-serif;
     -fx-background-color: #f2eee5;
+    -fx-font-weight: bold;
 }
 
 #pageCardPane {
@@ -430,13 +434,14 @@
 }
 
 #pageTitle {
-    -fx-font-size: 20;
-    -fx-font-weight: bold;
+    -fx-font-size: 28;
+    -fx-font-family: 'Roboto', sans-serif;
     -fx-background-color: transparent;
 }
 
 #pageDescription {
-    -fx-font-size: 14;
+    -fx-font-size: 18;
+    -fx-font-family: 'Roboto', sans-serif;
 }
 
 #commandTypeLabel {
@@ -467,12 +472,11 @@
 }
 
 #pages .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-text-fill: black;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-background-radius: 5;
+    -fx-font-size: 12;
 }
 
 #medicalHistories {
