@@ -17,7 +17,6 @@ import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
-import cs.f10.t1.nursetraverse.model.util.SampleDataUtil;
 import cs.f10.t1.nursetraverse.model.visit.Visit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -432,6 +431,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteAppointments(Patient target, Index targetIndex) {
+        stagedAppointmentBook.removeAppointments(target, targetIndex);
+        refreshStagedAppointments();
+        refreshFilteredAppointmentList();
+    }
+
+    @Override
     public void addAppointment(Appointment appointment) {
         stagedAppointmentBook.addAppointment(appointment);
         refreshStagedAppointments();
@@ -444,6 +450,15 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedAppointment);
 
         stagedAppointmentBook.setAppointment(target, editedAppointment);
+        refreshStagedAppointments();
+        sortStagedAppointments();
+    }
+
+    @Override
+    public void setAppointments(Patient patientToEdit, Patient editedPatient) {
+        CollectionUtil.requireAllNonNull(patientToEdit, editedPatient);
+
+        stagedAppointmentBook.editAppointments(patientToEdit, editedPatient);
         refreshStagedAppointments();
         sortStagedAppointments();
     }

@@ -244,6 +244,11 @@ public interface Model {
     void deleteAppointment(Appointment target);
 
     /**
+     * Deletes all appointments associated with the {@code target} patient.
+     */
+    void deleteAppointments(Patient target, Index targetIndex);
+
+    /**
      * Adds the given appointment.
      * {@code appointment} must not already exist in the appointment list.
      */
@@ -257,6 +262,10 @@ public interface Model {
      */
     void setAppointment(Appointment target, Appointment editedAppointment);
 
+    /**
+     * Replaces all appointments' patients that equal {@code patientToEdit} with {@code editedPatient}.
+     */
+    void setAppointments(Patient patientToEdit, Patient editedPatient);
 
     /** Returns an unmodifiable view of the entire appointment list */
     ObservableList<Appointment> getStagedAppointmentList();

@@ -42,6 +42,7 @@ public class DeleteAppointmentCommand extends MutatorCommand {
         }
 
         Appointment appointmentToDelete = fullAppointmentList.get(targetIndex.getZeroBased());
+        System.out.println(appointmentToDelete);
         model.deleteAppointment(appointmentToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete));
     }

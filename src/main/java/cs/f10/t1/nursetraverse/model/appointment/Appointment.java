@@ -22,7 +22,7 @@ public class Appointment {
     private final RecurringDateTime frequency;
 
     // Data fields
-    private final Index patientIndex;
+    private Index patientIndex;
     private Patient patient;
     private final String description;
 
@@ -50,6 +50,10 @@ public class Appointment {
 
     public Index getPatientIndex() {
         return patientIndex;
+    }
+
+    public void setPatientIndex(Index patientIndex) {
+        this.patientIndex = patientIndex;
     }
 
     public Patient getPatient() {
@@ -100,6 +104,7 @@ public class Appointment {
         return otherAppointment.getStartDateTime().equals(getStartDateTime())
                 && otherAppointment.getEndDateTime().equals(getEndDateTime())
                 && otherAppointment.getFrequency().equals(getFrequency())
+                && otherAppointment.getPatientIndex().equals(getPatientIndex())
                 && otherAppointment.getPatient().equals(getPatient())
                 && otherAppointment.getDescription().equals(getDescription());
     }
@@ -119,6 +124,8 @@ public class Appointment {
                 .append(getEndDateTime())
                 .append(" Frequency: ")
                 .append(getFrequency())
+                .append(" Patient Index: ")
+                .append(getPatientIndex())
                 .append(" Patient: ")
                 .append(getPatient())
                 .append(" Description: ")

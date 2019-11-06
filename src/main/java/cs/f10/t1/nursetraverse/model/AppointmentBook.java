@@ -1,7 +1,9 @@
 package cs.f10.t1.nursetraverse.model;
 
+import static cs.f10.t1.nursetraverse.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
@@ -104,6 +106,21 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     }
 
     /**
+     * Replaces all appointments with {@code patientToEdit} in the list with {@code editedPatient}.
+     */
+    public void editAppointments(Patient patientToEdit, Patient editedPatient) {
+        requireAllNonNull(patientToEdit, editedPatient);
+        List<Appointment> newAppointments = new ArrayList<>();
+        for (Appointment appt : appointments) {
+            if (appt.getPatient().equals(patientToEdit)) {
+                appt.setPatient(editedPatient);
+            }
+            newAppointments.add(appt);
+        }
+        setAppointments(newAppointments);
+    }
+
+    /**
      * Removes {@code key} from this {@code AppointmentBook}.
      * {@code key} must exist in the appointment book.
      */
@@ -114,6 +131,26 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         if (key.getFrequency().isRecurringFrequency()) {
             addRecurringAppointment(key);
         }
+    }
+
+    /**
+     * Removes all appointments with this {@code patient} from this {@code AppointmentBook}.
+     */
+    public void removeAppointments(Patient patient, Index patientIndex) {
+        requireNonNull(patient);
+        List<Appointment> keepAppointments = new ArrayList<>();
+        for (Appointment appt : appointments) {
+            if (!appt.getPatient().equals(patient)) {
+                int currPatientIndex = appt.getPatientIndex().getOneBased();
+                int targetPatientIndex = patientIndex.getOneBased();
+
+                if (currPatientIndex > targetPatientIndex) {
+                    appt.setPatientIndex(Index.fromOneBased(currPatientIndex - 1));
+                }
+                keepAppointments.add(appt);
+            }
+        }
+        setAppointments(keepAppointments);
     }
 
     public void addRecurringAppointment(Appointment key) {

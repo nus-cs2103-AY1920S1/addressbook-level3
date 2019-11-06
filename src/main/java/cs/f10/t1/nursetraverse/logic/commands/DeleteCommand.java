@@ -8,6 +8,7 @@ import java.util.List;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
+import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
 /**
@@ -46,6 +47,7 @@ public class DeleteCommand extends MutatorCommand {
             throw new CommandException(MESSAGE_INVALID_PATIENT_HAS_ONGOING_VISIT);
         }
         model.deletePatient(patientToDelete);
+        model.deleteAppointments(patientToDelete, targetIndex);
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete));
     }
 
