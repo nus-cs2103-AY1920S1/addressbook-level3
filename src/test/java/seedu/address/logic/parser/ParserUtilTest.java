@@ -5,11 +5,16 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
+import java.util.TreeMap;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Picture;
+
+
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -22,6 +27,7 @@ public class ParserUtilTest {
     private static final String VALID_NAME = "Rachel";
     private static final String VALID_PICTURE = "234.jpg";
     private static final String VALID_CLASSID = "Tut1";
+    private static final String VALID_COMMAND = "234.jpg";
     private static final String VALID_ATTENDANCE = "3";
     private static final String VALID_RESULT = "33";
     private static final String VALID_PARTICIPATION = "2";
@@ -83,16 +89,46 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
+    public void parsePicture_validValueWithoutWhitespace_returnsPicture() throws Exception {
         Picture expectedPicture = new Picture(VALID_PICTURE);
         assertEquals(expectedPicture, ParserUtil.parsePicture(VALID_PICTURE));
     }
 
     @Test
-    public void parsePicture_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
+    public void parsePicture_validValueWithWhitespace_returnsTrimmedPicture() throws Exception {
         String pictureWithWhitespace = WHITESPACE + VALID_PICTURE + WHITESPACE;
         Picture expectedPicture = new Picture(VALID_PICTURE);
         assertEquals(expectedPicture, ParserUtil.parsePicture(pictureWithWhitespace));
     }
 
+    @Test
+    public void fillBasicCommands_equalTutorAidParseCommandList() throws Exception {
+        TutorAidParser parser = new TutorAidParser();
+        TreeMap<String, String> testList = new TreeMap<>();
+        ParserUtil.fillBasicCommands(testList);
+        assertEquals(testList, TutorAidParser.getCommandList());
+    }
+
+    @Test
+    public void parseClassId_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseClassId((String) null));
+    }
+
+    @Test
+    public void parseClassId_validValueWithoutWhitespace_returnsClassId() throws Exception {
+        ClassId expectedClassId = new ClassId(VALID_CLASSID);
+        assertEquals(expectedClassId, ParserUtil.parseClassId(VALID_CLASSID));
+    }
+
+    @Test
+    public void parseClassId_validValueWithWhitespace_returnsTrimmedClassId() throws Exception {
+        String classIdWithWhiteSpace = WHITESPACE + VALID_CLASSID + WHITESPACE;
+        ClassId expectedClassId = new ClassId(VALID_CLASSID);
+        assertEquals(expectedClassId, ParserUtil.parseClassId(classIdWithWhiteSpace));
+    }
+
+    @Test
+    public void parseClassId_invalidValue_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, () -> ParserUtil.parseClassId(INVALID_CLASSID));
+    }
 }
