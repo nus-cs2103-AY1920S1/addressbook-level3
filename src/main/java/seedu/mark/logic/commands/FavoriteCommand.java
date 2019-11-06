@@ -29,8 +29,6 @@ public class FavoriteCommand extends Command {
     public static final String MESSAGE_FAVORITE_BOOKMARK_SUCCESS = "Bookmark added to Favorites: %1$s";
     public static final String MESSAGE_FAVORITE_BOOKMARK_DUPLICATE = "This bookmark already exists in Favorites";
 
-    private static final Tag favTag = new Tag("Favorite");
-
     private final Index targetIndex;
 
     public FavoriteCommand(Index targetIndex) {
@@ -49,7 +47,7 @@ public class FavoriteCommand extends Command {
 
         Bookmark bookmarkToFavorite = lastShownList.get(targetIndex.getZeroBased());
 
-        if (bookmarkToFavorite.getTags().contains(favTag)) {
+        if (bookmarkToFavorite.containsTag(Tag.FAVORITE)) {
             throw new CommandException(MESSAGE_FAVORITE_BOOKMARK_DUPLICATE);
         }
 

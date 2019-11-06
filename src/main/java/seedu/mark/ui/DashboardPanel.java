@@ -10,6 +10,7 @@ import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
 import seedu.mark.model.bookmark.Url;
 
+
 /**
  * The Dashboard panel of Mark.
  */
@@ -21,20 +22,23 @@ public class DashboardPanel extends UiPart<Region> {
     @FXML
     private StackPane folderStructurePlaceholder;
     @FXML
+    private StackPane favoriteListPlaceholder;
+    @FXML
     private StackPane reminderListPlaceholder;
+
 
     public DashboardPanel(Logic logic, Consumer<Url> currentUrlChangeHandler) {
         super(FXML);
         FolderStructureTreeView folderStructureTreeView = new FolderStructureTreeView(
                 logic.getFolderStructure(), logic.getFilteredBookmarkList(), currentUrlChangeHandler);
-
-
         this.folderStructureTreeView = folderStructureTreeView;
+        folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());
 
         ReminderListPanel reminderListPanel = new ReminderListPanel(logic.getReminderList());
-
-
-        folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
+
+        FavoriteListPanel favoriteListPanel = new FavoriteListPanel(logic.getFavoriteBookmarkList(),
+                currentUrlChangeHandler);
+        favoriteListPlaceholder.getChildren().add(favoriteListPanel.getRoot());
     }
 }

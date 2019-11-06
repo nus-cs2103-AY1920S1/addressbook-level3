@@ -87,6 +87,10 @@ public class Bookmark {
         cachedCopies.add(new CachedCopy(html, doc));
     }
 
+    public boolean containsTag(Tag tag) {
+        return tags.contains(tag);
+    }
+
     /**
      * Returns true if both bookmarks have the same name or the same url.
      * This defines a weaker notion of equality between two bookmarks.

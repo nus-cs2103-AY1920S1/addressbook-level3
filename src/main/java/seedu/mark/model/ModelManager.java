@@ -21,6 +21,7 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Reminder;
+import seedu.mark.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the Mark data.
@@ -31,6 +32,7 @@ public class ModelManager implements Model {
     private final VersionedMark versionedMark;
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
+    private final FilteredList<Bookmark> favoriteBookmarks;
     private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Bookmark> bookmarkToDisplayCache = new SimpleObjectProperty<>();
 
@@ -47,6 +49,8 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
+        favoriteBookmarks = new FilteredList<>(versionedMark.getBookmarkList(),
+            bookmark -> bookmark.containsTag(Tag.FAVORITE));
     }
 
     public ModelManager() {
@@ -188,6 +192,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Bookmark> getFilteredBookmarkList() {
         return filteredBookmarks;
+    }
+
+    @Override
+    public ObservableList<Bookmark> getFavoriteBookmarkList() {
+        return favoriteBookmarks;
     }
 
     @Override

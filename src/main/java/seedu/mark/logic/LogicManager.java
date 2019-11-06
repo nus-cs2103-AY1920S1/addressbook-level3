@@ -68,6 +68,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Bookmark> getFavoriteBookmarkList() {
+        return model.getFavoriteBookmarkList();
+    }
+
+    @Override
     public FolderStructure getFolderStructure() {
         return model.getMark().getFolderStructure();
     }
