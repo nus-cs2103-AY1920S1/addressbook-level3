@@ -50,6 +50,7 @@ import java.util.List;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.dashboard.EditTaskCommand;
 import dukecooks.logic.commands.diary.EditDiaryCommand;
+import dukecooks.logic.commands.diary.EditPageCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.commands.exercise.EditExerciseCommand;
 import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
@@ -78,6 +79,7 @@ import dukecooks.model.workout.exercise.components.MuscleType;
 import dukecooks.model.workout.exercise.components.MusclesTrained;
 import dukecooks.testutil.dashboard.EditDashboardDescriptorBuilder;
 import dukecooks.testutil.diary.EditDiaryDescriptorBuilder;
+import dukecooks.testutil.diary.EditPageDescriptorBuilder;
 import dukecooks.testutil.exercise.EditExerciseDescriptorBuilder;
 import dukecooks.testutil.mealplan.EditMealPlanDescriptorBuilder;
 import dukecooks.testutil.profile.EditPersonDescriptorBuilder;
@@ -275,6 +277,9 @@ public class CommandTestUtil {
     public static final EditProfileCommand.EditPersonDescriptor DESC_BOB;
     public static final EditDiaryCommand.EditDiaryDescriptor DESC_AMY_DIARY;
     public static final EditDiaryCommand.EditDiaryDescriptor DESC_BOB_DIARY;
+    public static final EditPageCommand.EditPageDescriptor DESC_PHO_PAGE;
+    public static final EditPageCommand.EditPageDescriptor DESC_SUSHI_PAGE;
+
 
     static {
         DESC_HW = new EditDashboardDescriptorBuilder().withDashboardName(VALID_DASHBOARDNAME_YOGA)
@@ -311,6 +316,13 @@ public class CommandTestUtil {
                 .withDay1ToAdd(VALID_NAME_BURGER).withDay2ToAdd(VALID_NAME_BURGER).withDay3ToAdd(VALID_NAME_BURGER)
                 .withDay4ToAdd(VALID_NAME_BURGER).withDay5ToAdd(VALID_NAME_BURGER).withDay6ToAdd(VALID_NAME_BURGER)
                 .withDay7ToAdd(VALID_NAME_BURGER).build();
+
+        DESC_PHO_PAGE = new EditPageDescriptorBuilder().withTitle(VALID_PHO_TITLE)
+                .withPageType(VALID_PHO_TYPE).withPageDescription(VALID_PHO_DESCRIPTION)
+                .withImage(VALID_PHO_IMAGE).build();
+        DESC_SUSHI_PAGE = new EditPageDescriptorBuilder().withTitle(VALID_SUSHI_TITLE)
+                .withPageType(VALID_SUSHI_TYPE).withPageDescription(VALID_SUSHI_DESCRIPTION)
+                .withImage(VALID_SUSHI_IMAGE).build();
     }
 
     /**

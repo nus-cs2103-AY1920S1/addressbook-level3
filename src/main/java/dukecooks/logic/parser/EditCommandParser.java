@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.dashboard.EditTaskCommand;
 import dukecooks.logic.commands.diary.EditDiaryCommand;
+import dukecooks.logic.commands.diary.EditPageCommand;
 import dukecooks.logic.commands.exercise.EditExerciseCommand;
 import dukecooks.logic.commands.health.EditRecordCommand;
 import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
@@ -15,6 +16,7 @@ import dukecooks.logic.commands.profile.EditProfileCommand;
 import dukecooks.logic.commands.recipe.EditRecipeCommand;
 import dukecooks.logic.parser.dashboard.EditTaskCommandParser;
 import dukecooks.logic.parser.diary.EditDiaryCommandParser;
+import dukecooks.logic.parser.diary.EditPageCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.exercise.EditExerciseCommandParser;
 import dukecooks.logic.parser.health.EditRecordCommandParser;
@@ -62,6 +64,9 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         case EditDiaryCommand.VARIANT_WORD:
             return new EditDiaryCommandParser().parse(arguments);
+
+        case EditPageCommand.VARIANT_WORD:
+            return new EditPageCommandParser().parse(arguments);
 
         case EditExerciseCommand.VARIANT_WORD:
             return new EditExerciseCommandParser().parse(arguments);
