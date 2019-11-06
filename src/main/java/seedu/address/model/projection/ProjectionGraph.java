@@ -1,5 +1,6 @@
 package seedu.address.model.projection;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 import javafx.scene.chart.LineChart;
@@ -18,7 +19,7 @@ import seedu.address.model.util.GradientDescent;
 public class ProjectionGraph extends StackPane {
 
     private GradientDescent gradientDescent;
-    private Budget budget;
+    private List<Budget> budgets;
     private NumberAxis xAxis;
     private NumberAxis yAxis;
     private double xMax;
@@ -32,7 +33,7 @@ public class ProjectionGraph extends StackPane {
 
     ProjectionGraph(Projection projection) {
         this.gradientDescent = projection.getProjector();
-        this.budget = projection.getBudget().orElse(null);
+        this.budgets = projection.getBudgets().orElse(null);
 
         // define axes
         this.xAxis = defineXAxis();
@@ -41,7 +42,7 @@ public class ProjectionGraph extends StackPane {
         // draw charts
         drawTransactionScatterChart();
         drawProjectionLineChart();
-        if (this.budget != null) {
+        if (this.budgets != null) {
             drawBudgetLineChart();
         }
     }
@@ -71,8 +72,10 @@ public class ProjectionGraph extends StackPane {
      */
     private void drawBudgetLineChart() {
         LineChart<Number, Number> budgetLine = createBudgetLine();
-        XYChart.Series<Number, Number> budgetSeries = defineBudgetSeries();
-        budgetLine.getData().add(budgetSeries);
+        IntStream.range(0, this.budgets.size()).forEach(x -> {
+            XYChart.Series<Number, Number> budgetSeries = defineBudgetSeries(x);
+            budgetLine.getData().add(budgetSeries);
+        });
         this.getChildren().add(budgetLine);
     }
 
@@ -81,12 +84,10 @@ public class ProjectionGraph extends StackPane {
      */
     private LineChart<Number, Number> createBudgetLine() {
         final LineChart<Number, Number> budgetLine = new LineChart<>(this.xAxis, this.yAxis);
-        budgetLine.setLegendVisible(false);
-        budgetLine.setCreateSymbols(true);
         budgetLine.setHorizontalGridLinesVisible(false);
         budgetLine.setVerticalGridLinesVisible(false);
         budgetLine.getXAxis().setVisible(false);
-        budgetLine.getYAxis().setVisible(false);
+        budgetLine.setTitle(String.format("Balance Projection over %.0f days", this.xRange));
         budgetLine.getStylesheets().addAll(getClass().getResource("/view/BudgetLineChart.css").toExternalForm());
         return budgetLine;
     }
@@ -96,7 +97,8 @@ public class ProjectionGraph extends StackPane {
      */
     private ScatterChart<Number, Number> createTransactionPlot() {
         final ScatterChart<Number, Number> transactionPlot = new ScatterChart<>(this.xAxis, this.yAxis);
-        transactionPlot.setLegendVisible(false);
+        transactionPlot.getXAxis().setVisible(false);
+        transactionPlot.setTitle(String.format("Balance Projection over %.0f days", this.xRange));
         return transactionPlot;
     }
 
@@ -105,13 +107,8 @@ public class ProjectionGraph extends StackPane {
      */
     private LineChart<Number, Number> createProjectionLine() {
         final LineChart<Number, Number> projectionLine = new LineChart<>(this.xAxis, this.yAxis);
-        projectionLine.setLegendVisible(false);
-        projectionLine.setCreateSymbols(true);
-        projectionLine.setHorizontalGridLinesVisible(false);
         projectionLine.setVerticalGridLinesVisible(false);
         projectionLine.getXAxis().setVisible(false);
-        projectionLine.getYAxis().setVisible(false);
-        projectionLine.setCreateSymbols(false);
         projectionLine.setTitle(String.format("Balance Projection over %.0f days", this.xRange));
         projectionLine.getStylesheets().addAll(getClass()
                 .getResource("/view/ProjectionLineChart.css").toExternalForm());
@@ -123,10 +120,10 @@ public class ProjectionGraph extends StackPane {
      */
     private XYChart.Series<Number, Number> defineProjectionSeries() {
         XYChart.Series<Number, Number> projectionSeries = new XYChart.Series<>();
-        projectionSeries.setName("Projection Line");
         projectionSeries.getData().add(new XYChart.Data<>(gradientDescent.getVariable(), gradientDescent.getResult()));
         projectionSeries.getData().add(
                 new XYChart.Data<>(gradientDescent.getMinData(), gradientDescent.getMinOutput()));
+        projectionSeries.setName("Projection Line");
         return projectionSeries;
     }
 
@@ -146,13 +143,13 @@ public class ProjectionGraph extends StackPane {
     /**
      * @return an {@code XYChart.Series} representing the user's budget
      */
-    private XYChart.Series<Number, Number> defineBudgetSeries() {
+    private XYChart.Series<Number, Number> defineBudgetSeries(int idx) {
         XYChart.Series<Number, Number> budgetSeries = new XYChart.Series<>();
-        budgetSeries.setName("Budget Line");
+        budgetSeries.setName(this.budgets.get(idx).toString());
         budgetSeries.getData().add(new XYChart.Data<>(this.xAxis.getLowerBound() - this.xUnit,
-                this.budget.getBudget().getActualValue()));
-        budgetSeries.getData().add(new XYChart.Data<>(Date.daysBetween(Date.now(), this.budget.getDeadline()),
-                budget.getBudget().getActualValue()));
+                this.budgets.get(idx).getBudget().getActualValue()));
+        budgetSeries.getData().add(new XYChart.Data<>(Date.daysBetween(Date.now(), this.budgets.get(idx).getDeadline()),
+                budgets.get(idx).getBudget().getActualValue()));
         return budgetSeries;
     }
 
@@ -183,12 +180,14 @@ public class ProjectionGraph extends StackPane {
         yAxis.setLabel("Balance ($)");
         yAxis.setAutoRanging(false);
         this.yMin = Math.min(gradientDescent.getResult(), gradientDescent.getMinOutput());
-        if (this.budget != null) {
-            this.yMin = Math.min(yMin, this.budget.getBudget().getActualValue());
+        if (this.budgets != null) {
+            this.yMin = Math.min(yMin, this.budgets.stream()
+                    .mapToDouble(item -> item.getBudget().getActualValue()).min().getAsDouble());
         }
         this.yMax = Math.max(gradientDescent.getResult(), gradientDescent.getMaxOutput());
-        if (this.budget != null) {
-            this.yMax = Math.max(yMax, this.budget.getBudget().getActualValue());
+        if (this.budgets != null) {
+            this.yMax = Math.max(yMax, this.budgets.stream()
+                    .mapToDouble(item -> item.getBudget().getActualValue()).max().getAsDouble());
         }
         this.yRange = yMax - yMin;
         this.yUnit = Math.round(yRange / 10);

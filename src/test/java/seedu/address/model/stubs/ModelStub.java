@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -163,6 +164,16 @@ public class ModelStub implements Model {
     @Override
     public void updateFilteredLedgerList(Predicate<LedgerOperation> predicate) {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateProjectionsAfterDelete(BankAccountOperation deleted) throws CommandException {
+
+    }
+
+    @Override
+    public void updateProjectionsAfterAdd(BankAccountOperation added) throws CommandException {
+
     }
 
     @Override

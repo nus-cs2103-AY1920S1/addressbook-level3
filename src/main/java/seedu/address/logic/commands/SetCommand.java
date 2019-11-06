@@ -8,7 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.ui.tab.Tab;
 
 /**
@@ -49,6 +51,24 @@ public class SetCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, budget), false, false, Tab.BUDGET);
         } else {
             model.add(budget);
+            //TODO: updateProjectionsAfterAdd(Budget budget)
+//            model.getFilteredProjectionsList().forEach(x -> {
+//                if (x.getBudgets().isEmpty() && budget.isGeneral()) {
+//                    model.deleteProjection(x);
+//                    model.add(new Projection(x.getTransactionHistory(), x.getDate(),
+//                            model.getFilteredBudgetList().filtered(b -> b.isGeneral())));
+//                } else if (x.getCategory() != null) {
+//                    boolean categoryMatch = budget.getCategories().stream().anyMatch(c -> c.equals(x.getCategory()));
+//                    if (categoryMatch) {
+//                        UniqueBudgetList newBudgets = new UniqueBudgetList();
+//                        model.deleteProjection(x);
+//                        newBudgets.setBudgets(x.getBudgets().get());
+//                        newBudgets.add(budget);
+//                        model.add(new Projection(model.getFilteredTransactionList(), x.getDate(),
+//                                newBudgets.asUnmodifiableObservableList(), x.getCategory()));
+//                    }
+//                }
+//            });
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, budget), false, false, Tab.BUDGET);
         }

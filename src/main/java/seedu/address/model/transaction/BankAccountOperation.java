@@ -20,4 +20,6 @@ public interface BankAccountOperation {
     boolean isSameTransaction(BankAccountOperation transaction);
 
     Date getDate();
+
+    public boolean isGeneral();
 }

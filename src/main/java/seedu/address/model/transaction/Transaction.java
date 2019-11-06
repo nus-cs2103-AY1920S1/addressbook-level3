@@ -46,6 +46,10 @@ public abstract class Transaction implements UndoableAction {
         return Collections.unmodifiableSet(categories);
     }
 
+    public boolean isGeneral() {
+        return this.categories.contains(Category.GENERAL);
+    }
+
     public Description getDescription() {
         return description;
     }

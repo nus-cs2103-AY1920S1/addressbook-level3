@@ -27,6 +27,7 @@
                     </minWidth>
                 </Label>
                 <Label fx:id="amount" styleClass="cell_big_label" text="\$first"/>
+                <Label fx:id="category" styleClass="categoryLabel"/>
             </HBox>
             <Label fx:id="date" styleClass="cell_small_label" text="\$date"/>
             <FlowPane fx:id="budgetInfo" hgap="8.0"/>
