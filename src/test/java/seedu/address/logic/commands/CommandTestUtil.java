@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -410,6 +411,20 @@ public class CommandTestUtil {
         model.updateFilteredOrderList(new OrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredOrderList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the order at the given {@code targetIndex} in the
+     * {@code model}'s schedule book.
+     */
+    public static void showScheduleAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredScheduleList().size());
+
+        Schedule schedule = model.getFilteredScheduleList().get(targetIndex.getZeroBased());
+        final UUID scheduleId = schedule.getId();
+        model.updateFilteredScheduleList(x -> x.getId().equals(scheduleId));
+
+        assertEquals(1, model.getFilteredScheduleList().size());
     }
 
 
