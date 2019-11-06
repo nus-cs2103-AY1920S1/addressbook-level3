@@ -22,7 +22,6 @@ import seedu.tarence.model.student.MatricNum;
 import seedu.tarence.model.student.NusnetId;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
-import seedu.tarence.model.tutorial.exceptions.StudentNotFoundException;
 import seedu.tarence.storage.Storage;
 
 /**
@@ -81,7 +80,7 @@ public class EditCommand extends Command {
 
         Student studentToEdit = lastShownList.get(index.getZeroBased());
         if (studentToEdit == null) {
-            throw new StudentNotFoundException();
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 

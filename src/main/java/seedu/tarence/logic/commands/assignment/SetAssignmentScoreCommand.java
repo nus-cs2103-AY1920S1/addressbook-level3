@@ -22,6 +22,7 @@ import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.exceptions.InvalidScoreException;
+import seedu.tarence.model.tutorial.exceptions.StudentNotFoundException;
 import seedu.tarence.storage.Storage;
 
 /**
@@ -125,6 +126,8 @@ public class SetAssignmentScoreCommand extends AssignmentCommand {
             targetTutorial.setScore(targetAssignment, targetStudent, score.get());
         } catch (InvalidScoreException e) {
             throw new CommandException(e.getMessage());
+        } catch (StudentNotFoundException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_IN_TUTORIAL);
         }
 
         Map<Student, Integer> scores = targetTutorial.getAssignmentScores(targetAssignment);

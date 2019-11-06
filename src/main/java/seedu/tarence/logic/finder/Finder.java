@@ -182,9 +182,9 @@ public class Finder {
 
         return Stream.of("addAssignment", "addEvent", "addModule", "addStudent", "addTutorial", "changeTab",
                 "deleteAssignment", "deleteEvent", "deleteModule", "deleteStudent", "deleteTutorial",
-                "displayAssignmentScore", "displayAttendance", "edit", "editEvent", "exit",
+                "displayAssignments", "displayAssignmentScore", "displayAttendance", "edit", "editEvent", "exit",
                 "exportAttendance", "find", "help", "import", "list", "listEvents", "markAttendance",
-                "setAssignmentScore", "setSemStart")
+                "setAssignmentScore", "setSemStart", "undo")
                 .filter(command -> command.toLowerCase().startsWith(partialCommand.strip().toLowerCase()))
                 .collect(Collectors.toList());
 

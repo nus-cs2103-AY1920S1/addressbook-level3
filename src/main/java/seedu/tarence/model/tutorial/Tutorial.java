@@ -172,27 +172,36 @@ public class Tutorial {
         if (Module.getSemStart() == null) {
             return tutorialEvents;
         }
-        Week currWeek = timeTable.getCurrWeek();
-        if (currWeek == null) {
+        if (Module.getSemStart().compareTo(new Date()) > 0) {
             return tutorialEvents;
         }
         Calendar startEvent = new Calendar.Builder().setInstant(Module.getSemStart()).build();
-        startEvent.set(Calendar.DAY_OF_WEEK, timeTable.getDay().getValue());
+        // For some reason if you don't increment the day of week by 1 it will produce the previous day
+        // when converted into Date
+        startEvent.set(Calendar.DAY_OF_WEEK, timeTable.getDay().getValue() + 1);
         startEvent.set(Calendar.HOUR, timeTable.getStartTime().getHour());
         startEvent.set(Calendar.MINUTE, timeTable.getStartTime().getMinute());
         Calendar endEvent = (Calendar) startEvent.clone();
         endEvent = new Calendar.Builder()
             .setInstant(Date.from(endEvent.getTime().toInstant().plus(timeTable.getDuration())))
             .build();
-        for (Week week : timeTable.getWeeks()) {
-            if (week.compareTo(currWeek) <= 0) {
-                Event tutEvent = new Event(tutName.tutName + " " + modCode.modCode,
-                        startEvent.getTime(),
-                        endEvent.getTime());
-                tutorialEvents.add(tutEvent);
+        for (int i = 1; i <= 13; i++) {
+            Week week = new Week(i);
+            if (timeTable.getWeeks().contains(week)) {
+                if (endEvent.compareTo(Calendar.getInstance()) <= 0) {
+                    Event tutEvent = new Event(tutName.tutName + " " + modCode.modCode,
+                            startEvent.getTime(),
+                            endEvent.getTime());
+                    tutorialEvents.add(tutEvent);
+                }
             }
             startEvent.add(Calendar.DAY_OF_MONTH, 7);
             endEvent.add(Calendar.DAY_OF_MONTH, 7);
+            // Recess week
+            if (i == 6) {
+                startEvent.add(Calendar.DAY_OF_MONTH, 7);
+                endEvent.add(Calendar.DAY_OF_MONTH, 7);
+            }
         }
         return tutorialEvents;
     }
@@ -350,6 +359,9 @@ public class Tutorial {
             throw new InvalidScoreException();
         }
         Map<Student, Integer> assignmentScores = getAssignmentScores(assignment);
+        if (!students.contains(student)) {
+            throw new StudentNotFoundException();
+        }
         assignmentScores.put(student, score);
     }
 

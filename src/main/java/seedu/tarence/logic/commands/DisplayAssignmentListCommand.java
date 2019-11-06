@@ -1,7 +1,6 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.List;
 
@@ -21,15 +20,15 @@ public class DisplayAssignmentListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Assignments are displayed!";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "lista",
-        "listAssignments"};
+        "listassignments"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays the tutorial assignments identified by the tutorial index.\n"
             + "Parameters:\n"
-            + PREFIX_INDEX + "TUTORIAL_INDEX "
+            + "TUTORIAL_INDEX\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_INDEX + "1 "
+            + "1\n"
             + "Synonyms:\n"
             + String.join("\n", COMMAND_SYNONYMS);
 
