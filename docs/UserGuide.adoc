@@ -186,12 +186,15 @@ Examples:
 Scrolls the list up/down
 
 Examples:
+
 * `up`
 * `down`
 
 === Changing the theme : `theme`
 
 Changes the theme of Elisa!
+
+Examples:
 
 * `theme white`
 * `theme black`
