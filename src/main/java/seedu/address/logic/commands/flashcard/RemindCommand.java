@@ -8,14 +8,13 @@ import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.RemindFeatureUtil;
 import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 
 /**
- *
+ * Reminds the user about due and overdue flashcards.
  */
 public class RemindCommand extends Command {
 
@@ -26,10 +25,10 @@ public class RemindCommand extends Command {
     private RemindFeatureUtil remindFeatureUtil = new RemindFeatureUtil();
 
     /**
-     *
-     * @param overdueFlashcards
-     * @param dueFlashcards
-     * @return
+     * Formats output of list of due and overdue flashcards to the user.
+     * @param overdueFlashcards list of overdue flashcards
+     * @param dueFlashcards list of due flashcards
+     * @return String output for the user.
      */
     public String stringOutputFormatHelper(List<Flashcard> overdueFlashcards, List<Flashcard> dueFlashcards) {
         StringBuilder sb = new StringBuilder();

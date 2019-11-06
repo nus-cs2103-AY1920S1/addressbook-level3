@@ -4,15 +4,21 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Package Logic <<Rectangle>>{
+Class NoteFeatureUtil LOGIC_COLOR
+}
+
 Package Model <<Rectangle>>{
-Class AddressBook
+Class StudyBuddyItem
+Class StudyBuddyBook
 Class ModelManager
 Class UniqueNoteList
 
 Package Note {
 Class Note
-Class Title
+Class NoteFragment
 Class Content
+Class Title
 }
 
 Package Tag {
@@ -20,13 +26,19 @@ Class Tag
 }
 }
 
-ModelManager o-left-> "1" AddressBook
+Title -right[hidden]- Content
 
-AddressBook *--> "1" UniqueNoteList
-UniqueNoteList o-left-> "*" Note
-Note *--> "1" Title
+ModelManager ---> "1" Note : filtered list
+UniqueNoteList o--> "*" Note
+ModelManager o-left-> "1" StudyBuddyBook
+StudyBuddyBook *-down-> "1" UniqueNoteList
+Note o--> "*" NoteFragment
+NoteFragment --|> Note
+Note -right-> NoteFeatureUtil
+Note -left-|> StudyBuddyItem
 Note *--> "1" Content
-Note *--> "*" Tag
+Note *--> "1" Title
+Note o-up-> "*" Tag
+NoteFeatureUtil --> NoteFragment
 
-ModelManager -->"1" Note : filtered list
 @enduml

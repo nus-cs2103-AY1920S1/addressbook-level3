@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.ADD;
 import static seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand.createEditedCheatSheet;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class AddCheatSheetCommand extends Command {
     public static final String COMMAND_WORD = ADD;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a cheatsheet. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_TITLE + "TITLE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
@@ -40,6 +41,9 @@ public class AddCheatSheetCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New cheatsheet added: %1$s";
     public static final String MESSAGE_DUPLICATE_CHEATSHEET = "This cheatsheet already exists";
+    public static final String MESSAGE_SUCCESSFUL_AUTOGENERATE =
+            " content(s) have been successfully generated from the other modes.";
+    public static final String MESSAGE_TAG_RESTRICTION = "Each cheatsheet must have at least 1 tag specified.";
 
     private final CheatSheet toAdd;
 
@@ -64,11 +68,10 @@ public class AddCheatSheetCommand extends Command {
         edit.setContents(getRelevantContents(toAdd.getTags(), model));
         CheatSheet editedCheatSheet = createEditedCheatSheet(toAdd, edit, true);
 
-
-
         model.setCheatSheet(toAdd, editedCheatSheet);
-
-        return new CheatSheetCommandResult(String.format(MESSAGE_SUCCESS, editedCheatSheet));
+        int numberOfContentPulled = editedCheatSheet.getContents().size();
+        return new CheatSheetCommandResult(String.format(MESSAGE_SUCCESS, editedCheatSheet)
+        + "\n" + numberOfContentPulled + MESSAGE_SUCCESSFUL_AUTOGENERATE);
     }
 
     @Override
@@ -79,10 +82,9 @@ public class AddCheatSheetCommand extends Command {
     }
 
     /**
-     * Retrieves all the notes with the relevant tags
+     * Retrieves all the notes and flashcards with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
-        Content.resetCounter();
         Set<Content> contentList = new HashSet<>();
 
         // get all notes
@@ -91,7 +93,25 @@ public class AddCheatSheetCommand extends Command {
         ObservableList<Note> noteList = model.getFilteredNoteList();
 
         for (Note note: noteList) {
-            contentList.add(new Content(note.getContent().toString()));
+            try {
+                contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
+            } catch (IllegalArgumentException ignored) {
+                // ignore invalid content
+            }
+        }
+
+        // get all note fragments
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        noteList = model.getFilteredNoteList();
+
+        for (Note note : noteList) {
+            for (Note noteFrag : note.getFilteredNoteFragments(noteTagPredicate)) {
+                try {
+                    contentList.add(new Content(noteFrag.getContent().toString(), noteFrag.getTags()));
+                } catch (IllegalArgumentException ignored) {
+                    // ignore invalid content
+                }
+            }
         }
 
         // get all flashcards
@@ -100,10 +120,10 @@ public class AddCheatSheetCommand extends Command {
         ObservableList<Flashcard> flashcardList = model.getFilteredFlashcardList();
 
         for (Flashcard flashcard: flashcardList) {
-            contentList.add(new Content(flashcard.getQuestion().toString(), flashcard.getAnswer().toString()));
+            contentList.add(new Content(flashcard.getQuestion().toString(), flashcard.getAnswer().toString(),
+                    flashcard.getTags()));
         }
 
-        Content.resetCounter();
         return contentList;
     }
 }

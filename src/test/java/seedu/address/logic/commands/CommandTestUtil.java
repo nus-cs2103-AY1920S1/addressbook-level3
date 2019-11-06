@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -14,16 +15,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.person.EditCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.StudyBuddyPro;
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.cheatsheet.TitleContainsKeywordsPredicate;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardTitleContainsKeywordsPredicate;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteTitleContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditCheatSheetDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -34,11 +39,31 @@ public class CommandTestUtil {
     public static final String VALID_QUESTION_ONE = "What is the IntelliJ keyboard shortcut to find a class, file or "
             + "symbol?";
     public static final String VALID_ANSWER_ONE = "Ctrl + Shift + N";
+    public static final String VALID_TITLE_ONE = "IntelliJ Question 1";
     public static final String VALID_QUESTION_TWO = "What is the IntelliJ keyboard shortcut to highlight all "
             + "occurrences of the selected fragment in the current file?";
     public static final String VALID_ANSWER_TWO = "Ctrl + Shift + F7";
+    public static final String VALID_TITLE_TWO = "IntelliJ Question 2";
     public static final String VALID_TAG_INTELLIJ = "IntelliJ";
     public static final String VALID_TAG_SHORTCUTS = "Shortcuts";
+    public static final String VALID_TAG_CHEATSHEET = "cheatsheet";
+    public static final String VALID_TAG_FORMULA = "formula";
+    public static final String VALID_TAG_IMPORTANT = "important";
+
+    public static final String VALID_TITLE_MATH = "maths";
+    public static final String VALID_TITLE_GEM = "gem module";
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "Title&"; // '&' not allowed in titles
+
+    public static final String VALID_CONTENT_MATH = "math";
+    public static final String VALID_CONTENT_SCIENCE = "science";
+    public static final String VALID_CONTENT_CHINESE = "chinese";
+    public static final String VALID_CONTENT_ENGLISH = "english";
+    public static final String VALID_CONTENT_PE = "physical education";
+
+    public static final String TITLE_DESC_CS1 = " " + PREFIX_TITLE + VALID_TITLE_MATH;
+    public static final String TITLE_DESC_CS2 = " " + PREFIX_TITLE + VALID_TITLE_GEM;
+    public static final String TAG_DESC_CHEATSHEET = " " + PREFIX_TAG + VALID_TAG_CHEATSHEET;
+    public static final String TAG_DESC_IMPORTANT = " " + PREFIX_TAG + VALID_TAG_IMPORTANT;
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -91,6 +116,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final EditCheatSheetCommand.EditCheatSheetDescriptor DESC_CS6;
+    public static final EditCheatSheetCommand.EditCheatSheetDescriptor DESC_CS7;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -98,6 +126,12 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
+        DESC_CS6 = new EditCheatSheetDescriptorBuilder()
+                .withTitle(VALID_TITLE_MATH).withTags(VALID_TAG_CHEATSHEET).build();
+
+        DESC_CS7 = new EditCheatSheetDescriptorBuilder()
+                .withTitle(VALID_TITLE_GEM).withTags(VALID_TAG_CHEATSHEET, VALID_TAG_FORMULA).build();
     }
 
     /**
@@ -142,11 +176,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        StudyBuddyPro expectedStudyBuddyPro = new StudyBuddyPro(actualModel.getStudyBuddyPro());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedStudyBuddyPro, actualModel.getStudyBuddyPro());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 
@@ -155,7 +189,6 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-//        System.out.println("Person: " + targetIndex.getZeroBased());
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
@@ -163,6 +196,20 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the cheatsheet at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showCheatSheetAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCheatSheetList().size());
+
+        CheatSheet cheatSheet = model.getFilteredCheatSheetList().get(targetIndex.getZeroBased());
+        final String[] splitTitle = cheatSheet.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredCheatSheetList(new TitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+
+        assertEquals(1, model.getFilteredCheatSheetList().size());
     }
 
     /**

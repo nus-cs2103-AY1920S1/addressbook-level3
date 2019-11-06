@@ -143,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getStudyBuddyProFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -261,6 +261,10 @@ public class MainWindow extends UiPart<Stage> {
     private void executeCheatSheetCommandHelper(CheatSheetCommandResult cheatSheetCommandResult) {
         if (cheatSheetCommandResult.getCheatSheet().isPresent()) {
             activityWindow.displayCheatSheet(cheatSheetCommandResult.getCheatSheet().get());
+        } else if (cheatSheetCommandResult.isSwitchTags()) {
+            activityWindow.switchCheatSheetContent(cheatSheetCommandResult.getTagIndex().get());
+        } else {
+            activityWindow.displayEmptyCheatSheet();
         }
     }
 

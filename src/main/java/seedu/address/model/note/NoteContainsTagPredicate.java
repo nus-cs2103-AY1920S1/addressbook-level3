@@ -18,8 +18,14 @@ public class NoteContainsTagPredicate implements Predicate<Note> {
     // test on the note to see if he has the tag
     @Override
     public boolean test(Note note) {
-        return tags.stream()
-                .anyMatch(note::containsTag);
+        boolean hasMatchingTags;
+        if (tags.isEmpty()) {
+            hasMatchingTags = false;
+        } else {
+            hasMatchingTags = tags.stream()
+                    .allMatch(note::containsTag);
+        }
+        return hasMatchingTags;
     }
 
     @Override

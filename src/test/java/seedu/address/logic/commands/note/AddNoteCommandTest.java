@@ -20,11 +20,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.FunctionMode;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.StudyBuddyCounter;
 import seedu.address.model.StudyBuddyItem;
+import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -40,13 +41,26 @@ public class AddNoteCommandTest {
     }
 
     @Test
-    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_noteWithNoNoteFragments_addSuccessful() throws Exception {
         ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
         Note validNote = new NoteBuilder().build();
 
         CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
 
-        assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote.toStringWithNoteFragments()),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
+    }
+
+    @Test
+    public void execute_noteWithMultipleNoteFragments_addSuccessful() throws Exception {
+        ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
+        Note validNote = new NoteBuilder().withContent(NoteBuilder.EXTRA_CONTENT).build();
+
+        CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
+
+        assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote.toStringWithNoteFragments()),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
 
@@ -123,12 +137,12 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getStudyBuddyProFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setStudyBuddyProFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -143,12 +157,12 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setStudyBuddyPro(ReadOnlyStudyBuddyPro newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyStudyBuddyPro getStudyBuddyPro() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -242,6 +256,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public <T> String formatList(FilteredList<T> object) {
             throw new AssertionError("This method should not be called.");
         }
@@ -305,6 +324,10 @@ public class AddNoteCommandTest {
         public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        public ArrayList<String> getListOfTags() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -326,7 +349,7 @@ public class AddNoteCommandTest {
     }
 
     /**
-     * A Model stub that always accept the note being added.
+     * A Model stub that always accepts the note being added.
      */
     private class ModelStubAcceptingNoteAdded extends ModelStub {
         final ArrayList<Note> notesAdded = new ArrayList<>();
@@ -344,8 +367,8 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyStudyBuddyPro getStudyBuddyPro() {
+            return new StudyBuddyPro();
         }
     }
 

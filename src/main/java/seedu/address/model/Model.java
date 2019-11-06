@@ -57,20 +57,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getStudyBuddyProFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setStudyBuddyProFilePath(Path addressBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyStudyBuddyPro getStudyBuddyPro();
 
     /** Returns an unmodifiable view of the filtered note list */
     ObservableList<Tag> getFilteredTagList();
@@ -242,5 +242,9 @@ public interface Model {
      * @return arraylist of tagged flashcards that contains the specified tag
      */
     public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate);
+
+    public ArrayList<String> getListOfTags();
+
+    public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList);
 
 }

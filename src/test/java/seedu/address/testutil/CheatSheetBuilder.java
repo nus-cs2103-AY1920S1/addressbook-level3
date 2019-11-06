@@ -14,8 +14,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CheatSheetBuilder {
 
-    public static final String DEFAULT_TITLE = "cs2100 finals";
-    public static final String DEFAULT_CONTENT = "110 in binary is 5 in decimal";
+    public static final String DEFAULT_TITLE = "title";
 
     private Title title;
     private Set<Content> contents;
@@ -23,9 +22,7 @@ public class CheatSheetBuilder {
 
     public CheatSheetBuilder() {
         title = new Title(DEFAULT_TITLE);
-        Set<Content> contents = new HashSet<>();
-        contents.add(new Content(DEFAULT_CONTENT));
-        this.contents = contents;
+        this.contents = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -55,11 +52,11 @@ public class CheatSheetBuilder {
     }
 
     /**
-     * Sets the {@code Content} of the {@code CheatSheet} that we are building.
+     * Parses the {@code contents} into a {@code Set<Content>}
+     * and set it to the {@code CheatSheet} that we are building.
      */
-    public CheatSheetBuilder withContent(String content) {
-        Set<Content> contents = new HashSet<>();
-        contents.add(new Content(content));
+    public CheatSheetBuilder withContents(String ... contents) {
+        this.contents = SampleDataUtil.getContentSet(contents);
         return this;
     }
 

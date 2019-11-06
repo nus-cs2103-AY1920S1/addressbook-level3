@@ -17,6 +17,9 @@ public class NoteBuilder {
     public static final String DEFAULT_TITLE = "Pipeline Definition";
     public static final String DEFAULT_CONTENT = "Pipelining is a process where a processor simultaneously runs "
             + "multiple instructions";
+    public static final String EXTRA_CONTENT = "Pipelining is a /* C/process TAG/important */ where a /* C/processor "
+            + "TAG/cs2100 TAG/cheatsheet */ simultaneously runs multiple instructions. tag/cs";
+
 
     private Title title;
     private Content phone;

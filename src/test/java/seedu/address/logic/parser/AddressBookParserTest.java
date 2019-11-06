@@ -14,14 +14,14 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.logic.commands.person.AddCommand;
-//import seedu.address.logic.commands.ClearCommand;
+//import seedu.address.logic.commands.global.ClearCommand;
 //import seedu.address.logic.commands.person.DeleteCommand;
 //import seedu.address.logic.commands.person.EditCommand;
 //import seedu.address.logic.commands.person.EditCommand.EditPersonDescriptor;
 //import seedu.address.logic.commands.global.ExitCommand;
 //import seedu.address.logic.commands.person.FindCommand;
 //import seedu.address.logic.commands.global.HelpCommand;
-//import seedu.address.logic.commands.ListCommand;
+//import seedu.address.logic.commands.global.ListCommand;
 //import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
 //import seedu.address.model.person.Person;
@@ -31,7 +31,7 @@
 //
 //public class AddressBookParserTest {
 //
-//    private final AddressBookParser parser = new AddressBookParser();
+//    private final StudyBuddyProParser parser = new StudyBuddyProParser();
 //
 ////    @Test
 ////    public void parseCommand_add() throws Exception {

@@ -6,9 +6,6 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":StudyBuddyParser" as StudyBuddyParser LOGIC_COLOR
 participant ":AddCheatSheetCommandParser" as AddCheatSheetCommandParser LOGIC_COLOR
 participant "cs:AddCheatSheetCommand" as AddCheatSheetCommand LOGIC_COLOR
-participant "edit:EditCheatSheetDescriptor" as EditCheatSheetDescriptor LOGIC_COLOR
-participant "editedCheatSheet:CheatSheet" as CheatSheet LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -47,50 +44,9 @@ deactivate StudyBuddyParser
 LogicManager -> AddCheatSheetCommand : execute()
 activate AddCheatSheetCommand
 
-AddCheatSheetCommand -> Model : addCheatSheet(toAdd)
-activate Model
-
-Model --> AddCheatSheetCommand
-deactivate Model
-
-create EditCheatSheetDescriptor
-AddCheatSheetCommand -> EditCheatSheetDescriptor
-activate EditCheatSheetDescriptor
-
-EditCheatSheetDescriptor --> AddCheatSheetCommand
-deactivate EditCheatSheetDescriptor
-
-AddCheatSheetCommand -> AddCheatSheetCommand : getRelevantContents(tags, model)
-activate AddCheatSheetCommand
-
-AddCheatSheetCommand --> AddCheatSheetCommand : contents
-deactivate AddCheatSheetCommand
-
-AddCheatSheetCommand -> EditCheatSheetDescriptor : setContents(contents)
-activate EditCheatSheetDescriptor
-
-EditCheatSheetDescriptor --> AddCheatSheetCommand
-deactivate EditCheatSheetDescriptor
-
-create CheatSheet
-AddCheatSheetCommand -> CheatSheet : createEditedCheatSheet(toAdd, edit, true)
-activate CheatSheet
-
-CheatSheet --> AddCheatSheetCommand
-deactivate CheatSheet
-
-AddCheatSheetCommand -> Model : setCheatSheet(toAdd, editedCheatSheet)
-activate Model
-
-Model --> AddCheatSheetCommand
-deactivate Model
-
-create CommandResult
-AddCheatSheetCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> AddCheatSheetCommand
-deactivate CommandResult
+ref over AddCheatSheetCommand
+    retrieving relevant tagged contents
+end ref
 
 AddCheatSheetCommand --> LogicManager : result
 deactivate AddCheatSheetCommand
