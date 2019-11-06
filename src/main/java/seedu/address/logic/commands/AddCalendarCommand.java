@@ -15,7 +15,7 @@ import seedu.address.model.calendar.CalendarWrapper;
 public class AddCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "add-calendar";
-    public static final String PREFIX_USAGE = "mn/ {FILEPATH}";
+    public static final String PREFIX_USAGE = PREFIX_MEMBER_NAME + " " + PREFIX_FILE_PATH;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a calendar. "
             + "Parameters: "

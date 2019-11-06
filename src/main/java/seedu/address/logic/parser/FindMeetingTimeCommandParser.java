@@ -35,11 +35,6 @@ public class FindMeetingTimeCommandParser implements Parser<FindMeetingTimeComma
         LocalDateTime startPeriod = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_START_PERIOD).get());
         LocalDateTime endPeriod = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_END_PERIOD).get());
         Duration durationHours = ParserUtil.parseHours(argMultimap.getValue(PREFIX_DURATION_HOURS).get());
-        //Sample FindMeetingTimeCommand
-//        LocalDateTime startDate = LocalDateTime.parse("2019-10-28T00:00:00");
-//        LocalDateTime endDate = LocalDateTime.parse("2019-11-01T17:00:00");
-//        Duration meetingDuration = Duration.ofHours(4);
-//        return new FindMeetingTimeCommand(startDate, endDate, meetingDuration);
         return new FindMeetingTimeCommand(startPeriod, endPeriod, durationHours);
     }
 

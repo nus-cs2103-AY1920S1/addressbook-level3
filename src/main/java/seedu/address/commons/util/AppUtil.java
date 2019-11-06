@@ -56,7 +56,7 @@ public class AppUtil {
     /**
      * Shutdown the thread that updated data when the task is done
      */
-    public static void shutDownDataWorker(ScheduledThreadPoolExecutor dataUpdateControl) {
+    private static void shutDownDataWorker(ScheduledThreadPoolExecutor dataUpdateControl) {
         dataUpdateControl.shutdown();
         try {
             if (!dataUpdateControl.awaitTermination(800, TimeUnit.MILLISECONDS)) {

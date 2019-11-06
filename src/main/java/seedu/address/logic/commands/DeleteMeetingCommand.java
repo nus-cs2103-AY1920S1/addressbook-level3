@@ -17,6 +17,7 @@ import seedu.address.model.calendar.Meeting;
 public class DeleteMeetingCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-meeting";
+    public static final String PREFIX_USAGE = PREFIX_MEETING_INDEX.toString();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the meeting identified by the index in the meeting list.\n"
