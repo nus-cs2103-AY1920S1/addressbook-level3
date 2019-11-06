@@ -119,6 +119,11 @@ public class Event {
             i++;
         }
         athleteRecords.remove(i);
+
+        // delete athlete from HashMap if they have no records
+        if (athleteRecords.isEmpty()) {
+            records.remove(athlete);
+        }
     }
 
     /**
