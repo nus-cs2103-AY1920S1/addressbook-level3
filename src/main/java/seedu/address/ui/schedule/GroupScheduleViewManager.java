@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.schedule;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

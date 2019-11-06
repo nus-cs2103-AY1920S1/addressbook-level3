@@ -9,7 +9,7 @@ import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
  */
 public class ToggleNextWeekCommand extends Command {
 
-    public static final String COMMAND_WORD = "nw";
+    public static final String COMMAND_WORD = "toggle";
     public static final String MESSAGE_SUCCESS = "Showing subsequent weeks' schedule! You can only view schedules up "
             + "to 4 weeks ahead.";
     public static final String MESSAGE_USAGE = "To view next week's schedule, type nw!";

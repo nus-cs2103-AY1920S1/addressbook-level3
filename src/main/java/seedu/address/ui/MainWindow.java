@@ -27,11 +27,14 @@ import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
-import seedu.address.ui.util.DefaultStartView;
-import seedu.address.ui.util.LocationPopup;
-import seedu.address.ui.util.LocationsView;
-import seedu.address.ui.util.TimeslotPopup;
-import seedu.address.ui.util.TimeslotView;
+import seedu.address.ui.schedule.GroupInformation;
+import seedu.address.ui.schedule.PersonDetailCard;
+import seedu.address.ui.schedule.ScheduleViewManager;
+import seedu.address.ui.home.DefaultStartView;
+import seedu.address.ui.popup.LocationPopup;
+import seedu.address.ui.popup.LocationsView;
+import seedu.address.ui.popup.TimeslotPopup;
+import seedu.address.ui.popup.TimeslotView;
 
 /**
  * The Main Window. Provides the basic application layout containing

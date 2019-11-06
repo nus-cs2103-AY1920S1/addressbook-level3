@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
-import seedu.address.ui.ScheduleView;
+import seedu.address.ui.schedule.ScheduleView;
 
 /**
  * Class to handle exporting visual representation of an individual.

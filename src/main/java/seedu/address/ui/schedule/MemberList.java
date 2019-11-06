@@ -1,4 +1,4 @@
-package seedu.address.ui.util;
+package seedu.address.ui.schedule;
 
 import java.util.List;
 

@@ -1,7 +1,8 @@
-package seedu.address.ui;
+package seedu.address.ui.schedule;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +22,10 @@ import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
+import seedu.address.ui.UiPart;
 import seedu.address.ui.util.DateFormatter;
-import seedu.address.ui.util.TimeFormatter;
+import seedu.address.ui.util.TimeUtil;
+import seedu.address.ui.util.ToolTipFormatter;
 
 /**
  * Class that creates the schedule view for the user to see combined schedules.
@@ -59,6 +62,7 @@ public class ScheduleView extends UiPart<Region> {
         this.colors = colors;
         this.now = date;
         this.title.setText(title + "'s Schedule");
+        //Set up empty cells and headers.
         initialiseDayHeaders();
         initialiseTimeSlotHeaders();
         initialiseEmptyTableContents();
@@ -83,7 +87,7 @@ public class ScheduleView extends UiPart<Region> {
      */
     private void initialiseTimeSlotHeaders() {
         for (int i = START_TIME; i <= END_TIME; i++) {
-            String time = TimeFormatter.formatIntToTime(i);
+            String time = TimeUtil.formatIntToTime(i);
             StackPane timeSlotHeader = createTimeSlotHeader(time);
             scheduleContentContainer.add(timeSlotHeader, 0, i - START_TIME);
         }
@@ -136,7 +140,7 @@ public class ScheduleView extends UiPart<Region> {
         Label dateLabel = new Label(DateFormatter.formatToString(date));
         VBox dayLabelContainer = new VBox();
         dayLabelContainer.getChildren().addAll(dayLabel, dateLabel);
-        //set the id for styling purposes.
+        //Set the id for styling purposes.
         dayLabel.setId("dayText");
         dateLabel.setId("dayDate");
         dayLabelContainer.setId("dayLabelContainer");
@@ -146,15 +150,15 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates a cell with the given time.
-     * @param time String representation of the time.
+     * @param header String representation of the time.
      * @return StackPane. The cell that contains this time;
      */
-    private StackPane createTimeSlotHeader(String time) {
+    private StackPane createTimeSlotHeader(String header) {
         StackPane timeLabelContainer = new StackPane();
-        Label timeLabel = new Label(time);
+        Label timeLabel = new Label(header);
         timeLabelContainer.getChildren().add(timeLabel);
-        timeLabelContainer.setId("timeslotLabelContainer");
         timeLabelContainer.setPrefHeight(ONE_HOUR_LENGTH);
+        timeLabelContainer.setId("timeslotLabelContainer");
         return timeLabelContainer;
     }
 
@@ -184,17 +188,6 @@ public class ScheduleView extends UiPart<Region> {
         return tableCell;
     }
 
-    //Pull this method out.
-    private static int getTimeDifference(int startTime, int endTime) {
-        int startTimeHours = startTime / 100;
-        int endTimeHours = endTime / 100;
-        int hours = endTimeHours - startTimeHours;
-        int startTimeMinutes = startTime % 100;
-        int endTimeMinutes = endTime % 100;
-        int minutes = endTimeMinutes - startTimeMinutes;
-        return hours * 60 + minutes;
-    }
-
     /**
      * Method to create a block that represents the occupied/busy time slots of an individual for a particular day.
      * @param daySchedule List that contains all occupied time slots of the individual on a particular day.
@@ -206,21 +199,19 @@ public class ScheduleView extends UiPart<Region> {
         timeslotContainer.setId("timeslotContainer");
         HBox.setHgrow(timeslotContainer, Priority.ALWAYS);
         timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
-        int originalTimeStamp = START_TIME * 100;
+        LocalTime originalTimeStamp = LocalTime.of(START_TIME, 0);
         for (int j = 0; j < daySchedule.size(); j++) {
             PersonTimeslot timeslot = daySchedule.get(j);
-            int startTime = TimeFormatter.formatTimeToInt(timeslot.getStartTime());
-            int endTime = TimeFormatter.formatTimeToInt(timeslot.getEndTime());
-            if (originalTimeStamp != startTime) {
-                int timeUntilBusy = getTimeDifference(originalTimeStamp, startTime);
+            LocalTime startTime = timeslot.getStartTime();
+            LocalTime endTime = timeslot.getEndTime();
+            if (!originalTimeStamp.equals(startTime)) {
+                int timeUntilBusy = TimeUtil.getTimeDifference(originalTimeStamp, startTime);
                 Region freeTimeslot = new Block(timeUntilBusy).makeEmptyBlock();
                 timeslotContainer.getChildren().add(freeTimeslot);
             }
-            String locationText = timeslot.getVenue().getVenue().trim().equals("") ? "" : " at " + timeslot.getVenue();
-            Region busyTimeslot = new Block(getTimeDifference(startTime, endTime))
+            Region busyTimeslot = new Block(TimeUtil.getTimeDifference(startTime, endTime))
                     .makeColouredBlockWithText(color, timeslot.getEventName(),
-                            timeslot.getEventName() + " " + timeslot.getStartTime() + " - "
-                                    + timeslot.getEndTime() + locationText);
+                            ToolTipFormatter.formatTooltipMessage(timeslot));
             timeslotContainer.getChildren().add(busyTimeslot);
             originalTimeStamp = endTime;
         }
@@ -251,16 +242,16 @@ public class ScheduleView extends UiPart<Region> {
     private VBox getDayVBoxOfFreeSchedule(ArrayList<FreeTimeslot> freeSchedule) {
         VBox timeslotContainer = new VBox();
         timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
-        int originalTimeStamp = START_TIME * 100;
+        LocalTime originalTimeStamp = LocalTime.of(START_TIME, 0);
         for (int j = 0; j < freeSchedule.size(); j++) {
             FreeTimeslot timeslot = freeSchedule.get(j);
-            int startTime = TimeFormatter.formatTimeToInt(timeslot.getStartTime());
-            int endTime = TimeFormatter.formatTimeToInt(timeslot.getEndTime());
+            LocalTime startTime = timeslot.getStartTime();
+            LocalTime endTime = timeslot.getEndTime();
             int timeslotId = timeslot.getId();
-            StackPane freeTime = new Block(getTimeDifference(startTime, endTime))
+            StackPane freeTime = new Block(TimeUtil.getTimeDifference(startTime, endTime))
                     .makeFreeBlock("" + timeslotId);
             if (originalTimeStamp != startTime) {
-                int timeUntilNext = getTimeDifference(originalTimeStamp, startTime);
+                int timeUntilNext = TimeUtil.getTimeDifference(originalTimeStamp, startTime);
                 Region untilNext = new Block(timeUntilNext).makeEmptyBlock();
                 timeslotContainer.getChildren().add(untilNext);
             }
@@ -315,6 +306,9 @@ public class ScheduleView extends UiPart<Region> {
          * @return StackPane.
          */
         private StackPane makeColouredBlockWithText(String color, String text, String tooltipMessage) {
+            //Ensure that the block must be greater than 10px in height otherwise block will become distorted.
+            assert heightOfTimeslot > 10;
+
             StackPane container = new StackPane();
             Region colouredBlock = makeColouredBlock(color);
             Label textLabel = new Label(text);
