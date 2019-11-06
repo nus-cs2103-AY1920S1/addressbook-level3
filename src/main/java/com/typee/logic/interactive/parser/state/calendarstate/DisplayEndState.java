@@ -19,7 +19,7 @@ import com.typee.logic.interactive.parser.state.StateTransitionException;
 public class DisplayEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Displayed engagements on the entered date.";
-    private static final String DATE_PATTERN = "dd/MM/yyyy";
+    private static final String DATE_PATTERN = "dd/MM/uuuu";
     private static final String MESSAGE_INVALID_INPUT = "Invalid command! Please enter a valid date.";
 
     protected DisplayEndState(ArgumentMultimap soFar) {
