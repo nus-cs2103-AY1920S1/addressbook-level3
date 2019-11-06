@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
+import com.typee.logic.commands.ClearCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.CurrentCommand;
@@ -23,6 +24,7 @@ import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
+import com.typee.logic.interactive.parser.state.clearmachine.ClearState;
 import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
@@ -36,13 +38,14 @@ import com.typee.logic.parser.exceptions.ParseException;
 public class Parser implements InteractiveParser {
 
     private static final String BUFFER_TEXT = " ";
-    private static final String MESSAGE_CLEAR_ALL = "// clear";
+    private static final String MESSAGE_CLEAR_ARGUMENTS = "// clear";
     private static final String MESSAGE_CURRENT = "// current";
     private static final String MESSAGE_MISSING_PREFIX = "Please input only the prefix %s and its argument."
             + " You may enter additional prefixes and arguments as long as they follow the specified ordering.";
     private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
             + " Please enter another command to get started!";
     private static final String MESSAGE_IDLE_STATE = "No command is being executed currently.";
+    public static final String REGEX_PATTERN_COMMAND_WORD = "^[a-zA-z]+";
 
     private State currentState;
     private State temporaryState;
@@ -58,7 +61,7 @@ public class Parser implements InteractiveParser {
 
     @Override
     public void parseInput(String commandText) throws ParseException {
-        if (isClearCommand(commandText)) {
+        if (isClearArgumentsCommand(commandText)) {
             resetParser();
             return;
         }
@@ -109,8 +112,8 @@ public class Parser implements InteractiveParser {
         return commandText.equalsIgnoreCase(MESSAGE_CURRENT);
     }
 
-    private boolean isClearCommand(String commandText) {
-        return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ALL);
+    private boolean isClearArgumentsCommand(String commandText) {
+        return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ARGUMENTS);
     }
 
     private void initializeAndParse(String commandText, Prefix... prefixes) throws ParseException {
@@ -239,6 +242,10 @@ public class Parser implements InteractiveParser {
             currentState = new PropertyState(new ArgumentMultimap());
             break;
 
+        case ClearCommand.COMMAND_WORD:
+            currentState = new ClearState(new ArgumentMultimap());
+            break;
+
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -257,7 +264,7 @@ public class Parser implements InteractiveParser {
     }
 
     private List<String> getAllCommandWords(String trimmedCommandText) {
-        Pattern pattern = Pattern.compile("^[a-zA-z]+");
+        Pattern pattern = Pattern.compile(REGEX_PATTERN_COMMAND_WORD);
         Matcher matcher = pattern.matcher(trimmedCommandText);
         List<String> commandWords = new ArrayList<>();
         while (matcher.find()) {
