@@ -31,7 +31,6 @@ import seedu.jarvis.model.planner.tasks.Task;
 /**
  * Parses input arguments and creates a new PullTaskCommand object
  */
-//TODO tests
 public class PullTaskCommandParser implements Parser<PullTaskCommand> {
 
 
