@@ -410,7 +410,7 @@ To get this figure:
 . And you can see a pie chart of the number of correctly and incorrectly answered questions.
 
 .The result of `stats d/easy s/cs2103t` command
-image::statistics/stats.png[600, 600]
+image::statistics/stats.PNG[600, 600]
 
 ==== Get questions with correct/incorrect answers: `question`
 Get a panel containing all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
@@ -429,7 +429,7 @@ To see the questions:
 your past answers to it as well as a break down of the number of questions by difficulty level.
 
 .The result of `question -i s/cs2103t`
-image::statistics/question.png[600, 600]
+image::statistics/question.PNG[600, 600]
 
 ==== Get a report for individual questions: `report`
 Returns a panel containing a report of how well you have answered a particular question
@@ -453,7 +453,7 @@ To see a report of the question:
 . And you can see all your attempts at the question as well as a pie chart of your results.
 
 .The result of `report 7` command
-image::statistics/report.png[600, 600]
+image::statistics/report.PNG[600, 600]
 
 ==== Get overview of questions attempted: `overview`
 Get an overview of the types of questions that have been attempted overall.
@@ -477,7 +477,7 @@ To see an overview of your results:
 . And you can see a stack bar chart of all questions that you have attempted from 20/10/2019 to 05/11/2019.
 
 .The result of `overview dt/20/10/2019 dt/06/11/2019` command
-image::statistics/overview.png[600, 600]
+image::statistics/overview.PNG[600, 600]
 // end::statistics[]
 
 === Revision tasks
