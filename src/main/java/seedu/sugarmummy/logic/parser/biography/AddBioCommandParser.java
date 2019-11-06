@@ -40,7 +40,7 @@ import seedu.sugarmummy.model.biography.ProfileDesc;
 import seedu.sugarmummy.model.biography.User;
 
 /**
- * Parses input arguments and creates a new AddBioCommand object
+ * Parses input arguments and creates a new AddBioCommand object.
  */
 public class AddBioCommandParser implements Parser<AddBioCommand> {
 

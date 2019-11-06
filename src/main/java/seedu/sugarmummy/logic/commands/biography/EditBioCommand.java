@@ -45,7 +45,7 @@ import seedu.sugarmummy.model.biography.User;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
- * Edits the details of an existing user in the address book.
+ * Edits the biography of the user.
  */
 public class EditBioCommand extends Command {
 

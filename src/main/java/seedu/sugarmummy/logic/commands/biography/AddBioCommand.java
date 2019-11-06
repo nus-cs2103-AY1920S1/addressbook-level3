@@ -22,7 +22,7 @@ import seedu.sugarmummy.model.biography.User;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
- * Adds a user to the address book.
+ * Adds the user's biography containing a minimum of name, contact number, emergency contact and medical conditions.
  */
 public class AddBioCommand extends Command {
 

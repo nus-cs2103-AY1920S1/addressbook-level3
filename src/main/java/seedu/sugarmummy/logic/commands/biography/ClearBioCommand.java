@@ -10,7 +10,7 @@ import seedu.sugarmummy.model.biography.UserList;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
- * Clears the address book.
+ * Clears the user's biography.
  */
 public class ClearBioCommand extends Command {
 
