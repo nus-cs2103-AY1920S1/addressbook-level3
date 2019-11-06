@@ -24,7 +24,8 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText, String currentTab) throws CommandException, ParseException, OnlineConnectionException;
+    CommandResult execute(String commandText, String currentTab) throws CommandException, ParseException,
+            OnlineConnectionException;
 
     /**
      * Returns the model.

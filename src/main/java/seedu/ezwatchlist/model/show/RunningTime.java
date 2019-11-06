@@ -12,8 +12,8 @@ public class RunningTime {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Running time cannot be blank and can take only non-negative integers.";
-    public static final String MESSAGE_CONSTRAINTS2 = MESSAGE_CONSTRAINTS +
-            "It cannot be more than JAVA max integer value";
+    public static final String MESSAGE_CONSTRAINTS2 = MESSAGE_CONSTRAINTS
+            + "It cannot be more than JAVA max integer value";
 
     public final int value;
 

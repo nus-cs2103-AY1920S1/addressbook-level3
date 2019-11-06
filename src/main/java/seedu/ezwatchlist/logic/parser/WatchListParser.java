@@ -40,12 +40,9 @@ public class WatchListParser {
      */
 
     public Command parseCommand(String userInput, String currentTab) throws ParseException, OnlineConnectionException {
-        /*if (shortCutKey(userInput)) {
-            return new GoToParser().parse(userInput);
-        }*
-
-         */
-        System.err.println(currentTab);
+        if (shortCutKey(userInput)) {
+            return new GoToParser().parse(userInput, currentTab);
+        }
 
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {

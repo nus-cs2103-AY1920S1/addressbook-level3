@@ -25,15 +25,8 @@ import seedu.ezwatchlist.testutil.ShowUtil;
 public class WatchListParserTest {
 
     private final WatchListParser parser = new WatchListParser();
+    private final String currentTab = "watchlist";
 
-    /*
-    @Test
-    public void parseCommand_add() throws Exception {
-        Show show = new ShowBuilder().build();
-        //AddCommand command = (AddCommand) parser.parseCommand(ShowUtil.getAddCommand(show));
-        //assertEquals(new AddCommand(show), command);
-    }
-     */
 
     @Test
     public void parseCommand_clear() throws Exception {

@@ -11,8 +11,6 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.List;
 
-import seedu.ezwatchlist.commons.core.Messages;
-import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;
@@ -53,8 +51,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS2 = "Sync movie: %1$s";
 
     public static final String UNSUCCESSFUL_INDEX = "Search Result Page is currently empty.";
-    public static final String UNSUCCESSFUL_LARGER = "The index is larger than the total number" +
-            " of shows in search page.";
+    public static final String UNSUCCESSFUL_LARGER = "The index is larger than the total number"
+            + " of shows in search page.";
     public static final String NOT_AT_SEARCH_LIST_PAGE = "'Add Index' command is only available in Search Panel";
 
     private final Show toAdd;
@@ -92,6 +90,13 @@ public class AddCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Retrieve movies from searchlist found in model.
+     * @param model
+     * @return
+     * @throws CommandException
+     */
+
     public CommandResult fromSearch(Model model) throws CommandException {
         List<Show> searchResultList = model.getSearchResultList();
         if (searchResultList.isEmpty()) {
@@ -100,7 +105,7 @@ public class AddCommand extends Command {
         if (index >= searchResultList.size()) {
             throw new CommandException(UNSUCCESSFUL_LARGER);
         }
-        Show fromImdb = searchResultList.get(index-1);
+        Show fromImdb = searchResultList.get(index - 1);
         if (model.hasShow(fromImdb)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }

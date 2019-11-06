@@ -13,10 +13,10 @@ import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Episode;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.RunningTime;
-import seedu.ezwatchlist.model.show.Episode;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -26,7 +26,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_NUM_OF_EPISODES = "Number of episodes is an unsigned integer.";
     public static final String MESSAGE_INVALID_NUM_OF_SEASONS = "Number of seasons is a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_INDEX2 = "Index cannot be equal or less than 0, or larger than Java Max Value";
+    public static final String MESSAGE_INVALID_INDEX2 = "Index cannot be equal or less than 0, or "
+            + "larger than Java Max Value";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Must be 'dd/MM/yyyy'.";
 
 
@@ -235,6 +236,12 @@ public class ParserUtil {
         return intNumberOfSeasonsWatched;
     }
 
+    /**
+     * Parses a {@code String args} into an {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code args} is invalid.
+     */
     public static int parseAddIndex(String args) throws ParseException {
         requireNonNull(args);
         String trimmedargs = args.trim();

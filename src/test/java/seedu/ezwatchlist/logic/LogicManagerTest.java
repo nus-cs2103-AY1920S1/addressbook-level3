@@ -32,6 +32,7 @@ public class LogicManagerTest {
     private Model model = new ModelManager();
     private Logic logic;
 
+    private final String currentTab = "watchlist";
     @BeforeEach
     public void setUp() {
         JsonWatchListStorage watchListStorage =
