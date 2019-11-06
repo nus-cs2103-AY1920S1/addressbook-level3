@@ -142,6 +142,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteLedger(LedgerOperation ledgerToDelete) {
+        versionedUserState.remove(ledgerToDelete);
+    }
+
+    @Override
     public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         requireAllNonNull(transactionTarget, transactionEdit);
 

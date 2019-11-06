@@ -206,6 +206,12 @@ public interface Model {
      */
     void deleteProjection(Projection projectionToDelete);
 
+    /**
+     * Deletes the given ledger.
+     * The ledger must exist in the bank account.
+     */
+    void deleteLedger(LedgerOperation ledgerToDelete);
+
     ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
     ObservableList<Projection> getFilteredProjectionsList();
 }

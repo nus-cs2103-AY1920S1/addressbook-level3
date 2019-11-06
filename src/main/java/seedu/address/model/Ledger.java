@@ -47,11 +47,19 @@ public class Ledger implements ReadOnlyLedger {
     /**
      * Adds transaction into a separate splitHistory
      *
-     * @param transaction
+     * @param ledger
      */
-    public void addOperation(LedgerOperation transaction) {
-        pot = transaction.handleBalance(pot, people);
-        ledgerHistory.add(transaction);
+    public void addOperation(LedgerOperation ledger) {
+        pot = ledger.handleBalance(pot, people);
+        ledgerHistory.add(ledger);
+    }
+
+    /**
+     * Removes {@code key} from this {@code BankAccount}.
+     * {@code key} must exist in the bank account.
+     */
+    public void remove(LedgerOperation key) {
+        ledgerHistory.remove(key);
     }
 
     @Override
