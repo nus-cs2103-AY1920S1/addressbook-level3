@@ -25,14 +25,7 @@ import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.Logic;
-import seedu.elisa.logic.commands.CloseCommand;
-import seedu.elisa.logic.commands.CloseCommandResult;
-import seedu.elisa.logic.commands.CommandResult;
-import seedu.elisa.logic.commands.DownCommandResult;
-import seedu.elisa.logic.commands.OpenCommandResult;
-import seedu.elisa.logic.commands.PriorityCommand;
-import seedu.elisa.logic.commands.ThemeCommandResult;
-import seedu.elisa.logic.commands.UpCommandResult;
+import seedu.elisa.logic.commands.*;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.commands.exceptions.FocusModeException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
@@ -497,6 +490,10 @@ public class MainWindow extends UiPart<Stage> {
 
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
+            }
+
+            if (commandResult instanceof ClearScreenCommandResult) {
+                resultDisplay.clear();
             }
 
             updatePanels();

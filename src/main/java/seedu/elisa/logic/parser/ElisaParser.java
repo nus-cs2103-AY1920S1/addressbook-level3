@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.elisa.logic.commands.ClearCommand;
+import seedu.elisa.logic.commands.ClearScreenCommand;
 import seedu.elisa.logic.commands.CloseCommand;
 import seedu.elisa.logic.commands.Command;
 import seedu.elisa.logic.commands.DeleteCommand;
@@ -117,6 +118,9 @@ public class ElisaParser {
 
         case DownCommand.COMMAND_WORD:
             return new DownCommand();
+
+        case ClearScreenCommand.COMMAND_WORD:
+            return new ClearScreenCommand();
 
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(description, flags);
