@@ -21,7 +21,7 @@
                 <NumberAxis label="Number of questions" styleClass="axis-label" side="LEFT" tickLabelFill="WHITE"/>
             </yAxis>
         </StackedBarChart>
-        <Label fx:id="overview" styleClass="label-bright" text="Label">
+        <Label fx:id="overview" styleClass="label-bright" text="Label" wrapText="true">
             <padding>
                 <Insets top="20.0"/>
             </padding>
