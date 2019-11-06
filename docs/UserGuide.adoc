@@ -57,6 +57,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Register : `register`
+
+Register an account with the application to start using it. +
+Format: `register user/USERNAME pass/PASSWORD`
+
+Examples:
+* `register user/Steve pass/Pa55w0rd!`
+
+****
+* Username and Password should not contain any spaces and username should have at least 5 characters.
+****
+
+=== Login : `login`
+
+Login a registered account with the correct username and password. +
+Format: `login user/USERNAME pass/PASSWORD`
+
+Examples:
+* `login user/Steve pass/Pa55w0rd!`
+
 === Change tab : `tab`
 
 Change tab to any of the available ones. +
@@ -194,46 +214,50 @@ Examples:
 
 * `add_earnings d/19/09/2019 type/lab c/CS2103T amt/50.70`
 
+****
+* Only `tutorials`/ `tut` / `lab` / `consultations` / `c` / `sectionals` / `s` / `preparation_time` / `p`
+arguments are allowed for `TYPE`.
+* `DATE` format must be done in `DD/MM/YYYY` format.
+* `AMOUNT` has a max value of 1 000 000.00 and should not contain commas.
+****
+
 ==== Update Earnings: `update_earnings`
 
-Update Earnings in the list of earnings by adding one of the parameters at least. +
-Format: `update_earnings d/DATE c/CLASSID amt/NEW_AMOUNT type/TYPE`
+Update Earnings in the list of earnings by adding *one* of the parameters at least. +
+Format: `update_earnings INDEX d/DATE c/CLASSID amt/AMOUNT type/TYPE`
 
 Examples:
 
-* `update_earnings d/14/04/2020 C/CS2103T amt/63.20 type/lab`
+* `update_earnings 2 d/14/04/2020 type/lab`
 
 ==== Delete Earnings: `delete_earnings`
 
 Delete Earnings in the list of earnings. +
-Format: `delete_earnings d/DATE c/CLASSID`
+Format: `delete_earnings INDEX`
 
 Examples:
 
-* `delete_earnings d/24/04/2020 c/CS2103T`
+* `delete_earnings 2`
 
 ==== Find Earnings: `find_earnings`
 
 Find Earnings in the list of earnings. +
-Format: `find_earnings keywords, ...`
+Format: `find_earnings keywords ...`
 
 Examples:
 
-* `find_earnings CS2103T, CS1231`
+* `find_earnings CS2103T`
+
+****
+* If more than one keyword is used, do not add commas between each keyword.
+* Partial matching is allowed as well for this command. `find_earnings a` will
+ match with apple, for example.
+****
 
 ==== Claim Earnings: `claim_earnings`
 
 Tick off that user has claimed Earnings in the list of earnings. +
 Format: `claim_earnings d/DATE c/CLASSID`
-
-Examples:
-
-* `claim_earnings k/CS2103T, c/CS1231`
-
-==== Filter Earnings: `filter_earnings`
-
-Filters Earnings in the list of earnings based on either classid/date/week/month. +
-Format: `filter_earnings variable`
 
 Examples:
 
@@ -447,6 +471,18 @@ Examples:
 
 * `ad` (instead of `add`) -> TutorAid will prompt the user what they meant. Type `add` now to be able
 to use `ad` as an `add` command in the future.
+
+=== Upcoming Features
+
+
+==== Filter Earnings: `filter_earnings`
+
+Filters Earnings in the list of earnings based on either classid/date/week/month. +
+Format: `filter_earnings variable`
+
+Examples:
+
+* `filter_earnings v/week`
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
