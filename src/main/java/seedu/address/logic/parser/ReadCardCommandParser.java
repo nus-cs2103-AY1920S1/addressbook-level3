@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FIELDS;
+import static seedu.address.commons.core.Messages.MESSAGE_EXCESS_CARD_FIELDS;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CVC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
@@ -31,8 +33,8 @@ public class ReadCardCommandParser implements Parser<ReadCardCommand> {
 
         // runs if description and preamble are both absent or if they are both present
         if ((!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)
-                && argMultimap.getPreamble().isEmpty()) ||
-             (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)
+                && argMultimap.getPreamble().isEmpty())
+            || (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)
                 && !argMultimap.getPreamble().isEmpty())) {
             throw new ParseException(String.format(MESSAGE_EXCESS_CARD_FIELDS, ReadCardCommand.MESSAGE_USAGE));
         }
