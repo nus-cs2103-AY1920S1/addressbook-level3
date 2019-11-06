@@ -382,7 +382,7 @@ public class ParserUtil {
      * Helps fill command list with all the basic in built commands.
      * @param commandList A {@code TreeMap} that is used to store all commands and their actions.
      */
-    public static void fillBasicCommands(TreeMap commandList) {
+    public static void fillBasicCommands(TreeMap<String, String> commandList) {
         commandList.put(AddCommand.COMMAND_WORD, AddCommand.COMMAND_WORD);
         commandList.put(EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD);
         commandList.put(ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD);
