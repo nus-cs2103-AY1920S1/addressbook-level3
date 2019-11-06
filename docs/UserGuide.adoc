@@ -239,7 +239,7 @@ Examples: +
 
 ==== Deleting lesson
 Deletes the lesson in the index from the current classroom.
-Format: deletelesson LESSON_INDEX
+Format: deletelesson LESSON_INDEX day/DAY_OF_THE_WEEK_INDEX
 
 Examples: +
 * deletelesson 3
