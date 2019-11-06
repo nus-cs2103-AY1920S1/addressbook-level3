@@ -334,7 +334,9 @@ public class MooLah implements ReadOnlyMooLah {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MooLah // instanceof handles nulls
-                && expenses.equals(((MooLah) other).expenses));
+                && expenses.equals(((MooLah) other).expenses)
+                && events.equals(((MooLah) other).events));
+        // && budgets.equals(((MooLah) other).budgets));
     }
 
     @Override

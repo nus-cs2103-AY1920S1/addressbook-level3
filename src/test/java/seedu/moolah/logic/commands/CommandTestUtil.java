@@ -6,6 +6,7 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
+import static seedu.moolah.logic.parser.CliSyntax.PREFIX_MENU;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -45,6 +46,8 @@ public class CommandTestUtil {
     public static final String VALID_EXPENSE_TIMESTAMP_CHICKEN = "1 week ago";
     public static final String VALID_EXPENSE_TIMESTAMP_TAXI = "yesterday";
     public static final String VALID_EXPENSE_UNIQUE_IDENTIFIER = "Expense@12341234-1234-1234-1234-123412341234";
+    public static final String VALID_EXPENSE_MENU_DESCRIPTION_CHICKEN = "Deck Chicken Rice";
+    public static final String VALID_EXPENSE_MENU_PRICE_CHICKEN = "2.50";
 
     public static final String VALID_EVENT_DESCRIPTION_BUFFET = "Family buffet";
     public static final String VALID_EVENT_DESCRIPTION_BIRTHDAY = "Brian bday";
@@ -75,6 +78,7 @@ public class CommandTestUtil {
     public static final String EXPENSE_TIMESTAMP_DESC_TAXI = " " + PREFIX_TIMESTAMP + VALID_EXPENSE_TIMESTAMP_TAXI;
     public static final String EXPENSE_CATEGORY_DESC_CHICKEN = " " + PREFIX_CATEGORY + VALID_EXPENSE_CATEGORY_CHICKEN;
     public static final String EXPENSE_CATEGORY_DESC_TAXI = " " + PREFIX_CATEGORY + VALID_EXPENSE_CATEGORY_TAXI;
+    public static final String EXPENSE_MENU_DESC_CHICKEN = " " + PREFIX_MENU + VALID_EXPENSE_MENU_DESCRIPTION_CHICKEN;
 
     public static final String EVENT_DESCRIPTION_DESC_BUFFET =
             " " + PREFIX_DESCRIPTION + VALID_EVENT_DESCRIPTION_BUFFET;
@@ -105,6 +109,10 @@ public class CommandTestUtil {
     public static final String INVALID_EXPENSE_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "asdf";
     // '*' not allowed in categories
     public static final String INVALID_EXPENSE_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*";
+    // unsupported menu not allowed in menu items
+    public static final String INVALID_EXPENSE_MENU_DESC = " " + PREFIX_MENU + "blah";
+    // future time not allowed in timestamps
+    public static final String INVALID_EXPENSE_MENU_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "1 minute from now";
 
     // '&' not allowed in descriptions
     public static final String INVALID_EVENT_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";
@@ -149,6 +157,8 @@ public class CommandTestUtil {
 
     public static final Timestamp OCTOBER_FIRST = Timestamp.createTimestampIfValid("01-10-2019").get();
     public static final Timestamp OCTOBER_LAST = Timestamp.createTimestampIfValid("31-10-2019").get();
+    public static final Timestamp ONE_MINUTE_AGO =
+            Timestamp.createTimestampIfValid("1 minute ago").get();
 
     static {
         DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_EXPENSE_DESCRIPTION_CHICKEN)

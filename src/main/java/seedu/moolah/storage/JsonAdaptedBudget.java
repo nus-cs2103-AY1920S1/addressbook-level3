@@ -111,7 +111,7 @@ class JsonAdaptedBudget {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
 
-        Optional<Timestamp> potentialStartDate = Timestamp.createTimestampFromStorage(startDate);
+        Optional<Timestamp> potentialStartDate = Timestamp.createGeneralTimestampFromStorage(startDate);
         if (potentialStartDate.isEmpty()) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         }
@@ -122,7 +122,7 @@ class JsonAdaptedBudget {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
 
-        Optional<Timestamp> potentialEndDate = Timestamp.createTimestampFromStorage(endDate);
+        Optional<Timestamp> potentialEndDate = Timestamp.createGeneralTimestampFromStorage(endDate);
         if (potentialEndDate.isEmpty()) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         }

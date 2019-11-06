@@ -32,7 +32,7 @@ public class DeleteBudgetByNameCommandTest {
         String expectedMessage = String.format(DeleteBudgetByNameCommand.MESSAGE_DELETE_BUDGET_SUCCESS, SCHOOL);
 
         ModelManager expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
+        expectedModel.commitModel("Delete budget with name school related expenses");
         expectedModel.deleteBudget(budgetToDelete);
 
         assertCommandSuccess(deleteBudgetByNameCommand, model, expectedMessage, expectedModel);

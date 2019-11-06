@@ -8,7 +8,6 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.moolah.logic.commands.statistics.StatsTrendCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
@@ -41,11 +40,11 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_MODE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODE) || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_MODE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsTrendCommand.MESSAGE_USAGE));
         }
 
-        if (hasRepeatedPrefixes(argMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_MODE)) {
+        if (argMultimap.hasRepeatedPrefixes(PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_MODE)) {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
@@ -74,22 +73,6 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    /**
-     * Returns true at least one prefix have more than to one value
-     * {@code ArgumentMultiMap}.
-     */
-    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
-    }
-
-    /**
      * Parses the given {@code String} of arguments in the context of the StatsTrendCommand
      * Checks that start date is before the end date of the given {@code ArgumentMultimap}
      *
@@ -102,8 +85,6 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
             throw new ParseException(Statistics.MESSAGE_CONSTRAINTS_END_DATE);
         }
     }
-
-
 
 }
 

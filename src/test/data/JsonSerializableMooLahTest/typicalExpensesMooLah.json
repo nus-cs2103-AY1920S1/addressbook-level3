@@ -1,55 +1,62 @@
 {
-  "_comment": "MooLah save file which contains the same Expense values as in TypicalExpenses#getTypicalMooLah()",
+  "_comment": "MooLah save file which contains the same Expense values as in TypicalMooLah#getTypicalExpensesOnlyMooLah()",
   "expenses" : [ {
     "description" : "Alices Birthday",
     "price" : "20",
     "category" : "Entertainment",
-    "timestamp" : "2019-12-01T12:00",
+    "timestamp" : "2019-10-21T12:00",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
   }, {
     "description" : "Busan Trip",
     "price" : "1300",
     "category" : "Transport",
-    "timestamp" : "2019-12-02T12:00",
+    "timestamp" : "2019-10-22T12:00",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000002"
   }, {
     "description" : "Chicken Rice extra Chicken",
     "price" : "3.50",
     "category" : "Food",
-    "timestamp" : "2019-12-03T12:00",
-    "budgetName" : "Default Budget",
+    "timestamp" : "2019-10-23T12:00",
+    "budgetName" : "School related expenses",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000003"
   }, {
     "description" : "Whiskey and Coke",
     "price" : "50",
     "category" : "Food",
-    "timestamp" : "2019-12-04T12:00",
-    "budgetName" : "Default Budget",
+    "timestamp" : "2019-10-24T12:00",
+    "budgetName" : "School related expenses",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000004"
   }, {
     "description" : "Marvel Movie Marathon",
     "price" : "75",
     "category" : "Entertainment",
-    "timestamp" : "2019-12-05T12:00",
+    "timestamp" : "2019-10-25T12:00",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000005"
   }, {
     "description" : "Clothes for the New Year",
     "price" : "88.88",
     "category" : "Shopping",
-    "timestamp" : "2019-12-06T12:00",
+    "timestamp" : "2019-10-26T12:00",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000006"
   }, {
     "description" : "Groceries for September meal preps",
     "price" : "125.35",
     "category" : "Utilities",
-    "timestamp" : "2019-12-07T12:00",
+    "timestamp" : "2019-10-27T12:00",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000007"
   } ],
   "events" : [],
-  "budgets": []
+  "budgets": [ {
+    "description" : "Default Budget",
+    "amount" : "999999999999999999999",
+    "startDate" : "1 Jan 2000, 12:00:00 AM",
+    "endDate" : "31 Dec 2099, 11:59:59 PM",
+    "period" : "infinity",
+    "expenseIds" : [ ]
+  } ]
 }

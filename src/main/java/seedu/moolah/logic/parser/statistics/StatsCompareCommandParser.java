@@ -7,7 +7,6 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.moolah.logic.commands.statistics.StatsCompareCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
@@ -38,12 +37,12 @@ public class StatsCompareCommandParser implements Parser<StatsCompareCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE);
-        if (!arePrefixesPresent(argMultimap, PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE)
+        if (!argMultimap.arePrefixesPresent(PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCompareCommand.MESSAGE_USAGE));
         }
 
-        if (hasRepeatedPrefixes(argMultimap, PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE)) {
+        if (argMultimap.hasRepeatedPrefixes(PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE)) {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
@@ -54,21 +53,6 @@ public class StatsCompareCommandParser implements Parser<StatsCompareCommand> {
         return new StatsCompareCommand(startDate1, startDate2);
     }
 
-    /**
-     * Returns true if at least one prefix have more than one usage
-     * {@code ArgumentMultiMap}.
-     */
-    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }
 
 

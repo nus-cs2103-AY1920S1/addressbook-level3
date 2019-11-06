@@ -110,10 +110,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void addExpenseFromEvent(Event event) throws CommandException {
+    public CommandResult addExpenseFromEvent(Event event) throws CommandException {
         Expense toBeAdded = event.convertToExpense();
         Command addExpenseCommand = new AddExpenseCommand(toBeAdded);
-        addExpenseCommand.run(model);
+        CommandResult commandResult = addExpenseCommand.run(model);
+
+        save();
+
+        return commandResult;
     }
     //@Override
     //public ObservableList<Budget> getFilteredBudgetList() {

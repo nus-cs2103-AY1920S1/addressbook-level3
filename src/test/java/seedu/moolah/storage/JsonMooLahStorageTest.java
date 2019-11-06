@@ -60,6 +60,16 @@ public class JsonMooLahStorageTest {
         assertThrows(DataConversionException.class, () -> readMooLah("invalidAndValidExpenseMooLah.json"));
     }
 
+    @Test
+    public void readMooLah_invalidEventMooLah_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMooLah("invalidEventMooLah.json"));
+    }
+
+    @Test
+    public void readMooLah_invalidAndValidEventMooLah_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMooLah("invalidAndValidEventMooLah.json"));
+    }
+
 
     @Test
     public void readAndSaveMooLah_allInOrder_success() throws Exception {

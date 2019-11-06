@@ -18,7 +18,8 @@ public class JsonAdaptedExpenseTest {
     private static final String INVALID_PRICE = "+651234";
     private static final String INVALID_CATEGORY = "#friend";
     private static final String INVALID_UNIQUE_IDENTIFIER = "Expense1245";
-    private static final String INVALID_TIMESTAMP = "blah";
+    private static final String INVALID_TIMESTAMP_GENERAL = "blah";
+    private static final String INVALID_TIMESTAMP_FUTURE = "tomorrow";
     private static final String INVALID_BUDGET_NAME = "sch@@l";
 
     private static final String VALID_DESCRIPTION = BUSAN_TRIP.getDescription().toString();
@@ -100,8 +101,12 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_invalidTimestamp_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
-                        VALID_CATEGORY, INVALID_TIMESTAMP, VALID_BUDGET_NAME, VALID_UNIQUE_IDENTIFIER);
+                        VALID_CATEGORY, INVALID_TIMESTAMP_GENERAL, VALID_BUDGET_NAME, VALID_UNIQUE_IDENTIFIER);
         String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_GENERAL;
+        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+
+        expense = new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
+                VALID_CATEGORY, INVALID_TIMESTAMP_FUTURE, VALID_BUDGET_NAME, VALID_UNIQUE_IDENTIFIER);
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
 

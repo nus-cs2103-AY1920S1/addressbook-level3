@@ -7,7 +7,6 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.moolah.logic.commands.budget.SwitchPeriodCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
@@ -38,13 +37,13 @@ public class SwitchPeriodCommandParser implements Parser<SwitchPeriodCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TIMESTAMP);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TIMESTAMP)
+        if (!argMultimap.arePrefixesPresent(PREFIX_TIMESTAMP)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SwitchPeriodCommand.MESSAGE_USAGE));
         }
 
-        if (hasRepeatedPrefixes(argMultimap, PREFIX_TIMESTAMP)) {
+        if (argMultimap.hasRepeatedPrefixes(PREFIX_TIMESTAMP)) {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
@@ -53,19 +52,4 @@ public class SwitchPeriodCommandParser implements Parser<SwitchPeriodCommand> {
         return new SwitchPeriodCommand(pastDate);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    /**
-     * Returns true if none of the prefixes are repeated
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
-    }
 }

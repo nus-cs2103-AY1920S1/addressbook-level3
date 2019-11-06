@@ -7,7 +7,6 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.moolah.logic.commands.statistics.StatsCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
@@ -42,7 +41,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
         }
-        if (hasRepeatedPrefixes(argMultimap, PREFIX_START_DATE, PREFIX_END_DATE)) {
+        if (argMultimap.hasRepeatedPrefixes(PREFIX_START_DATE, PREFIX_END_DATE)) {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
@@ -81,11 +80,4 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         }
     }
 
-    /**
-     * Returns true if none of the prefixes are repeated
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
-    }
 }

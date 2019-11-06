@@ -1,6 +1,7 @@
 package seedu.moolah.testutil;
 
 import seedu.moolah.model.MooLah;
+import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.expense.Expense;
 
 /**
@@ -25,6 +26,14 @@ public class MooLahBuilder {
      */
     public MooLahBuilder withExpense(Expense expense) {
         mooLah.addExpense(expense);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Event} to the {@code MooLah} that we are building.
+     */
+    public MooLahBuilder withEvent(Event event) {
+        mooLah.addEvent(event);
         return this;
     }
 

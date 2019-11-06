@@ -5,6 +5,7 @@ import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.moolah.model.budget.Budget;
+import seedu.moolah.model.menu.MenuItem;
 
 /**
  * Represents a Expense in MooLah.
@@ -54,6 +55,16 @@ public class Expense {
         this.category = category;
         this.timestamp = timestamp;
         this.budgetName = budgetName;
+    }
+
+    public Expense(MenuItem menuItem, UniqueIdentifier uniqueIdentifier) {
+        this(menuItem.getDescription(), menuItem.getPrice(), new Category("FOOD"),
+                uniqueIdentifier);
+    }
+
+    public Expense(MenuItem menuItem, Timestamp timestamp, UniqueIdentifier uniqueIdentifier) {
+        this(menuItem.getDescription(), menuItem.getPrice(), new Category("FOOD"),
+                timestamp, uniqueIdentifier);
     }
 
     public Description getDescription() {

@@ -1,0 +1,24 @@
+{
+  "expenses": [],
+  "events" : [ {
+    "description" : "Bangkok trip",
+    "price" : "500",
+    "category" : "Transport",
+    "timestamp" : "2020-01-02T12:00",
+    "budgetName" : "Default Budget"
+  }, {
+    "description" : "Bangkok trip",
+    "price" : "500",
+    "category" : "Transport",
+    "timestamp" : "2020-01-02T12:00",
+    "budgetName" : "Default Budget"
+  } ],
+  "budgets" : [ {
+    "description" : "Default Budget",
+    "amount" : "999999999999999999999",
+    "startDate" : "1 Jan 2000, 12:00:00 AM",
+    "endDate" : "31 Dec 2099, 11:59:59 PM",
+    "period" : "infinity",
+    "expenseIds" : [ ]
+  } ]
+}

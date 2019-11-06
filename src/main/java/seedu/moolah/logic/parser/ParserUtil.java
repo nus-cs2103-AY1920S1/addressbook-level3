@@ -3,6 +3,7 @@ package seedu.moolah.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 
@@ -17,6 +18,8 @@ import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Price;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.menu.Menu;
+import seedu.moolah.model.menu.MenuItem;
 import seedu.moolah.model.statistics.Mode;
 
 
@@ -195,4 +198,22 @@ public class ParserUtil {
         final String arguments = matcher.group("arguments");
         return new Input(commandWord, arguments);
     }
+
+    /**
+     * Parses user input into a corresponding {@code MenuItem} that matches the description given.
+     * @param input the user input to be parsed
+     * @return the corresponding {@code MenuItem}
+     * @throws ParseException if the given input is invalid
+     */
+    public static MenuItem parseMenuItem(String input) throws ParseException {
+        requireNonNull(input);
+
+        try {
+            Description desc = parseDescription(input);
+            return Menu.findMenuItemByDescription(desc);
+        } catch (ParseException | NoSuchElementException e) {
+            throw new ParseException(MenuItem.MESSAGE_CONSTRAINTS);
+        }
+    }
+
 }

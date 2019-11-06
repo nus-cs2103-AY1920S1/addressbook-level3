@@ -54,6 +54,7 @@ import seedu.moolah.logic.commands.event.EditEventCommand;
 import seedu.moolah.logic.commands.event.ListEventsCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.logic.commands.expense.AddExpenseCommand;
+import seedu.moolah.logic.commands.expense.AddMenuExpenseCommand;
 import seedu.moolah.logic.commands.expense.DeleteExpenseCommand;
 import seedu.moolah.logic.commands.expense.EditExpenseCommand;
 import seedu.moolah.logic.commands.expense.FindExpenseCommand;
@@ -77,6 +78,7 @@ import seedu.moolah.logic.parser.event.AddEventCommandParser;
 import seedu.moolah.logic.parser.event.EditEventCommandParser;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.logic.parser.expense.AddExpenseCommandParser;
+import seedu.moolah.logic.parser.expense.AddMenuExpenseCommandParser;
 import seedu.moolah.logic.parser.expense.EditExpenseCommandParser;
 import seedu.moolah.logic.parser.statistics.StatsCommandParser;
 import seedu.moolah.logic.parser.statistics.StatsCompareCommandParser;
@@ -259,6 +261,11 @@ public class MainWindow extends UiPart<Stage> {
                 AddExpenseCommandParser.REQUIRED_PREFIXES,
                 AddExpenseCommandParser.OPTIONAL_PREFIXES);
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                AddMenuExpenseCommand.COMMAND_WORD,
+                AddMenuExpenseCommandParser.REQUIRED_PREFIXES,
+                AddMenuExpenseCommandParser.OPTIONAL_PREFIXES
+        );
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 DeleteExpenseCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
@@ -410,7 +417,8 @@ public class MainWindow extends UiPart<Stage> {
      * @param panelName The Panel Name of assigned to the Panel.
      * @throws UnmappedPanelException if there is no Panel assigned to the specified Panel Name.
      */
-    private void changePanel(PanelName panelName) throws UnmappedPanelException {
+    void changePanel(PanelName panelName) throws UnmappedPanelException {
+        singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
         configureGenericCommands(panelName);
 
         if (panelName.equals(StatsPanel.PANEL_NAME)) {
@@ -656,7 +664,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleTranspiredEvents() {
         List<Event> transpiredEvents = timekeeper.getTranspiredEvents();
         for (Event event : transpiredEvents) {
-            TranspiredEventsWindow eventWindow = new TranspiredEventsWindow(logic);
+            TranspiredEventsWindow eventWindow = new TranspiredEventsWindow(logic, this);
             eventWindow.show(event);
         }
     }
