@@ -132,4 +132,14 @@ public class ReportWasteCommand extends Command {
         return commandResult;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReportWasteCommand // instanceof handles nulls
+                && startWasteMonth.equals(((ReportWasteCommand) other).startWasteMonth)
+                && endWasteMonth.equals(((ReportWasteCommand) other).endWasteMonth)
+                && startMonthGivenByUser == ((ReportWasteCommand) other).startMonthGivenByUser
+                && endMonthGivenByUser == ((ReportWasteCommand) other).endMonthGivenByUser);
+    }
+
 }

@@ -17,7 +17,8 @@ import seedu.ifridge.model.waste.exceptions.WasteMonthException;
 public class WasteMonth implements Comparable<WasteMonth> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Month of year can be in any format permissible by the Natty library.";
+            "The month given is invalid. \nTo avoid ambiguity, we advice you to specify the month in a relaxed date "
+                    + "format, e.g. Sep 2019";
     public static final Pattern VALIDATION_REGEX = Pattern.compile("^(0[1-9]|1[012])-((19|2[0-9])[0-9]{2})$");
 
     private final int month;
