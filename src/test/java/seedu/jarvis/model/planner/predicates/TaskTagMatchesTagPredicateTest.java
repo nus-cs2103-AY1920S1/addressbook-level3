@@ -45,7 +45,7 @@ class TaskTagMatchesTagPredicateTest {
                 new TaskTagMatchesTagPredicate(new Tag("school"));
 
         //same object
-        assertEquals(firstPredicate, secondPredicate);
+        assertEquals(firstPredicate, firstPredicate);
 
         //same values
         TaskTagMatchesTagPredicate copy = new TaskTagMatchesTagPredicate(new Tag("name"));

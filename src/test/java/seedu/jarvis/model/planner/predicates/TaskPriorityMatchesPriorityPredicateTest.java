@@ -43,7 +43,7 @@ class TaskPriorityMatchesPriorityPredicateTest {
                 new TaskPriorityMatchesPriorityPredicate(Priority.LOW);
 
         //same object
-        assertEquals(firstPredicate, secondPredicate);
+        assertEquals(firstPredicate, firstPredicate);
 
         //same values
         TaskPriorityMatchesPriorityPredicate copy = new TaskPriorityMatchesPriorityPredicate(Priority.HIGH);

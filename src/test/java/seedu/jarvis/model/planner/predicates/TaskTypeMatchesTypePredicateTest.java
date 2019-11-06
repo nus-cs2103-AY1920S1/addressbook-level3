@@ -41,7 +41,7 @@ class TaskTypeMatchesTypePredicateTest {
                 new TaskTypeMatchesTypePredicate(TaskType.TODO);
 
         //same object
-        assertEquals(firstPredicate, secondPredicate);
+        assertEquals(firstPredicate, firstPredicate);
 
         //same values
         TaskTypeMatchesTypePredicate copy = new TaskTypeMatchesTypePredicate(TaskType.DEADLINE);

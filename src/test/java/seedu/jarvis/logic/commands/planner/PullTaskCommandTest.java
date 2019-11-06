@@ -23,7 +23,7 @@ class PullTaskCommandTest {
     @Test
     void getCommandWord() {
         Predicate<Task> predicate = new TaskTypeMatchesTypePredicate(TaskType.DEADLINE);
-        String expected = "pull-tasks";
+        String expected = "pull-task";
         PullTaskCommand command = new PullTaskCommand(predicate);
 
         assertEquals(expected, command.getCommandWord());
@@ -39,7 +39,7 @@ class PullTaskCommandTest {
 
     @Test
     void execute() {
-        Predicate<Task> predicate = new TaskTypeMatchesTypePredicate(TaskType.DEADLINE);
+        Predicate<Task> predicate = new TaskTypeMatchesTypePredicate(TaskType.TODO);
         PullTaskCommand command = new PullTaskCommand(predicate);
 
         Model model = new ModelManager();
@@ -49,7 +49,7 @@ class PullTaskCommandTest {
         expected.addTask(new Todo("test"));
         expected.updateFilteredTaskList(predicate);
 
-        String expectedString = String.format(command.MESSAGE_TASKS_LISTED_OVERVIEW, 1);
+        String expectedString = String.format(PullTaskCommand.MESSAGE_TASKS_LISTED_OVERVIEW, 1);
         assertCommandSuccess(command, model, expectedString, expected);
     }
 

@@ -43,7 +43,7 @@ class TaskFrequencyMatchesFrequencyPredicateTest {
                 new TaskFrequencyMatchesFrequencyPredicate(Frequency.WEEKLY);
 
         //same object
-        assertEquals(firstPredicate, secondPredicate);
+        assertEquals(firstPredicate, firstPredicate);
 
         //same values
         TaskFrequencyMatchesFrequencyPredicate copy = new TaskFrequencyMatchesFrequencyPredicate(Frequency.MONTHLY);

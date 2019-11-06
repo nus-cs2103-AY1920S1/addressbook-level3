@@ -3,6 +3,7 @@ package seedu.jarvis.logic.parser.planner;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_MULTIPLE_SAME_PREFIX;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class PullTaskCommandParserTest {
     void parse_multipleArg_throwsParseException() {
         PullTaskCommandParser parser = new PullTaskCommandParser();
         assertParseFailure(parser, "p/low #school ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PullTaskCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, PullTaskCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -46,7 +47,7 @@ class PullTaskCommandParserTest {
         assertParseSuccess(parser, "p/high ", expected);
 
         //frequency
-        expected = new PullTaskCommand(new TaskFrequencyMatchesFrequencyPredicate(Frequency.MONTHLY.HIGH));
+        expected = new PullTaskCommand(new TaskFrequencyMatchesFrequencyPredicate(Frequency.MONTHLY));
         assertParseSuccess(parser, "f/monthly ", expected);
 
         //tags
