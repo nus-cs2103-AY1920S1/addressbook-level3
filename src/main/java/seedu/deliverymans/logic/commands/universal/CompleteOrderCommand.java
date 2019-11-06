@@ -74,7 +74,17 @@ public class CompleteOrderCommand extends Command {
             }
         }
 
-        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete));
+        String messageAssignNextOrder;
+        Order unassigned = model.getUnassignedOrder();
+        if (unassigned == null) {
+            messageAssignNextOrder = "Great job! No other orders to assign.";
+        } else {
+            new AssignOrderCommand(unassigned.getOrderName()).execute(model);
+            messageAssignNextOrder = String.format("Assigning next order: %s", unassigned.getOrderName().fullName);
+        }
+
+        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS + "\n"
+                + messageAssignNextOrder, orderToComplete));
     }
 
     public static LinkedList<Prefix> getPrefixesList() {

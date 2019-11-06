@@ -332,6 +332,8 @@ public interface Model {
 
     StatisticsRecordCard getDeliverymenStatusStats();
 
+    void signalNewAvailableDeliveryman();
+
     // =========== Order Methods =============================================================
 
     /**
@@ -378,4 +380,5 @@ public interface Model {
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
 
+    Order getUnassignedOrder();
 }
