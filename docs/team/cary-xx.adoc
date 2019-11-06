@@ -1,19 +1,23 @@
-= John Doe - Project Portfolio
+= Xiu Ziheng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: MyMorise
+== PROJECT: MYMorise
 
 ---
 
 == Overview
 
-include::overview.adoc[]
+MYMorise — Manage Your Money(MYM) is a desktop application for those who prefer tracking personal expenses on their
+computers. With MYMorise, you can easily see your daily expenses as well as a summary, along with other useful functionalities.
+More importantly, MYMorise is optimized for those who prefer to work with Command Line Interface (CLI) while still
+having the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 20
+kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+* *Major enhancement*: added *the ability to autocomplete*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
@@ -21,7 +25,7 @@ include::overview.adoc[]
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xiu%20ziheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cary-Xx&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xiu%20ziheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cary-Xx&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
@@ -50,7 +54,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=undoredo]
 
 include::../UserGuide.adoc[tag=dataencryption]
 
@@ -63,10 +67,3 @@ include::../UserGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

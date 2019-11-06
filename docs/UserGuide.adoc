@@ -22,6 +22,22 @@ computers*. With MYMorise, you can easily see your daily expenses as well as a s
 functionalities. More importantly, MYMorise is *optimized for those who prefer to work with Command Line Interface (CLI)* while still having the benefits of a *Graphical User Interface
 (GUI)*. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
+****
+*Things to note in MYMorise:*
+
+* Expense - refers to the cost incurred in or required for something which the user would like to record
+* Budget - refers to an estimate of income and expenditure for a set period of time.
+* Default expense list - refers to all expenses that do not fall into any budgets in MYMorise.
+* The amounts used in MYMorise can only work for numbers up to 2 decimal places.
+* MYMorise's GUI consists of 3 display panels:
+
+    The left panel - displays all expenses recorded in MYMorise. User commands do not reference from this panel and should not be made based on this panel. Commands made should reference from the centre panel. The purpose of this panel is solely for displaying all expenses recorded only.
+
+    The centre panel - displays the current view requested by user. All commands made are in relative to the content displayed in this panel. That is, if a user enters the command `budgetlist` or `view 1`, this panel will reflect the content requested. Subsequent commands such as `edit` and `editBudget` will reference from this panel. On start up, the centre panel displays the default expense list.
+
+    The right panel - displays the visual graphics of the content shown in the centre panel only.
+****
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -37,7 +53,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all expenses
-* **`add`**`n/Textbook a/23.50 t/education t/school` : adds an expense named `Textbook` to expenselist with the tags
+* **`add`**`n/Textbook a/23.50 t/education t/school` : adds an expense named `Textbook` to the expense list with the tags
 `education` and `school`.
 * **`delete`**`3` : deletes the 3rd expense shown in the current list
 * *`exit`* : exits the app
@@ -60,7 +76,7 @@ Displays all CLI commands available. +
 Format: `help`
 
 === Listing all expenses in the default expense list : `list`
-Shows a list of all expenses that do not fall into any budgets in expenseList. +
+Shows a list of all expenses that do not fall into any budgets in MYMorise. +
 Format: `list`
 
 === Listing all budgets in the budget list : `budgetlist`
@@ -74,9 +90,11 @@ Format: `add n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…​`
 [TIP]
 An expense with no currency specified will have the default currency set.
 [TIP]
-An expense with no date specified will default to current date of addition.
+An expense with no date specified will default to current date and time of addition.
 [TIP]
 An expense can have any number of tags (including no tags).
+[TIP]
+User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
 
 Examples:
 
@@ -91,22 +109,28 @@ Specifies a budget for a period beginning from the specified start date to an en
 Format: `budget n/NAME a/AMOUNT [c/CURRENCY] d/STARTDATE ed/ENDDATE`
 
 ****
-* Sets a budget for a period beginning from STARTDATE to ENDDATE (inclusive). All expenses made during
+* Sets a budget for a period beginning from STARTDATE (dd/MM/yyyy) to ENDDATE (dd/MM/yyyy) (inclusive). All expenses made during
 that period after the budget is set, will be included into the budget and the budget will deduct the expense
 to indicate how much funds are left available to spend.
 * Only expenses made that fall into the budget period after the budget is set will
 be included into the budget. Expenses created before the budget is set but falls into the budget period
 will not be included into the budget. They will remain in the default expense list.
+* Budgets may not have overlapping dates. +
+Example: There is an existing budget with
+start date 12/1/2019 and end date 18/1/2019, then new budgets to be added cannot have start date and/or
+end dates from 12/1/2019 to 18/1/2019 (inclusive)
 ****
 [TIP]
 A budget with no currency specified will have the default currency set.
+[TIP]
+User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
 
 Examples:
 
-* `budget n/Japan Travel a/4000 c/USD d/9/10/19 ed/19/10/19` +
-Sets a budget of SGD4000 for the period from Wed, 9th Oct 19 to Sat, 19th Oct 19.
-* `budget n/January 2019 Budget a/800 c/SGD d/1/1/19 ed/31/1/19` +
-Sets a budget of SGD800 for the period from Tue, 1st Jan 19 to Thu, 31st Jan 19.
+* `budget n/Japan Travel a/4000 c/USD d/9/10/2019 ed/19/10/2019` +
+Sets a budget of SGD4000 for the period from Wed, 9th Oct 2019 to Sat, 19th Oct 2019.
+* `budget n/January 2019 Budget a/800 c/SGD d/1/1/2019 ed/31/1/2019` +
+Sets a budget of SGD800 for the period from Tue, 1st Jan 2019 to Thu, 31st Jan 2019.
 
 === Viewing a budget : `view`
 Views an existing budget in the budget list. +
@@ -123,7 +147,8 @@ Format: `edit INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY] [t/TAG]…`
 ****
 * Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense
 list. The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather
-than the actual index of the expense in expenseList.
+than the actual index of the expense in the expense list.
+* The user has to be viewing an expense list to edit an expense.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the expense will be removed i.e adding of tags is not cumulative.
@@ -133,7 +158,7 @@ than the actual index of the expense in expenseList.
 Examples:
 
 * `edit 1 a/20.10` +
-Edits the amount of the first expense to be `$20.10`.
+Edits the amount of the first expense to be `20.10`.
 * `edit 2 n/Poets Coffee t/` +
 Replaces the name of the second expense to `Poets Coffee` and clears all existing tags.
 
@@ -186,7 +211,7 @@ Deletes the first expense in the results of the find command.
 
 *While viewing list of budgets*
 
-* `listbudgets` +
+* `budgetlist` +
 `delete 2`
 Deletes the second budget in the budget list in MYMorise.
 // end::delete[]
@@ -207,8 +232,8 @@ The latest Foreign Exchange data for a limited set of supported currencies are u
 Deletes all items in the current list.* +
 Format: `clear`
 
-Using `clear` while viewing an expenselist will delete all expenses in that list. +
-Using `clear` while viewing the budgetlist will delete all budgets in the list.
+Using `clear` while viewing an expense list will delete all expenses in that list. +
+Using `clear` while viewing the budget list will delete all budgets in the list.
 
 === Autocomplete
 Equip with IDE-like autocomplete function for faster input and
