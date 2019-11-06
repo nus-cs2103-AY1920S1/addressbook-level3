@@ -56,7 +56,7 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA =
             "There is a conflict in reverting edits made to cca as there is an existing cca with similar details";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
     private final EditCcaDescriptor editCcaDescriptor;
@@ -205,8 +205,9 @@ public class EditCcaCommand extends Command {
 
         model.updateCca(editedCca, originalCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
+        return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT, true);
     }
 
     /**
