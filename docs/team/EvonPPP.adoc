@@ -59,7 +59,7 @@ managing of the organisation's finances. The following shows the various tabs an
 This is what the application looks like when it starts up:
 
 .Graphical User Interface (GUI) of treasurerPro
-image::AnnotatedUi.png[width="600"]
+image::AnnotatedUi.png[width="680"]
 
 == Summary of contributions
 My role was to design the layout and code the features for the `Cashier Tab`. The following sections presents the
@@ -126,7 +126,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/a
 === Other contributions
 The following section leads to the relevant GitHub pull requests <<PR>> in relation to the specific contributions.
 
-* Enhancements:
+* Enhancements
 ** Wrote tests for several `Inventory` classes:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/148[(PR #148)]
 
@@ -134,34 +134,34 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/148[(PR #148)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/202[(PR #202)]
 
 
-* Community:
+* Community
 ** Reviewed pull requests and offered suggestions (with non-trivial review comments):
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/221[(PR #221)]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/221[(PR #221)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/196[(PR #196)]
 
 ** Integrated `Cashier Tab` with other packages, fixed and added some `Inventory` classes:
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/96[(PR #96)]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/96[(PR #96)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/94[(PR #94)]
 
 ** Standardized decimal places for all amounts attributes in all packages for calculation and display:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/297[(PR #297)]
 
 
-* Documentation:
+* Documentation
 ** Updated the developer guide with diagrams and information about `Inventory` and `Cashier` parsers:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)]
 
 ** Added implementation details for the `Cashier Tab`:
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)]
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164[(PR #164)]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164[(PR #164)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162[(PR #162)]
 
 ** Added guide to use `Cashier Tab` in user guide:
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/212[(PR #212)]
 
 ** Enhanced user guide to make it more user-friendly and updated `Members` Tab:
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/303[(PR #303)]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/303[(PR #303)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/252[(PR #252)]
 
 ** Amended README document to make it more comprehensible with a better format:
@@ -239,21 +239,21 @@ Steps:
 
 //.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
 
-image::cashierUG/AddCommand1.png[width=580"]
+image::cashierUG/AddCommand1.png[width=600"]
 
 [start = 2]
 2. Enter the desired description and quantity according to the items suggested by Leo as shown below:
 
 //.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
 
-image::cashierUG/AddCommand2.png[width="580"]
+image::cashierUG/AddCommand2.png[width="600"]
 
 [start = 3]
 . Hit `Enter`
 
 //.Screenshot of the response message for Add Command in Cashier Tab
 
-image::cashierUG/AddCommand3.png[width="580"]
+image::cashierUG/AddCommand3.png[width="600"]
 
 Leo will respond to the successful addition with a response message. The newly added item will be shown on the table.
 
@@ -287,14 +287,14 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 //.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
 
-image::cashierUG/CheckoutCommand1.png[width="580"]
+image::cashierUG/CheckoutCommand1.png[width="600"]
 
 [start = 2]
 . Hit `Enter`
 
 //.Screenshot of response message for Checkout Command in Cashier Tab
 
-image::cashierUG/CheckoutCommand2.png[width="580"]
+image::cashierUG/CheckoutCommand2.png[width="600"]
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.
 The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
@@ -371,7 +371,7 @@ The following sequence diagram shows how the `AddCommand` works which is referen
 
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 
-image::AddCommandCashierSeq.png[width="240"]
+image::AddCommandCashierSeq.png[width="270"]
 
 `AddCommandParser` will carry out multiple checks to check the validity of the inputs. `hasItemInInventory(description)`
 and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock
@@ -385,7 +385,7 @@ The following activity diagram shows the steps proceeding after the user input a
 
 .Activity Diagram of Add Command (cashier package)
 
-image::AddCommandCashierActivity.png[width="610"]
+image::AddCommandCashierActivity.png[width="600"]
 
 {End of First Extract from Developer Guide}
 
@@ -437,15 +437,14 @@ prompt the user to set a cashier. +
 Else, if the amount inputted is valid and cashier has been set, the `ModelManager` will create a new
 transaction of the sales made.
 
-//
-//[NOTE]
-//After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
+[NOTE]
+After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
 
 The following sequence diagram shows how the checkout command is executed:
 
 .Sequence Diagram of Checkout Command (cashier package)
 
-image::CheckoutCommandCashierSeq1.png[width="240"]
+image::CheckoutCommandCashierSeq1.png[width="280"]
 
 The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
 to the respective `.txt file`. +
@@ -456,7 +455,7 @@ The following sequence diagram shows how the transaction and inventory are updat
 
 .Sequence Diagram of how transaction and inventory get updated (cashier package)
 
-image::CheckoutCommandCashierSeq2.png[width="500"]
+image::CheckoutCommandCashierSeq2.png[width="600"]
 
 //As seen below, if the amount inputted is less than the total amount of items, the user will be prompted to key in a valid value.
 //

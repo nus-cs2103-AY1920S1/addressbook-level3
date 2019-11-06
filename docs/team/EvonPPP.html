@@ -461,7 +461,7 @@ are year 2 Computer Science students and the other is a year 4 Computer Engineer
 <div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-23">
 <p>This project is part of the module - Software Engineering Project, CS2103T. We were tasked to develop a basic
 command line interface <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> (CLI)
-desktop application by morphing or enhancing an existing AddressBook desktop application over a period of 2 months.
+desktop application by morphing or enhancing an existing AddressBook desktop application over a period of 13 weeks.
 My team decided to morph and incorporate the AddressBook application as part of our all-in-one expense tracker.
 This application enables treasurers and members of Co-Curricular Activities (CCA) Clubs and Societies to regulate
 their club expenses, manage the stocks in the inventory and retrieve records of reimbursements of its members and
@@ -532,7 +532,7 @@ managing of the organisation&#8217;s finances. The following shows the various t
 </div>
 <div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-62">
 <div class="content">
-<img src="../images/AnnotatedUi.png" alt="AnnotatedUi" width="530">
+<img src="../images/AnnotatedUi.png" alt="AnnotatedUi" width="680">
 </div>
 <div class="title">Figure 1. Graphical User Interface (GUI) of treasurerPro</div>
 </div>
@@ -544,7 +544,7 @@ managing of the organisation&#8217;s finances. The following shows the various t
 <div class="sectionbody">
 <div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-65">
 <p>My role was to design the layout and code the features for the <code>Cashier Tab</code>. The following sections presents the
-features and enhancements that I have implemented in greater detail, as well as the relevant documentation I have done in the
+enhancements that I have implemented in greater detail, as well as the relevant documentation I have done in the
 user guide and developer guide.</p>
 </div>
 <div class="sect2 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-69">
@@ -560,11 +560,11 @@ user guide and developer guide.</p>
 <ul>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-73">
 <p>What it does:
-It allows the user to add, delete and update the quantity of the items added in the table shown on the tab.</p>
+It allows the user to add, delete and update the sales items added in the table shown on the tab.</p>
 </li>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-76">
 <p>Justification:
-These features are fundamental for the <code>Cashier Tab</code> and incorporates the essential elements of a cash register.
+These features incorporates the essential elements of a cash register and are fundamental for the <code>Cashier Tab</code>.
 By expediting the process of calculating and recording the quantity of sales items, it enables the cashier-in-charge to
 perform cashiering duties more efficiently.</p>
 </li>
@@ -583,114 +583,120 @@ suggestions will be offered. This further augments the hassle-free aspect of thi
 <div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-102">
 <ul>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-102">
-<p>Checking Out of the Cart</p>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-103">
+<p>Checking Out the Cart</p>
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-104">
 <ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-103">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-104">
 <p>What it does:
-This checkout feature calculates and displays the total amount and the change that the cashier should return.
-Checking out allows users to confirm all the sales items in the table as sold.</p>
+This checkout feature calculates and displays the total amount and the change to be returned.</p>
 </li>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-107">
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-109">
+<ul>
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-109">
 <p>Justification:
 This feature allows the stock to be updated accordingly automatically on the <code>Inventory Tab</code>
-and abolish any need for manual logging of the stock. Thus, this is an essential feature to keep the quantity of stock
-up to date.</p>
+and abolish any need for manual logging of the stock.</p>
 </li>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-112">
+</ul>
+</div>
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-116">
+<ul>
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-116">
 <p>Highlights:
-This feature prohibits checkout from proceeding if the cashier has not been set to ensure accountability. Additionally, the sales made will be recorded
-and updated as one transaction on the <code>Home Tab</code>. The sales made will contribute towards the revenue and
+This feature ensures accountability by prohibiting checkout if the cashier has not been set. Additionally, the sales
+made will be recorded and updated on the <code>Home Tab</code>. The sales made will also contribute towards the revenue and
 be used in the financial analysis.</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
 </div>
-</div>
-<div class="sect2 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-117">
+<div class="sect2 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-121">
 <h3 id="_code_contributed">2.2. Code contributed</h3>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-118">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-122">
 <p>The code that I wrote for my features can be found in the following links:
 <a href="https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/cashier">Functional Code</a>,
 <a href="https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/cashier">Test Code</a></p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-122">
+<div class="sect2 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-126">
 <h3 id="_other_contributions">2.3. Other contributions</h3>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-123">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-127">
 <p>The following section leads to the relevant GitHub pull requests <a href="#PR">[PR]</a> in relation to the specific contributions.</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-125">
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-129">
 <ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-125">
-<p>Enhancements:</p>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-126">
-<ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-126">
-<p>Wrote tests for several <code>Inventory</code> classes:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/148">(PR #148)</a> <a href="#PR">[PR]</a></p>
-</li>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-129">
-<p>Refactored code to write to and from <code>Inventory</code> and <code>Transaction</code> package and update the respective models:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/202">(PR #202)</a> <a href="#PR">[PR]</a></p>
-</li>
-</ul>
-</div>
+<p>Enhancements:</p>
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-130">
+<ul>
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-130">
+<p>Wrote tests for several <code>Inventory</code> classes:
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/148">(PR #148)</a></p>
 </li>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-133">
-<p>Community:</p>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-134">
-<ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-134">
-<p>Reviewed pull requests and offered suggestions (with non-trivial review comments):
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/221">(PR #221)</a> <a href="#PR">[PR]</a>
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/196">(PR #196)</a> <a href="#PR">[PR]</a></p>
+<p>Refactored code to write to and from <code>Inventory</code> and <code>Transaction</code> package and update the respective models:
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/202">(PR #202)</a></p>
 </li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-137">
+<p>Community:</p>
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-138">
+<ul>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-138">
-<p>Integrated <code>Cashier Tab</code> with other packages, fixed and added some <code>Inventory</code> classes:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/96">(PR #96)</a> <a href="#PR">[PR]</a>
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/94">(PR #94)</a> <a href="#PR">[PR]</a></p>
+<p>Reviewed pull requests and offered suggestions (with non-trivial review comments):
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/221">(PR #221)</a>
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/196">(PR #196)</a></p>
 </li>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-142">
-<p>Standardized decimal places for all amounts attributes in all packages for calculation and display:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/297">(PR #297)</a> <a href="#PR">[PR]</a></p>
-</li>
-</ul>
-</div>
+<p>Integrated <code>Cashier Tab</code> with other packages, fixed and added some <code>Inventory</code> classes:
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/96">(PR #96)</a>
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/94">(PR #94)</a></p>
 </li>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-146">
-<p>Documentation:</p>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-147">
-<ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-147">
-<p>Updated the developer guide with diagrams and information about <code>Inventory</code> and <code>Cashier</code> parsers:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209">(PR #209)</a> <a href="#PR">[PR]</a></p>
+<p>Standardized decimal places for all amounts attributes in all packages for calculation and display:
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/297">(PR #297)</a></p>
+</li>
+</ul>
+</div>
 </li>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-150">
-<p>Added implementation details for the <code>Cashier Tab</code>:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209">(PR #209)</a> <a href="#PR">[PR]</a>
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164">(PR #164)</a> <a href="#PR">[PR]</a>
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162">(PR #162)</a> <a href="#PR">[PR]</a></p>
+<p>Documentation:</p>
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-151">
+<ul>
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-151">
+<p>Updated the developer guide with diagrams and information about <code>Inventory</code> and <code>Cashier</code> parsers:
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209">(PR #209)</a></p>
 </li>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-155">
-<p>Added guide to use <code>Cashier Tab</code> in user guide:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209">(PR #209)</a> <a href="#PR">[PR]</a>
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/212">(PR #212)</a> <a href="#PR">[PR]</a></p>
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-154">
+<p>Added implementation details for the <code>Cashier Tab</code>:
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209">(PR #209)</a>
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164">(PR #164)</a>
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162">(PR #162)</a></p>
 </li>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-159">
-<p>Enhanced user guide to make it more user-friendly and updated <code>Members</code> Tab:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/303">(PR #303)</a> <a href="#PR">[PR]</a>
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/252">(PR #252)</a> <a href="#PR">[PR]</a></p>
+<p>Added guide to use <code>Cashier Tab</code> in user guide:
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209">(PR #209)</a>
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/212">(PR #212)</a></p>
 </li>
 <li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-163">
+<p>Enhanced user guide to make it more user-friendly and updated <code>Members</code> Tab:
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/303">(PR #303)</a>
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/252">(PR #252)</a></p>
+</li>
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-167">
 <p>Amended README document to make it more comprehensible with a better format:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/230">(PR #230)</a> <a href="#PR">[PR]</a></p>
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/230">(PR #230)</a></p>
 </li>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-166">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-170">
 <p>Updated glossary and FAQ questions:
-<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/301">(PR #301)</a> <a href="#PR">[PR]</a></p>
+<a href="https://github.com/AY1920S1-CS2103T-T13-3/main/pull/301">(PR #301)</a></p>
 </li>
 </ul>
 </div>
@@ -700,57 +706,56 @@ be used in the financial analysis.</p>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-169">
+<div class="sect1 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-173">
 <h2 id="_contributions_to_the_user_guide">3. Contributions to the User Guide</h2>
 <div class="sectionbody">
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-170">
-<p>The following section illustrates my contribution to the treasurerPro User Guide for features specific to the <code>Cashier Tab</code>.</p>
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-174">
+<p>The following section illustrates my contribution to the User Guide for features specific to the <code>Cashier Tab</code>.</p>
 </div>
-<div class="sect2 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-172">
-<h3 id="_current_enhancement">3.1. Current enhancement</h3>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-173">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-176">
 <p>{Start of First Extract from User Guide}</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-204">
-<p><span class="big">5.5.1. Add a Sales Item to the Table</span>
-This command enables you to add a sales item into the table.</p>
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-207">
+<p><span class="big">5.5.1. Add a Sales Item to the Table</span></p>
 </div>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-207">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-209">
+<p>This command enables you to add a sales item into the table.</p>
+</div>
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-211">
 <ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-207">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-211">
 <p>Command:
 <code>add [c/CATEGORY] d/DESCRIPTION q/QUANTITY</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-210">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-214">
 <p>The quantity that you input must be less than or equal to the stock available in the Inventory Tab.
-Else, Leo will display a message prompting input of a smaller quantity or another item.<br>
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
 the Inventory Tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-216">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-219">
 <p>Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
 items with similar description that you might be looking for.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-219">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-222">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-221">
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-224">
 <ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-221">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-224">
 <p><code>add c/food</code> - Displays all items that are under the 'food' category in the response box</p>
 </li>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-222">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-225">
 <p><code>add c/stationary d/pancake q/3</code> - Adds 3 similar items which have the description "pancake"</p>
 </li>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-223">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-226">
 <p><code>add d/pancake q/3</code> - Adds 3 similar items which have the description "pancake"</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-231">
+<div class="admonitionblock note has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-234">
 <table>
 <tr>
 <td class="icon">
@@ -763,71 +768,71 @@ specified category inputted.
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-234">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-237">
 <p>Steps:
 1. Type the command with a category specified as shown in the screenshot below:</p>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-239">
+<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-242">
 <div class="content">
-<img src="../images/cashierUG/AddCommand1.png" alt="AddCommand1" width="440"">
+<img src="../images/cashierUG/AddCommand1.png" alt="AddCommand1" width="600"">
 </div>
 </div>
-<div class="olist arabic has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-242">
+<div class="olist arabic has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-245">
 <ol class="arabic" start="2">
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-242">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-245">
 <p>Enter the desired description and quantity according to the items suggested by Leo as shown below:</p>
 </li>
 </ol>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-246">
+<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-249">
 <div class="content">
-<img src="../images/cashierUG/AddCommand2.png" alt="AddCommand2" width="440">
+<img src="../images/cashierUG/AddCommand2.png" alt="AddCommand2" width="600">
 </div>
 </div>
-<div class="olist arabic has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-249">
+<div class="olist arabic has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-252">
 <ol class="arabic" start="3">
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-249">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-252">
 <p>Hit <code>Enter</code></p>
 </li>
 </ol>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-253">
+<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-256">
 <div class="content">
-<img src="../images/cashierUG/AddCommand3.png" alt="AddCommand3" width="440">
+<img src="../images/cashierUG/AddCommand3.png" alt="AddCommand3" width="600">
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-255">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-258">
 <p>Leo will respond to the successful addition with a response message. The newly added item will be shown on the table.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-257">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-260">
 <p>{End of First Extract from User Guide}</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-259">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-262">
 <p>{Start of Second Extract from User Guide}</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-261">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-264">
 <p><span class="big">5.5.5 Checkout All Sales Items</span></p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-263">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-266">
 <p>This command enables you to perform a checkout of all the sales items in the table.</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-265">
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-268">
 <ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-265">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-268">
 <p>Command:
 <code>checkout AMOUNT_PAID_BY_CUSTOMER</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-268">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-271">
 <p>The amount inputted should be the amount that the customer will be paying. This amount must be greater than or equal to the
 total amount listed on the bottom row of the table. If the amount paid is greater than the total amount, Leo will display
 the amount of change that the cashier should return.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-272">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-275">
 <p>After checking out, all items in the table will be cleared and the cashier will be reset.</p>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-275">
+<div class="admonitionblock note has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-278">
 <table>
 <tr>
 <td class="icon">
@@ -839,23 +844,23 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 </tr>
 </table>
 </div>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-277">
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-280">
 <ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-277">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-280">
 <p>Example:</p>
-<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-279">
+<div class="ulist has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-282">
 <ul>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-279">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-282">
 <p><code>checkout 850</code> - Customer pays $850 to cashier</p>
 </li>
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-281">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-284">
 <p>Steps:</p>
-<div class="olist arabic has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-283">
+<div class="olist arabic has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-286">
 <ol class="arabic">
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-283">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-286">
 <p>Type the command and specify the amount that the customer is paying as shown in the screenshot below:</p>
 </li>
 </ol>
@@ -863,60 +868,56 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 </li>
 </ul>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-287">
+<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-290">
 <div class="content">
-<img src="../images/cashierUG/CheckoutCommand1.png" alt="CheckoutCommand1" width="440">
+<img src="../images/cashierUG/CheckoutCommand1.png" alt="CheckoutCommand1" width="600">
 </div>
 </div>
-<div class="olist arabic has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-290">
+<div class="olist arabic has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-293">
 <ol class="arabic" start="2">
-<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-290">
+<li class="has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-293">
 <p>Hit <code>Enter</code></p>
 </li>
 </ol>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-294">
+<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-297">
 <div class="content">
-<img src="../images/cashierUG/CheckoutCommand2.png" alt="CheckoutCommand2" width="440">
+<img src="../images/cashierUG/CheckoutCommand2.png" alt="CheckoutCommand2" width="600">
 </div>
-</div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-296">
-<p>If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.<br>
-The <code>Home Tab</code> will be updated with this transaction and the remaining stock in the <code>Inventory Tab</code> will also be updated.</p>
 </div>
 <div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-299">
+<p>If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.
+The <code>Home Tab</code> will be updated with this transaction and the remaining stock in the <code>Inventory Tab</code> will also be updated.</p>
+</div>
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-302">
 <p>{End of Second Extract from User Guide}</p>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-301">
+<div class="sect1 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-304">
 <h2 id="_contributions_to_the_developer_guide">4. Contributions to the Developer Guide</h2>
 <div class="sectionbody">
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-302">
-<p>The following section shows my contribution to the treasurerPro Developer Guide for features specific to the <code>Cashier Tab</code>.</p>
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-305">
+<p>The following section shows my contribution to the Developer Guide for features specific to the <code>Cashier Tab</code>.</p>
 </div>
-<div class="sect2 has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-304">
-<h3 id="_current_enhancement_2">4.1. Current enhancement</h3>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-306">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-307">
 <p>{Start of First Extract from Developer Guide}</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-321">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-322">
 <p><span class="big">3.1.1 Add Sales Item feature</span></p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-323">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-324">
 <p>This feature allows the addition of sales items to the cart.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-329">
-<p>Adding of a sales item to the cart will require an input of its description and quantity. An optional field for
-category is provided to guide the cashier to find the desired item. If the category field is input with other unspecified
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-330">
+<p>Adding of a sales item to the cart will require an input of its description and quantity. If the category field is input with other unspecified
 description and quantity fields, <code>Model</code> will search all the sales items in the <code>Inventory List</code>
-according to the specified category and suggestions would be shown by Leo, the assistant.<br>
-If description and quantity field are both valid, the <code>ModelManager</code> will add the item into the sales list.</p>
+according to the specified category and suggestions would be shown by Leo.<br>
+If description and quantity are both valid, the <code>ModelManager</code> will add the item into the sales list.</p>
 </div>
 <div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-335">
 <p>If the description inputted does not match any valid item, the <code>Model</code> will call the <code>getRecommendedItems(description)</code> method
-to show a list of suggestions.</p>
+to show a list of suggestions as shown below in the code snippet.</p>
 </div>
 <div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-338">
 <p>The following is a code snippet from <code>getRecommendedItems(description)</code>:</p>
@@ -937,7 +938,7 @@ to show a list of suggestions.</p>
 </div>
 </div>
 <div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-358">
-<p>The <code>getCombination(arr, arr.length)</code> method in line 3 of the first snippet returns an ArrayList containing all subsets of
+<p>The <code>getCombination(arr, arr.length)</code> method in line 3 of the above snippet returns an ArrayList containing all subsets of
 descriptions that are of at least length 3. While iterating through the <code>InventoryList</code>, these subsets are compared
 with the actual descriptions of all items in the inventory to check if either contains the other.</p>
 </div>
@@ -946,91 +947,96 @@ with the actual descriptions of all items in the inventory to check if either co
 </div>
 <div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-374">
 <div class="content">
-<img src="../images/AddCommandCashierSeq.png" alt="AddCommandCashierSeq" width="180">
+<img src="../images/AddCommandCashierSeq.png" alt="AddCommandCashierSeq" width="270">
 </div>
 <div class="title">Figure 2. Sequence Diagram of Add Command in Cashier Tab (cashier package)</div>
 </div>
 <div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-376">
 <p><code>AddCommandParser</code> will carry out multiple checks to check the validity of the inputs. <code>hasItemInInventory(description)</code>
 and <code>hasSufficientQuantityToAdd(description, quantity)</code> methods will be called to ensure the item has sufficient stock
-left in the inventory.<br>
-There will also be checks to ensure that the item specified is available for sale.</p>
+left in the inventory. There will also be checks to ensure that the item specified is available for sale.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-385">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-384">
 <p>The following activity diagram shows the steps proceeding after the user input an add command:</p>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-389">
+<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-388">
 <div class="content">
-<img src="../images/AddCommandCashierActivity.png" alt="AddCommandCashierActivity" width="390">
+<img src="../images/AddCommandCashierActivity.png" alt="AddCommandCashierActivity" width="600">
 </div>
 <div class="title">Figure 3. Activity Diagram of Add Command (cashier package)</div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-391">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-390">
 <p>{End of First Extract from Developer Guide}</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-426">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-425">
 <p>{Start of Second Extract from Developer Guide}</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-428">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-427">
 <p><span class="big">3.1.2 Checkout Feature</span></p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-430">
-<p>This feature records all the sales items in the table as one sales transaction under the <code>Sales</code> category.</p>
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-429">
+<p>This feature records all the sales items in the table as one transaction under the <code>Sales</code> category.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-432">
-<p>The <code>Home Tab</code> will be updated with the new transaction labelled as <code>Items sold</code>. The remaining stock of the sales items
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-431">
+<p>The <code>Home Tab</code> will be updated with the new transaction labelled as <code>Items sold</code>. The remaining stock
 will also be updated on the <code>Inventory Tab</code>.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-435">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-434">
 <p>During the execution of the command, <code>getCashier()</code> method will be called which will return a person. This person will
 be used to create a <code>Transaction</code> object. If the cashier is null, the command cannot proceed and Leo will
 prompt the user to set a cashier.<br>
-If the amount inputted is valid and cashier has been set, the <code>ModelManager</code> will create a new
+Else, if the amount inputted is valid and cashier has been set, the <code>ModelManager</code> will create a new
 transaction of the sales made.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-445">
+<div class="admonitionblock note has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-441">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-443">
 <p>The following sequence diagram shows how the checkout command is executed:</p>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-449">
+<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-447">
 <div class="content">
-<img src="../images/CheckoutCommandCashierSeq1.png" alt="CheckoutCommandCashierSeq1" width="180">
+<img src="../images/CheckoutCommandCashierSeq1.png" alt="CheckoutCommandCashierSeq1" width="280">
 </div>
 <div class="title">Figure 4. Sequence Diagram of Checkout Command (cashier package)</div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-451">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-449">
 <p>The <code>Cashier Logic</code> will call relevant methods to update the inventory list and newly-generated transaction
 to the respective <code>.txt file</code>.<br>
 To update the view on the <code>Inventory Tab</code> and <code>Transaction Tab</code>,<code>readInUpdatedList()</code> method of inventory model will
 called to read in the entire inventory data file and transaction will be added to the transaction model.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-456">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-454">
 <p>The following sequence diagram shows how the transaction and inventory are updated:</p>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-460">
+<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-458">
 <div class="content">
-<img src="../images/CheckoutCommandCashierSeq2.png" alt="CheckoutCommandCashierSeq2" width="380">
+<img src="../images/CheckoutCommandCashierSeq2.png" alt="CheckoutCommandCashierSeq2" width="600">
 </div>
 <div class="title">Figure 5. Sequence Diagram of how transaction and inventory get updated (cashier package)</div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-462">
-<p>As seen below, if the amount inputted is less than the total amount of items, the user will be prompted to key in a valid value.</p>
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-468">
+<p>{End of Second Extract from Developer Guide}</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-464">
-<p>The following activity diagram shows the steps after the user input a checkout command:</p>
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-470">
+<p>{Start of Third Extract from Developer Guide}</p>
 </div>
-<div class="imageblock has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-468">
-<div class="content">
-<img src="../images/CheckoutCommandCashierActivityDiag.png" alt="CheckoutCommandCashierActivityDiag" width="390">
-</div>
-<div class="title">Figure 6. Activity Diagram of Checkout Command (cashier package)</div>
-</div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-471">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-472">
 <p><span class="big">3.1.5 Overall Design Considerations</span></p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-473">
+<div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-474">
 <p>This section explains the design considerations for some crucial implementations in the Cashier Tab.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-475">
+<table class="tableblock frame-all grid-all stretch has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-476">
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1045,14 +1051,22 @@ called to read in the entire inventory data file and transaction will be added t
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An ArrayList is used to store the list of sales item shown on the <code>Cashier Tab</code>.</p>
+<p class="tableblock"><strong>Pros</strong>: Elements are be accessed directly more efficiently.</p>
+<p class="tableblock"><strong>Cons</strong>: Adding and removing from the head of the list is less time-efficient for ArrayList.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A LinkedList is used to store the list of sales item.</p>
+<p class="tableblock"><strong>Pros</strong>: Time performance is better when elements are accessed from the head of the list.</p>
+<p class="tableblock"><strong>Cons</strong>: Performance is poor when accessing directly via the index.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alternative 1 is selected. An ArrayList has better performance with respect to time when accessing each elements directly. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Transaction, Inventory and Person <code>Model</code> interfaces are passed as parameters into Cashier&#8217;s <code>Logic</code>
 to call relevant methods to update the inventory and transactions.</p>
 <p class="tableblock"><strong>Pros</strong>: Cashier&#8217;s Logic can access all public methods in the respective <code>Model</code>.</p>
 <p class="tableblock"><strong>Cons</strong>: It might result in unintended modification to some of the data in the Models.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Interfaces that only contains required methods are created. The methods are called via these interfaces
 to update the data.</p>
-<p class="tableblock"><strong>Pros</strong>: Only necessary methods will be accessed, preventing any unwanted changes through other methods.
-This follows the Facade Pattern.</p>
+<p class="tableblock"><strong>Pros</strong>: Prevents any unwanted changes through other methods. This follows the Facade Pattern.</p>
 <p class="tableblock"><strong>Cons</strong>: If more methods are needed, they need to be added to these interfaces.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Alternative 2 was implemented as only a few methods are required from each <code>Model</code>, so the new interfaces can act as facades
 and restrict access to all public methods in the models. This prevents in Cashier’s <code>Logic</code> from causing any
@@ -1069,20 +1083,10 @@ to update the data.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Alternative 2 is implemented to enforce defensive programming, so that the data files are not modified via 2 different
 methods and eliminate any chances of uncoordinated data in the data files.</p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An ArrayList is used to store a list of sales item on cart of the <code>Cashier Tab</code>.</p>
-<p class="tableblock"><strong>Pros</strong>: Elements are be accessed directly more efficiently.</p>
-<p class="tableblock"><strong>Cons</strong>: Adding and removing from the head of the list is less time-efficient for ArrayList.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A LinkedList is used to store a list of sales item on cart of the <code>Cashier Tab</code>.</p>
-<p class="tableblock"><strong>Pros</strong>: Time performance is better when elements are accessed from the head of the list.</p>
-<p class="tableblock"><strong>Cons</strong>: Performance is poor when accessing directly via the index.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Alternative 1 is selected. An ArrayList has better performance with respect to time when accessing each elements directly. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.</p></td>
-</tr>
 </tbody>
 </table>
 <div class="paragraph has-source-line data-line-/Users/evondong/Documents/CS2103T_AB3_proj/main/docs/team/EvonPPP.adoc-529">
-<p>{End of Second Extract from Developer Guide}</p>
-</div>
+<p>{End of Third Extract from Developer Guide}</p>
 </div>
 </div>
 </div>
@@ -1095,7 +1099,7 @@ methods and eliminate any chances of uncoordinated data in the data files.</p></
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-06 02:00:09 +0800
+Last updated 2019-11-06 20:09:18 +0800
 </div>
 </div>
 </body>
