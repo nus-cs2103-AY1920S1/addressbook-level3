@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_IRRELEVANT_PREFIXES;
 import static seedu.address.logic.commands.CommandTestUtil.CALLER_DESC;
@@ -18,7 +17,6 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.IncidentBuilder.DEFAULT_DISTRICT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ENTITY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_ENTITY;
 
 import org.junit.jupiter.api.Test;
 
@@ -122,32 +120,29 @@ public class EditIncidentCommandParserTest {
         assertParseFailure(parser, "1" + DISTRICT_DESC + INVALID_PREFIX_DESC, MESSAGE_IRRELEVANT_PREFIXES);
 
         //invalid prefix as the first prefix: error thrown when parsing index
-        assertParseFailure(parser, "1" + INVALID_PREFIX_DESC,  MESSAGE_IRRELEVANT_PREFIXES
+        assertParseFailure(parser, "1" + INVALID_PREFIX_DESC, MESSAGE_IRRELEVANT_PREFIXES
                 + "\n" + MESSAGE_INVALID_FORMAT);
 
         //invalid prefix as first prefix followed by valid prefix: error thrown when parsing index
-        assertParseFailure(parser, "1" + INVALID_PREFIX_DESC + DISTRICT_DESC,MESSAGE_IRRELEVANT_PREFIXES
+        assertParseFailure(parser, "1" + INVALID_PREFIX_DESC + DISTRICT_DESC, MESSAGE_IRRELEVANT_PREFIXES
                 + "\n" + MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid district
-        assertParseFailure(parser,  " 1" + INVALID_DISTRICT_DESC,
-                District.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " 1" + INVALID_DISTRICT_DESC, District.MESSAGE_CONSTRAINTS);
 
         // invalid CallerNumber
-        assertParseFailure(parser,  " 1" + INVALID_PHONE_DESC,
-                CallerNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " 1" + INVALID_PHONE_DESC, CallerNumber.MESSAGE_CONSTRAINTS);
 
         // invalid phone followed by valid district
-        assertParseFailure(parser,  "1" + INVALID_PHONE_DESC + " " + PREFIX_DISTRICT
-                + DEFAULT_DISTRICT, CallerNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + " " + PREFIX_DISTRICT + DEFAULT_DISTRICT,
+                CallerNumber.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + " "
-                        + INVALID_DISTRICT_DESC,
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + " " + INVALID_DISTRICT_DESC,
                 CallerNumber.MESSAGE_CONSTRAINTS);
     }
-    
+
 }
