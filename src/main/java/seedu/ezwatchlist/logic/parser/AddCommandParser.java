@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.ezwatchlist.commons.core.Messages;
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.AddCommand;
 

@@ -1,6 +1,6 @@
 package seedu.ezwatchlist.logic.parser;
 
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -24,10 +24,10 @@ public class SearchCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        HashMap<String, List<String>> searchHash = new HashMap<>();
+        HashMap<SearchKey, List<String>> searchHash = new HashMap<>();
         ArrayList<String> nameList = new ArrayList<>();
         nameList.add("Alice");
-        searchHash.put("name", nameList);
+        searchHash.put(SearchKey.KEY_NAME, nameList);
         SearchCommand expectedSearchCommand =
                 new SearchCommand(searchHash);
         assertParseSuccess(parser, "Alice", expectedSearchCommand);

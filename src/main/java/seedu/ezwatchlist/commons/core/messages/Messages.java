@@ -1,4 +1,4 @@
-package seedu.ezwatchlist.commons.core;
+package seedu.ezwatchlist.commons.core.messages;
 
 /**
  * Container for user visible messages.

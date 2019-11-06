@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.ezwatchlist.logic.parser.SearchKey;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
@@ -30,14 +31,14 @@ public class SearchCommandTest {
         NameContainsKeywordsPredicate secondPredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));*/
 
-        HashMap<String, List<String>> firstHash = new HashMap<String, List<String>>();
-        HashMap<String, List<String>> secondHash = new HashMap<String, List<String>>();
+        HashMap<SearchKey, List<String>> firstHash = new HashMap<>();
+        HashMap<SearchKey, List<String>> secondHash = new HashMap<>();
         ArrayList<String> firstList = new ArrayList<>();
         ArrayList<String> secondList = new ArrayList<>();
         firstList.add("first");
         secondList.add("second");
-        firstHash.put("name", firstList);
-        secondHash.put("name", secondList);
+        firstHash.put(SearchKey.KEY_NAME, firstList);
+        secondHash.put(SearchKey.KEY_NAME, secondList);
         SearchCommand searchFirstCommand = new SearchCommand(firstHash);
         SearchCommand searchSecondCommand = new SearchCommand(secondHash);
 

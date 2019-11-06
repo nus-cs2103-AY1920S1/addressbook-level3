@@ -1,7 +1,8 @@
 package seedu.ezwatchlist.model.show;
 
 public enum Type {
-    MOVIE("movie"), TV_SHOW("tv");
+    MOVIE("movie"),
+    TV_SHOW("tv");
 
     public final String type;
 

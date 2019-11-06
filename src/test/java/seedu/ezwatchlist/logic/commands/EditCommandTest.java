@@ -13,7 +13,7 @@ import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.ezwatchlist.commons.core.Messages;
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
 import seedu.ezwatchlist.model.Model;

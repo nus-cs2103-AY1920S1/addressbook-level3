@@ -1,5 +1,7 @@
 package seedu.ezwatchlist.logic.parser;
 
+import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.ezwatchlist.commons.core.Messages;
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
