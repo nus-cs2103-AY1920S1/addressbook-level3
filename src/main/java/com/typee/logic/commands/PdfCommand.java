@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.itextpdf.text.DocumentException;
-import com.typee.commons.util.PdfUtil;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.commands.exceptions.GenerateExistingReportException;
 import com.typee.model.Model;
@@ -54,7 +53,7 @@ public class PdfCommand extends Command {
             report = new Report(engagement, to, from);
             try {
                 model.saveReport(report);
-            } catch (IOException | DocumentException |GenerateExistingReportException e) {
+            } catch (IOException | DocumentException | GenerateExistingReportException e) {
                 throw new CommandException(MESSAGE_DOCUMENT_INVALID + e.getMessage());
             }
             return new CommandResult(MESSAGE_SUCCESS);

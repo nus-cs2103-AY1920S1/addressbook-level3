@@ -100,7 +100,8 @@ public class PdfUtil {
     /**
      * Initialise and instantiates the {@code PdfWriter}.
      */
-    private static Document initDoc(String fileName, Engagement engagement, Person to) throws IOException, DocumentException {
+    private static Document initDoc(String fileName, Engagement engagement, Person to) throws IOException,
+            DocumentException {
         logger.info(fileName);
         Document doc = new Document();
 
