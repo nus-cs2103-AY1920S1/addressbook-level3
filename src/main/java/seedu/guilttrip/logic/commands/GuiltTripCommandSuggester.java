@@ -22,7 +22,7 @@ import seedu.guilttrip.logic.parser.exceptions.ParseException;
  */
 public final class GuiltTripCommandSuggester {
 
-    public static final int COMMAND_RECOMMENDATION_COUNT = 5;
+    private static final int COMMAND_RECOMMENDATION_COUNT = 5;
 
     /**
      * Takes in textInput from the {@link seedu.guilttrip.ui.CommandBox} and returns
@@ -58,8 +58,7 @@ public final class GuiltTripCommandSuggester {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
-        return commandWord;
+        return matcher.group("commandWord");
     }
 
     private static ArgumentMultimap getArgumentMultimap(String textInput) throws ParseException {
@@ -81,6 +80,7 @@ public final class GuiltTripCommandSuggester {
         Queue<String> commandsHeap = new PriorityQueue<>(new EditDistanceComparator(commandWord));
         commandsHeap.addAll(COMMANDS_SET);
 
-        return IntStream.rangeClosed(1, 10).mapToObj(i -> commandsHeap.poll()).collect(Collectors.joining("\n"));
+        return IntStream.rangeClosed(1, COMMAND_RECOMMENDATION_COUNT).mapToObj(i -> commandsHeap.poll())
+                .collect(Collectors.joining("\n"));
     }
 }
