@@ -1,0 +1,41 @@
+@startuml
+autoactivate on
+
+box Logic
+participant ":LogicManager" as LogicManager
+participant ":JarvisParser" as JarvisParser
+participant ":CheckCommandParser" as CheckCommandParser
+participant "c:CheckCommand" as CheckCommand
+participant "t:AndOrTree" as AndOrTree
+participant ":CommandResult" as CommandResult
+end box
+
+box Model
+participant ":Model" as Model
+end box
+
+[-> LogicManager : execute("check c/CS2102")
+    LogicManager -> JarvisParser : parseCommand("check c/CS2102")
+        create CheckCommandParser
+        JarvisParser -> CheckCommandParser
+            return
+        JarvisParser -> CheckCommandParser : parse("c/CS2102")
+            create CheckCommand
+            CheckCommandParser -> CheckCommand
+                return c
+            return c
+        return c
+        destroy CheckCommandParser
+    LogicManager -> CheckCommand : execute()
+        CheckCommand -> AndOrTree : buildTree()
+            return t
+        CheckCommand -> AndOrTree : t.fulfills()
+            return hasFulfilled
+        CheckCommand -> Model : checkCourse()
+            return
+        create CommandResult
+        CheckCommand -> CommandResult
+            return
+        return result
+    [<-- LogicManager
+@enduml
