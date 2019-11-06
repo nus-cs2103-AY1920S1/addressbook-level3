@@ -19,11 +19,6 @@ the advanced features for *managing* expenses are tagging and archiving expenses
 Since _Billboard_ has a Command Line Interface (CLI), meaning that all interactions between user and the application is done through typing only, it is meant for students who
 type fast. Furthermore, _Billboard_ also has a fully functioning Graphical User Interface (GUI), making it user friendly.
 
-This is what our project looks like:
-
-.The graphical user interface for _Billboard_
-image::Ui.png[]
-
 The role I played in this project was to design and implement the code for the `archive` feature. Additionally, I was
 tasked with improving the application's aesthetic design by adding major cosmetic tweaks to the application's GUI.
 The following sections illustrate these enhancements in greater detail, as well as the relevant documentation I have added to the user and
@@ -48,8 +43,9 @@ This section provides a quick summary of my coding, documentation, and other mea
 ** *What it does*: My enhancement allows the user to create archives, add an expense to an archive, revert/"unarchive" an archived expense and permanently delete expenses in an archive.
 
 ** *Justification*: Suppose users have old or outdated expenses but they do not want to permanently delete them as they may refer to these expenses again in the future for accounting purposes.
-Users can simply archive these expenses, which *de-clutters their list of current expenses.* Furthermore, as users are able to group expenses into different archives, they are able to *better
-organise past expenses.* Therefore, this feature contributes great value to the application, as it provides users with a method of organising and tracking their expenses in the long run.
+Users can simply archive these expenses, which *de-clutters their list of current expenses.*
+Furthermore, as users are able to group expenses into different archives, they are offered *greater flexibility in expense organisation.*
+Therefore, this feature contributes great value to the application, as it provides users with a method of organising and tracking their expenses in the long run.
 
 ** *Highlights*:
 *** This enhancement works well with most existing features and features to be added in future. This is because expenses that are archived cannot be edited (e.g. adding a tag) as they
@@ -102,18 +98,219 @@ https://github.com/AY1920S1-CS2103T-F12-4/main/pull/185[#185]
 
 == Contributions to the User Guide
 
-As the original addressbook application does not have features similar to the major enhancements I made, I had to add new content to the User Guide regarding these changes.
-
-Given below is an excerpt from the _**Billboard User Guide**_ showcasing instructions on how to use the new `archive` feature I added.
+Given below is an excerpt from the _**Billboard User Guide**_ detailing instructions on how to use the new `archive` feature I added.
 This excerpt reflects my ability to write documentation meant for students, the targeted user group of the application, in a clear and concise manner so that they will be able to easily
 understand what each `archive` operation does and how to use them.
 
+Do note that due to the page limit, only the feature preface and the ** _Adding an expense to an archive: ``archive add``_ ** sections are included in full as a sample representative of my documentation skills.
+The documentation of the other commands will be an abbreviated version.
+You may refer to the https://ay1920s1-cs2103t-f12-4.github.io/main/UserGuide.html#archiving-past-expenses-code-archive-code[_**Billboard User Guide**_]
+for the full version.
 
-include::../UserGuide.adoc[tag=archive]
+=== Archiving past expenses: `archive`
+This feature allows you to archive expenses. An expense is archived when you want remove it from
+the current list of expenses, but still want to keep a record of it and retrieve it again in the future
+for accounting purposes.
+
+NOTE: *Archived expenses cannot be edited.* +
+Archived expenses are not considered current and "active" expenses so you are unable to edit them. +
+You would need to unarchive an expense first before you would be able to perform expense editing commands on it such as
+`edit`, `tag add` and `tag remove` commands.
+
+Although this section of the user guide provides comprehensive information on the usage of `archive` commands,
+you could also view the list of all supported archive commands within the application by typing the command word `archive`
+into the command box.
+
+The following are all the archive commands, descriptions of how they work and their usage.
+
+Note the formatting of command parameters used in this section:
+
+* [INDEX]: The list index of the expense involved in the command.
+* `arc/`: Prefix to indicate that the text appended to it is the specified archive name.
+* [ARCHIVE NAME]: Specified name of archive involved in the command. Archive name is case-sensitive and must be non-empty. Names with symbols and multiple words are accepted as well.
+
+==== _Adding an expense to an archive: ``archive add``_ +
+This command allows you to transfer the expense at the specified index to your specified archive. +
+If the archive you entered does not exist, then a new archive is created before the expense is added. +
+ +
+Usage:
+
+ archive add [INDEX] arc/[ARCHIVE NAME]
+
+Example:
+
+Suppose you want to archive the expense called "_joker movie tickets_" to an archive called "_movies_". +
+To archive the expense:
+
+1. Type `archive add 7 arc/movies` into the command box, and press `Enter` to execute the command:
++
+.The expense "_joker movie tickets_" is at index 7 in the list.
+image:archiveAddEnterCommand.png[]
+
+2. The next step can be split into 2 scenarios:
+
+* 2a. *There is no existing archive called "_movies_"* +
+A new archive called "_movies_" is created before "_joker movie tickets_" is added to it. +
+The result will display the message to indicate the archive creation and transfer of the expense:
++
+image::archiveAddArchiveCreatedMessage.png[]
+
+* 2b. *There is an existing archive called "_movies_"* +
+"_joker movie tickets_" is simply added to the existing "_movies_" archive. +
+The result will display the message to indicate the transfer of the expense:
++
+image::archiveAddExistentArchiveMessage.png[]
+
+{nbsp} +
+
+==== _Listing out all archives: ``archive listall``_ +
+This command informs you of all the existing archives by displaying a list of all existing archive names. +
+{nbsp} +
+Usage:
+
+ archive listall
+
+==== _Listing expenses in a particular archive: ``archive list``_ +
+This command allows you to view the list of expenses of your specified archive. +
+{nbsp} +
+Usage:
+
+ archive list [ARCHIVE NAME]
+
+==== _Deleting an archived expense: ``archive delete``_ +
+This command allows you to delete the expense at the specified index from your specified archive. +
+If the archived expense you delete was the last expense in the archive, the empty archive will be deleted. +
+{nbsp} +
+Usage:
+
+ archive delete [INDEX] arc/[ARCHIVE NAME]
+
+==== _Reverting an archived expense: archive revert_ +
+This command allows you to revert/unarchive the expense at the specified index from your specified archive, transferring it back to your current list of expenses. +
+If the archive expense you reverted was the last expense in the archive, the empty archive will be deleted. +
+{nbsp} +
+Usage:
+
+ archive revert [INDEX] arc/[ARCHIVE NAME]
+
 
 == Contributions to the Developer Guide
 
-Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+Given below are my documentation in the Developer Guide. They reflect my ability to write technical documentation and showcase the technical depth of my contributions to the project.
+
+Do note that due to the page limit, the Full Sequence Diagram and Activity Diagram of `AddArchiveCommand` are omitted.
+You may refer to the full https://ay1920s1-cs2103t-f12-4.github.io/main/DeveloperGuide.html#archive[*_Billboard Developer Guide_*] to view these diagrams.
 
 
-include::../DeveloperGuide.adoc[tag=archive]
+=== Archive
+==== Implementation
+===== Modelling Archive
+The archive feature supports the following actions:
+
+* Creating an archive
+* Adding an expense to an archive
+* Reverting/"unarchiving" an archived expense
+* Deleting an archived expense
+* Displaying the list of expense of a particular archive
+* Listing all existing archive names
+
+
+These actions are facilitated by the `ArchiveWrapper` and `Archive` classes:
+
+.Structure and associations of `ArchiveWrapper` and `Archive` classes
+image::ArchiveClassDiagram.png[]
+
+*  `Archive` extends from `ExpenseList` in order to encapsulate an archive name and a list of expenses together as an archive.
+* `ArchiveWrapper` manages all existing archives and hashes each `Archive` object to its archive name.
+
+`ArchiveWrapper` is used in `ModelManager` to manage all archives. Its respective operations are called to access and manipulate archive expenses when an archive command is entered. +
+Such operations include:
+
+* `ArchiveWrapper#AddArchive(Archive)` - Adds the given archive to the current map of archive objects.
+* `ArchiveWrapper#HasArchive(String)` - Checks if the specified archive by the given archive name exists.
+* `ArchiveWrapper#removeArchive(Archive)` - Deletes the given archive from the current map of archive objects. (Assumes given archive already exists)
+* `ArchiveWrapper#hasArchiveExpense(String, Expense)` - Checks if the specified archive by the given archive name has the given expense.
+* `ArchiveWrapper#addArchiveExpense(String, Expense)` - Adds the given expense into the specified archive by the given archive name. (Assumes given archive already exists)
+* `ArchiveWrapper#removeArchiveExpense(String, Expense)` - Deletes the given expense into the specified archive by the given archive name. (Assumes given archive and expense already exists)
+* `ArchiveWrapper#getArchiveNames()` - Returns a set of all existing archive names
+
+These operations are exposed in the `Model` interface with respective methods of the same name. +
+E.g `Model#addArchive(Archive)` calls `ArchiveWrapper#AddArchive(Archive)`
+
+Given below is an example usage scenario of the add expense to archive function, showing how the command is parsed in `Logic` and how it interacts with `Model`: +
+
+Step 1. The user has the application running and has a non empty list of current expenses. The user can enter the `list` command to bring up
+this list. +
+
+Step 2. The user executes the command `archive add 3 arc/archiveName` to archive an expense. +
+The command is first parsed by `BillboardParser` to determine what kind of general command it is. `archive` indicates it is an archive command so the remaining input is parsed through `ArchiveCommandParser`. +
+`ArchiveCommandParser` determines which archive command should be called. `add` indicates it is an add command, so the input is parsed for the final time through `AddArchiveCommandParser` to extract out the arguments entered for the operation.
+In this case, the arguments are `3` and `archiveName` +
+
+This layered parsing process can be visualised below:
+
+.Process of parsing `AddArchiveCommand` in a cropped sequence diagram
+image::AddArchiveCommandSequenceDiagram_Parsing.png[]
+
+Step 3. `AddArchiveCommandParser` then returns an `AddArchiveCommand` object to be executed. The `AddArchiveCommand` performs two checks before executing any changes:
+
+* First, it is changed if entered index, `3`, is a valid index from the current expense list. An exception is thrown and the command is aborted if the index is invalid,
+so `Model` is left unmodified in this case.
+* Next, it is checked if the entered archive name, `archiveName`, is an existing archive by calling `Model#HasArchive(String)`. If the archive does not already exist,
+then a new archive is created with the given archive name using `Model#addArchive(Archive)`. +
+
+After the checks are completed and if no exception is thrown, the command executes the archiving of the expense through these steps:
+
+* The expense to be archived is first retrieved by `Model#getFilteredList()#get(int)`
+* The expense is then deleted from the list of current expenses by calling `model#deleteExpense(Expense)`
+* Next, the expense's `archiveName` field is updated using `Expense#archiveTo(String)`
+* Lastly, the expense is added to the specified archive using `Model#addArchiveExpense(String, Expense)`
+
+These interactions with `Model` by `AddArchiveCommand` can be shown in the cropped portion of the full sequence diagram below:
+
+.Interactions between `Model` and `AddArchiveCommand` during the execution of the command
+image::AddArchiveCommandSequenceDiagram_executeCommand.png[]
+
+Step 4. Finally, a `CommandResult` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful. +
+
+Full Sequence diagram of the operation:
+
+*(Diagram omitted due to page limit)*
+
+The following activity diagram summarizes what happens when a user executes a new `AddArchiveCommand`:
+
+*(Diagram omitted due to page limit)*
+
+===== Storing Archive
+All expenses, archived and non-archived, are stored in a single JSON file. +
+
+Upon start up of the application, all expenses are retrieved from JSON format and passed into
+`ModelManager` as a combined `Billboard` object. During the initialization of `ModelManager`, the expenses in this `Billboard` object are filtered out into non-archived and
+archived expenses by each `Expense` object's `archiveName` field. The separate lists of non-archive and archive expenses are then used to initialize new `Billboard` and
+`ArchiveWrapper` objects of `ModelManager` respectively. +
+
+After each command is executed, the expenses in `Model` are saved into the JSON file. The method `Model#getCombinedBillboard` is called which collates all `Expense` objects
+from its `Billboard` and `ArchiveWrapper` objects together into a single list and creates a new combined `Billboard` object. This combined `Billboard` is returned and used by
+`Storage` to serialize into JSON format and writes it into the JSON file.
+
+==== Design Considerations
+===== Aspect: Data Structure to hold archives in `ArchiveWrapper`
+* ** Alternative 1 (Current implementation): ** Use of HashMap, mapping each archive name to its `Archive` object
+** Pros: Instant access to any archive with the archive name given. Therefore, performing add/delete archive expense operations or checking if an archive exists is fast.
+** Cons: As `ArchiveWrapper` is initialized with a single list of archive `Expense` objects, the initialization process is slower as this given list needs to be iterated
+through to filter each `Expense` object into their respective `Archive` objects in the HashMap.
+
+* ** Alternative 2: ** Use a single list to store all archive expenses
+** Pros: Initialization of `ArchiveWrapper` is fast, as the given list of archive expenses need not be processed.
+** Cons: Some operations, like delete archive expense or get all archive names, are slower as the entire list must be iterated through each time in the worst case scenario.
+For example, to check if an expense exists in a particular archive, the entire list must be iterated if the expense to be found is at the end of the list.
+
+===== Aspect: Storing archives
+* ** Alternative 1 (Current implementation): ** Storing non-archive and archive expenses together
+** Pros: No new storage classes need to be implemented, as this implementation uses the existing classes only.
+** Cons: Initialization process of `ModelManager` is slower as the expenses need to be filtered into archive and non-archive expenses first.
+
+* ** Alternative 2: ** Storing archive expenses as `Archive` objects in a separate file
+** Pros: Initialization process of `ModelManager` is faster, as its `ArchiveWrapper` object can be initialized directly with the list of `Archive` objects retrieved from the JSON file.
+No filtering of archive and non-archive expense from the same list is needed.
+** Cons: More difficult to implement, as more JSON storage classes must be added and knowledge on serialising and deserialising new objects is needed.
