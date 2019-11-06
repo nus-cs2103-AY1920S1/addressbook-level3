@@ -38,7 +38,6 @@ public class TrainingCommandAbsent extends TrainingCommand {
     public TrainingCommandAbsent(AthletickDate date, List<Index> indexList) {
         super(date, indexList);
     }
-    
     public Training getTrainingToAdd() {
         return this.trainingToAdd;
     }

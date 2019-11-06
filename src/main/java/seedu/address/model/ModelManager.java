@@ -142,7 +142,6 @@ public class ModelManager implements Model {
     public Command undo() {
         Command undoneCommand = HistoryManager.getCommands().pop();
         ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
-        System.out.println("Popped AB: " + undoneAddressBooks);
         HistoryManager.getUndoneCommands().push(undoneCommand);
         HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
         //undo add/delete training command
@@ -152,17 +151,14 @@ public class ModelManager implements Model {
             List<Training> afterUndoneTrainingList =
                 this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().peek());
             attendance.resetTrainingList(afterUndoneTrainingList);
-            //undo normal addressbook commands
+        //undo normla addressbook commands
         } else if (undoneCommand instanceof EditCommand) {
             ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
-            System.out.println("Peek AB: " + afterUndoneState);
             addressBook.resetData(afterUndoneState);
             List<Training> undoneTrainingList = this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().pop());
-            System.out.println("Popped Training: " + undoneTrainingList);
             HistoryManager.getUndoneTrainingLists().push(undoneTrainingList);
             List<Training> afterUndoneTrainingList =
                 this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().peek());
-            System.out.println("Peek Training: " + afterUndoneTrainingList);
             attendance.resetTrainingList(afterUndoneTrainingList);
         } else {
             ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();

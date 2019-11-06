@@ -61,7 +61,6 @@ public abstract class TrainingCommand extends Command {
      */
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;
-    
     public abstract Training getTrainingToAdd();
     /**
      * Indicates whether a TrainingCommand can be undone.

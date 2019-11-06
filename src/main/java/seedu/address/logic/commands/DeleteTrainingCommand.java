@@ -30,15 +30,9 @@ public class DeleteTrainingCommand extends DeleteCommand {
     public DeleteTrainingCommand(AthletickDate date) {
         this.date = date;
     }
-    
-    public Training getTrainingToBeDeleted() {
-        return this.trainingToBeDeleted;
-    }
-    
     public AthletickDate getDate() {
         return this.date;
     }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (model.hasTrainingOnDate(date)) {

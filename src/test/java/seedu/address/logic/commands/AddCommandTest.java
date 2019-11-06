@@ -185,7 +185,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteTrainingOnDate(AthletickDate date) {
+        public Training deleteTrainingOnDate(AthletickDate date) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -201,6 +201,14 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBookDeepCopy() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public List<Training> getTrainingsDeepCopy(List<Training> trainingsList) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy) {
             throw new AssertionError("This method should not be called.");
         }
         @Override
