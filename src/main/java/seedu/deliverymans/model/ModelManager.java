@@ -348,6 +348,34 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Order getOrder(Name targetOrder) {
+        Order orderToGet = null;
+        for (Order order : getFilteredOrderList()) {
+            if (order.getOrderName().equals(targetOrder)) {
+                orderToGet = order;
+            }
+        }
+        return orderToGet;
+    }
+
+    @Override
+    public Name getFreeOrderName() {
+        int n = 1;
+        for (Order order : getFilteredOrderList()) {
+            String[] s = order.getOrderName().fullName.split("\\s");
+            if (Integer.parseInt(s[1]) == n) {
+                n++;
+            } else {
+                break;
+            }
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("Order ")
+                .append(n);
+        return new Name(builder.toString());
+    }
+
+    @Override
     public void addOrderInCustomer(Order order) {
         Customer customer = null;
         for (Customer cust : getFilteredCustomerList()) {
