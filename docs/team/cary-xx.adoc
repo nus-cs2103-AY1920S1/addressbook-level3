@@ -25,8 +25,7 @@ kLoC.
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xiu%20ziheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cary-Xx&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Functional code]]
-[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xiu%20ziheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cary-Xx&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xiu%20ziheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cary-Xx&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xiu%20ziheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cary-Xx&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
