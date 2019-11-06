@@ -11,48 +11,32 @@ import javafx.collections.transformation.FilteredList;
  */
 public class CloneModel {
 
-    private Xpire xpire;
-    private ReadOnlyListView<Item> replenishList;
-    private ReadOnlyUserPrefs userPrefs;
-    private FilteredList<XpireItem> filteredXpireItemList;
-    private FilteredList<Item> filteredReplenishItemList;
-    private ListToView listToView;
-    private FilteredList<? extends Item> currentList;
+    private final Xpire xpire;
+    private final ReadOnlyListView<Item> replenishList;
+    private final ReadOnlyUserPrefs userPrefs;
+    private final FilteredList<? extends Item> currentList;
 
     public CloneModel(Xpire xpire, ReadOnlyListView<Item> replenishList,
-                      ReadOnlyUserPrefs userPrefs, FilteredList<XpireItem> filteredXpireItemList,
-                      FilteredList<Item> filteredReplenishItemList,
-                      ListToView listToView, XpireMethodOfSorting method) {
+                      ReadOnlyUserPrefs userPrefs, FilteredList<? extends Item> currentList,
+                      XpireMethodOfSorting method) {
         this.xpire = new Xpire(xpire);
         this.xpire.setMethodOfSorting(method);
         this.replenishList = new ReplenishList(replenishList);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.filteredXpireItemList = new FilteredList<>(this.xpire.getItemList());
-        this.filteredXpireItemList.setPredicate(filteredXpireItemList.getPredicate());
-        this.filteredReplenishItemList = new FilteredList<>(this.replenishList.getItemList());
-        this.filteredReplenishItemList.setPredicate(filteredReplenishItemList.getPredicate());
-        this.listToView = listToView;
-        this.currentList = checkListToView(this.listToView);
+        this.currentList = new FilteredList<>(currentList);
     }
 
     public CloneModel(Xpire xpire, ReadOnlyListView<Item> replenishList,
-                      ReadOnlyUserPrefs userPrefs, FilteredList<XpireItem> filteredXpireItemList,
-                      FilteredList<Item> filteredReplenishItemList,
-                      ListToView listToView) {
+                      ReadOnlyUserPrefs userPrefs, FilteredList<? extends Item> currentList) {
         this.xpire = xpire;
         this.replenishList = replenishList;
         this.userPrefs = userPrefs;
-        this.filteredXpireItemList = new FilteredList<>(this.xpire.getItemList());
-        this.filteredXpireItemList.setPredicate(filteredXpireItemList.getPredicate());
-        this.filteredReplenishItemList = new FilteredList<>(this.replenishList.getItemList());
-        this.filteredReplenishItemList.setPredicate(filteredReplenishItemList.getPredicate());
-        this.listToView = listToView;
-        this.currentList = checkListToView(listToView);
+        this.currentList = new FilteredList<>(currentList);
     }
-
+/*
     /**
      * Checks the model's list to view
-     */
+
     private FilteredList<? extends Item> checkListToView(ListToView listToView) {
         if (listToView.equals(new ListToView("main"))) {
             return filteredXpireItemList;
@@ -60,29 +44,21 @@ public class CloneModel {
             return filteredReplenishItemList;
         }
     }
-
+*/
     public ReadOnlyListView<XpireItem> getXpire() {
-        return xpire;
+        return this.xpire;
     }
 
     public ReadOnlyListView<Item> getReplenishList() {
-        return replenishList;
+        return this.replenishList;
     }
 
     public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+        return this.userPrefs;
     }
 
-    public FilteredList<XpireItem> getFilteredXpireItemList() {
-        return filteredXpireItemList;
-    }
-
-    public FilteredList<Item> getFilteredReplenishItemList() {
-        return filteredReplenishItemList;
-    }
-
-    public ListToView getListToView() {
-        return listToView;
+    public FilteredList<? extends Item> getCurrentList() {
+        return this.currentList;
     }
 
     @Override

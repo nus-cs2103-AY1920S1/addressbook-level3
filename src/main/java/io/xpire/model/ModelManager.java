@@ -1,6 +1,7 @@
 package io.xpire.model;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -28,15 +29,8 @@ public class ModelManager implements Model {
     private final ReplenishList replenishList;
     private final UserPrefs userPrefs;
     private FilteredList<? extends Item> currentList;
+    private ListType currentView;
 
-/*
-    private FilteredList<XpireItem> filteredXpireItems;
-    private FilteredList<Item> filteredReplenishItems;
-    private final FilteredList<XpireItem> previousXpireItems;
-    private final FilteredList<Item> previousReplenishItems;
-    private FilteredList<? extends Item> currentFilteredItems;
-    private ListToView listToView;
-*/
     /**
      * Initializes a ModelManager with the given xpire and userPrefs.
      */
@@ -51,14 +45,7 @@ public class ModelManager implements Model {
         this.replenishList = new ReplenishList(lists[1]);
         this.userPrefs = new UserPrefs(userPrefs);
         this.currentList = new FilteredList<>(this.xpire.getItemList());
-/*
-        this.filteredXpireItems = new FilteredList<>(this.xpire.getItemList());
-        this.previousXpireItems = new FilteredList<>(this.xpire.getItemList());
-        this.filteredReplenishItems = new FilteredList<>(this.replenishList.getItemList());
-        this.previousReplenishItems = new FilteredList<>(this.replenishList.getItemList());
-        this.currentFilteredItems = this.filteredXpireItems;
-        this.listToView = new ListToView("main");
-*/
+        this.currentView = XPIRE;
     }
 
     public ModelManager() {
@@ -130,7 +117,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReplenishList getReplenishList() {
+    public ReadOnlyListView<Item> getReplenishList() {
         return this.replenishList;
     }
 
@@ -255,7 +242,7 @@ public class ModelManager implements Model {
      * {@code Xpire} or {@code ReplenishList}.
      */
     @Override
-    public ObservableList<? extends Item> getCurrentList() {
+    public FilteredList<? extends Item> getCurrentList() {
         return this.currentList;
     }
 
@@ -348,9 +335,12 @@ public class ModelManager implements Model {
         this.setXpire(clone.getXpire());
         this.xpire.setMethodOfSorting(state.getMethod());
         this.setReplenishList(clone.getReplenishList());
-        this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
-        this.setFilteredXpireItems(clone.getFilteredXpireItemList());
-        this.setCurrentFilteredItemList(clone.getListToView());
+        this.currentList = clone.getCurrentList();
+    }
+
+    @Override
+    public ListType getCurrentView() {
+        return this.currentView;
     }
 /*
     @Override

@@ -1,5 +1,7 @@
 package io.xpire.logic;
 
+import static io.xpire.model.ListType.XPIRE;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -18,7 +20,6 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
-import io.xpire.model.Xpire;
 import io.xpire.model.history.CommandHistory;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
@@ -94,7 +95,7 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<XpireItem> getXpireItemList() {
         try {
-            return (ObservableList<XpireItem>) this.model.getItemList(ListType.XPIRE);
+            return (ObservableList<XpireItem>) this.model.getItemList(XPIRE);
         } catch (ClassCastException e) {
             this.logger.warning("Wrong item type for Xpire");
             return null;
@@ -128,6 +129,6 @@ public class LogicManager implements Logic {
     }
 
     private boolean isXpireListView() {
-        return this.model.getCurrentFilteredItemList().equals(this.model.getFilteredXpireItemList());
+        return model.getCurrentView() == XPIRE;
     }
 }

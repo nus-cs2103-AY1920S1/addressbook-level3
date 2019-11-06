@@ -116,12 +116,12 @@ public class XpireParser implements Parser {
         case UndoCommand.COMMAND_WORD:
             //fallthrough
         case UndoCommand.COMMAND_SHORTHAND:
-            return new UndoCommand(XPIRE);
+            return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
             //fallthrough
         case RedoCommand.COMMAND_SHORTHAND:
-            return new RedoCommand(XPIRE);
+            return new RedoCommand();
 
         case ShiftToReplenishCommand.COMMAND_WORD:
             //fallthrough

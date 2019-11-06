@@ -1,5 +1,7 @@
 package io.xpire.model;
 
+import static io.xpire.model.ListType.XPIRE;
+
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
@@ -9,6 +11,7 @@ import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.state.State;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * The API of the Model component.
@@ -61,7 +64,7 @@ public interface Model {
 
     Xpire getXpire();
 
-    ReplenishList getReplenishList();
+    ReadOnlyListView<Item> getReplenishList();
 
     void setXpire(ReadOnlyListView<XpireItem> xpire);
 
@@ -79,13 +82,15 @@ public interface Model {
 
     void sortXpire(XpireMethodOfSorting method);
 
-    ObservableList<? extends Item> getCurrentList();
+    FilteredList<? extends Item> getCurrentList();
 
     void setCurrentList(ListType listType);
 
     void filterCurrentList(ListType listType, Predicate<? extends Item> predicate);
 
     void update(State state);
+
+    ListType getCurrentView();
 
 /*
     /**

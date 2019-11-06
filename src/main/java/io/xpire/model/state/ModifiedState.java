@@ -23,8 +23,7 @@ public class ModifiedState implements State {
      */
     public CloneModel clone(Model model, XpireMethodOfSorting method) {
         return new CloneModel(model.getXpire(), model.getReplenishList(), model.getUserPrefs(),
-                model.getFilteredXpireItemList(), model.getFilteredReplenishItemList(),
-                model.getListToView(), method);
+                model.getCurrentList(), method);
     }
 
     public CloneModel getCloneModel() {

@@ -2,7 +2,9 @@ package io.xpire.model.state;
 
 import io.xpire.model.CloneModel;
 import io.xpire.model.Model;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * State that stores the previous model's Xpire, UserPrefs and the FilteredList. FilteredState denotes
@@ -23,9 +25,7 @@ public class FilteredState implements State {
      * Clones a complete copy of model.
      */
     public CloneModel clone(Model model, XpireMethodOfSorting method) {
-        return new CloneModel(model.getXpire(), model.getReplenishList(), model.getUserPrefs(),
-                model.getFilteredXpireItemList(), model.getFilteredReplenishItemList(),
-                model.getListToView());
+        return new CloneModel(model.getXpire(), model.getReplenishList(), model.getUserPrefs(), model.getCurrentList());
     }
 
     public CloneModel getCloneModel() {

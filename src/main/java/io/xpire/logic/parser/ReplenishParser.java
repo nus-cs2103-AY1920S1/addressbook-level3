@@ -86,10 +86,10 @@ public class ReplenishParser implements Parser {
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand(REPLENISH);
+            return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand(REPLENISH);
+            return new RedoCommand();
 
         case ShiftToMainCommand.COMMAND_WORD:
             //fallthrough
