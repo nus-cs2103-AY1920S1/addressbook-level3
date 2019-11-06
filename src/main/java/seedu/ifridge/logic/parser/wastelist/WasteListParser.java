@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.HelpCommand;
 import seedu.ifridge.logic.commands.wastelist.FeedbackWasteCommand;
-import seedu.ifridge.logic.commands.wastelist.FoodWasteCommand;
 import seedu.ifridge.logic.commands.wastelist.ListWasteCommand;
 import seedu.ifridge.logic.commands.wastelist.ReportWasteCommand;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
@@ -44,9 +43,6 @@ public class WasteListParser {
 
         case FeedbackWasteCommand.COMMAND_WORD:
             return new FeedbackWasteCommand();
-
-        case FoodWasteCommand.COMMAND_WORD:
-            return new FoodWasteCommand();
 
         case ListWasteCommand.COMMAND_WORD:
             return new ListWasteCommandParser().parse(arguments);

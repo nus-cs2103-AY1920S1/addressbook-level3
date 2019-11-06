@@ -48,7 +48,6 @@ public class FeedbackWasteCommand extends Command {
 
         List<ReadOnlyWasteList> pastWasteLists = new ArrayList<>();
         SortedSet<WasteMonth> pastWasteMonths = model.getDescendingWasteMonths();
-        pastWasteLists.remove(currentWasteMonth);
         int numWasteLists = 0;
         for (WasteMonth wm : pastWasteMonths) {
             pastWasteLists.add(model.getWasteListByMonth(wm));
