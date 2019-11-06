@@ -274,8 +274,8 @@ public enum Responses {
                     boolean isFrontBackCardButHasChoice = (hasChoice || hasChoiceIndex)
                             && card instanceof FrontBackCard;
                     if (isFrontBackCardButHasChoice) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! " +
-                                "Front Back card has no choices.");
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
+                                + "Front Back card has no choices.");
                     }
 
                     boolean hasFront = res.get(3).size() == 1;
@@ -297,8 +297,8 @@ public enum Responses {
                     }
                     boolean isInvalidChoiceCommand = (hasChoice && !hasChoiceIndex) || (!hasChoice && hasChoiceIndex);
                     if (isInvalidChoiceCommand) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! " +
-                                "Please check your choices");
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
+                                + "Please check your choices");
                     }
                     assert card instanceof MultipleChoiceCard;
                     MultipleChoiceCard mcqCard = (MultipleChoiceCard) card;
@@ -308,8 +308,8 @@ public enum Responses {
                         int choiceIndex = Integer.parseInt(res.get(4).get(0));
                         mcqCard.editChoice(choiceIndex, newChoice);
                     } catch (NumberFormatException | IndexNotFoundException n) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: " +
-                                "Choice index provided is invalid.'");
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: "
+                                + "Choice index provided is invalid.'");
                         return true;
                     }
 
