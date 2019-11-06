@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's nric in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * Represents the user's NRIC in his / her biography. Guarantees: immutable; is valid as declared in {@link
  * #isValidNric(String)}
  */
 public class Nric {

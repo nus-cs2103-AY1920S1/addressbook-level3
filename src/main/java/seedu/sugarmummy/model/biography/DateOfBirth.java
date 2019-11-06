@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's dateOfBirth number in the user's biography data. Guarantees: immutable; is valid as declared in
+ * Represents the user's date of birth in his / her biography. Guarantees: immutable; is valid as declared in
  * {@link #isValidDateOfBirth(String)}
  */
 public class DateOfBirth {

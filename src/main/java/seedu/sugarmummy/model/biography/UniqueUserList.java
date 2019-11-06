@@ -56,7 +56,7 @@ public class UniqueUserList implements Iterable<User> {
 
     /**
      * Replaces the user {@code target} in the list with {@code editedUser}. {@code target} must exist in the list. The
-     * user identity of {@code editedUser} must not be the same as another existing user in the list.
+     * user biography of {@code editedUser} must not be the same as another existing user in the list.
      */
     public void setUser(User target, User editedUser) {
         requireAllNonNull(target, editedUser);

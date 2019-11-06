@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's name in the address book. Guarantees: immutable; is valid as declared in {@link
+ * Represents the user's name in his / her biography. Guarantees: immutable; is valid as declared in {@link
  * #isValidName(String)}
  */
 public class Name {

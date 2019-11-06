@@ -525,28 +525,58 @@ more specific suggestions can be proposed to to balance the user's nutrition int
 
 
 //tag::datalogDG[]
-=== [Proposed] Data log feature
-==== Proposed Implementation
+=== Data log feature
+==== Implementation
 The multi-record data logging mechanism is facilitated by a new Record package containing  BloodSugar and Bmi classes that extend an abstract Record class. Add, list and delete command classes and parsers are modified to accommodate multiple record types. Multi-record data is stored internally as a recordList where members are Records.
 
-It implements the following operations:
-* `Model#addRecord()` — Adds a record to the record list. 
-* `Model#deleteRecord()` — Deletes a record from the record list. 
-* `Model#getUniqueRecordListObject()` — Retrieves all records in record list. 
-These operations are exposed in the `Model` interface as `Model#addRecord()`, `Model#deleteRecord()` and `Model#getUniqueRecordListObject()` respectively.
-Given below is an example usage scenario and how the data log feature behaves at each step.
-Step 1. The user launches the application for the first time. If `recordList.json` is not found in `/data`, a `recordList.json` will be produced from `SampleRecordDataUtil#getSampleRecords()`. Otherwise, the recordList will be loaded from `recordList.json` using `UniqueRecordList#setRecord(<List>)` and checked for inconsistencies e.g. missing fields, invalid fields. If invalid fields or missing consequential fields that must be used (e.g. `BloodSugar`’s `Concentration` field is consequential while its `Height` and `Weight` fields are not) are detected, an Exception is thrown and `recordList.json` start from scratch. Otherwise, inconsequential fields will be automatically repopulated on saving to the `recordList.json` in any command.
+It modifies the following operations:
+* `SugarMummy#add()` — Adds a record to the record list. 
+* `SugarMummy#delete()` — Deletes a record from the record list. 
+* `SugarMummy#list()` — Retrieves all records in record list. 
 
-Step 2. The user executes list command to list all records. `Model#getUniqueRecordListObject()` is called and `DisplayPaneType` is set to LIST. `MainDisplayPane#get()` determines the type of window to show based on `DisplayPaneType`. A new `RecordListPanel` is created and populates each `ListViewCell` with `BloodSugarRecordCard` and `BmiRecordCard`. Data used to populate the `RecordCards` is passed in through `RecordListPanel`’s constructor, as an `ObservableList` containing `BloodSugar` and `Bmi` objects.
+These operations are exposed in the `Model` interface as `Model#addRecord()`, `Model#deleteRecord()`
+and `Model#getUniqueRecordListObject()` respectively.
 
-Step 3. The user executes `add rt/BMI h/1 w/1 dt/2019-09-09 12:12` command to create a `Bmi` record with height 1, weight 1 at date 2019-09-09 and time 12:12. The add command is first parsed by `AddressBookParser` then parsed by `AddCommandParser`. In `AddCommandParser`, we first parse for standard `Record`-class-level field like `DateTime` before parsing for the relevant `Bmi`-related CLI-arguments defined in `CliSyntax`. Individual field parsing is done inside `ParserUtil`. Either a complete `BloodSugar` or `Bmi` Object is returned otherwise a `ParseException` will be thrown. Note that `BloodSugar` and `Bmi` Objects are `Record` Objects. In `AddCommand`, this `Record` Object is first checked against the model whether the model contains such a `Record` (defined as same date time in `Record.java`). If there is no duplicate, it is added to the `Model#addRecord()` in turn calling `ModelManager#addRecord()` to call `add()` operation on the list. We reuse similar code to step 2 to display the result of the add.
+The internal data structure contains an ObservableList<Record> that the UI can observe to display the record list.
+
+image::RecordsClassDiagram.png[]
+
+Below is an example usage scenario of how the data log feature behaves at each step.
+
+Step 1. The user launches the application for the first time.
+If `/data/recordList.json` is not found, it will be produced from `SampleRecordDataUtil#getSampleRecords()`.
+If `/data/recordList.json` is found, the recordList will be loaded from there using `UniqueRecordList#setRecord()`
+and checked for inconsistencies e.g. missing fields, invalid fields.
+If inconsistencies are detected, an Exception is thrown and existing `recordList.json` is erased.
+
+Step 2. The user lists all records.
+A new `RecordListPanel` is created and populates each `ListViewCell` with `BloodSugarRecordCard` and `BmiRecordCard`.
+`ObservableList<Record>` is used to populate the `ListViewCell`.
+
+Step 3. The user executes `add rt/BMI h/1 w/1 dt/2019-09-09 12:12` command.
+The add command parameters are parsed for validity.
+This job is delegated to the following classes:
+`SugarMummyParser`,`AddCommandParser` and `ParserUtil.
+This is illustrated in SequenceDiagram below.
+After parsing is completed, either a complete `BloodSugar` or `Bmi` Object is returned otherwise a `ParseException` will be thrown.
+The `Record` is checked against the model for uniqueness.
+If it is unique, it is added to the Model via `Model#addRecord()` (illustrated by the red portion of the sequence diagram below)
+
+image::AddActivityDiagram.png[]
+The above activity diagram illustrates step 3.
 
 image::AddSequenceDiagram.png[]
+The above sequence diagram provides a in-depth look at how parsing is delegated to various classes within the blue Logic component.
+The calls to the red model component illustrates Step 3 adding records to the model.
+The final call to the yellow storage component illustrates step 5.
 
-Step 4. The user now decides that adding the record was a mistake, and decides to delete that record. The delete command is first parsed by `AddressBookParser` then parsed by `DeleteCommandParser`. In `DeleteCommandParser`, we use `ParseUtil` to check whether the index is a positive number, otherwise a `ParseException` will be thrown. `DeleteCommand` receives the positive index and checks whether the positive index indices a record. `DeleteCommand` will call `Model#deleteRecord()`, which will call `Model#deleteRecord()` and call `ModelManager#deleteRecord()` performing a `remove()` operation on the list.
+Step 4. The user decides to delete a record.
+The delete command is parsed for validity by `SugarMummyParser`, `DeleteCommandParser` and `ParserUtil`.
+`ParseUtil` checks whether the index is a positive number, otherwise a `ParseException` will be thrown.
+`DeleteCommand` checks whether the positive index points to a valid record.
+`DeleteCommand` will call `Model#deleteRecord()` to remove the record from the list.
 
-Step 5. After command has executed in `LogicManager`, we attempt to write the recordList in memory to `recordList.json` on disk using `Storage#saveRecordList()`. The command result is returned to `MainWindow` which calls `MainDisplayPane` in step 2 using `MainWindow#switchToMainDisplayPane()`. This lists out the updated record list in the UI (step 2).
-
+Step 5. After add or delete commands have been executed in `LogicManager`, the Model's recordList is written to `recordList.json` using `Storage#saveRecordList()`.
 
 ==== Design Considerations
 ==== Aspect: Commands and parsers implementation
@@ -1123,7 +1153,7 @@ responsibility of my own health by not missing my appointments.
 |`* * *` |task-oriented diabetic patient |have a goal to work towards or a challenge to work on everyday |have a
 sense of direction in what I can do to improve my health
 
-|`* *` |caretaker of an elderly patient with diabetes whose family members are busy working |reliable app to keep
+|`* *` |caretaker of an elderly patient with diabetes whose family members are busy working |have a reliable app to keep
 track of all the patients' activities |can answer to the family members who have entrusted unto me this responsibility
 of care
 
@@ -1642,3 +1672,72 @@ Expected: Feedback message indicates that there is nothing to change.
 .. Prerequisites: NIL
 ... Test action: Restart the application +
 Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.
+
+[appendix]
+== References
+
+=== Code References
+* http://tutorials.jenkov.com/javafx/tableview.html
+* https://stackoverflow.com/questions/11184117/transparent-css-background-color
+* https://stackoverflow.com/questions/12933918/tableview-has-more-columns-than-specified
+* https://stackoverflow.com/questions/37027298/set-constrained-resize-policy-for-columns-without-first-for-number-of-row-in-t
+* https://stackoverflow.com/questions/43776047/javafx-tablecolumn-setpreferredwidth-on-a-resizable-column
+* https://stackoverflow.com/questions/49882605/javafx-italic-font-w-css
+* https://stackoverflow.com/questions/22952531/scrollpanes-in-javafx-8-always-have-gray-background
+* https://amyfowlersblog.wordpress.com/2010/05/26/javafx-1-3-growing-shrinking-and-filling/
+* https://stackoverflow.com/questions/22202782/how-to-prevent-tableview-from-doing-tablecolumn-re-order-in-javafx-8
+* https://stackoverflow.com/questions/14116792/how-to-disable-the-reordering-of-table-columns-in-tableview
+* https://medium.com/@keeptoo/adding-data-to-javafx-tableview-stepwise-df582acbae4f
+* https://self-learning-java-tutorial.blogspot.com/2018/06/javafx-tableview-adding-new-rows-to.html
+* https://stackoverflow.com/questions/39366828/add-a-simple-row-to-javafx-tableview
+* https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
+* https://stackoverflow.com/questions/3342298/what-is-the-pattern-for-empty-string
+* https://www.geeksforgeeks.org/supplier-interface-in-java-with-examples/
+* https://howtodoinjava.com/regex/java-regex-date-format-validation/
+* https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html
+* https://stackoverflow.com/questions/4343202/difference-between-super-t-and-extends-t-in-java
+* https://stackoverflow.com/questions/29004893/transparent-node-background
+* https://stackoverflow.com/questions/9851200/setting-background-image-by-javafx-code-not-css
+* https://jutge.org/doc/java/docs/api/javafx/scene/doc-files/cssref.html
+* https://www.w3.org/TR/css-backgrounds-3/#the-background-repeat
+* https://stackoverflow.com/questions/6998551/setting-font-color-of-javafx-tableview-cells
+* https://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
+* https://htmlcolorcodes.com/color-names/
+* https://stackoverflow.com/questions/1636350/how-to-identify-a-given-string-is-hex-color-format
+* https://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java
+* https://stackoverflow.com/questions/7830951/how-can-i-load-computer-directory-images-in-javafx
+* https://stackoverflow.com/questions/48814467/how-do-i-bind-the-tablecell-style-classes-to-the-tablerow-style-classes-javafx
+* https://www.inf.unibz.it/~calvanese/teaching/06-07-ip/lecture-notes/uni09/node12.html
+* https://stackoverflow.com/questions/924394/how-to-get-the-filename-without-the-extension-in-java
+* https://stackoverflow.com/questions/32639882/conditionally-color-background-javafx-linechart
+* http://java-buddy.blogspot.com/2012/05/create-borderpane-using-fxml.html
+* https://stackoverflow.com/questions/19512850/java-putting-hashmap-into-treemap
+* https://stackoverflow.com/questions/46170807/gridpane-change-grid-line-color
+* https://stackoverflow.com/questions/25168445/how-to-determine-if-color-is-close-to-other-color
+* https://stackoverflow.com/questions/4129666/how-to-convert-hex-to-rgb-using-java
+* https://stackoverflow.com/questions/3607858/convert-a-rgb-color-value-to-a-hexadecimal-string
+* https://stackoverflow.com/questions/10530426/how-can-i-find-dominant-color-of-an-image
+
+=== Reference on Healthy Blood Sugar Level Ranges for Diabetic Patients
+https://www.diabetes.co.uk/diabetes_care/blood-sugar-level-ranges.html
+
+=== Sources of Motivational Quotes
+* http://www.wiseoldsayings.com/healthy-eating-quotes/
+* https://www.centralofsuccess.com/diabetes-slogans-quotes-funny-inspiring/
+* https://shortstatusquotes.com/inspirational-diabetes-status-quotes/
+* https://inspiringtips.com/healthy-diet-inspirational-quotes-weight-loss/
+* https://www.lifefitness.com.au/20-fitness-motivation-quotes/
+* https://www.inc.com/jayson-demers/51-quotes-to-inspire-success-in-your-life-and-business.html
+* https://www.stylecraze.com/articles/awesome-motivational-quotes-on-weight-loss/#gref
+* https://themighty.com/2016/12/chronic-illness-uplifting-quotes/
+* http://www.caringvoice.org/15-encouraging-quotes-chronic-illness-journey/
+* https://everydaypower.com/chronic-illness-quotes/
+* https://www.mindovermenieres.com/quotes-inspire-chronic-illness/
+* https://wisdomquotes.com/health-quotes/
+
+=== Credits for Images
+* Default User Profile Display Picture: Icon made by Smashicons (https://www.flaticon.com/authors/smashicons)
+from https://www.flaticon.com/free-icon/user_149068
+* Doge Profile Picture in User Guide Screenshot: https://pdxmonthly.com/articles/2015/1/5/who-let-the-doge-out-january-2015
+* Mountains Background Image in User Guide Screenshot: https://www.pexels.com/photo/landscape-photography-of-mountains-covered-in-snow-691668/
+* Space Background Image in User Guide Screenshot: Andy Holmes via https://unsplash.com/photos/LUpDjlJv4_c (with minor edits)

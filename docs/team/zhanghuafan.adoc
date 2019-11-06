@@ -1,0 +1,65 @@
+= Zhang Xiaoyu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SugarMummy
+
+---
+
+== Overview
+
+SugarMummy is a desktop application used to help type-II diabetics develop healthier lifestyle. The user interacts with it using a Command Line Interface,
+and its GUI is created with JavaFx. It is written in Java and has about 24 kLOC.
+
+== Summary of contributions
+
+* *Major Feature*: added *recmf command*
+** What it does: Recommends a list of medically suggested foods to type II diabetics.
+** Justification: This feature is crucial to diabetic patients since their health states are closely related to food consumption.
+** Highlights: This feature benefits the extension of more accurate and personalized food recommendations since the food model with nutrition values that can be calculated and analyzed. Besides, it is also useful for future commands that relate to diet records and analysis.
+
+* *Minor enhancement*:
+** added a recmfmix command as a concise version of recmf command
+** added addfood command that allows the user to expand the database
+** added resetf command that allows the user to clear newly added foods
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhanghuafan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[View RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Constructed a generic Storage class for storage reading and writing: https://github.com/AY1920S1-CS2103-T16-1/main/pull/65[#65]
+
+** Documentation:
+*** Designed the background for the application. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22])
+*** Updated application logo. (https://github.com/AY1920S1-CS2103-T16-1/main/pull/105[#105])
+*** Updated `Readme` and application screenshots. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22])
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Contributed to forum discussions
+*** Reported bugs and suggestions for other teams in the class
+*** Some parts of the history feature I added was adopted by several other class mates
+** Tools:
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=recmf]
+
+
+== Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=recmf]
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=recmf]
