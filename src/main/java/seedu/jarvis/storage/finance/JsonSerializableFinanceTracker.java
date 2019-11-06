@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.finance.FinanceTracker;
+import seedu.jarvis.model.finance.MonthlyLimit;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.purchase.Purchase;
 import seedu.jarvis.storage.JsonAdapter;
@@ -22,6 +23,7 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
 
     public static final String MESSAGE_DUPLICATE_FINANCES = "Finances contains duplicate installment(s) / purchase(s)";
 
+    private final String monthlyLimit;
     private final List<JsonAdaptedInstallment> installments = new ArrayList<>();
     private final List<JsonAdaptedPurchase> purchases = new ArrayList<>();
 
@@ -29,8 +31,10 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
      * Constructs a {@code JsonSerializableFinanceTracker} with the given finances.
      */
     @JsonCreator
-    public JsonSerializableFinanceTracker(@JsonProperty("installments") List<JsonAdaptedInstallment> installments,
+    public JsonSerializableFinanceTracker(@JsonProperty("monthlyLimit") String monthlyLimit,
+                                          @JsonProperty("installments") List<JsonAdaptedInstallment> installments,
                                           @JsonProperty("purchases") List<JsonAdaptedPurchase> purchases) {
+        this.monthlyLimit = monthlyLimit;
         this.installments.addAll(installments);
         this.purchases.addAll(purchases);
     }
@@ -41,6 +45,7 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
      * @param financeTracker Future changes to this will not affect the created {@code JsonSerializableFinanceTracker}.
      */
     public JsonSerializableFinanceTracker(FinanceTracker financeTracker) {
+        monthlyLimit = financeTracker.getMonthlyLimit().map(MonthlyLimit::getLimitValue).orElse(null);
         installments.addAll(financeTracker.getInstallmentList()
                 .stream()
                 .map(JsonAdaptedInstallment::new)
@@ -59,6 +64,9 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
     @Override
     public FinanceTracker toModelType() throws IllegalValueException {
         FinanceTracker financeTracker = new FinanceTracker();
+        if (monthlyLimit != null) {
+            financeTracker.setMonthlyLimit(new MonthlyLimit(monthlyLimit));
+        }
         for (JsonAdaptedInstallment jsonAdaptedInstallment : installments) {
             Installment installment = jsonAdaptedInstallment.toModelType();
             if (financeTracker.hasInstallment(installment)) {
