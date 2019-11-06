@@ -41,7 +41,7 @@ import cs.f10.t1.nursetraverse.logic.parser.visit.UpdateOngoingVisitCommandParse
 /**
  * Parses user input.
  */
-public class PatientBookParser {
+public class AppParser {
 
     /**
      * Used for initial separation of command word and args.
