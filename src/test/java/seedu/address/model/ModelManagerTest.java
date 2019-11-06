@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTransactions.ALICE;
 import static seedu.address.testutil.TypicalTransactions.BENSON;
+import static seedu.address.testutil.TypicalTransactions.getTypicalTransactions;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -149,7 +151,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasLedgerOperation_ledgerOperationNotInBankAccount_returnsFalse() {
+    public void hasLedgerOperation_ledgerOperationNotInUserState_returnsFalse() {
         LedgerOperation falseLedger = new LendMoney(
             new Person(new Name("John")), new Amount(700),
             new Date("19112019"), new Description("loanshark"));
@@ -157,7 +159,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasLedgerOperation_ledgerOperationInBankAccount_returnsTrue() {
+    public void hasLedgerOperation_ledgerOperationInUserState_returnsTrue() {
         LedgerOperation ledger = new LendMoney(
             new Person(new Name("John")), new Amount(700),
             new Date("19112019"), new Description("loanshark"));
@@ -166,9 +168,50 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasProjection_nullProjection_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.has((Projection) null));
+    }
+
+    @Test
+    public void hasProjection_projectionNotInUserState_returnsFalse() {
+        Model falseModel = new ModelManager();
+        falseModel.setTransactions(getTypicalTransactions());
+        Projection projection = new Projection(falseModel.getFilteredTransactionList(), new Date("19112019"));
+        assertFalse(modelManager.has(projection));
+    }
+
+    @Test
+    public void hasProjection_projectionInUserState_returnsTrue() {
+        Model stubModel = new ModelManager();
+        stubModel.setTransactions(getTypicalTransactions());
+        Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"));
+        modelManager.add(projection);
+        assertTrue(modelManager.has(projection));
+    }
+
+
+    @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager
             .getFilteredTransactionList().remove(0));
+    }
+
+    @Test
+    public void getFilteredBudgetList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager
+            .getFilteredBudgetList().remove(0));
+    }
+
+    @Test
+    public void getFilteredLedgerOperationsList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager
+            .getFilteredLedgerOperationsList().remove(0));
+    }
+
+    @Test
+    public void getFilteredProjectionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager
+            .getFilteredProjectionsList().remove(0));
     }
 
     @Test
