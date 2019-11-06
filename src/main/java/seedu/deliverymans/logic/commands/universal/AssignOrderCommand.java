@@ -44,8 +44,6 @@ public class AssignOrderCommand extends Command {
 
         Order orderToAssign = lastShownList.get(targetIndex.getZeroBased());
 
-        // to be edited: order is already assigned
-
         if (orderToAssign.isCompleted() || !(orderToAssign.getDeliveryman().toString().equals(("Unassigned")))) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_TO_ASSIGN);
         }
