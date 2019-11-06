@@ -19,27 +19,27 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem fx:id="onCreateNewDeck" mnemonicParsing="false" text="Create a new deck" />
+                        <MenuItem fx:id="onCreateNewDeckMenuItem" mnemonicParsing="false" text="Create a new deck" />
 <!--                        <MenuItem mnemonicParsing="false" text="Open…" />-->
 <!--                        <Menu mnemonicParsing="false" text="Open Recent" />-->
-                        <SeparatorMenuItem mnemonicParsing="false" />
+<!--                        <SeparatorMenuItem mnemonicParsing="false" />-->
 <!--                        <MenuItem mnemonicParsing="false" text="Close" />-->
 <!--                        <MenuItem mnemonicParsing="false" text="Revert" />-->
-                        <SeparatorMenuItem mnemonicParsing="false" />
+<!--                        <SeparatorMenuItem mnemonicParsing="false" />-->
 <!--                        <MenuItem mnemonicParsing="false" text="Preferences…" />-->
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="quit" mnemonicParsing="false" text="Quit" />
+                        <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" text="Quit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Utilities">
                     <items>
-                        <MenuItem fx:id="jsEditor" mnemonicParsing="false" text="JavaScript Playground" />
-                        <MenuItem fx:id="javaEditor" mnemonicParsing="false" text="Java Playground" />
+                        <MenuItem fx:id="jsEditorMenuItem" mnemonicParsing="false" text="JavaScript Playground" />
+                        <MenuItem fx:id="javaEditorMenuItem" mnemonicParsing="false" text="Java Playground" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Statistics">
                     <items>
-                        <MenuItem fx:id="statistics" mnemonicParsing="false" text="View my statistics" />
+                        <MenuItem fx:id="statisticsMenuItem" mnemonicParsing="false" text="View my statistics" />
                     </items>
                 </Menu>
             </menus>

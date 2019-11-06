@@ -11,7 +11,6 @@ import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
 import dream.fcard.logic.respond.Responder;
-import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
@@ -35,23 +34,21 @@ import javafx.stage.Stage;
 public class MainWindow extends VBox {
 
     @FXML
-    private VBox deckScrollPane;
-    @FXML
     private ListView<Deck> deckList;
     @FXML
     private ScrollPane displayScrollPane;
     @FXML
     private VBox displayContainer;
     @FXML
-    private MenuItem onCreateNewDeck;
+    private MenuItem onCreateNewDeckMenuItem;
     @FXML
-    private MenuItem jsEditor;
+    private MenuItem jsEditorMenuItem;
     @FXML
-    private MenuItem javaEditor;
+    private MenuItem javaEditorMenuItem;
     @FXML
-    private MenuItem quit;
+    private MenuItem quitMenuItem;
     @FXML
-    private MenuItem statistics;
+    private MenuItem statisticsMenuItem;
     @FXML
     private Label messageLabel;
     @FXML
@@ -106,19 +103,19 @@ public class MainWindow extends VBox {
     @FXML
     public void initialize() {
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
-        onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
+        onCreateNewDeckMenuItem.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
         displayMessage.accept("Welcome to FlashCard Pro!");
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
             seeDeck.accept(StateHolder.getState().getDecks().indexOf(d) + 1);
         });
-        quit.setOnAction(e -> {
+        quitMenuItem.setOnAction(e -> {
             quitProgram.accept(true);
         });
-        javaEditor.setOnAction(e -> openEditor(true));
-        jsEditor.setOnAction(e -> openEditor(false));
-        statistics.setOnAction(e -> openStatistics());
+        javaEditorMenuItem.setOnAction(e -> openEditor(true));
+        jsEditorMenuItem.setOnAction(e -> openEditor(false));
+        statisticsMenuItem.setOnAction(e -> openStatistics());
         render();
     }
 
