@@ -128,8 +128,8 @@ public class ClosestLocation {
                 Location currValidLocation = validLocationList.get(i);
                 for (int j = 0; j < closestLocations.size(); j++) {
                     String addedLocation = closestLocations.get(j).getValidLocation();
-                    if (addedLocation.contains(currValidLocation.getLocationName()) ||
-                            currValidLocation.getValidLocation().contains(addedLocation)) {
+                    if (addedLocation.contains(currValidLocation.getLocationName())
+                            || currValidLocation.getValidLocation().contains(addedLocation)) {
                         continue;
                     }
                 }

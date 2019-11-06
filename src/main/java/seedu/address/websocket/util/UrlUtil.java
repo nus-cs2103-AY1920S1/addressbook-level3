@@ -168,7 +168,7 @@ public class UrlUtil {
         if (!locationName.contains("NUS_")) {
             logger.warning("Internal logic error for conditional name " + locationName);
         }
-        if (locationName.contains("AS") || locationName.contains("E2") ) {
+        if (locationName.contains("AS") || locationName.contains("E2")) {
             return locationName.split("NUS_")[1];
         } else if (locationName.contains("EH")) {
             return "NUS_Eusoff_Hall";
