@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
+import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -132,7 +133,7 @@ public class CommandBox extends UiPart<Region> {
             initHistory();
             historySnapshot.next();
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | EmptyArgumentException e) {
             initHistory();
             setStyleToIndicateCommandFailure();
         }
@@ -178,7 +179,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException, EmptyArgumentException;
     }
 
 }

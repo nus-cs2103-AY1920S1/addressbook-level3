@@ -116,7 +116,7 @@ public class Calendar {
             List<Event> eventList = readOnlyCalendar.get().getEventList();
             events.clear();
             for (Event event : eventList) {
-                events.addIgnoreClash(event);
+                addEventFromReadable(event);
             }
         } catch (DuplicateEventException e) {
             throw e;
@@ -132,6 +132,14 @@ public class Calendar {
 
         // update viewable month
         updateMonthView(currentMonth, currentYear);
+    }
+
+    private void addEventFromReadable(Event event) throws DuplicateEventException, NoSuchElementException {
+        try {
+            events.add(event);
+        } catch (ClashException e) {
+            events.addIgnoreClash(event);
+        }
     }
 
     private void updateMonthView(Event event) {

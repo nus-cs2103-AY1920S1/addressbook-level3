@@ -68,7 +68,7 @@
 
 /* Card Styling */
 #cardPane {
-    -fx-background-color: linear-gradient(to right, #EA60A8, #AE5A99);
+    -fx-background-color: white;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-border-color: darkorchid;
@@ -84,7 +84,7 @@
 
 #index {
     -fx-text-fill: purple;
-    -fx-font-size: 40pt;
+    -fx-font-size: 30pt;
     -fx-font-family: "Impact";
     -fx-label-padding: 10;
 }
@@ -96,19 +96,19 @@
 
 #title {
     -fx-font-family: "Times new Roman";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 15pt;
 }
 
 #detailsHeader {
     -fx-font-family: "serif";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 13pt;
 }
 
 #details {
     -fx-font-family: "Segoe UI";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 12pt;
 }
 /* Progress Bar Styling */
