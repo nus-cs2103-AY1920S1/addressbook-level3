@@ -1,6 +1,7 @@
 package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.expense.Currency.DEFAULT_BASE_CURRENCY;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -40,8 +41,17 @@ public class Expense {
         return name;
     }
 
+    public Amount getConvertedAmount() {
+        double convertedAmount = amount.getValue() / currency.getRate();
+        return new Amount(String.format("%.2f", convertedAmount));
+    }
+
     public Amount getAmount() {
-        return amount;
+            return amount;
+    }
+
+    public boolean isForeign() {
+        return !currency.value.equals(DEFAULT_BASE_CURRENCY);
     }
 
     public Currency getCurrency() {

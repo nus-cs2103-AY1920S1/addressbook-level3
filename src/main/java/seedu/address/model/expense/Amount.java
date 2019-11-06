@@ -31,7 +31,7 @@ public class Amount {
      * Returns if a given string is a valid amount.
      */
     public static boolean isValidAmount(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.replace('-',' ').trim().matches(VALIDATION_REGEX);
     }
 
     public double getValue() {

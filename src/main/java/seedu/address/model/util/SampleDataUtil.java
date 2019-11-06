@@ -1,5 +1,7 @@
 package seedu.address.model.util;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,11 +11,13 @@ import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetList;
 import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
+import seedu.address.model.rates.Rates;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,6 +45,18 @@ public class SampleDataUtil {
                 new Date("1/11/2019"),
                 getTagSet("relationship"))
         };
+    }
+
+    public static ExchangeData getSampleExchangeData() {
+        Rates rates = new Rates();
+        rates.addRate("USD", 1.3);
+        rates.addRate("MYR", 2.9);
+        rates.addRate("SGD", 1.0);
+        ExchangeData exchangeData = new ExchangeData(
+            new Date(
+                new SimpleDateFormat("dd/mm/yyyy").format(LocalDate.now())
+            ), new Currency("SGD"), rates);
+        return exchangeData;
     }
 
     public static ReadOnlyExpenseList getSampleExpenseList() {

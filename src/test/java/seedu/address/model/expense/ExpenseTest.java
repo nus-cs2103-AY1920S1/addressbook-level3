@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalExpenses.RUM;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.testutil.ExpenseBuilder;
 
 public class ExpenseTest {

@@ -3,6 +3,8 @@ package seedu.address.model.exchangedata;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import seedu.address.model.expense.Currency;
@@ -24,8 +26,8 @@ public class ExchangeData {
     private final Rates rates = new Rates();
 
     public ExchangeData() {
-        lastUpdatedDate = new Date(new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date()));
-        baseCurrency = new Currency("SGD");
+        lastUpdatedDate = new Date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        baseCurrency = new Currency();
     }
 
     public ExchangeData(ExchangeData data) {
@@ -53,6 +55,10 @@ public class ExchangeData {
 
     public Rates getRates() {
         return rates;
+    }
+
+    public boolean isValidCurrency(String currency) {
+        return rates.getSupportedCurrencies().contains(new Currency(currency));
     }
 
     /**

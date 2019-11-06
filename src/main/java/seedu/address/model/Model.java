@@ -73,7 +73,9 @@ public interface Model {
      */
     void setExchangeData(ExchangeData exchangeData);
 
-    /** Returns the ExchangeData */
+    /**
+     * Returns the ExchangeData
+     * */
     ExchangeData getExchangeData();
 
     /**

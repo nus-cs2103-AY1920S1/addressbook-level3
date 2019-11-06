@@ -4,9 +4,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import seedu.address.model.expense.Currency;
 
 
 /**
@@ -34,6 +37,21 @@ public class Rates {
         return rates;
     }
 
+    public void addRate(String key, Double value) {
+        rates.put(key, value);
+    }
+
+    public Double getRate(String key) {
+        return rates.get(key);
+    }
+
+    public List<Currency> getSupportedCurrencies() {
+        return rates.keySet()
+            .stream()
+            .map(Currency::new)
+            .collect(Collectors.toList());
+    }
+
     /**
      * Returns true if both exchangeRates have the same identity and data fields.
      * This defines a stronger notion of equality between two exchangeRates.
@@ -42,9 +60,9 @@ public class Rates {
     public boolean equals(Object other) {
         Rates toCompare = (Rates) other;
 
-        return (toCompare.getRates().keySet().equals(this.getRates().keySet()) &&
-            new ArrayList<>(toCompare.getRates().values()).equals(
-                new ArrayList<>(this.getRates().values()))); //Arraylist Compare values
+        return (toCompare.getRates().keySet().equals(this.getRates().keySet())
+            && new ArrayList<>(toCompare.getRates().values()).equals(
+            new ArrayList<>(this.getRates().values()))); //Arraylist Compare values
     }
 
     @Override

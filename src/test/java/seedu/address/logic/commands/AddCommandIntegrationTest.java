@@ -33,11 +33,12 @@ public class AddCommandIntegrationTest {
     public void execute_newExpense_success() {
         Expense validExpense = new ExpenseBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getExpenseList(), model.getBudgetList(), model.getExchangeData(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseList(), model.getBudgetList(),
+            model.getExchangeData(), new UserPrefs());
         expectedModel.addExpense(validExpense);
 
         assertCommandSuccess(new AddCommand(validExpense), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validExpense), expectedModel);
+            String.format(AddCommand.MESSAGE_SUCCESS, validExpense), expectedModel);
     }
 
     @Test
