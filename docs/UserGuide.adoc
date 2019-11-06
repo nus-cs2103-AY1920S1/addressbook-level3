@@ -38,7 +38,7 @@ the use of self-created digital flashcards. *Supercharge your learning with Duke
 3.  Copy the file to the folder you want to use as the home directory of _Dukemon_ (this is where your
 data will be stored).
 4.  Double-click the `Dukemon.jar` to run the app.
-5. Before getting to the quick start instructions, get familiar with our interface and appication modes.
+5.  Before getting to the quick start instructions, get familiar with our interface and appication modes.
 
 === User Interface
 
@@ -636,8 +636,6 @@ image::annotated_global_statistics_ui.png[]
 These commands are generally card commands.
 There is no need to save manually.
 Statistics are also stored automatically.
-
-
 
 // tag::chenhui-commandsummary[]
 

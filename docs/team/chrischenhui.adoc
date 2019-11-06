@@ -1,67 +1,180 @@
-= Chen Hui - Project Portfolio
+//= image:chrischenhui.png[icon, 100, 100]
+= image:chrischenhui.png[width="150", height="150", align="left"] Chen Hui - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
-:stylesDir: ../stylesheets
+:toc:
+:toc-title: Table of Contents
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ../images/
+:stylesDir: ../stylesheets/
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
 
-== PROJECT: Dukemon
+PROJECT: [https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]] image:address_book_32.png[icon, 25, 23]
+
+Tutors: {empty}[https://github.com/jamessspanggg[James Pang]]
+{empty} [http://www.nus.edu.sg/celc/staff/anitatoh.html[Ms. Anita]]
+
+image:jamessspanggg.png[width="100", height="100", align="left"]
+image:msAnita.jpeg[width="100", height="100", align="left"]
+
+Team members: {empty}[http://github.com/chrischenhui[Chen Hui]]
+{empty}[http://github.com/kohyida1997[Yi Da]]
+{empty}[http://github.com/sreesubbash[Subbash]]
+{empty}[http://github.com/jascxx[Jason]]
+{empty}[http://github.com/dragontho[Paul]]
+
+image:chrischenhui.png[width="100", height="100", align="left"]
+image:kohyida1997.png[width="100", height="100", align="left"]
+image:sreesubbash.png[width="100", height="100", align="left"]
+image:jascxx.png[width="91", height="100", align="left"]
+image:dragontho.png[width="111", height="100", align="left"]
 
 ---
 
-== Overview
+== image:address_book_32.png[icon, 39, 36] Overview of _Dukemon_
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+.The Home Page of Dukemon upon initial start-up.
+image::DukemonWithMew.png[width="790"]
+
+_Dukemon_ aims to streamline and gamify the process of learning words or definitions through
+the use of self-created digital flashcards.
+
+These flashcards are termed as `Cards`. +
+Every `Card` is contained in a `WordBank`.
+
+General flow of program usage:
+
+* Note taking phase
+
+. User creates/selects a `WordBank`
+. User populates/edits the `WordBank` with `Cards`
+
+* Learning phase
+
+. User starts the game using selected `WordBank`
+. Dukemon prompts questions, and user has to answer
+. Dukemon ends the game
+. User reviews performance from statistics page
 
 == Summary of contributions
 
-* *Major enhancement*: added *Word Bank features*.
-** What it does: manages the app's overall data structure, and commands that manipulates it.
-** Justification: A memory flash-card app requires a flexible data storage system.
-** Highlights: As this feature lays the basis for the app, it requires a thorough understanding of Logic, Model, Storage, diving into the details in order to refactor and implement code.
-** Credits: Jason for initial refactoring of address book.
+=== Major feature
+*Word Bank Management*.
 
-* *Minor enhancement*: drag and drop feature for the word bank
+* Feature: +
+** Enables user to have full control over his word banks and cards through typed commands and
+graphical user interface. Behind the scenes, Dukemon manages your word banks automatically.
 
+. *User Commands*: +
+Allows users to edit cards/word banks through `CardCommands`/ `WordBankCommands`.
+
+. *Word Bank data structure and it's synchronisation with storage*: +
+Is implemented with a flexible and robust underlying `WordBank` data structure, along with rich integration with `Storage`, `Model` and `Logic`.
+
+. *Revision Word Bank*: +
+Serves as a centralised bank that collects cards across different word banks throughout the game play. +
+Cards that were answered wrongly are automatically added to this revision bank. +
+Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
+
+. *Drag and Drop*: +
+Supports sharing of word banks with friends. +
+User can export their word bank to their computer simply by dragging it out of Dukemon. +
+Likewise, drag a word bank file into Dukemon to import the word bank.
+
+//{nbsp}
+
+* Justification:
+
+** Allowing user to edit his own card and grouping these cards according to topics (Word Banks) is
+essential for a self-typed flashcard app like Dukemon.
+
+** Well designed architecture and well implemented data structure streamlines integration with other features
+that builds on top of it. (statistics, settings, game modes)
+
+** Revision bank improves learning experience for the user, by helping the user automatically aggregate cards that were answered wrongly.
+
+** Learning can be enhanced through sharing of knowledge/notes with friends. Drag and Drop feature accelerates this process.
+
+//{nbsp}
+
+* Highlights:
+
+** As this feature lays the basis for the app, it needs to be implemented well to support integration with every component of the app.
+
+//{nbsp}
+
+* Credits: +
+
+** Subbash and Paul for holding a heavy discussion on how to integrate different modes altogether. +
+** Jason for huge initial refactoring of address book. +
+** Yi Da for his suggestion on using call backs from within a deeply nested function to access the CommandBox +
+** Paul for integration of my `WordBank` and `Card` display on the UI.
+
+=== Minor features
+** Creation of data folder
+
+** Three automatically created `WordBank` on first initialisation.
+
+** Preference.json file
+
+=== Other contributions
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-* *Other contributions*:
+* *Other contributions* :
+** Discovered and fixed multiple bugs across different parts of Dukemon.
 
-//** Project management:
-//*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Project management:
+*** Selected members and formed the team. Went extra miles to bond the team through fine details.
+*** Heavily scrutinised ideas during early stage of idea development, to ensure belief in our product.
+*** Set up organisation repo, including issues, label and milestones.
+*** Set up Netlify.
+*** Took the initiative to kick start the project when team members were taking it easy.
+
 //** Enhancements to existing features:
-//*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-//** Documentation:
-//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-//** Community:
-//*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+
+** Documentation:
+*** Wrote the skeleton of User Guide: https://https://github.com/AY1920S1-CS2103T-T11-2/main/blame/master/docs/UserGuide.adoc.com[#14]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 //*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 //*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-//** Tools:
+
+** Tools:
+Netlify
 //*** Integrated a third party library (Natty) to the project (https://github.com[#42])
 //*** Integrated a new Github plugin (CircleCI) to the team repo
-//
-//_{you can add/remove categories in the list above}_
+
+_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+
 include::../UserGuide.adoc[tag=chenhui-quickstart]
 
 include::../UserGuide.adoc[tag=chenhui-commandusage]
 
-include::../UserGuide.adoc[tag=chenhui-commandsummary]
+//include::../UserGuide.adoc[tag=chenhui-commandsummary]
 
 == Contributions to the Developer Guide
+
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+== Testing
 include::../DeveloperGuide.adoc[tag=chenhui-model]
 
 include::../DeveloperGuide.adoc[tag=chenhui-storage]
@@ -71,8 +184,11 @@ include::../DeveloperGuide.adoc[tag=chenhui-feature]
 include::../DeveloperGuide.adoc[tag=chenhui-userstories]
 
 
-== PROJECT: PowerPointLabs
-
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
+== image:bag-icon.png[width=35] Other Works
+
+---
+** [https://github.com/chrischenhui//[GitHub Profile]]
+
+** [https://www.linkedin.com/in/chen-hui-chris//[Linked-in Profile]]
