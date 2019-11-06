@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.UserStats;
+import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.model.Deck;
-import dream.fcard.model.State;
 import dream.fcard.model.StateHolder;
 import dream.fcard.util.StatsDisplayUtil;
 
@@ -30,10 +30,10 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private TableView<Deck> deckTableView;
 
-    private UserStats userStats;
+    private UserStats userStats = UserStatsHolder.getUserStats();
 
     /** Creates a new instance of StatisticsWindow. */
-    public StatisticsWindow(UserStats userStats) {
+    public StatisticsWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                 .getResource("/view/Windows/StatisticsWindow.fxml"));
@@ -45,8 +45,7 @@ public class StatisticsWindow extends ScrollPane {
             e.printStackTrace();
         }
 
-        this.userStats = userStats;
-        //ArrayList<Deck> decks = State.getDecks(); TODO
+        //ArrayList<Deck> decks = StateHolder.getState().getDecks(); TODO
 
         displaySummaryStats();
         this.sessionsTableView = StatsDisplayUtil.getSessionsTableView(userStats.getSessionList());
