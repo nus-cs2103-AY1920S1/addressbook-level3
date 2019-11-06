@@ -698,3 +698,13 @@ _{explain how the user can enable/disable data encryption}_
 * `theme light`: *Switches to the light theme*
 
 == Upcoming Features
+
+// tag::version-2.0[]
+=== Cloud integration `[coming in v2.0]`
+
+Collaborate online with your teammates, and store your project details such as members calendars in the cloud.
+
+=== Customisable user profiles `[coming in v2.0]`
+
+Create more detailed profiles for members and choose who has authority to change details of the project.
+// end::version-2.0[]
