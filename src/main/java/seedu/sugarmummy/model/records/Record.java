@@ -29,7 +29,7 @@ public abstract class Record {
 
         return otherRecord != null
                 && otherRecord.dateTime.equals(dateTime)
-                && otherRecord.getClass().equals(this.getClass());
+                        && otherRecord.getClass().equals(this.getClass());
     }
 
     public DateTime getDateTime() {

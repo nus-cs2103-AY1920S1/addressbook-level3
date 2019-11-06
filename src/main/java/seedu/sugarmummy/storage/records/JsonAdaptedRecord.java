@@ -31,8 +31,8 @@ class JsonAdaptedRecord {
      */
     @JsonCreator
     public JsonAdaptedRecord(@JsonProperty("recordType") String recordType,
-                             @JsonProperty("dateTime") String dateTime,
-                             @JsonProperty("concentration") String concentration,
+            @JsonProperty("dateTime") String dateTime,
+                     @JsonProperty("concentration") String concentration,
                              @JsonProperty("height") String height, @JsonProperty("weight") String weight) {
         this.recordType = recordType;
         this.dateTime = dateTime;

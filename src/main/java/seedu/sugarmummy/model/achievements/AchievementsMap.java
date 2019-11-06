@@ -29,16 +29,16 @@ public class AchievementsMap {
 
     private static final List<Achievement> BLOOD_SUGAR_ACHIEVEMENTS_LIST = Collections.unmodifiableList(List.of(
             new BloodSugarDiamond(), new BloodSugarPlatinum(), new BloodSugarGold(),
-            new BloodSugarSilver(), new BloodSugarBronze()));
+                    new BloodSugarSilver(), new BloodSugarBronze()));
 
     private static final List<Achievement> BMI_ACHIEVEMENTS_LIST = Collections.unmodifiableList(List.of(
             new BmiDiamond(), new BmiPlatinum(), new BmiGold(),
-            new BmiSilver(), new BmiBronze()));
+                    new BmiSilver(), new BmiBronze()));
 
     public static final Map<RecordType, List<Achievement>> ACHIEVEMENTS_MAP = Collections
             .unmodifiableMap(Map.ofEntries(
                     entry(BLOODSUGAR, BLOOD_SUGAR_ACHIEVEMENTS_LIST),
-                    entry(BMI, BMI_ACHIEVEMENTS_LIST)));
+                            entry(BMI, BMI_ACHIEVEMENTS_LIST)));
 
     private static final Comparator<RecordType> RECORD_TYPE_COMPARATOR = Comparator.comparing(Enum::toString);
 

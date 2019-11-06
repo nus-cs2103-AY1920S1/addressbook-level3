@@ -27,8 +27,8 @@ public class JsonAdaptedEvent extends JsonAdaptedCalendarEntry {
      */
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("description") String description,
-                            @JsonProperty("dateTime") String dateTime,
-                            @JsonProperty("endingDateTime") Optional<String> endingDateTime,
+            @JsonProperty("dateTime") String dateTime,
+                    @JsonProperty("endingDateTime") Optional<String> endingDateTime,
                             @JsonProperty("autoReminder") Optional<JsonAdaptedReminder> autoReminder) {
         super(description, dateTime);
         this.endingDateTime = endingDateTime;

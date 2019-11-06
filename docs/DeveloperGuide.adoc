@@ -712,7 +712,7 @@ the `CommandResult` returned by the `Command` object is shown to the user back a
 
 * The following are possible scenarios for each of the following types of command words.
 
-** Scenario 1: User keys in `addbio n/testMinimal p/91234567 e/81234567 /testMedicalCondition`
+** Scenario 1: User keys in `addbio n/test minimal p/91234567 e/81234567 /test medical condition`
 ** Scenario 2: User keys in `editbio p/2/91234567`
 ** Scenario 3: User keys in `bio`
 ** Scenario 4: User keys in `clrbio`
@@ -1356,7 +1356,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Person
 
 . Deleting a person while all persons are listed
 
@@ -1370,7 +1370,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 
@@ -1378,7 +1378,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Average command
+=== Average Command
 
 .. Prerequisites: There are exactly 7 different days of blood sugar and exactly 7 different days of BMI records.
 ... Test case: `average a/daily rt/bloodsugar` +
@@ -1421,3 +1421,221 @@ _{ more test cases ... }_
     Expected: COUNT field only takes integer value. Following error message will be shown: +
     `Please enter correct input for n/COUNT! +
     COUNT takes integer value between 1 and 12 inclusive.`
+
+=== Achievement Commands
+
+... Test case: `achvm asdf` +
+    Expected: A error message is shown to the user indicating that the command cannot have any arguments.
+
+.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level.
+... Test case: `achvm`+
+Expected: Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane. Coloured image representing achievement is shown.
+... Test case: `achVm`+
+Expected: Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane. The `achvm` command is not case-sensitive.
+
+.. Prerequisites: There are at least 2 days worth of bloodsugar records with a minimum of the past two days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level.
+... Test case: `add rt/BLOODSUGAR dt/2019-11-06 12:12 con/4.5`+
+Expected: An achievement message is appended to the message showing successful addition of records in the feedback display pane, indicated the attainment of (an) achievement(s). Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane when `achvm` is entered.
+
+.. Prerequisites: There are EXACTLY 3 days of bloodsugar records (one record per day) having consistent daily bloodsugar levels of 4.0 to 7.8 mmol/L.
+... Test case: `delete 3`+
+Expected: A nessage is appended to the successful records removal message indicating the loss of (an) achievement(s). Bronze level achievement for BloodSugar is no longer shown to be `ACHIEVED` in the achievements pane when `achvm` is entered. Achievement state resets to `YET TO ACHIEVE` and image representing achievement can is in silhouette form again.
+
+.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+... Test case: `add rt/BLOODSUGAR dt/2019-11-07 12:12 con/4.5`+
+Expected: Bronze level achievement for BloodSugar continues to be shown to be `ACHIEVED` in the achievements pane if `achvm` is entered.
+
+.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+... Test case: `add rt/BLOODSUGAR dt/2019-11-08 12:12 con/4.5`+
+Expected: Bronze level achievement for BloodSugar continues to be shown to be `PREVIOUSLY ACHIEVED` in the achievements pane if `achvm` is entered. Image representing achievement is gray-scaled and streak count resets to zero.
+
+.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+... Test case: `add rt/BLOODSUGAR dt/2019-11-07 12:12 con/7.9`+
+Expected: Bronze level achievement for BloodSugar continues to be shown to be `PREVIOUSLY ACHIEVED` in the achievements pane if `achvm` is entered. Image representing achievement is gray-scaled and streak count resets to zero.
+
+=== Biography Commands
+
+.. Prerequisites: NIL
+... Test case: `bio`+
+    Expected: Existing biography pane with profile picture, fields and data. If no biography has been set, an empty biography containing a default profile picture will be shown. Fields showing background, background size/ repeat and font colour should not be affected whether or not there is a biography. If a field has no item, it should be an empty `String`.
+... Test case: `clrbio asdf` +
+    Expected: A error message is shown to the user indicating that the command cannot have any arguments.
+
+.. Prerequisites: There is no existing biography.
+... Test case: `addbio n/test minimal p/91234567 e/81234567 m/test medical condition` +
+    Expected: A biography with updated fields name, phone, emergency contacts and medical condition is shown in the biography display pane. All other fields will remain blank. A message indicating success is displayed in the feedback display pane along with fields added.
+... Test case: `addbio desc/hello world n/testName nric/testNric gender/testGender dob/1920-10-08 p/12343567 p/91234567 e/81234567 m/test medical condition a/example address 123 goal/testGoal o/testOtherInfo` +
+    Expected: A biography with entered fields is shown in the biography display pane. For listable fields (i.e. of prefix p/ e/ m/ g/), if more than one field is entered, the items will be presented in a numbered list in it's cell of the biography table. A message indicating success is displayed in the feedback display pane along with fields added.
+... Test case: `addbio n/firstTestName n/secondTestName p/91234567 e/81234567 m/test medical condition `
+    Expected: An error message is displayed showing there cannot be more than one prefix for n/.
+... Test case: `addbio n/firstTestName n/secondTestName gender/Male gender/Female p/91234567 e/81234567 m/test medical condition` +
+Expected: An error message is displayed showing there cannot be more than one prefix for n/ and gender/ (displayed as the default `String` representation of a list to the user).
+... Test case: `addbio n/name1 p/91234567 e/81234567 m/test medical condition` +
+Expected: An error message is displayed showing names can only contain alphabets and spaces, and should not be blank.
+... Test case: `addbio n/test minimal nric/@2 p/91234567 e/81234567 m/test medical condition` +
+Expected: An error message is displayed showing NRICs can only contain alphanumeric characters and spaces, and should not be blank.
+... Test case: `addbio n/test minimal p/91234567hi e/81234567 m/test medical condition` +
+Expected: An error message is displayed showing that phone numbers should only contain numbers, and should be at least 3 digits long.
+... Test case: `addbio n/test minimal p/91234567 e/81 m/test medical condition` +
+Expected: An error message is displayed showing that phone numbers should only contain numbers, and should be at least 3 digits long.
+... Test case: `addbio n/test minimal p/91234567 e/12345 m/test medical condition m/test medical condition` +
+Expected: An error message is displayed showing that there are duplicate medical conditions found.
+... Test case: `addbio n/  test minimal p/  91234567   e/12345 m/test medical condition` +
+Expected: Biography is added successfully with a message displayed to the user on fields added. Spaces in between fields do not affect parsing and spaces before arguments are automatically removed. Biography display pane is shown.
+... Test case: `editbio n/test minimal` +
+Expected: An error message is displayed to the user indicating that a bio does not exist and to suggest creating a new biography.
+... Test case: `aDdBio n/test minimal p/91234567 e/81234567 m/test medical condition` +
+    Expected: A biography with updated fields name, phone, emergency contacts and medical condition is shown in the biography display pane. All other fields will remain blank. A message indicating success is displayed in the feedback display pane along with fields added. Capital letters in the command word do not affect the use of the program.
+... Test case: `addbio N/test minimal p/91234567 e/81234567 m/test medical condition` +
+   Expected: An error message is displayed to the user as upper case fields are not recognised.
+... Test case: `addbio n/test minimal p/91234567 e/81234567 m/test medical condition GENDER/male` +
+   Expected: Biography is added successfully but `GENDER/male` will be appended rather than added as a field.
+... Test case: `addbio m/test medical condition p/91234567 e/81234567 n/test minimal` +
+   Expected: Biography is added successfully with similar results as described above (for successful addition). Order of fields do not matter so long as command word is in front.
+... Test case: `addbio m/test Medical Conditionp/91234567 e/81234567 n/test minimal` +
+   Expected: An error message is shown to the user as fields must be separated by a space and in this case, the field for contact number cannot be found.
+... Test case: `addbio m/test Medical Conditionp/91234567 p/123 e/81234567 n/test minimal` +
+   Expected: Biography is added successfully but `p/91234567` is appended to `test medical condition` as fields need to be separated by a space.
+... Test case: `addbio m/test Medical Condition p/91234567 123 e/81234567 n/test minimal` +
+   Expected: An error message is shown to the user as phone numbers cannot contain a space.
+... Test case: `clrbio` +
+    Expected: A error message is shown to the user that the biography is already empty and there is no biography to be cleared.
+
+.. Prerequisites: There is an existing biography.
+... Test case: `addbio n/test Minimal p/91234567 e/81234567 m/test Medical Condition` +
+Expected: An error message is displayed to the user indicating that a bio already exists and suggest clearing, editing or viewing the biography.
+... Test case: `editbio n/Alan Wong` +
+Expected: Name is sucessfully changed to Alan Wong in biography. Feedback displays the successful change and modified fields and biography display pane is shown. (if not already on the biography display pane)
+... Test case: `editBio n/Alan Wong` +
+Expected: Name is sucessfully changed to Alan Wong in biography. Feedback displays the successful change and modified fields and biography display pane is shown. (if not already on the biography display pane) Capital letters in the command do not affect parsing.
+... Test case: `editBio N/Alan Wong` +
+Expected: An error is shown to the user as `N/` is not recognised. Field prefixes are case-sensitive.
+... Test case: `editbio n/Alan Wong p/12345678 p/234567` +
+Expected: Fields are edited successfully. Feedback displays the successful change and modified fields. Previous list of phone numbers will be replaced by `12345678` and `234567`.
+... Sub-prerequisite: `Alan Wong` is already the name in the biography and phone number is `12345678` +
+Test case: `editbio n/Alan Wong p/12345678` +
+Expected: A message is indicated to the user indicating there is nothing to edit.
+... Sub-prerequisite: `Alan Wong` is already the name in the biography and phone number is NOT `12345678` +
+Test case: `editbio n/Alan Wong p/12345678` +
+Expected: Phone number is successfully replaced with `12345678` but modified fields in the feedback display will show only the change in name.
+... Sub-prerequisite: There contains two or more emergency contact numbers. +
+Test case: `editbio e/1/12345 e/2/23456` +
+Expected: First and second existing emergency contact numbers in the list of emergency contact numbers will be replaced by the ones specified at index 1 and 2 respectively. Note that this should also similarly work for other listable fields such as Medical Conditions and Goals)
+... Sub-prerequisite: There does NOT contain two or more emergency contact numbers. +
+Test case: `editbio e/1/12345 e/2/23456` +
+Expected: An error message is shown to the user that index is out of bounds.
+... Test case: `editbio e/1/12345 e/23456` +
+Expected: An error message is displayed to the user indicating that there is inconsistent indexing.
+... Sub-prerequisite: There contains two or more emergency contact numbers and two or more goals. +
+Test case: `editbio e/1/12345 e/2/3456 goal/first goal goal/second goal` +
+Expected: Biography is edited successfully, with edited fields displayed in feedback display pane. Where there is more than one item edited for a field, they are displayed in the `String` representation of a list. Inconsistent indexing applies only if it is within a type of field (eg. emergency contacts in previous test case).
+... Test case: `editbio n/Alan n/Amy` +
+Expected: An error message is shown to the user that there can only be one prefix for `n/` (since `Name` is not a `ListableField`)
+... Test case: `editbio e/1/12345 e/-2/23456` +
+Expected: An error message is shown to the user that index is invalid (since index cannot be negative).
+... Test case: `editbio e/1/12345 e/hello/23456` +
+Expected: An error message is shown to the user that index is invalid (since index cannot be a string).
+... Test case: `editbio n/1/Amy` +
+Expected: An error message is shown to the user that names can only contain alphabets and spaces and cannot be blank since this format for editing is not recognised for fields that do not inherit `ListableField`.
+... Test case: `editbio o/1/Amy` +
+Expected: Biography is edited successfully but `1/Amy` is treated as a `String` since this format for editing is not recognised for fields that do not inherit `ListableField`.
+... Test case: `clrbio` +
+    Expected: A message indicates that the biography is successfully cleared and the user is shown the biography page with a default profile picture. All fields in the biography table should be blank except for the ones showing aesthetics (i.e. `Background`, `Background Size`, `Background Repeat`, `Font Colour`)
+... Test action: Restart the application and enter `bio`.
+Expected: Last set biography is loaded upon start up and displayed.
+
+=== Aesthetics Commands
+
+.. Prerequisites: Current font colour is NOT yellow and background colour (or dominant colour of background image) is dark (eg. not white)
+... Test case: `fontcolour yellow` +
+Expected: Font colour is successfully changed to yellow. Colour changes instantaneously and applies to entire app. User is shown feedback that colour is changed from previous colour to "yellow" but the display pane that the user is on should not change. If the user is viewing the biography pane, the `Font Colour` field changes instantaneously.
+... Test case: `fontcolour #FFFF00` +
+Expected: Font colour is successfully changed to yellow as described above. User is shown feedback that colour is changed from previous colour to "yellow" (as the colour is automatically converted)
+... Test case: `fontcolOUr yeLlow` +
+Expected: Font colour is successfully changed as described above as both commands and colours are not case sensitive. User feedback should indicate that colour is changed to "yellow". (always displayed in lower case)
+... Test case: `fontcolOUr #FfFF00` +
+Expected: Font colour is successfully changed as described above as both commands and colours are not case sensitive. Furthermore, there is automatic conversion of colour. User feedback should indicate that colour is changed to "yellow".
+... Test case: `fontcolor yellow` +
+Expected: Font colour is successfully changed as described above as the American spelling of "color" is also recognised.
+... Test action: Restart the application
+Expected: Last set font colour is loaded upon start up.
+
+.. Prerequisites: Current background colour (or dominant colour of background image) is NOT yellow and font colour is dark (eg. not white)
+... Test case: `bg yellow` +
+Expected: Background colour is successfully changed to yellow. Colour changes instantaneously and applies to entire app. User is shown feedback that colour is changed from previous colour to "yellow" but the display pane that the user is on should not change. If the user is viewing the biography pane, the `Background` field changes instantaneously.
+... Test case: `bg #FFFF00` +
+Expected: Background colour is successfully changed to yellow as described above. User is shown feedback that colour is changed from previous colour to "yellow" (as the colour is automatically converted)
+... Test case: `bG yeLlow` +
+Expected: Background colour is successfully changed as described above as both commands and colours are not case sensitive. User feedback should indicate that colour is changed to "yellow". (always displayed in lower case)
+... Test case: `Bg #FfFF00` +
+Expected: Background colour is successfully changed as described above as both commands and colours are not case sensitive. Furthermore, there is automatic conversion of colour. User feedback should indicate that colour is changed to "yellow".
+
+.. Prerequisites: Current font colour is NOT yellow and background colour (or dominant colour of background image) is close to yellow (eg. white)
+... Test case: `fontcolour yellow` +
+Expected: Colour is not set and an error message is shown to the user indicating font colour is too close to background's dominant colour. Feedback suggests for user to either change the background colour/ image first or simultaneously change both font colour and background together.
+
+.. Prerequisites: Current background colour (or dominant colour of background image) is NOT yellow and font colour is close to yellow (eg. white)
+... Test case: `fontcolour yellow` +
+Expected: Colour is not set and an error message is shown to the user indicating background colour (or dominant colour of background image) is too close to font colour. Feedback suggests for user to either change the font colour first or simultaneously change both background and font colour together.
+
+.. Prerequisites: Current font colour is NOT #FF2020 and background colour (or dominant colour of background image) is NOT close to #FF2020 (eg. red)
+... Test case: `fontcolour #FF2020` +
+Expected: Font colour is successfully changed to yellow. Colour changes instantaneously. User is shown feedback that colour is changed from previous colour to "#FF2020#" but the display pane that the user is on should not change. If the user is viewing the biography pane, the `Font Colour` field changes instantaneously. Feedback indicates colour as #FF2020 as there is no CSS colour name assigned for this colour.
+... Test case: `fontcolOUr #Ff2020` +
+Expected: Font colour is successfully changed as described above as both commands and colours are not case sensitive. User feedback should indicate that colour is changed to "#FF2020". (always displayed in upper case)
+
+.. Prerequisites: Background colour (or dominant colour of background image) is NOT #FF2020 and font colour is NOT close to #FF2020 (eg. red)
+... Test case: `bg #FF2020` +
+Expected: Background is successfully changed to #FF2020. Colour changes instantaneously. User is shown feedback that colour is changed from previous colour to "#FF2020" but the display pane that the user is on should not change. If the user is viewing the biography pane, the `Font Colour` field changes instantaneously. Feedback indicates colour as #FF2020 as there is no CSS colour name assigned for this colour.
+... Test case: `bg #Ff2020` +
+Expected: Background colour is successfully changed as described above as both commands and colours are not case sensitive. User feedback should indicate that colour is changed to "#FF2020". (always displayed in upper case)
+
+.. Prerequisites: Current font colour is yellow
+... Test case: `fontcolour yellow` +
+Expected: An error message is shown to the user indicating that the font colour is already the same as what was requested and thus there is nothing to be changed.
+... Test case: `fontcolour `#FFFF00` +
+Expected: An error message is shown to the user indicating that the font colour is already the same as what was requested and thus there is nothing to be changed.
+
+.. Prerequisites: Current background colour is yellow
+... Test case: `bg yellow` +
+Expected: An error message is shown to the user indicating that the background is already the same as what was requested and thus there is nothing to be changed.
+... Test case: `bg `#FFFF00` +
+Expected: An error message is shown to the user indicating that the background is already the same as what was requested and thus there is nothing to be changed.
+
+.. Prerequisites: Current font colour is NOT yellow (background can be any colour but different from what it was previously)
+... Test case: `fontcolour yellow bg/black` +
+    Expected: Font colour is successfully changed to yellow as described above AND background is changed to black. Feedback message indicates both changes.
+
+.. Prerequisites: Current background colour is NOT yellow (font colour can be any colour but different from what it was previously)
+... Test case: `bg yellow fontcolour/black` +
+Expected: Background colour is successfully changed to yellow as described above AND font colour is changed to black. Feedback message indicates both changes.
+
+.. Prerequisites: Current font colour is yellow (background can be any colour but different from what it was previously)
+... Test case: `fontcolour yellow bg/black` +
+Expected: Font Colour is changed to black. Feedback message indicates that there is nothing to change for background and indicates the change in font colour.
+
+.. Prerequisites: Current background colour is yellow (font colour can be any colour but different from what it was previously)
+... Test case: `bg yellow fontcolour/black` +
+Expected: Background is changed to black. Feedback message indicates that there is nothing to change for fontcolour and indicates the change in background colour.
+
+.. Prerequisites: Current font colour is NOT yellow and background colour is black.
+... Test case: `fontcolour yellow bg/black` +
+Expected: Font colour is changed to yellow. Feedback message indicates change in font colour and that there is nothing to change for background colour.
+
+.. Prerequisites: Current background colour is NOT yellow and font colour is black
+... Test case: `bg yellow fontcolour/black` +
+Expected: Background colour is changed to yellow. Feedback message indicates change in background colour and that there is nothing to change for font colour.
+
+.. Prerequisites: Current font colour is yellow and background colour is black.
+... Test case: `fontcolour yellow bg/black +
+Expected: Feedback message indicates that there is nothing to change.
+
+.. Prerequisites: Current background colour is yellow and font colour is black.
+... Test case: `bg yellow fontcolour/black +
+Expected: Feedback message indicates that there is nothing to change.
+
+=== Motivational Quotes Feature
+
+.. Prerequisites: NIL
+... Test action: Restart the application +
+Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.

@@ -37,7 +37,7 @@ public class ProfileDesc {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ProfileDesc // instanceof handles nulls
-                && profileDesc.equals(((ProfileDesc) other).profileDesc)); // state check
+                        && profileDesc.equals(((ProfileDesc) other).profileDesc)); // state check
     }
 
     @Override

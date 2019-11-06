@@ -86,7 +86,7 @@ class FontColourCommandTest {
         String updateMessage = "Colour has been changed from " + model.getFontColour() + " to yellow.";
 
         CommandResult expectedCommandResult = new CommandResult(FontColourCommand.MESSAGE_SUCCESS
-                + " " + updateMessage);
+                + "\n" + updateMessage);
         expectedModel.setFontColour(fontColour);
 
         assertCommandSuccess(new FontColourCommand(fontColour), model, expectedCommandResult, expectedModel);
@@ -114,7 +114,8 @@ class FontColourCommandTest {
                 + modelStubForBackground.getBackground() + " to white.";
 
         CommandResult expectedCommandResult =
-                new CommandResult(FontColourCommand.MESSAGE_SUCCESS + " " + updateMessage);
+                new CommandResult(FontColourCommand.MESSAGE_SUCCESS + "\n" + updateMessage);
+
         assertCommandSuccess(new FontColourCommand(fontColour, backgroundCommand), model,
                 expectedCommandResult, expectedModel);
     }
@@ -132,7 +133,7 @@ class FontColourCommandTest {
         updateMessage += "\n" + "Background: " + BackgroundCommand.MESSAGE_NO_CHANGE;
 
         CommandResult expectedCommandResult = new CommandResult(FontColourCommand.MESSAGE_SUCCESS
-                + " " + updateMessage);
+                + "\n" + updateMessage);
         expectedModel.setFontColour(fontColour);
 
         assertCommandSuccess(new FontColourCommand(fontColour, backgroundCommand), model,

@@ -61,7 +61,7 @@ public class AverageMap {
      * @param count              the number of most recent averages to calculate.
      */
     public void calculateAverage(ObservableList<Record> filteredRecordList,
-                                 AverageType averageType, RecordType recordType, int count) {
+            AverageType averageType, RecordType recordType, int count) {
         // Group records according to average type
         Map<LocalDate, List<Record>> groupByTimeRecords = groupByAverageType(averageType, filteredRecordList);
 
@@ -93,7 +93,7 @@ public class AverageMap {
      * period.
      */
     private Map<LocalDate, List<Record>> groupByAverageType(AverageType averageType,
-                                                            ObservableList<Record> recordList) {
+            ObservableList<Record> recordList) {
         return recordList.stream()
                 .collect(Collectors.groupingBy(record -> record.getDateTime()
                         .getDate().with(TIMEADJUSTERS.get(averageType))));

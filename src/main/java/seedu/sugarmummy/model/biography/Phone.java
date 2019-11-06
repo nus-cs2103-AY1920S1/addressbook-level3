@@ -41,7 +41,7 @@ public class Phone implements ListableField {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Phone // instanceof handles nulls
-                && phoneNumber.equals(((Phone) other).phoneNumber)); // state check
+                        && phoneNumber.equals(((Phone) other).phoneNumber)); // state check
     }
 
     @Override

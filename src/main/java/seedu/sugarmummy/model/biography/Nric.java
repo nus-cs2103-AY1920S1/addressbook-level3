@@ -44,7 +44,7 @@ public class Nric {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Nric // instanceof handles nulls
-                && nric.equals(((Nric) other).nric)); // state check
+                        && nric.equals(((Nric) other).nric)); // state check
     }
 
     @Override

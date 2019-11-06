@@ -49,7 +49,7 @@ public class Concentration {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Concentration // instanceof handles nulls
-                && concentration == ((Concentration) other).concentration); // state check
+                        && concentration == ((Concentration) other).concentration); // state check
     }
 
     @Override

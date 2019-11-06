@@ -39,6 +39,6 @@ public class RecordContainsRecordTypePredicate implements Predicate<Record> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RecordContainsRecordTypePredicate // instanceof handles nulls
-                && recordType.equals(((RecordContainsRecordTypePredicate) other).recordType)); // state check
+                        && recordType.equals(((RecordContainsRecordTypePredicate) other).recordType)); // state check
     }
 }

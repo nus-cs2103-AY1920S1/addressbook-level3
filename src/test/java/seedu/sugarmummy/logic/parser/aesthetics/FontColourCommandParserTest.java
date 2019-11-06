@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.sugarmummy.logic.commands.aesthetics.BackgroundCommand;
 import seedu.sugarmummy.logic.commands.aesthetics.FontColourCommand;
+import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
 
@@ -38,7 +39,7 @@ class FontColourCommandParserTest {
     }
 
     @Test
-    public void parseSuccess_fontColourArgs() {
+    public void parseSuccess_fontColourArgs() throws ParseException {
         Background background = new Background("black");
         background.setBgSize("");
         background.setBgRepeat("");
