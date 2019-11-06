@@ -14,6 +14,7 @@ import io.xpire.commons.util.DateUtil;
 public class ExpiryDate {
     public static final String DATE_FORMAT = "d/M/yyyy";
     public static final String MESSAGE_CONSTRAINTS_LOWER = "Only expiry dates that have not yet passed are accepted";
+    public static final String MESSAGE_CONSTRAINTS_OUTDATED = "This expiry date is too outdated.";
     public static final String MESSAGE_CONSTRAINTS_UPPER = "Only expiry dates strictly within 100 years are accepted";
 
     public static final String MESSAGE_CONSTRAINTS_FORMAT =
@@ -51,7 +52,7 @@ public class ExpiryDate {
         return d.isAfter(DateUtil.getCurrentDate());
     }
 
-    //@@author
+    //@@author xiaoyu-nus
     /**
      * Returns true if a given string is a valid expiry date within a hundred years.
      */

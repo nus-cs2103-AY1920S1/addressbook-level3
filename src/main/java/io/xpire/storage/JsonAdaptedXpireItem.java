@@ -100,6 +100,18 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
             throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_UPPER);
         }
 
+        /*
+         The following condition ensures that the item's expiry date is no earlier than 100 years ago.
+         Valid expiry date may turn invalid 100 years later.
+         @@author xiaoyu-nus
+         */
+        ExpiryDate expiryDate = new ExpiryDate(this.expiryDate);
+
+        String newDate = DateUtil.convertDateToString(expiryDate.getDate().plusYears(100), "d/M/yyyy");
+        if (!ExpiryDate.isValidLowerRangeExpiryDate(newDate)) {
+            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_OUTDATED);
+        }
+
         final ExpiryDate modelExpiryDate = new ExpiryDate(this.expiryDate);
 
         if (this.quantity == null) {
@@ -123,6 +135,7 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
         /* since the date of creation of the item is known,
             this check assumes the date to be no earlier than 01/10/2019.
             Any reminder threshold that results in the reminder before 01/10/2019 will be rejected.
+            @@author xiaoyu-nus
          */
         String daysSinceRelease = "" + DateUtil.getOffsetDays(LocalDate.of(2019, 10, 1), modelExpiryDate.getDate());
 
