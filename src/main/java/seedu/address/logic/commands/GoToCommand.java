@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FILES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
+
 import seedu.address.commons.core.Mode;
 import seedu.address.model.Model;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 
 /**
  * Terminates the program.
@@ -28,6 +30,7 @@ public class GoToCommand extends Command {
     public CommandResult execute(Model model) {
         model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        model.updateFilteredFileList(PREDICATE_SHOW_ALL_FILES);
         return CommandResult.builder(String.format(MESSAGE_GOTO_ACKNOWLEDGEMENT, mode))
                 .isGoTo()
                 .setMode(mode)
