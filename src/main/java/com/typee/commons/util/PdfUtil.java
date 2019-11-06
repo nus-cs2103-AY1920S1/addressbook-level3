@@ -76,6 +76,9 @@ public class PdfUtil {
      */
     public static boolean checkIfDocumentExists(String to, String from, LocalDateTime start, String desc) {
         String fileName = generateFileName(to, from, start, desc);
+        if (Files.notExists(Paths.get(FOLDER_PATH))) {
+            Paths.get(FOLDER_PATH).toFile().mkdir();
+        }
         File[] files = new File(FOLDER_PATH).listFiles();
 
         boolean isExisting = Stream.of(files)
@@ -92,6 +95,11 @@ public class PdfUtil {
      */
     public static boolean deleteDocument(String to, String from, LocalDateTime start, String desc) {
         String fileName = generateFileName(to, from, start, desc);
+
+        if (Files.notExists(Paths.get(FOLDER_PATH))) {
+            Paths.get(FOLDER_PATH).toFile().mkdir();
+        }
+
         File fileToDelete = new File(fileName);
 
         return fileToDelete.delete();
