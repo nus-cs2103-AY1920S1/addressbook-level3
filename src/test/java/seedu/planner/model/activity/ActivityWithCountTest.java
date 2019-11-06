@@ -3,25 +3,27 @@ package seedu.planner.model.activity;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_COUNT;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_A;
 import static seedu.planner.testutil.Assert.assertThrows;
 import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYONE;
+import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYTWO;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.planner.testutil.activity.ActivityBuilder;
+import seedu.planner.testutil.activity.ActivityWithCountBuilder;
 
 public class ActivityWithCountTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        ActivityWithCount activityWithCount = new ActivityWithCount(ACTIVITYONE, Long.parseLong(VALID_ACTIVITY_COUNT));
+        ActivityWithCount activityWithCount = new ActivityWithCountBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> activityWithCount.getActivity().getTags().remove(0));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        ActivityWithCount activityCopy = new ActivityWithCount(new ActivityBuilder(ACTIVITYONE).build(),
-                Long.parseLong(VALID_ACTIVITY_COUNT));
+        ActivityWithCount activityCopy = new ActivityWithCountBuilder().build();
         assertTrue(ACTIVITYONE.equals(activityCopy));
 
         // same object -> returns true

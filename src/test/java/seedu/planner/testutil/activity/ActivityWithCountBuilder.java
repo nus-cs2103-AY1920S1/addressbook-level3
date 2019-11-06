@@ -19,7 +19,7 @@ public class ActivityWithCountBuilder {
      */
     public ActivityWithCountBuilder(ActivityWithCount toCopy) {
         activity = toCopy.getActivity();
-        count = toCopy.getCount();
+        this.count = toCopy.getCount();
     }
 
     /**
