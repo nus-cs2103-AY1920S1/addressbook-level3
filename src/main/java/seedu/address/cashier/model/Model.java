@@ -73,4 +73,8 @@ public interface Model {
 
     Transaction getCheckoutTransaction();
 
+    boolean isValidAmount(String description, int qty) throws NoSuchItemException, AmountExceededException;
+
+    boolean isValidAmount(int index, int qty) throws NoSuchItemException, AmountExceededException;
+
 }

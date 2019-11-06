@@ -17,14 +17,17 @@ import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCom
 import static seedu.address.cashier.ui.CashierMessages.INDEX_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INVALID_EDITCOMMAND_FORMAT;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_TOTAL_AMOUNT_EXCEEDED;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_TO_EDIT_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_POSITIVE;
+import static seedu.address.testutil.TypicalItem.CHIPS;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
@@ -39,6 +42,15 @@ public class EditCommandParserTest {
             new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
     private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    public void setInventoryList() {
+        InventoryList inventoryList = new InventoryList();
+        CHIPS.setQuantity(99999999);
+        inventoryList.add(CHIPS);
+        model = new seedu.address.cashier.model.ModelManager(new seedu.address.cashier.util.InventoryList(
+                inventoryList.getInventoryListInArrayList()),
+                TypicalTransactions.getTypicalTransactionList());
+    }
 
     @Test
     public void parse_missingParts_failure() {
@@ -75,6 +87,18 @@ public class EditCommandParserTest {
         assertCommandParserFailure(parser, DESC_QUANTITY_1 + " c/ string",
                 MESSAGE_INVALID_EDITCOMMAND_FORMAT, model, (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
+    }
+
+    @Test
+    public void parse_itemInvalidAmount_failure() {
+        // with total amount exceeded
+        setInventoryList();
+        model.addItem(CHIPS);
+        assertCommandParserFailure(parser, DESC_INDEX_1
+                        + INVALID_QUANTITY_3,
+                MESSAGE_TOTAL_AMOUNT_EXCEEDED, model,
+                (CheckAndGetPersonByNameModel) personModel);
+        CHIPS.setQuantity(85); //reset back quantity
     }
 
     @Test

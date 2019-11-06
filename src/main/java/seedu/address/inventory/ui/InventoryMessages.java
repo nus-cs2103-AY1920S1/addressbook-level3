@@ -4,7 +4,7 @@ package seedu.address.inventory.ui;
  * Formats the Ui return responses for different commands to be shown to user.
  */
 public class InventoryMessages {
-    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please Please input the correct "
+    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please input the correct "
             + "command format:\n";
 
     public static final String MESSAGE_NO_SUCH_SORT_COMMAND =
@@ -24,7 +24,7 @@ public class InventoryMessages {
             + "add: Adds an item to the table."
             + "Parameters:\nd/DESCRIPTION\nc/CATEGORY\nq/QUANTITY\nco/COST\n[p/PRICE]";
 
-    public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a positive number less than 9999.";
+    public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a positive number less than 10,000.";
 
     public static final String NO_SUCH_ITEM_INVENTORY =
             "Sorry! There is no such item in our database. Do add the item in.";
@@ -61,4 +61,7 @@ public class InventoryMessages {
             + "inputting \"clear\" on the Cashier Tab";
 
     public static final String MESSAGE_NUMBER_TOO_LARGE = "Sorry, please input a number less than 10,000.";
+
+    public static final String MESSAGE_TOTAL_TOO_LARGE = "Sorry, the total cost/price is too large."
+            + " It must be less than 10,000.";
 }
