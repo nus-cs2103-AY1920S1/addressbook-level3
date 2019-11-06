@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ import seedu.address.model.person.Person;
  */
 public class DeletePersonCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
             new Attendance(), new UserPrefs());
 
     @Test
@@ -36,7 +36,7 @@ public class DeletePersonCommandTest {
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+        ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
                 model.getAttendance(), new UserPrefs());
 
         expectedModel.deletePerson(personToDelete);
@@ -61,7 +61,7 @@ public class DeletePersonCommandTest {
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+        Model expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
                 model.getAttendance(), new UserPrefs());
 
         expectedModel.deletePerson(personToDelete);
@@ -76,7 +76,7 @@ public class DeletePersonCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAthletick().getPersonList().size());
 
         DeletePersonCommand deletePersonCommand = new DeletePersonCommand(outOfBoundIndex);
 

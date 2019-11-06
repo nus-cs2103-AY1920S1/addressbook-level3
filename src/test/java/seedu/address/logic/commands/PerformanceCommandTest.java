@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ public class PerformanceCommandTest {
     private static final Timing VALID_ATHLETICK_TIMING = new Timing(VALID_TIMING);
     private static final Record VALID_RECORD = new Record(VALID_ATHLETICK_DATE, VALID_ATHLETICK_TIMING);
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
         new Attendance(), new UserPrefs());
 
     @Test
@@ -42,7 +42,7 @@ public class PerformanceCommandTest {
         String expectedMessage = performanceCommand.getSuccessMessage(
             person, VALID_EVENT, VALID_ATHLETICK_DATE, VALID_ATHLETICK_TIMING);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+        ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
             model.getAttendance(), new UserPrefs());
 
         expectedModel.addRecord(VALID_EVENT, person, VALID_RECORD);
@@ -64,7 +64,7 @@ public class PerformanceCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAthletick().getPersonList().size());
 
         PerformanceCommand performanceCommand =
             new PerformanceCommand(outOfBoundIndex, VALID_EVENT, VALID_ATHLETICK_DATE, VALID_ATHLETICK_TIMING);

@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +11,15 @@ import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.feature.Feature;
 import seedu.address.testutil.FeatureBuilder;
+import seedu.address.ui.feature.Feature;
+
 
 public class ViewCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
             new UserPrefs());
-    private ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+    private ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
             new Attendance(), new UserPrefs());
 
     @Test

@@ -15,7 +15,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.date.AthletickDate;
-import seedu.address.model.feature.Feature;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Address;
@@ -25,19 +24,22 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Photo;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.feature.Feature;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *Parser
+ * classes.
  */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the specified index is invalid (not non-zero
+     *                        unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -48,10 +50,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndexes} into an {@code List<Index>} and returns it. Leading and trailing whitespaces
-     * will be trimmed.
+     * Parses {@code oneBasedIndexes} into an {@code List<Index>} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if any index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if any index is invalid (not non-zero unsigned
+     *                        integer).
      */
     public static List<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
         String[] indexes = oneBasedIndexes.trim().split("\\s+");
@@ -64,16 +67,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code featureName} into a {@code Feature} and returns it. Leading and trailing
-     * whitespaces will be trimmed.
+     * Parses {@code featureName} into a {@code Feature} and returns it. Leading and
+     * trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the specified feature name is invalid (not calendar / attendance
-     *                        / performance).
+     * @throws ParseException if the specified feature name is invalid (not calendar
+     *                        / attendance / performance).
      */
     public static Feature parseFeature(String featureName) throws ParseException {
         String trimmedFeatureName = featureName.trim();
-        if (!(trimmedFeatureName.equals("calendar")
-                | trimmedFeatureName.equals("attendance")
+        if (!(trimmedFeatureName.equals("calendar") | trimmedFeatureName.equals("attendance")
                 | trimmedFeatureName.equals("performance"))) {
             throw new ParseException(Feature.MESSAGE_CONSTRAINTS);
         }
@@ -81,10 +83,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and trailing
-     * whitespaces will be trimmed.
+     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and
+     * trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the specified date is invalid (not length of 6 or 8).
+     * @throws ParseException if the specified date is invalid (not length of 6 or
+     *                        8).
      */
     public static AthletickDate parseDate(String date) throws ParseException {
         String trimmedDate = date.trim();
@@ -95,14 +98,14 @@ public class ParserUtil {
                 return parseDateTypeTwo(trimmedDate);
             }
         } else {
-            throw new ParseException(String.format(AthletickDate.MESSAGE_CONSTRAINTS,
-                    AthletickDate.DATE_FORMAT_GENERAL));
+            throw new ParseException(
+                    String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_GENERAL));
         }
     }
 
     /**
-     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and trailing
-     * whitespaces will be trimmed. Used when date is in format DDMMYYYY.
+     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and
+     * trailing whitespaces will be trimmed. Used when date is in format DDMMYYYY.
      *
      * @throws ParseException if the specified date is invalid.
      */
@@ -120,14 +123,14 @@ public class ParserUtil {
             return new AthletickDate(day, month, year, type, mth);
         } catch (java.text.ParseException e) {
             throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " "
-                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_ONE)
-                    + "\n" + AthletickDate.MONTH_CONSTRAINTS + "\n" + AthletickDate.YEAR_CONSTRAINTS);
+                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_ONE) + "\n"
+                    + AthletickDate.MONTH_CONSTRAINTS + "\n" + AthletickDate.YEAR_CONSTRAINTS);
         }
     }
 
     /**
-     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and trailing
-     * whitespaces will be trimmed. Used when date is in format MMYYYY.
+     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and
+     * trailing whitespaces will be trimmed. Used when date is in format MMYYYY.
      *
      * @throws ParseException if the specified date is invalid.
      */
@@ -145,14 +148,14 @@ public class ParserUtil {
             return new AthletickDate(day, month, year, type, mth);
         } catch (java.text.ParseException e) {
             throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " "
-                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_TWO)
-                    + "\n" + AthletickDate.MONTH_CONSTRAINTS + "\n" + AthletickDate.YEAR_CONSTRAINTS);
+                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_TWO) + "\n"
+                    + AthletickDate.MONTH_CONSTRAINTS + "\n" + AthletickDate.YEAR_CONSTRAINTS);
         }
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -166,8 +169,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
@@ -181,8 +184,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String address} into an {@code Address}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
@@ -196,8 +199,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String email} into an {@code Email}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
@@ -211,8 +214,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String gender} into an {@code Gender}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String gender} into an {@code Gender}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code gender} is invalid.
      */
@@ -226,8 +229,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
@@ -277,8 +280,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String photo} into an {@code Photo}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String photo} into an {@code Photo}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code photo} is invalid.
      */

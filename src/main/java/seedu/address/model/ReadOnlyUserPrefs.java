@@ -11,9 +11,9 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getAddressBookFilePath();
+    Path getAthletickFilePath();
 
-    Path getEventListFilePath();
+    Path getPerformanceFilePath();
 
     Path getAttendanceFilePath();
 

@@ -11,10 +11,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.AthletickParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
@@ -29,12 +29,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final AthletickParser athletickParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        athletickParser = new AthletickParser();
     }
 
     @Override
@@ -42,13 +42,13 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = athletickParser.parseCommand(commandText);
         commandResult = command.execute(model);
         HistoryManager.getCommands().push(command);
-        HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
+        HistoryManager.getAddressBooks().push(model.getAthletickDeepCopy());
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAthletick(model.getAthletick());
             storage.saveEvents(model.getPerformance());
             storage.saveAttendance(model.getAttendance());
         } catch (IOException ioe) {
@@ -58,8 +58,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyAthletick getAddressBook() {
+        return model.getAthletick();
     }
 
     @Override
@@ -84,7 +84,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getAthletickFilePath();
     }
 
     @Override
