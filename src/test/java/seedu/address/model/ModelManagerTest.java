@@ -189,6 +189,37 @@ public class ModelManagerTest {
         assertTrue(modelManager.has(projection));
     }
 
+    @Test
+    public void deleteTransaction_transactionInBankAccount_returnsTrue() {
+        modelManager.add(ALICE);
+        assertTrue(modelManager.has(ALICE));
+
+        modelManager.deleteTransaction(ALICE);
+        assertFalse(modelManager.has(ALICE));
+    }
+
+    @Test
+    public void deleteBudget_budgetInBankAccount_returnsTrue() {
+        Budget budget = new Budget(new Amount(700), new Date("19112019"));
+        modelManager.add(budget);
+        assertTrue(modelManager.has(budget));
+
+        modelManager.deleteBudget(budget);
+        assertFalse(modelManager.has(budget));
+    }
+
+    @Test
+    public void deleteProjection_projectionInUserState_returnsTrue() {
+        Model stubModel = new ModelManager();
+        stubModel.setTransactions(getTypicalTransactions());
+        Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"));
+        modelManager.add(projection);
+        assertTrue(modelManager.has(projection));
+
+        modelManager.deleteProjection(projection);
+        assertFalse(modelManager.has(projection));
+    }
+
 
     @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
