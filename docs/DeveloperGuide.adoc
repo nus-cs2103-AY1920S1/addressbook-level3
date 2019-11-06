@@ -103,6 +103,7 @@ The `UI` component does the following:
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 The following class diagram illustrates the structure of the `Logic` component:
@@ -134,6 +135,7 @@ The `Logic` component does the following:
 * Parses and executes user commands
 * Modifies `Model` and/or `Storage` according to user commands
 * Instructs `Ui` through `CommandResult` objects
+// end::logic[]
 
 [[Design-Model]]
 === Model component
@@ -580,7 +582,6 @@ web browsing-related activities:
 * Remind users about websites they need to visit at specific times
 * Eliminate the need for manual categorizing of bookmarks
 
-
 [appendix]
 == User Stories
 
@@ -861,6 +862,7 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+// tag::use-case-undo-redo[]
 [[UC09]]
 [discrete]
 === Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
@@ -901,6 +903,7 @@ Use case ends.
 Mark shows an error message.
 +
 Use case ends.
+// end::use-case-undo-redo[]
 
 [[UC11]]
 [discrete]
