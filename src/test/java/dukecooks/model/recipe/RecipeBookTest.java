@@ -123,4 +123,12 @@ public class RecipeBookTest {
         }
     }
 
+    @Test
+    public void testRecipeBookHashCode() {
+        RecipeBook book1 = new RecipeBook(getTypicalRecipeBook());
+        RecipeBook book2 = new RecipeBook(getTypicalRecipeBook());
+
+        assertEquals(book1.hashCode(), book2.hashCode());
+    }
+
 }

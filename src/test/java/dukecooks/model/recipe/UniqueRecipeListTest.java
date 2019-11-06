@@ -2,12 +2,14 @@ package dukecooks.model.recipe;
 
 import static dukecooks.testutil.recipe.TypicalRecipes.BURGER;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
+import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipes;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -168,5 +170,22 @@ public class UniqueRecipeListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, ()
             -> uniqueRecipeList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void testUniqueRecipeListHashCode() {
+        UniqueRecipeList list1 = new UniqueRecipeList();
+        list1.setRecipes(getTypicalRecipes());
+        UniqueRecipeList list2 = new UniqueRecipeList();
+        list2.setRecipes(getTypicalRecipes());
+
+        assertEquals(list1.hashCode(), list2.hashCode());
+    }
+
+    @Test
+    public void testUniqueRecipeListIterator() {
+        UniqueRecipeList list = new UniqueRecipeList();
+
+        assertTrue(list.iterator() instanceof Iterator);
     }
 }
