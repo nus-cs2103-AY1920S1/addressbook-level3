@@ -1,15 +1,15 @@
 .color_family {
-    light:808999;
-    font: 010504;
-    font2: 1B212D;
-    Accent: 979EAB;
-    Accent2: B3B8C1;
+    light: #808999;
+    font1: #010504;
+    font2: #1B212D;
+    Accent: #979EAB;
+    Accent2: #B3B8C1;
     Accent3: #1C1413;
     Accent4: #808999;
-    borders: D9DBE0;
+    borders: #D9DBE0;
     empty: #383838;
-    alt1: EEEFF0;
-    alt2: E3E5E6;
+    alt1: #EEEFF0;
+    alt2: #E3E5E6;
 }
 
 .error {
@@ -133,8 +133,33 @@
     -fx-background-color: #D9DBE0;
 }
 
-.result-display {
+.text-area {
+    -fx-background-insets: 0;
     -fx-background-color: transparent;
+    -fx-background-radius: 0, 0, 0, 0;
+
+    -fx-box-border: none;
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color: -fx-control-inner-background;
+    -fx-text-box-border: -fx-control-inner-background;
+    -fx-border-width: -1;
+
+    -fx-text-fill: #E3E5E6;
+}
+
+.text-area .scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.result-display {
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 12pt;
 }

@@ -21,7 +21,11 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
      */
     @Override
     public ReturnCommand parse(String userInput) throws ParseException {
-        try {
+        if (ParserUtil.onlyAllFlagPresent(userInput, ReturnCommand.COMMAND_WORD)) {
+            return new ReturnCommand(); // -all flag present, return all valid books
+        }
+
+        try { // parse by index instead
             Index index = ParserUtil.parseIndex(userInput);
             return new ReturnCommand(index);
         } catch (ParseException pe) {

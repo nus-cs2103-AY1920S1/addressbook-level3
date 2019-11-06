@@ -141,8 +141,8 @@ public class Book implements Comparable<Book> {
      */
     public Book addToLoanHistory(Loan loan) {
         LoanList newHistory = new LoanList();
-        this.getLoanHistory().forEach(currentLoan -> newHistory.add(currentLoan));
         newHistory.add(loan);
+        this.getLoanHistory().forEach(currentLoan -> newHistory.add(currentLoan));
         return new Book(
                 this.getTitle(),
                 this.getSerialNumber(),

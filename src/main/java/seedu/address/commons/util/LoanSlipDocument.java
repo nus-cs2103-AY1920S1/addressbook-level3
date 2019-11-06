@@ -34,6 +34,7 @@ public class LoanSlipDocument {
     private static final int HEADER_FONT_SIZE = 32;
     private static final int MID_HEADER_FONT_SIZE = 28;
     private static final int PARAGRAPH_FONT_SIZE = 20;
+    private static final int ROW_SIZE = 14;
     private static final double SCALE_RATIO = 0.1;
 
     private static final String FONT = "/font/Lato-Black.ttf";
@@ -67,8 +68,8 @@ public class LoanSlipDocument {
             pdfImg.scaleToFit((float) newWidth, (float) newHeight);
             pdfImg.setHorizontalAlignment(HorizontalAlignment.LEFT);
             doc.add(pdfImg);
-            logger.info("end writing logo");
         } catch (IOException ioe) {
+            assert false;
             ioe.printStackTrace();
         }
     }
@@ -125,7 +126,7 @@ public class LoanSlipDocument {
     public void addCell(String text) {
         Cell cell = new Cell();
         cell.setBorder(Border.NO_BORDER);
-        cell.add(customLeftParagraph(text, 18));
+        cell.add(customLeftParagraph(text, ROW_SIZE));
         table.addCell(cell);
     }
 
@@ -199,7 +200,7 @@ public class LoanSlipDocument {
                     getClass().getResource(FONT).toString(), PdfEncodings.WINANSI, true);
             p.setFont(font);
         } catch (IOException e) {
-            logger.info("font error");
+            logger.info("Error in loading Font");
             // error occur while loading font, use default font
             e.printStackTrace();
         }
@@ -213,10 +214,12 @@ public class LoanSlipDocument {
      * @return an {@code Image} Object.
      */
     private Image createImage() throws IOException {
+        logger.info("Creating logo");
         URL url = getClass().getResource(LOGO_PATH);
         InputStream is = url.openStream();
         java.awt.Image image = ImageIO.read(is);
         ImageData imageData = ImageDataFactory.create(image, Color.WHITE);
+        logger.info("success");
         return new Image(imageData);
     }
 

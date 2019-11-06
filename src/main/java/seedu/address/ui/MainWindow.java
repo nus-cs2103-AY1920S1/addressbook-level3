@@ -18,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.book.Book;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -40,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private BorrowerPanel borrowerPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private InfoWindow infoWindow;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -69,6 +71,8 @@ public class MainWindow extends UiPart<Stage> {
         setTheme(guiSettings);
 
         helpWindow = new HelpWindow();
+        infoWindow = new InfoWindow();
+
         if (logic.isServeMode()) {
             mode.setText(SERVE_MODE);
         } else {
@@ -90,7 +94,10 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public void updateModeUI() {
+    /**
+     * updates the UI of dynamically allocated Mode Label when theme is changed
+     */
+    public void updateModeUi() {
         if (logic.isServeMode()) {
             if (guiSettings.isDarkTheme()) {
                 mode.setStyle("-fx-background-color: " + GuiSettings.COLOR_DARK_THEME_MODE_LABEL + ";");
@@ -103,12 +110,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    /**
+     * Changes the Ui between LiBerry Theme and Dark Theme,
+     * updating the relevant panels and dynamically allocated items
+     */
     public void handleToggleUi() {
-        guiSettings.toggleTheme();
         setTheme(guiSettings);
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), guiSettings.isDarkTheme());
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
-        updateModeUI();
+        updateModeUi();
         if (logic.isServeMode()) {
             updateBorrowerPanel();
         }
@@ -149,11 +159,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private double getDefaultWidth() {
+    public static double getDefaultWidth() {
         return Screen.getPrimary().getVisualBounds().getWidth();
     }
 
-    private double getDefaultHeight() {
+    public static double getDefaultHeight() {
         return Screen.getPrimary().getVisualBounds().getHeight();
     }
 
@@ -169,8 +179,25 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the info window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleInfo(Book book) {
+        infoWindow.updateData(book, logic.getLoanHistoryOfBookAsString(book));
+        if (!infoWindow.isShowing()) {
+            infoWindow.show();
+        } else {
+            infoWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
+    }
+
+    public BookListPanel getBookListPanel() {
+        return bookListPanel;
     }
 
     /**
@@ -182,6 +209,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY(), this.guiSettings.isDarkTheme());
         logic.setGuiSettings(newGuiSettings);
         helpWindow.hide();
+        infoWindow.hide();
         primaryStage.hide();
     }
 
@@ -191,16 +219,18 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleServe() {
         mode.setText(SERVE_MODE);
-        updateModeUI();
+        updateModeUi();
     }
 
     /**
-     * Updates the borrower panel.
+     * Updates the borrower panel in Serve Mode.
      */
     @FXML
     private void updateBorrowerPanel() {
         assert logic.isServeMode() : "Not in serve mode";
-        borrowerPanel.setBorrower(logic.getServingBorrower(), logic.getServingBorrowerBookList(), guiSettings.isDarkTheme());
+        borrowerPanel.setBorrower(
+                logic.getServingBorrower(), logic.getServingBorrowerBookList(),
+                guiSettings.isDarkTheme());
     }
 
     /**
@@ -209,15 +239,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleDone() {
         mode.setText(NORMAL_MODE);
-        updateModeUI();
+        updateModeUi();
         borrowerPanel.reset();
-    }
-
-    /**
-     * Observer method invoked when changes happen.
-     */
-    public void update() {
-        updateBorrowerPanel();
     }
 
     /**
@@ -239,6 +262,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleServe();
             } else if (commandResult.isDone()) {
                 handleDone();
+            } else if (commandResult.isInfo()) {
+                handleInfo(commandResult.getBook());
             } else if (commandResult.isToggleUi()) {
                 handleToggleUi();
             }

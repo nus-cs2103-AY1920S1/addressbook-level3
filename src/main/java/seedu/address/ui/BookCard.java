@@ -57,9 +57,11 @@ public class BookCard extends UiPart<Region> {
         title.setText(book.getTitle().value);
         serialNumber.setText(book.getSerialNumber().value);
         author.setText(book.getAuthor().value);
+
         book.getGenres().stream()
                 .sorted(Comparator.comparing(tag -> tag.genreName))
                 .forEach(tag -> genres.getChildren().add(new Label(tag.genreName)));
+
         if (book.isCurrentlyLoanedOut()) {
             if (isDarkTheme) {
                 setLoanStatusBoxTheme(GuiSettings.COLOR_DARK_THEME_LOAN_LABEL);

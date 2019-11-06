@@ -31,6 +31,9 @@ public class GuiSettings implements Serializable {
     private boolean isDarkTheme;
     private boolean isDefault;
 
+    /**
+     * Default constructor for GuiSettings.
+     */
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
@@ -46,11 +49,17 @@ public class GuiSettings implements Serializable {
         this.isDarkTheme = isDarkTheme;
     }
 
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
+        this(windowWidth, windowHeight, xPosition, yPosition, false);
+    }
+
     public double getWindowWidth() {
+        assert !isDefault : "Should return default width from fxml file";
         return windowWidth;
     }
 
     public double getWindowHeight() {
+        assert !isDefault : "Should return default height from fxml file";
         return windowHeight;
     }
 
@@ -62,6 +71,9 @@ public class GuiSettings implements Serializable {
         return isDefault;
     }
 
+    /**
+     * toggles between light and dark themes
+     */
     public void toggleTheme() {
         if (isDarkTheme) {
             isDarkTheme = false;
@@ -93,7 +105,7 @@ public class GuiSettings implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, isDarkTheme);
     }
 
     @Override

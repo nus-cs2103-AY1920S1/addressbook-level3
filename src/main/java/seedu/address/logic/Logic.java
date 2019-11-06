@@ -43,6 +43,8 @@ public interface Logic {
     /** Returns the list of books borrowed by the borrower being served */
     ObservableList<Book> getServingBorrowerBookList();
 
+    String getLoanHistoryOfBookAsString(Book target);
+
     /**
      * Returns the user prefs' catalog file path.
      */

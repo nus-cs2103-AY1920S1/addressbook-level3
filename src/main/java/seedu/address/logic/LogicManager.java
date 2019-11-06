@@ -86,6 +86,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public String getLoanHistoryOfBookAsString(Book target) {
+        return model.getLoanHistoryOfBookAsString(target);
+    }
+
+
+    @Override
     public boolean isServeMode() {
         return model.isServeMode();
     }

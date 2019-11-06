@@ -44,6 +44,11 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     * Toggles between Light and Dark Theme
+     */
+    void toggleGuiSettingsTheme();
+
+    /**
      * Returns the user prefs' User settings.
      */
     UserSettings getUserSettings();
@@ -101,6 +106,8 @@ public interface Model {
     Model excludeBookBeingReplaced(Book toBeReplaced);
 
     ObservableList<Book> getOverdueBooks();
+
+    String getLoanHistoryOfBookAsString(Book target);
 
     // ================================================================ LoanRecords
 

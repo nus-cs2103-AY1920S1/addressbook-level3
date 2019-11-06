@@ -15,7 +15,7 @@
         </Label>
         <Label fx:id="id" prefHeight="20.0" styleClass="borrower-particulars" text="ID:">
             <padding>
-                <Insets left="20.0"/>
+                <Insets left="20.0" />
             </padding>
         </Label>
         <Label fx:id="phone" prefHeight="20.0" styleClass="borrower-particulars" text="Phone:">
@@ -34,5 +34,5 @@
             </padding>
         </Label>
     </VBox>
-    <ListView fx:id="bookListView" styleClass="listing-panel" VBox.vgrow="ALWAYS"/>
+    <ListView fx:id="bookListView" styleClass="listing-panel" VBox.vgrow="ALWAYS" />
 </VBox>

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalBooks.BOOK_1;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,6 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false, false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -29,16 +29,19 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false, false, false)));
+        assertFalse(commandResult.equals(CommandResult.commandResultHelp("feedback")));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false, false, false)));
+        assertFalse(commandResult.equals(CommandResult.commandResultExit("feedback")));
 
         // different serve value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true, false, false)));
+        assertFalse(commandResult.equals(CommandResult.commandResultServe("feedback")));
 
         // different done value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false, true, false)));
+        assertFalse(commandResult.equals(CommandResult.commandResultDone("feedback")));
+
+        // different info value -> returns false
+        assertFalse(commandResult.equals(CommandResult.commandResultInfo("feedback", BOOK_1)));
     }
 
     @Test
@@ -51,21 +54,25 @@ public class CommandResultTest {
         // different feedbackToUser value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
+        // different done value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(),
+                CommandResult.commandResultDone("feedback").hashCode());
+
         // different showHelp value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", true, false, false, false, false).hashCode());
+                CommandResult.commandResultHelp("feedback").hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, true, false, false, false).hashCode());
+                CommandResult.commandResultExit("feedback").hashCode());
 
         // different serve value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, true, false, false).hashCode());
+                CommandResult.commandResultServe("feedback").hashCode());
 
-        // different done value -> returns different hashcode
+        // different info value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, false, true, false).hashCode());
+                CommandResult.commandResultInfo("feedback", BOOK_1).hashCode());
     }
 
     @Test
@@ -73,7 +80,7 @@ public class CommandResultTest {
         CommandResult commandResult1 = new CommandResult("feedback");
         assertFalse(commandResult1.isShowHelp());
 
-        CommandResult commandResult2 = new CommandResult("feedback", true, false, false, false, false);
+        CommandResult commandResult2 = CommandResult.commandResultHelp("feedback");
         assertTrue(commandResult2.isShowHelp());
     }
 
@@ -82,7 +89,7 @@ public class CommandResultTest {
         CommandResult commandResult1 = new CommandResult("feedback");
         assertFalse(commandResult1.isExit());
 
-        CommandResult commandResult2 = new CommandResult("feedback", false, true, false, false, false);
+        CommandResult commandResult2 = CommandResult.commandResultExit("feedback");
         assertTrue(commandResult2.isExit());
     }
 
@@ -91,7 +98,7 @@ public class CommandResultTest {
         CommandResult commandResult1 = new CommandResult("feedback");
         assertFalse(commandResult1.isServe());
 
-        CommandResult commandResult2 = new CommandResult("feedback", false, false, true, false, false);
+        CommandResult commandResult2 = CommandResult.commandResultServe("feedback");
         assertTrue(commandResult2.isServe());
     }
 
@@ -100,7 +107,7 @@ public class CommandResultTest {
         CommandResult commandResult1 = new CommandResult("feedback");
         assertFalse(commandResult1.isDone());
 
-        CommandResult commandResult2 = new CommandResult("feedback", false, false, false, true, false);
+        CommandResult commandResult2 = CommandResult.commandResultDone("feedback");
         assertTrue(commandResult2.isDone());
     }
 }

@@ -226,6 +226,44 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getBook_bookInCatalog_success() {
+        Model modelManager = new ModelManager();
+        Book toBeAdded = new BookBuilder(BOOK_1).build();
+        modelManager.addBook(toBeAdded);
+
+        Book retrieved = modelManager.getBook(toBeAdded.getSerialNumber());
+        assertEquals(toBeAdded, retrieved);
+    }
+
+    @Test
+    public void getBook_bookNotInCatalog_failure() {
+        Model modelManager = new ModelManager();
+        Book toBeAdded = new BookBuilder(BOOK_1).build();
+        modelManager.addBook(toBeAdded);
+
+        assertThrows(AssertionError.class, () -> modelManager.getBook(BOOK_2.getSerialNumber()));
+    }
+
+    @Test
+    public void getLoanHistoryAsString_success() {
+        Model modelManager = new ModelManager();
+        Book toBeAdded = new BookBuilder(BOOK_1).build();
+        modelManager.addBook(toBeAdded);
+
+        LoanId loanId = new LoanId(VALID_LOAN_ID);
+        Book toBeLoaned = new BookBuilder(BOOK_1).build();
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID_1);
+        Loan loan = new Loan(loanId, toBeLoaned.getSerialNumber(), currentBorrowerId,
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
+        modelManager.addLoan(loan);
+        Book updatedBook = toBeLoaned.addToLoanHistory(loan);
+        Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
+
+        String expected = "Loan History:\nNo loan history!";
+        assertEquals(expected, modelManager.getLoanHistoryOfBookAsString(loanedBook));
+    }
+
+    @Test
     public void servingBorrowerNewLoan_inServeMode_success() {
         Model modelManager = new ModelManager(getTypicalCatalog(), getTypicalLoanRecords(),
                 getTypicalBorrowerRecords(), new UserPrefs());

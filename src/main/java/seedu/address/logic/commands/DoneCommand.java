@@ -13,7 +13,8 @@ public class DoneCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "done";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns to List Mode. \n"
             + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Exited from Serve Mode. Loan slip saved in folder 'loan_slips'.";
+    public static final String MESSAGE_SUCCESS = "Exited from Serve Mode.\n"
+            + "Loan slip (if any) saved in folder 'loan_slips'.";
 
     private String unusedArguments = null;
 
@@ -43,11 +44,10 @@ public class DoneCommand extends ReversibleCommand {
         redoCommand = this;
 
         if (unusedArguments != null) {
-            commandResult = new CommandResult(String.format(MESSAGE_SUCCESS
-                    + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD),
-                    false, false, false, true, false);
+            commandResult = CommandResult.commandResultDone(String.format(MESSAGE_SUCCESS
+                    + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD));
         } else {
-            commandResult = new CommandResult(MESSAGE_SUCCESS, false, false, false, true, false);
+            commandResult = CommandResult.commandResultDone(MESSAGE_SUCCESS);
         }
 
         model.exitsServeMode();

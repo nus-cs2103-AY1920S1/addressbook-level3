@@ -112,6 +112,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void toggleGuiSettingsTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public UserSettings getUserSettings() {
             throw new AssertionError("This method should not be called.");
         }
@@ -240,6 +245,11 @@ public class AddCommandTest {
 
         @Override
         public BorrowerRecords getBorrowerRecords() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getLoanHistoryOfBookAsString(Book book) {
             throw new AssertionError("This method should not be called.");
         }
 

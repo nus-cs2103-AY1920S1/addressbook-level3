@@ -5,6 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNUSED_ARGUMENT;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Toggles the Ui theme between LiBerry Theme and Dark Theme
+ */
 public class ToggleUiCommand extends Command {
 
     public static final String COMMAND_WORD = "toggleui";
@@ -32,12 +35,13 @@ public class ToggleUiCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
+        model.toggleGuiSettingsTheme();
+
         if (unusedArguments != null) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS
-                    + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD),
-                    false, false, false, false, true);
+            return CommandResult.commandResultToggleUi(String.format(MESSAGE_SUCCESS
+                    + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD));
         } else {
-            return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, true);
+            return CommandResult.commandResultToggleUi(MESSAGE_SUCCESS);
         }
     }
 

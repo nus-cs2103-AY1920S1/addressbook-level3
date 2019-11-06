@@ -12,7 +12,7 @@ import seedu.address.model.borrower.BorrowerId;
  * Represents a Loan.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Loan {
+public class Loan implements Comparable<Loan> {
 
     private final LoanId loanId;
     private final SerialNumber bookSerialNumber;
@@ -144,6 +144,11 @@ public class Loan {
     public int hashCode() {
         return Objects.hash(loanId, bookSerialNumber, borrowerId, startDate, dueDate, returnDate,
                 renewCount, remainingFineAmount, paidFineAmount);
+    }
+
+    @Override
+    public int compareTo(Loan other) {
+        return this.getLoanId().compareTo(other.getLoanId());
     }
 
     @Override
