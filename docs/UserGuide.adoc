@@ -550,6 +550,8 @@ All entries will be sorted according to their id number in ascending order.
 === Document Generation
 This section showcases three commands you can use to generate different kinds of reports.
 
+[IMPORTANT]
+You must ensure that all existing reports are closed before executing any report generation commands to allow updating the same PDF document.
 // tag::genReport[]
 
 ==== Generate report for a specific body: `genReport`

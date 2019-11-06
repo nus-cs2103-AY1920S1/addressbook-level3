@@ -992,6 +992,7 @@ Use case ends.
 
 [discrete]
 === Use case: Alert for unclaimed bodies.
+*Precondition*: Mortuary manager closes all existing report PDFs.
 
 *MSS*
 
