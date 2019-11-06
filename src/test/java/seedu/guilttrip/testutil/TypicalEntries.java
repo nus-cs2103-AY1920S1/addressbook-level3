@@ -20,7 +20,8 @@ public class TypicalEntries {
     public static final Expense FOOD_EXPENSE = new ExpenseBuilder().withDesc("pgp mala").withTime("2019-09-09")
             .withCategory(VALID_CATEGORY_FOOD_EXPENSE).withAmt(5.50).withTags("food").build();
     public static final Expense CLOTHING_EXPENSE = new ExpenseBuilder().withDesc("cotton on jeans on sale")
-            .withCategory(VALID_CATEGORY_CLOTHING_EXPENSE).withTime("2019-11-09").withAmt(300).withTags("want", "clothes").build();
+            .withCategory(VALID_CATEGORY_CLOTHING_EXPENSE).withTime("2019-11-09").withAmt(300)
+            .withTags("want", "clothes").build();
     public static final Expense TRAVEL_EXPENSE = new ExpenseBuilder().withDesc("Travel to Mars")
             .withCategory("Travel").withTime("2019-08-11").withAmt(10000.00).withTags("Gettingalife", "Rest").build();
 
