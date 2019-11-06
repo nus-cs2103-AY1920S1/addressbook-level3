@@ -36,7 +36,6 @@ public abstract class Mode {
         this.value = value;
     }
 
-
     /**
      * Returns true if a given string is a valid mode.
      */
@@ -47,12 +46,6 @@ public abstract class Mode {
     public Predicate<Answerable> getCombinedPredicate() {
         return combinedPredicate;
     }
-
-    public abstract Mode withCombinedPredicate(Predicate<Answerable> combinedPredicate);
-
-    public abstract Mode withTime(int time);
-
-    public abstract Mode build();
 
     public abstract int getTime(int nextLevel);
 

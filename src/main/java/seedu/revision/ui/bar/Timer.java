@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -70,7 +70,7 @@ public class Timer {
             }
         });
 
-        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setCycleCount(startTime);
         timeline.getKeyFrames().add(frame);
         timeline.play();
     }
@@ -104,7 +104,7 @@ public class Timer {
         /**
          * Executes the command and returns the result.
          *
-         * @see MainLogic#execute(String)
+         * @see Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
     }

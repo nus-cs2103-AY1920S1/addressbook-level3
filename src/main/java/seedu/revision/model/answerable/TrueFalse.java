@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import seedu.revision.model.category.Category;
 
@@ -13,10 +12,6 @@ public class TrueFalse extends Answerable {
     /** Message to be shown if user-added True and False {@code Answerable}is not is in the wrong format**/
     public static final String MESSAGE_CONSTRAINTS = " T/F answer"
             + " should only be True/False (case insensitive) and can only have 1 answer.";
-    /** Validation Regex for the TrueFalse class used to validate user-added True and False {@code Answerable}. **/
-    public static final String VALIDATION_REGEX = "(?i)(true|false)";
-
-    private static final Logger logger = Logger.getLogger(TrueFalse.class.getName());
 
     /**
      * Every field must be present and not null.
@@ -32,6 +27,7 @@ public class TrueFalse extends Answerable {
      */
     public static boolean isValidTrueFalse(TrueFalse trueFalse) {
         requireNonNull(trueFalse);
+        String trueFalseRegex = "(?i)(true|false)";
         if (trueFalse.getCorrectAnswerList().size() != 1) {
             return false;
         }
@@ -41,9 +37,9 @@ public class TrueFalse extends Answerable {
         }
 
         if (trueFalse.getCorrectAnswerList().stream()
-                .anyMatch(a -> a.getAnswer().matches(VALIDATION_REGEX))
+                .anyMatch(a -> a.getAnswer().matches(trueFalseRegex))
                 || trueFalse.getWrongAnswerList().stream()
-                .anyMatch(a -> a.getAnswer().matches(VALIDATION_REGEX))) {
+                .anyMatch(a -> a.getAnswer().matches(trueFalseRegex))) {
             return true;
         }
         return false;

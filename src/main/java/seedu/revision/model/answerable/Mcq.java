@@ -25,7 +25,7 @@ public class Mcq extends Answerable {
     }
 
     /**
-     * Checks whether the input Mcq is valid.
+     * Checks whether the input Mcq is valid
      * @param mcq the mcq to validate.
      * @return boolean to indicate whether Mcq is valid or not.
      */

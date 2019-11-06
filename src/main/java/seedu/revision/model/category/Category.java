@@ -5,30 +5,30 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a category in the revision tool.
- * Guarantees: immutable; name is valid as declared in {@link #isValidCategoryName(String)}
+ * Guarantees: immutable; name is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {
 
     public static final String MESSAGE_CONSTRAINTS = "Category names should not be blank";
     public static final String VALIDATION_REGEX = "^(?=\\s*\\S).*$";
 
-    public final String categoryName;
+    public final String category;
 
     /**
      * Constructs a {@code category}.
      *
-     * @param categoryName A valid category name.
+     * @param category A valid category name.
      */
-    public Category(String categoryName) {
-        requireNonNull(categoryName);
-        checkArgument(isValidCategoryName(categoryName), MESSAGE_CONSTRAINTS);
-        this.categoryName = categoryName;
+    public Category(String category) {
+        requireNonNull(category);
+        checkArgument(isValidCategory(category), MESSAGE_CONSTRAINTS);
+        this.category = category;
     }
 
     /**
      * Returns true if a given string is a valid category name.
      */
-    public static boolean isValidCategoryName(String test) {
+    public static boolean isValidCategory(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -36,19 +36,19 @@ public class Category {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
-                && categoryName.equals(((Category) other).categoryName)); // state check
+                && category.equals(((Category) other).category)); // state check
     }
 
     @Override
     public int hashCode() {
-        return categoryName.hashCode();
+        return category.hashCode();
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + categoryName + ']';
+        return '[' + category + ']';
     }
 
 }

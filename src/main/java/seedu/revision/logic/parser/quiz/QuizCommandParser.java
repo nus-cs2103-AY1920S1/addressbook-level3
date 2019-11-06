@@ -31,7 +31,7 @@ public class QuizCommandParser {
      * @return exit command or help command or MCQ input command parser
      * @throws ParseException
      */
-    public Command parseCommand(String userInput, Answerable currentAnswerable) throws ParseException {
+    public static Command parseCommand(String userInput, Answerable currentAnswerable) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

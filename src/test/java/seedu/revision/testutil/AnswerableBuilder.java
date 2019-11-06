@@ -12,6 +12,7 @@ import seedu.revision.model.category.Category;
 import seedu.revision.model.util.SampleDataUtil;
 
 /**
+ * @author wilfredbtan
  * A utility class to help with building Answerable objects.
  */
 public abstract class AnswerableBuilder<T extends Answerable> {

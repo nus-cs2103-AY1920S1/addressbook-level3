@@ -12,7 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import seedu.revision.commons.core.GuiSettings;
-import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -25,7 +25,7 @@ import seedu.revision.ui.answerables.AnswerableListPanel;
 public abstract class Window extends UiPart<Stage> {
 
     protected Stage primaryStage;
-    protected MainLogic mainLogic;
+    protected Logic logic;
 
     // Independent Ui parts residing in this Ui container
     protected AnswerableListPanel answerableListPanel;
@@ -50,21 +50,21 @@ public abstract class Window extends UiPart<Stage> {
     @FXML
     protected StackPane scoreProgressAndTimerPlaceholder;
 
-    public Window(String fxml, Stage primaryStage, MainLogic mainLogic) {
+    public Window(String fxml, Stage primaryStage, Logic logic) {
         super(fxml, primaryStage);
         this.primaryStage = primaryStage;
-        this.mainLogic = mainLogic;
+        this.logic = logic;
         setAccelerators();
         helpWindow = new HelpWindow();
-        setWindowDefaultSize(this.mainLogic.getGuiSettings());
+        setWindowDefaultSize(this.logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public MainLogic getMainLogic() {
-        return mainLogic;
+    public Logic getLogic() {
+        return logic;
     }
 
     private void setAccelerators() {

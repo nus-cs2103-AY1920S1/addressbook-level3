@@ -13,11 +13,13 @@ import seedu.revision.model.quiz.Mode;
  * Command to start the quiz session.
  */
 
-public class StartQuizCommand extends Command {
+public class StartCommand extends Command {
 
     public static final String COMMAND_WORD = "start";
 
     public static final String COMMAND_AUTOCOMPLETE = "start mode/";
+    public static final String COMMAND_AUTOCOMPLETE_NORMAL = "start mode/normal";
+    public static final String COMMAND_AUTOCOMPLETE_CHAOS = "start mode/chaos";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode (Normal / Arcade / Custom)\n"
             + "For Custom, you can add the optional prefixes timer/ cat/ diff/ "
@@ -31,8 +33,8 @@ public class StartQuizCommand extends Command {
 
     private Mode mode;
 
-    /** Instantiates a StartQuizCommand to start a quiz session. **/
-    public StartQuizCommand(Mode mode) {
+    /** Instantiates a StartCommand to start a quiz session. **/
+    public StartCommand(Mode mode) {
         this.mode = mode;
     }
 
