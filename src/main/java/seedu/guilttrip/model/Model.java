@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
-
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.step.Step;
 import seedu.guilttrip.model.entry.AutoExpense;
@@ -31,12 +30,12 @@ import seedu.guilttrip.model.statistics.DailyStatistics;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
-    Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
-    Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
-    Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
-    Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
-    Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
-    Predicate<Condition> PREDICATE_SHOW_ALL_CONDITIONS = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_WISHES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_CONDITIONS = unused -> true;
     Predicate<Reminder> PREDICATE_SHOW_ACTIVE_REMINDERS =
         x -> !x.getStatus().equals(Reminder.Status.unmet);
     Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
@@ -238,15 +237,15 @@ public interface Model {
      */
     //void updateAllLists(Predicate<Entry> predicate);
 
-    void updateFilteredExpenses(Predicate<Expense> predicate);
+    void updateFilteredExpenses(Predicate<Entry> predicate);
 
-    void updateFilteredIncomes(Predicate<Income> predicate);
+    void updateFilteredIncomes(Predicate<Entry> predicate);
 
-    void updateFilteredWishes(Predicate<Wish> predicate);
+    void updateFilteredWishes(Predicate<Entry> predicate);
 
-    void updateFilteredBudgets(Predicate<Budget> predicate);
+    void updateFilteredBudgets(Predicate<Entry> predicate);
 
-    void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
+    void updateFilteredAutoExpenses(Predicate<Entry> predicate);
 
     void updateFilteredReminders(Predicate<Reminder> predicate);
 

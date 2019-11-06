@@ -20,6 +20,7 @@ import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.CategoryList;
 import seedu.guilttrip.model.entry.Date;
+import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.SortSequence;
@@ -522,25 +523,25 @@ public class ModelManager implements Model {
     }*/
 
     @Override
-    public void updateFilteredExpenses(Predicate<Expense> predicate) {
+    public void updateFilteredExpenses(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredExpenses.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredIncomes(Predicate<Income> predicate) {
+    public void updateFilteredIncomes(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredIncomes.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredWishes(Predicate<Wish> predicate) {
+    public void updateFilteredWishes(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredWishes.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredBudgets(Predicate<Budget> predicate) {
+    public void updateFilteredBudgets(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
         for (Budget budget : filteredBudgets) {
@@ -554,7 +555,7 @@ public class ModelManager implements Model {
      * @param predicate condition to be matched.
      */
     @Override
-    public void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate) {
+    public void updateFilteredAutoExpenses(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredAutoExpenses.setPredicate(predicate);
     }
