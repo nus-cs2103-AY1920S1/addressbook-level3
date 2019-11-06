@@ -242,7 +242,7 @@ Examples:
 * `add n/Drake p//Users/Me/Downloads/Drake.jpg` +
 Adds a template with image `/Users/Me/Downloads/Drake.jpg` and name it `Drake`
 
-==== Listing all templates: `list` (_coming in v1.4_)
+==== Listing all templates: `list`
 
 Lists all templates. +
 Format: `list`
@@ -522,7 +522,7 @@ e.g. `add p//Users/Me/Downloads/dgirl_oof.jpg d/Disaster Girl t/Funny`
 ** *Find Template* : `find KEYWORD [MORE_KEYWORDS]` (_coming in v1.4_)
 ** *Archive Template* : `archive INDEX`
 ** *Unarchive Template* : `unarchive INDEX`
-** *List Templates* : `list` (_coming in v1.4_)
+** *List Templates* : `list`
 ** *List Archived Templates* : `archives`
 ** *Use Template* : `use INDEX`
 

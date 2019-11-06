@@ -11,6 +11,7 @@ import seedu.weme.logic.commands.templatecommand.TemplateArchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateArchivesCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateListCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUnarchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUseCommand;
 import seedu.weme.logic.parser.commandparser.templatecommandparser.TemplateAddCommandParser;
@@ -52,6 +53,9 @@ public class TemplateParser extends WemeParser {
 
         case TemplateEditCommand.COMMAND_WORD:
             return new TemplateEditCommandParser().parse(arguments);
+
+        case TemplateListCommand.COMMAND_WORD:
+            return new TemplateListCommand();
 
         case TemplateUseCommand.COMMAND_WORD:
             return new TemplateUseCommandParser().parse(arguments);
