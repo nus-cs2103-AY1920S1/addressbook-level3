@@ -27,7 +27,7 @@ public class TaskListPanel extends UiPart<Region> {
     private ListView<IndivTaskCard> taskListView;
 
     public TaskListPanel(ObservableList<Task> taskList, ObservableList<Member> memberList,
-                         ObservableList<TasMemMapping> tasMemMappings) {
+                          ObservableList<TasMemMapping> tasMemMappings) {
         super(FXML);
 
         ObservableList<IndivTaskCard> taskCards = FXCollections.observableArrayList();
@@ -40,6 +40,37 @@ public class TaskListPanel extends UiPart<Region> {
             ArrayList<Member> specificMembers = new ArrayList<>();
             for (TasMemMapping mapping : tasMemMappings) {
                 if (mapping.hasTask(i)) {
+                    specificMembers.add(memberList.get(mapping.getMemberIndex()));
+                }
+            }
+
+            IndivTaskCard taskCard = new IndivTaskCard(taskInvolved, i + 1, specificMembers);
+            taskCards.add(taskCard);
+        }
+
+        taskListView.setItems(taskCards);
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
+    }
+
+    public TaskListPanel(ObservableList<Task> filteredTaskList, ObservableList<Task> taskList, ObservableList<Member> memberList,
+                         ObservableList<TasMemMapping> tasMemMappings) {
+        super(FXML);
+
+        ObservableList<IndivTaskCard> taskCards = FXCollections.observableArrayList();
+
+        for (int i = 0; i < filteredTaskList.size(); i++) {
+            Task taskInvolved = filteredTaskList.get(i);
+            int taskIndex = 0;
+
+            for (int j = 0; j < taskList.size(); j++) {
+                if (taskList.get(j).equals(taskInvolved)) {
+                    taskIndex = j;
+                }
+            }
+
+            ArrayList<Member> specificMembers = new ArrayList<>();
+            for (TasMemMapping mapping : tasMemMappings) {
+                if (mapping.hasTask(taskIndex)) {
                     specificMembers.add(memberList.get(mapping.getMemberIndex()));
                 }
             }

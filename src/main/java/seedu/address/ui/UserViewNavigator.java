@@ -78,6 +78,18 @@ public class UserViewNavigator {
         userViewController.setUserView(taskListPanel);
     }
 
+    /**
+     * Relays to controller to swap current user view with task list.
+     *
+     * @param logic to access task data
+     */
+    public void loadFoundTaskView(Logic logic) {
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList(),
+                logic.getProjectDashboard().getTaskList(), logic.getFilteredMemberList(),
+                logic.getProjectDashboard().getTasMemMappingList());
+        userViewController.setUserView(taskListPanel);
+    }
+
 
     // TODO get filtered member list from logic interface
 

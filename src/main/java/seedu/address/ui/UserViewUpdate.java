@@ -51,7 +51,7 @@ public class UserViewUpdate {
         case "done-task":
 
         case "find-task":
-            paneToRender.getChildren().add(userViewMain.loadTasks());
+            paneToRender.getChildren().add(userViewMain.loadFoundTasks());
             break;
 
         case "add-member":
