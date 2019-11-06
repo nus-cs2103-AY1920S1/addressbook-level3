@@ -290,10 +290,16 @@ Suppose you have a category named `CS2105`, and you wanted to export the FlashCa
 (so you can share them with your friend). Here's how you would go about this:
 
 . Type the example command given above into the command box (`export c>CS2105 p>C:\Documents\cs2105.json`), as shown below.
++
+image::ExportDemo1.png[width="600"]
 
 . Press **Enter** to execute the command. The results box will display a success message similar to the one shown in the screenshot below.
++
+image::ExportDemo2.png[width="600"]
 
 . Navigate to the directory that you specified in the command (in this case, it would be 'C:\Documents'). Sure enough, your exported file is there!
++
+image::ExportDemo3.png[width="600"]
 
 NOTE: Only the questions and answers of FlashCards will be exported.
 
