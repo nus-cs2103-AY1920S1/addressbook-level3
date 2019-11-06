@@ -244,7 +244,7 @@ The keyword instructions of the question include: +
 - *`<qns>` are required. The word limit is 200 and minimum 3 letters.* +
 - *`<ans>` are required. The word limit is 125.* +
 - *`<cat>` are required. The word limit is 50.* +
-- *`<type>` are optional. The format after this command should only be: `high`, `normal`, `low`.* +
+- *`<type>` are required. The format after this command should only be: `high`, `normal`, `low`.* +
 - *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
 Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
