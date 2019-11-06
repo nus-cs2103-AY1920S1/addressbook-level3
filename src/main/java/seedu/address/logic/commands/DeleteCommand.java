@@ -65,9 +65,9 @@ public class DeleteCommand extends Command {
             model.deletePerson(personToDelete);
             model.setContext(listContact);
 
-            return new CommandResult(String.format(MESSAGE_DELETION_SUCCESS, personToDelete.getName().fullName),
+            return new CommandResult(String.format(MESSAGE_DELETION_SUCCESS, personToDelete),
                     listContact);
-            
+
         case LIST_ACTIVITY: // delete activity
             List<Activity> activityList = model.getFilteredActivityList();
 
@@ -80,11 +80,12 @@ public class DeleteCommand extends Command {
             model.deleteActivity(activityToDelete);
             model.setContext(listActivity);
 
-            return new CommandResult(String.format(MESSAGE_DELETION_SUCCESS, activityToDelete.getTitle().title),
+            return new CommandResult(String.format(MESSAGE_DELETION_SUCCESS, activityToDelete),
                     listActivity);
 
         case VIEW_ACTIVITY: // delete expense in an activity
             Activity activity = model.getContext().getActivity().get();
+
             if (targetIndex.getZeroBased() >= activity.getExpenses().size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
             }
