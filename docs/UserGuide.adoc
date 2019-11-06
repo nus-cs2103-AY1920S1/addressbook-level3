@@ -635,28 +635,28 @@ Clears every archived order in SML. +
 
 [underline]#Format#: `clear-a`
 
-==== Find Archived Order: `find-a` [coming in v2.0]
+==== Find Archived Order: `find-a` `[coming in v2.0]`
 
 Finds archived orders whose fields contain any of the given keywords. +
 
 [underline]#Format#: `find-a KEYWORD [MORE_KEYWORDS]...`
 
 
-==== List Archived Order: `list-a` [coming in v2.0]
+==== List Archived Order: `list-a` `[coming in v2.0]`
 List every archived order in SML. Acts as a switch archived order command as well. +
 
 [underline]#Format#: `list-a`
 
 - `list-a`
 
-==== Delete Archived Order: `delete-a` [coming in v2.0]
+==== Delete Archived Order: `delete-a` `[coming in v2.0]`
 
 Deletes an archived order in SML.
 
 [underline]#Format#: `delete-c INDEX`
 
 
-=== Copy Archived Order: `copy-a` [coming in v2.0]
+==== Copy Archived Order: `copy-a` `[coming in v2.0]`
 Copies an archived order field to clipboard. +
 Format: `copy-a INDEX`
 
@@ -838,7 +838,7 @@ Coming in `V2.0`:
 
 // end::statisticsCommandUG[]
 
-==== Exiting the program : `exit`
+===== Exiting the program : `exit`
 Exits the program. +
 Format: `exit`
 
@@ -848,11 +848,11 @@ If csv file of the input file name exists, the application data will be exported
 If csv file of the input file name does not exist, the application data will be exported into a new file. +
 Format: `export <file name>` +
 
-=== Saving the data
+==== Saving the data
 SML data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Encrypting data files `[coming in v2.0]`
+==== Encrypting data files `[coming in v2.0]`
 Explain how the user can enable/disable data encryption
 
 === Autocomplete  `[coming in v2.0]`
