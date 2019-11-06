@@ -284,6 +284,7 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+// tag::advancedfeatures[]
 === Advanced Features
 
 ==== Parsing of Movie and Tv Show Information
@@ -310,6 +311,7 @@ your Ezwatchlist usage. Ezwatchlist will create your own personalized recommenda
 Excited? Enter your statistics page to get started on your recommendations. You might
 just find your next favourite!
 ****
+// end::advancedfeatures[]
 
 ==== Auto-Correct (Coming in v2.0)
 Ezwatchlist aims to provide a smooth experience for our typing users. All typing in Ezwatchlist will be automatically

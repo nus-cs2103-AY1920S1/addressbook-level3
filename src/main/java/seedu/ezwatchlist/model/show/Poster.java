@@ -21,11 +21,13 @@ public class Poster {
     private static final String ROOT_LOCATION = ImageRetrieval.IMAGE_CACHE_LOCATION + File.separator;
     private Image image;
     private String imagePath;
+    private boolean isPlaceholder;
 
     /**
      * Constructs a {@code Poster}.
      */
     public Poster() {
+        isPlaceholder = true;
         imagePath = PLACEHOLDER_IMAGE;
     }
 
@@ -34,6 +36,7 @@ public class Poster {
      * @param path the path of the image in the save location.
      */
     public Poster(String path) {
+        isPlaceholder = false;
         imagePath = path;
     }
 
@@ -45,6 +48,10 @@ public class Poster {
      * returns the image of the Poster.
      */
     public Image getImage() {
+        if (isPlaceholder) {
+            return new Image(PLACEHOLDER_IMAGE);
+        }
+
         try {
             String url = ROOT_LOCATION + imagePath;
             File file = new File(url);
