@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.eatery.Eatery;
+import seedu.address.model.eatery.Review;
 import seedu.address.model.feed.Feed;
 
 /**
@@ -87,23 +89,36 @@ public interface Model {
      */
     ObservableList<Eatery> getFilteredEateryList();
 
-    /** Returns an unmodifiable view of the filtered list */
+    /**
+     * Returns an unmodifiable view of the filtered list
+     */
     ObservableList<Eatery> getFilteredTodoList();
 
     /**
      * Updates the filter of the filtered eatery list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEateryList(Predicate<Eatery> predicate);
 
     /**
-     *  Switch between main mode and to-do mode.
-     * */
+     * Returns an unmodifiable view of the active reviews
+     */
+    ObservableList<Review> getActiveReviews();
+
+    /**
+     * Updates the list of active reviews based on the given {@code reviews}.
+     */
+    void updateActiveReviews(List<Review> reviews);
+
+    /**
+     * Switch between main mode and to-do mode.
+     */
     void toggle();
 
     /**
      * Return status of mode, Main or To-do.
-     * */
+     */
     boolean isMainMode();
 
     /*

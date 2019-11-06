@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFeedList;
 import seedu.address.model.eatery.Eatery;
+import seedu.address.model.eatery.Review;
 import seedu.address.storage.Storage;
 
 /**
@@ -66,6 +67,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Eatery> getFilteredTodoList() {
         return model.getFilteredTodoList();
+    }
+
+    @Override
+    public ObservableList<Review> getActiveReviews() {
+        return model.getActiveReviews();
     }
 
     @Override

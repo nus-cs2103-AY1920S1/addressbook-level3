@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.eatery.Eatery;
@@ -29,6 +30,8 @@ public class ResultDisplay extends UiPart<Region> {
             + "style=\"border:0\" src=\"https://www.google.com/maps/embed/v1/search?q=%s&key=%s\" "
             + "allowfullscreen></iframe>";
 
+    private final ReviewListPanel reviewListPanel;
+
     @FXML
     private Label commandFeedback;
 
@@ -42,10 +45,15 @@ public class ResultDisplay extends UiPart<Region> {
     private FlowPane eateryTags;
     @FXML
     private WebView eateryMap;
+    @FXML
+    private Label reviewHeader;
+    @FXML
+    private StackPane reviewListPanelPlaceholder;
 
-    public ResultDisplay() {
+    public ResultDisplay(ReviewListPanel reviewListPanel) {
         super(FXML);
         eateryMap.getEngine().loadContent(String.format(WEBVIEW_WRAPPER, ""));
+        this.reviewListPanel = reviewListPanel;
     }
 
     public void setFeedbackToUser(CommandResult commandResult) {
@@ -73,6 +81,10 @@ public class ResultDisplay extends UiPart<Region> {
                     URLEncoder.encode(eateryToShow.getAddress().value, StandardCharsets.UTF_8),
                     new String(Base64.getDecoder().decode(K)));
             eateryMap.getEngine().loadContent(String.format(WEBVIEW_WRAPPER, doc));
+
+            // Reviews
+            reviewHeader.setText("Reviews");
+            reviewListPanelPlaceholder.getChildren().add(reviewListPanel.getRoot());
         }
     }
 
@@ -92,6 +104,8 @@ public class ResultDisplay extends UiPart<Region> {
         eateryAddress.setText("");
         eateryTags.getChildren().clear();
         eateryMap.getEngine().loadContent(String.format(WEBVIEW_WRAPPER, ""));
+        reviewHeader.setText("");
+        reviewListPanelPlaceholder.getChildren().clear();
     }
 
 }

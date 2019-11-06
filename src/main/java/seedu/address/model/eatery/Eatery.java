@@ -2,8 +2,10 @@ package seedu.address.model.eatery;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,7 +21,7 @@ public class Eatery {
     // Data fields
     private final Address address;
     private final Category category;
-    private Set<Review> reviews = new HashSet<>();
+    private final List<Review> reviews = new ArrayList<>();
     private Set<Tag> tags = new HashSet<>();
 
     /**
@@ -82,15 +84,13 @@ public class Eatery {
         reviews.add(review);
     }
 
-    public Set<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews.clear();
-        for (Review r : reviews) {
-            this.addReview(r);
-        }
+        this.reviews.addAll(reviews);
     }
 
     /**
