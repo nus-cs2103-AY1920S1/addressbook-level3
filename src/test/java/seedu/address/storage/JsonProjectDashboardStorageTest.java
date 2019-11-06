@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalTasksMembers.ANDY;
 import static seedu.address.testutil.TypicalTasksMembers.BENSON;
 import static seedu.address.testutil.TypicalTasksMembers.FAREWELL_PARTY;
 import static seedu.address.testutil.TypicalTasksMembers.FIND_VP;
-import static seedu.address.testutil.TypicalTasksMembers.JOHN_DOE;
 import static seedu.address.testutil.TypicalTasksMembers.ORDER_SHIRTS;
 import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
@@ -24,7 +23,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.mapping.TasMemMapping;
-import seedu.address.model.member.Member;
 
 public class JsonProjectDashboardStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonProjectDashboardStorageTest");
@@ -56,19 +54,19 @@ public class JsonProjectDashboardStorageTest {
     @Test
     public void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () ->
-            readProjectDashboard("notJsonFormatProjectDashboard.json"));
+                readProjectDashboard("notJsonFormatProjectDashboard.json"));
     }
 
     @Test
     public void readProjectDashboard_invalidTaskProjectDashboard_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
-            readProjectDashboard("invalidTaskProjectDashboard.json"));
+                readProjectDashboard("invalidTaskProjectDashboard.json"));
     }
 
     @Test
     public void readProjectDashboard_invalidAndValidTaskProjectDashboard_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
-            readProjectDashboard("invalidAndValidTaskProjectDashboard.json"));
+                readProjectDashboard("invalidAndValidTaskProjectDashboard.json"));
     }
 
     @Test

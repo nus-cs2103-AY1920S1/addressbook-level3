@@ -15,9 +15,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class DeleteInventoryCommandParser implements Parser<DeleteInventoryCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the inventory ID of the inventory you want to delete.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteInventoryCommand
      * and returns a DeleteInventoryCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteInventoryCommand parse(String args) throws ParseException {

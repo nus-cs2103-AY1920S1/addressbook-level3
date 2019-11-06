@@ -18,6 +18,7 @@ public class DeleteCalendarCommandParser implements Parser<DeleteCalendarCommand
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCalendarCommand parse(String args) throws ParseException, FileNotFoundException {

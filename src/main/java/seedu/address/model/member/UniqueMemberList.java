@@ -17,7 +17,7 @@ import seedu.address.model.member.exceptions.MemberNotFoundException;
  * persons uses Task#isSameTask(Task) for equality so as to ensure that the task being added or updated is
  * unique in terms of identity in the UniqueTaskList. However, the removal of a task uses Task#equals(Object) so
  * as to ensure that the task with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Member#isSameMember(Member)
@@ -40,7 +40,7 @@ public class UniqueMemberList implements Iterable<Member> {
      */
     public boolean containsId(MemberId memId) {
         requireAllNonNull(memId);
-        for (Member mem: internalList) {
+        for (Member mem : internalList) {
             if (mem.getId().equals(memId)) {
                 return true;
             }

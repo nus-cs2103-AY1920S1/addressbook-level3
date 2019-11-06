@@ -15,9 +15,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the index of the meeting you want to add.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the DoneTask
      * and returns a DoneTask object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddMeetingCommand parse(String args) throws ParseException {

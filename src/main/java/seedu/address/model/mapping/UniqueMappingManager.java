@@ -3,18 +3,14 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.mapping.exceptions.DuplicateMappingException;
-import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.mapping.exceptions.IllegalMappingStateException;
-import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 
 /**
@@ -23,7 +19,7 @@ import seedu.address.model.task.Task;
  * persons uses Task#isSameTask(Task) for equality so as to ensure that the task being added or updated is
  * unique in terms of identity in the UniqueTaskList. However, the removal of a task uses Task#equals(Object) so
  * as to ensure that the task with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Task#isSameTask(Task)
@@ -197,7 +193,7 @@ public class UniqueMappingManager {
     // ================ TasMem methods ==============================
 
     /**
-     *returns a hashMap of members by tasks
+     * returns a hashMap of members by tasks
      */
     public HashMap<Integer, ObservableList<Integer>> listMemberByTask() {
         return tasMemMappingList.listMemberByTask();

@@ -25,16 +25,19 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommandParser implements Parser<EditCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the TASK ID of the task you want to edit.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX, PREFIX_TASK_NAME, PREFIX_TASK_STATUS, PREFIX_TASK_TAG,
-                        PREFIX_DEADLINE);
+                ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX, PREFIX_TASK_NAME, PREFIX_TASK_STATUS,
+                        PREFIX_TASK_TAG, PREFIX_DEADLINE);
+
 
         Index index;
 

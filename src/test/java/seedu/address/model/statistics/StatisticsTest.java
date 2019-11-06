@@ -18,6 +18,7 @@ import seedu.address.model.task.TaskStatus;
 public class StatisticsTest {
     private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
     private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
+
     @Test
     public void execute_correct_tasks_by_status_stats() {
         HashMap<TaskStatus, Integer> expectedResult = new HashMap<>();

@@ -19,7 +19,6 @@ import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
  * removal of a inventory uses Inventory#equals(Object) so as to ensure that the inventory with exactly the same fields
  * will be removed.
  * Supports a minimal set of list operations.
- *
  */
 public class UniqueInventoryList implements Iterable<Inventory> {
     private final ObservableList<Inventory> internalList = FXCollections.observableArrayList();

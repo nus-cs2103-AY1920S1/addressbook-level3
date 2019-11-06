@@ -48,7 +48,7 @@ public class Member {
         this.id = null;
         this.tags.addAll(null);
         this.url = null;
-}
+    }
 
     // TODO add multiple constructors so that users can add additional info later
 

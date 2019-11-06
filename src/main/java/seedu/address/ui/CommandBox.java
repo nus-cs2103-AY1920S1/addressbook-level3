@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,19 +8,19 @@ import java.util.TreeSet;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.geometry.Side;
-
+import seedu.address.commons.Keywords;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import seedu.address.commons.Keywords;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -36,10 +33,14 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    /** The existing autocomplete entries. */
+    /**
+     * The existing autocomplete entries.
+     */
     private final SortedSet<String> entries;
 
-    /** The popup used to select an entry. */
+    /**
+     * The popup used to select an entry.
+     */
     private ContextMenu entriesPopup;
 
     @FXML
@@ -86,7 +87,7 @@ public class CommandBox extends UiPart<Region> {
                 if (!entriesPopup.isShowing()) {
                     entriesPopup.show(this.commandTextField, Side.BOTTOM, 0, 0);
                 }
-                if(searchResult.size() == 1 && searchResult.getFirst().equals(text)) {
+                if (searchResult.size() == 1 && searchResult.getFirst().equals(text)) {
                     entriesPopup.hide();
                 }
             } else {
@@ -179,8 +180,10 @@ public class CommandBox extends UiPart<Region> {
          */
         CommandResult execute(String commandText) throws CommandException, ParseException, FileNotFoundException;
     }
+
     /**
      * Interface to allow other components to update the text inside {@CommandBox}
+     *
      * @param text
      */
     public void setCommandText(String text) {

@@ -29,10 +29,10 @@ public class MemberTest {
 
         Member editedMemberGabrielSeow = new MemberBuilder(GABRIEL_SEOW).build();
 
-        // same name -> returns true
+        // same name -> returns false
         editedMemberGabrielSeow = new MemberBuilder(GABRIEL_SEOW)
                 .withName(VALID_MEMBER_NAME_PUBLICITY).build();
-        assertTrue(GABRIEL_SEOW.isSameMember(editedMemberGabrielSeow));
+        assertFalse(GABRIEL_SEOW.isSameMember(editedMemberGabrielSeow));
 
         // same name, different ID -> returns false
         editedMemberGabrielSeow = new MemberBuilder(GABRIEL_SEOW)

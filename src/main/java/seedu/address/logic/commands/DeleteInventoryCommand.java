@@ -6,18 +6,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-//import seedu.address.commons.core.index.InvIndex;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
-import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
+
+//import seedu.address.commons.core.index.InvIndex;
 
 /**
  * Deletes a inventory identified using it's displayed index from the address book.
@@ -52,15 +51,15 @@ public class DeleteInventoryCommand extends Command {
 
         Inventory inventoryToDelete = lastShownList.get(targetIndex.getZeroBased());
         //Mappings Section start
-        for(int i = 0; i < lastShownTaskList.size(); i++) {
+        for (int i = 0; i < lastShownTaskList.size(); i++) {
             InvTasMapping mapping = new InvTasMapping(i, targetIndex.getZeroBased());
-            if(model.hasMapping(mapping)) {
+            if (model.hasMapping(mapping)) {
                 model.deleteMapping(mapping);
             }
         }
-        for(int j = 0; j < lastShownMemberList.size(); j++) {
+        for (int j = 0; j < lastShownMemberList.size(); j++) {
             InvMemMapping mapping = new InvMemMapping(j, targetIndex.getZeroBased());
-            if(model.hasMapping(mapping)) {
+            if (model.hasMapping(mapping)) {
                 model.deleteMapping(mapping);
             }
         }

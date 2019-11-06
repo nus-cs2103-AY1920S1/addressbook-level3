@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +11,6 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -31,8 +29,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.UserSettings;
 import seedu.address.model.calendar.CalendarWrapper;
-import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.calendar.Meeting;
+import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.Mapping;
@@ -495,7 +493,7 @@ public class AssignCommandTest {
         @Override
         public boolean hasMapping(Mapping mapping) {
             requireNonNull(mapping);
-            return mappingsAdded.stream().anyMatch(((TasMemMapping)mapping)::isSameMapping);
+            return mappingsAdded.stream().anyMatch(((TasMemMapping) mapping)::isSameMapping);
         }
 
         @Override

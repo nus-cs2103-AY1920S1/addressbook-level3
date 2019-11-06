@@ -56,7 +56,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         CommandResult commandResultMl = multiLine.manage(commandResult, command);
-        if(!commandResultMl.equals(new CommandResult("No MultiLine"))) {
+        if (!commandResultMl.equals(new CommandResult("No MultiLine"))) {
             try {
                 storage.saveProjectDashboard(model.getProjectDashboard());
                 storage.saveUserSettings(model.getUserSettings());
@@ -96,7 +96,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-   public ObservableList<Task> getFilteredTaskListNotStarted() {
+    public ObservableList<Task> getFilteredTaskListNotStarted() {
         return model.getFilteredTaskListNotStarted();
     }
 
@@ -124,6 +124,7 @@ public class LogicManager implements Logic {
     public ObservableList<TasMemMapping> getFilteredTasMemMappingList() {
         return model.getFilteredTasMemMappingsList();
     }
+
     @Override
     public Path getProjectDashboardFilePath() {
         return model.getProjectDashboardFilePath();

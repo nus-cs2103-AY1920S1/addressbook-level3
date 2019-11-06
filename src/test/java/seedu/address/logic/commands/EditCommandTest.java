@@ -46,6 +46,7 @@ public class EditCommandTest {
                 model.getProjectDashboard()), new UserPrefs(), new UserSettings());
         expectedModel.setTask(model.getFilteredTasksList().get(0), editedTask);
 
+        // additionally tests if a deadline is successfully removed when editing
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 

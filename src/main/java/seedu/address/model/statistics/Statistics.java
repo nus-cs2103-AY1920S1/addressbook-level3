@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
@@ -67,20 +66,20 @@ public class Statistics {
 
     //only do if the statistics object is unique
     public void doCalculations() {
-        for (int i=0; i < members.size(); i++) {
+        for (int i = 0; i < members.size(); i++) {
             int numTasks = 0;
-            for(TasMemMapping mapping : tasMem) {
-                if(mapping.hasMember(i)) {
+            for (TasMemMapping mapping : tasMem) {
+                if (mapping.hasMember(i)) {
                     numTasks++;
                 }
             }
             portionMemberByTasks.put(members.get(i), numTasks);
         }
 
-        for (int i=0; i < members.size(); i++) {
+        for (int i = 0; i < members.size(); i++) {
             int numItems = 0;
-            for(InvMemMapping mapping : invMem) {
-                if(mapping.hasMember(i)) {
+            for (InvMemMapping mapping : invMem) {
+                if (mapping.hasMember(i)) {
                     numItems++;
                 }
             }
@@ -91,7 +90,7 @@ public class Statistics {
         int doing = 0;
         int done = 0;
 
-        for(Task task: tasks) {
+        for (Task task : tasks) {
             switch (task.getTaskStatus()) {
                 case UNBEGUN:
                     unbegun++;
@@ -103,7 +102,7 @@ public class Statistics {
                     done++;
                     break;
                 default:
-                    assert(false);
+                    assert (false);
             }
         }
 

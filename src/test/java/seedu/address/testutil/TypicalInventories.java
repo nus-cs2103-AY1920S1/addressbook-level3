@@ -46,7 +46,8 @@ public class TypicalInventories {
     public static final Inventory MUSIC = new InventoryBuilder().withName(VALID_INVENTORY_NAME_MUSIC)
             .withPrice(new Price(VALID_INVENTORY_PRICE_MUSIC)).build();
 
-    private TypicalInventories() {} // prevents instantiation
+    private TypicalInventories() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code ProjectDashboard} with all the typical persons.

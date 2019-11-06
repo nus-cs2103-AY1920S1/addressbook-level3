@@ -29,6 +29,7 @@ import seedu.address.model.settings.Theme;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static CommandBox commandBox;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -62,8 +63,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    private static CommandBox commandBox;
-
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -95,6 +94,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -142,12 +142,20 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
+        // check defaults
+        if (guiSettings.getWindowHeight() < GuiSettings.DEFAULT_HEIGHT
+                || guiSettings.getWindowWidth() < GuiSettings.DEFAULT_WIDTH) {
+            guiSettings = new GuiSettings();
+        }
+
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
+
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+
     }
 
     /**
@@ -222,6 +230,7 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
     public static void updateCommandBox(String text) {
         commandBox.setCommandText(text);
     }

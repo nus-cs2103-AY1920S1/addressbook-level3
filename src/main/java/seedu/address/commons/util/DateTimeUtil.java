@@ -1,25 +1,36 @@
 package seedu.address.commons.util;
 
-import seedu.address.logic.parser.exceptions.ParseException;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoField;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Util class that deals with date-time parsing and display.
  */
 public class DateTimeUtil {
 
-    public static final String DEFAULT_INPUT_FORMAT = "dd/MM/yyyy hh:mm";
+    public static final String DEFAULT_INPUT_FORMAT = "dd-MM-yyyy kk:mm";
+    public static final String DEFAULT_INPUT_FORMAT_MESSAGE = "dd-mm-yyyy hh:mm (24 hr)";
     public static final String DISPLAY_FORMAT_TWENTY_FOUR_HOUR = "EEEE, MMM dd, yyyy HH:mm";
     public static final String DISPLAY_FORMAT_TWELVE_HOUR = "EEEE, MMM dd, yyyy hh:mm a";
 
-    public static final String MESSAGE_CONSTRAINTS = "Please follow the " + DEFAULT_INPUT_FORMAT + " format required";
+    public static final String MESSAGE_CONSTRAINTS = "Please follow the " + DEFAULT_INPUT_FORMAT_MESSAGE
+            + " format required";
+    public static final String LEAP_YEAR = "The year you entered is not a leap year, please try again";
 
-    private static DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern(DEFAULT_INPUT_FORMAT);
+    private static DateTimeFormatter defaultFormatter = new DateTimeFormatterBuilder()
+            .appendPattern(DEFAULT_INPUT_FORMAT)
+            .parseDefaulting(ChronoField.ERA, 1 /* era is AD */)
+            .toFormatter()
+            .withResolverStyle(ResolverStyle.STRICT /* To catch leap years */);
+
     private static DateTimeFormatter displayFormatterTwentyFourHour =
             DateTimeFormatter.ofPattern(DISPLAY_FORMAT_TWENTY_FOUR_HOUR);
     private static DateTimeFormatter displayFormatterTwelveHour =
@@ -38,33 +49,24 @@ public class DateTimeUtil {
         return defaultFormatter;
     }
 
+    /**
+     * Switches the default clock display format of +Work with {@code newFormat}.
+     */
     public static void switchDisplayFormat(DateTimeFormatter newFormat) {
         defaultDisplayFormat = newFormat;
     }
 
     /**
-     * Allows user to switch display formats.
-     * Currently used only in {@code DateTimeUtilTest}.
-     * TODO implement with ENUM instead!
-     */
-    /*
-    public static void switchDisplayFormatToTwentyFour() {
-        defaultDisplayFormat = displayFormatterTwentyFourHour;
-    }
-
-    public static void switchDisplayFormatToTwelve() {
-        defaultDisplayFormat = displayFormatterTwelveHour;
-    }
-    */
-
-    /**
      * Parses the date time given by the user.
-      */
+     */
     public static LocalDateTime parseDateTime(String rawDateTime) throws ParseException {
         requireNonNull(rawDateTime);
         try {
             return LocalDateTime.parse(rawDateTime, defaultFormatter);
         } catch (DateTimeParseException e) {
+            if (e.getMessage().contains("leap")) {
+                throw new ParseException(LEAP_YEAR);
+            }
             throw new ParseException(MESSAGE_CONSTRAINTS);
         }
     }
@@ -79,7 +81,8 @@ public class DateTimeUtil {
 
     /**
      * Checks if a task is due soon by comparing its due date to the current date and time.
-     * @param weeks the reminder period specified by the user
+     *
+     * @param weeks    the reminder period specified by the user
      * @param dateTime deadline of the task
      * @return true if task is due within user's reminder period
      */

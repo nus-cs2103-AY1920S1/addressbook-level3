@@ -30,9 +30,7 @@ public class TaskUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_TASK_NAME + task.getName().fullName + " ");
         sb.append(PREFIX_TASK_STATUS + task.getTaskStatus().toString().toLowerCase() + " ");
-        task.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TASK_TAG + s.tagName + " ")
-        );
+        task.getTags().stream().forEach(s -> sb.append(PREFIX_TASK_TAG + s.tagName + " "));
         return sb.toString();
     }
 
