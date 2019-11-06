@@ -23,7 +23,7 @@
                     <!-- Ensures that the label text is never truncated -->
                     <Region fx:constant="USE_PREF_SIZE"/>
                 </minWidth>
-                <Label fx:id="subject" text="\$first" styleClass="cell_big_label"/>
+                <Label fx:id="subject" text="\$first" styleClass="cell_big_label" wrapText="true"/>
             </HBox>
             <Label fx:id="questionBody" styleClass="cell_small_label" text="\$questionBody" wrapText="true"/>
         </VBox>
