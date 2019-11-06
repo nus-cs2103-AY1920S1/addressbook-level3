@@ -13,7 +13,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 /**
  * cancel a appointments for a patient.
@@ -52,7 +52,7 @@ public class CancelAppCommand extends ReversibleCommand {
         if (eventList == null) {
             checkHasEvent(model, toDelete);
             model.deleteAppointment(toDelete);
-            model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toDelete.getPersonId()));
+            model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(toDelete.getPersonId()));
             return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
         }
 
@@ -61,7 +61,7 @@ public class CancelAppCommand extends ReversibleCommand {
                 model.deleteAppointment(e);
             }
         }
-        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
+        model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(eventList.get(0).getPersonId()));
         return new CommandResult(String.format(
                 MESSAGE_CANCEL_APPOINTMENTS_SUCCESS,
                 eventList.size(),

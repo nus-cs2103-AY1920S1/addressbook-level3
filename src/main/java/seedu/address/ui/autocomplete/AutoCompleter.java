@@ -91,7 +91,7 @@ public class AutoCompleter {
             ResumeCommand.COMMAND_WORD
     };
 
-    private static final Pattern HAS_FLAG = Pattern.compile("(.* )?(?<!-)\\w+\\s+$");
+    private static final Pattern NO_FLAG = Pattern.compile(".*\\s-\\S+\\s+$|^\\s*\\S*");
     private static final Pattern CONTINUOUS_SPACES = Pattern.compile("\\s+");
 
     private final Trie trie;
@@ -113,23 +113,22 @@ public class AutoCompleter {
      */
     public AutoCompleter update(String currentQuery) {
         currentQuery = currentQuery.stripLeading();
-        if (HAS_FLAG.matcher(currentQuery).matches()) {
-            try {
-                Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));
-                HashSet<String> available = new HashSet<>(result);
-                available.removeAll(List.of(CONTINUOUS_SPACES.split(currentQuery)));
-                if (result.contains("-tag")) {
-                    available.add("-tag");
-                }
-                AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
-                autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);
-                return autoCompleter;
-            } catch (NullPointerException e) {
-                return new AutoCompleter("");
-            }
-        } else {
+        if (NO_FLAG.matcher(currentQuery).matches()) {
             this.currentQuery = currentQuery;
             return this;
+        }
+        try {
+            Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));
+            HashSet<String> available = new HashSet<>(result);
+            available.removeAll(List.of(CONTINUOUS_SPACES.split(currentQuery)));
+            if (result.contains("-tag")) {
+                available.add("-tag");
+            }
+            AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
+            autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);
+            return autoCompleter;
+        } catch (NullPointerException e) {
+            return new AutoCompleter("");
         }
     }
 

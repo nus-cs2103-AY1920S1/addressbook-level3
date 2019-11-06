@@ -2,6 +2,7 @@ package seedu.address.logic.commands.patients;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -59,6 +60,16 @@ public class EditPatientDetailsCommandTest {
     }
 
     @Test
+    public void execute_allFieldsSpecifiedAreSimiliarToOriginalExceptIdUnfilteredList_failure() {
+        Model model = TestUtil.getTypicalModelManager();
+        Person personToEdit = model.getFilteredPatientList().get(0);
+        Person editedPerson = model.getFilteredPatientList().get(0);
+
+        EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, editedPerson);
+        assertCommandFailure(editPatientDetailsCommand, model, MESSAGE_NOT_EDITED);
+    }
+
+    @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Model model = TestUtil.getTypicalModelManager();
 
@@ -83,7 +94,7 @@ public class EditPatientDetailsCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_failure() {
         Model model = TestUtil.getTypicalModelManager();
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(ALICE, ALICE);
-        assertCommandFailure(editPatientDetailsCommand, model, EditPatientDetailsCommand.MESSAGE_NOT_EDITED);
+        assertCommandFailure(editPatientDetailsCommand, model, MESSAGE_NOT_EDITED);
     }
 
     @Test

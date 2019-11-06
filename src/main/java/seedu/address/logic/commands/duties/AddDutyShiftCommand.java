@@ -19,7 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 
 /**
@@ -78,12 +78,12 @@ public class AddDutyShiftCommand extends ReversibleCommand {
         try {
             if (eventList == null) {
                 model.scheduleDutyShift(toAdd);
-                model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(toAdd.getPersonId()));
+                model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(toAdd.getPersonId()));
                 return new CommandResult(String.format(MESSAGE_ADD_SHIFT_SUCCESS, toAdd));
 
             }
             model.scheduleDutyShift(eventList);
-            model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
+            model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(eventList.get(0).getPersonId()));
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS_RECURSIVE,
                     eventList.size(),

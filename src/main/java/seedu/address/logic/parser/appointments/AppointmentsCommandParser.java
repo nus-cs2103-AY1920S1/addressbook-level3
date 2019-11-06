@@ -5,8 +5,10 @@ import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.events.predicates.EventApprovedPredicate;
-import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
+import seedu.address.model.person.parameters.PersonReferenceId;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -29,6 +31,7 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
         if (trimmedArgs.isEmpty()) {
             return new AppointmentsCommand(new EventApprovedPredicate());
         }
-        return new AppointmentsCommand(new EventContainsKeywordPredicate(args.trim().toUpperCase()));
+        ReferenceId referenceId = PersonReferenceId.lookupPatientReferenceId(trimmedArgs);
+        return new AppointmentsCommand(new EventMatchesRefIdPredicate(referenceId));
     }
 }

@@ -19,7 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 
 /**
@@ -81,12 +81,12 @@ public class AddAppCommand extends ReversibleCommand {
         try {
             if (eventList == null) {
                 model.scheduleAppointment(toAdd);
-                model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toAdd.getPersonId()));
+                model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(toAdd.getPersonId()));
                 return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, toAdd));
 
             }
             model.scheduleAppointments(eventList);
-            model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
+            model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(eventList.get(0).getPersonId()));
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS_RECURSIVE,
                     eventList.size(),
