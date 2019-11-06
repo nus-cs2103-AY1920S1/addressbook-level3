@@ -1,7 +1,6 @@
 package seedu.address.model.studyplan;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -549,7 +548,7 @@ public class StudyPlan implements Cloneable {
      * Returns a list of valid modules that can be taken in a given semester.
      * This will return all valid modules for the semester, even if they're already in the study plan.
      */
-    public List<String> getValidMods(SemesterName semName) {
+    public List<Module> getValidMods(SemesterName semName) {
         ArrayList<String> prevSemCodes = new ArrayList<>();
         for (Semester sem : semesters) {
             if (sem.getSemesterName() == semName) {
@@ -560,7 +559,7 @@ public class StudyPlan implements Cloneable {
             }
         }
 
-        ArrayList<String> result = new ArrayList<>();
+        List<Module> result = new ArrayList<>();
         for (Module mod : modules.values()) {
             String moduleCode = mod.getModuleCode().toString();
             if (prevSemCodes.contains(moduleCode)) {
@@ -568,11 +567,10 @@ public class StudyPlan implements Cloneable {
             }
             // At this point, mod should not be inside prevSemCodes -- if verify, add to result
             if (mod.verify(prevSemCodes)) {
-                result.add(moduleCode);
+                result.add(mod);
             }
         }
 
-        Collections.sort(result);
         return result;
     }
 

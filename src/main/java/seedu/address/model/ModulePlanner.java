@@ -340,9 +340,9 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         }
     }
 
-    public List<String> getValidMods(SemesterName semName) {
+    public List<Module> getValidMods(SemesterName semName) {
         if (this.activeStudyPlan == null) {
-            return new ArrayList<>(); // TODO: might want to change it to an assertion, this should not be called maybe?
+            return new ArrayList<>();
         }
         return this.activeStudyPlan.getValidMods(semName);
     }

@@ -183,9 +183,9 @@ public interface Model {
     String getModuleInformation(String moduleCode);
 
     /**
-     * Returns a list of valid modules that can be taken in a given semester.
+     * Returns a hash map of valid modules that can be taken in a given semester.
      */
-    List<String> getValidMods(SemesterName semName);
+    List<Module> getValidMods(SemesterName semName);
 
     /**
      * Clears all invalid modules, whose prerequisites have not been satisfied.

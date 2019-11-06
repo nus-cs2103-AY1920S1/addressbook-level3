@@ -171,7 +171,7 @@ public class DescriptionCommandTest {
         }
 
         @Override
-        public List<String> getValidMods(SemesterName semName) {
+        public List<Module> getValidMods(SemesterName semName) {
             throw new AssertionError("This method should not be called.");
         }
 

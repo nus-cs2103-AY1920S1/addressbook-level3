@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.verification;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalModule.CS1101S;
+import static seedu.address.testutil.TypicalModule.CS3244;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
@@ -27,6 +30,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
+import seedu.address.testutil.TypicalModule;
+import seedu.address.ui.ResultViewType;
 
 public class ValidModsCommandTest {
 
@@ -167,11 +172,11 @@ public class ValidModsCommandTest {
         }
 
         @Override
-        public List<String> getValidMods(SemesterName semName) {
+        public List<Module> getValidMods(SemesterName semName) {
             if (semName.equals(SemesterName.Y1S1)) {
-                ArrayList<String> arr = new ArrayList<>();
-                arr.add("CS1101S");
-                arr.add("CS2040S");
+                ArrayList<Module> arr = new ArrayList<>();
+                arr.add(CS1101S);
+                arr.add(TypicalModule.CS3244);
                 return arr;
             } else {
                 return null;
@@ -344,7 +349,11 @@ public class ValidModsCommandTest {
     @Test
     public void execute_description_success() {
         Model model = new ValidModsCommandTest.ModelStub();
-        CommandResult expectedCommandResult = new CommandResult("CS1101S\nCS2040S", false, false);
+        UniqueModuleList modList = new UniqueModuleList();
+        modList.add(CS1101S);
+        modList.add(CS3244);
+        CommandResult expectedCommandResult = new CommandResult("All valid modules in Y1S1 are shown",
+                ResultViewType.MODULE, modList.asUnmodifiableObservableList());
         assertCommandSuccess(new ValidModsCommand(SemesterName.Y1S1), model, expectedCommandResult, model);
     }
 }

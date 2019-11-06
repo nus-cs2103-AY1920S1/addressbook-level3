@@ -9,11 +9,14 @@ import static seedu.address.testutil.TypicalStudyPlans.SP_2;
 import static seedu.address.testutil.TypicalStudyPlans.SP_2_TITLE;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.util.Pair;
+import seedu.address.model.module.Module;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.testutil.StudyPlanBuilder;
 import seedu.address.testutil.TypicalStudyPlans;
@@ -57,13 +60,16 @@ public class StudyPlanTest {
 
     @Test
     public void getValidMods_returnsValidMods() {
-        List<String> validMods = SP_1.getValidMods(SemesterName.Y3S1);
+        List<Module> validMods = SP_1.getValidMods(SemesterName.Y3S1);
+        List<String> actual = validMods.stream().map(x -> x.getModuleCode().toString()).collect(Collectors.toList());
         ArrayList<String> expected = new ArrayList<>();
         expected.add("CS1101S");
         expected.add("CS1231S");
         expected.add("IS1103X");
         expected.add("MA1521");
-        assertEquals(validMods, expected);
+        Collections.sort(actual);
+        Collections.sort(expected);
+        assertEquals(actual, expected);
     }
 
     @Test

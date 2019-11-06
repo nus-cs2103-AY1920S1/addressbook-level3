@@ -467,7 +467,8 @@ such as MCs, core or focus area modules that remain to be taken. +
 Format: `check`
 
 ==== Viewing modules that can be taken in a given semester : `validmods`
-Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
+Shows all the modules that can be taken in a given semester, based only on whether its prerequisites have been met. +
+This semester need not necessarily exist in the module planner for you to view its valid modules. +
 Format: `validmods SEMESTER`
 
 Example:

@@ -213,7 +213,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<String> getValidMods(SemesterName semName) {
+    public List<Module> getValidMods(SemesterName semName) {
         return this.modulePlanner.getValidMods(semName);
     }
 
