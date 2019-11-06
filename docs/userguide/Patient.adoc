@@ -43,9 +43,10 @@ Format: `pat-add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [vt/VISIT
 ****
  * A patient can have any number of tags.
  * A patient can have any number of visit todos.
+ * The patient cannot have the same **identity** an existing patient.
 ****
 
-Note: Visit Todos are described in further detail under <<VisitHowTo>>.
+TIP: Visit Todos are described in further detail under <<VisitHowTo>>.
 
 Examples:
 
@@ -54,6 +55,21 @@ Examples:
  * `pat-add n/Choong Siew Hwang p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Male vt/Check Blood Pressure`
 
  * `pat-add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Street p/12345678 t/Female vt/Check fridge for expired food vt/Check for bed sores`
+
+.Patient identity
+[NOTE]
+===============================
+A patient is identified by three things: their name, phone number, and email. +
+
+Two patient entries are said to have the same **identity** (and thus refer to the
+same person) when both of the following conditions are satisfied:
+
+1. They have the same name (case insensitive).
+2. They have the same phone number **or** email.
+
+To prevent duplicates, there cannot be two patients with the same identity in the app at
+the same time.
+===============================
 
 === Editing a Patient: `pat-edit`
 
@@ -73,7 +89,7 @@ Format: `pat-edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… [vt/
 * You can remove all the person's visit todos by typing `vt/` without specifying any visit todos after it.
 ****
 
-Note: Visit Todos are described in further detail under <<VisitHowTo>>.
+TIP: Visit Todos are described in further detail under <<VisitHowTo>>.
 
 Examples:
 
