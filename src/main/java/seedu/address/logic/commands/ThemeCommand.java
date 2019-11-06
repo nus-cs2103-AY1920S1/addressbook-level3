@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.settings.Theme;
@@ -15,15 +17,18 @@ public class ThemeCommand extends Command {
             + "Parameters: [light/dark]\n"
             + "Example: " + COMMAND_WORD + " light";
 
+    public static final String SHOWING_THEME_MESSAGE = "Theme now set to: ";
+
     private final Theme theme;
 
     public ThemeCommand(Theme theme) {
+        requireNonNull(theme);
         this.theme = theme;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.setCurrentTheme(this.theme);
-        return new CommandResult("Theme now set to: " + theme, false, false, true);
+        return new CommandResult(SHOWING_THEME_MESSAGE + theme, false, false, true);
     }
 }
