@@ -19,22 +19,22 @@ import seedu.revision.model.answerable.Answerable;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final RevisionTool addressBook;
+    private final RevisionTool revisionTool;
     private final UserPrefs userPrefs;
     private final FilteredList<Answerable> filteredAnswerables;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyRevisionTool addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRevisionTool revisionTool, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(revisionTool, userPrefs);
 
-        logger.fine("Initializing with revision tool: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with revision tool: " + revisionTool + " and user prefs " + userPrefs);
 
-        this.addressBook = new RevisionTool(addressBook);
+        this.revisionTool = new RevisionTool(revisionTool);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredAnswerables = new FilteredList<>(this.addressBook.getAnswerableList());
+        filteredAnswerables = new FilteredList<>(this.revisionTool.getAnswerableList());
     }
 
     public ModelManager() {
@@ -79,29 +79,29 @@ public class ModelManager implements Model {
     //=========== RevisionTool ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyRevisionTool addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setRevisionTool(ReadOnlyRevisionTool revisionTool) {
+        this.revisionTool.resetData(revisionTool);
     }
 
     @Override
-    public ReadOnlyRevisionTool getAddressBook() {
-        return addressBook;
+    public ReadOnlyRevisionTool getRevisionTool() {
+        return revisionTool;
     }
 
     @Override
     public boolean hasAnswerable(Answerable answerable) {
         requireNonNull(answerable);
-        return addressBook.hasAnswerable(answerable);
+        return revisionTool.hasAnswerable(answerable);
     }
 
     @Override
     public void deleteAnswerable(Answerable target) {
-        addressBook.removeAnswerable(target);
+        revisionTool.removeAnswerable(target);
     }
 
     @Override
     public void addAnswerable(Answerable answerable) {
-        addressBook.addAnswerable(answerable);
+        revisionTool.addAnswerable(answerable);
         updateFilteredAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setAnswerable(Answerable target, Answerable editedAnswerable) {
         requireAllNonNull(target, editedAnswerable);
 
-        addressBook.setAnswerable(target, editedAnswerable);
+        revisionTool.setAnswerable(target, editedAnswerable);
     }
 
     //=========== Filtered Answerable List Accessors =============================================================
@@ -148,7 +148,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return revisionTool.equals(other.revisionTool)
                 && userPrefs.equals(other.userPrefs)
                 && filteredAnswerables.equals(other.filteredAnswerables);
     }

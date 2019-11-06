@@ -27,7 +27,7 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalRevisionTool(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getRevisionTool(), new UserPrefs());
     }
 
     /*

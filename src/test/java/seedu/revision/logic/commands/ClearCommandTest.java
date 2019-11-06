@@ -26,7 +26,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyAddressBook_success() throws ParseException {
         Model model = new ModelManager(getTypicalRevisionTool(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalRevisionTool(), new UserPrefs());
-        expectedModel.setAddressBook(new RevisionTool());
+        expectedModel.setRevisionTool(new RevisionTool());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

@@ -48,7 +48,7 @@ public class LogicManager implements Logic {
         try {
             //We can deduce that the previous line of code modifies model in some way
             //since it's being stored here.
-            storage.saveRevisionTool(model.getAddressBook());
+            storage.saveRevisionTool(model.getRevisionTool());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -76,7 +76,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyRevisionTool getAddressBook() {
-        return model.getAddressBook();
+        return model.getRevisionTool();
     }
 
     @Override

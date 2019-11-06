@@ -48,7 +48,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new RevisionTool(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()), new UserPrefs());
         expectedModel.setAnswerable(model.getFilteredAnswerableList().get(0), editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -70,7 +70,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new RevisionTool(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()), new UserPrefs());
         expectedModel.setAnswerable(lastAnswerable, editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -83,7 +83,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new RevisionTool(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -101,7 +101,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new RevisionTool(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()), new UserPrefs());
         expectedModel.setAnswerable(model.getFilteredAnswerableList().get(0), editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -130,7 +130,7 @@ public class EditCommandTest {
         showAnswerableAtIndex(model, INDEX_FIRST_ANSWERABLE);
 
         // edit answerable in filtered list into a duplicate in revision tool
-        Answerable answerableInList = model.getAddressBook().getAnswerableList()
+        Answerable answerableInList = model.getRevisionTool().getAnswerableList()
                 .get(INDEX_SECOND_ANSWERABLE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE,
                 new EditAnswerableDescriptorBuilder(answerableInList).build());
@@ -157,7 +157,7 @@ public class EditCommandTest {
         showAnswerableAtIndex(model, INDEX_FIRST_ANSWERABLE);
         Index outOfBoundIndex = INDEX_SECOND_ANSWERABLE;
         // ensures that outOfBoundIndex is still in bounds of revision tool list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getAnswerableList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRevisionTool().getAnswerableList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA).build());

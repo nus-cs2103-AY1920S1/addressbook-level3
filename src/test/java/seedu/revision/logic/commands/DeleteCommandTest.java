@@ -40,7 +40,7 @@ public class DeleteCommandTest {
         String expectedMessage =
                 String.format(DeleteCommand.MESSAGE_DELETE_ANSWERABLE_SUCCESS, answerablesToDelete.toString());
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRevisionTool(), new UserPrefs());
         expectedModel.deleteAnswerable(model.getFilteredAnswerableList().get(INDEX_FIRST_ANSWERABLE.getZeroBased()));
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_ANSWERABLE;
         // ensures that outOfBoundIndex is still in bounds of revision tool list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getAnswerableList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRevisionTool().getAnswerableList().size());
 
         ArrayList<Index> indexToDelete = new ArrayList<>();
         indexToDelete.add(outOfBoundIndex);

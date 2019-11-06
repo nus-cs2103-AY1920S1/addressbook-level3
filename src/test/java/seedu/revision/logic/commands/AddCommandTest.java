@@ -117,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyRevisionTool newData) {
+        public void setRevisionTool(ReadOnlyRevisionTool newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyRevisionTool getAddressBook() {
+        public ReadOnlyRevisionTool getRevisionTool() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -194,7 +194,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyRevisionTool getAddressBook() {
+        public ReadOnlyRevisionTool getRevisionTool() {
             return new RevisionTool();
         }
     }

@@ -19,7 +19,7 @@ public interface Logic {
     /**
      * Returns the RevisionTool.
      *
-     * @see seedu.revision.model.Model#getAddressBook()
+     * @see seedu.revision.model.Model#getRevisionTool()
      */
     ReadOnlyRevisionTool getAddressBook();
 

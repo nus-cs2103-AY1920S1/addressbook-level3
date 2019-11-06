@@ -31,7 +31,7 @@ public class AddCommandIntegrationTest {
     public void execute_newAnswerable_success() throws ParseException {
         Answerable validAnswerable = new McqBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getRevisionTool(), new UserPrefs());
         expectedModel.addAnswerable(validAnswerable);
 
         assertCommandSuccess(new AddCommand(validAnswerable), model,
@@ -40,7 +40,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateAnswerable_throwsCommandException() {
-        Answerable answerableInList = model.getAddressBook().getAnswerableList().get(0);
+        Answerable answerableInList = model.getRevisionTool().getAnswerableList().get(0);
         assertCommandFailure(new AddCommand(answerableInList), model, AddCommand.MESSAGE_DUPLICATE_ANSWERABLE);
     }
 

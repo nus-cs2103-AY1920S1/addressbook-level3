@@ -110,7 +110,7 @@ public class MainWindow extends Window {
         if (result.get() == confirmRestore) {
             ReadOnlyRevisionTool sampleData;
             sampleData = SampleDataUtil.getSampleRevisionTool();
-            passedModel.setAddressBook(new RevisionTool(sampleData));
+            passedModel.setRevisionTool(new RevisionTool(sampleData));
         }
     }
 
