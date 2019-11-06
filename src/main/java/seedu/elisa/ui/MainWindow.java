@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -115,8 +116,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Paint elisaTextBlueColor = elisaText.getFill();
     private final Paint elisaDescBlueColor = elisaDescription.getFill();
-    private final Paint elisaTextRedColor = Paint.valueOf("ff0000");
-    private final Paint elisaDescRedColor = Paint.valueOf("fe4949");
+    private final Paint elisaTextRedColor = Paint.valueOf("ff8080");
+    private final Paint elisaDescRedColor = Paint.valueOf("ffb4b4");
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -149,11 +150,9 @@ public class MainWindow extends UiPart<Stage> {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
-                    elisaImage.setImage(redElisa);
-                    setTextRed();
+                    setRed();
                 } else {
-                    elisaImage.setImage(blueElisa);
-                    setTextDefault();
+                    setBlue();
                     if (logic.isSystemToggle()) {
                         Platform.runLater(() -> {
                             String feedback;
@@ -180,14 +179,19 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setTextRed() {
+    private void setRed() {
+        elisaImage.setImage(redElisa);
         elisaText.setFill(elisaTextRedColor);
+        elisaText.setEffect(new Glow(0.2));
+        elisaText.setStroke(elisaDescRedColor);
         elisaDescription.setFill(elisaDescRedColor);
         elisaDescription2.setFill(elisaDescRedColor);
     }
 
-    private void setTextDefault() {
+    private void setBlue() {
+        elisaImage.setImage(blueElisa);
         elisaText.setFill(elisaTextBlueColor);
+        elisaText.setEffect(null);
         elisaDescription.setFill(elisaDescBlueColor);
         elisaDescription2.setFill(elisaDescBlueColor);
     }
