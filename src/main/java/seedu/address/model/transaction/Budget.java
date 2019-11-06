@@ -150,6 +150,11 @@ public class Budget {
         return String.format("$%s out of $%s remaining", this.amount.toString(), this.initialAmount.toString());
     }
 
+    public String displayPercentage() {
+        double percentage = this.amount.divideAmount(this.initialAmount) * 100;
+        return String.format("%.2f%% remaining", percentage);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

@@ -115,6 +115,17 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
+     * divides this.amount by amount.
+     *
+     * @param amount Amount to be divided.
+     * @return double after division.
+     */
+    public double divideAmount(Amount amount) {
+        final double newAmount = (double)this.amount / amount.amount;
+        return newAmount;
+    }
+
+    /**
      * Multiplies amount by some fraction.
      *
      * @param portion Fraction of Amount.
