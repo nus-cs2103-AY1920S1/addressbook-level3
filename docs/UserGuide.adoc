@@ -117,6 +117,7 @@ Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
 * `FOLDER_NAME` cannot be the name of an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
+* `FOLDER_NAME` must be alphanumeric.
 * `PARENT_FOLDER` must be an existing folder.
 * If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
 ****
