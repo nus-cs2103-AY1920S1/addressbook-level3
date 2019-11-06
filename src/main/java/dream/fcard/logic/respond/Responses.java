@@ -330,8 +330,8 @@ public enum Responses {
 
                     Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
                     Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
-
                     //@author
+
                     return true;
                 }
     ),
@@ -352,15 +352,47 @@ public enum Responses {
                             new String[]{"deck/", "index/"},
                             i);
 
+                    //@@author huiminlim
                     // Checks if "deck/" and "index/" are supplied.
-                    if (res.get(0).size() == 0 || res.get(1).size() == 0) {
+                    boolean hasDeck = res.get(0).size() == 1;
+                    boolean hasIndex = res.get(1).size() == 1;
+
+                    if (!hasDeck || !hasIndex) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
                                 + "correct format of the Delete command, type 'help command/delete'");
                         return true;
                     }
 
+                    String deckName = res.get(0).get(0);
+                    assert deckName != null;
+                    try {
+                        Deck deck = StateHolder.getState().getDeck(deckName);
+                        int index = Integer.parseInt(res.get(1).get(0));
+
+                        /*
+                        boolean isIndexValid = index > 0 && index <= deck.getSize();
+                        if (!isIndexValid) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
+                                    + "Index is invalid");
+                        }
+
+                         */
+
+                        deck.removeCard(index);
+                    } catch (DeckNotFoundException d) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
+                                + "No deck with name exists");
+                    } catch (IndexNotFoundException n) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
+                                + "Index is invalid");
+                    }
+
+                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
+
+                    //@author
+
                     return true; //if valid
-                    //return false; //if not valid
                 }
     ),
     SEE_SPECIFIC_DECK(
