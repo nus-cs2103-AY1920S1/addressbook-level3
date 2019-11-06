@@ -21,12 +21,7 @@
             </padding>
             <FlowPane fx:id="tags" />
             <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label fx:id="userInput" style="-fx-wrap-text: true;" styleClass="cell_big_label" text="\$userInput" wrapText="true">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
+                <Label fx:id="userInput" style="-fx-wrap-text: true;" styleClass="cell_big_label" text="\$userInput" />
             </HBox>
         </VBox>
         <rowConstraints>
