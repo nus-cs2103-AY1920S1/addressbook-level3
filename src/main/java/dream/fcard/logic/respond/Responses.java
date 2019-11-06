@@ -10,12 +10,15 @@ import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.HelpCommand;
 import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.model.Deck;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
 
@@ -131,10 +134,12 @@ public enum Responses {
                         } catch (DeckNotFoundException e) {
                             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try"
                                     + " again when you shut me down.");
+                            return true;
                         }
 
                     } else {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "That name is in use.");
+                        return true;
                     }
                     return true;
                 } //done
@@ -223,27 +228,96 @@ public enum Responses {
                                 "choiceIndex/",
                                 "choice/"},
                             i);
+
+                    //@@author huiminlim
+                    boolean hasDeckName = res.get(0).size() == 1;
+                    boolean hasIndex = res.get(1).size() == 1;
+
                     // Checks if "deck/" and "index" are supplied.
-                    if (res.get(0).size() == 0 || res.get(1).size() == 0) {
-                        return false;
-                    }
-
-                    // Checks if choiceIndex and choice are both given or both not given.
-                    if ((res.get(4).size() == 0 && res.get(5).size() != 0)
-                            || (res.get(4).size() != 0 && res.get(5).size() == 0)) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Choice and ChoiceIndex must be supplied"
-                                + "together or not supplied at all!");
+                    if (!hasDeckName || !hasIndex) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
+                                + "format of the Edit command, type 'help command/Edit'");
                         return true;
                     }
 
-                    // Checks if nothing is being edited
-                    if (res.get(2).size() == 0 && res.get(3).size() == 0 && res.get(4).size() == 0
-                            && res.get(5).size() == 0) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "No field is supplied to be edited!");
+                    // Obtain deck
+                    String deckName = res.get(0).get(0);
+                    Deck deck = null;
+                    try {
+                        deck = StateHolder.getState().getDeck(deckName);
+                    } catch (DeckNotFoundException d) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, d.getMessage());
+                        return true;
+                    }
+                    assert deck != null;
+
+                    ArrayList<FlashCard> cards = deck.getCards();
+                    int index = -1;
+                    try {
+                        index = Integer.parseInt(res.get(1).get(0));
+                    } catch (NumberFormatException n) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: index provided is invalid.'");
+                        return true;
+                    }
+                    assert index != -1;
+                    boolean isIndexValid = index > 0 && index <= cards.size();
+                    if (!isIndexValid) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: index provided is invalid.'");
+                        return true;
+                    }
+                    FlashCard card = cards.get(index - 1);
+
+
+                    // Must check for validity of command before executing change
+                    boolean hasChoiceIndex = res.get(4).size() == 1;
+                    boolean hasChoice = res.get(5).size() == 1;
+
+                    boolean isFrontBackCardButHasChoice = (hasChoice || hasChoiceIndex)
+                            && card instanceof FrontBackCard;
+                    if (isFrontBackCardButHasChoice) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
+                                + "Front Back card has no choices.");
+                    }
+
+                    boolean hasFront = res.get(3).size() == 1;
+                    if (hasFront) {
+                        String front = res.get(3).get(0);
+                        card.setFront(front);
+                    }
+
+                    boolean hasBack = res.get(3).size() == 1;
+                    if (hasBack) {
+                        String back = res.get(3).get(0);
+                        card.setBack(back);
+                    }
+
+                    boolean hasNoChoiceChange = !hasChoice && !hasChoiceIndex;
+                    if (hasNoChoiceChange) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
+                        return true;
+                    }
+                    boolean isInvalidChoiceCommand = (hasChoice && !hasChoiceIndex) || (!hasChoice && hasChoiceIndex);
+                    if (isInvalidChoiceCommand) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
+                                + "Please check your choices");
+                    }
+                    assert card instanceof MultipleChoiceCard;
+                    MultipleChoiceCard mcqCard = (MultipleChoiceCard) card;
+                    String newChoice = res.get(5).get(0);
+
+                    try {
+                        int choiceIndex = Integer.parseInt(res.get(4).get(0));
+                        mcqCard.editChoice(choiceIndex, newChoice);
+                    } catch (NumberFormatException | IndexNotFoundException n) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: "
+                                + "Choice index provided is invalid.'");
                         return true;
                     }
 
-                    // Todo: Actual implementation below
+                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
+
+                    //@author
                     return true;
                 }
     ),
