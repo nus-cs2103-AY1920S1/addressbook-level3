@@ -162,7 +162,6 @@ Examples:
 Displays the entire list of accounts
 * `list-a team-1 admin` +
 Returns a list of all accounts that have both the `admin` and `team-1` tag
-// end::account[]
 
 === Locating accounts by name or username: `find-a`
 
@@ -185,7 +184,6 @@ Returns `john` and `John Doe`
 * `find-a Agent01 Betty`
 Returns all accounts with username or name matching either `agent01` or `betty`
 
-// tag::AccountDelete[]
 === Deleting an account : `delete-a`
 
 Deletes the specified account from the incident Manager. +
@@ -212,16 +210,15 @@ Deletes the 1st account in the results of the `find` command.
 ==== Incident Auto Update `[coming in v2.0]`
 
 Deleting a user will search for all incidents created by the user and place a `deleted` flag next to the account details.
-// end::AccountDelete[]
+// end::account[]
 
-// tag::incident[]
-
+// tag::new[]
 === Create New Incident: `new`
 
 This command works in two ways:
 
-*1. auto/y* +
-Format: `new l/DISTRICT_NUM auto/y`
+*1. auto/Y* +
+Format: `new dist/DISTRICT auto/Y`
 
 ****
 * An available vehicle in the given district will be automatically dispatched to the incident site.
@@ -240,8 +237,8 @@ image::newCommandAutoYBeforeSS.png[]
 
 image::newCommandAutoYAfterSS.png[]
 
-*2. auto/n* +
-Format: `new l/DISTRICT_NUM auto/n`
+*2. auto/N* +
+Format: `new dist/DISTRICT auto/N`
 
 ****
 * A list of available vehicles in the given district will be shown.
@@ -262,8 +259,13 @@ image::newCommandAutoNAfterSS.png[]
 
 [NOTE]
 If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
-For example `new l/1 l/2 l/3 auto/y auto/n` is equivalent to `new l/3 auto/n`. +
-Rationale: user need not waste time backspacing if an input was keyed in wrongly.]
+For example `new dist/1 dist/2 dist/3 auto/Y auto/N` is equivalent to `new dist/3 auto/N`. +
+Rationale: user need not waste time backspacing if an input was keyed in wrongly.
+
+[IMPORTANT]
+For manual dispatchment of vehicle, the index of the chosen vehicle must be from the list of vehicles available in the given district, which is only displayed when `new dist/DISTRICT auto/N` is used.
+// end::new[]
+
 
 // tag::fill[]
 === Filling a draft incident report: `fill`
@@ -360,20 +362,18 @@ image::submitCommandWithParamsAfterScreenshot.png[]
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::submit[]
 
-// end::incident[]
 
 === Listing all incidents: `list-i`
 Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
 
-****
-* The listing returns all incidents, inclusive of all drafts and submitted incident reports
-* Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
-****
-
 Example usage and expected outcome:
 
 image::listIncidentsCommand.png[]
+.Fig X. The `list-i` command returns all incidents within the system.
+
+* The listing returns all incidents, inclusive of all incomplete drafts and complete drafts and submitted incident reports
+* Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
 
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
@@ -390,10 +390,12 @@ Lists all incidents whereby the operator name contains any of the given keywords
 * Example of Successful Single Operator Search and Expected Outcome:
 
 image::findIncidentsCommandWithOperatorParameter.png[]
+.Fig X. The `find-i` command has been called with one word under parameter `op\`, returning all incidents whereby the operator name matches `alex` (case-insensitive)
 
 * Example of Successful Multiple Operator Search and Expected Outcome:
 
 image::findIncidentsCommandWithOperatorsParameter.png[]
+.Fig X. The `find-i` command has been called multiple words under parameter `op\`, returning all incidents whereby the operator name matches `irfan` or `bernice` (case-insensitive)
 
 **By Description** +
 Format: `find-i desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...>` +
@@ -402,6 +404,7 @@ Lists all incidents whereby the incident description contains any the given keyw
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithDescriptionParameter.png[]
+.Fig X. The `find-i` command has been called with parameter `desc\`, returning all incidents whereby the description contains either keyword `fire` or `arson`
 
 **By ID** +
 Format: `find-i id/KEYWORD` +
@@ -412,22 +415,26 @@ Lists all incidents whereby the incident ID is an exact match with the given key
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithIdParameter.png[]
+.Fig X. The `find-i` command has been called with parameter `id\`, returning all incidents whereby the ID matches `0620150001` exactly
 
 **Self-Search** +
 Format: `find-i self` +
 Lists all incidents whereby the operator name matches the logged-in user's name.
 
-* Requires an exact name match
-
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithSelfParameter.png[]
+.Fig X. Executing `find-i self` lists all completed drafts ready for submission
+
+* Requires an exact name match with the logged-in user's name
 
 ****
 * The search is case insensitive. e.g `dave` will match `Dave`
-* Multiple words can be taken for the operator and description parameter
+* The search returns all incidents found regardless of state (incomplete and complete drafts, submitted incidents)
+* Multiple words can be taken for the operator and description parameter. The command returns all incidents which contains at least one of the words within the parameter
+* The ID parameter requires an exact match
 * Multiple parameters can be searched, returning incidents whereby all parameters match
-* Only full words will be matched e.g. `Fir` will not match `Fire`
+* Only full words/IDs will be matched e.g. `Fir` will not match `Fire`
 ****
 
 Examples:
@@ -444,7 +451,7 @@ Returns any incidents whereby the operator's name matches the logged-in operator
 === Editing an Incident: `edit-i`
 
 Edits an existing incident in the Incident Manager as identified by the index in the display.
-Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
+Format: `edit-i [INDEX] [dist/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
 ****
 ** If an index is not provided, system will prompt for index. Does not make any edits.
@@ -467,7 +474,7 @@ Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Calle
 
 Example of input:
 
-** `edit-i 1 l/2 d/This is an incident description.`
+** `edit-i 1 dist/2 d/This is an incident description.`
 *** result: only district and description is changed.
 
 ** `edit-i 1`
@@ -478,7 +485,7 @@ image::editIncident2.png[]
 
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
-Format: `add-v [l/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
+Format: `add-v [dist/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
 
 [NOTE]
 All fields must be provided in order to make a valid addition to the Incident Management System. If any of the fields are missing,
@@ -491,10 +498,10 @@ vehicle will not be added.
 
 Examples:
 
-** `add-v l/2 vn/12345 vt/Ambulance a/available`
+** `add-v dist/2 vn/12345 vt/Ambulance a/available`
 *** result: `New vehicle added: Ambulance Vehicle Number: 12345 District: 2 Availability: AVAILABLE`
 
-** `add-v l/12 vn/23456 vt/Patrol Car a/busy`
+** `add-v dist/12 vn/23456 vt/Patrol Car a/busy`
 *** result: `New vehicle added: Patrol Car Vehicle Number: 23456 District: 12 Availability: BUSY`
 
 image::addVehicle1.png[]
@@ -502,7 +509,7 @@ image::addVehicle2.png[]
 
 === Editing a Vehicle: `edit-v`
 Edits a vehicle identified by the index displayed in the Incident Management System.
-Format: `edit-v [INDEX] [l/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
+Format: `edit-v [INDEX] [dist/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
 
 [NOTE]
 Number of fields provided for edit may vary. If no fields are provided, the vehicle will not be edited.
@@ -515,7 +522,7 @@ Number of fields provided for edit may vary. If no fields are provided, the vehi
 
 Example:
 
-** `edit-v 1 l/13 vt/Ambulance`
+** `edit-v 1 dist/13 vt/Ambulance`
 *** result: district will be changed to 13 and vehicle type will be changed to Ambulance
 
 Edit vehicle:
@@ -550,7 +557,7 @@ Finds a vehicle by its district number, vehicle number or vehicle type.
 The command works in three ways:
 
 *1. Find by district*
-Format: `find-v ds/DISTRICT [MORE DISTRICTS]`
+Format: `find-v dist/DISTRICT [MORE DISTRICTS]`
 
 ****
 ** User can input multiple districts to search for vehicles in.
@@ -574,7 +581,6 @@ Example usage:
 image::findVVnumBeforeSS.png[]
 image::findVVnumAfterSS.png[]
 .Fig X finding vehicke by vehicle number.
-//end::find-v[]
 
 *3. Find by vehicle type*
 Format: `find-v vtype/VEHICLE TYPE`
@@ -587,6 +593,8 @@ Example usage:
 
 image::findVVtypeBeforeSS.png[]
 image::findVVtypeAfterSS.png[]
+
+// end::find-v[]
 
 === Deleting a Vehicle: `delete-v`
 Deletes a vehicle in the list as identified by the index.
@@ -642,6 +650,14 @@ Format: `decrypt PASSWORD`
 Data files will be encrypted by default. Users can decrypt the file with the command above.
 // end::dataencryption[]
 
+// tag::newincidentwithoutvehicle[]
+=== Creating new incidents even when no vehicle is available in the given district. `[comin in v2.0]`
+
+User can choose to create an incident pending vehicle dispatchment.
+Format: `new dist/DISTRICT auto/Y r/pending`
+
+// end:newincidentwithoutvehicle[]
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -663,7 +679,7 @@ e.g. `list-a Admin`
 e.g. `find-a James Jake`
 * *Delete Account* : `delete-a INDEX` +
 e.g. `delete-a 3`
-* *New* `new l/DISTRICT auto/y`
+* *New* `new dist/DISTRICT auto/Y`
 * *Fill*
 1. `fill` (to list all draft incidents ready for filling)
 2. `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` (to fill specified incident report) +
@@ -676,5 +692,5 @@ e.g. `submit 4`
 * *Find Incidents* : `find-i [op/KEYWORD(s)] [desc/KEYWORD(s)] [id/KEYWORD] [self]` +
 e.g. `find-i op/alex yeoh desc/6 self`
 * *List Vehicles* : `list-v`
-* *Find Vehicles* : `find-v [ds/KEYWORDS] [vtype/KEYWORD] [vnum/KEYWORD]` +
-e.g. `find-v ds/1 2 3`
+* *Find Vehicles* : `find-v [dist/KEYWORDS] [vtype/KEYWORD] [vnum/KEYWORD]` +
+e.g. `find-v dist/1 2 3`
