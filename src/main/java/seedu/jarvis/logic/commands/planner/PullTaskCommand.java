@@ -25,7 +25,7 @@ public class PullTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks"
              + "with the specified attribute.\n"
              + "Parameters: {p/PRIORITY_LEVEL | d/DATE | #TAG }\n"
-             + "Example: " + COMMAND_WORD + " pull-task #school";
+             + "Example: " + COMMAND_WORD + " #school";
 
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be undone.";
 
@@ -74,7 +74,7 @@ public class PullTaskCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredTaskList(predicate);
-        model.setViewStatus(ViewType.LIST_PLANNER_FIND);
+        model.setViewStatus(ViewType.LIST_PLANNER_PULL);
 
         return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),
                 true);

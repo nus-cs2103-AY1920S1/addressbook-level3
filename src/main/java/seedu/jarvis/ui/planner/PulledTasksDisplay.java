@@ -10,21 +10,21 @@ import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.ui.UiPart;
 
 /**
- * Represents the output of any sorting of tasks by task description
+ * Represents the output of any sorting of tasks by specific attributes
  */
-public class SortedTasksDisplay extends UiPart<Region> {
-    public static final String FXML = "SortedTaskDisplay.fxml";
+public class PulledTasksDisplay extends UiPart<Region> {
+    public static final String FXML = "PulledTasksDisplay.fxml";
 
     @FXML
-    private ListView<Task> sortedTaskDisplay;
+    private ListView<Task> pulledTasksDisplay;
     @FXML
     private Label header;
 
-    public SortedTasksDisplay(ObservableList<Task> tasks) {
+    public PulledTasksDisplay(ObservableList<Task> tasks) {
         super(FXML);
-        header.setText("  The items matching your keywords are:");
-        sortedTaskDisplay.setItems(tasks);
-        sortedTaskDisplay.setCellFactory(listView -> new SortedTaskListViewCell());
+        header.setText("  Here are your tasks containing the specified attribute:");
+        pulledTasksDisplay.setItems(tasks);
+        pulledTasksDisplay.setCellFactory(listView -> new SortedTaskListViewCell());
     }
 
     /**

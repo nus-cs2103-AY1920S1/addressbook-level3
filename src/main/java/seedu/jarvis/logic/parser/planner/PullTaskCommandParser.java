@@ -83,26 +83,22 @@ public class PullTaskCommandParser implements Parser<PullTaskCommand> {
      * execution of {@code PullTaskCommand}
      */
     private Predicate<Task> parsePrefix(Prefix p, ArgumentMultimap argumentMultimap) throws ParseException {
-        if (p == PREFIX_DATE) {
+
+        if (PREFIX_DATE.equals(p)) {
             LocalDate d = ParserUtil.parseDate(argumentMultimap.getValue(p).get())[0];
             return new TaskDateMatchesDatePredicate(d);
-
-        } else if (p == PREFIX_FREQ) {
+        } else if (PREFIX_FREQ.equals(p)) {
             Frequency f = ParserUtil.parseFrequency(argumentMultimap.getValue(p).get());
             return new TaskFrequencyMatchesFrequencyPredicate(f);
-
-        } else if (p == PREFIX_PRIORITY) {
+        } else if (PREFIX_PRIORITY.equals(p)) {
             Priority priority = ParserUtil.parsePriority(argumentMultimap.getValue(p).get());
             return new TaskPriorityMatchesPriorityPredicate(priority);
-
-        } else if (p == PREFIX_TASK_TYPE) {
+        } else if (PREFIX_TASK_TYPE.equals(p)) {
             TaskType type = parseTaskType(argumentMultimap.getValue(p).get());
             return new TaskTypeMatchesTypePredicate(type);
-
-        } else if (p == PREFIX_TAG) {
+        } else if (PREFIX_TAG.equals(p)) {
             Tag tag = ParserUtil.parseTag(argumentMultimap.getValue(p).get());
             return new TaskTagMatchesTagPredicate(tag);
-
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PullTaskCommand.MESSAGE_USAGE));
         }
