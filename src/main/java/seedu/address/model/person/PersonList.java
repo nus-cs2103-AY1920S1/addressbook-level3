@@ -140,7 +140,7 @@ public class PersonList {
             toEdit.setRemark(personDescriptor.getRemark());
         }
         if (personDescriptor.getTags() != null) {
-            toEdit.addTags(personDescriptor.getTags());
+            toEdit.setTags(personDescriptor.getTags());
         }
         return toEdit;
     }
