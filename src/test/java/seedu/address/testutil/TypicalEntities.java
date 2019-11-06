@@ -67,6 +67,10 @@ public class TypicalEntities {
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("84821315")
             .withEmail("hans@example.com").withUsername("Opr9").withPassword("password")
             .withTags(VALID_TAG_ADMIN).build();
+    public static final Person NOT_ADMIN = new PersonBuilder().withName("Not Admin").withPhone("91234567")
+            .withEmail("notadmin@example.com").withUsername("Opr10").withPassword("password")
+            .withTags("person").build();
+
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
