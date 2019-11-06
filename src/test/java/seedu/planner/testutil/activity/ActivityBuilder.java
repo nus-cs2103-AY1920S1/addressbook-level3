@@ -17,7 +17,7 @@ import seedu.planner.model.util.SampleDataUtil;
 import seedu.planner.testutil.contact.ContactBuilder;
 
 /**
- * A utility class to help with building Contact objects.
+ * An utility class to help with building Activity objects.
  */
 public class ActivityBuilder {
 

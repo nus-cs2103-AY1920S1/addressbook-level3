@@ -6,6 +6,9 @@ import java.util.List;
 
 import seedu.planner.model.activity.ActivityWithCount;
 
+/**
+ * An utility class containing a list of {@code ActivityWithCount} objects to be used in tests.
+ */
 public class TypicalActivityWithCount {
     public static final ActivityWithCount ACTIVITYWITHCOUNT_A = new ActivityWithCountBuilder()
             .withActivity(TypicalActivity.ACTIVITYONE)

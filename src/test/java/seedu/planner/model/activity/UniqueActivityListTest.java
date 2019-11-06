@@ -12,16 +12,13 @@ import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYONE;
 import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYTWO;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.planner.model.activity.exceptions.ActivityNotFoundException;
 import seedu.planner.model.activity.exceptions.DuplicateActivityException;
-import seedu.planner.model.contact.Contact;
 import seedu.planner.testutil.activity.ActivityBuilder;
 import seedu.planner.testutil.contact.ContactBuilder;
 
@@ -166,12 +163,12 @@ public class UniqueActivityListTest {
     public void setActivities_listWithDuplicateActivities_throwsDuplicateActivityException() {
         List<Activity> listWithDuplicateActivities = Arrays.asList(ACTIVITYONE, ACTIVITYONE);
         assertThrows(DuplicateActivityException.class, ()
-                -> uniqueActivityList.setActivities(listWithDuplicateActivities));
+            -> uniqueActivityList.setActivities(listWithDuplicateActivities));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueActivityList.asUnmodifiableObservableList().remove(0));
+            -> uniqueActivityList.asUnmodifiableObservableList().remove(0));
     }
 }

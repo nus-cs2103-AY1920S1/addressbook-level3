@@ -30,7 +30,7 @@ import seedu.planner.model.ActivityManager;
 import seedu.planner.model.activity.Activity;
 
 /**
- * A utility class containing a list of {@code Activity} objects to be used in tests.
+ * An utility class containing a list of {@code Activity} objects to be used in tests.
  */
 public class TypicalActivity {
     //Contact: name phone (OPT)email (OPT)address tags

@@ -9,10 +9,10 @@ import static seedu.planner.testutil.activity.TypicalActivityWithCount.ACTIVITYW
 
 import org.junit.jupiter.api.Test;
 
-
 import seedu.planner.testutil.activity.ActivityWithCountBuilder;
 
 public class ActivityWithCountTest {
+
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         ActivityWithCount activityWithCount = new ActivityWithCountBuilder().build();
