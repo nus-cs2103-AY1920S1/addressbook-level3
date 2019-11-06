@@ -54,24 +54,4 @@ public class SearchPanel extends UiPart<Region> {
             }
         }
     }
-
-    /**
-     * This class prevents the user from marking the checkbox by clicking
-     *
-     * @author AxxG "How to make checkbox or combobox readonly in JavaFX"
-     */
-    class NonChangeableCheckBox implements ChangeListener<Boolean> {
-        private CheckBox checkBox;
-        private Show show;
-
-        public NonChangeableCheckBox (CheckBox checkBox, Show show) {
-            this.show = show;
-            this.checkBox = checkBox;
-        }
-
-        @Override
-        public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
-            this.checkBox.setSelected(show.isWatched().value);
-        }
-    }
 }

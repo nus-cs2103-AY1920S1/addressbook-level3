@@ -2,9 +2,7 @@ package seedu.ezwatchlist.ui;
 
 import java.util.Comparator;
 
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
