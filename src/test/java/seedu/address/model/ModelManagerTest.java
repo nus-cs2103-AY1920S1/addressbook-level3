@@ -246,6 +246,29 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void canUndo_noUndo_returnsFalse() {
+        assertFalse(modelManager.canUndoUserState());
+    }
+
+    @Test
+    public void canUndo_gotUndo_returnsFalse() {
+        modelManager.commitUserState();
+        assertTrue(modelManager.canUndoUserState());
+    }
+
+    @Test
+    public void canRedo_noRedo_returnsFalse() {
+        assertFalse(modelManager.canRedoUserState());
+    }
+
+    @Test
+    public void canRedo_gotRedo_returnsFalse() {
+        modelManager.commitUserState();
+        modelManager.undoUserState();
+        assertTrue(modelManager.canRedoUserState());
+    }
+
+    @Test
     public void equals() {
         UserState userState = new UserStateBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
         UserState differentUserState = new UserState();
