@@ -100,23 +100,15 @@ public class Date implements IntervalPart<Date> {
     }
 
     private static Date getSpecifiedDate(String dayOfWeek, String dayOfMonth, String month, String year)
-            throws IllegalValueException{
+            throws IllegalValueException {
         DayOfWeek dayOfWeekVal = DayOfWeek.valueOf(dayOfWeek);
         MonthOfYear monthVal = MonthOfYear.valueOf(month);
         Year yearVal = new Year(Integer.parseInt(year));
         int dayOfMonthVal = Integer.parseInt(dayOfMonth);
 
-        if (dayOfMonthVal < 0 || dayOfMonthVal > DateUtil.getNumDaysInMonth(monthVal, yearVal)) {
-            throw new IllegalValueException(MESSAGE_CONSTRAINTS);
-        }
+        // todo: check if exception needs to be explicitly thrown
 
-        Day givenDay = new Day(dayOfWeekVal, dayOfMonthVal);
-
-        boolean isValidDay = DateUtil.getDay(dayOfMonthVal, monthVal, yearVal).equals(givenDay);;
-
-        if (!isValidDay) {
-            throw new IllegalValueException(MESSAGE_CONSTRAINTS);
-        }
+        Day givenDay = new Day(dayOfWeekVal, dayOfMonthVal, monthVal, yearVal);
 
         return new Date(givenDay, monthVal, yearVal);
     }
@@ -163,7 +155,8 @@ public class Date implements IntervalPart<Date> {
         Year year = new Year(yearInt);
         MonthOfYear monthOfYear = DateUtil.convertJavaMonth(monthInt);
         DayOfWeek dayOfWeek = DateUtil.toDayOfWeek(dayOfWeekInt);
-        Day day = new Day(dayOfWeek, dayOfMonth);
+        assert Day.isValidDay(dayOfWeek, dayOfMonth, monthOfYear, year) : "Day should be valid";
+        Day day = new Day(dayOfWeek, dayOfMonth, monthOfYear, year);
 
         return new Date(day, monthOfYear, year);
     }
