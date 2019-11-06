@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Zhang Xuan - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
