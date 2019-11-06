@@ -19,6 +19,13 @@ public class BookmarkPredicateTest {
     private static final List<String> KEYWORD_LIST_MULTIPLE = Arrays.asList("first", "second");
     private static final List<String> KEYWORD_LIST_SINGLE = Collections.singletonList("second");
 
+    private static final String FIRST_NAME = "First Website";
+    private static final String FIRST_URL = "https://first-website.com";
+    private static final String SECOND_NAME = "Second Website";
+    private static final String SECOND_URL = "https://second-website.com";
+    private static final String STANDARD_NAME = "Website";
+    private static final String STANDARD_URL = "https://website.com";
+
     @Test
     public void equals() {
         BookmarkPredicate firstPredicate = new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE);
@@ -44,13 +51,18 @@ public class BookmarkPredicateTest {
                         .withUrlKeywords(KEYWORD_LIST_SINGLE))); // different url keywords
         assertFalse(firstPredicate.equals(new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE)
                         .withoutUrlKeywords(KEYWORD_LIST_MULTIPLE))); // different not-url keywords
+        assertFalse(firstPredicate.equals(new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE)
+                .withFolder(KEYWORD_LIST_SINGLE))); // different folder names
+        assertFalse(firstPredicate.equals(new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE)
+                .withoutFolder(KEYWORD_LIST_SINGLE))); // different not-folder names
     }
 
     @Test
     public void test() { // TODO: check equivalence partitions
-        Bookmark firstBookmark = new BookmarkBuilder().withName("First").withUrl("https://first.example.com").build();
+        Bookmark firstBookmark =
+                new BookmarkBuilder().withName(FIRST_NAME).withUrl(FIRST_URL).build();
         Bookmark secondBookmark =
-                new BookmarkBuilder().withName("Second").withUrl("https://second.example.com").build();
+                new BookmarkBuilder().withName(SECOND_NAME).withUrl(SECOND_URL).build();
 
         // empty predicate
         BookmarkPredicate predicate = new BookmarkPredicate();
@@ -88,42 +100,71 @@ public class BookmarkPredicateTest {
 
     // TODO: test for invalid inputs / duplicate keywords
 
-    // NOTE: the following tests only check whether keyword sets are updated correctly.
-    // correctness of predicate is tested in #test().
-
     @Test
     public void withNameKeywords_noDuplicateKeywords_success() {
         BookmarkPredicate predicate = new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE);
+
+        // state check
         assertEquals(predicate.getNameKeywords(), new HashSet<>(KEYWORD_LIST_MULTIPLE));
         assertEquals(predicate.getNotNameKeywords(), new HashSet<>());
         assertEquals(predicate.getUrlKeywords(), new HashSet<>());
         assertEquals(predicate.getNotUrlKeywords(), new HashSet<>());
+
+        // behaviour check
+        // assumption: BookmarkBuilder.DEFAULT_URL doesn't affect predicate result
+        assertTrue(predicate.test(new BookmarkBuilder().withName(FIRST_NAME).build()));
+        assertTrue(predicate.test(new BookmarkBuilder().withName(SECOND_NAME).build()));
+        assertFalse(predicate.test(new BookmarkBuilder().withName(STANDARD_NAME).build()));
     }
 
     @Test
     public void withoutNameKeywords_noDuplicateKeywords_success() {
         BookmarkPredicate predicate = new BookmarkPredicate().withoutNameKeywords(KEYWORD_LIST_MULTIPLE);
+
+        // state check
         assertEquals(predicate.getNameKeywords(), new HashSet<>());
         assertEquals(predicate.getNotNameKeywords(), new HashSet<>(KEYWORD_LIST_MULTIPLE));
         assertEquals(predicate.getUrlKeywords(), new HashSet<>());
         assertEquals(predicate.getNotUrlKeywords(), new HashSet<>());
+
+        // behaviour check
+        // assumption: BookmarkBuilder.DEFAULT_URL doesn't affect predicate result
+        assertTrue(predicate.test(new BookmarkBuilder().withName(STANDARD_NAME).build()));
+        assertFalse(predicate.test(new BookmarkBuilder().withName(FIRST_NAME).build()));
+        assertFalse(predicate.test(new BookmarkBuilder().withName(SECOND_NAME).build()));
     }
 
     @Test
     public void withUrlKeywords_noDuplicateKeywords_success() {
         BookmarkPredicate predicate = new BookmarkPredicate().withUrlKeywords(KEYWORD_LIST_MULTIPLE);
+
+        // state check
         assertEquals(predicate.getNameKeywords(), new HashSet<>());
         assertEquals(predicate.getNotNameKeywords(), new HashSet<>());
         assertEquals(predicate.getUrlKeywords(), new HashSet<>(KEYWORD_LIST_MULTIPLE));
         assertEquals(predicate.getNotUrlKeywords(), new HashSet<>());
+
+        // behaviour check
+        // assumption: BookmarkBuilder.DEFAULT_NAME doesn't affect predicate result
+        assertTrue(predicate.test(new BookmarkBuilder().withUrl(FIRST_URL).build()));
+        assertTrue(predicate.test(new BookmarkBuilder().withUrl(SECOND_URL).build()));
+        assertFalse(predicate.test(new BookmarkBuilder().withUrl(STANDARD_URL).build()));
     }
 
     @Test
     public void withoutUrlKeywords_noDuplicateKeywords_success() {
         BookmarkPredicate predicate = new BookmarkPredicate().withoutUrlKeywords(KEYWORD_LIST_MULTIPLE);
+
+        // state check
         assertEquals(predicate.getNameKeywords(), new HashSet<>());
         assertEquals(predicate.getNotNameKeywords(), new HashSet<>());
         assertEquals(predicate.getUrlKeywords(), new HashSet<>());
         assertEquals(predicate.getNotUrlKeywords(), new HashSet<>(KEYWORD_LIST_MULTIPLE));
+
+        // behaviour check
+        // assumption: BookmarkBuilder.DEFAULT_NAME doesn't affect predicate result
+        assertTrue(predicate.test(new BookmarkBuilder().withUrl(STANDARD_URL).build()));
+        assertFalse(predicate.test(new BookmarkBuilder().withUrl(FIRST_URL).build()));
+        assertFalse(predicate.test(new BookmarkBuilder().withUrl(SECOND_URL).build()));
     }
 }

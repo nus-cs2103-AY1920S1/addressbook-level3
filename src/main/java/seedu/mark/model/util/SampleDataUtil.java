@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import seedu.mark.model.Mark;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.autotag.AutotagController;
@@ -171,7 +172,8 @@ public class SampleDataUtil {
                 new BookmarkPredicate().withUrlKeywords(List.of("stackoverflow.com/questions")));
         SelectiveBookmarkTagger nusAutotag = getTagger("NUS",
                 new BookmarkPredicate().withFolder(List.of(SCHOOL, GENERAL, MODULES)));
-        return new AutotagController(List.of(videoAutotag, programmingHelpAutotag, nusAutotag));
+        return new AutotagController(
+                FXCollections.observableArrayList(videoAutotag, programmingHelpAutotag, nusAutotag));
     }
 
     // NOTE: SampleReminder URLs must match URLs of SampleBookmarks

@@ -12,6 +12,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
@@ -93,6 +94,11 @@ public interface Logic {
     void updateDocument(OfflineDocument doc);
 
     ObservableList<Reminder> getReminderList();
+
+    /**
+     * Returns an unmodifiable view of the autotag list.
+     */
+    ObservableList<SelectiveBookmarkTagger> getAutotags();
 
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 

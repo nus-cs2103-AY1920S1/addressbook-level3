@@ -3,19 +3,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" spacing="5">
-    <VBox HBox.hgrow="ALWAYS">
-        <HBox VBox.vgrow="ALWAYS">
-            <StackPane fx:id="folderStructurePlaceholder" HBox.hgrow="ALWAYS"/>
-        </HBox>
-        <HBox VBox.vgrow="ALWAYS">
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="5">
+    <HBox maxHeight="200">
+        <HBox HBox.hgrow="ALWAYS">
             <StackPane fx:id="reminderListPlaceholder" HBox.hgrow="ALWAYS"/>
         </HBox>
-
-    </VBox>
-    <VBox maxWidth="200">
-        <HBox VBox.vgrow="ALWAYS">
+        <HBox VBox.vgrow="ALWAYS" maxWidth="200">
             <StackPane fx:id="favoriteListPlaceholder"/>
         </HBox>
-    </VBox>
-</HBox>
+    </HBox>
+    <HBox VBox.vgrow="ALWAYS">
+        <HBox HBox.hgrow="ALWAYS">
+            <StackPane fx:id="folderStructurePlaceholder" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox maxWidth="400">
+            <StackPane fx:id="autotagDisplayPlaceholder"/>
+        </HBox>
+    </HBox>
+</VBox>

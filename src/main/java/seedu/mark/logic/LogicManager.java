@@ -17,6 +17,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
@@ -115,6 +116,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Reminder> getReminderList() {
         return model.getMark().getReminderList();
+    }
+
+    @Override
+    public ObservableList<SelectiveBookmarkTagger> getAutotags() {
+        return model.getMark().getAutotags();
     }
 
     @Override
