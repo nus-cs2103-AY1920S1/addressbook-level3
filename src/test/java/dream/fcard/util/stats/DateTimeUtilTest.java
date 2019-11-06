@@ -1,5 +1,5 @@
 //@@author nattanyz
-package dream.fcard.util;
+package dream.fcard.util.stats;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,6 +9,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
+
+import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
+import dream.fcard.util.stats.DateTimeUtil;
 
 public class DateTimeUtilTest {
     @Test
@@ -141,5 +145,47 @@ public class DateTimeUtilTest {
             String returnedString = DateTimeUtil.getStringFromDateTime(givenDateTime);
             String expectedString = "8/9/19 10:47 PM";
         });
+    }
+
+    @Test
+    void getAverageDuration_testOne() {
+        SessionList sessionList = new SessionList();
+
+        LocalDateTime time1 = LocalDateTime.of(2019, 10, 30, 18, 59);
+        LocalDateTime time2 = LocalDateTime.of(2019, 10, 30, 22, 59);
+        Session sessionOne = new Session(time1, time2); // duration: 4 hours
+
+        LocalDateTime time3 = LocalDateTime.of(2019, 10, 5, 17, 31);
+        LocalDateTime time4 = LocalDateTime.of(2019, 10, 5, 23, 31);
+        Session sessionTwo = new Session(time3, time4); // duration: 6 hours
+
+        sessionList.addSession(sessionOne);
+        sessionList.addSession(sessionTwo);
+
+        Duration calculatedDuration = DateTimeUtil.getAverageDuration(sessionList);
+        Duration expectedDuration = Duration.ofHours(5);
+        assertEquals(expectedDuration, calculatedDuration);
+    }
+
+    @Test
+    void getAverageDuration_testTwo() {
+        SessionList sessionList = new SessionList();
+
+        LocalDateTime time1 = LocalDateTime.of(2019, 4, 25, 6, 23);
+        LocalDateTime time2 = LocalDateTime.of(2019, 4, 25, 19, 47);
+        Session sessionOne = new Session(time1, time2); // duration: 13 hours 24 min
+
+        LocalDateTime time3 = LocalDateTime.of(2019, 7, 8, 2, 2);
+        LocalDateTime time4 = LocalDateTime.of(2019, 7, 9, 4, 51);
+        Session sessionTwo = new Session(time3, time4); // duration: 26 hours 49 min
+
+        sessionList.addSession(sessionOne);
+        sessionList.addSession(sessionTwo);
+
+        Duration calculatedDuration = DateTimeUtil.getAverageDuration(sessionList);
+        Duration expectedDuration = Duration.ofHours(20).plus(Duration.ofMinutes(6)).
+            plus(Duration.ofSeconds(30));
+        // expected: 19.5 hours + 36.5 min = 20 hours 6 min 30 sec
+        assertEquals(expectedDuration, calculatedDuration);
     }
 }

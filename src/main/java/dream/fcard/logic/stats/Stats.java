@@ -29,7 +29,7 @@ public abstract class Stats {
 
     /** Returns the number of sessions in the sessionList contained inside this Stats object. */
     public int getNumberOfSessions() {
-        return this.sessionList.numberOfSessions();
+        return this.sessionList.getNumberOfSessions();
     }
 
     /** Adds the given Session to the sessionList contained inside this Stats object. */

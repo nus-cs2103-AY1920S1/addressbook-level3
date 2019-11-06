@@ -5,7 +5,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import dream.fcard.logic.storage.Schema;
-import dream.fcard.util.DateTimeUtil;
+import dream.fcard.util.stats.DateTimeUtil;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonObject;

@@ -1,19 +1,22 @@
 //@@author nattanyz
-package dream.fcard.util;
+package dream.fcard.util.stats;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
 /**
- * Utilities related to LocalDateTime objects.
+ * Utilities related to LocalDateTime and Duration objects.
  */
 public class DateTimeUtil {
 
@@ -98,6 +101,17 @@ public class DateTimeUtil {
     //@@author
 
     //@@author nattanyz
-    //public static Duration getAverageDuration()
+    public static Duration getAverageDuration(SessionList sessionList) {
+        Duration totalDuration = Duration.ZERO;
+        ArrayList<Session> sessionsArrayList = sessionList.getSessionArrayList();
+        for (Session session : sessionsArrayList) {
+            totalDuration = totalDuration.plus(session.getDuration());
+        }
+
+        int numberOfSessions = sessionList.getNumberOfSessions();
+
+        Duration averageDuration = totalDuration.dividedBy(numberOfSessions);
+        return averageDuration;
+    }
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
 }

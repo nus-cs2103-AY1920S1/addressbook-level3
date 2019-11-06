@@ -7,7 +7,6 @@ import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.model.Deck;
-import dream.fcard.model.State;
 import dream.fcard.model.StateHolder;
 
 import javafx.collections.FXCollections;

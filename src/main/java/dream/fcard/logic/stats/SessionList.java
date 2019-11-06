@@ -4,7 +4,7 @@ package dream.fcard.logic.stats;
 import java.time.Duration;
 import java.util.ArrayList;
 
-import dream.fcard.util.DateTimeUtil;
+import dream.fcard.util.stats.DateTimeUtil;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
@@ -43,7 +43,7 @@ public class SessionList implements JsonInterface {
      * Returns the number of sessions in the list.
      * @return The number of sessions in the list.
      */
-    public int numberOfSessions() {
+    public int getNumberOfSessions() {
         return this.sessionArrayList.size();
     }
 
