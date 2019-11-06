@@ -172,7 +172,9 @@ public class ItemModelManager implements ItemModel {
      * */
 
     public void addItem(ItemIndexWrapper wrapper) {
-        visualList.addToIndex(wrapper.getVisual(), wrapper.getItem());
+        if (visualList.belongToList(wrapper.getItem())) {
+            visualList.addToIndex(wrapper.getVisual(), wrapper.getItem());
+        }
         addToSeparateList(wrapper);
         itemStorage.add(wrapper.getStorage(), wrapper.getItem());
     }
@@ -188,6 +190,10 @@ public class ItemModelManager implements ItemModel {
 
         if (item.hasTask()) {
             taskList.add(item);
+            if (priorityMode.getValue()) {
+                sortedTask.offer(item);
+                getNextTask();
+            }
         }
 
         if (item.hasEvent()) {
@@ -264,9 +270,9 @@ public class ItemModelManager implements ItemModel {
         futureReminders.remove(item);
         activeReminders.remove(item);
         itemStorage.remove(item);
-        if (priorityMode.getValue() && sortedTask != null && visualList instanceof TaskList) {
+        if (priorityMode.getValue() && sortedTask != null) {
             sortedTask.remove(item);
-            visualList = getNextTask();
+            getNextTask();
         }
         return item;
     }
@@ -289,11 +295,10 @@ public class ItemModelManager implements ItemModel {
     public void setVisualList(String listString) throws IllegalValueException {
         switch(listString) {
         case "T":
-            if (priorityMode.getValue()) {
-                setVisualList(getNextTask());
-                break;
-            }
             setVisualList(taskList);
+            if (priorityMode.getValue()) {
+                getNextTask();
+            }
             break;
         case "E":
             setVisualList(eventList);
@@ -375,7 +380,7 @@ public class ItemModelManager implements ItemModel {
         if (priorityMode.getValue()) {
             sortedTask.remove(item);
             sortedTask.offer(newItem);
-            visualList = getNextTask();
+            getNextTask();
         }
     }
 
@@ -487,18 +492,20 @@ public class ItemModelManager implements ItemModel {
         }, date);
     }
 
-    private VisualizeList getNextTask() {
-        TaskList result = new TaskList();
-
-        if (sortedTask.isEmpty() || sortedTask.peek().getTask().get().isComplete()) {
+    private void getNextTask() {
+        Item head = sortedTask.peek();
+        if (sortedTask.isEmpty() || head.getTask().get().isComplete()) {
             systemToggle = true;
             priorityExitStatus = PriorityExitStatus.ALL_TASK_COMPLETED;
             toggleOffPriorityMode();
-            return visualList;
+            return;
         }
 
-        result.add(sortedTask.peek());
-        return result;
+        if (visualList instanceof TaskList) {
+            TaskList result = new TaskList();
+            result.add(head);
+            visualList = result;
+        }
     }
 
     /**
@@ -554,7 +561,7 @@ public class ItemModelManager implements ItemModel {
             priorityExitStatus = PriorityExitStatus.ALL_TASK_COMPLETED;
             priorityMode.setValue(false);
         } else {
-            this.visualList = getNextTask();
+            getNextTask();
         }
     }
 
