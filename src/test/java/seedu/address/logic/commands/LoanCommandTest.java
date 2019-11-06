@@ -66,7 +66,7 @@ class LoanCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         } finally {
-            LoanSlipUtil.unmountLoans();
+            LoanSlipUtil.clearSession();
         }
         String expectedMessage = String.format(LoanCommand.MESSAGE_SUCCESS, updatedLoanedOutBook,
                 model.getServingBorrower());
@@ -94,7 +94,7 @@ class LoanCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         } finally {
-            LoanSlipUtil.unmountLoans();
+            LoanSlipUtil.clearSession();
         }
         String expectedMessage = MESSAGE_NOT_IN_SERVE_MODE;
         assertEquals(actualMessage, expectedMessage);
@@ -119,7 +119,7 @@ class LoanCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         } finally {
-            LoanSlipUtil.unmountLoans();
+            LoanSlipUtil.clearSession();
         }
         String expectedMessage = MESSAGE_NO_SUCH_BOOK;
         assertEquals(actualMessage, expectedMessage);
@@ -147,7 +147,7 @@ class LoanCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         } finally {
-            LoanSlipUtil.unmountLoans();
+            LoanSlipUtil.clearSession();
         }
         String expectedMessage = String.format(MESSAGE_BOOK_ON_LOAN, BOOK_7);
         assertEquals(actualMessage, expectedMessage);

@@ -8,6 +8,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 
 import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -77,6 +78,8 @@ public class UnrenewCommand extends Command {
 
             // update Loan in LoanRecords to previous due date
             model.updateLoan(loanToBeUnrenewed, unrenewedLoan);
+
+            LoanSlipUtil.unmountSpecificLoan(loanToBeUnrenewed, bookToBeUnrenewed);
 
             feedbackMessage += String.format(MESSAGE_SUCCESS, unrenewedBook, servingBorrower,
                     DateUtil.formatDate(unrenewedLoan.getDueDate()));

@@ -79,7 +79,9 @@ public class UnreturnCommand extends Command {
             model.updateLoan(loanToBeUnreturned, unreturnedLoan);
 
             try {
-                LoanSlipUtil.mountLoan(unreturnedLoan, unreturnedBook, model.getServingBorrower());
+                if (LoanSlipUtil.loanIsInSession(unreturnedLoan)) {
+                    LoanSlipUtil.mountLoan(unreturnedLoan, unreturnedBook, model.getServingBorrower());
+                }
             } catch (LoanSlipException e) {
                 e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
             }
