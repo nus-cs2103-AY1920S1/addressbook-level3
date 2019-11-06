@@ -106,40 +106,15 @@ public class ExportCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object that) {
-        if (this == that) {
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
-        } else if (that instanceof ExportCommand) {
-            return this.exportFileName.equals(((ExportCommand) that).exportFileName)
-                    && compareOptionalIndexSet(this.targetIndexes, ((ExportCommand) that).targetIndexes);
-        } else {
+        }
+        if (!(other instanceof ExportCommand)) {
             return false;
         }
-    }
-
-    /**
-     * Compares two optional sets of indexes and returns true if they have the same indexes.
-     */
-
-    private boolean compareOptionalIndexSet(Optional<Set<Index>> first, Optional<Set<Index>> second) {
-        if (first.isEmpty() && second.isEmpty()) {
-            return true;
-        } else if (first.isEmpty() || second.isEmpty()) {
-            return false;
-        } else {
-            return indexSetToIntSet(first.get())
-                    .equals(indexSetToIntSet(second.get()));
-        }
-    }
-
-    /**
-     * Converts a set of indexes into a set of integers.
-     */
-    private Set<Integer> indexSetToIntSet(Set<Index> indexes) {
-        Set<Integer> result = new HashSet<>();
-        for (Index index : indexes) {
-            result.add(index.getOneBased());
-        }
-        return result;
+        ExportCommand otherCommand = (ExportCommand) other;
+        return this.exportFileName.equals(otherCommand.exportFileName)
+                && this.targetIndexes.equals(otherCommand.targetIndexes);
     }
 }
