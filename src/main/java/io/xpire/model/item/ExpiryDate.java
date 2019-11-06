@@ -21,7 +21,7 @@ public class ExpiryDate {
             + "Single-digit days and/or months are also accepted. \n"
             + "Example: 22/08/2020 or 2/2/2020 or 02/2/2020";
     public static final String MESSAGE_CONSTRAINTS_NO_SUCH_DATE =
-            "Invalid expiry date. This expiry date does not seem to exist";
+            "Invalid expiry date. This expiry date does not exist.";
     private static final String EXPIRED = "Expired!";
     private static final String DAYS_LEFT = "%d day%s left";
     private static final LocalDate CENTURY_LATER = DateUtil.getCurrentDate().plusYears(100);
