@@ -20,7 +20,6 @@ import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.CategoryList;
 import seedu.guilttrip.model.entry.Date;
-import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.SortSequence;
@@ -95,7 +94,7 @@ public class ModelManager implements Model {
 
         filteredReminders = new FilteredList<>(versionedAddressBook.getReminderList());
         filteredConditions = new FilteredList<>(versionedAddressBook.getConditionList());
-        createExpensesfromAutoExpenses();
+        createExpensesFromAutoExpenses();
         this.stats = new StatisticsManager(this.filteredExpenses, this.filteredIncomes,
                 versionedAddressBook.getCategoryList());
     }
@@ -209,7 +208,7 @@ public class ModelManager implements Model {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeExpense(target);
         versionedAddressBook.updateBudgets(filteredExpenses);
-        updateFilteredExpenses(PREDICATE_SHOW_ALL_ENTRIES);
+        updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         sortFilteredExpense(sortByTime, sortByAsc);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
@@ -550,21 +549,21 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     /**
      * return list of reminders matching this condition.
      * @param predicate condition to be matched.
      */
+    @Override
     public void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate) {
         requireNonNull(predicate);
         filteredAutoExpenses.setPredicate(predicate);
     }
 
-    @Override
     /**
      * return list of reminders matching this condition.
      * @param predicate condition to be matched.
      */
+    @Override
     public void updateFilteredReminders(Predicate<Reminder> predicate) {
         requireNonNull(predicate);
         filteredReminders.setPredicate(predicate);
@@ -599,7 +598,7 @@ public class ModelManager implements Model {
         versionedAddressBook.commit();
     }
 
-    private void createExpensesfromAutoExpenses() {
+    private void createExpensesFromAutoExpenses() {
         for (AutoExpense autoExpense : filteredAutoExpenses) {
             autoExpense.generateNewExpenses().stream().forEach(this::addExpense);
         }
