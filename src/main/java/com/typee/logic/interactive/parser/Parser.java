@@ -26,6 +26,7 @@ import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
+import com.typee.logic.interactive.parser.state.calendarstate.CalendarState;
 import com.typee.logic.interactive.parser.state.clearmachine.ClearState;
 import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
@@ -204,6 +205,8 @@ public class Parser implements InteractiveParser {
         }
         if (!argumentMultimap.getPreamble().isBlank()) {
             throw new ParseException(String.format(MESSAGE_MISSING_PREFIX, currentState.getPrefix()));
+        } else {
+            argumentMultimap.clearValues(new Prefix(""));
         }
         try {
             while (!argumentMultimap.isEmpty() && !currentState.isEndState()) {
