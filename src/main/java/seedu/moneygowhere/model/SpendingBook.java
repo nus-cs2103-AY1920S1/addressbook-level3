@@ -109,7 +109,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
     public void setSpending(Spending target, Spending editedSpending) {
         requireNonNull(editedSpending);
         budget.deleteSpending(target);
-        budget.addSpending(target);
+        budget.addSpending(editedSpending);
         spendings.setSpending(target, editedSpending);
     }
 
@@ -183,7 +183,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
     //// Budget related operations
     //@@author austinsantoso
     public void updateBudget() {
-        budget.update(DateUtil.getTodayDate());
+        budget.initialize(DateUtil.getTodayDate(), getSpendingList());
     }
 
     @Override
