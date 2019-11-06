@@ -10,8 +10,10 @@ import seedu.moneygowhere.commons.core.Messages;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.spending.Spending;
 
+//@@author Nanosync
 /**
- * Finds and lists all spending in MoneyGoWhere whose name contains any of the argument keywords.
+ * Finds and lists all spending in MoneyGoWhere based on matching fields.
+ * Conditions are stored in a predicate list.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -23,6 +25,15 @@ public class FindCommand extends Command {
             + "Not all fields are necessary, but they are combined together to form a query.\n"
             + "Parameters: n/KEYWORD [MORE_KEYWORDS]...  d/DATE_RANGE c/COST_RANGE r/REMARK t/TAG\n"
             + "Example: " + COMMAND_WORD + " n/chicken rice d/1/1/2019 to 2/1/2019 c/1.50-5 r/tasty t/food";
+
+    public static final String MESSAGE_DATE_RANGE_CONSTRAINTS = "Invalid date range provided.\n"
+            + "You must only enter two Date values and "
+            + "DATE_START must be earlier or equal to DATE_END.\n"
+            + "Valid values are: today, yesterday, tomorrow or a formal date: DD/MM/YYYY, DD-MM-YYYY or YYYY-MM-DD.\n";
+
+    public static final String MESSAGE_COST_RANGE_CONSTRAINTS = "You must enter two Cost values and "
+            + "the first value cannot exceed the second value.\n"
+            + "Cost must be a number with at most 2 decimal places, and it should not be blank.";
 
     private final List<Predicate<Spending>> predicates;
 

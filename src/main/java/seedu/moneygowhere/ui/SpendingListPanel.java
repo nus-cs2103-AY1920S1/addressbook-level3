@@ -24,6 +24,12 @@ public class SpendingListPanel extends UiPart<Region> {
     @FXML
     private ListView<Spending> spendingListView;
 
+    //@@author Nanosync
+    /**
+     * Creates a Spending List Panel. Requires access to the spending book to subscribe to currency changes.
+     * @param spendingList Spending list
+     * @param spendingBook Spending book
+     */
     public SpendingListPanel(ObservableList<Spending> spendingList, ReadOnlySpendingBook spendingBook) {
         super(FXML);
 
@@ -42,6 +48,7 @@ public class SpendingListPanel extends UiPart<Region> {
         spendingListView.setCellFactory(listView -> new SpendingListViewCell());
     }
 
+    //@@author
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Spending} using a {@code SpendingCard}.
      */

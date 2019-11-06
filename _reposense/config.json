@@ -40,5 +40,12 @@
         "Min Pyae Moe"
       ]
     }
+  ],
+  "ignoreCommitList": [
+    "88c30918cfab8c17aa0e232ee816bebb5dfe8079",
+    "ede2e749105e4e2f273a67c727393c3a2005d02b",
+    "f917f5b99a0127a6d60157a2967e2879bb4f4980",
+    "ef59f9108329752f8a4776ca3b9568ebe68b751a",
+    "3c35e58609b7576b83297edfe10066c6adf0a56b"
   ]
 }

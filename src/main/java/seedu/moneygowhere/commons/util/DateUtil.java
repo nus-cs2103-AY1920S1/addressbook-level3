@@ -8,7 +8,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,17 +20,31 @@ import com.joestelmach.natty.Parser;
 
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 
+//@@author Nanosync
 /**
  * Contains utility methods used for parsing dates with natural language processing.
  */
 public class DateUtil {
+    /** Formal date formatters **/
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter DATE_FORMAT_PRETTY = DateTimeFormatter.ofPattern("EE dd/MM/yyyy");
     private static final DateTimeFormatter DATE_FORMAT_TWO_DIGIT_YEAR = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     /** Date pattern which allows leading zeroes to be omitted. **/
     private static final Pattern DATE_PATTERN = Pattern.compile("([0-9]{1,2})(?:[/\\-])([0-9]{1,2})"
-            + "(?:(?:[/\\-])([0-9]{0,4})|)");
+            + "(?:(?:[/\\-])([0-9]+)|)");
+
+    /** Date pattern with dashes. **/
+    private static final Pattern DATE_MONTH_DASH_PATTERN =
+            Pattern.compile("([0-9]{1,2})-([a-zA-Z]{3})(?:$|-)([0-9]{0,4})");
+
+    /** Date pattern with spaces. **/
+    private static final Pattern DATE_MONTH_SPACE_PATTERN =
+            Pattern.compile("([0-9]{1,2}) ([a-zA-Z]{3})(?:$| )([0-9]{0,4})");
+
+    /** Prohibited day tokens **/
+    private static final String[] PROHIBITED_DAY_TOKENS =
+            new String[] { "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
 
     /** Parser for natural language processing. **/
     private static final Parser PARSER = new Parser();
@@ -111,13 +124,48 @@ public class DateUtil {
      * @param day Day
      * @return True if the input date was valid.
      */
-    private static boolean isValidNormalisedDate(int year, int month, int day) {
+    private static boolean isValidDate(int year, int month, int day) {
         try {
             LocalDate.of(year, month, day);
             return true;
         } catch (DateTimeException e) {
             return false;
         }
+    }
+
+    /**
+     * Validates a date matcher without the month.
+     * Rationale is to let NLP handle the month.
+     *
+     * @param year Year
+     * @param day Day
+     * @return True if the matcher input is correct
+     */
+    private static boolean isMatcherInvalid(String year, int day) {
+        return day > 31 || (year != null && year.length() > 4);
+    }
+
+    /**
+     * Process a matcher based on formatting groups: DD MM YYYY
+     *
+     * @param matcher Matcher to be processed
+     * @return True if the matcher parameter groups were valid.
+     */
+    private static boolean processMatcher(Matcher matcher) {
+        int day = Integer.parseInt(matcher.group(1));
+        String month = matcher.group(2);
+        String year = matcher.group(3);
+
+        if (isMatcherInvalid(year, day)) {
+            return false;
+        }
+
+        // Check February (edge case)
+        if (month.equalsIgnoreCase("feb") && day > 28) {
+            return isValidDate(Integer.parseInt(year), 2, day);
+        }
+
+        return true;
     }
 
     /**
@@ -135,6 +183,16 @@ public class DateUtil {
         StringBuilder builder = new StringBuilder();
         String[] tokens = date.split("\\s+");
 
+        // Check other formats
+        Matcher matcher2 = DATE_MONTH_DASH_PATTERN.matcher(date);
+        Matcher matcher3 = DATE_MONTH_SPACE_PATTERN.matcher(date);
+
+        if (matcher2.matches()) {
+            return processMatcher(matcher2) ? date : "";
+        } else if (matcher3.matches()) {
+            return processMatcher(matcher3) ? date : "";
+        }
+
         for (String token : tokens) {
             Matcher matcher = DATE_PATTERN.matcher(token);
 
@@ -146,6 +204,10 @@ public class DateUtil {
                 String capturedYear = matcher.group(3);
                 int year = Calendar.getInstance().get(Calendar.YEAR);
                 if (capturedYear != null && !capturedYear.isEmpty()) {
+                    if (capturedYear.length() > 4) {
+                        return "";
+                    }
+
                     year = Integer.parseInt(capturedYear);
 
                     // Invalidate year inputs like 79 or 89
@@ -154,7 +216,7 @@ public class DateUtil {
                     }
                 }
 
-                if (!isValidNormalisedDate(year, month, day)) {
+                if (!isValidDate(year, month, day)) {
                     return "";
                 }
 
@@ -164,6 +226,13 @@ public class DateUtil {
 
                 builder.append(String.format("%d/%d/%d", year, month, day));
             } else {
+                for (String prohibitedToken : PROHIBITED_DAY_TOKENS) {
+                    if (token.equalsIgnoreCase(prohibitedToken)
+                            || token.equalsIgnoreCase(prohibitedToken + ",")) {
+                        return "";
+                    }
+                }
+
                 if (tokens.length == 1) {
                     builder.append(token);
                 } else {
@@ -202,8 +271,9 @@ public class DateUtil {
         }
     }
 
+    //@@author minpyaemoe
     /**
-     * formats a date to a string with two-digit year.
+     * Formats a date to a string with two-digit year.
      * Example output: 25/12/19
      *
      * @param date Input date

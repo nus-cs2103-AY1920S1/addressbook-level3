@@ -6,6 +6,8 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_COST_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.moneygowhere.logic.commands.FindCommand.MESSAGE_COST_RANGE_CONSTRAINTS;
+import static seedu.moneygowhere.logic.commands.FindCommand.MESSAGE_DATE_RANGE_CONSTRAINTS;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
@@ -35,6 +37,7 @@ import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.model.tag.TagPredicate;
 
+//@@author Nanosync
 public class FindCommandParserTest {
 
     private FindCommandParser parser = new FindCommandParser();
@@ -76,6 +79,10 @@ public class FindCommandParserTest {
         assertParseSuccess(parser, " " + PREFIX_COST + VALID_COST_BOB + "-"
                 + VALID_COST_AMY, expectedFindCommand);
 
+        // c/COST1 - COST2
+        assertParseSuccess(parser, " " + PREFIX_COST + VALID_COST_BOB + " - "
+                + VALID_COST_AMY, expectedFindCommand);
+
         // Remark
         predicates = new ArrayList<>();
         predicates.add(new RemarkContainsKeywordsPredicate(Arrays.asList(VALID_REMARK_AMY.split("\\s+"))));
@@ -87,6 +94,29 @@ public class FindCommandParserTest {
         predicates.add(new TagPredicate(Set.of(VALID_TAG_FRIEND)));
         expectedFindCommand = new FindCommand(predicates);
         assertParseSuccess(parser, " " + PREFIX_TAG + VALID_TAG_FRIEND, expectedFindCommand);
+    }
+
+    @Test
+    public void parse_validDateRange_success() {
+        // Same day
+        List<Predicate<Spending>> predicates = new ArrayList<>();
+        predicates.add(new DateInRangePredicate(new Date("25/12/2019"), new Date("25/12/2019")));
+        FindCommand expectedFindCommand = new FindCommand(predicates);
+        assertParseSuccess(parser, " " + PREFIX_DATE + "25/12/2019" + " " + PREFIX_DATE + "25/12/2019",
+                expectedFindCommand);
+
+        // Before
+        predicates = new ArrayList<>();
+        predicates.add(new DateInRangePredicate(new Date("24/12/2019"), new Date("25/12/2019")));
+        expectedFindCommand = new FindCommand(predicates);
+        assertParseSuccess(parser, " " + PREFIX_DATE + "24/12/2019" + " " + PREFIX_DATE + "25/12/2019",
+                expectedFindCommand);
+    }
+
+    @Test
+    public void parse_invalidDateRange_failure() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "26/12/2019" + PREFIX_DATE + "25/12/2019",
+                MESSAGE_DATE_RANGE_CONSTRAINTS);
     }
 
     @Test
@@ -104,12 +134,12 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " " + PREFIX_TAG, Tag.MESSAGE_CONSTRAINTS);
 
         // one Date only
-        assertParseFailure(parser, " " + PREFIX_DATE + "1/1/2019", FindCommandParser.DATE_RANGE_MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_DATE + "1/1/2019", MESSAGE_DATE_RANGE_CONSTRAINTS);
 
         // one Cost only
-        assertParseFailure(parser, " " + PREFIX_COST + "1.00", FindCommandParser.COST_RANGE_MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_COST + "1.00", MESSAGE_COST_RANGE_CONSTRAINTS);
 
         // Cost max > min
-        assertParseFailure(parser, " " + PREFIX_COST + "2.00-1.00", FindCommandParser.COST_RANGE_MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_COST + "2.00-1.00", MESSAGE_COST_RANGE_CONSTRAINTS);
     }
 }

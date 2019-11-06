@@ -10,20 +10,25 @@ import seedu.moneygowhere.logic.sorting.SortField;
 import seedu.moneygowhere.logic.sorting.SpendingComparator;
 import seedu.moneygowhere.model.Model;
 
+//@@author Nanosync
 /**
- * Sorts the current Spending entries.
+ * Sorts the current displayed spending entries in the list.
  */
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_SUCCESS = "Sorted all spending entries";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts all spending by fields indicated (order-sensitive).\n"
             + "Parameters: [PREFIX/ASC or DESC]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "ASC "
             + PREFIX_COST + "DESC ";
+
+    public static final String MESSAGE_SORT_DUPLICATE_FIELD = "Repeated sorting field detected.\n"
+            + "You can only sort a field once.";
 
     private final LinkedHashSet<SortField> fields;
 

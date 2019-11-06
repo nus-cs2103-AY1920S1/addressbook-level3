@@ -2,6 +2,7 @@ package seedu.moneygowhere.model.spending;
 
 import java.util.function.Predicate;
 
+//@@author Nanosync
 /**
  * Tests that a {@code Spending}'s {@code Cost} matches the given cost range.
  */

@@ -1,5 +1,6 @@
 package seedu.moneygowhere.logic.sorting;
 
+//@@author Nanosync
 /**
  * Attributes for sorting.
  */
@@ -10,6 +11,7 @@ public enum SortAttribute {
     DEADLINE("Deadline"),
     REMARK("Remark"),
     REMINDER_MESSAGE("Message");
+
     private final String identifier;
 
     SortAttribute(String identifier) {

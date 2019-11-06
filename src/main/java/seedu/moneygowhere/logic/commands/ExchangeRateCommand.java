@@ -6,8 +6,9 @@ import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@@author Nanosync
 /**
- * Represents the Exchange Rate command.
+ * Views the currently stored exchange rates or converts a specified currency into SGD.
  */
 public class ExchangeRateCommand extends Command {
 
@@ -15,7 +16,8 @@ public class ExchangeRateCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows exchange rates.\n"
             + "If no amount and currency is specified, all exchange rates are shown.\n"
-            + "Example: " + COMMAND_WORD + " [AMOUNT] [CURRENCYCODE]";
+            + "Example: " + COMMAND_WORD + " [AMOUNT] [CURRENCYCODE]\n"
+            + "CURRENCYCODE can be: USD, EUR, IDR, MYR, INR, MMK";
 
     public static final String MESSAGE_INVALID_AMOUNT = "Amount must be non-negative";
     public static final String MESSAGE_INVALID_CURRENCY = "Specified currency does not exist";

@@ -4,8 +4,9 @@ import seedu.moneygowhere.logic.commands.CurrencyCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@@author Nanosync
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new CurrencyCommand object.
  */
 public class CurrencyCommandParser implements Parser<CurrencyCommand> {
 

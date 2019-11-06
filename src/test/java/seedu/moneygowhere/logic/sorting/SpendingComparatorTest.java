@@ -7,13 +7,19 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.SpendingBuilder;
 
+//@@author Nanosync
 class SpendingComparatorTest {
 
     @Test
@@ -50,6 +56,48 @@ class SpendingComparatorTest {
 
         int result = spendingComparator.compare(builder1.build(), builder2.build());
         assertEquals(0, result);
+    }
+
+    @Test
+    public void compare_nameSort_sortedCorrectly() {
+        LinkedHashSet<SortField> fields = new LinkedHashSet<>();
+        fields.add(new SortField(SortAttribute.NAME, SortOrder.ASCENDING));
+
+        SpendingBuilder builder1 = new SpendingBuilder()
+                .withCost(VALID_COST_AMY) // 312
+                .withDate(VALID_DATE_AMY) // 01/01
+                .withRemark(VALID_REMARK_AMY)
+                .withName("Apple");
+
+        SpendingBuilder builder2 = new SpendingBuilder()
+                .withCost(VALID_COST_AMY) // 312
+                .withDate(VALID_DATE_AMY) // 01/01
+                .withRemark(VALID_REMARK_AMY)
+                .withName("apple");
+
+        SpendingBuilder builder3 = new SpendingBuilder()
+                .withCost(VALID_COST_AMY) // 312
+                .withDate(VALID_DATE_AMY) // 01/01
+                .withRemark(VALID_REMARK_AMY)
+                .withName("applea");
+
+        SpendingBuilder builder4 = new SpendingBuilder()
+                .withCost(VALID_COST_AMY) // 312
+                .withDate(VALID_DATE_AMY) // 01/01
+                .withRemark(VALID_REMARK_AMY)
+                .withName("Banana");
+
+        SpendingComparator spendingComparator = new SpendingComparator(fields);
+
+        List<Spending> spendingList = new ArrayList<>(
+                Arrays.asList(builder4.build(), builder1.build(), builder3.build(), builder2.build()));
+        spendingList.sort(spendingComparator);
+
+        // Apple, apple, applea, Banana
+        List<Spending> expectedSpendingList = new ArrayList<>(
+                Arrays.asList(builder1.build(), builder2.build(), builder3.build(), builder4.build()));
+
+        assertEquals(expectedSpendingList, spendingList);
     }
 
     @Test

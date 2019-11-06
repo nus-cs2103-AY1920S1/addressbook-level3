@@ -28,7 +28,6 @@ class DateUtilTest {
         date = LocalDate.of(2019, Month.OCTOBER, 12);
 
         assertEquals(date, DateUtil.parseDate("12/10/2019"));
-        assertEquals(date, DateUtil.parseDate("12-10-2019"));
     }
 
     @Test
@@ -37,6 +36,7 @@ class DateUtilTest {
         assertThrows(ParseException.class, () -> DateUtil.parseDate("12/10/2019 midnight"));
         assertThrows(ParseException.class, () -> DateUtil.parseDate("12-10-2019 midnight"));
         assertThrows(ParseException.class, () -> DateUtil.parseDate("does not work"));
+        assertThrows(ParseException.class, () -> DateUtil.parseDate("32 nov"));
     }
 
     @Test
@@ -47,10 +47,15 @@ class DateUtilTest {
         assertTrue(DateUtil.isValidDate("yesterday"));
         assertTrue(DateUtil.isValidDate("last month"));
         assertTrue(DateUtil.isValidDate("The 31st of April in the year 2008"));
+        assertTrue(DateUtil.isValidDate("31-nov-"));
 
         // Invalid dates
         assertFalse(DateUtil.isValidDate("1"));
         assertFalse(DateUtil.isValidDate("2"));
+        assertFalse(DateUtil.isValidDate("32 nov"));
+        assertFalse(DateUtil.isValidDate("32 nov 19990"));
+        assertFalse(DateUtil.isValidDate("32-nov"));
+        assertFalse(DateUtil.isValidDate("32-nov-19990"));
 
         assertFalse(DateUtil.isValidDate("2/2/79"));
         assertFalse(DateUtil.isValidDate("2/25/1995"));
@@ -58,10 +63,14 @@ class DateUtilTest {
         assertFalse(DateUtil.isValidDate("31/2/2019"));
         assertFalse(DateUtil.isValidDate("31-2-2019"));
 
+        assertFalse(DateUtil.isValidDate("Fri, 21 Nov 1997"));
+
         assertFalse(DateUtil.isValidDate("11am"));
         assertFalse(DateUtil.isValidDate("midnight"));
 
         assertFalse(DateUtil.isValidDate("lol"));
+
+        assertFalse(DateUtil.isValidDate("30/11/202020220202"));
     }
 
     @Test
