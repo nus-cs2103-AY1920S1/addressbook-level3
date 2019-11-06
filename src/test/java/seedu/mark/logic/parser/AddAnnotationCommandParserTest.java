@@ -3,14 +3,11 @@ package seedu.mark.logic.parser;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.logic.commands.AddAnnotationCommand.MESSAGE_GENERAL_MUST_HAVE_NOTE;
 import static seedu.mark.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_HIGHLIGHT;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARAGRAPH;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.AddAnnotationCommand;
 import seedu.mark.logic.commands.AnnotationCommand;
