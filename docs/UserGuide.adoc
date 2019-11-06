@@ -283,45 +283,41 @@ answer the question one by one and your result will be given.
 You can enter the quiz mode using this command. +
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT`
 
-****
-* The `NUMBER_OF_QUESTIONS` must be a positive integer.
-* `DIFFICULTY` and `SUBJECT` are case insensitive.
-****
+NOTE: The `NUMBER_OF_QUESTIONS` must be a positive integer. +
+`DIFFICULTY` and `SUBJECT` are case insensitive.
 
-Example:
+_**Example:**_
 
 Step 1: Types `quiz n/2 d/Easy s/CS2040` in the command box and presses `Enter` to execute the command. The following
 graph specifies how you can input the command. +
 
 .Typing `quiz` command
-image::quiz/QuizModeCommand.png[]
+image::quiz/QuizModeCommand.png[600, 600]
 
 Step 2: The result will show the message of successfully entering the quiz mode. The first quiz question will appear
 on the third column. The following graph shows the result of your `quiz` command. +
 
 .Result of `quiz` command
-image::quiz/QuizModeCommandResult.png[]
+image::quiz/QuizModeCommandResult.png[600, 600]
 
 ==== Answer the quiz question
 You can type your `answer` in the command box to answer the question.
 
-****
-* The `answer` is case sensitive.
-****
+NOTE: The `answer` is case sensitive.
 
-Example:
+_**Example:**_
 
 Step 1: Types your `answer` in the command box and presses `Enter` to execute the command. The figure below is an example
 of how to answer question. +
 
 .Typing answer in the command line
-image::quiz/QuizAnswer.png[]
+image::quiz/QuizAnswer.png[600, 600]
 
 Step 2: The result of your answer will reflect your correctness and the next question will be displayed. The following
 graph simulates the situation after you answer the question. +
 
 .The result after answer
-image::quiz/QuizAnswerResult.png[]
+image::quiz/QuizAnswerResult.png[600, 600]
 // end::quizStart[]
 
 ==== Show an answer : `show`
@@ -330,35 +326,33 @@ You can check the answer for the current quiz question using this command. You c
 not use it to cheat. +
 Format: `show`
 
-Example:
+_**Example:**_
 
 Step 1: Types `show` in the command box and presses `Enter` to execute the command. +
 
 Step 2: The answer of current question will be displayed. +
 
 .Typing `show` command and its result
-image::quiz/ShowAnswerCommand.png[]
+image::quiz/ShowAnswerCommand.png[600, 600]
 
 ==== Skip a question : `skip`
 
 You can skip current question and go to the next one using this command. +
 Format: `skip`
 
-****
-* The question you have skipped will be marked as false for result.
-****
+NOTE: The question you have skipped will be marked as false for result.
 
-Example:
+_**Example:**_
 
 Step 1: Types `skip` in the command box and presses `Enter` to execute the command. +
 
 .Typing `skip` command
-image::quiz/SkipCommand.png[]
+image::quiz/SkipCommand.png[600, 600]
 
 Step 2: The current question is skipped and next question will be displayed. +
 
 .The result of `skip` command
-image::quiz/SkipCommandResult.png[]
+image::quiz/SkipCommandResult.png[600, 600]
 
 // tag::quizQuit[]
 ==== Exit quiz mode : `quit`
@@ -366,23 +360,21 @@ image::quiz/SkipCommandResult.png[]
 You can exit from the quiz mode using this command. +
 Format: `quit`
 
-****
-* You need to `quit` the quiz mode every time after you finish quiz.
-* You can `quit` the quiz mode anytime you want.
-****
+NOTE: You need to `quit` the quiz mode every time after you finish quiz. +
+You can `quit` the quiz mode anytime you want.
 
-Example:
+_**Example:**_
 
 Step 1: Types `quit` in the command box and presses `Enter` to execute the command. +
 
 .Typing `quit` command
-image::quiz/QuitQuizCommand.png[]
+image::quiz/QuitQuizCommand.png[600, 600]
 
 Step 2: The result shows message of exit from the quiz mode and the original questions will appear. The following graph
 explains what would happen after you `quit` from the quiz mode. +
 
 .The result of `quit` command
-image::quiz/QuitQuizCommandResult.png[]
+image::quiz/QuitQuizCommandResult.png[600, 600]
 // end::quizQuit[]
 
 // tag::statistics[]
