@@ -348,7 +348,7 @@ public enum Responses {
                     // Note to Shawn:
                     // res.get(0) returns the ArrayList of Deck Names (should only have one)
                     // res.get(1) returns the ArrayList of duration in seconds (should have zero or one).
-                        // Duration is a String.
+                    // Duration is a String.
 
                     return true;
                 }
