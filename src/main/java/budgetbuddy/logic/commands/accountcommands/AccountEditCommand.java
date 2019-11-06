@@ -61,7 +61,6 @@ public class AccountEditCommand extends Command {
             Account targetAccount = accountsManager.getAccount(targetAccountIndex);
             editedAccount = createEditedAccount(targetAccount, accountEditDescriptor);
             accountsManager.editAccount(targetAccountIndex, editedAccount);
-
         } catch (AccountNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
         } catch (DuplicateAccountException e) {
@@ -69,10 +68,6 @@ public class AccountEditCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException(MESSAGE_INVALID_DISPLAYED_INDEX);
         }
-
-        //after editing the account, the new account may not be in the filtered account list,
-        //so we reset the filtered account list.
-        accountsManager.resetFilteredAccountList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount), CommandCategory.ACCOUNT);
     }
 

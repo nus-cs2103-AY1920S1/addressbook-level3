@@ -80,6 +80,7 @@ public class AccountsManager {
      * Reset the filteredAccountList so that it contains all the accounts.
      */
     public void resetFilteredAccountList() {
+        unsetActiveAccount();
         filteredAccounts.setPredicate(s -> true);
         //activeAccountIndex is reset to the first account
         setActiveAccount(Index.fromZeroBased(0));
@@ -95,6 +96,7 @@ public class AccountsManager {
         accounts.add(toAdd);
         //the new account will be the active account
         //(it is always added in the last position of the account list)
+        unsetActiveAccount();
         setActiveAccount(Index.fromOneBased(accounts.size()));
     }
 
@@ -105,10 +107,11 @@ public class AccountsManager {
      */
     public void editAccount(Index toEdit, Account editedAccount) throws AccountNotFoundException {
         accounts.replace(filteredAccounts.get(toEdit.getZeroBased()), editedAccount);
+        unsetActiveAccount();
         //editing the account may cause it to no longer be part of the filtered list,
         //so we have to reset the filtered account list.
         resetFilteredAccountList();
-        setActiveAccount(accounts.indexOfEquivalent(editedAccount));
+        switchActiveAccount(accounts.indexOfEquivalent(editedAccount));
     }
 
     /**
@@ -126,6 +129,7 @@ public class AccountsManager {
         if (filteredAccounts.size() == 1) {
             //there is one account left on the filtered list
             accounts.remove(accountToDelete);
+            unsetActiveAccount();
             resetFilteredAccountList();
             setActiveAccount(Index.fromZeroBased(0));
         } else {
@@ -147,11 +151,31 @@ public class AccountsManager {
      */
     public void updateFilteredAccountList(Predicate<Account> predicate) throws EmptyAccountListException {
         requireNonNull(predicate);
+        unsetActiveAccount();
         filteredAccounts.setPredicate(predicate);
         if (filteredAccounts.size() == 0) {
             throw new EmptyAccountListException();
         }
         setActiveAccount(Index.fromZeroBased(0));
+    }
+
+    /**
+     * Switches the active account to the index specified.
+     */
+    public void switchActiveAccount(Index targetAccountIndex) throws IndexOutOfBoundsException {
+        if (getFilteredAccountList().size() >= targetAccountIndex.getOneBased()) {
+            unsetActiveAccount();
+            setActiveAccount(targetAccountIndex);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    /**
+     * Unsets the boolean flag on any active accounts.
+     */
+    public void unsetActiveAccount() {
+        accounts.forEach(Account::setInactive);
     }
 
     /**
@@ -161,11 +185,10 @@ public class AccountsManager {
      * @param toSet the account to be set to the active account.
      */
     public void setActiveAccount(Index toSet) {
-        Account oldActiveAccount = filteredAccounts.get(activeAccountIndex.getZeroBased());
-        oldActiveAccount.setInactive();
-        Account newActiveAccount = filteredAccounts.get(toSet.getZeroBased());
-        System.out.println("SETTING TO ACTIVE");
-        newActiveAccount.setActive();
+        if (!filteredAccounts.isEmpty()) {
+            Account newActiveAccount = filteredAccounts.get(toSet.getZeroBased());
+            newActiveAccount.setActive();
+        }
         activeAccountIndex = toSet;
     }
 
@@ -190,7 +213,7 @@ public class AccountsManager {
      * @throws IndexOutOfBoundsException if the index is out of bounds
      */
     public Account getAccount(Index toGet) throws IndexOutOfBoundsException {
-        return accounts.get(toGet);
+        return filteredAccounts.get(toGet.getZeroBased());
     }
 
     /**
@@ -218,6 +241,7 @@ public class AccountsManager {
      * Switches the account source for the TransactionList
      */
     public void transactionListSwitchSource(Account account) {
+        unsetActiveAccount();
         //when we switch the source of the account, the account list filter gets cleared
         //as transactionLists from any account can be edited(not just those that are filtered)
         resetFilteredAccountList();
@@ -234,4 +258,5 @@ public class AccountsManager {
         getActiveAccount().getTransactionList().sortByDescendingDate();
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
+
 }
