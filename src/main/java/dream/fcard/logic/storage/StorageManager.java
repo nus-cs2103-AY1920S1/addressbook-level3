@@ -274,7 +274,7 @@ public class StorageManager {
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
                 //session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
-                // todo: only need setScore for SessionLists containing DeckSession objects. @AHaliq
+                // todo: only need setScore for SessionLists containing TestSession objects. @AHaliq
                 arr.add(session);
             }
             UserStatsHolder.getUserStats().setSessionList(new SessionList(arr));

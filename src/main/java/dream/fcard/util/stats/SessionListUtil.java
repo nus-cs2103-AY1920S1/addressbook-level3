@@ -58,4 +58,14 @@ public class SessionListUtil {
         DecimalFormat decimalFormat = new DecimalFormat("#.##"); // rounds to 2 d.p.
         return decimalFormat.format(scoreAsDouble);
     }
+
+    /**
+     * Calculates the average score of a list of test sessions.
+     * @param sessionList The list of test sessions, each with a score.
+     * @return The average score of a list of test sessions.
+     */
+    public static String getAverageScore(SessionList sessionList) {
+        // it is known that this method will only be called on SessionLists containing TestSessions.
+        return "";
+    }
 }

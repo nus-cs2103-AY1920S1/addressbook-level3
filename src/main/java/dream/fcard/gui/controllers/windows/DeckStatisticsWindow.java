@@ -27,10 +27,10 @@ public class DeckStatisticsWindow extends ScrollPane {
     @FXML
     private Label sessionsThisWeek;
     @FXML
-    private TableView<Deck> deckSessionsTableView;
+    private TableView<Deck> testSessionsTableView;
 
     private Deck deck;
-    private SessionList deckSessionList;
+    private SessionList testSessionList;
 
     /** Creates a new instance of DeckStatisticsWindow. */
     public DeckStatisticsWindow(Deck deck) {
@@ -45,36 +45,36 @@ public class DeckStatisticsWindow extends ScrollPane {
             e.printStackTrace();
         }
 
-        windowTitle.setText("Statistics for deck: " + deck.getDeckName());
+        windowTitle.setText("My statistics for deck: " + deck.getDeckName());
         this.deck = deck;
-        this.deckSessionList = deck.getDeckSessionList();
+        this.testSessionList = deck.getTestSessionList();
         //ArrayList<Deck> decks = State.getDecks();
 
         displaySummaryStats();
 
-        //this.deckSessionsTableView = StatsDisplayUtil.getDeckSessionsTableView();
+        //this.testSessionsTableView = StatsDisplayUtil.getTestSessionsTableView(deck);
         //this.sessionsScrollPane.setContent(sessionsTableView);
         //sessionsTableView = StatsDisplayUtil.getSessionsTableView(deckStats.getSessionList());
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
-        SessionList deckSessionList = deck.getDeckSessionList();
+        SessionList testSessionList = deck.getTestSessionList();
         int numberOfCards = deck.getNumberOfCards();
         this.numCards.setText("Number of cards in deck: " + numberOfCards
             + (numberOfCards == 1 ? " card" : " cards"));
 
         SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
-            deckSessionList);
+            testSessionList);
         int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
         this.sessionsThisWeek.setText("Total test sessions this week: " + numSessionsThisWeek
             + (numSessionsThisWeek == 1 ? " session" : " sessions"));
 
-        //int numSessions = deckSessionList.getNumberOfSessions();
+        //int numSessions = testSessionList.getNumberOfSessions();
         //totalSessions.setText("Total login sessions: " + numSessions
         //    + (numSessions == 1 ? " session" : " sessions"));
         //
-        //String duration = deckSessionList.getTotalDurationAsString();
+        //String duration = testSessionList.getTotalDurationAsString();
         //totalDuration.setText("Total login duration: " + duration);
     }
 }

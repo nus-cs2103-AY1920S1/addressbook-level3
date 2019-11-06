@@ -82,15 +82,4 @@ public class SessionList implements JsonInterface {
         }
         return new JsonValue(arr);
     }
-
-    ///** Returns true if the SessionList currently contains objects of type DeckSession. */
-    //public boolean containsDeckSessions() {
-    //    if (this.sessionArrayList.isEmpty()) {
-    //        return false;
-    //    }
-    //
-    //    return this.sessionArrayList.get(0) instanceOf DeckSession;
-    //}
-
-    // todo: get sessions in the past week, past month etc. --> sublist? wrapped in SessionList?
 }

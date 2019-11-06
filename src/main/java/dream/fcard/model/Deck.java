@@ -36,7 +36,7 @@ public class Deck implements JsonInterface {
     private ArrayList<FlashCard> lowPriorityList;
 
     /** List of sessions the user has engaged in involving this Deck. */
-    private SessionList deckSessionList;
+    private SessionList testSessionList;
 
     /**
      * Constructor to create a Deck with no name and cards.
@@ -48,7 +48,7 @@ public class Deck implements JsonInterface {
         lowPriorityQueue = new ArrayList<>();
         highPriorityList = new ArrayList<>();
         lowPriorityList = new ArrayList<>();
-        deckSessionList = new SessionList();
+        testSessionList = new SessionList();
     }
 
     /**
@@ -62,7 +62,7 @@ public class Deck implements JsonInterface {
 
         highPriorityQueue = new ArrayList<>();
         lowPriorityQueue = new ArrayList<>();
-        deckSessionList = new SessionList();
+        testSessionList = new SessionList();
     }
 
     /**
@@ -78,7 +78,7 @@ public class Deck implements JsonInterface {
         lowPriorityQueue = new ArrayList<>();
 
         addCardsToQueues(initialCards);
-        deckSessionList = new SessionList();
+        testSessionList = new SessionList();
     }
 
     /**
@@ -132,8 +132,8 @@ public class Deck implements JsonInterface {
         }
 
         JsonArray sessionsJson = new JsonArray();
-        ArrayList<Session> deckSessionArrayList = deckSessionList.getSessionArrayList();
-        for (Session s : deckSessionArrayList) {
+        ArrayList<Session> testSessionArrayList = testSessionList.getSessionArrayList();
+        for (Session s : testSessionArrayList) {
             try {
                 sessionsJson.add(s.toJson().getObject());
             } catch (JsonWrongValueException e) {
@@ -326,13 +326,13 @@ public class Deck implements JsonInterface {
 
     //@@author nattanyz
     /** Get the SessionList pertaining to this deck. */
-    public SessionList getDeckSessionList() {
-        return this.deckSessionList;
+    public SessionList getTestSessionList() {
+        return this.testSessionList;
     }
 
     /** Set the SessionList pertaining to this deck. */
-    public void setDeckSessionList(SessionList deckSessionList) {
-        this.deckSessionList = deckSessionList;
+    public void setTestSessionList(SessionList testSessionList) {
+        this.testSessionList = testSessionList;
     }
 
     /** Get number of cards in this deck.*/
@@ -342,7 +342,7 @@ public class Deck implements JsonInterface {
 
     /** Get the number of sessions for this deck. */
     public Integer getNumberOfSessions() {
-        return this.deckSessionList.getNumberOfSessions();
+        return this.testSessionList.getNumberOfSessions();
     }
 
     /** Get the average score for the sessions has engaged in pertaining to this deck. */

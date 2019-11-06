@@ -135,6 +135,11 @@ public class Session implements JsonInterface {
         return this.durationString;
     }
 
+    /** Checks if this session is an instance of TestSession. */
+    public boolean isTestSession() {
+        return this instanceof TestSession;
+    }
+
     @Override
     public JsonValue toJson() {
         JsonObject obj = new JsonObject();
