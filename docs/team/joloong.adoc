@@ -1,0 +1,84 @@
+= Joel Loong - Project Portfolio
+:site-section: AboutUs
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+
+== Overview
+
+This portfolio documents my contributions to PalPay, a software engineering project under the module,
+CS2103T Software Engineering. For this module, we were provided with a working software application which we
+could enhance or morph to suit our target audience.
+
+For the project, my main role was the System Tester where I ensured the application was free from bugs and good code
+quality.
+
+== Summary of contributions
+
+* *Code contributed*: https://ay1920s1-cs2103t-w12-3.github.io/publish-RepoSense/#search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=joloong&tabRepo=AY1920S1-CS2103T-W12-3%2Fmain%5Bmaster%5D[RepoSense]
+
+* *Major enhancement*:
+
+** What it does:
+
+** Justification:
+
+
+** Highlights:
+
+* *Minor enhancement*:
+
+** Placeholder
+
+* *Other contributions*:
+
+** Project management:
+*** PlaceHolder
+
+** Enhancements to existing features:
+*** Wrote comprehensive unit and integration test cases for the application's logic and model.
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/70[#70],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/202[#202],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/205[#205])
+
+** Documentation:
+*** User Guide
+**** Placeholder
+*** Developer Guide
+**** Placeholder
+
+** Community:
+*** Reported bugs and suggestions for other teams in the module. (
+Examples: https://github.com/AY1920S1-CS2103T-T10-3/main/issues/219[#219],
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/220[#220],
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/222[#222],
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/229[#229])
+
+** Tools:
+*** Managed the initial set up of group repository on GitHub.
+*** Integrated Travis CI, Coveralls, Netlify and RepoSense into our repository.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+Placeholder
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+Placeholder
+
+
+'''

@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.projection;
 
 import java.util.stream.IntStream;
 
@@ -31,7 +31,6 @@ public class ProjectionGraph extends StackPane {
     private double yRange;
 
     ProjectionGraph(Projection projection) {
-
         this.gradientDescent = projection.getProjector();
         this.budget = projection.getBudget().orElse(null);
 

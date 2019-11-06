@@ -14,6 +14,7 @@ import seedu.address.logic.parser.MainParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -90,6 +91,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<LedgerOperation> getLedgerOperationsList() {
         return model.getFilteredLedgerOperationsList();
+    }
+
+    @Override
+    public ObservableList<Projection> getProjectionList() {
+        return model.getFilteredProjectionsList();
     }
 
 }

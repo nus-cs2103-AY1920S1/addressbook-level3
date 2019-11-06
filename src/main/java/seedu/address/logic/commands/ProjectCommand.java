@@ -11,11 +11,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.comparator.DateComparator;
 import seedu.address.model.Model;
-import seedu.address.model.Projection;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.util.Date;
-
+import seedu.address.ui.tab.Tab;
 
 
 /**
@@ -45,6 +45,7 @@ public class ProjectCommand extends Command {
 
     private static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 15;
     private static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
+    private static final String MESSAGE_DUPLICATE = "A projection to %s already exists.";
 
     public final Date date;
     private Index budgetIdx;
@@ -85,6 +86,13 @@ public class ProjectCommand extends Command {
         } else {
             this.projection = new Projection(transactionHistory, date);
         }
+
+        if (model.has(this.projection)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, this.projection.getDate().toString()),
+                    false, false, Tab.PROJECTION);
+        }
+        model.add(this.projection);
+        model.commitUserState();
 
         return transactionHistory.size() < RECOMMENDED_MINIMUM_TRANSACTIONS
                 ? new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString(),

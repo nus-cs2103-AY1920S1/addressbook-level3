@@ -104,7 +104,7 @@ Adds an expenditure of your personal finance +
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` input accepts a non-negative value lesser than or equal to 1,000,000 of the expenditure.
+* `AMOUNT` input accepts a non-negative value lesser than 1,000,000 of the expenditure.
 * `ITEM` input accepts the description of the expenditure
 * `DATE` accepts the date of this transaction
 * `CATEGORY` accepts the CATEGORY for this expenditure
@@ -123,7 +123,7 @@ Adds an income of your personal finance +
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` input accepts a non-negative value lesser than or equal to 1,000,000 of the income.
+* `AMOUNT` input accepts a non-negative value lesser than 1,000,000 of the income.
 * `ITEM` input accepts the description of the income
 * `DATE` input accepts accepts the date of this transaction
 * `CATEGORY` input accepts the CATEGORY for this income
@@ -146,7 +146,7 @@ Format: `set $/AMOUNT d/DATE c/CATEGORY`
 
 ****
 * `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
-less than or equal to 1,000,000.
+less than 1,000,000.
 * `DATE` input accepts the deadline to be set. It cannot be a date in the past.
 * `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without any `CATEGORY`.
 ****

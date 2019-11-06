@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -117,6 +118,12 @@ public interface Model {
     boolean has(LedgerOperation ledgerOperation);
 
     /**
+     * Returns true if a projection with the same date as {@code projection} exists in the bank account.
+     *
+     */
+    boolean has(Projection projection);
+
+    /**
      * Deletes the given transaction.
      * The transaction must exist in the bank account.
      *
@@ -161,6 +168,12 @@ public interface Model {
     void add(Budget budget);
 
     /**
+     * Adds the given projection.
+     * {@code projection} must not already exist in the bank account.
+     */
+    void add(Projection projection);
+
+    /**
      * Returns an unmodifiable view of the filtered transaction list
      *
      * @return
@@ -187,5 +200,12 @@ public interface Model {
      */
     void deleteBudget(Budget budgetToDelete);
 
+    /**
+     * Deletes the given projection.
+     * The projection must exist in the bank account.
+     */
+    void deleteProjection(Projection projectionToDelete);
+
     ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
+    ObservableList<Projection> getFilteredProjectionsList();
 }
