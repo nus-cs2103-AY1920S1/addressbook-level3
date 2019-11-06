@@ -57,11 +57,11 @@ public class EditDeckDisplay extends VBox {
 
             CardCreatingWindow editingWindow = new CardCreatingWindow(incrementNumCards, saveToDeck);
             cardCreatingPane.getChildren().add(editingWindow);
-            deckNameInput.setText(deck.getName());
+            deckNameInput.setText(deck.getDeckName());
             numCards = deck.getCards().size();
             deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));
             doneEditingButton.setOnAction(e -> {
-                int currentIndex = StateHolder.getState().hasDeckName(deck.getName()); //can put in responses
+                int currentIndex = StateHolder.getState().hasDeckName(deck.getDeckName()); //can put in responses
                 String name = deckNameInput.getText();
                 if (!name.isBlank()) {
                     int index = StateHolder.getState().hasDeckName(name);

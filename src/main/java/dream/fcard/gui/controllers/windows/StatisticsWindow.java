@@ -1,29 +1,39 @@
 package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import dream.fcard.logic.stats.Session;
-import dream.fcard.logic.stats.Stats;
-import javafx.collections.FXCollections;
+import dream.fcard.logic.stats.UserStats;
+import dream.fcard.logic.stats.UserStatsHolder;
+import dream.fcard.model.Deck;
+import dream.fcard.util.StatsDisplayUtil;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 
 /**
  * Window to display user's statistics.
  */
-public class StatisticsWindow extends VBox {
+public class StatisticsWindow extends ScrollPane {
     @FXML
     private Label totalSessions;
     @FXML
     private Label sessionsThisWeek;
     @FXML
+    private Label totalDuration;
+    @FXML
+    private Label averageDuration;
+    @FXML
+    private ScrollPane sessionsScrollPane;
+    @FXML
     private TableView<Session> sessionsTableView;
+    @FXML
+    private TableView<Deck> deckTableView;
+
+    private UserStats userStats;
 
     /** Creates a new instance of StatisticsWindow. */
     public StatisticsWindow() {
@@ -38,41 +48,26 @@ public class StatisticsWindow extends VBox {
             e.printStackTrace();
         }
 
-        displayStats();
-        displaySessionsTableView();
+        this.userStats = UserStatsHolder.getUserStats();
+        displaySummaryStats();
+
+        this.sessionsTableView = StatsDisplayUtil.getSessionsTableView();
+        this.sessionsScrollPane.setContent(sessionsTableView);
+
+        //this.deckTableView = StatsDisplayUtil.getDeckTableView(StateHolder.getState());
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
-    private void displayStats() {
-        int numSessions = Stats.getNumberOfLoginSessions();
-        totalSessions.setText("Total sessions: " + numSessions
+    private void displaySummaryStats() {
+        int numSessions = userStats.getSessionList().getNumberOfSessions();
+        this.totalSessions.setText("Total login sessions: " + numSessions
             + (numSessions == 1 ? " session" : " sessions"));
+
+        String duration = userStats.getSessionList().getTotalDurationAsString();
+        this.totalDuration.setText("Total login duration: " + duration);
+
+        String averageDuration = userStats.getSessionList().getAverageDurationAsString();
+        this.averageDuration.setText("Average duration per login: " + averageDuration);
     }
 
-    /** Creates the TableView object from the list of login sessions. */
-    private void displaySessionsTableView() {
-        ArrayList<Session> sessionsList = Stats.getLoginSessionsAsArrayList();
-        // temporary debug
-        for (Session session : sessionsList) {
-            System.out.println("Start: " + session.getSessionStartString());
-            System.out.println("End: " + session.getSessionEndString());
-            System.out.println("Duration: " + session.getDurationString());
-        }
-
-        sessionsTableView.setItems(FXCollections.observableArrayList(sessionsList));
-        sessionsTableView.setPlaceholder(new Label("There are no recorded sessions yet!"));
-
-        TableColumn<Session, String> startColumn = new TableColumn<>("Start");
-        startColumn.setCellValueFactory(new PropertyValueFactory<>("sessionStartString"));
-
-        TableColumn<Session, String> endColumn = new TableColumn<>("End");
-        endColumn.setCellValueFactory(new PropertyValueFactory<>("sessionEndString"));
-
-        TableColumn<Session, String> durationColumn = new TableColumn<>("Duration");
-        durationColumn.setCellValueFactory(new PropertyValueFactory<>("durationString"));
-
-        sessionsTableView.getColumns().add(startColumn);
-        sessionsTableView.getColumns().add(endColumn);
-        sessionsTableView.getColumns().add(durationColumn);
-    }
 }
