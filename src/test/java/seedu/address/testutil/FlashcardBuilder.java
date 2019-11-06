@@ -1,13 +1,11 @@
 package seedu.address.testutil;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.Question;
-import seedu.address.model.flashcard.ScheduleIncrement;
 import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.flashcard.Title;
 import seedu.address.model.tag.Tag;
@@ -20,7 +18,7 @@ public class FlashcardBuilder {
 
     public static final String DEFAULT_QUESTION = "What is binary value for true";
     public static final String DEFAULT_ANSWER = "1";
-    public static final String DEFAULT_TITLE = "My first flashcard!";
+    public static final String DEFAULT_TITLE = "My first flashcard";
     public static final Statistics DEFAULT_STATISTICS = new Statistics();
 
     private Question question;
