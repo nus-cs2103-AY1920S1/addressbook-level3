@@ -72,7 +72,7 @@ public class DeleteExpenseCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST);
 
         Index outOfBoundIndex = INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of moolah list
         assertTrue(
                 outOfBoundIndex.getZeroBased()
                 < model.getMooLah().getExpenseList().size());

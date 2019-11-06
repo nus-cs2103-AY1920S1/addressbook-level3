@@ -72,7 +72,7 @@ public class SwitchBudgetCommand extends UndoableCommand {
     }
 
     private Budget createEditedBudget(Budget budgetToEdit, boolean editedIsPrimary) {
-        return new Budget(budgetToEdit.getDescription(), budgetToEdit.getAmount(), budgetToEdit.getStartDate(),
-                budgetToEdit.getPeriod(), budgetToEdit.getExpenses(), editedIsPrimary);
+        return new Budget(budgetToEdit.getDescription(), budgetToEdit.getAmount(), budgetToEdit.getWindowStartDate(),
+                budgetToEdit.getBudgetPeriod(), budgetToEdit.getExpenses(), editedIsPrimary);
     }
 }

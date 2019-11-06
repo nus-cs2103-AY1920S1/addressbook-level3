@@ -1,5 +1,6 @@
 package seedu.moolah.model.budget;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Price;
@@ -46,175 +48,38 @@ public class Budget {
         this.expenses = FXCollections.observableArrayList();
     }
 
-    //Constructor for system.
+    //Constructor for system, six fields.
     public Budget(Description description, Price amount, Timestamp startDate, BudgetPeriod period,
                   ObservableList<Expense> expenses, boolean isPrimary) {
         this(description, amount, startDate, period);
 
-        requireAllNonNull(expenses, isPrimary);
+        requireNonNull(expenses);
         this.expenses = expenses;
         this.isPrimary = isPrimary;
     }
 
     public Description getDescription() {
-        return description;
+        return this.description;
     }
 
     public Price getAmount() {
-        return amount;
+        return this.amount;
     }
 
-    public Timestamp getStartDate() {
-        return window.getStartDate();
+    public Timestamp getWindowStartDate() {
+        return this.window.getStartDate();
     }
 
-    public Timestamp getEndDate() {
-        return window.getEndDate();
+    public Timestamp getWindowEndDate() {
+        return this.window.getEndDate();
     }
 
-    public BudgetPeriod getPeriod() {
-        return window.getPeriod();
+    public BudgetPeriod getBudgetPeriod() {
+        return this.window.getBudgetPeriod();
     }
 
     public ObservableList<Expense> getExpenses() {
-        return expenses;
-    }
-
-    public boolean isDefaultBudget() {
-        return this.description.equals(DEFAULT_BUDGET_DESCRIPTION);
-    }
-
-    /**
-     * Makes a deep copy of a budget.
-     *
-     * @param other The budget to be deep copied.
-     * @return A deep copy of the budget, with identical attributes.
-     */
-    public static Budget deepCopy(Budget other) { // can make non-static
-        ObservableList<Expense> expensesCopy = FXCollections.observableArrayList(other.expenses);
-        Budget budget = new Budget(other.description, other.amount, other.getStartDate(),
-                other.getPeriod(), expensesCopy, other.isPrimary);
-        return budget;
-    }
-
-    /**
-     * Normalizes the budget window to the current period.
-     */
-    public void normalize(Timestamp anchor) {
-        if (!isDefaultBudget()) {
-            window.normalize(anchor);
-        }
-    }
-
-    /**
-     * Adds an expense to this budget's expense list.
-     * @param e The expense to add.
-     */
-    public void addExpense(Expense e) {
-        if (!expenses.contains(e)) {
-            expenses.add(e);
-        }
-    }
-
-    /**
-     * Dummy.
-     * @param otherExpense
-     */
-    public void removeExpense(Expense otherExpense) {
-        Expense toRemove = null;
-        for (Expense expense : expenses) {
-            if (expense.isSameExpense(otherExpense)) {
-                toRemove = expense;
-                break;
-            }
-        }
-        expenses.remove(toRemove);
-    }
-
-    public void clearExpenses() {
-        expenses.clear();
-    }
-
-    /**
-     * Transfer all expenses from this budget to another.
-     */
-    public void transferExpensesTo(Budget other) {
-        if (other.isSameBudget(this)) {
-            return;
-        }
-        if (other.expenses != this.expenses) {
-            for (Expense e : expenses) {
-                e.setBudget(other);
-
-                other.expenses.add(e);
-            }
-        } else {
-            for (Expense e : expenses) {
-                e.setBudget(other);
-            }
-        }
-    }
-
-    /**
-     * Sets the specified expense in the expense list to an updated one.
-     * @param target The expense to be updated.
-     * @param editedExpense The edited expense.
-     */
-    public void setExpense(Expense target, Expense editedExpense) {
-        if (expenses.contains(target)) {
-            int index = expenses.indexOf(target);
-            expenses.set(index, editedExpense);
-        }
-    }
-
-    public ObservableList<Expense> getCurrentPeriodExpenses() {
-        ObservableList<Expense> currentPeriodExpenses = FXCollections.observableArrayList();
-        if (expenses != null) {
-            expenses.stream().forEach(e -> {
-                if (withinCurrentPeriod(e)) {
-                    currentPeriodExpenses.add(e);
-                }
-            });
-        }
-        return currentPeriodExpenses;
-    }
-
-    /**
-     * Checks if an expense is within the current budget period.
-     */
-    private boolean withinCurrentPeriod(Expense expense) {
-        return window.contains(expense.getTimestamp());
-    }
-
-    /**
-     * Dummy.
-     */
-    public double calculateExpenseSum() {
-        List<Expense> currentExpenses = getCurrentPeriodExpenses();
-        double sum = 0;
-        for (Expense expense : currentExpenses) {
-            sum += expense.getPrice().getAsDouble();
-        }
-        return sum;
-    }
-
-    public Percentage calculateProportionUsed() {
-        return Percentage.calculate(calculateExpenseSum(), amount.getAsDouble());
-    }
-
-    public boolean isHalf() {
-        return calculateProportionUsed().reach(IS_HALF_THRESHOLD);
-    }
-
-    public boolean isNear() {
-        return calculateProportionUsed().reach(IS_NEAR_THRESHOLD);
-    }
-
-    /**
-     * Checks whether the budget is exceeded.
-     */
-    public boolean isExceeded() {
-        return calculateExpenseSum() > amount.getAsDouble();
+        return this.expenses;
     }
 
     public boolean isPrimary() {
@@ -230,8 +95,186 @@ public class Budget {
     }
 
     /**
+     * Checks if this budget is default budget by comparison of budget descriptions.
+     *
+     * @return True if the budget is default budget, false otherwise.
+     */
+    public boolean isDefaultBudget() {
+        return this.description.equals(DEFAULT_BUDGET_DESCRIPTION);
+    }
+
+    /**
+     * Makes a deep copy of this budget.
+     *
+     * @return A deep copy of the budget, with identical attributes. The expense list is deep copied.
+     */
+    public Budget deepCopy() {
+        ObservableList<Expense> expensesCopy = FXCollections.observableArrayList(this.expenses);
+        Budget budget = new Budget(this.description, this.amount, this.getWindowStartDate(),
+                this.getBudgetPeriod(), expensesCopy, this.isPrimary);
+        return budget;
+    }
+
+    /**
+     * Normalizes the budget window to the period containing the specified timestamp.
+     *
+     * @param anchor The timestamp to anchor the period.
+     */
+    public void normalize(Timestamp anchor) {
+        requireNonNull(anchor);
+        if (!this.isDefaultBudget()) { // default budget has "infinity" period, no need to normalize
+            this.window.normalize(anchor);
+        }
+    }
+
+    /**
+     * Adds the specified expense to this budget's expense list. Duplicates are not added.
+     *
+     * @param toAdd The expense to add.
+     */
+    public void addExpense(Expense toAdd) {
+        requireNonNull(toAdd);
+        if (!this.expenses.contains(toAdd)) {
+            this.expenses.add(toAdd);
+        }
+    }
+
+    /**
+     * Removes the specified expense from this budget's expense list.
+     *
+     * @param toRemove The expense to remove.
+     */
+    public void removeExpense(Expense toRemove) {
+        //        Expense toRemove = null;
+        //        for (Expense expense : expenses) {
+        //            if (expense.isSameExpense(otherExpense)) {
+        //                toRemove = expense;
+        //                break;
+        //            }
+        //        }
+        requireNonNull(toRemove);
+        this.expenses.remove(toRemove);
+    }
+
+    /**
+     * Transfer all expenses from this budget to another.
+     *
+     * @param other The other budget to accept all expenses from this budget.
+     */
+    public void transferExpensesTo(Budget other) {
+        requireNonNull(other);
+        if (other.isSameBudget(this)) {
+            return;
+        }
+        for (Expense e : this.expenses) { // Change budget name in expenses
+            e.setBudget(other);
+        }
+        if (other.expenses != this.expenses) { // Prevents concurrent modification
+            for (Expense e : this.expenses) { // Add expenses to other budget's expense list
+                other.expenses.add(e);
+            }
+        }
+    }
+
+    /**
+     * Replaces the specified expense in the expense list with an updated one.
+     *
+     * @param target The expense to be updated.
+     * @param editedExpense The edited expense.
+     */
+    public void setExpense(Expense target, Expense editedExpense) {
+        requireAllNonNull(target, editedExpense);
+
+        if (this.expenses.contains(target)) {
+            int index = this.expenses.indexOf(target);
+            this.expenses.set(index, editedExpense);
+        }
+    }
+
+    /**
+     * Filters from the expense list those expenses that are within the current budgeting period.
+     *
+     * @return An ObservableList of expenses within the current budgeting period.
+     */
+    public ObservableList<Expense> getCurrentPeriodExpenses() {
+        ObservableList<Expense> currentPeriodExpenses = FXCollections.observableArrayList();
+        if (this.expenses != null) {
+            this.expenses.stream().forEach(e -> {
+                if (withinCurrentPeriod(e)) {
+                    currentPeriodExpenses.add(e);
+                }
+            });
+        }
+        return currentPeriodExpenses;
+    }
+
+    /**
+     * Checks if the specified expense is within the current budgeting period.
+     *
+     * @param expense The expense to be checked.
+     * @return True if the expense is within the current budgeting period. False otherwise.
+     */
+    private boolean withinCurrentPeriod(Expense expense) {
+        requireNonNull(expense);
+        return this.window.contains(expense.getTimestamp());
+    }
+
+    /**
+     * Calculates the sum of expenses within the current budgeting period.
+     *
+     * @return A double representing the sum of prices of expenses within the current budgeting period.
+     */
+    public double calculateExpenseSum() {
+        List<Expense> currentExpenses = getCurrentPeriodExpenses();
+        double sum = 0;
+        for (Expense expense : currentExpenses) {
+            sum += expense.getPrice().getAsDouble();
+        }
+        return sum;
+    }
+
+    /**
+     * Calculates the proportion of budget used in the current period.
+     *
+     * @return A Percentage representing the proportion used.
+     */
+    public Percentage calculateProportionUsed() {
+        return Percentage.calculate(this.calculateExpenseSum(), amount.getAsDouble());
+    }
+
+    /**
+     * Checks if half the budget has been used up.
+     *
+     * @return True if proportion used reaches IS_HALF_THRESHOLD (50%), false otherwise.
+     */
+    public boolean isHalf() {
+        return calculateProportionUsed().reach(IS_HALF_THRESHOLD);
+    }
+
+    /**
+     * Checks if the budget limit is near.
+     *
+     * @return True if proportion used reaches IS_NEAR_THRESHOLD (90%), false otherwise.
+     */
+    public boolean isNear() {
+        return calculateProportionUsed().reach(IS_NEAR_THRESHOLD);
+    }
+
+    /**
+     * Checks whether the budget is exceeded.
+     *
+     * @return True if expense sum is more than budget limit, false otherwise.
+     */
+    public boolean isExceeded() {
+        return calculateExpenseSum() > amount.getAsDouble();
+    }
+
+    /**
      * Returns true if both budgets have the same description, i.e. name.
      * Implication: all budgets should have different names.
+     *
+     * @param otherBudget The other budget to be compared.
+     * @return True if this budget and the other budget are the same budget, false otherwise.
      */
     public boolean isSameBudget(Budget otherBudget) {
         if (otherBudget == this) {
@@ -262,7 +305,6 @@ public class Budget {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(description, amount, window, expenses, isPrimary);
     }
 
@@ -270,10 +312,10 @@ public class Budget {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("|| Description: ")
-                .append(getDescription())
+                .append(this.description)
                 .append(" Amount: ")
-                .append(getAmount())
-                .append(window)
+                .append(this.amount)
+                .append(this.window)
                 .append(" ||");
         return builder.toString();
     }

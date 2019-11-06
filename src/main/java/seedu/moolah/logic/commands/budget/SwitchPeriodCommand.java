@@ -12,7 +12,7 @@ import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.ui.budget.BudgetPanel;
 
 /**
- * Switches budget window to a period in the past.
+ * Switches budget window to a different period. Switching to future period is not allowed.
  */
 public class SwitchPeriodCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "switchperiod";
@@ -26,10 +26,12 @@ public class SwitchPeriodCommand extends UndoableCommand {
 
     public static final String MESSAGE_SWITCH_PERIOD_SUCCESS = "Budget window switched back to the period "
             + "anchored by: %1$s";
+    public static final String MESSAGE_PERIOD_IS_FUTURE = "You cannot switch to a period in the future.";
 
     private final Timestamp pastDate;
 
     public SwitchPeriodCommand(Timestamp pastDate) {
+        requireNonNull(pastDate);
         this.pastDate = pastDate;
     }
 
@@ -41,11 +43,11 @@ public class SwitchPeriodCommand extends UndoableCommand {
     @Override
     protected void validate(Model model) throws CommandException {
         // No validation necessary.
-        Budget currentPeriod = Budget.deepCopy(model.getPrimaryBudget());
+        Budget currentPeriod = model.getPrimaryBudget().deepCopy();
         currentPeriod.normalize(Timestamp.getCurrentTimestamp());
 
-        if (pastDate.dateIsAfter(currentPeriod.getEndDate())) {
-            throw new CommandException("You cannot switch to a period in the future.");
+        if (pastDate.dateIsAfter(currentPeriod.getWindowEndDate())) {
+            throw new CommandException(MESSAGE_PERIOD_IS_FUTURE);
         }
     }
 

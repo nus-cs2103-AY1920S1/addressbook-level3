@@ -1,6 +1,7 @@
 package seedu.moolah.logic.parser.budget;
 
 import static seedu.moolah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moolah.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.Collections;
@@ -17,7 +18,7 @@ import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.expense.Description;
 
 /**
- * Parses input arguments and creates a new SwitchBudgetCommand object
+ * Parses input arguments and creates a new SwitchBudgetCommand object.
  */
 public class SwitchBudgetCommandParser implements Parser<SwitchBudgetCommand> {
 
@@ -38,6 +39,10 @@ public class SwitchBudgetCommandParser implements Parser<SwitchBudgetCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchBudgetCommand.MESSAGE_USAGE));
         }
 
+        if (hasRepeatedPrefixes(argMultimap, PREFIX_DESCRIPTION)) {
+            throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
+        }
+
         Description targetDescription = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
 
         return new SwitchBudgetCommand(targetDescription);
@@ -49,6 +54,14 @@ public class SwitchBudgetCommandParser implements Parser<SwitchBudgetCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the prefixes are repeated
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
     }
 
 }

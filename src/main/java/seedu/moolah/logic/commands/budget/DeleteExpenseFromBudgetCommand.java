@@ -17,7 +17,7 @@ import seedu.moolah.model.expense.Expense;
 import seedu.moolah.ui.budget.BudgetPanel;
 
 /**
- * Dummy.
+ * Deletes an expense identified using its displayed index from primary budget panel.
  */
 public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.PRIMARY_BUDGET;
@@ -59,7 +59,7 @@ public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
         Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteExpense(expenseToDelete);
         Budget primaryBudget = model.getPrimaryBudget();
-        Budget primaryBudgetCopy = Budget.deepCopy(primaryBudget);
+        Budget primaryBudgetCopy = primaryBudget.deepCopy();
         primaryBudgetCopy.removeExpense(expenseToDelete);
         model.setBudget(primaryBudget, primaryBudgetCopy);
         return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete),

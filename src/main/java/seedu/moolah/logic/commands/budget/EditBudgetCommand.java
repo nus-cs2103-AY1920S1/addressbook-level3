@@ -75,7 +75,7 @@ public class EditBudgetCommand extends UndoableCommand {
 
         List<Budget> lastShownList = model.getFilteredBudgetList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
         }
 
         Budget budgetToEdit = lastShownList.get(index.getZeroBased());
@@ -111,8 +111,8 @@ public class EditBudgetCommand extends UndoableCommand {
 
         Description updatedDescription = editBudgetDescriptor.getDescription().orElse(budgetToEdit.getDescription());
         Price updatedAmount = editBudgetDescriptor.getAmount().orElse(budgetToEdit.getAmount());
-        Timestamp updatedStartDate = editBudgetDescriptor.getStartDate().orElse(budgetToEdit.getStartDate());
-        BudgetPeriod updatedPeriod = editBudgetDescriptor.getPeriod().orElse(budgetToEdit.getPeriod());
+        Timestamp updatedStartDate = editBudgetDescriptor.getStartDate().orElse(budgetToEdit.getWindowStartDate());
+        BudgetPeriod updatedPeriod = editBudgetDescriptor.getPeriod().orElse(budgetToEdit.getBudgetPeriod());
         Budget newBudget = new Budget(updatedDescription, updatedAmount, updatedStartDate, updatedPeriod,
                 budgetToEdit.getExpenses(), budgetToEdit.isPrimary());
         newBudget.normalize(Timestamp.getCurrentTimestamp());
@@ -214,10 +214,10 @@ public class EditBudgetCommand extends UndoableCommand {
             // state check
             EditBudgetDescriptor e = (EditBudgetDescriptor) other;
 
-            return description.equals(e.description)
-                    && amount.equals(e.amount)
-                    && startDate.equals(e.startDate)
-                    && period.equals(e.period);
+            return getDescription().equals(e.getDescription())
+                    && getAmount().equals(e.getAmount())
+                    && getStartDate().equals(e.getStartDate())
+                    && getPeriod().equals(e.getPeriod());
         }
     }
 }

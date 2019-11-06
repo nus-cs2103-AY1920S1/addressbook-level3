@@ -1,12 +1,15 @@
 package seedu.moolah.model.budget;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import seedu.moolah.model.expense.Timestamp;
 
 /**
- * Dummy.
+ * Represents the current budget window, with start and end dates, and a period.
  */
 public class BudgetWindow {
     private Timestamp startDate;
@@ -14,78 +17,82 @@ public class BudgetWindow {
     private final BudgetPeriod period;
 
     public BudgetWindow(Timestamp startDate, BudgetPeriod period) {
+        requireAllNonNull(startDate, period);
         this.startDate = startDate.toStartOfDay();
         this.period = period;
         this.endDate = calculateEndDate();
     }
 
     public Timestamp getStartDate() {
-        return startDate;
+        return this.startDate;
     }
 
     public Timestamp getEndDate() {
-        return endDate;
+        return this.endDate;
     }
 
-    public BudgetPeriod getPeriod() {
-        return period;
+    public BudgetPeriod getBudgetPeriod() {
+        return this.period;
     }
 
     /**
-     * Dummy.
-     * @param timestamp
-     * @return
+     * Checks if this budget window contains the specified timestamp. That is, the timestamp
+     * is between start date and end date, inclusive.
+     *
+     * @param timestamp The specified timestamp to check against this window.
+     * @return True if the window contains the timestamp, false otherwise.
      */
     public boolean contains(Timestamp timestamp) {
+        requireNonNull(timestamp);
         return isAfterOrEqualStartDate(timestamp)
                 && isBeforeOrEqualEndDate(timestamp);
     }
 
     private boolean isAfterOrEqualStartDate(Timestamp timestamp) {
+        requireNonNull(timestamp);
         return timestamp.dateIsAfter(startDate.minusDays(1));
     }
 
     private boolean isBeforeOrEqualEndDate(Timestamp timestamp) {
+        requireNonNull(timestamp);
         return timestamp.dateIsBefore(endDate.plusDays(1));
     }
 
     /**
-     * Dummy.
-     * @param rawAnchor
+     * Normalizes this window to a period containing the specified timestamp.
+     *
+     * @param rawAnchor The timestamp to anchor the period.
      */
     public void normalize(Timestamp rawAnchor) {
+        requireNonNull(rawAnchor);
         LocalDateTime anchor = rawAnchor.toStartOfDay().fullTimestamp;
         LocalDateTime normalized;
 
         switch(period) {
-        case DAY:
-            normalized = anchor;
-            break;
-        case WEEK:
-            long daysDiff = ChronoUnit.DAYS.between(startDate.getDate(), anchor.toLocalDate());
-            long offset = daysDiff >= 0 ? daysDiff % 7 : daysDiff % 7 + 7;
-            normalized = anchor.toLocalDate().minusDays(offset).atStartOfDay();
-            break;
-        case MONTH:
-            int specifiedDayOfMonth = startDate.getDayOfMonth();
-            int currentDayOfMonth = anchor.getDayOfMonth();
-            normalized = currentDayOfMonth >= specifiedDayOfMonth
-                    ? anchor.withDayOfMonth(specifiedDayOfMonth)
-                    : anchor.minusMonths(1).withDayOfMonth(specifiedDayOfMonth);
-            break;
         case YEAR:
-            int specifiedDayOfYear = startDate.getDayOfYear();
-            int currentDayOfYear = anchor.getDayOfYear();
-            normalized = currentDayOfYear >= specifiedDayOfYear
+            int currentDayOfYear = startDate.getDayOfYear();
+            int anchorDayOfYear = anchor.getDayOfYear();
+            normalized = (anchorDayOfYear >= currentDayOfYear)
                     ? anchor.withMonth(startDate.getMonthValue())
                     .withDayOfMonth(startDate.getDayOfMonth())
                     : anchor.minusYears(1)
                     .withMonth(startDate.getMonthValue())
                     .withDayOfMonth(startDate.getDayOfMonth());
             break;
+        case MONTH:
+            int currentDayOfMonth = startDate.getDayOfMonth();
+            int anchorDayOfMonth = anchor.getDayOfMonth();
+            normalized = (anchorDayOfMonth >= currentDayOfMonth)
+                    ? anchor.withDayOfMonth(currentDayOfMonth)
+                    : anchor.minusMonths(1).withDayOfMonth(currentDayOfMonth);
+            break;
+        case WEEK:
+            long daysDiff = ChronoUnit.DAYS.between(startDate.getDate(), anchor.toLocalDate());
+            long offset = daysDiff >= 0 ? daysDiff % 7 : daysDiff % 7 + 7;
+            normalized = anchor.minusDays(offset);
+            break;
         default:
             normalized = anchor;
-
         }
 
         startDate = new Timestamp(normalized);
@@ -123,7 +130,6 @@ public class BudgetWindow {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Period: ")
-                //.append(ParserUtil.formatPeriod(period))
                 .append(period)
                 .append(" Start date: ")
                 .append(startDate)
@@ -131,6 +137,4 @@ public class BudgetWindow {
                 .append(endDate);
         return builder.toString();
     }
-
-
 }

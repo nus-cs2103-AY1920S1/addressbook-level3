@@ -7,14 +7,15 @@ import java.util.List;
 
 import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.logic.commands.budget.DeleteExpenseFromBudgetCommand;
+import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 
 /**
- * dummy.
+ * Parses input arguments and creates a new DeleteExpenseFromBudgetCommand object.
  */
-public class DeleteExpenseFromBudgetCommandParser {
+public class DeleteExpenseFromBudgetCommandParser implements Parser<DeleteExpenseFromBudgetCommand> {
 
     public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of());
     public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());

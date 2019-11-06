@@ -29,7 +29,6 @@ public class DeleteBudgetByNameCommand extends UndoableCommand {
             + PREFIX_DESCRIPTION + "Holiday";
 
     public static final String MESSAGE_DELETE_BUDGET_SUCCESS = "Deleted Budget:\n %1$s";
-    public static final String MESSAGE_BUDGET_NOT_FOUND = "This budget does not exist in MooLah";
 
     private final Description description;
 
@@ -51,7 +50,7 @@ public class DeleteBudgetByNameCommand extends UndoableCommand {
         requireNonNull(model);
 
         if (!model.hasBudgetWithName(description)) {
-            throw new CommandException(MESSAGE_BUDGET_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_BUDGET_NOT_FOUND);
         }
 
         if (description.equals(DEFAULT_BUDGET_DESCRIPTION)) {

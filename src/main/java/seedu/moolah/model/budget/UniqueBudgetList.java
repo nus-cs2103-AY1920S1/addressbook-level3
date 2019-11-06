@@ -38,12 +38,14 @@ public class UniqueBudgetList implements Iterable<Budget> {
      */
     public boolean contains(Budget toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameBudget);
+        return internalList
+                .stream()
+                .anyMatch(toCheck::isSameBudget);
     }
 
     /**
-     * Adds a budget to the list.
-     * The budget must not already exist in the list.F
+     * Adds a budget to the list, and sets it to primary.
+     * The budget must not already exist in the list.
      */
     public void add(Budget toAdd) {
         requireNonNull(toAdd);
@@ -51,18 +53,18 @@ public class UniqueBudgetList implements Iterable<Budget> {
             throw new DuplicateBudgetException();
         }
 
-
         toAdd.normalize(Timestamp.getCurrentTimestamp());
 
         internalList.add(toAdd);
         setPrimary(toAdd);
-
     }
 
     /**
-     * Adds a budget to MooLah when reconstructing MooLah from json storage file.
+     * Adds a budget to the list when reconstructing MooLah from json storage file.
+     * The primary status of budget is maintained.
      */
     public void addBudgetFromStorage(Budget toAdd) {
+        requireNonNull(toAdd);
         if (toAdd.isDefaultBudget()) {
             internalList.remove(getDefaultBudget());
             internalList.add(toAdd);
@@ -81,7 +83,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
     }
 
     public void setBudgets(List<Budget> budgets) {
-        requireAllNonNull(budgets);
+        requireNonNull(budgets);
         if (!budgetsAreUnique(budgets)) {
             throw new DuplicateBudgetException();
         }
@@ -89,29 +91,41 @@ public class UniqueBudgetList implements Iterable<Budget> {
         internalList.setAll(budgets);
     }
 
+    /**
+     * Sets the specified budget to primary. Sets all other budgets in the list to non-primary at the same time.
+     * @param budget The budget to be set to primary budget.
+     */
     public void setPrimary(Budget budget) {
-        requireAllNonNull(budget);
+        requireNonNull(budget);
         for (Budget b : internalList) {
             if (b.isPrimary() && !b.isSameBudget(budget)) {
-                Budget b1 = Budget.deepCopy(b);
-                b1.setToNotPrimary();
-                setBudget(b, b1);
+                Budget copy = b.deepCopy();
+                copy.setToNotPrimary();
+                setBudget(b, copy);
             }
         }
-        Budget b1 = Budget.deepCopy(budget);
-        b1.setToPrimary();
-        setBudget(budget, b1);
+        Budget copy = budget.deepCopy();
+        copy.setToPrimary();
+        setBudget(budget, copy);
     }
 
-    public void setPrimaryBudget(String s) {
+    /**
+     * Sets the budget with the specified description to primary.
+     *
+     * @param s A string representing the description of the budget to be set to primary.
+     */
+    public void setPrimaryFromString(String s) {
+        requireNonNull(s);
         Description name = new Description(s);
         if (!hasBudgetWithName(name)) {
             throw new BudgetNotFoundException();
         }
-
         setPrimary(getBudgetWithName(name));
     }
 
+    /**
+     * Returns the primary budget in this list.
+     */
     public Budget getPrimaryBudget() {
         Budget primaryBudget = null;
         for (int i = 0; i < internalList.size(); i++) {
@@ -125,27 +139,41 @@ public class UniqueBudgetList implements Iterable<Budget> {
     }
 
     /**
-     * Changes window of primary budget to a past one specified by the anchor date.
+     * Changes window of primary budget to a different window anchored by the specified date.
+     * Not allowed to switch to a future period.
+     *
+     * @param date A date to anchor the window to be switched to.
      */
-    public void changePrimaryBudgetWindow(Timestamp pastDate) {
-        requireAllNonNull(pastDate);
-        Budget currentPeriod = Budget.deepCopy(getPrimaryBudget());
+    public void changePrimaryBudgetWindow(Timestamp date) {
+        requireNonNull(date);
+        Budget primaryBudget = getPrimaryBudget();
+        Budget currentPeriod = primaryBudget.deepCopy();
         currentPeriod.normalize(Timestamp.getCurrentTimestamp());
 
-        if (pastDate.dateIsAfter(currentPeriod.getEndDate())) {
+        if (date.dateIsAfter(currentPeriod.getWindowEndDate())) {
             throw new SwitchToFuturePeriodException();
         }
 
-        Budget copy = Budget.deepCopy(getPrimaryBudget());
-        copy.normalize(pastDate);
-        setBudget(getPrimaryBudget(), copy);
+        Budget copy = primaryBudget.deepCopy();
+        copy.normalize(date);
+        setBudget(primaryBudget, copy);
     }
 
+    /**
+     * Returns true if there is a budget with the specified description in the list.
+     */
     public boolean hasBudgetWithName(Description targetDescription) {
-        return internalList.stream().anyMatch(b -> b.getDescription().equals(targetDescription));
+        requireNonNull(targetDescription);
+        return internalList
+                .stream()
+                .anyMatch(b -> b.getDescription().equals(targetDescription));
     }
 
+    /**
+     * Returns a budget with the specified description in the list.
+     */
     public Budget getBudgetWithName(Description targetDescription) {
+        requireNonNull(targetDescription);
         Budget targetBudget = null;
         for (int i = 0; i < internalList.size(); i++) {
             Budget b = internalList.get(i);
@@ -162,7 +190,9 @@ public class UniqueBudgetList implements Iterable<Budget> {
     }
 
     /**
-     * Removes a budget from this unique budget list.
+     * Removes a budget from this unique budget list. Default budget cannot be removed.
+     * Expenses from the removed budget are transferred to the default budget.
+     * If the removed budget was primary, default budget is set to primary.
      */
     public void remove(Budget toRemove) {
         requireNonNull(toRemove);
@@ -172,25 +202,30 @@ public class UniqueBudgetList implements Iterable<Budget> {
         if (!internalList.remove(toRemove)) {
             throw new BudgetNotFoundException();
         }
-        toRemove.transferExpensesTo(getDefaultBudget());
+        Budget defaultBudget = this.getDefaultBudget();
+        toRemove.transferExpensesTo(defaultBudget);
 
         if (toRemove.isPrimary()) {
-            setPrimary(getDefaultBudget());
+            setPrimary(defaultBudget);
         }
     }
 
     /**
      * Handles issue of duplicate primary budgets when undoing "clearbudgets".
+     * Sets default budget to non-primary if there are more than one primary budgets in the list.
      */
     public void handleDuplicatePrimaryBudgets() {
-        List<Budget> primaryBudgets = internalList.stream().filter(b -> b.isPrimary()).collect(Collectors.toList());
+        List<Budget> primaryBudgets = internalList
+                .stream()
+                .filter(b -> b.isPrimary())
+                .collect(Collectors.toList());
         if (primaryBudgets.size() > 1) {
             getDefaultBudget().setToNotPrimary();
         }
     }
 
     /**
-     * Deletes the budget with the specified name.
+     * Deletes the budget with the specified description.
      */
     public void deleteBudgetWithName(Description description) {
         requireNonNull(description);
@@ -199,7 +234,9 @@ public class UniqueBudgetList implements Iterable<Budget> {
     }
 
     /**
-     * Clears all budgets in the list.
+     * Clears all budgets in the list, except the default budget.
+     * Expenses are transferred to the default budget.
+     * Default budget is set to primary after this process.
      */
     public void clearBudgets() {
         Budget defaultBudget = getDefaultBudget();
@@ -214,11 +251,29 @@ public class UniqueBudgetList implements Iterable<Budget> {
     }
 
     /**
-     * Switches primary budget to target budget.
+     * Switches primary budget to the budget with the specified description.
      */
     public void switchBudgetTo(Description targetDescription) {
+        requireNonNull(targetDescription);
         Budget targetBudget = getBudgetWithName(targetDescription);
         setPrimary(targetBudget);
+    }
+
+    /**
+     * Replaces the target budget with an edited budget.
+     */
+    public void setBudget(Budget target, Budget editedBudget) {
+        requireAllNonNull(target, editedBudget);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new BudgetNotFoundException();
+        }
+        if (!target.isSameBudget(editedBudget) && contains(editedBudget)) {
+            throw new DuplicateBudgetException();
+        }
+        target.transferExpensesTo(editedBudget);
+        internalList.set(index, editedBudget);
     }
 
     public boolean isEmpty() {
@@ -259,22 +314,4 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
         return true;
     }
-
-    public void setBudget(Budget target, Budget editedBudget) {
-        requireAllNonNull(target, editedBudget);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new BudgetNotFoundException();
-        }
-        if (!target.isSameBudget(editedBudget) && contains(editedBudget)) {
-            throw new DuplicateBudgetException();
-        }
-
-        target.transferExpensesTo(editedBudget);
-
-        internalList.set(index, editedBudget);
-
-    }
-
 }

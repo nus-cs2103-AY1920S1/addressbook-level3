@@ -1,6 +1,7 @@
 package seedu.moolah.logic.parser.budget;
 
 import static seedu.moolah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moolah.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.Collections;
@@ -10,15 +11,16 @@ import java.util.stream.Stream;
 import seedu.moolah.logic.commands.budget.DeleteBudgetByNameCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
+import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.expense.Description;
 
 /**
- * Parses input arguments and creates a new DeleteBudgetByNameCommand object
+ * Parses input arguments and creates a new DeleteBudgetByNameCommand object.
  */
-public class DeleteBudgetByNameCommandParser {
+public class DeleteBudgetByNameCommandParser implements Parser<DeleteBudgetByNameCommand> {
     public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(PREFIX_DESCRIPTION));
     public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
 
@@ -37,6 +39,10 @@ public class DeleteBudgetByNameCommandParser {
                     DeleteBudgetByNameCommand.MESSAGE_USAGE));
         }
 
+        if (hasRepeatedPrefixes(argMultimap, PREFIX_DESCRIPTION)) {
+            throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
+        }
+
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
 
         return new DeleteBudgetByNameCommand(description);
@@ -48,5 +54,13 @@ public class DeleteBudgetByNameCommandParser {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the prefixes are repeated
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
     }
 }

@@ -9,7 +9,7 @@ import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteBudgetByIndexCommand object
+ * Parses input arguments and creates a new DeleteBudgetByIndexCommand object.
  */
 public class DeleteBudgetByIndexCommandParser implements Parser<DeleteBudgetByIndexCommand> {
 

@@ -59,6 +59,10 @@ public class CommandTestUtil {
     public static final String VALID_BUDGET_AMOUNT_SCHOOL = "300";
     public static final String VALID_BUDGET_START_DATE_SCHOOL = "01-10-2019";
     public static final String VALID_BUDGET_PERIOD_SCHOOL = "month";
+    public static final String VALID_BUDGET_DESCRIPTION_HOLIDAY = "holiday";
+    public static final String VALID_BUDGET_AMOUNT_HOLIDAY = "3000";
+    public static final String VALID_BUDGET_START_DATE_HOLIDAY = "01-01-2019";
+    public static final String VALID_BUDGET_PERIOD_HOLIDAY = "year";
 
     public static final String EXPENSE_DESCRIPTION_DESC_CHICKEN =
             " " + PREFIX_DESCRIPTION + VALID_EXPENSE_DESCRIPTION_CHICKEN;
@@ -88,6 +92,10 @@ public class CommandTestUtil {
     public static final String BUDGET_AMOUNT_DESC_SCHOOL = " " + PREFIX_PRICE + VALID_BUDGET_AMOUNT_SCHOOL;
     public static final String BUDGET_START_DATE_DESC_SCHOOL = " " + PREFIX_START_DATE + VALID_BUDGET_START_DATE_SCHOOL;
     public static final String BUDGET_PERIOD_DESC_SCHOOL = " " + PREFIX_PERIOD + VALID_BUDGET_PERIOD_SCHOOL;
+    public static final String INVALID_BUDGET_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "sch@@l";
+    public static final String INVALID_BUDGET_AMOUNT_DESC = " " + PREFIX_PRICE + "100x";
+    public static final String INVALID_BUDGET_START_DATE_DESC = " " + PREFIX_START_DATE + "xdfa";
+    public static final String INVALID_BUDGET_PERIOD_DESC = " " + PREFIX_PERIOD + "xdafd";
 
     // '&' not allowed in descriptions
     public static final String INVALID_EXPENSE_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";
@@ -95,7 +103,7 @@ public class CommandTestUtil {
     public static final String INVALID_EXPENSE_PRICE_DESC = " " + PREFIX_PRICE + "911a";
     // Non Natty-recognised input not allowed in timestamps
     public static final String INVALID_EXPENSE_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "asdf";
-    // '*' not allowed in tags
+    // '*' not allowed in categories
     public static final String INVALID_EXPENSE_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*";
 
     // '&' not allowed in descriptions
@@ -104,7 +112,7 @@ public class CommandTestUtil {
     public static final String INVALID_EVENT_PRICE_DESC = " " + PREFIX_PRICE + "911a";
     // Non Natty-recognised input not allowed in timestamps
     public static final String INVALID_EVENT_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "asdf";
-    // '*' not allowed in tags
+    // '*' not allowed in categories
     public static final String INVALID_EVENT_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

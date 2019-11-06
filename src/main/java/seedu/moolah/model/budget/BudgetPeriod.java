@@ -1,9 +1,11 @@
 package seedu.moolah.model.budget;
 
+import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.Period;
 
 /**
- * Dummy.
+ * Represents fixed budgeting periods.
  */
 public enum BudgetPeriod {
     DAY("day", Period.ofDays(1)),
@@ -16,16 +18,17 @@ public enum BudgetPeriod {
     private final Period period;
 
     BudgetPeriod(String label, Period period) {
+        requireAllNonNull(label, period);
         this.label = label;
         this.period = period;
     }
 
     public Period getPeriod() {
-        return period;
+        return this.period;
     }
 
     @Override
     public String toString() {
-        return label;
+        return this.label;
     }
 }
