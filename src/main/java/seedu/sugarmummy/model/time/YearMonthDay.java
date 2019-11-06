@@ -78,7 +78,7 @@ public class YearMonthDay {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof YearMonthDay
-                && ((YearMonthDay) other).yearMonthDay.equals(yearMonthDay));
+                        && ((YearMonthDay) other).yearMonthDay.equals(yearMonthDay));
     }
 
     @Override

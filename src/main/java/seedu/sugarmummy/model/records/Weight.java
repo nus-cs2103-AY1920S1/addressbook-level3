@@ -49,7 +49,7 @@ public class Weight {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Weight // instanceof handles nulls
-                && weight == ((Weight) other).weight); // state check
+                        && weight == ((Weight) other).weight); // state check
     }
 
     @Override

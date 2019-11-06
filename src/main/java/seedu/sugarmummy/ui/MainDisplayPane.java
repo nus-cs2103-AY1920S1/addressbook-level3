@@ -103,7 +103,7 @@ public class MainDisplayPane {
      * Returns a calendar pane representing the Main Display Pane observed by the user.
      */
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
-                              YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
+            YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
         return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth, yearMonthDay, isShowingWeek,
                 logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
 
@@ -120,7 +120,7 @@ public class MainDisplayPane {
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
     private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
-                                         Supplier<UiPart<Region>> newPaneSupplier, boolean isToCreateNewPane) {
+            Supplier<UiPart<Region>> newPaneSupplier, boolean isToCreateNewPane) {
         UiPart<Region> mappedPane = map.get(displayPaneType);
         currPaneType = displayPaneType;
         if (mappedPane == null || isToCreateNewPane) {

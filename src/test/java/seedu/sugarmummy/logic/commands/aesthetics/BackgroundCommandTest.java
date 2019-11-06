@@ -134,10 +134,11 @@ class BackgroundCommandTest {
         expectedModel.setFontColour(new Colour("white"));
 
         String updateMessage = "- Background has been changed from " + model.getBackground() + " to black.\n";
-        updateMessage += FontColourCommand.MESSAGE_SUCCESS + " Colour has been changed from "
+        updateMessage += FontColourCommand.MESSAGE_SUCCESS + "\nColour has been changed from "
                 + modelStubForFontColour.getFontColour() + " to white.";
 
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS + "\n" + updateMessage);
+
         assertCommandSuccess(new BackgroundCommand(background, fontColourCommand), model,
                 expectedCommandResult, expectedModel);
     }

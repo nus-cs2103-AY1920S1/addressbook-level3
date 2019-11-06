@@ -43,7 +43,7 @@ public class DisplayPicPath {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DisplayPicPath // instanceof handles nulls
-                && displayPicPath.equals(((DisplayPicPath) other).displayPicPath)); // state check
+                        && displayPicPath.equals(((DisplayPicPath) other).displayPicPath)); // state check
     }
 
     @Override

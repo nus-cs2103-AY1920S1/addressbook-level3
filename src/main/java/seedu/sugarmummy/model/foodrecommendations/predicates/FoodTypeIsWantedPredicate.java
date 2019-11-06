@@ -35,6 +35,6 @@ public class FoodTypeIsWantedPredicate implements Predicate<Food> {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof FoodTypeIsWantedPredicate
-                && foodTypes.equals(((FoodTypeIsWantedPredicate) other).foodTypes));
+                        && foodTypes.equals(((FoodTypeIsWantedPredicate) other).foodTypes));
     }
 }

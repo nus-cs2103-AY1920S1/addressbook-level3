@@ -33,8 +33,8 @@ class JsonAdaptedFood {
      */
     @JsonCreator
     public JsonAdaptedFood(@JsonProperty("foodName") String foodName, @JsonProperty("foodType") String foodType,
-                           @JsonProperty("calorie") String calorie, @JsonProperty("gi") String gi,
-                           @JsonProperty("sugar") String sugar, @JsonProperty("fat") String fat) {
+            @JsonProperty("calorie") String calorie, @JsonProperty("gi") String gi,
+                    @JsonProperty("sugar") String sugar, @JsonProperty("fat") String fat) {
         this.foodName = foodName;
         this.foodType = foodType;
         this.calorie = calorie;

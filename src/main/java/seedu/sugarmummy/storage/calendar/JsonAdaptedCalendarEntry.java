@@ -18,7 +18,7 @@ public abstract class JsonAdaptedCalendarEntry {
      */
     @JsonCreator
     public JsonAdaptedCalendarEntry(@JsonProperty("description") String description,
-                                    @JsonProperty("dateTime") String dateTime) {
+            @JsonProperty("dateTime") String dateTime) {
         this.description = description;
         this.dateTime = dateTime;
     }

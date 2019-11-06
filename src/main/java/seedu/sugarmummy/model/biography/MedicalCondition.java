@@ -41,7 +41,7 @@ public class MedicalCondition implements ListableField {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MedicalCondition // instanceof handles nulls
-                && medicalCondition.equals(((MedicalCondition) other).medicalCondition)); // state check
+                        && medicalCondition.equals(((MedicalCondition) other).medicalCondition)); // state check
     }
 
     @Override

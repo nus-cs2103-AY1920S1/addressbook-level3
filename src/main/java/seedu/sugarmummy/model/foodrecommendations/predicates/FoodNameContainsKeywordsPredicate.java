@@ -35,7 +35,7 @@ public class FoodNameContainsKeywordsPredicate implements Predicate<Food> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FoodNameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((FoodNameContainsKeywordsPredicate) other).keywords)); // state check
+                        && keywords.equals(((FoodNameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

@@ -130,7 +130,7 @@ public class User {
 
         return otherUser != null
                 && otherUser.getName().equals(getName())
-                && (otherUser.getNric().equals(getNric()));
+                        && (otherUser.getNric().equals(getNric()));
     }
 
     /**

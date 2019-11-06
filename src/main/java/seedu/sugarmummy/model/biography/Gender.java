@@ -44,7 +44,7 @@ public class Gender {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Gender // instanceof handles nulls
-                && gender.equals(((Gender) other).gender)); // state check
+                        && gender.equals(((Gender) other).gender)); // state check
     }
 
     @Override

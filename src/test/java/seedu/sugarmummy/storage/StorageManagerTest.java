@@ -28,7 +28,8 @@ public class StorageManagerTest {
         JsonUserListStorage userListStorage = new JsonUserListStorage(getTempFilePath("userList"));
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(getTempFilePath("fl"));
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(getTempFilePath("rl"));
-        JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(getTempFilePath("el"), getTempFilePath("rl"));
+        JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(getTempFilePath("el"),
+                getTempFilePath("rl"));
         storageManager = new StorageManager(userPrefsStorage, userListStorage, jsonFoodListStorage,
                 jsonRecordListStorage, jsonCalendarStorage);
     }

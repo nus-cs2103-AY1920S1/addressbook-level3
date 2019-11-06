@@ -163,7 +163,7 @@ public class AchievementStateProcessor {
      * @return Whether or not the requirement for an achievement has already been met.
      */
     private boolean requirementIsMet(Achievement achievement, int daysToIterate,
-                                     List<Map.Entry<LocalDate, Double>> averageAchievementKeyValueList) {
+            List<Map.Entry<LocalDate, Double>> averageAchievementKeyValueList) {
         boolean fulfillsRequirements = true;
         LocalDate moreRecentDate = null;
         for (int i = 0; i < daysToIterate; i++) {

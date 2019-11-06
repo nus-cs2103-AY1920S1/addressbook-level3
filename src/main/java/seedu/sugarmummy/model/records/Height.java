@@ -48,7 +48,7 @@ public class Height {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Height // instanceof handles nulls
-                && height == ((Height) other).height); // state check
+                        && height == ((Height) other).height); // state check
     }
 
     @Override

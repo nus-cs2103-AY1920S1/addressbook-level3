@@ -39,7 +39,7 @@ public class Goal implements ListableField {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Goal // instanceof handles nulls
-                && goal.equals(((Goal) other).goal)); // state check
+                        && goal.equals(((Goal) other).goal)); // state check
     }
 
     @Override
