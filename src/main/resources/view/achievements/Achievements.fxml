@@ -68,6 +68,7 @@
            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
          </Menu>
        </MenuBar>
+            <HBox minHeight="3.0" prefHeight="3.0" VBox.vgrow="NEVER" />
             <HBox id="header" alignment="CENTER" prefWidth="460.0">
                <children>
                   <VBox alignment="CENTER">
@@ -82,7 +83,6 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox minHeight="3.0" prefHeight="3.0" VBox.vgrow="NEVER" />
             <HBox fx:id="border" minHeight="5.0" prefHeight="5.0" prefWidth="440.0">
                <VBox.margin>
                   <Insets />
