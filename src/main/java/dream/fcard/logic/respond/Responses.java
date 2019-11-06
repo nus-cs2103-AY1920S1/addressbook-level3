@@ -304,7 +304,7 @@ public enum Responses {
                     MultipleChoiceCard mcqCard = (MultipleChoiceCard) card;
                     String newChoice = res.get(5).get(0);
 
-                    try{
+                    try {
                         int choiceIndex = Integer.parseInt(res.get(4).get(0));
                         mcqCard.editChoice(choiceIndex, newChoice);
                     } catch (NumberFormatException | IndexNotFoundException n) {
