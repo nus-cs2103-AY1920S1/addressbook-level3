@@ -74,7 +74,7 @@ public class JsonAdaptedEvent {
         }
 
         if (!Event.isValidName(name)) {
-            throw new IllegalValueException(Event.INVALID_NAME_MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Event.MESSAGE_CONSTRAINTS);
         }
 
         final String modelName = name.trim().toLowerCase();

@@ -188,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
                     showCalendar(commandResult.getModel());
                     break;
                 case "attendance":
-                    showAttendancePanel();
+                    showAttendancePanel(commandResult.getModel());
                     break;
                 case "performance":
                     showPerformancePanel(commandResult.getModel());
@@ -200,7 +200,8 @@ public class MainWindow extends UiPart<Stage> {
 
             if (!(commandResult.getPerson() == null)) {
                 InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson(),
-                                                                               logic.getPersonAttendance());
+                                                                               logic.getPersonAttendance(),
+                                                                               logic.getAthleteEvents());
                 featureBoxPlaceholder.getChildren().clear();
                 featureBoxPlaceholder.getChildren().add(informationDisplay.getRoot());
             }
@@ -250,8 +251,8 @@ public class MainWindow extends UiPart<Stage> {
         featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
     }
 
-    private void showAttendancePanel() {
-        AttendancePanel attendance = new AttendancePanel();
+    private void showAttendancePanel(Model model) {
+        AttendancePanel attendance = new AttendancePanel(model);
         featureBoxPlaceholder.getChildren().clear();
         featureBoxPlaceholder.getChildren().add(attendance.getRoot());
     }

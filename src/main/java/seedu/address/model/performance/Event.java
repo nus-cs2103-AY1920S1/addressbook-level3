@@ -14,10 +14,9 @@ import seedu.address.model.person.Person;
  */
 public class Event {
 
-    public static final String MESSAGE_CONSTRAINTS = "%1$s event has not been created.\n"
+    public static final String MESSAGE_NO_SUCH_EVENT = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
-
-    public static final String INVALID_NAME_MESSAGE_CONSTRAINTS = "Event name should not begin with a space.\n";
+    public static final String MESSAGE_CONSTRAINTS = "Event name should not begin with a space.\n";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -113,8 +112,7 @@ public class Event {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both events have the same names.
      */
     @Override
     public boolean equals(Object other) {
@@ -130,6 +128,11 @@ public class Event {
         return otherEvent.getName().equals(name);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     //// Analysis helper functions
 
     public List<Record> getAthleteRecords(Person athlete) {
@@ -141,16 +144,18 @@ public class Event {
     /**
      * Retrieves the athlete's fastest timing for this event.
      */
-    public double getPersonalBest(Person athlete) {
+    public String[] getPersonalBest(Person athlete) {
         double personalBest = Double.MAX_VALUE;
+        String personalBestDate = "";
         for (Record record : getAthleteRecords(athlete)) {
             double timing = record.getTiming().getValue();
             if (timing < personalBest) {
                 personalBest = timing;
+                personalBestDate = record.getDate().toString();
             }
         }
         assert(personalBest < Double.MAX_VALUE);
-        return personalBest;
+        return new String[]{personalBest + " seconds", personalBestDate};
     }
 
     /**

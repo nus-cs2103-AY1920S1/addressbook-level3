@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -12,6 +13,7 @@ import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 /**
@@ -106,15 +108,47 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Add training.
+     * Adds {@code training} to the Attendance class.
      */
     void addTraining(Training training);
 
-    Training getTrainingOnDate(AthletickDate date);
-    HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date);
+    /**
+     * Replaces all occurences of person at {@code target} with {@code editedPerson} in training records.
+     */
+    void editPersonTrainingRecords(Person target, Person editedPerson);
 
+    /**
+     * Removes training on {@code date}
+     */
+    void deleteTrainingOnDate(AthletickDate date);
+
+    /**
+     * Gets a list of AttendanceEntry on {@code date}, where each entry indicates whether a person was present.
+     * @param date Date of training.
+     * @return List of AttendanceEntry, where each entry indicates whether a person was present for training on date.
+     */
+    List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date);
+
+    /**
+     * Returns a list of AttendanceRateEntry, where each entry indicates the attendance rate of a person.
+     */
+    List<AttendanceRateEntry> getAttendanceRateOfAll();
+
+    /**
+     * Returns the Attendance.
+     */
     Attendance getAttendance();
-    boolean hasTraining(AthletickDate training);
+
+    /**
+     * Resets all data in Attendance.
+     */
+    void resetAttendance();
+    /**
+     * Checks with Attendance if there was a Training on {@code date}.
+     * @param date Date of training.
+     * @return Boolean indicating if there was a training on {@code date}.
+     */
+    boolean hasTrainingOnDate(AthletickDate date);
 
     /**
      * Replaces performance data with the data in {@code performance}.
@@ -125,6 +159,12 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
+    /**
+     * Deletes the given event.
+     * The event must exist in performance.
+     */
+    void deleteEvent(Event target);
+
     ReadOnlyPerformance getPerformance();
 
     void addRecord(String eventName, Person person, Record record);
@@ -132,5 +172,7 @@ public interface Model {
     HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date);
 
     boolean hasPerformanceOn(AthletickDate date);
+
+    ArrayList<Event> getAthleteEvents(Person athlete);
 
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -23,6 +24,7 @@ import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 /**
@@ -116,6 +118,7 @@ public class ModelManager implements Model {
         deepCopy.getPersons().setPersons(persons);
         return deepCopy;
     }
+
     @Override
     public void undo() {
         Command undoneCommand = HistoryManager.getCommands().pop();
@@ -132,6 +135,7 @@ public class ModelManager implements Model {
             athletick.resetData(afterUndoneState);
         }
     }
+
     @Override
     public void redo() {
         Command redoneCommand = HistoryManager.getUndoneCommands().pop();
@@ -219,18 +223,42 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
-    //=========== Training =================================================================================
+    //=========== Training & Attendance =======================================================================
     @Override
-    public Training getTrainingOnDate(AthletickDate date) {
-        return attendance.getTrainingOnDate(date);
+    public void addTraining(Training training) {
+        this.attendance.addTraining(training);
     }
 
     @Override
-    public HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date) {
-        return attendance.getTrainingAttendanceOnDate(date);
+    public void editPersonTrainingRecords(Person target, Person editedPerson) {
+        this.attendance.editPersonTrainingRecords(target, editedPerson);
     }
 
-    //=========== Attendance =================================================================================
+    @Override
+    public boolean hasTrainingOnDate(AthletickDate date) {
+        return this.attendance.hasTrainingOnDate(date);
+    }
+
+    @Override
+    public void deleteTrainingOnDate(AthletickDate date) {
+        this.attendance.deleteTrainingOnDate(date);
+    }
+
+    @Override
+    public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
+        return attendance.getTrainingAttendanceListOnDate(date);
+    }
+
+    @Override
+    public List<AttendanceRateEntry> getAttendanceRateOfAll() {
+        List<Person> allPeople = getAddressBook().getPersonList();
+        List<AttendanceRateEntry> attendanceRateEntries = new ArrayList<>();
+        for (Person person : allPeople) {
+            attendanceRateEntries.add(new AttendanceRateEntry(person,
+                    attendance.getPersonAttendanceRateString(person)));
+        }
+        return attendanceRateEntries;
+    }
 
     @Override
     public Attendance getAttendance() {
@@ -238,13 +266,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasTraining(AthletickDate date) {
-        return this.attendance.hasTraining(date);
-    }
-
-    @Override
-    public void addTraining(Training training) {
-        this.attendance.addTraining(training);
+    public void resetAttendance() {
+        this.attendance.resetAttendance();
     }
 
     //=========== Performance =================================================================================
@@ -265,6 +288,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteEvent(Event target) {
+        performance.removeEvent(target);
+    }
+
+    @Override
     public ReadOnlyPerformance getPerformance() {
         return performance;
     }
@@ -282,5 +310,10 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPerformanceOn(AthletickDate date) {
         return performance.hasPerformanceOn(date);
+    }
+
+    @Override
+    public ArrayList<Event> getAthleteEvents(Person athlete) {
+        return performance.getAthleteEvent(athlete);
     }
 }

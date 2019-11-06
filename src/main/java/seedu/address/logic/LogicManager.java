@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.history.HistoryManager;
+import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -72,7 +74,12 @@ public class LogicManager implements Logic {
 
     @Override
     public String getPersonAttendance() {
-        return model.getAttendance().getPersonAttendanceString(getPerson());
+        return model.getAttendance().getPersonAttendanceRateString(getPerson());
+    }
+
+    @Override
+    public ArrayList<Event> getAthleteEvents() {
+        return model.getAthleteEvents(getPerson());
     }
 
     @Override

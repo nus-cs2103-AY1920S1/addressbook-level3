@@ -29,6 +29,17 @@ public class Training {
         return this.trainingAttendance;
     }
 
+    public List<AttendanceEntry> getTrainingAttendanceList() {
+        List<AttendanceEntry> trainingAttendanceList = new ArrayList<>();
+        trainingAttendance.forEach((person, isPresent) -> {
+            trainingAttendanceList.add(new AttendanceEntry(person, isPresent));
+        });
+        trainingAttendanceList.sort((firstEntry, secondEntry) -> {
+            return firstEntry.getPerson().getName().toString().compareTo(secondEntry.getPerson().getName().toString());
+        });
+        return trainingAttendanceList;
+    }
+
     public boolean hasPerson(Person person) {
         return this.trainingAttendance.containsKey(person);
     }
@@ -65,5 +76,16 @@ public class Training {
             }
         }
         return listOfAbsentees;
+    }
+
+    /**
+     * Replaces person data in the training record. Called when a person is edited.
+     */
+    public void editPersonDetails(Person target, Person editedPerson) {
+        assert(this.hasPerson(target)); // done in other calls
+
+        boolean hasAttended = this.hasPersonAttended(target);
+        this.trainingAttendance.remove(target);
+        this.trainingAttendance.put(editedPerson, hasAttended);
     }
 }

@@ -29,6 +29,7 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AthletickStorage;
 import seedu.address.storage.AttendanceStorage;
 import seedu.address.storage.JsonAthletickStorage;
+import seedu.address.storage.ImageStorage;
 import seedu.address.storage.JsonAttendanceStorage;
 import seedu.address.storage.JsonPerformanceStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -67,8 +68,10 @@ public class MainApp extends Application {
         AthletickStorage athletickStorage = new JsonAthletickStorage(userPrefs.getAthletickFilePath());
         PerformanceStorage performanceStorage = new JsonPerformanceStorage(userPrefs.getPerformanceFilePath());
         AttendanceStorage attendanceStorage = new JsonAttendanceStorage(userPrefs.getAttendanceFilePath());
-        storage = new StorageManager(athletickStorage, performanceStorage, attendanceStorage,
-                userPrefsStorage);
+        ImageStorage imageStorage = new ImageStorage(userPrefs.getImageFilePath());
+        storage = new StorageManager(athletickStorage, performanceStorage, attendanceStorage, userPrefsStorage);
+
+        imageStorage.createImageFile();
 
         initLogging(config);
 
@@ -81,9 +84,11 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address
+     * book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if
+     * {@code storage}'s address book is not found, or an empty address book will be
+     * used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAthletick> athletickOptional;
@@ -92,21 +97,17 @@ public class MainApp extends Application {
         try {
             athletickOptional = storage.readAthletick();
             if (!athletickOptional.isPresent()) {
-                logger.info("Data file for Athletick not found. Will be starting with a sample "
-                        + "team list");
+                logger.info("Data file for Athletick not found. Will be starting with a sample " + "team list");
             }
             initialAthletick = athletickOptional.orElseGet(SampleDataUtil::getSampleAthletick);
             initialData = athletickOptional.orElseGet(SampleDataUtil::getSampleAthletick);
 
         } catch (DataConversionException e) {
             logger.warning(
-                    "Data file for Athletick not in the correct format. Will be starting with an "
-                            + "empty team list");
+                    "Data file for Athletick not in the correct format. Will be starting with an " + "empty team list");
             initialAthletick = new Athletick();
         } catch (IOException e) {
-            logger.warning(
-                    "Problem while reading from Athletick file. Will be starting with an empty "
-                            + "team list");
+            logger.warning("Problem while reading from Athletick file. Will be starting with an empty " + "team list");
             initialAthletick = new Athletick();
         }
 
@@ -119,8 +120,7 @@ public class MainApp extends Application {
             }
             initialEventsList = performanceOptional.orElseGet(SampleDataUtil::getSamplePerformance);
         } catch (DataConversionException e) {
-            logger.warning(
-                    "Data file for EventList not in the correct format. Will be starting with empty EventList");
+            logger.warning("Data file for EventList not in the correct format. Will be starting with empty EventList");
             initialEventsList = new Performance();
         } catch (IOException e) {
             logger.warning("Problem while reading from EventList file. Will be starting with an empty EventList");
@@ -176,7 +176,8 @@ public class MainApp extends Application {
             initializedConfig = new Config();
         }
 
-        //Update config file in case it was missing to begin with or there are new/unused fields
+        // Update config file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
@@ -186,9 +187,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs
+     * file path, or a new {@code UserPrefs} with default configuration if errors
+     * occur when reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
@@ -207,7 +208,8 @@ public class MainApp extends Application {
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
