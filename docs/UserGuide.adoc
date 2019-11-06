@@ -279,6 +279,7 @@ Searches for spending based on given keywords, cost range, date range, remarks o
 
 ** `c/COST_MIN c/COST_MAX`
 ** `c/COST_MIN-COST_MAX`
+** `c/COST_MIN - COST_MAX`
 ****
 
 [NOTE]

@@ -2,6 +2,8 @@ package seedu.moneygowhere.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moneygowhere.logic.commands.FindCommand.MESSAGE_COST_RANGE_CONSTRAINTS;
+import static seedu.moneygowhere.logic.commands.FindCommand.MESSAGE_DATE_RANGE_CONSTRAINTS;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
@@ -29,16 +31,11 @@ import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.model.tag.TagPredicate;
 
+//@@author Nanosync
 /**
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-    public static final String DATE_RANGE_MESSAGE_CONSTRAINTS = "You must enter two Date values. "
-            + "Valid values are: today, yesterday, tomorrow or a formal date: DD/MM/YYYY, DD-MM-YYYY or YYYY-MM-DD.";
-
-    public static final String COST_RANGE_MESSAGE_CONSTRAINTS = "You must enter two Cost values and "
-            + "the first value cannot exceed the second value."
-            + "Cost must be a number with at most 2 decimal places, and it should not be blank.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -66,22 +63,37 @@ public class FindCommandParser implements Parser<FindCommand> {
             List<Date> dates = ParserUtil.parseDates(argMultimap.getAllValues(PREFIX_DATE));
 
             if (dates.size() < 2) {
-                throw new ParseException(DATE_RANGE_MESSAGE_CONSTRAINTS);
+                throw new ParseException(MESSAGE_DATE_RANGE_CONSTRAINTS);
             }
+
+            Date startDate = dates.get(0);
+            Date endDate = dates.get(1);
+
+            // Start date should be before end date.
+            if (startDate.compareTo(endDate) > 0) {
+                throw new ParseException(MESSAGE_DATE_RANGE_CONSTRAINTS);
+            }
+
             predicates.add(new DateInRangePredicate(dates.get(0), dates.get(1)));
         }
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
-            List<Cost> costs = ParserUtil.parseCosts(argMultimap.getAllValues(PREFIX_COST));
+            List<Cost> costs;
+            if (argMultimap.getAllValues(PREFIX_COST).size() == 1
+                    && argMultimap.getValue(PREFIX_COST).get().contains(" ")) {
+                costs = ParserUtil.parseCostsRange(argMultimap.getValue(PREFIX_COST).get());
+            } else {
+                costs = ParserUtil.parseCosts(argMultimap.getAllValues(PREFIX_COST));
+            }
 
             if (costs.size() != 2) {
-                throw new ParseException(COST_RANGE_MESSAGE_CONSTRAINTS);
+                throw new ParseException(MESSAGE_COST_RANGE_CONSTRAINTS);
             }
 
             double min = Double.parseDouble(costs.get(0).value);
             double max = Double.parseDouble(costs.get(1).value);
 
             if (min > max) {
-                throw new ParseException(COST_RANGE_MESSAGE_CONSTRAINTS);
+                throw new ParseException(MESSAGE_COST_RANGE_CONSTRAINTS);
             }
 
             predicates.add(new CostInRangePredicate(costs.get(0), costs.get(1)));

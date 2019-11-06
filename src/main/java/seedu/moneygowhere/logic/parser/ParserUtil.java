@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.moneygowhere.commons.core.index.Index;
 import seedu.moneygowhere.commons.util.DateUtil;
@@ -113,7 +115,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String cost} delimited by a '-' into an {@code cost}.
+     * Parses {@code Collection<String> costs} delimited by a '-' without space into a {@code List<Cost> cost}.
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the given {@code cost} is invalid.
      */
@@ -134,6 +136,35 @@ public class ParserUtil {
         }
 
         return result;
+    }
+
+    /**
+     * Parses {@code String costs} in the format '1 - 2' into a {@code List<Cost> cost}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code costs} are invalid.
+     */
+    public static List<Cost> parseCostsRange(String costs) throws ParseException {
+        requireNonNull(costs);
+        String trimmedCost = costs.trim();
+
+        Pattern pattern = Pattern.compile("(.*) - (.*)");
+        Matcher matcher = pattern.matcher(trimmedCost);
+
+        List<Cost> costsList = new ArrayList<>();
+        if (!matcher.matches()) {
+            return costsList;
+        }
+
+        String startCost = matcher.group(1);
+        String endCost = matcher.group(2);
+        if (!Cost.isValidCost(startCost) || !Cost.isValidCost(endCost)) {
+            throw new ParseException(Cost.MESSAGE_CONSTRAINTS);
+        }
+
+        costsList.add(new Cost(startCost));
+        costsList.add(new Cost(endCost));
+
+        return costsList;
     }
 
     /**
