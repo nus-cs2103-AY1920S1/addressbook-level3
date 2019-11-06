@@ -85,7 +85,7 @@ public class EditAutoExpenseCommand extends Command {
         }
 
         model.setAutoExpense(entryToEdit, editedEntry);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

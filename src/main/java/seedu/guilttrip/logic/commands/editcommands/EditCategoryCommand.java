@@ -41,8 +41,8 @@ public class EditCategoryCommand extends Command {
     private final EditCategoryDescriptor editCategoryDescriptor;
 
     /**
-     * @param index               of the entry in the filtered entry list to edit
-     * @param editEntryDescriptor details to edit the entry with
+     * @param toEditCategory the category to be edited
+     * @param editCategoryDescriptor details to edit the category with
      */
     public EditCategoryCommand(Category toEditCategory, EditCategoryDescriptor editCategoryDescriptor) {
         requireNonNull(toEditCategory);
@@ -71,7 +71,7 @@ public class EditCategoryCommand extends Command {
         }
 
         model.setCategory(categoryToEdit, editedCategory);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedCategory));
     }
 

@@ -79,22 +79,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' guilttrip book file path.
+     * Returns the user prefs' guiltTrip book file path.
      */
-    Path getAddressBookFilePath();
+    Path getGuiltTripFilePath();
 
     /**
-     * Sets the user prefs' guilttrip book file path.
+     * Sets the user prefs' guiltTrip file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setGuiltTripFilePath(Path guiltTripFilePath);
 
     /**
-     * Replaces guilttrip book data with the data in {@code addressBook}.
+     * Replaces guilttrip book data with the data in {@codh guiltTrip}.
      */
-    void setAddressBook(ReadOnlyGuiltTrip addressBook);
+    void setGuiltTrip(ReadOnlyGuiltTrip guiltTrip);
 
     /** Returns the GuiltTrip */
-    ReadOnlyGuiltTrip getAddressBook();
+    ReadOnlyGuiltTrip getGuiltTrip();
 
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in
@@ -262,26 +262,26 @@ public interface Model {
     /**
      * Returns true if the model has previous finance tracker states to restore.
      */
-    boolean canUndoAddressBook(Step step);
+    boolean canUndoGuiltTrip(Step step);
 
     /**
      * Returns true if the model has undone finance tracker states to restore.
      */
-    boolean canRedoAddressBook(Step step);
+    boolean canRedoGuiltTrip(Step step);
 
     /**
      * Restores the model's finance tracker to its previous state.
      */
-    void undoAddressBook();
+    void undoGuiltTrip();
 
     /**
      * Restores the model's finance tracker to its previously undone state.
      */
-    void redoAddressBook();
+    void redoGuiltTrip();
 
     /**
      * Saves the current finance tracker state for undo/redo
      */
-    void commitAddressBook();
+    void commitGuiltTrip();
 
 }

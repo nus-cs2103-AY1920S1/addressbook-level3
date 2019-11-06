@@ -45,7 +45,7 @@ public class DeleteExpenseCommand extends Command {
 
         Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteExpense(expenseToDelete);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, expenseToDelete));
     }
 

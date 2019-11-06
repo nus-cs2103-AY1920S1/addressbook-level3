@@ -44,7 +44,7 @@ public class DeleteIncomeCommand extends Command {
 
         Income incomeToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteIncome(incomeToDelete);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, incomeToDelete));
     }
 

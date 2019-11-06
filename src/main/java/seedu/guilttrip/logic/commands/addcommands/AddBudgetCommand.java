@@ -1,7 +1,6 @@
 package seedu.guilttrip.logic.commands.addcommands;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
@@ -60,7 +59,7 @@ public class AddBudgetCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.addBudget((Budget) toAdd);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

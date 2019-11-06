@@ -11,7 +11,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.exceptions.DataConversionException;
 import seedu.guilttrip.model.UserPrefs;
@@ -74,7 +73,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100, "segoe UI", Theme.DARK));
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
+        userPrefs.setGuiltTripFilePath(Paths.get("addressbook.json"));
         return userPrefs;
     }
 

@@ -39,7 +39,7 @@ public class DeleteCategoryCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.deleteCategory(targetCategory);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_DELETE_CATEGORY_SUCCESS, targetCategory));
     }
 

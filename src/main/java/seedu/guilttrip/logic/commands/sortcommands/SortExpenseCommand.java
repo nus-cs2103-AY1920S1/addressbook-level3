@@ -39,7 +39,7 @@ public class SortExpenseCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.sortFilteredExpense(type, sequence);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 

@@ -17,9 +17,9 @@ import seedu.guilttrip.model.util.SampleDataUtil;
 public class EntryBuilder {
 
     public static final String DEFAULT_CATEGORY = "FOOD";
-    public static final String DEFAULT_DESCRIPTION = "Alice Pauline";
+    public static final String DEFAULT_DESCRIPTION = "Mala from deck";
     public static final String DEFAULT_AMOUNT = "5.60";
-    public static final String DEFAULT_TIME = "2019-09-09";
+    public static final String DEFAULT_DATE = "2019-09-09";
 
     private Category cat;
     private Description desc;
@@ -31,7 +31,7 @@ public class EntryBuilder {
         cat = new Category(DEFAULT_CATEGORY, "Expense");
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
-        date = new Date(DEFAULT_TIME);
+        date = new Date(DEFAULT_DATE);
         tags = new HashSet<>();
     }
 
@@ -57,7 +57,7 @@ public class EntryBuilder {
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
-    public EntryBuilder withTime(String time) {
+    public EntryBuilder withDate(String time) {
         this.date = new Date(time);
         return this;
     }

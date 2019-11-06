@@ -95,22 +95,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getGuiltTripFilePath() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setGuiltTripFilePath(Path GuiltTripFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setAddressBook(ReadOnlyGuiltTrip addressBook) {
+    public void setGuiltTrip(ReadOnlyGuiltTrip GuiltTrip) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ReadOnlyGuiltTrip getAddressBook() {
+    public ReadOnlyGuiltTrip getGuiltTrip() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -324,10 +324,10 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
+    /*@Override
     public void updateAllLists(Predicate<Entry> predicate) {
         throw new AssertionError("This method should not be called.");
-    }
+    }*/
 
     @Override
     public void updateFilteredExpenses(Predicate<Entry> predicate) {
@@ -385,27 +385,27 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean canUndoAddressBook(Step step) {
+    public boolean canUndoGuiltTrip(Step step) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean canRedoAddressBook(Step step) {
+    public boolean canRedoGuiltTrip(Step step) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoGuiltTrip() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoGuiltTrip() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitGuiltTrip() {
         throw new AssertionError("This method should not be called.");
     }
 

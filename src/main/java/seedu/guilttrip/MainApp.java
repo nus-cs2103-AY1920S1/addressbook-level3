@@ -57,7 +57,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        GuiltTripStorage guiltTripStorage = new JsonGuiltTripStorage(userPrefs.getAddressBookFilePath());
+        GuiltTripStorage guiltTripStorage = new JsonGuiltTripStorage(userPrefs.getGuiltTripFilePath());
         storage = new StorageManager(guiltTripStorage, userPrefsStorage);
 
         initLogging(config);

@@ -57,7 +57,7 @@ public class AddAutoExpenseCommand extends Command {
         requireNonNull(model);
         model.addAutoExpense(toAdd);
 
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

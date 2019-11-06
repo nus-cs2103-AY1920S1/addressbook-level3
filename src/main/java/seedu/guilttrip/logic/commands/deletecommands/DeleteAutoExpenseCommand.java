@@ -44,7 +44,7 @@ public class DeleteAutoExpenseCommand extends Command {
 
         AutoExpense entryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteAutoExpense(entryToDelete);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
     }
 

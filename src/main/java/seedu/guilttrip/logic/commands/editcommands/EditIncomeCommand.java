@@ -81,7 +81,7 @@ public class EditIncomeCommand extends Command {
         }
 
         model.setIncome(incomeToEdit, editedIncome);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedIncome));
     }
 

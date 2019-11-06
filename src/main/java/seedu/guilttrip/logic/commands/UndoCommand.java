@@ -32,12 +32,12 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        if (!model.canUndoAddressBook(step)) {
+        if (!model.canUndoGuiltTrip(step)) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
         for (long l = 0; l < step.value; l++) {
-            model.undoAddressBook();
+            model.undoGuiltTrip();
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }

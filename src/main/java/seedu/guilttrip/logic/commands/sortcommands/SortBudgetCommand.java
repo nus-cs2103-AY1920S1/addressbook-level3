@@ -38,7 +38,7 @@ public class SortBudgetCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.sortFilteredBudget(type, sequence);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 }

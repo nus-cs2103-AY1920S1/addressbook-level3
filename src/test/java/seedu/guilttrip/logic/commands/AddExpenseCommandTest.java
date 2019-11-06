@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
-
 import seedu.guilttrip.logic.CommandHistoryStub;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.model.GuiltTrip;
@@ -101,10 +100,11 @@ public class AddExpenseCommandTest {
 
         //TODO
         @Override
-        public void commitAddressBook() {}
+        public void commitGuiltTrip() {
+        }
 
         @Override
-        public ReadOnlyGuiltTrip getAddressBook() {
+        public ReadOnlyGuiltTrip getGuiltTrip() {
             return new GuiltTrip(true);
         }
     }
