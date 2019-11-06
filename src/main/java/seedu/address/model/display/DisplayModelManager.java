@@ -55,7 +55,7 @@ public class DisplayModelManager {
     public DisplayModelManager(GmapsModelManager gmapsModelManager) {
         this.gmapsModelManager = gmapsModelManager;
         this.startTime = LocalTime.of(8, 0);
-        this.endTime = LocalTime.of(19, 0);
+        this.endTime = LocalTime.of(20, 0);
     }
 
     public DisplayModelManager(GmapsModelManager gmapsModelManager, LocalTime startTime, LocalTime endTime) {

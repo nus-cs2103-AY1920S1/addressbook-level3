@@ -8,7 +8,7 @@ import java.time.LocalTime;
  */
 public class TimeFormatter {
     public static int formatTimeToInt(LocalTime localTime) {
-        return localTime.getHour() * 100 + localTime.getMinute();
+        return localTime.getHour() * 100 + (localTime.getMinute() / 2) * 2;
     }
 
     public static int formatTimeToInt(LocalDateTime localDateTime) {

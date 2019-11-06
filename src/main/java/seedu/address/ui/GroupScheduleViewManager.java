@@ -42,7 +42,7 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
         LocalDate dateToShow = currentDate.plusDays(7 * weekNumber);
         this.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(monthSchedules, weekNumber), colors,
                 groupName.toString(), dateToShow);
-        this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
+        //this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
     }
 
     @Override

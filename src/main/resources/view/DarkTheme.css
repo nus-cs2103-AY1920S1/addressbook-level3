@@ -371,14 +371,13 @@
     -fx-border-width: 0;
 }
 
+#colouredBlockWithText:hover {
+    -fx-opacity: 0.65;
+}
+
 #colouredTimeslot {
     -fx-effect: dropshadow(gaussian, #222831, 2, 0.0, 3, 3);
     -fx-opacity: 0.85;
-    -fx-border-width: 2;
-}
-
-#colouredTimeslot:hover {
-    -fx-opacity: 0.65;
 }
 
 #commandTypeLabel {
@@ -399,6 +398,11 @@
 
 #commandTextField:focused {
     -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+}
+
+#dashedLine {
+    -fx-border-color: derive(#393E46, 20%);
+    -fx-border-style: hidden hidden dashed hidden;
 }
 
 #dateHeader {
@@ -456,7 +460,6 @@
 
 #freeTimeslot #freeTimeslotBlock {
     -fx-background-radius: 0 !important;
-    -fx-border-width: 0 !important;
     -fx-border-radius: 0 !important;
     -fx-background-color: rgba(152, 251, 152, 0.35) !important;
 }
@@ -550,7 +553,9 @@
 }
 
 #offsetRegion {
-    -fx-background-color: linear-gradient(from 0px 0px to 2px 2px, reflect,  #222831 30%, #393E46  47%);;
+    -fx-background-color: linear-gradient(from 0px 0px to 2px 2px, reflect,  #222831 30%, #393E46  47%);
+    -fx-border-color: derive(#393E46, 20%);
+    -fx-border-style: solid none none solid;
 }
 
 #personDetailContainer {
@@ -594,7 +599,6 @@
 
 #timeslotContainer {
     -fx-padding: 0 2 0 2;
-    -fx-border-width: 2;
 }
 
 #timeslotLabelContainer {
@@ -602,26 +606,16 @@
     -fx-border-color: #222831;
 }
 
-#timeslotMajorLine {
-    -fx-border-color: derive(#393E46, 20%);
-    -fx-border-style: solid none none solid;
-}
-
-#timeslotMinorLine {
-    -fx-border-color: derive(#393E46, 20%);
-    -fx-border-style: dotted none dotted none;
-}
-
-#scheduleContainer {
+#scheduleView {
     -fx-border-color: derive(#222831, 20%);
     -fx-background-color: derive(#222831, 20%);
 }
 
-#scheduleContainer #title {
+#scheduleView #title {
     -fx-opacity: 1 !important;
 }
 
-#scheduleContainer .label {
+#scheduleView .label {
     -fx-text-fill: #FFFFFF;
     -fx-opacity: 0.87;
     -fx-font-family: "Segoe UI Light";
@@ -664,6 +658,11 @@
 #scheduleDisplayContainer #venue, #timing {
     -fx-font-size: 14;
     -fx-opacity: 0.67;
+}
+
+#solidLine {
+    -fx-border-color: derive(#393E46, 20%);
+    -fx-border-style: solid hidden hidden solid;
 }
 
 #suggestions-list {

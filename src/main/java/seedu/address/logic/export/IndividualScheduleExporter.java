@@ -3,6 +3,7 @@ package seedu.address.logic.export;
 import java.io.IOException;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.Region;
 import seedu.address.ui.ScheduleView;
 
 /**
@@ -25,7 +26,9 @@ public class IndividualScheduleExporter implements Exporter {
      * @throws IOException to be handled elsewhere.
      */
     public void export() throws IOException {
-        Scene scene = new Scene(scheduleView.getRoot());
+        Region export = scheduleView.getRoot();
+        export.setMaxWidth(1000);
+        Scene scene = new Scene(export);
         scene.getStylesheets().add("/view/DarkTheme.css");
         VisualExporter.exportTo(scene.getRoot(), fileFormat, filepath);
     }
