@@ -69,7 +69,7 @@ public class ScheduleView extends UiPart<Region> {
      */
     private void initialiseDayHeaders() {
         //Put blank header at the first row and first column.
-        Region emptyHeader = new Block(HALF_HOUR).makeEmptyTimeslot();
+        Region emptyHeader = new Block(HALF_HOUR).makeEmptyBlock();
         scheduleHeaderContainer.add(emptyHeader, 0, 0);
         for (int i = 1; i <= 7; i++) {
             LocalDate currDay = now.plusDays(i - 1);
@@ -96,10 +96,12 @@ public class ScheduleView extends UiPart<Region> {
         for (int i = 1; i <= 7; i++) {
             StackPane dayTimeSlotStackPane = new StackPane();
             VBox verticalTableCells = new VBox();
+            //Add half a cell to represent padding space / offset at the start of the time table.
             verticalTableCells.getChildren().add(createHalfTableCell());
             for (int j = START_TIME; j < END_TIME; j++) {
                 verticalTableCells.getChildren().add(createEmptyTableCell());
             }
+            //Add half a cell to represent padding space / offset at the end of the time table.
             verticalTableCells.getChildren().add(createHalfTableCell());
             dayTimeSlotStackPane.getChildren().add(verticalTableCells);
             scheduleContentContainer.add(dayTimeSlotStackPane, i, 0, 1, END_TIME - START_TIME + 1);
@@ -203,7 +205,7 @@ public class ScheduleView extends UiPart<Region> {
         VBox timeslotContainer = new VBox();
         timeslotContainer.setId("timeslotContainer");
         HBox.setHgrow(timeslotContainer, Priority.ALWAYS);
-        timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyTimeslot());
+        timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
         int originalTimeStamp = START_TIME * 100;
         for (int j = 0; j < daySchedule.size(); j++) {
             PersonTimeslot timeslot = daySchedule.get(j);
@@ -211,12 +213,13 @@ public class ScheduleView extends UiPart<Region> {
             int endTime = TimeFormatter.formatTimeToInt(timeslot.getEndTime());
             if (originalTimeStamp != startTime) {
                 int timeUntilBusy = getTimeDifference(originalTimeStamp, startTime);
-                Region freeTimeslot = new Block(timeUntilBusy).makeEmptyTimeslot();
+                Region freeTimeslot = new Block(timeUntilBusy).makeEmptyBlock();
                 timeslotContainer.getChildren().add(freeTimeslot);
             }
+            String locationText = timeslot.getVenue().getVenue().trim().equals("") ? "" : " at " + timeslot.getVenue().getVenue();
             Region busyTimeslot = new Block(getTimeDifference(startTime, endTime))
                     .makeColouredBlockWithText(color, timeslot.getEventName(),
-                            timeslot.getEventName() + " " + timeslot.getStartTime() + " - " + timeslot.getEndTime());
+                            timeslot.getEventName() + " " + timeslot.getStartTime() + " - " + timeslot.getEndTime() + locationText);
             timeslotContainer.getChildren().add(busyTimeslot);
             originalTimeStamp = endTime;
         }
@@ -246,7 +249,7 @@ public class ScheduleView extends UiPart<Region> {
      */
     private VBox getDayVBoxOfFreeSchedule(ArrayList<FreeTimeslot> freeSchedule) {
         VBox timeslotContainer = new VBox();
-        timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyTimeslot());
+        timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
         int originalTimeStamp = START_TIME * 100;
         for (int j = 0; j < freeSchedule.size(); j++) {
             FreeTimeslot timeslot = freeSchedule.get(j);
@@ -254,10 +257,10 @@ public class ScheduleView extends UiPart<Region> {
             int endTime = TimeFormatter.formatTimeToInt(timeslot.getEndTime());
             int timeslotId = timeslot.getId();
             StackPane freeTime = new Block(getTimeDifference(startTime, endTime))
-                    .makeFreeTimeslot("" + timeslotId);
+                    .makeFreeBlock("" + timeslotId);
             if (originalTimeStamp != startTime) {
                 int timeUntilNext = getTimeDifference(originalTimeStamp, startTime);
-                Region untilNext = new Block(timeUntilNext).makeEmptyTimeslot();
+                Region untilNext = new Block(timeUntilNext).makeEmptyBlock();
                 timeslotContainer.getChildren().add(untilNext);
             }
             timeslotContainer.getChildren().add(freeTime);
@@ -333,7 +336,7 @@ public class ScheduleView extends UiPart<Region> {
          * Method to create a transparent block in the table view to indicate free time.
          * @return Region that represents the free time in the schedule.
          */
-        private Region makeEmptyTimeslot() {
+        private Region makeEmptyBlock() {
             Region result = new Region();
             result.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
             return result;
@@ -344,7 +347,10 @@ public class ScheduleView extends UiPart<Region> {
          * @param text The id to be set in the block.
          * @return StackPane.
          */
-        private StackPane makeFreeTimeslot(String text) {
+        private StackPane makeFreeBlock(String text) {
+            //Assert that each height is greater than 10px;
+            assert heightOfTimeslot > 10;
+
             StackPane freeTimeslot = new StackPane();
             Label label = new Label(text);
             label.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
