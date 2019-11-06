@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextArea?>
 
-
-<TextArea fx:id="resultDisplay" editable="false" maxHeight="150.0" minHeight="150.0"
-          minWidth="-Infinity" prefWidth="1000" prefHeight="150.0" styleClass="result-display"
-          xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
-</TextArea>
+<TextArea fx:id="resultDisplay" editable="false"
+          minHeight="150.0" prefHeight="150" maxHeight="150" styleClass="result-display"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />

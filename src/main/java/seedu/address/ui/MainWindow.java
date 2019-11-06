@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -47,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private Pane resultDisplayPlaceholder;
+    private AnchorPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane bookListPanelPlaceholder;
