@@ -10,7 +10,6 @@ import java.util.Set;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.tag.Tag;
 
-//@@author madanalogy
 /**
  * Represents an account in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -61,7 +60,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name or username.
+     * Returns true if both persons have the same username.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -69,8 +68,7 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && (otherPerson.getUsername().equals(getUsername()) || otherPerson.getName().equals(getName()));
+        return otherPerson != null && otherPerson.getUsername().equals(getUsername());
     }
 
     /**
@@ -124,6 +122,7 @@ public class Person {
         return password;
     }
 
+    //@@author madanalogy
     /**
      * Checks whether a person is a regular user or an admin.
      * @param person represents the person to be checked

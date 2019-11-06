@@ -101,7 +101,7 @@ Format: `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME w/PASSWORD [t/TAG]...
 A account can have any number of tags (including 0). Only logged-in admins can add tags.
 
 ****
-* Usernames must be at least 3 characters in length.
+* Usernames must be at least 3 characters in length and must be unique.
 * Usernames can only consist of alphanumeric characters and the following special characters, excluding the parentheses, (.-)
 * Usernames cannot begin or end with a non alphanumeric character.
 * Usernames and Passwords cannot be blank or contain a whitespace.
@@ -112,7 +112,8 @@ A account can have any number of tags (including 0). Only logged-in admins can a
 Examples:
 
 * `register n/John Doe p/98765432 e/johnd@example.com u/op1 w/password`
-* `register n/Betsy Crowe e/betsycrowe@example.com u/oc1 w/password p/1234567 t/Team-1-OC`
+* If logged in with an admin account: +
+`register n/Betsy Crowe e/betsycrowe@example.com u/oc1 w/password p/1234567 t/Team-1-OC`
 
 === Updating an account : `update`
 
@@ -180,8 +181,8 @@ Examples:
 
 * `find-a John` +
 Returns `john` and `John Doe`
-* `find-a Betsy agent` +
-Returns any account having names or usernames `Betsy` or `agent`
+* `find-a Agent01 Betty`
+Returns all accounts with username or name matching either `agent01` or `betty`
 
 === Deleting an account : `delete-a`
 
@@ -201,7 +202,7 @@ Examples:
 
 * `list-a` +
 `delete-a 2` +
-Deletes the 2nd account in the incident Manager.
+Deletes the 2nd account in the Incident Manager.
 * `find-a Agent01` +
 `delete-a 1` +
 Deletes the 1st account in the results of the `find` command.
@@ -209,7 +210,6 @@ Deletes the 1st account in the results of the `find` command.
 ==== Incident Auto Update `[coming in v2.0]`
 
 Deleting a user will search for all incidents created by the user and place a `deleted` flag next to the account details.
-
 // end::account[]
 
 // tag::new[]
@@ -264,6 +264,8 @@ Rationale: user need not waste time backspacing if an input was keyed in wrongly
 
 // end::new[]
 
+
+// tag::fill[]
 === Filling a draft incident report: `fill`
 Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
 
@@ -273,10 +275,11 @@ This command works in two modes:
 Format: `fill` +
 Lists all draft incident reports ready to be filled.
 
-****
 * This command lists both incomplete and complete drafts.
 ** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
-****
+
+[NOTE]
+The user can only fill the draft incident reports that have been created by them.
 
 * Example usage:
 
@@ -313,8 +316,14 @@ image::fillCommandWithParamsAfterScreenshot.png[]
 
 Using `fill` in both modes one after the other thus enables convenient listing and filling of target incident reports.
 
+// end::fill[]
+
+// tag::submit[]
 === Submitting a completed draft report: `submit`
 Submits a completed draft incident report if relevant parameters are specified, otherwise lists all completed drafts ready for submission.
+
+[NOTE]
+The user can only submit the completed incident reports that have been created by them.
 
 Similar to `fill`, this command also works in two modes:
 
@@ -349,19 +358,22 @@ image::submitCommandWithParamsAfterScreenshot.png[]
 .Fig X. The incident filled using the `fill` command above has been submitted. The newly submitted incident is listed at the top and its status changes from `COMPLETE_DRAFT` to `SUBMITTED_REPORT`.
 
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
+// end::submit[]
+
 
 === Listing all incidents: `list-i`
 Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
 
 ****
-* The listing returns all incidents, inclusive of all drafts and submitted incident reports
+* The listing returns all incidents, inclusive of all incomplete drafts and complete drafts and submitted incident reports
 * Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
 ****
 
 Example usage and expected outcome:
 
 image::listIncidentsCommand.png[]
+.Fig X. The `list-i` command returns all incidents within the system.
 
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
@@ -378,10 +390,12 @@ Lists all incidents whereby the operator name contains any of the given keywords
 * Example of Successful Single Operator Search and Expected Outcome:
 
 image::findIncidentsCommandWithOperatorParameter.png[]
+.Fig X. The `find-i` command has been called with one word under parameter `op\`, returning all incidents whereby the operator name matches `alex` (case-insensitive)
 
 * Example of Successful Multiple Operator Search and Expected Outcome:
 
 image::findIncidentsCommandWithOperatorsParameter.png[]
+.Fig X. The `find-i` command has been called multiple words under parameter `op\`, returning all incidents whereby the operator name matches `irfan` or `bernice` (case-insensitive)
 
 **By Description** +
 Format: `find-i desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...>` +
@@ -390,6 +404,7 @@ Lists all incidents whereby the incident description contains any the given keyw
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithDescriptionParameter.png[]
+.Fig X. The `find-i` command has been called with parameter `desc\`, returning all incidents whereby the description contains either keyword `fire` or `arson`
 
 **By ID** +
 Format: `find-i id/KEYWORD` +
@@ -400,22 +415,26 @@ Lists all incidents whereby the incident ID is an exact match with the given key
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithIdParameter.png[]
+.Fig X. The `find-i` command has been called with parameter `id\`, returning all incidents whereby the ID matches `0620150001` exactly
 
 **Self-Search** +
 Format: `find-i self` +
 Lists all incidents whereby the operator name matches the logged-in user's name.
 
-* Requires an exact name match
+* Requires an exact name match with the logged-in user's name
 
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithSelfParameter.png[]
+.Fig X. Executing `find-i self` lists all completed drafts ready for submission
 
 ****
 * The search is case insensitive. e.g `dave` will match `Dave`
-* Multiple words can be taken for the operator and description parameter
+* The search returns all incidents found regardless of state (incomplete and complete drafts, submitted incidents)
+* Multiple words can be taken for the operator and description parameter. The command returns all incidents which contains at least one of the words within the parameter
+* The ID parameter requires an exact match
 * Multiple parameters can be searched, returning incidents whereby all parameters match
-* Only full words will be matched e.g. `Fir` will not match `Fire`
+* Only full words/IDs will be matched e.g. `Fir` will not match `Fire`
 ****
 
 Examples:

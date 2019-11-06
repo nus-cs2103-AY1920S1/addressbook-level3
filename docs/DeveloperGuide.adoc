@@ -142,6 +142,7 @@ The `Person`:
 * Represents a user account on the incident manager.
 * Contains the account `Username`, `Password`, `Name`, `Phone`, `Email`
 
+// tag::incident[]
 [[Design-Incident]]
 ==== Incident component
 
@@ -155,6 +156,7 @@ image::IncidentClassDiagram.png[]
 * Contains the attributes `CallerNumber`, `Description`, `IncidentDateTime` and IncidentId`.
 * Also contains a `Person` object representing the 'Operator' who filed the incident, a `District` which represents the location of the incident, and a `Vehicle` representing the vehicle dispatched to investigate this incident.
 * Has three states encapsulated by a `Status` enum - `INCOMPLETE_DRAFT` (report not completely filled and not submitted), `COMPLETE_DRAFT` (report completely filled but not submitted), and `SUBMITTED_REPORT` (report completely filled and submitted).
+// end::incident[]
 
 [[Design-Vehicle]]
 ==== Vehicle component
@@ -210,7 +212,7 @@ The guard statement throws a command exception and informs the user of the avail
 
 Activity Diagram for illustration:
 
-image::AccessActivityDiagram.png[]
+image::AccessActivityDiagram.png[width="400"]
 
 ===== Identity Verification
 
@@ -221,7 +223,7 @@ Session details are displayed on the status bar in the GUI to reflect whether a 
 
 Class Diagram for illustration:
 
-image::SessionClassDiagram.png[]
+image::SessionClassDiagram.png[width="400"]
 
 Uniqueness of a username is ensured by preventing duplicates during the account creation [`RegisterCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
 
@@ -247,7 +249,7 @@ The checks described above all function in the command execution stage. The `Reg
 
 Simplified Sequence Diagram for illustration:
 
-image::AccessSequenceDiagram.png[]
+image::AccessSequenceDiagram.png[width="600"]
 
 NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
 

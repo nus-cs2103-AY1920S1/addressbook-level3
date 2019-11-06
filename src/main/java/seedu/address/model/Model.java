@@ -177,6 +177,9 @@ public interface Model {
     /** Returns true if incident list contains incidents filtered by given predicate */
     boolean ifAnyIncidentsSatisfyPredicate(Predicate<Incident> predicate);
 
+    boolean canLoggedInPersonModifyIncidentStatus(Incident toSubmit);
+
+
     /** Returns an unmodifiable view of the filtered vehicle list */
     ObservableList<Vehicle> getFilteredVehicleList();
 
@@ -197,4 +200,5 @@ public interface Model {
      * @throws NullPointerException if {@code district} is null.
      */
     void updateFilteredVehicleList(Predicate<Vehicle> predicate);
+
 }
