@@ -2,6 +2,7 @@ package seedu.address.model.book;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
@@ -11,14 +12,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
+import static seedu.address.testutil.TypicalLoans.LOAN_1;
+import static seedu.address.testutil.TypicalLoans.LOAN_2;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.BookBuilder;
 
 public class BookTest {
-
-
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
@@ -74,42 +75,95 @@ public class BookTest {
     }
 
     @Test
+    public void loanOut() {
+        Book target = new BookBuilder(BOOK_1).build();
+        assertFalse(target.isCurrentlyLoanedOut());
+
+        Book loanedOut = target.loanOut(LOAN_1);
+        assertTrue(loanedOut.isOverdue());
+        assertTrue(loanedOut.isCurrentlyLoanedOut());
+    }
+
+    @Test
+    public void returnBook() {
+        Book target = new BookBuilder(BOOK_1).build();
+        assertFalse(target.isCurrentlyLoanedOut());
+        assertThrows(AssertionError.class, () -> target.returnBook());
+
+        Book loanedOut = target.loanOut(LOAN_1);
+        assertTrue(loanedOut.isCurrentlyLoanedOut());
+        assertThrows(AssertionError.class, () -> loanedOut.loanOut(LOAN_1));
+
+        Book returnedBook = loanedOut.returnBook();
+        assertFalse(returnedBook.isCurrentlyLoanedOut());
+    }
+
+    @Test
+    public void addToLoanHistory() {
+        Book target = new BookBuilder(BOOK_1).build();
+        assertFalse(target.isCurrentlyLoanedOut());
+
+        Book loanedOut = target.loanOut(LOAN_1);
+        assertTrue(loanedOut.isCurrentlyLoanedOut());
+        Book updatedLoanedOut = loanedOut.addToLoanHistory(LOAN_1);
+
+        assertTrue(updatedLoanedOut.getLoanHistory().contains(LOAN_1));
+    }
+
+    @Test
+    public void deleteFromLoanHistory() {
+        Book target = new BookBuilder(BOOK_1).build();
+        assertFalse(target.isCurrentlyLoanedOut());
+
+        Book loanedOut = target.loanOut(LOAN_1);
+        assertTrue(loanedOut.isCurrentlyLoanedOut());
+        assertThrows(AssertionError.class, () -> loanedOut.deleteFromLoanHistory(LOAN_1));
+        Book updatedLoanedOut = loanedOut.addToLoanHistory(LOAN_1);
+        updatedLoanedOut = updatedLoanedOut.addToLoanHistory(LOAN_2);
+
+        assertTrue(updatedLoanedOut.getLoanHistory().contains(LOAN_1));
+
+        Book deletedLoanHistoryBook = updatedLoanedOut.deleteFromLoanHistory(LOAN_1);
+        assertFalse(deletedLoanHistoryBook.getLoanHistory().contains(LOAN_1));
+    }
+
+    @Test
     public void equals() {
         // compares all attributes
         // same values -> returns true
         Book aliceCopy = new BookBuilder(BOOK_1).build();
-        assertTrue(BOOK_1.equals(aliceCopy));
+        assertEquals(BOOK_1, aliceCopy);
 
         // same object -> returns true
-        assertTrue(BOOK_1.equals(BOOK_1));
+        assertEquals(BOOK_1, BOOK_1);
 
         // null -> returns false
-        assertFalse(BOOK_1.equals(null));
+        assertNotEquals(null, BOOK_1);
 
         // different type -> returns false
-        assertFalse(BOOK_1.equals(5));
+        assertNotEquals(5, BOOK_1);
 
         // different person -> returns false
-        assertFalse(BOOK_1.equals(BOOK_2));
+        assertNotEquals(BOOK_1, BOOK_2);
 
         // different name and serial number -> returns false
         Book editedA = new BookBuilder(BOOK_1).withTitle(VALID_TITLE_BOOK_2)
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
-        assertFalse(BOOK_1.equals(editedA));
+        assertNotEquals(BOOK_1, editedA);
 
         // different serial number -> returns false
         editedA = new BookBuilder(BOOK_1).withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
-        assertFalse(BOOK_1.equals(editedA));
+        assertNotEquals(BOOK_1, editedA);
 
         // different author -> returns false
         editedA = new BookBuilder(BOOK_1).withAuthor(VALID_AUTHOR_BOOK_2)
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
-        assertFalse(BOOK_1.equals(editedA));
+        assertNotEquals(BOOK_1, editedA);
 
         // different genres -> returns false
         editedA = new BookBuilder(BOOK_1).withGenres(VALID_GENRE_ACTION)
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
-        assertFalse(BOOK_1.equals(editedA));
+        assertNotEquals(BOOK_1, editedA);
     }
 
     @Test
