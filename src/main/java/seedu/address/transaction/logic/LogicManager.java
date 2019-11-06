@@ -1,53 +1,45 @@
 package seedu.address.transaction.logic;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
-import seedu.address.transaction.commands.Command;
-import seedu.address.transaction.commands.CommandResult;
+import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
+import seedu.address.transaction.logic.commands.Command;
+import seedu.address.transaction.logic.commands.CommandResult;
+import seedu.address.transaction.logic.parser.TransactionTabParser;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.storage.StorageManager;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.storage.Storage;
 
 /**
  * Manages the logic behind the transaction tab.
  */
 public class LogicManager implements Logic {
-
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private final Model model;
-    private final StorageManager storage;
+    private final Storage storage;
     private final TransactionTabParser parser;
-    private final seedu.address.person.storage.Storage personStorage;
-    private final seedu.address.person.model.Model personModel;
-    private final seedu.address.reimbursement.model.Model reimbursementModel;
-    private final seedu.address.reimbursement.storage.Storage reimbursementStorage;
+    private final CheckAndGetPersonByNameModel personModel;
 
-    public LogicManager(Model transactionModel, StorageManager transactionStorage,
-                        seedu.address.person.model.Model personModel,
-                        seedu.address.person.storage.Storage personStorage,
-                        seedu.address.reimbursement.model.Model reimbursementModel,
-                        seedu.address.reimbursement.storage.Storage reimbursementStorage) {
+    public LogicManager(Model transactionModel, Storage transactionStorage,
+                        CheckAndGetPersonByNameModel personModel) {
         this.model = transactionModel;
         this.storage = transactionStorage;
         this.parser = new TransactionTabParser();
-        this.personStorage = personStorage;
         this.personModel = personModel;
-        this.reimbursementModel = reimbursementModel;
-        this.reimbursementStorage = reimbursementStorage;
     }
 
     @Override
     public CommandResult execute(String commandText)
             throws Exception {
-        //model.resetPredicate();
-        Command command = parser.parseCommand(commandText,
-                model.getTransactionList().size(), personModel);
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        Command command = parser.parseCommand(commandText, personModel);
+        logger.info("Command type: " + command.toString());
         CommandResult commandResult = command.execute(model, personModel);
         model.updateIndexes();
-        personStorage.saveAddressBook(personModel.getAddressBook());
         storage.writeFile(model.getTransactionList());
-        reimbursementModel.updateReimbursementList(reimbursementStorage.readReimbursementList());
-        reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
         return commandResult;
     }
 
@@ -74,5 +66,15 @@ public class LogicManager implements Logic {
     @Override
     public void addTransaction(Transaction transaction) {
         model.addTransaction(transaction);
+    }
+
+    @Override
+    public void appendToTransactionFile(Transaction transaction) throws Exception {
+        storage.appendToTransaction(transaction);
+    }
+
+    @Override
+    public void updateTransactionStorage() throws IOException {
+        storage.writeFile(model.getTransactionList());
     }
 }

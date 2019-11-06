@@ -1,7 +1,12 @@
 package seedu.address.reimbursement.logic;
 
-import seedu.address.reimbursement.commands.CommandResult;
+import java.io.IOException;
+
+import seedu.address.person.model.person.Person;
+import seedu.address.reimbursement.logic.commands.CommandResult;
 import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 
 /**
  * Logic interface. Defines the methods for a logic manager.
@@ -12,5 +17,11 @@ public interface Logic {
 
     //get list
     ReimbursementList getFilteredList();
+
+    //void updateReimbursementFromTransaction() throws IOException;
+
+    void updateReimbursementModelAndStorage(TransactionList transactionList) throws FileReadWriteException, IOException;
+
+    void updateReimbursementFromPerson(Person editedPerson, Person personToEdit) throws IOException;
 
 }

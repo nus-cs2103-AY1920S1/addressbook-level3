@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
-import seedu.address.reimbursement.commands.DoneCommand;
-import seedu.address.reimbursement.logic.exception.ParseException;
+import seedu.address.reimbursement.logic.commands.DoneCommand;
+import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 import seedu.address.util.ArgumentMultimap;
@@ -17,7 +17,7 @@ import seedu.address.util.Prefix;
 /**
  * Parser for done command.
  */
-public class DoneCommandParser implements GeneralParser<DoneCommand> {
+public class DoneCommandParser implements CommandParserWithPersonModel<DoneCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }

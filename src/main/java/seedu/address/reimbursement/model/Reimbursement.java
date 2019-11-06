@@ -1,5 +1,8 @@
 package seedu.address.reimbursement.model;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.transaction.model.transaction.Transaction.DECIMAL_FORMAT;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ import java.util.logging.Logger;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.util.Description;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Reimbursement class. Stores data of the reimbursement to be made.
@@ -35,6 +38,8 @@ public class Reimbursement {
      * @param trans Transaction that I want to create reimbursement for.
      */
     public Reimbursement(Transaction trans) {
+        requireNonNull(trans);
+        assert trans.getAmount() < 0 : "Transaction amount should be negative";
         list = new ArrayList<>();
         list.add(trans);
         amount = trans.getAmount();
@@ -46,6 +51,10 @@ public class Reimbursement {
     //Get attributes from reimbursement
     public Person getPerson() {
         return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public ArrayList<Transaction> getList() {
@@ -162,8 +171,15 @@ public class Reimbursement {
      * @return string
      */
     public String toString() {
-        return person.getName() + " $" + amount + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
-                + description.toString();
+        String msg = "";
+        if (deadline == null) {
+            msg = toStringNoDeadline();
+        } else {
+            msg = person.getName().toString() + " $" + DECIMAL_FORMAT.format(amount) + System.lineSeparator()
+                    + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
+                    + description.toString();
+        }
+        return msg;
     }
 
     /**
@@ -172,7 +188,8 @@ public class Reimbursement {
      * @return string the reimbursement is converted to.
      */
     public String toStringNoDeadline() {
-        return person.getName() + " $" + amount + System.lineSeparator() + description.toString();
+        return person.getName().toString() + " $" + DECIMAL_FORMAT.format(amount)
+                + System.lineSeparator() + description.toString();
     }
 
     /**
@@ -181,9 +198,9 @@ public class Reimbursement {
     public String writeIntoFile() {
         String msg = "";
         if (deadline == null) {
-            msg = this.person.getName() + VB + this.amount + VB + "";
+            msg = this.person.getName().toString() + VB + this.amount + VB + "";
         } else {
-            msg = this.person.getName() + VB + this.amount + VB + this.deadline.format(DATE_TIME_FORMATTER);
+            msg = this.person.getName().toString() + VB + this.amount + VB + this.deadline.format(DATE_TIME_FORMATTER);
         }
         return msg;
     }

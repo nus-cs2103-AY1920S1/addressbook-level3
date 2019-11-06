@@ -1,10 +1,13 @@
 package seedu.address.ui.logic;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import seedu.address.ui.HelpWindow;
+
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.ui.commands.CommandResult;
 import seedu.address.ui.logic.exception.ParseException;
 
@@ -12,35 +15,37 @@ import seedu.address.ui.logic.exception.ParseException;
  * Manages the logic behind the transaction tab.
  */
 public class LogicManager implements Logic {
+    public static final String COMMAND_WORD_NAVIGATION = "go";
+    public static final String COMMAND_WORD_EXIT = "exit";
+    public static final String HOME_TAB = "home";
+    public static final String MEMBERS_TAB = "members";
+    public static final String REIMBURSEMENTS_TAB = "reimbursements";
+    public static final String INVENTORY_TAB = "inventory";
+    public static final String CASHIER_TAB = "cashier";
+    public static final String OVERVIEW_TAB = "overview";
+    private final Logger logger = new LogsCenter().getLogger(getClass());
 
     @FXML
     private TabPane tabPane;
 
-    @FXML
-    private HelpWindow helpWindow;
-
-    public LogicManager(TabPane tabPane, HelpWindow helpWindow) {
+    public LogicManager(TabPane tabPane) {
         this.tabPane = tabPane;
-        this.helpWindow = helpWindow;
     }
 
     @Override
     public CommandResult execute(String commandText) throws ParseException {
         String command = commandText.split(" ")[0];
         String param;
-
-        if (command.equals("go")) {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        if (command.equals(COMMAND_WORD_NAVIGATION)) {
             try {
                 param = commandText.split(" ")[1];
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new ParseException("Please specify a tab to switch to.");
             }
             return goToTab(param);
-        } else if (command.equals("exit")) {
+        } else if (command.equals(COMMAND_WORD_EXIT)) {
             return new CommandResult("Exiting...", true);
-        } else if (command.equals("help")) {
-            handleHelp();
-            return new CommandResult("Showing help menu.");
         } else {
             throw new ParseException("This really shouldn't happen. How did you get here?");
         }
@@ -56,17 +61,17 @@ public class LogicManager implements Logic {
 
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
 
-        if (param.equalsIgnoreCase("home")) {
+        if (param.equalsIgnoreCase(HOME_TAB)) {
             selectionModel.select(0);
-        } else if (param.equalsIgnoreCase("members")) {
+        } else if (param.equalsIgnoreCase(MEMBERS_TAB)) {
             selectionModel.select(1);
-        } else if (param.equalsIgnoreCase("reimbursements")) {
+        } else if (param.equalsIgnoreCase(REIMBURSEMENTS_TAB)) {
             selectionModel.select(2);
-        } else if (param.equalsIgnoreCase("inventory")) {
+        } else if (param.equalsIgnoreCase(INVENTORY_TAB)) {
             selectionModel.select(3);
-        } else if (param.equals("cashier")) {
+        } else if (param.equalsIgnoreCase(CASHIER_TAB)) {
             selectionModel.select(4);
-        } else if (param.equalsIgnoreCase("overview")) {
+        } else if (param.equalsIgnoreCase(OVERVIEW_TAB)) {
             selectionModel.select(5);
         } else {
             throw new ParseException("A tab with that name was not found.");
@@ -74,17 +79,4 @@ public class LogicManager implements Logic {
 
         return new CommandResult("Switched to " + param + " tab!");
     }
-
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
 }

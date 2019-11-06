@@ -1,5 +1,7 @@
 package seedu.address.transaction.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -8,12 +10,12 @@ import java.util.stream.Collectors;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements Model, AddTransactionOnlyModel {
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final TransactionList transactionList;
     private TransactionList filteredList;
@@ -23,13 +25,21 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given transaction list.
      */
     public ModelManager(TransactionList transactionList) {
+        requireNonNull(transactionList);
         this.transactionList = transactionList;
         ArrayList<Transaction> actualList = new ArrayList<>();
         for (int i = 0; i < transactionList.size(); i++) {
             actualList.add(transactionList.get(i));
         }
         this.filteredList = new TransactionList(actualList);
-        //this.filteredList = new TransactionList(transactionList.gettArrList());
+        this.filteredList.setAsUnmodifiable();
+        this.predicate = transaction -> true;
+    }
+
+    public ModelManager() {
+        this.transactionList = new TransactionList();
+        this.filteredList = new TransactionList();
+        this.filteredList.setAsUnmodifiable();
         this.predicate = transaction -> true;
     }
 
@@ -45,12 +55,15 @@ public class ModelManager implements Model {
 
     @Override
     public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) {
+        boolean isTransactionToEditFound = false;
         for (int i = 0; i < transactionList.size(); i++) {
             Transaction curr = transactionList.get(i);
             if (curr.equals(transactionToEdit)) {
+                isTransactionToEditFound = true;
                 transactionList.set(i, editedTransaction);
             }
         }
+        assert isTransactionToEditFound : "The transaction to edit was not found.";
         filteredList = getFilteredList();
     }
 
@@ -66,6 +79,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addTransaction(Transaction trans) {
+        requireNonNull(trans);
         transactionList.add(trans);
         filteredList = getFilteredList();
     }
@@ -73,10 +87,8 @@ public class ModelManager implements Model {
     @Override
     public Transaction findTransactionInFilteredListByIndex(int index) {
         logger.info("size of filtered list: " + filteredList.size());
+        logger.info("index inputted: " + index);
         Transaction transaction = filteredList.get(index - 1);
-        //Transaction transaction = transactionList.get(index - 1);
-        logger.info("transaction found: " + transaction.toString());
-        logger.info("actual: " + transactionList.get(index - 1));
         return transaction;
     }
 
@@ -145,6 +157,7 @@ public class ModelManager implements Model {
         List<Transaction> list = this.transactionList.stream().filter(predicate).collect(Collectors.toList());
         ArrayList<Transaction> arrayList = new ArrayList<>(list);
         this.filteredList = new TransactionList(arrayList);
+        this.filteredList.setAsUnmodifiable();
         return filteredList;
     }
 

@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
-import seedu.address.reimbursement.commands.DeadlineCommand;
-import seedu.address.reimbursement.logic.exception.ParseException;
+import seedu.address.reimbursement.logic.commands.DeadlineCommand;
+import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 import seedu.address.util.ArgumentMultimap;
@@ -18,7 +18,7 @@ import seedu.address.util.Prefix;
 /**
  * Parser for deadline command.
  */
-public class DeadlineCommandParser implements GeneralParser<DeadlineCommand> {
+public class DeadlineCommandParser implements CommandParserWithPersonModel<DeadlineCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
@@ -45,7 +45,6 @@ public class DeadlineCommandParser implements GeneralParser<DeadlineCommand> {
         try {
 
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
-            System.out.println(person.toString());
             DeadlineCommand deadlineCommand = new DeadlineCommand(person, datetime);
             return deadlineCommand;
         } catch (Exception e) {

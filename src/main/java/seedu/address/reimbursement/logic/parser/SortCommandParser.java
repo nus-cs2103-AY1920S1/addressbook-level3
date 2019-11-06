@@ -1,22 +1,23 @@
 package seedu.address.reimbursement.logic.parser;
 
-import seedu.address.reimbursement.commands.Command;
-import seedu.address.reimbursement.commands.SortAmountCommand;
-import seedu.address.reimbursement.commands.SortDeadlineCommand;
-import seedu.address.reimbursement.commands.SortNameCommand;
-import seedu.address.reimbursement.logic.exception.ParseException;
+import seedu.address.reimbursement.logic.commands.SortAmountCommand;
+import seedu.address.reimbursement.logic.commands.SortCommand;
+import seedu.address.reimbursement.logic.commands.SortDeadlineCommand;
+import seedu.address.reimbursement.logic.commands.SortNameCommand;
+import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
 /**
- *Parser for sort command.
+ * Parser for sort command.
  */
-public class SortCommandParser {
+public class SortCommandParser implements IndependentCommandParser<SortCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
      * and returns a SortCommand object for execution.
+     *
      * @throws ParseException If the user input does not conform the expected format
      */
-    public Command parse(String arguments) throws ParseException {
+    public SortCommand parse(String arguments) throws ParseException {
         String[] argsArr = arguments.split(" ");
         if (argsArr[1].equals("date")) {
             return new SortDeadlineCommand();

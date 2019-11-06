@@ -1,7 +1,7 @@
 package seedu.address.cashier.model.exception;
 
 /**
- * Signals that the person the user input is not in the data base.
+ * Signals that the item the user input is not in the data base.
  */
 public class NoSuchItemException extends Exception {
 

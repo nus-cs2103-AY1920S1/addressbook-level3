@@ -4,8 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.function.Predicate;
 
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
+/**
+ * Represents a home tab's model stub.
+ */
 public class TransactionModelStubWithTransaction extends TransactionModelStub {
     private Transaction transaction;
     private Predicate<Transaction> predicate;

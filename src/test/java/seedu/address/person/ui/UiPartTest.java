@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import javafx.fxml.FXML;
+
 import seedu.address.MainApp;
+import seedu.address.ui.Lion;
 import seedu.address.ui.UiPart;
 
 public class UiPartTest {
@@ -36,6 +38,7 @@ public class UiPartTest {
         URL missingFileUrl = new URL(testFolder.toUri().toURL(), MISSING_FILE_PATH);
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(missingFileUrl));
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(missingFileUrl, new Object()));
+
     }
 
     @Test
@@ -44,6 +47,7 @@ public class UiPartTest {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(invalidFileUrl));
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(invalidFileUrl, new Object()));
     }
+
 
     @Test
     public void constructor_validFileUrl_loadsFile() {
@@ -85,7 +89,7 @@ public class UiPartTest {
 
     /**
      * UiPart used for testing.
-     * It should only be used with invalid FXML files or the valid file located at {@link VALID_FILE_PATH}.
+     * It should only be used with invalid FXML files or the valid file located at VALID_FILE_PATH.
      */
     private static class TestUiPart<T> extends UiPart<T> {
 
@@ -110,6 +114,14 @@ public class UiPartTest {
             assertEquals(VALID_FILE_ROOT, validFileRoot);
         }
 
-    }
+        TestUiPart(String fxmlFileName, Lion lion) {
+            super(fxmlFileName, lion);
+            assertEquals(VALID_FILE_ROOT, validFileRoot);
+        }
 
+        TestUiPart(URL fxmlFileUrl, Lion lion) {
+            super(fxmlFileUrl, lion);
+            assertEquals(VALID_FILE_ROOT, validFileRoot);
+        }
+    }
 }

@@ -22,4 +22,12 @@ public interface Model {
 
     double getSalesThreshold();
     void setSalesThreshold(double salesThreshold);
+
+    boolean checkBudgetNotif();
+    boolean checkExpenseNotif();
+    boolean checkSalesNotif();
+
+    void setBudgetNotif(boolean notify);
+    void setExpenseNotif(boolean notify);
+    void setSalesNotif(boolean notify);
 }

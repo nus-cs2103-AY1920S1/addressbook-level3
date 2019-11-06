@@ -1,13 +1,17 @@
 package seedu.address.ui;
 
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+
 import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.model.Item;
 
@@ -28,25 +32,42 @@ public class Inventory extends UiPart<Region> {
     @FXML
     private TableColumn<Item, Integer> quantityCol;
     @FXML
-    private TableColumn<Item, Double> costCol;
+    private TableColumn<Item, String> costCol;
     @FXML
-    private TableColumn<Item, Double> totalCostCol;
+    private TableColumn<Item, String> totalCostCol;
     @FXML
-    private TableColumn<Item, Double> priceCol;
+    private TableColumn<Item, String> priceCol;
     @FXML
-    private TableColumn<Item, Double> expectedRevenueCol;
+    private TableColumn<Item, String> expectedRevenueCol;
 
     public Inventory (Logic logic) throws Exception {
-        super(FXML);
+        super(FXML, Lion.getInstance());
         tableView.getItems().setAll(parseInventoryList(logic));
+        tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<Item, String>("category"));
         quantityCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("quantity"));
-        costCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("cost"));
-        totalCostCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("totalCost"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
-        expectedRevenueCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
+        costCol.setCellValueFactory(item -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(item.getValue().getCost()));
+            return property;
+        });
+        totalCostCol.setCellValueFactory(item -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(item.getValue().getTotalCost()));
+            return property;
+        });
+        priceCol.setCellValueFactory(item -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(item.getValue().getPrice()));
+            return property;
+        });
+        expectedRevenueCol.setCellValueFactory(item -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(item.getValue().getSubtotal()));
+            return property;
+        });
     }
 
     /**

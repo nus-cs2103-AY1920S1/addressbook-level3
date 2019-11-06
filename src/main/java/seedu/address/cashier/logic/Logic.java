@@ -2,7 +2,9 @@ package seedu.address.cashier.logic;
 
 import java.util.ArrayList;
 
-import seedu.address.cashier.commands.CommandResult;
+import seedu.address.cashier.logic.commands.CommandResult;
+import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
@@ -30,5 +32,13 @@ public interface Logic {
      * @return Sales List in the model manager.
      */
     ArrayList<Item> getSalesList() throws Exception;
+
+    void writeInInventoryFile() throws Exception;
+
+    void readInUpdatedList() throws Exception;
+
+    String getAmount() throws AmountExceededException;
+
+    String getCashier() throws NoCashierFoundException;
 
 }

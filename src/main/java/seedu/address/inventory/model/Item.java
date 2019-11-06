@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Item {
 
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     private final String category;
     private final String description;
     private Integer quantity;
@@ -18,6 +18,8 @@ public class Item {
     private Double price;
     private Double subtotal;
     private String id;
+    private Integer trueId;
+
 
     /**
      * Every field must be present and not null.
@@ -27,10 +29,11 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.cost));
         this.price = Double.parseDouble(DECIMAL_FORMAT.format(price));
-        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * price));
+        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.price));
         this.id = "" + id;
+        this.trueId = id;
     }
 
     /**
@@ -41,10 +44,15 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
-        this.price = 0.0;
-        this.subtotal = 0.0;
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.cost));
+        this.price = 0.00;
+        this.subtotal = 0.00;
         this.id = "" + i;
+        this.trueId = i;
+    }
+
+    public Integer getTrueId() {
+        return trueId;
     }
 
     public String getDescription() {
@@ -84,7 +92,12 @@ public class Item {
         updateSubtotal();
     }
 
-    public boolean getSellable() {
+    /**
+     * Checks if the item is available for sales.
+     *
+     * @return true if the item is available for sales. Else, return false
+     */
+    public boolean isSellable() {
         if (price == 0) {
             return false;
         } else {
@@ -113,6 +126,7 @@ public class Item {
 
     /**
      * Stores the attributes of the Item into a String, for storage in a File.
+     *
      * @return a String containing the attributes of the Item.
      */
     public String toWriteIntoFile() {
@@ -122,7 +136,7 @@ public class Item {
     }
 
     /**
-     * Returns true if both items of the same description have at least one other identity field that is the same.
+     * Returns true if both items are of the same description.
      * This defines a weaker notion of equality between two items.
      */
     public boolean isSameItem(Item otherItem) {
@@ -130,15 +144,12 @@ public class Item {
             return true;
         }
 
-        return otherItem != null
-                && otherItem.getDescription().equalsIgnoreCase(getDescription())
-                && (otherItem.getCategory().equals(getCategory()) || otherItem.getCost() == (getCost())
-                    || otherItem.getPrice() == getPrice());
+        return otherItem != null && otherItem.getDescription().equalsIgnoreCase(getDescription());
     }
 
     /**
      * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * This defines a stronger notion of equality between two items.
      */
     @Override
     public boolean equals(Object other) {
@@ -160,7 +171,6 @@ public class Item {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(description, category, quantity, cost, price);
     }
 
@@ -174,14 +184,14 @@ public class Item {
                 .append(" Quantity: ")
                 .append(getQuantity() + "\n")
                 .append(" Cost: ")
-                .append(getCost() + "\n")
+                .append(DECIMAL_FORMAT.format(getCost()) + "\n")
                 .append(" Total Cost: ")
-                .append(getTotalCost() + "\n")
+                .append(DECIMAL_FORMAT.format(getTotalCost()) + "\n")
                 .append(" Price: ")
-                .append(getPrice() + "\n")
+                .append(DECIMAL_FORMAT.format(getPrice()) + "\n")
                 .append(" Subtotal: ")
-                .append(getSubtotal() + "\n");
+                .append(DECIMAL_FORMAT.format(getSubtotal()) + "\n");
         return builder.toString();
     }
-}
 
+}

@@ -15,18 +15,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="home" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="home" prefWidth="690.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <GridPane fx:id="overview" alignment="CENTER" layoutY="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane fx:id="overview" alignment="CENTER" layoutY="2.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="688.0" minWidth="10.0" prefWidth="677.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="677.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="243.0" minHeight="8.0" prefHeight="20.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="440.0" valignment="CENTER" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="440.0" valignment="CENTER" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Label contentDisplay="CENTER" text="Summary of finances">
+            <Label contentDisplay="CENTER" styleClass="label-bright" text="Summary of finances">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -50,7 +50,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: grey;">
                      <children>
-                        <Label text="Expense Summary">
+                        <Label styleClass="label-bright" text="Expense Summary">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -58,12 +58,12 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalExpenseValue" text="Total Spent:">
+                        <Label fx:id="totalExpenseValue" styleClass="label-bright" text="Total Spent:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <PieChart fx:id="expensePieChart" style="-fx-background-insets: 0; -fx-border-width: 0;">
+                        <PieChart fx:id="expensePieChart" style="-fx-background-insets: 0; -fx-border-width: 0;" stylesheets="@DarkTheme.css">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -72,7 +72,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: grey;" GridPane.columnIndex="1">
                      <children>
-                        <Label text="Inventory Summary">
+                        <Label styleClass="label-bright" text="Inventory Summary">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -80,12 +80,12 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalInventoryValue" text="Inventory Value:">
+                        <Label fx:id="totalInventoryValue" styleClass="label-bright" text="Inventory Value:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <PieChart fx:id="inventoryPieChart">
+                        <PieChart fx:id="inventoryPieChart" styleClass="chart-title" stylesheets="@DarkTheme.css">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -94,7 +94,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="339.0" style="-fx-border-color: grey;" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Sales Summary">
+                        <Label styleClass="label-bright" text="Sales Summary">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -102,17 +102,17 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalSalesValue" text="Total Sales:">
+                        <Label fx:id="totalSalesValue" styleClass="label-bright" text="Total Sales:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <BarChart fx:id="salesBarChart">
+                        <BarChart fx:id="salesBarChart" stylesheets="@DarkTheme.css">
                           <xAxis>
                             <CategoryAxis fx:id="salesXAxis" side="BOTTOM" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis fx:id="salesYAxis" side="LEFT" />
+                            <NumberAxis fx:id="salesYAxis" side="LEFT" styleClass="axis-label" stylesheets="@DarkTheme.css" />
                           </yAxis>
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -122,7 +122,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: grey;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Budget Overview">
+                        <Label styleClass="label-bright" text="Budget Overview">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -130,17 +130,17 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalAmountRemaining" text="Amount Remaining:">
+                        <Label fx:id="totalAmountRemaining" styleClass="label-bright" text="Amount Remaining:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <LineChart fx:id="budgetBarChart">
+                        <LineChart fx:id="budgetBarChart" styleClass="chart-title" stylesheets="@DarkTheme.css">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis side="LEFT" />
+                            <NumberAxis side="LEFT" styleClass="axis-label" stylesheets="@DarkTheme.css" />
                           </yAxis>
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

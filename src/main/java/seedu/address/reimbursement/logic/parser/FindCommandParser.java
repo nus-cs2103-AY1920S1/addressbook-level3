@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
-import seedu.address.reimbursement.commands.FindCommand;
-import seedu.address.reimbursement.logic.exception.ParseException;
+import seedu.address.reimbursement.logic.commands.FindCommand;
+import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 import seedu.address.util.ArgumentMultimap;
@@ -17,7 +17,7 @@ import seedu.address.util.Prefix;
 /**
  * Parser for find command.
  */
-public class FindCommandParser implements GeneralParser<FindCommand> {
+public class FindCommandParser implements CommandParserWithPersonModel<FindCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
@@ -42,7 +42,6 @@ public class FindCommandParser implements GeneralParser<FindCommand> {
 
         try {
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
-            System.out.println(person.toString());
             FindCommand deadlineCommand = new FindCommand(person);
             return deadlineCommand;
         } catch (Exception e) {

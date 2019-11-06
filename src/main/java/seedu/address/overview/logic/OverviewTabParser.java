@@ -3,10 +3,10 @@ package seedu.address.overview.logic;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.overview.commands.Command;
-import seedu.address.overview.commands.NotifyCommand;
-import seedu.address.overview.commands.SetCommand;
-import seedu.address.overview.logic.exception.ParseException;
+import seedu.address.overview.logic.commands.Command;
+import seedu.address.overview.logic.commands.NotifyCommand;
+import seedu.address.overview.logic.commands.SetCommand;
+import seedu.address.overview.logic.commands.exception.ParseException;
 import seedu.address.overview.ui.OverviewMessages;
 
 /**

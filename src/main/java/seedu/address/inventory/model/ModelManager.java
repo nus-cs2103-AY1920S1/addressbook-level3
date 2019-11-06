@@ -1,32 +1,41 @@
 package seedu.address.inventory.model;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
-import seedu.address.inventory.storage.StorageManager;
+import seedu.address.inventory.storage.Storage;
 import seedu.address.inventory.util.InventoryList;
 
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
     private InventoryList inventoryList;
-    private StorageManager storage;
+    private Storage storage;
 
     public ModelManager(InventoryList inventoryList) {
         this.inventoryList = inventoryList;
     }
 
-    public ModelManager(StorageManager storage) {
+    public ModelManager(Storage storage) {
         this.storage = storage;
         try {
             this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
+        } catch (IOException e) {
             this.inventoryList = new InventoryList();
         }
     }
 
+    @Override
     public InventoryList getInventoryList() {
         return this.inventoryList;
+    }
+
+    @Override
+    public ArrayList<Item> getInventoryListInArrayList() {
+        return this.inventoryList.getInventoryListInArrayList();
     }
 
     @Override
@@ -40,12 +49,8 @@ public class ModelManager implements Model {
     @Override
     public boolean hasItemInInventory(Item item) {
         for (int i = 0; i < inventoryList.size(); i++) {
-            try {
-                if (inventoryList.getItemByIndex(i).isSameItem(item)) {
-                    return true;
-                }
-            } catch (Exception e) {
-                return false;
+            if (inventoryList.get(i).isSameItem(item)) {
+                return true;
             }
         }
         return false;
@@ -83,17 +88,16 @@ public class ModelManager implements Model {
      */
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
     /**
      * Updates the index of the items.
-     * @throws NoSuchIndexException if the index is invalid
      */
-    public void updateIndexes() throws NoSuchIndexException {
+    public void updateIndexes() {
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.get(i);
             item.setId(i + 1);
@@ -112,6 +116,10 @@ public class ModelManager implements Model {
         inventoryList.sortByQuantity();
     }
 
+    public void sortReset() {
+        inventoryList.sortReset();
+    }
+
     /**
      * Updates the recent inventory list from the data file.
      */
@@ -122,4 +130,13 @@ public class ModelManager implements Model {
             this.inventoryList = new InventoryList();
         }
     }
+
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ModelManager // instanceof handles nulls
+                && inventoryList.equals(((ModelManager) other).getInventoryList()));
+    }
+
 }

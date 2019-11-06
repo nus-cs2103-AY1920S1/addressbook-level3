@@ -24,12 +24,12 @@ import static seedu.address.person.logic.commands.CommandTestUtil.VALID_PHONE_AM
 import static seedu.address.person.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.person.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.person.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.util.CliSyntax.PREFIX_TAG;
 import static seedu.address.person.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.person.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.util.CliSyntax.PREFIX_TAG;
 
 import org.junit.jupiter.api.Test;
 

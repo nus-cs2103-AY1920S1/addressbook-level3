@@ -6,45 +6,56 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 
 /**
  * Manages storage of transaction data in local storage.
  */
 public class StorageManager implements Storage {
-    private final String filepath;
-    private final seedu.address.person.model.Model personModel;
+    public static final String NUM_FOR_REIMBURSED = "1";
+    public static final String ERROR_READING_FILE = "Date file could not be read from."
+            + "Please delete the 'data' folder and restart"
+            + "treasurerPro.";
 
-    public StorageManager(String filepath, seedu.address.person.model.Model personModel) {
-        this.filepath = filepath;
+
+    private final File file;
+    private final Logger logger = new LogsCenter().getLogger(getClass());
+    private final CheckAndGetPersonByNameModel personModel;
+
+    public StorageManager(File file, CheckAndGetPersonByNameModel personModel) {
+        this.file = file;
         this.personModel = personModel;
     }
 
     @Override
-    public TransactionList readTransactionList() {
+    public TransactionList readTransactionList() throws FileReadWriteException {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
-            File f = new File(filepath);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
-            BufferedReader bfr = new BufferedReader(new FileReader(f));
-            String line = null;
+            file.getAbsoluteFile().getParentFile().mkdirs();
+            file.createNewFile();
+            BufferedReader bfr = new BufferedReader(new FileReader(file));
+            String line;
             while ((line = bfr.readLine()) != null) {
                 Transaction t = this.readInFileLine(line, personModel);
                 transactionArrayList.add(t);
             }
             return new TransactionList(transactionArrayList);
-        } catch (IOException e) {
-            return new TransactionList();
+        } catch (Exception e) {
+            logger.warning("There was a problem reading transactionHistory.txt while application is running.");
+            throw new FileReadWriteException(ERROR_READING_FILE);
         }
     }
 
     @Override
     public void writeFile(TransactionList transactionList) throws IOException {
-        FileWriter fw = new FileWriter(this.filepath);
+        FileWriter fw = new FileWriter(this.file);
         String textFileMsg = "";
         for (int i = 0; i < transactionList.size(); i++) {
             if (i == 0) {
@@ -64,7 +75,7 @@ public class StorageManager implements Storage {
      * @param personModel Address Book model.
      * @return Transaction created.
      */
-    private static Transaction readInFileLine(String line, seedu.address.person.model.Model personModel) {
+    private static Transaction readInFileLine(String line, CheckAndGetPersonByNameModel personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);
@@ -75,6 +86,22 @@ public class StorageManager implements Storage {
     }
 
     private static boolean isReimbursed(String num) {
-        return num.equals("1") ? true : false;
+        return num.equals(NUM_FOR_REIMBURSED) ? true : false;
     }
+
+    @Override
+    public void appendToTransaction(Transaction transaction) throws Exception {
+        FileWriter fw = new FileWriter(this.file, true);
+        TransactionList transactionList = readTransactionList();
+        String textFileMsg = "";
+        if (transactionList.size() == 0) {
+            textFileMsg = (transactionList.size() + 1) + ". " + transaction.toWriteIntoFile();
+        } else {
+            textFileMsg = System.lineSeparator() + (transactionList.size() + 1) + ". "
+                    + transaction.toWriteIntoFile();
+        }
+        fw.write(textFileMsg);
+        fw.close();
+    }
+
 }

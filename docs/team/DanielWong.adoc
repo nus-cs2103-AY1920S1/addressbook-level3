@@ -1,0 +1,170 @@
+= Daniel Wong – Project Portfolio for treasurerPro (tP)
+:site-section: ProjectPortfolio
+//:toc:
+:toc-title:
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:icons: font
+ifdef::env-github[]
+:note-caption: :information_source:
+endif::[]
+
+== Introduction
+
+This document serves as a project portfolio for treasurerPro, and outlines my contributions to the project,
+including the features that I have implemented.
+
+=== About the team
+
+My team of five consists of four Year 2 Computer Science students, including me, and a Year 4 Computer Engineering
+student, all taking the module CS2103T Software Engineering.
+
+=== About the project
+
+This project was developed as part of the module CS2103T Software Engineering. We were tasked to develop a desktop
+application (Windows/macOS/Linux) with a Command Line Interface (that is, the program operates via text input from the
+user, called commands). Additionally, we were required to use an existing application, called AddressBook Level 3, as
+the starting point for building our application.
+
+My team decided to create an application that would help treasurers of Co-Curriculur Activities (CCAs) and student
+clubs track their expenses, reimbursements, sales and inventory. To do so, we incorporated the existing people
+management features of AddressBook and used it as a starting point to build treasurerPro. We also built a new User
+Interface (UI) to accommodate the new features that we had added.
+
+In total, treasurerPro took a total of 8 weeks to complete.
+
+===  Key to the icons and formatting used in the document
+
+[NOTE]
+This symbol indicates extra information or definition.
+
+[WARNING]
+This symbol indicates important information to take note of.
+
+`Model` :
+Text with grey highlight indicates a component, class or object in the architecture of
+the application.
+
+[blue]`*command*` :
+Text with blue font and grey highlight indicates a command that can be input by the user.
+
+=== Introduction of treasurerPro
+
+The User Interface of treasurerPro is primarily divided into 6 tabs - Home, Members, Reimbursements, Inventory, Cashier
+and Overview. Each tab serves a particular function:
+
+. The Home tab lists all transactions
+. The Members tab holds information of all the club's members
+. The Reimbursements tab keeps track of outstanding reimbursements
+. The Inventory tab keeps track of items owned by the club
+. The Overview tab shows summary statistics of the club's finances
+
+Additionally, there are two common elements across all tabs. The command box, for users to input their
+commands, and Leo, the mascot of treasurerPro, who acts as a personal assistant and guides the user.
+
+The following screenshot shows the User Interface of the application on first launch:
+image:Ui.png[width="600"]
+
+== Summary of contributions
+I served as Team Lead for the project, and my responsibilities included the design of the new User Interface, as well
+as the features within the Overview tab.
+
+In the following sections, I will illustrate the above-mentioned enhancements in greater detail, along with the
+corresponding documentation that I have written for them within the user and developer guides.
+
+=== Enhancements and new features added
+The following describes the enhancements and new features that I added to the project.
+
+. New User Interface (UI)
+** What it does: The new UI allows for each tab to effectively display its relevant data and interact with the user.
+** Justification: The current AddressBook Level 3 (AB3) UI was unsuitable due to the multitude of new features within
+each tab that have been implemented. As such, we decided to design a brand new UI that could fully represent the
+features of treasurerPro.
+** Highlights: The UI was made with SceneBuilder, an application built specifically for designing UIs. It retains AB3's
+command box, but replaces the bulk of the application with a `TabPane` that houses the content for each tab. +
+Additionally, a `GridPane` was used to create space for Leo, our mascot and personal assistant, to interact with the
+user.
+
+. Set and Notify Commands in Overview tab
+** What it does: The set and notify command allow the user to set goals for their expenditure, budget and sales revenue,
+and be notified when a percentage threshold of the goal has been met.
+** Justification: These commands work together in tandem to form the basis of treasurerPro's financial planning feature.
+They allow the treasurer to stay updated and continually keep track of the club's current financial health.
+** Highlights: Each notification displays only once per app run, unless the goals or percentage thresholds are modified.
+This prevents the user from being overwhelmed by excessive messages from treasurerPro.
+
+. Summary statistics view in Overview tab
+** What it does: The summary statistics view in the Overview tab allows the treasurer to monitor and take note of his
+club's financial health with just a quick glance.
+** Justification: It is tedious to flip through tab by tab, and read each table record by record just to gather summary
+data about the current financial status of the club.
+** Highlights: The calculations in this feature were implemented using Java Streams. This allows for future, similar
+statistics to easily be added, simply by changing the criteria used when processing of the stream.
+
+=== Code contributed
+Click on the following links to view the code that I have contributed:
+
+* https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/overview/[Functional Code]
+
+* https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/overview/[Test Code]
+
+[NOTE]
+The links above will bring you to our team's GitHub repository
+
+=== Other contributions
+The following describes the various other contributions that I have made to the project.
+
+. Project management:
+** I managed all major releases, from version 1.1 to 1.4. In total, 8 releases were made by me (including interim
+releases).
+** I took charge of 3 team meetings out of a total of 11 meetings that we held.
+
+. Enhancement to existing features:
+** Updated JavaFX CSS Stylesheet to include new UI elements.
+
+. Documentation:
+** Updated diagrams and write-ups in the Developer Guide for the design of the Architecture, UI and Logic components.
+** Proofread User Guide for spelling and grammatical errors.
+** Reformatted User Guide to ensure consistency between sections.
+
+. Community:
+** Mediated disagreements on workflow process between teammates as Team lead.
+** Cleaned up code style errors in teammates' packages (PRs:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/95[#95]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/124[#124])
+
+** Reviewed Pull Requests (with non-trivial review comments) (PRs:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[#49]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/98[#98]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/133[#133]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/134[#134]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/149[#149]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/202[#202]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/221[#221])
+
+** Contributed to forum discussions (links:
+https://github.com/nus-cs2103-AY1920S1/forum/issues/11[1]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/18[2]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/27[3]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/28[4]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/45[5]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/56[6]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/57[7]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/58[8]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/60[9]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/62[10]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/134[11]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/138[12])
+
+. Tools:
+** Added Coveralls' code coverage service to the team repository
+** Added Codacy's code quality service to the team repository
+
+== Contributions to the User Guide
+The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features.
+
+==  Contributions to the Developer Guide
+The following section shows my additions to the treasurerPro Developer Guide for the `Home Tab` features.
+

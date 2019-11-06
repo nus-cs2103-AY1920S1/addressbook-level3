@@ -4,9 +4,12 @@ import java.util.function.Predicate;
 
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
+/**
+ * Represents a home tab's model stub.
+ */
 public class TransactionModelStub implements Model {
     @Override
     public void addTransaction(Transaction transaction) {

@@ -2,8 +2,8 @@ package seedu.address.reimbursement.logic.parser;
 
 import java.util.stream.Stream;
 
-import seedu.address.reimbursement.commands.ExitCommand;
-import seedu.address.reimbursement.logic.exception.ParseException;
+import seedu.address.reimbursement.logic.commands.ExitCommand;
+import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
@@ -12,7 +12,7 @@ import seedu.address.util.Prefix;
 /**
  * Parses Exit commands.
  */
-public class ExitCommandParser implements SortParser<ExitCommand> {
+public class ExitCommandParser implements IndependentCommandParser<ExitCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }

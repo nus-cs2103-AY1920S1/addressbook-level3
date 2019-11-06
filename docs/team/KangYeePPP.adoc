@@ -1,0 +1,349 @@
+= Lim Kang Yee – Project Portfolio for treasurerPro (tP)
+:site-section: ProjectPortfolio
+//:toc:
+:toc-title:
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:icons: font
+ifdef::env-github[]
+:note-caption: :information_source:
+endif::[]
+
+== Introduction
+
+This project portfolio briefly introduces the project, treasurerPro and outlines my contributions to the project
+and showcases the key features I implemented.
+
+=== About the team
+
+My team of 5 members consists of 4 year 2 Computer Science Undergraduate students, including me, and another
+year 4 Computer Engineering Undergraduate student.
+
+=== About the project
+
+This project is part of the module 'Software Engineering Project CS2103T' where we were tasked to develop a basic
+command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
+Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
+enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
+reimbursements, inventory and member’s contact details easily. The duration of our project was 13 weeks.
+
+===  Key to the icons and formatting used in the document
+
+[NOTE]
+This symbol indicates extra information or definition.
+
+`Model` :
+Text with this font indicates a component, class or object in the architecture of
+the application.
+
+[blue]`command` :
+Text with this blue font indicates a command that can be inputted by the user.
+
+=== Introduction of treasurerPro
+
+This desktop application consists of 6 tabs, a command box for users to input their commands and a response box
+for Leo, our lion mascot. Each tab serves a different purpose that helps treasurers and members better manage their club
+or Society's finances.
+
+The home tab keeps track of individual transactions. The members tab keep track of all contact
+details of members. The reimbursement tab keeps track of reimbursement records for members that have spent money for the club activities.
+The inventory tab keeps track of items for sale. The cashier tab is a convenient way for the club to do
+cashiering duties which helps to directly input sales into the system. The overview tab allows treasurers to plan the
+club's finances.
+This is what our application looks like when it is first opened. (graphical user interface for treasurerPro):
+
+.Graphical User Interface of treasurerPro
+image::AnnotatedUi.png[width="700"]
+
+== Summary of contributions
+My role was to design and write the code for the features of the Home Tab. The following sections shows a summary of these
+features, as well as the relevant documentation I have added to the user and developer guides in
+relation to these features.
+
+*Enhancements*
+
+//This section explains the rationale behind the features of the Home Tab.
+
+////
+* Adding, Deleting and Editing Transactions
+The basic create, read, update and delete (CRUD) commands were added such that the user can [blue]`*add*`, [blue]`*delete*` and
+[blue]`*edit*` transactions to keep track of them.
+** What it does:
+It allows the user to create, delete and update transactions. It also allows the application to restore data from
+previous usage of the application by reading and saving data in a background text file.
+
+** Justification:
+It forms the fundamental features required for the `Home Tab` to be useful for users to keep track of transactions.
+
+** Highlights:
+These commands help to store and keep track of transactions in the `Home Tab` but also help keep track of sales
+transactions from the `Cashier Tab`. The transactions for each member's spending in this tab are also tabulated in the
+`Reimbursement Tab` to help the treasurer keep track of pending reimbursements.
+
+A [blue]`*sort*` command was implemented for the transactions in the table to sort the commands to a certain order.
+
+////
+* Deleting Transactions of a Specific Member
+** What it does:
+The Delete Command allows all transactions linked to the specified member in the command to be deleted at once.
+
+** Justification:
+This feature allows the user to clear all transaction records linked to a specific member if the member
+has left the CCA since a member's details can only be deleted in the Members Tab if the member does not have existing transaction
+records.
+
+** Highlights:
+This feature is a faster way to delete transactions of a specific member, especially if the member has many transaction
+records. This works well with the deletion of member feature in Members Tab.
+
+* Sorting Transactions in a Specific Order
+** What it does:
+Each transaction records consists of a date, description, category, amount of money and
+person accountable for the transaction. Thus, the Sort Command helps to sort the transactions by the alphabetical order of
+the person's name, by the date (from oldest to most recent) or amount (from smallest to largest).
+
+** Justification:
+It is useful for users to keep track of transactions and view the transaction records according to different
+priority.
+
+** Highlights:
+This command can be extended easily to allow for sorting of transactions in the reverse order or with other different orders.
+////
+* Finding and Filtering Transactions by Keywords
+
+** What it does:
+The command allows user to filter transactions to only show those that match the keywords from all
+the transactions recorded.
+
+** Justification:
+This works well with other commands. It allows users to easily filter transactions to further call
+another command to manage the transactions better.
+
+==== Go and Exit Command
+//A [blue]`*find*` command was also implemented to help find specific transactions that match the keywords inputted by the user.
+
+Lastly, a [blue]`*go*` command and [blue]`*exit*` command was implemented to help navigate to another tab
+and leave the application.
+
+* What it does:
+The [blue]`*go*` command helps the user to navigate to another tab without having to click on the tab and the
+[blue]`*exit*` command allows the user to leave the application without having to click on the window's exit icon
+as well.
+
+* Justification: This ensures the application is a command-line interface application which requires no clicking
+at all.
+////
+*Code contributed*
+
+Please click these links to view the code I have contributed for Home Tab:
+https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/transaction[Functional Code]
+, https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/transaction/[Test Code]
+
+*Other contributions*
+
+* Community
+** Reviewed Pull Requests (With Non-trivial Review Comments):
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/98[(PR #98)]
+** Added Detailed Explanation of Added Code in Pull Requests to Help Understanding By Other Members:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[(PR #42)],
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/201[(PR #201)]
+
+** Helped to Debug Code in Other Member's package:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/126[(PR #126)]
+
+* Integration
+** Integrated `Transaction Tab` with `Reimbursement Tab`:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[(PR #49)]
+
+** Integrated the Original `AddressBook` into the `Members Tab` in Graphical User Interface:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[(PR #42)]
+
+** Integrated the Edit and Delete Command of `AddressBook` with the Logic of `Transaction Tab`:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49/commits/af0e17f2d0b9101c91122329ccd676ee6c7bc0fe[(PR #49)],
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/85/commits/3aebcd9053985fcc07e9145cff89fb579d9fde9e[(PR #85)]
+
+* Documentation
+** Added Implementation Details for Home Tab, Model Component and Storage Component to the Developer Guide:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/154[(PR #154)],
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/199[(PR #199)]
+
+** Added to User Stories and the Guide to Use the Home Tab to the User Guide:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/22[(PR#22)],
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/197[(PR #197)]
+
+== Contributions to the User Guide
+The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features.
+
+=== Current enhancement
+{Start of First Extract from User Guide}
+
+[big red]*5.1.2 To Delete Transaction(s) in the Home Tab*
+
+This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the table.
+
+* Command:
+`delete ID` or `delete p/PERSON`
+
+* Examples
+** Delete by ID: [blue]`delete 1`
+** Delete by Person: [blue]`delete p/Alex Yeoh`
+
+* Steps for Deleting by ID
+1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
+
+image::homeUG/HomeDeleteStep1cr.png[width = "750"]
+
+
+[start = 2]
+2. Hit `Enter`.
+
+Leo will respond with a success message and the transaction will be removed from the table as shown below:
+
+image::homeUG/HomeDeleteStep2cr.png[width = "750"]
+
+
+* Steps for Deleting by Person
+1. Type the command with the person's name to delete all transactions related to that person, as shown in the screenshot below:
+
+image::homeUG/HomeDeletePStep1cr.png[width = "750"]
+
+[start = 2]
+2. Hit `Enter`.
+
+Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
+
+image::homeUG/HomeDeletePStep2cr.png[width = "750"]
+
+For both delete commands, if the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
+reimbursement record. On the other hand, if the person entered is not part of our database as shown in the Members Tab,
+Leo will respond with a message to inform you. If the person does not have any transactions, Leo will also respond with a message to inform you.
+
+{End of First Extract}
+
+{Start of Second Extract from User Guide}
+
+[big red]*5.1.4 To Sort Transactions in the Home Tab*
+
+This command sorts the table of transactions into a specified order for viewing and carrying out of subsequent commands.
+
+* To sort
+** By date (from oldest to most recent): [blue]`sort date`
+** By name (from alphabetical order of name): [blue]`sort name`
+** By amount (from smallest to largest in amount): [blue]`sort amount`
+** Undo sort: [blue]`sort reset`
+
+[NOTE]
+The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
+
+{End of Second Extract}
+
+==  Contributions to the Developer Guide
+The following section shows my additions to the treasurerPro Developer Guide for the `Home Tab` features.
+
+=== Current enhancement
+{Start of Extract from Developer Guide}
+
+[big red]*3.1.2 Delete Feature*
+
+This section explains the implementation of the Delete Command in Home Tab. This feature allows for 2 types of deletion, by
+the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
+that person to be deleted.
+
+The following sequence diagram shows how the delete by name command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+
+[caption = "Figure 16. "]
+.Sequence Diagram of Delete Command in Home Tab (transaction package)
+image::HomeDeleteNameCommand.png[width = "300"]
+
+In addition, the `ModelManager#resetPredicate()` method is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
+filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
+a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
+To view the full transaction list, the user would be required to input the
+Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
+following section <<BackCommandSD, 3.1.3 BackCommand>>
+
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
+and <<update-reimbursement, 3.1.1. Add Command feature: Figure 14>>
+respectively.
+The delete by index implementation would be similar but does not require interaction with the `Model` from the
+`AddressBook` in the person package.
+The following activity diagram shows the steps needed to delete a new transaction:
+
+[caption = "Figure 17. "]
+.Activity Diagram of Delete Command in Home Tab (transaction package)
+image::HomeTabActivityDiagramDeleteCommand.png[width = "500"]
+
+The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
+be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
+when a successful deletion is done.
+
+[big red]*3.1.3 Back Command Feature*
+
+[[BackCommandSD]]
+This section explains the implementation of the Back Command feature in Home Tab.
+The `BackCommand` is not initialised by a specific command parser as shown in as shown in
+ <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
+but initialised by the `TransactionTabParser` instead.
+The following detailed sequence diagram shows how the back command works:
+
+[caption = "Figure 18. "]
+.Sequence Diagram of Back Command in Home Tab (transaction package)
+image::HomeTabBackCommandSequenceDiagram.png[width = "500"]
+
+[big red]*3.1.4 Sort Command Feature*
+
+This section explains the implementation of the Sort Command feature in Home Tab.
+The `SortCommand` allows for 3 types of sort, by name in
+alphabetical order, by amount (from least to most) and by date (from oldest to most recent).
+
+The following sequence diagram shows how the sort command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+
+[caption = "Figure 19. "]
+.Sequence Diagram of Sort Command in Home Tab (transaction package)
+
+image::HomeTabSortSD.png[width = "300"]
+
+When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
+the incorrect user input. When it is successfully sorted, there will also be a response message shown.
+
+Similar to the Delete Command, the `resetPredicate()` method in `ModelManager` is not called.
+
+[big red]*3.1.5 Overall Design Considerations*
+
+This section's table explains the design considerations for some implementations in the Home Tab.
+
+|===
+|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+|`ModelManager` contains 2 variables that point to a `TransactionList` object in original order and a `TransactionList`
+object for viewing that can be sorted such that when [blue]`sort reset` is called, the shown `TransactionList` can be set to be equals to the original one.
+|`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
+the `TransactionList` object in original order when [blue]`sort reset` is called.
+|Alternative 1 was implemented. Alternative 1 allowed exporting of the data file in the desired order anytime while treasurerPro was running while
+alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown below the table in <<lists, Figure 20>>.
+
+|The Members Tab's `Model` interface is passed as parameters into Transaction Tab's `Logic` to give `Logic` access to all public methods
+of `ModelManager`.
+|A new interface is made to allow the only used method of Members Tab's `ModelManager` to be accessed in Transaction Tab's
+`Logic`.
+|Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
+to `AddressBook`. The interface implemented is `GetPersonByNameOnlyModel` as shown below the table in <<facade, Figure 21>>.
+
+|An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
+|A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
+|Alternative 1 was implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would be used frequently in `ModelManager`.
+|===
+
+[[lists]]
+[caption = "Figure 20. "]
+.Code Snippet of `ModelManager` class with 2 `TransactionList` objects
+image::homeDG/2lists.png[width = "450"]
+
+[[facade]]
+[caption = "Figure 21. "]
+.Code Snippet of `GetPersonByNameOnly` facade class for `ModelManager` from Members Tab
+image::homeDG/facadeForDesignConsiderations.png[width = "450"]
+
+{End of Extract}

@@ -3,8 +3,12 @@ package seedu.address.stubs;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
+/**
+ * Represents a home tab's model stub.
+ */
 public class TransactionModelStubAcceptingTransactionAdded extends TransactionModelStub {
     final ArrayList<Transaction> transactionsAdded;
     private Predicate<Transaction> predicate;
@@ -34,6 +38,11 @@ public class TransactionModelStubAcceptingTransactionAdded extends TransactionMo
     @Override
     public void resetPredicate() {
         this.predicate = transaction -> true;
+    }
+
+    @Override
+    public TransactionList getTransactionList() {
+        return new TransactionList(transactionsAdded);
     }
 
 }

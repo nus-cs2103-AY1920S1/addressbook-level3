@@ -17,14 +17,14 @@
 
 <!--onCloseRequest="#handleExit"-->
 
-<fx:root minHeight="660.0" minWidth="920.0" title="treasurerPro (tP)" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="720.0" minWidth="1000.0" resizable="false" title="treasurerPro (tP)" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/Leo_32.png" />
   </icons>
   <scene>
     <Scene>
 
-      <VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="background">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                <stylesheets>
                   <URL value="@DarkTheme.css" />
@@ -40,20 +40,20 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
         </StackPane>
-            <GridPane>
+            <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="grid-pane">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="215.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints fillWidth="false" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="215.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
                   <TabPane fx:id="tabPane" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab id="homeTab" fx:id="homeTab" text="Home">
                         <content>
-                          <AnchorPane fx:id="homePlaceholder" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <AnchorPane fx:id="homePlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <stylesheets>
                                     <URL value="@DarkTheme.css" />
                                     <URL value="@Extensions.css" />
@@ -65,24 +65,24 @@
                         </content>
                       </Tab>
 
-                        <Tab id="membersTab" fx:id="membersTab" text="Members">
+                              <Tab id="membersTab" fx:id="membersTab" text="Members">
                           <content>
-                            <AnchorPane fx:id="membersPlaceholder" prefWidth="690.0">
+                            <AnchorPane fx:id="membersPlaceholder">
                                  <stylesheets>
                                     <URL value="@DarkTheme.css" />
                                     <URL value="@Extensions.css" />
                                  </stylesheets>
                                  <padding>
-                                    <Insets top="5.0" />
+                                    <Insets bottom="5.0" left="5.0" top="8.0" />
                                  </padding>
                               </AnchorPane>
                           </content>
                         </Tab>
                         <Tab id="reimbursementsTab" fx:id="reimbursementsTab" text="Reimbursements">
                           <content>
-                            <AnchorPane fx:id="reimbursementsPlaceholder" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <AnchorPane fx:id="reimbursementsPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <padding>
-                                    <Insets bottom="10.0" left="5.0" top="8.0" />
+                                    <Insets bottom="5.0" left="5.0" top="8.0" />
                                  </padding>
                                  <stylesheets>
                                     <URL value="@DarkTheme.css" />
@@ -93,7 +93,7 @@
                         </Tab>
                       <Tab id="inventoryTab" fx:id="inventoryTab" text="Inventory">
                         <content>
-                          <AnchorPane fx:id="inventoryPlaceholder" prefWidth="692.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <AnchorPane fx:id="inventoryPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" top="8.0" />
                                  </padding>
@@ -108,7 +108,7 @@
                           <content>
                             <AnchorPane fx:id="cashierPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <padding>
-                                    <Insets bottom="5.0" left="5.0" top="6.0" />
+                                    <Insets bottom="5.0" left="5.0" top="8.0" />
                                  </padding>
                                  <stylesheets>
                                     <URL value="@DarkTheme.css" />
@@ -121,7 +121,7 @@
                           <content>
                             <AnchorPane fx:id="overviewPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <padding>
-                                    <Insets top="5.0" />
+                                    <Insets bottom="5.0" left="5.0" top="8.0" />
                                  </padding>
                                  <stylesheets>
                                     <URL value="@DarkTheme.css" />
@@ -139,7 +139,8 @@
                      <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
-                     </stylesheets></VBox>
+                     </stylesheets>
+                  </VBox>
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -149,12 +150,6 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
             </GridPane>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER">
-               <stylesheets>
-                  <URL value="@DarkTheme.css" />
-                  <URL value="@Extensions.css" />
-               </stylesheets></StackPane>
             <stylesheets>
                <URL value="@DarkTheme.css" />
                <URL value="@Extensions.css" />

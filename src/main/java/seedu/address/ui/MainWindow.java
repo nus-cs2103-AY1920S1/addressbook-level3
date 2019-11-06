@@ -1,15 +1,12 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -48,9 +45,6 @@ public class MainWindow extends UiPart<Stage> {
     private Lion lion;
 
     private Logic uiLogic;
-
-    @FXML
-    private HelpWindow helpWindow;
 
     @FXML
     private AnchorPane homePlaceholder;
@@ -118,58 +112,26 @@ public class MainWindow extends UiPart<Stage> {
         this.personLogic = personLogic;
         this.cashierLogic = cashierLogic;
         this.overviewLogic = overviewLogic;
-        this.uiLogic = new LogicManager(tabPane, helpWindow);
+        this.uiLogic = new LogicManager(tabPane);
 
         // Configure the UI
         //setWindowDefaultSize(logic.getGuiSettings());
 
         //setAccelerators();
 
-        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    /*private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }*/
-
-    /**
-     * Sets the accelerator of a MenuItem.
-     * @param keyCombination the KeyCombination value of the accelerator
-     */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
-    }
-
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() throws Exception {
+        lion = Lion.getInstance();
+        lionPlaceholder.getChildren().add(lion.getRoot());
+
         home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
@@ -188,11 +150,10 @@ public class MainWindow extends UiPart<Stage> {
         overview = new Overview(overviewLogic);
         overviewPlaceholder.getChildren().add(overview.getRoot());
 
-        lion = new Lion();
-        lionPlaceholder.getChildren().add(lion.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        checkIfNotify();
 
     }
 
@@ -221,7 +182,6 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         personLogic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -232,14 +192,17 @@ public class MainWindow extends UiPart<Stage> {
     private OverallCommandResult executeCommand(String commandText) throws Exception {
         try {
             OverallCommandResult commandResult;
+            logger.info("---------[User input] " + commandText + "--------");
             if (isUiCommand(commandText)) {
                 commandResult = uiLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
                 commandResult = transactionLogic.execute(commandText);
+                reimbursementLogic.updateReimbursementModelAndStorage(transactionLogic.getTransactionList());
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
                 commandResult = personLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
                 commandResult = reimbursementLogic.execute(commandText);
+                transactionLogic.updateTransactionStorage();
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
                 commandResult = inventoryLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
@@ -250,6 +213,8 @@ public class MainWindow extends UiPart<Stage> {
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             lion.setResponse(commandResult.getFeedbackToUser());
+
+            checkIfNotify();
 
             homePlaceholder.getChildren().removeAll();
             homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
@@ -265,11 +230,6 @@ public class MainWindow extends UiPart<Stage> {
 
             overviewPlaceholder.getChildren().removeAll();
             overviewPlaceholder.getChildren().add(new Overview(overviewLogic).getRoot());
-
-            //later when we implement help and exit
-            /*if (commandResult.isShowHelp()) {
-                handleHelp();
-            }*/
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -289,8 +249,23 @@ public class MainWindow extends UiPart<Stage> {
      * @return true if it is a UI-related command.
      */
     private boolean isUiCommand(String userInput) {
-        return userInput.split(" ")[0].equals("go")
-                || userInput.split(" ")[0].equals("help")
-                || userInput.split(" ")[0].equals("exit");
+        userInput.trim();
+        String[] userInputArr = userInput.split(" ");
+        if (userInputArr.length > 0) {
+            return userInput.split(" ")[0].equals("go")
+                    || userInput.split(" ")[0].equals("exit");
+        }
+        return false;
+    }
+
+    /**
+     * Checks if notifications need to be printed and prints them if applicable.
+     */
+    private void checkIfNotify() {
+        List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
+
+        for (OverallCommandResult notif: notifications) {
+            lion.setResponse(notif.getFeedbackToUser());
+        }
     }
 }

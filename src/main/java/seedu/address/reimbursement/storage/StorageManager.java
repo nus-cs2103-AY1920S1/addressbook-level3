@@ -1,6 +1,7 @@
 package seedu.address.reimbursement.storage;
 
 import static seedu.address.reimbursement.model.Reimbursement.DATE_TIME_FORMATTER;
+import static seedu.address.transaction.storage.StorageManager.ERROR_READING_FILE;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,7 +13,8 @@ import java.util.HashMap;
 
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 
 /**
  * Storage manager. Allows reimbursements to be stored and loaded from file.
@@ -20,21 +22,19 @@ import seedu.address.transaction.util.TransactionList;
 public class StorageManager implements Storage {
     private static final String VBSPLIT = " [|] ";
     private static final String DOTSPLIT = "[.] ";
-    private final String filepathReimbursement;
-    private final seedu.address.transaction.model.Model transactionModelManager;
+    private final File fileReimbursement;
 
-    public StorageManager(String filepathReimbursement,
-                          seedu.address.transaction.model.Model transactionModelManager) {
-        this.filepathReimbursement = filepathReimbursement;
-        this.transactionModelManager = transactionModelManager;
+    public StorageManager(File fileReimbursement) {
+        this.fileReimbursement = fileReimbursement;
     }
 
     /**
      * Reads in a line of the file and adds it to the map.
-     * @param map the map to add the new record to.
+     *
+     * @param map  the map to add the new record to.
      * @param line the current line being read.
      */
-    public static void readInFileLine(HashMap<String, LocalDate> map, String line) {
+    private void readInFileLine(HashMap<String, LocalDate> map, String line) {
         String[] stringArr = line.split(VBSPLIT, 0);
         String[] nameArr = stringArr[0].split(DOTSPLIT);
         String personName = nameArr[1];
@@ -48,44 +48,26 @@ public class StorageManager implements Storage {
         }
     }
 
-    @Override
-    public ReimbursementList readReimbursementList() {
+    /**
+     * Generates a hashmap which maps the person's name to the deadline date.
+     *
+     * @return the hashmap.
+     */
+    private HashMap<String, LocalDate> readReimbursementFile() throws FileReadWriteException {
         try {
-            //this map maps person's name with the reimbursement deadline.
             HashMap<String, LocalDate> map = new HashMap<>();
-            File f = new File(filepathReimbursement);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
-            BufferedReader bfr = new BufferedReader(new FileReader(f));
+            fileReimbursement.getAbsoluteFile().getParentFile().mkdirs();
+            fileReimbursement.createNewFile();
+            BufferedReader bfr = new BufferedReader(new FileReader(fileReimbursement));
             String line = null;
             while ((line = bfr.readLine()) != null) {
                 this.readInFileLine(map, line);
             }
-            //read transaction list from transaction storage
-            TransactionList transList = transactionModelManager.getTransactionList();
-            //generate reimbursement list from transaction list
-            ReimbursementList newList = new ReimbursementList(transList);
-            this.matchDeadline(newList, map);
-            return newList;
+            return map;
         } catch (IOException e) {
-            return new ReimbursementList();
+            //return new HashMap<>();
+            throw new FileReadWriteException(ERROR_READING_FILE);
         }
-    }
-
-    @Override
-    public void writeFile(ReimbursementList reimbursementList) throws IOException {
-        FileWriter fw = new FileWriter(this.filepathReimbursement);
-        String textFileMsg = "";
-        for (int i = 0; i < reimbursementList.size(); i++) {
-            if (i == 0) {
-                textFileMsg = textFileMsg + (i + 1) + ". " + reimbursementList.get(i).writeIntoFile();
-            } else {
-                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) + ". "
-                        + reimbursementList.get(i).writeIntoFile();
-            }
-        }
-        fw.write(textFileMsg);
-        fw.close();
     }
 
     /**
@@ -105,6 +87,31 @@ public class StorageManager implements Storage {
             }
             rmb.addDeadline(date);
         }
+    }
+
+    @Override
+    public ReimbursementList getReimbursementFromFile(TransactionList transList) throws FileReadWriteException {
+        HashMap<String, LocalDate> map = readReimbursementFile();
+        ReimbursementList newList = new ReimbursementList(transList);
+        matchDeadline(newList, map);
+        return newList;
+
+    }
+
+    @Override
+    public void writeFile(ReimbursementList reimbursementList) throws IOException {
+        FileWriter fw = new FileWriter(this.fileReimbursement);
+        String textFileMsg = "";
+        for (int i = 0; i < reimbursementList.size(); i++) {
+            if (i == 0) {
+                textFileMsg = textFileMsg + (i + 1) + ". " + reimbursementList.get(i).writeIntoFile();
+            } else {
+                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) + ". "
+                        + reimbursementList.get(i).writeIntoFile();
+            }
+        }
+        fw.write(textFileMsg);
+        fw.close();
     }
 
 

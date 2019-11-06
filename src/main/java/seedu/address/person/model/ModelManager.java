@@ -18,7 +18,7 @@ import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements Model, CheckAndGetPersonByNameModel {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
@@ -151,6 +151,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
     public Person getPersonByName(String name) throws PersonNotFoundException {
         return addressBook.getPersonByName(name);
     }

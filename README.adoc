@@ -3,6 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S1-CS2103T-T13-3/main[image:https://travis-ci.com/AY1920S1-CS2103T-T13-3/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T13-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T13-3/main/badge.svg?branch=master[Coverage Status]]
+https://www.codacy.com/manual/treasurerPro/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2103T-T13-3/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/909d4a6818bd4f2489d1ad4a2bee4408[Code Quality]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -12,10 +13,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop application called treasurerPro (tP).
-It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is aimed towards Co-curricular Activities Treasurers to help them better manage finances and reimbursements to members.
-* It makes planning and budgeting events much easier with everything consolidated in one application.
+This is a desktop application called *treasurerPro* (tP). +
+It has a Graphical User Interface (GUI) but this application has been tailored to enable user interaction mostly via the Command
+Line Interface (CLI). This application is intended to aid treasurers of Co-curricular Activities and Societies with
+better management of finances and reimbursements for its members. By packaging all functions in an application, it makes
+planning and budgeting events much more easier.
 
 == Site Map
 
@@ -24,10 +26,11 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
+
 == Acknowledgements
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
-* AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
+* This project is based off the AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
 == Licence : link:LICENSE[MIT]
