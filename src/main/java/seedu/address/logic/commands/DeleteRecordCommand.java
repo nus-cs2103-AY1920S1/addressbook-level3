@@ -27,7 +27,7 @@ public class DeleteRecordCommand extends DeleteCommand {
         + "Parameters: INDEX " + PREFIX_EVENT + "EVENT_NAME " + PREFIX_DATE + "DDMMYYYY"
         + "Example: " + COMMAND_WORD + " " + FLAG_RECORD + " 1 "
         + PREFIX_EVENT + "freestyle 50m " + PREFIX_DATE + "02102019";
-    public static final String MESSAGE_NO_RECORDS_ON_DAY = "%1$s has no records on %1$s.\n"
+    public static final String MESSAGE_NO_RECORDS_ON_DAY = "%1$s has no records on %2$s.\n"
         + "Please make sure you have typed in the date correctly.";
     public static final String MESSAGE_SUCCESS = "Record for %1$s on %2$s under %3$s event has been successfully "
         + "deleted.";
@@ -46,6 +46,19 @@ public class DeleteRecordCommand extends DeleteCommand {
         this.date = date;
     }
 
+    /**
+     * Checks if the event exists, and if there are any records to be deleted.
+     */
+    public void checkEvent(Model model) throws CommandException {
+        if (!model.hasEvent(new Event(eventName))) {
+            throw new CommandException(String.format(Event.MESSAGE_NO_SUCH_EVENT, eventName));
+        }
+
+        if (!model.getEvent(eventName).doesAthleteHavePerformanceOn(date, athlete)) {
+            throw new CommandException(String.format(MESSAGE_NO_RECORDS_ON_DAY, athlete.getName().fullName, date));
+        }
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -56,15 +69,28 @@ public class DeleteRecordCommand extends DeleteCommand {
         }
         athlete = lastShownList.get(index.getZeroBased());
 
-        if (!model.hasEvent(new Event(eventName))) {
-            throw new CommandException(String.format(Event.MESSAGE_NO_SUCH_EVENT, eventName));
-        }
-
-        if (!model.getEvent(eventName).doesAthleteHavePerformanceOn(date, athlete)) {
-            throw new CommandException(String.format(MESSAGE_NO_RECORDS_ON_DAY, athlete.getName().fullName, date));
-        }
+        checkEvent(model);
 
         model.deleteRecord(eventName, athlete, date);
         return new CommandResult(String.format(MESSAGE_SUCCESS, athlete.getName().fullName, date, eventName));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeleteRecordCommand)) {
+            return false;
+        }
+
+        DeleteRecordCommand d = (DeleteRecordCommand) other;
+
+        return eventName.equals(d.eventName)
+            && date.equals(d.date)
+            && index.equals(d.index);
     }
 }
