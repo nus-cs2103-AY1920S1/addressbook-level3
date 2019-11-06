@@ -38,7 +38,7 @@ public class SearchPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Show} using a {@code ShowCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Show} using a {@code SearchShowCard}.
      */
     class SearchListViewCell extends ListCell<Show> {
         @Override
@@ -49,9 +49,8 @@ public class SearchPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                ShowCard showCard = new ShowCard(show, getIndex() + 1);
-                setGraphic(showCard.getRoot());
-                showCard.setWatchedListener(new NonChangeableCheckBox(showCard.getWatched(), show));
+                SearchShowCard searchShowCard = new SearchShowCard(show, getIndex() + 1);
+                setGraphic(searchShowCard.getRoot());
             }
         }
     }
