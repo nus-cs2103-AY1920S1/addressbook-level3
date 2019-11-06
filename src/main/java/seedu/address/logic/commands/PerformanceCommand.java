@@ -65,11 +65,19 @@ public class PerformanceCommand extends Command {
 
         Event createdEvent = new Event(event);
 
+        // if event does not exist
         if (!model.hasEvent(createdEvent)) {
             throw new CommandException(String.format(Event.MESSAGE_NO_SUCH_EVENT, event));
         }
 
         Person athlete = lastShownList.get(index.getZeroBased());
+
+        // if record already exists (same athlete, same event, same day)
+        if (model.getEvent(event).doesAthleteHavePerformanceOn(date, athlete)) {
+            throw new CommandException(String.format(
+                Event.MESSAGE_RECORD_EXISTS, athlete.getName().fullName, date, event));
+        }
+
         Record record = createRecord();
         date.setType(2);
         model.addRecord(event, athlete, record);

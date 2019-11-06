@@ -288,6 +288,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Event getEvent(String eventName) {
+        return performance.getEvent(eventName);
+    }
+
+    @Override
     public void deleteEvent(Event target) {
         performance.removeEvent(target);
     }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 
@@ -17,6 +18,7 @@ public class Event {
     public static final String MESSAGE_NO_SUCH_EVENT = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
     public static final String MESSAGE_CONSTRAINTS = "Event name should not begin with a space.\n";
+    public static final String MESSAGE_RECORD_EXISTS = "%1$s already has a record on %2$s for %3$s event.";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -54,6 +56,23 @@ public class Event {
             return true;
         }
         return otherEvent != null && otherEvent.getName().equals(name);
+    }
+
+    /**
+     * Checks if the athlete already has a record on the given day for this event.
+     * This prevents an athlete from having 2 records on the same day, under the same event.
+     */
+    public boolean doesAthleteHavePerformanceOn(AthletickDate athletickDate, Person athlete) {
+        List<Record> athleteRecords = getAthleteRecords(athlete);
+        if (athleteRecords == null) {
+            return false;
+        }
+        for (Record record : athleteRecords) {
+            if (record.getDate().equals(athletickDate)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
