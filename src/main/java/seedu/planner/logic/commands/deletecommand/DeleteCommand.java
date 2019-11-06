@@ -1,4 +1,6 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.deletecommand;
+
+import seedu.planner.logic.commands.UndoableCommand;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.

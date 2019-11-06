@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.planner.logic.commands.EditActivityCommand.EditActivityDescriptor;
+import seedu.planner.logic.commands.editcommand.EditActivityCommand.EditActivityDescriptor;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Phone;
 import seedu.planner.model.field.Address;

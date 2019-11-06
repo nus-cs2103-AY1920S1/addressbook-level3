@@ -1,5 +1,6 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.listcommand;
 
+import seedu.planner.logic.commands.Command;
 import seedu.planner.logic.commands.util.HelpExplanation;
 
 /**

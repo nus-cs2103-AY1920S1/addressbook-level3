@@ -2,15 +2,15 @@ package seedu.planner.logic.events;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.planner.logic.commands.AddCommand;
-import seedu.planner.logic.commands.AutoScheduleCommand;
 import seedu.planner.logic.commands.ClearCommand;
-import seedu.planner.logic.commands.DeleteCommand;
-import seedu.planner.logic.commands.EditCommand;
 import seedu.planner.logic.commands.OptimiseCommand;
-import seedu.planner.logic.commands.ScheduleCommand;
 import seedu.planner.logic.commands.UndoableCommand;
-import seedu.planner.logic.commands.UnscheduleCommand;
+import seedu.planner.logic.commands.addcommand.AddCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteCommand;
+import seedu.planner.logic.commands.editcommand.EditCommand;
+import seedu.planner.logic.commands.schedulecommand.AutoScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
 import seedu.planner.logic.events.add.AddEventFactory;
 import seedu.planner.logic.events.clear.ClearEvent;
 import seedu.planner.logic.events.delete.DeleteEventFactory;

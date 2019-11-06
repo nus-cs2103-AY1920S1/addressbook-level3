@@ -1,4 +1,4 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.editcommand;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.planner.logic.commands.util.CommandUtil.findIndexOfContact;

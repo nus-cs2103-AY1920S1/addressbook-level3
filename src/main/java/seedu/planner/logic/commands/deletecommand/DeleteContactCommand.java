@@ -1,4 +1,4 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.deletecommand;
 
 import static java.util.Objects.requireNonNull;
 

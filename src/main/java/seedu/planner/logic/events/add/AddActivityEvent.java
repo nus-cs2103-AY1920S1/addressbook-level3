@@ -1,8 +1,8 @@
 package seedu.planner.logic.events.add;
 
-import seedu.planner.logic.commands.AddActivityCommand;
-import seedu.planner.logic.commands.DeleteActivityCommand;
 import seedu.planner.logic.commands.UndoableCommand;
+import seedu.planner.logic.commands.addcommand.AddActivityCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteActivityCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.activity.Activity;
 

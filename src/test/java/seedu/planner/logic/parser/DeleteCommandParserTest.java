@@ -7,8 +7,8 @@ import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.planner.logic.commands.DeleteCommand;
-import seedu.planner.logic.commands.DeleteContactCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

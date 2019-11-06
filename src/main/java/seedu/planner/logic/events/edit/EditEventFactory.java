@@ -1,13 +1,13 @@
 package seedu.planner.logic.events.edit;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.EditAccommodationCommand;
-import seedu.planner.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
-import seedu.planner.logic.commands.EditActivityCommand;
-import seedu.planner.logic.commands.EditActivityCommand.EditActivityDescriptor;
-import seedu.planner.logic.commands.EditCommand;
-import seedu.planner.logic.commands.EditContactCommand;
-import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.planner.logic.commands.editcommand.EditAccommodationCommand;
+import seedu.planner.logic.commands.editcommand.EditAccommodationCommand.EditAccommodationDescriptor;
+import seedu.planner.logic.commands.editcommand.EditActivityCommand;
+import seedu.planner.logic.commands.editcommand.EditActivityCommand.EditActivityDescriptor;
+import seedu.planner.logic.commands.editcommand.EditCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.logic.events.Event;
 import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.Model;

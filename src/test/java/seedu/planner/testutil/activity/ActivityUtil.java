@@ -7,8 +7,8 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.planner.logic.commands.AddActivityCommand;
-import seedu.planner.logic.commands.EditActivityCommand;
+import seedu.planner.logic.commands.addcommand.AddActivityCommand;
+import seedu.planner.logic.commands.editcommand.EditActivityCommand;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.tag.Tag;
 

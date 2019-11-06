@@ -1,4 +1,4 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.viewcommand;
 
 import static java.util.Objects.requireNonNull;
 

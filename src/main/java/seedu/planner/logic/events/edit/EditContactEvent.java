@@ -3,9 +3,9 @@ package seedu.planner.logic.events.edit;
 import java.util.List;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.EditContactCommand;
-import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
 import seedu.planner.logic.commands.UndoableCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;

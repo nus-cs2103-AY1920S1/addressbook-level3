@@ -1,4 +1,6 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.addcommand;
+
+import seedu.planner.logic.commands.UndoableCommand;
 
 /**
  * Represents AddActivityCommand, AddContactCommand and AddDayCommand.

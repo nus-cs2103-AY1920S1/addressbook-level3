@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import java.util.stream.Stream;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.ScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**
