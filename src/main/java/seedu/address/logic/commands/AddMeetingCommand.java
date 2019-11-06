@@ -19,6 +19,7 @@ import seedu.address.model.calendar.MeetingQuery;
 public class AddMeetingCommand extends Command {
 
     public static final String COMMAND_WORD = "add-meeting";
+    public static final String PREFIX_USAGE = PREFIX_MEETING_INDEX.getPrefix();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a meeting from the list of possible meeting times "

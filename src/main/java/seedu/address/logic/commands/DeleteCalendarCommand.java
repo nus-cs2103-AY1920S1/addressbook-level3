@@ -17,6 +17,7 @@ import seedu.address.model.member.MemberName;
 public class DeleteCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-calendar";
+    public static final String PREFIX_USAGE = PREFIX_MEMBER_NAME.getPrefix();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the calendar identified by the member name used when adding the calendar.\n"

@@ -14,6 +14,7 @@ import seedu.address.model.member.MemberId;
 
 public class AddICommand extends Command {
     public static final String COMMAND_WORD = "add-i";
+    public static final String PREFIX_USAGE = PREFIX_INVENTORY_PRICE + " " + PREFIX_MEMBER_ID;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a inventory to the project Dashboard. "
             + "Parameters: "

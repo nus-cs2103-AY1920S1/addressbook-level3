@@ -4,12 +4,15 @@ import java.util.List;
 
 import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
+import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.AddMemberCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClockCommand;
+import seedu.address.logic.commands.DeleteCalendarCommand;
 import seedu.address.logic.commands.DeleteInventoryCommand;
+import seedu.address.logic.commands.DeleteMeetingCommand;
 import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DoingTaskCommand;
@@ -22,6 +25,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMeetingTimeCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.FireCommand;
+import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
@@ -29,61 +33,68 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberByTaskCommand;
 import seedu.address.logic.commands.ListMemberCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.commands.SetImageCommand;
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.ThemeCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 public class Keywords {
     public static List<String> commandList = List.of(
-            // TASK
-            AddTaskCommand.COMMAND_WORD,
-            DeleteTaskCommand.COMMAND_WORD,
-            FindCommand.COMMAND_WORD,
-            ListCommand.COMMAND_WORD,
-            EditCommand.COMMAND_WORD,
-            DoingTaskCommand.COMMAND_WORD,
-            SetDeadlineCommand.COMMAND_WORD,
-            DoneTaskCommand.COMMAND_WORD,
-            ListMemberByTaskCommand.COMMAND_WORD,
+        // TASK
+        AddTaskCommand.COMMAND_WORD,
+        DeleteTaskCommand.COMMAND_WORD,
+        FindCommand.COMMAND_WORD,
+        ListCommand.COMMAND_WORD,
+        EditCommand.COMMAND_WORD,
+        DoingTaskCommand.COMMAND_WORD,
+        SetDeadlineCommand.COMMAND_WORD,
+        DoneTaskCommand.COMMAND_WORD,
+        ListMemberByTaskCommand.COMMAND_WORD,
+        UndoCommand.COMMAND_WORD,
+        RedoCommand.COMMAND_WORD,
 
-            // MEMBER
-            AddMemberCommand.COMMAND_WORD,
-            DeleteMemberCommand.COMMAND_WORD,
-            EditMemberCommand.COMMAND_WORD,
-            FindMemberCommand.COMMAND_WORD,
-            ListMemberCommand.COMMAND_WORD,
-            SetImageCommand.COMMAND_WORD,
+        // MEMBER
+        AddMemberCommand.COMMAND_WORD,
+        DeleteMemberCommand.COMMAND_WORD,
+        EditMemberCommand.COMMAND_WORD,
+        FindMemberCommand.COMMAND_WORD,
+        ListMemberCommand.COMMAND_WORD,
+        SetImageCommand.COMMAND_WORD,
 
-            // ASSOCIATION
-            FireCommand.COMMAND_WORD,
-            AssignCommand.COMMAND_WORD,
+        // ASSOCIATION
+        FireCommand.COMMAND_WORD,
+        AssignCommand.COMMAND_WORD,
 
-            // INVENTORY
-            ListInventoryCommand.COMMAND_WORD,
-            AddInventoryCommand.COMMAND_WORD,
-            EditInventoryCommand.COMMAND_WORD,
-            DeleteInventoryCommand.COMMAND_WORD,
-            //GeneratePDFCommand.COMMAND_WORD,
+        // INVENTORY
+        ListInventoryCommand.COMMAND_WORD,
+        AddInventoryCommand.COMMAND_WORD,
+        EditInventoryCommand.COMMAND_WORD,
+        DeleteInventoryCommand.COMMAND_WORD,
+        GeneratePDFCommand.COMMAND_WORD,
 
-            //CALENDAR
-            AddCalendarCommand.COMMAND_WORD,
-            FindMeetingTimeCommand.COMMAND_WORD,
+        //CALENDAR
+        AddCalendarCommand.COMMAND_WORD,
+        DeleteCalendarCommand.COMMAND_WORD,
+        FindMeetingTimeCommand.COMMAND_WORD,
+        AddMeetingCommand.COMMAND_WORD,
+        DeleteMeetingCommand.COMMAND_WORD,
 
-            // STATS
-            GetStatisticsCommand.COMMAND_WORD_MEMBER,
-            GetStatisticsCommand.COMMAND_WORD_TASK,
+        // STATS
+        GetStatisticsCommand.COMMAND_WORD_MEMBER,
+        GetStatisticsCommand.COMMAND_WORD_TASK,
 
-            // SETTINGS
-            ThemeCommand.COMMAND_WORD,
-            ClockCommand.COMMAND_WORD,
-            SettingsCommand.COMMAND_WORD,
+        // SETTINGS
+        ThemeCommand.COMMAND_WORD,
+        ClockCommand.COMMAND_WORD,
+        SettingsCommand.COMMAND_WORD,
 
-            // UNIVERSAL
-            ClearCommand.COMMAND_WORD,
-            ExitCommand.COMMAND_WORD,
-            HelpCommand.COMMAND_WORD,
-            HomeCommand.COMMAND_WORD
+        // UNIVERSAL
+        ClearCommand.COMMAND_WORD,
+        ExitCommand.COMMAND_WORD,
+        HelpCommand.COMMAND_WORD,
+        HomeCommand.COMMAND_WORD
     );
 
     public static String getParameters(String commandWord) {
@@ -115,6 +126,12 @@ public class Keywords {
 
             case ListMemberByTaskCommand.COMMAND_WORD:
                 return commandWord + " " + ListMemberByTaskCommand.PREFIX_USAGE;
+
+            case UndoCommand.COMMAND_WORD:
+                return commandWord + " " + FindCommand.PREFIX_USAGE;
+
+            case RedoCommand.COMMAND_WORD:
+                return commandWord + " " + RedoCommand.PREFIX_USAGE;
 
             // MEMBER
             case AddMemberCommand.COMMAND_WORD:
@@ -161,15 +178,24 @@ public class Keywords {
             case DeleteInventoryCommand.COMMAND_WORD:
                 return commandWord + " " + DeleteInventoryCommand.PREFIX_USAGE;
 
-            // case GeneratePDFCommand.COMMAND_WORD:
-            //     return commandWord + " " + GeneratePDFCommand.PREFIX_USAGE;
+            case GeneratePDFCommand.COMMAND_WORD:
+                return commandWord + " " + GeneratePDFCommand.PREFIX_USAGE;
 
             //CALENDAR
             case AddCalendarCommand.COMMAND_WORD:
                 return commandWord + " " + AddCalendarCommand.PREFIX_USAGE;
 
+            case DeleteCalendarCommand.COMMAND_WORD:
+                return commandWord + " " + DeleteCalendarCommand.PREFIX_USAGE;
+
             case FindMeetingTimeCommand.COMMAND_WORD:
                 return commandWord + " " + FindMeetingTimeCommand.PREFIX_USAGE;
+
+            case AddMeetingCommand.COMMAND_WORD:
+                return commandWord + " " + AddMeetingCommand.PREFIX_USAGE;
+
+            case DeleteMeetingCommand.COMMAND_WORD:
+                return commandWord + " " + DeleteMeetingCommand.PREFIX_USAGE;
 
             // STATS
             case GetStatisticsCommand.COMMAND_WORD_MEMBER:
