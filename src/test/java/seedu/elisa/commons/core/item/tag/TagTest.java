@@ -1,4 +1,4 @@
-package seedu.elisa.model.tag;
+package seedu.elisa.commons.core.item.tag;
 
 import static seedu.elisa.testutil.Assert.assertThrows;
 
