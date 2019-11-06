@@ -619,9 +619,9 @@ Format:
 
 === Closest Common Location
 
-TimeBook will also help you to decide where to meet for your project meetings by suggesting to you where is which
+TimeBook will also help you to decide where to meet for your project meetings by suggesting to you which
 location is the center for everyone. The center location is the closest location for everyone to meet in NUS based
-on their schedule.
+on their schedule. In time book we define the center location for everyone as the _closest common location_.
 
 *Steps*
 
