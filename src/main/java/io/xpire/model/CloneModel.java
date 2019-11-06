@@ -19,14 +19,29 @@ public class CloneModel {
     private ListToView listToView;
     private FilteredList<? extends Item> currentList;
 
-    public CloneModel(ReadOnlyListView<XpireItem> xpire, ReadOnlyListView<Item> replenishList,
+    public CloneModel(Xpire xpire, ReadOnlyListView<Item> replenishList,
                       ReadOnlyUserPrefs userPrefs, FilteredList<XpireItem> filteredXpireItemList,
                       FilteredList<Item> filteredReplenishItemList,
                       ListToView listToView, XpireMethodOfSorting method) {
         this.xpire = new Xpire(xpire);
+        this.xpire.setMethodOfSorting(method);
         this.replenishList = new ReplenishList(replenishList);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.xpire.setMethodOfSorting(method);
+        this.filteredXpireItemList = new FilteredList<>(this.xpire.getItemList());
+        this.filteredXpireItemList.setPredicate(filteredXpireItemList.getPredicate());
+        this.filteredReplenishItemList = new FilteredList<>(this.replenishList.getItemList());
+        this.filteredReplenishItemList.setPredicate(filteredReplenishItemList.getPredicate());
+        this.listToView = listToView;
+        this.currentList = checkListToView(this.listToView);
+    }
+
+    public CloneModel(Xpire xpire, ReadOnlyListView<Item> replenishList,
+                      ReadOnlyUserPrefs userPrefs, FilteredList<XpireItem> filteredXpireItemList,
+                      FilteredList<Item> filteredReplenishItemList,
+                      ListToView listToView) {
+        this.xpire = xpire;
+        this.replenishList = replenishList;
+        this.userPrefs = userPrefs;
         this.filteredXpireItemList = new FilteredList<>(this.xpire.getItemList());
         this.filteredXpireItemList.setPredicate(filteredXpireItemList.getPredicate());
         this.filteredReplenishItemList = new FilteredList<>(this.replenishList.getItemList());

@@ -46,7 +46,7 @@ import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.ReadOnlyUserPrefs;
 import io.xpire.model.ReplenishList;
-import io.xpire.model.StackManager;
+import io.xpire.model.state.StackManager;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.ListToView;

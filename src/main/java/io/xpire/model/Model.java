@@ -73,7 +73,7 @@ public interface Model {
     /**
      * Returns an Xpire object.
      */
-    ReadOnlyListView<XpireItem> getXpire();
+    Xpire getXpire();
 
     /**
      * Returns true if an xpireItem with the same identity as {@code xpireItem} exists in xpire.
@@ -124,13 +124,6 @@ public interface Model {
     FilteredList<? extends Item> getCurrentFilteredItemList();
 
     /**
-     * Returns a list of all the xpire items.
-     *
-     * @return List of all xpire items.
-     */
-    List<XpireItem> getAllItemList();
-
-    /**
      * Updates the filter of the filtered Item list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -161,7 +154,7 @@ public interface Model {
     /**
      * Returns a ReplenishList object.
      */
-    ReadOnlyListView<Item> getReplenishList();
+    ReplenishList getReplenishList();
 
     /**
      * Returns true if an item with the same identity as {@code Item} exists in replenish list.

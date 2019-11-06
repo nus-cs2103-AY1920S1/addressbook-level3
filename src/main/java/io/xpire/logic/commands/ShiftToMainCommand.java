@@ -1,7 +1,6 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -11,13 +10,13 @@ import java.util.TreeSet;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
-import io.xpire.model.StackManager;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
-import io.xpire.model.state.State;
+import io.xpire.model.state.ModifiedState;
+import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -40,6 +39,7 @@ public class ShiftToMainCommand extends Command {
     private final Index targetIndex;
     private final ExpiryDate expiryDate;
     private final Quantity quantity;
+    private String result = "";
 
     public ShiftToMainCommand(Index targetIndex, ExpiryDate expiryDate, Quantity quantity) {
         this.targetIndex = targetIndex;
@@ -48,10 +48,10 @@ public class ShiftToMainCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, StackManager stackManager) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
 
         requireNonNull(model);
-        stackManager.saveState(new State(model));
+        stateManager.saveState(new ModifiedState(model));
         List<Item> lastShownList = model.getFilteredReplenishItemList();
 
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -66,7 +66,9 @@ public class ShiftToMainCommand extends Command {
             model.addItem(toShiftItem);
             model.deleteReplenishItem(targetItem);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toShiftItem.getName()));
+        this.result = String.format(MESSAGE_SUCCESS, toShiftItem.getName());
+        setShowInHistory(true);
+        return new CommandResult(this.result);
     }
 
     /**
@@ -86,5 +88,10 @@ public class ShiftToMainCommand extends Command {
             }
         }
         return new XpireItem(itemName, expiryDate, quantity, newTags);
+    }
+
+    @Override
+    public String toString() {
+        return "the following Shift command:\n" + this.result;
     }
 }

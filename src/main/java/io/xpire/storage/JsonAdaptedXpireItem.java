@@ -47,6 +47,9 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
         this.reminderThreshold = reminderThreshold;
         if (tags != null) {
             this.tags.addAll(tags);
+            while (this.tags.size() > 5) {
+                this.tags.remove(5);
+            }
         }
     }
 

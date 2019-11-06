@@ -92,6 +92,15 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
         this.items.setXpireMethodOfSorting(method);
     }
 
+    /**
+     * Retrieves method of sorting.
+     *
+     * @return Xpire method of sorting.
+     */
+    public XpireMethodOfSorting getMethodOfSorting() {
+        return this.items.getXpireMethodOfSorting();
+    }
+
     //@@author liawsy
     /**
      * Checks expiry date of every item in xpire.

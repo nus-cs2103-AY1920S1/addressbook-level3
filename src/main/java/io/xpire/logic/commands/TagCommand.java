@@ -12,10 +12,10 @@ import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
-import io.xpire.model.StackManager;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
-import io.xpire.model.state.State;
+import io.xpire.model.state.ModifiedState;
+import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 import io.xpire.model.tag.TagItemDescriptor;
@@ -40,7 +40,7 @@ public class TagCommand extends Command {
 
             + ": Tags the xpireItem identified by the index number used in the displayed item list.\n"
             + "Note that only 5 tags are allowed per item. \n"
-            + "Format: <index>|<tag>[<other tags>]...\n"
+            + "Format: tag|<index>|<tag>[<other tags>]...\n"
             + "(index must be a positive integer; each tag must be prefixed with a '#')\n"
             + "Example: " + COMMAND_WORD + "|1|#Food #Fruit";
 
@@ -56,6 +56,7 @@ public class TagCommand extends Command {
     private final TagMode mode;
     private boolean containsLongTags = false;
     private Item item = null;
+    private String result = "";
 
 
 
@@ -83,7 +84,7 @@ public class TagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, StackManager stackManager) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
         List<? extends Item> lastShownList = model.getCurrentFilteredItemList();
 
@@ -98,16 +99,20 @@ public class TagCommand extends Command {
             if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
                 this.containsLongTags = true;
             }
-            stackManager.saveState(new State(model));
+            stateManager.saveState(new ModifiedState(model));
             model.setItem(xpireItemToTag, taggedXpireItem);
             if (containsLongTags) {
-                return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedXpireItem));
+                this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedXpireItem);
+                setShowInHistory(true);
+                return new CommandResult(this.result);
             }
-            return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedXpireItem));
+            this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedXpireItem);
+            setShowInHistory(true);
+            return new CommandResult(this.result);
 
         case SHOW:
             Set<Tag> tagSet = new TreeSet<>(new TagComparator());
-            List<XpireItem> xpireItemList = model.getAllItemList();
+            List<XpireItem> xpireItemList = model.getXpire().getItemList();
             xpireItemList.forEach(item -> tagSet.addAll(item.getTags()));
             if (tagSet.isEmpty()) {
                 return new CommandResult(MESSAGE_TAG_SHOW_FAILURE);
@@ -199,6 +204,11 @@ public class TagCommand extends Command {
         return index.equals(e.index)
                 && tagItemDescriptor.equals(e.tagItemDescriptor)
                 && mode.equals(e.mode);
+    }
+
+    @Override
+    public String toString() {
+        return "the following Tag command:\n" + this.result;
     }
 
 }

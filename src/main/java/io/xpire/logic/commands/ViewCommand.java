@@ -1,10 +1,11 @@
 package io.xpire.logic.commands;
+
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.model.Model;
-import io.xpire.model.StackManager;
 import io.xpire.model.item.ListToView;
-import io.xpire.model.state.State;
+import io.xpire.model.state.FilteredState;
+import io.xpire.model.state.StateManager;
 
 //@@author febee99
 /**
@@ -32,15 +33,16 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, StackManager stackManager) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
-        stackManager.saveState(new State(model));
+        stateManager.saveState(new FilteredState(model));
         String output = String.format(MESSAGE_SUCCESS, "the");
         if (list != null) {
             output = String.format(MESSAGE_SUCCESS, list);
             model.setCurrentFilteredItemList(list);
         }
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
+        setShowInHistory(true);
         return new CommandResult(output);
     }
 
@@ -50,6 +52,6 @@ public class ViewCommand extends Command {
 
     @Override
     public String toString() {
-        return "View Command";
+        return "View command";
     }
 }

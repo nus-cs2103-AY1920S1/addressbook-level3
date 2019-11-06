@@ -1,8 +1,7 @@
-package io.xpire.model;
+package io.xpire.model.state;
 
+import java.util.ArrayDeque;
 import java.util.Stack;
-
-import io.xpire.model.state.State;
 
 /**
  * A class that wraps two internal stacks that handles Undo/Redo commands.
@@ -10,7 +9,7 @@ import io.xpire.model.state.State;
 public class StackManager {
 
     private static State current;
-    private Stack<State> undoStack = new Stack<>();
+    private ArrayDeque<State> undoStack = new ArrayDeque<>();
     private Stack<State> redoStack = new Stack<>();
 
     /**
@@ -20,7 +19,7 @@ public class StackManager {
      * @param currentState current State.
      * @return popped State (most recent State).
      */
-    public State undo(State currentState) {
+    State undo(State currentState) {
         if (isUndoStackEmpty()) {
             return null;
         }
@@ -29,17 +28,13 @@ public class StackManager {
         return current;
     }
 
-    public boolean isDateSorted() {
-        return undoStack.peek().isSortByDate();
-    }
-
     /**
      * Processes the redo command by pushing the current state into the undoStack and
      * returning the state before the previous Undo.
      *
      * @return popped State (previous State).
      */
-    public State redo() {
+    State redo() {
         undoStack.push(current);
         if (isRedoStackEmpty()) {
             return null;
@@ -53,9 +48,12 @@ public class StackManager {
      *
      * @param currentState current State to be saved.
      */
-    public void saveState(State currentState) {
+    void saveState(State currentState) {
         redoStack.clear();
         undoStack.push(currentState);
+        if (undoStack.size() > StateManager.MAX_STACK_SIZE) {
+            undoStack.removeLast();
+        }
     }
 
     /**

@@ -7,6 +7,7 @@ import static io.xpire.logic.commands.SetReminderCommand.MESSAGE_SUCCESS_SET;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -71,7 +72,7 @@ public class SetReminderCommandTest {
         Index secondIndex = INDEX_SECOND_ITEM;
         ReminderThreshold threshold = new ReminderThreshold("1");
         SetReminderCommand command = new SetReminderCommand(secondIndex, threshold);
-        String expectedMessage = String.format(MESSAGE_SUCCESS_SET, secondIndex.getOneBased(), threshold);
+        String expectedMessage = String.format(MESSAGE_SUCCESS_SET, VALID_NAME_BANANA, threshold);
         assertCommandSuccess(command, model, expectedMessage, model);
     }
 
@@ -80,7 +81,7 @@ public class SetReminderCommandTest {
         Index secondIndex = INDEX_SECOND_ITEM;
         ReminderThreshold threshold = new ReminderThreshold("0");
         SetReminderCommand command = new SetReminderCommand(secondIndex, threshold);
-        String expectedMessage = String.format(MESSAGE_SUCCESS_RESET, secondIndex.getOneBased());
+        String expectedMessage = String.format(MESSAGE_SUCCESS_RESET, VALID_NAME_BANANA);
         assertCommandSuccess(command, model, expectedMessage, model);
     }
 
