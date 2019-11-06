@@ -37,7 +37,8 @@ of 24 hours.
 the UI was particularly challenging because JavaFX works on a separate thread from the main Logic commands.
 * Credits: @bjhoohaha/duke's AlertWindow.java was reused to create `NotifWindow`.
 
-*Code Contributed:* Please click on these links to see some samples of my code - [Functional Code] [Test Code]
+*Code Contributed:* Please click on these links to see some samples of my code-[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=arjavibahety&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
+
 
 *Other Contributions:*
 
