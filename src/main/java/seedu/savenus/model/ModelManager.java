@@ -377,7 +377,11 @@ public class ModelManager implements Model {
     @Override
     public void addToHistory(Savings savings) throws InvalidSavingsAmountException {
         requireNonNull(savings);
-        if (Float.parseFloat(savings.toString()) <= 0) {
+
+        // If deposit, then should not be 0 nor negative.
+        // If it is a withdrawal, then the value of the savings should not be 0 nor positive.
+        if (Float.parseFloat(savings.toString()) <= 0 && !savings.isWithdraw()
+                || Float.parseFloat(savings.toString()) >= 0 && savings.isWithdraw()) {
             throw new InvalidSavingsAmountException();
         } else {
             savingsHistory.addToHistory(savings);

@@ -14,7 +14,7 @@ public class Money implements Comparable<Money> {
             "Amount should only contain numbers and have either 0 or 2 decimal places"
                     + " For example: 1.50 or 200";
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
-    public final BigDecimal value;
+    private BigDecimal value;
 
     /**
      * Constructs a {@code Money}.
@@ -43,6 +43,10 @@ public class Money implements Comparable<Money> {
 
     public BigDecimal getAmount() {
         return value;
+    }
+
+    public void negate() {
+        this.value = this.value.negate();
     }
 
     @Override

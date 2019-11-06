@@ -40,7 +40,6 @@ class JsonAdaptedSavings {
     /**
      * Converts this Jackson-friendly adapted food object into the model's {@code Savings}
      *
-     *
      */
     public Savings toModelType() throws IllegalValueException {
         if (this.savingsAmount == null || this.timeStamp == null) {
@@ -49,6 +48,10 @@ class JsonAdaptedSavings {
         if (!Money.isValidMoney(this.savingsAmount)) {
             throw new IllegalValueException(Savings.MESSAGE_CONSTRAINTS);
         }
-        return new Savings(this.savingsAmount, this.timeStamp);
+        if (this.savingsAmount.contains("-")) {
+            return new Savings(this.savingsAmount, this.timeStamp, true);
+        } else {
+            return new Savings(this.savingsAmount, this.timeStamp, false);
+        }
     }
 }

@@ -72,13 +72,16 @@
     "commandWord" : "sort",
     "aliasWord" : ""
   }, {
-    "commandWord" : "save",
+    "commandWord" : "deposit",
     "aliasWord" : ""
   }, {
     "commandWord" : "topup",
     "aliasWord" : ""
   }, {
     "commandWord" : "viewsort",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "withdraw",
     "aliasWord" : ""
   } ]
 }

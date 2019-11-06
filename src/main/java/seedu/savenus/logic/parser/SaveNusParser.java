@@ -32,9 +32,9 @@ import seedu.savenus.logic.commands.RemoveDislikeCommand;
 import seedu.savenus.logic.commands.RemoveLikeCommand;
 import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.SortCommand;
-
 import seedu.savenus.logic.commands.TopUpCommand;
 import seedu.savenus.logic.commands.ViewSortCommand;
+import seedu.savenus.logic.commands.WithdrawCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.alias.AliasList;
 
@@ -147,6 +147,9 @@ public class SaveNusParser {
 
         case ViewSortCommand.COMMAND_WORD:
             return new ViewSortCommand();
+
+        case WithdrawCommand.COMMAND_WORD:
+            return new WithdrawCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
