@@ -19,11 +19,11 @@ import java.util.logging.Logger;
 
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.index.Index;
+import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.logic.LogicManager;
 import seedu.elisa.logic.commands.EditCommand;
 import seedu.elisa.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.elisa.logic.parser.exceptions.ParseException;
-import seedu.elisa.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
