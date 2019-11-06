@@ -2,6 +2,8 @@ package thrift.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertRedoCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
-import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Income;
 import thrift.testutil.IncomeBuilder;
@@ -24,14 +25,14 @@ public class AddIncomeCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(), new PastUndoableCommands());
+        model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
     }
 
     @Test
     public void execute_newIncome_success() {
         Income validIncome = new IncomeBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
         expectedModel.addIncome(validIncome);
 
         assertCommandSuccess(new AddIncomeCommand(validIncome), model,
@@ -39,28 +40,10 @@ public class AddIncomeCommandIntegrationTest {
     }
 
     @Test
-    public void undo_success() throws CommandException {
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
+    public void undoAndRedo_addIncome_success() throws CommandException {
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
 
-        Income validIncome = new IncomeBuilder().build();
-
-        model.addIncome(validIncome);
-        AddIncomeCommand addIncomeCommand = new AddIncomeCommand(validIncome);
-        model.keepTrackCommands(addIncomeCommand);
-        expectedModel.addIncome(validIncome);
-        assertEquals(expectedModel, model);
-
-        Undoable undoable = model.getPreviousUndoableCommand();
-        undoable.undo(model);
-        expectedModel.deleteLastTransaction();
-        assertEquals(expectedModel, model);
-    }
-
-    @Test
-    public void redo_redoAddIncome_success() throws CommandException {
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
-
-        //add income to THIRFT
+        //adds income
         Income validIncome = new IncomeBuilder().build();
         model.addIncome(validIncome);
         AddIncomeCommand addIncomeCommand = new AddIncomeCommand(validIncome);
@@ -68,16 +51,14 @@ public class AddIncomeCommandIntegrationTest {
         expectedModel.addIncome(validIncome);
         assertEquals(expectedModel, model);
 
-        //undo add_income command
+        //undo
         Undoable undoable = model.getPreviousUndoableCommand();
-        undoable.undo(model);
         expectedModel.deleteLastTransaction();
-        assertEquals(expectedModel, model);
+        assertUndoCommandSuccess(undoable, model, expectedModel);
 
-        //redo add_income command
+        //redo
         undoable = model.getUndoneCommand();
-        undoable.redo(model);
         expectedModel.addIncome(validIncome);
-        assertEquals(expectedModel, model);
+        assertRedoCommandSuccess(undoable, model, expectedModel);
     }
 }

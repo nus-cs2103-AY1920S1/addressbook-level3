@@ -75,7 +75,9 @@ public class DeleteCommand extends NonScrollingCommand implements Undoable {
 
     @Override
     public String undo(Model model) {
-        requireAllNonNull(model, transactionToDelete);
+        requireAllNonNull(model, transactionToDelete, actualIndex);
+        assert actualIndex.getZeroBased() >= 0 : "Zero-based index cannot be less than 0";
+
         if (transactionToDelete instanceof Expense) {
             model.addExpense((Expense) transactionToDelete, actualIndex);
         } else if (transactionToDelete instanceof Income) {
@@ -87,6 +89,8 @@ public class DeleteCommand extends NonScrollingCommand implements Undoable {
     @Override
     public String redo(Model model) {
         requireAllNonNull(model, actualIndex);
+        assert actualIndex.getZeroBased() >= 0 : "Zero-based index cannot be less than 0";
+
         model.deleteTransaction(actualIndex);
         return String.format(REDO_SUCCESS, transactionToDelete);
     }

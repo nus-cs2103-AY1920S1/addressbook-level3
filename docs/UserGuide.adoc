@@ -474,8 +474,8 @@ To execute the `undo` command, you have to use the following syntax:
 
 `undo`
 
-==== Example usage
-Suppose you want to delete the second transaction (Bursary) in THRIFT, but you remove the third transaction (Chicken Rice) instead!
+==== Example usage:
+Suppose you want to delete the second transaction "Bursary" in THRIFT, but you remove the third transaction "Chicken Rice" instead!
 One possible solution is that you add the transaction manually back into THRIFT, but this is too troublesome! You can
 retrieve the deleted transaction by performing `undo`.
 
@@ -505,8 +505,8 @@ To execute the `redo` command, you have to use the following syntax:
 
 `redo`
 
-==== Example usage
-Suppose you had undone the addition of the transaction (Chicken Rice) (See: <<UndoTag, Undoing the previous undoable command>>),
+==== Example usage:
+Suppose you had undone the addition of the transaction "Chicken Rice" (See: <<UndoTag, Undoing the previous undoable command>>),
 but you decide to track the transaction using THRIFT. Instead of adding the transaction manually, you can add back
 the transaction by executing `redo`.
 
@@ -516,7 +516,7 @@ To `redo` undone `add_expense` command:
 +
 image::UndoAndRedo/redocommand.png[, 550]
 
-. You will see a success message displays in the Result Box and the transaction (Chicken Rice) adds back to the list:
+. You will see a success message displays in the Result Box and the transaction "Chicken Rice" adds back to the list:
 +
 image::UndoAndRedo/redocommandresult.png[, 550]
 

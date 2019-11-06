@@ -20,7 +20,6 @@ import thrift.logic.Logic;
 import thrift.logic.LogicManager;
 import thrift.model.Model;
 import thrift.model.ModelManager;
-import thrift.model.PastUndoableCommands;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.ReadOnlyUserPrefs;
 import thrift.model.Thrift;
@@ -66,13 +65,12 @@ public class MainApp extends Application {
         CurrencyMappingsStorage currencyMappingsStorage =
                 new JsonCurrencyMappingsStorage(userPrefs.getCurrencyMappingsFilePath());
         storage = new StorageManager(thriftStorage, userPrefsStorage, currencyMappingsStorage);
-        PastUndoableCommands pastUndoableCommands = new PastUndoableCommands();
 
         initLogging(config);
 
         initCurrencyMappings(storage);
 
-        model = initModelManager(storage, userPrefs, pastUndoableCommands);
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -84,8 +82,7 @@ public class MainApp extends Application {
      * The data from the sample thrift will be used instead if {@code storage}'s thrift is not found,
      * or an empty thrift will be used instead if errors occur when reading {@code storage}'s thrift.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs,
-            PastUndoableCommands pastUndoableCommands) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyThrift> thriftOptional;
         ReadOnlyThrift initialData;
         try {
@@ -101,8 +98,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty THRIFT");
             initialData = new Thrift();
         }
-
-        return new ModelManager(initialData, userPrefs, pastUndoableCommands);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -153,6 +149,7 @@ public class MainApp extends Application {
     protected void initCurrencyMappings(Storage storage) {
         Path currencyMappingsFilePath = storage.getCurrencyMappingsFilePath();
         logger.info("Using currency file : " + currencyMappingsFilePath);
+
 
 
         try {

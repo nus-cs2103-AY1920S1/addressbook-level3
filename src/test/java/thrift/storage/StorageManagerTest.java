@@ -12,7 +12,10 @@ import org.junit.jupiter.api.io.TempDir;
 import thrift.commons.core.GuiSettings;
 //import thrift.model.Thrift;
 //import thrift.model.ReadOnlyThrift;
+import thrift.model.ReadOnlyThrift;
+import thrift.model.Thrift;
 import thrift.model.UserPrefs;
+import thrift.testutil.TypicalTransactions;
 //import thrift.testutil.TypicalTransactions;
 
 public class StorageManagerTest {
@@ -49,20 +52,19 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
-    /* TODO: Fix the test case when it is possible to read and parse from json file correctly.
     @Test
     public void thriftReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonThriftStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonThriftStorageTest} class.
-         */ /*
+         */
         Thrift original = TypicalTransactions.getTypicalThrift();
         storageManager.saveThrift(original);
         ReadOnlyThrift retrieved = storageManager.readThrift().get();
         assertEquals(original, new Thrift(retrieved));
     }
-     */
+
 
     @Test
     public void getThriftFilePath() {

@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
-import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Expense;
 import thrift.testutil.ExpenseBuilder;
@@ -17,8 +16,7 @@ import thrift.testutil.TypicalTransactions;
 
 public class RedoCommandTest {
 
-    private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
-            new PastUndoableCommands());
+    private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
 
     @Test
     public void execute_noUndoneCommand_throwsCommandException() {
@@ -28,15 +26,16 @@ public class RedoCommandTest {
 
     @Test
     public void execute_redoAddExpensesCommand_success() throws CommandException {
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
-                new PastUndoableCommands());
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
 
-        UndoCommand undoCommand = new UndoCommand();
+        //adds expense
         Expense expense = new ExpenseBuilder().build();
         AddExpenseCommand addExpenseCommand = new AddExpenseCommand(expense);
-
         model.addExpense(expense);
         model.keepTrackCommands(addExpenseCommand);
+
+        //undo
+        UndoCommand undoCommand = new UndoCommand();
         assertDoesNotThrow(() -> undoCommand.execute(model));
 
         RedoCommand redoCommand = new RedoCommand();
@@ -45,6 +44,5 @@ public class RedoCommandTest {
         String outputMessage = String.format(AddExpenseCommand.REDO_SUCCESS, expense);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS + "\n" + outputMessage,
                 expectedModel);
-
     }
 }

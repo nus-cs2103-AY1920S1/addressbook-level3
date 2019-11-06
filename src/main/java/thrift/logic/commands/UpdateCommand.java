@@ -174,6 +174,7 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
     @Override
     public String undo(Model model) {
         requireAllNonNull(model, transactionToUpdate, updatedTransaction, actualIndex);
+        assert actualIndex.getZeroBased() >= 0;
         model.setTransactionWithIndex(actualIndex, transactionToUpdate);
         return String.format(UNDO_SUCCESS, transactionToUpdate, updatedTransaction);
     }
@@ -181,6 +182,7 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
     @Override
     public String redo(Model model) {
         requireAllNonNull(model, transactionToUpdate, updatedTransaction, actualIndex);
+        assert actualIndex.getZeroBased() >= 0;
         model.setTransactionWithIndex(actualIndex, updatedTransaction);
         return String.format(REDO_SUCCESS, updatedTransaction, transactionToUpdate);
     }

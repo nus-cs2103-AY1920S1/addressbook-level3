@@ -2,6 +2,7 @@ package thrift.logic.parser;
 
 import static thrift.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static thrift.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import thrift.logic.commands.Command;
 import thrift.logic.commands.ExitCommand;
@@ -18,6 +19,8 @@ public class NoArgumentsCommandParser implements Parser<Command> {
     private String errorMessage;
 
     public NoArgumentsCommandParser(String command, String errorMessage) {
+        requireAllNonNull(command, errorMessage);
+        assert !command.equals("") && !errorMessage.equals("") : "Invalid command or error message";
         this.command = command;
         this.errorMessage = errorMessage;
     }

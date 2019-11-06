@@ -51,9 +51,10 @@ public class AddIncomeCommandTest {
     }
 
     @Test
-    public void undo_undoSuccessful() {
+    public void undoAndRedo_success() {
         ModelStubUndoRedoAddIncome modelStub = new ModelStubUndoRedoAddIncome();
 
+        //adds income
         Income validIncome = new IncomeBuilder().build();
         modelStub.addIncome(validIncome);
         AddIncomeCommand addIncomeCommand = new AddIncomeCommand(validIncome);
@@ -61,29 +62,14 @@ public class AddIncomeCommandTest {
         assertEquals(1, modelStub.getThrift().getTransactionList().size());
         assertFalse(modelStub.undoableCommandStack.isEmpty());
 
-        Undoable undoable = modelStub.getPreviousUndoableCommand();
-        undoable.undo(modelStub);
-        assertEquals(0, modelStub.getThrift().getTransactionList().size());
-        assertTrue(modelStub.undoableCommandStack.isEmpty());
-    }
-
-    @Test
-    public void redo_redoSuccessful() {
-        ModelStubUndoRedoAddIncome modelStub = new ModelStubUndoRedoAddIncome();
-
-        Income validIncome = new IncomeBuilder().build();
-        modelStub.addIncome(validIncome);
-        AddIncomeCommand addIncomeCommand = new AddIncomeCommand(validIncome);
-        modelStub.keepTrackCommands(addIncomeCommand);
-        assertEquals(1, modelStub.getThrift().getTransactionList().size());
-        assertFalse(modelStub.undoableCommandStack.isEmpty());
-
+        //undo
         Undoable undoable = modelStub.getPreviousUndoableCommand();
         assertSame(undoable, addIncomeCommand);
         undoable.undo(modelStub);
         assertEquals(0, modelStub.getThrift().getTransactionList().size());
         assertTrue(modelStub.undoableCommandStack.isEmpty());
 
+        //redo
         undoable = modelStub.getUndoneCommand();
         assertSame(undoable, addIncomeCommand);
         undoable.redo(modelStub);

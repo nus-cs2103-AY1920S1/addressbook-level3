@@ -48,7 +48,7 @@ Model .right.> ObservableList
 ModelManager o--> "1" Thrift
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
-ModelManager o-right-> "1" PastUndoableCommands
+ModelManager *-right-> "1" PastUndoableCommands
 
 Thrift *--> "1" TransactionList
 Thrift *--> "1" BudgetList

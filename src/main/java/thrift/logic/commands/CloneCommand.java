@@ -220,6 +220,7 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
         requireAllNonNull(model, occurrence);
         StringBuilder sb = new StringBuilder();
         int actualTimesCloned = (occurrence.getNumOccurrences() == 0) ? 1 : occurrence.getNumOccurrences();
+        assert actualTimesCloned > 0 : "The transaction should clone at least one time";
         for (int i = 0; i < actualTimesCloned; i++) {
             Transaction deleteTransaction = model.deleteLastTransaction();
             sb.append(deleteTransaction).append("\n");
@@ -232,7 +233,8 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
     public String redo(Model model) {
         requireAllNonNull(model, occurrence);
         assert frequencyCalendarField == Calendar.DATE || frequencyCalendarField == Calendar.WEEK_OF_YEAR
-                || frequencyCalendarField == Calendar.MONTH || frequencyCalendarField == Calendar.YEAR;
+                || frequencyCalendarField == Calendar.MONTH || frequencyCalendarField == Calendar.YEAR
+                : "Frequency of occurrence for clone not converted to a valid Calendar field";
         assert clonedTransactionList.size() > 0;
 
         StringBuilder sb = new StringBuilder();

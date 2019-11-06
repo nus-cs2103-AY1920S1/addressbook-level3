@@ -1,8 +1,17 @@
 {
-  "persons": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+  "transactions": [ {
+    "type" : "expense",
+    "description" : "Netflix",
+    "value" : "abc",
+    "remark" : "",
+    "date" : "30/10/2019",
+    "tagged" : [ "Entertainment" ]
+  } ],
+  "budgets" : [ {
+    "period" : "10/2019",
+    "value" : "100.00"
+  }, {
+    "period" : "11/2019",
+    "value" : "100.00"
   } ]
 }

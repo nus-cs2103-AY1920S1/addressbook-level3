@@ -11,16 +11,16 @@ import static thrift.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import thrift.commons.core.index.Index;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
-import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Expense;
+import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
 import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.TagSetBuilder;
@@ -29,11 +29,15 @@ import thrift.testutil.TypicalTransactions;
 
 class TagCommandTest {
 
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
+    }
 
     @Test
     void execute_newTags_success() throws CommandException {
-        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
-                new PastUndoableCommands());
         Expense originalExpense = new ExpenseBuilder(model.getFilteredTransactionList().get(0))
                 .build();
 
@@ -56,46 +60,12 @@ class TagCommandTest {
     }
 
     @Test
-    void undo_undoTag_success() {
-        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
-                new PastUndoableCommands());
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
-                new PastUndoableCommands());
-
-        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
-        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
-        //assuming that it is tagging the transaction with non-duplicate tag
-        Set<Tag> tagSet = new TagSetBuilder("Food", "Recommended").build();
-        Set<Tag> updatedTags = new HashSet<Tag>(lastTransaction.getTags());
-        for (Tag newTag : tagSet) {
-            updatedTags.add(newTag);
-        }
-        Expense updatedTransaction = new Expense(lastTransaction.getDescription(), lastTransaction.getValue(),
-                lastTransaction.getRemark(), lastTransaction.getDate(), updatedTags);
-        String expectedMessageOriginal = String.format(TagCommand.MESSAGE_ORIGINAL_TRANSACTION, lastTransaction);
-        String expectedMessageUpdated = String.format(TagCommand.MESSAGE_TAG_TRANSACTION_SUCCESS,
-                updatedTransaction);
-
-        //tests tag command
-        TagCommand tagCommand = new TagCommand(indexLastTransaction, tagSet);
-        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
-        assertCommandSuccess(tagCommand, model, expectedMessageUpdated + expectedMessageOriginal,
-                expectedModel);
-
-        //tests undo command
-        expectedModel.setTransactionWithIndex(indexLastTransaction, lastTransaction);
-        assertUndoCommandSuccess(tagCommand, model, expectedModel);
-    }
-
-    @Test
-    void redo_redoTag_success() {
-        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
-                new PastUndoableCommands());
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
-                new PastUndoableCommands());
-
-        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
-        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
+    void undoAndRedo_tagForExpense_success() {
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
+        Transaction lastTransaction = model.getFilteredTransactionList()
+                .get(TypicalIndexes.INDEX_THIRD_TRANSACTION.getZeroBased());
+        //checks if lastTransaction is an expense
+        assertTrue(lastTransaction instanceof Expense);
         //assuming that it is tagging the transaction with non-duplicate tag
         Set<Tag> tagSet = new TagSetBuilder("Food", "Recommended").build();
         Set<Tag> updatedTags = new HashSet<Tag>(lastTransaction.getTags());
@@ -109,20 +79,53 @@ class TagCommandTest {
                 updatedTransaction);
 
         //tests tag command
-        TagCommand tagCommand = new TagCommand(indexLastTransaction, tagSet);
-        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
+        TagCommand tagCommand = new TagCommand(TypicalIndexes.INDEX_THIRD_TRANSACTION, tagSet);
+        expectedModel.setTransactionWithIndex(TypicalIndexes.INDEX_THIRD_TRANSACTION, updatedTransaction);
         assertCommandSuccess(tagCommand, model, expectedMessageUpdated + expectedMessageOriginal,
                 expectedModel);
 
         //tests undo command
-        expectedModel.setTransactionWithIndex(indexLastTransaction, lastTransaction);
+        expectedModel.setTransactionWithIndex(TypicalIndexes.INDEX_THIRD_TRANSACTION, lastTransaction);
         assertUndoCommandSuccess(tagCommand, model, expectedModel);
 
         //tests redo command
-        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
+        expectedModel.setTransactionWithIndex(TypicalIndexes.INDEX_THIRD_TRANSACTION, updatedTransaction);
         assertRedoCommandSuccess(tagCommand, model, expectedModel);
     }
 
+    @Test
+    void undoAndRedo_tagForIncome_success() {
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
+        Transaction lastTransaction = model.getFilteredTransactionList()
+                .get(TypicalIndexes.INDEX_SECOND_TRANSACTION.getZeroBased());
+        //checks if lastTransaction is an income
+        assertTrue(lastTransaction instanceof Income);
+        //assuming that it is tagging the transaction with non-duplicate tag
+        Set<Tag> tagSet = new TagSetBuilder("School").build();
+        Set<Tag> updatedTags = new HashSet<Tag>(lastTransaction.getTags());
+        for (Tag newTag : tagSet) {
+            updatedTags.add(newTag);
+        }
+        Transaction updatedTransaction = new Income(lastTransaction.getDescription(), lastTransaction.getValue(),
+                lastTransaction.getRemark(), lastTransaction.getDate(), updatedTags);
+        String expectedMessageOriginal = String.format(TagCommand.MESSAGE_ORIGINAL_TRANSACTION, lastTransaction);
+        String expectedMessageUpdated = String.format(TagCommand.MESSAGE_TAG_TRANSACTION_SUCCESS,
+                updatedTransaction);
+
+        //tests tag command
+        TagCommand tagCommand = new TagCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION, tagSet);
+        expectedModel.setTransactionWithIndex(TypicalIndexes.INDEX_SECOND_TRANSACTION, updatedTransaction);
+        assertCommandSuccess(tagCommand, model, expectedMessageUpdated + expectedMessageOriginal,
+                expectedModel);
+
+        //tests undo command
+        expectedModel.setTransactionWithIndex(TypicalIndexes.INDEX_SECOND_TRANSACTION, lastTransaction);
+        assertUndoCommandSuccess(tagCommand, model, expectedModel);
+
+        //tests redo command
+        expectedModel.setTransactionWithIndex(TypicalIndexes.INDEX_SECOND_TRANSACTION, updatedTransaction);
+        assertRedoCommandSuccess(tagCommand, model, expectedModel);
+    }
 
     @Test
     void testEquals() {

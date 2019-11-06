@@ -51,9 +51,10 @@ public class AddExpenseCommandTest {
     }
 
     @Test
-    public void undo_undoSuccessful() {
+    public void undoAndRedo_success() {
         ModelStubUndoRedoAddExpenses modelStub = new ModelStubUndoRedoAddExpenses();
 
+        //adds expense
         Expense validExpense = new ExpenseBuilder().build();
         modelStub.addExpense(validExpense);
         AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
@@ -61,30 +62,14 @@ public class AddExpenseCommandTest {
         assertEquals(1, modelStub.getThrift().getTransactionList().size());
         assertFalse(modelStub.undoableCommandStack.isEmpty());
 
-        Undoable undoable = modelStub.getPreviousUndoableCommand();
-        assertTrue(undoable instanceof AddExpenseCommand);
-        undoable.undo(modelStub);
-        assertEquals(0, modelStub.getThrift().getTransactionList().size());
-        assertTrue(modelStub.undoableCommandStack.isEmpty());
-    }
-
-    @Test
-    public void redo_redoSuccessful() {
-        ModelStubUndoRedoAddExpenses modelStub = new ModelStubUndoRedoAddExpenses();
-
-        Expense validExpense = new ExpenseBuilder().build();
-        modelStub.addExpense(validExpense);
-        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
-        modelStub.keepTrackCommands(addExpenseCommand);
-        assertEquals(1, modelStub.getThrift().getTransactionList().size());
-        assertFalse(modelStub.undoableCommandStack.isEmpty());
-
+        //undo
         Undoable undoable = modelStub.getPreviousUndoableCommand();
         assertSame(undoable, addExpenseCommand);
         undoable.undo(modelStub);
         assertEquals(0, modelStub.getThrift().getTransactionList().size());
         assertTrue(modelStub.undoableCommandStack.isEmpty());
 
+        //redo
         undoable = modelStub.getUndoneCommand();
         assertSame(undoable, addExpenseCommand);
         undoable.redo(modelStub);

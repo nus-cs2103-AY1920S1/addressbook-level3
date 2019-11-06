@@ -2,6 +2,8 @@ package thrift.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertRedoCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
-import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Expense;
 import thrift.testutil.ExpenseBuilder;
@@ -24,14 +25,14 @@ public class AddExpenseCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(), new PastUndoableCommands());
+        model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
     }
 
     @Test
     public void execute_newExpense_success() {
         Expense validExpense = new ExpenseBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
         expectedModel.addExpense(validExpense);
 
         assertCommandSuccess(new AddExpenseCommand(validExpense), model,
@@ -39,9 +40,10 @@ public class AddExpenseCommandIntegrationTest {
     }
 
     @Test
-    public void undo_undoAddExpense_success() throws CommandException {
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
+    public void undoAndRedo_addExpense_success() throws CommandException {
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
 
+        //adds expense
         Expense validExpense = new ExpenseBuilder().build();
         model.addExpense(validExpense);
         AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
@@ -49,35 +51,15 @@ public class AddExpenseCommandIntegrationTest {
         expectedModel.addExpense(validExpense);
         assertEquals(expectedModel, model);
 
+        //undo
         Undoable undoable = model.getPreviousUndoableCommand();
-        undoable.undo(model);
         expectedModel.deleteLastTransaction();
-        assertEquals(expectedModel, model);
-    }
+        assertUndoCommandSuccess(undoable, model, expectedModel);
 
-    @Test
-    public void redo_redoAddExpense_success() throws CommandException {
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
-
-        //add expense to THIRFT
-        Expense validExpense = new ExpenseBuilder().build();
-        model.addExpense(validExpense);
-        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
-        model.keepTrackCommands(addExpenseCommand);
-        expectedModel.addExpense(validExpense);
-        assertEquals(expectedModel, model);
-
-        //undo add_expense command
-        Undoable undoable = model.getPreviousUndoableCommand();
-        undoable.undo(model);
-        expectedModel.deleteLastTransaction();
-        assertEquals(expectedModel, model);
-
-        //redo add_expense command
+        //redo
         undoable = model.getUndoneCommand();
-        undoable.redo(model);
         expectedModel.addExpense(validExpense);
-        assertEquals(expectedModel, model);
+        assertRedoCommandSuccess(undoable, model, expectedModel);
     }
 
 }

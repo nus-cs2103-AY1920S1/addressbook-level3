@@ -43,7 +43,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given thrift, userPrefs and pastUndoableCommands.
      */
-    public ModelManager(ReadOnlyThrift thrift, ReadOnlyUserPrefs userPrefs, PastUndoableCommands pastUndoableCommands) {
+    public ModelManager(ReadOnlyThrift thrift, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(thrift, userPrefs);
 
@@ -52,14 +52,14 @@ public class ModelManager implements Model {
         this.thrift = new Thrift(thrift);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.thrift.getTransactionList());
-        this.pastUndoableCommands = pastUndoableCommands;
+        pastUndoableCommands = new PastUndoableCommands();
         currentMonthYear = Calendar.getInstance();
         balance = 0;
         expense = 0;
     }
 
     public ModelManager() {
-        this(new Thrift(), new UserPrefs(), new PastUndoableCommands());
+        this(new Thrift(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================

@@ -1,5 +1,7 @@
 package thrift.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import thrift.model.Model;
 
 /**
@@ -26,6 +28,7 @@ public class HelpCommand extends NonScrollingCommand {
     private String commandUsage;
 
     public HelpCommand(String commandUsage) {
+        requireNonNull(commandUsage);
         this.commandUsage = commandUsage;
     }
 

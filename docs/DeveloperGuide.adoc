@@ -170,7 +170,7 @@ Each of the four components
 For example, the `**Logic**` component (see the class diagram given below) defines its API in the _Logic.java_ interface and exposes its functionality using the _LogicManager.java_ class.
 
 .Class diagram of the `**Logic**` component
-image::LogicClassDiagramv1.png[]
+image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -204,7 +204,7 @@ The `**UI**` component does the following actions:
 
 [[fig-LogicClassDiagram]]
 .Structure of the `**Logic**` component
-image::LogicClassDiagramv1.png[]
+image::LogicClassDiagram.png[]
 
 API : link:{repoURL}/src/main/java/thrift/logic/Logic.java[`_Logic.java_`]
 

@@ -6,7 +6,8 @@ import thrift.model.transaction.Transaction;
 /**
  * A utility class to help with building Thrift objects.
  * Example usage: <br>
- *     {@code Thrift ab = new ThriftBuilder().withPerson("John", "Doe").build();}
+ *     {@code Thrift ab = new ThriftBuilder().withTransaction(new Expense(new Description("mcspicy"), new Value("5"),
+ *     new Remark(""), new TransactionDate(DATE_FORMATTER.format(new Date())), new HashSet<>())).build();}
  */
 public class ThriftBuilder {
 

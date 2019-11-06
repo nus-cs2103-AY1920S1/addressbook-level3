@@ -98,8 +98,7 @@ public class ModelManagerTest {
 
     @Test
     public void updateExpenseForCurrentMonth_withTransactionForCurrentMonth_success() {
-        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
-                new PastUndoableCommands());
+        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
         Expense newExpense = new Expense(new Description("mcspicy"), new Value("5"), new Remark(""),
                 new TransactionDate(DATE_FORMATTER.format(new Date())), new HashSet<>());
         model.addExpense(newExpense);
@@ -110,8 +109,7 @@ public class ModelManagerTest {
 
     @Test
     public void updateIncomeForCurrentMonth_withTransactionForCurrentMonth_success() {
-        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
-                new PastUndoableCommands());
+        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
         Income newIncome = new Income(new Description("allowance"), new Value("500"), new Remark(""),
                 new TransactionDate(DATE_FORMATTER.format(new Date())), new HashSet<>());
         model.addIncome(newIncome);
@@ -125,11 +123,10 @@ public class ModelManagerTest {
         Thrift thrift = new ThriftBuilder().withTransaction(TypicalTransactions.LAKSA).build();
         Thrift differentThrift = new Thrift();
         UserPrefs userPrefs = new UserPrefs();
-        PastUndoableCommands pastUndoableCommands = new PastUndoableCommands();
 
         // same values -> returns true
-        modelManager = new ModelManager(thrift, userPrefs, pastUndoableCommands);
-        ModelManager modelManagerCopy = new ModelManager(thrift, userPrefs, pastUndoableCommands);
+        modelManager = new ModelManager(thrift, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(thrift, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -142,13 +139,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different thrift -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentThrift, userPrefs, pastUndoableCommands)));
+        assertFalse(modelManager.equals(new ModelManager(differentThrift, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = TypicalTransactions.PENANG_LAKSA.getDescription().toString().split("\\s+");
         modelManager.updateFilteredTransactionList(new DescriptionOrRemarkContainsKeywordsPredicate(
                 Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(thrift, userPrefs, pastUndoableCommands)));
+        assertFalse(modelManager.equals(new ModelManager(thrift, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
@@ -156,6 +153,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setThriftFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(thrift, differentUserPrefs, pastUndoableCommands)));
+        assertFalse(modelManager.equals(new ModelManager(thrift, differentUserPrefs)));
     }
 }

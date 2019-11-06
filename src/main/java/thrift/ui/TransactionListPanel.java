@@ -30,11 +30,11 @@ public class TransactionListPanel extends UiPart<Region> {
         //Solution below adapted from
         //https://github.com/AY1920S1-CS2103T-T09-3/main/blob/master/src/main/java/seedu/address/ui/PersonListPanel.java
         transactionListView.setOnKeyPressed(event -> {
+            int itemPosition = transactionListView.getSelectionModel().getSelectedIndex();
             if (event.getCode().equals(KeyCode.DOWN)) {
-                int itemPosition = transactionListView.getSelectionModel().getSelectedIndex();
-                if (itemPosition == transactionList.size() - 1) {
-                    transactionListView.scrollTo(itemPosition);
-                }
+                transactionListView.scrollTo(itemPosition);
+            } else if (event.getCode().equals(KeyCode.UP)) {
+                transactionListView.scrollTo(itemPosition);
             }
         });
     }

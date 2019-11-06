@@ -63,7 +63,9 @@ public class BudgetCommand extends NonScrollingCommand implements Undoable {
     @Override
     public String undo(Model model) {
         requireAllNonNull(model, budget);
-        assert oldBudget == null || budget.getBudgetDate().equals(oldBudget.getBudgetDate());
+        assert oldBudget == null || budget.getBudgetDate().equals(oldBudget.getBudgetDate())
+                : "Invalid previous budget";
+
         String monthYear = new SimpleDateFormat("MMMMM yyyy").format(budget.getBudgetDate().getTime());
         if (oldBudget == null) {
             model.resetBudgetForThatMonth(budget);

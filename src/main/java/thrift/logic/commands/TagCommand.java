@@ -172,6 +172,7 @@ public class TagCommand extends ScrollingCommand implements Undoable {
     @Override
     public String undo(Model model) {
         requireAllNonNull(model, actualIndex, updatedTransaction, transactionToTag);
+        assert actualIndex.getZeroBased() >= 0;
         model.setTransactionWithIndex(actualIndex, transactionToTag);
         return String.format(UNDO_SUCCESS, transactionToTag, updatedTransaction);
     }
@@ -179,6 +180,7 @@ public class TagCommand extends ScrollingCommand implements Undoable {
     @Override
     public String redo(Model model) {
         requireAllNonNull(model, actualIndex, updatedTransaction, transactionToTag);
+        assert actualIndex.getZeroBased() >= 0;
         model.setTransactionWithIndex(actualIndex, updatedTransaction);
         return String.format(REDO_SUCCESS, updatedTransaction, transactionToTag);
     }
