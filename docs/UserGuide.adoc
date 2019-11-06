@@ -133,6 +133,13 @@ exists currently in the database.
 * The quantity of food `q/QUANTITY` to be delivered also be provided and be greater than 0.
 ====
 
+[TIP]
+====
+
+Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+image::userguide\autocomplete1.png[width="790"]
+====
+
 {nbsp} +
 
 ==== Completing an order: `-complete_order`
@@ -203,6 +210,13 @@ image::userguide\EditOrder3.png[width="790"]
 * A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
 
 * Optional items with '[]' tags may be ommitted e.g. `[r/RESTAURANT]`. However at least 1 tag has to be present for the order to be edited.
+====
+
+[TIP]
+====
+
+Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+image::userguide\autocomplete1.png[width="790"]
 ====
 
 {nbsp} +
