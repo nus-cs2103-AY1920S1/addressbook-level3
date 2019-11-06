@@ -59,9 +59,6 @@ public class MainWindow extends UiPart<Stage> {
     private VBox parentVBox;
 
     @FXML
-    private VBox parentVBox;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -357,10 +354,6 @@ public class MainWindow extends UiPart<Stage> {
         case "financeContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
             helpDeskWindow.setFinanceText();
-            break;
-
-        case "financeContentPlaceholder" :
-            tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
             break;
 
         case "moduleContentPlaceholder":
