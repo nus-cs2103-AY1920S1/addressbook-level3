@@ -76,5 +76,9 @@ public interface Logic {
 
     CommandResult addExpenseFromEvent(Event currentEvent) throws CommandException, ParseException;
 
+    boolean[] recordInitialPrimaryBudgetStatus();
+
+    boolean[] recordFinalPrimaryBudgetStatus();
+
 
 }

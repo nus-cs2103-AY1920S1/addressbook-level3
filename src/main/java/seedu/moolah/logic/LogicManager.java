@@ -154,5 +154,21 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public boolean[] recordInitialPrimaryBudgetStatus() {
+        Budget primaryBudget = getPrimaryBudget();
+        boolean initialIsExceeded = primaryBudget.isExceeded();
+        boolean initialIsNear = primaryBudget.isNear();
+        boolean initialIsHalf = primaryBudget.isHalf();
+        return new boolean[]{initialIsExceeded, initialIsNear, initialIsHalf};
+    }
 
+    @Override
+    public boolean[] recordFinalPrimaryBudgetStatus() {
+        Budget primaryBudget = getPrimaryBudget();
+        boolean finalIsExceeded = primaryBudget.isExceeded();
+        boolean finalIsNear = primaryBudget.isNear();
+        boolean finalIsHalf = primaryBudget.isHalf();
+        return new boolean[]{finalIsExceeded, finalIsNear, finalIsHalf};
+    }
 }

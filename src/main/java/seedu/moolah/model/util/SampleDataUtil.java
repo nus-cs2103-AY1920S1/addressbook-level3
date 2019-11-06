@@ -28,10 +28,10 @@ public class SampleDataUtil {
         return new Budget[] {
             new Budget(new Description("Holiday"), new Price("3000"),
                     Timestamp.createTimestampIfValid("01-01").get(), BudgetPeriod.YEAR),
-            new Budget(new Description("Outside School"), new Price("50"),
-                    Timestamp.createTimestampIfValid("28-10").get(), BudgetPeriod.WEEK),
+            new Budget(new Description("Outside School"), new Price("500"),
+                    Timestamp.createTimestampIfValid("01-11").get(), BudgetPeriod.MONTH),
             new Budget(new Description("NUS Canteens"), new Price("300"),
-                Timestamp.createTimestampIfValid("06-10").get(), BudgetPeriod.MONTH)
+                Timestamp.createTimestampIfValid("28-10").get(), BudgetPeriod.MONTH)
         };
     }
 
@@ -46,7 +46,7 @@ public class SampleDataUtil {
                     NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
             new Expense(new Description("Pasta"), new Price("6.80"),
-                    getCategory("food"), Timestamp.createTimestampIfValid("23-10").get(),
+                    getCategory("food"), Timestamp.createTimestampIfValid("01-11").get(),
                     NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
             new Expense(new Description("Taiwan Ichiban"), new Price("5.00"),
@@ -62,9 +62,6 @@ public class SampleDataUtil {
                     NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
 
-
-
-
             new Expense(new Description("Chicken rice"), new Price("3.50"),
                     getCategory("food"), Timestamp.createTimestampIfValid("28-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
@@ -78,15 +75,15 @@ public class SampleDataUtil {
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
             new Expense(new Description("Lamb chop"), new Price("6.00"),
-                    getCategory("food"), Timestamp.createTimestampIfValid("01-10").get(),
+                    getCategory("food"), Timestamp.createTimestampIfValid("01-11").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
             new Expense(new Description("Lamb chop"), new Price("6.00"),
-                    getCategory("food"), Timestamp.createTimestampIfValid("01-10").get(),
+                    getCategory("food"), Timestamp.createTimestampIfValid("03-11").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
             new Expense(new Description("Mee rebus"), new Price("10.50"),
-                    getCategory("food"), Timestamp.createTimestampIfValid("20-10").get(),
+                    getCategory("food"), Timestamp.createTimestampIfValid("05-11").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
 

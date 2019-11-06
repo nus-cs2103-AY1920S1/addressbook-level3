@@ -12,6 +12,8 @@ import seedu.moolah.logic.commands.GenericCommandWord;
 import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
+import seedu.moolah.model.budget.Budget;
+import seedu.moolah.model.budget.Percentage;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.ui.budget.BudgetPanel;
 
@@ -39,6 +41,7 @@ public class AddExpenseCommand extends UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "New expense added:\n %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah";
+    public static final String MESSAGE_BUDGET_EXCEEDED_TOO_FAR = "This expense will exceed the budget limit too far";
 
     private final Expense toAdd;
 
@@ -61,6 +64,15 @@ public class AddExpenseCommand extends UndoableCommand {
 
         if (model.hasExpense(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
+        }
+
+        Budget pb = model.getPrimaryBudget();
+        double price = toAdd.getPrice().getAsDouble();
+        double limit = pb.getAmount().getAsDouble();
+        try {
+            Percentage.calculate(pb.calculateExpenseSum() + price, limit);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(MESSAGE_BUDGET_EXCEEDED_TOO_FAR);
         }
     }
 
