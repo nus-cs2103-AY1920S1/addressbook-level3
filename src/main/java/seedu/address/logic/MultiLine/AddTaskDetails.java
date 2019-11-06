@@ -60,13 +60,26 @@ public class AddTaskDetails {
         LocalDateTime deadline = ((AddDCommand) command).getDeadline();
         MemberId memId = ((AddDCommand) command).getMemId();
 
-        AssignCommand command1 = new AssignCommand(new Index(length - 1), memId);
-        CommandResult commandResult1 = command1.execute(model);
+        CommandResult commandResult1 = null;
+        CommandResult commandResult2 = null;
+        if(!(memId.equals(new MemberId("NIL")))) {
+            AssignCommand command1 = new AssignCommand(new Index(length - 1), memId);
+            commandResult1 = command1.execute(model);
+        }
+        if(!(deadline == LocalDateTime.MIN)) {
+            SetDeadlineCommand command2 = new SetDeadlineCommand(new Index(length - 1), deadline);
+            commandResult2 = command2.execute(model);
+        }
 
-        SetDeadlineCommand command2 = new SetDeadlineCommand(new Index(length - 1), deadline);
-        CommandResult commandResult2 = command2.execute(model);
-
-        return new CommandResult(commandResult1.getFeedbackToUser() + "\n"
-                + commandResult2.getFeedbackToUser());
+        if( (commandResult1 != null) && (commandResult2 != null)) {
+            return new CommandResult(commandResult1.getFeedbackToUser() + "\n"
+                    + commandResult2.getFeedbackToUser());
+        } else if (commandResult1 == null && commandResult2 != null) {
+            return new CommandResult(commandResult2.getFeedbackToUser());
+        } else if (commandResult2 == null && commandResult1 != null) {
+            return new CommandResult(commandResult1.getFeedbackToUser());
+        } else {
+            throw new CommandException("No deadline or member found");
+        }
     }
 }
