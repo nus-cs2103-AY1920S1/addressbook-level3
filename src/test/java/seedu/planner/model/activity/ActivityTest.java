@@ -108,7 +108,7 @@ public class ActivityTest {
     }
 
     @Test
-    public void compareTo(){
+    public void compareTo() {
         //activity having same priority
         assertTrue(ACTIVITYONE.compareTo(ACTIVITYONE) == 0);
 
