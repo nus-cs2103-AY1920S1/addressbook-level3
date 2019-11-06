@@ -100,8 +100,8 @@ public class ProblemDetails extends UiPart<Region> {
         });
 
         this.warningDialog = new WarningDialog(
-            "Are you sure you want to delete this problem?",
-            "Delete this problem from existing tasks", (Object... objects) -> {
+            "Are you sure you want to delete this problem?\n"
+                + "This will also delete the related tasks in the plans.", (Object... objects) -> {
 
             boolean shouldDelete = (boolean) objects[0];
             boolean isForcedDelete = (boolean) objects[1];
@@ -126,7 +126,7 @@ public class ProblemDetails extends UiPart<Region> {
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.DELETE_PROBLEM,
                 problem.getId(),
-                isForcedDelete
+                Boolean.valueOf(true)
             ));
         });
 
