@@ -478,7 +478,7 @@ This section's table explains the design considerations for some implementations
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
 
 |`ModelManager` contains 2 variables that point to a `TransactionList` object in original order and a `TransactionList`
-object for viewing that can be sorted such that when [blue]`sort reset` is called, the shown `TransactionList` can be set to be equals to the original one.
+object for viewing that can be sorted such that when [blue]`sort reset` is called, the `TransactionList` for viewing can be set to be equals to the original one.
 |`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
 the `TransactionList` object in original order when [blue]`sort reset` is called.
 |Alternative 1 was implemented. Alternative 1 allowed exporting of the data file in the desired order anytime while treasurerPro was running while
