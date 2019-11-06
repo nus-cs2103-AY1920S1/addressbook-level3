@@ -5,14 +5,11 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.Model;
 import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
 
@@ -69,6 +66,9 @@ public class InformationDisplay extends UiPart<Region> {
         photo.fitWidthProperty().bind(imageHolder.widthProperty());
     }
 
+    /**
+     * Displays the personal information of the selected person
+     */
     public void displayPersonalInfo() {
         name.setText(this.person.getName().fullName);
         phone.setText(this.person.getPhone().value);
@@ -87,22 +87,28 @@ public class InformationDisplay extends UiPart<Region> {
         resizeImage();
     }
 
+    /**
+     * Displays the performance of the selected person.
+     */
     public void performanceDisplay() {
-        if(!athleteEvents.isEmpty()) {
-            for(Event event : athleteEvents) {
+        if (!athleteEvents.isEmpty()) {
+            for (Event event : athleteEvents) {
                 String eventName = event.getName();
                 String mostRecentDate = event.getLatestTiming(person)[0];
                 String mostRecentTiming = event.getLatestTiming(person)[1];
-                String personalBest = event.getPersonalBest(person) + " seconds";
-                PersonPerformanceDisplay athletePerformance = new PersonPerformanceDisplay(eventName, mostRecentDate,
+                String personalBest = event.getPersonalBest(person)[0];
+                String personalBestDate = event.getPersonalBest(person)[1];
+                PersonPerformanceDisplay athletePerformance = new PersonPerformanceDisplay(eventName, personalBestDate,
                                                                                            personalBest,
+                                                                                           mostRecentDate,
                                                                                            mostRecentTiming);
                 performanceDisplay.getChildren().add(athletePerformance.getRoot());
 
             }
         } else {
             PersonPerformanceDisplay athletePerformance = new PersonPerformanceDisplay("-", "-",
-                                                                                       "-", "-");
+                                                                                       "-", "-",
+                                                                                       "-");
             performanceDisplay.getChildren().add(athletePerformance.getRoot());
         }
     }

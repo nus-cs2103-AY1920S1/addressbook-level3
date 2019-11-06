@@ -141,16 +141,18 @@ public class Event {
     /**
      * Retrieves the athlete's fastest timing for this event.
      */
-    public double getPersonalBest(Person athlete) {
+    public String[] getPersonalBest(Person athlete) {
         double personalBest = Double.MAX_VALUE;
+        String personalBestDate = "";
         for (Record record : getAthleteRecords(athlete)) {
             double timing = record.getTiming().getValue();
             if (timing < personalBest) {
                 personalBest = timing;
+                personalBestDate = record.getDate().toString();
             }
         }
         assert(personalBest < Double.MAX_VALUE);
-        return personalBest;
+        return new String[]{personalBest + " seconds", personalBestDate};
     }
 
     /**
