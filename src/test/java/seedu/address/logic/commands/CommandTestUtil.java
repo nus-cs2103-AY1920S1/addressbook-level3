@@ -28,15 +28,21 @@ import seedu.address.testutil.EditExpenseDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_NAME_VODKA = "Belvedere Vodka";
-    public static final String VALID_NAME_RUM = "Ron Zacapa";
     public static final String VALID_AMOUNT_VODKA = "30";
-    public static final String VALID_AMOUNT_RUM = "200";
     public static final String VALID_CURRENCY_VODKA = "SGD";
-    public static final String VALID_CURRENCY_RUM = "USD";
     public static final String VALID_DATE_VODKA = "13/10/2019";
+    public static final String VALID_NAME_RUM = "Ron Zacapa";
+    public static final String VALID_AMOUNT_RUM = "200";
+    public static final String VALID_CURRENCY_RUM = "USD";
     public static final String VALID_DATE_RUM = "09/05/2019";
     public static final String VALID_TAG_ALCOHOL = "alcohol";
     public static final String VALID_TAG_DRINKS = "drinks";
+
+    public static final String VALID_BUDGET_NAME_EGYPT = "Egypt";
+    public static final String VALID_BUDGET_AMOUNT_EGYPT = "9999";
+    public static final String VALID_BUDGET_CURRENCY_EGYPT = "EUR";
+    public static final String VALID_BUDGET_STARTDATE_EGYPT = "01/01/2019";
+    public static final String VALID_BUDGET_ENDDATE_EGYPT = "31/12/2019";
 
     public static final String NAME_DESC_VODKA = " " + PREFIX_NAME + VALID_NAME_VODKA;
     public static final String NAME_DESC_RUM = " " + PREFIX_NAME + VALID_NAME_RUM;
@@ -102,7 +108,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered expense list and selected expense in {@code actualModel} remain unchanged
+     * - the expenselist, filtered expense list and selected expense in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
                                             CommandHistory actualCommandHistory) {
@@ -121,7 +127,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the expense at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s expenselist.
      */
     public static void showExpenseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenseList().size());

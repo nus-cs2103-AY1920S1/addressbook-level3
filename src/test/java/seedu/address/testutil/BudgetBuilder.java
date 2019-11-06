@@ -94,6 +94,6 @@ public class BudgetBuilder {
     }
 
     public Budget build() {
-        return new Budget(name, amount, amount, currency, startDate, endDate, expenseList);
+        return new Budget(name, amount, amountLeft, currency, startDate, endDate, expenseList);
     }
 }

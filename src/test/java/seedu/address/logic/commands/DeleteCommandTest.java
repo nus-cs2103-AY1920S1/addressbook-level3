@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +18,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.ViewState;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetList;
 import seedu.address.model.expense.Expense;
 
@@ -32,9 +34,9 @@ public class DeleteCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
+    public void execute_validIndexUnfilteredExpenseList_success() {
+        Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_ITEM.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
@@ -46,7 +48,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void execute_invalidIndexUnfilteredExpenseList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenseList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -54,11 +56,11 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
-        showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
+    public void execute_validIndexFilteredExpenseList_success() {
+        showExpenseAtIndex(model, INDEX_FIRST_ITEM);
 
-        Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
+        Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_ITEM.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
@@ -71,10 +73,10 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
+    public void execute_invalidIndexFilteredExpenseList_throwsCommandException() {
+        showExpenseAtIndex(model, INDEX_FIRST_ITEM);
 
-        Index outOfBoundIndex = INDEX_SECOND_EXPENSE;
+        Index outOfBoundIndex = INDEX_SECOND_ITEM;
         // ensures that outOfBoundIndex is still in bounds of expense list list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseList().getExpenseList().size());
 
@@ -84,15 +86,41 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_validIndexUnfilteredBudgetList_success() {
+        model.setViewState(ViewState.BUDGETLIST);
+        Budget budgetToDelete = model.getFilteredBudgetList().get(INDEX_FIRST_ITEM.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BUDGET_SUCCESS, budgetToDelete);
+
+        ModelManager expectedModel = new ModelManager(getTypicalExpenseList(), model.getBudgetList(),
+            model.getExchangeData(), new UserPrefs());
+        expectedModel.deleteBudget(budgetToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        model.setViewState(ViewState.DEFAULT_EXPENSELIST);
+    }
+
+    @Test
+    public void execute_invalidIndexUnfilteredBudgetList_throwsCommandException() {
+        model.setViewState(ViewState.BUDGETLIST);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBudgetList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
+        model.setViewState(ViewState.DEFAULT_EXPENSELIST);
+    }
+
+    @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_EXPENSE);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_ITEM);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_EXPENSE);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_ITEM);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

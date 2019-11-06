@@ -188,6 +188,7 @@ public class Budget {
         Budget otherBudget = (Budget) other;
         return otherBudget.getName().equals(getName())
             && otherBudget.getAmount().equals(getAmount())
+            && otherBudget.getCurrency().equals(getCurrency())
             && otherBudget.getStartDate().equals(getStartDate())
             && otherBudget.getEndDate().equals(getEndDate());
     }
