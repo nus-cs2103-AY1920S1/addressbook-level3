@@ -10,7 +10,7 @@ public class RecommendInfo {
     public static final String COMMAND_WORD = RecommendCommand.COMMAND_WORD;
 
     public static final String INFORMATION =
-            "The recommend command allows you obtain a list of recommended food items.\n\n"
+            "The recommend command allows you to obtain a list of recommended food items.\n\n"
             + "The recommended Food item list will depend on the following factors:\n"
             + " - Liked and disliked tags, categories and locations\n"
             + " - Matched tags, categories and locations in purchase history\n"

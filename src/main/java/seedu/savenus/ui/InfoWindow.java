@@ -14,14 +14,12 @@ import seedu.savenus.model.info.AutoSortInfo;
 import seedu.savenus.model.info.BudgetInfo;
 import seedu.savenus.model.info.BuyInfo;
 import seedu.savenus.model.info.ClearInfo;
-import seedu.savenus.model.info.CollapseInfo;
 import seedu.savenus.model.info.CustomSortInfo;
 import seedu.savenus.model.info.DefaultInfo;
 import seedu.savenus.model.info.DeleteInfo;
 import seedu.savenus.model.info.DislikeInfo;
 import seedu.savenus.model.info.EditInfo;
 import seedu.savenus.model.info.ExitInfo;
-import seedu.savenus.model.info.ExpandInfo;
 import seedu.savenus.model.info.FilterInfo;
 import seedu.savenus.model.info.FindInfo;
 import seedu.savenus.model.info.HelpInfo;
@@ -156,12 +154,6 @@ public class InfoWindow extends UiPart<Stage> {
             usageExample.setText(ClearInfo.USAGE);
             output.setText(ClearInfo.OUTPUT);
             break;
-        case InfoCommand.COLLAPSE_INFO :
-            commandWord.setText(CollapseInfo.COMMAND_WORD);
-            infoMessage.setText(CollapseInfo.INFORMATION);
-            usageExample.setText(CollapseInfo.USAGE);
-            output.setText(CollapseInfo.OUTPUT);
-            break;
         case InfoCommand.CUSTOM_SORT_INFO :
             commandWord.setText(CustomSortInfo.COMMAND_WORD);
             infoMessage.setText(CustomSortInfo.INFORMATION);
@@ -197,12 +189,6 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(ExitInfo.INFORMATION);
             usageExample.setText(ExitInfo.USAGE);
             output.setText(ExitInfo.OUTPUT);
-            break;
-        case InfoCommand.EXPAND_INFO :
-            commandWord.setText(ExpandInfo.COMMAND_WORD);
-            infoMessage.setText(ExpandInfo.INFORMATION);
-            usageExample.setText(ExpandInfo.USAGE);
-            output.setText(ExpandInfo.OUTPUT);
             break;
         case InfoCommand.FILTER_INFO:
             commandWord.setText(FilterInfo.COMMAND_WORD);

@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root maximized="true" minHeight="900.0" minWidth="1400.0" onCloseRequest="#handleExit" title="\$aveNUS" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root height="900.0" maximized="true" minHeight="900.0" minWidth="1400.0" onCloseRequest="#handleExit" title="\$aveNUS" type="javafx.stage.Stage" width="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/savenus_logo.png" />
     </icons>
@@ -86,14 +86,14 @@
                                 <children>
                                     <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="500.0" HBox.hgrow="ALWAYS">
                                         <VBox fx:id="foodList" prefHeight="655.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                                            <padding>
-                                                <Insets bottom="10" left="10" right="10" top="10" />
-                                            </padding>
                                             <StackPane fx:id="foodListPanelPlaceholder" VBox.vgrow="ALWAYS">
                                                 <VBox.margin>
                                                     <Insets />
                                                 </VBox.margin>
                                             </StackPane>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                                         </VBox>
                                     </VBox>
                            <VBox styleClass="vbox-tab-pane-with-border">

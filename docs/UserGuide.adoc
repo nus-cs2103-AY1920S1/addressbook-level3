@@ -148,21 +148,6 @@ ifdef::env-github[| :white_check_mark: a| You will see a window pop-up specifyin
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a window pop-up specifying the details of the command you wanted more information about.]
 |===
 
-==== Collapse the food card: `collapse`
-
-Makes the Food Card more compacted, depending on the user's preference. The optional information will now be displayed
-in one line.
-
-****
-*Format*: `collapse`
-****
-
-[width="100%",cols="5%,95%", grid=none]
-|===
-ifdef::env-github[| :white_check_mark: a| You will see a compacted box for the food items displayed in the food menu.]
-ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a compacted box for the food items displayed in the food menu.]
-|===
-
 ==== Exiting the application: `exit`
 Exits the app. +
 
@@ -174,18 +159,6 @@ Exits the app. +
 |===
 ifdef::env-github[| :white_check_mark: a| Application closes.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.]
-|===
-
-==== Expanding the food card: `expand`
-Makes the Food Display Card expand, such that each line only has one attribute of the food item.
-
-****
-*Format*: `expand`
-****
-[width="100%",cols="5%,95%", grid=none]
-|===
-ifdef::env-github[| :white_check_mark: a| You will see an expanded box for the food items displayed in the menu.]
-ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see an expanded box for the food items displayed in the menu.]
 |===
 //end::general[]
 
@@ -801,9 +774,6 @@ Unfortunately you are unable to change the app’s language
 | <<Clears wallet purchase history and food items: `clear`, `clear`>>
 | Clears wallet, purchase history, savings account, wallet, likes, dislikes and aliases.
 | ```clear```
-| <<Collapse the food card: `collapse`, `collapse`>>
-| Makes the Food Card more or less compact, depending on the user's preference.
-| `collapse`
 | <<Sort based on your custom comparator: `customsort`, `customsort`>>
 | Sorts items based on a created custom comparator.
 | `customsort`
