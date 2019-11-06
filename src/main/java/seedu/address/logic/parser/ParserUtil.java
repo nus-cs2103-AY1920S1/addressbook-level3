@@ -171,6 +171,7 @@ public class ParserUtil {
             return null;
         }
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
         try {
             return format.parse(date);
         } catch (java.text.ParseException e) {

@@ -78,18 +78,23 @@ public class StatsCommandParser implements Parser<StatsCommand> {
 
             try {
                 if (presentPrefix.equals(PREFIX_MONTH)) {
-                    Date date = new SimpleDateFormat("MM/yyyy")
+                    SimpleDateFormat monthParser = new SimpleDateFormat("MM/yyyy");
+                    monthParser.setLenient(false);
+                    Date date = monthParser
                         .parse(argMultimap.getValue(presentPrefix).get());
                     return new StatsCommand(date, timeFrame);
                 } else if (presentPrefix.equals(PREFIX_YEAR)) {
-                    Date date = new SimpleDateFormat("yyyy").parse(argMultimap.getValue(presentPrefix).get());
+                    SimpleDateFormat yearParser = new SimpleDateFormat("yyyy");
+                    yearParser.setLenient(false);
+                    Date date = yearParser.parse(argMultimap.getValue(presentPrefix).get());
                     return new StatsCommand(date, timeFrame);
                 } else {
-                    Date date = new SimpleDateFormat("dd/MM/yyyy")
-                        .parse(argMultimap.getValue(presentPrefix).get());
+                    SimpleDateFormat dayParser = new SimpleDateFormat("dd/MM/yyyy");
+                    dayParser.setLenient(false);
+                    Date date = dayParser.parse(argMultimap.getValue(presentPrefix).get());
                     return new StatsCommand(date, timeFrame);
                 }
-            } catch (Exception e) {
+            } catch (java.text.ParseException e) {
                 throw new ParseException(Messages.MESSAGE_INVALID_DATE_FORMAT);
             }
         }

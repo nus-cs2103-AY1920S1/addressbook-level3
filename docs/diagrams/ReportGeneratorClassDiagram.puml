@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor ITEXT_COLOR_T1
+skinparam classBackgroundColor ITEXT_COLOR_T1
+
+Interface Parser <<Interface>>
+Class GenReportCommandParser
+Class GenReportsCommandParser
+Class GenReportSummaryCommandParser
+
+Class GenReportCommand
+Class GenReportsCommand
+Class GenReportSummaryCommand
+'Class "{abstract}\nCommand" as Command'
+
+GenReportCommandParser .up.|> Parser
+GenReportsCommandParser .up.|> Parser
+GenReportSummaryCommandParser .up.|> Parser
+
+GenReportCommandParser -down-> "1" GenReportCommand
+GenReportsCommandParser -down-> "1" GenReportsCommand
+GenReportSummaryCommandParser -down-> "1" GenReportSummaryCommand
+
+GenReportCommand *-left-> "1" Index
+GenReportsCommand .up.> FilteredBodyList
+GenReportSummaryCommand .up.> FilteredBodyList
+GenReportCommand -down-> "1" ReportGenerator
+GenReportsCommand -down-> "1" ReportGenerator
+GenReportSummaryCommand -down-> "1" ReportGenerator
+
+ReportGenerator ..> Document
+ReportGenerator ..> PdfWriter
+ReportGenerator --> "3" Font
+
+Document o--> Paragraph
+Document o--> PdfPTable
+PdfPTable o--> PdfPCell
+PdfPCell o--> Paragraph
+PdfPCell o--> List
+@enduml

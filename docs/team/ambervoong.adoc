@@ -43,7 +43,7 @@ It required a careful analysis of design choices. Among the different alternativ
 * *Minor enhancement*: morphed the `edit` command in AB3 to an `update` command.
 * *Minor enhancement*: added the `Body` class, a foundational class in Mortago.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files [to update]}_
+*Code contributed:* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
 
 * *Other contributions*:
 
