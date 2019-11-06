@@ -112,11 +112,6 @@ public class NotifCommand extends Command {
                     notifWindow.setTitle("Contact Police!");
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
-                    System.out.println(model.hasNotif(notif));
-//                    if (!model.hasNotif(notif)) {
-//                        // throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
-//                        model.addNotif(notif);
-//                    }
                     storageManager.saveAddressBook(model.getAddressBook());
 
                 } catch (CommandException | IOException e) {

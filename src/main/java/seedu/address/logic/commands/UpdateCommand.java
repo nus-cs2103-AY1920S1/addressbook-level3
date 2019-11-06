@@ -195,18 +195,6 @@ public class UpdateCommand extends UndoableCommand {
 
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
 
-            // Re-add notifs when redoing.
-            if (getCommandState().equals(UndoableCommandState.REDOABLE) && isUpdatedFromNotif) {
-                for (Notif notif : autoNotif) {
-                    // This is to reset the UI appearance, because a spent Notif does not update it.
-                    if (model.hasNotif(notif)) {
-                        model.deleteNotif(notif);
-                    }
-                    model.addNotif(notif);
-                }
-            }
-
-            //@@author shaoyi1997
             SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
             selectCommand.execute(model);
 
