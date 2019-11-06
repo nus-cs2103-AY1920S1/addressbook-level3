@@ -30,7 +30,7 @@ public class Messages {
             + "to delete the following flashcard?";
     public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_NOTE = "Are you sure you would like "
             + "to delete the following note?";
-    public static final String MESSAGE_HIT_ENTER_TO_DELETE = "Hit enter again to confirm your deletion.";
+    public static final String MESSAGE_CONFIRM_DELETE = "Please use `delete %d` again to confirm your deletion.";
 
 
     public static final String MESSAGE_NO_CHEATSHEET_LOADED = "No cheatsheet has been loaded";
