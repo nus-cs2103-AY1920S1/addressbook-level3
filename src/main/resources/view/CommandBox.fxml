@@ -6,8 +6,9 @@
 <?import javafx.scene.control.Button?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.HBox?>
+<?import seedu.address.ui.AutoCompleteTextField?>
 <HBox styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="What can I do for you?" HBox.hgrow="ALWAYS"/>
+  <AutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="What can I do for you?" HBox.hgrow="ALWAYS"/>
   <Button fx:id="sendButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY"
           maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0" onAction="#handleCommandEntered">

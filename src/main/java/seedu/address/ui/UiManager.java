@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.Paths.ICON_APPLICATION;
+
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -7,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
@@ -20,7 +23,7 @@ public class UiManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/alfred_icon.png";
+
 
     private Logic logic;
     private MainWindow mainWindow;
