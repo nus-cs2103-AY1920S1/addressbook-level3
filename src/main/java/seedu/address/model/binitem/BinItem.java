@@ -43,8 +43,11 @@ public class BinItem {
         this.expiryDate = expiryDate;
     }
 
-    private LocalDateTime generateExpiryDate() {
-        LocalDateTime expiryDate = LocalDateTime.now().plus(timeToLiveAmount, timeToLiveUnit);
+    /**
+     * Generates expiry date of binItem.
+     */
+    public LocalDateTime generateExpiryDate() {
+        LocalDateTime expiryDate = dateDeleted.plus(timeToLiveAmount, timeToLiveUnit);
         return expiryDate;
     }
 

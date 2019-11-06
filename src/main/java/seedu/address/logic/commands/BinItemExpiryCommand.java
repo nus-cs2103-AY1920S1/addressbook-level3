@@ -7,10 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MINUTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTHS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECONDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEARS;
+import static seedu.address.model.binitem.BinItem.DATE_TIME_FORMATTER;
 
 import java.time.temporal.ChronoUnit;
 
 import seedu.address.commons.core.UserSettings;
+import seedu.address.commons.util.BinItemBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.binitem.BinItem;
@@ -35,7 +37,7 @@ public class BinItemExpiryCommand extends Command {
         + PREFIX_DAYS + "30";
 
     public static final String MESSAGE_SUCCESS = "Changed bin item expiry time! Items in the Bin will be removed"
-        + " permanently after %s %s.";
+        + " permanently %s %s after their deletion.";
 
     private final int timeToLiveAmount;
     private final ChronoUnit timeToLiveUnit;
@@ -53,6 +55,11 @@ public class BinItemExpiryCommand extends Command {
 
         // Set time to live in binItem class
         BinItem.setTimeToLive(timeToLiveAmount, timeToLiveUnit);
+        for (BinItem b : model.getAddressBook().getBinItemList()) {
+            BinItem newBinItem = (new BinItemBuilder(b)
+                .withExpiryDate(b.generateExpiryDate().format(DATE_TIME_FORMATTER))).build();
+            model.setBinItem(b, newBinItem);
+        }
 
         // Update user settings
         UserSettings userSettings = new UserSettings(model.getUserSettings().isSuggestionsOn(),
