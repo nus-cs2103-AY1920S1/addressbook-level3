@@ -87,7 +87,8 @@ public class StatisticsWindow extends ScrollPane {
     /** Allows the relevant DeckStatisticsWindow to be opened when a row of the deckTableView is double-clicked. */
     private void allowDeckStatisticsWindowToBeOpened() {
         //@@author nattanyz-reused
-        // solution adapted from https://stackoverflow.com/questions/30191264/javafx-tableview-how-to-get-the-row-i-clicked
+        // solution adapted from https://stackoverflow.com/questions/30191264/javafx-tableview-
+        // how-to-get-the-row-i-clicked
         this.deckTableView.setRowFactory(tv -> {
             TableRow<Deck> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
