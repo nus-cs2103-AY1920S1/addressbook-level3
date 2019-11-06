@@ -108,7 +108,7 @@ public class SampleDataUtil {
         Arrays.stream(getSampleInstallments()).forEach(financeTracker::addInstallment);
         return financeTracker;
     }
-  
+
     public static Planner getSamplePlanner() {
         Planner planner = new Planner();
         Arrays.stream(getSampleTasks()).forEach(planner::addTask);
