@@ -205,8 +205,6 @@ public class ItemModelManager implements ItemModel {
             reminderList.add(item);
             if (item.getReminder().get().getOccurrenceDateTime().isAfter(LocalDateTime.now())) {
                 futureReminders.add(item);
-            } else {
-                activeReminders.add(item);
             }
         }
     }
