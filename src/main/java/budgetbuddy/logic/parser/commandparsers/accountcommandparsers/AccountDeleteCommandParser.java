@@ -7,7 +7,7 @@ import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new LoanDeleteCommand object.
+ * Parses input arguments and creates a new AccountDeleteCommand object.
  */
 public class AccountDeleteCommandParser implements CommandParser<AccountDeleteCommand> {
     @Override

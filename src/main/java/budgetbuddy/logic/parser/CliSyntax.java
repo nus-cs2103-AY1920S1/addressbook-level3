@@ -23,6 +23,7 @@ public class CliSyntax {
     public static final String SORT_ARG_DATE = "w";
     public static final String SORT_ARG_PERSON = "p";
     public static final String SORT_ARG_AMOUNT = "x";
+    public static final String SORT_ARG_BALANCE = "b";
 
     // Loans
     public static final Prefix PREFIX_PERSON = new Prefix("p/");

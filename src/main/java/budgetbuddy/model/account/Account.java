@@ -2,9 +2,12 @@ package budgetbuddy.model.account;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
@@ -32,6 +35,7 @@ public class Account {
     private BooleanProperty isActiveBooleanProperty = new SimpleBooleanProperty(false);
     private long balance;
     private LongProperty balanceLongProperty = new SimpleLongProperty(0);
+    private Set<Category> categoryset = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -195,6 +199,35 @@ public class Account {
         return getName().toString() + " (" + getDescription().toString() + ")";
     }
 
+    private String getIncome() {
+        long income = 0;
+        for (Transaction transaction: transactionList) {
+            if (transaction.getDirection().equals(Direction.IN)) {
+                income = income + transaction.getAmount().toLong();
+            }
+        }
+
+        return String.format("%s%d.%02d", CURRENCY_SIGN, income / 100, income % 100);
+    }
+
+    private String getExpense() {
+        long expense = 0;
+        for (Transaction transaction: transactionList) {
+            if (transaction.getDirection().equals(Direction.OUT)) {
+                expense = expense + transaction.getAmount().toLong();
+            }
+        }
+
+        return String.format("%s%d.%02d", CURRENCY_SIGN, expense / 100, expense % 100);
+    }
+
+    private Set<Category> getCategories() {
+        for (Transaction transaction: transactionList) {
+            categoryset.addAll(transaction.getCategories());
+        }
+
+        return categoryset;
+    }
 
     public String getBalanceString() {
         if (balance >= 0) {
@@ -202,6 +235,17 @@ public class Account {
         } else {
             return "-" + String.format("%s%d.%02d", CURRENCY_SIGN, Math.abs(balance / 100), Math.abs(balance % 100));
         }
+    }
+
+    public String getAccountInfo() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Report of Account " + this.toString() + "\n")
+                     .append("\n")
+                     .append("Total balance: " + this.getBalanceString() + "\n")
+                     .append("Income: " + this.getIncome() + "\n")
+                     .append("Expenses: " + this.getExpense() + "\n")
+                     .append("Categories: " + this.getCategories() + "\n");
+        return stringBuilder.toString();
     }
 }
 
