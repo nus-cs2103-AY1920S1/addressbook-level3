@@ -51,10 +51,17 @@ public class EventManpowerAllocatedList {
 
 
     /**
-     * Boolean Method to check if an the allocated list contains an employee
+     * Boolean Method to check if an Employee is allocated to this event.
      */
     public boolean containsEmployee(Employee employee) {
         return manpowerList.contains(employee.getEmployeeId());
+    }
+
+    /**
+     * Boolean Method to check if there is any manpower currently allocated.
+     */
+    public boolean isAnyManpowerAllocated() {
+        return manpowerList.isEmpty();
     }
 
     @Override
