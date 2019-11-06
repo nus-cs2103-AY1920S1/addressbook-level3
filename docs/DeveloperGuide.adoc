@@ -245,8 +245,11 @@ prefixes like `t>` and `d>`
 ** Cons: Difficult to implement.
 // end::deadline[]
 
+
 //@@author LeowWB
+
 // tag::flashcardexport[]
+
 === Exporting of FlashCards
 ==== Implementation
 
@@ -326,6 +329,12 @@ NOTE: The original AddressBook application, from which KeyboardFlashCards was mo
 NOTE: **Alternative 4** was preferred as it provides users with the greatest overall convenience.
 
 // end::flashcardexport[]
+
+// tag::flashcardimport[]
+
+TODO old king cole was a merry old soul and a merry old soul was he
+
+// end::flashcardimport[]
 
 //@@author keiteo
 // tag::dataencryption[]

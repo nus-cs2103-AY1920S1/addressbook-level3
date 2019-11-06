@@ -86,7 +86,7 @@ _(start of extract from User Guide)_
 
 include::../UserGuide.adoc[tag=flashcardexport]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=flashcardimport]
 
 _(end of extract from User Guide)_
 
@@ -100,6 +100,6 @@ _(start of extract from User Guide)_
 
 include::../DeveloperGuide.adoc[tag=flashcardexport]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=flashcardimport]
 
 _(end of extract from User Guide)_

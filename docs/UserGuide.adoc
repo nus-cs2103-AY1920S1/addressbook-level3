@@ -278,6 +278,9 @@ This command rates the flashcard, depending on how well you answered the questio
 You can stop the test any time simply by typing `end`.
 
 //@@author LeowWB
+
+// tag::flashcardexport[]
+
 === Export flashcards to a file: `export c>CATEGORY p>FILE_PATH`
 
 You can use this command to export all your FlashCards in a particular category, to an external file.
@@ -311,6 +314,10 @@ CAUTION: Do note that some directories may be protected by your operating system
 TIP: Use this to export your flashcards into an easily-printable cheat sheet! Use them for your assessments or
 self-learning.
 
+// end::flashcardexport[]
+
+// tag::flashcardimport[]
+
 === Import flashcards from a JSON file: `import p>FILE_PATH`
 
 You can use this command to import FlashCards from a file that you or someone else had exported to earlier.
@@ -330,6 +337,8 @@ Furthermore, the category list on the left will now display the category of the 
 image::ImportDemo2.png[width="600"]
 
 NOTE: Duplicate FlashCards will not be imported. You will be notified when we detect duplicate FlashCards in the file you provide.
+
+// end::flashcardimport[]
 
 === Get the full list of commands: `help`
 
