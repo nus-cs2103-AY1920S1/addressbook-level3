@@ -90,11 +90,11 @@ public class ArgumentTokenizer {
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
 
         // Insert a PrefixPosition to represent the preamble
-        PrefixPosition preambleMarker = new PrefixPosition(new Prefix(""), 0);
+        PrefixPosition preambleMarker = new PrefixPosition(new Prefix("", ""), 0);
         prefixPositions.add(0, preambleMarker);
 
         // Add a dummy PrefixPosition to represent the end of the string
-        PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
+        PrefixPosition endPositionMarker = new PrefixPosition(new Prefix("", ""), argsString.length());
         prefixPositions.add(endPositionMarker);
 
         // Map prefixes to their argument values (if any)

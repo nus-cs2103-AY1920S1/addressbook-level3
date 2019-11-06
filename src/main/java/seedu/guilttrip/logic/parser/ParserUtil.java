@@ -1,6 +1,9 @@
 package seedu.guilttrip.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_MISSING_ARGUMENT_FORMAT;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_MISSING_INDEX;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_REDUNDANT_PREAMBLE_FORMAT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,6 +74,7 @@ public class ParserUtil {
         }
         return indexList;
     }
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
@@ -156,20 +160,21 @@ public class ParserUtil {
      */
     public static List<Date> parseStartAndEndPeriod(String period) {
         String[] dateArr = period.split(",");
-        List<Date> startAndEnd = Arrays
-                .stream(dateArr).map(dateString -> new Date(dateString.trim(), true)).collect(Collectors.toList());
+        List<Date> startAndEnd = Arrays.stream(dateArr).map(dateString -> new Date(dateString.trim(), true))
+                .collect(Collectors.toList());
         return startAndEnd;
     }
 
     /**
      * Parses a string with 2 dates
+     *
      * @param dates
      * @return List of length 2.
      */
     public static List<Date> parseStartAndEndDate(String dates) {
         String[] dateArr = dates.split(",");
-        List<Date> startAndEnd = Arrays
-                .stream(dateArr).map(dateString -> new Date(dateString.trim())).collect(Collectors.toList());
+        List<Date> startAndEnd = Arrays.stream(dateArr).map(dateString -> new Date(dateString.trim()))
+                .collect(Collectors.toList());
         return startAndEnd;
     }
 
@@ -186,6 +191,7 @@ public class ParserUtil {
 
     /**
      * Parses a time in String to ArrayList.
+     *
      * @param period the time as a String.
      * @return the specified time as Date.
      */
@@ -264,7 +270,6 @@ public class ParserUtil {
         return tagList;
     }
 
-
     /**
      * Parses {@code String keywords} into a {@code List<String>}.
      */
@@ -273,6 +278,7 @@ public class ParserUtil {
         final List<String> keyWordList = Arrays.asList(keyWords.trim().split(","));
         return keyWordList;
     }
+
     /**
      * Parses {@code String panelNamee} into a {@code PanelName}.
      */
@@ -288,6 +294,7 @@ public class ParserUtil {
 
     /**
      * Parses {@code String trackerType} into {@code TrackerType}
+     *
      * @param trackerType
      * @return
      * @throws ParseException
@@ -296,6 +303,7 @@ public class ParserUtil {
         requireNonNull(trackerType);
         return Reminder.TrackerType.parse(trackerType);
     }
+
     /**
      * Parses {@code String fontName} into a {@code FontName}.
      */
@@ -307,4 +315,35 @@ public class ParserUtil {
         }
         return new FontName(fontName);
     }
+
+    /**
+     * Throws specific errors if preamble is missing when needed or present when not needed.
+     * Throws specific errors if a compulsory prefix is missing.
+     *
+     * @param messageUsage       MESSAGE_USAGE string for the current Command.
+     * @param argMultimap        the parsed arguments as a {@link ArgumentMultimap}
+     * @param needPreamble       a boolean stating whether a preamble is needed
+     * @param compulsoryPrefixes {@link Prefix} that are necessary for the command.
+     * @throws ParseException
+     */
+    public static void errorIfCompulsoryPrefixMissing(String messageUsage, ArgumentMultimap argMultimap,
+                                                      boolean needPreamble, Prefix... compulsoryPrefixes)
+            throws ParseException {
+        // Missing preamble or redundant preamble
+        String preamble = argMultimap.getPreamble();
+        if (needPreamble && preamble.isEmpty()) {
+            throw new ParseException(MESSAGE_MISSING_INDEX + "\n" + messageUsage);
+        } else if (!needPreamble && !preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_REDUNDANT_PREAMBLE_FORMAT, preamble) + "\n" + messageUsage);
+        }
+
+        // Missing compulsory Prefix
+        for (Prefix compulsoryPrefix : compulsoryPrefixes) {
+            if (argMultimap.getValue(compulsoryPrefix).isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_MISSING_ARGUMENT_FORMAT, compulsoryPrefix.getFullUsage())
+                        + "\n" + messageUsage);
+            }
+        }
+    }
+
 }
