@@ -21,6 +21,7 @@ import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.record.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
@@ -209,6 +210,20 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredFoodList(Predicate<Food> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortFoodListInDescendingOrder(FoodComparator foodComparator) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Food> getMixedFoodList() {
         throw new AssertionError("This method should not be called.");
     }
 

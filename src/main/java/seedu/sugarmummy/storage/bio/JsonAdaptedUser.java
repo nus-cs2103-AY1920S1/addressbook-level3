@@ -236,7 +236,7 @@ class JsonAdaptedUser {
         }
         final List<Goal> modelGoals = new ArrayList<>(userGoals);
 
-        if (!OtherBioInfo.isValidOtherInfo(otherInfo)) {
+        if (!OtherBioInfo.isValidOtherBioInfo(otherInfo)) {
             throw new IllegalValueException(OtherBioInfo.MESSAGE_CONSTRAINTS);
         }
         final OtherBioInfo modelOtherBioInfo = new OtherBioInfo(otherInfo);

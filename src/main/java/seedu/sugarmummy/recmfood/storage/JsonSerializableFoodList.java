@@ -37,7 +37,7 @@ public class JsonSerializableFoodList implements JsonSerializableContent<UniqueF
      * @param source future changes to this will not affect the created {@code JsonSerializableFoodList}.
      */
     public JsonSerializableFoodList(UniqueFoodList source) {
-        foods.addAll(source.asUnmodifiableObservableList().stream().map(JsonAdaptedFood::new)
+        foods.addAll(source.getUnmodifiableObservableList().stream().map(JsonAdaptedFood::new)
                 .collect(Collectors.toList()));
     }
 

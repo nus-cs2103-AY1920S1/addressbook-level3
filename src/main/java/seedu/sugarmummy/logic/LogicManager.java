@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = sugarMummyParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
-        newPaneIsToBeCreated = command.getNewPaneIsToBeCreated();
+        newPaneIsToBeCreated = command.isToCreateNewPane();
         commandResult = command.execute(model);
 
         try {
@@ -104,6 +104,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Food> getFilterFoodList() {
         return model.getFilterFoodList();
+    }
+
+    @Override
+    public ObservableList<Food> getMixedFoodList() {
+        return model.getMixedFoodList();
     }
 
     //=========== Record List =============================================================

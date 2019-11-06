@@ -3,17 +3,21 @@ package seedu.sugarmummy.recmfood.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
+import java.util.logging.Logger;
+
+import seedu.sugarmummy.commons.core.LogsCenter;
+
 /**
  * Represents a kind of nutrition value of <code>Food</code> in the recommended food list. Guarantees: immutable; is
  * valid as declared in {@link #isValidValue(String)}
  */
-public abstract class NutritionValue {
+public abstract class NutritionValue implements Comparable<NutritionValue> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Nutrition value should only contain one number and should be non-negative.";
-    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d*$";
-
+            "Nutrition value should only contain one number (with no more than 4 decimals) and should be non-negative.";
+    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d{0,4}$";
     public final String value;
+    private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
 
     /**
      * Constructs a {@code NutritionValue}.
@@ -22,6 +26,7 @@ public abstract class NutritionValue {
      */
     public NutritionValue(String value) {
         requireNonNull(value);
+        logger.info("----------------[Nutriention Value][Adding " + value + "]");
         checkArgument(isValidValue(value), MESSAGE_CONSTRAINTS);
         this.value = value;
     }
@@ -84,5 +89,15 @@ public abstract class NutritionValue {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(NutritionValue another) {
+        if (getNumericalValue() > another.getNumericalValue()) {
+            return 1;
+        } else if (getNumericalValue() == another.getNumericalValue()) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
 }
 

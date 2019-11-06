@@ -4,7 +4,7 @@ import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a OtherBioInfo in the user's biography data. Guarantees: immutable; name is valid as declared in {@link
- * #isValidOtherInfo(String)}
+ * #isValidOtherBioInfo(String)}
  */
 public class OtherBioInfo {
 
@@ -20,14 +20,14 @@ public class OtherBioInfo {
      * @param otherInfo A valid otherInfo.
      */
     public OtherBioInfo(String otherInfo) {
-        checkArgument(isValidOtherInfo(otherInfo), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidOtherBioInfo(otherInfo), MESSAGE_CONSTRAINTS);
         this.otherInfo = otherInfo;
     }
 
     /**
      * Returns true if a given string is a valid otherInfo.
      */
-    public static boolean isValidOtherInfo(String test) {
+    public static boolean isValidOtherBioInfo(String test) {
         boolean temp = test.matches(VALIDATION_REGEX);
         return test.matches(VALIDATION_REGEX);
     }

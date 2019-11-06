@@ -3,6 +3,7 @@ package seedu.sugarmummy.recmfood.parser;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.sugarmummy.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.sugarmummy.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.sugarmummy.recmfood.model.FoodComparator.DEFAULT_SORT_ORDER_STRING;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.sugarmummy.recmfood.commands.RecmFoodCommand;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.recmfood.model.FoodType;
 import seedu.sugarmummy.recmfood.predicates.FoodNameContainsKeywordsPredicate;
 import seedu.sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
@@ -22,13 +24,14 @@ public class RecmFoodCommandParserTest {
     private RecmFoodCommandParser parser = new RecmFoodCommandParser();
     private Set<FoodType> types = new HashSet<>(Arrays.asList(FoodType.PROTEIN, FoodType.FRUIT, FoodType.MEAL));
     private List<String> keywords = Arrays.asList("Cherry", "Chicken", "Pumpkin");
+    private FoodComparator foodComparator = new FoodComparator(DEFAULT_SORT_ORDER_STRING);
 
     @Test
     public void parse_noFilters_returnsRecmFoodCommand() {
 
         RecmFoodCommand expectedRecmFoodCommand =
                 new RecmFoodCommand(new FoodTypeIsWantedPredicate(new HashSet<>()),
-                        new FoodNameContainsKeywordsPredicate(new ArrayList<>()));
+                        new FoodNameContainsKeywordsPredicate(new ArrayList<>()), foodComparator);
 
         assertParseSuccess(parser, "", expectedRecmFoodCommand);
         assertParseSuccess(parser, "   \t  \n", expectedRecmFoodCommand);
@@ -39,7 +42,7 @@ public class RecmFoodCommandParserTest {
 
         RecmFoodCommand expectedRecmFoodCommand =
                 new RecmFoodCommand(new FoodTypeIsWantedPredicate(types),
-                        new FoodNameContainsKeywordsPredicate(new ArrayList<>()));
+                        new FoodNameContainsKeywordsPredicate(new ArrayList<>()), foodComparator);
 
         assertParseSuccess(parser, "-p -f -m", expectedRecmFoodCommand);
         assertParseSuccess(parser, "-p -m -f", expectedRecmFoodCommand);
@@ -56,7 +59,7 @@ public class RecmFoodCommandParserTest {
 
         RecmFoodCommand expectedRecmFoodCommand =
                 new RecmFoodCommand(new FoodTypeIsWantedPredicate(new HashSet<>()),
-                        new FoodNameContainsKeywordsPredicate(keywords));
+                        new FoodNameContainsKeywordsPredicate(keywords), foodComparator);
 
         assertParseSuccess(parser, " fn/Cherry Chicken Pumpkin", expectedRecmFoodCommand);
         assertParseSuccess(parser, " fn/\n   Cherry \tChicken Pumpkin\t", expectedRecmFoodCommand);
@@ -66,7 +69,7 @@ public class RecmFoodCommandParserTest {
     public void parse_bothValidFlagsAndKeyWords_returnsRecmFoodCommand() {
         RecmFoodCommand expectedRecmFoodCommand =
                 new RecmFoodCommand(new FoodTypeIsWantedPredicate(types),
-                        new FoodNameContainsKeywordsPredicate(keywords));
+                        new FoodNameContainsKeywordsPredicate(keywords), foodComparator);
 
         assertParseSuccess(parser, "-p -f -m fn/Cherry Chicken Pumpkin", expectedRecmFoodCommand);
         assertParseSuccess(parser, "-p -f -m -f -f\n fn/ Cherry \tChicken Pumpkin\t", expectedRecmFoodCommand);

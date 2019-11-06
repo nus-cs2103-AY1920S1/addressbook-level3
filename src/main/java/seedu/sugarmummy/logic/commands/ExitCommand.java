@@ -1,6 +1,7 @@
 package seedu.sugarmummy.logic.commands;
 
 import seedu.sugarmummy.model.Model;
+import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
  * Terminates the program.
@@ -14,5 +15,10 @@ public class ExitCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+    }
+
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.NONE;
     }
 }

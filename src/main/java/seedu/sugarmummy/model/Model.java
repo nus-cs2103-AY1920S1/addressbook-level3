@@ -21,6 +21,7 @@ import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.record.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
@@ -80,7 +81,7 @@ public interface Model {
     void setFoodList(UniqueFoodList newFoodList);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered food list
      */
     ObservableList<Food> getFilterFoodList();
 
@@ -90,6 +91,21 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFoodList(Predicate<Food> predicate);
+
+    /**
+     * Sorts the filtered food list in ascending order by comparing the use-specified fields.
+     */
+    void sortFoodListInAscendingOrder(FoodComparator foodComparator);
+
+    /**
+     * Sorts the filtered food list in descending order by comparing the use-specified fields.
+     */
+    void sortFoodListInDescendingOrder(FoodComparator foodComparator);
+
+    /**
+     * Returns an unmodifiable view of the mix of foods from each food type.
+     */
+    ObservableList<Food> getMixedFoodList();
 
 
     //==================RECORD====================
@@ -147,15 +163,16 @@ public interface Model {
 
     /**
      * Calculates average values of a record type.
+     *
      * @param averageType the average type to calculate.
-     * @param recordType the record type to calculate.
-     * @param count the number of most recent averages to calculate.
+     * @param recordType  the record type to calculate.
+     * @param count       the number of most recent averages to calculate.
      */
     void calculateAverageMap(AverageType averageType, RecordType recordType, int count);
 
     /**
-     * Returns an unmodifiable view of the map of average values with key being the time period and
-     * key being the average value.
+     * Returns an unmodifiable view of the map of average values with key being the time period and key being the
+     * average value.
      */
     ObservableMap<LocalDate, Double> getAverageMap();
 
@@ -189,7 +206,7 @@ public interface Model {
     void setUserListFilePath(Path userListFilePath);
 
     /**
-     * Returns true if a user with the same identity as {@code user} exists in the address book.
+     * Returns true if a user with the same identity as {@code user} exists in the user list.
      */
     boolean hasUser(User user);
 
@@ -199,8 +216,8 @@ public interface Model {
     void addUser(User user);
 
     /**
-     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the address book.
-     * The user identity of {@code editedUser} must not be the same as another existing user in the address book.
+     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the user list. The
+     * user identity of {@code editedUser} must not be the same as another existing user in the user list.
      */
     void setUser(User target, User editedUser);
 
@@ -308,22 +325,22 @@ public interface Model {
     /**
      * Returns whether or not new achievements have been attained after a modification to the user's list of records.
      */
-    public boolean newAchievementsHaveBeenAttained();
+    boolean newAchievementsHaveBeenAttained();
 
     /**
      * Returns whether or not existing achievements have been lost after a modification to the user's list of records.
      */
-    public boolean existingAchievementsHaveBeenLost();
+    boolean existingAchievementsHaveBeenLost();
 
     /**
      * Resets whether there are modification to the user's list of records to false.
      */
-    public void resetNewAchievementsState();
+    void resetNewAchievementsState();
 
     /**
      * Returns whether or not a given achievements map is the same as the current achievements map.
      */
-    public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap);
+    boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap);
 
 
 }
