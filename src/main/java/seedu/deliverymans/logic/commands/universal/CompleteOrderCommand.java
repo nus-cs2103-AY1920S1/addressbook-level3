@@ -11,6 +11,7 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.Prefix;
+import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.order.Order;
@@ -74,12 +75,17 @@ public class CompleteOrderCommand extends Command {
             }
         }
 
+        String MESSAGE_ASSIGN_NEXT_ORDER;
         Order unassigned = model.getUnassignedOrder();
-        if (unassigned != null) {
+        if (unassigned == null) {
+            MESSAGE_ASSIGN_NEXT_ORDER = "Great job! No other orders to assign.";
+        } else {
             new AssignOrderCommand(unassigned.getOrderName()).execute(model);
+            MESSAGE_ASSIGN_NEXT_ORDER = String.format("Assigning next order: %s", unassigned.getOrderName().fullName);
         }
 
-        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete));
+        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS + "\n"
+                + MESSAGE_ASSIGN_NEXT_ORDER, orderToComplete));
     }
 
     public static LinkedList<Prefix> getPrefixesList() {
