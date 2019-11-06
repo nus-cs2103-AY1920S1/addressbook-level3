@@ -4,12 +4,15 @@ import java.util.List;
 
 import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
+import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.AddMemberCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClockCommand;
+import seedu.address.logic.commands.DeleteCalendarCommand;
 import seedu.address.logic.commands.DeleteInventoryCommand;
+import seedu.address.logic.commands.DeleteMeetingCommand;
 import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DoingTaskCommand;
@@ -22,6 +25,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMeetingTimeCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.FireCommand;
+import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
@@ -29,14 +33,15 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberByTaskCommand;
 import seedu.address.logic.commands.ListMemberCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.commands.SetImageCommand;
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.ThemeCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 public class Keywords {
     public static List<String> commandList = List.of(
-<<<<<<< HEAD
         // TASK
         AddTaskCommand.COMMAND_WORD,
         DeleteTaskCommand.COMMAND_WORD,
@@ -90,56 +95,6 @@ public class Keywords {
         ExitCommand.COMMAND_WORD,
         HelpCommand.COMMAND_WORD,
         HomeCommand.COMMAND_WORD
-=======
-            // TASK
-            AddTaskCommand.COMMAND_WORD,
-            DeleteTaskCommand.COMMAND_WORD,
-            FindCommand.COMMAND_WORD,
-            ListCommand.COMMAND_WORD,
-            EditCommand.COMMAND_WORD,
-            DoingTaskCommand.COMMAND_WORD,
-            SetDeadlineCommand.COMMAND_WORD,
-            DoneTaskCommand.COMMAND_WORD,
-            ListMemberByTaskCommand.COMMAND_WORD,
-
-            // MEMBER
-            AddMemberCommand.COMMAND_WORD,
-            DeleteMemberCommand.COMMAND_WORD,
-            EditMemberCommand.COMMAND_WORD,
-            FindMemberCommand.COMMAND_WORD,
-            ListMemberCommand.COMMAND_WORD,
-            SetImageCommand.COMMAND_WORD,
-
-            // ASSOCIATION
-            FireCommand.COMMAND_WORD,
-            AssignCommand.COMMAND_WORD,
-
-            // INVENTORY
-            ListInventoryCommand.COMMAND_WORD,
-            AddInventoryCommand.COMMAND_WORD,
-            EditInventoryCommand.COMMAND_WORD,
-            DeleteInventoryCommand.COMMAND_WORD,
-            //GeneratePDFCommand.COMMAND_WORD,
-
-            //CALENDAR
-            AddCalendarCommand.COMMAND_WORD,
-            FindMeetingTimeCommand.COMMAND_WORD,
-
-            // STATS
-            GetStatisticsCommand.COMMAND_WORD_MEMBER,
-            GetStatisticsCommand.COMMAND_WORD_TASK,
-
-            // SETTINGS
-            ThemeCommand.COMMAND_WORD,
-            ClockCommand.COMMAND_WORD,
-            SettingsCommand.COMMAND_WORD,
-
-            // UNIVERSAL
-            ClearCommand.COMMAND_WORD,
-            ExitCommand.COMMAND_WORD,
-            HelpCommand.COMMAND_WORD,
-            HomeCommand.COMMAND_WORD
->>>>>>> e10b11afc8a479821421a847452a0b5f0cce2011
     );
 
     public static String getParameters(String commandWord) {
