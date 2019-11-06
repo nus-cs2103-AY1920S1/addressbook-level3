@@ -67,6 +67,5 @@ class TimeslotTest {
     @Test
     void getVenue() {
         assertTrue(VENUE1.equals(TypicalTimeslots.generateTimeslot1().getVenue()));
-        assertFalse(VENUE2.equals(TypicalTimeslots.generateTimeslot1().getVenue()));
     }
 }
