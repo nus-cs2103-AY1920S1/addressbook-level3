@@ -120,10 +120,12 @@ public class Performance implements ReadOnlyPerformance {
      * @param r Record to be added.
      */
     public void addRecord(String e, Person p, Record r) {
-        events.getEvent(e).addPerformance(p, r);
+        events.getEvent(e).addRecord(p, r);
     }
 
-    public void deleteRecord(String e, Person p, AthletickDate d) { events.getEvent(e).deleteRecord(p, d); }
+    public void deleteRecord(String e, Person p, AthletickDate d) {
+        events.getEvent(e).deleteRecord(p, d);
+    }
 
     @Override
     public String toString() {

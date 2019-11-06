@@ -72,6 +72,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
     }
 
+    /**
+     * Creates a DeleteRecordCommand object if the flag given is for a record.
+     */
     public DeleteRecordCommand parseRecord(String args) throws ParseException {
         args = args.replaceAll(FLAG_RECORD.toString(), "");
         if (args.isEmpty()) {

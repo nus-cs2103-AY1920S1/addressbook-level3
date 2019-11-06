@@ -15,6 +15,9 @@ import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
 
+/**
+ * Deletes a record of an event from a person identified using it's displayed index from the address book.
+ */
 public class DeleteRecordCommand extends DeleteCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + FLAG_RECORD

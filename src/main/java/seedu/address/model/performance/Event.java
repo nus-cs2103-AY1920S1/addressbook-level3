@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 
@@ -91,9 +90,9 @@ public class Event {
     }
 
     /**
-     * Adds a player's performance to this event.
+     * Adds a player's record to this event.
      */
-    public void addPerformance(Person athlete, Record record) {
+    public void addRecord(Person athlete, Record record) {
         if (!records.containsKey(athlete)) {
             ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
             initialisedPerformanceEntries.add(record);
@@ -108,6 +107,10 @@ public class Event {
         sortAthleteRecords(athlete);
     }
 
+    /**
+     * Removes a player's record from this event.
+     * Since there can only be one record per day, only the date needs to be specified.
+     */
     public void deleteRecord(Person athlete, AthletickDate date) {
         assert(doesAthleteHavePerformanceOn(date, athlete));
         List<Record> athleteRecords = getAthleteRecords(athlete);

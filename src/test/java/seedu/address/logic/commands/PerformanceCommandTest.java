@@ -91,7 +91,7 @@ public class PerformanceCommandTest {
 
         // adding the record first
         Record record = new Record(VALID_ATHLETICK_DATE_ONE, new Timing(VALID_TIMING));
-        model.getEvent(VALID_EVENT).addPerformance(person, record);
+        model.getEvent(VALID_EVENT).addRecord(person, record);
 
         PerformanceCommand performanceCommand = new PerformanceCommand(
             INDEX_FIRST_PERSON, VALID_EVENT, VALID_ATHLETICK_DATE_ONE, VALID_ATHLETICK_TIMING);

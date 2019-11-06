@@ -23,7 +23,7 @@ import seedu.address.model.person.Person;
 public class PerformanceCommand extends Command {
 
     public static final String COMMAND_WORD = "performance";
-    public static final String MESSAGE_SUCCESS =  "Performance record added for %1$s under %2$s event, on "
+    public static final String MESSAGE_SUCCESS = "Performance record added for %1$s under %2$s event, on "
         + "%3$s with a timing of %4$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a player performance for an event to Athletick.\n"
             + "Parameters: INDEX (must be a positive integer) "
