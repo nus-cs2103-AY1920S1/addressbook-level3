@@ -95,7 +95,7 @@ public class MemeCreation {
      */
     private TextBoundaries getTextBoundary(MemeText text) {
         Graphics2D graphics = (Graphics2D) initialImage.getGraphics();
-        graphics.setFont(new Font(Font.SANS_SERIF, text.getStyle(), text.getSize()));
+        graphics.setFont(new Font(Font.SANS_SERIF, text.getStyle(), text.getSize(initialImage.getHeight())));
         FontMetrics fontMetrics = graphics.getFontMetrics();
         Rectangle2D rect = fontMetrics.getStringBounds(text.getText(), graphics);
 
@@ -153,8 +153,9 @@ public class MemeCreation {
         for (MemeText text : textList) {
             TextBoundaries boundaries = getTextBoundary(text);
             int x = boundaries.getX1();
-            int y = (boundaries.getY1() + boundaries.getY2()) / 2;
-            graphics.setFont(new Font(Font.SANS_SERIF, text.getStyle(), text.getSize()));
+            // For some reason the following y gives the most accurate position
+            int y = boundaries.getY1() + boundaries.getHeight() * 3 / 4;
+            graphics.setFont(new Font(Font.SANS_SERIF, text.getStyle(), text.getSize(initialImage.getHeight())));
             graphics.setColor(text.getColor());
             graphics.drawString(text.getText(), x, y);
         }
@@ -220,5 +221,12 @@ public class MemeCreation {
             return y2;
         }
 
+        int getWidth() {
+            return x2 - x1;
+        }
+
+        int getHeight() {
+            return y2 - y1;
+        }
     }
 }
