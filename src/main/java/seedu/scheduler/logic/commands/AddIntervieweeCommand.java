@@ -27,6 +27,8 @@ public class AddIntervieweeCommand extends AddCommand {
         }
 
         model.addInterviewee(toAdd);
+        model.updateFilteredIntervieweeList(Model.PREDICATE_SHOW_ALL_INTERVIEWEES);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

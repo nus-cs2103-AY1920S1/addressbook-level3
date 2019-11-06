@@ -27,6 +27,8 @@ public class AddInterviewerCommand extends AddCommand {
         }
 
         model.addInterviewer(toAdd);
+        model.updateFilteredInterviewerList(Model.PREDICATE_SHOW_ALL_INTERVIEWERS);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -49,10 +49,12 @@ public class DeleteCommand extends Command {
             if (targetRole.getRole().equals(RoleType.INTERVIEWEE)) {
                 Interviewee i = model.getInterviewee(targetName.fullName);
                 model.deleteInterviewee(i);
+                model.updateFilteredIntervieweeList(Model.PREDICATE_SHOW_ALL_INTERVIEWEES);
                 deleted = i.toString();
             } else if (targetRole.getRole().equals(RoleType.INTERVIEWER)) {
                 Interviewer i = model.getInterviewer(targetName.fullName);
                 model.deleteInterviewer(i);
+                model.updateFilteredInterviewerList(Model.PREDICATE_SHOW_ALL_INTERVIEWERS);
                 deleted = i.toString();
             } else {
                 throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);

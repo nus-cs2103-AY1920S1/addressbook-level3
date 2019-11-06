@@ -22,8 +22,8 @@ public abstract class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD +
-            ": Adds an entity to the scheduler book. An entity can be an interviewee or interviewer.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds an entity to the scheduler book. An entity can be an interviewee or interviewer.\n"
             + "Parameters to add interviewees:\n"
             + PREFIX_ROLE + "interviewee "
             + PREFIX_NAME + "NAME "
