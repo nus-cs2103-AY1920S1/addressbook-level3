@@ -11,6 +11,7 @@ import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.ItemStorage;
+import seedu.elisa.model.PriorityExitStatus;
 import seedu.elisa.model.item.VisualizeList;
 
 /**
@@ -66,4 +67,6 @@ public interface Logic {
     SimpleBooleanProperty getPriorityMode();
 
     boolean isSystemToggle();
+
+    PriorityExitStatus getExitStatus();
 }
