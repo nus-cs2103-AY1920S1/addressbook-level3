@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEarningsCommand;
 import seedu.address.logic.commands.AssignClassCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
+import seedu.address.logic.commands.ClaimEarningsCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteCustomCommand;
