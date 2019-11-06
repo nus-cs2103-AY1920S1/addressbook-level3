@@ -249,6 +249,114 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+//tag:updown[]
+[[Implementation-commandHistory]]
+=== command History
+
+Similar to a typical Command Line Interface(CLI), the up and down key allows the users to through their previous commands.
+
+==== Implementation
+
+The up and down key mechanism is facilitated by the `logic` component of `MoneyGoWhere`.
+When ever a user inputted command is entered, it is stored internally as an `ArrayList` in the `commandHistory` component of `Storage`.
+`CommandHistory` uses an internal index to keep track of its current position in the list.
+
+Additionally, it implements the following operations:
+
+* `Logic#getNextCommand()` -- Retrieves the more recent user input command with respect to the current index.
+* `Logic#getPrevCommand()` -- Retrieves the earliest user input command with respect to the current index.
+
+The index is initially set to -1, to indicate that that no user input has been inputted.
+When ever a user inputs a command, the command is stored at the end of the list and
+the index is set to the size of the list, to indicate that there are no commands beyond after this point.
+
+When the up key is pressed, the index will decrement by 1 and show the user input command stored at that index.
+When the index is currently 0, the first user command inputted, pressing the up key will cause the index to move to -1.
+this returns the empty string, since there are no commands before this point. Any further up key press will have the same
+outcome, but the index will stay at -1.
+
+When the down key is pressed, the index will increment by 1 and the user inputted command at that index will be returned.
+If the index is currently the last possible value, the last user inputted command, pressing the down key will cause the
+index to increment by 1, which is beyond the index of the list, the empty string will be returned. Any further down key press
+will have the same outcome but the index will stay the list size or last possible index + 1.
+
+Given below is an example usage scenario and how the up/down mechanism behaves at each step:
+
+1. The user launches the application for the first time. The `commandHistory` will be initialized with an empty storage ,
+and the `commandHistoryIndex` will have value -1.
+
+image::UpDownState0.png[]
+Initially the storage is empty and the index is set to -1, as shown in the picture above.
+
+2. The user executes `delete 5` command to delete the 5th Spending in the spending book.
+The `delete 5` command is added to the back of  `commandHistory`.
+
+image::UpDownState1.png[]
+
+The user input is stored as a string in the commandHistoryList,
+and the index is set to the size of the list.
+
+[NOTE]
+The index is the same as the size of the list,
+but the index does not point to any particular command, since it is out of bounds
+
+3. The user executes `add n/David ...` to add a new Spending.
+The `add n/David ...` command is added to the back of  `commandHistory`.
+
+image::UpDownState2.png[]
+
+The user input is stored as a string in the commandHistoryList,
+and the index is set to the size of the list, in this case 2.
+
+[NOTE]
+Any command, whether it is valid or not will be stored in `CommandHistory`
+
+4. The user presses the up key.
+
+image::UpDownState3.png[]
+
+The index is decremented by 1, and the user input command at that point is returned
+
+5. The user presses the down key.
+
+image::UpDownState4.png[]
+The index is incremented by 1, resulting it to be out of bounds in the list,
+the empty string is returned.
+
+The following sequence diagram shows how the up/down key mechanism works:
+
+image::UpDownSequenceDiagram.png[]
+`getPrevCommand()` works the same way as the the sequence diagram above for `getNextCommand()`.
+The only difference is which commands get returned.
+
+==== Design Considerations
+
+===== Aspect: How up & undo executes
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (current choice)|Alternative 2
+
+|Where the commands stored.
+|commands are stored in storage. +
+*Pros:* +
+Intuitive. +
+Follows current Architecture.
+ +
+*Cons:* +
+more lines of code.
+
+|Commands are stored in logic. +
+*Pros:* +
+less oop.
+ +
+*Cons:* +
+Does not follow single responsibility principle
+|===
+
+Option 1 was chosen due to it staying with the current Architecture.
+// end::updown[]
+
 // tag::find[]
 [[Implementation-Find]]
 === Find feature

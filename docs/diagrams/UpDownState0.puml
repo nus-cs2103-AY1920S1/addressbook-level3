@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title Initial state
+
+package commandHistoryList {
+    class State1 as "__ch0:String__"
+    class State2 as "__ch1:String__"
+    class State3 as "__ch2:String__"
+}
+State1 -[hidden]right-> State2
+State2 -[hidden]right-> State3
+
+hide State1
+hide State2
+hide State3
+
+class Pointer as "Current Index = -1" #FFFFF
+
+@end
