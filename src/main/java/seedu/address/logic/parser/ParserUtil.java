@@ -15,7 +15,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.date.AthletickDate;
-import seedu.address.ui.feature.Feature;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Address;

@@ -74,7 +74,6 @@ public class TrainingCommandAbsent extends TrainingCommand {
 
     /**
      * Creates a training session using a list of indexes and marks them as absent.
-     * 
      * @param date    Date of training.
      * @param indexes Indexes of absentees.
      * @return Created training session.

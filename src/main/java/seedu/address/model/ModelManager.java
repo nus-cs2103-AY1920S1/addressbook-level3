@@ -251,7 +251,7 @@ public class ModelManager implements Model {
 
     @Override
     public List<AttendanceRateEntry> getAttendanceRateOfAll() {
-        List<Person> allPeople = getAddressBook().getPersonList();
+        List<Person> allPeople = getAthletick().getPersonList();
         List<AttendanceRateEntry> attendanceRateEntries = new ArrayList<>();
         for (Person person : allPeople) {
             attendanceRateEntries.add(new AttendanceRateEntry(person,

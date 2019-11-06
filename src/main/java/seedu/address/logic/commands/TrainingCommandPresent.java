@@ -75,14 +75,13 @@ public class TrainingCommandPresent extends TrainingCommand {
 
     /**
      * Creates a training session using a list of indexes and marks them as present.
-     * 
      * @param date    Date of training.
      * @param indexes Indexes of those who attended.
      * @return Created training session.
      */
     private static Training createTrainingByPresent(AthletickDate date, Model model, List<Index> indexes) {
         List<Person> lastShownList = model.getFilteredPersonList();
-        List<Person> allPeople = model.getAddressBook().getPersonList();
+        List<Person> allPeople = model.getAthletick().getPersonList();
         HashMap<Person, Boolean> trainingAttendance = new HashMap<>();
         // Set all people in the address book to did not attend
         for (Person person : allPeople) {
