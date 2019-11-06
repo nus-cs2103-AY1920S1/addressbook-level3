@@ -358,13 +358,18 @@ Examples:
 * `autoschedule t/Breakfast 1000 n/DisneyLand t/Dinner a/Kyoto d/1 2 3 4`
 
 === Optimising by budget: `optimise`
-Choose the most optimum activities in a day based on the total cost of activities in a day. This will remove conflicting activities and pick only those that will lead to an optimum budget for that particular day.
+
+Optimises a day's schedule by finding all possible combinations of activities. The resulting combination would have the lowest total cost. If there are multiple combinations with the same cost,
+the combination with the most activities would be chosen.
 
 Format: `optimise DAY_INDEX`
 
 Examples:
 
 * `optimise 3`
+
+[WARNING]
+This command would not work if there are no activities scheduled in the day.
 
 === Undo: `undo`
 
