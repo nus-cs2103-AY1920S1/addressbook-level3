@@ -81,6 +81,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.nextOfKin = body.getNextOfKin().orElse(null);
         this.relationship = body.getRelationship().orElse(null);
         this.kinPhoneNumber = body.getKinPhoneNumber().orElse(null);
+        this.details = body.getDetails().orElse(null);
     }
 
     /**
