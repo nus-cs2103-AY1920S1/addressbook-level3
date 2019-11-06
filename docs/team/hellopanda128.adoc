@@ -13,25 +13,20 @@ The Incident Management System is a desktop application used for managing incide
 
 == Summary of contributions
 
-* *Major enhancement*: Implemented *Edit Command* for Vehicles and Incidents
+* *Major enhancement*: Implemented *edit* for Vehicles and Incidents
 ** What it does: allows the user to edit the details of the vehicles and incidents
 ** Justification: This feature allows post entry management of the elements in the Incident Manager.
-** Highlights: A variable number of fields can be used together with the command
+** Highlights: A variable number of fields can be used together with the command so that the user only needs to input fields that are necessary.
 ** Credits: _{Took reference from the edit command Addressbook lvl 3}_
 
-* *Minor enhancement*: Other CRUD commands for Vehicle object.
+* *Minor enhancement*: Implemented other CRUD commands for Vehicle object such as *add* and *delete* as well as Incident model.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=hellopanda128 [View on RepoSense]
 
 * *Other contributions*:
-** Enhancement to existing features:
-*** Wrote additional tests for existing features to check for excessive inputs
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Did cosmetic tweaks to existing contents of the README: https://github.com/AY1920S1-CS2103-T11-1/main/blob/master/README.adoc
+
 
 _{you can add/remove categories in the list above}_
 
