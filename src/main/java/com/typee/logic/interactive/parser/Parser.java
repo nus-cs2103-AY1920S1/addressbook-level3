@@ -14,6 +14,7 @@ import com.typee.logic.commands.DeleteCommand;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.RedoCommand;
+import com.typee.logic.commands.SortCommand;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.commands.exceptions.CommandException;
@@ -27,6 +28,7 @@ import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
 import com.typee.logic.interactive.parser.state.redomachine.RedoState;
+import com.typee.logic.interactive.parser.state.sortmachine.PropertyState;
 import com.typee.logic.interactive.parser.state.tabmachine.TabState;
 import com.typee.logic.interactive.parser.state.undomachine.UndoState;
 import com.typee.logic.parser.exceptions.ParseException;
@@ -231,6 +233,10 @@ public class Parser implements InteractiveParser {
 
         case TabCommand.COMMAND_WORD:
             currentState = new TabState(new ArgumentMultimap());
+            break;
+
+        case SortCommand.COMMAND_WORD:
+            currentState = new PropertyState(new ArgumentMultimap());
             break;
 
         default:

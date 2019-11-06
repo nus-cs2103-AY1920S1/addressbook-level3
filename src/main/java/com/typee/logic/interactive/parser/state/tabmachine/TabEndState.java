@@ -20,10 +20,10 @@ public class TabEndState extends EndState {
     private static final String KEYWORD_ENGAGEMENT_TAB = "Engagement";
     private static final String KEYWORD_REPORT_TAB = "Report";
     private static final String KEYWORD_CALENDAR_TAB = "Calendar";
-    public static final String KEYWORD_GAME_INPUT = "game";
-    public static final String KEYWORD_ENGAGEMENT_INPUT = "engagement";
-    public static final String KEYWORD_REPORT_INPUT = "report";
-    public static final String KEYWORD_CALENDAR_INPUT = "calendar";
+    private static final String KEYWORD_GAME_INPUT = "game";
+    private static final String KEYWORD_ENGAGEMENT_INPUT = "engagement";
+    private static final String KEYWORD_REPORT_INPUT = "report";
+    private static final String KEYWORD_CALENDAR_INPUT = "calendar";
 
     public TabEndState(ArgumentMultimap soFar) {
         super(soFar);
