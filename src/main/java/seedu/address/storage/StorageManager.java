@@ -61,7 +61,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getExchangeDataFilePath() {
-        return null;
+        return exchangeDataStorage.getExchangeDataFilePath();
     }
 
     @Override
