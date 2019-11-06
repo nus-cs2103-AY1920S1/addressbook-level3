@@ -21,16 +21,17 @@ import seedu.guilttrip.testutil.EditExpenseDescriptorBuilder;
 public class CommandTestUtil {
 
     //Entry related testUtils.
-    public static final String VALID_DESC_FOOD_EXPENSE = "deck mala";
-    public static final String VALID_DESC_CLOTHING_EXPENSE = "cotton on jeans";
+    public static final String VALID_DESC_FOOD_EXPENSE = "pgp mala";
+    public static final String VALID_DESC_CLOTHING_EXPENSE = "cotton on jeans on sale";
     public static final String VALID_AMOUNT_FOOD_EXPENSE = "5.50";
     public static final String VALID_AMOUNT_CLOTHING_EXPENSE = "300";
     public static final String VALID_CATEGORY_FOOD_EXPENSE = "Food";
     public static final String VALID_CATEGORY_CLOTHING_EXPENSE = "Shopping";
-    public static final String VALID_DATE_CLOTHING_EXPENSE = "2019-09-09";
-    public static final String VALID_DATE_FOOD_EXPENSE = "2019-11-09";
+    public static final String VALID_DATE_CLOTHING_EXPENSE = "2019-11-09";
+    public static final String VALID_DATE_FOOD_EXPENSE = "2019-09-09";
     public static final String VALID_TAG_FOOD = "food";
-    public static final String VALID_TAG_CLOTHING = "clothing";
+    public static final String VALID_TAG_CLOTHING_CLOTHES = "clothes";
+    public static final String VALID_TAG_CLOTHING_WANT = "want";
 
     public static final String NAME_DESC_FOOD_EXPENSE = " " + PREFIX_DESC + VALID_DESC_FOOD_EXPENSE;
     public static final String NAME_DESC_CLOTHING_EXPENSE = " " + PREFIX_DESC + VALID_DESC_CLOTHING_EXPENSE;
@@ -41,7 +42,9 @@ public class CommandTestUtil {
     public static final String DATE_FOOD_EXPENSE = " " + PREFIX_DATE + VALID_DATE_FOOD_EXPENSE;
     public static final String DATE_CLOTHING_EXPENSE = " " + PREFIX_DATE + VALID_DATE_CLOTHING_EXPENSE;
     public static final String TAG_DESC_FOOD = " " + PREFIX_TAG + VALID_TAG_FOOD;
-    public static final String TAG_DESC_CLOTHING = " " + PREFIX_TAG + VALID_TAG_CLOTHING;
+    public static final String TAG_DESC_CLOTHING = " " + PREFIX_TAG + VALID_TAG_CLOTHING_CLOTHES;
+    public static final String TAG_DESC_WANT = " " + PREFIX_TAG + VALID_TAG_CLOTHING_WANT;
+
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_DESC + "deck mala&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "food*"; // '*' not allowed in tags
@@ -76,7 +79,7 @@ public class CommandTestUtil {
                 .withDate(VALID_DATE_FOOD_EXPENSE).withTags(VALID_TAG_FOOD).build();
         DESC_CLOTHING_EXPENSE = new EditExpenseDescriptorBuilder().withDescription(VALID_DESC_CLOTHING_EXPENSE)
                 .withAmount(VALID_AMOUNT_CLOTHING_EXPENSE).withCategory(VALID_CATEGORY_NAME_EXPENSE_SHOPPING)
-                .withTags(VALID_TAG_CLOTHING).build();
+                .withTags(VALID_TAG_CLOTHING_CLOTHES, VALID_TAG_CLOTHING_WANT).build();
         DESC_CATEGORY_EXPENSE_FOOD = new EditCategoryDescriptorBuilder().withCategoryType(VALID_CATEGORY_TYPE_EXPENSE)
                 .withCategoryName(VALID_CATEGORY_NAME_EXPENSE_FOOD).build();
         DESC_CATEGORY_INCOME_BUSINESS = new EditCategoryDescriptorBuilder().withCategoryType(VALID_CATEGORY_TYPE_INCOME)
