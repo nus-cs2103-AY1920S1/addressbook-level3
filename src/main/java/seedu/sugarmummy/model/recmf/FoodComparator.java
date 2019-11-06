@@ -85,7 +85,15 @@ public class FoodComparator implements Comparator<Food> {
 
     @Override
     public boolean equals(Object obj) {
-        return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof FoodComparator) {
+            FoodComparator another = (FoodComparator) obj;
+            return this.foodComparator.equals(another.foodComparator);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -109,4 +117,5 @@ public class FoodComparator implements Comparator<Food> {
             return sortOrderString;
         }
     }
+
 }
