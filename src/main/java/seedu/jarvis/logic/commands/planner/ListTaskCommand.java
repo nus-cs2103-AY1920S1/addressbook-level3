@@ -16,7 +16,7 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
  */
 public class ListTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "list-tasks";
+    public static final String COMMAND_WORD = "list-task";
 
     public static final String MESSAGE_SUCCESS = "Here are the tasks in your planner:";
 
