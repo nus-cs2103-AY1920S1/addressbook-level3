@@ -1,0 +1,60 @@
+= Yan Wei Liang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Seller Manager Lite Junior
+
+---
+
+== Overview
+
+Seller Manager Lite is a desktop application used for managing a business operational and logistical needs. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 27 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to autocomplete commands*
+** What it does: allows the user to input commands with ease. As the user enters input, suggestions will be shown.
+** Justification: This feature improves the product significantly because a user does not need to remember what commands are available or constantly refer to the user guide.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _UI code for displaying a dropdown menu was inspired by this StackOverflow post: https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions_
+
+* *Minor enhancement*: Planned how objects in the model should be designed and interact with each other.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+//include::../UserGuide.adoc[tag=delete]
+
+//include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
