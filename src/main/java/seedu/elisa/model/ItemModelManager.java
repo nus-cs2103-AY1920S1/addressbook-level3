@@ -163,7 +163,6 @@ public class ItemModelManager implements ItemModel {
      * @param item the item to be added to the program
      */
     public void addItem (Item item) {
-        visualList.add(item);
         addToSeparateList(item);
         itemStorage.add(item);
     }
@@ -183,6 +182,10 @@ public class ItemModelManager implements ItemModel {
      * @param item the item to be added into the lists
      */
     public void addToSeparateList(Item item) {
+        if (visualList.belongToList(item)) {
+            visualList.add(item);
+        }
+
         if (item.hasTask()) {
             taskList.add(item);
         }
@@ -238,49 +241,13 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
-     * Remove an item from the current list.
-     * @param index the item to be removed from the current list
-     * @return the item that was removed
-     */
-    public Item removeItem(int index) {
-        Item item = visualList.get(index);
-        return removeItem(item);
-    }
-
-    /**
-     * Removes an item from a list. Used for edit command to remove the old item.
-     * @param item the item to be removed from the list
-     * @return the item that is removed.
-     */
-    public Item removeItem(Item item) {
-        visualList.remove(item);
-        taskList.remove(item);
-        eventList.remove(item);
-        calendarList.remove(item);
-        reminderList.remove(item);
-        futureReminders.remove(item);
-        activeReminders.remove(item);
-        return item;
-    }
-
-    /**
      * Deletes an item from the program.
      * @param index the index of the item to be deleted.
      * @return the item that was deleted from the program
      */
     public Item deleteItem(int index) {
-        Item item = visualList.removeItemFromList(index);
-        itemStorage.remove(item);
-        taskList.remove(item);
-        eventList.remove(item);
-        calendarList.remove(item);
-        reminderList.remove(item);
-        futureReminders.remove(item);
-        activeReminders.remove(item);
-        if (priorityMode.getValue()) {
-            getNextTask();
-        }
-        return item;
+        Item item = visualList.remove(index);
+        return deleteItem(item);
     }
 
     /**
@@ -289,10 +256,17 @@ public class ItemModelManager implements ItemModel {
      * @return the item that was deleted from the program
      */
     public Item deleteItem(Item item) {
+        visualList.remove(item);
+        taskList.remove(item);
+        eventList.remove(item);
+        calendarList.remove(item);
+        reminderList.remove(item);
+        futureReminders.remove(item);
+        activeReminders.remove(item);
         itemStorage.remove(item);
-        removeItem(item);
-        if (priorityMode.getValue()) {
-            getNextTask();
+        if (priorityMode.getValue() && sortedTask != null && visualList instanceof TaskList) {
+            sortedTask.remove(item);
+            visualList = getNextTask();
         }
         return item;
     }
@@ -516,7 +490,7 @@ public class ItemModelManager implements ItemModel {
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
 
-        if (sortedTask.peek().getTask().get().isComplete()) {
+        if (sortedTask.isEmpty() || sortedTask.peek().getTask().get().isComplete()) {
             systemToggle = true;
             priorityExitStatus = PriorityExitStatus.ALL_TASK_COMPLETED;
             toggleOffPriorityMode();
