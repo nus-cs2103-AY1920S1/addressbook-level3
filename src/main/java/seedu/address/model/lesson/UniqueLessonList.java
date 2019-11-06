@@ -45,6 +45,7 @@ public class UniqueLessonList implements Iterable<Lesson> {
             throw new DuplicateLessonException();
         }
         internalList.add(toAdd);
+        internalList.sort(new LessonComparator());
     }
 
     /**
@@ -65,6 +66,7 @@ public class UniqueLessonList implements Iterable<Lesson> {
         }
 
         internalList.set(index, editedLesson);
+        internalList.sort(new LessonComparator());
     }
 
     /**
@@ -76,11 +78,13 @@ public class UniqueLessonList implements Iterable<Lesson> {
         if (!internalList.remove(toRemove)) {
             throw new LessonNotFoundException();
         }
+        internalList.sort(new LessonComparator());
     }
 
     public void setLessons(UniqueLessonList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        internalList.sort(new LessonComparator());
     }
 
     /**
