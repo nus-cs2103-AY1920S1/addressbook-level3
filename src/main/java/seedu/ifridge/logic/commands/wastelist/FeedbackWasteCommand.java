@@ -71,4 +71,9 @@ public class FeedbackWasteCommand extends Command {
 
         return new CommandResult(currentWastageMessage + predictedWastageMessage);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof FeedbackWasteCommand;
+    }
 }
