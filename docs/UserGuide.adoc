@@ -323,4 +323,5 @@ e.g. deletestudent 3
 e.g. deleteassignment 4
 * Delete Lesson: deletelesson LESSON_INDEX +
 e.g. deletelesson 5
+* Undo / Redo: undo / redo
 * Exit: exit
