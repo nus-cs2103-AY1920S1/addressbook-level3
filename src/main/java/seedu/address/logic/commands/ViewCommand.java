@@ -42,7 +42,7 @@ public class ViewCommand extends Command {
         case "records":
             boolean hasEvent = model.hasEvent(new Event(feature.getEventName()));
             if (!hasEvent) {
-                throw new CommandException(String.format(Event.MESSAGE_CONSTRAINTS, feature.getEventName()));
+                throw new CommandException(String.format(Event.MESSAGE_NO_SUCH_EVENT, feature.getEventName()));
             }
             return new CommandResult(
                 String.format(MESSAGE_SUCCESS_RECORDS, feature.getEventName()),
