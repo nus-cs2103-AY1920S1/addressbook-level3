@@ -20,11 +20,13 @@ public class MemeBuilder {
     private Description description;
     private ImagePath filePath;
     private Set<Tag> tags;
+    private boolean isArchived;
 
     public MemeBuilder() {
         filePath = new ImagePath(DEFAULT_FILEPATH);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
+        isArchived = false;
     }
 
     /**
@@ -34,6 +36,7 @@ public class MemeBuilder {
         description = memeToCopy.getDescription();
         filePath = memeToCopy.getImagePath();
         tags = new HashSet<>(memeToCopy.getTags());
+        isArchived = false;
     }
 
     /**
@@ -62,8 +65,17 @@ public class MemeBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code isArchived} of the {@code Meme} that we are building.
+     * @param isArchived
+     */
+    public MemeBuilder withIsArchived(boolean isArchived) {
+        this.isArchived = isArchived;
+        return this;
+    }
+
     public Meme build() {
-        return new Meme(filePath, description, tags);
+        return new Meme(filePath, description, tags, isArchived);
     }
 
 }

@@ -23,11 +23,16 @@ public class TypicalTemplates {
         .withName("Quiz Kid")
         .withFilePath("src/test/data/templates/quiz_kid_template.jpg")
         .build();
+    public static final Template PIKA = new TemplateBuilder()
+            .withName("Surprised Pikachu")
+            .withFilePath("src/test/data/templates/pikachu_template.jpg")
+            .withIsArchived(true)
+            .build();
 
     private TypicalTemplates() {
     } // prevents instantiation
 
     public static List<Template> getTypicalTemplates() {
-        return new ArrayList<>(Arrays.asList(DRAKE, IS_THIS, QUIZ_KID));
+        return new ArrayList<>(Arrays.asList(DRAKE, IS_THIS, QUIZ_KID, PIKA));
     }
 }

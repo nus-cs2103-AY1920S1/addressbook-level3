@@ -27,12 +27,17 @@ public class TypicalMemes {
             .withFilePath("src/test/data/memes/toy_meme.jpg")
             .withDescription("A toy story meme.")
             .withTags("toy").build();
+    public static final Meme PIKACHU = new MemeBuilder()
+            .withFilePath("src/test/data/memes/pikachu_meme.png")
+            .withDescription("Pikachu")
+            .withTags("pikachu")
+            .withIsArchived(true).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalMemes() {} // prevents instantiation
 
     public static List<Meme> getTypicalMemes() {
-        return new ArrayList<>(Arrays.asList(CHARMANDER, DOGE, JOKER, TOY));
+        return new ArrayList<>(Arrays.asList(CHARMANDER, DOGE, JOKER, TOY, PIKACHU));
     }
 }

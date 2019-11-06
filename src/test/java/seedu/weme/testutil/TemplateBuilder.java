@@ -15,10 +15,12 @@ public class TemplateBuilder {
 
     private Name name;
     private ImagePath filePath;
+    private boolean isArchived;
 
     public TemplateBuilder() {
         name = new Name(DEFAULT_NAME);
         filePath = new ImagePath(DEFAULT_FILEPATH);
+        isArchived = false;
     }
 
     /**
@@ -27,6 +29,7 @@ public class TemplateBuilder {
     public TemplateBuilder(Template templateToCopy) {
         name = templateToCopy.getName();
         filePath = templateToCopy.getImagePath();
+        isArchived = false;
     }
 
     /**
@@ -49,8 +52,18 @@ public class TemplateBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code isArchived} of the {@code Template} that we are building.
+     *
+     * @param isArchived
+     */
+    public TemplateBuilder withIsArchived(boolean isArchived) {
+        this.isArchived = isArchived;
+        return this;
+    }
+
     public Template build() {
-        return new Template(name, filePath);
+        return new Template(name, filePath, isArchived);
     }
 
 }

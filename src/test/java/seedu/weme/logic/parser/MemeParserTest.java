@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.weme.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.weme.testutil.Assert.assertThrows;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,12 +17,15 @@ import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.commands.generalcommand.TabCommand;
 import seedu.weme.logic.commands.memecommand.MemeAddCommand;
+import seedu.weme.logic.commands.memecommand.MemeArchiveCommand;
+import seedu.weme.logic.commands.memecommand.MemeArchivesCommand;
 import seedu.weme.logic.commands.memecommand.MemeClearCommand;
 import seedu.weme.logic.commands.memecommand.MemeDeleteCommand;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.logic.commands.memecommand.MemeFindCommand;
 import seedu.weme.logic.commands.memecommand.MemeListCommand;
+import seedu.weme.logic.commands.memecommand.MemeUnarchiveCommand;
 import seedu.weme.logic.parser.contextparser.MemeParser;
 import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
@@ -53,8 +56,8 @@ public class MemeParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         MemeDeleteCommand command = (MemeDeleteCommand) parser.parseCommand(
-                MemeDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_MEME.getOneBased());
-        assertEquals(new MemeDeleteCommand(INDEX_FIRST_MEME), command);
+                MemeDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new MemeDeleteCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -63,8 +66,8 @@ public class MemeParserTest {
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(meme).build();
         descriptor.setFilePath(null);
         MemeEditCommand command = (MemeEditCommand) parser.parseCommand(MemeEditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_MEME.getOneBased() + " " + MemeUtil.getEditMemeDescriptorDetails(descriptor));
-        assertEquals(new MemeEditCommand(INDEX_FIRST_MEME, descriptor), command);
+                + INDEX_FIRST.getOneBased() + " " + MemeUtil.getEditMemeDescriptorDetails(descriptor));
+        assertEquals(new MemeEditCommand(INDEX_FIRST, descriptor), command);
     }
 
     @Test
@@ -87,6 +90,26 @@ public class MemeParserTest {
             TabCommand.COMMAND_WORD + " " + ModelContext.CONTEXT_MEMES.getContextName());
         assertTrue(command instanceof TabCommand);
         assertEquals(new TabCommand(ModelContext.CONTEXT_MEMES), command);
+    }
+
+    @Test
+    public void parseCommand_archive() throws Exception {
+        MemeArchiveCommand command = (MemeArchiveCommand) parser.parseCommand(
+                MemeArchiveCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new MemeArchiveCommand(INDEX_FIRST), command);
+
+    }
+    @Test
+    public void parseCommand_unarchive() throws Exception {
+        MemeUnarchiveCommand command = (MemeUnarchiveCommand) parser.parseCommand(
+                MemeUnarchiveCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new MemeUnarchiveCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_archives() throws Exception {
+        assertTrue(parser.parseCommand(MemeArchivesCommand.COMMAND_WORD) instanceof MemeArchivesCommand);
+        assertTrue(parser.parseCommand(MemeArchivesCommand.COMMAND_WORD + " 3") instanceof MemeArchivesCommand);
     }
 
     @Test

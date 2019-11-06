@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.weme.storage.JsonAdaptedMeme.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.TypicalMemes.JOKER;
+import static seedu.weme.testutil.TypicalMemes.PIKACHU;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,13 @@ public class JsonAdaptedMemeTest {
 
     @Test
     public void toModelType_validMemeDetails_returnsMeme() throws Exception {
+        // unarchived
         JsonAdaptedMeme meme = new JsonAdaptedMeme(JOKER);
         assertEquals(JOKER, meme.toModelType());
+
+        // archived
+        meme = new JsonAdaptedMeme(PIKACHU);
+        assertEquals(PIKACHU, meme.toModelType());
     }
 
     @Test
