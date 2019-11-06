@@ -15,12 +15,12 @@ import java.util.stream.Stream;
 import seedu.weme.commons.util.FileUtil;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.ReadOnlyWeme;
-import seedu.weme.model.Records;
-import seedu.weme.model.RecordsManager;
 import seedu.weme.model.Weme;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.records.Records;
+import seedu.weme.model.records.RecordsManager;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
@@ -32,16 +32,16 @@ public class SampleDataUtil {
     public static List<Meme> getSampleMemes(ReadOnlyUserPrefs userPrefs) {
         // sample memes from resources folder
         List<MemeFieldsContainer> memeFields = List.of(
-            new MemeFieldsContainer("memes/5642dc30-927c-4e02-805d-831ea16bc68e.png",
-                    "A meme about doge.", "doge", "cute"), // doge
-            new MemeFieldsContainer("memes/74b9fc9f-a545-4bbc-98d5-09596a9166a9.jpg",
-                    "A meme about Char and charmander.", "charmander", "cute"), // charmander
-            new MemeFieldsContainer("memes/8de6b9f5-32a5-4eab-aebe-f47c2257e7d5.png",
-                    "A meme about joker.", "joker"), // joker
-            new MemeFieldsContainer("memes/ab6e1ed6-6025-4e84-b5da-8555ef1e0b05.png",
-                    "A meme about toy.", "toy", "funny"), // toy
-            new MemeFieldsContainer("memes/b3afd215-8746-4113-aa19-1747d3578f41.jpg",
-                    "A meme about a test.", "test", "funny") // test
+                new MemeFieldsContainer("memes/5642dc30-927c-4e02-805d-831ea16bc68e.png",
+                        "A meme about doge.", "doge", "cute"), // doge
+                new MemeFieldsContainer("memes/74b9fc9f-a545-4bbc-98d5-09596a9166a9.jpg",
+                        "A meme about Char and charmander.", "charmander", "cute"), // charmander
+                new MemeFieldsContainer("memes/8de6b9f5-32a5-4eab-aebe-f47c2257e7d5.png",
+                        "A meme about joker.", "joker"), // joker
+                new MemeFieldsContainer("memes/ab6e1ed6-6025-4e84-b5da-8555ef1e0b05.png",
+                        "A meme about toy.", "toy", "funny"), // toy
+                new MemeFieldsContainer("memes/b3afd215-8746-4113-aa19-1747d3578f41.jpg",
+                        "A meme about a test.", "test", "funny") // test
         );
         return createSampleMemes(memeFields, userPrefs);
     }
@@ -49,12 +49,12 @@ public class SampleDataUtil {
     public static List<Template> getSampleTemplates(ReadOnlyUserPrefs userPrefs) {
         // sample templates from resources folder
         List<TemplateFieldsContainer> templateFields = List.of(
-            new TemplateFieldsContainer("Drake Reaction",
-                "templates/e2493713-6904-4530-98d1-eedc7fd88e5d.jpg"),
-            new TemplateFieldsContainer("Is This",
-                "templates/0b4cc6ed-85b5-4ca0-a6b2-95ba5d29d06a.jpg"),
-            new TemplateFieldsContainer("Quiz Kid",
-                "templates/51460170-ef3e-41ad-8243-d0890e838cff.jpg")
+                new TemplateFieldsContainer("Drake Reaction",
+                        "templates/e2493713-6904-4530-98d1-eedc7fd88e5d.jpg"),
+                new TemplateFieldsContainer("Is This",
+                        "templates/0b4cc6ed-85b5-4ca0-a6b2-95ba5d29d06a.jpg"),
+                new TemplateFieldsContainer("Quiz Kid",
+                        "templates/51460170-ef3e-41ad-8243-d0890e838cff.jpg")
         );
         return createSampleTemplates(templateFields, userPrefs);
     }

@@ -26,6 +26,8 @@ import javafx.collections.ObservableMap;
 
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.exceptions.DuplicateMemeException;
+import seedu.weme.model.records.Records;
+import seedu.weme.model.records.RecordsManager;
 import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.StatsManager;
 import seedu.weme.model.statistics.TagWithCount;

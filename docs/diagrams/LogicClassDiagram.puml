@@ -18,6 +18,15 @@ Class ArgumentTokenizer
 Class Prefix
 }
 
+package Prompter {
+Interface Prompter <<Interface>>
+Class WemePrompter
+Class XYZPrompter
+Class XYZCommandPrompter
+Class PrompterUtil
+Class CommandPrompt
+}
+
 package Command {
 Class XYZCommand
 Class CommandResult
@@ -37,6 +46,7 @@ HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
 LogicManager ..> WemeParser
+LogicManager ..> WemePrompter
 
 XYZParser -up-|> WemeParser
 XYZParser .down.> XYZCommandParser : creates >
@@ -54,6 +64,14 @@ ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
+
+XYZPrompter -up-|> WemePrompter
+XYZPrompter .down.> XYZCommandPrompter : creates >
+note right of XYZPrompter: XYZPrompter = MemePrompter, TemplatePrompter, \nImportPrompter, etc.
+XYZCommandPrompter ..> CommandPrompt : creates >
+XYZCommandPrompter ..|> Prompter
+XYZCommandPrompter ..> PrompterUtil
+LogicManager .down.> CommandPrompt : prompt >
 
 LogicManager --> Model
 Command .right.> Model
