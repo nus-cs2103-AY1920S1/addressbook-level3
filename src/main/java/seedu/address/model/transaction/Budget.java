@@ -31,6 +31,15 @@ public class Budget {
      * Constructor for Budget with no categories given.
      * By default, category is "Uncategorised"
      */
+    public Budget(Amount initialAmount, Amount amount, Date date, Set<Category> categories) {
+        this.initialAmount = initialAmount;
+        this.amount = amount;
+        this.deadline = date;
+        this.categories.addAll(categories);
+        this.valid = true;
+        this.between = calculateRemaining();
+    }
+
     public Budget(Amount amount, Date date) {
         this.initialAmount = amount;
         this.amount = amount;
@@ -59,6 +68,10 @@ public class Budget {
 
     public void setInitialAmount(Amount amount) {
         this.initialAmount = amount;
+    }
+
+    public Amount getInitialBudget() {
+        return this.initialAmount;
     }
 
     public Amount getBudget() {
