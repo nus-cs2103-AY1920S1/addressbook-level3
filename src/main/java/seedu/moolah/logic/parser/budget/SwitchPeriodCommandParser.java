@@ -2,6 +2,7 @@ package seedu.moolah.logic.parser.budget;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moolah.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collections;
@@ -11,15 +12,16 @@ import java.util.stream.Stream;
 import seedu.moolah.logic.commands.budget.SwitchPeriodCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
+import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.expense.Timestamp;
 
 /**
- * Parses input arguments and creates a new SwitchPeriodCommand object
+ * Parses input arguments and creates a new SwitchPeriodCommand object.
  */
-public class SwitchPeriodCommandParser {
+public class SwitchPeriodCommandParser implements Parser<SwitchPeriodCommand> {
 
     public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
             PREFIX_TIMESTAMP
@@ -42,6 +44,10 @@ public class SwitchPeriodCommandParser {
                     SwitchPeriodCommand.MESSAGE_USAGE));
         }
 
+        if (hasRepeatedPrefixes(argMultimap, PREFIX_TIMESTAMP)) {
+            throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
+        }
+
         Timestamp pastDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get()).toStartOfDay();
 
         return new SwitchPeriodCommand(pastDate);
@@ -53,5 +59,13 @@ public class SwitchPeriodCommandParser {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the prefixes are repeated
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
     }
 }

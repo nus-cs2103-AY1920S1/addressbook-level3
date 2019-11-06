@@ -80,6 +80,7 @@ public class MooLahParser {
 
         String commandWord = getCommandWord(input, commandGroup);
         String arguments = input.getArguments();
+
         //expense
         if (AddExpenseCommand.COMMAND_WORD.equals(commandWord)
                 || AddExpenseCommand.COMMAND_WORD_FROM_PRIMARY.equals(commandWord)) {
@@ -98,6 +99,7 @@ public class MooLahParser {
             return new FindExpenseCommandParser().parse(arguments);
         } else if (ListExpensesCommand.COMMAND_WORD.equals(commandWord)) {
             return new ListExpensesCommand();
+
             //event
         } else if (AddEventCommand.COMMAND_WORD.equals(commandWord)) {
             return new AddEventCommandParser().parse(arguments);
@@ -107,6 +109,7 @@ public class MooLahParser {
             return new EditEventCommandParser().parse(arguments);
         } else if (DeleteEventCommand.COMMAND_WORD.equals(commandWord)) {
             return new DeleteEventCommandParser().parse(arguments);
+
             //budget
         } else if (AddBudgetCommand.COMMAND_WORD.equals(commandWord)) {
             return new AddBudgetCommandParser().parse(arguments);
@@ -153,6 +156,7 @@ public class MooLahParser {
         } else if (ViewPanelCommand.COMMAND_WORD.equals(commandWord)) {
             return new ViewPanelCommandParser().parse(arguments);
         }
+
         // check if alias exists
         if (readOnlyUserPrefs.hasAlias(commandWord)) {
             Alias alias = readOnlyUserPrefs.getAlias(commandWord);

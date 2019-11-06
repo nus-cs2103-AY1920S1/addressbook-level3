@@ -27,7 +27,7 @@ import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.ui.budget.BudgetPanel;
 
 /**
- * Dummy.
+ * Edits the details of an expense identified using its displayed index from primary budget panel.
  */
 public class EditExpenseFromBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = GenericCommandWord.EDIT + CommandGroup.PRIMARY_BUDGET;
@@ -93,7 +93,7 @@ public class EditExpenseFromBudgetCommand extends UndoableCommand {
 
         model.setExpense(expenseToEdit, editedExpense);
         Budget primaryBudget = model.getPrimaryBudget();
-        Budget primaryBudgetCopy = Budget.deepCopy(primaryBudget);
+        Budget primaryBudgetCopy = primaryBudget.deepCopy();
         primaryBudgetCopy.setExpense(expenseToEdit, editedExpense);
         model.setBudget(primaryBudget, primaryBudgetCopy);
         model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);

@@ -78,7 +78,7 @@ public class EditEventCommandParserTest {
         assertParseFailure(parser,
                 "1" + INVALID_EVENT_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
         assertParseFailure(parser,
-                "1" + INVALID_EVENT_TIMESTAMP_DESC, Timestamp.MESSAGE_CONSTRAINTS_GENERAL); // invalid category
+                "1" + INVALID_EVENT_TIMESTAMP_DESC, Timestamp.MESSAGE_CONSTRAINTS_GENERAL); // invalid timestamp
 
         // invalid price followed by valid description
         assertParseFailure(

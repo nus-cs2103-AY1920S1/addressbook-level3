@@ -35,6 +35,7 @@ public class TypicalMooLah {
     public static final String SCHOOL_BUDGET_STRING_TWO = "|| Description: School related expenses "
             + "Amount: 300 Period: month Start date: Nov 15, 2019, 12:00:00 PM End date: Dec 14, 2019, 12:00:00 PM ||";
 
+    // ==============================Budgets=================================
     public static final Budget SCHOOL = new BudgetBuilder()
             .withDescription("School related expenses")
             .withAmount("300")
@@ -52,6 +53,23 @@ public class TypicalMooLah {
             .withEndDate("04-10-2019 noon")
             .withIsPrimary(false)
             .build();
+    // ==============================Expenses=================================
+    public static final Expense CHICKEN_RICE = new ExpenseBuilder()
+            .withDescription("Chicken Rice extra Chicken")
+            .withPrice("3.50")
+            .withCategory("Food")
+            .withTimestamp("03-11-2019 noon")
+            .withBudgetName("School related expenses")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000003")
+            .build();
+    public static final Expense DRINKS = new ExpenseBuilder()
+            .withDescription("Whiskey and Coke")
+            .withPrice("50")
+            .withCategory("Food")
+            .withTimestamp("04-11 noon")
+            .withBudgetName("School related expenses")
+            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000004")
+            .build();
 
     public static final Expense ANNIVERSARY = new ExpenseBuilder()
             .withDescription("Alices Birthday")
@@ -61,6 +79,7 @@ public class TypicalMooLah {
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000001")
             .build();
+
     public static final Expense BUSAN_TRIP = new ExpenseBuilder()
             .withDescription("Busan Trip")
             .withPrice("1300")
@@ -69,22 +88,7 @@ public class TypicalMooLah {
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000002")
             .build();
-    public static final Expense CHICKEN_RICE = new ExpenseBuilder()
-            .withDescription("Chicken Rice extra Chicken")
-            .withPrice("3.50")
-            .withCategory("Food")
-            .withTimestamp("03-12-2019 noon")
-            .withBudgetName("Default Budget")
-            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000003")
-            .build();
-    public static final Expense DRINKS = new ExpenseBuilder()
-            .withDescription("Whiskey and Coke")
-            .withPrice("50")
-            .withCategory("Food")
-            .withTimestamp("04-12 noon")
-            .withBudgetName("Default Budget")
-            .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000004")
-            .build();
+
     public static final Expense ENTERTAINMENT = new ExpenseBuilder()
             .withDescription("Marvel Movie Marathon")
             .withPrice("75")
@@ -133,6 +137,7 @@ public class TypicalMooLah {
             .withCategory(VALID_EXPENSE_CATEGORY_CHICKEN)
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-00000000000b").build();
 
+    // ==============================Events=================================
     public static final Event BRIAN_BDAY = new EventBuilder()
             .withDescription("Brian bday")
             .withPrice("30.5")
@@ -169,17 +174,6 @@ public class TypicalMooLah {
             .withBudgetName("Default Budget")
             .build();
 
-    //    // Manually added
-    //    public static final Event HALLOWEEN = new EventBuilder()
-    //            .withDescription("HalloweenHorrorNight")
-    //            .withPrice("60")
-    //            .withCategory("Entertainment")
-    //            .build();
-    //    public static final Event INVESTMENT = new EventBuilder()
-    //            .withDescription("Property investment")
-    //            .withPrice("1200000")
-    //            .build();
-
     // Manually added - Event's details found in {@code CommandTestUtil}
     public static final Event BUFFET = new EventBuilder()
             .withDescription(VALID_EVENT_DESCRIPTION_BUFFET)
@@ -208,6 +202,11 @@ public class TypicalMooLah {
         }
         for (Expense expense : getTypicalExpenses()) {
             ab.addExpense(expense);
+            for (Budget b : getTypicalBudgets()) {
+                if (b.getDescription().equals(expense.getBudgetName())) {
+                    b.addExpense(expense);
+                }
+            }
         }
         for (Event event : getTypicalEvents()) {
             ab.addEvent(event);
@@ -226,7 +225,6 @@ public class TypicalMooLah {
     }
 
     public static List<Budget> getTypicalBudgets() {
-        return new ArrayList<>(Arrays.asList(
-                SCHOOL, OUTSIDE_SCHOOL));
+        return new ArrayList<>(Arrays.asList(OUTSIDE_SCHOOL, SCHOOL));
     }
 }

@@ -216,7 +216,7 @@ public class MooLah implements ReadOnlyMooLah {
     }
 
     public void setPrimaryBudget(String name) {
-        budgets.setPrimaryBudget(name);
+        budgets.setPrimaryFromString(name);
     }
 
     /**

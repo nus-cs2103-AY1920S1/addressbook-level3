@@ -11,18 +11,18 @@ import static seedu.moolah.logic.parser.CommandParserTestUtil.assertParseSuccess
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moolah.logic.commands.budget.SwitchBudgetCommand;
+import seedu.moolah.logic.commands.budget.DeleteBudgetByNameCommand;
 import seedu.moolah.model.expense.Description;
 
-public class SwitchBudgetCommandParserTest {
-    private SwitchBudgetCommandParser parser = new SwitchBudgetCommandParser();
+public class DeleteBudgetByNameCommandParserTest {
+    private DeleteBudgetByNameCommandParser parser = new DeleteBudgetByNameCommandParser();
 
     @Test
     void parse_blankArgument_parseException() {
         assertParseFailure(
                 parser,
                 "   ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchBudgetCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteBudgetByNameCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -32,11 +32,10 @@ public class SwitchBudgetCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchBudgetCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteBudgetByNameCommand.MESSAGE_USAGE);
 
         // missing description prefix
-        assertParseFailure(parser, VALID_BUDGET_DESCRIPTION_SCHOOL,
-                expectedMessage);
+        assertParseFailure(parser, VALID_BUDGET_DESCRIPTION_SCHOOL, expectedMessage);
     }
 
     @Test
@@ -57,6 +56,6 @@ public class SwitchBudgetCommandParserTest {
         // valid budget name
         Description validInput = new Description(VALID_BUDGET_DESCRIPTION_SCHOOL);
         assertParseSuccess(parser, BUDGET_DESCRIPTION_DESC_SCHOOL,
-                new SwitchBudgetCommand(validInput));
+                new DeleteBudgetByNameCommand(validInput));
     }
 }

@@ -15,14 +15,15 @@ import seedu.moolah.logic.commands.budget.EditBudgetCommand;
 import seedu.moolah.logic.commands.budget.EditBudgetCommand.EditBudgetDescriptor;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
+import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditBudgetCommand object
+ * Parses input arguments and creates a new EditBudgetCommand object.
  */
-public class EditBudgetCommandParser {
+public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
 
     public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of());
     public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of(
