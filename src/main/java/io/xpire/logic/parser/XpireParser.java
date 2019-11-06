@@ -77,7 +77,7 @@ public class XpireParser implements Parser {
         case SearchCommand.COMMAND_WORD:
             //fallthrough
         case SearchCommand.COMMAND_SHORTHAND:
-            return new SearchCommandParser(XPIRE).parse(arguments);
+            return new SearchCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
             //fallthrough
