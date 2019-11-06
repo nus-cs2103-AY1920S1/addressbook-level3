@@ -21,7 +21,7 @@ public class Earnings {
     private final ClassId classId;
     private final Amount amount;
     private final Type type;
-
+    private Claim claim;
 
     /**
      * Every field must be present and not null.
@@ -32,7 +32,7 @@ public class Earnings {
         this.classId = classId;
         this.amount = amount;
         this.type = type;
-        //totalEarnings.add(amount);
+        this.claim = new Claim("pending submission");
     }
 
     public Date getDate() {
@@ -49,6 +49,14 @@ public class Earnings {
 
     public Type getType() {
         return type;
+    }
+
+    public Claim getClaim() {
+        return claim;
+    }
+
+    public void setClaim(Claim claim) {
+        this.claim = claim;
     }
 
     public static String getTotalEarnings() {

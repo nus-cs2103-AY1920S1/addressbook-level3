@@ -16,6 +16,7 @@ import seedu.address.model.commands.CommandAction;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
 import seedu.address.model.earnings.Amount;
+import seedu.address.model.earnings.Claim;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Type;
 import seedu.address.model.note.Content;
@@ -341,5 +342,20 @@ public class ParserUtil {
             throw new ParseException(Type.MESSAGE_CONSTRAINTS);
         }
         return new Type(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String claim} into an {@code Claim}.
+     * @param claim String of claim.
+     * @return Claim.
+     * @throws ParseException if the given {@code claim} is invalid.
+     */
+    public static Claim parseClaim(String claim) throws ParseException {
+        requireNonNull(claim);
+        String trimmedClaim = claim.trim();
+        if (!Claim.isValidClaim(trimmedClaim)) {
+            throw new ParseException(Claim.MESSAGE_CONSTRAINTS);
+        }
+        return new Claim(trimmedClaim);
     }
 }

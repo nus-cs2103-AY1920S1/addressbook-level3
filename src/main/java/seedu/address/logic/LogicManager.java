@@ -46,7 +46,6 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
 
-
         try {
             if (model.userHasLoggedIn()) {
                 Command command;
@@ -63,6 +62,7 @@ public class LogicManager implements Logic {
                 Command command = tutorAidParser.parseCommandWithoutLoggingIn(commandText);
                 commandResult = command.execute(model);
             }
+
             return commandResult;
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
