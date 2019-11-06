@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import tagline.model.contact.Address;
 import tagline.model.contact.AddressBook;
@@ -29,6 +30,8 @@ import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
 import tagline.model.tag.ContactTag;
+import tagline.model.tag.GroupTag;
+import tagline.model.tag.HashTag;
 import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
 import tagline.model.tag.TagBook;
@@ -150,58 +153,11 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
-    public static Note[] getSampleNotes() {
-        return new Note[]{
-            new Note(new NoteId(), new Title(""), new Content("Hello from TagLine!"),
-                new TimeCreated(), new TimeLastEdited(), new HashSet<>()),
-            new Note(new NoteId(), new Title("Lorem Ipsum"), new Content("Lorem ipsum dolor sit amet, "
-                + "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna "
-                + "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
-                + "ex ea commodo consequat."), new TimeCreated(), new TimeLastEdited(), new HashSet<>()),
-            new Note(new NoteId(), new Title("Lorem Ipsum Dolor Sit"), new Content("Lorem ipsum dolor sit amet, "
-                + "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna "
-                + "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
-                + "ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-                + "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, "
-                + "sunt in culpa qui officia deserunt mollit anim id est laborum."), new TimeCreated(),
-                new TimeLastEdited(), new HashSet<>()),
-            new Note(new NoteId(), new Title("Lorem Ipsum Dolor Sit"), new Content("Lorem ipsum dolor sit amet, "
-                + "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna "
-                + "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
-                + "ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-                + "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, "
-                + "sunt in culpa qui officia deserunt mollit anim id est laborum."), new TimeCreated(),
-                new TimeLastEdited(), new HashSet<>()),
-            new Note(new NoteId(), new Title("Lorem Ipsum Dolor Sit"), new Content("Lorem ipsum dolor sit amet, "
-                + "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna "
-                + "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
-                + "ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-                + "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, "
-                + "sunt in culpa qui officia deserunt mollit anim id est laborum."), new TimeCreated(),
-                new TimeLastEdited(), new HashSet<>())
-        };
-    }
-
-    public static ReadOnlyNoteBook getSampleNoteBook() {
-        NoteBook sampleNb = new NoteBook();
-        for (Note sampleNote : getSampleNotes()) {
-            sampleNb.addNote(sampleNote);
-        }
-        return sampleNb;
-    }
-
-    /**
-     * Returns a tag set containing the list of strings given.
-     */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-            .map(s -> new ContactTag(new ContactId(s)))
-            .collect(Collectors.toSet());
-    }
-
     public static Group[] getSampleGroups() {
         // @formatter:off
         return new Group[]{
+            new Group(new GroupName("cs2103t"), new GroupDescription(""),
+                    getMemberIdSet("90035", "90036", "90037", "90038", "90041")),
             new Group(new GroupName("X1"), new GroupDescription(""),
                     getMemberIdSet("90031", "90032", "90033", "90034", "90035", "90036", "90037", "90038",
                     "90039", "90040", "90041")),
@@ -241,7 +197,12 @@ public class SampleDataUtil {
     }
 
     public static Tag[] getSampleTags() {
-        return new Tag[] { };
+        return Stream.of(
+                getHashTagSet("hello", "homework", "game", "songs", "assignment"),
+                getContactTagSet("1", "2", "3", "4", "5"),
+                getGroupTagSet("cs2103t"))
+                .flatMap(Stream::of)
+                .toArray(Tag[]::new);
     }
 
     public static ReadOnlyTagBook getSampleTagBook() {
@@ -250,5 +211,85 @@ public class SampleDataUtil {
             sampleTagBook.addTag(sampleTag);
         }
         return sampleTagBook;
+    }
+
+    /**
+     * Returns a set of hashtags containing the list of strings given.
+     */
+    public static Tag[] getHashTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(HashTag::new)
+                .toArray(Tag[]::new);
+    }
+
+    /**
+     * Returns a set of contact tags containing the list of strings given.
+     */
+    public static Tag[] getContactTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(s -> new ContactTag(new ContactId(s)))
+                .toArray(Tag[]::new);
+    }
+
+    /**
+     * Returns a set of group tags containing the list of strings given.
+     */
+    public static Tag[] getGroupTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(s -> new GroupTag(new GroupName(s)))
+                .toArray(Tag[]::new);
+    }
+
+    public static Note[] getSampleNotes() {
+        // formatter:off
+        return new Note[] {
+            new Note(new NoteId(), new Title("Hello world!"), new Content("Hello from TagLine!"),
+                    new TimeCreated(), new TimeLastEdited(),
+                    new HashSet<>(Arrays.asList(new HashTag("hello")))),
+            new Note(new NoteId(), new Title(""), new Content("team meeting - mon 6pm"),
+                    new TimeCreated(), new TimeLastEdited(),
+                    new HashSet<>(Arrays.asList(new GroupTag(new GroupName("cs2103t"))))),
+            new Note(new NoteId(), new Title("Exam"), new Content("GER PC1221 CS2100 CS2103T"), new TimeCreated(),
+                    new TimeLastEdited(), new HashSet<>()),
+            new Note(new NoteId(), new Title("Games"), new Content("Minecraft ($26.95)\nFortnite"),
+                    new TimeCreated(), new TimeLastEdited(),
+                    new HashSet<>(Arrays.asList(new HashTag("games"), new ContactTag(new ContactId("1"))))),
+            new Note(new NoteId(), new Title("CS2100 Assignment 3"), new Content(""), new TimeCreated(),
+                    new TimeLastEdited(), new HashSet<>(Arrays.asList(new HashTag("assignment")))),
+            new Note(new NoteId(), new Title("Taobao"), new Content("iPad, apple pencil, ipad case, tumbler"),
+                    new TimeCreated(), new TimeLastEdited(), new HashSet<>()),
+            new Note(new NoteId(), new Title(""), new Content("CS2100 Tut, PC1221 Lab, PC1221 Tut, CS2101 PPP"),
+                    new TimeCreated(), new TimeLastEdited(), new HashSet<>(Arrays.asList(new HashTag("homework")))),
+            new Note(new NoteId(), new Title("Bug fix"), new Content("By 11 Nov"), new TimeCreated(),
+                    new TimeLastEdited(), new HashSet<>(Arrays.asList(new GroupTag(new GroupName("cs2103t"))))),
+            new Note(new NoteId(), new Title(""), new Content("ArcoLinux - https://arcolinux.info/ \n"
+                    + "Linux Mint - https://linuxmint.com/"), new TimeCreated(), new TimeLastEdited(), new HashSet<>()),
+            new Note(new NoteId(), new Title(""), new Content("Deftones - digital bath\nRadio head - Creep"
+                        + "\nOasis - dont look back in anger\nBeatles - come together"), new TimeCreated(),
+                    new TimeLastEdited(), new HashSet<>(Arrays.asList(new HashTag("songs")))),
+            new Note(new NoteId(), new Title("Rock climbing"),
+                    new Content("Clip n Climb\nBoulder movement\nKinetic climbing"), new TimeCreated(),
+                    new TimeLastEdited(), new HashSet<>(Arrays.asList(new ContactTag(new ContactId("2")),
+                    new ContactTag(new ContactId("3")), new ContactTag(new ContactId("4")),
+                    new ContactTag(new ContactId("5"))))),
+            new Note(new NoteId(), new Title(""), new Content("Developer guide - notes\nUser guide - notes"),
+                    new TimeCreated(), new TimeLastEdited(),
+                    new HashSet<>(Arrays.asList(new GroupTag(new GroupName("cs2103t"))))),
+            new Note(new NoteId(), new Title("TagLine todo"), new Content("Sorting, Themes, Undo, Redo"),
+                    new TimeCreated(), new TimeLastEdited(),
+                    new HashSet<>(Arrays.asList(new GroupTag(new GroupName("cs2103t"))))),
+            new Note(new NoteId(), new Title("Countdown to break"), new Content("25 days"), new TimeCreated(),
+                    new TimeLastEdited(), new HashSet<>()),
+            new Note(new NoteId(), new Title("1920 Sem 2"), new Content("CS2106 CS3217/CS3203 ST2334"),
+                    new TimeCreated(), new TimeLastEdited(), new HashSet<>())
+        };
+    }
+
+    public static ReadOnlyNoteBook getSampleNoteBook() {
+        NoteBook sampleNb = new NoteBook();
+        for (Note sampleNote : getSampleNotes()) {
+            sampleNb.addNote(sampleNote);
+        }
+        return sampleNb;
     }
 }
