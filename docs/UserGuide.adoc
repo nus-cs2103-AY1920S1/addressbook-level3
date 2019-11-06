@@ -51,7 +51,9 @@ This section helps you navigate through the features and commands.
 *Command Format*
 
 * Words in `UPPERCASE` are parameters you supply e.g. in `addnote t/TITLE`, `TITLE` is a parameter
-which can be used as `addnote t/TITLE`. Parameters can be provided in any order.
+which can be used as `addnote t/TITLE`. Parameters can be provided in any order; in the case of
+multiple parameters with the same prefix (e.g. `addnote t/A t/B`) the last one is taken (`B`)
+unless otherwise stated.
 * Items in square brackets are optional.
 * Items with `…`​ after them can be used zero or more times.
 ====
