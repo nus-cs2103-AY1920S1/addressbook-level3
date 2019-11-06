@@ -1,32 +1,19 @@
 package io.xpire.model;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
-import static io.xpire.model.ListType.XPIRE;
-import static io.xpire.model.tag.Tag.EXPIRED_TAG;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import io.xpire.commons.core.GuiSettings;
 import io.xpire.commons.core.LogsCenter;
-import io.xpire.commons.util.CollectionUtil;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.ListToView;
-import io.xpire.model.item.Name;
 import io.xpire.model.item.XpireItem;
-import io.xpire.model.item.exceptions.DuplicateItemException;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.state.State;
-import io.xpire.model.tag.Tag;
-import io.xpire.model.tag.TagComparator;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -42,14 +29,14 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private FilteredList<? extends Item> currentList;
 
-
+/*
     private FilteredList<XpireItem> filteredXpireItems;
     private FilteredList<Item> filteredReplenishItems;
     private final FilteredList<XpireItem> previousXpireItems;
     private final FilteredList<Item> previousReplenishItems;
     private FilteredList<? extends Item> currentFilteredItems;
     private ListToView listToView;
-
+*/
     /**
      * Initializes a ModelManager with the given xpire and userPrefs.
      */
@@ -64,14 +51,14 @@ public class ModelManager implements Model {
         this.replenishList = new ReplenishList(lists[1]);
         this.userPrefs = new UserPrefs(userPrefs);
         this.currentList = new FilteredList<>(this.xpire.getItemList());
-
+/*
         this.filteredXpireItems = new FilteredList<>(this.xpire.getItemList());
         this.previousXpireItems = new FilteredList<>(this.xpire.getItemList());
         this.filteredReplenishItems = new FilteredList<>(this.replenishList.getItemList());
         this.previousReplenishItems = new FilteredList<>(this.replenishList.getItemList());
         this.currentFilteredItems = this.filteredXpireItems;
         this.listToView = new ListToView("main");
-
+*/
     }
 
     public ModelManager() {
@@ -120,6 +107,7 @@ public class ModelManager implements Model {
 
     //=========== Model methods ================================================================================
 
+/*
     public void setList(ListType listType, ReadOnlyListView<? extends Item> list) {
         requireAllNonNull(listType, list);
 
@@ -135,7 +123,7 @@ public class ModelManager implements Model {
             assert false;
         }
     }
-
+*/
     public ObservableList<? extends Item> getItemList(ListType listType) {
         requireNonNull(listType);
 
@@ -265,16 +253,30 @@ public class ModelManager implements Model {
         this.currentList.setPredicate(predicate);
     }
 
-    public void refreshCurrentList(ListType listType) {
+    private void refreshCurrentList(ListType listType) {
         requireNonNull(listType);
 
-        FilteredList<? extends Item> currentList
+        FilteredList<? extends Item> newCurrentList;
         switch (listType) {
         case XPIRE:
-            FilteredList<? extends Item> currentList
+            newCurrentList = new FilteredList<>(this.xpire.getItemList());
+            break;
+        case REPLENISH:
+            newCurrentList = new FilteredList<>(this.replenishList.getItemList());
+            break;
+        default:
+            logger.warning("Unknown list type");
+            assert false;
+            return;
         }
+        try {
+            newCurrentList.setPredicate((Predicate<Item>) this.currentList.getPredicate());
+        } catch (ClassCastException e) {
+            logger.warning("Refresh failed");
+            return;
+        }
+        this.currentList = newCurrentList;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -286,7 +288,7 @@ public class ModelManager implements Model {
             ModelManager other = (ModelManager) obj;
             return this.xpire.equals(other.xpire)
                     && this.userPrefs.equals(other.userPrefs)
-                    && this.filteredXpireItems.equals(other.filteredXpireItems);
+                    && this.currentList.equals(other.currentList);
         }
     }
 
@@ -303,7 +305,7 @@ public class ModelManager implements Model {
         this.setFilteredXpireItems(clone.getFilteredXpireItemList());
         this.setCurrentFilteredItemList(clone.getListToView());
     }
-
+/*
     @Override
     public void update(ListToView listToView) {
         FilteredList<XpireItem> filteredXpireList = new FilteredList<>(getXpire().getItemList());
@@ -431,7 +433,7 @@ public class ModelManager implements Model {
      * Adapts item to replenish item.
      * @param xpireItem The xpire item to adapt to replenish item.
      * @return The replenish item created.
-     */
+
     private Item adaptItemToReplenish(XpireItem xpireItem) {
         Name itemName = xpireItem.getName();
         Set<Tag> originalTags = xpireItem.getTags();
@@ -560,4 +562,5 @@ public class ModelManager implements Model {
             }
         }
     }
+    */
 }
