@@ -107,8 +107,8 @@ public class GuiSettings implements Serializable {
             }
         }
 
-        if (Background.isValidBackgroundSize(backgroundSize)
-                || Background.isValidBackgroundRepeat(backgroundRepeat)) {
+        if (!Background.isValidBackgroundSize(backgroundSize)
+                || !Background.isValidBackgroundRepeat(backgroundRepeat)) {
             setDefaultAesthetics();
             showDefaultBackground = true;
         }

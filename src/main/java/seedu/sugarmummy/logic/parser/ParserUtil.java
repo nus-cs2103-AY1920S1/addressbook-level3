@@ -353,7 +353,7 @@ public class ParserUtil {
         if (otherInfo.isPresent()) {
             requireNonNull(otherInfo);
             String trimmedOtherInfo = otherInfo.get().trim();
-            if (!OtherBioInfo.isValidOtherInfo(trimmedOtherInfo)) {
+            if (!OtherBioInfo.isValidOtherBioInfo(trimmedOtherInfo)) {
                 throw new ParseException(OtherBioInfo.MESSAGE_CONSTRAINTS);
             }
             return new OtherBioInfo(trimmedOtherInfo);

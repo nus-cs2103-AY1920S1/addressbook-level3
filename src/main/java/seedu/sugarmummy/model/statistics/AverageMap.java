@@ -60,7 +60,7 @@ public class AverageMap {
      * @param count the number of most recent averages to calculate.
      */
     public void calculateAverage(ObservableList<Record> filteredRecordList,
-                                 AverageType averageType, RecordType recordType, int count) {
+            AverageType averageType, RecordType recordType, int count) {
         // Group records according to average type
         Map<LocalDate, List<Record>> groupByTimeRecords = groupByAverageType(averageType, filteredRecordList);
 

@@ -897,72 +897,82 @@ have worked towards their goal(s)). Users may also set reminders to remind them 
 feedback.
 //end::personalisedUserExperience[]
 
-=== DATA ANALYSIS
+// tag::average[]
+=== DATA SUMMARY/ANALYSIS
 
-==== Display the daily/weekly/monthly average of records in a line graph: `average`
+==== Displays the daily/weekly/monthly average of records in a line graph: `average`
 
 Format: `average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]`
 
 AVERAGE_TYPE is either "daily", "weekly" or "monthly". +
 RECORD_TYPE is either "bloodsugar" or "bmi". +
-Displays a graph of the "daily"/"weekly"/"monthly" average of a particular RECORD_TYPE.
-COUNT is an integer between 1 to 9 inclusive. +
-If COUNT is given, SugarMummy shows __up to__ COUNT most recent number of average values.
-Else, COUNT is set to 5 by default and show most recent 5 average values.
+Displays a graph of the "daily", "weekly" or "monthly" average of a particular RECORD_TYPE. +
+COUNT is an optional field that takes integer between 1 to 12 inclusive. +
+If COUNT is given, SugarMummy shows **up to** COUNT most recent number of average values.
+Else, COUNT is set to 5 by default and shows 5 most recent average values.
 
-NOTE: If SugarMummy does not show __exactly__ COUNT number of average values,
+NOTE: If SugarMummy **does not show exactly** COUNT number of average values,
 that means you do not have enough records in the database.
 
 Example usage 1: `average a/weekly rt/bloodsugar`:
-Shows the latest 5 weekly average of blood sugar records.
+Shows the 5 latest weekly average of blood sugar records.
 
 Example usage 2: `average a/daily rt/bmi n/9`:
-Shows the latest 9 weekly average of BMI records.
+Shows the 9 latest daily average of BMI records.
 
 
-==== Display interesting statistics: `summary` `[coming in v1.4]`
+==== Summary statistics of a particular record type `[coming in v2.0]`
 
-Shows minimum, maximum, average of the records. Categorize records into low, normal, high values
-in pie chart.
+Shows minimum, maximum, average of a record type. Categorizes records into low, normal
+and high values in a pie chart. User can specify the date interval of the summary by giving
+a start date and end date.
 
-Format: `summary rt/RECORD_TYPE [d/START_DATE]`
+==== Shows relationship between record types: `[coming in v2.0]`
 
-If START_DATE is given, statistics from START_DATE to the current date will be retrieved.
-Else, statistics will be based on all data.
+User can see how a particular record type changes with other record types.
+This information will be displayed on a scatter plot where trends can be spotted
+easily. Note that this feature will work well only if
 
-==== Export summary of all medical records into pdf: `export` `[coming in v2.0]`
+. You have records for both record types in any given day.
+. You have more than 50 days worth of records.
 
+==== Exports summary of all medical records into pdf `[coming in v2.0]`
 
-Format: `export [d/START_DATE]`
-
-If START_DATE is given, summary from START_DATE to the current date will be exported.
-Else, summary of all data will be exported.
+Need to share your records with your doctor or others? With SugarMummy export function,
+you can save any graphs and plots generated in a pdf file.
+// end::average[]
 
 === Food Recommendation
 
 ==== Recommending food: `recmf`
 
 Recommends some medically suggested foods for type II diabetes patients. +
-To make searching more efficient, the user can specify two kinds of filters:
+To make searching more efficient, the user can specify two kinds of filters and one sorting order:
+
+***
 
 * food type: in the form of following flags:
 
-    -nsv: non-starchy vegetable, such as broccoli
+====
+*-nsv*: non-starchy vegetable, such as broccoli
 
-    -sv: starchy vegetable, such as potato
+*-sv*: starchy vegetable, such as potato
 
-    -f: fruit, such as cherry
+*-f*: fruit, such as cherry
 
-    -p: protein, such as lean lamb
+*-p*: protein, such as lean lamb
 
-    -s: snack, such fig roll
+*-s*: snack, such fig roll
 
-    -m: meal, such as spanish omelet
+*-m*: meal, such as spanish omelet
+====
 
 Note::
 ** Flags are case-insensitive.
 ** If no flag is specifies, it is equivalent to specifying all flags. Namely, foods of all types will be shown.
 ** For fast typing, white spaces are allowed before, between, or after flags. Duplicate flags are also allowed.
+
+***
 
 * food name: in the form of `fn/FOOD_NAME [FOOD_NAME]...` +
 
@@ -971,11 +981,46 @@ Note::
 ** Food name matching is full-word matching. For example, "ch" does not match "chicken", which "chicken" matches both "Chicken" and "Rice with Chicken".
 ** `fn/` is the only allowed prefix for `recmf` command. If only `fn/` presents without following food names, all foods (of specified types) will be shown.
 
+***
+
+* Sorting order: in the form of only one of the following two types:
+
+** `+sort/SORT_ORDER_TYPE`: sort the recommendations in ascending order based on the specified `SORT_ORDER_TYPE`
+*** Sort order type: in the form of any of the following six types:
++
+`fn`: food name, `ft`: food type, `ca`: calorie, `gi`: glycemic index, `su`: sugar, `fa`: fat
+** `-sort/SORT_ORDER_TYPE`: sort the recommendations in descending order
+
+[]
+NOTE::
+** `+sort/SORT_ORDER_TYPE` and `-sort/SORT_ORDER_TYPE` cannot be both present even though they may be with different
+`SORT_ORDER_TYPE`.
+** Only exactly one valid sort order type will be accepted after the sorting prefix.
+** Specially, for `ft`, the ascending order is predefined as: nsv, sv, f, p, s, m.
+**
+
+***
+
 Format: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
 
 Examples:
 
 `recmf -p -f` `recmf fn/chicken` `recmf -p -m -f fn/chicken`
+
+==== Recommending food combination: `recmfmix`
+
+Recommends one food from each type to the user. The nutrition values of all the recommended foods will be summarized as a
+separate food card appended to the end.
+
+Note::
+** This command requires no user-input arguments. All the additional inputs after this command string will be ignored.
+** If any of the summary data is decimals, it will be formatted into two decimal places.
+** Please note the GI (glycemic index) is the average among all foods instead of total sum. This For more information about
+GI, please refer to this link:++https://en.wikipedia.org/wiki/Glycemic_index++[link]
+
+Format: `recmfmix`
+
+Example: `recmfmix`
 
 ==== Adding new food items : `addfood`
 
@@ -1000,8 +1045,8 @@ Fat should be less than 35(g) to be considered as safe for type II diabetes pati
 
 Note::
 ** No duplicate food names are allowed.
-** All nutrition values are numerical values and should be equal or greater than zero.
-Besides, the values are suggested to be per serving.
+** All nutrition values are numerical values. Such value should be equal or greater than zero and contain no more than four
+decimals. Besides, the values are suggested to be normalized as per serving for more useful value comparisons and calculations.
 ** The order of fields is flexible.
 ** Duplicate fields are allowed and only the last one will be considered. Therefore, the last occurrence must be in
 valid format for the command to be executed.
@@ -1010,6 +1055,18 @@ Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 
 Example:
 `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
+
+==== Resetting food data: `resetf`
+
+Cleans all the modifications on the foods done by the user, such as deleting newly added foods. Namely, the recommendations will
+be based on the originally pre-loaded food data.
+
+Note::
+** This command requires no user-input arguments. All the additional inputs after this command string will be ignored.
+
+Format: `resetf`
+
+Example: `resetf`
 
 === Other Common Features
 
@@ -1106,8 +1163,6 @@ E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
-. *Summary*: `summary rt/RECORD_TYPE [d/START_DATE]`
-E.g `summary rt/bloodsugar d/01.09.2019`
 
 == FAQ
 
@@ -1115,3 +1170,6 @@ E.g `summary rt/bloodsugar d/01.09.2019`
 How should I save my data?::
 SugarMummy data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
+[qanda]
+How should I reset all the data?::
+You can simply delete the data file within the same directory that you place SugarMummy.jar. All the data will be set to default sample data.

@@ -152,7 +152,7 @@ public class MainApp extends Application {
         Object initialData;
         try {
             Optional<? extends ReadOnlyData> dataOptional = getOptionalData(dataType);
-            if (!dataOptional.isPresent()) {
+            if (dataOptional.isEmpty()) {
                 logger.info(capitaliseFirstLetter(dataType) + " data file not found. Will be starting a sample "
                         + dataType + " data file");
                 initialData = sampleDataSupplier.get();

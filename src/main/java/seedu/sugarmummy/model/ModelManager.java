@@ -39,6 +39,7 @@ import seedu.sugarmummy.model.record.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageMap;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
@@ -49,14 +50,18 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
     private final FilteredList<User> filteredUserList;
-    private final UniqueFoodList foodList;
     private final UserList userList;
+
+    private final UniqueFoodList foodList;
     private final FilteredList<Food> filteredFoodList;
+
     private final UniqueRecordList recordList;
     private final FilteredList<Record> filteredRecordList;
+
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final FilteredList<CalendarEntry> pastReminderList;
+
     private final AverageMap averageMap;
     private final List<String> motivationalQuotesList;
     private final Map<RecordType, List<Achievement>> achievementsMap;
@@ -80,7 +85,7 @@ public class ModelManager implements Model {
         this.userList = new UserList(userList);
         this.filteredUserList = new FilteredList<>(this.userList.getUserList());
         this.foodList = foodList;
-        this.filteredFoodList = new FilteredList<>(this.foodList.asUnmodifiableObservableList());
+        this.filteredFoodList = new FilteredList<>(this.foodList.getUnmodifiableObservableList());
         this.recordList = recordList;
         this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
         this.calendar = new Calendar(calendar);
@@ -139,6 +144,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return userPrefs.equals(other.userPrefs)
+                && filteredUserList.equals(other.filteredUserList)
+                && filteredFoodList.equals(other.filteredFoodList)
                 && filteredRecordList.equals(other.filteredRecordList)
                 && averageMap.equals(other.averageMap);
     }
@@ -300,7 +307,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Food> getFoodList() {
-        return foodList.asUnmodifiableObservableList();
+        return foodList.getUnmodifiableObservableList();
     }
 
     @Override
@@ -318,6 +325,23 @@ public class ModelManager implements Model {
     public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);
         filteredFoodList.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Food> getMixedFoodList() {
+        return foodList.getMixedFoodList();
+    }
+
+    @Override
+    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
+        requireNonNull(foodComparator);
+        foodList.sortFoods(foodComparator);
+    }
+
+    @Override
+    public void sortFoodListInDescendingOrder(FoodComparator foodComparator) {
+        requireNonNull(foodComparator);
+        foodList.sortFoods(foodComparator);
     }
 
     //=========== Records =============================================================

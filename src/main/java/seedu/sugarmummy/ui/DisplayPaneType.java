@@ -2,12 +2,14 @@ package seedu.sugarmummy.ui;
 
 /**
  * Consists the different type of main window contents based on different commands.
+ * A {@code NONE} type is available for commands that does not affect the UI display.
  */
 public enum DisplayPaneType {
     MAIN,
     BIO,
     ACHVM,
     RECM_FOOD,
+    RECM_MIXED_FOOD,
     ADD,
     AVERAGE,
     LIST,
@@ -15,5 +17,6 @@ public enum DisplayPaneType {
     COLOUR,
     BACKGROUND,
     COLOUR_AND_BACKGROUND,
-    CALENDAR_MONTH
+    CALENDAR_MONTH,
+    NONE;
 }

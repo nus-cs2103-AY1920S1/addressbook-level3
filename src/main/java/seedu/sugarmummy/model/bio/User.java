@@ -216,31 +216,33 @@ public class User {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" DP Path: ")
+        builder.append("User with attributes:")
+                .append("\nName: ")
+                .append(getName())
+                .append("\nDP Path: ")
                 .append(getDpPath())
-                .append(" Profile Desc: ")
+                .append("\nProfile Desc: ")
                 .append(getProfileDesc())
-                .append(" NRIC: ")
+                .append("\nNRIC: ")
                 .append(getNric())
-                .append(" Gender: ")
+                .append("\nGender: ")
                 .append(getGender())
-                .append(" Date Of Birth: ")
+                .append("\nDate Of Birth: ")
                 .append(getDateOfBirth())
-                .append(" Contact Numbers: ");
+                .append("\nContact Numbers: ");
         getContactNumbers().forEach(contactNumber -> builder.append(contactNumber).append("|"));
         builder.deleteCharAt(builder.length() - 1);
-        builder.append(" Emergency Contacts: ");
+        builder.append("\nEmergency Contacts: ");
         getEmergencyContacts().forEach(emergencyContact -> builder.append(emergencyContact).append("|"));
         builder.deleteCharAt(builder.length() - 1);
-        builder.append(" Medical Conditions: ");
+        builder.append("\nMedical Conditions: ");
         getMedicalConditions().forEach(condition -> builder.append(condition).append("|"));
         builder.deleteCharAt(builder.length() - 1);
-        builder.append(" Address: ");
-        builder.append(" Goals: ");
+        builder.append("\nAddress: ").append(getAddress());
+        builder.append("\nGoals: ");
         getGoals().forEach(condition -> builder.append(condition).append("|"));
         builder.deleteCharAt(builder.length() - 1);
-        builder.append(" Other Info: ").append(getOtherBioInfo());
+        builder.append("\nOther Info: ").append(getOtherBioInfo());
         return builder.toString();
     }
 

@@ -138,8 +138,8 @@ public class AchievementStateProcessor {
      * @return Whether or not the requirement for an achievement has previously been met.
      */
     private boolean fulfillsRequirementsPreviously(Achievement achievement, int daysToIterate,
-                                                List<Map.Entry<LocalDate, Double>>
-                                                        averageAchievementKeyValueList) {
+                                                   List<Map.Entry<LocalDate, Double>>
+                                                           averageAchievementKeyValueList) {
         List<Map.Entry<LocalDate, Double>> subList = new ArrayList<>(List.copyOf(averageAchievementKeyValueList));
         subList.remove(0);
         for (int i = 1; i < averageAchievementKeyValueList.size() - daysToIterate; i++) {

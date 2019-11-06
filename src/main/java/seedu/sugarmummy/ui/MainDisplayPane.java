@@ -20,7 +20,7 @@ import seedu.sugarmummy.ui.bio.BioPane;
 import seedu.sugarmummy.ui.statistics.AverageGraphPane;
 
 /**
- * A class that stores and processes the possible Main Display Panes to be displayed to the user.
+ * This is a class that stores and processes the possible Main Display Panes to be displayed to the user.
  */
 public class MainDisplayPane {
 
@@ -36,8 +36,8 @@ public class MainDisplayPane {
     /**
      * Returns a UiPart representing the Main Display Pane observed by the user.
      *
-     * @param displayPaneType      An enumerated display pane to retrieve or store the corresponding type of UiPart.
-     * @param newPaneIsToBeCreated Boolean indicating whether a new pane is to be created, regardless of whether a pane
+     * @param displayPaneType      an enumerated display pane to retrieve or store the corresponding type of UiPart.
+     * @param newPaneIsToBeCreated boolean indicating whether a new pane is to be created, regardless of whether a pane
      *                             already exists.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
@@ -77,6 +77,11 @@ public class MainDisplayPane {
         case RECM_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()),
                     newPaneIsToBeCreated);
+
+        case RECM_MIXED_FOOD:
+            return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getMixedFoodList()),
+                    true);
+
         case ADD:
         case LIST:
         case DELETE:
@@ -106,36 +111,20 @@ public class MainDisplayPane {
      * @param displayPaneType      An enumerated display pane to retrieve or store the corresponding type of UiPart.
      * @param newPaneSupplier      A Supplier object containing the UiPart to be returned if a mapping for it does not
      *                             exist yet, unless new pane is given to be created regardless.
-     * @param newPaneIsToBeCreated Boolean indicating whether a new pane is to be created, regardless of whether a pane
+     * @param isToCreateNewPane Boolean indicating whether a new pane is to be created, regardless of whether a pane
      *                             of the same type already exists.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
     private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
-                                         Supplier<UiPart<Region>> newPaneSupplier, boolean newPaneIsToBeCreated) {
+                                         Supplier<UiPart<Region>> newPaneSupplier, boolean isToCreateNewPane) {
         UiPart<Region> mappedPane = map.get(displayPaneType);
         currPaneType = displayPaneType;
-        if (mappedPane == null || newPaneIsToBeCreated == true) {
+        if (mappedPane == null || isToCreateNewPane) {
             mappedPane = newPaneSupplier.get();
             map.put(displayPaneType, mappedPane);
         }
         return mappedPane;
     }
-
-    /**
-     * Returns a UiPart to be displayed to the user. If a panel of the same type already exists, it simply returns the
-     * existing panel.
-     *
-     * @param displayPaneType An enumerated display pane to retrieve or store the corresponding type of UiPart.
-     * @param newPaneSupplier A Supplier object containing the UiPart to be returned if a mapping for it does not exist
-     *                        yet.
-     * @return A UiPart representing the Main Display Pane observed by the user, and is simply the existing part of the
-     *         same type if it already exists in the mapping of this MainDisplayPane object.
-     */
-    private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
-                                         Supplier<UiPart<Region>> newPaneSupplier) {
-        return getMappedPane(displayPaneType, newPaneSupplier, false);
-    }
-
 
     public DisplayPaneType getCurrPaneType() {
         return currPaneType;
