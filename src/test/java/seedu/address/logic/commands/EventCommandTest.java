@@ -105,7 +105,7 @@ public class EventCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the event being added.
      */
     private class ModelStubAcceptingEventAdded extends ModelStub {
         final ArrayList<Event> eventsAdded = new ArrayList<>();
