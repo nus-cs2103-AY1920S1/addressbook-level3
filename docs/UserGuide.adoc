@@ -709,7 +709,7 @@ Feedback box will show:
 
 - `Error` when all the group members are not in school before the free time slot, a popup will not appear.
 
- Feedback box will show:
+Feedback box will show:
 ```
 We could not find a common location because:
 Everyone has not started their schedule yet. Feel free to meet up any time.
