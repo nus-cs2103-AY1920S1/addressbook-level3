@@ -14,7 +14,7 @@ import seedu.address.ui.panel.calendar.CalendarPanel;
  *
  * @see CalendarPanel
  */
-class CalendarPanelStub extends CalendarPanel {
+class CalendarPanelStub {
 
     /**
      * Returns a combined copy of list for event list and task list into an Object list to be used.
