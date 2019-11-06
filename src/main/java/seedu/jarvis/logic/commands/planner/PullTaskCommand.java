@@ -1,5 +1,9 @@
 package seedu.jarvis.logic.commands.planner;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.function.Predicate;
+
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -8,10 +12,6 @@ import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
-
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Pulls a list of tasks based on certain specified attributes

@@ -1,9 +1,19 @@
 package seedu.jarvis.logic.parser.planner;
 
+import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_DATE;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_FREQ;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_PRIORITY;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TAG;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
+import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_INVALID_TASK_TYPE;
+import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_MULTIPLE_SAME_PREFIX;
+
+import java.time.LocalDate;
+import java.util.function.Predicate;
+
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.logic.commands.planner.PullTaskCommand;
-import seedu.jarvis.logic.parser.ArgumentMultimap;
-import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
@@ -18,28 +28,11 @@ import seedu.jarvis.model.planner.predicates.TaskTagMatchesTagPredicate;
 import seedu.jarvis.model.planner.predicates.TaskTypeMatchesTypePredicate;
 import seedu.jarvis.model.planner.tasks.Task;
 
-import java.time.LocalDate;
-import java.util.function.Predicate;
-
-import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_DATE;
-import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_FREQ;
-import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_PRIORITY;
-import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TAG;
-import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
-import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_INVALID_TASK_TYPE;
-import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_MULTIPLE_SAME_PREFIX;
-
 /**
  * Parses input arguments and creates a new PullTaskCommand object
  */
 //TODO tests
 public class PullTaskCommandParser implements Parser<PullTaskCommand> {
-
-    private static String EVENT = "event";
-    private static String DEADLINE = "deadline";
-    private static String TODO = "todo";
-
 
 
     /**
@@ -73,11 +66,15 @@ public class PullTaskCommandParser implements Parser<PullTaskCommand> {
      * @throws ParseException if given string is not an event, todo or deadline.
      */
     private TaskType parseTaskType(String type) throws ParseException {
-        if (type.equals(TODO)) {
+        String todo = "todo";
+        String event = "event";
+        String deadline = "deadline";
+
+        if (type.equals(todo)) {
             return TaskType.TODO;
-        } else if (type.equals(EVENT)) {
+        } else if (type.equals(event)) {
             return TaskType.EVENT;
-        } else if (type.equals(DEADLINE)) {
+        } else if (type.equals(deadline)) {
             return TaskType.DEADLINE;
         } else {
             throw new ParseException(MESSAGE_INVALID_TASK_TYPE);
@@ -98,7 +95,7 @@ public class PullTaskCommandParser implements Parser<PullTaskCommand> {
     /**
      * Parses the respective prefixes given by the user to return the corresponding
      * {@code Predicate}
-     * @param {@code String} argument to be parsed
+     * @param arg {@code String} argument to be parsed
      * @return a {@code Predicate} to build the corresponding {@code PullTaskCommand}
      */
     private Predicate<Task> parsePrefix(String arg) throws ParseException {

@@ -1,6 +1,5 @@
 package seedu.jarvis.model.planner;
 
-import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;

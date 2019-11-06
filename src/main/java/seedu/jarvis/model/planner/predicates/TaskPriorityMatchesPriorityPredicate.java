@@ -1,9 +1,9 @@
 package seedu.jarvis.model.planner.predicates;
 
+import java.util.function.Predicate;
+
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
-
-import java.util.function.Predicate;
 
 /**
  * Tests that the priority of a {@code Task} matches the priority level given

@@ -1,10 +1,9 @@
 package seedu.jarvis.model.planner.predicates;
 
-import seedu.jarvis.model.planner.enums.TaskType;
-import seedu.jarvis.model.planner.tasks.Event;
-import seedu.jarvis.model.planner.tasks.Task;
-
 import java.util.function.Predicate;
+
+import seedu.jarvis.model.planner.enums.TaskType;
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * Tests that the type of a {@code Task} matches the type of task given

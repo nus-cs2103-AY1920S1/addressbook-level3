@@ -1,9 +1,9 @@
 package seedu.jarvis.model.planner.predicates;
 
+import java.util.function.Predicate;
+
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.tasks.Task;
-
-import java.util.function.Predicate;
 
 /**
  * Tests that the frequency of a {@code Task} matches the frequency level given

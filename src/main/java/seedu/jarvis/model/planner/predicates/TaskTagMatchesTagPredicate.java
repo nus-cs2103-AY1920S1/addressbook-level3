@@ -1,9 +1,9 @@
 package seedu.jarvis.model.planner.predicates;
 
+import java.util.function.Predicate;
+
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.tasks.Task;
-
-import java.util.function.Predicate;
 
 /**
  * Tests that the tags of a {@code Task} matches the tag given
