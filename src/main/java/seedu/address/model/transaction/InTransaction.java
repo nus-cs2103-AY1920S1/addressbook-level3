@@ -3,7 +3,6 @@ package seedu.address.model.transaction;
 import java.util.Set;
 
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Person;
 import seedu.address.model.util.Date;
 
 /**
@@ -16,11 +15,6 @@ public class InTransaction extends Transaction implements BankAccountOperation {
 
     public InTransaction(Amount amount, Date date, Description description, Set<Category> categories) {
         super(amount, date, description, categories);
-    }
-
-    public InTransaction(Amount amount, Date date, Description description,
-                         Set<Category> categories, Person personInvolved) {
-        super(amount, date, description, categories, personInvolved);
     }
 
     @Override

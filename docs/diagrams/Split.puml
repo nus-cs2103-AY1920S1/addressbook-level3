@@ -1,0 +1,107 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MainParser" as MainParser LOGIC_COLOR
+participant ":SplitCommandParser" as SplitCommandParser LOGIC_COLOR
+participant ":SplitCommand" as SplitCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+participant ":VersionedUserState" as VersionedUserState MODEL_COLOR
+participant ":UserState" as UserState MODEL_COLOR
+participant ":Ledger" as Ledger MODEL_COLOR
+participant ":Split" as Split MODEL_COLOR
+participant ":LendMoney" as LendMoney MODEL_COLOR
+
+end box
+
+[-> LogicManager : execute("split $/200 n/Amy n/Bob n/Cameron")
+activate LogicManager
+
+LogicManager -> MainParser: parseCommand("split $/200 n/Amy n/Bob n/Cameron")
+activate MainParser
+
+MainParser -> SplitCommandParser: parse("$/200 n/Amy n/Bob n/Cameron")
+activate SplitCommandParser
+
+create Split
+SplitCommandParser -> Split : amount: 200, peopleInvolved: [Amy, Bob, Cameron], shares: [1, 1, 1, 1]
+activate Split
+Split -> SplitCommandParser : transaction
+deactivate Split
+
+create SplitCommand
+SplitCommandParser -> SplitCommand : transaction
+activate SplitCommand
+SplitCommand -> SplitCommandParser
+deactivate SplitCommand
+
+SplitCommandParser -> MainParser: command
+destroy SplitCommandParser
+
+MainParser -> LogicManager : command
+deactivate MainParser
+LogicManager -> SplitCommand : command.execute()
+activate SplitCommand
+
+SplitCommand -> Model
+activate Model
+
+Model -> UserState : add(transaction)
+activate UserState
+UserState -> Ledger : addOperation(transaction)
+activate Ledger
+Ledger -> Split : handleOperation()
+activate Split
+
+create LendMoney
+loop for person in peopleInvolved
+Split -> LendMoney
+activate LendMoney
+LendMoney -> Split
+deactivate LendMoney
+
+Split -> LendMoney
+activate LendMoney
+LendMoney -> LendMoney : handleBalance()
+activate LendMoney
+LendMoney -> LendMoney : newBalance
+deactivate LendMoney
+LendMoney -> Split : newBalance
+deactivate LendMoney
+end
+
+Split -> Ledger : newBalance
+deactivate Split
+
+Ledger -> UserState
+deactivate Ledger
+
+UserState -> Model
+deactivate UserState
+
+Model -> VersionedUserState : commit()
+activate VersionedUserState
+VersionedUserState -> Model
+deactivate VersionedUserState
+
+Model -> SplitCommand
+deactivate Model
+
+create CommandResult
+SplitCommand -> CommandResult
+activate CommandResult
+CommandResult -> SplitCommand
+deactivate CommandResult
+
+SplitCommand -> LogicManager : commandResult
+deactivate SplitCommand
+destroy SplitCommand
+
+[<--LogicManager : commandResult
+deactivate LogicManager
+@enduml

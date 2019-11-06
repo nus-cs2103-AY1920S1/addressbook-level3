@@ -16,11 +16,16 @@ import seedu.address.model.util.Date;
 
 
 public class BudgetTest {
-    private static final Amount ONE = new Amount(1);
+    private static final Amount ONE = new Amount(100);
 
     private static final String VALID_DATE = "31122025";
     private static final Set<Category> CATEGORIES = new HashSet<>();
     private static final String VALID_CATEGORIES = "food";
+
+    private static final Budget BUDGET_ONE = new Budget();
+    private static final Budget BUDGET_TWO = new Budget(ONE, new Date(VALID_DATE));
+    private static final Budget BUDGET_THREE = new Budget(ONE, new Date(VALID_DATE), CATEGORIES);
+
 
     @Test
     public void budgetConstructor_overBoundary_throwsException() {
@@ -38,7 +43,7 @@ public class BudgetTest {
 
     @Test
     public void getBudget_fail() {
-        assertNotEquals(ONE, new Budget(new Amount(100), new Date(VALID_DATE)).getBudget());
+        assertNotEquals(ONE, new Budget(new Amount(10000), new Date(VALID_DATE)).getBudget());
     }
 
     @Test
@@ -78,24 +83,38 @@ public class BudgetTest {
 
     @Test
     public void isSameBudget_true() {
-        Budget budgetOne = new Budget();
-        Budget budgetTwo = new Budget(ONE, new Date(VALID_DATE));
-        Budget budgetThree = new Budget(ONE, new Date(VALID_DATE), CATEGORIES);
-
-        assertTrue(budgetOne.isSameBudget(budgetOne));
-        assertTrue(budgetTwo.isSameBudget(budgetTwo));
-        assertTrue(budgetThree.isSameBudget(budgetThree));
+        assertTrue(BUDGET_ONE.isSameBudget(BUDGET_ONE));
+        assertTrue(BUDGET_TWO.isSameBudget(BUDGET_TWO));
+        assertTrue(BUDGET_THREE.isSameBudget(BUDGET_THREE));
     }
 
     @Test
     public void isSameBudget_false() {
-        Budget budgetOne = new Budget();
-        Budget budgetTwo = new Budget(ONE, new Date(VALID_DATE));
-        Budget budgetThree = new Budget(ONE, new Date(VALID_DATE), CATEGORIES);
+        assertFalse(BUDGET_ONE.isSameBudget(null));
+        assertFalse(BUDGET_ONE.isSameBudget(BUDGET_TWO));
+        assertFalse(BUDGET_TWO.isSameBudget(BUDGET_THREE));
+    }
 
-        assertFalse(budgetOne.isSameBudget(null));
-        assertFalse(budgetOne.isSameBudget(budgetTwo));
-        assertFalse(budgetTwo.isSameBudget(budgetThree));
+    @Test
+    public void displayBudget_success() {
+        assertEquals("$1.00 out of $1.00 remaining", BUDGET_TWO.displayBudget());
+    }
+
+    @Test
+    public void displayBudget_fail() {
+        assertNotEquals("$1 out of $1 remaining", BUDGET_TWO.displayBudget());
+        assertThrows(NullPointerException.class, () -> BUDGET_ONE.displayBudget());
+    }
+
+    @Test
+    public void displayPercentage_success() {
+        assertEquals("100.00% remaining", BUDGET_TWO.displayPercentage());
+    }
+
+    @Test
+    public void displayPercentage_fail() {
+        assertNotEquals("100% remaining", BUDGET_TWO.displayPercentage());
+        assertThrows(NullPointerException.class, () -> BUDGET_ONE.displayPercentage());
     }
 
 }
