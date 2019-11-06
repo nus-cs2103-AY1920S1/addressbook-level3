@@ -24,7 +24,7 @@ image::arjavibahety.png[width="150", align="left"]
 {empty}[http://github.com/arjavibahety[github]] [<<arjavibahety#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Alerts
+Responsibilities: Notification
 
 '''
 
