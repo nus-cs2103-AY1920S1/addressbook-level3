@@ -87,8 +87,8 @@ public class SelectCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_INVALID_TIMESLOT));
             }
         } else if (status == ScheduleWindowDisplayType.HOME) {
-            PersonTimeslot personTimeslot = model.getScheduleWindowDisplay().getPersonSchedules()
-                    .get(week).get(0).getScheduleDisplay().get(LocalDateTime.now().getDayOfWeek()).get(id);
+            PersonTimeslot personTimeslot = model.getScheduleWindowDisplay().getPersonSchedules().get(0)
+                    .getScheduleDisplay().getScheduleForWeek(week).get(LocalDateTime.now().getDayOfWeek()).get(id);
 
             CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS, false, false);
 

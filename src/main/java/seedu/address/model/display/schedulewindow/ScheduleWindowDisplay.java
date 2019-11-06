@@ -16,21 +16,19 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * Main window display model.
  */
 public class ScheduleWindowDisplay {
-
-    //WeekNumber : ArrayList of PersonSchedule.
-    private HashMap<Integer, ArrayList<PersonSchedule>> personSchedules;
+    private ArrayList<PersonSchedule> personSchedules;
     private ScheduleWindowDisplayType scheduleWindowDisplayType;
     private GroupDisplay groupDisplay;
 
     private ArrayList<FreeSchedule> freeScheduleWeeks;
 
-    public ScheduleWindowDisplay(HashMap<Integer, ArrayList<PersonSchedule>> personSchedules,
+    public ScheduleWindowDisplay(ArrayList<PersonSchedule> personSchedules,
                                  ScheduleWindowDisplayType detailWindowDisplayType) {
         this(personSchedules, null, null, detailWindowDisplayType);
     }
 
-    public ScheduleWindowDisplay(HashMap<Integer, ArrayList<PersonSchedule>> personSchedules,
-                                 ArrayList<FreeSchedule> freeScheduleWeeks, GroupDisplay groupDisplay,
+    public ScheduleWindowDisplay(ArrayList<PersonSchedule> personSchedules,
+                               ArrayList<FreeSchedule> freeScheduleWeeks, GroupDisplay groupDisplay,
                                  ScheduleWindowDisplayType scheduleWindowDisplayType) {
 
         this.personSchedules = personSchedules;
@@ -40,10 +38,7 @@ public class ScheduleWindowDisplay {
     }
 
     public ScheduleWindowDisplay() {
-        this.personSchedules = new HashMap<>();
-        for (int i = 0; i < 4; i++) {
-            personSchedules.put(i, new ArrayList<>());
-        }
+        this.personSchedules = new ArrayList<>();
         this.scheduleWindowDisplayType = ScheduleWindowDisplayType.DEFAULT;
         this.groupDisplay = null;
 
@@ -51,10 +46,7 @@ public class ScheduleWindowDisplay {
     }
 
     public ScheduleWindowDisplay(ScheduleWindowDisplayType type) {
-        this.personSchedules = new HashMap<>();
-        for (int i = 0; i < 4; i++) {
-            personSchedules.put(i, new ArrayList<>());
-        }
+        this.personSchedules = new ArrayList<>();
         this.scheduleWindowDisplayType = type;
         this.groupDisplay = null;
 
@@ -65,7 +57,7 @@ public class ScheduleWindowDisplay {
         return scheduleWindowDisplayType;
     }
 
-    public HashMap<Integer, ArrayList<PersonSchedule>> getPersonSchedules() {
+    public ArrayList<PersonSchedule> getPersonSchedules() {
         return personSchedules;
     }
 
@@ -79,8 +71,7 @@ public class ScheduleWindowDisplay {
 
     public ArrayList<PersonDisplay> getPersonDisplays() {
         ArrayList<PersonDisplay> personDisplays = new ArrayList<>();
-        ArrayList<PersonSchedule> schedules = personSchedules.get(0);
-        for (PersonSchedule p : schedules) {
+        for (PersonSchedule p : personSchedules) {
             personDisplays.add(p.getPersonDisplay());
         }
         return personDisplays;
@@ -94,7 +85,7 @@ public class ScheduleWindowDisplay {
             throws PersonNotFoundException, InvalidTimeslotException {
 
         // week must be 0 - 3
-        ArrayList<PersonSchedule> personSchedules = this.personSchedules.get(week);
+        //ArrayList<PersonSchedule> personSchedules = this.personSchedules.get(week);
 
         // find the schedule of the person with the given name
         PersonSchedule selectedPersonSchedule = null;
@@ -109,13 +100,14 @@ public class ScheduleWindowDisplay {
         }
 
         // select the day of week
-        ArrayList<PersonTimeslot> personTimeslots = selectedPersonSchedule.getScheduleDisplay().get(DayOfWeek.of(day));
+        ArrayList<PersonTimeslot> personTimeslots = selectedPersonSchedule.getScheduleDisplay()
+                .getScheduleForWeek(week).get(DayOfWeek.of(day));
 
         // select specific timeslot
         try {
             PersonTimeslot selectedPersonTimeslot = personTimeslots.get(id);
             return selectedPersonTimeslot;
-        } catch (IndexOutOfBoundsException eobe) {
+        } catch (IndexOutOfBoundsException iobe) {
             throw new InvalidTimeslotException();
         }
 

@@ -1,4 +1,4 @@
-package seedu.address.ui.util;
+package seedu.address.ui.popup;
 
 import java.util.List;
 
@@ -47,7 +47,13 @@ public class LocationOverview extends UiPart<Region> {
                 getLocationCell(INVALID, invalidLocations));
     }
 
-    public HBox getLocationCell(String title, List<String> locationsEntered) {
+    /**
+     * Method to create a container to contain texts of the locations.
+     * @param title Title of the container.
+     * @param locationsEntered Locations to be placed inside this cell.
+     * @return
+     */
+    private HBox getLocationCell(String title, List<String> locationsEntered) {
         HBox locationCell = new HBox();
         HBox locationsEnteredContainer = new HBox();
         for (String s : locationsEntered) {

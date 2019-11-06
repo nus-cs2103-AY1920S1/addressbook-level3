@@ -2,8 +2,8 @@ package seedu.address.model.display.detailwindow;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 
 /**
@@ -15,11 +15,10 @@ public class PersonSchedule {
 
     private PersonDisplay personDisplay;
 
-    private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay;
+    private MonthSchedule scheduleDisplay;
 
     public PersonSchedule(String scheduleName,
-                          PersonDisplay personDisplay, HashMap<DayOfWeek,
-            ArrayList<PersonTimeslot>> scheduleDisplay) {
+                          PersonDisplay personDisplay, MonthSchedule scheduleDisplay) {
 
         this.scheduleName = scheduleName;
         this.personDisplay = personDisplay;
@@ -34,7 +33,7 @@ public class PersonSchedule {
         return scheduleName;
     }
 
-    public HashMap<DayOfWeek, ArrayList<PersonTimeslot>> getScheduleDisplay() {
+    public MonthSchedule getScheduleDisplay() {
         return scheduleDisplay;
     }
 
@@ -44,12 +43,14 @@ public class PersonSchedule {
         String output = "";
 
         output += "=====" + scheduleName + " for " + personDisplay.getName().toString() + "=====" + "\n";
-        for (int i = 1; i <= 7; i++) {
-            ArrayList<PersonTimeslot> personTimeslots = scheduleDisplay.get(DayOfWeek.of(i));
-            output += DayOfWeek.of(i) + ":\n";
-            for (PersonTimeslot d : personTimeslots) {
-                String timeSlotDetails = d.getStartTime().toString() + "---" + d.getEndTime().toString();
-                output += timeSlotDetails + "\n";
+        for (int j = 0; j < 4; j++) {
+            for (int i = 1; i <= 7; i++) {
+                ArrayList<PersonTimeslot> personTimeslots = scheduleDisplay.getScheduleForWeek(j).get(DayOfWeek.of(i));
+                output += DayOfWeek.of(i) + ":\n";
+                for (PersonTimeslot d : personTimeslots) {
+                    String timeSlotDetails = d.getStartTime().toString() + "---" + d.getEndTime().toString();
+                    output += timeSlotDetails + "\n";
+                }
             }
         }
         return output;

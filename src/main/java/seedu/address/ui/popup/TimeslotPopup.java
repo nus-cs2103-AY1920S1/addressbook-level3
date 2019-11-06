@@ -1,4 +1,4 @@
-package seedu.address.ui.util;
+package seedu.address.ui.popup;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -10,13 +10,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * A class to show pop ups to indicate location suggestions.
+ * A class to show popups of timeslots.
  */
-public class LocationPopup {
+public class TimeslotPopup {
+
     private Node popupDetails;
     private Stage popupStage;
 
-    public LocationPopup(Node details) {
+    public TimeslotPopup(Node details) {
         this.popupDetails = details;
         this.popupStage = new Stage();
         ScrollPane popupContainer = new ScrollPane();
@@ -42,4 +43,5 @@ public class LocationPopup {
     public void hide() {
         popupStage.close();
     }
+
 }
