@@ -135,9 +135,9 @@ public class Restaurant {
      */
     public void updateQuantity(Order order) {
         for (Map.Entry<Name, Integer> entry : order.getFoodList().entrySet()) {
-            this.quantityOrdered += entry.getValue().intValue();
             for (Food food : this.menu) {
                 if (food.getName().equals(entry.getKey())) {
+                    this.quantityOrdered += entry.getValue().intValue();
                     food.addQuantity(entry.getValue().intValue());
                 }
             }
