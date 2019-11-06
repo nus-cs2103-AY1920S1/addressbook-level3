@@ -10,6 +10,7 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.model.Model;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.Type;
 
 /**
  * Adds a record to Duke Cooks.
@@ -18,12 +19,29 @@ public class ListHealthByTypeCommand extends ListCommand {
 
     public static final String VARIANT_WORD = "health";
 
+    private static Type currentTypeView = Type.Calories;
+
     private static Event event;
 
     private static Predicate<Record> predicate;
 
     public ListHealthByTypeCommand(Predicate predicate) {
         this.predicate = predicate;
+    }
+
+    /**
+     * Documents the current view mode to the specified health type.
+     */
+    public static void setCurrentTypeView(Type type) {
+        currentTypeView = type;
+    }
+
+    /**
+     * Retrieves the documented type of view mode for health records.
+     * Used where the user's view health type command is required.
+     */
+    public static Type getCurrentTypeView() {
+        return currentTypeView;
     }
 
     @Override

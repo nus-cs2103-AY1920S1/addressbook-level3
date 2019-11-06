@@ -9,6 +9,8 @@ import dukecooks.commons.core.index.Index;
 import dukecooks.model.Model;
 import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.diary.components.Diary;
+import dukecooks.model.health.components.Record;
+import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.exercise.components.Exercise;
 
@@ -50,10 +52,24 @@ public class TestUtil {
     }
 
     /**
+     * Returns the exercise in the {@code model}'s exercise list at {@code index}.
+     */
+    public static Exercise getExercise(Model model, Index index) {
+        return model.getFilteredExerciseList().get(index.getZeroBased());
+    }
+
+    /**
      * Returns the person in the {@code model}'s person list at {@code index}.
      */
-    public static Exercise getPerson(Model model, Index index) {
-        return model.getFilteredExerciseList().get(index.getZeroBased());
+    public static Person getPerson(Model model, Index index) {
+        return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the record in the {@code model}'s record list at {@code index}.
+     */
+    public static Record getRecord(Model model, Index index) {
+        return model.getFilteredRecordList().get(index.getZeroBased());
     }
 
     /**

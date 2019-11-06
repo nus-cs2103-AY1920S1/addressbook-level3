@@ -7,11 +7,12 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.Type;
 
 /**
  * Adds a record to Duke Cooks.
  */
-public class AddHealthCommand extends AddCommand {
+public class AddRecordCommand extends AddCommand {
 
     public static final String VARIANT_WORD = "health";
 
@@ -26,7 +27,7 @@ public class AddHealthCommand extends AddCommand {
     /**
      * Creates an AddProfileCommand to add the specified {@code Record}
      */
-    public AddHealthCommand(Record record) {
+    public AddRecordCommand(Record record) {
         requireNonNull(record);
         toAdd = record;
     }
@@ -39,6 +40,12 @@ public class AddHealthCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_RECORD);
         }
 
+        Type type = toAdd.getType();
+        double value = toAdd.getValue().value;
+        if (!type.isValidNumber(type.toString(), value)) {
+            throw new CommandException(type.messageInflatedValue());
+        }
+
         model.addRecord(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
@@ -46,7 +53,7 @@ public class AddHealthCommand extends AddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddHealthCommand // instanceof handles nulls
-                && toAdd.equals(((AddHealthCommand) other).toAdd));
+                || (other instanceof AddRecordCommand // instanceof handles nulls
+                && toAdd.equals(((AddRecordCommand) other).toAdd));
     }
 }

@@ -2,54 +2,81 @@ package dukecooks.model.health.components;
 
 import static java.util.Objects.requireNonNull;
 
-import dukecooks.commons.util.AppUtil;
-import dukecooks.model.health.components.util.TypeUtil;
+import java.util.EnumSet;
 
 /**
  * Represents the type of health record.
  */
-public class Type {
+public enum Type {
+    Glucose("mmol/L", 0, 50, "latest"),
+    Height("cm", 50, 300, "latest"),
+    Weight("kg", 10, 400, "latest"),
+    Calories("kcal", 0, 100000, "sum"),
+    Carbs("g", 0, 1000, "sum"),
+    Protein("g", 0, 1000, "sum"),
+    Fats("g", 0, 1000, "sum");
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Record type should only contain alphanumeric characters and spaces, and it should not be blank";
+    private final String unit;
+    private final double lowerLimit;
+    private final double upperLimit;
+    private final String behavior;
 
-    public final String type;
-    public final String unit;
+    Type(String unit, double lowerLimit, double upperLimit, String behavior) {
+        this.unit = unit;
+        this.lowerLimit = lowerLimit;
+        this.upperLimit = upperLimit;
+        this.behavior = behavior;
+    }
 
-    /**
-     * Constructs a {@code Type}.
-     *
-     * @param type A valid type.
-     */
-    public Type(String type) {
-        requireNonNull(type);
-        AppUtil.checkArgument(isValidType(type), MESSAGE_CONSTRAINTS);
-        this.type = type;
-        this.unit = TypeUtil.TYPE_LIST.get(type);
+    public String getType() {
+        return name();
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public String getBehavior() {
+        return behavior;
+    }
+
+    public static EnumSet<Type> getTypeSet() {
+        return EnumSet.allOf(Type.class);
     }
 
     /**
-     * Returns true if a given string is a valid type.
+     * Checks if the String is one of the health types.
      */
-    public static boolean isValidType(String test) {
-        return TypeUtil.TYPE_LIST.containsKey(test);
+    public static boolean isValidType(String str) {
+        requireNonNull(str);
+        for (Type type: Type.values()) {
+            if (type.name().equalsIgnoreCase(str)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if value if within the upper and lower bound of given type
+     * This method should be called after @exists method.
+     */
+    public static boolean isValidNumber(String type, double value) {
+        return value >= Type.valueOf(type).lowerLimit
+                && value <= Type.valueOf(type).upperLimit;
     }
 
     @Override
     public String toString() {
-        return type;
+        return name();
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Type // instanceof handles nulls
-                && type.equals(((Type) other).type)); // state check
+    public static String messageConstraints() {
+        return "Record type should only contain alphanumeric characters and spaces, and it should not be blank";
     }
 
-    @Override
-    public int hashCode() {
-        return type.hashCode();
+    public String messageInflatedValue() {
+        return name() + " should be within " + lowerLimit + unit + " to " + upperLimit + unit;
     }
 
 }
