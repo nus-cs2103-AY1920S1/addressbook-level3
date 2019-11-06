@@ -59,7 +59,6 @@ public class AddCommand extends UndoableCommand {
 
         if (toAdd instanceof Body) {
             Body body = (Body) toAdd;
-
             //@@author ambervoong
             if (getCommandState().equals(UndoableCommandState.REDOABLE)) {
                 toAdd.getIdNum().addMapping(toAdd); // Add mapping again since this is not a new Body.
