@@ -363,7 +363,7 @@ throughout TravEzy.
 
 [IMPORTANT]
 A plausible extension to the itinerary model is give users the ability to *tag* each of their events based
-on different priority.
+on different priority. This has ever since been implemented in v1.3
 
 Alternative implementation to the proposed extension:
 
