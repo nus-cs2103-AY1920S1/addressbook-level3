@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F14-4/main
 
-Group Name: `CS2103-F14-4`
+Group Name: `CS2103T-F14-4`
 
 By: `Chee You, Rushagrid Kunthamas, Sam Yong Jek, Song Tianyi, Tan Jun Bang`
 
@@ -26,9 +26,9 @@ Since: `Jun 2016`      Licence: `MIT`
 Deliveria is a *desktop application* that allows a *delivery manager* to *manage and assign delivery tasks* efficiently. While it consists of a _Graphical User Interface_ (GUI) that is user-friendly, Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
 
 == Getting Started
-.Draft UI mockup
-image::/images/Ui.png[Ui]
-[caption="Figure 1: ",link="/images/Ui.png"]
+.UI
+image::Ui.png[Ui]
+[caption="Figure 1: ",link="Ui.png"]
 . Ensure you have Java 11 or above installed in your Computer.
 . Download the latest release deliveria.jar https://github.com/AY1920S1-CS2103T-F14-4/main/releases[here].
 . Copy the file to the folder you want to use as the home folder for your Address Book.

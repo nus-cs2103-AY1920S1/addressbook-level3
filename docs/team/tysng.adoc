@@ -9,6 +9,7 @@
 
 == Overview
 
+
 Deliveria is a *desktop application* that allows a *delivery manager* to *manage and assign delivery tasks* efficiently.
 While it consists of a _Graphical User Interface_ (GUI) that is user-friendly,
 Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
