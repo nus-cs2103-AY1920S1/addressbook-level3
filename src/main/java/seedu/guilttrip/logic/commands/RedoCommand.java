@@ -1,7 +1,6 @@
 package seedu.guilttrip.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import seedu.guilttrip.commons.core.step.Step;
 import seedu.guilttrip.logic.CommandHistory;
@@ -39,7 +38,6 @@ public class RedoCommand extends Command {
 
         for (long l = 0; l < step.value; l++) {
             model.redoAddressBook();
-            model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         }
 
         return new CommandResult(MESSAGE_SUCCESS);

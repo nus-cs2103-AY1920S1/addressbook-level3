@@ -86,6 +86,16 @@ public class Budget extends Entry {
         return new Budget(getCategory(), getDesc(), getDate(), period, getAmount(), getTags(), spent);
     }
 
+    //TODO HIGHLY LIKELY ERROR
+    /**
+     * Returns a new Budget if and only if it's category is edited.
+     */
+    public Budget modifiedBudget(String newName) {
+        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        return new Budget(newCategory, super.getDesc(), super.getDate(), this.getPeriod(),
+                this.getAmount(), super.getTags(), this.spent);
+    }
+
     /**
      * Returns true if both budgets have the same data fields.
      * This defines a stronger notion of equality between two entries.

@@ -1,4 +1,4 @@
-package seedu.guilttrip.logic.parser;
+package seedu.guilttrip.logic.parser.findcommandparsers;
 
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -14,8 +14,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.guilttrip.logic.commands.FindBudgetCommand;
-import seedu.guilttrip.logic.commands.FindCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindIncomeCommand;
+import seedu.guilttrip.logic.parser.ArgumentMultimap;
+import seedu.guilttrip.logic.parser.ArgumentTokenizer;
+import seedu.guilttrip.logic.parser.Parser;
+import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;
@@ -26,16 +30,16 @@ import seedu.guilttrip.model.entry.predicates.EntryContainsTagsPredicate;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new FindBudgetCommand object
+ * Parses input arguments and creates a new FindExpenseCommand object
  */
-public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
+public class FindIncomeCommandParser implements Parser<FindIncomeCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindBudgetCommand
-     * and returns a FindBudgetCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the FindExpenseCommand
+     * and returns a FindExpenseCommand object for execution.
+     * @throws ParseException if the user input does not conform to the expected format
      */
-    public FindBudgetCommand parse(String args) throws ParseException {
+    public FindIncomeCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
 
@@ -44,7 +48,7 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
             String trimmedArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).fullDesc.trim();
             if (trimmedArgs.isEmpty()) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindExpenseCommand.EMPTY_PROPETIES));
             }
 
             String[] nameKeywords = trimmedArgs.split("\\s+");
@@ -62,7 +66,7 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            LocalDate dateToCompare = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim()).getDate();
+            LocalDate dateToCompare = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_DATE).get().trim()).getDate();
             predicateList.add(new EntryContainsDatePredicate(dateToCompare));
         }
 
@@ -72,10 +76,11 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
         }
 
         if (predicateList.size() == 0) {
-            throw new ParseException(FindBudgetCommand.INSUFFICENT_ARGUMENTS);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindExpenseCommand.MESSAGE_USAGE));
         }
 
-        return new FindBudgetCommand(predicateList);
+        return new FindIncomeCommand(predicateList);
     }
 
 }

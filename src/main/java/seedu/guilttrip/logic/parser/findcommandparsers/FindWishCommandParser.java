@@ -1,4 +1,4 @@
-package seedu.guilttrip.logic.parser;
+package seedu.guilttrip.logic.parser.findcommandparsers;
 
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -14,7 +14,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.guilttrip.logic.commands.FindCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
+import seedu.guilttrip.logic.commands.findcommands.FindWishCommand;
+import seedu.guilttrip.logic.parser.ArgumentMultimap;
+import seedu.guilttrip.logic.parser.ArgumentTokenizer;
+import seedu.guilttrip.logic.parser.Parser;
+import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;
@@ -25,16 +30,16 @@ import seedu.guilttrip.model.entry.predicates.EntryContainsTagsPredicate;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindExpenseCommand object
  */
-public class FindCommandParser implements Parser<FindCommand> {
+public class FindWishCommandParser implements Parser<FindWishCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
-     * @throws ParseException if the user input does not conform to the expected format
+     * Parses the given {@code String} of arguments in the context of the FindWishCommand
+     * and returns a FindWishCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommand parse(String args) throws ParseException {
+    public FindWishCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
 
@@ -43,7 +48,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             String trimmedArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).fullDesc.trim();
             if (trimmedArgs.isEmpty()) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.EMPTY_PROPETIES));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindExpenseCommand.MESSAGE_USAGE));
             }
 
             String[] nameKeywords = trimmedArgs.split("\\s+");
@@ -61,7 +66,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            LocalDate dateToCompare = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_DATE).get().trim()).getDate();
+            LocalDate dateToCompare = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim()).getDate();
             predicateList.add(new EntryContainsDatePredicate(dateToCompare));
         }
 
@@ -71,11 +76,10 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (predicateList.size() == 0) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(FindWishCommand.INSUFFICENT_ARGUMENTS);
         }
 
-        return new FindCommand(predicateList);
+        return new FindWishCommand(predicateList);
     }
 
 }
