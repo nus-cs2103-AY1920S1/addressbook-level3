@@ -4,6 +4,7 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,6 +18,9 @@
 <fx:root alwaysOnTop="true" height="400.0" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0"
          resizable="false" title="Info" type="javafx.stage.Stage" width="700.0" xmlns="http://javafx.com/javafx/11.0.1"
          xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/LiBerryLogo_square.png"/>
+    </icons>
     <scene>
         <Scene>
             <ScrollPane styleClass="foundation_pane"
