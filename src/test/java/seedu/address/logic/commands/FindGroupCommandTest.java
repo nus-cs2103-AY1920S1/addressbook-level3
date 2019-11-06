@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME0;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,17 +34,17 @@ class FindGroupCommandTest {
     @Test
     void execute_success() throws CommandException {
         CommandResult actualCommandResult =
-                new FindGroupCommand(GROUPNAME1).execute(model);
+                new FindGroupCommand(GROUP_NAME1).execute(model);
         assertNotNull(actualCommandResult);
     }
 
     @Test
     void execute_failure() throws CommandException {
         CommandResult actualCommandResult =
-                new FindGroupCommand(GROUPNAME0).execute(model);
+                new FindGroupCommand(GROUP_NAME0).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(String.format(FindGroupCommand.MESSAGE_FAILURE, GROUPNAME0.toString()));
+                new CommandResult(String.format(FindGroupCommand.MESSAGE_FAILURE, GROUP_NAME0.toString()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

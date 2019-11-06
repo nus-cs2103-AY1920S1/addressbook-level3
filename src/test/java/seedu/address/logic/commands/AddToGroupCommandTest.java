@@ -1,8 +1,15 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME2;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.DANIEL;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ZACK;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +28,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.modelutil.TypicalModel;
 
 
-
 class AddToGroupCommandTest {
 
     private ModelManager model;
@@ -35,66 +41,120 @@ class AddToGroupCommandTest {
     void execute_success() throws CommandException, PersonNotFoundException, GroupNotFoundException {
 
         Person person = model.findPerson(DANIEL.getName());
-        Group group = model.findGroup(GROUPNAME1);
-        PersonToGroupMapping map = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
+        Group group = model.findGroup(GROUP_NAME1);
 
         CommandResult actualCommandResult =
                 new AddToGroupCommand(person.getName(), group.getGroupName(), Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(AddToGroupCommand.MESSAGE_SUCCESS + map.toString());
+                new CommandResult(String.format(AddToGroupCommand.MESSAGE_SUCCESS,
+                        person.getName().toString(), group.getGroupName().toString()));
 
-        assertTrue(actualCommandResult.equals(expectedCommandResult));
+        assertEquals(actualCommandResult, expectedCommandResult);
     }
 
-    private void assertTrue(boolean equals) {
+    @Test
+    void execute_personNotFound() throws CommandException {
+
+        CommandResult actualCommandResult =
+                new AddToGroupCommand(ZACK.getName(), GROUP_NAME1, Role.emptyRole()).execute(model);
+
+        CommandResult expectedCommandResult =
+                new CommandResult(String.format(AddToGroupCommand.MESSAGE_FAILURE,
+                        AddToGroupCommand.MESSAGE_PERSON_NOT_FOUND));
+
+        assertEquals(actualCommandResult, expectedCommandResult);
     }
 
-    /*@Test
-    void execute_nullPerson() throws CommandException {
+    @Test
+    void execute_groupNotFound() throws CommandException {
 
         CommandResult actualCommandResult =
-                new AddToGroupCommand(null, GROUPNAME1, Role.emptyRole()).execute(model);
+                new AddToGroupCommand(ALICE.getName(), GROUP_NAME0, Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(AddToGroupCommand.MESSAGE_FAILURE);
+                new CommandResult(String.format(AddToGroupCommand.MESSAGE_FAILURE,
+                        AddToGroupCommand.MESSAGE_GROUP_NOT_FOUND));
 
-        assertTrue(actualCommandResult.equals(expectedCommandResult));
-    }*/
-
-    /*@Test
-    void execute_nullGroup() throws CommandException {
-
-        CommandResult actualCommandResult =
-                new AddToGroupCommand(ALICE.getName(), null, Role.emptyRole()).execute(model);
-
-        CommandResult expectedCommandResult =
-                new CommandResult(AddToGroupCommand.MESSAGE_FAILURE);
-
-        assertTrue(actualCommandResult.equals(expectedCommandResult));
-    }*/
-
-    /*@Test
-    void execute_allNull() throws CommandException {
-
-        CommandResult actualCommandResult =
-                new AddToGroupCommand(null, null, Role.emptyRole()).execute(model);
-
-        CommandResult expectedCommandResult =
-                new CommandResult(AddToGroupCommand.MESSAGE_FAILURE);
-
-        assertTrue(actualCommandResult.equals(expectedCommandResult));
-    }*/
+        assertEquals(actualCommandResult, expectedCommandResult);
+    }
 
     @Test
     void execute_duplicate() throws CommandException {
 
         CommandResult actualCommandResult =
-                new AddToGroupCommand(ALICE.getName(), GROUPNAME1, Role.emptyRole()).execute(model);
+                new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(AddToGroupCommand.MESSAGE_DUPLICATE);
+                new CommandResult(String.format(AddToGroupCommand.MESSAGE_FAILURE,
+                        AddToGroupCommand.MESSAGE_DUPLICATE));
 
-        assertTrue(actualCommandResult.equals(expectedCommandResult));
+        assertEquals(actualCommandResult, expectedCommandResult);
+    }
+
+    @Test
+    void execute_alreadyInGroup() throws CommandException, GroupNotFoundException, PersonNotFoundException {
+
+        PersonToGroupMapping mapping = new PersonToGroupMapping(
+                model.findPerson(ALICE.getName()).getPersonId(),
+                model.findGroup(GROUP_NAME1).getGroupId(),
+                new Role("Role")
+        );
+
+        CommandResult actualCommandResult =
+                new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, new Role("Role")).execute(model);
+
+        CommandResult expectedCommandResult =
+                new CommandResult(String.format(AddToGroupCommand.MESSAGE_UPDATED_ROLE,
+                        mapping.getRole().toString()));
+
+        assertEquals(actualCommandResult, expectedCommandResult);
+    }
+
+    @Test
+    void equals_null() {
+        assertFalse(new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole()).equals(null));
+    }
+
+    @Test
+    void equals_otherCommand() {
+        assertFalse(new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole())
+                .equals(new AddPersonCommand(ALICE)));
+    }
+
+    @Test
+    void equals_differentName() {
+        assertFalse(
+                new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole()).equals(
+                        new AddToGroupCommand(BENSON.getName(), GROUP_NAME1, Role.emptyRole())
+                )
+        );
+    }
+
+    @Test
+    void equals_differentGroup() {
+        assertFalse(
+                new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole()).equals(
+                        new AddToGroupCommand(ALICE.getName(), GROUP_NAME2, Role.emptyRole())
+                )
+        );
+    }
+
+    @Test
+    void equals_differentRole() {
+        assertFalse(
+                new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole()).equals(
+                        new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, new Role("Role"))
+                )
+        );
+    }
+
+    @Test
+    void equals() {
+        assertTrue(
+                new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole()).equals(
+                        new AddToGroupCommand(ALICE.getName(), GROUP_NAME1, Role.emptyRole()))
+
+        );
     }
 }

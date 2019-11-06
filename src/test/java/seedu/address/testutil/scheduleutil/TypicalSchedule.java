@@ -11,9 +11,6 @@ public class TypicalSchedule {
 
     /**
      * Generates a typical Schedule of a person with PersonId.
-     *
-     * @param personId of the Person
-     * @return Schedule
      */
     public static Schedule generateTypicalSchedule(PersonId personId) throws EventClashException {
         Schedule schedule = new Schedule(personId);
@@ -25,9 +22,6 @@ public class TypicalSchedule {
 
     /**
      * Generates an empty Schedule of a person with PersonId.
-     *
-     * @param personId of the Person
-     * @return Schedule
      */
     public static Schedule generateEmptySchedule(PersonId personId) {
         Schedule schedule = new Schedule(personId);

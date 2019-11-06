@@ -21,6 +21,10 @@ public class HelpCommand extends Command {
 
     @Override
     public boolean equals(Command command) {
-        return false;
+        if (command instanceof HelpCommand) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package seedu.address.ui.util;
+package seedu.address.ui.home;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
+import seedu.address.ui.util.Calendar;
 
 /**
  * A class to show our projet logo when the application starts up.

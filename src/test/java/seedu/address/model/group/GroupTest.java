@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP2;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
-import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME2;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME2;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,10 +24,10 @@ class GroupTest {
 
     @Test
     void getGroupName() {
-        assertTrue(GROUPNAME1.equals(group1.getGroupName()));
+        assertTrue(GROUP_NAME1.equals(group1.getGroupName()));
 
         assertFalse(group1.getGroupName().equals(null));
-        assertFalse(group1.getGroupName().equals(GROUPNAME2));
+        assertFalse(group1.getGroupName().equals(GROUP_NAME2));
     }
 
     @Test
@@ -52,4 +52,5 @@ class GroupTest {
         assertFalse(group1.isSameGroup(null));
         assertFalse(group1.isSameGroup(group2));
     }
+
 }

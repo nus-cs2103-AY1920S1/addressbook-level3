@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -38,7 +36,6 @@ public class AddEventCommand extends Command {
             + "\n" + "Date format: ddMMyyyy     Time format: HHmm";
     public static final String MESSAGE_UNABLE_TO_FIND_PERSON = "Unable to find person";
     public static final String MESSAGE_CLASH_IN_EVENTS = "Clash in events";
-    public static final String MESSAGE_DUPLICATE_EVENT = "Event already exists";
 
     public final Event event;
     public final Name name;
@@ -53,28 +50,22 @@ public class AddEventCommand extends Command {
         if (event == null) {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_WRONG_TIMINGS));
         } else {
+
             try {
 
                 if (name == null) {
                     model.addEvent(event);
                     model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-
                 } else {
                     model.addEvent(name, event);
                     model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
                 }
-
-                // updates side panel
-                model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
-
                 return new CommandResult(String.format(MESSAGE_SUCCESS, event.getEventName().trim()));
 
             } catch (PersonNotFoundException e) {
                 return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_UNABLE_TO_FIND_PERSON));
             } catch (EventClashException e) {
                 return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_CLASH_IN_EVENTS));
-            } catch (DuplicateEventException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_EVENT));
             }
         }
     }

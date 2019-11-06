@@ -36,9 +36,13 @@ public class TypicalMappings {
     /**
      * Generates a typical MappingList.
      *
-     * @return PersonToGroupMappingList
+     *   0 1 2
+     * 0 X X X
+     * 1 X X
+     * 2 X   X
+     *
      */
-    public static PersonToGroupMappingList generateTypicalMappingList() throws DuplicateMappingException {
+    public static PersonToGroupMappingList generateTypicalMappingList() {
         PersonToGroupMappingList mappingList = new PersonToGroupMappingList();
         try {
             mappingList.addPersonToGroupMapping(MAP00);
@@ -47,7 +51,7 @@ public class TypicalMappings {
             mappingList.addPersonToGroupMapping(MAP10);
             mappingList.addPersonToGroupMapping(MAP11);
             mappingList.addPersonToGroupMapping(MAP22);
-        } catch (AlreadyInGroupException e) {
+        } catch (AlreadyInGroupException | DuplicateMappingException e) {
             e.printStackTrace();
         }
 

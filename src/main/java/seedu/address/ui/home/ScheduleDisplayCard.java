@@ -1,4 +1,4 @@
-package seedu.address.ui.util;
+package seedu.address.ui.home;
 
 import java.time.LocalTime;
 

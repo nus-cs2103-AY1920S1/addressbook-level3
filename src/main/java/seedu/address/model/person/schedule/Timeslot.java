@@ -32,8 +32,6 @@ public class Timeslot {
             return false;
         } else if (!venue.equals(timeslot.getVenue())) {
             return false;
-        } else if (timeslot == null) {
-            return false;
         } else {
             return true;
         }

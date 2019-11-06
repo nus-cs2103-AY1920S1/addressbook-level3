@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -17,7 +16,6 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.personutil.TypicalPersonDescriptor;
 
 class EditUserCommandSuggesterTest extends SuggesterImplTester {
@@ -25,12 +23,7 @@ class EditUserCommandSuggesterTest extends SuggesterImplTester {
 
     static {
         Person person;
-        try {
-            person = TypicalPersonDescriptor.generateTypicalPersonList().getUser();
-        } catch (DuplicatePersonException e) {
-            person = null;
-            Assertions.fail(e);
-        }
+        person = TypicalPersonDescriptor.generateTypicalPersonList().getUser();
 
         KNOWN_PERSON = person;
     }

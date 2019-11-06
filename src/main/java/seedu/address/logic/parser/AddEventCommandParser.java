@@ -19,6 +19,7 @@ import seedu.address.model.person.schedule.Timeslot;
 public class AddEventCommandParser implements Parser<AddEventCommand> {
     @Override
     public AddEventCommand parse(String args) throws ParseException {
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EVENTNAME, PREFIX_TIMING);
 
@@ -33,23 +34,15 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
             name = ParserUtil.parseName((argMultimap.getValue(PREFIX_NAME).get()));
         }
 
-        String eventName = ParserUtil.parserEventName(argMultimap.getValue(PREFIX_EVENTNAME).get());
+        String eventName = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_EVENTNAME).get());
 
         List<String> timings = argMultimap.getAllValues(PREFIX_TIMING);
 
         int i;
         Event event = new Event(eventName);
-        try {
-            for (i = 0; i < timings.size(); i++) {
-                Timeslot timeslot = ParserUtil.parseTimeslot(timings.get(i));
-                if (timeslot != null) {
-                    event.addTimeslot(timeslot);
-                } else {
-                    return new AddEventCommand(name, null);
-                }
-            }
-        } catch (Exception e) {
-            return new AddEventCommand(name, null);
+        for (i = 0; i < timings.size(); i++) {
+            Timeslot timeslot = ParserUtil.parseTimeslot(timings.get(i));
+            event.addTimeslot(timeslot);
         }
         return new AddEventCommand(name, event);
     }

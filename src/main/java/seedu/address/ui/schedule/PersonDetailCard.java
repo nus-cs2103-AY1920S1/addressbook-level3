@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.schedule;
 
 import java.util.Comparator;
 
@@ -10,6 +10,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.ui.PersonCard;
+import seedu.address.ui.UiPart;
 
 /**
  * A class for viewing the full details of a person.

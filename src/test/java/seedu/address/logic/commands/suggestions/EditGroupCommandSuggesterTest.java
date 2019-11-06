@@ -27,7 +27,7 @@ class EditGroupCommandSuggesterTest extends EditCommandSuggesterTest {
     @Test
     void getSuggestion_prefixRemarkNonExistentGroup_noSuggestion() {
         final ArgumentList argumentList = argumentListOf(
-                new CommandArgument(CliSyntax.PREFIX_EDIT, 0, TypicalGroups.GROUPNAME0.toString()),
+                new CommandArgument(CliSyntax.PREFIX_EDIT, 0, TypicalGroups.GROUP_NAME0.toString()),
                 new CommandArgument(CliSyntax.PREFIX_REMARK, 1, EMPTY_STRING)
         );
 
@@ -37,18 +37,18 @@ class EditGroupCommandSuggesterTest extends EditCommandSuggesterTest {
     @Test
     void getSuggestion_prefixDescriptionExactGroup_currentDescription() {
         final ArgumentList argumentList = argumentListOf(
-                new CommandArgument(CliSyntax.PREFIX_EDIT, 0, TypicalGroups.GROUPNAME1.toString()),
+                new CommandArgument(CliSyntax.PREFIX_EDIT, 0, TypicalGroups.GROUP_NAME1.toString()),
                 new CommandArgument(CliSyntax.PREFIX_DESCRIPTION, 1, EMPTY_STRING)
         );
 
-        final List<String> expectedSuggestions = List.of(TypicalGroups.GROUPDESCRIPTION1.toString());
+        final List<String> expectedSuggestions = List.of(TypicalGroups.GROUP_DESCRIPTION1.toString());
         assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);
     }
 
     @Test
     void getSuggestion_prefixDescriptionNonExistentGroup_noSuggestion() {
         final ArgumentList argumentList = argumentListOf(
-                new CommandArgument(CliSyntax.PREFIX_EDIT, 0, TypicalGroups.GROUPNAME0.toString()),
+                new CommandArgument(CliSyntax.PREFIX_EDIT, 0, TypicalGroups.GROUP_NAME0.toString()),
                 new CommandArgument(CliSyntax.PREFIX_REMARK, 1, EMPTY_STRING)
         );
 

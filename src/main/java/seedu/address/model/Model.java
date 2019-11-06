@@ -40,7 +40,6 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.User;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.EventNotFoundException;
@@ -141,12 +140,12 @@ public interface Model {
     /**
      * Adds an Event to the schedule of a Person with the given Name.
      */
-    void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException, DuplicateEventException;
+    void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException;
 
     /**
      * Adds an Event to the schedule of the User.
      */
-    void addEvent(Event event) throws PersonNotFoundException, EventClashException, DuplicateEventException;
+    void addEvent(Event event) throws PersonNotFoundException, EventClashException;
 
     /**
      * Deletes an Event in the schedule of a Person.

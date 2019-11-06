@@ -76,4 +76,10 @@ class PersonDescriptorTest {
         assertEquals(alice.getTags(), ALICE.getTags());
         assertNotEquals(alice.getTags(), BENSON.getTags());
     }
+
+    @Test
+    void testEquals() {
+        assertFalse(alice.equals(personDescriptorEmpty));
+        assertTrue(alice.equals(alice));
+    }
 }

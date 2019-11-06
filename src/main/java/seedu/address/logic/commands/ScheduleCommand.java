@@ -47,7 +47,7 @@ public class ScheduleCommand extends Command {
         // update side panel
         model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
-        ArrayList<PersonSchedule> schedules = model.getScheduleWindowDisplay().getPersonSchedules().get(0);
+        ArrayList<PersonSchedule> schedules = model.getScheduleWindowDisplay().getPersonSchedules();
         String output = "";
         for (PersonSchedule s : schedules) {
             output += s.toString() + "\n";

@@ -165,7 +165,7 @@ abstract class SuggesterImplTester {
         Assumptions.assumeTrue(autoTestPrefixes.contains(CliSyntax.PREFIX_GROUPNAME));
 
         final int inconsequentialValue = 0;
-        final String presentGroupName = TypicalGroups.GROUPNAME1.toString();
+        final String presentGroupName = TypicalGroups.GROUP_NAME1.toString();
         final String searchKeyword = presentGroupName.substring(0, presentGroupName.length() - 1);
         assert !searchKeyword.equals(presentGroupName);
 
@@ -180,7 +180,7 @@ abstract class SuggesterImplTester {
         Assumptions.assumeTrue(autoTestPrefixes.contains(CliSyntax.PREFIX_GROUPNAME));
 
         final int inconsequentialValue = 0;
-        final String absentGroupName = TypicalGroups.GROUPNAME0.toString();
+        final String absentGroupName = TypicalGroups.GROUP_NAME0.toString();
         final String searchKeyword = absentGroupName.substring(0, absentGroupName.length() - 1);
         assert !searchKeyword.equals(absentGroupName);
 

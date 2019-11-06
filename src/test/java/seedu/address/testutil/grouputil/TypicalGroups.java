@@ -12,37 +12,47 @@ import seedu.address.model.mapping.Role;
  */
 public class TypicalGroups {
 
-    public static final GroupName GROUPNAME1 = new GroupName("group1");
-    public static final GroupName GROUPNAME2 = new GroupName("group2");
-    public static final GroupName GROUPNAME3 = new GroupName("group3");
+    public static final GroupName GROUP_NAME1 = new GroupName("group1");
+    public static final GroupName GROUP_NAME2 = new GroupName("group2");
+    public static final GroupName GROUP_NAME3 = new GroupName("group3");
 
-    public static final GroupDescription GROUPDESCRIPTION1 = new GroupDescription("description1");
-    public static final GroupDescription GROUPDESCRIPTION2 = new GroupDescription("description2");
-    public static final GroupDescription GROUPDESCRIPTION3 = new GroupDescription("description3");
+    public static final GroupDescription GROUP_DESCRIPTION1 = new GroupDescription("description1");
+    public static final GroupDescription GROUP_DESCRIPTION2 = new GroupDescription("description2");
+    public static final GroupDescription GROUP_DESCRIPTION3 = new GroupDescription("description3");
 
+    public static final Role GROUP_ROLE1 = new Role("Role1");
+    public static final Role GROUP_ROLE2 = new Role("Role2");
+    public static final Role GROUP_ROLE3 = new Role("Role3");
 
     public static final GroupDescriptor GROUP1 =
-            new GroupDescriptor(GROUPNAME1, GROUPDESCRIPTION1, Role.emptyRole());
+            new GroupDescriptor(GROUP_NAME1, GROUP_DESCRIPTION1, GROUP_ROLE1);
     public static final GroupDescriptor GROUP2 =
-            new GroupDescriptor(GROUPNAME2, GROUPDESCRIPTION2, Role.emptyRole());
+            new GroupDescriptor(GROUP_NAME2, GROUP_DESCRIPTION2, GROUP_ROLE2);
     public static final GroupDescriptor GROUP3 =
-            new GroupDescriptor(GROUPNAME3, GROUPDESCRIPTION3, Role.emptyRole());
+            new GroupDescriptor(GROUP_NAME3, GROUP_DESCRIPTION3, GROUP_ROLE3);
 
-    public static final GroupName GROUPNAME0 = new GroupName("group0");
-    public static final GroupDescription GROUPDESCRIPTION0 = new GroupDescription("description0");
+    public static final GroupName GROUP_NAME0 = new GroupName("group0");
+    public static final GroupDescription GROUP_DESCRIPTION0 = new GroupDescription("description0");
+    public static final Role GROUP_ROLE0 = new Role("Role0");
     public static final GroupDescriptor GROUP0 =
-            new GroupDescriptor(GROUPNAME0, GROUPDESCRIPTION0, Role.emptyRole());
+            new GroupDescriptor(GROUP_NAME0, GROUP_DESCRIPTION0, GROUP_ROLE0);
 
     /**
      * Generates a typical GroupList.
      *
+     * Group list will consist of 3 groups. Group 0 will not be included in the list.
+     *
      * @return GroupList
      */
-    public static GroupList generateTypicalGroupList() throws DuplicateGroupException {
+    public static GroupList generateTypicalGroupList() {
         GroupList groupList = new GroupList();
-        groupList.addGroup(GROUP1);
-        groupList.addGroup(GROUP2);
-        groupList.addGroup(GROUP3);
+        try {
+            groupList.addGroup(GROUP1);
+            groupList.addGroup(GROUP2);
+            groupList.addGroup(GROUP3);
+        } catch (DuplicateGroupException e) {
+            e.printStackTrace();
+        }
         return groupList;
     }
 }
