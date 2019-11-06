@@ -21,4 +21,4 @@ src/test/data/sandbox/
 .DS_Store
 
 # Ignore all pdf files
-.pdf
+*.pdf
