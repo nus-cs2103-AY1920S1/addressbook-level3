@@ -21,7 +21,7 @@ public class SaqInputCommandParser implements QuizParser<SaqInputCommand> {
      */
     public SaqInputCommand parse(String args, Answerable currentAnswerable) throws ParseException {
 
-        if (Character.isLetter(args.charAt(0)) || Character.isDigit(args.charAt(0))) {
+        if (!args.isBlank() && (Character.isLetter(args.charAt(0)) || Character.isDigit(args.charAt(0)))) {
             return new SaqInputCommand(args, currentAnswerable);
         } else {
             throw new ParseException(
