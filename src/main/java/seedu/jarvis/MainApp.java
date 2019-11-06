@@ -150,8 +150,15 @@ public class MainApp extends Application {
      */
     private Planner readPlanner(Storage storage) {
         try {
-            return storage.readPlanner().orElseGet(Planner::new);
+            Optional<Planner> optionalPlanner = storage.readPlanner();
+            if (optionalPlanner.isPresent()) {
+                return optionalPlanner.get();
+            } else {
+                logger.info("Data file not found. Will be starting with a sample Planner");
+                return SampleDataUtil.getSamplePlanner();
+            }
         } catch (DataConversionException | IOException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Planner");
             return new Planner();
         }
     }
