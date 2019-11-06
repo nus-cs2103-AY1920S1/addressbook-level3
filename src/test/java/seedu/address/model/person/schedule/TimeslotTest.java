@@ -10,7 +10,6 @@ import static seedu.address.testutil.scheduleutil.TypicalTimeslots.START_TIME2;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIME_SLOT1;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.TIME_SLOT2;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE1;
-import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE2;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE3;
 
 import org.junit.jupiter.api.Test;
