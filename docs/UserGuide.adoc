@@ -252,10 +252,9 @@ Event Format Format: `edit_ev INDEX [n/EVENT_NAME] [at/VENUE] [m/MANPOWER_NEEDED
 ****
 * Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
 * Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
-* An events's identity is uniquely identified by its `EVENT_NAME`, `START_DATE`, and `END_DATE`. You cannot edit an event to become one that is identical to another existing event inside the Event List.
-* If there is manpower currently allocated to the event, the updated `MANPOWER_NEEDED` cannot be lesser than the current number of employees allocated.
-* An attempt to modify the `START_DATE` and/or `END_DATE` requires the deallocation of all manpower first before edit.
-* If the `START_DATE` and/or `END_DATE` is modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
+* An events's identity is uniquely identified by its name, start date, and end date. You cannot edit an event which is identical to another event already inside the Event List.
+* This command will flush the current manpower allocated list and replace it with a new allocation list.
+* The parameters provided will affect the functionality of the `edit_ev` Command. If the START_DATE and/or END_DATE is modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
 ****
 
 [TIP]
@@ -705,13 +704,17 @@ Examples:
 * Note that specified start date must be before the specified end date, else an error will be displayed.
 ****
 
-=== Miscellaneous
-
-==== Generate Statistics: `stats_g [coming in v2.0]`
+//tag::Statistics[]
+=== Statistics
+==== Generate Statistics: `stats_generate`
 
 Displays a set of statistics, Number of events, Number of employee etc
 
-Format: `stats_g`
+Format: `stats_generate`
+
+//end::Statistics[]
+
+=== Miscellaneous
 
 ==== Clearing all entries : `clear`
 
