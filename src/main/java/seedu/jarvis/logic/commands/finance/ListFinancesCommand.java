@@ -18,7 +18,8 @@ public class ListFinancesCommand extends Command {
 
     public static final String COMMAND_WORD = "list-finances";
 
-    public static final String MESSAGE_SUCCESS = "Listed all finances";
+    public static final String MESSAGE_SUCCESS = "Welcome back to Jarvis' Finance Tracker! Here you can see what you "
+            + "have spent on so far.";
 
     public static final String MESSAGE_NO_INVERSE = "The command " + COMMAND_WORD + " cannot be undone";
 

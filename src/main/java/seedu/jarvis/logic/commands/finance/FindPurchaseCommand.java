@@ -18,10 +18,11 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
  */
 public class FindPurchaseCommand extends Command {
 
-    public static final String COMMAND_WORD = "find-purchases";
+    public static final String COMMAND_WORD = "find-paid";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all purchases whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Jarvis will list all purchases whose description "
+            + "contains any of the specified keywords (case-insensitive) and displays them as a list with index "
+            + "numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " lunch";
 

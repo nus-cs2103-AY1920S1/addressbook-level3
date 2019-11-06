@@ -143,7 +143,7 @@ public class AddTaskCommand extends Command {
 
         model.addTask(toAdd);
         model.updateSchedule();
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        model.updateUnfilteredTaskList();
         model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
@@ -167,7 +167,7 @@ public class AddTaskCommand extends Command {
 
         model.deleteTask(toAdd);
         model.updateSchedule();
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        model.updateUnfilteredTaskList();
         model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd), true);

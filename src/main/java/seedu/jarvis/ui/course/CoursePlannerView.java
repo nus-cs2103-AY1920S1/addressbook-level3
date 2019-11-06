@@ -11,8 +11,8 @@ import seedu.jarvis.ui.template.View;
 /**
  * Contains the Course Planner in Jarvis.
  */
-public class CoursePlannerWindow extends View<AnchorPane> {
-    private static final String FXML = "CoursePlannerWindow.fxml";
+public class CoursePlannerView extends View<AnchorPane> {
+    private static final String FXML = "CoursePlannerView.fxml";
 
     private CourseListPanel courseListPanel;
     private CourseTextDisplay courseTextDisplay;
@@ -20,7 +20,7 @@ public class CoursePlannerWindow extends View<AnchorPane> {
     @FXML
     private SplitPane courseSplitPane;
 
-    public CoursePlannerWindow(MainWindow mainWindow, Logic logic, Model model) {
+    public CoursePlannerView(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
     }
 

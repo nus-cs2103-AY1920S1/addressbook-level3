@@ -135,6 +135,7 @@ public class DoneTaskCommand extends Command {
 
         doneTask.markAsNotDone();
         model.updateSchedule();
+        model.updateUnfilteredTaskList();
         model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_UNDONE, doneTask), true);

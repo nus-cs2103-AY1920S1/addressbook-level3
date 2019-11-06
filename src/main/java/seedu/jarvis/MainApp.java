@@ -162,8 +162,15 @@ public class MainApp extends Application {
      */
     private FinanceTracker readFinanceTracker(Storage storage) {
         try {
-            return storage.readFinanceTracker().orElseGet(FinanceTracker::new);
+            Optional<FinanceTracker> optionalFinanceTracker = storage.readFinanceTracker();
+            if (optionalFinanceTracker.isPresent()) {
+                return optionalFinanceTracker.get();
+            } else {
+                logger.info("Data file not found. Will be starting with a sample Finance Tracker");
+                return SampleDataUtil.getSampleFinanceTracker();
+            }
         } catch (DataConversionException | IOException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Finance Tracker");
             return new FinanceTracker();
         }
     }

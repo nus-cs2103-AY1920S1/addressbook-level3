@@ -1,0 +1,21 @@
+@startuml
+skinparam classAttributeIconSize 0
+abstract class Command
+
+Command <|-- UndoCommand
+Command <|-- RedoCommand
+
+abstract class Command {
+{abstract}+execute(Model)
+{abstract}+executeInverse(Model)
+}
+
+class UndoCommand {
+-int numberOfTries
+}
+
+class RedoCommand {
+-int numberOfTries
+}
+
+@enduml
