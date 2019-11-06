@@ -223,8 +223,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        //Get property.addListener
-
         //Create a ListChangeListener for activeReminders
         ListChangeListener<Item> activeRemindersListener = new ListChangeListener<Item>() {
             @Override
