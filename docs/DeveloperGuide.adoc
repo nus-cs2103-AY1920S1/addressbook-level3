@@ -619,14 +619,12 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 ** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
 //end::vehiclesearch[]
 
-<<<<<<< HEAD
+// end::vehiclesearch[]
+
 //tag::vehicleedit[]
 
 //end::vehicleedit[]
-=======
-// end::vehiclesearch[]
 
->>>>>>> c01528f299eeb64dae917b69ab7ef9dffab22ffc
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
