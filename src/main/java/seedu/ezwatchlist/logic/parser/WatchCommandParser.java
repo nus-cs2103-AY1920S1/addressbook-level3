@@ -19,7 +19,7 @@ public class WatchCommandParser implements Parser<WatchCommand> {
      * and returns a WatchCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public WatchCommand parse(String args) throws ParseException {
+    public WatchCommand parse(String args, String currentPanel) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NUM_OF_EPISODES, PREFIX_NUM_OF_SEASONS);

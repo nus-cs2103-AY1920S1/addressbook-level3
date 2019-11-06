@@ -25,6 +25,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_NUM_OF_EPISODES = "Number of episodes is an unsigned integer.";
     public static final String MESSAGE_INVALID_NUM_OF_SEASONS = "Number of seasons is a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX2 = "Index cannot be equal or less than 0, or larger than Java Max Value";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -125,12 +126,13 @@ public class ParserUtil {
         requireNonNull(runningTime);
         String trimmedRunningTime = runningTime.trim();
         try {
-            Integer.parseInt(trimmedRunningTime);
+            if (!RunningTime.isValidRunningTime(Integer.parseInt(trimmedRunningTime))) {
+                throw new ParseException(RunningTime.MESSAGE_CONSTRAINTS2);
+            }
         } catch (NumberFormatException e) {
-            throw new ParseException(RunningTime.MESSAGE_CONSTRAINTS);
-        }
-        if (!RunningTime.isValidRunningTime(Integer.parseInt(trimmedRunningTime))) {
-            throw new ParseException(RunningTime.MESSAGE_CONSTRAINTS);
+            throw new ParseException(RunningTime.MESSAGE_CONSTRAINTS2);
+        } catch (ParseException e) {
+            throw e;
         }
         return new RunningTime(Integer.parseInt(trimmedRunningTime));
     }
@@ -208,5 +210,21 @@ public class ParserUtil {
         }
 
         return intNumberOfSeasonsWatched;
+    }
+
+    public static int parseAddIndex(String args) throws ParseException {
+        requireNonNull(args);
+        String trimmedargs = args.trim();
+        int index;
+
+        try {
+            index = Integer.parseInt(trimmedargs);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        if (index <= 0 || index > Integer.MAX_VALUE) {
+            throw new ParseException(MESSAGE_INVALID_INDEX2);
+        }
+        return index;
     }
 }

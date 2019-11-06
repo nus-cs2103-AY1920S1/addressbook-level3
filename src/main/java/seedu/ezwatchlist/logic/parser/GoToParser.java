@@ -7,7 +7,7 @@ import seedu.ezwatchlist.logic.commands.GoToCommand;
  */
 public class GoToParser implements Parser<GoToCommand> {
     @Override
-    public GoToCommand parse(String args) {
+    public GoToCommand parse(String args, String currentPanel) {
         return new GoToCommand(args);
     }
 }

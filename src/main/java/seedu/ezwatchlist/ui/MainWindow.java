@@ -286,7 +286,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see Logic#execute(String)
+     * @see Logic#execute(String, String)
      */
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException, NoRecommendationsException {
@@ -294,7 +294,7 @@ public class MainWindow extends UiPart<Stage> {
             if (currentTab.equals(WATCHED_TAB)) { // to ensure that the command executed is based off watched list index
                 logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
             }
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, currentTab);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             //somehow use this code to display list of search results???

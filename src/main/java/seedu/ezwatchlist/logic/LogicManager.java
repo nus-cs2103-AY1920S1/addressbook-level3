@@ -36,12 +36,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText)
+    public CommandResult execute(String commandText, String currentTab)
             throws CommandException, ParseException, OnlineConnectionException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = watchListParser.parseCommand(commandText);
+        Command command = watchListParser.parseCommand(commandText, currentTab);
         commandResult = command.execute(model);
 
         try {
