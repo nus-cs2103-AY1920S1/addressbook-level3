@@ -84,12 +84,10 @@ public class ReminderListPanel extends UiPart<Region> {
             LocalDateTime remindTime = reminder.getRemindTime();
             System.out.println(compareTime(now, remindTime));
             System.out.println(now.isBefore(remindTime) && compareTime(now, remindTime) < 5);
-            if (now.isAfter(remindTime) && compareTime(now, remindTime) < 5) {
+            if (now.isBefore(remindTime) && compareTime(now, remindTime) < 5) {
                 System.out.println(true);
                 ReminderWindow window = new ReminderWindow(reminder.getUrl(), reminder.getNote());
                 window.show();
-            } else {
-                break;
             }
         }
     }
