@@ -1,16 +1,16 @@
 .financeHeader_big_label {
     -fx-font-family: "Segoe UI";
-    -fx-font-style: "bold";
+    -fx-font-weight: bold;
     -fx-font-size: 22px;
     -fx-text-fill: #707070;
 }
 
 .financeHeader_small_label {
     -fx-font-family: "Segoe UI Light";
-    -fx-font-weight: "bold";
+    -fx-font-weight: bold;
     -fx-font-size: 18px;
     -fx-text-fill: #08496D;
-    -fx-focus-color= "transparent";
+    -fx-focus-color: "transparent";
 }
 
 .financeLabelBorders {
@@ -26,7 +26,7 @@
 .item_large_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 15px;
-    -fx-font-style: "bold";
+    -fx-font-weight: bold;
     -fx-text-fill: #707070;
     -fx-border-width: 20;
 }
