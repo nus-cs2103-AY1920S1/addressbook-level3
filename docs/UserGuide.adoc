@@ -38,7 +38,7 @@ Enjoy!
 image::ug_quickstart.png[]
 
 .  Have you installed Java `11` ?
-.  Find me, `elisa.jar` link:{repoURL}/releases[here].
+.  Find me, `ELISA.jar` link:{repoURL}/releases[here].
 .  Double-click me to start the app. See you in a few seconds.
 +
 image::MainWindow.png[width="790"]
@@ -71,7 +71,8 @@ This table shows the basic rules for the formatting the input:
 |All flags *MUST* have a _space_ after them | `task shower -d10.min.later` is *incorrect*. It should be `task shower -d 10.min.later` | `task shower -d 10.min.later`
 |Flags in square brackets are optional | If given `task DESCRIPTION [-t TAG]` tag is optional | `task shower` `task shower -t clean`
 |Flags can be in any order, given that they are accepted by the command | If given `task DESCRIPTION [-d DATETIME] [-r REMINDER]` -r can come before -d | `task shower -d 1.hour.later -r 30.min.later` `task shower -r 30.min.later -d 1.hour.later`
-|Flags must not be repeated in the same input | `task shower -p high -p low` is *incorrect* as -p appears twice | `task shower -p high`
+|Flags must not be repeated in the same input, unless it is a tag flag | `task shower -p high -p low` is *incorrect* as -p appears twice. However, `task bathe -t fresh -t hygiene` is accepted| `task shower -p high`
+|For the parser of mm.min.later, hh.hour.later, dd.day.later, the maximum allowed is 100 | `101.min.later` is not accepted, however `100.min.later` or `99.day.later` are both accepted. | `task study -d 99.day.later`
 |===
 
 
@@ -93,7 +94,7 @@ For *more experienced* users: +
 |-r | REMINDER |yyyy-MM-ddTHHmm or dd/MM/yyyy HHmm or mm.min.later or HH.hour.later or dd.day.later |2019-09-25T19:34 or 25/09/2019 1934 or 10.min.later| -r 25/09/2019 1934
 |-p | PRIORITY |high, medium, low| HIGH, medium, LOW | -p high
 |-t | TAG |alphanumeric only | happy123 | -t happy123
-|-desc | DESCRIPTION | alphanumeric only | drink 5 litres of water | -desc
+|-desc | DESCRIPTION | alphanumeric and all symbols *except* "-" | drink 5 litres of water | -desc drink water!
 |-auto| PERIOD | day or month or week or mm.min.later or HH.hour.later or dd.day.later | day or week or month or 10.min.later | -auto 10.min.later
 |--tk | _none_ | _none_ | _none_ | --tk
 |--e | _none_ | _none_ | _none_ | --e
@@ -150,9 +151,12 @@ Format: `reminder DESCRIPTION -r REMINDER [-t TAG]`
 
 Examples:
 
-* `reminder John’s Birthday -r 19/09/2019 14:00`
+* `reminder John’s Birthday -r 19/09/2019 1400`
 * `reminder John’s Birthday -r 2019-09-19T14:00 -t friend`
 * `reminder John's Birthday -r 3.day.later`
+
+[NOTE]
+It is not possible to set a reminder in the past.
 
 === Snoozing a reminder: `snooze`
 
@@ -167,19 +171,45 @@ Examples:
 * `snooze -s 10/10/2020`
 
 [NOTE]
-It is not possible to snooze if no reminder has occurred yet.
+1. It is possible to snooze the same reminder multiple times if you wish. +
+2. It is not possible to snooze if no reminder has occurred yet. +
+However, if you use the snooze command incorrectly, ELISA will first attempt to correct your usage of the snooze command.
 
 === Show the specified category : `show`
 
 Shows the specified category by switching the view to the given list. +
-Format: `show [t] [e] [c] [r] (Exactly one flag must be used with this command)''
+Format: `show [t] [e] [c] [r] (Exactly *one* flag must be used with this command)''
 
 Examples:
 
 * `show t`
+* `show T` (Note: Case _insensitive_: Upper case is allowed)
 * `show e`
+* `show E`
 * `show r`
 * `show c`
+
+
+[NOTE]
+The flag can be in either lowercase or uppercase. Eg. `show E`.
+
+=== Scrolling the list : `up` / `down`
+
+Scrolls the list up/down
+
+Examples:
+
+* `up`
+* `down`
+
+=== Changing the theme : `theme`
+
+Changes the theme of Elisa!
+
+Examples:
+
+* `theme white`
+* `theme black`
 
 === Editing an item : `edit`
 
@@ -188,7 +218,7 @@ This command is used to edit any of the items that you might have. +
 ====== *Limitations* +
 
 * You are only able to edit the item currently shown in your view. For example, when you're on the task list, you can only edit the tasks shown. You will not be able to edit events or reminders.
-* The new item with the edited fields must not already exist.
+* The new item with the edited fields must not already exist. Don't worry if you can't remember that, ELISA will remind you!
 
 Format: `edit INDEX [-desc DESCRIPTION] [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]...`
 
@@ -262,7 +292,6 @@ Is ELISA getting too cluttered and disorganized? Do you want to sort your task b
 ELISA comes in-built with a sort feature that allows you to sort your items within the different panel. And the best part of it? YOU can decide how you want to sort it.
 
 The simple sort command on the different panel sorts the list differently (just another sign of how smart ELISA is) and they are as follows:
-
 * task panel - tasks are sorted from those that are incomplete to those that are completed. Within the two groups, they are sorted based on their priority, from high to medium and to low.
 * event panel - events are sorted based on their start date and time.
 * reminder - reminders are sorted based on their firing off date and time.
@@ -295,9 +324,9 @@ By simply typing `priority` into the command box, you will be given one single t
 
 Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
 
-Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hh:mm` and ELISA will turn it off at that specific time for you.
+Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
-Format: `priority` or `priority dd/mm/yyyy hh:mm`
+Format: `priority` or `priority dd/mm/yyyy hhmm`
 
 Examples:
 
@@ -316,7 +345,8 @@ Want to see all the details of an item at one glance? Lazy to go to event list o
 You can now open up an item to see all its details, regardless of what list you are on.
 But remember to close it before opening another item!
 
-Format: `open INDEX`
+Open format: `open INDEX` +
+Close format: `close`
 
 Example sequence:
 

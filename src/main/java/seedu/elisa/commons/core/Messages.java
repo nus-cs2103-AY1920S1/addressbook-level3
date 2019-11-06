@@ -7,8 +7,9 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "I have no clue what you just said";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_ITEM_DISPLAYED_INDEX = "The item index provided is invalid";
+    public static final String MESSAGE_INCORRECT_SYMBOL_USAGE = "I spy with my little eye a \"-\". "
+            + "That shouldn't be there!";
     public static final String MESSAGE_ITEM_LISTED_OVERVIEW = "Here you go, %1$d items listed!";
     public static final String MESSAGE_NOTHING_TO_UNDO = "Nothing to undo, buddy."
             + " Maybe try actually doing something first";

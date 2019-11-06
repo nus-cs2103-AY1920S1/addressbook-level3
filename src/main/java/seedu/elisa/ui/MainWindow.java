@@ -130,6 +130,24 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
+        // Listen to changes in focus of stage
+        try {
+            primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> o, Boolean old, Boolean n) {
+                    if (!primaryStage.focusedProperty().get() && popup != null) {
+                        popup.hide();
+                    } else if (popup != null) {
+                        popup.show(primaryStage);
+                    } else {
+                        // do nothing to the popup
+                    }
+                }
+            });
+        } catch (Throwable t) {
+            logger.warning("Error with adding listener to primary stage for popup");
+        }
+
         //Listen to changes in tab selection
         viewsPlaceholder.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>() {
@@ -209,8 +227,6 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        //Get property.addListener
 
         //Create a ListChangeListener for activeReminders
         ListChangeListener<Item> activeRemindersListener = new ListChangeListener<Item>() {
