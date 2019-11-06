@@ -14,34 +14,19 @@
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to suggest and auto-complete commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** What it does: allows the user to type command faster and more easily by showing possible command arguments and allow the user to use TAB key to auto-complete the command.
+** Justification: This feature improves the product significantly because a user can be tired of typing the full command over and over again, or unsure of what arguments to supply.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it requires live update of input and different methods to process different commands in order to generate suggestions.
+** Credits: `LevenshteinDistance` in `org.apache.commons.text` is used in calculating the similarity between strings.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+** Refactored `commands` and `parser` packages by grouping files into sub-packages according to the type of commands. [https://github.com/AY1920S1-CS2103-T16-3/main/pull/114[#114]]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=cutieprobe&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=cutieprobe&tabRepo=AY1920S1-CS2103-T16-3%2Fmain%5Bmaster%5D[RepoSense Data]]
 
 * *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+** Update AboutUs, ContactUs and README [https://github.com/AY1920S1-CS2103-T16-3/main/pull/32[#32]]
+** Reported bugs and suggestions for other teams [https://github.com/cutieprobe/ped/issues[PED]]
 
 == Contributions to the User Guide
 
@@ -50,7 +35,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=command-suggestion]
 
 == Contributions to the Developer Guide
 
@@ -58,13 +43,5 @@ include::../UserGuide.adoc[tag=delete]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=command-suggestion]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

@@ -572,7 +572,7 @@ has been edited.
 
 // end::export/import[]
 
-// tag::command suggestions[]
+// tag::command-suggestion[]
 === Command Suggestion Feature
 Users can be forgetful about the command format and sometimes unsure of what arguments to supply.
 Auto-suggestion of command arguments while the user keys in inputs can be very helpful to provide user hints.
@@ -635,7 +635,7 @@ image::CommandPromptActivityDiagram.png[]
 * **Alternative 2:** Store arguments of a resource (e.g. `Meme`) as a field of the resource.
 ** Pros: Easier to implement and cleaner.
 ** Cons: Irrelevant information needs to be stored as a field (e.g. original file path of a resource).
-// end::command suggestions[]
+// end::command-suggestion[]
 
 // tag::tabs[]
 === Tabs feature

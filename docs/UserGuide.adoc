@@ -461,6 +461,7 @@ Format: `clear`
 
 View various statistics about the memes such as tags and likes count by tags, and most used templates.
 
+// tag::command-suggestion[]
 === Command Suggestions
 
 * Suggestions for command word/argument based on current user input will be displayed in the result box.
@@ -489,6 +490,7 @@ cute +
 CS2103` +
 If kbd:[Tab] is pressed, "c" in the command box will be replaced by "CS".
 
+// end::command-suggestion[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
