@@ -11,6 +11,12 @@ import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
+import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.util.Callback;
 
 /**
  * Represents an account in the account manager.
@@ -23,8 +29,9 @@ public class Account {
     private Name name;
     private Description description;
     private final TransactionList transactionList;
-    private boolean isActive = false;
+    private BooleanProperty isActiveBooleanProperty = new SimpleBooleanProperty(false);
     private long balance;
+    private LongProperty balanceLongProperty = new SimpleLongProperty(0);
 
     /**
      * Every field must be present and not null.
@@ -42,6 +49,7 @@ public class Account {
         this.description = description;
         this.transactionList = transactionList;
         this.balance = balance;
+        this.balanceLongProperty.set(balance);
     }
 
     public Name getName() {
@@ -85,6 +93,7 @@ public class Account {
             checkBalanceValidity(balance - toAdd.getAmount().toLong());
             balance = balance - toAdd.getAmount().toLong();
         }
+        balanceLongProperty.set(balance);
     }
 
     /**
@@ -111,7 +120,7 @@ public class Account {
                 balance = balance - editedTxn.getAmount().toLong();
             }
         }
-
+        balanceLongProperty.set(balance);
         this.transactionList.setTransaction(txnIndex, editedTxn);
     }
 
@@ -128,18 +137,28 @@ public class Account {
             checkBalanceValidity(balance - toDelete.getAmount().toLong());
             balance = balance - toDelete.getAmount().toLong();
         }
+        balanceLongProperty.set(balance);
+    }
+
+    public static Callback<Account, Observable[]> extractor() {
+        return new Callback<Account, Observable[]>() {
+            @Override
+            public Observable[] call(Account param) {
+                return new Observable[]{param.isActiveBooleanProperty, param.balanceLongProperty };
+            }
+        };
     }
 
     public boolean isActive() {
-        return isActive;
+        return isActiveBooleanProperty.getValue();
     }
 
     public void setActive() {
-        this.isActive = true;
+        this.isActiveBooleanProperty.set(true);
     }
 
     public void setInactive() {
-        this.isActive = false;
+        this.isActiveBooleanProperty.set(false);
     }
 
     public long getBalance() {
