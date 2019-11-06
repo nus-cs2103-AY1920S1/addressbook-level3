@@ -156,11 +156,14 @@ public enum Responses {
                     } catch (DuplicateInChoicesException dicExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
                         return true;
+                    } catch (DeckNotFoundException dnfExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnfExc.getMessage());
+                        return true;
                     }
                 }
     ),
     ADD_CARD_ERROR(
-            "^((?i)(add).*",
+            "^((?i)(add).*)",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
@@ -212,7 +215,7 @@ public enum Responses {
                 }
     ),
     EDIT_CARD_ERROR(
-            "^((?i)(edit).*",
+            "^((?i)(edit).*)",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
