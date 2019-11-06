@@ -188,7 +188,11 @@ Prevent unauthorised access to your grades.
 
 === Quiz
 
-To enter the Quiz section please enter the command: `switch quiz`
+To enter the Quiz section please enter the command: `switch quiz` +
+
+*Note on UI:* You can adjust the size of the split pane by sliding the window separator
+between the two windows to fully see the whole question. Go to `3.4.6` section to fully see the
+question properly
 
 ==== Add the details of the quiz question:
 Users can add new quiz questions with the details in it. The details of the question should
@@ -205,7 +209,7 @@ The keyword instructions of the question include: +
 - *`<qns>` are required. The word limit is 200 and minimum 3 letters.* +
 - *`<ans>` are required. The word limit is 125.* +
 - *`<cat>` are required. The word limit is 50.* +
-- *`<type>` are optional. The format after this command should only be: `high`, `normal`, `low`.* +
+- *`<type>` are required. The format after this command should only be: `high`, `normal`, `low`.* +
 - *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
 Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
@@ -301,7 +305,8 @@ Explanation: search from the answer portion of each question that matches keywor
 {empty} +
 
 ==== Details of a selected question:
-Show the details of a selected question.
+Show the details of a selected question. This details will show the whole questions that is truncated from the preview window
+and reveal the comment/explanation from the selected question.
 
 Format: `detail [INDEX]` +
 Usage: *[INDEX]* is the index/row from the question that you want to see. +

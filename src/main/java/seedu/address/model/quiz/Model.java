@@ -35,22 +35,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' address quiz book file path.
      */
     Path getAddressBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' address quiz book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyQuizBook addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the AddressQuizBook */
+    ReadOnlyQuizBook getAddressBook();
 
     /**
      * Returns true if a question with the same identity as {@code question} exists in the address book.
@@ -116,7 +116,7 @@ public interface Model {
      */
     void setShowQuestion(Question question);
 
-    /** Returns an unmodifiable view of the filtered question list */
+    /** Returns an unmodifiable view of the versioned quiz book question list */
     ObservableList<Question> getFilteredShowQuestionList();
 
     /** Returns an unmodifiable view of the filtered question list */

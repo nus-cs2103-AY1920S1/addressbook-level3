@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.quiz.ReadOnlyAddressBook;
+import seedu.address.model.quiz.ReadOnlyQuizBook;
 import seedu.address.model.quiz.ReadOnlyUserPrefs;
 import seedu.address.model.quiz.UserPrefs;
 
@@ -19,13 +19,13 @@ import seedu.address.model.quiz.UserPrefs;
 public class StorageQuizManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageQuizManager.class);
-    private AddressBookStorage addressBookStorage;
+    private QuizBookStorage quizBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageQuizManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageQuizManager(QuizBookStorage quizBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.quizBookStorage = quizBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -51,29 +51,29 @@ public class StorageQuizManager implements Storage {
 
     @Override
     public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+        return quizBookStorage.getAddressBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyQuizBook> readAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(quizBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyQuizBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return quizBookStorage.readAddressBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveAddressBook(ReadOnlyQuizBook addressBook) throws IOException {
+        saveAddressBook(addressBook, quizBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyQuizBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        quizBookStorage.saveAddressBook(addressBook, filePath);
     }
 
 }

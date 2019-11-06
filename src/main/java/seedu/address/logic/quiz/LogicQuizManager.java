@@ -10,10 +10,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.quiz.commands.Command;
 import seedu.address.logic.quiz.commands.CommandResult;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
-import seedu.address.logic.quiz.parser.AddressBookParser;
+import seedu.address.logic.quiz.parser.QuizBookParser;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
 import seedu.address.model.quiz.Model;
-import seedu.address.model.quiz.ReadOnlyAddressBook;
+import seedu.address.model.quiz.ReadOnlyQuizBook;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.storage.quiz.Storage;
 
@@ -26,12 +26,12 @@ public class LogicQuizManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final QuizBookParser quizBookParser;
 
     public LogicQuizManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        quizBookParser = new QuizBookParser();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class LogicQuizManager implements Logic {
 
         CommandResult commandResult;
         // Parse user input from String to a Command
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = quizBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
@@ -56,7 +56,7 @@ public class LogicQuizManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyQuizBook getAddressBook() {
         return model.getAddressBook();
     }
 

@@ -6,7 +6,7 @@ import seedu.address.model.quiz.person.Question;
 /**
  * Unmodifiable view of modulo
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyQuizBook {
 
     /**
      * Returns an unmodifiable view of the questions list.
