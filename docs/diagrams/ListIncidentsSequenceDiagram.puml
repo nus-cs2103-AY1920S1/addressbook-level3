@@ -11,14 +11,14 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant "filteredIncidents:FilteredList<Incident>" as FilteredList MODEL_COLOR
 end box
-[-> LogicManager : execute(incidents)
+[-> LogicManager : execute("find-i")
 activate LogicManager
 
-LogicManager -> IncidentManagerParser : parseCommand(incidents)
+LogicManager -> IncidentManagerParser : parseCommand("find-i")
 activate IncidentManagerParser
 
 create ListIncidentsCommand
-IncidentManagerParser -> ListIncidentsCommand
+IncidentManagerParser -> ListIncidentsCommand : (PREDICATE_SHOW_ALL_INCIDENTS)
 activate ListIncidentsCommand
 
 ListIncidentsCommand --> IncidentManagerParser
@@ -30,7 +30,10 @@ deactivate IncidentManagerParser
 LogicManager -> ListIncidentsCommand : execute()
 activate ListIncidentsCommand
 
-ListIncidentsCommand -> Model : updatedFilteredIncidentList(PREDICATE_SHOW_ALL_INCIDENTS)
+ListIncidentsCommand -> ListIncidentsCommand : handleAllIncidents()
+activate ListIncidentsCommand
+
+ListIncidentsCommand -> Model : updateFilteredIncidentList(PREDICATE_SHOW_ALL_INCIDENTS)
 activate Model
 
 Model -> FilteredList : setPredicate(PREDICATE_SHOW_ALL_INCIDENTS)
@@ -41,9 +44,12 @@ deactivate FilteredList
 Model --> ListIncidentsCommand
 deactivate Model
 
-ListIncidentsCommand --> LogicManager : commandResult
+ListIncidentsCommand -> ListIncidentsCommand : MESSAGE_ALL_INCIDENTS_LISTED
 deactivate ListIncidentsCommand
-ListIncidentsCommand -[hidden]-> LogicManager : commandResult
+
+ListIncidentsCommand --> LogicManager : resultMessage
+deactivate ListIncidentsCommand
+ListIncidentsCommand -[hidden]-> LogicManager : resultMessage
 destroy ListIncidentsCommand
 
 [<--LogicManager

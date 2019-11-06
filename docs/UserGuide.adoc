@@ -362,7 +362,7 @@ image::submitCommandWithParamsAfterScreenshot.png[]
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::submit[]
 
-
+// tag::listi[]
 === Listing all incidents: `list-i`
 Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
@@ -374,7 +374,9 @@ image::listIncidentsCommand.png[]
 
 * The listing returns all incidents, inclusive of all incomplete drafts and complete drafts and submitted incident reports
 * Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
+// end::listi[]
 
+// tag::findi[]
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
 Possible Parameters: `id/`, `op/`, `desc/`, `self`
@@ -447,6 +449,7 @@ Returns any incidents whereby the operator's name contains 'Dave' and the descri
 Returns any incidents whereby the operator's name contains either 'Alex' or 'Bernice'
 * Self-Search: `find-i self` +
 Returns any incidents whereby the operator's name matches the logged-in operator's name
+// end::findi[]
 
 // tag::edit-i[]
 === Editing an Incident: `edit-i`

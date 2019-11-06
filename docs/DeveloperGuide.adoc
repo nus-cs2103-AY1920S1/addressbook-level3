@@ -347,7 +347,7 @@ There are two ways to use the New Command:
 1. Auto dispatchment
 2. Manual dispatchment, which requires user to provide a valid index that selects a vehicle
 
-=== Automatic vehicle dispatchment:
+=== Automatic Vehicle Dispatchment:
 
 Vehicle will be automatically assigned to the incident draft if any is available in the district. If no vehicle is available, an exception will be thrown.
 
@@ -355,7 +355,7 @@ Below is a sequence diagram of a successful case:
 
 image::NewDraftSequenceDiagramAuto.png[]
 
-=== Manual vehicle dispatchment:
+=== Manual Vehicle Dispatchment:
 
 User needs to key in the index of vehicle based on the list of available vehicle in given district to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
 
@@ -480,23 +480,39 @@ In this activity diagram, the catch-all term 'report' is used to encompass the a
 === Incident Search feature
 ==== Implementation
 
-The incident search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
+The incident search mechanism features a set of different types of searches that a user could utilise to list out all related incidents, inclusive of incomplete drafts, complete drafts and completed reports. Further documentation on the commands available in this set can be found in the User Guide. The types of searches are as listed:
 
-* Unfiltered - Displays all incidents in `Model`
-* ID - Displays all incidents with exact matches in `IncidentId incidentId` in `Incident incident`
-* Description - Displays all incidents with keyword(s) contained within the `Description description` in `Incident incident`
-* Operator - Displays all incidents with keyword(s) contained within the name of the `Person operator` in `Incident incident`
+* Unfiltered - Displays all incidents in `Model` +
+eg. `list-i`
+
+* ID - Displays all incidents with exact matches in `IncidentId incidentId` in `Incident incident`, within `Model` +
+eg. `find-i id/0620150001`
+
+* Description - Displays all incidents with keyword(s) contained within the `Description description` in `Incident incident`, within `Model`+
+eg. `find-i desc/traffic`
+
+* Operator - Displays all incidents with keyword(s) contained within the name of the `Person operator` in `Incident incident`, within `Model` +
+eg. `find-i op/bill`
+
+* Operator - Displays all incidents with  the name of the `Person operator` in `Incident incident` matching the logged-in user's name exactly, within `Model` +
+eg. `find-i self`
+
+****
+* Each parameter in `find-i` search commands can be combined in any order and quantity, returning only results that abide by all filtering by each parameter used
+* Search by keywords is case-insensitive
+* Each parameter in `find-i` accepts multiple keywords, and searches for matches containing any of these keywords
+****
 
 The incident search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Incidents> filteredIncidents`, which internally stores the list of displayed incidents in the GUI. Additionally, it implements the following key method:
 * `updateFilteredIncidentsList(Predicate<Incident> predicate)` - Updates the stored filtered incidents list with the new predicate
 
-There are two possible commands within this set of searches. Firstly, we will consider when the user calls the command `incidents` in the application.
+There are two possible commands within this set of searches. Firstly, we will consider when the user calls the command `list-i` in the application.
 
-The following sequence diagram shows how the `incidents` command works:
+The following sequence diagram shows how the `list-i` command works:
 
 image::ListIncidentsSequenceDiagram.png[]
 
-As indicated in the diagram, the `LogicManager` instantiates a `ListIncidentsCommand` upon running command `execute(incidents)`. It then calls `ListIncidentsCommand#execute()`, which runs `Model#updateFilteredIncidentList` with the predicate `PREDICATE_SHOW_ALL_INCIDENTS`. This `Predicate<Incident>` always evaluates to true. This `Predicate<Incident>` is passed to `FilteredList<Incident> filteredList`, as a parameter to run the method `setPredicate()`. This updates the list of visible incidents. `CommandResult commandResult` is also returned to the `LogicManager` to log the success/failure of the method.
+As indicated in the diagram, the `LogicManager` instantiates a `ListIncidentsCommand` upon running command `execute(list-i)`. It then calls `ListIncidentsCommand#execute()`, which runs `Model#updateFilteredIncidentList` with the predicate `PREDICATE_SHOW_ALL_INCIDENTS`. This `Predicate<Incident>` always evaluates to true. This `Predicate<Incident>` is passed to `FilteredList<Incident> filteredList`, as a parameter to run the method `setPredicate()`. This updates the list of visible incidents. `CommandResult commandResult` is also returned to the `LogicManager` to log the success/failure of the method.
 
 Next, we will look at an example in which the user calls `search` to look for incidents written by an operator whose name contains `Alex`.
 
