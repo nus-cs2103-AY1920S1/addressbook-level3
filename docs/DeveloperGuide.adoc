@@ -244,7 +244,7 @@ image::CommitActivityDiagram.png[]
 ==== Implementation
 
 The schedule optimisation feature utilises `TimeTable` and allows the user to resolve any overlapping activities. Resulting in a schedule with the
-lowest overall cost and the most number of activities such as the User's time is maximised. The following command is supported:
+lowest overall cost and the most number of activities such that the user's time is maximised. The following command is supported:
 
 * optimise INDEX_OF_DAY -- optimises and de-conflicts the schedule. This operation supports activities with or without
 a cost. Activities without a cost has a default cost of $0.00.
