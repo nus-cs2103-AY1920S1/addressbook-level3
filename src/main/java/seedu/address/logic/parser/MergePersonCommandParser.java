@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -46,11 +45,10 @@ public class MergePersonCommandParser implements Parser<MergePersonCommand> {
                 ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_GENDER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_DATE_OF_BIRTH, PREFIX_GENDER) || arePrefixesPresent(argMultimap, PREFIX_POLICY, PREFIX_TAG)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+        assert(arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_DATE_OF_BIRTH, PREFIX_GENDER) && !arePrefixesPresent(argMultimap, PREFIX_POLICY, PREFIX_TAG)
+                && argMultimap.getPreamble().isEmpty());
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());

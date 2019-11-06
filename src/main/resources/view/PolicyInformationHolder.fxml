@@ -10,11 +10,11 @@
       <Insets bottom="5" left="15" right="5" top="5" />
    </padding>
    <children>
-      <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+      <Label fx:id="name" style="-fx-wrap-text: true;" styleClass="cell_big_label" text="\$first" />
       <FlowPane fx:id="tags" />
       <FlowPane fx:id="criteria" />
-      <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-      <Label fx:id="coverage" styleClass="cell_small_label" text="\$coverage" />
-      <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
+      <Label fx:id="description" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$description" />
+      <Label fx:id="coverage" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$coverage" />
+      <Label fx:id="price" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$price" />
    </children>
 </VBox>

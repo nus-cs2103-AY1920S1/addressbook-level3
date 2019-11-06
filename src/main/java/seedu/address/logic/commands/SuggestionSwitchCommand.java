@@ -8,7 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandWordException;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Turns suggestions on and off in the addressbook.
  */
 public class SuggestionSwitchCommand extends Command {
     public static final String COMMAND_WORD = "suggestion";

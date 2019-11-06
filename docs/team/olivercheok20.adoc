@@ -1,4 +1,4 @@
-= Chow Yi Yin - Project Portfolio
+= Oliver Cheok - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

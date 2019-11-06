@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class EndAge {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ages should only contain numbers, and cannot be blank.";
+            "Ages should only contain numbers, cannot be blank and cannot exceed 120.";
     public static final String DATA_TYPE = "END AGE";
 
     /*
@@ -18,7 +18,7 @@ public class EndAge {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{N}]+";
-    public static final String AGE_INFINITY = "300";
+    public static final String AGE_INFINITY = "120";
 
     public final String age;
     /**
@@ -44,7 +44,7 @@ public class EndAge {
      * Returns true if a given string is a valid coverage declaration.
      */
     public static boolean isValidAge(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) < Integer.parseInt(AGE_INFINITY);
     }
 
     @Override

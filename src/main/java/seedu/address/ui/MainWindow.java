@@ -1,11 +1,15 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -28,6 +32,7 @@ import seedu.address.model.visual.DisplayIndicator;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String LOGO_URL = "/images/InsurelyticsLogo.png";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -42,7 +47,8 @@ public class MainWindow extends UiPart<Stage> {
     private DisplayPanel displayPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ReportPanel reportPanel;
+
+    private String rightPanelCommandText;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -128,6 +134,8 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        setLogo();
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -227,44 +235,52 @@ public class MainWindow extends UiPart<Stage> {
                 listPanelPlaceholder.getChildren().add(binItemListPanel.getRoot());
             }
 
-            if (commandResult.isReport()) {
-                reportPanel = new ReportPanel();
-                listPanelPlaceholder.getChildren().clear();
-                listPanelPlaceholder.getChildren().add(reportPanel.getRoot());
-            }
-
             if (commandResult.isDisplay()) {
                 DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
                 DisplayFormat displayFormat = commandResult.getDisplayFormat();
                 DisplayController displayController = null;
 
                 displayPlaceHolder.getChildren().clear();
+                assert displayPlaceHolder.getChildren().isEmpty();
                 switch (displayFormat.value) {
                 case DisplayFormat.PIECHART:
+                    logger.info("Displaying piechart...");
                     displayController = new PieChartController(logic, displayIndicator);
                     break;
                 case DisplayFormat.BARCHART:
+                    logger.info("Displaying barchart...");
                     displayController = new BarChartController(logic, displayIndicator);
                     break;
                 case DisplayFormat.LINECHART:
+                    logger.info("Displaying linechart...");
                     displayController = new LineChartController(logic, displayIndicator);
                     break;
                 default:
                     throw new ParseException(DisplayFormat.getMessageConstraints());
                 }
+
+                requireNonNull(displayController);
                 displayPlaceHolder.getChildren().add(displayController.getRoot());
             }
 
             if (commandResult.isExpandPerson()) {
                 displayPanel = new DisplayPanel(commandResult.getPersonToExpand());
-                displayPlaceHolder.getChildren().removeAll();
+                displayPlaceHolder.getChildren().clear();
+                assert displayPlaceHolder.getChildren().isEmpty();
                 displayPlaceHolder.getChildren().add(displayPanel.getRoot());
             }
 
             if (commandResult.isExpandPolicy()) {
                 displayPanel = new DisplayPanel(commandResult.getPolicyToExpand());
-                displayPlaceHolder.getChildren().removeAll();
+                displayPlaceHolder.getChildren().clear();
+                assert displayPlaceHolder.getChildren().isEmpty();
                 displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+            }
+
+            if (usesRightPane(commandResult)) {
+                rightPanelCommandText = commandText;
+            } else if (rightPanelCommandText != null) {
+                executeCommand(rightPanelCommandText, isSystemInput);
             }
 
             return commandResult;
@@ -273,5 +289,26 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Returns true if command result uses display place holder.
+     *
+     * @return boolean
+     */
+    private boolean usesRightPane(CommandResult commandResult) {
+        return commandResult.isDisplay()
+            || commandResult.isExpandPerson()
+            || commandResult.isExpandPolicy()
+            || commandResult.isListHistory();
+    }
+
+    private void setLogo() {
+        Image image = new Image(LOGO_URL);
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setFitWidth(400);
+        imageView.setFitHeight(400);
+        displayPlaceHolder.getChildren().add(imageView);
     }
 }

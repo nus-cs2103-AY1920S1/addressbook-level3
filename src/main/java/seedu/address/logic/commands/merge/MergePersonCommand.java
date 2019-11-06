@@ -3,13 +3,16 @@ package seedu.address.logic.commands.merge;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
@@ -25,6 +28,8 @@ public class MergePersonCommand extends MergeCommand {
     public static final String MERGE_ORIGINAL_HEADER = "Original: ";
     public static final String MERGE_INPUT_HEADER = "Input: ";
     public static final String MERGE_INSTRUCTIONS = "\nPlease press enter or 'yes' to proceed or 'no' to skip.";
+
+    private static final Logger logger = LogsCenter.getLogger(MergePersonCommand.class);
 
     private final Person inputPerson;
     private Person originalPerson;
@@ -42,8 +47,11 @@ public class MergePersonCommand extends MergeCommand {
     @Override
     public CommandResult execute(Model model) throws DuplicatePersonWithMergeException {
         requireNonNull(model);
+        logger.info("Initialising merge process...");
         this.originalPerson = model.getPerson(inputPerson);
         getDifferences();
+        assert(differentFields.size() != 0);
+        logger.info(differentFields.size() + " differences found.");
         return new CommandResult(getNextMergePrompt());
     }
 
@@ -88,6 +96,11 @@ public class MergePersonCommand extends MergeCommand {
         if (hasDifferentDateOfBirth) {
             differentFields.add(new String[]{
                 DateOfBirth.DATA_TYPE, originalPerson.getDateOfBirth().value, inputPerson.getDateOfBirth().value});
+        }
+        boolean hasDifferentGender = !originalPerson.getGender().equals(inputPerson.getGender());
+        if (hasDifferentGender) {
+            differentFields.add(new String[]{
+                Gender.DATA_TYPE, originalPerson.getGender().gender, inputPerson.getGender().gender});
         }
         return null;
     }

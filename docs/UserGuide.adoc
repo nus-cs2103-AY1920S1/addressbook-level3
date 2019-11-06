@@ -69,6 +69,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::addperson[]
 === Adding a person: `add`
 
 Adds a person to the list of people +
@@ -86,6 +87,12 @@ Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH g
 Examples:
 
 * `add n/John Doe ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.1912 g/Male`
+
+Expected Output:
+```
+New person added: John Doe NRIC: S0000001J Phone: 98765432 Email: johnd@example.com Address: 311, Clementi Ave 2, #02-25 Date of birth: 12 December 1912 Gender: Male
+```
+// end::addperson[]
 
 === Adding a policy: `addpolicy`
 
@@ -491,6 +498,7 @@ Deletes a `high_risk` tag from the 1st policy in the results of the `find` comma
 Clears all entries from the address book. +
 Format: `clear`
 
+// tag::inputvalidation[]
 === Incorrect NRIC Alert
 
 Returns an error message to inform the user of an invalid NRIC. The contact number and/or email address is returned
@@ -577,24 +585,6 @@ Expected Output:
 Suggestions have been switched on.
 ```
 
-=== Incorrect Insurance Policy Assignment Alert
-
-Returns an error if a person is ineligible for the insurance policy and provides suggestions for policies that this person is eligible for.
-
-****
-* The new information will be accepted and updated except for the updated policy.
-****
-
-Examples:
-
-`edit n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 pol/SeniorCare`
-
-Expected Output:
-```
-John Doe is ineligible for this policy. These are other possible policies that John Doe is eligible for:
-...
-```
-
 === Duplicate profile alert
 
 Returns an error message of an existing person and will attempt to merge the profiles.
@@ -602,28 +592,35 @@ For each different attribute, there will be a prompt to suggest a change from th
 
 Examples:
 
-`add n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 g/Male`
+`add n/John Doe ic/S9999999J p/ e/ a/ age/30 g/Male`
 
 Expected Output:
 ```
-This profile already exists:
-n/John Doe ic/S9999999J p/98765432 e/johndoe@example.com a/John street, block 123, #01-01 age/30`
-Do you wish to update John Doe’s profile?
+This person already exists in the address book
+John Doe
+NRIC: S9999999J; Phone: 98765432; Email: johndoe@example.com; Address: John street, block 123, #01-01; Date of Birth: 12 December 1992; Gender: Male
+Policies: [Health Insurance][Fire Insurance]
+Tags: [diabetic][high blood pressure]
+Your input:
+John Doe
+NRIC: S0000001J; Phone: 91234567; Email: johndoe@example.com; Address: John street, block 123, #01-01; Date of Birth: 12 December 1992; Gender: Male
+Do you wish to edit this person's profile?
+Please press enter or 'yes' to proceed or 'no' to skip.
 ```
 
-User may input `yes` or `no`. Further prompts will be provided if user inputs  `yes`
+User may input `yes` or press enter to proceed with the merge and `no` to skip the merge.
+Further prompts will be provided if user inputs  `yes` or presses enter.
 
 ```
-Would you like to update p/98765432 to p/91234567?
+Do you wish to edit this person's PHONE?
+Original: 98765432
+Input: 91234567
+Please press enter or 'yes' to proceed or 'no' to skip.
 ```
 
-If `yes`, the new profile will be created.
-If `no`,
-```
-You may edit John Doe’s profile using the edit command. For more information, type help.
-```
+// end::inputvalidation[]
 
-=== Expanding a profile
+=== Expanding a profile: `expandperson`
 Expands the profile details on the right panel.
 
 Format:
@@ -633,7 +630,7 @@ Examples:
 
 `expandperson 1`
 
-=== Expanding a policy
+=== Expanding a policy: `expandpolicy`
 Expands the policy details on the right panel.
 
 Format:
@@ -643,7 +640,8 @@ Examples:
 
 `expandpolicy 1`
 
-=== Display Indicator `display`
+// tag::display[]
+=== Display Indicator: `display`
 Displays indicator according to specified format.
 
 Format:
@@ -660,6 +658,9 @@ Format:
 - `linechart`
 ****
 
+[NOTE]
+Every format supports every indicator
+
 Examples:
 
 `display i/policy-popularity-breakdown f/piechart` +
@@ -667,8 +668,25 @@ Displays policy popularity breakdown as a piechart.
 
 Expected Output: +
 
-image::PolicyPopBreakdown.png[width="400", align="left"]
+image::PolicyPopBreakdown.png[width="800", align="left"]
 
+`display i/age-group-breakdown f/barchart` +
+Displays age group breakdown as a barchart.
+
+Expected Output: +
+
+image::AgeGroupBreakdown.png[width="800", align="left"]
+
+`display i/gender-breakdown f/linechart` +
+Displays gender breakdown as a linechart.
+
+Expected Output: +
+
+image::GenderBreakdown.png[width="800", align="left"]
+// end::display[]
+
+
+// tag::restore[]
 === Restore Deleted Items: `restore`
 Restores an item (person or policy) in the bin specified by the user.
 
@@ -693,6 +711,7 @@ Expected Output: +
 Restored item: David Georgia NRIC: S0000010T Phone: 94820001 Email: davegeorge@example.com Address: 10th Fly street
 Date of birth: 5 March 1980 Gender: Male Date deleted: 22 Oct 2019 at 09:57 PM Expiry Date: 21 Nov 2019 at 09:57 PM
 ```
+// end::restore[]
 
 === Undo recently entered commands
 User can simply enter the command `undo` to undo the most recent address book change.
@@ -733,6 +752,15 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+=== Policy suggestions for invalid policy assignments `[coming in v2.0]`
+
+A list of policies that a person is eligible for will be shown if the user attempts to assign a policy to someone who is
+ineligible for it.
+
+=== Suggestions while typing `[coming in v2.0]`
+
+Suggestions of correct command words will be listed immediately once an incorrect command word is detected.
 
 == FAQ
 

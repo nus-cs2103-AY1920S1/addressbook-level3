@@ -35,16 +35,31 @@ public class DisplayCommand extends Command {
      */
     public DisplayCommand(DisplayIndicator displayIndicator, DisplayFormat displayFormat) {
         requireNonNull(displayIndicator);
+        requireNonNull(displayFormat);
         this.displayIndicator = displayIndicator;
         this.displayFormat = displayFormat;
     }
 
     @Override
     public CommandResult execute(Model model) {
-        requireNonNull(model);
+        return new CommandResult(getMessageSuccess(this.displayIndicator, this.displayFormat),
+            this.displayIndicator, this.displayFormat);
+    }
+
+    public static String getMessageSuccess(DisplayIndicator displayIndicator, DisplayFormat displayFormat) {
+        requireNonNull(displayIndicator);
+        requireNonNull(displayFormat);
         String messageSuccess =
             "Displayed " + displayIndicator
                 + " with " + displayFormat + " successfully.";
-        return new CommandResult(messageSuccess, this.displayIndicator, this.displayFormat);
+        return messageSuccess;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof DisplayCommand // instanceof handles nulls
+            && displayIndicator.equals(((DisplayCommand) other).displayIndicator)
+            && displayFormat.equals(((DisplayCommand) other).displayFormat));
     }
 }

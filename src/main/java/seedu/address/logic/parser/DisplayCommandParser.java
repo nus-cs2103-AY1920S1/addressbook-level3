@@ -24,9 +24,6 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the DisplayCommand

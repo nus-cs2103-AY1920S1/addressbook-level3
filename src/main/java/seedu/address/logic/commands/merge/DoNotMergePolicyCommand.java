@@ -2,6 +2,9 @@ package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
@@ -15,7 +18,9 @@ public class DoNotMergePolicyCommand extends Command {
 
     public static final String COMMAND_WORD = "npmerge";
 
-    public static final String MESSAGE_SUCCESS = "This profile was not updated : %1$s.";
+    public static final String MESSAGE_SUCCESS = "This policy was not updated : %1$s.";
+
+    private static final Logger logger = LogsCenter.getLogger(DoNotMergePolicyCommand.class);
 
     private final Policy inputPolicy;
     private Policy originalPolicy;
@@ -32,6 +37,7 @@ public class DoNotMergePolicyCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws DuplicatePolicyWithMergeException {
         requireNonNull(model);
+        logger.info("Merge rejected.");
         this.originalPolicy = model.getPolicy(inputPolicy);
         return new CommandResult(String.format(MESSAGE_SUCCESS, originalPolicy));
     }
