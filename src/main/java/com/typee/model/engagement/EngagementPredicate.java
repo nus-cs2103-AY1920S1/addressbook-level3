@@ -79,14 +79,15 @@ public class EngagementPredicate implements Predicate<Engagement> {
     public boolean test(Engagement engagement) {
 
         if (description != null
-                && !Arrays.stream(description.split(" "))
+                && !Arrays.stream(description.split("\\s+"))
                 .allMatch(keyword -> StringUtil.containsWordIgnoreCase(engagement.getDescription(), keyword))) {
             return false;
         }
 
         if (attendees != null
-                && !engagement.getAttendees().getAttendees().stream().map(Person::getName).map(Name::toString)
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(keyword, attendees))) {
+                && !engagement.getAttendees().getAttendees().stream()
+                .map(Person::getName).map(Name::toString).map(String::toLowerCase)
+                .anyMatch(name -> name.contains(attendees.toLowerCase()))) {
             return false;
         }
 
