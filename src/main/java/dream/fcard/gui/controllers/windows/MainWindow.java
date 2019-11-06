@@ -88,6 +88,15 @@ public class MainWindow extends VBox {
         System.exit(0);
     };
 
+    private Consumer<Pane> openWindow = p -> {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(p);
+        stage.setScene(scene);
+        //stage.setTitle("My Statistics");
+        stage.show();
+    };
+
     private CreateDeckDisplay tempCreateDeckDisplay;
 
     /**
@@ -208,6 +217,7 @@ public class MainWindow extends VBox {
         Consumers.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
         Consumers.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
         Consumers.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
+        Consumers.addConsumer(ConsumerSchema.OPEN_WINDOW, openWindow);
     }
 
     /**
@@ -230,12 +240,12 @@ public class MainWindow extends VBox {
      * Opens a new window to show the user's statistics.
      */
     @FXML
-    public void openStatistics() {
+    public static void openStatistics() {
         // when Logger is implemented, log "Opening Statistics window..."
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new StatisticsWindow(new UserStats())); // todo: get UserStats
+        Scene scene = new Scene(new StatisticsWindow());
         stage.setScene(scene);
         stage.setTitle("My Statistics");
         stage.show();

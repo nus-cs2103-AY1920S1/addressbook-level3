@@ -262,7 +262,7 @@ public class StorageManager {
      */
     public static void loadUserStats() {
         resolveRoot();
-        
+
         try {
             ArrayList<Session> arr = new ArrayList<>();
             JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(statsFileFullPath));
