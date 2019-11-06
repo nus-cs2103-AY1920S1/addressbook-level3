@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.question.BodyContainsKeywordsPredicate;
+import seedu.address.model.question.QuestionContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindQuestionCommand}.
@@ -28,10 +28,10 @@ class FindQuestionCommandTest {
 
     @Test
     void equals() {
-        BodyContainsKeywordsPredicate firstPredicate =
-                new BodyContainsKeywordsPredicate(Collections.singletonList("first"));
-        BodyContainsKeywordsPredicate secondPredicate =
-                new BodyContainsKeywordsPredicate(Collections.singletonList("second"));
+        QuestionContainsKeywordsPredicate firstPredicate =
+                new QuestionContainsKeywordsPredicate(Collections.singletonList("first"));
+        QuestionContainsKeywordsPredicate secondPredicate =
+                new QuestionContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindQuestionCommand findFirstCommand = new FindQuestionCommand(firstPredicate);
         FindQuestionCommand findSecondCommand = new FindQuestionCommand(secondPredicate);
@@ -56,7 +56,7 @@ class FindQuestionCommandTest {
     @Test
     void execute_zeroKeywords_noQuestionFound() {
         String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 0);
-        BodyContainsKeywordsPredicate predicate = preparePredicate(" ");
+        QuestionContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindQuestionCommand command = new FindQuestionCommand(predicate);
         expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -66,7 +66,7 @@ class FindQuestionCommandTest {
     @Test
     void execute_multipleKeywords_multipleQuestionsFound() {
         String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 3);
-        BodyContainsKeywordsPredicate predicate = preparePredicate("MVC TCP UDP");
+        QuestionContainsKeywordsPredicate predicate = preparePredicate("MVC TCP UDP");
         FindQuestionCommand command = new FindQuestionCommand(predicate);
         expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ class FindQuestionCommandTest {
     /**
      * Parses {@code userInput} into a {@code BodyContainsKeywordsPredicate}.
      */
-    private BodyContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new BodyContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private QuestionContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new QuestionContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

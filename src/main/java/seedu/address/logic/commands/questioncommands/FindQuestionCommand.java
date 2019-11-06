@@ -6,7 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.question.BodyContainsKeywordsPredicate;
+import seedu.address.model.question.QuestionContainsKeywordsPredicate;
 
 /**
  * Finds and lists all questions in address book whose bodies contains any of the argument keywords.
@@ -20,9 +20,9 @@ public class FindQuestionCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " 1 + 1 =";
 
-    private final BodyContainsKeywordsPredicate predicate;
+    private final QuestionContainsKeywordsPredicate predicate;
 
-    public FindQuestionCommand(BodyContainsKeywordsPredicate predicate) {
+    public FindQuestionCommand(QuestionContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

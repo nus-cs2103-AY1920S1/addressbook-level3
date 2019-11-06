@@ -174,7 +174,7 @@ image::questionCommandsDemo/editqresult.png[width = "600"]
 
 ==== Locating questions by keyword: `findq`
 
-This command will give you a list of questions containing the keyword(s) you specified. +
+This command will give you a list of questions whose body or answer contains the keyword(s) you specified. +
 Format: `findq KEYWORD [MORE KEYWORDS]`
 
 ****

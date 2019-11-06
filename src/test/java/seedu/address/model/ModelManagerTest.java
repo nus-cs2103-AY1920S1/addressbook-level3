@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.TitleContainsKeywordsPredicate;
-import seedu.address.model.question.BodyContainsKeywordsPredicate;
+import seedu.address.model.question.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.AppDataBuilder;
 
 class ModelManagerTest {
@@ -150,7 +150,7 @@ class ModelManagerTest {
 
         // different filteredQuestionList -> returns false
         String[] questionkeywords = ALGEBRA_QUESTION.getQuestionBody().body.split("\\s+");
-        modelManager.updateFilteredQuestionList(new BodyContainsKeywordsPredicate(Arrays.asList(questionkeywords)));
+        modelManager.updateFilteredQuestionList(new QuestionContainsKeywordsPredicate(Arrays.asList(questionkeywords)));
         assertNotEquals(modelManager, new ModelManager(appData, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
