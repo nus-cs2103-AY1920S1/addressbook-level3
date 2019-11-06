@@ -25,6 +25,15 @@ import seedu.address.model.util.Date;
  */
 public class OutCommandParser implements Parser<OutCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the OutCommand
+     * and checks for valid conditions of arguments
+     *
+     * @param args user input after command word 'out'
+     * @return InCommand of an InTransaction if all checks passes
+     * @throws ParseException if amount is negative, 0 or larger than 1 million.
+     * Exception is also thrown if compulsory fields Description, Amount or date is not entered correctly or missing.
+     */
     @Override
     public OutCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
