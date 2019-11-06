@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Interface Storage <<Interface>>
+Interface UserPrefsStorage <<Interface>>
+Interface HistoryManagerStorage <<Interface>>
+Interface CcaTrackerStorage <<Interface>>
+Interface CoursePlannerStorage <<Interface>>
+Interface FinanceTrackerStorage <<Interface>>
+Interface PlannerStorage <<Interface>>
+
+Class StorageManager
+Class JsonUserPrefsStorage
+Class JsonHistoryManagerStorage
+Class JsonCcaTrackerStorage
+Class JsonCoursePlannerStorage
+Class JsonFinanceTrackerStorage
+Class JsonPlannerStorage
+
+StorageManager .up.|> Storage
+
+StorageManager o-left-> UserPrefsStorage
+StorageManager o-right-> HistoryManagerStorage
+StorageManager o-down-> CcaTrackerStorage
+StorageManager o-down-> CoursePlannerStorage
+StorageManager o-down-> FinanceTrackerStorage
+StorageManager o-down-> PlannerStorage
+
+JsonUserPrefsStorage .right.> UserPrefsStorage
+JsonHistoryManagerStorage .left.> HistoryManagerStorage
+JsonCcaTrackerStorage .up.> CcaTrackerStorage
+JsonCoursePlannerStorage .up.> CoursePlannerStorage
+JsonFinanceTrackerStorage .up.> FinanceTrackerStorage
+JsonPlannerStorage .up.> PlannerStorage
+
+@enduml
