@@ -3,10 +3,9 @@ package seedu.address.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import seedu.address.model.transaction.Budget;
 
@@ -32,19 +31,28 @@ public class BudgetCard extends UiPart<Region> {
     private FlowPane categories;
     @FXML
     private FlowPane budgetDetails;
+    @FXML
+    private FlowPane DEFICIT;
 
     public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
         this.budget = budget;
         id.setText(displayedIndex + ". ");
-        //amount.setText(budget.displayBudget());
         displayBudget(budget);
         date.setText(budget.getDeadline().toString());
-        budgetDetails.getChildren().add(new Label(budget.getBetween()));
+        displayRemDays(budget);
         budgetDetails.getChildren().add(new Label(budget.displayPercentage()));
         budget.getCategories().stream()
             .sorted(Comparator.comparing(category -> category.categoryName))
             .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
+    }
+
+    private void displayRemDays(Budget budget) {
+        if (budget.getBetweenRaw() <= 3) {
+            DEFICIT.getChildren().add(new Label(budget.getBetween()));
+        } else {
+            budgetDetails.getChildren().add(new Label(budget.getBetween()));
+        }
     }
 
     private void displayBudget(Budget budget) {

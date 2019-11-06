@@ -86,6 +86,10 @@ public class Budget {
         return Collections.unmodifiableSet(categories);
     }
 
+    public int getBetweenRaw() {
+        return this.between;
+    }
+
     public String getBetween() {
         return String.format("%d more days", this.between);
     }
