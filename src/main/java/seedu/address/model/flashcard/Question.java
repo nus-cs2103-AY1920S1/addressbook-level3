@@ -10,7 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Question {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Question can take any values, and it should not be blank";
+            "Question can take any values, and it should not be blank"
+                + "\nQuestions have a maximum length of 300 characters. "
+                + "\nDuplicated questions are not allowed."
+                + "\nAll leading and trailing spaces are ignored.";
 
     /*
      * The first character of the question must not be a whitespace,
@@ -35,7 +38,7 @@ public class Question {
      * Returns true if a given string is a valid question.
      */
     public static boolean isValidQuestion(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= 300;
     }
 
 
