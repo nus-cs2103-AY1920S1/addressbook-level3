@@ -115,7 +115,7 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 ** 26/2/2019
 * *Relaxed Dates*
 ** The 31st of April in the year 2008
-** Fri, 21 Nov 1997
+** 21 Nov 1997
 ** Jan 21,'97
 ** jan 1st
 ** february twenty-eight
@@ -134,11 +134,11 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 ** 2 fridays before/ 4 tuesdays after
 
 [TIP]
-You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received.
+You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received. However, if today is Wednesday and `wednesday` is entered, it will be considered next's week Wednesday.
 
 [NOTE]
 MoneyGoWhere will also automatically check whether a given date is valid.
-Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019.
+Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019. MoneyGoWhere may automatically try to correct dates *best possible date*.
 // end::flexibledateformats[]
 
 === Adding a spending : `add`
@@ -148,7 +148,7 @@ Adds a spending to the list when the user incurs a new spending. Key information
 *Format:* `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
 [NOTE]
-A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is limited to 64 characters. If a spending date is in the future, it can only be up to 5 years from now.
+A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is limited to 64 characters. If a spending date is in the future, it can only be up to the end of this month.
 
 *Examples:*
 
@@ -175,7 +175,7 @@ Edits a spending at a specified index in the list. +
 * When editing tags, the existing tags of the spending will be removed i.e adding of tags is not cumulative.
 * Tags can have up to 64 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
-* If a spending date is in the future, it can only be up to 5 years from now.
+* If a spending date is in the future, it can only be up to end of this month.
 ****
 
 *Examples:*
@@ -483,7 +483,7 @@ Adds a reminder to the reminder list. Key information such as deadline and messa
 *Format:* `reminder add d/DATE m/MESSAGE`
 
 [NOTE]
-The date of a deadline must be within 5 years from the current date. MoneyGoWhere will check if the given reminder message and deadline are valid. If it encounters invalid information such as an empty message, the application will display an error.
+The date of a deadline must be within 1 year from the current date. MoneyGoWhere will check if the given reminder message and deadline are valid. If it encounters invalid information such as an empty message, the application will display an error.
 
 *Examples:*
 

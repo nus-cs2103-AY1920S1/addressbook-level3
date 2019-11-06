@@ -44,7 +44,7 @@ public class AddReminderCommandParser extends ReminderCommandParser {
         ReminderMessage message = ParserUtil.parseMessage(reminderMessage);
 
         if (date.dateValue.isAfter(LocalDate.now())
-                && date.dateValue.getYear() - LocalDate.now().getYear() > ParserUtil.DATE_TOO_FAR_RANGE) {
+                && date.dateValue.getYear() - LocalDate.now().getYear() > ParserUtil.DATE_FAR_FORWARD_RANGE) {
             throw new ParseException(DEADLINE_INVALID_TOO_FAR);
         }
 
