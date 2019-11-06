@@ -56,13 +56,13 @@ adds a worker named John Doe to the management system.
 * **`delete -w`**`1` : deletes the worker with worker ID W000001
 * *`exit`* : exits the app
 
-
 [[Features]]
 == Features
 
 This section details a comprehensive walkthrough through the features in Mortago.
 In general, commands in Mortago follow a specification that is elaborated on below.
 
+// tag::commandspecs[]
 ====
 *Command Specification*
 
@@ -122,6 +122,7 @@ a| Attributes are properties of a worker, body or fridge that are supplied by yo
 * If you need to supply the identification number to a command, providing the number (e.g. `20` instead of `W00020`) is sufficient.
 
 ====
+// end::commandspecs[]
 
 === Create, Read, Update and Delete Entities
 

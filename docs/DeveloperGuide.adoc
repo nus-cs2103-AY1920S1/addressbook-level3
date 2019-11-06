@@ -608,6 +608,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::ui[]
 === User Interface and Dashboard Enhancement
 
 The dashboard of Mortago plays a key part in presenting a sleek, organised, and concise overview to the entities in the system.
@@ -707,7 +708,7 @@ maximiseButton.setOnMousePressed(click -> {
 Finally, the last functionality to rebuilt is the resizability of the Window. This implementation is adapted from a https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage[post] in StackOverFlow. Briefly,  `ResizableWindow::enableResizableWindow()` allows the Windows to be resizable by implementing a helper class `ResizeListener`. The helper class listens to mouse events and tracks the mouse's movements to pinpoint the coordinates of the mouse. This determines the change in size of the Window, which will then be resized accordingly.
 
 
-
+// end::ui[]
 // tag::statistics[]
 === Statistics feature
 ==== Current Implementation
