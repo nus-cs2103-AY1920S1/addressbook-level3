@@ -345,10 +345,10 @@ public enum Responses {
                 i -> {
                     ArrayList<ArrayList<String>> res =
                             RegexUtil.parseCommandFormat("test", new String[]{"deck/", "duration/"}, i);
-                // Note to Shawn:
-                // res.get(0) returns the ArrayList of Deck Names (should only have one)
-                // res.get(1) returns the ArrayList of duration in seconds (should have zero or one).
-                // Duration is a String.
+                    // Note to Shawn:
+                    // res.get(0) returns the ArrayList of Deck Names (should only have one)
+                    // res.get(1) returns the ArrayList of duration in seconds (should have zero or one).
+                        // Duration is a String.
 
                     return true;
                 }
@@ -372,7 +372,7 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
                     }
                     return true;
-            } //todo
+                } //todo
     ),
     START_TEST_ERROR(
             "^((?i)test).*",
