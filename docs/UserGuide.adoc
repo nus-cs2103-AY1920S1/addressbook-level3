@@ -111,6 +111,7 @@ Displays below expenses (for example) in the GUI: +
  * pay for dinner / amount: $5 +
 {nbsp} +
 
+// tag::tagging[]
 === Tagging expenses: `tag`
 This feature allows you to assign tags to your expenses. Expenses with the same tag will be grouped together, allowing you to search for related expenses easily.
 
@@ -131,16 +132,20 @@ Usage:
  tag add [INDEX] t/[TAG] t/[TAG…]
 
 Example: +
-Lets say that you want to add the tags `holiday` and `hangout` to the expense at index `2`. +
+Lets say that you want to add the tags "_holiday_" and "_hangout_" to the expense at index 2 which is "_USS_". +
 {nbsp} +
 To add the tags: +
 1. Type `tag add 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
 image:tagging/AddTagOne.png[] +
 2. The result box will display the message "Added tag(s) to Expense: +
 Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: [[hangout], [holiday]]" +
+{nbsp} +
 image:tagging/AddTagTwo.png[] +
-3. You could see the tags `holiday` and `hangout` in the expense at index 2. +
+{nbsp} +
+3. You could see the tags "_holiday_" and "_hangout_" in the expense at index 2. +
+{nbsp} +
 image:tagging/AddTagThreeCropped.png[] +
+{nbsp} +
 
 [NOTE]
 You are not able to add *existing* tags. +
@@ -156,15 +161,21 @@ Usage:
  tag rm [INDEX] t/[TAG] t/[TAG…]
 
 Example: +
-Lets say that you want to remove the tags `holiday` and `hangout` from the expense at index `2`. +
+Lets say that you want to remove the tags "_holiday_" and "_hangout_" from the expense at index `2` which is "_USS_". +
 To remove the tags: +
 1. Type `tag rm 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
+{nbsp} +
 image:tagging/rmTagOne.png[] +
+{nbsp} +
 2. The result box will display the message "Removed tag(s) from Expense: +
  Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: []" +
+{nbsp} +
 image:tagging/rmTagTwo.png[] +
-3. You could see that the expense at index 2 no longer has the tags `hangout` and `holiday`.
+{nbsp} +
+3. You could see that the expense at index 2 no longer has the tags "_hangout_" and "_holiday_". +
+{nbsp} +
 image:tagging/rmTagThree.png[] +
+{nbsp} +
 
 [NOTE]
 You are not able to remove *non-existing* tags. +
@@ -180,14 +191,20 @@ Usage:
 
 
 Example: +
-Lets say that you want to filter your expenses by the tag `tech`. +
+Lets say that you want to filter your expenses by the tag "_tech_". +
 To filter your expenses: +
 1. Type `tag filter t/tech` in the command box and press `enter` to execute it. +
+{nbsp} +
 image:tagging/filterTagOne.png[] +
+{nbsp} +
 2. The result box will display the message "3 expense(s) listed!" +
+{nbsp} +
 image:tagging/filterTagTwo.png[] +
-3. Billboard lists all expenses under the tag `tech`. +
+{nbsp} +
+3. Billboard lists all expenses under the tag "_tech_". +
+{nbsp} +
 image:tagging/filterTagThree.png[] +
+{nbsp} +
 
 [NOTE]
 If you input *more than one* tags, Billboard lists out all expenses tagged with *one or more* input tags. +
@@ -207,11 +224,15 @@ Example: +
 Lets say that you want to list out all existing tags. +
 To list them: +
 1. Type `tag list` in the command box and press `enter` to execute it. +
+{nbsp} +
 image:tagging/listtagone.png[] +
+{nbsp} +
 2. The result box displays a list of all existing tags. +
+{nbsp} +
 image:tagging/listtagtwo.png[] +
+{nbsp} +
 
-
+// end::tagging[]
 === Finding expenses by attributes: `find`
 
 . _Find : find_ +

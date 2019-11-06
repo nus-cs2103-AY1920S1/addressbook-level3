@@ -1,0 +1,69 @@
+= Lee Wai Fong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Billboard
+
+---
+
+== Introduction
+This page will document my overall contributions to the Software Engineering Project, _Billboard_.
+
+=== About Billboard
+For our Software Engineering Project, my team of 5 were tasked with enhancing a desktop addressbook application. With students as our target users, we decided to morph it into a personal financial management system called _Billboard_.
+_Billboard_ enables students to track and manage their expenses in an intuitive and convenient way. With features like tagging and archiving, students are able to manage and organise their expenses. Similarly,
+features like viewing statistical graphs of their recent expenditure and advanced search functions, they are able to track their expenses. +
+
+_Billboard_ is a Command Line Interface(CLI) desktop application, meaning that it is catered for students who prefer typing as all interactions between users and the application is through typing.
+For more user friendliness, _Billboard_ has a Graphical User Interface(GUI). +
+
+This is what _Billboard_ looks like: +
+image:tagging/billboardppp.png[] +
+
+My role was to design and implement features related to tagging. The following sections illustrate these enhancements in more detail, as well as the relevant documentation i have added to the user and developer guides in relation to them. +
+
+Note the following symbols and formatting used in this document:
+
+[NOTE]
+This symbol indicates important information +
+
+`tag` - A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+
+"_tech_" - Italicised text with quotation marks indicates the name of an expense or tag.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to _Billboard_. +
+
+* *Major enhancement*: i added features related to tagging. +
+** *What it does*: This enhancement allows users to add and remove tags from an expense. Users can also list out existing tags and filter their expenses by tags.
+** *Justifications*: Tagging allows for easier management of expenses. Expenses with the same tags are grouped together which allows users to search for related expenses quickly.
+** *Highlights*: This enhancement works with existing as well as future commands. An in-depth analysis of design alternatives was necessary since there are many ways to implement this enhancement, each with its own pros and cons in terms of efficiency or space allocation in the application.
+The current design is used to ensure there is a balance between space allocation and efficiency of the application.
+
+* *Code Contributed*: [https://tinyurl.com/y4qp9alm[Functional code]] [https://github.com[Test code]]
+
+* *Other Contributions*:
+** *Enhancements to existing features*:
+*** Updated the GUI color scheme and effects to make it more user-friendly. (PR https://github.com/AY1920S1-CS2103T-F12-4/main/pull/105[#105])
+*** Wrote additional tests for existing features (PR https://github.com/AY1920S1-CS2103T-F12-4/main/pull/39[#39])
+** *Documentation*:
+*** Contributed to user stories, use cases and non functional requirements in the Developer Guide.
+** *Community*:
+*** PRs reviewed and approved: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/6[#6] https://github.com/AY1920S1-CS2103T-F12-4/main/pull/18[#18] https://github.com/AY1920S1-CS2103T-F12-4/main/pull/51[#51] https://github.com/AY1920S1-CS2103T-F12-4/main/pull/72[#72] https://github.com/AY1920S1-CS2103T-F12-4/main/pull/94[#94] https://github.com/AY1920S1-CS2103T-F12-4/main/pull/103[#103] https://github.com/AY1920S1-CS2103T-F12-4/main/pull/104[#104] https://github.com/AY1920S1-CS2103T-F12-4/main/pull/108[#108] https://github.com/AY1920S1-CS2103T-F12-4/main/pull/115[#115]
+
+== Contributions to the User Guide
+We had to update the original addressbook User Guide with instructions for the enhancements that we had added.
+The following is an excerpt from *_Billboard User Guide_*, showing additions that I have made for the tag features. +
+
+include::../UserGuide.adoc[tag=tagging]
+
+== Contributions to Developer Guide
+We had to update the original addressbook Developer Guide with instructions for the enhancements that we had added.
+The following is an excerpt from *_Billboard User Guide_*, showing additions that I have made for the tag features. +
+
+include::../DeveloperGuide.adoc[tag=tagging]
+
+
+
+
