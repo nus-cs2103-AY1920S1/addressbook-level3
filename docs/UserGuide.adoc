@@ -429,6 +429,7 @@ Returns any incidents whereby the operator's name contains either 'Alex' or 'Ber
 * Self-Search: `find-i self` +
 Returns any incidents whereby the operator's name matches the logged-in operator's name
 
+// tag::edit-i[]
 === Editing an Incident: `edit-i`
 
 Edits an existing incident in the Incident Manager as identified by the index in the display.
@@ -464,6 +465,8 @@ Example of input:
 image::editIncident1.png[]
 image::editIncident2.png[]
 
+// end::edit-i[]
+
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
 Format: `add-v [l/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
@@ -488,6 +491,7 @@ Examples:
 image::addVehicle1.png[]
 image::addVehicle2.png[]
 
+//tag::edit-v[]
 === Editing a Vehicle: `edit-v`
 Edits a vehicle identified by the index displayed in the Incident Management System.
 Format: `edit-v [INDEX] [l/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
@@ -515,7 +519,7 @@ Edit Vehicle that results in duplicates:
 
 image::editDuplicateVeh1.png[]
 image::editDuplicateVeh2.png[]
-
+//end::edit-v[]
 // tag::list-v[]
 === Listing vehicles
 Shows a list of all vehicles registered in the incident Manager.
