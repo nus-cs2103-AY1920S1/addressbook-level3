@@ -1,9 +1,9 @@
 package seedu.ifridge.model.food;
 
-import seedu.ifridge.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.ifridge.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.

@@ -79,8 +79,8 @@ public class GroceryItem extends Food {
         } else if (!(o instanceof GroceryItem)) {
             return false;
         } else {
-            return ((GroceryItem) o).isSameName(this) &&
-                    ((GroceryItem) o).getExpiryDate().toString().equals(this.getExpiryDate().toString());
+            return ((GroceryItem) o).isSameName(this)
+                    && ((GroceryItem) o).getExpiryDate().toString().equals(this.getExpiryDate().toString());
         }
     }
 

@@ -13,7 +13,6 @@ import seedu.ifridge.commons.exceptions.IllegalValueException;
 import seedu.ifridge.commons.util.FileUtil;
 import seedu.ifridge.commons.util.JsonUtil;
 import seedu.ifridge.model.ReadOnlyGroceryList;
-import seedu.ifridge.model.ReadOnlyShoppingList;
 
 /**
  * A class to access GroceryList data stored as a json file on the hard disk.

@@ -1,19 +1,7 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
-import org.junit.jupiter.api.Test;
-import seedu.ifridge.commons.core.Messages;
-import seedu.ifridge.commons.core.index.Index;
-import seedu.ifridge.model.Model;
-import seedu.ifridge.model.ModelManager;
-import seedu.ifridge.model.UnitDictionary;
-import seedu.ifridge.model.UserPrefs;
-import seedu.ifridge.model.food.ShoppingItem;
-import seedu.ifridge.testutil.EditShoppingItemDescriptorBuilder;
-import seedu.ifridge.testutil.ShoppingItemBuilder;
-
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.DESC_NUTS;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.DESC_ORANGES;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.VALID_NAME_ORANGES;
@@ -26,8 +14,23 @@ import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
 
+import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.ifridge.commons.core.Messages;
+import seedu.ifridge.commons.core.index.Index;
+import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.UnitDictionary;
+import seedu.ifridge.model.UserPrefs;
+import seedu.ifridge.model.food.ShoppingItem;
+import seedu.ifridge.testutil.EditShoppingItemDescriptorBuilder;
+import seedu.ifridge.testutil.ShoppingItemBuilder;
+
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditShoppingCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
+ * unit tests for EditShoppingCommand.
  */
 public class EditShoppingCommandTest {
 
@@ -38,10 +41,12 @@ public class EditShoppingCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         ShoppingItem editedShoppingItem = new ShoppingItemBuilder().build();
-        EditShoppingCommand.EditShoppingItemDescriptor descriptor = new EditShoppingItemDescriptorBuilder(editedShoppingItem).build();
+        EditShoppingCommand.EditShoppingItemDescriptor descriptor =
+                new EditShoppingItemDescriptorBuilder(editedShoppingItem).build();
         EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
+        String expectedMessage =
+                String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
@@ -60,11 +65,12 @@ public class EditShoppingCommandTest {
         ShoppingItem editedShoppingItem = shoppingItemInList.withName(VALID_NAME_ORANGES)
                 .build();
 
-        EditShoppingCommand.EditShoppingItemDescriptor descriptor = new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES)
-                .build();
+        EditShoppingCommand.EditShoppingItemDescriptor descriptor =
+                new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES).build();
         EditShoppingCommand editShoppingCommand = new EditShoppingCommand(indexLastShoppingItem, descriptor);
 
-        String expectedMessage = String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
+        String expectedMessage =
+                String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
@@ -76,10 +82,12 @@ public class EditShoppingCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_PERSON, new EditShoppingCommand.EditShoppingItemDescriptor());
+        EditShoppingCommand editShoppingCommand =
+                new EditShoppingCommand(INDEX_FIRST_PERSON, new EditShoppingCommand.EditShoppingItemDescriptor());
         ShoppingItem editedShoppingItem = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
+        String expectedMessage =
+                String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
@@ -92,11 +100,13 @@ public class EditShoppingCommandTest {
         showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
 
         ShoppingItem foodInFilteredList = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
-        ShoppingItem editedShoppingItem = new ShoppingItemBuilder(foodInFilteredList).withName(VALID_NAME_ORANGES).build();
+        ShoppingItem editedShoppingItem =
+                new ShoppingItemBuilder(foodInFilteredList).withName(VALID_NAME_ORANGES).build();
         EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_PERSON,
                 new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES).build());
 
-        String expectedMessage = String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
+        String expectedMessage =
+                String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
@@ -109,10 +119,12 @@ public class EditShoppingCommandTest {
     @Test
     public void execute_duplicateShoppingItemUnfilteredList_failure() {
         ShoppingItem firstShoppingItem = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditShoppingCommand.EditShoppingItemDescriptor descriptor = new EditShoppingItemDescriptorBuilder(firstShoppingItem).build();
+        EditShoppingCommand.EditShoppingItemDescriptor descriptor =
+                new EditShoppingItemDescriptorBuilder(firstShoppingItem).build();
         EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_SECOND_PERSON, descriptor);
 
-        ShoppingCommandTestUtil.assertCommandFailure(editShoppingCommand, model, EditShoppingCommand.MESSAGE_DUPLICATE_SHOPPING_ITEM);
+        ShoppingCommandTestUtil.assertCommandFailure(editShoppingCommand, model,
+                EditShoppingCommand.MESSAGE_DUPLICATE_SHOPPING_ITEM);
     }
 
     @Test
@@ -130,10 +142,12 @@ public class EditShoppingCommandTest {
     @Test
     public void execute_invalidShoppingItemIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredShoppingList().size() + 1);
-        EditShoppingCommand.EditShoppingItemDescriptor descriptor = new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES).build();
+        EditShoppingCommand.EditShoppingItemDescriptor descriptor =
+                new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES).build();
         EditShoppingCommand editShoppingCommand = new EditShoppingCommand(outOfBoundIndex, descriptor);
 
-        ShoppingCommandTestUtil.assertCommandFailure(editShoppingCommand, model, Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        ShoppingCommandTestUtil.assertCommandFailure(editShoppingCommand, model,
+                Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
     }
 
     /**
@@ -150,7 +164,8 @@ public class EditShoppingCommandTest {
         EditShoppingCommand editShoppingCommand = new EditShoppingCommand(outOfBoundIndex,
                 new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES).build());
 
-        ShoppingCommandTestUtil.assertCommandFailure(editShoppingCommand, model, Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        ShoppingCommandTestUtil.assertCommandFailure(editShoppingCommand, model,
+                Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
     }
 
     @Test
@@ -158,7 +173,8 @@ public class EditShoppingCommandTest {
         final EditShoppingCommand standardCommand = new EditShoppingCommand(INDEX_FIRST_PERSON, DESC_NUTS);
 
         // same values -> returns true
-        EditShoppingCommand.EditShoppingItemDescriptor copyDescriptor = new EditShoppingCommand.EditShoppingItemDescriptor(DESC_NUTS);
+        EditShoppingCommand.EditShoppingItemDescriptor copyDescriptor =
+                new EditShoppingCommand.EditShoppingItemDescriptor(DESC_NUTS);
         EditShoppingCommand commandWithSameValues = new EditShoppingCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

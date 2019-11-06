@@ -41,8 +41,8 @@ public class EditShoppingCommand extends Command {
 
     public static final String MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS = "Edited shopping item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_SHOPPING_ITEM = "The shopping list already has another item with" +
-            "this name";
+    public static final String MESSAGE_DUPLICATE_SHOPPING_ITEM = "The shopping list already has another item with"
+            + " this name";
 
     private final Index index;
     private final EditShoppingItemDescriptor editShoppingItemDescriptor;
@@ -72,7 +72,8 @@ public class EditShoppingCommand extends Command {
         ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
         ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
 
-        if (readOnlyShoppingList.hasShoppingItem(editedShoppingItem) && editShoppingItemDescriptor.isNameEdited(shoppingItemToEdit)) {
+        if (readOnlyShoppingList.hasShoppingItem(editedShoppingItem)
+                && editShoppingItemDescriptor.isNameEdited(shoppingItemToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
         }
         if (!shoppingItemToEdit.isBought()) {
@@ -95,7 +96,8 @@ public class EditShoppingCommand extends Command {
         } else if (!(o instanceof EditShoppingCommand)) {
             return false;
         } else {
-            return this.index.equals(((EditShoppingCommand) o).index) && this.editShoppingItemDescriptor.equals(((EditShoppingCommand) o).editShoppingItemDescriptor);
+            return this.index.equals(((EditShoppingCommand) o).index)
+                    && this.editShoppingItemDescriptor.equals(((EditShoppingCommand) o).editShoppingItemDescriptor);
         }
     }
 
@@ -134,6 +136,11 @@ public class EditShoppingCommand extends Command {
             //setTags(toCopy.tags);
         }
 
+        /**
+         * Indicates if the name of the shopping item is changed by edit command on shopping list.
+         * @param shoppingItemToEdit
+         * @return true if the name is edited, false otherwise
+         */
         public boolean isNameEdited(ShoppingItem shoppingItemToEdit) {
             if (CollectionUtil.isAnyNonNull(name)) {
                 return !shoppingItemToEdit.isSameName(new Food(name, shoppingItemToEdit.getAmount()));
@@ -171,7 +178,8 @@ public class EditShoppingCommand extends Command {
             } else if (!(o instanceof EditShoppingItemDescriptor)) {
                 return false;
             } else {
-                return this.name.equals(((EditShoppingItemDescriptor) o).name) && this.amount.equals(((EditShoppingItemDescriptor) o).amount);
+                return this.name.equals(((EditShoppingItemDescriptor) o).name)
+                        && this.amount.equals(((EditShoppingItemDescriptor) o).amount);
             }
         }
 

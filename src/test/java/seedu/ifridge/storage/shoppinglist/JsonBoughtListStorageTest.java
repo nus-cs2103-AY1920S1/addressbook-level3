@@ -7,15 +7,16 @@ import static seedu.ifridge.testutil.TypicalBoughtList.CAKE;
 import static seedu.ifridge.testutil.TypicalBoughtList.OLIVE_OIL;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import seedu.ifridge.commons.exceptions.DataConversionException;
-import seedu.ifridge.model.ReadOnlyGroceryList;
 import seedu.ifridge.model.GroceryList;
+import seedu.ifridge.model.ReadOnlyGroceryList;
 
 public class JsonBoughtListStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonBoughtListStorageTest");

@@ -1,10 +1,22 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
 import seedu.ifridge.logic.commands.CommandResult;
@@ -30,14 +42,6 @@ import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.model.waste.WasteReport;
 import seedu.ifridge.testutil.ShoppingItemBuilder;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.function.Predicate;
-
 class AddShoppingCommandTest {
     @Test
     public void constructor_nullShoppingItem_throwsNullPointerException() {
@@ -51,7 +55,8 @@ class AddShoppingCommandTest {
 
         CommandResult commandResult = new AddShoppingCommand(validShoppingItem).execute(modelStub);
 
-        assertEquals(String.format(AddShoppingCommand.MESSAGE_SUCCESS, validShoppingItem), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddShoppingCommand.MESSAGE_SUCCESS, validShoppingItem),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validShoppingItem), modelStub.shoppingItemsAdded);
     }
 
@@ -599,10 +604,10 @@ class AddShoppingCommandTest {
         final ArrayList<TemplateItem> templateItems = new ArrayList<>();
         final ArrayList<GroceryItem> boughtItems = new ArrayList<>();
         final ArrayList<ArrayList<ShoppingItem>> versionedShoppingList = new ArrayList<>();
-        int versionedShoppingListCounter = 0;
         final ArrayList<ArrayList<GroceryItem>> versionedBoughtList = new ArrayList<>();
-        int versionedBoughtListCounter = 0;
         final UnitDictionary unitDictionary = new UnitDictionary(new HashMap<String, String>());
+        private int versionedShoppingListCounter = 0;
+        private int versionedBoughtListCounter = 0;
 
         @Override
         public boolean hasShoppingItem(ShoppingItem shoppingItem) {
@@ -647,7 +652,7 @@ class AddShoppingCommandTest {
 
         @Override
         public void sortShoppingItems() {
-           shoppingItemsAdded.sort(new ShoppingComparator(this));
+            shoppingItemsAdded.sort(new ShoppingComparator(this));
         }
 
         @Override

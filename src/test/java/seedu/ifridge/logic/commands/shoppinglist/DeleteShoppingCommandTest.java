@@ -1,17 +1,7 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
-import org.junit.jupiter.api.Test;
-import seedu.ifridge.commons.core.Messages;
-import seedu.ifridge.commons.core.index.Index;
-import seedu.ifridge.model.Model;
-import seedu.ifridge.model.ModelManager;
-import seedu.ifridge.model.UnitDictionary;
-import seedu.ifridge.model.UserPrefs;
-import seedu.ifridge.model.food.ShoppingItem;
-
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
@@ -22,6 +12,18 @@ import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
+
+import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.ifridge.commons.core.Messages;
+import seedu.ifridge.commons.core.index.Index;
+import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.UnitDictionary;
+import seedu.ifridge.model.UserPrefs;
+import seedu.ifridge.model.food.ShoppingItem;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -38,7 +40,8 @@ public class DeleteShoppingCommandTest {
         ShoppingItem shoppingItemToDelete = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteShoppingCommand.MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS, shoppingItemToDelete);
+        String expectedMessage = String.format(DeleteShoppingCommand.MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS,
+                shoppingItemToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
@@ -63,7 +66,8 @@ public class DeleteShoppingCommandTest {
         ShoppingItem shoppingItemToDelete = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteShoppingCommand.MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS, shoppingItemToDelete);
+        String expectedMessage = String.format(DeleteShoppingCommand.MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS,
+                shoppingItemToDelete);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());

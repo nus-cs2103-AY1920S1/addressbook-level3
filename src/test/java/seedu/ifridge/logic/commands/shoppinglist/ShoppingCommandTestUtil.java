@@ -1,24 +1,24 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
-import seedu.ifridge.commons.core.index.Index;
-import seedu.ifridge.logic.commands.Command;
-import seedu.ifridge.logic.commands.CommandResult;
-import seedu.ifridge.logic.commands.exceptions.CommandException;
-import seedu.ifridge.model.ShoppingList;
-import seedu.ifridge.model.Model;
-import seedu.ifridge.model.food.ShoppingItem;
-import seedu.ifridge.model.food.ShoppingNameContainsKeywordsPredicate;
-import seedu.ifridge.testutil.EditShoppingItemDescriptorBuilder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.testutil.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.ifridge.commons.core.index.Index;
+import seedu.ifridge.logic.commands.Command;
+import seedu.ifridge.logic.commands.CommandResult;
+import seedu.ifridge.logic.commands.exceptions.CommandException;
+import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ShoppingList;
+import seedu.ifridge.model.food.ShoppingItem;
+import seedu.ifridge.model.food.ShoppingNameContainsKeywordsPredicate;
+import seedu.ifridge.testutil.EditShoppingItemDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -55,8 +55,8 @@ public class ShoppingCommandTestUtil {
     static {
         DESC_NUTS = new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_NUTS).withAmount(VALID_AMOUNT_NUTS)
                 .build();
-        DESC_ORANGES = new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES).withAmount(VALID_AMOUNT_ORANGES)
-                .build();
+        DESC_ORANGES = new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES)
+                .withAmount(VALID_AMOUNT_ORANGES).build();
     }
 
     /**
