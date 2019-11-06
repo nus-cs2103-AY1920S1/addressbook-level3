@@ -704,13 +704,17 @@ Examples:
 * Note that specified start date must be before the specified end date, else an error will be displayed.
 ****
 
-=== Miscellaneous
-
-==== Generate Statistics: `stats_g [coming in v2.0]`
+//tag::Statistics[]
+=== Statistics
+==== Generate Statistics: `stats_generate`
 
 Displays a set of statistics, Number of events, Number of employee etc
 
-Format: `stats_g`
+Format: `stats_generate`
+
+//end::Statistics[]
+
+=== Miscellaneous
 
 ==== Clearing all entries : `clear`
 
