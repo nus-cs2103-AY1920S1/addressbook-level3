@@ -24,7 +24,7 @@ public class JsonSerializableFoodList implements JsonSerializableContent<UniqueF
     private final List<JsonAdaptedFood> foods = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given foods.
+     * Constructs a {@code JsonSerializableFoodList} with the given foods.
      */
     @JsonCreator
     public JsonSerializableFoodList(@JsonProperty("foods") List<JsonAdaptedFood> foods) {
