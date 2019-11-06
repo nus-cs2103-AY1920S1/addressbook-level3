@@ -30,9 +30,8 @@ import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
 
-class DeleteAnnotationAllCommandTest {
+class DeleteAnnotationNoteCommandTest {
 
-    //as AnnotationCommand#getRequiredDoc has been tested in AddAnnotationCommandTest, it shall not be further tested
     @Test
     public void execute_invalidPid_throwsCommandException() {
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
@@ -42,35 +41,74 @@ class DeleteAnnotationAllCommandTest {
 
         assertThrows(CommandException.class,
                 DeleteAnnotationCommand.COMMAND_WORD + ": condition hit for test case", () ->
-                new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
-                        ParagraphIdentifier.makeExistId(Index.fromOneBased(10)))
-                        .execute(modelStub, new StorageStub()));
+                        new DeleteAnnotationNoteCommand(INDEX_FIRST_BOOKMARK,
+                                ParagraphIdentifier.makeExistId(Index.fromOneBased(10)))
+                                .execute(modelStub, new StorageStub()));
     }
 
     @Test
-    public void execute_noAnnotationToRemove_throwsCommandException() {
+    public void execute_noAnnotationToDelete_throwsCommandException() {
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
                 .withCachedCopy(new CachedCopyStub(new TrueParagraph(Index.fromOneBased(1),
                         new ParagraphContent("lupus")))).build();
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
 
         assertThrows(CommandException.class,
-                DeleteAnnotationCommand.MESSAGE_NOTHING_TO_DELETE, () ->
-                        new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
+                DeleteAnnotationNoteCommand.MESSAGE_NOTHING_TO_DELETE, () ->
+                        new DeleteAnnotationNoteCommand(INDEX_FIRST_BOOKMARK,
                                 ParagraphIdentifier.makeExistId(Index.fromOneBased(1)))
                                 .execute(modelStub, new StorageStub()));
     }
 
     @Test
-    public void execute_removePhantomParagraph_success() {
+    public void execute_noNoteToDelete_throwsCommandException() {
+        Paragraph annotatedButNoNoteTrueP = new TrueParagraph(Index.fromOneBased(1),
+                new ParagraphContent("lupus"));
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
-                .withCachedCopy(new CachedCopyStub(new PhantomParagraph(Index.fromOneBased(1),
-                        new Annotation(Highlight.YELLOW, AnnotationNote.SAMPLE_NOTE)))).build();
+                .withCachedCopy(new CachedCopyStub(annotatedButNoNoteTrueP)).build();
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
 
-        assertDoesNotThrow(() ->
-                new DeleteAnnotationAllCommand(INDEX_FIRST_BOOKMARK,
-                        ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)))
+        annotatedButNoNoteTrueP.addAnnotation(new Annotation(Highlight.YELLOW));
+
+        assertThrows(CommandException.class,
+                DeleteAnnotationNoteCommand.MESSAGE_NOTHING_TO_DELETE, () ->
+                        new DeleteAnnotationNoteCommand(INDEX_FIRST_BOOKMARK,
+                                ParagraphIdentifier.makeExistId(Index.fromOneBased(1)))
+                                .execute(modelStub, new StorageStub()));
+    }
+
+    @Test
+    public void execute_phantomParagraph_removePhantom() {
+        Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl").withCachedCopy(
+                        new CachedCopyStub(new PhantomParagraph(Index.fromOneBased(1),
+                                new Annotation(Highlight.YELLOW, AnnotationNote.SAMPLE_NOTE))))
+                .build();
+        ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
+
+        assertDoesNotThrow(() -> new DeleteAnnotationNoteCommand(INDEX_FIRST_BOOKMARK,
+                ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)))
+                .execute(modelStub, new StorageStub()));
+
+        assertThrows(CommandException.class,
+                DeleteAnnotationNoteCommand.COMMAND_WORD + ": no such paragraph anymore", () ->
+                        new DeleteAnnotationNoteCommand(INDEX_FIRST_BOOKMARK,
+                                ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)))
+                                .execute(modelStub, new StorageStub()));
+    }
+
+    @Test
+    public void execute_trueParagraph_success() {
+        Paragraph tPara = new TrueParagraph(Index.fromOneBased(1),
+                new ParagraphContent("lupus"));
+        tPara.addAnnotation(new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE));
+
+        Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl").withCachedCopy(
+                new CachedCopyStub(tPara))
+                .build();
+        ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
+
+        assertDoesNotThrow(() -> new DeleteAnnotationNoteCommand(INDEX_FIRST_BOOKMARK,
+                ParagraphIdentifier.makeExistId(Index.fromOneBased(1)))
                 .execute(modelStub, new StorageStub()));
     }
 
@@ -147,6 +185,9 @@ class DeleteAnnotationAllCommandTest {
 
         @Override
         public Paragraph getParagraph(ParagraphIdentifier pid) throws IllegalValueException {
+            if (p == null) {
+                throw new IllegalValueException("no such paragraph anymore");
+            }
             if (pid.equals(ParagraphIdentifier.makeExistId(Index.fromOneBased(10)))) {
                 throw new IllegalValueException("condition hit for test case");
             }
@@ -155,7 +196,8 @@ class DeleteAnnotationAllCommandTest {
 
         @Override
         public void removePhantom(ParagraphIdentifier pid) {
-            //phantom for test
+            assert p != null : "phantom (supposedly) already removed.";
+            p = null;
         }
 
         @Override

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -42,6 +44,8 @@ public class Mark implements ReadOnlyMark {
 
     private final ObservableList<Paragraph> annotatedDocument;
 
+    private final SimpleStringProperty offlineDocCurrentlyShowing;
+
 
     public Mark() {
         bookmarks = new UniqueBookmarkList();
@@ -53,6 +57,7 @@ public class Mark implements ReadOnlyMark {
         autotagController = new AutotagController(FXCollections.observableList(new ArrayList<>()));
 
         annotatedDocument = FXCollections.observableList(new ArrayList<>());
+        offlineDocCurrentlyShowing = new SimpleStringProperty("NOTHING");
     }
 
     /**
@@ -87,6 +92,7 @@ public class Mark implements ReadOnlyMark {
         setAutotagController(newData.getAutotagController());
 
         setAnnotatedDocument(newData.getAnnotatedDocument());
+        setOfflineDocCurrentlyShowing(newData.getOfflineDocCurrentlyShowing().getValue());
     }
 
     //// bookmark-level operations
@@ -314,6 +320,11 @@ public class Mark implements ReadOnlyMark {
         return annotatedDocument;
     }
 
+    @Override
+    public ObservableValue<String> getOfflineDocCurrentlyShowing() {
+        return offlineDocCurrentlyShowing;
+    }
+
     public void setAnnotatedDocument(ObservableList<Paragraph> docParagraphs) {
         annotatedDocument.setAll(new SortedList<>(
                 docParagraphs, (
@@ -323,6 +334,10 @@ public class Mark implements ReadOnlyMark {
             return pid1.compareTo(pid2);
         }
         ));
+    }
+
+    public void setOfflineDocCurrentlyShowing(String currentlyShowing) {
+        this.offlineDocCurrentlyShowing.set(currentlyShowing);
     }
 
     public boolean hasFolder(Folder folder) {

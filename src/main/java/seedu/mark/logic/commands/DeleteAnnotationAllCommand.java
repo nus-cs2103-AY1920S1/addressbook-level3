@@ -40,7 +40,7 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
         //TODO: refactor to prevent repetition
-        OfflineDocument docOriginal = getRequiredDoc(model);
+        OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
         OfflineDocument doc = docOriginal.copy();
         Paragraph p;
 
@@ -69,16 +69,11 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
             noteRemoved = String.format(MESSAGE_ORIG_HIGHLIGHT, note.getHighlight()) + " with " + noteRemoved;
         }
 
-        model.updateDocument(doc);
+        String savedMsg = String.format(MESSAGE_SUCCESS, getPid(), noteRemoved);
 
-        Bookmark newBkmark = new Bookmark(oldBkmark.getName(),
-                oldBkmark.getUrl(), oldBkmark.getRemark(), oldBkmark.getFolder(),
-                oldBkmark.getTags(), oldBkmark.getCachedCopies());
+        Bookmark newBkmark = oldBkmark.copy();
+        saveState(model, oldBkmark, newBkmark, doc, savedMsg);
 
-        newBkmark.updateCachedCopy(doc);
-        model.setBookmark(oldBkmark, newBkmark);
-
-        model.saveMark(String.format(MESSAGE_SUCCESS, getPid(), noteRemoved));
-        return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, getPid(), noteRemoved));
+        return new OfflineCommandResult(savedMsg);
     }
 }

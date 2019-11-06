@@ -6,10 +6,12 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.StackPane?>
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fitToHeight="true" fitToWidth="true">
-    <VBox>
-        <TextField fx:id="dummyField" />
-    </VBox>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" >
+    <Label fx:id="docLabel"/>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" >
     <VBox fx:id="annotationList"
           styleClass="pane-with-border" VBox.vgrow="NEVER">
         <padding>
@@ -18,3 +20,5 @@
         <StackPane fx:id="annotationListPanelPlaceholder" VBox.vgrow="ALWAYS" />
     </VBox>
 </ScrollPane>
+
+</VBox>
