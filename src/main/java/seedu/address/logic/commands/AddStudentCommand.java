@@ -44,7 +44,8 @@ public class AddStudentCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the classroom";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the classroom.";
+    public static final String MESSAGE_SAME_PHONE_AND_PARENT_PHONE = "Phone and parent phone cannot be the same.";
 
     private final Student toAdd;
 
@@ -63,6 +64,8 @@ public class AddStudentCommand extends Command {
 
         if (model.hasStudent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        } else if (toAdd.getPhone().toString().equals(toAdd.getParentPhone().toString())) {
+            throw new CommandException(MESSAGE_SAME_PHONE_AND_PARENT_PHONE);
         }
 
         model.addStudent(toAdd);

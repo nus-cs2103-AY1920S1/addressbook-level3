@@ -50,6 +50,7 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
         ParentPhone parentPhone = ParserUtil.parseParentPhone(argMultimap.getValue(PREFIX_PARENTPHONE).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         MedicalCondition medicalCondition;
+
         if (arePrefixesPresent(argMultimap, PREFIX_MEDICALCONDITION)) {
             medicalCondition = ParserUtil.parseMedicalCondition(argMultimap
                     .getValue(PREFIX_MEDICALCONDITION).get());
