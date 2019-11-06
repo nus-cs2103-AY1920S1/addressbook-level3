@@ -723,7 +723,7 @@ Currently, the following commands are undoable and redoable. +
 image::ug-command/ug-redo.png[width="800"]
 
 
-=== History: `history`
+==== History: `history`
 
 Views the command history of all your previous commands.
 
