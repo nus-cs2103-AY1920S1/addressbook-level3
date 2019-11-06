@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,10 +36,12 @@ public class ParserUtil {
     public static final String MESSAGE_FILE_NAME_INCLUDES_EXTENSION =
             "FILENAME should not include the file extension '.json'";
 
-    private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
+    private static final String DATE_FORMATTER = "dd/MM/uuuu HHmm";
     protected static final String MESSAGE_INVALID_TIME_FORMAT =
-            "Invalid time format! Please use the following format: " + DATE_FORMATTER;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+            "Invalid time format! Please use the following format: " + DATE_FORMATTER
+            + "\n You should also check the given time is valid.\n e.g.29/02/2021 0000 is no a valid time.";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER)
+                                                                        .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -174,8 +177,15 @@ public class ParserUtil {
 
         try {
             getTime = LocalDateTime.parse(trimmedTime, formatter);
+            LocalDateTime now = LocalDateTime.now();
+            if (now.isAfter(getTime)) {
+                throw new ParseException("Invalid time. Cannot set time before now.");
+            }
         } catch (DateTimeParseException e) {
+            System.out.println(e);
             throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
+        } catch (ParseException e) {
+            throw e;
         }
 
         return getTime;

@@ -651,7 +651,7 @@ Format: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 
 ****
 * `INDEX` is the index of the bookmark that you want to add with a reminder.
- * `TIME_DATE` follows `_dd/mm/yyyy HHMM_` format.
+ * `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format.
 * `NOTE` is the description of the reminder, the default value is Open.
 ****
 Examples:
@@ -673,7 +673,7 @@ Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
 ****
 * `INDEX` is the index of the reminder you want to edit on the dashboard.
-* `TIME_DATE` is the time you want to edit. The time follows `_dd/mm/yyyy HHMM_` format.
+* `TIME_DATE` is the time you want to edit. The time follows `_dd/MM/uuuu HHmm_` format.
 * `NOTE` is the description of the reminder that you want to edit.
 ****
 Examples:

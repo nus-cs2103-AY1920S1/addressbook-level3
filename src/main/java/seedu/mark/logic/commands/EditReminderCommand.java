@@ -38,7 +38,8 @@ public class EditReminderCommand extends Command {
             + "[" + PREFIX_NOTE + "NOTE] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "07/01/2020 1300 "
-            + PREFIX_NOTE + "Check the schedule ";
+            + PREFIX_NOTE + "Check the schedule \n"
+            + "You can find reminder in dashboard.";
 
     public static final String MESSAGE_EDIT_REMINDER_SUCCESS = "Edited Reminder: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
